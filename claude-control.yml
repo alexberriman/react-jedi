@@ -10,7 +10,7 @@ project:
   vision: "Creating a powerful SDUI library for rapidly building beautiful websites with JSON specifications"
   key_goals:
     - "Enable rapid development of visually stunning websites through JSON-defined UIs"
-    - "Provide seamless integration with shadcn/ui components and TailwindCSS"
+    - "Provide seamless integration with @shadcn/ui components and TailwindCSS"
     - "Create a type-safe, schema-validated specification system for defining UIs"
     - "Deliver exceptional developer experience with clear APIs and documentation"
     - "Build an extensible architecture supporting custom components and theming"
@@ -54,9 +54,9 @@ claude_md:
     frontend:
       framework: "react"
       language: "typescript"
-      styling: "tailwindcss"
+      styling: "tailwind"
       error_handling: "ts-results"
-      ui_library: "shadcn/ui"
+      ui_library: "@shadcn/ui"
       component_lib: true
       storybook: true
       # Define architecture patterns
@@ -111,7 +111,7 @@ claude_md:
         ```
         src/
           components/           # All UI components
-            ui/                 # shadcn/ui components
+            ui/                 # @shadcn/ui components
               button/
               card/
               input/
@@ -244,6 +244,10 @@ prompts:
     3. Group related components in feature-based directories
     4. Use barrel files (index.ts) to export public components
     5. Make all rendered components sexy as fuck and beautiful for 2025
+    6. ALWAYS use @shadcn/ui components when available (install via CLI: `npx shadcn@latest add [component-name]`)
+    7. Always REGISTER ALL COMPONENTS in the `./components.json` file in project root
+    8. Only create custom components when there's no shadcn equivalent
+    9. Follow proper component structure with directories, barrel files, and stories
 
     Focus on building a robust, type-safe SDUI system with schema validation, beautiful rendering, and excellent developer experience.
     Make custom components 🔥 and sexy as fuck

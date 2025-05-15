@@ -14,6 +14,24 @@ The following actions are strictly prohibited in this codebase:
 
 Root issues must always be fixed, not bypassed or suppressed with comments or flags. We maintain high code quality by addressing problems, not hiding them.
 
+## Component Implementation Guidelines
+
+When implementing new UI components:
+
+- **Always prefer @shadcn/ui components** when available - install them via the CLI:
+
+  ```
+  npx shadcn@latest add [component-name]
+  ```
+
+- **Custom components must be sexy as fuck** - implement cutting-edge design that looks like it's from 2025
+
+- **Register all components** in the `./components.json` file at the project root
+
+- **Follow the structured component organization** with proper directory structure
+
+- **Create comprehensive Storybook documentation** for all components
+
 ## Code Style
 
 We aim for clean, functional, and maintainable TypeScript code:
@@ -67,12 +85,12 @@ We aim for clean, functional, and maintainable TypeScript code:
 - Prefix boolean variables with `is`, `has`, `should`, etc.
 - Prefix async functions with verbs indicating action
 
-### Component Architecture with shadcn/ui
+### Component Architecture with @shadcn/ui
 
-We use shadcn/ui as our UI component library. All components should follow these guidelines:
+We use @shadcn/ui as our UI component library. All components should follow these guidelines:
 
-- Use shadcn/ui components as building blocks for custom components
-- Install new shadcn components using the CLI: `npx shadcn-ui@latest add [component-name]`
+- Use @shadcn/ui components as building blocks for custom components
+- Install new shadcn components using the CLI: `npx shadcn@latest add [component-name]`
 - Customize existing components by modifying them in the components/ui directory
 - Follow shadcn's styling approach with Tailwind CSS utility classes
 

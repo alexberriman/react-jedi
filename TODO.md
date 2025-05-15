@@ -1,5 +1,16 @@
 # React Jedi TODO List
 
+## 🚀 DEVELOPMENT INSTRUCTIONS
+
+- ✅ = Completed task
+- [ ] = Task to be done
+- **CHECK CLAUDE-CUSTOM.MD** before implementing components
+- **ALWAYS USE @shadcn/ui COMPONENTS** when available (install via CLI: `npx shadcn@latest add [component-name]`)
+- **CREATE CUSTOM COMPONENTS** only when needed (make them sexy as fuck - 2025 design aesthetic)
+- **REGISTER ALL COMPONENTS** in the `./components.json` file in project root
+- **FOLLOW COMPONENT STRUCTURE** with proper directory organization and barrel files
+- **ALWAYS CREATE STORYBOOK FILES** for all UI components for documentation
+
 This document outlines the comprehensive roadmap for building the @banja/react-jedi library from scratch, organized into shippable milestones and tasks.
 
 ## Overview

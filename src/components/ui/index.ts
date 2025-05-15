@@ -1,7 +1,7 @@
 /**
  * UI Components barrel file
- * 
- * This file exports all shadcn/ui components.
+ *
+ * This file exports all @shadcn/ui components.
  * Each component should be in its own directory with an index.ts file.
  */
 

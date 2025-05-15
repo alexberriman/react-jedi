@@ -11,15 +11,6 @@ export interface ComponentSpec extends BaseComponentSpec {
   // The empty interface is intentional to support the component type system
   _brand?: never; // Brand property to make the type distinct
   
-  // GridSpec properties
-  columns?: string | number | Record<string, string | number>;
-  
-  // FlexSpec properties
-  direction?: "row" | "row-reverse" | "column" | "column-reverse";
-  
-  // HeadingSpec properties
-  level?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  
   // Add [Symbol.iterator] method to support iterator usage
   [Symbol.iterator]?(): Iterator<ComponentSpec>;
 }
@@ -50,6 +41,16 @@ export interface BaseComponentSpec {
   children?: ComponentChildren;
 
   /**
+   * Optional CSS class names to apply to the component.
+   */
+  className?: string;
+
+  /**
+   * Optional inline styles to apply to the component.
+   */
+  style?: Record<string, string | number>;
+
+  /**
    * Optional event handlers for the component.
    */
   events?: Record<string, EventHandler>;
@@ -68,6 +69,24 @@ export interface BaseComponentSpec {
    * Optional test identifiers for testing frameworks.
    */
   testId?: string;
+
+  /**
+   * Grid columns configuration.
+   * Used by Grid components.
+   */
+  columns?: string | number | Record<string, string | number>;
+  
+  /**
+   * Flex direction configuration.
+   * Used by Flex components.
+   */
+  direction?: "row" | "row-reverse" | "column" | "column-reverse";
+  
+  /**
+   * Heading level.
+   * Used by Heading components.
+   */
+  level?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
 /**

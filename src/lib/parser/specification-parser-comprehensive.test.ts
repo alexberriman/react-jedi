@@ -7,7 +7,6 @@
 
 import { describe, it, expect } from "vitest";
 import {
-  SpecificationParser,
   parseSpecification,
   createParser,
   createValidationReport,

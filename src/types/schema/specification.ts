@@ -44,6 +44,18 @@ export interface UISpecification {
    * Optional data sources for dynamic content.
    */
   dataSources?: DataSourceSpecification[];
+
+  /**
+   * Type property for compatibility with ComponentSpec.
+   * Always undefined in UISpecification to distinguish from ComponentSpec.
+   */
+  type?: string;
+
+  /**
+   * Children property for compatibility with ComponentSpec.
+   * Always undefined in UISpecification to distinguish from ComponentSpec.
+   */
+  children?: unknown;
 }
 
 /**
@@ -108,6 +120,11 @@ export interface ThemeSpecification {
    * Typography configuration.
    */
   typography?: ThemeTypography;
+
+  /**
+   * Font families configuration.
+   */
+  fonts?: Record<string, string[]>;
 
   /**
    * Spacing scale configuration.
@@ -210,6 +227,11 @@ export interface ThemeColors {
  */
 export interface ColorScale {
   /**
+   * Ultra-light shade (50).
+   */
+  "50"?: string;
+
+  /**
    * Lightest shade (100).
    */
   "100"?: string;
@@ -253,6 +275,11 @@ export interface ColorScale {
    * Darkest shade (900).
    */
   "900"?: string;
+
+  /**
+   * Index signature for additional number-string shade values.
+   */
+  [key: string]: string | undefined;
 }
 
 /**

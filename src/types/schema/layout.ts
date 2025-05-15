@@ -445,10 +445,16 @@ export interface SeparatorSpec extends BaseComponentSpec {
   labelText?: string;
 
   /**
-   * Style of the separator.
+   * Line style of the separator.
    * @default "solid"
    */
-  style?: "solid" | "dashed" | "dotted";
+  lineStyle?: "solid" | "dashed" | "dotted";
+
+  /**
+   * Inherited from BaseComponentSpec, overriding style property.
+   * This is the inline style object for the component.
+   */
+  style?: Record<string, string | number>;
 }
 
 /**

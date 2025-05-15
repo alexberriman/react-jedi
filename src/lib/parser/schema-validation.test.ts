@@ -167,8 +167,8 @@ describe("Schema Validation Tests", () => {
       if (!result.ok) {
         // The path might contain 'root' depending on implementation
         // The message might mention missing or invalid 'type' property
-        expect(result.val.message.toLowerCase()).toContain("string") || 
-          expect(result.val.message.toLowerCase()).toContain("type");
+        expect(result.val.message.toLowerCase().includes("string") || 
+          result.val.message.toLowerCase().includes("type")).toBe(true);
       }
     });
 
@@ -396,8 +396,8 @@ describe("Schema Validation Tests", () => {
       // at the schema level, so we make this test conditional
       if (!result.ok) {
         // If it fails, it should be because of the event handler
-        expect(result.val.message.toLowerCase()).toContain("action") ||
-          expect(result.val.message.toLowerCase()).toContain("event");
+        expect(result.val.message.toLowerCase().includes("action") || 
+          result.val.message.toLowerCase().includes("event")).toBe(true);
         
         if (result.val.path) {
           expect(result.val.path.some(p => p === "events" || p === "click")).toBe(true);
@@ -512,7 +512,10 @@ describe("Schema Validation Tests", () => {
       });
       
       // Note: Unknown component types might pass schema validation in the current implementation
-      if (!result.ok) {
+      if (result.ok) {
+        // Handle the case when result is ok
+        expect(result.ok).toBe(true);
+      } else {
         // If documentation URL is included, it should be a string
         if (result.val.documentationUrl) {
           expect(typeof result.val.documentationUrl).toBe("string");

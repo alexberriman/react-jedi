@@ -150,7 +150,7 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### Milestone 1 Deliverable Checklist:
 
-- [ ] Create basic `/examples` React app structure with routing
+- [x] Create basic `/examples` React app structure with routing
 - [ ] Build component showcase page displaying all Milestone 1 components
 - [ ] Create JSON schema example for each component
 - [ ] Implement simple landing page example with hero, features, and CTA

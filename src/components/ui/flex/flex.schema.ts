@@ -6,7 +6,7 @@ import { z } from "zod";
  */
 export const flexSchema = z.object({
   type: z.literal("flex"),
-  direction: z.enum(["row", "column", "rowReverse", "columnReverse"]).optional(),
+  direction: z.enum(["row", "column", "row-reverse", "column-reverse"]).optional(),
   wrap: z.enum(["nowrap", "wrap", "wrapReverse"]).optional(),
   justify: z.enum(["start", "end", "center", "between", "around", "evenly"]).optional(),
   align: z.enum(["start", "end", "center", "baseline", "stretch"]).optional(),

@@ -12,6 +12,7 @@ import { ThemeContext, type ThemeContextValue } from "./theme-context";
 import { mergeThemes } from "../schemas/theme-validation";
 import { generateCssVariables } from "./css-variable-generator";
 import { createTokenResolver, type TokenResolver } from "./token-resolver";
+import type { FluidTypographyConfig } from "./typography/fluid-typography";
 
 /**
  * ThemeProvider Props
@@ -69,6 +70,18 @@ export interface ThemeProviderProps {
    * Style element ID for CSS variables (default: "theme-variables")
    */
   readonly styleElementId?: string;
+  
+  /**
+   * Enable fluid typography (default: false)
+   * When true, font sizes will automatically scale based on viewport width
+   */
+  readonly enableFluidTypography?: boolean;
+  
+  /**
+   * Fluid typography configuration (optional)
+   * Used when enableFluidTypography is true
+   */
+  readonly fluidTypographyConfig?: Partial<FluidTypographyConfig>;
 }
 
 /**
@@ -88,9 +101,42 @@ export function ThemeProvider({
   applyCssToRoot = true,
   cssTarget,
   styleElementId = "theme-variables",
+  enableFluidTypography = false,
+  fluidTypographyConfig = {},
 }: ThemeProviderProps): React.ReactElement {
-  // Initialize theme state
-  const [theme, setTheme] = useState<ThemeSpecification>(initialTheme);
+  // Process initial theme to apply fluid typography if enabled
+  const processedInitialTheme = useMemo(() => {
+    if (!enableFluidTypography) {
+      return initialTheme;
+    }
+    
+    // Process typography in the initial theme with fluid typography
+    const { generateTypographySystem } = require("./typography"); // Dynamic import to avoid circular dependencies
+    
+    // If the theme already has typography defined
+    if (initialTheme.typography) {
+      return {
+        ...initialTheme,
+        typography: generateTypographySystem({
+          ...initialTheme.typography,
+          fluid: true,
+          fluidConfig: fluidTypographyConfig,
+        }),
+      };
+    }
+    
+    // If no typography defined, create it with fluid enabled
+    return {
+      ...initialTheme,
+      typography: generateTypographySystem({
+        fluid: true,
+        fluidConfig: fluidTypographyConfig,
+      }),
+    };
+  }, [initialTheme, enableFluidTypography, fluidTypographyConfig]);
+  
+  // Initialize theme state with processed theme
+  const [theme, setTheme] = useState<ThemeSpecification>(processedInitialTheme);
   
   // Initialize color mode state
   const colorModeSettings = enhancedTheme?.colorMode;
@@ -120,8 +166,30 @@ export function ThemeProvider({
   
   // Update theme handler
   const updateTheme = useCallback((newTheme: Partial<ThemeSpecification>) => {
-    setTheme((prevTheme) => mergeThemes(prevTheme as Record<string, unknown>, newTheme as Record<string, unknown>) as ThemeSpecification);
-  }, []);
+    setTheme((prevTheme) => {
+      const mergedTheme = mergeThemes(
+        prevTheme as Record<string, unknown>, 
+        newTheme as Record<string, unknown>
+      ) as ThemeSpecification;
+      
+      // If fluid typography is enabled and the theme update modifies typography,
+      // ensure the fluid typography settings are preserved
+      if (enableFluidTypography && newTheme.typography) {
+        const { generateTypographySystem } = require("./typography");
+        
+        return {
+          ...mergedTheme,
+          typography: generateTypographySystem({
+            ...mergedTheme.typography,
+            fluid: true,
+            fluidConfig: fluidTypographyConfig,
+          }),
+        };
+      }
+      
+      return mergedTheme;
+    });
+  }, [enableFluidTypography, fluidTypographyConfig]);
   
   // Resolve token from theme using the token resolver
   const resolveToken = useCallback((tokenPath: string): unknown => {
@@ -218,19 +286,37 @@ export function ThemeProvider({
     
     if (modeSpecificTheme) {
       // Apply color mode specific overrides
-      setTheme((prevTheme) => ({
-        ...prevTheme,
-        colors: {
-          ...prevTheme.colors,
-          ...modeSpecificTheme.colors,
-        },
-        // Apply other color mode specific properties
-        ...(modeSpecificTheme.background ? { background: modeSpecificTheme.background } : {}),
-        ...(modeSpecificTheme.text ? { text: modeSpecificTheme.text } : {}),
-        ...(modeSpecificTheme.border ? { border: modeSpecificTheme.border } : {}),
-      }));
+      setTheme((prevTheme) => {
+        const updated = {
+          ...prevTheme,
+          colors: {
+            ...prevTheme.colors,
+            ...modeSpecificTheme.colors,
+          },
+          // Apply other color mode specific properties
+          ...(modeSpecificTheme.background ? { background: modeSpecificTheme.background } : {}),
+          ...(modeSpecificTheme.text ? { text: modeSpecificTheme.text } : {}),
+          ...(modeSpecificTheme.border ? { border: modeSpecificTheme.border } : {}),
+        };
+        
+        // If fluid typography is enabled, preserve it in the updated theme
+        if (enableFluidTypography && prevTheme.typography) {
+          const { generateTypographySystem } = require("./typography");
+          
+          return {
+            ...updated,
+            typography: generateTypographySystem({
+              ...prevTheme.typography,
+              fluid: true,
+              fluidConfig: fluidTypographyConfig,
+            }),
+          };
+        }
+        
+        return updated;
+      });
     }
-  }, [effectiveColorMode, colorModeSettings]);
+  }, [effectiveColorMode, colorModeSettings, enableFluidTypography, fluidTypographyConfig]);
   
   // Create context value with token system integration
   const contextValue: ThemeContextValue = {

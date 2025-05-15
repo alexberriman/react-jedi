@@ -140,11 +140,11 @@ export function extractFontFamilies(typography?: ThemeTypography): Record<string
   
   // Extract from fontFamilies object
   if (typography.fontFamilies) {
-    Object.entries(typography.fontFamilies).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(typography.fontFamilies)) {
       if (value) {
         families[key] = value;
       }
-    });
+    }
   }
 
   // If no sans font is defined, add the default
@@ -179,9 +179,9 @@ export function generateFontFamilyVariables(
 ): Record<string, string> {
   const variables: Record<string, string> = {};
 
-  Object.entries(families).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(families)) {
     variables[`${prefix}-${key}`] = fontStackToString(value);
-  });
+  }
 
   return variables;
 }

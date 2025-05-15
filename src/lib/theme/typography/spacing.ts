@@ -119,7 +119,8 @@ export function formatLineHeight(value: string | number): string {
  */
 export function formatLetterSpacing(value: string): string {
   // If value is numeric or doesn't have a unit, add 'em'
-  if (/^-?\d*\.?\d+$/.test(value)) {
+  // Using a more efficient regex that avoids potential backtracking issues
+  if (/^-?\d+(\.\d+)?$/.test(value)) {
     return `${value}em`;
   }
   return value;
@@ -137,9 +138,9 @@ export function extractLineHeights(typography?: ThemeTypography): Record<string,
   // Convert all values to strings
   const lineHeights: Record<string, string> = {};
   
-  Object.entries(typography.lineHeights).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(typography.lineHeights)) {
     lineHeights[key] = formatLineHeight(value);
-  });
+  }
   
   return lineHeights;
 }
@@ -156,9 +157,9 @@ export function extractLetterSpacings(typography?: ThemeTypography): Record<stri
   // Ensure all values have appropriate units
   const letterSpacings: Record<string, string> = {};
   
-  Object.entries(typography.letterSpacings).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(typography.letterSpacings)) {
     letterSpacings[key] = formatLetterSpacing(value);
-  });
+  }
   
   return letterSpacings;
 }
@@ -172,9 +173,9 @@ export function generateLineHeightVariables(
 ): Record<string, string> {
   const variables: Record<string, string> = {};
   
-  Object.entries(lineHeights).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(lineHeights)) {
     variables[`${prefix}-${key}`] = value;
-  });
+  }
   
   return variables;
 }
@@ -188,9 +189,9 @@ export function generateLetterSpacingVariables(
 ): Record<string, string> {
   const variables: Record<string, string> = {};
   
-  Object.entries(letterSpacings).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(letterSpacings)) {
     variables[`${prefix}-${key}`] = value;
-  });
+  }
   
   return variables;
 }
@@ -232,13 +233,10 @@ export function calculateOptimalLineHeight(fontSize: number): number {
   // Calculate adjustment factor based on font size difference from base
   const factor = Math.max(0, Math.min(1, Math.abs(fontSize - baseFontSize) / 32));
   
-  if (fontSize >= baseFontSize) {
-    // For larger text, reduce line height
-    return baseLineHeight - (baseLineHeight - minLineHeight) * factor;
-  } else {
-    // For smaller text, increase line height
-    return baseLineHeight + (maxLineHeight - baseLineHeight) * factor;
-  }
+  // Return the appropriate line height based on font size
+  return fontSize >= baseFontSize 
+    ? baseLineHeight - (baseLineHeight - minLineHeight) * factor // For larger text, reduce line height
+    : baseLineHeight + (maxLineHeight - baseLineHeight) * factor; // For smaller text, increase line height
 }
 
 /**

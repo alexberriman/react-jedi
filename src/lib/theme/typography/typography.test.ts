@@ -57,9 +57,9 @@ describe("Type Scale System", () => {
     const scale = generateFluidTypeScale();
     
     // Fluid scales should have clamp function
-    Object.values(scale).forEach(value => {
+    for (const value of Object.values(scale)) {
       expect(value).toContain("clamp(");
-    });
+    }
   });
 });
 
@@ -104,8 +104,8 @@ describe("Typography Spacing System", () => {
     const bodySpacing = calculateOptimalLetterSpacing(16, 400);
     const smallTextSpacing = calculateOptimalLetterSpacing(12, 400);
     
-    expect(parseFloat(headingSpacing)).toBeLessThan(0); // Negative for headings
-    expect(parseFloat(smallTextSpacing)).toBeGreaterThan(parseFloat(bodySpacing));
+    expect(Number.parseFloat(headingSpacing)).toBeLessThan(0); // Negative for headings
+    expect(Number.parseFloat(smallTextSpacing)).toBeGreaterThan(Number.parseFloat(bodySpacing));
   });
 });
 

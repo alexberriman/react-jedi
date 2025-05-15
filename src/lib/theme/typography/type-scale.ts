@@ -85,20 +85,30 @@ export const DEFAULT_TYPE_SCALE_CONFIG: TypeScaleConfig = {
 export function generateTypeScale(
   config: Partial<TypeScaleConfig> = {}
 ): Record<string, string> {
-  const {
-    baseFontSize,
-    scaleRatio,
-    unit,
-    precision,
-    stepsUp,
-    stepsDown,
-  } = { ...DEFAULT_TYPE_SCALE_CONFIG, ...config };
-
-  const ratio = typeof scaleRatio === "string" ? SCALE_RATIOS[scaleRatio] : scaleRatio;
+  // Extract config values with fallbacks to defaults
+  const mergedConfig = { ...DEFAULT_TYPE_SCALE_CONFIG, ...config };
+  const baseFontSize = mergedConfig.baseFontSize;
+  const unit = mergedConfig.unit;
+  const precision = mergedConfig.precision;
+  const stepsUp = mergedConfig.stepsUp;
+  const stepsDown = mergedConfig.stepsDown;
+  
+  // Determine the scale ratio to use (number or named ratio)
+  let ratio: number;
+  if (typeof mergedConfig.scaleRatio === "string") {
+    ratio = SCALE_RATIOS[mergedConfig.scaleRatio as ScaleRatio];
+  } else if (typeof mergedConfig.scaleRatio === 'number') {
+    ratio = mergedConfig.scaleRatio;
+  } else {
+    ratio = SCALE_RATIOS.perfectFourth;
+  }
+  
   const scale: Record<string, string> = {};
   
   // Generate steps below the base size
-  for (let i = stepsDown; i > 0; i--) {
+  // Use non-null assertion since we've set defaults in mergedConfig
+  const safeStepsDown = stepsDown!;
+  for (let i = safeStepsDown; i > 0; i--) {
     const size = baseFontSize / Math.pow(ratio, i);
     const value = formatFontSize(size, unit, precision);
     scale[`xs${i}`] = value;
@@ -108,7 +118,9 @@ export function generateTypeScale(
   scale.base = formatFontSize(baseFontSize, unit, precision);
   
   // Generate steps above the base size
-  for (let i = 1; i <= stepsUp; i++) {
+  // Default to 7 steps up if not defined
+  const safeStepsUp = stepsUp ?? 7;
+  for (let i = 1; i <= safeStepsUp; i++) {
     const size = baseFontSize * Math.pow(ratio, i);
     const value = formatFontSize(size, unit, precision);
     
@@ -128,30 +140,50 @@ export function generateTypeScale(
 export function formatFontSize(
   size: number,
   unit: FontSizeUnit,
-  precision = 4
+  precision: number = 4
 ): string {
   let value: number;
   
   switch (unit) {
-    case "rem":
+    case "rem": {
       value = size / 16;
       break;
-    case "em":
+    }
+    case "em": {
       value = size / 16;
       break;
-    case "vw":
+    }
+    case "vw": {
       value = (size / 16) * 100;
       break;
-    case "%":
+    }
+    case "%": {
       value = (size / 16) * 100;
       break;
-    case "px":
-    default:
+    }
+    default: {
       value = size;
       break;
+    }
   }
   
-  return `${value.toFixed(precision).replace(/\.?0+$/, "")}${unit}`;
+  // First get the fixed precision string
+  const fixed = value.toFixed(precision);
+  
+  // Then manually trim trailing zeros without regex
+  let trimmed = fixed;
+  if (trimmed.includes('.')) {
+    // Remove trailing zeros
+    while (trimmed.endsWith('0')) {
+      trimmed = trimmed.slice(0, -1);
+    }
+    // Remove decimal point if it's the last character
+    if (trimmed.endsWith('.')) {
+      trimmed = trimmed.slice(0, -1);
+    }
+  }
+  
+  return `${trimmed}${unit}`;
 }
 
 /**
@@ -165,19 +197,29 @@ export function generateFluidTypeScale(
     maxBaseFontSize?: number;
   } = {}
 ): Record<string, string> {
-  const {
-    baseFontSize,
-    minBaseFontSize = baseFontSize * 0.75,
-    maxBaseFontSize = baseFontSize * 1.25,
-    minViewport = 320,
-    maxViewport = 1200,
-    scaleRatio,
-    precision = 4,
-    stepsUp = 7,
-    stepsDown = 2,
-  } = { ...DEFAULT_TYPE_SCALE_CONFIG, ...config };
+  // Extract config values with fallbacks to defaults
+  const mergedConfig = { ...DEFAULT_TYPE_SCALE_CONFIG, ...config };
+  const baseFontSize = mergedConfig.baseFontSize;
+  const precision = mergedConfig.precision || 4;
+  const stepsUp = mergedConfig.stepsUp || 7;
+  const stepsDown = mergedConfig.stepsDown || 2;
   
-  const ratio = typeof scaleRatio === "string" ? SCALE_RATIOS[scaleRatio] : scaleRatio;
+  // Set defaults for fluid-specific options
+  const minViewport = config.minViewport || 320;
+  const maxViewport = config.maxViewport || 1200;
+  const minBaseFontSize = config.minBaseFontSize || baseFontSize * 0.75;
+  const maxBaseFontSize = config.maxBaseFontSize || baseFontSize * 1.25;
+  
+  // Determine the scale ratio to use (number or named ratio)
+  let ratio: number;
+  if (typeof mergedConfig.scaleRatio === "string") {
+    ratio = SCALE_RATIOS[mergedConfig.scaleRatio as ScaleRatio];
+  } else if (typeof mergedConfig.scaleRatio === 'number') {
+    ratio = mergedConfig.scaleRatio;
+  } else {
+    ratio = SCALE_RATIOS.perfectFourth;
+  }
+  
   const scale: Record<string, string> = {};
   
   // Function to generate clamp value
@@ -239,9 +281,9 @@ export function generateFontSizeVariables(
 ): Record<string, string> {
   const variables: Record<string, string> = {};
   
-  Object.entries(sizes).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(sizes)) {
     variables[`${prefix}-${key}`] = value;
-  });
+  }
   
   return variables;
 }

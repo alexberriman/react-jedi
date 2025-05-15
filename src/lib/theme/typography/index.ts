@@ -8,10 +8,23 @@
 
 import type { ThemeTypography } from "@/types/schema/specification";
 
+// Import necessary functions from individual modules
+import { fontFamiliesToVariables, defaultFontStacks } from "./font-family";
+import { fontSizesToVariables, generateTypeScale, generateFluidTypeScale, ScaleRatio } from "./type-scale";
+import { lineHeightsToVariables, letterSpacingsToVariables, DEFAULT_LINE_HEIGHTS, DEFAULT_LETTER_SPACINGS } from "./spacing";
+import { 
+  generateBreakpointFluidTypeScale, 
+  generateOptimizedFluidTypeScale, 
+  type FluidTypographyConfig, 
+  DEFAULT_FLUID_TYPOGRAPHY_CONFIG 
+} from "./fluid-typography";
+
 // Export all typography system components
 export * from "./font-family";
 export * from "./type-scale";
 export * from "./spacing";
+export * from "./fluid-typography";
+export * from "./hooks";
 
 /**
  * Generate CSS variables for the entire typography system
@@ -19,10 +32,6 @@ export * from "./spacing";
 export function generateTypographyVariables(
   typography?: ThemeTypography
 ): Record<string, string> {
-  // Import functions from individual modules
-  const { fontFamiliesToVariables } = require("./font-family");
-  const { fontSizesToVariables } = require("./type-scale");
-  const { lineHeightsToVariables, letterSpacingsToVariables } = require("./spacing");
   
   // Generate all typography-related CSS variables
   return {
@@ -42,9 +51,9 @@ export function applyTypographyVariables(
 ): void {
   const variables = generateTypographyVariables(typography);
   
-  Object.entries(variables).forEach(([property, value]) => {
+  for (const [property, value] of Object.entries(variables)) {
     element.style.setProperty(property, value);
-  });
+  }
 }
 
 /**
@@ -52,7 +61,7 @@ export function applyTypographyVariables(
  */
 export function generateTypographySystem(config: {
   baseFontSize?: number;
-  scaleRatio?: number | string;
+  scaleRatio?: number | ScaleRatio;
   primaryFont?: string[];
   headingFont?: string[];
   monoFont?: string[];
@@ -61,16 +70,14 @@ export function generateTypographySystem(config: {
   baseFontWeight?: number;
   headingFontWeight?: number;
   fluid?: boolean;
+  fluidConfig?: Partial<FluidTypographyConfig>;
 } = {}): ThemeTypography {
-  // Import necessary functions
-  const { defaultFontStacks } = require("./font-family");
-  const { generateTypeScale, generateFluidTypeScale, SCALE_RATIOS } = require("./type-scale");
-  const { DEFAULT_LINE_HEIGHTS, DEFAULT_LETTER_SPACINGS } = require("./spacing");
+  // Use imported functions and constants from the module imports
   
   // Set defaults
   const {
     baseFontSize = 16,
-    scaleRatio = "perfectFourth",
+    scaleRatio = "perfectFourth" as ScaleRatio, // Using scale ratio constant from type-scale.ts
     primaryFont = defaultFontStacks.sans,
     headingFont = defaultFontStacks.display,
     monoFont = defaultFontStacks.mono,
@@ -79,18 +86,34 @@ export function generateTypographySystem(config: {
     baseFontWeight = 400,
     headingFontWeight = 700,
     fluid = false,
+    fluidConfig = {},
   } = config;
   
-  // Generate the font size scale
-  const fontSizes = fluid 
-    ? generateFluidTypeScale({ 
-        baseFontSize: baseFontSize,
-        scaleRatio: scaleRatio,
-      }) 
-    : generateTypeScale({ 
-        baseFontSize: baseFontSize,
-        scaleRatio: scaleRatio,
+  // If fluid typography is enabled, use the new advanced fluid typography system
+  let fontSizes;
+  if (fluid) {
+    // If breakpoints are specified, use the breakpoint-based fluid type scale
+    if (fluidConfig.breakpoints && fluidConfig.breakpoints.length >= 2) {
+      fontSizes = generateBreakpointFluidTypeScale({
+        ...fluidConfig,
+        defaultBaseFontSize: baseFontSize,
+        defaultScaleRatio: scaleRatio,
       });
+    } else {
+      // For backwards compatibility, use the optimized version of original fluid type scale
+      fontSizes = generateOptimizedFluidTypeScale({
+        ...fluidConfig,
+        defaultBaseFontSize: baseFontSize,
+        defaultScaleRatio: scaleRatio,
+      });
+    }
+  } else {
+    // Use static type scale
+    fontSizes = generateTypeScale({ 
+      baseFontSize: baseFontSize,
+      scaleRatio: scaleRatio,
+    });
+  }
   
   // Create typography system
   const typography: ThemeTypography = {

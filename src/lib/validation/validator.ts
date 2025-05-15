@@ -189,67 +189,188 @@ export class Validator {
   }
   
   /**
+   * Handle invalid type errors
+   */
+  private static handleInvalidTypeError(err: z.ZodInvalidTypeIssue): string {
+    return `Expected ${err.expected}, received ${err.received}`;
+  }
+  
+  /**
+   * Handle invalid enum value errors
+   */
+  private static handleInvalidEnumError(err: z.ZodInvalidEnumValueIssue): string {
+    const options = err.options.map(o => 
+      typeof o === "string" ? `"${o}"` : String(o)
+    ).join(", ");
+    return `Invalid enum value. Expected one of: ${options}`;
+  }
+  
+  /**
+   * Handle invalid literal value errors
+   */
+  private static handleInvalidLiteralError(err: z.ZodInvalidLiteralIssue): string {
+    return `Invalid literal value. Expected ${JSON.stringify(err.expected)}`;
+  }
+  
+  /**
+   * Handle invalid string errors (email, url, uuid, etc.)
+   */
+  private static handleInvalidStringError(err: z.ZodInvalidStringIssue): string {
+    if ("validation" in err) {
+      switch (err.validation) {
+        case "url": {
+          return "Invalid URL format";
+        }
+        case "email": {
+          return "Invalid email address format";
+        }
+        case "uuid": {
+          return "Invalid UUID format";
+        }
+        case "regex": {
+          return "String does not match required pattern";
+        }
+      }
+    }
+    return err.message || "Invalid string format";
+  }
+  
+  /**
+   * Handle too small errors (string length, number min, array min)
+   */
+  private static handleTooSmallError(err: z.ZodTooSmallIssue): string {
+    const inclusive = err.inclusive ? "or equal to " : "";
+    
+    switch (err.type) {
+      case "string": {
+        return `String must contain at least ${err.minimum} character${err.minimum === 1 ? "" : "s"}`;
+      }
+      case "number": {
+        return `Number must be greater than ${inclusive}${err.minimum}`;
+      }
+      case "array": {
+        return `Array must contain at least ${err.minimum} item${err.minimum === 1 ? "" : "s"}`;
+      }
+      default: {
+        return err.message || "Value is too small";
+      }
+    }
+  }
+  
+  /**
+   * Handle too big errors (string length, number max, array max)
+   */
+  private static handleTooBigError(err: z.ZodTooBigIssue): string {
+    const inclusive = err.inclusive ? "or equal to " : "";
+    
+    switch (err.type) {
+      case "string": {
+        return `String must contain at most ${err.maximum} character${err.maximum === 1 ? "" : "s"}`;
+      }
+      case "number": {
+        return `Number must be less than ${inclusive}${err.maximum}`;
+      }
+      case "array": {
+        return `Array must contain at most ${err.maximum} item${err.maximum === 1 ? "" : "s"}`;
+      }
+      default: {
+        return err.message || "Value is too large";
+      }
+    }
+  }
+  
+  /**
    * Enhances a Zod error message with more details
    */
   private static enhanceErrorMessage(err: z.ZodIssue): string {
     // Enhanced messages based on error code
     switch (err.code) {
-      case z.ZodIssueCode.invalid_type:
-        const issue = err as z.ZodInvalidTypeIssue;
-        return `Expected ${issue.expected}, received ${issue.received}`;
-        
-      case z.ZodIssueCode.invalid_enum_value:
-        const enumIssue = err as z.ZodInvalidEnumValueIssue;
-        const options = enumIssue.options.map(o => 
-          typeof o === "string" ? `"${o}"` : String(o)
-        ).join(", ");
-        return `Invalid enum value. Expected one of: ${options}`;
-        
-      case z.ZodIssueCode.invalid_literal:
-        const literalIssue = err as z.ZodInvalidLiteralIssue;
-        return `Invalid literal value. Expected ${JSON.stringify(literalIssue.expected)}`;
-        
-      case z.ZodIssueCode.invalid_string:
-        if ("validation" in err) {
-          switch (err.validation) {
-            case "url":
-              return "Invalid URL format";
-            case "email":
-              return "Invalid email address format";
-            case "uuid":
-              return "Invalid UUID format";
-            case "regex":
-              return `String does not match required pattern`;
-          }
-        }
+      case z.ZodIssueCode.invalid_type: {
+        return this.handleInvalidTypeError(err as z.ZodInvalidTypeIssue);
+      }
+      
+      case z.ZodIssueCode.invalid_enum_value: {
+        return this.handleInvalidEnumError(err as z.ZodInvalidEnumValueIssue);
+      }
+      
+      case z.ZodIssueCode.invalid_literal: {
+        return this.handleInvalidLiteralError(err as z.ZodInvalidLiteralIssue);
+      }
+      
+      case z.ZodIssueCode.invalid_string: {
+        return this.handleInvalidStringError(err as z.ZodInvalidStringIssue);
+      }
+      
+      case z.ZodIssueCode.too_small: {
+        return this.handleTooSmallError(err as z.ZodTooSmallIssue);
+      }
+      
+      case z.ZodIssueCode.too_big: {
+        return this.handleTooBigError(err as z.ZodTooBigIssue);
+      }
+      
+      default: {
         return err.message;
-        
-      case z.ZodIssueCode.too_small:
-        const smallIssue = err as z.ZodTooSmallIssue;
-        const inclusive = smallIssue.inclusive ? "or equal to " : "";
-        if (smallIssue.type === "string") {
-          return `String must contain at least ${smallIssue.minimum} character${smallIssue.minimum === 1 ? "" : "s"}`;
-        } else if (smallIssue.type === "number") {
-          return `Number must be greater than ${inclusive}${smallIssue.minimum}`;
-        } else if (smallIssue.type === "array") {
-          return `Array must contain at least ${smallIssue.minimum} item${smallIssue.minimum === 1 ? "" : "s"}`;
-        }
-        return err.message;
-        
-      case z.ZodIssueCode.too_big:
-        const bigIssue = err as z.ZodTooBigIssue;
-        const bigInclusive = bigIssue.inclusive ? "or equal to " : "";
-        if (bigIssue.type === "string") {
-          return `String must contain at most ${bigIssue.maximum} character${bigIssue.maximum === 1 ? "" : "s"}`;
-        } else if (bigIssue.type === "number") {
-          return `Number must be less than ${bigInclusive}${bigIssue.maximum}`;
-        } else if (bigIssue.type === "array") {
-          return `Array must contain at most ${bigIssue.maximum} item${bigIssue.maximum === 1 ? "" : "s"}`;
-        }
-        return err.message;
-        
-      default:
-        return err.message;
+      }
+    }
+  }
+  
+  /**
+   * Generate examples for enum value errors
+   */
+  private static generateEnumExamples(err: z.ZodInvalidEnumValueIssue): unknown[] {
+    // Return the first few enum options as examples
+    return err.options.slice(0, 3);
+  }
+  
+  /**
+   * Generate examples for type errors based on expected type
+   */
+  private static generateTypeExamples(expected: string): unknown[] {
+    switch (expected) {
+      case "string": {
+        return ["example", "value"];
+      }
+      case "number": {
+        return [42, 3.14];
+      }
+      case "boolean": {
+        return [true, false];
+      }
+      case "array": {
+        return [[]];
+      }
+      case "object": {
+        return [{}];
+      }
+      default: {
+        return [];
+      }
+    }
+  }
+  
+  /**
+   * Generate examples for string validation errors
+   */
+  private static generateStringValidationExamples(validation: string | { includes: string; position?: number } | unknown): unknown[] {
+    // Handle non-string validations
+    if (typeof validation !== "string") {
+      return [];
+    }
+    
+    switch (validation) {
+      case "url": {
+        return ["https://example.com", "https://react-jedi.org"];
+      }
+      case "email": {
+        return ["user@example.com", "contact@react-jedi.org"];
+      }
+      case "uuid": {
+        return ["123e4567-e89b-12d3-a456-426614174000"];
+      }
+      default: {
+        return [];
+      }
     }
   }
   
@@ -258,47 +379,36 @@ export class Validator {
    */
   private static generateExamplesForError(err: z.ZodIssue): unknown[] {
     switch (err.code) {
-      case z.ZodIssueCode.invalid_enum_value:
-        const enumIssue = err as z.ZodInvalidEnumValueIssue;
-        // Return the first few enum options as examples
-        return enumIssue.options.slice(0, 3);
-        
-      case z.ZodIssueCode.invalid_type:
+      case z.ZodIssueCode.invalid_enum_value: {
+        return this.generateEnumExamples(err as z.ZodInvalidEnumValueIssue);
+      }
+      
+      case z.ZodIssueCode.invalid_type: {
         const typeIssue = err as z.ZodInvalidTypeIssue;
-        // Provide examples based on expected type
-        switch (typeIssue.expected) {
-          case "string":
-            return ["example", "value"];
-          case "number":
-            return [42, 3.14];
-          case "boolean":
-            return [true, false];
-          case "array":
-            return [[]];
-          case "object":
-            return [{}];
-          default:
-            return [];
-        }
-        
-      case z.ZodIssueCode.invalid_string:
-        if ("validation" in err) {
-          switch (err.validation) {
-            case "url":
-              return ["https://example.com", "https://react-jedi.org"];
-            case "email":
-              return ["user@example.com", "contact@react-jedi.org"];
-            case "uuid":
-              return ["123e4567-e89b-12d3-a456-426614174000"];
-          }
+        return this.generateTypeExamples(typeIssue.expected);
+      }
+      
+      case z.ZodIssueCode.invalid_string: {
+        const stringIssue = err as z.ZodInvalidStringIssue;
+        if ("validation" in stringIssue) {
+          return this.generateStringValidationExamples(stringIssue.validation);
         }
         return [];
-        
-      default:
+      }
+      
+      default: {
         return [];
+      }
     }
   }
 
+  /**
+   * Type guard to check if an object supports indexing
+   */
+  private static isIndexable(obj: unknown): obj is Record<string | number, unknown> {
+    return typeof obj === "object" && obj !== null;
+  }
+  
   /**
    * Safely gets a value at a specific path in an object
    */
@@ -307,9 +417,14 @@ export class Validator {
       return obj;
     }
     
-    let current: any = obj;
+    let current: unknown = obj;
+    
     for (const key of path) {
       if (current === null || current === undefined) {
+        return undefined;
+      }
+      
+      if (!this.isIndexable(current)) {
         return undefined;
       }
       

@@ -15,11 +15,20 @@ export function createJedi() {
   };
 }
 
-// Export all components through the barrel file
-export * from "./components";
+// Export all components through the barrel file using path aliases
+export * from "@components/index";
 
-// Export utilities
-export * from "./lib";
+// Export utilities using path aliases
+export * from "@lib/index";
+
+// Export UI components directly
+export * from "@ui/index";
+
+// Export schemas
+export * from "@schemas/index";
+
+// Export types
+export * from "@types/index";
 
 // Export hooks if available
-// export * from "./hooks";
+// export * from "@hooks/index";

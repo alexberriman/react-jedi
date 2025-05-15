@@ -177,9 +177,6 @@ export class ComponentValidator {
     
     const componentType = spec.type as string;
     
-    // Get schema examples for this component type
-    const examples = componentExamples.get(componentType);
-    
     // Validate against the appropriate schema based on type
     const schema = this.getSchemaForType(componentType);
     if (!schema) {
@@ -218,8 +215,8 @@ export class ComponentValidator {
           ? `${mergedOptions.componentDocsBaseUrl}${componentType.toLowerCase()}` 
           : undefined;
         
-        const schemaExamples = mergedOptions.includeSchemaExamples && examples 
-          ? examples 
+        const schemaExamples = mergedOptions.includeSchemaExamples 
+          ? componentExamples.get(componentType) 
           : undefined;
         
         return {
@@ -306,9 +303,6 @@ export class ComponentValidator {
     const schema = this.getSchemaForType(type);
     if (!schema) return undefined;
     
-    // Get examples for this component type
-    const examples = componentExamples.get(type);
-    
     return JSONSchemaConverter.zodToJSONSchema(schema, {
       $id: `https://react-jedi.org/schemas/components/${type}.json`,
       title: `${type.charAt(0).toUpperCase() + type.slice(1)} Component Schema`,
@@ -322,7 +316,7 @@ export class ComponentValidator {
    * @returns Array of component type names
    */
   static getAllComponentTypes(): string[] {
-    return Array.from(schemaCache.keys());
+    return [...schemaCache.keys()];
   }
   
   /**
@@ -331,7 +325,7 @@ export class ComponentValidator {
    * @returns Array of component examples
    */
   static getAllComponentExamples(): unknown[] {
-    return Array.from(componentExamples.values()).flat();
+    return [...componentExamples.values()].flat();
   }
   
   /**
@@ -399,13 +393,10 @@ export class ComponentValidator {
    * @param errors - Array of component validation errors
    * @returns Detailed error report string
    */
-  static createValidationErrorReport(errors: ComponentValidationError[]): string {
-    if (errors.length === 0) return "No validation errors found.";
-    
-    let report = `# Component Validation Error Report\n\n`;
-    report += `Found ${errors.length} validation error${errors.length === 1 ? "" : "s"}.\n\n`;
-    
-    // Group errors by component type
+  /**
+   * Group validation errors by component type
+   */
+  private static groupErrorsByComponentType(errors: ComponentValidationError[]): Record<string, ComponentValidationError[]> {
     const errorsByComponent: Record<string, ComponentValidationError[]> = {};
     
     for (const err of errors) {
@@ -416,41 +407,80 @@ export class ComponentValidator {
       errorsByComponent[type].push(err);
     }
     
+    return errorsByComponent;
+  }
+  
+  /**
+   * Format a single error for the validation report
+   */
+  private static formatSingleErrorReport(err: ComponentValidationError): string {
+    const path = err.path.length > 0 ? `'${err.path.join(".")}'` : "root";
+    let errorReport = `### Error at ${path}\n\n`;
+    errorReport += `- **Message**: ${err.message}\n`;
+    
+    if (err.invalidValue !== undefined) {
+      errorReport += `- **Received**: \`${JSON.stringify(err.invalidValue)}\`\n`;
+    }
+    
+    if (err.validExamples && err.validExamples.length > 0) {
+      const examples = err.validExamples
+        .map(ex => `\`${JSON.stringify(ex)}\``)
+        .join(", ");
+      errorReport += `- **Valid values**: ${examples}\n`;
+    }
+    
+    if (err.schemaDocUrl) {
+      errorReport += `- **Documentation**: [Component docs](${err.schemaDocUrl})\n`;
+    }
+    
+    return errorReport + "\n";
+  }
+  
+  /**
+   * Add component example to the validation report
+   */
+  private static addComponentExampleToReport(componentType: string): string {
+    const examples = componentExamples.get(componentType);
+    if (!examples || examples.length === 0) {
+      return "";
+    }
+    
+    let exampleSection = `### Example of valid ${componentType} component\n\n`;
+    exampleSection += "```json\n";
+    exampleSection += JSON.stringify(examples[0], null, 2);
+    exampleSection += "\n```\n\n";
+    
+    return exampleSection;
+  }
+  
+  /**
+   * Creates a detailed validation error report for a component specification
+   * 
+   * @param errors - Array of component validation errors
+   * @returns Detailed error report string
+   */
+  static createValidationErrorReport(errors: ComponentValidationError[]): string {
+    if (errors.length === 0) {
+      return "No validation errors found.";
+    }
+    
+    let report = `# Component Validation Error Report\n\n`;
+    report += `Found ${errors.length} validation error${errors.length === 1 ? "" : "s"}.\n\n`;
+    
+    // Group errors by component type
+    const errorsByComponent = this.groupErrorsByComponentType(errors);
+    
     // Create report sections by component type
     for (const [componentType, componentErrors] of Object.entries(errorsByComponent)) {
       report += `## Errors in ${componentType} component\n\n`;
       
+      // Add all errors for this component
       for (const err of componentErrors) {
-        const path = err.path.length > 0 ? `'${err.path.join(".")}'` : "root";
-        report += `### Error at ${path}\n\n`;
-        report += `- **Message**: ${err.message}\n`;
-        
-        if (err.invalidValue !== undefined) {
-          report += `- **Received**: \`${JSON.stringify(err.invalidValue)}\`\n`;
-        }
-        
-        if (err.validExamples && err.validExamples.length > 0) {
-          const examples = err.validExamples
-            .map(ex => `\`${JSON.stringify(ex)}\``)
-            .join(", ");
-          report += `- **Valid values**: ${examples}\n`;
-        }
-        
-        if (err.schemaDocUrl) {
-          report += `- **Documentation**: [Component docs](${err.schemaDocUrl})\n`;
-        }
-        
-        report += "\n";
+        report += this.formatSingleErrorReport(err);
       }
       
       // Add example of valid component if available
-      const examples = componentExamples.get(componentType);
-      if (examples && examples.length > 0) {
-        report += `### Example of valid ${componentType} component\n\n`;
-        report += "```json\n";
-        report += JSON.stringify(examples[0], null, 2);
-        report += "\n```\n\n";
-      }
+      report += this.addComponentExampleToReport(componentType);
     }
     
     return report;

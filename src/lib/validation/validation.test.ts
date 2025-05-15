@@ -120,7 +120,7 @@ describe("Validator", () => {
     expect(result.ok).toBe(false);
     
     if (!result.ok) {
-      expect(result.val.length).toBe(5); // 5 validation errors
+      expect(result.val.length).toBe(6); // 6 validation errors
       
       // Check for enhanced error messages
       const errorMessages = result.val.map(err => err.message);
@@ -347,7 +347,7 @@ describe("ComponentValidator", () => {
     expect(examples?.length).toBeGreaterThan(0);
     
     if (examples && examples.length > 0) {
-      const example = examples[0] as any;
+      const example = examples[0] as { type: string; content?: string };
       expect(example.type).toBe("heading");
       expect(example.content).toBeDefined();
     }

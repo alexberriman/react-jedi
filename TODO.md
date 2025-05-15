@@ -68,11 +68,11 @@ This milestone delivers a working, shippable library that can render static layo
   - [x] Create Storybook documentation showing various grid patterns
   - [x] Implement specification schema with columns, gaps, and responsive options
 
-- [ ] Flex Component (Flexbox-based layout)
+- [x] Flex Component (Flexbox-based layout)
 
-  - [ ] Create custom implementation with TailwindCSS flex utilities
-  - [ ] Create Storybook documentation with alignment and distribution examples
-  - [ ] Implement specification schema with direction, wrap, and alignment options
+  - [x] Create custom implementation with TailwindCSS flex utilities
+  - [x] Create Storybook documentation with alignment and distribution examples
+  - [x] Implement specification schema with direction, wrap, and alignment options
 
 - [x] AspectRatio Component (maintains width/height ratio)
 

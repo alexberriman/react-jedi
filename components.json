@@ -38,6 +38,11 @@
       "name": "grid",
       "type": "ui",
       "description": "A CSS Grid-based layout system with responsive options for creating complex layouts"
+    },
+    {
+      "name": "flex",
+      "type": "ui",
+      "description": "A Flexbox-based layout component with direction, wrap, and alignment options for flexible layouts"
     }
   ]
 }

@@ -21,3 +21,4 @@ export * from "./skeleton";
 export * from "./container";
 export * from "./box";
 export * from "./grid";
+export * from "./flex";

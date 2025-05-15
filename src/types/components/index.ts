@@ -6,6 +6,7 @@
 
 export type { BaseComponentSpec } from "./base";
 export type { AspectRatioSpec } from "./aspect-ratio";
+export type { BadgeSpec } from "./badge";
 export type { ButtonSpec } from "./button";
 export type { SeparatorSpec } from "./separator";
 export type {

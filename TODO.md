@@ -118,11 +118,11 @@ This milestone delivers a working, shippable library that can render static layo
   - [x] Create Storybook documentation with examples
   - [x] Implement specification schema for Card and CardContent
 
-- [ ] Badge Component
+- [x] Badge Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add badge`)
-  - [ ] Create Storybook documentation with variants
-  - [ ] Implement specification schema for Badge
+  - [x] Add from shadcn (`npx shadcn@latest add badge`)
+  - [x] Create Storybook documentation with variants
+  - [x] Implement specification schema for Badge
 
 - [ ] Avatar Component
 

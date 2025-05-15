@@ -9,6 +9,7 @@ import type { ThemeSpecification } from "../../types/schema/specification";
 import type { DesignToken, TokenCollection } from "./theme-tokens";
 import { extractTokensFromTheme, createTokenCollection } from "./theme-tokens";
 import { generateTypographyVariables } from "./typography";
+import { shadowsToVariables } from "./shadow-system";
 
 /**
  * CSS Variable Output Format
@@ -95,6 +96,10 @@ export function generateCssVariables(
   // Add typography variables using the new typography system
   const typographyVariables = generateTypographyVariables(theme.typography);
   Object.assign(variables, typographyVariables);
+  
+  // Add shadow variables using the new shadow system
+  const shadowVariables = shadowsToVariables(theme);
+  Object.assign(variables, shadowVariables);
   
   for (const token of tokens) {
     // Skip non-primitive values that can't be used as CSS variables

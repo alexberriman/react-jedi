@@ -104,6 +104,24 @@ export {
   type CornerRadiusOptions
 } from "./border-radius";
 
+// Shadow system
+export {
+  DEFAULT_SHADOW_SCALE,
+  SEMANTIC_SHADOW_PRESETS,
+  DARK_MODE_SHADOW_SCALE,
+  getShadow,
+  getDarkModeShadow,
+  generateShadowScale,
+  extractShadowScale,
+  shadowsToVariables,
+  combineShadows,
+  createResponsiveShadow,
+  SHADOW_ANIMATIONS,
+  type ShadowScale,
+  type ShadowKey,
+  type SemanticShadowKey
+} from "./shadow-system";
+
 // Theme presets
 export {
   defaultTheme,

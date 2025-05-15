@@ -172,13 +172,24 @@ export class BorderRadiusBuilder {
    */
   corner(corner: "topLeft" | "topRight" | "bottomRight" | "bottomLeft", key: string): this {
     const radius = getBorderRadius(this.theme, key);
-    const propertyMap = {
-      topLeft: "borderTopLeftRadius",
-      topRight: "borderTopRightRadius",
-      bottomRight: "borderBottomRightRadius",
-      bottomLeft: "borderBottomLeftRadius",
-    };
-    this.styles[propertyMap[corner] as keyof CSSProperties] = radius;
+    switch (corner) {
+      case "topLeft": {
+        this.styles.borderTopLeftRadius = radius;
+        break;
+      }
+      case "topRight": {
+        this.styles.borderTopRightRadius = radius;
+        break;
+      }
+      case "bottomRight": {
+        this.styles.borderBottomRightRadius = radius;
+        break;
+      }
+      case "bottomLeft": {
+        this.styles.borderBottomLeftRadius = radius;
+        break;
+      }
+    }
     return this;
   }
   

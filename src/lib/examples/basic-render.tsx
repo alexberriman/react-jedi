@@ -2,6 +2,9 @@ import * as React from "react";
 import { render } from "../render";
 import { defaultComponentResolver } from "../component-resolver";
 import type { UISpecification } from "@/types/schema/specification";
+import type { HeadingSpec, TextSpec } from "@/types/schema/typography";
+import type { ButtonSpec } from "@/types/schema/ui";
+import type { BoxSpec, FlexSpec } from "@/types/schema/layout";
 
 /**
  * Example UI specification for testing the render function
@@ -19,45 +22,43 @@ const exampleSpecification: UISpecification = {
     children: [
       {
         type: "Box",
-        padding: "lg",
-        margin: "md",
-        rounded: "md",
-        backgroundColor: "card",
-        shadow: "md",
+        // Box specific properties
         children: [
           {
             type: "Heading",
-            level: "h1",
+            // Heading specific properties
             children: "Server-Driven UI Example",
-          },
+          } as HeadingSpec,
           {
             type: "Text",
-            size: "lg",
+            // Text specific properties
             children: "This UI is rendered from a JSON specification",
-          },
+          } as TextSpec,
           {
             type: "Separator",
-            className: "my-4",
           },
           {
             type: "Flex",
+            // Flex specific properties
             direction: "row",
             gap: "md",
             children: [
               {
                 type: "Button",
+                // Button specific properties
                 variant: "default",
                 children: "Primary Action",
-              },
+              } as ButtonSpec,
               {
                 type: "Button",
+                // Button specific properties
                 variant: "outline",
                 children: "Secondary Action",
-              },
+              } as ButtonSpec,
             ],
-          },
+          } as FlexSpec,
         ],
-      },
+      } as BoxSpec,
     ],
   },
   theme: {

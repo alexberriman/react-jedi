@@ -50,7 +50,7 @@ export interface Jedi {
   /**
    * Render a UI specification or component specification
    */
-  render: (spec: UISpecification | ComponentSpec, options?: RenderOptions) => React.ReactElement;
+  render: (spec: UISpecification | ComponentSpec, options?: RenderOptions) => React.ReactElement | null;
   
   /**
    * Build a component tree from a specification

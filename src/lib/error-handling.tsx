@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ComponentSpec } from "@/types/schema/components";
+import type { ComponentSpec, ComponentProps } from "@/types/schema/components";
 
 /**
  * Props for the ErrorFallback component
@@ -8,23 +8,23 @@ interface ErrorFallbackProps {
   /**
    * The error that occurred
    */
-  error: Error;
+  readonly error: Error;
   
   /**
    * The component specification that caused the error
    */
-  spec?: ComponentSpec;
+  readonly spec?: ComponentSpec;
   
   /**
    * Callback to reset the error state
    */
-  resetErrorBoundary?: () => void;
+  readonly resetErrorBoundary?: () => void;
   
   /**
    * Whether to show detailed error information
    * @default false
    */
-  showDetails?: boolean;
+  readonly showDetails?: boolean;
 }
 
 /**
@@ -99,7 +99,7 @@ export function formatErrorMessage(error: Error, componentType?: string): string
  * @param type Component type that's missing
  * @returns React component that shows a placeholder
  */
-export function createMissingComponentPlaceholder(type: string): React.FC<any> {
+export function createMissingComponentPlaceholder(type: string): React.FC<ComponentProps> {
   return function MissingComponent(props) {
     return (
       <div className="p-4 border-2 border-dashed border-yellow-400 bg-yellow-50 rounded-md">
@@ -140,13 +140,13 @@ export function registerErrorHandler(handler: ErrorHandler): void {
  */
 export function handleRenderError(error: Error, componentType: string): void {
   // Call all registered error handlers
-  errorHandlers.forEach(handler => {
+  for (const handler of errorHandlers) {
     try {
       handler(error, componentType);
     } catch (handlerError) {
       console.error("Error in error handler:", handlerError);
     }
-  });
+  }
   
   // Always log the error to console
   console.error(`Error rendering component "${componentType}":`, error);

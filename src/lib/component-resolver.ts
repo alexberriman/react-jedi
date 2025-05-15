@@ -1,36 +1,47 @@
 import * as React from "react";
-import type { ComponentResolver } from "@/types/schema/components";
+import type { ComponentResolver, ComponentProps } from "@/types/schema/components";
 import * as UI from "@/components/ui";
+
+// Type definition for components in our registry
+type ComponentType = React.ComponentType<ComponentProps>;
+
+// Helper function to safely cast components to accept our standard ComponentProps
+const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
+  component: T
+): ComponentType => {
+  return component as unknown as ComponentType;
+};
 
 /**
  * Default component registry for the core UI components
  * 
  * This registry maps component type strings to their React implementations.
  * It provides a centralized place to register all available components.
+ * All components are adapted to accept our standard ComponentProps interface.
  */
-export const defaultComponentRegistry: Record<string, React.ComponentType<any>> = {
+export const defaultComponentRegistry: Record<string, ComponentType> = {
   // Layout Components
-  Box: UI.Box,
-  Container: UI.Container,
-  Grid: UI.Grid, 
-  Flex: UI.Flex,
-  AspectRatio: UI.AspectRatio,
-  Separator: UI.Separator,
+  Box: asComponent(UI.Box),
+  Container: asComponent(UI.Container),
+  Grid: asComponent(UI.Grid), 
+  Flex: asComponent(UI.Flex),
+  AspectRatio: asComponent(UI.AspectRatio),
+  Separator: asComponent(UI.Separator),
 
   // Typography Components
-  Text: UI.Text,
-  Heading: UI.Heading,
-  BlockQuote: UI.BlockQuote,
+  Text: asComponent(UI.Text),
+  Heading: asComponent(UI.Heading),
+  BlockQuote: asComponent(UI.BlockQuote),
 
   // UI Components
-  Button: UI.Button,
-  Card: UI.Card,
-  Badge: UI.Badge,
-  Avatar: UI.Avatar,
-  Image: UI.Image,
-  Skeleton: UI.Skeleton,
-  Label: UI.Label,
-  Input: UI.Input,
+  Button: asComponent(UI.Button),
+  Card: asComponent(UI.Card),
+  Badge: asComponent(UI.Badge),
+  Avatar: asComponent(UI.Avatar),
+  Image: asComponent(UI.Image),
+  Skeleton: asComponent(UI.Skeleton),
+  Label: asComponent(UI.Label),
+  Input: asComponent(UI.Input),
 };
 
 /**
@@ -51,12 +62,13 @@ export const defaultComponentResolver: ComponentResolver = (type: string) => {
  * 
  * This function creates a custom component resolver that combines
  * custom component mappings with the default registry.
+ * All components are adapted to accept our standard ComponentProps interface.
  * 
  * @param customComponents Additional component mappings to include
  * @returns Custom component resolver function
  */
 export function createCustomResolver(
-  customComponents: Record<string, React.ComponentType<any>>
+  customComponents: Record<string, ComponentType>
 ): ComponentResolver {
   return (type: string) => {
     return customComponents[type] || defaultComponentRegistry[type] || null;

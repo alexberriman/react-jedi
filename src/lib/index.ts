@@ -6,6 +6,7 @@
 
 // Core utilities
 export * from "./utils";
+export * from "./styles";
 
 // Schemas and validation
 export * from "./schemas";

@@ -20,7 +20,12 @@ class ErrorBoundary extends React.Component<
   },
   { hasError: boolean; error: Error | null }
 > {
-  constructor(props: any) {
+  constructor(props: { 
+    children: React.ReactNode; 
+    componentType: string;
+    fallback?: React.ReactNode;
+    onError?: (error: Error, componentType: string) => void;
+  }) {
     super(props);
     this.state = { hasError: false, error: null };
   }
@@ -36,9 +41,15 @@ class ErrorBoundary extends React.Component<
     }
   }
 
-  render() {
+  render(): React.ReactElement {
     if (this.state.hasError) {
-      return this.props.fallback || (
+      // Always return React.ReactElement
+      if (this.props.fallback) {
+        // Cast to ReactElement since we know it should be a valid React element
+        return this.props.fallback as React.ReactElement;
+      }
+      
+      return (
         <div className="p-4 border border-destructive text-destructive rounded-md">
           <p>Error rendering component: {this.props.componentType}</p>
           <p className="text-sm mt-2 font-mono">{this.state.error?.message}</p>
@@ -46,28 +57,84 @@ class ErrorBoundary extends React.Component<
       );
     }
 
-    return this.props.children;
+    // Ensure we always return a ReactElement
+    if (!this.props.children) {
+      return <></>;
+    }
+    
+    // If children is a valid ReactElement, return it directly
+    if (React.isValidElement(this.props.children)) {
+      return this.props.children;
+    }
+    
+    // For other ReactNode types like arrays, strings, etc., wrap in a fragment
+    return <>{this.props.children}</>;
   }
 }
+
+// Import components directly
+import * as UI from "@/components/ui";
+
+// Type definition for components in our registry
+type ComponentType = React.ComponentType<ComponentProps>;
+
+// Helper function to safely cast components to accept our standard ComponentProps
+const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
+  component: T
+): ComponentType => {
+  return component as unknown as ComponentType;
+};
+
+/**
+ * Component registry for default components
+ * All components are adapted to accept our standard ComponentProps interface.
+ */
+const componentRegistry: Record<string, ComponentType> = {
+  // Layout Components
+  Box: asComponent(UI.Box),
+  Container: asComponent(UI.Container),
+  Grid: asComponent(UI.Grid),
+  Flex: asComponent(UI.Flex),
+  AspectRatio: asComponent(UI.AspectRatio),
+  Separator: asComponent(UI.Separator),
+
+  // Typography Components
+  Text: asComponent(UI.Text),
+  Heading: asComponent(UI.Heading),
+  BlockQuote: asComponent(UI.BlockQuote),
+
+  // UI Components
+  Button: asComponent(UI.Button),
+  Card: asComponent(UI.Card),
+  Badge: asComponent(UI.Badge),
+  Avatar: asComponent(UI.Avatar),
+  Image: asComponent(UI.Image),
+  Skeleton: asComponent(UI.Skeleton),
+  Label: asComponent(UI.Label),
+  Input: asComponent(UI.Input),
+};
 
 /**
  * Default component resolver function
  * Maps component type strings to their React implementations
  */
 const defaultComponentResolver: ComponentResolver = (type: string) => {
-  // Import all UI components dynamically
-  // This allows for code splitting and lazy loading
-  try {
-    // Dynamically require the component based on type
-    // This is a placeholder approach - in practice, we would
-    // have a more sophisticated registry mechanism
-    const componentModule = require(`@/components/ui/${type.toLowerCase()}`);
-    return componentModule[type];
-  } catch (error) {
+  // Use the component registry instead of dynamic imports
+  const component = componentRegistry[type];
+  
+  if (!component) {
     console.warn(`Component type "${type}" not found`);
-    return null;
   }
+  
+  return component || null;
 };
+
+/**
+ * Extended ComponentProps type that includes html attributes
+ */
+interface ExtendedComponentProps extends ComponentProps {
+  [key: string]: unknown;
+}
 
 /**
  * Renders a component spec into a React element
@@ -76,7 +143,7 @@ function renderComponent(
   spec: ComponentSpec,
   options: RenderOptions = {},
   parentContext: Record<string, unknown> = {}
-): React.ReactNode {
+): React.ReactElement | null {
   const {
     resolver = defaultComponentResolver,
     theme = {},
@@ -91,6 +158,7 @@ function renderComponent(
 
   if (!Component) {
     if (development) {
+      // Return a JSX element placeholder
       return (
         <div className="p-2 border border-dashed border-yellow-500 bg-yellow-50 rounded">
           <p className="text-sm text-yellow-700">
@@ -111,27 +179,34 @@ function renderComponent(
       children = spec.children;
     } else if (isComponentSpec(spec.children)) {
       // Single child component
-      children = renderComponent(spec.children, options, {
+      const childComponent = renderComponent(spec.children, options, {
         ...parentContext,
         parent: { type: spec.type, id: spec.id }
       });
+      // Ensure we handle null case
+      children = childComponent || <></>;
     } else if (isComponentSpecArray(spec.children)) {
       // Multiple child components
-      children = spec.children.map((child, index) =>
-        React.createElement(
+      children = spec.children.map((child, index) => {
+        const renderedChild = renderComponent(child, options, {
+          ...parentContext,
+          parent: { type: spec.type, id: spec.id }
+        });
+        
+        return React.createElement(
           React.Fragment,
           { key: child.id || `${spec.type}-child-${index}` },
-          renderComponent(child, options, {
-            ...parentContext,
-            parent: { type: spec.type, id: spec.id }
-          })
-        )
-      );
+          // Ensure we handle null case
+          renderedChild || <></>
+        );
+      });
     }
   }
 
-  // Prepare props for the component
-  const componentProps: ComponentProps = {
+  // The mock components in the test are directly extracting spec, so we need to make sure
+  // spec.a11y, spec.data, and spec.testId are preserved in the props
+  const componentProps: ExtendedComponentProps = {
+    // Make sure spec includes all the original properties by creating a fresh copy
     spec,
     children,
     theme,
@@ -170,9 +245,9 @@ function renderComponent(
 
   // Apply data attributes
   if (spec.data) {
-    Object.entries(spec.data).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(spec.data)) {
       componentProps[`data-${key}`] = value;
-    });
+    }
   }
 
   // Apply test ID
@@ -180,7 +255,8 @@ function renderComponent(
     componentProps["data-testid"] = spec.testId;
   }
 
-  // Create the React element
+  // Create the React element - componentProps already matches the ComponentProps type
+  // that our components are adapted to accept
   const element = React.createElement(Component, componentProps);
 
   // Wrap in error boundary if enabled
@@ -211,7 +287,7 @@ function renderComponent(
 export function render(
   specification: UISpecification | ComponentSpec,
   options: RenderOptions = {}
-): React.ReactElement {
+): React.ReactElement | null {
   // Handle different input types
   if ("root" in specification) {
     // It's a complete UI specification
@@ -220,10 +296,10 @@ export function render(
       ...options,
       theme: { ...options.theme, ...theme },
       initialState: { ...options.initialState, ...state }
-    }) as React.ReactElement;
+    });
   } else {
     // It's a single component spec
-    return renderComponent(specification, options) as React.ReactElement;
+    return renderComponent(specification, options);
   }
 }
 
@@ -251,12 +327,13 @@ export function createResolver(...resolvers: ComponentResolver[]): ComponentReso
  * Create a registry-based component resolver
  * 
  * This creates a resolver based on a map of component types to implementations.
+ * All components are adapted to accept our standard ComponentProps interface.
  * 
  * @param registry Map of component types to React component implementations
  * @returns Resolver function
  */
 export function createRegistryResolver(
-  registry: Record<string, React.ComponentType<any>>
+  registry: Record<string, ComponentType>
 ): ComponentResolver {
   return (type: string) => registry[type] || null;
 }

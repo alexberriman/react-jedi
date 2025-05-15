@@ -9,6 +9,7 @@ import type { BaseComponentSpec } from "./base";
 import type { LayoutComponentSpec } from "./layout";
 import type { TypographyComponentSpec } from "./typography";
 import type { UIComponentSpec } from "./ui";
+export type { UISpecification } from "./specification";
 
 /**
  * Union type of all component specifications.
@@ -29,8 +30,9 @@ export type ComponentType = ComponentSpec["type"];
 /**
  * Component resolver function type.
  * Maps component types to their React implementations.
+ * Uses ComponentProps as the base props that all components will receive.
  */
-export type ComponentResolver = (type: string) => React.ComponentType<unknown> | null;
+export type ComponentResolver = (type: string) => React.ComponentType<ComponentProps> | null;
 
 /**
  * Component props to be passed to resolved React components.

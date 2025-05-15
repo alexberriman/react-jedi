@@ -119,8 +119,8 @@ describe("component-tree", () => {
     
     // Check all children were transformed
     const allNodes = [transformed, ...findNodesByType(transformed, "Box"), ...findNodesByType(transformed, "Button")];
-    allNodes.forEach(node => {
+    for (const node of allNodes) {
       expect(node.spec.data?.transformed).toBe("true");
-    });
+    }
   });
 });

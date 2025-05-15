@@ -1,7 +1,19 @@
 import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
+import { createRoot } from "react-dom/client";
 import type { ComponentType } from "react";
 import { Result, Ok, Err } from "ts-results";
+
+/**
+ * Creates a non-generic wrapper around a component to fix type issues
+ */
+function createTestWrapper<P extends object>(Component: ComponentType<P>, props: P): React.ReactElement {
+  return React.createElement(Component, props);
+}
+
+// Define a type for performance measurement
+type TimeMeasurement = {
+  now: () => number;
+};
 
 /**
  * Benchmark result containing timing information
@@ -58,7 +70,7 @@ const DEFAULT_OPTIONS: BenchmarkOptions = {
  */
 function createContainer(): HTMLDivElement {
   const container = document.createElement("div");
-  document.body.appendChild(container);
+  document.body.append(container);
   return container;
 }
 
@@ -67,10 +79,119 @@ function createContainer(): HTMLDivElement {
  * @param container DOM element to remove
  */
 function removeContainer(container: HTMLDivElement): void {
-  if (container && container.parentNode) {
-    unmountComponentAtNode(container);
-    container.parentNode.removeChild(container);
+  if (container) {
+    container.remove();
   }
+}
+
+/**
+ * Measure the memory usage if garbage collection is available
+ * @returns The current memory usage in bytes
+ */
+function measureMemory(): number {
+  if (typeof globalThis !== "undefined" && "gc" in globalThis) {
+    ((globalThis as unknown) as { gc: () => void }).gc();
+    return process.memoryUsage().heapUsed;
+  }
+  return 0;
+}
+
+/**
+ * Perform render benchmarking
+ * @param Component The component to render
+ * @param props The props to pass to the component
+ * @param container The DOM container
+ * @param iterations Number of iterations to perform
+ * @param timer The time measurement function
+ * @returns Total render time in ms
+ */
+function benchmarkRender<P extends object>(
+  Component: ComponentType<P>,
+  props: P,
+  container: HTMLDivElement,
+  iterations: number,
+  timer: TimeMeasurement
+): number {
+  let totalRenderTime = 0;
+  
+  for (let i = 0; i < iterations; i++) {
+    const start = timer.now();
+    const root = createRoot(container);
+    const wrapper = createTestWrapper(Component, props);
+    root.render(wrapper);
+    const end = timer.now();
+    totalRenderTime += (end - start);
+    
+    // Cleanup between iterations
+    root.unmount();
+  }
+  
+  return totalRenderTime;
+}
+
+/**
+ * Perform update benchmarking
+ * @param Component The component to update
+ * @param initialProps The initial props
+ * @param updateProps The props for updates
+ * @param container The DOM container
+ * @param iterations Number of iterations to perform
+ * @param timer The time measurement function
+ * @returns Total update time in ms
+ */
+function benchmarkUpdate<P extends object>(
+  Component: ComponentType<P>,
+  initialProps: P,
+  updateProps: P,
+  container: HTMLDivElement,
+  iterations: number,
+  timer: TimeMeasurement
+): number {
+  let totalUpdateTime = 0;
+  
+  // Render the component first
+  const root = createRoot(container);
+  const initialWrapper = createTestWrapper(Component, initialProps);
+  root.render(initialWrapper);
+  
+  // Then benchmark updates
+  for (let i = 0; i < iterations; i++) {
+    const updateStart = timer.now();
+    const updateWrapper = createTestWrapper(Component, updateProps);
+    root.render(updateWrapper);
+    const updateEnd = timer.now();
+    totalUpdateTime += (updateEnd - updateStart);
+  }
+  
+  // Clean up after updates
+  root.unmount();
+  
+  return totalUpdateTime;
+}
+
+/**
+ * Perform unmount benchmarking
+ * @param Component The component to unmount
+ * @param props The props to pass to the component
+ * @param container The DOM container
+ * @param timer The time measurement function
+ * @returns Unmount time in ms
+ */
+function benchmarkUnmount<P extends object>(
+  Component: ComponentType<P>,
+  props: P,
+  container: HTMLDivElement,
+  timer: TimeMeasurement
+): number {
+  const root = createRoot(container);
+  const wrapper = createTestWrapper(Component, props);
+  root.render(wrapper);
+  
+  const unmountStart = timer.now();
+  root.unmount();
+  const unmountEnd = timer.now();
+  
+  return unmountEnd - unmountStart;
 }
 
 /**
@@ -79,7 +200,7 @@ function removeContainer(container: HTMLDivElement): void {
  * @param options Benchmark options
  * @returns Result containing benchmark data or error
  */
-export function benchmarkComponent<P = Record<string, unknown>>(
+export function benchmarkComponent<P extends object = Record<string, unknown>>(
   Component: ComponentType<P>,
   options: BenchmarkOptions = {}
 ): Result<BenchmarkResult, Error> {
@@ -90,54 +211,48 @@ export function benchmarkComponent<P = Record<string, unknown>>(
     
     // Prepare for benchmarking
     const iterations = opts.iterations || 100;
-    let totalRenderTime = 0;
-    let totalUpdateTime = 0;
-    let totalUnmountTime = 0;
-    let memoryBefore = 0;
-    let memoryAfter = 0;
+    // Create a timer for measurement
+    let timer: TimeMeasurement = { now: Date.now };
     
-    if (opts.measureMemory && global.gc) {
-      // Force garbage collection if available
-      global.gc();
-      memoryBefore = process.memoryUsage().heapUsed;
+    // Use performance API if available
+    if (typeof globalThis !== "undefined" && 
+        globalThis && 
+        globalThis.performance) {
+      timer = globalThis.performance;
     }
     
-    // Benchmark initial render
-    for (let i = 0; i < iterations; i++) {
-      const start = performance.now();
-      render(React.createElement(Component, opts.props as P), container);
-      const end = performance.now();
-      totalRenderTime += (end - start);
-      
-      // Cleanup between iterations
-      unmountComponentAtNode(container);
-    }
+    // Measure memory before if requested
+    const memoryBefore = opts.measureMemory ? measureMemory() : 0;
     
-    // Benchmark updates if requested
-    if (opts.measureUpdates) {
-      // Render the component first
-      render(React.createElement(Component, opts.props as P), container);
-      
-      // Then benchmark updates
-      for (let i = 0; i < iterations; i++) {
-        const updateStart = performance.now();
-        render(React.createElement(Component, opts.updateProps as P), container);
-        const updateEnd = performance.now();
-        totalUpdateTime += (updateEnd - updateStart);
-      }
-    }
+    // Benchmark render, update, and unmount operations
+    const totalRenderTime = benchmarkRender(
+      Component, 
+      opts.props as P, 
+      container, 
+      iterations, 
+      timer
+    );
     
-    // Benchmark unmount
-    render(React.createElement(Component, opts.props as P), container);
-    const unmountStart = performance.now();
-    unmountComponentAtNode(container);
-    const unmountEnd = performance.now();
-    totalUnmountTime = unmountEnd - unmountStart;
+    const totalUpdateTime = opts.measureUpdates 
+      ? benchmarkUpdate(
+          Component, 
+          opts.props as P, 
+          opts.updateProps as P, 
+          container, 
+          iterations, 
+          timer
+        ) 
+      : 0;
     
-    if (opts.measureMemory && global.gc) {
-      global.gc();
-      memoryAfter = process.memoryUsage().heapUsed;
-    }
+    const totalUnmountTime = benchmarkUnmount(
+      Component, 
+      opts.props as P, 
+      container, 
+      timer
+    );
+    
+    // Measure memory after if requested
+    const memoryAfter = opts.measureMemory ? measureMemory() : 0;
     
     // Calculate final results
     const avgRenderTime = totalRenderTime / iterations;
@@ -203,7 +318,7 @@ export function formatBenchmarkResult(result: BenchmarkResult): string {
  * @returns Results for all benchmarks
  */
 export async function runBenchmarkSuite(
-  benchmarks: Record<string, [ComponentType<any>, BenchmarkOptions?]>
+  benchmarks: Record<string, [ComponentType<Record<string, unknown> & object>, BenchmarkOptions?]>
 ): Promise<Record<string, BenchmarkResult>> {
   const results: Record<string, BenchmarkResult> = {};
   

@@ -1,10 +1,9 @@
 import React from "react";
-import { describe, bench, expect } from "vitest";
+import { describe, bench } from "vitest";
 import { render, cleanup } from "@testing-library/react";
 import { Text } from "@/components/ui/text/text";
 import { 
-  createComponentBenchmark, 
-  createComponentComparisonBenchmark 
+  createComponentBenchmark
 } from "./component-benchmark";
 
 // Basic text component benchmark

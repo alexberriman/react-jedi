@@ -1,12 +1,19 @@
 import React from "react";
-import { describe, bench, expect } from "vitest";
+import { describe, bench } from "vitest";
 import { render, cleanup } from "@testing-library/react";
 import type { ComponentType } from "react";
 
 /**
+ * Creates a non-generic wrapper around a component to fix type issues
+ */
+function createTestWrapper<P extends object>(Component: ComponentType<P>, props: P): React.ReactElement {
+  return React.createElement(Component, props);
+}
+
+/**
  * Options for component benchmark tests
  */
-export interface ComponentBenchmarkOptions<P = Record<string, unknown>> {
+export interface ComponentBenchmarkOptions<P extends object = Record<string, unknown>> {
   /** Component to benchmark */
   component: ComponentType<P>;
   /** Component display name for test output */
@@ -23,7 +30,7 @@ export interface ComponentBenchmarkOptions<P = Record<string, unknown>> {
  * Creates a standard benchmark test suite for a React component
  * @param options Benchmark options
  */
-export function createComponentBenchmark<P = Record<string, unknown>>(
+export function createComponentBenchmark<P extends object = Record<string, unknown>>(
   options: ComponentBenchmarkOptions<P>
 ): void {
   const {
@@ -36,20 +43,25 @@ export function createComponentBenchmark<P = Record<string, unknown>>(
 
   describe(`${name} Benchmark`, () => {
     bench(`${name} - initial render`, () => {
-      const { unmount } = render(<Component {...initialProps} />);
+      // Create wrapper to avoid generic type issues
+      const wrapper = createTestWrapper(Component, initialProps);
+      const { unmount } = render(wrapper);
       cleanup();
       unmount();
     });
 
     bench(`${name} - render update`, () => {
-      const { rerender, unmount } = render(<Component {...initialProps} />);
-      rerender(<Component {...updateProps} />);
+      const initialWrapper = createTestWrapper(Component, initialProps);
+      const { rerender, unmount } = render(initialWrapper);
+      const updateWrapper = createTestWrapper(Component, updateProps);
+      rerender(updateWrapper);
       cleanup();
       unmount();
     });
 
     bench(`${name} - render -> unmount cycle`, () => {
-      const { unmount } = render(<Component {...initialProps} />);
+      const wrapper = createTestWrapper(Component, initialProps);
+      const { unmount } = render(wrapper);
       unmount();
       cleanup();
     });
@@ -62,7 +74,7 @@ export function createComponentBenchmark<P = Record<string, unknown>>(
  * Creates a benchmark test that compares multiple component variants
  * @param options Benchmark configuration for each variant
  */
-export function createComponentComparisonBenchmark<P = Record<string, unknown>>(
+export function createComponentComparisonBenchmark<P extends object = Record<string, unknown>>(
   baseComponent: ComponentType<P>,
   variants: Record<string, ComponentType<P>>,
   props: P = {} as P
@@ -72,7 +84,8 @@ export function createComponentComparisonBenchmark<P = Record<string, unknown>>(
   describe(`${baseName} Variants Comparison`, () => {
     // Benchmark base component
     bench(`${baseName} (base)`, () => {
-      const { unmount } = render(React.createElement(baseComponent, props));
+      const wrapper = createTestWrapper(baseComponent, props);
+      const { unmount } = render(wrapper);
       cleanup();
       unmount();
     });
@@ -80,7 +93,8 @@ export function createComponentComparisonBenchmark<P = Record<string, unknown>>(
     // Benchmark each variant
     for (const [variantName, VariantComponent] of Object.entries(variants)) {
       bench(`${variantName}`, () => {
-        const { unmount } = render(React.createElement(VariantComponent, props));
+        const wrapper = createTestWrapper(VariantComponent, props);
+        const { unmount } = render(wrapper);
         cleanup();
         unmount();
       });
@@ -93,7 +107,7 @@ export function createComponentComparisonBenchmark<P = Record<string, unknown>>(
  * with increasing complexity (e.g., more items in a list)
  * @param options Benchmark configuration
  */
-export function createScalingBenchmark<P extends { items: any[] }>(
+export function createScalingBenchmark<T, P extends { items: Array<T> } & object>(
   Component: ComponentType<P>,
   baseProps: Omit<P, "items">,
   itemCounts: number[] = [10, 100, 1000]
@@ -114,7 +128,8 @@ export function createScalingBenchmark<P extends { items: any[] }>(
           items,
         } as P;
         
-        const { unmount } = render(React.createElement(Component, props));
+        const wrapper = createTestWrapper(Component, props);
+        const { unmount } = render(wrapper);
         cleanup();
         unmount();
       });

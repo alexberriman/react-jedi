@@ -1,10 +1,9 @@
 import React from "react";
-import { describe, bench, expect } from "vitest";
+import { describe, bench } from "vitest";
 import { render, cleanup } from "@testing-library/react";
 import { Button } from "@/components/ui/button/button";
 import { 
-  createComponentBenchmark, 
-  createComponentComparisonBenchmark 
+  createComponentBenchmark
 } from "./component-benchmark";
 
 // Basic button benchmark
@@ -91,7 +90,7 @@ describe("Button asChild Performance", () => {
   });
 
   bench("Button - with asChild", () => {
-    const { unmount } = render(<Button asChild><a href="#">Link Button</a></Button>);
+    const { unmount } = render(<Button asChild><a href="https://example.com">Link Button</a></Button>);
     cleanup();
     unmount();
   });

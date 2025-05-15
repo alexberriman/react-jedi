@@ -154,8 +154,8 @@ This milestone delivers a working, shippable library that can render static layo
 - [x] Build component showcase page displaying all Milestone 1 components
 - [x] Create JSON schema example for each component
 - [x] Implement simple landing page example with hero, features, and CTA
-- [ ] Add documentation page showing usage examples with code snippets
-- [ ] Create GitHub README with screenshots and getting started instructions
+- [✅] Add documentation page showing usage examples with code snippets
+- [✅] Create GitHub README with screenshots and getting started instructions
 
 ---
 

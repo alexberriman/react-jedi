@@ -36,19 +36,78 @@ React Jedi is a next-generation **npm library** for building visually stunning i
 
 ## 🚀 Installation
 
-Installation instructions will be provided once the package is published.
+```bash
+npm install @banja/react-jedi
+```
 
 ## 🏄‍♂️ Getting Started
 
-Documentation and examples will be coming soon as development progresses.
+React Jedi makes it incredibly easy to build UI components with JSON. Here's a simple example:
+
+```jsx
+import { render } from "@banja/react-jedi";
+
+// JSON specification for a simple UI
+const spec = {
+  type: "container",
+  children: [
+    {
+      type: "heading",
+      level: "h1",
+      content: "Hello, React Jedi!"
+    },
+    {
+      type: "text",
+      text: "Building UIs with JSON specifications."
+    }
+  ]
+};
+
+// Render the UI
+function MyComponent() {
+  return render({ spec });
+}
+```
 
 ## 🌈 Specification Structure
 
-Detailed schema documentation will be provided as development progresses.
+Every component specification follows this general structure:
+
+```json
+{
+  "type": "componentType",    // Required: The type of component to render
+  
+  // Component-specific properties
+  "prop1": "value1",          // String properties
+  "prop2": 123,               // Number properties
+  "prop3": true,              // Boolean properties
+  "prop4": {                  // Object properties
+    "nestedProp": "value"
+  },
+  "prop5": ["item1", "item2"], // Array properties
+  
+  // Children (for container components)
+  "children": [               // Array of child component specifications
+    {
+      "type": "childType",
+      // Child component properties...
+    }
+  ]
+}
+```
 
 ## 📚 Documentation
 
-Documentation website coming soon.
+For comprehensive documentation on components, schemas, and usage examples, visit our [Documentation Page](https://react-jedi.dev/documentation).
+
+The documentation covers:
+- Component API reference
+- Layout components
+- Typography components
+- UI components
+- Form components
+- Code snippets for all components
+- Best practices and examples
 
 ## 🔧 TypeScript Support
 

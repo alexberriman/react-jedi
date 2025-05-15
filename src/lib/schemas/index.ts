@@ -6,4 +6,6 @@
 
 export * from "./base-schema";
 export * from "./grid-schema";
+export * from "./theme-schema";
+export * from "./theme-validation";
 export { headingSchema } from "../../components/ui/heading/heading.schema";

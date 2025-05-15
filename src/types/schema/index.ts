@@ -42,6 +42,18 @@ export {
 } from "./specification";
 
 export {
+  ThemeMode,
+  ThemePreset,
+  ThemeVariant,
+  ColorModeSettings,
+  ThemeColorModePreset,
+  ThemeExtension,
+  ThemeToken,
+  ThemeGeneratorConfig,
+  EnhancedThemeSpecification,
+} from "./theme";
+
+export {
   BoxSpec,
   ContainerSpec,
   GridSpec,

@@ -5,6 +5,18 @@
  * All component specifications extend this base interface.
  */
 
+// Forward declaration for circular dependency
+export interface ComponentSpec extends BaseComponentSpec {
+  // This extends BaseComponentSpec and may be further extended in other files
+  // The empty interface is intentional to support the component type system
+  _brand?: never; // Brand property to make the type distinct
+}
+
+/**
+ * Type for component children that allows a string, a single component, or multiple components.
+ */
+export type ComponentChildren = string | ComponentSpec | ComponentSpec[];
+
 /**
  * Base component specification that all components extend.
  */
@@ -23,7 +35,7 @@ export interface BaseComponentSpec {
   /**
    * Optional children components or content.
    */
-  children?: ComponentSpec[] | string;
+  children?: ComponentChildren;
 
   /**
    * Optional event handlers for the component.
@@ -47,10 +59,9 @@ export interface BaseComponentSpec {
 }
 
 /**
- * Generic component specification type.
- * Can be any component that extends the base specification.
+ * The ComponentSpec interface is defined above as a forward declaration.
+ * The full union type that includes all component types is defined in components.ts.
  */
-export type ComponentSpec = BaseComponentSpec;
 
 /**
  * Event handler definition.

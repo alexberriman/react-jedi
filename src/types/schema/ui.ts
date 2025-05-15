@@ -5,8 +5,8 @@
  * These components provide interactive elements and visual feedback for users.
  */
 
-import type { BaseComponentSpec } from "./base";
-import type { ComponentChildren } from "./typography";
+import type { BaseComponentSpec, ComponentChildren } from "./base";
+import type { InputSpec } from "./input";
 
 /**
  * Button Component Specification
@@ -553,7 +553,8 @@ export type UIComponentSpec =
   | AvatarSpec
   | ImageSpec
   | SkeletonSpec
-  | LabelSpec;
+  | LabelSpec
+  | InputSpec;
 
 /**
  * Type alias for any component specification.

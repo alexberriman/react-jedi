@@ -5,8 +5,7 @@
  * These components provide the foundation for building complex layouts.
  */
 
-import type { BaseComponentSpec } from "./base";
-import type { ComponentChildren } from "./typography";
+import type { BaseComponentSpec, ComponentChildren } from "./base";
 
 /**
  * Box Component Specification

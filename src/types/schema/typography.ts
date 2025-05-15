@@ -5,12 +5,7 @@
  * These components are used for displaying text content with various styles and formatting.
  */
 
-import type { BaseComponentSpec } from "./base";
-
-/**
- * Type for component children that can be string, a single component, or multiple components.
- */
-export type ComponentChildren = string | ComponentSpec | ComponentSpec[];
+import type { BaseComponentSpec, ComponentChildren } from "./base";
 
 /**
  * Text Component Specification

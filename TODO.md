@@ -332,6 +332,11 @@ This milestone adds interactivity to the library, turning static layouts into dy
   - [x] Create Storybook documentation with examples
   - [x] Implement specification schema for Label
 
+- [x] Input Component
+  - [x] Add from shadcn (`npx shadcn@latest add input`)
+  - [x] Create Storybook documentation with examples
+  - [x] Implement specification schema for Input
+
 ### 3.4 Interactive UI Components
 
 - [ ] Collapsible Component

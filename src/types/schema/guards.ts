@@ -35,6 +35,8 @@ import type {
   LabelSpec
 } from "./ui";
 
+import type { InputSpec } from "./input";
+
 /**
  * General type guard to check if a component is of a specific type.
  * 
@@ -165,6 +167,13 @@ export function isSkeleton(spec: ComponentSpec): spec is SkeletonSpec {
  */
 export function isLabel(spec: ComponentSpec): spec is LabelSpec {
   return isComponentType<LabelSpec>(spec, "Label");
+}
+
+/**
+ * Type guard for Input component.
+ */
+export function isInput(spec: ComponentSpec): spec is InputSpec {
+  return isComponentType<InputSpec>(spec, "Input");
 }
 
 /**

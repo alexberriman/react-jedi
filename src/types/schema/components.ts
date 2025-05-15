@@ -149,4 +149,5 @@ export interface ComponentTypes {
   Image: import("./ui").ImageSpec;
   Skeleton: import("./ui").SkeletonSpec;
   Label: import("./ui").LabelSpec;
+  Input: import("./input").InputSpec;
 }

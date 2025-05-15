@@ -80,10 +80,10 @@ This milestone delivers a working, shippable library that can render static layo
   - [x] Create Storybook documentation with examples
   - [x] Implement specification schema for AspectRatio
 
-- [ ] Separator/Divider Component (horizontal or vertical dividing line)
-  - [ ] Add from shadcn (`npx shadcn@latest add separator`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Separator
+- [x] Separator/Divider Component (horizontal or vertical dividing line)
+  - [x] Add from shadcn (`npx shadcn@latest add separator`)
+  - [x] Create Storybook documentation with examples
+  - [x] Implement specification schema for Separator
 
 ### 1.5 Essential Typography Components
 

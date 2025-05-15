@@ -6,3 +6,4 @@
 
 export type { BaseComponentSpec } from "./base";
 export type { AspectRatioSpec } from "./aspect-ratio";
+export type { SeparatorSpec } from "./separator";

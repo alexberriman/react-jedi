@@ -10,13 +10,12 @@ import type { ThemeTypography } from "@/types/schema/specification";
 
 // Import necessary functions from individual modules
 import { fontFamiliesToVariables, defaultFontStacks } from "./font-family";
-import { fontSizesToVariables, generateTypeScale, generateFluidTypeScale, ScaleRatio } from "./type-scale";
+import { fontSizesToVariables, generateTypeScale, ScaleRatio } from "./type-scale";
 import { lineHeightsToVariables, letterSpacingsToVariables, DEFAULT_LINE_HEIGHTS, DEFAULT_LETTER_SPACINGS } from "./spacing";
 import { 
   generateBreakpointFluidTypeScale, 
   generateOptimizedFluidTypeScale, 
-  type FluidTypographyConfig, 
-  DEFAULT_FLUID_TYPOGRAPHY_CONFIG 
+  type FluidTypographyConfig 
 } from "./fluid-typography";
 
 // Export all typography system components
@@ -89,27 +88,28 @@ export function generateTypographySystem(config: {
     fluidConfig = {},
   } = config;
   
-  // If fluid typography is enabled, use the new advanced fluid typography system
+  // Determine font sizes based on fluid typography settings
   let fontSizes;
+  
   if (fluid) {
-    // If breakpoints are specified, use the breakpoint-based fluid type scale
-    if (fluidConfig.breakpoints && fluidConfig.breakpoints.length >= 2) {
-      fontSizes = generateBreakpointFluidTypeScale({
-        ...fluidConfig,
-        defaultBaseFontSize: baseFontSize,
-        defaultScaleRatio: scaleRatio,
-      });
-    } else {
-      // For backwards compatibility, use the optimized version of original fluid type scale
-      fontSizes = generateOptimizedFluidTypeScale({
-        ...fluidConfig,
-        defaultBaseFontSize: baseFontSize,
-        defaultScaleRatio: scaleRatio,
-      });
-    }
+    // For fluid typography, determine which implementation to use based on valid breakpoints
+    const hasValidBreakpoints = fluidConfig.breakpoints && fluidConfig.breakpoints.length >= 2;
+    
+    // Use appropriate fluid typography generation function
+    fontSizes = hasValidBreakpoints
+      ? generateBreakpointFluidTypeScale({
+          ...fluidConfig,
+          defaultBaseFontSize: baseFontSize,
+          defaultScaleRatio: scaleRatio,
+        })
+      : generateOptimizedFluidTypeScale({
+          ...fluidConfig,
+          defaultBaseFontSize: baseFontSize,
+          defaultScaleRatio: scaleRatio,
+        });
   } else {
-    // Use static type scale
-    fontSizes = generateTypeScale({ 
+    // Use static type scale for non-fluid typography
+    fontSizes = generateTypeScale({
       baseFontSize: baseFontSize,
       scaleRatio: scaleRatio,
     });

@@ -40,7 +40,9 @@ export function useFluidTypography(): {
   disableFluidTypography: () => void;
 } {
   const { theme, updateTheme } = useTheme();
-  const typography = theme.typography || {};
+  
+  // Wrap typography value in useMemo to prevent dependency changes on every render
+  const typography = useMemo(() => theme.typography || {}, [theme.typography]);
   
   // Check if fluid typography is currently enabled
   const isFluid = useMemo(() => isFluidTypography(typography), [typography]);

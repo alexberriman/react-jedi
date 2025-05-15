@@ -6,7 +6,7 @@
  */
 
 import type { ThemeTypography } from "@/types/schema/specification";
-import { type ScaleRatio, SCALE_RATIOS, generateTypeScale } from "./type-scale";
+import { type ScaleRatio, SCALE_RATIOS } from "./type-scale";
 
 /**
  * Breakpoint configuration
@@ -218,7 +218,11 @@ export function generateBreakpointFluidTypeScale(
   
   // Get the smallest and largest breakpoints
   const smallestBreakpoint = sortedBreakpoints[0];
-  const largestBreakpoint = sortedBreakpoints[sortedBreakpoints.length - 1];
+  const largestBreakpoint = sortedBreakpoints.at(-1);
+  
+  if (!largestBreakpoint) {
+    throw new Error("Unable to determine largest breakpoint");
+  }
   
   // Determine the minimum and maximum viewport widths
   const minViewportWidth = smallestBreakpoint.minWidth;
@@ -231,19 +235,39 @@ export function generateBreakpointFluidTypeScale(
   const minBaseFontSize = smallestBreakpoint.baseFontSize ?? defaultBaseFontSize;
   const maxBaseFontSize = largestBreakpoint.baseFontSize ?? defaultBaseFontSize;
   
-  const minScaleRatio = typeof smallestBreakpoint.scaleRatio === "string"
-    ? SCALE_RATIOS[smallestBreakpoint.scaleRatio as ScaleRatio]
-    : smallestBreakpoint.scaleRatio ?? 
-      (typeof defaultScaleRatio === "string" 
-        ? SCALE_RATIOS[defaultScaleRatio as ScaleRatio] 
-        : defaultScaleRatio);
+  // Determine the scale ratio for the smallest breakpoint
+  let minScaleRatio: number;
   
-  const maxScaleRatio = typeof largestBreakpoint.scaleRatio === "string"
-    ? SCALE_RATIOS[largestBreakpoint.scaleRatio as ScaleRatio]
-    : largestBreakpoint.scaleRatio ?? 
-      (typeof defaultScaleRatio === "string" 
-        ? SCALE_RATIOS[defaultScaleRatio as ScaleRatio] 
-        : defaultScaleRatio);
+  if (typeof smallestBreakpoint.scaleRatio === "string") {
+    // If the smallest breakpoint has a string scale ratio, use the corresponding value
+    minScaleRatio = SCALE_RATIOS[smallestBreakpoint.scaleRatio as ScaleRatio];
+  } else if (smallestBreakpoint.scaleRatio !== undefined) {
+    // If it has a numeric scale ratio, use that
+    minScaleRatio = smallestBreakpoint.scaleRatio;
+  } else if (typeof defaultScaleRatio === "string") {
+    // Fall back to default scale ratio - string case
+    minScaleRatio = SCALE_RATIOS[defaultScaleRatio as ScaleRatio];
+  } else {
+    // Fall back to default scale ratio - number case
+    minScaleRatio = defaultScaleRatio as number;
+  }
+  
+  // Determine the scale ratio for the largest breakpoint (we've verified it exists above)
+  let maxScaleRatio: number;
+  
+  if (typeof largestBreakpoint.scaleRatio === "string") {
+    // If the largest breakpoint has a string scale ratio, use the corresponding value
+    maxScaleRatio = SCALE_RATIOS[largestBreakpoint.scaleRatio as ScaleRatio];
+  } else if (largestBreakpoint.scaleRatio !== undefined) {
+    // If it has a numeric scale ratio, use that
+    maxScaleRatio = largestBreakpoint.scaleRatio;
+  } else if (typeof defaultScaleRatio === "string") {
+    // Fall back to default scale ratio - string case
+    maxScaleRatio = SCALE_RATIOS[defaultScaleRatio as ScaleRatio];
+  } else {
+    // Fall back to default scale ratio - number case
+    maxScaleRatio = defaultScaleRatio as number;
+  }
   
   // Generate steps below the base size
   for (let i = stepsDown; i > 0; i--) {
@@ -326,7 +350,13 @@ export function generateOptimizedFluidTypeScale(
   // Use the smallest and largest breakpoints to define min/max viewport
   const breakpoints = mergedConfig.breakpoints || DEFAULT_BREAKPOINTS;
   const minViewport = breakpoints[0].minWidth;
-  const maxViewport = breakpoints[breakpoints.length - 1].minWidth;
+  
+  // Safely get the largest breakpoint
+  const lastBreakpoint = breakpoints.at(-1);
+  if (!lastBreakpoint) {
+    throw new Error("Unable to determine largest breakpoint");
+  }
+  const maxViewport = lastBreakpoint.minWidth;
   
   // Base font sizes
   const minBaseFontSize = defaultBaseFontSize! * minSizeMultiplier!;

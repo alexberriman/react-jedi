@@ -57,6 +57,21 @@ export {
   type ColorPaletteConfig
 } from "./color-system";
 
+// Spacing system
+export {
+  spacing,
+  DEFAULT_SPACING_SCALE,
+  RELATIVE_SPACING,
+  DEFAULT_BREAKPOINTS,
+  DEFAULT_CONTAINER_PRESETS,
+  ContainerPresetType,
+  type SpacingScale,
+  type SpacingKey,
+  type RelativeSpacingKey,
+  type ResponsiveSpacingObject,
+  type ContainerSpacing
+} from "./spacing";
+
 // Theme presets
 export {
   defaultTheme,

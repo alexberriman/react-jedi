@@ -7,7 +7,8 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "../theme/theme-provider";
 import { useFluidTypography, useFontSize } from "../theme/typography/hooks";
-import type { DEFAULT_BREAKPOINTS } from "../theme/typography/fluid-typography";
+// Import type Breakpoint which is used in the component's config
+import type { Breakpoint } from "../theme/typography/fluid-typography";
 
 /**
  * Font Size Showcase Component
@@ -61,11 +62,11 @@ const FontSizeShowcase: React.FC = () => {
           disabled={!isFluid}
           style={{
             padding: "8px 16px",
-            backgroundColor: !isFluid ? "#ccc" : "#ef4444",
+            backgroundColor: isFluid ? "#ef4444" : "#ccc",
             color: "white",
             border: "none",
             borderRadius: "4px",
-            cursor: !isFluid ? "default" : "pointer"
+            cursor: isFluid ? "pointer" : "default"
           }}
         >
           Disable Fluid Typography
@@ -147,7 +148,7 @@ const AdvancedFluidTypographyDemo: React.FC = () => {
       fluidTypographyConfig: {
         minSizeMultiplier: 0.6,
         maxSizeMultiplier: 1.5,
-        defaultScaleRatio: "goldenRatio"
+        defaultScaleRatio: "goldenRatio" as const
       }
     }
   };
@@ -249,13 +250,13 @@ const BreakpointDemo: React.FC = () => {
         theme={baseTheme}
         enableFluidTypography={true}
         fluidTypographyConfig={{
-          // Use the DEFAULT_BREAKPOINTS type as a reference
+          // Define custom breakpoints with explicit typing
           breakpoints: [
             { name: "mobile", minWidth: 320, baseFontSize: 14, scaleRatio: "minorThird" },
             { name: "tablet", minWidth: 768, baseFontSize: 16, scaleRatio: "perfectFourth" },
             { name: "desktop", minWidth: 1024, baseFontSize: 18, scaleRatio: "augmentedFourth" },
             { name: "widescreen", minWidth: 1536, baseFontSize: 20, scaleRatio: "perfectFifth" }
-          ]
+          ] as Breakpoint[]
         }}
       >
         <FontSizeShowcase />

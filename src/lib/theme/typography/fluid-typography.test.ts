@@ -117,7 +117,7 @@ describe("Fluid Typography Utilities", () => {
         { name: "lg", minWidth: 1200, baseFontSize: 18 }
       ],
       minSizeMultiplier: 0.1,
-      maxSizeMultiplier: 10.0
+      maxSizeMultiplier: 10
     });
     
     // Check that we got valid output

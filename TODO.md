@@ -144,7 +144,7 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### 1.8 Performance and Testing Setup
 
-- [ ] Setup initial performance benchmarking tools
+- [x] Setup initial performance benchmarking tools
 - [ ] Add initial test suite for schema validation
 - [ ] Create specification parser tests
 

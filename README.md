@@ -58,6 +58,30 @@ React Jedi is being built with TypeScript to provide full type safety.
 
 React Jedi will include a comprehensive set of beautiful components based on ShadCN and custom implementations.
 
+## ⚡ Performance Benchmarking
+
+React Jedi includes a built-in performance benchmarking system to ensure components meet strict performance standards:
+
+```bash
+# Run all component benchmarks
+npm run benchmark
+
+# Run benchmarks with UI for interactive analysis
+npm run benchmark:ui
+
+# Generate benchmark report
+npm run benchmark:report
+```
+
+Performance benchmarks help maintain a fast user experience by:
+
+- Measuring render, update, and unmount times for all components
+- Analyzing memory usage and operations per second
+- Detecting performance regressions
+- Enforcing performance budgets for components
+
+See the [benchmark documentation](src/benchmark/README.md) for more details on creating and running benchmarks.
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [contributing guide](CONTRIBUTING.md) for details.

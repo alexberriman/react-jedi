@@ -197,7 +197,7 @@ export function isString(value: unknown): value is string {
  * Type guard for checking if a value is a number.
  */
 export function isNumber(value: unknown): value is number {
-  return typeof value === "number" && !isNaN(value);
+  return typeof value === "number" && !Number.isNaN(value);
 }
 
 /**
@@ -210,7 +210,7 @@ export function isBoolean(value: unknown): value is boolean {
 /**
  * Type guard for checking if a value is a function.
  */
-export function isFunction(value: unknown): value is Function {
+export function isFunction(value: unknown): value is (...args: unknown[]) => unknown {
   return typeof value === "function";
 }
 
@@ -235,7 +235,7 @@ export function isArrayOf<T>(
   value: unknown,
   typeGuard: (item: unknown) => item is T
 ): value is T[] {
-  return Array.isArray(value) && value.every(typeGuard);
+  return Array.isArray(value) && value.every((item) => typeGuard(item));
 }
 
 /**
@@ -246,7 +246,7 @@ export function prop<T, K extends keyof T>(
   key: K,
   defaultValue: T[K]
 ): T[K] {
-  return obj && key in obj ? obj[key] : defaultValue;
+  return obj ? obj[key] ?? defaultValue : defaultValue;
 }
 
 /**
@@ -307,7 +307,7 @@ export type TypedRecord<K extends string | number | symbol, T> = Record<K, T>;
  */
 export type DeepReadonly<T> = T extends (infer R)[]
   ? ReadonlyArray<DeepReadonly<R>>
-  : T extends Function
+  : T extends (...args: unknown[]) => unknown
   ? T
   : T extends object
   ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
@@ -318,7 +318,7 @@ export type DeepReadonly<T> = T extends (infer R)[]
  */
 export type DeepPartial<T> = T extends (infer R)[]
   ? DeepPartial<R>[]
-  : T extends Function
+  : T extends (...args: unknown[]) => unknown
   ? T
   : T extends object
   ? { [K in keyof T]?: DeepPartial<T[K]> }
@@ -329,7 +329,7 @@ export type DeepPartial<T> = T extends (infer R)[]
  */
 export type Discriminated<
   TType extends string,
-  TBase = {}
+  TBase = object
 > = TBase & {
   type: TType;
 };
@@ -354,7 +354,7 @@ export function ensureArray<T>(valueOrArray: T | T[]): T[] {
 /**
  * A utility type for component props with a base type and optional extensions.
  */
-export type ComponentPropsWithBase<Base, Extensions = {}> = Base & Extensions;
+export type ComponentPropsWithBase<Base, Extensions = object> = Base & Extensions;
 
 /**
  * Creates a type-safe mapping function that preserves the array type.
@@ -363,7 +363,7 @@ export function mapArray<T, U>(
   array: T[],
   fn: (item: T, index: number) => U
 ): U[] {
-  return array.map(fn);
+  return array.map((item, index) => fn(item, index));
 }
 
 /**
@@ -378,19 +378,26 @@ export function getPath<T extends object, K extends keyof T>(
   
   if (typeof path === "string" && path.includes(".")) {
     const keys = path.split(".");
-    let current: any = obj;
+    let current: unknown = obj;
     
     for (const key of keys) {
       if (current === null || current === undefined) {
         return defaultValue;
       }
-      current = current[key];
+      
+      if (typeof current === "object") {
+        current = (current as Record<string, unknown>)[key];
+      } else {
+        return defaultValue;
+      }
     }
     
-    return current !== undefined ? current : defaultValue;
+    return (current === undefined ? defaultValue : current) as T[K];
   }
   
-  return (obj as any)[path] !== undefined ? (obj as any)[path] : defaultValue;
+  return (obj as Record<string, unknown>)[path as string] === undefined 
+    ? defaultValue 
+    : (obj as Record<string, unknown>)[path as string] as T[K];
 }
 
 /**

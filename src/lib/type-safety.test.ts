@@ -56,10 +56,15 @@ describe("Result type", () => {
     expect(mappedErr.isErr).toBe(true);
     expect(() => mappedErr.unwrap()).toThrow("Mapped: test error");
     
-    const chain = result.andThen(x => ok(x.toString()));
+    // Fix: Remove the implicit 'never' type assertion by providing a concrete type
+    const chain = result.andThen(x => ok(String(x)));
     expect(chain.isErr).toBe(true);
   });
 });
+
+// Type guard for positive numbers
+const isPositiveNumber = (value: unknown): boolean => 
+  typeof value === "number" && value > 0;
 
 describe("Type guards", () => {
   it("should check if a value is not null or undefined", () => {
@@ -70,9 +75,6 @@ describe("Type guards", () => {
   });
   
   it("should check if a value is of a specific type", () => {
-    const isPositiveNumber = (value: unknown): boolean => 
-      typeof value === "number" && value > 0;
-    
     expect(isOfType<number>(42, isPositiveNumber)).toBe(true);
     expect(isOfType<number>(-1, isPositiveNumber)).toBe(false);
     expect(isOfType<number>("42", isPositiveNumber)).toBe(false);
@@ -98,7 +100,7 @@ describe("Type guards", () => {
     
     expect(isNumber(42)).toBe(true);
     expect(isNumber("42")).toBe(false);
-    expect(isNumber(NaN)).toBe(false);
+    expect(isNumber(Number.NaN)).toBe(false);
     
     expect(isBoolean(true)).toBe(true);
     expect(isBoolean(false)).toBe(true);
@@ -157,9 +159,13 @@ describe("Utility functions", () => {
     
     expect(getPath(obj, "a.b.c")).toBe(42);
     expect(getPath(obj, "a.b.d")).toBeUndefined();
-    expect(getPath(obj, "d.e" as any)).toBeUndefined();
-    expect(getPath(obj, "x.y.z" as any, "default")).toBe("default");
-    expect(getPath(obj, "a" as any)).toEqual({ b: { c: 42 } });
+    expect(getPath(obj, "d.e" as keyof typeof obj & string)).toBeUndefined();
+    
+    // Fix: Use a properly typed object for the default value
+    const defaultObj = { b: { c: 99 } };
+    expect(getPath(obj, "x.y.z" as keyof typeof obj & string, defaultObj)).toEqual(defaultObj);
+    
+    expect(getPath(obj, "a" as keyof typeof obj)).toEqual({ b: { c: 42 } });
   });
   
   it("should provide type-safe versions of Object methods", () => {
@@ -188,7 +194,7 @@ describe("Utility functions", () => {
     const parseFailed = safeJsonParse(invalidJson);
     expect(parseFailed.isErr).toBe(true);
     
-    const circular: any = {};
+    const circular: Record<string, unknown> = {};
     circular.self = circular;
     const stringifyFailed = safeJsonStringify(circular);
     expect(stringifyFailed.isErr).toBe(true);

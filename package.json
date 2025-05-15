@@ -25,7 +25,10 @@
     "check": "npm run lint && npm run typecheck && npm run test",
     "lint-staged": "lint-staged",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "benchmark": "vitest bench -c benchmark.config.ts",
+    "benchmark:ui": "vitest bench -c benchmark.config.ts --ui",
+    "benchmark:report": "vitest bench -c benchmark.config.ts --reporter=json --outputFile=./benchmark-results.json"
   },
   "repository": {
     "type": "git",

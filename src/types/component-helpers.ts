@@ -65,7 +65,7 @@ export type PolymorphicComponentWithRef<
 /**
  * A utility type for component that are lazily loaded.
  */
-export type LazyComponent<T extends ComponentType<any>> = React.LazyExoticComponent<T>;
+export type LazyComponent<T extends ComponentType<unknown>> = React.LazyExoticComponent<T>;
 
 /**
  * A utility type for responsive props that can take different values at different breakpoints.
@@ -84,7 +84,7 @@ export type ResponsiveValue<T> =
 /**
  * A utility type for component variants.
  */
-export type VariantProps<Component extends React.ComponentType<any>> = Omit<
+export type VariantProps<Component extends React.ComponentType<unknown>> = Omit<
   React.ComponentPropsWithoutRef<Component>,
   "as" | "children" | "className" | "style"
 >;
@@ -92,19 +92,19 @@ export type VariantProps<Component extends React.ComponentType<any>> = Omit<
 /**
  * A utility type for component that renders children.
  */
-export type WithChildren<P = {}> = P & { children?: ReactNode };
+export type WithChildren<P = object> = P & { children?: ReactNode };
 
 /**
  * A utility type for component that renders a component specification.
  */
-export type WithSpec<P = {}> = P & { spec: ComponentSpec };
+export type WithSpec<P = object> = P & { spec: ComponentSpec };
 
 /**
  * A utility type for component factories that create components from specifications.
  */
 export type ComponentFactory<
   TInput extends ComponentSpec,
-  TOutput extends ComponentType<any>
+  TOutput extends ComponentType<unknown>
 > = (spec: TInput) => TOutput;
 
 /**
@@ -115,7 +115,7 @@ export type ComponentRenderer<P extends ComponentProps = ComponentProps> = Compo
 /**
  * A utility type for component that can be conditionally rendered.
  */
-export type ConditionalComponent<P = {}> = P & {
+export type ConditionalComponent<P = object> = P & {
   /**
    * A condition that determines whether the component should be rendered.
    * If the condition is false, the component will not be rendered.
@@ -126,7 +126,7 @@ export type ConditionalComponent<P = {}> = P & {
 /**
  * A utility type for component with a server-driven theme.
  */
-export type WithTheme<P = {}> = P & {
+export type WithTheme<P = object> = P & {
   /**
    * The theme to apply to the component.
    */
@@ -136,7 +136,7 @@ export type WithTheme<P = {}> = P & {
 /**
  * A utility type for component with style overrides.
  */
-export type WithStyleOverrides<P = {}, StyleKeys extends string = string> = P & {
+export type WithStyleOverrides<P = object, StyleKeys extends string = string> = P & {
   /**
    * Style overrides for specific parts of the component.
    */
@@ -147,7 +147,7 @@ export type WithStyleOverrides<P = {}, StyleKeys extends string = string> = P & 
  * A utility type for component with style variants.
  */
 export type WithVariants<
-  P = {},
+  P = object,
   Variant extends string = string,
   Size extends string = string
 > = P & {
@@ -176,7 +176,7 @@ export type ChildrenType<P> = P extends { children: infer C } ? C : never;
  * A utility type for extracting the type from a Union of components.
  */
 export type ExtractComponentProps<
-  Components extends Record<string, React.ComponentType<any>>
+  Components extends Record<string, React.ComponentType<unknown>>
 > = {
   [K in keyof Components]: ExtractProps<Components[K]>;
 };
@@ -184,14 +184,14 @@ export type ExtractComponentProps<
 /**
  * A utility type for defining a component with a specific type and base props.
  */
-export type ComponentWithType<Type extends string, BaseProps = {}> = BaseProps & {
+export type ComponentWithType<Type extends string, BaseProps = object> = BaseProps & {
   type: Type;
 };
 
 /**
  * A utility type for a component that can be disabled.
  */
-export type Disableable<P = {}> = P & {
+export type Disableable<P = object> = P & {
   /**
    * Whether the component is disabled.
    */
@@ -201,7 +201,7 @@ export type Disableable<P = {}> = P & {
 /**
  * A utility type for a component with ARIA attributes.
  */
-export type WithAriaAttributes<P = {}> = P & {
+export type WithAriaAttributes<P = object> = P & {
   /**
    * ARIA attributes for accessibility.
    */
@@ -211,7 +211,7 @@ export type WithAriaAttributes<P = {}> = P & {
 /**
  * A utility type for a component with data attributes.
  */
-export type WithDataAttributes<P = {}> = P & {
+export type WithDataAttributes<P = object> = P & {
   /**
    * Data attributes for the component.
    */
@@ -222,7 +222,7 @@ export type WithDataAttributes<P = {}> = P & {
  * A utility type for server-driven components that can render either
  * a specification or children.
  */
-export type ServerDrivenComponent<P = {}> = P & {
+export type ServerDrivenComponent<P = object> = P & {
   /**
    * The specification to render.
    */
@@ -237,7 +237,7 @@ export type ServerDrivenComponent<P = {}> = P & {
 /**
  * A utility type for a component with a callback.
  */
-export type WithCallback<P = {}, T = void> = P & {
+export type WithCallback<P = object, T = void> = P & {
   /**
    * A callback that is called when the component is triggered.
    */
@@ -247,17 +247,17 @@ export type WithCallback<P = {}, T = void> = P & {
 /**
  * A utility type for a component with event handlers.
  */
-export type WithEvents<P = {}> = P & {
+export type WithEvents<P = object> = P & {
   /**
    * Event handlers for the component.
    */
-  events?: Record<string, (...args: any[]) => void>;
+  events?: Record<string, (...args: unknown[]) => void>;
 };
 
 /**
  * A utility type for a component with test identifiers.
  */
-export type WithTestProps<P = {}> = P & {
+export type WithTestProps<P = object> = P & {
   /**
    * A data-testid attribute for testing.
    */
@@ -269,7 +269,7 @@ export type WithTestProps<P = {}> = P & {
  */
 export type DeepReadonly<T> = T extends (infer R)[]
   ? ReadonlyArray<DeepReadonly<R>>
-  : T extends Function
+  : T extends (...args: unknown[]) => unknown
   ? T
   : T extends object
   ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
@@ -280,7 +280,7 @@ export type DeepReadonly<T> = T extends (infer R)[]
  */
 export type DeepPartial<T> = T extends (infer R)[]
   ? DeepPartial<R>[]
-  : T extends Function
+  : T extends (...args: unknown[]) => unknown
   ? T
   : T extends object
   ? { [K in keyof T]?: DeepPartial<T[K]> }
@@ -396,7 +396,7 @@ export type TailwindLineHeight =
  * A utility type for creating custom variants for a component.
  */
 export type CreateVariants<
-  Component extends React.ComponentType<any>,
+  Component extends React.ComponentType<unknown>,
   Variants extends string,
   VariantProps
 > = React.ForwardRefExoticComponent<
@@ -409,7 +409,7 @@ export type CreateVariants<
  */
 export type ComposedComponent<
   BaseProps,
-  SubComponents extends Record<string, React.ComponentType<any>>
+  SubComponents extends Record<string, React.ComponentType<unknown>>
 > = React.ForwardRefExoticComponent<
   React.PropsWithoutRef<BaseProps> & React.RefAttributes<HTMLElement>
 > & {

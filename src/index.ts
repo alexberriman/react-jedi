@@ -104,8 +104,25 @@ export function createJedi(options: JediOptions = {}): Jedi {
 // Export all components through the barrel file
 export * from "./components/index";
 
-// Export utilities
-export * from "./lib/index";
+// Export utilities, but exclude types that would conflict with types/index exports
+export * from "./lib/utils";
+export * from "./lib/styles";
+export * from "./lib/validation";
+export * from "./lib/parser";
+export * from "./lib/render";
+export * from "./lib/component-resolver";
+export * from "./lib/component-tree";
+export * from "./lib/error-handling";
+// Export type-safety separately to avoid conflicts
+export {
+  Result, Ok, Err, ok, err,
+  isNotNullOrUndefined, isOfType, hasProperty, hasPropertyOfType,
+  isString, isNumber, isBoolean, isFunction, isObject, isArray, isArrayOf,
+  prop, tryExec, tryExecAsync, assert, assertNotNull,
+  TypedRecord, Discriminated, Awaited, ElementOf, 
+  ensureArray, ComponentPropsWithBase, mapArray, getPath, 
+  typedKeys, typedEntries, safeJsonParse, safeJsonStringify
+} from "./lib/type-safety";
 
 // Export UI components
 export * from "./components/ui/index";
@@ -113,8 +130,69 @@ export * from "./components/ui/index";
 // Export schemas
 export * from "./lib/schemas/index";
 
-// Export types
-export * from "./types/index";
+// Export types with explicit re-exports to avoid conflicts
+export * from "./types/components";
+export {
+  // Re-export from schema with explicit names to avoid conflicts
+  ComponentChildren,
+  EventHandler,
+  AccessibilityProps,
+  SkeletonSpec,
+  LabelSpec,
+  InputSpec,
+  UISpecification,
+  SpecificationMetadata,
+  ThemeSpecification,
+  ThemeColors,
+  ColorScale,
+  ThemeTypography,
+  AnimationPreset,
+  StateSpecification,
+  DataSourceSpecification,
+  RestDataSourceConfig,
+  GraphQLDataSourceConfig,
+  StaticDataSourceConfig,
+  WebSocketDataSourceConfig,
+  FunctionDataSourceConfig,
+  BoxSpec,
+  ContainerSpec,
+  GridSpec,
+  FlexSpec,
+  LayoutComponentSpec,
+  TextSpec,
+  HeadingSpec,
+  BlockQuoteSpec,
+  TypographyComponentSpec,
+  UIComponentSpec,
+  ComponentSpec,
+  ComponentType,
+  ComponentResolver,
+  ComponentProps,
+  RenderOptions,
+  ComponentTypes,
+  // Guards
+  isBox,
+  isContainer,
+  isGrid,
+  isFlex,
+  isAspectRatio,
+  isSeparator,
+  isText,
+  isHeading,
+  isBlockQuote,
+  isButton,
+  isCard,
+  isBadge,
+  isAvatar,
+  isImage,
+  isSkeleton,
+  isLabel,
+  isInput,
+  isComponentSpec,
+  isTextContent,
+  isComponentSpecArray,
+  isComponentType
+} from "./types/schema";
 
 // Export hooks if available
 // export * from "./hooks/index";

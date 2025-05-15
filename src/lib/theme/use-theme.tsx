@@ -8,6 +8,8 @@
 import type { ThemeSpecification } from "../../types/schema/specification";
 import type { ThemeMode } from "../../types/schema/theme";
 import { useThemeContext } from "./theme-context";
+import type { TokenCollection } from "./theme-tokens";
+import type { TokenResolver } from "./token-resolver";
 
 /**
  * UseTheme Hook Result Interface
@@ -51,9 +53,41 @@ export interface UseThemeResult {
   getCssVar: (path: string) => string;
   
   /**
+   * Get a CSS variable reference for a theme path
+   * e.g., cssVar("colors.primary.500") returns "var(--theme-colors-primary-500)"
+   */
+  cssVar: (path: string, defaultValue?: string) => string;
+  
+  /**
    * All CSS variables as a Record
    */
   cssVariables: Record<string, string>;
+  
+  /**
+   * Token collection organized by category
+   */
+  tokens?: TokenCollection;
+  
+  /**
+   * Token resolver for advanced token operations
+   */
+  tokenResolver?: TokenResolver;
+  
+  /**
+   * Resolves token references in values
+   * e.g., resolveReference("token(colors.primary.500)") returns the actual color value
+   */
+  resolveReference: <T>(value: unknown) => T;
+}
+
+/**
+ * Gets a CSS variable name for a theme path
+ * 
+ * @param path - Dot notation path to the value (e.g., "colors.primary.500")
+ * @returns CSS variable name (e.g., "--theme-colors-primary-500")
+ */
+function getCssVar(path: string): string {
+  return `--theme-${path.replaceAll(".", "-")}`;
 }
 
 /**
@@ -71,19 +105,42 @@ export function useTheme(): UseThemeResult {
    * @param defaultValue - Default value to return if the path doesn't exist
    * @returns The value at the specified path or the default value
    */
-  const getValue = <T>(path: string, defaultValue?: T): T | undefined => {
+  const getValue = function<T>(path: string, defaultValue?: T): T | undefined {
     const value = context.resolveToken(path);
     return (value === undefined ? defaultValue : value) as T | undefined;
   };
   
   /**
-   * Gets a CSS variable name for a theme path
+   * Gets a CSS variable reference for a theme path
    * 
-   * @param path - Dot notation path to the value (e.g., "colors.primary.500")
-   * @returns CSS variable name (e.g., "--theme-colors-primary-500")
+   * @param path - Dot notation path to the value
+   * @param defaultValue - Default value to use if the variable isn't defined
+   * @returns CSS variable reference (e.g., "var(--theme-colors-primary-500)")
    */
-  const getCssVar = (path: string): string => {
-    return `--theme-${path.replace(/\./g, "-")}`;
+  const cssVar = function(path: string, defaultValue?: string): string {
+    const varName = getCssVar(path);
+    return defaultValue ? `var(${varName}, ${defaultValue})` : `var(${varName})`;
+  };
+  
+  /**
+   * Resolves a token reference in a value
+   * 
+   * @param value - Value that might contain token references
+   * @returns Resolved value
+   */
+  const resolveReference = function<T>(value: unknown): T {
+    if (context.tokenResolver) {
+      return context.tokenResolver.resolveReference<T>(value);
+    }
+    
+    // Fallback implementation if tokenResolver isn't available
+    if (typeof value === "string" && value.startsWith("token(") && value.endsWith(")")) {
+      const path = value.slice(6, -1);
+      const resolved = getValue<T>(path);
+      return resolved !== undefined ? resolved : value as unknown as T;
+    }
+    
+    return value as unknown as T;
   };
   
   return {
@@ -94,6 +151,10 @@ export function useTheme(): UseThemeResult {
     toggleColorMode: context.toggleColorMode,
     getValue,
     getCssVar,
+    cssVar,
     cssVariables: context.cssVariables,
+    tokens: context.tokens,
+    tokenResolver: context.tokenResolver,
+    resolveReference,
   };
 }

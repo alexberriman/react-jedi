@@ -5,17 +5,6 @@
  */
 
 import type { ComponentResolver, RenderOptions, UISpecification, ComponentSpec } from "./types/schema/components";
-import type { 
-  ThemeMode, 
-  ThemePreset, 
-  ThemeVariant, 
-  ColorModeSettings, 
-  ThemeColorModePreset, 
-  ThemeExtension, 
-  ThemeToken, 
-  ThemeGeneratorConfig, 
-  EnhancedThemeSpecification 
-} from "./types/schema/theme";
 import { render } from "./lib/render";
 import { defaultComponentResolver } from "./lib/component-resolver";
 import { buildComponentTree } from "./lib/component-tree";

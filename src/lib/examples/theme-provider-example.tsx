@@ -131,10 +131,10 @@ const sampleTheme: ThemeSpecification = {
  * Example component that uses the useTheme hook
  */
 const ThemedComponent: React.FC = () => {
-  const { theme, colorMode, toggleColorMode, getValue, getCssVar } = useTheme();
+  const { colorMode, toggleColorMode, getValue, getCssVar } = useTheme();
   
   const primaryColor = getValue<string>("colors.primary.500", "#000000");
-  const fontFamily = getValue<string[]>("typography.fontFamilies.sans", ["sans-serif"]).join(", ");
+  const fontFamily = (getValue<string[]>("typography.fontFamilies.sans", ["sans-serif"]) || ["sans-serif"]).join(", ");
   
   return (
     <div

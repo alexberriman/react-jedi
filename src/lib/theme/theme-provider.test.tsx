@@ -2,7 +2,8 @@
  * ThemeProvider Tests
  */
 
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react/pure";
 import { ThemeProvider } from "./theme-provider";
 import { useTheme } from "./use-theme";
 import { describe, it, expect, vi, beforeEach } from "vitest";
@@ -28,7 +29,7 @@ const testTheme: ThemeSpecification = {
 
 // Mock component to test theme context
 const TestComponent = () => {
-  const { theme, colorMode, toggleColorMode, getValue } = useTheme();
+  const { colorMode, toggleColorMode, getValue } = useTheme();
   
   return (
     <div>
@@ -44,7 +45,7 @@ const TestComponent = () => {
 describe("ThemeProvider", () => {
   beforeEach(() => {
     // Mock localStorage
-    Object.defineProperty(window, "localStorage", {
+    Object.defineProperty(globalThis, "localStorage", {
       value: {
         getItem: vi.fn(),
         setItem: vi.fn(),
@@ -53,7 +54,7 @@ describe("ThemeProvider", () => {
     });
     
     // Mock matchMedia
-    Object.defineProperty(window, "matchMedia", {
+    Object.defineProperty(globalThis, "matchMedia", {
       value: vi.fn().mockImplementation((query) => ({
         matches: false,
         media: query,
@@ -65,38 +66,41 @@ describe("ThemeProvider", () => {
   });
   
   it("provides theme values to children", () => {
-    render(
+    const { container } = render(
       <ThemeProvider theme={testTheme}>
         <TestComponent />
       </ThemeProvider>
     );
     
-    expect(screen.getByTestId("primary-color").textContent).toBe("#0ea5e9");
+    expect(container.querySelector("[data-testid='primary-color']")?.textContent).toBe("#0ea5e9");
   });
   
   it("provides color mode to children", () => {
-    render(
+    const { container } = render(
       <ThemeProvider theme={testTheme} defaultColorMode="light">
         <TestComponent />
       </ThemeProvider>
     );
     
-    expect(screen.getByTestId("color-mode").textContent).toBe("light");
+    expect(container.querySelector("[data-testid='color-mode']")?.textContent).toBe("light");
   });
   
   it("allows toggling color mode", () => {
-    render(
+    const { container } = render(
       <ThemeProvider theme={testTheme} defaultColorMode="light">
         <TestComponent />
       </ThemeProvider>
     );
     
-    expect(screen.getByTestId("color-mode").textContent).toBe("light");
+    expect(container.querySelector("[data-testid='color-mode']")?.textContent).toBe("light");
     
     // Click the toggle button
-    fireEvent.click(screen.getByTestId("toggle-button"));
+    const toggleButton = container.querySelector("[data-testid='toggle-button']");
+    if (toggleButton) {
+      fireEvent.click(toggleButton);
+    }
     
-    expect(screen.getByTestId("color-mode").textContent).toBe("dark");
+    expect(container.querySelector("[data-testid='color-mode']")?.textContent).toBe("dark");
   });
   
   it("applies CSS variables to :root", () => {
@@ -125,14 +129,14 @@ describe("useTheme hook", () => {
       );
     };
     
-    render(
+    const { container } = render(
       <ThemeProvider theme={testTheme}>
         <TestValueComponent />
       </ThemeProvider>
     );
     
-    expect(screen.getByTestId("theme-value").textContent).toBe("#0ea5e9");
-    expect(screen.getByTestId("css-var").textContent).toBe("--theme-colors-primary-500");
-    expect(screen.getByTestId("default-value").textContent).toBe("default");
+    expect(container.querySelector("[data-testid='theme-value']")?.textContent).toBe("#0ea5e9");
+    expect(container.querySelector("[data-testid='css-var']")?.textContent).toBe("--theme-colors-primary-500");
+    expect(container.querySelector("[data-testid='default-value']")?.textContent).toBe("default");
   });
 });

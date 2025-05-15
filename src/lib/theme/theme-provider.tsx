@@ -5,11 +5,14 @@
  * color mode management, and CSS variable application.
  */
 
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { ColorModeSettings, EnhancedThemeSpecification, ThemeMode } from "../../types/schema/theme";
+import React, { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import type { EnhancedThemeSpecification, ThemeMode } from "../../types/schema/theme";
 import type { ThemeSpecification } from "../../types/schema/specification";
 import { ThemeContext, type ThemeContextValue } from "./theme-context";
-import { extractCssVariables, mergeThemes, resolveThemeToken } from "../schemas/theme-validation";
+import { mergeThemes } from "../schemas/theme-validation";
+import { generateCssVariables } from "./css-variable-generator";
+import { createTokenResolver, type TokenResolver } from "./token-resolver";
+import { createTokenCollection, type TokenCollection } from "./theme-tokens";
 
 /**
  * ThemeProvider Props
@@ -18,38 +21,62 @@ export interface ThemeProviderProps {
   /**
    * Initial theme specification
    */
-  theme: ThemeSpecification;
+  readonly theme: ThemeSpecification;
   
   /**
    * Enhanced theme specification (optional)
    */
-  enhancedTheme?: EnhancedThemeSpecification;
+  readonly enhancedTheme?: EnhancedThemeSpecification;
   
   /**
    * Children components
    */
-  children: ReactNode;
+  readonly children: ReactNode;
   
   /**
    * Storage key for persisting theme preference (optional)
    */
-  storageKey?: string;
+  readonly storageKey?: string;
   
   /**
    * Default color mode (optional)
    */
-  defaultColorMode?: ThemeMode;
+  readonly defaultColorMode?: ThemeMode;
   
   /**
    * CSS variable prefix (default: "--theme")
    */
-  cssPrefix?: string;
+  readonly cssPrefix?: string;
+  
+  /**
+   * Whether to flatten CSS variable names for common tokens (default: false)
+   * When true, creates simplified variable names like `--theme-primary-500`
+   * in addition to fully-qualified names like `--theme-colors-primary-500`
+   */
+  readonly flattenCssVariables?: boolean;
+  
+  /**
+   * Whether to apply CSS variables to `:root` (default: true)
+   * When false, variables won't be automatically applied to the DOM
+   */
+  readonly applyCssToRoot?: boolean;
+  
+  /**
+   * Element to apply CSS variables to (default: document.documentElement)
+   */
+  readonly cssTarget?: HTMLElement;
+  
+  /**
+   * Style element ID for CSS variables (default: "theme-variables")
+   */
+  readonly styleElementId?: string;
 }
 
 /**
  * Theme Provider Component
  * 
  * Provides theme context to the application and handles theme-related functionality.
+ * Implements the design token system, CSS variable generation, and token resolution.
  */
 export function ThemeProvider({
   theme: initialTheme,
@@ -58,7 +85,11 @@ export function ThemeProvider({
   storageKey = "react-jedi-theme",
   defaultColorMode = "system",
   cssPrefix = "--theme",
-}: ThemeProviderProps): JSX.Element {
+  flattenCssVariables = false,
+  applyCssToRoot = true,
+  cssTarget,
+  styleElementId = "theme-variables",
+}: ThemeProviderProps): React.ReactElement {
   // Initialize theme state
   const [theme, setTheme] = useState<ThemeSpecification>(initialTheme);
   
@@ -73,20 +104,30 @@ export function ThemeProvider({
     colorMode === "system" ? "light" : colorMode as "light" | "dark"
   );
   
-  // Generate CSS variables from theme
-  const cssVariables = useMemo(() => {
-    return extractCssVariables(theme, cssPrefix);
-  }, [theme, cssPrefix]);
+  // Generate tokens and CSS variables from theme
+  const { variables: cssVariables, tokens } = useMemo(() => {
+    return generateCssVariables(theme, {
+      prefix: cssPrefix,
+      flatten: flattenCssVariables,
+    });
+  }, [theme, cssPrefix, flattenCssVariables]);
+  
+  // Create token resolver
+  const tokenResolver = useMemo<TokenResolver>(() => {
+    return createTokenResolver(theme, tokens, {
+      cssPrefix,
+    });
+  }, [theme, tokens, cssPrefix]);
   
   // Update theme handler
   const updateTheme = useCallback((newTheme: Partial<ThemeSpecification>) => {
-    setTheme((prevTheme) => mergeThemes(prevTheme, newTheme));
+    setTheme((prevTheme) => mergeThemes(prevTheme as Record<string, unknown>, newTheme as Record<string, unknown>) as ThemeSpecification);
   }, []);
   
-  // Resolve token from theme
+  // Resolve token from theme using the token resolver
   const resolveToken = useCallback((tokenPath: string): unknown => {
-    return resolveThemeToken(theme, tokenPath);
-  }, [theme]);
+    return tokenResolver.resolve(tokenPath);
+  }, [tokenResolver]);
   
   // Toggle color mode handler
   const toggleColorMode = useCallback(() => {
@@ -112,22 +153,26 @@ export function ThemeProvider({
     }
   }, [storageKey]);
   
-  // Effect to apply CSS variables to :root
+  // Effect to apply CSS variables to :root or target element
   useEffect(() => {
-    const root = document.documentElement;
+    if (!applyCssToRoot) {
+      return;
+    }
     
-    // Apply all CSS variables to :root
+    const targetElement = cssTarget || document.documentElement;
+    
+    // Apply CSS variables directly to the target element
     for (const [key, value] of Object.entries(cssVariables)) {
-      root.style.setProperty(key, value);
+      targetElement.style.setProperty(key, value);
     }
     
     return () => {
       // Clean up variables when component unmounts
       for (const key of Object.keys(cssVariables)) {
-        root.style.removeProperty(key);
+        targetElement.style.removeProperty(key);
       }
     };
-  }, [cssVariables]);
+  }, [cssVariables, applyCssToRoot, cssTarget, styleElementId]);
   
   // Effect to detect system color scheme changes
   useEffect(() => {
@@ -137,7 +182,7 @@ export function ThemeProvider({
     }
     
     // Check for system preference
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
     
     const handleChange = (event: MediaQueryListEvent | MediaQueryList): void => {
       setEffectiveColorMode(event.matches ? "dark" : "light");
@@ -188,7 +233,7 @@ export function ThemeProvider({
     }
   }, [effectiveColorMode, colorModeSettings]);
   
-  // Create context value
+  // Create context value with token system integration
   const contextValue: ThemeContextValue = {
     theme,
     enhancedTheme,
@@ -198,6 +243,8 @@ export function ThemeProvider({
     toggleColorMode,
     cssVariables,
     resolveToken,
+    tokens,
+    tokenResolver,
   };
   
   return (

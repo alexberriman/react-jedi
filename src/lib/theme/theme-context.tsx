@@ -9,6 +9,8 @@ import { createContext, useContext, type ReactNode } from "react";
 import type { ColorModeSettings, EnhancedThemeSpecification, ThemeExtension, ThemeMode } from "../../types/schema/theme";
 import type { ThemeSpecification } from "../../types/schema/specification";
 import { mergeThemes } from "../schemas/theme-validation";
+import type { TokenCollection } from "./theme-tokens";
+import type { TokenResolver } from "./token-resolver";
 
 /**
  * Theme Context Interface
@@ -54,6 +56,16 @@ export interface ThemeContextValue {
    * Resolve a theme token from a path (e.g., "colors.primary.500")
    */
   resolveToken: (tokenPath: string) => unknown;
+  
+  /**
+   * Token collection organized by category
+   */
+  tokens?: TokenCollection;
+  
+  /**
+   * Token resolver for advanced token operations
+   */
+  tokenResolver?: TokenResolver;
 }
 
 // Create theme context with default values
@@ -137,15 +149,9 @@ export function resolveTheme(
   let result = { ...baseTheme };
   
   for (const extension of extensions) {
-    // Apply inheritance if configured
-    if (extension.inheritance?.parent) {
-      // For actual implementation, you would look up the parent theme
-      // Here we just merge the extension with the current result
-      result = mergeThemes(result, extension);
-    } else {
-      // Simple merge if no inheritance is specified
-      result = mergeThemes(result, extension);
-    }
+    // For actual implementation, you might implement special handling for inheritance
+    // but for now we just merge the extension with the current result
+    result = mergeThemes(result, extension);
   }
   
   return result;

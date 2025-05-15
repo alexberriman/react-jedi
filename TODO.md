@@ -34,10 +34,10 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### 1.2 Core Rendering Engine
 
-- [ ] Implement core `render()` function with options object interface
-- [ ] Create component resolver system (map specification types to React components)
-- [ ] Build simple component tree builder
-- [ ] Add basic error handling and fallback rendering
+- [x] Implement core `render()` function with options object interface
+- [x] Create component resolver system (map specification types to React components)
+- [x] Build simple component tree builder
+- [x] Add basic error handling and fallback rendering
 - [ ] Create style processing utilities for TailwindCSS
 
 ### 1.3 Specification Parser

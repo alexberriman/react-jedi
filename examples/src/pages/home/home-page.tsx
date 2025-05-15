@@ -27,6 +27,12 @@ export function HomePage() {
               >
                 Read Docs
               </Link>
+              <Link
+                to="/landing"
+                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-md font-medium text-white transition-colors"
+              >
+                Landing Page Example
+              </Link>
             </div>
           </div>
         </div>

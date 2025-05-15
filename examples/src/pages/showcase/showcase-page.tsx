@@ -324,6 +324,11 @@ export function ShowcasePage() {
             <div className="px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700">Milestone 4: Advanced Layouts</div>
             <div className="px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700">Milestone 5: Animations</div>
           </div>
+          <div className="mt-8">
+            <Link to="/landing" className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg text-white font-medium hover:from-purple-700 hover:to-indigo-700 transition-all">
+              Check out our Landing Page Example
+            </Link>
+          </div>
         </div>
       </div>
     </div>

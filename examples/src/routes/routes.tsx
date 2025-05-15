@@ -3,6 +3,7 @@ import { Layout } from "../components/layout";
 import { HomePage } from "../pages/home";
 import { ShowcasePage } from "../pages/showcase";
 import { DocumentationPage } from "../pages/documentation";
+import { LandingPage } from "../pages/landing";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "documentation",
         element: <DocumentationPage />,
+      },
+      {
+        path: "landing",
+        element: <LandingPage />,
       },
     ],
   },

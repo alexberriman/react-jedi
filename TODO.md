@@ -87,17 +87,17 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### 1.5 Essential Typography Components
 
-- [ ] Heading Component (h1-h6 elements)
+- [x] Heading Component (h1-h6 elements)
 
-  - [ ] Create custom implementation with TailwindCSS
-  - [ ] Create Storybook documentation with size variants
-  - [ ] Implement specification schema with level and styling options
+  - [x] Create custom implementation with TailwindCSS
+  - [x] Create Storybook documentation with size variants
+  - [x] Implement specification schema with level and styling options
 
-- [ ] Text Component (paragraph and span elements)
+- [x] Text Component (paragraph and span elements)
 
-  - [ ] Create custom implementation with TailwindCSS
-  - [ ] Create Storybook documentation with style variants
-  - [ ] Implement specification schema with size, weight, and color options
+  - [x] Create custom implementation with TailwindCSS
+  - [x] Create Storybook documentation with style variants
+  - [x] Implement specification schema with size, weight, and color options
 
 - [ ] BlockQuote Component
   - [ ] Create custom implementation with TailwindCSS

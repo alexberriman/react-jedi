@@ -22,3 +22,5 @@ export * from "./container";
 export * from "./box";
 export * from "./grid";
 export * from "./flex";
+export * from "./heading";
+export * from "./text";

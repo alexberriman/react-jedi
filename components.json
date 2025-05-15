@@ -43,6 +43,16 @@
       "name": "flex",
       "type": "ui",
       "description": "A Flexbox-based layout component with direction, wrap, and alignment options for flexible layouts"
+    },
+    {
+      "name": "heading",
+      "type": "ui",
+      "description": "A typography component for displaying h1-h6 headings with extensive styling options"
+    },
+    {
+      "name": "text",
+      "type": "ui",
+      "description": "A typography component for paragraphs, spans, and other text elements with extensive styling options"
     }
   ]
 }

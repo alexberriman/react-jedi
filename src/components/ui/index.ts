@@ -20,3 +20,4 @@ export * from "./avatar";
 export * from "./skeleton";
 export * from "./container";
 export * from "./box";
+export * from "./grid";

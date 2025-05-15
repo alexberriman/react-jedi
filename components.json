@@ -33,6 +33,11 @@
       "name": "box",
       "type": "ui",
       "description": "A primitive div-like component for general layout with extensive styling options"
+    },
+    {
+      "name": "grid",
+      "type": "ui",
+      "description": "A CSS Grid-based layout system with responsive options for creating complex layouts"
     }
   ]
 }

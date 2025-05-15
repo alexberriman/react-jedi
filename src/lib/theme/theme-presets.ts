@@ -424,27 +424,44 @@ function hslToHexHelper(hsl: { h: number; s: number; l: number }): string {
   const x = c * (1 - Math.abs((h / 60) % 2 - 1));
   const m = l - c / 2;
   
-  let r = 0;
-  let g = 0;
-  let b = 0;
+  // Calculate RGB values based on hue segment
+  const rgbValues = getHslRgbValues(h, c, x);
   
-  if (h >= 0 && h < 60) {
-    r = c; g = x; b = 0;
-  } else if (h >= 60 && h < 120) {
-    r = x; g = c; b = 0;
-  } else if (h >= 120 && h < 180) {
-    r = 0; g = c; b = x;
-  } else if (h >= 180 && h < 240) {
-    r = 0; g = x; b = c;
-  } else if (h >= 240 && h < 300) {
-    r = x; g = 0; b = c;
-  } else {
-    r = c; g = 0; b = x;
-  }
-  
-  const rHex = Math.round((r + m) * 255).toString(16).padStart(2, "0");
-  const gHex = Math.round((g + m) * 255).toString(16).padStart(2, "0");
-  const bHex = Math.round((b + m) * 255).toString(16).padStart(2, "0");
+  // Convert to hex
+  const rHex = Math.round((rgbValues.r + m) * 255).toString(16).padStart(2, "0");
+  const gHex = Math.round((rgbValues.g + m) * 255).toString(16).padStart(2, "0");
+  const bHex = Math.round((rgbValues.b + m) * 255).toString(16).padStart(2, "0");
   
   return `#${rHex}${gHex}${bHex}`;
+}
+
+/**
+ * Helper function to get RGB values from HSL components
+ */
+function getHslRgbValues(h: number, c: number, x: number): { r: number; g: number; b: number } {
+  const segment = Math.floor(h / 60) % 6;
+  
+  switch (segment) {
+    case 0: {
+      return { r: c, g: x, b: 0 };
+    }
+    case 1: {
+      return { r: x, g: c, b: 0 };
+    }
+    case 2: {
+      return { r: 0, g: c, b: x };
+    }
+    case 3: {
+      return { r: 0, g: x, b: c };
+    }
+    case 4: {
+      return { r: x, g: 0, b: c };
+    }
+    case 5: {
+      return { r: c, g: 0, b: x };
+    }
+    default: {
+      return { r: 0, g: 0, b: 0 };
+    }
+  }
 }

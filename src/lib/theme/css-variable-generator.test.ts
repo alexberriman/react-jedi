@@ -18,6 +18,19 @@ class MockStyleElement {
   constructor(id: string) {
     this.id = id;
   }
+  
+  // Add remove method to mock DOM element
+  remove(): void {
+    // This is a simplified mock implementation
+    // In a real DOM, we would have this.remove(),
+    // but in our mock, we need this basic implementation
+    if (this.parentNode) {
+      // We're implementing the method directly, so this is the only way
+      // to remove the element in our mock environment without creating infinite recursion
+      // Can't use this.remove() because it would call itself recursively
+      this.parentNode.removeChild(this);
+    }
+  }
 }
 
 describe("CSS Variable Generator", () => {
@@ -103,7 +116,7 @@ describe("CSS Variable Generator", () => {
   
   describe("applyCssVariables", () => {
     let mockStyleElement: MockStyleElement;
-    let mockHead: { appendChild: ReturnType<typeof vi.fn> };
+    let mockHead: { appendChild: ReturnType<typeof vi.fn>, append: ReturnType<typeof vi.fn> };
     let mockGetElementById: ReturnType<typeof vi.fn>;
     let mockCreateElement: ReturnType<typeof vi.fn>;
     
@@ -114,7 +127,10 @@ describe("CSS Variable Generator", () => {
       mockStyleElement = new MockStyleElement("theme-variables");
       mockStyleElement.parentNode = { removeChild: vi.fn() };
       
-      mockHead = { appendChild: vi.fn() };
+      mockHead = { 
+        appendChild: vi.fn(),
+        append: vi.fn()
+      };
       mockGetElementById = vi.fn().mockReturnValue(mockStyleElement);
       mockCreateElement = vi.fn().mockReturnValue(mockStyleElement);
       
@@ -157,7 +173,7 @@ describe("CSS Variable Generator", () => {
       const cleanup = applyCssVariables(variables);
       
       expect(mockCreateElement).toHaveBeenCalledWith("style");
-      expect(mockHead.appendChild).toHaveBeenCalled();
+      expect(mockHead.append).toHaveBeenCalled(); // Use append instead of appendChild
       expect(mockStyleElement.id).toBe("theme-variables");
       expect(mockStyleElement.textContent).toContain("--theme-colors-primary-500: #3b82f6;");
       

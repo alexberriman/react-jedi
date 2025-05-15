@@ -135,64 +135,22 @@ export function generateColorPalette(config: ColorPaletteConfig): ThemeColors {
 
   // Process primary, secondary, accent, and neutral colors
   colors.primary = generateColorScale(resolveColorInput(config.primary));
+  processOptionalColor(colors, "secondary", config.secondary);
+  processOptionalColor(colors, "accent", config.accent);
   
-  if (config.secondary) {
-    colors.secondary = generateColorScale(resolveColorInput(config.secondary));
-  }
+  // Process neutral color with fallback to default
+  colors.neutral = config.neutral 
+    ? generateColorScale(resolveColorInput(config.neutral))
+    : generateNeutralScale({
+        baseColor: "#6B7280", // Default gray-500
+        saturation: -50, // Reduce saturation for a more neutral gray
+      });
   
-  if (config.accent) {
-    colors.accent = generateColorScale(resolveColorInput(config.accent));
-  }
-  
-  if (config.neutral) {
-    colors.neutral = generateColorScale(resolveColorInput(config.neutral));
-  } else {
-    // If no neutral is provided, generate a balanced grayscale
-    colors.neutral = generateNeutralScale({
-      baseColor: "#6B7280", // Default gray-500
-      saturation: -50, // Reduce saturation for a more neutral gray
-    });
-  }
-  
-  // Process semantic colors
-  if (config.semantic) {
-    if (config.semantic.success) {
-      colors.success = generateColorScale(resolveColorInput(config.semantic.success));
-    } else {
-      colors.success = generateColorScale({ baseColor: "#10B981" }); // Default green
-    }
-    
-    if (config.semantic.warning) {
-      colors.warning = generateColorScale(resolveColorInput(config.semantic.warning));
-    } else {
-      colors.warning = generateColorScale({ baseColor: "#F59E0B" }); // Default amber
-    }
-    
-    if (config.semantic.error) {
-      colors.error = generateColorScale(resolveColorInput(config.semantic.error));
-    } else {
-      colors.error = generateColorScale({ baseColor: "#EF4444" }); // Default red
-    }
-    
-    if (config.semantic.info) {
-      colors.info = generateColorScale(resolveColorInput(config.semantic.info));
-    } else {
-      colors.info = generateColorScale({ baseColor: "#3B82F6" }); // Default blue
-    }
-  } else {
-    // Default semantic colors if not provided
-    colors.success = generateColorScale({ baseColor: "#10B981" }); // Green
-    colors.warning = generateColorScale({ baseColor: "#F59E0B" }); // Amber
-    colors.error = generateColorScale({ baseColor: "#EF4444" }); // Red
-    colors.info = generateColorScale({ baseColor: "#3B82F6" }); // Blue
-  }
+  // Process semantic colors with their defaults
+  processSemanticColors(colors, config.semantic);
   
   // Process custom colors
-  if (config.custom) {
-    for (const [key, value] of Object.entries(config.custom)) {
-      colors[key] = generateColorScale(resolveColorInput(value));
-    }
-  }
+  processCustomColors(colors, config.custom);
   
   // Generate text/background/border color mappings
   colors.background = generateBackgroundColors(colors);
@@ -200,6 +158,73 @@ export function generateColorPalette(config: ColorPaletteConfig): ThemeColors {
   colors.border = generateBorderColors(colors);
   
   return colors;
+}
+
+/**
+ * Process an optional color and add it to the colors object if present
+ */
+function processOptionalColor(
+  colors: ThemeColors, 
+  key: string, 
+  value?: string | ColorScaleOptions
+): void {
+  if (value) {
+    colors[key] = generateColorScale(resolveColorInput(value));
+  }
+}
+
+/**
+ * Process semantic colors with their default values
+ */
+function processSemanticColors(
+  colors: ThemeColors, 
+  semantic?: ColorPaletteConfig["semantic"]
+): void {
+  const defaultColors = {
+    success: "#10B981", // Green
+    warning: "#F59E0B", // Amber
+    error: "#EF4444",   // Red
+    info: "#3B82F6"     // Blue
+  };
+  
+  // If semantic config is provided, use it for available colors
+  if (semantic) {
+    colors.success = semantic.success 
+      ? generateColorScale(resolveColorInput(semantic.success))
+      : generateColorScale({ baseColor: defaultColors.success });
+      
+    colors.warning = semantic.warning 
+      ? generateColorScale(resolveColorInput(semantic.warning))
+      : generateColorScale({ baseColor: defaultColors.warning });
+      
+    colors.error = semantic.error 
+      ? generateColorScale(resolveColorInput(semantic.error))
+      : generateColorScale({ baseColor: defaultColors.error });
+      
+    colors.info = semantic.info 
+      ? generateColorScale(resolveColorInput(semantic.info))
+      : generateColorScale({ baseColor: defaultColors.info });
+  } else {
+    // Use all defaults if no semantic config
+    colors.success = generateColorScale({ baseColor: defaultColors.success });
+    colors.warning = generateColorScale({ baseColor: defaultColors.warning });
+    colors.error = generateColorScale({ baseColor: defaultColors.error });
+    colors.info = generateColorScale({ baseColor: defaultColors.info });
+  }
+}
+
+/**
+ * Process custom colors if present
+ */
+function processCustomColors(
+  colors: ThemeColors, 
+  custom?: Record<string, string | ColorScaleOptions>
+): void {
+  if (custom) {
+    for (const [key, value] of Object.entries(custom)) {
+      colors[key] = generateColorScale(resolveColorInput(value));
+    }
+  }
 }
 
 /**
@@ -562,29 +587,49 @@ export function hslToRgb(hsl: HslColor): RgbColor {
   const x = c * (1 - Math.abs((h / 60) % 2 - 1));
   const m = l - c / 2;
   
-  let r = 0;
-  let g = 0;
-  let b = 0;
+  // Calculate RGB values based on hue segment
+  const hueSegment = Math.floor(h / 60);
   
-  if (h >= 0 && h < 60) {
-    r = c; g = x; b = 0;
-  } else if (h >= 60 && h < 120) {
-    r = x; g = c; b = 0;
-  } else if (h >= 120 && h < 180) {
-    r = 0; g = c; b = x;
-  } else if (h >= 180 && h < 240) {
-    r = 0; g = x; b = c;
-  } else if (h >= 240 && h < 300) {
-    r = x; g = 0; b = c;
-  } else {
-    r = c; g = 0; b = x;
-  }
+  // Create RGB tuple based on hue segment
+  const rgbValues = hueSegmentToRgb(hueSegment, c, x);
   
   return {
-    r: Math.round((r + m) * 255),
-    g: Math.round((g + m) * 255),
-    b: Math.round((b + m) * 255)
+    r: Math.round((rgbValues.r + m) * 255),
+    g: Math.round((rgbValues.g + m) * 255),
+    b: Math.round((rgbValues.b + m) * 255)
   };
+}
+
+/**
+ * Helper function that maps a hue segment to RGB values
+ */
+function hueSegmentToRgb(segment: number, c: number, x: number): RgbColor {
+  // Normalize segment to 0-5 range (handle negative or >5 values)
+  const normalizedSegment = ((segment % 6) + 6) % 6;
+  
+  switch (normalizedSegment) {
+    case 0: {
+      return { r: c, g: x, b: 0 };
+    }
+    case 1: {
+      return { r: x, g: c, b: 0 };
+    }
+    case 2: {
+      return { r: 0, g: c, b: x };
+    }
+    case 3: {
+      return { r: 0, g: x, b: c };
+    }
+    case 4: {
+      return { r: x, g: 0, b: c };
+    }
+    case 5: {
+      return { r: c, g: 0, b: x };
+    }
+    default: {
+      return { r: 0, g: 0, b: 0 }; // Should never happen due to normalization
+    }
+  }
 }
 
 /**
@@ -623,6 +668,15 @@ export function getContrastRatio(color1: string, color2: string): number {
 }
 
 /**
+ * Transform sRGB component to linear RGB (for luminance calculation)
+ */
+function transformSRGB(val: number): number {
+  return val <= 0.039_28
+    ? val / 12.92
+    : Math.pow((val + 0.055) / 1.055, 2.4);
+}
+
+/**
  * Get the relative luminance of a color (for WCAG contrast calculations)
  * 
  * @param rgb - RGB color
@@ -636,13 +690,6 @@ function getRelativeLuminance(rgb: RgbColor): number {
     b: rgb.b / 255
   };
   
-  // Apply transformations
-  const transform = (val: number) => {
-    return val <= 0.039_28
-      ? val / 12.92
-      : Math.pow((val + 0.055) / 1.055, 2.4);
-  };
-  
   // Calculate relative luminance
-  return 0.2126 * transform(srgb.r) + 0.7152 * transform(srgb.g) + 0.0722 * transform(srgb.b);
+  return 0.2126 * transformSRGB(srgb.r) + 0.7152 * transformSRGB(srgb.g) + 0.0722 * transformSRGB(srgb.b);
 }

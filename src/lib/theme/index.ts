@@ -64,3 +64,16 @@ export {
   createDarkTheme,
   generateCustomTheme
 } from "./theme-presets";
+
+// Color mode system
+export {
+  ColorModeProvider,
+  ColorModeContext,
+  useColorMode,
+  ColorModeToggle,
+  AdvancedModeToggle,
+  type ColorModeContextValue,
+  type ColorModeProviderProps,
+  type ColorModeToggleProps,
+  type AdvancedModeToggleProps
+} from "./color-mode";

@@ -13,7 +13,7 @@ import type { ThemeSpecification } from "../../types/schema/specification";
 class MockStyleElement {
   id: string;
   textContent: string = "";
-  parentNode: { removeChild: (el: MockStyleElement) => void } | null = null;
+  parentNode: null = null;
   
   constructor(id: string) {
     this.id = id;
@@ -22,13 +22,10 @@ class MockStyleElement {
   // Add remove method to mock DOM element
   remove(): void {
     // This is a simplified mock implementation
-    // In a real DOM, we would have this.remove(),
-    // but in our mock, we need this basic implementation
+    // In a real DOM, we would just use Element.remove()
     if (this.parentNode) {
-      // We're implementing the method directly, so this is the only way
-      // to remove the element in our mock environment without creating infinite recursion
-      // Can't use this.remove() because it would call itself recursively
-      this.parentNode.removeChild(this);
+      // Only track that remove was called rather than directly manipulating parent node
+      // This avoids issues with removeChild vs remove
     }
   }
 }
@@ -125,7 +122,7 @@ describe("CSS Variable Generator", () => {
     
     beforeEach(() => {
       mockStyleElement = new MockStyleElement("theme-variables");
-      mockStyleElement.parentNode = { removeChild: vi.fn() };
+      mockStyleElement.remove = vi.fn();
       
       mockHead = { 
         appendChild: vi.fn(),
@@ -179,7 +176,7 @@ describe("CSS Variable Generator", () => {
       
       // Test cleanup function
       cleanup();
-      expect(mockStyleElement.parentNode?.removeChild).toHaveBeenCalledWith(mockStyleElement);
+      expect(mockStyleElement.remove).toHaveBeenCalled();
     });
     
     it("should update existing style element", () => {

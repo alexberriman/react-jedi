@@ -16,52 +16,52 @@ export interface ColorModeToggleProps {
   /**
    * Additional class name
    */
-  className?: string;
+  readonly className?: string;
   
   /**
    * Size of the toggle button (default: "md")
    */
-  size?: "sm" | "md" | "lg";
+  readonly size?: "sm" | "md" | "lg";
   
   /**
    * Button type (default: "button")
    */
-  type?: "button";
+  readonly type?: "button";
   
   /**
    * A11y label for the button
    */
-  ariaLabel?: string;
+  readonly ariaLabel?: string;
   
   /**
    * Whether to show a text label
    */
-  showLabel?: boolean;
+  readonly showLabel?: boolean;
   
   /**
    * Custom icon for light mode (optional)
    */
-  lightIcon?: React.ReactNode;
+  readonly lightIcon?: React.ReactNode;
   
   /**
    * Custom icon for dark mode (optional)
    */
-  darkIcon?: React.ReactNode;
+  readonly darkIcon?: React.ReactNode;
   
   /**
    * Custom icon for system mode (optional)
    */
-  systemIcon?: React.ReactNode;
+  readonly systemIcon?: React.ReactNode;
   
   /**
    * Available modes to cycle through
    */
-  modes?: ThemeMode[];
+  readonly modes?: readonly ThemeMode[];
   
   /**
    * Callback when mode changes
    */
-  onChange?: (mode: ThemeMode) => void;
+  readonly onChange?: (mode: ThemeMode) => void;
 }
 
 /**
@@ -139,14 +139,18 @@ const SystemIcon = () => (
  */
 function getModeLabel(mode: ThemeMode): string {
   switch (mode) {
-    case "light":
+    case "light": {
       return "Light";
-    case "dark":
+    }
+    case "dark": {
       return "Dark";
-    case "system":
+    }
+    case "system": {
       return "System";
-    default:
+    }
+    default: {
       return "";
+    }
   }
 }
 
@@ -180,18 +184,22 @@ export function ColorModeToggle({
   }
   
   // Get the current mode's icon
-  const getIcon = () => {
+  function getIcon(): React.ReactElement {
     switch (colorMode) {
-      case "light":
-        return lightIcon || <SunIcon />;
-      case "dark":
-        return darkIcon || <MoonIcon />;
-      case "system":
-        return systemIcon || <SystemIcon />;
-      default:
-        return null;
+      case "light": {
+        return lightIcon ? <>{lightIcon}</> : <SunIcon />;
+      }
+      case "dark": {
+        return darkIcon ? <>{darkIcon}</> : <MoonIcon />;
+      }
+      case "system": {
+        return systemIcon ? <>{systemIcon}</> : <SystemIcon />;
+      }
+      default: {
+        return <SunIcon />;
+      }
     }
-  };
+  }
   
   // Handle toggle click
   const handleToggle = () => {

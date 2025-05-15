@@ -16,37 +16,37 @@ export interface AdvancedModeToggleProps {
   /**
    * Additional class name
    */
-  className?: string;
+  readonly className?: string;
   
   /**
    * Size of the toggle (default: "md")
    */
-  size?: "sm" | "md" | "lg" | "xl";
+  readonly size?: "sm" | "md" | "lg" | "xl";
   
   /**
    * Visual style variant
    */
-  variant?: "default" | "glass" | "solid" | "minimal" | "pill";
+  readonly variant?: "default" | "glass" | "solid" | "minimal" | "pill";
   
   /**
    * Whether to show labels
    */
-  showLabels?: boolean;
+  readonly showLabels?: boolean;
   
   /**
    * Animation style
    */
-  animation?: "slide" | "fade" | "scale" | "morph";
+  readonly animation?: "slide" | "fade" | "scale" | "morph";
   
   /**
    * Available modes to cycle through
    */
-  modes?: ThemeMode[];
+  readonly modes?: readonly ThemeMode[];
   
   /**
    * Callback when mode changes
    */
-  onChange?: (mode: ThemeMode) => void;
+  readonly onChange?: (mode: ThemeMode) => void;
 }
 
 /**
@@ -167,14 +167,18 @@ const EnhancedSystemIcon = () => (
  */
 function getModeName(mode: ThemeMode): string {
   switch (mode) {
-    case "light":
+    case "light": {
       return "Light";
-    case "dark":
+    }
+    case "dark": {
       return "Dark";
-    case "system":
+    }
+    case "system": {
       return "Auto";
-    default:
+    }
+    default: {
       return "";
+    }
   }
 }
 
@@ -212,7 +216,7 @@ export function AdvancedModeToggle({
     const nextMode = modes[nextIndex];
     
     // Set after short delay for animation
-    setTimeout(() => {
+    globalThis.setTimeout(() => {
       setColorMode(nextMode);
       
       if (onChange) {
@@ -220,7 +224,7 @@ export function AdvancedModeToggle({
       }
       
       // End animation after transition
-      setTimeout(() => {
+      globalThis.setTimeout(() => {
         setIsAnimating(false);
       }, 300);
     }, 150);
@@ -262,14 +266,18 @@ export function AdvancedModeToggle({
   // Icons based on color mode
   const getIcon = (mode: ThemeMode) => {
     switch (mode) {
-      case "light":
+      case "light": {
         return <EnhancedSunIcon />;
-      case "dark":
+      }
+      case "dark": {
         return <EnhancedMoonIcon />;
-      case "system":
+      }
+      case "system": {
         return <EnhancedSystemIcon />;
-      default:
+      }
+      default: {
         return null;
+      }
     }
   };
   

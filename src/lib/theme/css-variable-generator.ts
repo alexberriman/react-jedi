@@ -8,6 +8,7 @@
 import type { ThemeSpecification } from "../../types/schema/specification";
 import type { DesignToken, TokenCollection } from "./theme-tokens";
 import { extractTokensFromTheme, createTokenCollection } from "./theme-tokens";
+import { generateTypographyVariables } from "./typography";
 
 /**
  * CSS Variable Output Format
@@ -90,6 +91,10 @@ export function generateCssVariables(
   
   // Generate CSS variables
   const variables: Record<string, string> = {};
+  
+  // Add typography variables using the new typography system
+  const typographyVariables = generateTypographyVariables(theme.typography);
+  Object.assign(variables, typographyVariables);
   
   for (const token of tokens) {
     // Skip non-primitive values that can't be used as CSS variables
@@ -183,7 +188,7 @@ export function applyCssVariables(
   
   // Return cleanup function
   return () => {
-    if (styleElement && styleElement.parentNode) {
+    if (styleElement) {
       // Using remove for DOM element removal
       styleElement.remove();
     }

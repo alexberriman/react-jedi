@@ -85,22 +85,22 @@ export interface ColorModeProviderProps {
   /**
    * Color mode settings
    */
-  settings?: ColorModeSettings;
+  readonly settings?: ColorModeSettings;
   
   /**
    * Initial color mode
    */
-  initialColorMode?: ThemeMode;
+  readonly initialColorMode?: ThemeMode;
   
   /**
    * Storage key for persisting color mode preference
    */
-  storageKey?: string;
+  readonly storageKey?: string;
   
   /**
    * Children components
    */
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 /**
@@ -149,16 +149,19 @@ export function ColorModeProvider({
   
   // Toggle between light and dark modes
   const toggleColorMode = useCallback(() => {
-    setColorMode(
-      colorMode === "light" ? "dark" :
-      colorMode === "dark" ? "system" : "light"
-    );
+    if (colorMode === "light") {
+      setColorMode("dark");
+    } else if (colorMode === "dark") {
+      setColorMode("system");
+    } else {
+      setColorMode("light");
+    }
   }, [colorMode, setColorMode]);
   
   // Effect to detect system color scheme changes
   useEffect(() => {
     // Check for system preference
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
     
     const handleChange = (event: MediaQueryListEvent | MediaQueryList): void => {
       setSystemPrefersDark(event.matches);
@@ -168,14 +171,9 @@ export function ColorModeProvider({
     handleChange(mediaQuery);
     
     // Listen for changes
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", handleChange);
-      return () => mediaQuery.removeEventListener("change", handleChange);
-    } else {
-      // Fallback for older browsers
-      mediaQuery.addListener(handleChange);
-      return () => mediaQuery.removeListener(handleChange);
-    }
+    // Modern browsers all support addEventListener, so we'll always use that
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
   
   // Effect to load saved color mode from storage
@@ -199,18 +197,18 @@ export function ColorModeProvider({
       root.style.colorScheme = "dark";
       
       // Apply data attribute for CSS targeting
-      root.setAttribute("data-color-mode", "dark");
+      root.dataset.colorMode = "dark";
     } else {
       root.classList.add("light");
       root.classList.remove("dark");
       root.style.colorScheme = "light";
       
       // Apply data attribute for CSS targeting
-      root.setAttribute("data-color-mode", "light");
+      root.dataset.colorMode = "light";
     }
     
     // Apply user preference as data attribute
-    root.setAttribute("data-user-color-mode", colorMode);
+    root.dataset.userColorMode = colorMode;
   }, [resolvedColorMode, colorMode]);
   
   // Apply transition class when transitions are enabled

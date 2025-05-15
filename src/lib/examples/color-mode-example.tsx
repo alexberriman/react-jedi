@@ -20,7 +20,6 @@ const ColorModeInfo: React.FC = () => {
     colorMode, 
     resolvedColorMode, 
     systemPrefersDark, 
-    toggleColorMode, 
     transitionsEnabled, 
     setTransitionsEnabled 
   } = useColorMode();

@@ -46,10 +46,12 @@ export interface BoxSpec extends BaseComponentSpec {
   borderColor?: string;
 
   /**
-   * Border radius for the box corners.
-   * @example "none", "sm", "md", "lg", "xl", "2xl", "3xl", "full"
+   * Border radius for the box corners (rounded).
+   * Can be a theme scale value or a custom value.
+   * @example "none", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "full"
+   * @example "4px", "0.5rem", "50%"
    */
-  borderRadius?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
+  rounded?: string;
 
   /**
    * Background color of the box.

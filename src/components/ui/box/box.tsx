@@ -42,6 +42,7 @@ const boxVariants = cva("", {
     },
     rounded: {
       none: "rounded-none",
+      xs: "rounded-xs",
       sm: "rounded-sm",
       md: "rounded",
       lg: "rounded-lg",

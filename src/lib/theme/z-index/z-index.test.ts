@@ -165,7 +165,7 @@ describe("Z-Index System", () => {
     
     it("should return false for invalid z-index values", () => {
       expect(isValidZIndex(-1000)).toBe(false);
-      expect(isValidZIndex(10000)).toBe(false);
+      expect(isValidZIndex(10_000)).toBe(false);
     });
   });
 });

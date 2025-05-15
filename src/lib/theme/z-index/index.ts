@@ -44,9 +44,11 @@ export function getZIndex(theme: ThemeSpecification | undefined, key: string): n
     return defaultZIndices[key] || 0;
   }
 
-  return theme.zIndices[key] !== undefined 
-    ? theme.zIndices[key] 
-    : defaultZIndices[key] || 0;
+  if (key in theme.zIndices) {
+    return theme.zIndices[key];
+  }
+  
+  return defaultZIndices[key] || 0;
 }
 
 /**
@@ -81,9 +83,9 @@ export function createZIndexResolver(theme: ThemeSpecification | undefined) {
 export function createZIndexCSSVariables(zIndices: Record<string, number>): Record<string, string> {
   const cssVars: Record<string, string> = {};
   
-  Object.entries(zIndices).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(zIndices)) {
     cssVars[`--z-${key}`] = value.toString();
-  });
+  }
   
   return cssVars;
 }

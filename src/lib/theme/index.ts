@@ -85,6 +85,25 @@ export {
   type UseZIndexResult
 } from "./z-index";
 
+// Border Radius system
+export {
+  defaultBorderRadii,
+  getBorderRadius,
+  createBorderRadiusScale,
+  createBorderRadiusResolver,
+  createBorderRadiusCSSVariables,
+  createCustomBorderRadius,
+  isValidBorderRadius,
+  useBorderRadius,
+  createCornerRadiusStyles,
+  applyBorderRadius,
+  conditionalBorderRadius,
+  responsiveBorderRadius,
+  BorderRadiusBuilder,
+  type UseBorderRadiusResult,
+  type CornerRadiusOptions
+} from "./border-radius";
+
 // Theme presets
 export {
   defaultTheme,

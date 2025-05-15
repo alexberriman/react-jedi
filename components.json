@@ -23,6 +23,11 @@
       "name": "container",
       "type": "ui",
       "description": "A layout component for controlling max-width and centering content"
+    },
+    {
+      "name": "label",
+      "type": "ui",
+      "description": "A component for displaying form labels with support for required fields"
     }
   ]
 }

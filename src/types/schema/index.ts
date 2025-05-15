@@ -6,3 +6,4 @@
 
 export * from "./base";
 export * from "./skeleton";
+export * from "./label";

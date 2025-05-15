@@ -58,6 +58,11 @@
       "name": "blockquote",
       "type": "ui",
       "description": "A component for displaying stylized quotations with multiple visual styles and citation options"
+    },
+    {
+      "name": "image",
+      "type": "ui",
+      "description": "A responsive image component with advanced styling options, filters, hover effects, and fallback support"
     }
   ]
 }

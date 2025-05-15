@@ -137,10 +137,10 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### 1.7 Basic Media Components
 
-- [ ] Image Component
-  - [ ] Create custom implementation with responsive options
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema with src, alt, and sizing options
+- [x] Image Component
+  - [x] Create custom implementation with responsive options
+  - [x] Create Storybook documentation with examples
+  - [x] Implement specification schema with src, alt, and sizing options
 
 ### 1.8 Performance and Testing Setup
 

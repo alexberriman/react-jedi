@@ -130,10 +130,10 @@ This milestone delivers a working, shippable library that can render static layo
   - [x] Create Storybook documentation with examples
   - [x] Implement specification schema for Avatar
 
-- [ ] Skeleton Component
-  - [ ] Add from shadcn (`npx shadcn@latest add skeleton`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Skeleton
+- [x] Skeleton Component
+  - [x] Add from shadcn (`npx shadcn@latest add skeleton`)
+  - [x] Create Storybook documentation with examples
+  - [x] Implement specification schema for Skeleton
 
 ### 1.7 Basic Media Components
 

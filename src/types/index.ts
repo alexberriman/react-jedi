@@ -1,8 +1,7 @@
 /**
  * Types Index
  *
- * This file serves as the main entry point for all TypeScript types in the project.
+ * This file exports all type definitions used in the project.
  */
 
-// Export component specification types
-export * from "./components";
+export * from "./schema";

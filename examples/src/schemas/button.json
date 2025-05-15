@@ -1,0 +1,143 @@
+{
+  "type": "container",
+  "maxWidth": "md",
+  "padding": "md",
+  "children": [
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Button Variants",
+      "size": "2xl",
+      "className": "mb-6"
+    },
+    {
+      "type": "flex",
+      "direction": "row",
+      "wrap": "wrap",
+      "gap": "md",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "button",
+          "text": "Default",
+          "variant": "default",
+          "size": "default"
+        },
+        {
+          "type": "button",
+          "text": "Primary",
+          "variant": "primary",
+          "size": "default"
+        },
+        {
+          "type": "button",
+          "text": "Secondary",
+          "variant": "secondary",
+          "size": "default"
+        },
+        {
+          "type": "button",
+          "text": "Outline",
+          "variant": "outline",
+          "size": "default"
+        },
+        {
+          "type": "button",
+          "text": "Ghost",
+          "variant": "ghost",
+          "size": "default"
+        },
+        {
+          "type": "button",
+          "text": "Link",
+          "variant": "link",
+          "size": "default"
+        },
+        {
+          "type": "button",
+          "text": "Destructive",
+          "variant": "destructive",
+          "size": "default"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Button Sizes",
+      "size": "2xl",
+      "className": "mb-6"
+    },
+    {
+      "type": "flex",
+      "direction": "row",
+      "wrap": "wrap",
+      "align": "center",
+      "gap": "md",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "button",
+          "text": "Small",
+          "variant": "default",
+          "size": "sm"
+        },
+        {
+          "type": "button",
+          "text": "Default",
+          "variant": "default",
+          "size": "default"
+        },
+        {
+          "type": "button",
+          "text": "Large",
+          "variant": "default",
+          "size": "lg"
+        },
+        {
+          "type": "button",
+          "text": "Icon",
+          "variant": "outline",
+          "size": "icon",
+          "icon": "plus"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Button States",
+      "size": "2xl",
+      "className": "mb-6"
+    },
+    {
+      "type": "flex",
+      "direction": "row",
+      "wrap": "wrap",
+      "gap": "md",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "button",
+          "text": "Enabled",
+          "variant": "primary",
+          "size": "default"
+        },
+        {
+          "type": "button",
+          "text": "Disabled",
+          "variant": "primary",
+          "size": "default",
+          "disabled": true
+        },
+        {
+          "type": "button",
+          "text": "Loading",
+          "variant": "primary",
+          "size": "default",
+          "loading": true
+        }
+      ]
+    }
+  ]
+}

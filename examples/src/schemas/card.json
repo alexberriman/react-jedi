@@ -1,0 +1,131 @@
+{
+  "type": "container",
+  "maxWidth": "lg",
+  "padding": "md",
+  "children": [
+    {
+      "type": "card",
+      "className": "w-full max-w-md mx-auto",
+      "children": [
+        {
+          "type": "cardHeader",
+          "children": [
+            {
+              "type": "cardTitle",
+              "text": "Create an account",
+              "align": "center"
+            },
+            {
+              "type": "cardDescription",
+              "text": "Enter your information to create your account",
+              "align": "center"
+            }
+          ]
+        },
+        {
+          "type": "cardContent",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "column",
+              "gap": "md",
+              "children": [
+                {
+                  "type": "flex",
+                  "direction": "column",
+                  "gap": "sm",
+                  "children": [
+                    {
+                      "type": "label",
+                      "text": "Name",
+                      "htmlFor": "name"
+                    },
+                    {
+                      "type": "input",
+                      "id": "name",
+                      "placeholder": "Enter your name"
+                    }
+                  ]
+                },
+                {
+                  "type": "flex",
+                  "direction": "column",
+                  "gap": "sm",
+                  "children": [
+                    {
+                      "type": "label",
+                      "text": "Email",
+                      "htmlFor": "email"
+                    },
+                    {
+                      "type": "input",
+                      "id": "email",
+                      "placeholder": "Enter your email",
+                      "type": "email"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "cardFooter",
+          "className": "flex justify-between",
+          "children": [
+            {
+              "type": "button",
+              "text": "Cancel",
+              "variant": "outline"
+            },
+            {
+              "type": "button",
+              "text": "Continue",
+              "variant": "primary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "className": "w-full max-w-md mx-auto mt-8",
+      "variant": "bordered",
+      "children": [
+        {
+          "type": "flex",
+          "direction": "row",
+          "align": "center",
+          "gap": "md",
+          "className": "p-6",
+          "children": [
+            {
+              "type": "avatar",
+              "src": "https://github.com/shadcn.png",
+              "alt": "User",
+              "fallback": "CN"
+            },
+            {
+              "type": "flex",
+              "direction": "column",
+              "children": [
+                {
+                  "type": "heading",
+                  "level": "h4",
+                  "content": "John Doe",
+                  "size": "lg"
+                },
+                {
+                  "type": "text",
+                  "text": "john.doe@example.com",
+                  "variant": "muted",
+                  "size": "sm"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

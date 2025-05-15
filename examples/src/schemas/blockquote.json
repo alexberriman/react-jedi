@@ -1,0 +1,52 @@
+{
+  "type": "container",
+  "maxWidth": "md",
+  "padding": "md",
+  "children": [
+    {
+      "type": "blockquote",
+      "variant": "default",
+      "cite": "Albert Einstein",
+      "className": "my-8",
+      "children": [
+        {
+          "type": "text",
+          "text": "Imagination is more important than knowledge. For knowledge is limited, whereas imagination embraces the entire world, stimulating progress, giving birth to evolution.",
+          "size": "lg",
+          "italic": true
+        }
+      ]
+    },
+    {
+      "type": "blockquote",
+      "variant": "bordered",
+      "cite": "Maya Angelou",
+      "alignment": "center",
+      "className": "my-8",
+      "children": [
+        {
+          "type": "text",
+          "text": "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
+          "size": "lg",
+          "weight": "medium",
+          "italic": true
+        }
+      ]
+    },
+    {
+      "type": "blockquote",
+      "variant": "gradient",
+      "cite": "Steve Jobs",
+      "alignment": "right",
+      "className": "my-8",
+      "children": [
+        {
+          "type": "text",
+          "text": "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do.",
+          "size": "lg",
+          "weight": "semibold"
+        }
+      ]
+    }
+  ]
+}

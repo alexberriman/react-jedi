@@ -1,0 +1,221 @@
+{
+  "type": "container",
+  "maxWidth": "md",
+  "padding": "md",
+  "children": [
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Skeleton Loading State Examples",
+      "size": "2xl",
+      "className": "mb-6"
+    },
+    {
+      "type": "heading",
+      "level": "h3",
+      "content": "Card Loading State",
+      "size": "xl",
+      "className": "mb-4"
+    },
+    {
+      "type": "card",
+      "className": "w-full mb-8",
+      "children": [
+        {
+          "type": "flex",
+          "direction": "row",
+          "gap": "md",
+          "className": "p-4",
+          "children": [
+            {
+              "type": "skeleton",
+              "className": "h-12 w-12 rounded-full"
+            },
+            {
+              "type": "flex",
+              "direction": "column",
+              "gap": "sm",
+              "className": "w-full",
+              "children": [
+                {
+                  "type": "skeleton",
+                  "className": "h-4 w-[250px]"
+                },
+                {
+                  "type": "skeleton",
+                  "className": "h-4 w-[200px]"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "box",
+          "className": "p-4",
+          "children": [
+            {
+              "type": "skeleton",
+              "className": "h-4 w-full mb-2"
+            },
+            {
+              "type": "skeleton",
+              "className": "h-4 w-full mb-2"
+            },
+            {
+              "type": "skeleton",
+              "className": "h-4 w-2/3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": "h3",
+      "content": "Product Card Loading",
+      "size": "xl",
+      "className": "mb-4"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "default": 1,
+        "sm": 2
+      },
+      "gap": "md",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "card",
+          "children": [
+            {
+              "type": "skeleton",
+              "className": "h-[200px] w-full rounded-t-lg"
+            },
+            {
+              "type": "box",
+              "className": "p-4",
+              "children": [
+                {
+                  "type": "skeleton",
+                  "className": "h-4 w-2/3 mb-2"
+                },
+                {
+                  "type": "skeleton",
+                  "className": "h-4 w-1/2 mb-4"
+                },
+                {
+                  "type": "flex",
+                  "direction": "row",
+                  "justify": "between",
+                  "align": "center",
+                  "children": [
+                    {
+                      "type": "skeleton",
+                      "className": "h-10 w-[80px]"
+                    },
+                    {
+                      "type": "skeleton",
+                      "className": "h-10 w-[100px]"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "children": [
+            {
+              "type": "skeleton",
+              "className": "h-[200px] w-full rounded-t-lg"
+            },
+            {
+              "type": "box",
+              "className": "p-4",
+              "children": [
+                {
+                  "type": "skeleton",
+                  "className": "h-4 w-3/4 mb-2"
+                },
+                {
+                  "type": "skeleton",
+                  "className": "h-4 w-1/2 mb-4"
+                },
+                {
+                  "type": "flex",
+                  "direction": "row",
+                  "justify": "between",
+                  "align": "center",
+                  "children": [
+                    {
+                      "type": "skeleton",
+                      "className": "h-10 w-[80px]"
+                    },
+                    {
+                      "type": "skeleton",
+                      "className": "h-10 w-[100px]"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": "h3",
+      "content": "Text Content Loading",
+      "size": "xl",
+      "className": "mb-4"
+    },
+    {
+      "type": "box",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "skeleton",
+          "className": "h-8 w-[300px] mb-6"
+        },
+        {
+          "type": "skeleton",
+          "className": "h-4 w-full mb-2"
+        },
+        {
+          "type": "skeleton",
+          "className": "h-4 w-full mb-2"
+        },
+        {
+          "type": "skeleton",
+          "className": "h-4 w-full mb-2"
+        },
+        {
+          "type": "skeleton",
+          "className": "h-4 w-4/5 mb-6"
+        },
+        {
+          "type": "skeleton",
+          "className": "h-6 w-[250px] mb-4"
+        },
+        {
+          "type": "skeleton",
+          "className": "h-4 w-full mb-2"
+        },
+        {
+          "type": "skeleton",
+          "className": "h-4 w-full mb-2"
+        },
+        {
+          "type": "skeleton",
+          "className": "h-4 w-2/3"
+        }
+      ]
+    }
+  ]
+}

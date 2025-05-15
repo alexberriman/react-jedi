@@ -1,0 +1,158 @@
+{
+  "type": "container",
+  "maxWidth": "md",
+  "padding": "md",
+  "children": [
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Badge Variants",
+      "size": "2xl",
+      "className": "mb-6"
+    },
+    {
+      "type": "flex",
+      "direction": "row",
+      "wrap": "wrap",
+      "gap": "md",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "badge",
+          "text": "Default",
+          "variant": "default"
+        },
+        {
+          "type": "badge",
+          "text": "Secondary",
+          "variant": "secondary"
+        },
+        {
+          "type": "badge",
+          "text": "Outline",
+          "variant": "outline"
+        },
+        {
+          "type": "badge",
+          "text": "Destructive",
+          "variant": "destructive"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Badge Examples",
+      "size": "2xl",
+      "className": "mb-6"
+    },
+    {
+      "type": "flex",
+      "direction": "column",
+      "gap": "md",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "card",
+          "className": "w-full",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "row",
+              "justify": "between",
+              "align": "center",
+              "className": "p-4",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Product Item",
+                  "weight": "medium"
+                },
+                {
+                  "type": "badge",
+                  "text": "New",
+                  "variant": "default"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "className": "w-full",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "row",
+              "justify": "between",
+              "align": "center",
+              "className": "p-4",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Order Status",
+                  "weight": "medium"
+                },
+                {
+                  "type": "badge",
+                  "text": "Processing",
+                  "variant": "secondary"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "className": "w-full",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "row",
+              "justify": "between",
+              "align": "center",
+              "className": "p-4",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Pull Request",
+                  "weight": "medium"
+                },
+                {
+                  "type": "badge",
+                  "text": "Merged",
+                  "variant": "outline"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "className": "w-full",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "row",
+              "justify": "between",
+              "align": "center",
+              "className": "p-4",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Account Status",
+                  "weight": "medium"
+                },
+                {
+                  "type": "badge",
+                  "text": "Suspended",
+                  "variant": "destructive"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

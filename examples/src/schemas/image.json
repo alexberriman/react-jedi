@@ -1,0 +1,271 @@
+{
+  "type": "container",
+  "maxWidth": "lg",
+  "padding": "md",
+  "children": [
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Image Component Examples",
+      "size": "2xl",
+      "gradient": "primary",
+      "className": "mb-6"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "default": 1,
+        "md": 2
+      },
+      "gap": "lg",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "md",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Basic Image",
+              "size": "xl",
+              "className": "mb-2"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1682687982501-1e58ab814714",
+              "alt": "Landscape photo",
+              "width": "100%",
+              "aspectRatio": "16/9",
+              "objectFit": "cover",
+              "rounded": "md"
+            }
+          ]
+        },
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "md",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Styled Image with Shadow",
+              "size": "xl",
+              "className": "mb-2"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1500964757637-c85e8a162699",
+              "alt": "Mountain landscape",
+              "width": "100%",
+              "aspectRatio": "4/3",
+              "objectFit": "cover",
+              "rounded": "xl",
+              "shadow": "xl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "default": 1,
+        "md": 3
+      },
+      "gap": "md",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "md",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Grayscale Filter",
+              "size": "lg",
+              "className": "mb-2"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+              "alt": "Starry night over mountains",
+              "width": "100%",
+              "aspectRatio": "1/1",
+              "objectFit": "cover",
+              "rounded": "md",
+              "filter": "grayscale"
+            }
+          ]
+        },
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "md",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Sepia Filter",
+              "size": "lg",
+              "className": "mb-2"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d",
+              "alt": "Mountain landscape",
+              "width": "100%",
+              "aspectRatio": "1/1",
+              "objectFit": "cover",
+              "rounded": "md",
+              "filter": "sepia"
+            }
+          ]
+        },
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "md",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Blur Filter",
+              "size": "lg",
+              "className": "mb-2"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+              "alt": "Forest landscape",
+              "width": "100%",
+              "aspectRatio": "1/1",
+              "objectFit": "cover",
+              "rounded": "md",
+              "filter": "blur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "default": 1,
+        "md": 2
+      },
+      "gap": "lg",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "md",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Hover Effects: Grow",
+              "size": "xl",
+              "className": "mb-2"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+              "alt": "Sunset landscape",
+              "width": "100%",
+              "aspectRatio": "16/9",
+              "objectFit": "cover",
+              "rounded": "lg",
+              "shadow": "md",
+              "hover": "grow"
+            }
+          ]
+        },
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "md",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Hover Effects: Shine",
+              "size": "xl",
+              "className": "mb-2"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
+              "alt": "Field landscape",
+              "width": "100%",
+              "aspectRatio": "16/9",
+              "objectFit": "cover",
+              "rounded": "lg",
+              "shadow": "md",
+              "hover": "shine"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "flex",
+      "direction": "column",
+      "gap": "md",
+      "className": "mb-8",
+      "children": [
+        {
+          "type": "heading",
+          "level": "h3",
+          "content": "Avatar Style (Round)",
+          "size": "xl",
+          "className": "mb-4"
+        },
+        {
+          "type": "flex",
+          "direction": "row",
+          "gap": "lg",
+          "justify": "center",
+          "wrap": "wrap",
+          "children": [
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+              "alt": "Person 1",
+              "width": "100px",
+              "height": "100px",
+              "objectFit": "cover",
+              "rounded": "full",
+              "shadow": "md"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+              "alt": "Person 2",
+              "width": "100px",
+              "height": "100px",
+              "objectFit": "cover",
+              "rounded": "full",
+              "shadow": "md"
+            },
+            {
+              "type": "Image",
+              "src": "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+              "alt": "Person 3",
+              "width": "100px",
+              "height": "100px",
+              "objectFit": "cover",
+              "rounded": "full",
+              "shadow": "md"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

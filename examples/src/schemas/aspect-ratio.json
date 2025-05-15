@@ -1,0 +1,14 @@
+{
+  "type": "aspect-ratio",
+  "ratio": 16 / 9,
+  "className": "w-full md:w-[600px] mx-auto overflow-hidden rounded-lg",
+  "children": [
+    {
+      "type": "Image",
+      "src": "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80",
+      "alt": "Beautiful landscape with mountains and lake",
+      "objectFit": "cover",
+      "className": "w-full h-full"
+    }
+  ]
+}

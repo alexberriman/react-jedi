@@ -1,0 +1,64 @@
+{
+  "type": "container",
+  "maxWidth": "lg",
+  "padding": "md",
+  "align": "center",
+  "children": [
+    {
+      "type": "heading",
+      "level": "h1",
+      "content": "Website Headline",
+      "size": "5xl",
+      "weight": "extrabold",
+      "gradient": "rainbow",
+      "animation": "glow",
+      "className": "mb-8"
+    },
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Product Features",
+      "size": "3xl",
+      "weight": "bold",
+      "variant": "primary",
+      "className": "mb-6"
+    },
+    {
+      "type": "heading",
+      "level": "h3",
+      "content": "Section Title",
+      "size": "2xl",
+      "weight": "semibold",
+      "transform": "capitalize",
+      "className": "mb-4"
+    },
+    {
+      "type": "heading",
+      "level": "h4",
+      "content": "Subsection Heading",
+      "size": "xl",
+      "weight": "medium",
+      "variant": "secondary",
+      "className": "mb-3"
+    },
+    {
+      "type": "heading",
+      "level": "h5",
+      "content": "IMPORTANT NOTICE",
+      "size": "lg",
+      "weight": "bold",
+      "transform": "uppercase",
+      "variant": "destructive",
+      "className": "mb-2"
+    },
+    {
+      "type": "heading",
+      "level": "h6",
+      "content": "Small heading for detailed sections",
+      "size": "md",
+      "weight": "normal",
+      "variant": "muted",
+      "className": "mb-1"
+    }
+  ]
+}

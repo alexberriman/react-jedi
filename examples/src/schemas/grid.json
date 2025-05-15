@@ -1,0 +1,89 @@
+{
+  "type": "grid",
+  "columns": {
+    "default": 1,
+    "sm": 2,
+    "md": 3,
+    "lg": 4
+  },
+  "gap": "lg",
+  "className": "w-full",
+  "children": [
+    {
+      "type": "box",
+      "padding": "md",
+      "background": "card",
+      "rounded": "md",
+      "shadow": "sm",
+      "children": [
+        {
+          "type": "heading",
+          "level": "h3",
+          "content": "Grid Item 1",
+          "size": "xl"
+        },
+        {
+          "type": "text",
+          "text": "This is the first item in the grid."
+        }
+      ]
+    },
+    {
+      "type": "box",
+      "padding": "md",
+      "background": "card",
+      "rounded": "md",
+      "shadow": "sm",
+      "children": [
+        {
+          "type": "heading",
+          "level": "h3",
+          "content": "Grid Item 2",
+          "size": "xl"
+        },
+        {
+          "type": "text",
+          "text": "This is the second item in the grid."
+        }
+      ]
+    },
+    {
+      "type": "box",
+      "padding": "md",
+      "background": "card",
+      "rounded": "md",
+      "shadow": "sm",
+      "children": [
+        {
+          "type": "heading",
+          "level": "h3",
+          "content": "Grid Item 3",
+          "size": "xl"
+        },
+        {
+          "type": "text",
+          "text": "This is the third item in the grid."
+        }
+      ]
+    },
+    {
+      "type": "box",
+      "padding": "md",
+      "background": "card",
+      "rounded": "md",
+      "shadow": "sm",
+      "children": [
+        {
+          "type": "heading",
+          "level": "h3",
+          "content": "Grid Item 4",
+          "size": "xl"
+        },
+        {
+          "type": "text",
+          "text": "This is the fourth item in the grid."
+        }
+      ]
+    }
+  ]
+}

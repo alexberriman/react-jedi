@@ -56,11 +56,11 @@ This milestone delivers a working, shippable library that can render static layo
   - [x] Create Storybook documentation with examples
   - [x] Implement specification schema for Container
 
-- [ ] Box Component (primitive div-like component for general layout)
+- [x] Box Component (primitive div-like component for general layout)
 
-  - [ ] Create custom implementation with TailwindCSS
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Box
+  - [x] Create custom implementation with TailwindCSS
+  - [x] Create Storybook documentation with examples
+  - [x] Implement specification schema for Box
 
 - [ ] Grid Component (CSS Grid-based layout system)
 

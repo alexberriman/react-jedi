@@ -28,6 +28,11 @@
       "name": "label",
       "type": "ui",
       "description": "A component for displaying form labels with support for required fields"
+    },
+    {
+      "name": "box",
+      "type": "ui",
+      "description": "A primitive div-like component for general layout with extensive styling options"
     }
   ]
 }

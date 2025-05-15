@@ -19,3 +19,4 @@ export * from "./badge";
 export * from "./avatar";
 export * from "./skeleton";
 export * from "./container";
+export * from "./box";

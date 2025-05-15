@@ -6,7 +6,20 @@
 
 // Core utilities
 export * from "./utils";
-export * from "./styles";
+// Explicitly re-export from styles to avoid DEFAULT_BREAKPOINTS ambiguity
+export {
+  processResponsive, processMargin, processPadding, processWidth, 
+  processHeight, processTextColor, processBackgroundColor, processBorder,
+  processBorderRadius, processFlexDirection, processFlexWrap, processGap,
+  processTextAlign, processFontSize, processFontWeight, processShadow,
+  processZIndex, processDisplay, processOverflow, processPosition,
+  processOffset, processOpacity, processTransition, arbitrary,
+  extractStyles, conditionalClasses, stateClasses, styleProcessors,
+  processStyleProps,
+  // Types
+  type ResponsiveValue, type StyleValue, type StyleObject, 
+  type StyleProcessor, type StylePropertyValue, type StyleProps
+} from "./styles";
 export * from "./type-safety";
 
 // Schemas and validation

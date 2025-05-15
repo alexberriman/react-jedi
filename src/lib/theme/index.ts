@@ -72,6 +72,19 @@ export {
   type ContainerSpacing
 } from "./spacing";
 
+// Z-Index system
+export {
+  defaultZIndices,
+  getZIndex,
+  createZIndexScale,
+  createZIndexResolver,
+  createZIndexCSSVariables,
+  getRelativeZIndex,
+  isValidZIndex,
+  useZIndex,
+  type UseZIndexResult
+} from "./z-index";
+
 // Theme presets
 export {
   defaultTheme,

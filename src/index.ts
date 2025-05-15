@@ -113,7 +113,20 @@ export * from "./lib/render";
 export * from "./lib/component-resolver";
 export * from "./lib/component-tree";
 export * from "./lib/error-handling";
-export * from "./lib/theme";
+
+// Export theme system without re-exporting duplicate breakpoints
+export {
+  ThemeProvider, ThemeContext, useThemeContext, useTheme,
+  extractTokensFromTheme, createTokenCollection, convertThemeTokens,
+  generateCssVariables, applyCssVariables, generateCssRules,
+  createTokenResolver, resolveThemeValue, cssVar,
+  generateColorPalette, generateColorScale, hexToRgb, rgbToHex,
+  hexToHsl, hslToHex, rgbToHsl, hslToRgb, isLightColor, getContrastRatio,
+  spacing, DEFAULT_SPACING_SCALE, RELATIVE_SPACING, DEFAULT_CONTAINER_PRESETS,
+  ContainerPresetType,
+  defaultTheme, themePresets, createDarkTheme, generateCustomTheme,
+  ColorModeProvider, ColorModeContext, useColorMode, ColorModeToggle, AdvancedModeToggle
+} from "./lib/theme";
 // Export type-safety separately to avoid conflicts
 export {
   Result, Ok, Err, ok, err,

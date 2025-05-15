@@ -6,10 +6,15 @@
  */
 
 import type { ThemeSpecification } from "@/types/schema/specification";
-import type { SpacingKey, SpacingScale } from "./scale";
-import type { ResponsiveSpacingObject } from "./responsive";
+import type { SpacingKey } from "./scale";
+import type { ResponsiveSpacingObject, BreakpointKey } from "./responsive";
 import { extractSpacingScale, getSpacing } from "./scale";
 import { resolveResponsiveSpacing } from "./responsive";
+
+/**
+ * Unified spacing value type that can be a direct value or responsive object
+ */
+export type SpacingValue = SpacingKey | string | ResponsiveSpacingObject;
 
 /**
  * Container spacing configuration
@@ -18,67 +23,67 @@ export interface ContainerSpacing {
   /**
    * Padding for all sides
    */
-  padding?: SpacingKey | string | ResponsiveSpacingObject;
+  padding?: SpacingValue;
   
   /**
    * Horizontal padding (left and right)
    */
-  paddingX?: SpacingKey | string | ResponsiveSpacingObject;
+  paddingX?: SpacingValue;
   
   /**
    * Vertical padding (top and bottom)
    */
-  paddingY?: SpacingKey | string | ResponsiveSpacingObject;
+  paddingY?: SpacingValue;
   
   /**
    * Top padding
    */
-  paddingTop?: SpacingKey | string | ResponsiveSpacingObject;
+  paddingTop?: SpacingValue;
   
   /**
    * Right padding
    */
-  paddingRight?: SpacingKey | string | ResponsiveSpacingObject;
+  paddingRight?: SpacingValue;
   
   /**
    * Bottom padding
    */
-  paddingBottom?: SpacingKey | string | ResponsiveSpacingObject;
+  paddingBottom?: SpacingValue;
   
   /**
    * Left padding
    */
-  paddingLeft?: SpacingKey | string | ResponsiveSpacingObject;
+  paddingLeft?: SpacingValue;
   
   /**
    * Gap between children (for flex/grid containers)
    */
-  gap?: SpacingKey | string | ResponsiveSpacingObject;
+  gap?: SpacingValue;
   
   /**
    * Horizontal gap (for grid containers)
    */
-  columnGap?: SpacingKey | string | ResponsiveSpacingObject;
+  columnGap?: SpacingValue;
   
   /**
    * Vertical gap (for grid containers)
    */
-  rowGap?: SpacingKey | string | ResponsiveSpacingObject;
+  rowGap?: SpacingValue;
   
   /**
    * Margin around container
    */
-  margin?: SpacingKey | string | ResponsiveSpacingObject;
+  margin?: SpacingValue;
   
   /**
    * Horizontal margins (left and right)
    */
-  marginX?: SpacingKey | string | ResponsiveSpacingObject;
+  marginX?: SpacingValue;
   
   /**
    * Vertical margins (top and bottom)
    */
-  marginY?: SpacingKey | string | ResponsiveSpacingObject;
+  marginY?: SpacingValue;
 }
 
 /**
@@ -240,63 +245,90 @@ export function resolveContainerSpacing(
     const value = spacing[spacingProp];
     if (!value) return;
     
-    if (typeof value === "string" || typeof value === "number") {
-      css[cssProp] = getSpacing(value, scale);
-    } else {
-      // For responsive values, handle base case
-      css[cssProp] = resolveResponsiveSpacing(value, "base", scale);
-      
-      // Media queries would be handled by the responsive spacing utilities
-      // This is a simplification for direct usage
-    }
+    css[cssProp] = (typeof value === "string" || typeof value === "number") 
+      ? getSpacing(value, scale)
+      : resolveResponsiveSpacing(value, "base" as BreakpointKey, scale);
   }
   
-  // Padding properties
-  if (spacing.padding) {
-    resolveProperty("padding", "padding");
-  } else {
-    // Handle individual padding directions
-    if (spacing.paddingX) {
-      resolveProperty("paddingX", "padding-left");
-      resolveProperty("paddingX", "padding-right");
-    } else {
-      resolveProperty("paddingLeft", "padding-left");
-      resolveProperty("paddingRight", "padding-right");
-    }
-    
-    if (spacing.paddingY) {
-      resolveProperty("paddingY", "padding-top");
-      resolveProperty("paddingY", "padding-bottom");
-    } else {
-      resolveProperty("paddingTop", "padding-top");
-      resolveProperty("paddingBottom", "padding-bottom");
-    }
-  }
+  // Process padding properties
+  processPaddingProperties(spacing, resolveProperty);
   
-  // Gap properties
-  if (spacing.gap) {
-    resolveProperty("gap", "gap");
-  } else {
-    resolveProperty("rowGap", "row-gap");
-    resolveProperty("columnGap", "column-gap");
-  }
+  // Process gap properties
+  processGapProperties(spacing, resolveProperty);
   
-  // Margin properties
-  if (spacing.margin) {
-    resolveProperty("margin", "margin");
-  } else {
-    if (spacing.marginX) {
-      resolveProperty("marginX", "margin-left");
-      resolveProperty("marginX", "margin-right");
-    }
-    
-    if (spacing.marginY) {
-      resolveProperty("marginY", "margin-top");
-      resolveProperty("marginY", "margin-bottom");
-    }
-  }
+  // Process margin properties
+  processMarginProperties(spacing, resolveProperty);
   
   return css;
+}
+
+/**
+ * Helper function to process padding properties
+ */
+function processPaddingProperties(
+  spacing: ContainerSpacing,
+  resolver: (prop: keyof ContainerSpacing, cssProp: string) => void
+): void {
+  if (spacing.padding) {
+    resolver("padding", "padding");
+    return;
+  }
+  
+  // Handle X axis (horizontal)
+  if (spacing.paddingX) {
+    resolver("paddingX", "padding-left");
+    resolver("paddingX", "padding-right");
+  } else {
+    resolver("paddingLeft", "padding-left");
+    resolver("paddingRight", "padding-right");
+  }
+  
+  // Handle Y axis (vertical)
+  if (spacing.paddingY) {
+    resolver("paddingY", "padding-top");
+    resolver("paddingY", "padding-bottom");
+  } else {
+    resolver("paddingTop", "padding-top");
+    resolver("paddingBottom", "padding-bottom");
+  }
+}
+
+/**
+ * Helper function to process gap properties
+ */
+function processGapProperties(
+  spacing: ContainerSpacing,
+  resolver: (prop: keyof ContainerSpacing, cssProp: string) => void
+): void {
+  if (spacing.gap) {
+    resolver("gap", "gap");
+  } else {
+    resolver("rowGap", "row-gap");
+    resolver("columnGap", "column-gap");
+  }
+}
+
+/**
+ * Helper function to process margin properties
+ */
+function processMarginProperties(
+  spacing: ContainerSpacing,
+  resolver: (prop: keyof ContainerSpacing, cssProp: string) => void
+): void {
+  if (spacing.margin) {
+    resolver("margin", "margin");
+    return;
+  }
+  
+  if (spacing.marginX) {
+    resolver("marginX", "margin-left");
+    resolver("marginX", "margin-right");
+  }
+  
+  if (spacing.marginY) {
+    resolver("marginY", "margin-top");
+    resolver("marginY", "margin-bottom");
+  }
 }
 
 /**
@@ -321,56 +353,85 @@ export function createCustomContainerPreset(
 export function generateContainerClasses(spacing: ContainerSpacing): string[] {
   const classes: string[] = [];
   
-  // Helper to add padding classes
-  function addPaddingClasses(value: SpacingKey | string | ResponsiveSpacingObject, prefix: string) {
+  // Helper to add spacing classes based on value
+  function addSpacingClasses(value: SpacingValue, prefix: string) {
     if (typeof value === "string" || typeof value === "number") {
       classes.push(`${prefix}-${value}`);
-    } else {
-      // Handle responsive object
-      for (const [breakpoint, bpValue] of Object.entries(value)) {
-        if (breakpoint === "base") {
-          classes.push(`${prefix}-${bpValue}`);
-        } else {
-          classes.push(`${breakpoint}:${prefix}-${bpValue}`);
-        }
-      }
-    }
-  }
-  
-  // Add padding classes
-  if (spacing.padding) {
-    addPaddingClasses(spacing.padding, "p");
-  } else {
-    if (spacing.paddingX) {
-      addPaddingClasses(spacing.paddingX, "px");
-    } else {
-      if (spacing.paddingLeft) addPaddingClasses(spacing.paddingLeft, "pl");
-      if (spacing.paddingRight) addPaddingClasses(spacing.paddingRight, "pr");
+      return;
     }
     
-    if (spacing.paddingY) {
-      addPaddingClasses(spacing.paddingY, "py");
-    } else {
-      if (spacing.paddingTop) addPaddingClasses(spacing.paddingTop, "pt");
-      if (spacing.paddingBottom) addPaddingClasses(spacing.paddingBottom, "pb");
+    // Handle responsive object
+    for (const [breakpoint, bpValue] of Object.entries(value)) {
+      const classPrefix = breakpoint === "base" ? "" : `${breakpoint}:`;
+      classes.push(`${classPrefix}${prefix}-${bpValue}`);
     }
   }
   
-  // Add gap classes
-  if (spacing.gap) {
-    addPaddingClasses(spacing.gap, "gap");
-  } else {
-    if (spacing.rowGap) addPaddingClasses(spacing.rowGap, "gap-y");
-    if (spacing.columnGap) addPaddingClasses(spacing.columnGap, "gap-x");
-  }
-  
-  // Add margin classes
-  if (spacing.margin) {
-    addPaddingClasses(spacing.margin, "m");
-  } else {
-    if (spacing.marginX) addPaddingClasses(spacing.marginX, "mx");
-    if (spacing.marginY) addPaddingClasses(spacing.marginY, "my");
-  }
+  // Process all spacing types using helper functions
+  processPaddingClasses(spacing, addSpacingClasses);
+  processGapClasses(spacing, addSpacingClasses);
+  processMarginClasses(spacing, addSpacingClasses);
   
   return classes;
+}
+
+/**
+ * Process padding classes
+ */
+function processPaddingClasses(
+  spacing: ContainerSpacing,
+  addClasses: (value: SpacingValue, prefix: string) => void
+): void {
+  if (spacing.padding) {
+    addClasses(spacing.padding, "p");
+    return;
+  }
+  
+  // Process X-axis padding
+  if (spacing.paddingX) {
+    addClasses(spacing.paddingX, "px");
+  } else {
+    if (spacing.paddingLeft) addClasses(spacing.paddingLeft, "pl");
+    if (spacing.paddingRight) addClasses(spacing.paddingRight, "pr");
+  }
+  
+  // Process Y-axis padding
+  if (spacing.paddingY) {
+    addClasses(spacing.paddingY, "py");
+  } else {
+    if (spacing.paddingTop) addClasses(spacing.paddingTop, "pt");
+    if (spacing.paddingBottom) addClasses(spacing.paddingBottom, "pb");
+  }
+}
+
+/**
+ * Process gap classes
+ */
+function processGapClasses(
+  spacing: ContainerSpacing,
+  addClasses: (value: SpacingValue, prefix: string) => void
+): void {
+  if (spacing.gap) {
+    addClasses(spacing.gap, "gap");
+    return;
+  }
+  
+  if (spacing.rowGap) addClasses(spacing.rowGap, "gap-y");
+  if (spacing.columnGap) addClasses(spacing.columnGap, "gap-x");
+}
+
+/**
+ * Process margin classes
+ */
+function processMarginClasses(
+  spacing: ContainerSpacing,
+  addClasses: (value: SpacingValue, prefix: string) => void
+): void {
+  if (spacing.margin) {
+    addClasses(spacing.margin, "m");
+    return;
+  }
+  
+  if (spacing.marginX) addClasses(spacing.marginX, "mx");
+  if (spacing.marginY) addClasses(spacing.marginY, "my");
 }

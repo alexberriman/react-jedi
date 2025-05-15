@@ -218,7 +218,7 @@ This milestone focuses on building a robust theming and styling system that allo
 
 - [ ] Implement layout value system
 
-  - [ ] Create z-index management
+  - [✅] Create z-index management
   - [ ] Build border radius scale
   - [ ] Implement shadow system
 

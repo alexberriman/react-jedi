@@ -24,7 +24,7 @@ export const DEFAULT_BREAKPOINTS = {
 /**
  * Breakpoint key type
  */
-export type BreakpointKey = keyof typeof DEFAULT_BREAKPOINTS;
+export type BreakpointKey = keyof typeof DEFAULT_BREAKPOINTS | "base";
 
 /**
  * Responsive spacing definition with values for different breakpoints
@@ -175,29 +175,32 @@ export function applySpacingConstraints(
   constraints: SpacingConstraints,
   scale: SpacingScale
 ): string {
-  // Extract numeric value and unit
-  const match = value.match(/^([\d.]+)(\w+)$/);
+  // Extract numeric value and unit using non-backtracking pattern
+  const regex = /^(\d+(?:\.\d+)?)([a-zA-Z]+)$/;
+  const match = regex.exec(value);
   if (!match) return value;
   
   const [, numStr, unit] = match;
-  const numValue = parseFloat(numStr);
+  const numValue = Number.parseFloat(numStr);
   
   // Process min constraint
   let finalValue = numValue;
   if (constraints.min) {
     const minValue = getSpacing(constraints.min, scale);
-    const minMatch = minValue.match(/^([\d.]+)(\w+)$/);
+    const minRegex = /^(\d+(?:\.\d+)?)([a-zA-Z]+)$/;
+    const minMatch = minRegex.exec(minValue);
     if (minMatch && minMatch[2] === unit) {
-      finalValue = Math.max(finalValue, parseFloat(minMatch[1]));
+      finalValue = Math.max(finalValue, Number.parseFloat(minMatch[1]));
     }
   }
   
   // Process max constraint
   if (constraints.max) {
     const maxValue = getSpacing(constraints.max, scale);
-    const maxMatch = maxValue.match(/^([\d.]+)(\w+)$/);
+    const maxRegex = /^(\d+(?:\.\d+)?)([a-zA-Z]+)$/;
+    const maxMatch = maxRegex.exec(maxValue);
     if (maxMatch && maxMatch[2] === unit) {
-      finalValue = Math.min(finalValue, parseFloat(maxMatch[1]));
+      finalValue = Math.min(finalValue, Number.parseFloat(maxMatch[1]));
     }
   }
   
@@ -252,7 +255,7 @@ export function fluidSpacing(
   const formatIntercept = intercept.toFixed(6);
   
   // Create the fluid spacing calc expression
-  return `clamp(${minValue}, calc(${formatIntercept}rem + ${formatSlope * 100}vw), ${maxValue})`;
+  return `clamp(${minValue}, calc(${formatIntercept}rem + ${Number.parseFloat(formatSlope) * 100}vw), ${maxValue})`;
 }
 
 /**
@@ -261,12 +264,13 @@ export function fluidSpacing(
  * @returns Converted value and unit
  */
 function convertToRem(value: string): { value: number; unit: string } | null {
-  // Extract numeric value and unit
-  const match = value.match(/^([\d.]+)(\w+)$/);
+  // Extract numeric value and unit using non-backtracking pattern
+  const regex = /^(\d+(?:\.\d+)?)([a-zA-Z]+)$/;
+  const match = regex.exec(value);
   if (!match) return null;
   
   const [, numStr, unit] = match;
-  const numValue = parseFloat(numStr);
+  const numValue = Number.parseFloat(numStr);
   
   // Convert based on unit
   switch (unit) {

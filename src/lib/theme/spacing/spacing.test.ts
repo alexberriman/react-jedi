@@ -5,6 +5,8 @@
  * responsive spacing, and container presets.
  */
 
+import { describe, test, expect } from "vitest";
+
 import {
   DEFAULT_SPACING_SCALE,
   RELATIVE_SPACING,
@@ -21,6 +23,7 @@ import {
   generateMediaQuery,
   applySpacingConstraints,
   fluidSpacing,
+  type BreakpointKey
 } from "./responsive";
 
 import {
@@ -46,7 +49,9 @@ describe("Spacing Scale Tests", () => {
     expect(getSpacing("4")).toBe("1rem");
     expect(getSpacing("8")).toBe("2rem");
     expect(getSpacing("1.5")).toBe("0.375rem");
-    expect(getSpacing("nonexistent", { "custom": "5px" } as any)).toBe("nonexistent");
+    // Custom scale with additional property
+    const customScale = { ...DEFAULT_SPACING_SCALE, "custom": "5px" };
+    expect(getSpacing("nonexistent", customScale)).toBe("nonexistent");
   });
 
   test("getRelativeSpacing calculates correctly", () => {
@@ -69,7 +74,7 @@ describe("Spacing Scale Tests", () => {
     });
     
     expect(customScale["4"]).toBe("2.0000rem"); // Double the standard
-    expect(customScale["custom"]).toBe("42px");
+    expect((customScale as Record<string, string>)["custom"]).toBe("42px");
   });
 
   test("extractSpacingScale returns default when theme is empty", () => {
@@ -85,11 +90,10 @@ describe("Spacing Scale Tests", () => {
   });
 
   test("generateSpacingVariables creates CSS variables", () => {
-    const variables = generateSpacingVariables({
-      "0": "0",
-      "1": "0.25rem",
-      "1.5": "0.375rem",
-    });
+    // Create a test scale that's a proper subset of the DEFAULT_SPACING_SCALE
+    const testScale = { ...DEFAULT_SPACING_SCALE };
+    
+    const variables = generateSpacingVariables(testScale);
     
     expect(variables["--spacing-0"]).toBe("0");
     expect(variables["--spacing-1"]).toBe("0.25rem");
@@ -116,7 +120,7 @@ describe("Responsive Spacing Tests", () => {
       lg: "8",
     };
     
-    expect(resolveResponsiveSpacing(responsive, "base", DEFAULT_SPACING_SCALE)).toBe("1rem");
+    expect(resolveResponsiveSpacing(responsive, "base" as BreakpointKey, DEFAULT_SPACING_SCALE)).toBe("1rem");
     expect(resolveResponsiveSpacing(responsive, "md", DEFAULT_SPACING_SCALE)).toBe("1.5rem");
     expect(resolveResponsiveSpacing(responsive, "lg", DEFAULT_SPACING_SCALE)).toBe("2rem");
     
@@ -137,7 +141,7 @@ describe("Responsive Spacing Tests", () => {
     
     // Custom breakpoints
     const customBreakpoints = { small: "500px", large: "1200px" };
-    expect(generateMediaQuery("small" as any, customBreakpoints)).toBe("@media (min-width: 500px)");
+    expect(generateMediaQuery("small" as unknown as BreakpointKey, customBreakpoints)).toBe("@media (min-width: 500px)");
   });
 
   test("applySpacingConstraints applies min/max constraints", () => {
@@ -187,6 +191,7 @@ describe("Container Spacing Tests", () => {
     
     // Falls back to normal when preset doesn't exist
     const customPresets = {
+      ...DEFAULT_CONTAINER_PRESETS,
       [ContainerPresetType.CARD]: { padding: "12" },
     };
     
@@ -300,9 +305,11 @@ describe("Spacing API Tests", () => {
     const containerPreset = spacing.getContainer(ContainerPresetType.CARD);
     expect(containerPreset).toBeDefined();
     
-    const variables = spacing.variables.generate({
+    const customSpacingScale = {
+      ...DEFAULT_SPACING_SCALE,
       "test": "10px",
-    });
+    };
+    const variables = spacing.variables.generate(customSpacingScale);
     expect(variables["--spacing-test"]).toBe("10px");
   });
 });

@@ -175,13 +175,13 @@ export function getRelativeSpacing(
   
   // If base value is in rem, multiply the numeric part
   if (baseValue.endsWith("rem")) {
-    const numValue = parseFloat(baseValue);
+    const numValue = Number.parseFloat(baseValue);
     return `${(numValue * multiplier).toFixed(4)}rem`;
   }
   
   // If base value is in px, multiply the numeric part
   if (baseValue.endsWith("px")) {
-    const numValue = parseFloat(baseValue);
+    const numValue = Number.parseFloat(baseValue);
     return `${Math.round(numValue * multiplier)}px`;
   }
   
@@ -214,14 +214,14 @@ export function generateSpacingScale(config: {
   const scale = { ...DEFAULT_SPACING_SCALE };
   
   // Generate numerical scale values
-  for (const [key, value] of Object.entries(scale)) {
+  for (const [key] of Object.entries(scale)) {
     // Skip non-numerical keys like "px"
     if (key === "px" || key === "0" || !/^[\d.]+$/.test(key)) {
       continue;
     }
     
     // Convert numerical keys to their rem values using the baseUnit
-    const numKey = parseFloat(key);
+    const numKey = Number.parseFloat(key);
     scale[key as SpacingKey] = `${(numKey * baseUnit * scaleFactor).toFixed(4)}rem`;
   }
   

@@ -74,11 +74,11 @@ This milestone delivers a working, shippable library that can render static layo
   - [ ] Create Storybook documentation with alignment and distribution examples
   - [ ] Implement specification schema with direction, wrap, and alignment options
 
-- [ ] AspectRatio Component (maintains width/height ratio)
+- [x] AspectRatio Component (maintains width/height ratio)
 
-  - [ ] Add from shadcn (`npx shadcn@latest add aspect-ratio`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for AspectRatio
+  - [x] Add from shadcn (`npx shadcn@latest add aspect-ratio`)
+  - [x] Create Storybook documentation with examples
+  - [x] Implement specification schema for AspectRatio
 
 - [ ] Separator/Divider Component (horizontal or vertical dividing line)
   - [ ] Add from shadcn (`npx shadcn@latest add separator`)

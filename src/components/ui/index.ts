@@ -9,5 +9,8 @@
 export const UI_COMPONENTS_VERSION = "1.0.0";
 
 // Add shadcn component exports as they're created
-// Example: export * from './button';
-// Example: export * from './card';
+export * from "./button";
+export * from "./card";
+export * from "./input";
+export * from "./label";
+export * from "./aspect-ratio";

@@ -142,3 +142,71 @@ export {
   type ColorModeToggleProps,
   type AdvancedModeToggleProps
 } from "./color-mode";
+
+// Responsive system
+export {
+  DEFAULT_BREAKPOINTS,
+  extractBreakpoints,
+  getBreakpointOrder,
+  generateMediaQuery,
+  generateContainerQuery,
+  createMediaQueries,
+  createContainerQueries,
+  isResponsiveValue,
+  normalizeResponsiveValue,
+  getResponsiveValue,
+  mapResponsiveValues,
+  createResponsiveStyles,
+  createResponsiveUtils,
+  useResponsive,
+  type Breakpoints,
+  type BreakpointKey,
+  type ResponsiveValue,
+  type ResponsiveObject,
+  type ResponsiveArray,
+  type MediaQueryType,
+  type MediaQueryOrientation,
+  type ContainerQueryType,
+  type MediaQueryOptions,
+  type ContainerQueryOptions,
+  type UseResponsiveResult
+} from "./responsive-system";
+
+// Responsive variants
+export {
+  createResponsiveToken,
+  generateResponsiveCssVars,
+  createResponsiveCategory,
+  createResponsiveTokenCollection,
+  resolveTokenAtBreakpoint,
+  applyResponsiveToken,
+  createResponsiveTokenUtils,
+  createResponsiveColorToken,
+  createResponsiveSpacingToken,
+  createResponsiveTypographyToken,
+  type ResponsiveDesignToken,
+  type ResponsiveTokenCollection,
+  type ResponsiveTokenOptions
+} from "./responsive-variants";
+
+// Container queries
+export {
+  containerQuery,
+  generateContainerQueryString,
+  createContainerDefinition,
+  containerQueryFromSize,
+  applyContainerQuery,
+  createContainerStyles,
+  useContainerQuery,
+  createHybridResponsiveStyles,
+  DEFAULT_CONTAINER_SIZES,
+  type ContainerType,
+  type ContainerName,
+  type ContainerQueryCondition,
+  type ContainerDefinition,
+  type ContainerQuery,
+  type ContainerResponsiveValue,
+  type ContainerResponsiveObject,
+  type ContainerQueryBuilderOptions,
+  type UseContainerQueryResult
+} from "./container-queries";

@@ -72,17 +72,17 @@ describe("Shadow System", () => {
       const scale = generateShadowScale({
         customValues: { custom: "0 0 5px red" },
       });
-      expect(scale.custom).toBe("0 0 5px red");
+      expect(scale["custom"]).toBe("0 0 5px red");
       expect(scale.sm).toBe(DEFAULT_SHADOW_SCALE.sm);
     });
 
     it("should use custom base scale", () => {
-      const customBase = {
+      const customBase: Partial<typeof DEFAULT_SHADOW_SCALE> = {
         none: "none",
         sm: "0 1px 1px black",
       };
       const scale = generateShadowScale({
-        baseScale: customBase as any,
+        baseScale: { ...DEFAULT_SHADOW_SCALE, ...customBase },
       });
       expect(scale.sm).toBe("0 1px 1px black");
     });

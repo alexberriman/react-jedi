@@ -38,6 +38,9 @@ export function DocumentationPage() {
             <a href="#form-components" className="px-4 py-2 rounded-full bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 hover:text-white transition-all text-sm">
               Form Components
             </a>
+            <a href="#complex-examples" className="px-4 py-2 rounded-full bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 hover:text-white transition-all text-sm">
+              Complex Examples
+            </a>
           </div>
 
           {/* Getting Started Section */}
@@ -88,6 +91,43 @@ const spec = {
 // Render the UI
 function MyComponent() {
   return render({ spec });
+}`}
+                  </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">TypeScript Support</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                React Jedi includes comprehensive TypeScript definitions for all component specifications, ensuring type safety when building your UIs.
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                  <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`import { render, ComponentSpec } from "@banja/react-jedi";
+
+// Type-safe component specification
+const spec: ComponentSpec = {
+  type: "container",
+  maxWidth: "xl",
+  padding: "md",
+  children: [
+    {
+      type: "heading",
+      level: "h1",
+      content: "Type-Safe UI",
+      gradient: "rainbow"
+    }
+  ]
+};
+
+function MyApp() {
+  return (
+    <div className="app">
+      {render({ spec })}
+    </div>
+  );
 }`}
                   </pre>
                 </div>
@@ -190,6 +230,91 @@ function MyComponent() {
                   <span className="font-semibold text-white">style</span> - Inline styles (object format)
                 </li>
               </ul>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Complete Example</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                Here's a more comprehensive example using multiple components together:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "container",
+  "maxWidth": "lg",
+  "padding": "lg",
+  "children": [
+    {
+      "type": "heading",
+      "level": "h1",
+      "content": "Welcome to React Jedi",
+      "gradient": "rainbow",
+      "size": "5xl",
+      "align": "center"
+    },
+    {
+      "type": "separator",
+      "orientation": "horizontal",
+      "className": "my-8"
+    },
+    {
+      "type": "grid",
+      "columns": { "default": 1, "md": 2, "lg": 3 },
+      "gap": "lg",
+      "children": [
+        {
+          "type": "card",
+          "className": "hover:border-emerald-500/50 transition-all",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Feature One"
+            },
+            {
+              "type": "text",
+              "text": "Build beautiful UIs with JSON specifications"
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "className": "hover:border-emerald-500/50 transition-all",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Feature Two"
+            },
+            {
+              "type": "text",
+              "text": "Type-safe component system with full TypeScript support"
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "className": "hover:border-emerald-500/50 transition-all",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Feature Three"
+            },
+            {
+              "type": "text",
+              "text": "Powered by TailwindCSS and ShadCN components"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -254,8 +379,20 @@ function MyComponent() {
   "background": "card",
   "rounded": "md",
   "shadow": "sm",
+  "border": true,
+  "className": "hover:shadow-lg transition-shadow",
   "children": [
-    // Box content
+    {
+      "type": "heading",
+      "level": "h3",
+      "content": "Card Title",
+      "size": "xl"
+    },
+    {
+      "type": "text",
+      "text": "This is box component content.",
+      "variant": "muted"
+    }
   ]
 }`}
                     </pre>
@@ -420,12 +557,16 @@ function MyComponent() {
                     <pre className="whitespace-pre-wrap text-sm">
 {`{
   "type": "text",
-  "text": "This is styled paragraph text.",
+  "text": "This is styled paragraph text with advanced features.",
   "element": "p",
   "size": "lg",
   "weight": "medium",
   "variant": "primary",
-  "gradient": "ocean"
+  "gradient": "ocean",
+  "align": "justify",
+  "lineClamp": 3,
+  "shadow": true,
+  "transform": "capitalize"
 }`}
                     </pre>
                     </div>
@@ -589,6 +730,19 @@ function MyComponent() {
   "text": "New",
   "variant": "default",
   "size": "default"
+}
+
+// Or with different variants
+{
+  "type": "badge",
+  "text": "Beta",
+  "variant": "secondary"
+}
+
+{
+  "type": "badge",
+  "text": "2 items",
+  "variant": "outline"
 }`}
                     </pre>
                     </div>
@@ -734,6 +888,1013 @@ function MyComponent() {
             </div>
           </section>
 
+          {/* Complex Examples Section */}
+          <section id="complex-examples" className="mb-20 scroll-mt-32">
+            <div className="relative">
+              <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+                Complex Examples
+                <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50" />
+              </h2>
+            </div>
+
+            <div className="prose prose-invert prose-emerald max-w-none">
+              <p className="text-zinc-300 leading-relaxed mb-6">
+                Here are some complex examples that combine multiple components to create real-world UI patterns.
+              </p>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Hero Section</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A complete hero section with gradient heading, description, and call-to-action buttons:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "container",
+  "maxWidth": "7xl",
+  "padding": "lg",
+  "className": "min-h-screen flex items-center",
+  "children": [
+    {
+      "type": "flex",
+      "direction": "column",
+      "align": "center",
+      "gap": "xl",
+      "children": [
+        {
+          "type": "heading",
+          "level": "h1",
+          "content": "Build Beautiful UIs with React Jedi",
+          "size": "6xl",
+          "weight": "extrabold",
+          "gradient": "rainbow",
+          "align": "center",
+          "animation": "glow"
+        },
+        {
+          "type": "text",
+          "text": "Create stunning, server-driven interfaces using JSON specifications. Powered by React, TailwindCSS, and ShadCN components.",
+          "size": "xl",
+          "align": "center",
+          "variant": "muted",
+          "className": "max-w-3xl"
+        },
+        {
+          "type": "flex",
+          "direction": "row",
+          "gap": "md",
+          "wrap": "wrap",
+          "justify": "center",
+          "children": [
+            {
+              "type": "button",
+              "text": "Get Started",
+              "variant": "primary",
+              "size": "lg"
+            },
+            {
+              "type": "button",
+              "text": "View Documentation",
+              "variant": "outline",
+              "size": "lg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Testimonial Card</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A testimonial card with avatar, quote, and author information:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "card",
+  "className": "hover:shadow-2xl transition-all",
+  "children": [
+    {
+      "type": "blockquote",
+      "content": "React Jedi has transformed how we build UIs. The JSON specification approach is intuitive and incredibly powerful.",
+      "cite": "TechCorp Inc.",
+      "variant": "primary"
+    },
+    {
+      "type": "separator",
+      "orientation": "horizontal",
+      "className": "my-4"
+    },
+    {
+      "type": "flex",
+      "direction": "row",
+      "align": "center",
+      "gap": "md",
+      "children": [
+        {
+          "type": "avatar",
+          "src": "https://example.com/avatar.jpg",
+          "alt": "John Doe",
+          "fallback": "JD",
+          "size": "md"
+        },
+        {
+          "type": "box",
+          "className": "flex-1",
+          "children": [
+            {
+              "type": "text",
+              "text": "John Doe",
+              "weight": "semibold"
+            },
+            {
+              "type": "text",
+              "text": "Senior Developer",
+              "size": "sm",
+              "variant": "muted"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Dashboard Card</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A dashboard card with metrics and status indicators:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "card",
+  "children": [
+    {
+      "type": "flex",
+      "direction": "row",
+      "justify": "between",
+      "align": "start",
+      "children": [
+        {
+          "type": "box",
+          "children": [
+            {
+              "type": "text",
+              "text": "Total Revenue",
+              "size": "sm",
+              "variant": "muted"
+            },
+            {
+              "type": "heading",
+              "level": "h2",
+              "content": "$45,231.89",
+              "size": "3xl",
+              "weight": "bold"
+            },
+            {
+              "type": "text",
+              "text": "+20.1% from last month",
+              "size": "sm",
+              "variant": "success"
+            }
+          ]
+        },
+        {
+          "type": "badge",
+          "text": "Active",
+          "variant": "success"
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Media Components Section */}
+          <section id="media-components" className="mb-20 scroll-mt-32">
+            <div className="relative">
+              <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+                Media Components
+                <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50" />
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group">
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+                      <svg className="w-4 h-4 text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-semibold">Image</h3>
+                  </div>
+                  <p className="text-zinc-400 mb-4">Responsive image component with advanced styling, lazy loading, and fallback support.</p>
+                  <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
+                    <pre className="whitespace-pre-wrap text-sm">
+{`{
+  "type": "image",
+  "src": "https://example.com/hero.jpg",
+  "alt": "Hero Image",
+  "width": "100%",
+  "height": 400,
+  "aspectRatio": "16/9",
+  "objectFit": "cover",
+  "rounded": "xl",
+  "shadow": "lg",
+  "hover": "grow",
+  "loading": "lazy",
+  "fallback": "/default-image.jpg"
+}`}
+                    </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group">
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+                      <svg className="w-4 h-4 text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6l4 2" />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-semibold">AspectRatio</h3>
+                  </div>
+                  <p className="text-zinc-400 mb-4">Maintain consistent aspect ratios for images and media content.</p>
+                  <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
+                    <pre className="whitespace-pre-wrap text-sm">
+{`{
+  "type": "aspectRatio",
+  "ratio": "16/9",
+  "className": "rounded-lg overflow-hidden",
+  "children": [
+    {
+      "type": "image",
+      "src": "https://example.com/video-thumbnail.jpg",
+      "alt": "Video Thumbnail",
+      "objectFit": "cover"
+    }
+  ]
+}`}
+                    </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-emerald-900/30 to-blue-900/30 border border-emerald-800/30 rounded-xl p-6 mb-8">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Image Features</h3>
+              <ul className="space-y-2 list-none pl-0">
+                <li className="pl-6 relative">
+                  <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="font-semibold text-white">Lazy Loading</span> - Performance optimization with lazy loading
+                </li>
+                <li className="pl-6 relative">
+                  <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="font-semibold text-white">Fallback Images</span> - Graceful error handling with fallbacks
+                </li>
+                <li className="pl-6 relative">
+                  <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="font-semibold text-white">Hover Effects</span> - Interactive hover animations
+                </li>
+                <li className="pl-6 relative">
+                  <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="font-semibold text-white">Filters</span> - Image filters like grayscale, sepia, blur
+                </li>
+              </ul>
+            </div>
+
+            <div className="text-center">
+              <Link to="/showcase" className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full text-white font-medium hover:from-emerald-600 hover:to-blue-600 transition-all shadow-lg hover:shadow-emerald-500/20 group">
+                <span>View Media Components Showcase</span>
+                <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            </div>
+          </section>
+
+          {/* Practical Examples Section */}
+          <section id="practical-examples" className="mb-20 scroll-mt-32">
+            <div className="relative">
+              <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+                Practical Examples
+                <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50" />
+              </h2>
+            </div>
+
+            <div className="prose prose-invert prose-emerald max-w-none">
+              <p className="text-zinc-300 leading-relaxed mb-6">
+                Here are some practical examples showing how to build common UI patterns with React Jedi.
+              </p>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Simple Form Layout</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A form layout with labels and input fields:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "box",
+  "padding": "lg",
+  "background": "card",
+  "rounded": "lg",
+  "border": true,
+  "children": [
+    {
+      "type": "heading",
+      "level": "h3",
+      "content": "Contact Form",
+      "size": "xl",
+      "weight": "semibold",
+      "className": "mb-6"
+    },
+    {
+      "type": "flex",
+      "direction": "column",
+      "gap": "md",
+      "children": [
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "sm",
+          "children": [
+            {
+              "type": "label",
+              "text": "Your Name",
+              "htmlFor": "name",
+              "required": true
+            },
+            {
+              "type": "input",
+              "id": "name",
+              "placeholder": "Enter your name",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "type": "flex",
+          "direction": "column",
+          "gap": "sm",
+          "children": [
+            {
+              "type": "label",
+              "text": "Email Address",
+              "htmlFor": "email",
+              "required": true
+            },
+            {
+              "type": "input",
+              "id": "email",
+              "placeholder": "email@example.com",
+              "type": "email"
+            }
+          ]
+        },
+        {
+          "type": "separator",
+          "orientation": "horizontal",
+          "className": "my-4"
+        },
+        {
+          "type": "button",
+          "text": "Submit",
+          "variant": "primary",
+          "size": "lg",
+          "className": "w-full"
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Product Card Grid</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A responsive grid of product cards with images and details:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "grid",
+  "columns": {
+    "default": 1,
+    "sm": 2,
+    "md": 3,
+    "lg": 4
+  },
+  "gap": "lg",
+  "children": [
+    {
+      "type": "card",
+      "className": "hover:shadow-xl transition-all duration-300",
+      "children": [
+        {
+          "type": "aspectRatio",
+          "ratio": "1/1",
+          "className": "rounded-lg overflow-hidden mb-4",
+          "children": [
+            {
+              "type": "image",
+              "src": "/product-1.jpg",
+              "alt": "Product 1",
+              "objectFit": "cover",
+              "hover": "grow"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": "h4",
+          "content": "Premium Headphones",
+          "size": "lg",
+          "weight": "semibold"
+        },
+        {
+          "type": "text",
+          "text": "Experience crystal-clear audio quality",
+          "variant": "muted",
+          "size": "sm",
+          "className": "mt-2 mb-4"
+        },
+        {
+          "type": "flex",
+          "direction": "row",
+          "justify": "between",
+          "align": "center",
+          "children": [
+            {
+              "type": "text",
+              "text": "$299.99",
+              "size": "xl",
+              "weight": "bold",
+              "gradient": "emerald"
+            },
+            {
+              "type": "badge",
+              "text": "In Stock",
+              "variant": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Profile Card with Avatar</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A user profile card with avatar, info, and action buttons:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "card",
+  "className": "max-w-sm mx-auto",
+  "children": [
+    {
+      "type": "flex",
+      "direction": "column",
+      "align": "center",
+      "gap": "lg",
+      "className": "text-center",
+      "children": [
+        {
+          "type": "avatar",
+          "src": "https://example.com/user-avatar.jpg",
+          "alt": "Jane Doe",
+          "fallback": "JD",
+          "size": "xl",
+          "className": "ring-4 ring-emerald-500/20"
+        },
+        {
+          "type": "box",
+          "children": [
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Jane Doe",
+              "size": "2xl",
+              "weight": "bold"
+            },
+            {
+              "type": "text",
+              "text": "Senior Developer",
+              "variant": "muted",
+              "className": "mt-1"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Building amazing things with React and TypeScript. Coffee enthusiast and open source contributor.",
+          "align": "center",
+          "className": "max-w-xs"
+        },
+        {
+          "type": "flex",
+          "direction": "row",
+          "gap": "sm",
+          "wrap": "wrap",
+          "justify": "center",
+          "children": [
+            {
+              "type": "badge",
+              "text": "React",
+              "variant": "outline"
+            },
+            {
+              "type": "badge",
+              "text": "TypeScript",
+              "variant": "outline"
+            },
+            {
+              "type": "badge",
+              "text": "Node.js",
+              "variant": "outline"
+            }
+          ]
+        },
+        {
+          "type": "separator",
+          "orientation": "horizontal",
+          "className": "w-full"
+        },
+        {
+          "type": "flex",
+          "direction": "row",
+          "gap": "md",
+          "justify": "center",
+          "className": "w-full",
+          "children": [
+            {
+              "type": "button",
+              "text": "Follow",
+              "variant": "primary",
+              "size": "sm"
+            },
+            {
+              "type": "button",
+              "text": "Message",
+              "variant": "outline",
+              "size": "sm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Stats Dashboard</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A dashboard layout with stats cards:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "container",
+  "maxWidth": "7xl",
+  "padding": "lg",
+  "children": [
+    {
+      "type": "heading",
+      "level": "h2",
+      "content": "Dashboard Overview",
+      "size": "3xl",
+      "weight": "bold",
+      "className": "mb-8"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "default": 1,
+        "sm": 2,
+        "lg": 4
+      },
+      "gap": "md",
+      "children": [
+        {
+          "type": "card",
+          "className": "hover:shadow-lg transition-shadow",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "row",
+              "justify": "between",
+              "align": "start",
+              "children": [
+                {
+                  "type": "box",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Total Users",
+                      "size": "sm",
+                      "variant": "muted"
+                    },
+                    {
+                      "type": "heading",
+                      "level": "h3",
+                      "content": "12,345",
+                      "size": "3xl",
+                      "weight": "bold",
+                      "gradient": "blue"
+                    }
+                  ]
+                },
+                {
+                  "type": "badge",
+                  "text": "+12%",
+                  "variant": "success"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "className": "hover:shadow-lg transition-shadow",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "row",
+              "justify": "between",
+              "align": "start",
+              "children": [
+                {
+                  "type": "box",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Revenue",
+                      "size": "sm",
+                      "variant": "muted"
+                    },
+                    {
+                      "type": "heading",
+                      "level": "h3",
+                      "content": "$98,765",
+                      "size": "3xl",
+                      "weight": "bold",
+                      "gradient": "emerald"
+                    }
+                  ]
+                },
+                {
+                  "type": "badge",
+                  "text": "+23%",
+                  "variant": "success"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "className": "hover:shadow-lg transition-shadow",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "row",
+              "justify": "between",
+              "align": "start",
+              "children": [
+                {
+                  "type": "box",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Orders",
+                      "size": "sm",
+                      "variant": "muted"
+                    },
+                    {
+                      "type": "heading",
+                      "level": "h3",
+                      "content": "3,456",
+                      "size": "3xl",
+                      "weight": "bold",
+                      "gradient": "purple"
+                    }
+                  ]
+                },
+                {
+                  "type": "badge",
+                  "text": "-5%",
+                  "variant": "destructive"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "className": "hover:shadow-lg transition-shadow",
+          "children": [
+            {
+              "type": "flex",
+              "direction": "row",
+              "justify": "between",
+              "align": "start",
+              "children": [
+                {
+                  "type": "box",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Active Now",
+                      "size": "sm",
+                      "variant": "muted"
+                    },
+                    {
+                      "type": "heading",
+                      "level": "h3",
+                      "content": "189",
+                      "size": "3xl",
+                      "weight": "bold",
+                      "gradient": "orange"
+                    }
+                  ]
+                },
+                {
+                  "type": "badge",
+                  "text": "Live",
+                  "variant": "default"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Feature Section</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A features section with icons and descriptions:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`{
+  "type": "container",
+  "maxWidth": "6xl",
+  "padding": "xl",
+  "children": [
+    {
+      "type": "box",
+      "className": "text-center mb-12",
+      "children": [
+        {
+          "type": "heading",
+          "level": "h2",
+          "content": "Why Choose React Jedi",
+          "size": "4xl",
+          "weight": "bold",
+          "gradient": "rainbow",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "text": "Build beautiful interfaces faster with our JSON-based approach",
+          "size": "xl",
+          "variant": "muted",
+          "align": "center",
+          "className": "mt-4 max-w-2xl mx-auto"
+        }
+      ]
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "default": 1,
+        "md": 2,
+        "lg": 3
+      },
+      "gap": "xl",
+      "children": [
+        {
+          "type": "flex",
+          "direction": "column",
+          "align": "center",
+          "gap": "md",
+          "className": "text-center p-6",
+          "children": [
+            {
+              "type": "box",
+              "className": "w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "⚡",
+                  "size": "2xl"
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Lightning Fast",
+              "size": "xl",
+              "weight": "semibold"
+            },
+            {
+              "type": "text",
+              "text": "Build and modify UIs at incredible speed with our JSON specification system",
+              "align": "center",
+              "variant": "muted"
+            }
+          ]
+        },
+        {
+          "type": "flex",
+          "direction": "column",
+          "align": "center",
+          "gap": "md",
+          "className": "text-center p-6",
+          "children": [
+            {
+              "type": "box",
+              "className": "w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "🎨",
+                  "size": "2xl"
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Beautiful Design",
+              "size": "xl",
+              "weight": "semibold"
+            },
+            {
+              "type": "text",
+              "text": "Create stunning interfaces with our pre-built components and theming system",
+              "align": "center",
+              "variant": "muted"
+            }
+          ]
+        },
+        {
+          "type": "flex",
+          "direction": "column",
+          "align": "center",
+          "gap": "md",
+          "className": "text-center p-6",
+          "children": [
+            {
+              "type": "box",
+              "className": "w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "🔧",
+                  "size": "2xl"
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "level": "h3",
+              "content": "Type Safe",
+              "size": "xl",
+              "weight": "semibold"
+            },
+            {
+              "type": "text",
+              "text": "Full TypeScript support ensures your specifications are always valid",
+              "align": "center",
+              "variant": "muted"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`}
+                </pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* API Reference Section */}
+          <section id="api-reference" className="mb-20 scroll-mt-32">
+            <div className="relative">
+              <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+                API Reference
+                <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50" />
+              </h2>
+            </div>
+
+            <div className="prose prose-invert prose-emerald max-w-none">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">render() Function</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                The main function for rendering JSON specifications into React components:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`import { render } from "@banja/react-jedi";
+
+// Basic usage
+const component = render(spec);
+
+// With options
+const component = render(spec, {
+  theme: customTheme,
+  handlers: eventHandlers,
+  development: true
+});`}
+                </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Component Specification Options</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                All components support these common properties:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+{`interface CommonProps {
+  type: string;        // Component type (required)
+  className?: string;  // Additional CSS classes
+  id?: string;         // HTML id attribute
+  style?: object;      // Inline styles
+  data-*?: string;     // Data attributes
+  children?: Array;    // Child components
+}`}
+                </pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Coming Soon Section */}
           <section className="mb-20">
             <div className="relative overflow-hidden rounded-3xl">
@@ -745,11 +1906,11 @@ function MyComponent() {
 
               <div className="relative z-10 py-16 px-8 text-center">
                 <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-400">
-                  Full Documentation Coming Soon
+                  More Documentation Coming Soon
                 </h2>
                 <p className="text-xl text-zinc-300 max-w-3xl mx-auto mb-8">
                   We're working on comprehensive documentation that covers all components, 
-                  schema specifications, theming, and advanced features. Stay tuned for more!
+                  schema specifications, theming, animations, and advanced features. Stay tuned!
                 </p>
                 <a 
                   href="https://github.com/banja-au/react-jedi" 

@@ -110,7 +110,7 @@ export type SemanticShadowKey = keyof typeof SEMANTIC_SHADOW_PRESETS;
  */
 export function getShadow(
   key: ShadowKey | SemanticShadowKey | string,
-  scale: ShadowScale = DEFAULT_SHADOW_SCALE
+  scale: Partial<ShadowScale> & Record<string, string> = DEFAULT_SHADOW_SCALE
 ): string {
   // Check semantic presets first
   if (key in SEMANTIC_SHADOW_PRESETS) {
@@ -119,7 +119,7 @@ export function getShadow(
   
   // Then check the scale
   if (key in scale) {
-    return scale[key as ShadowKey];
+    return scale[key as keyof typeof scale];
   }
   
   // Return as raw value if not found
@@ -134,7 +134,7 @@ export function getShadow(
  */
 export function getDarkModeShadow(
   key: ShadowKey | string,
-  darkScale: ShadowScale = DARK_MODE_SHADOW_SCALE
+  darkScale: Partial<ShadowScale> & Record<string, string> = DARK_MODE_SHADOW_SCALE
 ): string {
   return getShadow(key, darkScale);
 }
@@ -148,7 +148,7 @@ export function generateShadowScale(config: {
   customValues?: Record<string, string>;
   darkMode?: boolean;
   baseScale?: ShadowScale;
-}): ShadowScale {
+}): ShadowScale & Record<string, string> {
   const { 
     customValues = {}, 
     darkMode = false, 
@@ -164,12 +164,12 @@ export function generateShadowScale(config: {
  * @param theme - Theme specification
  * @returns Extracted shadow scale
  */
-export function extractShadowScale(theme?: ThemeSpecification): ShadowScale {
+export function extractShadowScale(theme?: ThemeSpecification): ShadowScale & Record<string, string> {
   if (!theme?.shadows || Object.keys(theme.shadows).length === 0) {
     return DEFAULT_SHADOW_SCALE;
   }
   
-  return theme.shadows as ShadowScale;
+  return { ...DEFAULT_SHADOW_SCALE, ...theme.shadows };
 }
 
 /**
@@ -179,7 +179,7 @@ export function extractShadowScale(theme?: ThemeSpecification): ShadowScale {
  * @returns CSS variables object
  */
 export function generateShadowVariables(
-  scale: ShadowScale = DEFAULT_SHADOW_SCALE,
+  scale: Partial<ShadowScale> & Record<string, string> = DEFAULT_SHADOW_SCALE,
   prefix = "--shadow"
 ): Record<string, string> {
   const variables: Record<string, string> = {};

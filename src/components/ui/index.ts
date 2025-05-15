@@ -16,3 +16,4 @@ export * from "./label";
 export * from "./aspect-ratio";
 export * from "./separator";
 export * from "./badge";
+export * from "./avatar";

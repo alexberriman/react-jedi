@@ -18,3 +18,4 @@ export type {
   CardFooterSpec,
   CardActionSpec,
 } from "./card";
+export type { AvatarSpec, AvatarImageSpec, AvatarFallbackSpec } from "./avatar";

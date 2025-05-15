@@ -50,11 +50,11 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### 1.4 Essential Layout Components
 
-- [ ] Container Component (outer wrapper with max-width and padding)
+- [x] Container Component (outer wrapper with max-width and padding)
 
-  - [ ] Create custom implementation with TailwindCSS
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Container
+  - [x] Create custom implementation with TailwindCSS
+  - [x] Create Storybook documentation with examples
+  - [x] Implement specification schema for Container
 
 - [ ] Box Component (primitive div-like component for general layout)
 

@@ -17,5 +17,12 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "iconLibrary": "lucide"
+  "iconLibrary": "lucide",
+  "components": [
+    {
+      "name": "container",
+      "type": "ui",
+      "description": "A layout component for controlling max-width and centering content"
+    }
+  ]
 }

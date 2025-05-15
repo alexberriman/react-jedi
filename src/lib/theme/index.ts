@@ -62,7 +62,6 @@ export {
   spacing,
   DEFAULT_SPACING_SCALE,
   RELATIVE_SPACING,
-  DEFAULT_BREAKPOINTS,
   DEFAULT_CONTAINER_PRESETS,
   ContainerPresetType,
   type SpacingScale,
@@ -210,3 +209,25 @@ export {
   type ContainerQueryBuilderOptions,
   type UseContainerQueryResult
 } from "./container-queries";
+
+// Brand presets
+export {
+  brandPresets,
+  getPreset,
+  getPresetsByCategory,
+  getCategories,
+  generateBrandTheme,
+  createThemeFromPreset,
+  describePersonality,
+  analyzeThemePersonality,
+  findMatchingPreset,
+  mergePresets,
+  getComplementaryPresets,
+  type BrandPreset,
+  type BrandCategory,
+  type BrandColors,
+  type BrandTypography,
+  type BrandPersonality,
+  type BrandThemeOptions,
+  type GeneratedBrandTheme
+} from "./brand-presets";

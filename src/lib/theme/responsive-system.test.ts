@@ -17,10 +17,13 @@ import {
   mapResponsiveValues,
   createResponsiveStyles,
   createResponsiveUtils,
-  type ResponsiveValue,
   type ResponsiveObject,
 } from "./responsive-system";
 import type { ThemeSpecification } from "@/types/schema/specification";
+
+function transformer(value: string): string {
+  return `${value}px`;
+}
 
 describe("Responsive System", () => {
   describe("extractBreakpoints", () => {
@@ -245,8 +248,6 @@ describe("Responsive System", () => {
   });
 
   describe("mapResponsiveValues", () => {
-    const transformer = (value: string) => `${value}px`;
-
     it("should map single value", () => {
       const result = mapResponsiveValues("width", "10", transformer);
       expect(result).toEqual({ width: "10px" });
@@ -268,8 +269,6 @@ describe("Responsive System", () => {
   });
 
   describe("createResponsiveStyles", () => {
-    const transformer = (value: string) => `${value}px`;
-
     it("should create CSS string for responsive values", () => {
       const value: ResponsiveObject<string> = {
         base: "10",

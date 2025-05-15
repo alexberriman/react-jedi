@@ -40,6 +40,12 @@ export function Layout({ className }: LayoutProps) {
             >
               Documentation
             </Link>
+            <Link 
+              to="/brand-presets"
+              className="text-zinc-200 hover:text-emerald-400 transition-colors"
+            >
+              Brand Presets
+            </Link>
             <a 
               href="https://github.com/banja-au/react-jedi"
               target="_blank"

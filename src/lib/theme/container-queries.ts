@@ -5,8 +5,7 @@
  * enabling component-level responsive design.
  */
 
-import type { ThemeSpecification } from "@/types/schema/specification";
-import type { ResponsiveValue, ResponsiveObject } from "./responsive-system";
+import type { ResponsiveValue } from "./responsive-system";
 import { normalizeResponsiveValue, extractBreakpoints } from "./responsive-system";
 
 /**
@@ -237,12 +236,12 @@ export function applyContainerQuery<T>(
   property: string,
   value: ContainerResponsiveValue<T>,
   transformer: (value: T) => string
-): Record<string, string | Record<string, string>> {
-  if (typeof value !== "object" || value === null) {
+): Record<string, unknown> {
+  if (!value || typeof value !== "object") {
     return { [property]: transformer(value as T) };
   }
   
-  const styles: Record<string, string | Record<string, string>> = {};
+  const styles: Record<string, unknown> = {};
   
   for (const [query, queryValue] of Object.entries(value as ContainerResponsiveObject<T>)) {
     if (query.startsWith("@container")) {
@@ -276,8 +275,9 @@ export function createContainerStyles(
     for (const [selector, style] of Object.entries(propertyStyles)) {
       if (typeof style === "string") {
         css.push(`.${componentName} { ${selector}: ${style}; }`);
-      } else {
-        css.push(`${selector} { .${componentName} { ${Object.entries(style).map(([p, v]) => `${p}: ${v}`).join("; ")}; } }`);
+      } else if (typeof style === "object" && style) {
+        const stylesString = Object.entries(style).map(([p, v]) => `${p}: ${v}`).join("; ");
+        css.push(`${selector} { .${componentName} { ${stylesString}; } }`);
       }
     }
   }
@@ -294,7 +294,7 @@ export interface UseContainerQueryResult {
     property: string,
     value: ContainerResponsiveValue<T>,
     transformer?: (value: T) => string
-  ) => Record<string, string | Record<string, string>>;
+  ) => Record<string, unknown>;
   define: (selector: string, definition: ContainerDefinition) => string;
   sizes: typeof DEFAULT_CONTAINER_SIZES;
 }
@@ -353,8 +353,8 @@ export function createHybridResponsiveStyles<T>(
   containerValues: ContainerResponsiveValue<T>,
   breakpoints = extractBreakpoints(),
   transformer: (value: T) => string = String
-): Record<string, string | Record<string, string>> {
-  const styles: Record<string, string | Record<string, string>> = {};
+): Record<string, unknown> {
+  const styles: Record<string, unknown> = {};
   
   // Apply media query values first
   const normalizedMedia = normalizeResponsiveValue(mediaValues, breakpoints);

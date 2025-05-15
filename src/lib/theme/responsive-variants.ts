@@ -9,7 +9,6 @@ import type { ThemeSpecification } from "@/types/schema/specification";
 import type { DesignToken, TokenCollection } from "./theme-tokens";
 import type { 
   ResponsiveValue, 
-  ResponsiveObject, 
   Breakpoints,
   BreakpointKey 
 } from "./responsive-system";
@@ -39,7 +38,7 @@ export interface ResponsiveTokenCollection {
   shadows: Record<string, ResponsiveDesignToken<string>>;
   breakpoints: Record<string, ResponsiveDesignToken<string>>;
   zIndex: Record<string, ResponsiveDesignToken<number>>;
-  animations: Record<string, ResponsiveDesignToken<any>>;
+  animations: Record<string, ResponsiveDesignToken<Record<string, unknown>>>;
 }
 
 /**
@@ -118,6 +117,25 @@ export function createResponsiveCategory<T>(
 }
 
 /**
+ * Convert theme object to responsive values
+ */
+function convertToResponsiveValues<T>(
+  obj: unknown
+): Record<string, ResponsiveValue<T>> {
+  const result: Record<string, ResponsiveValue<T>> = {};
+  
+  if (obj && typeof obj === "object") {
+    for (const [key, value] of Object.entries(obj)) {
+      if (value !== undefined && value !== null) {
+        result[key] = value as ResponsiveValue<T>;
+      }
+    }
+  }
+  
+  return result;
+}
+
+/**
  * Create responsive token collection from theme
  */
 export function createResponsiveTokenCollection(
@@ -129,12 +147,12 @@ export function createResponsiveTokenCollection(
   return {
     colors: createResponsiveCategory(
       collection.colors,
-      theme.colors || {},
+      convertToResponsiveValues(theme.colors || {}),
       breakpoints
     ),
     typography: createResponsiveCategory(
       collection.typography,
-      theme.typography || {},
+      convertToResponsiveValues(theme.typography || {}),
       breakpoints
     ),
     spacing: createResponsiveCategory(
@@ -158,13 +176,13 @@ export function createResponsiveTokenCollection(
       breakpoints
     ),
     zIndex: createResponsiveCategory(
-      collection.zIndex,
-      theme.zIndices || {},
+      collection.zIndices,
+      convertToResponsiveValues(theme.zIndices || {}),
       breakpoints
     ),
     animations: createResponsiveCategory(
       collection.animations,
-      theme.animations || {},
+      convertToResponsiveValues(theme.animations || {}),
       breakpoints
     ),
   };
@@ -189,8 +207,8 @@ export function applyResponsiveToken<T>(
   property: string,
   transformer: (value: T) => string,
   breakpoints: Breakpoints
-): Record<string, string> {
-  const styles: Record<string, string> = {};
+): Record<string, unknown> {
+  const styles: Record<string, unknown> = {};
   const normalizedValue = normalizeResponsiveValue(token.value, breakpoints);
   const utils = createResponsiveUtils(breakpoints);
   
@@ -236,7 +254,7 @@ export function createResponsiveTokenUtils(theme: ThemeSpecification) {
       token: ResponsiveDesignToken<T>,
       property: string,
       transformer: (value: T) => string = String
-    ): Record<string, string> => {
+    ): Record<string, unknown> => {
       return applyResponsiveToken(token, property, transformer, breakpoints);
     },
     

@@ -18,9 +18,13 @@ import type { DesignToken } from "./theme-tokens";
 import type { ThemeSpecification } from "@/types/schema/specification";
 import { DEFAULT_BREAKPOINTS } from "./responsive-system";
 
+function transformer(value: number): string {
+  return `${value}px`;
+}
+
 describe("Responsive Variants System", () => {
   const mockTheme: ThemeSpecification = {
-    breakpoints: DEFAULT_BREAKPOINTS,
+    breakpoints: DEFAULT_BREAKPOINTS as Record<string, string>,
   };
 
   const mockBaseToken: DesignToken<string> = {
@@ -131,7 +135,6 @@ describe("Responsive Variants System", () => {
         responsive: false,
       };
       
-      const transformer = (value: number) => `${value}px`;
       const result = generateResponsiveCssVars(token, DEFAULT_BREAKPOINTS, transformer);
       
       expect(result).toEqual({

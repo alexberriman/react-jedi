@@ -12,7 +12,6 @@ import {
   createContainerStyles,
   useContainerQuery,
   createHybridResponsiveStyles,
-  DEFAULT_CONTAINER_SIZES,
   type ContainerQueryCondition,
   type ContainerDefinition,
 } from "./container-queries";

@@ -225,7 +225,7 @@ export function normalizeResponsiveValue<T>(
   breakpoints: Breakpoints = DEFAULT_BREAKPOINTS
 ): ResponsiveObject<T> {
   // Already an object
-  if (!Array.isArray(value) && typeof value === "object" && value !== null) {
+  if (typeof value === "object" && value && !Array.isArray(value)) {
     return value as ResponsiveObject<T>;
   }
 
@@ -238,11 +238,11 @@ export function normalizeResponsiveValue<T>(
   const breakpointKeys = getBreakpointOrder(breakpoints);
   const result: ResponsiveObject<T> = {};
   
-  value.forEach((val, index) => {
-    if (index < breakpointKeys.length && val !== undefined) {
+  for (const [index, val] of value.entries()) {
+    if (index < breakpointKeys.length && val != null) {
       result[breakpointKeys[index]] = val;
     }
-  });
+  }
   
   return result;
 }
@@ -264,7 +264,7 @@ export function getResponsiveValue<T>(
   
   // Fall back to smaller breakpoints
   const order = getBreakpointOrder(breakpoints);
-  const currentIndex = order.indexOf(breakpoint);
+  const currentIndex = order.indexOf(String(breakpoint));
   
   for (let i = currentIndex - 1; i >= 0; i--) {
     const smallerBreakpoint = order[i];

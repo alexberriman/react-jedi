@@ -75,7 +75,7 @@ export class JSONSchemaConverter {
    * @param options - Options for the JSON Schema
    * @returns A JSON Schema object
    */
-  static zodToJSONSchema(schema: z.ZodType<any>, options: JSONSchemaOptions = {}): JSONSchema {
+  static zodToJSONSchema<T>(schema: z.ZodType<T>, options: JSONSchemaOptions = {}): JSONSchema {
     const mergedOptions = { ...DEFAULT_OPTIONS, ...options };
     const baseSchema = this.convertZodSchema(schema);
     
@@ -95,38 +95,66 @@ export class JSONSchemaConverter {
    * @param schema - The Zod schema to convert
    * @returns A JSON Schema object
    */
-  private static convertZodSchema(schema: z.ZodType<any>): JSONSchema {
-    // Handle different schema types
-    if (schema instanceof z.ZodString) {
-      return this.convertString(schema);
-    } else if (schema instanceof z.ZodNumber) {
-      return this.convertNumber(schema);
-    } else if (schema instanceof z.ZodBoolean) {
-      return { type: "boolean" };
-    } else if (schema instanceof z.ZodNull) {
-      return { type: "null" };
-    } else if (schema instanceof z.ZodArray) {
-      return this.convertArray(schema);
-    } else if (schema instanceof z.ZodObject) {
-      return this.convertObject(schema);
-    } else if (schema instanceof z.ZodEnum) {
-      return this.convertEnum(schema);
-    } else if (schema instanceof z.ZodLiteral) {
-      return this.convertLiteral(schema);
-    } else if (schema instanceof z.ZodUnion) {
-      return this.convertUnion(schema);
-    } else if (schema instanceof z.ZodOptional) {
-      return this.convertOptional(schema);
-    } else if (schema instanceof z.ZodDefault) {
-      return this.convertDefault(schema);
-    } else if (schema instanceof z.ZodRecord) {
-      return this.convertRecord(schema);
-    } else if (schema instanceof z.ZodNullable) {
-      return this.convertNullable(schema);
+  private static convertZodSchema<T>(schema: z.ZodType<T>): JSONSchema {
+    // Handle different schema types using switch pattern matching with instanceof
+    switch (true) {
+      case schema instanceof z.ZodString: {
+        return this.convertString(schema as z.ZodString);
+      }
+      
+      case schema instanceof z.ZodNumber: {
+        return this.convertNumber(schema as z.ZodNumber);
+      }
+      
+      case schema instanceof z.ZodBoolean: {
+        return { type: "boolean" };
+      }
+      
+      case schema instanceof z.ZodNull: {
+        return { type: "null" };
+      }
+      
+      case schema instanceof z.ZodArray: {
+        return this.convertArray(schema as z.ZodArray<z.ZodType<unknown>>);
+      }
+      
+      case schema instanceof z.ZodObject: {
+        return this.convertObject(schema as z.ZodObject<z.ZodRawShape>);
+      }
+      
+      case schema instanceof z.ZodEnum: {
+        return this.convertEnum(schema as z.ZodEnum<[string, ...string[]]>);
+      }
+      
+      case schema instanceof z.ZodLiteral: {
+        return this.convertLiteral(schema as z.ZodLiteral<string | number | boolean>);
+      }
+      
+      case schema instanceof z.ZodUnion: {
+        return this.convertUnion(schema as z.ZodUnion<[z.ZodType<unknown>, ...z.ZodType<unknown>[]]>);
+      }
+      
+      case schema instanceof z.ZodOptional: {
+        return this.convertOptional(schema as z.ZodOptional<z.ZodType<unknown>>);
+      }
+      
+      case schema instanceof z.ZodDefault: {
+        return this.convertDefault(schema as z.ZodDefault<z.ZodType<unknown>>);
+      }
+      
+      case schema instanceof z.ZodRecord: {
+        return this.convertRecord(schema as z.ZodRecord);
+      }
+      
+      case schema instanceof z.ZodNullable: {
+        return this.convertNullable(schema as z.ZodNullable<z.ZodType<unknown>>);
+      }
+      
+      default: {
+        // Fallback for unhandled schema types
+        return { description: "Unsupported schema type" };
+      }
     }
-    
-    // Fallback for unhandled schema types
-    return { description: "Unsupported schema type" };
   }
   
   /**
@@ -139,21 +167,42 @@ export class JSONSchemaConverter {
     const checks = this.getChecks(schema);
     
     for (const check of checks) {
-      if (check.kind === "min") {
-        jsonSchema.minLength = check.value as number;
-      } else if (check.kind === "max") {
-        jsonSchema.maxLength = check.value as number;
-      } else if (check.kind === "regex") {
-        const regex = check.value as RegExp;
-        jsonSchema.pattern = regex.source;
-      } else if (check.kind === "email") {
-        jsonSchema.format = "email";
-      } else if (check.kind === "url") {
-        jsonSchema.format = "uri";
-      } else if (check.kind === "uuid") {
-        jsonSchema.format = "uuid";
-      } else if (check.kind === "datetime") {
-        jsonSchema.format = "date-time";
+      switch (check.kind) {
+        case "min": {
+          jsonSchema.minLength = check.value as number;
+          break;
+        }
+        
+        case "max": {
+          jsonSchema.maxLength = check.value as number;
+          break;
+        }
+        
+        case "regex": {
+          const regex = check.value as RegExp;
+          jsonSchema.pattern = regex.source;
+          break;
+        }
+        
+        case "email": {
+          jsonSchema.format = "email";
+          break;
+        }
+        
+        case "url": {
+          jsonSchema.format = "uri";
+          break;
+        }
+        
+        case "uuid": {
+          jsonSchema.format = "uuid";
+          break;
+        }
+        
+        case "datetime": {
+          jsonSchema.format = "date-time";
+          break;
+        }
       }
     }
     
@@ -170,20 +219,32 @@ export class JSONSchemaConverter {
     const checks = this.getChecks(schema);
     
     for (const check of checks) {
-      if (check.kind === "min") {
-        jsonSchema.minimum = check.value as number;
-        if (check.inclusive === false) {
-          jsonSchema.exclusiveMinimum = true;
+      switch (check.kind) {
+        case "min": {
+          jsonSchema.minimum = check.value as number;
+          if (check.inclusive === false) {
+            jsonSchema.exclusiveMinimum = true;
+          }
+          break;
         }
-      } else if (check.kind === "max") {
-        jsonSchema.maximum = check.value as number;
-        if (check.inclusive === false) {
-          jsonSchema.exclusiveMaximum = true;
+        
+        case "max": {
+          jsonSchema.maximum = check.value as number;
+          if (check.inclusive === false) {
+            jsonSchema.exclusiveMaximum = true;
+          }
+          break;
         }
-      } else if (check.kind === "int") {
-        jsonSchema.type = "integer";
-      } else if (check.kind === "multipleOf") {
-        jsonSchema.multipleOf = check.value as number;
+        
+        case "int": {
+          jsonSchema.type = "integer";
+          break;
+        }
+        
+        case "multipleOf": {
+          jsonSchema.multipleOf = check.value as number;
+          break;
+        }
       }
     }
     
@@ -193,19 +254,19 @@ export class JSONSchemaConverter {
   /**
    * Converts a ZodArray schema to JSON Schema
    */
-  private static convertArray(schema: z.ZodArray<any>): JSONSchema {
+  private static convertArray<T>(schema: z.ZodArray<z.ZodType<T>>): JSONSchema {
     return {
       type: "array",
       items: this.convertZodSchema(schema._def.type),
-      ...(schema._def.minLength !== null ? { minItems: schema._def.minLength.value } : {}),
-      ...(schema._def.maxLength !== null ? { maxItems: schema._def.maxLength.value } : {}),
+      ...(schema._def.minLength ? { minItems: schema._def.minLength.value } : {}),
+      ...(schema._def.maxLength ? { maxItems: schema._def.maxLength.value } : {}),
     };
   }
   
   /**
    * Converts a ZodObject schema to JSON Schema
    */
-  private static convertObject(schema: z.ZodObject<any>): JSONSchema {
+  private static convertObject<T extends z.ZodRawShape>(schema: z.ZodObject<T>): JSONSchema {
     const properties: Record<string, JSONSchema> = {};
     const required: string[] = [];
     
@@ -236,7 +297,7 @@ export class JSONSchemaConverter {
   /**
    * Converts a ZodEnum schema to JSON Schema
    */
-  private static convertEnum(schema: z.ZodEnum<any>): JSONSchema {
+  private static convertEnum<T extends [string, ...string[]]>(schema: z.ZodEnum<T>): JSONSchema {
     return {
       type: "string",
       enum: schema._def.values,
@@ -246,7 +307,7 @@ export class JSONSchemaConverter {
   /**
    * Converts a ZodLiteral schema to JSON Schema
    */
-  private static convertLiteral(schema: z.ZodLiteral<any>): JSONSchema {
+  private static convertLiteral<T extends string | number | boolean>(schema: z.ZodLiteral<T>): JSONSchema {
     const value = schema._def.value;
     const type = typeof value;
     
@@ -259,9 +320,9 @@ export class JSONSchemaConverter {
   /**
    * Converts a ZodUnion schema to JSON Schema
    */
-  private static convertUnion(schema: z.ZodUnion<any>): JSONSchema {
+  private static convertUnion<T extends [z.ZodType<unknown>, ...z.ZodType<unknown>[]]>(schema: z.ZodUnion<T>): JSONSchema {
     return {
-      anyOf: schema._def.options.map((option: z.ZodType<any>) => 
+      anyOf: schema._def.options.map((option: z.ZodType<unknown>) => 
         this.convertZodSchema(option)
       ),
     };
@@ -270,7 +331,7 @@ export class JSONSchemaConverter {
   /**
    * Converts a ZodOptional schema to JSON Schema
    */
-  private static convertOptional(schema: z.ZodOptional<any>): JSONSchema {
+  private static convertOptional<T>(schema: z.ZodOptional<z.ZodType<T>>): JSONSchema {
     return {
       ...this.convertZodSchema(schema._def.innerType),
     };
@@ -279,7 +340,7 @@ export class JSONSchemaConverter {
   /**
    * Converts a ZodDefault schema to JSON Schema
    */
-  private static convertDefault(schema: z.ZodDefault<any>): JSONSchema {
+  private static convertDefault<T>(schema: z.ZodDefault<z.ZodType<T>>): JSONSchema {
     return {
       ...this.convertZodSchema(schema._def.innerType),
       default: schema._def.defaultValue(),
@@ -299,7 +360,7 @@ export class JSONSchemaConverter {
   /**
    * Converts a ZodNullable schema to JSON Schema
    */
-  private static convertNullable(schema: z.ZodNullable<any>): JSONSchema {
+  private static convertNullable<T>(schema: z.ZodNullable<z.ZodType<T>>): JSONSchema {
     const innerSchema = this.convertZodSchema(schema._def.innerType);
     return {
       anyOf: [
@@ -313,7 +374,7 @@ export class JSONSchemaConverter {
    * Helper method to extract validation checks from a schema
    * This relies on internal Zod structure and may break with Zod updates
    */
-  private static getChecks(schema: any): any[] {
+  private static getChecks(schema: z.ZodString | z.ZodNumber): Array<{ kind: string; value?: unknown; inclusive?: boolean }> {
     // Access internal _def.checks if available
     if (schema._def && Array.isArray(schema._def.checks)) {
       return schema._def.checks;

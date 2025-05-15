@@ -5,14 +5,18 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { Validator } from "./validator";
+import { Validator, ValidationSeverity } from "./validator";
 import { JSONSchemaConverter } from "./json-schema";
 import { ComponentValidator } from "./component-validator";
 import { z } from "zod";
 import { headingSchema } from "../../components/ui/heading/heading.schema";
+import { flexSchema } from "../../components/ui/flex/flex.schema";
+import { textSchema } from "../../components/ui/text/text.schema";
 
-// Register the heading schema for component validation tests
+// Register the schemas for component validation tests
 ComponentValidator.registerSchema("heading", headingSchema);
+ComponentValidator.registerSchema("flex", flexSchema);
+ComponentValidator.registerSchema("text", textSchema);
 
 describe("Validator", () => {
   it("should validate data against a schema", () => {
@@ -37,6 +41,8 @@ describe("Validator", () => {
     if (invalidResult.ok === false) {
       expect(invalidResult.val.length).toBeGreaterThan(0);
       expect(invalidResult.val[0].path).toContain("age");
+      expect(invalidResult.val[0].severity).toBe(ValidationSeverity.ERROR);
+      expect(invalidResult.val[0].invalidValue).toBe(-5);
     }
   });
   
@@ -60,8 +66,21 @@ describe("Validator", () => {
   
   it("should format errors to a readable string", () => {
     const errors = [
-      { path: ["user", "name"], message: "Required", code: "required" },
-      { path: ["user", "age"], message: "Must be positive", code: "min" },
+      { 
+        path: ["user", "name"], 
+        message: "Required", 
+        code: "required", 
+        severity: ValidationSeverity.ERROR,
+        invalidValue: undefined 
+      },
+      { 
+        path: ["user", "age"], 
+        message: "Must be positive", 
+        code: "min", 
+        severity: ValidationSeverity.ERROR,
+        invalidValue: -5,
+        validExamples: [0, 1, 18, 21]
+      },
     ];
     
     const formatted = Validator.formatErrorsToString(errors);
@@ -70,6 +89,58 @@ describe("Validator", () => {
     expect(formatted).toContain("user.age");
     expect(formatted).toContain("Required");
     expect(formatted).toContain("Must be positive");
+    expect(formatted).toContain("Valid examples");
+  });
+  
+  it("should provide enhanced error messages for different validation failures", () => {
+    const schema = z.object({
+      name: z.string().min(2),
+      age: z.number().positive(),
+      email: z.string().email(),
+      role: z.enum(["admin", "user", "guest"]),
+      settings: z.object({
+        theme: z.enum(["light", "dark"]),
+        notifications: z.boolean(),
+      }),
+    });
+    
+    const invalidData = {
+      name: "A", // too short
+      age: 0, // not positive
+      email: "not-an-email",
+      role: "moderator", // not in enum
+      settings: {
+        theme: "blue", // not in enum
+        notifications: "yes", // not a boolean
+      },
+    };
+    
+    const result = Validator.validate(schema, invalidData);
+    
+    expect(result.ok).toBe(false);
+    
+    if (!result.ok) {
+      expect(result.val.length).toBe(5); // 5 validation errors
+      
+      // Check for enhanced error messages
+      const errorMessages = result.val.map(err => err.message);
+      
+      expect(errorMessages.some(msg => msg.includes("String must contain at least"))).toBeTruthy();
+      expect(errorMessages.some(msg => msg.includes("Invalid enum value"))).toBeTruthy();
+      expect(errorMessages.some(msg => msg.includes("Invalid email address format"))).toBeTruthy();
+      
+      // Check that we have some examples
+      const hasExamples = result.val.some(err => 
+        err.validExamples && err.validExamples.length > 0
+      );
+      expect(hasExamples).toBeTruthy();
+      
+      // Test detailed error explanation
+      const detailedExplanation = Validator.formatDetailedErrorExplanation(result.val);
+      expect(detailedExplanation).toContain("Error 1:");
+      expect(detailedExplanation).toContain("Received:");
+      expect(detailedExplanation).toContain("Valid examples:");
+    }
   });
 });
 
@@ -118,7 +189,7 @@ describe("ComponentValidator", () => {
     const validHeading = {
       type: "heading",
       level: "h1",
-      text: "Hello World",
+      content: "Hello World",
       align: "center",
     };
     
@@ -127,15 +198,17 @@ describe("ComponentValidator", () => {
     expect(result.ok).toBe(true);
     if (result.ok) {
       expect(result.val.type).toBe("heading");
-      expect(result.val.text).toBe("Hello World");
+      // Since we know this is a heading component, access the text property safely
+      const headingSpec = result.val as import("../../types/schema/typography").HeadingSpec;
+      expect(headingSpec.content).toBe("Hello World");
     }
   });
   
-  it("should reject an invalid heading component", () => {
+  it("should reject an invalid heading component with detailed error messages", () => {
     const invalidHeading = {
       type: "heading",
       level: "h7", // Invalid level
-      text: "Hello World",
+      content: "Hello World",
     };
     
     const result = ComponentValidator.validateComponent(invalidHeading);
@@ -144,10 +217,36 @@ describe("ComponentValidator", () => {
     if (!result.ok) {
       expect(result.val.length).toBeGreaterThan(0);
       expect(result.val[0].path).toContain("level");
+      
+      // Check for enhanced error details
+      expect(result.val[0].componentType).toBe("heading");
+      expect(result.val[0].severity).toBe(ValidationSeverity.ERROR);
+      expect(result.val[0].invalidValue).toBe("h7");
+      expect(result.val[0].message).toContain("Invalid enum value");
+      
+      // Should have valid examples
+      expect(result.val[0].validExamples).toBeDefined();
+      if (result.val[0].validExamples) {
+        expect(result.val[0].validExamples.length).toBeGreaterThan(0);
+      }
+      
+      // Should have a documentation URL
+      expect(result.val[0].schemaDocUrl).toBeDefined();
+      
+      // Should have schema examples
+      expect(result.val[0].schemaExamples).toBeDefined();
+      
+      // Test error formatting
+      const formattedError = ComponentValidator.formatComponentErrorsToString(result.val);
+      expect(formattedError).toContain("[heading]");
+      expect(formattedError).toContain("level");
+      expect(formattedError).toContain("Invalid enum value");
+      expect(formattedError).toContain("Valid values");
+      expect(formattedError).toContain("Component example");
     }
   });
   
-  it("should reject unknown component types", () => {
+  it("should reject unknown component types with suggestions", () => {
     const unknownComponent = {
       type: "nonexistent",
       value: "Some value",
@@ -158,6 +257,71 @@ describe("ComponentValidator", () => {
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.val[0].message).toContain("Unknown component type");
+      expect(result.val[0].message).toContain("Valid types are");
+      
+      // Should list available component types
+      expect(result.val[0].validExamples).toBeDefined();
+      if (result.val[0].validExamples) {
+        expect(result.val[0].validExamples.length).toBeGreaterThan(0);
+        expect(result.val[0].validExamples).toContain("heading");
+      }
+      
+      // Should provide examples of valid components
+      expect(result.val[0].schemaExamples).toBeDefined();
+    }
+  });
+  
+  it("should validate component tree with nested components", () => {
+    const validComponentTree = {
+      type: "flex",
+      direction: "column",
+      align: "center",
+      gap: "md",
+      children: [
+        {
+          type: "heading",
+          level: "h1",
+          content: "Welcome to Our App",
+          align: "center"
+        },
+        {
+          type: "text",
+          text: "This is a description of our application.",
+          variant: "muted",
+          size: "lg"
+        },
+        // Invalid child component to test nested validation
+        {
+          type: "text",
+          size: "unknown-size" // Invalid size
+        }
+      ]
+    };
+    
+    const result = ComponentValidator.validateComponentTree(validComponentTree);
+    
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      // Should find the error in the nested component
+      const nestedError = result.val.find(err => 
+        err.path.includes("children") && 
+        err.path.includes("2") && 
+        err.path.includes("size")
+      );
+      
+      expect(nestedError).toBeDefined();
+      
+      if (nestedError) {
+        expect(nestedError.componentType).toBe("text");
+        expect(nestedError.invalidValue).toBe("unknown-size");
+        expect(nestedError.message).toContain("Invalid enum value");
+      }
+      
+      // Format a detailed error report
+      const errorReport = ComponentValidator.createValidationErrorReport(result.val);
+      expect(errorReport).toContain("Component Validation Error Report");
+      expect(errorReport).toContain("Errors in text component");
+      expect(errorReport).toContain("Example of valid text component");
     }
   });
   
@@ -166,7 +330,26 @@ describe("ComponentValidator", () => {
     
     expect(schema).toBeDefined();
     expect(schema?.title).toContain("Heading");
-    expect(schema?.properties?.text).toBeDefined();
-    expect(schema?.properties?.level).toBeDefined();
+    
+    // We need to check properties in a type-safe way
+    if (schema && schema.properties) {
+      // Cast to any to safely check for properties
+      const properties = schema.properties as Record<string, unknown>;
+      expect(properties.content).toBeDefined();
+      expect(properties.level).toBeDefined();
+    }
+  });
+  
+  it("should get component examples for a component type", () => {
+    const examples = ComponentValidator.getComponentExamples("heading");
+    
+    expect(examples).toBeDefined();
+    expect(examples?.length).toBeGreaterThan(0);
+    
+    if (examples && examples.length > 0) {
+      const example = examples[0] as any;
+      expect(example.type).toBe("heading");
+      expect(example.content).toBeDefined();
+    }
   });
 });

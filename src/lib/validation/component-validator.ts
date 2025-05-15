@@ -7,17 +7,26 @@
 
 import { z } from "zod";
 import { Result, Ok, Err } from "ts-results";
-import { Validator, ValidationResult, ValidationError } from "./validator";
+import { Validator, ValidationError, ValidationOptions, ValidationSeverity } from "./validator";
 import { JSONSchemaConverter } from "./json-schema";
-import { baseComponentSchema } from "../schemas/base-schema";
 import { headingSchema } from "../../components/ui/heading/heading.schema";
-import { ComponentSpec, isComponentType } from "../../types/schema";
+import { ComponentSpec } from "../../types/schema";
+import { flexSchema } from "../../components/ui/flex/flex.schema";
+import { textSchema } from "../../components/ui/text/text.schema";
+import { imageSchema } from "../../components/ui/image/image.schema";
 
 /**
- * Component validation error interface
+ * Component validation error interface with enhanced context
  */
 export interface ComponentValidationError extends ValidationError {
+  /** The component type that had the validation error */
   componentType?: string;
+  
+  /** Component-specific schema documentation URL */
+  schemaDocUrl?: string;
+  
+  /** Component schema examples */
+  schemaExamples?: unknown[];
 }
 
 /**
@@ -26,35 +35,131 @@ export interface ComponentValidationError extends ValidationError {
 export type ComponentValidationResult = Result<ComponentSpec, ComponentValidationError[]>;
 
 /**
+ * Component validation options
+ */
+export interface ComponentValidationOptions extends ValidationOptions {
+  /** Include schema examples in error messages */
+  includeSchemaExamples?: boolean;
+  
+  /** Add links to component documentation */
+  includeDocLinks?: boolean;
+  
+  /** Base URL for component documentation */
+  componentDocsBaseUrl?: string;
+}
+
+/**
+ * Default validation options for components
+ */
+const DEFAULT_COMPONENT_OPTIONS: ComponentValidationOptions = {
+  stripUnknown: false,
+  allowAdditionalProperties: false,
+  includeExamples: true,
+  includeSchemaExamples: true,
+  includeDocLinks: true,
+  componentDocsBaseUrl: "https://react-jedi.org/docs/components/",
+  documentationBaseUrl: "https://react-jedi.org/docs/validation/"
+};
+
+/**
  * Cache of component schemas for faster validation
  */
-const schemaCache = new Map<string, z.ZodType<any>>();
+const schemaCache = new Map<string, z.ZodType<ComponentSpec>>();
+
+/**
+ * Cache of component examples for error messages
+ */
+const componentExamples = new Map<string, unknown[]>();
 
 /**
  * Class for validating UI component specifications
  */
 export class ComponentValidator {
   /**
-   * Initialize schema cache
+   * Initialize schema cache and examples
    */
   static {
     // Pre-populate schema cache with known schemas
     schemaCache.set("heading", headingSchema);
-    // Add other component schemas here
+    schemaCache.set("flex", flexSchema);
+    schemaCache.set("text", textSchema);
+    schemaCache.set("Image", imageSchema);
+    
+    // Add examples for common components
+    componentExamples.set("heading", [
+      {
+        type: "heading",
+        level: "h1",
+        content: "Welcome to Our Platform",
+        align: "center",
+        weight: "extrabold"
+      },
+      {
+        type: "heading",
+        level: "h2",
+        content: "Featured Products",
+        variant: "primary"
+      }
+    ]);
+    
+    componentExamples.set("text", [
+      {
+        type: "text",
+        text: "This is a paragraph with custom styling.",
+        size: "lg",
+        weight: "medium"
+      },
+      {
+        type: "text",
+        text: "This is a styled span element.",
+        element: "span",
+        variant: "primary"
+      }
+    ]);
+    
+    componentExamples.set("Image", [
+      {
+        type: "Image",
+        src: "https://example.com/image.jpg",
+        alt: "Example image",
+        rounded: "md"
+      }
+    ]);
+    
+    componentExamples.set("flex", [
+      {
+        type: "flex",
+        direction: "row",
+        justify: "between",
+        align: "center",
+        gap: "md",
+        children: []
+      }
+    ]);
   }
 
   /**
    * Validates a component specification against its schema
    * 
    * @param spec - The component specification to validate
+   * @param options - Validation options
    * @returns A Result containing either the validated spec or validation errors
    */
-  static validateComponent(spec: unknown): ComponentValidationResult {
+  static validateComponent(
+    spec: unknown, 
+    options: ComponentValidationOptions = DEFAULT_COMPONENT_OPTIONS
+  ): ComponentValidationResult {
+    const mergedOptions = { ...DEFAULT_COMPONENT_OPTIONS, ...options };
+    
     if (!spec || typeof spec !== "object") {
       return Err([{
         path: [],
         message: "Component specification must be an object",
-        code: "INVALID_TYPE"
+        code: "INVALID_TYPE",
+        severity: ValidationSeverity.ERROR,
+        invalidValue: spec,
+        validExamples: [{ type: "heading", content: "Example Heading" }],
+        documentationUrl: `${mergedOptions.documentationBaseUrl}component-basics`
       }]);
     }
     
@@ -63,32 +168,68 @@ export class ComponentValidator {
       return Err([{
         path: ["type"],
         message: "Component specification must have a 'type' property",
-        code: "MISSING_REQUIRED"
+        code: "MISSING_REQUIRED",
+        severity: ValidationSeverity.ERROR,
+        invalidValue: spec,
+        validExamples: this.getAllComponentTypes().map(type => ({ type }))
       }]);
     }
     
     const componentType = spec.type as string;
+    
+    // Get schema examples for this component type
+    const examples = componentExamples.get(componentType);
     
     // Validate against the appropriate schema based on type
     const schema = this.getSchemaForType(componentType);
     if (!schema) {
       return Err([{
         path: ["type"],
-        message: `Unknown component type: ${componentType}`,
+        message: `Unknown component type: ${componentType}. Valid types are: ${this.getAllComponentTypes().join(", ")}`,
         code: "INVALID_TYPE",
-        componentType
+        componentType,
+        severity: ValidationSeverity.ERROR,
+        invalidValue: componentType,
+        validExamples: this.getAllComponentTypes(),
+        schemaExamples: this.getAllComponentExamples().slice(0, 2)
       }]);
     }
     
+    // Prepare component-specific context for validation
+    const validationContext = {
+      componentType,
+      allowedProps: this.getComponentProps(schema)
+    };
+    
+    // Set up component-specific validation options
+    const componentOptions: ValidationOptions = {
+      ...mergedOptions,
+      context: validationContext,
+      documentationBaseUrl: mergedOptions.documentationBaseUrl
+    };
+    
     // Validate the specification
-    const result = Validator.validate(schema, spec);
+    const result = Validator.validate(schema, spec, componentOptions);
     
     if (result.err) {
-      // Add component type to error info
-      const errors = result.val.map(err => ({
-        ...err,
-        componentType
-      }));
+      // Enhance errors with component-specific information
+      const errors = result.val.map(err => {
+        const schemaDocUrl = mergedOptions.includeDocLinks && mergedOptions.componentDocsBaseUrl 
+          ? `${mergedOptions.componentDocsBaseUrl}${componentType.toLowerCase()}` 
+          : undefined;
+        
+        const schemaExamples = mergedOptions.includeSchemaExamples && examples 
+          ? examples 
+          : undefined;
+        
+        return {
+          ...err,
+          componentType,
+          schemaDocUrl,
+          schemaExamples
+        } as ComponentValidationError;
+      });
+      
       return Err(errors);
     }
     
@@ -99,11 +240,15 @@ export class ComponentValidator {
    * Validates a component tree recursively
    * 
    * @param spec - The root component specification
+   * @param options - Validation options
    * @returns A Result containing either the validated spec or validation errors
    */
-  static validateComponentTree(spec: unknown): ComponentValidationResult {
+  static validateComponentTree(
+    spec: unknown,
+    options: ComponentValidationOptions = DEFAULT_COMPONENT_OPTIONS
+  ): ComponentValidationResult {
     // First validate the root component
-    const rootResult = this.validateComponent(spec);
+    const rootResult = this.validateComponent(spec, options);
     if (rootResult.err) {
       return rootResult;
     }
@@ -113,7 +258,7 @@ export class ComponentValidator {
     
     // Recursively validate children if present
     if (this.hasChildren(validatedSpec)) {
-      const childrenResult = this.validateChildren(validatedSpec);
+      const childrenResult = this.validateChildren(validatedSpec, options);
       if (childrenResult.err) {
         errors.push(...childrenResult.val);
       }
@@ -128,7 +273,7 @@ export class ComponentValidator {
    * @param type - The component type
    * @returns The Zod schema or undefined if not found
    */
-  static getSchemaForType(type: string): z.ZodType<any> | undefined {
+  static getSchemaForType(type: string): z.ZodType<ComponentSpec> | undefined {
     return schemaCache.get(type);
   }
   
@@ -137,9 +282,18 @@ export class ComponentValidator {
    * 
    * @param type - The component type
    * @param schema - The Zod schema for the component
+   * @param examples - Optional examples for this component type
    */
-  static registerSchema(type: string, schema: z.ZodType<any>): void {
+  static registerSchema(
+    type: string, 
+    schema: z.ZodType<ComponentSpec>,
+    examples?: unknown[]
+  ): void {
     schemaCache.set(type, schema);
+    
+    if (examples && examples.length > 0) {
+      componentExamples.set(type, examples);
+    }
   }
   
   /**
@@ -148,15 +302,158 @@ export class ComponentValidator {
    * @param type - The component type
    * @returns The JSON Schema or undefined if not found
    */
-  static getJSONSchemaForType(type: string): Record<string, any> | undefined {
+  static getJSONSchemaForType(type: string): Record<string, unknown> | undefined {
     const schema = this.getSchemaForType(type);
     if (!schema) return undefined;
+    
+    // Get examples for this component type
+    const examples = componentExamples.get(type);
     
     return JSONSchemaConverter.zodToJSONSchema(schema, {
       $id: `https://react-jedi.org/schemas/components/${type}.json`,
       title: `${type.charAt(0).toUpperCase() + type.slice(1)} Component Schema`,
       description: `JSON Schema for ${type} component specifications`
     });
+  }
+  
+  /**
+   * Gets a list of all registered component types
+   * 
+   * @returns Array of component type names
+   */
+  static getAllComponentTypes(): string[] {
+    return Array.from(schemaCache.keys());
+  }
+  
+  /**
+   * Gets all component examples
+   * 
+   * @returns Array of component examples
+   */
+  static getAllComponentExamples(): unknown[] {
+    return Array.from(componentExamples.values()).flat();
+  }
+  
+  /**
+   * Gets examples for a specific component type
+   * 
+   * @param type - The component type
+   * @returns Array of examples or undefined if not found
+   */
+  static getComponentExamples(type: string): unknown[] | undefined {
+    return componentExamples.get(type);
+  }
+  
+  /**
+   * Extract the property names from a Zod schema
+   * 
+   * @param schema - The Zod schema
+   * @returns Array of property names
+   */
+  static getComponentProps(schema: z.ZodType<unknown>): string[] {
+    if (schema instanceof z.ZodObject) {
+      return Object.keys(schema.shape);
+    }
+    return [];
+  }
+  
+  /**
+   * Formats component validation errors to a user-friendly string
+   * 
+   * @param errors - Array of component validation errors
+   * @returns Formatted error message string
+   */
+  static formatComponentErrorsToString(errors: ComponentValidationError[]): string {
+    if (errors.length === 0) return "Validation failed with no specific errors";
+    
+    return errors.map(err => {
+      const componentInfo = err.componentType ? `[${err.componentType}] ` : "";
+      const path = err.path.length > 0 ? `at '${err.path.join(".")}': ` : "";
+      let message = `${componentInfo}${path}${err.message}`;
+      
+      // Add valid examples if available
+      if (err.validExamples && err.validExamples.length > 0) {
+        const examples = err.validExamples
+          .map(ex => typeof ex === "string" ? `"${ex}"` : JSON.stringify(ex))
+          .join(", ");
+        message += `\nValid values: ${examples}`;
+      }
+      
+      // Add schema examples if available
+      if (err.schemaExamples && err.schemaExamples.length > 0) {
+        message += `\nComponent example: ${JSON.stringify(err.schemaExamples[0], null, 2)}`;
+      }
+      
+      // Add documentation link if available
+      if (err.schemaDocUrl) {
+        message += `\nDocumentation: ${err.schemaDocUrl}`;
+      }
+      
+      return message;
+    }).join("\n\n");
+  }
+  
+  /**
+   * Creates a detailed validation error report for a component specification
+   * 
+   * @param errors - Array of component validation errors
+   * @returns Detailed error report string
+   */
+  static createValidationErrorReport(errors: ComponentValidationError[]): string {
+    if (errors.length === 0) return "No validation errors found.";
+    
+    let report = `# Component Validation Error Report\n\n`;
+    report += `Found ${errors.length} validation error${errors.length === 1 ? "" : "s"}.\n\n`;
+    
+    // Group errors by component type
+    const errorsByComponent: Record<string, ComponentValidationError[]> = {};
+    
+    for (const err of errors) {
+      const type = err.componentType || "unknown";
+      if (!errorsByComponent[type]) {
+        errorsByComponent[type] = [];
+      }
+      errorsByComponent[type].push(err);
+    }
+    
+    // Create report sections by component type
+    for (const [componentType, componentErrors] of Object.entries(errorsByComponent)) {
+      report += `## Errors in ${componentType} component\n\n`;
+      
+      for (const err of componentErrors) {
+        const path = err.path.length > 0 ? `'${err.path.join(".")}'` : "root";
+        report += `### Error at ${path}\n\n`;
+        report += `- **Message**: ${err.message}\n`;
+        
+        if (err.invalidValue !== undefined) {
+          report += `- **Received**: \`${JSON.stringify(err.invalidValue)}\`\n`;
+        }
+        
+        if (err.validExamples && err.validExamples.length > 0) {
+          const examples = err.validExamples
+            .map(ex => `\`${JSON.stringify(ex)}\``)
+            .join(", ");
+          report += `- **Valid values**: ${examples}\n`;
+        }
+        
+        if (err.schemaDocUrl) {
+          report += `- **Documentation**: [Component docs](${err.schemaDocUrl})\n`;
+        }
+        
+        report += "\n";
+      }
+      
+      // Add example of valid component if available
+      const examples = componentExamples.get(componentType);
+      if (examples && examples.length > 0) {
+        report += `### Example of valid ${componentType} component\n\n`;
+        report += "```json\n";
+        report += JSON.stringify(examples[0], null, 2);
+        report += "\n```\n\n";
+      }
+    }
+    
+    return report;
   }
   
   /**
@@ -169,7 +466,10 @@ export class ComponentValidator {
   /**
    * Validates all children of a component recursively
    */
-  private static validateChildren(spec: ComponentSpec): Result<ComponentSpec, ComponentValidationError[]> {
+  private static validateChildren(
+    spec: ComponentSpec, 
+    options: ComponentValidationOptions
+  ): Result<ComponentSpec, ComponentValidationError[]> {
     const errors: ComponentValidationError[] = [];
     
     // Handle different types of children (string, component, or array)
@@ -178,13 +478,13 @@ export class ComponentValidator {
       return Ok(spec);
     } else if (Array.isArray(spec.children)) {
       // Validate each child in array
-      spec.children.forEach((child, index) => {
+      for (const [index, child] of spec.children.entries()) {
         if (typeof child === "string") {
           // Text content is valid
-          return;
+          continue;
         }
         
-        const childResult = this.validateComponentTree(child);
+        const childResult = this.validateComponentTree(child, options);
         if (childResult.err) {
           // Add array index to error path
           const childErrors = childResult.val.map(err => ({
@@ -193,10 +493,10 @@ export class ComponentValidator {
           }));
           errors.push(...childErrors);
         }
-      });
+      }
     } else if (typeof spec.children === "object") {
       // Single child object
-      const childResult = this.validateComponentTree(spec.children);
+      const childResult = this.validateComponentTree(spec.children, options);
       if (childResult.err) {
         // Add children to error path
         const childErrors = childResult.val.map(err => ({

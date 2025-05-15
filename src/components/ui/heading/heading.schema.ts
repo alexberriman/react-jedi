@@ -7,7 +7,7 @@ import { z } from "zod";
 export const headingSchema = z.object({
   type: z.literal("heading"),
   level: z.enum(["h1", "h2", "h3", "h4", "h5", "h6"]).optional().default("h2"),
-  text: z.string(),
+  content: z.string(),
   size: z.enum(["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"]).optional(),
   weight: z
     .enum([

@@ -4,7 +4,7 @@
  * Helper functions for working with brand presets
  */
 
-import type { BrandPreset, BrandCategory, BrandPersonality } from "./types";
+import type { BrandPreset, BrandPersonality } from "./types";
 import type { ThemeSpecification } from "@/types/schema/specification";
 import { brandPresets, getPreset } from "./presets";
 import { generateBrandTheme } from "./generator";
@@ -27,7 +27,7 @@ export function describePersonality(personality: BrandPersonality): string {
   if (personality.minimal > 80) traits.push("ultra-minimal");
   else if (personality.minimal > 60) traits.push("minimal");
   
-  if (personality.bold > 80) traits.push("very bold");
+  if (personality.bold >= 80) traits.push("very bold");
   else if (personality.bold > 60) traits.push("bold");
   
   if (personality.elegant > 80) traits.push("highly elegant");
@@ -50,13 +50,13 @@ export function analyzeThemePersonality(theme: ThemeSpecification): BrandPersona
   };
   
   // Analyze typography
-  if (theme.typography?.fontFamily?.sans?.includes("Inter") ||
-      theme.typography?.fontFamily?.sans?.includes("system-ui")) {
+  if (theme.typography?.fontFamilies?.sans?.some(f => f.includes("Inter")) ||
+      theme.typography?.fontFamilies?.sans?.some(f => f.includes("system-ui"))) {
     personality.modern += 10;
   }
   
-  if (theme.typography?.fontFamily?.serif?.includes("Georgia") ||
-      theme.typography?.fontFamily?.serif?.includes("Playfair")) {
+  if (theme.typography?.fontFamilies?.serif?.some(f => f.includes("Georgia")) ||
+      theme.typography?.fontFamilies?.serif?.some(f => f.includes("Playfair"))) {
     personality.elegant += 10;
     personality.professional += 10;
   }
@@ -64,24 +64,24 @@ export function analyzeThemePersonality(theme: ThemeSpecification): BrandPersona
   // Analyze spacing
   const spacingValues = Object.values(theme.spacing || {});
   const hasLargeSpacing = spacingValues.some((val) => 
-    typeof val === "string" && parseFloat(val) > 4
+    typeof val === "string" && Number.parseFloat(val) > 4
   );
   if (hasLargeSpacing) {
     personality.minimal += 10;
   }
   
   // Analyze animation
-  if (theme.animation?.enabled === false) {
+  if (!theme.animations || Object.keys(theme.animations).length === 0) {
     personality.minimal += 20;
     personality.professional += 10;
-  } else if (theme.animation?.timing?.fast === "150ms") {
+  } else if (theme.animations?.slideIn?.duration === "150ms") {
     personality.playful += 15;
   }
   
   // Analyze border radius
-  const radiusValues = Object.values(theme.radius || {});
+  const radiusValues = Object.values(theme.borderRadius || {});
   const hasLargeRadius = radiusValues.some((val) =>
-    typeof val === "string" && parseFloat(val) > 1
+    typeof val === "string" && Number.parseFloat(val) > 1
   );
   if (hasLargeRadius) {
     personality.playful += 10;
@@ -100,9 +100,9 @@ export function analyzeThemePersonality(theme: ThemeSpecification): BrandPersona
   }
   
   // Normalize values to 0-100
-  Object.keys(personality).forEach((key) => {
+  for (const key of Object.keys(personality)) {
     personality[key as keyof BrandPersonality] = Math.min(100, Math.max(0, personality[key as keyof BrandPersonality]));
-  });
+  }
   
   return personality;
 }
@@ -115,13 +115,13 @@ export function findMatchingPreset(theme: ThemeSpecification): BrandPreset | nul
   let bestMatch: BrandPreset | null = null;
   let lowestDistance = Infinity;
   
-  Object.values(brandPresets).forEach((preset) => {
+  for (const preset of Object.values(brandPresets)) {
     const distance = calculatePersonalityDistance(personality, preset.personality);
     if (distance < lowestDistance) {
       lowestDistance = distance;
       bestMatch = preset;
     }
-  });
+  }
   
   return bestMatch;
 }
@@ -142,12 +142,12 @@ function calculatePersonalityDistance(
     "elegant",
   ];
   
-  return Math.sqrt(
-    traits.reduce((sum, trait) => {
-      const diff = a[trait] - b[trait];
-      return sum + diff * diff;
-    }, 0)
-  );
+  let sum = 0;
+  for (const trait of traits) {
+    const diff = a[trait] - b[trait];
+    sum += diff * diff;
+  }
+  return Math.sqrt(sum);
 }
 
 /**
@@ -224,8 +224,8 @@ export function getComplementaryPresets(preset: BrandPreset): BrandPreset[] {
   const complementary: BrandPreset[] = [];
   
   // Find presets with opposite personality traits
-  Object.values(brandPresets).forEach((candidate) => {
-    if (candidate.id === preset.id) return;
+  for (const candidate of Object.values(brandPresets)) {
+    if (candidate.id === preset.id) continue;
     
     const isOpposite = (
       Math.abs(preset.personality.minimal - candidate.personality.minimal) > 50 ||
@@ -236,7 +236,7 @@ export function getComplementaryPresets(preset: BrandPreset): BrandPreset[] {
     if (isOpposite) {
       complementary.push(candidate);
     }
-  });
+  }
   
   return complementary;
 }

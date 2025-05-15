@@ -4,7 +4,7 @@
  * Collection of pre-designed themes for different industries and styles
  */
 
-import type { BrandPreset } from "./types";
+import type { BrandPreset, BrandCategory } from "./types";
 
 /**
  * Technology startup preset
@@ -408,7 +408,5 @@ export function getPresetsByCategory(category: BrandCategory): BrandPreset[] {
  * Get all preset categories
  */
 export function getCategories(): BrandCategory[] {
-  return Array.from(
-    new Set(Object.values(brandPresets).map((preset) => preset.category))
-  );
+  return [...new Set(Object.values(brandPresets).map((preset) => preset.category))];
 }

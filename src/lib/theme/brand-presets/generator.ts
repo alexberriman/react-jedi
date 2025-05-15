@@ -123,13 +123,11 @@ function generateThemeFromPreset(
   overrides?: Partial<ThemeSpecification>
 ): ThemeSpecification {
   const theme: ThemeSpecification = {
-    version: "1.0",
-    name: preset.name,
     colors: generateColorsFromBrand(preset.colors),
     typography: generateTypographyFromBrand(preset.typography),
     spacing: generateSpacingFromPersonality(preset.personality),
-    animation: generateAnimationFromPersonality(preset.personality),
-    radius: generateRadiusFromPersonality(preset.personality),
+    animations: generateAnimationFromPersonality(preset.personality),
+    borderRadius: generateRadiusFromPersonality(preset.personality),
     shadows: generateShadowsFromPersonality(preset.personality),
     ...preset.settings,
     ...overrides,
@@ -142,32 +140,41 @@ function generateThemeFromPreset(
  * Generate color system from brand colors
  */
 function generateColorsFromBrand(colors: BrandColors): ThemeSpecification["colors"] {
-  return {
-    primary: generateColorScale(colors.primary),
-    secondary: colors.secondary ? generateColorScale(colors.secondary) : undefined,
-    accent: colors.accent ? generateColorScale(colors.accent) : undefined,
-    neutral: colors.neutral ? generateColorScale(colors.neutral) : {
-      50: "#fafafa",
-      100: "#f5f5f5",
-      200: "#e5e5e5",
-      300: "#d4d4d4",
-      400: "#a3a3a3",
-      500: "#737373",
-      600: "#525252",
-      700: "#404040",
-      800: "#262626",
-      900: "#171717",
-      950: "#0a0a0a",
+  const generatedColors: ThemeSpecification["colors"] = {
+    primary: generateColorScale({ baseColor: colors.primary }),
+    secondary: colors.secondary ? generateColorScale({ baseColor: colors.secondary }) : undefined,
+    accent: colors.accent ? generateColorScale({ baseColor: colors.accent }) : undefined,
+    neutral: colors.neutral ? generateColorScale({ baseColor: colors.neutral }) : {
+      "50": "#fafafa",
+      "100": "#f5f5f5",
+      "200": "#e5e5e5",
+      "300": "#d4d4d4",
+      "400": "#a3a3a3",
+      "500": "#737373",
+      "600": "#525252",
+      "700": "#404040",
+      "800": "#262626",
+      "900": "#171717",
     },
-    semantic: {
-      background: colors.background || "#FFFFFF",
-      foreground: colors.foreground || "#000000",
-      success: colors.success || "#10B981",
-      error: colors.error || "#EF4444",
-      warning: colors.warning || "#F59E0B",
-      info: colors.info || "#3B82F6",
-    },
+    success: colors.success ? generateColorScale({ baseColor: colors.success }) : undefined,
+    error: colors.error ? generateColorScale({ baseColor: colors.error }) : undefined,
+    warning: colors.warning ? generateColorScale({ baseColor: colors.warning }) : undefined,
+    info: colors.info ? generateColorScale({ baseColor: colors.info }) : undefined,
   };
+  
+  if (colors.background) {
+    generatedColors.background = {
+      default: colors.background,
+    };
+  }
+  
+  if (colors.foreground) {
+    generatedColors.text = {
+      default: colors.foreground,
+    };
+  }
+  
+  return generatedColors;
 }
 
 /**
@@ -177,13 +184,13 @@ function generateTypographyFromBrand(
   typography: BrandTypography
 ): ThemeSpecification["typography"] {
   return {
-    fontFamily: {
-      sans: typography.fontFamily?.body || "Inter, sans-serif",
-      serif: "Georgia, serif",
-      mono: typography.fontFamily?.mono || "Fira Code, monospace",
-      heading: typography.fontFamily?.heading || typography.fontFamily?.body || "Inter, sans-serif",
+    fontFamilies: {
+      sans: [typography.fontFamily?.body || "Inter, sans-serif"],
+      serif: ["Georgia, serif"],
+      mono: [typography.fontFamily?.mono || "Fira Code, monospace"],
+      display: [typography.fontFamily?.heading || typography.fontFamily?.body || "Inter, sans-serif"],
     },
-    fontSize: {
+    fontSizes: {
       xs: "0.75rem",
       sm: "0.875rem",
       base: "1rem",
@@ -198,18 +205,18 @@ function generateTypographyFromBrand(
       "8xl": "6rem",
       "9xl": "8rem",
     },
-    fontWeight: {
-      thin: "100",
-      extralight: "200",
-      light: String(typography.fontWeight?.light || 300),
-      normal: String(typography.fontWeight?.regular || 400),
-      medium: String(typography.fontWeight?.medium || 500),
-      semibold: String(typography.fontWeight?.semibold || 600),
-      bold: String(typography.fontWeight?.bold || 700),
-      extrabold: "800",
-      black: "900",
+    fontWeights: {
+      thin: 100,
+      extralight: 200,
+      light: typography.fontWeight?.light || 300,
+      normal: typography.fontWeight?.regular || 400,
+      medium: typography.fontWeight?.medium || 500,
+      semibold: typography.fontWeight?.semibold || 600,
+      bold: typography.fontWeight?.bold || 700,
+      extrabold: 800,
+      black: 900,
     },
-    lineHeight: {
+    lineHeights: {
       none: "1",
       tight: "1.25",
       snug: "1.375",
@@ -217,7 +224,7 @@ function generateTypographyFromBrand(
       relaxed: "1.625",
       loose: "2",
     },
-    letterSpacing: {
+    letterSpacings: {
       tighter: "-0.05em",
       tight: typography.letterSpacing || "-0.025em",
       normal: "0",
@@ -235,9 +242,17 @@ function generateSpacingFromPersonality(
   personality: BrandPersonality
 ): ThemeSpecification["spacing"] {
   const isMinimal = personality.minimal > 70;
+  const isVeryMinimal = personality.minimal >= 100;
   const isBold = personality.bold > 70;
   
-  const baseScale = isMinimal ? 0.25 : isBold ? 0.375 : 0.3125;
+  let baseScale = 0.3125;
+  if (isVeryMinimal) {
+    baseScale = 0.125;
+  } else if (isMinimal) {
+    baseScale = 0.25;
+  } else if (isBold) {
+    baseScale = 0.375;
+  }
   
   return {
     0: "0",
@@ -271,31 +286,63 @@ function generateSpacingFromPersonality(
  */
 function generateAnimationFromPersonality(
   personality: BrandPersonality
-): ThemeSpecification["animation"] {
+): ThemeSpecification["animations"] {
   const isPlayful = personality.playful > 70;
   const isElegant = personality.elegant > 70;
   const isMinimal = personality.minimal > 70;
   
+  let baseDuration: string;
+  if (isElegant) {
+    baseDuration = "400ms";
+  } else if (isPlayful) {
+    baseDuration = "200ms";
+  } else {
+    baseDuration = "300ms";
+  }
+  const fastDuration = isPlayful ? "150ms" : "200ms";
+  const slowDuration = isElegant ? "700ms" : "500ms";
+  
+  const baseEasing = isElegant 
+    ? "cubic-bezier(0.4, 0, 0.2, 1)"
+    : "cubic-bezier(0.4, 0, 0.6, 1)";
+  
   return {
-    timing: {
-      instant: "0ms",
-      fast: isPlayful ? "150ms" : "200ms",
-      normal: isElegant ? "400ms" : "300ms",
-      slow: isElegant ? "700ms" : "500ms",
-      slower: "1000ms",
+    fadeIn: {
+      duration: baseDuration,
+      easing: baseEasing,
     },
-    easing: {
-      linear: "linear",
-      in: "cubic-bezier(0.4, 0, 1, 1)",
-      out: "cubic-bezier(0, 0, 0.2, 1)",
-      inOut: isElegant
-        ? "cubic-bezier(0.4, 0, 0.2, 1)"
-        : "cubic-bezier(0.4, 0, 0.6, 1)",
-      bounce: isPlayful
+    fadeOut: {
+      duration: baseDuration,
+      easing: baseEasing,
+    },
+    slideIn: {
+      duration: fastDuration,
+      easing: "cubic-bezier(0, 0, 0.2, 1)",
+    },
+    slideOut: {
+      duration: fastDuration,
+      easing: "cubic-bezier(0.4, 0, 1, 1)",
+    },
+    scaleIn: {
+      duration: baseDuration,
+      easing: isPlayful
         ? "cubic-bezier(0.68, -0.55, 0.265, 1.55)"
-        : "cubic-bezier(0.68, -0.25, 0.265, 1.25)",
+        : baseEasing,
     },
-    enabled: !isMinimal,
+    scaleOut: {
+      duration: baseDuration,
+      easing: baseEasing,
+    },
+    rotate: {
+      duration: slowDuration,
+      easing: "linear",
+    },
+    ...(isMinimal ? {} : {
+      bounce: {
+        duration: "500ms",
+        easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+      },
+    }),
   };
 }
 
@@ -304,7 +351,7 @@ function generateAnimationFromPersonality(
  */
 function generateRadiusFromPersonality(
   personality: BrandPersonality
-): ThemeSpecification["radius"] {
+): ThemeSpecification["borderRadius"] {
   const isPlayful = personality.playful > 70;
   const isMinimal = personality.minimal > 70;
   const isBold = personality.bold > 70;

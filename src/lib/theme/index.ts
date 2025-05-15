@@ -129,6 +129,15 @@ export {
   generateCustomTheme
 } from "./theme-presets";
 
+// Style overrides
+export {
+  processStyleOverrides,
+  createStyleFunction,
+  mergeStyles,
+  cascadeStyles,
+  type StyleFunction
+} from "./style-overrides";
+
 // Color mode system
 export {
   ColorModeProvider,

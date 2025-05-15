@@ -155,6 +155,86 @@ export interface ThemeSpecification {
    * Animation and transition presets.
    */
   animations?: Record<string, AnimationPreset>;
+  
+  /**
+   * Component style overrides for customizing appearance
+   */
+  components?: ComponentStyleOverrides;
+}
+
+/**
+ * Component style overrides
+ */
+export interface ComponentStyleOverrides {
+  /**
+   * Component style overrides organized by component type
+   */
+  [componentType: string]: ComponentStyleOverride;
+}
+
+/**
+ * Individual component style override configuration
+ */
+export interface ComponentStyleOverride {
+  /**
+   * Global overrides for all instances of this component
+   */
+  global?: StyleOverride;
+  
+  /**
+   * Variant-specific overrides
+   */
+  variants?: Record<string, StyleOverride>;
+  
+  /**
+   * Size-specific overrides
+   */
+  sizes?: Record<string, StyleOverride>;
+  
+  /**
+   * State-specific overrides
+   */
+  states?: Record<string, StyleOverride>;
+  
+  /**
+   * Combination overrides (variant + size + state)
+   */
+  combinations?: StyleOverride[];
+}
+
+/**
+ * Style override configuration
+ */
+export interface StyleOverride {
+  /**
+   * Variant to match (used in combinations)
+   */
+  variant?: string;
+  
+  /**
+   * Size to match (used in combinations)
+   */
+  size?: string;
+  
+  /**
+   * State to match (used in combinations)
+   */
+  state?: string;
+  
+  /**
+   * CSS classes to apply
+   */
+  className?: string;
+  
+  /**
+   * Style object to apply
+   */
+  styles?: React.CSSProperties;
+  
+  /**
+   * Theme tokens to apply (resolved to CSS properties)
+   */
+  tokens?: Record<string, string>;
 }
 
 /**

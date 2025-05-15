@@ -6,7 +6,12 @@ import {
   type RenderOptions,
   type UISpecification
 } from "@/types/schema/components";
+import type { ThemeSpecification } from "@/types/schema/specification";
 import { isComponentSpec, isComponentSpecArray, isTextContent } from "@/types/schema/guards";
+import { processStyleOverrides } from "./theme/style-overrides";
+import { createTokenResolver } from "./theme/token-resolver";
+import { extractTokensFromTheme, createTokenCollection } from "./theme/theme-tokens";
+import { cn } from "./utils";
 
 /**
  * ErrorBoundary component to catch rendering errors
@@ -203,11 +208,32 @@ function renderComponent(
     }
   }
 
+  // Process style overrides from theme
+  let styleOverrides: { className?: string; style?: React.CSSProperties } = {};
+  if (theme && theme.components) {
+    // Create token resolver if we have a theme
+    const extractedTokens = extractTokensFromTheme(theme as ThemeSpecification);
+    const tokens = createTokenCollection(extractedTokens);
+    const tokenResolver = createTokenResolver(theme as ThemeSpecification, tokens);
+    styleOverrides = processStyleOverrides(spec, theme as ThemeSpecification, tokenResolver);
+  }
+  
+  // Merge style overrides with spec styles
+  const mergedClassName = cn(spec.className, styleOverrides.className);
+  const mergedStyle = {
+    ...spec.style,
+    ...styleOverrides.style,
+  };
+  
   // The mock components in the test are directly extracting spec, so we need to make sure
   // spec.a11y, spec.data, and spec.testId are preserved in the props
   const componentProps: ExtendedComponentProps = {
     // Make sure spec includes all the original properties by creating a fresh copy
-    spec,
+    spec: {
+      ...spec,
+      className: mergedClassName,
+      style: Object.keys(mergedStyle).length > 0 ? mergedStyle : undefined,
+    },
     children,
     theme,
     state: initialState,

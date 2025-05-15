@@ -9,6 +9,15 @@ import {
   getPresetsByCategory,
   getCategories,
 } from "./presets";
+import type { BrandCategory } from "./types";
+
+// Helper function to validate personality traits
+function validatePersonalityTrait(preset: typeof brandPresets[keyof typeof brandPresets], trait: string) {
+  expect(preset.personality).toHaveProperty(trait);
+  const value = preset.personality[trait as keyof typeof preset.personality];
+  expect(value).toBeGreaterThanOrEqual(0);
+  expect(value).toBeLessThanOrEqual(100);
+}
 
 describe("Brand Presets", () => {
   describe("brandPresets", () => {
@@ -24,13 +33,13 @@ describe("Brand Presets", () => {
         "education",
       ];
 
-      expectedPresets.forEach((presetId) => {
+      for (const presetId of expectedPresets) {
         expect(brandPresets).toHaveProperty(presetId);
-      });
+      }
     });
 
     it("should have valid preset structure", () => {
-      Object.values(brandPresets).forEach((preset) => {
+      for (const preset of Object.values(brandPresets)) {
         expect(preset).toHaveProperty("id");
         expect(preset).toHaveProperty("name");
         expect(preset).toHaveProperty("description");
@@ -38,11 +47,11 @@ describe("Brand Presets", () => {
         expect(preset).toHaveProperty("colors");
         expect(preset).toHaveProperty("typography");
         expect(preset).toHaveProperty("personality");
-      });
+      }
     });
 
     it("should have valid colors", () => {
-      Object.values(brandPresets).forEach((preset) => {
+      for (const preset of Object.values(brandPresets)) {
         expect(preset.colors).toHaveProperty("primary");
         expect(preset.colors.primary).toMatch(/^#[0-9A-Fa-f]{6}$/);
 
@@ -52,20 +61,15 @@ describe("Brand Presets", () => {
         if (preset.colors.accent) {
           expect(preset.colors.accent).toMatch(/^#[0-9A-Fa-f]{6}$/);
         }
-      });
+      }
     });
 
     it("should have valid personality values", () => {
-      Object.values(brandPresets).forEach((preset) => {
-        ["modern", "professional", "playful", "minimal", "bold", "elegant"].forEach(
-          (trait) => {
-            expect(preset.personality).toHaveProperty(trait);
-            const value = preset.personality[trait as keyof typeof preset.personality];
-            expect(value).toBeGreaterThanOrEqual(0);
-            expect(value).toBeLessThanOrEqual(100);
-          }
-        );
-      });
+      for (const preset of Object.values(brandPresets)) {
+        for (const trait of ["modern", "professional", "playful", "minimal", "bold", "elegant"]) {
+          validatePersonalityTrait(preset, trait);
+        }
+      }
     });
   });
 
@@ -91,7 +95,7 @@ describe("Brand Presets", () => {
     });
 
     it("should return empty array for invalid category", () => {
-      const presets = getPresetsByCategory("invalid" as any);
+      const presets = getPresetsByCategory("invalid" as BrandCategory);
       expect(presets).toEqual([]);
     });
   });

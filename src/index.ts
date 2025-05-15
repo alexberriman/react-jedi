@@ -5,6 +5,17 @@
  */
 
 import type { ComponentResolver, RenderOptions, UISpecification, ComponentSpec } from "./types/schema/components";
+import type { 
+  ThemeMode, 
+  ThemePreset, 
+  ThemeVariant, 
+  ColorModeSettings, 
+  ThemeColorModePreset, 
+  ThemeExtension, 
+  ThemeToken, 
+  ThemeGeneratorConfig, 
+  EnhancedThemeSpecification 
+} from "./types/schema/theme";
 import { render } from "./lib/render";
 import { defaultComponentResolver } from "./lib/component-resolver";
 import { buildComponentTree } from "./lib/component-tree";
@@ -113,6 +124,7 @@ export * from "./lib/render";
 export * from "./lib/component-resolver";
 export * from "./lib/component-tree";
 export * from "./lib/error-handling";
+export * from "./lib/theme";
 // Export type-safety separately to avoid conflicts
 export {
   Result, Ok, Err, ok, err,
@@ -170,6 +182,17 @@ export {
   ComponentProps,
   RenderOptions,
   ComponentTypes,
+  
+  // Theme types
+  ThemeMode,
+  ThemePreset,
+  ThemeVariant,
+  ColorModeSettings,
+  ThemeColorModePreset,
+  ThemeExtension,
+  ThemeToken,
+  ThemeGeneratorConfig,
+  EnhancedThemeSpecification,
   // Guards
   isBox,
   isContainer,

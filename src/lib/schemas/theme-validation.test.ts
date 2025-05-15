@@ -150,8 +150,24 @@ describe("Theme validation utilities", () => {
         },
       };
       
-      // Using any type to bypass strict type checking in test
-      const source: any = {
+      // Define more specific type for the source
+      const source: Partial<typeof target> & {
+        colors: {
+          primary: {
+            "500": string;
+            "600": string;
+          };
+          background: {
+            default: string;
+          };
+          accent: {
+            "500": string;
+          };
+        };
+        borderRadius: {
+          sm: string;
+        };
+      } = {
         colors: {
           primary: {
             "500": "#3b82f6",

@@ -30,18 +30,14 @@ export function validateTheme(theme: unknown): Result<ThemeSpecification, ThemeV
   try {
     const result = themeSpecificationSchema.safeParse(theme);
     
-    if (result.success) {
-      return Ok(result.data);
-    } else {
-      return Err(
-        result.error.errors.map((err) => ({
-          code: "INVALID_THEME",
-          message: err.message,
-          path: err.path.map(String),
-          details: err,
-        }))
-      );
-    }
+    return result.success ? Ok(result.data) : Err(
+      result.error.errors.map((err) => ({
+        code: "INVALID_THEME",
+        message: err.message,
+        path: err.path.map(String),
+        details: err,
+      }))
+    );
   } catch (error) {
     return Err([
       {
@@ -63,18 +59,14 @@ export function validateEnhancedTheme(theme: unknown): Result<EnhancedThemeSpeci
   try {
     const result = enhancedThemeSpecificationSchema.safeParse(theme);
     
-    if (result.success) {
-      return Ok(result.data as EnhancedThemeSpecification);
-    } else {
-      return Err(
-        result.error.errors.map((err) => ({
-          code: "INVALID_ENHANCED_THEME",
-          message: err.message,
-          path: err.path.map(String),
-          details: err,
-        }))
-      );
-    }
+    return result.success ? Ok(result.data as EnhancedThemeSpecification) : Err(
+      result.error.errors.map((err) => ({
+        code: "INVALID_ENHANCED_THEME",
+        message: err.message,
+        path: err.path.map(String),
+        details: err,
+      }))
+    );
   } catch (error) {
     return Err([
       {
@@ -96,18 +88,14 @@ export function validateThemePreset(preset: unknown): Result<ThemePreset, ThemeV
   try {
     const result = themePresetSchema.safeParse(preset);
     
-    if (result.success) {
-      return Ok(result.data as ThemePreset);
-    } else {
-      return Err(
-        result.error.errors.map((err) => ({
-          code: "INVALID_THEME_PRESET",
-          message: err.message,
-          path: err.path.map(String),
-          details: err,
-        }))
-      );
-    }
+    return result.success ? Ok(result.data as ThemePreset) : Err(
+      result.error.errors.map((err) => ({
+        code: "INVALID_THEME_PRESET",
+        message: err.message,
+        path: err.path.map(String),
+        details: err,
+      }))
+    );
   } catch (error) {
     return Err([
       {
@@ -126,14 +114,15 @@ export function validateThemePreset(preset: unknown): Result<ThemePreset, ThemeV
  * @param source - The source theme object to merge into the target
  * @returns The merged theme object
  */
-export function mergeThemes<T extends Record<string, any>>(target: T, source: Partial<T>): T {
-  const output = { ...target } as T;
-  
+export function mergeThemes<T extends Record<string, unknown>>(target: T, source: Partial<T>): T {
+  // Early return for invalid source
   if (!source || typeof source !== "object") {
-    return output;
+    return { ...target } as T;
   }
   
-  Object.keys(source).forEach((key) => {
+  const output = { ...target } as T;
+  
+  for (const key of Object.keys(source)) {
     const targetValue = output[key as keyof T];
     const sourceValue = source[key as keyof Partial<T>];
     
@@ -145,11 +134,14 @@ export function mergeThemes<T extends Record<string, any>>(target: T, source: Pa
       !Array.isArray(targetValue) &&
       !Array.isArray(sourceValue)
     ) {
-      (output as any)[key] = mergeThemes(targetValue, sourceValue);
+      (output as Record<string, unknown>)[key] = mergeThemes(
+        targetValue as Record<string, unknown>, 
+        sourceValue as Partial<Record<string, unknown>>
+      );
     } else if (sourceValue !== undefined) {
-      (output as any)[key] = Array.isArray(sourceValue) ? [...sourceValue] : sourceValue;
+      (output as Record<string, unknown>)[key] = Array.isArray(sourceValue) ? [...sourceValue] : sourceValue;
     }
-  });
+  }
   
   return output;
 }
@@ -173,17 +165,14 @@ export function composeTheme(
   
   // Create a copy of the parent theme without excluded properties
   const filteredParent = { ...parentTheme };
-  exclude.forEach((key) => {
+  for (const key of exclude) {
     delete filteredParent[key as keyof ThemeSpecification];
-  });
+  }
   
   // Apply the composition strategy
-  if (strategy === "merge") {
-    return mergeThemes(filteredParent, theme);
-  } else {
-    // For replace strategy, start with parent and overwrite with child properties
-    return { ...filteredParent, ...theme };
-  }
+  return strategy === "merge" 
+    ? mergeThemes(filteredParent, theme)
+    : { ...filteredParent, ...theme };
 }
 
 /**
@@ -200,24 +189,24 @@ export function extractCssVariables(
   const variables: Record<string, string> = {};
   
   // Helper function to process nested objects
-  function processObject(obj: any, path: string[] = []) {
+  function processObject(obj: Record<string, unknown>, path: string[] = []) {
     if (!obj || typeof obj !== "object") {
       return;
     }
     
-    Object.entries(obj).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(obj)) {
       const newPath = [...path, key];
       
       if (value && typeof value === "object" && !Array.isArray(value)) {
-        processObject(value, newPath);
+        processObject(value as Record<string, unknown>, newPath);
       } else if (typeof value === "string" || typeof value === "number") {
         const variableName = `${prefix}-${newPath.join("-")}`;
         variables[variableName] = String(value);
       }
-    });
+    }
   }
   
-  processObject(theme);
+  processObject(theme as unknown as Record<string, unknown>);
   
   return variables;
 }
@@ -234,14 +223,19 @@ export function resolveThemeToken(
   tokenPath: string
 ): unknown {
   const parts = tokenPath.split(".");
-  let current: any = theme;
+  let current: Record<string, unknown> = theme as Record<string, unknown>;
   
   for (const part of parts) {
-    if (current === undefined || current === null) {
+    if (current == undefined) {
       return undefined;
     }
     
-    current = current[part];
+    current = current[part] as Record<string, unknown>;
+    
+    // If we've reached a non-object value or null/undefined, stop traversing
+    if (current == undefined || typeof current !== "object") {
+      return current;
+    }
   }
   
   return current;
@@ -261,12 +255,12 @@ export function generateThemeTokens(theme: ThemeSpecification): Array<{
   const tokens: Array<{ path: string; value: unknown; category: string }> = [];
   
   // Helper function to process nested objects
-  function processObject(obj: any, path: string[] = [], category = "unknown") {
+  function processObject(obj: Record<string, unknown>, path: string[] = [], category = "unknown") {
     if (!obj || typeof obj !== "object") {
       return;
     }
     
-    Object.entries(obj).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(obj)) {
       const newPath = [...path, key];
       const pathStr = newPath.join(".");
       
@@ -274,7 +268,7 @@ export function generateThemeTokens(theme: ThemeSpecification): Array<{
       const topCategory = path.length === 0 ? key : path[0];
       
       if (value && typeof value === "object" && !Array.isArray(value)) {
-        processObject(value, newPath, topCategory);
+        processObject(value as Record<string, unknown>, newPath, topCategory);
       } else if (value !== undefined && value !== null) {
         tokens.push({ 
           path: pathStr, 
@@ -282,10 +276,10 @@ export function generateThemeTokens(theme: ThemeSpecification): Array<{
           category: topCategory
         });
       }
-    });
+    }
   }
   
-  processObject(theme);
+  processObject(theme as unknown as Record<string, unknown>);
   
   return tokens;
 }

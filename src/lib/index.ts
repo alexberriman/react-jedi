@@ -13,6 +13,9 @@ export * from "./type-safety";
 export * from "./schemas";
 export * from "./validation";
 
+// Theme system
+export * from "./theme";
+
 // Specification parsing and validation
 export * from "./parser";
 

@@ -5,7 +5,7 @@
  * It provides a comprehensive typing system for theme-related structures.
  */
 
-import type { AnimationPreset, ColorScale, ThemeColors, ThemeSpecification, ThemeTypography } from "./specification";
+import type { ThemeColors, ThemeSpecification } from "./specification";
 
 /**
  * Theme Mode for light/dark mode support

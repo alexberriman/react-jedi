@@ -53,6 +53,11 @@
       "name": "text",
       "type": "ui",
       "description": "A typography component for paragraphs, spans, and other text elements with extensive styling options"
+    },
+    {
+      "name": "blockquote",
+      "type": "ui",
+      "description": "A component for displaying stylized quotations with multiple visual styles and citation options"
     }
   ]
 }

@@ -24,3 +24,4 @@ export * from "./grid";
 export * from "./flex";
 export * from "./heading";
 export * from "./text";
+export * from "./blockquote";

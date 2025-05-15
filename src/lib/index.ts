@@ -12,6 +12,9 @@ export * from "./styles";
 export * from "./schemas";
 export * from "./validation";
 
+// Specification parsing and validation
+export * from "./parser";
+
 // Server-Driven UI rendering system
 export * from "./render";
 export * from "./component-resolver";

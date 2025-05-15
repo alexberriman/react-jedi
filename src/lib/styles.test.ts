@@ -227,12 +227,13 @@ describe("Style Processing Utilities", () => {
         unknownProp: "value"
       };
       
+      // Use type assertion to match the expected type
       const styleProps = {
         margin: processMargin,
         padding: processPadding,
         color: processTextColor,
         fontSize: processFontSize
-      };
+      } as Record<string, (value: unknown) => string>;
       
       const result = extractStyles(props, styleProps);
       expect(result).toBe("m-4 p-2 md:p-4 text-red-500 text-lg");

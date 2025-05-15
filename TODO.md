@@ -42,9 +42,9 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### 1.3 Specification Parser
 
-- [ ] Create basic specification parser
-- [ ] Implement runtime type checking of specifications
-- [ ] Add support for simple component nesting
+- [x] Create basic specification parser
+- [x] Implement runtime type checking of specifications
+- [x] Add support for simple component nesting
 - [ ] Build validation pipeline with descriptive errors
 - [ ] Create initial schema documentation with examples
 

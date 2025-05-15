@@ -1,0 +1,119 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+/dist
+
+# TypeScript
+tsconfig.tsbuildinfo
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.envrc
+
+# vercel
+.vercel
+
+**/*.trace
+**/*.zip
+**/*.tar.gz
+**/*.tgz
+**/*.log
+package-lock.json
+**/*.bun
+**/.claude/settings.local.json
+
+# Bun files
+.bun
+
+# IMPORTANT: Do not ignore CLAUDE.md - this file contains important configuration
+!CLAUDE.md
+
+# Claude and other AI assistant generated temporary files
+**/temp/
+**/tmp/
+**/*.temp.*
+**/*.tmp.*
+**/claude_temp_*
+**/claude_*_script.*
+**/claude_output_*
+**/claude_script_*
+**/claude_backup_*
+**/claude-generated/
+**/ai-generated/
+**/ai-temp/
+**/ai-scripts/
+**/claude-scripts/
+**/claude-backups/
+**/claude.*
+**/*_script.sh
+**/*_script.js
+**/*_script.ts
+**/*_script.py
+**/script_*
+**/temp_script_*
+**/backup_*
+**/fix_*_script.*
+**/batch_*_script.*
+**/batch_fix_*
+**/mass_update_*
+**/update_all_*
+**/test_script_*
+**/_test_*
+**/_fix_*
+**/_temp_*
+**/_batch_*
+**/_cleanup_*
+**/migration_script_*
+**/lint_fix_*
+**/format_fix_*
+
+# Temporary files with numeric suffixes (often used by editors or scripts)
+**/*_[0-9].ts
+**/*_[0-9][0-9].ts
+**/*_[0-9].js
+**/*_[0-9][0-9].js
+**/*_[0-9].json
+**/*_[0-9][0-9].json
+**/*_v[0-9].*
+**/*_v[0-9][0-9].*
+
+# Snapshot and backup files
+**/*.bak
+**/*.old
+**/*.backup
+**/*.original
+**/*_original.*
+**/*_before.*
+**/*_after.*
+
+# Test files named explicitly
+**/test-lint.ts
+**/scratch.*
+**/playground.*
+
+.claude.json

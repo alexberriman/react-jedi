@@ -106,11 +106,11 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### 1.6 Basic UI Components
 
-- [ ] Button Component
+- [x] Button Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add button`)
-  - [ ] Create Storybook documentation with variants
-  - [ ] Implement specification schema with size, variant, and icon options
+  - [x] Add from shadcn (`npx shadcn@latest add button`)
+  - [x] Create Storybook documentation with variants
+  - [x] Implement specification schema with size, variant, and icon options
 
 - [ ] Card Component
 

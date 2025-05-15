@@ -220,7 +220,7 @@ This milestone focuses on building a robust theming and styling system that allo
 
   - [✅] Create z-index management
   - [✅] Build border radius scale
-  - [ ] Implement shadow system
+  - [✅] Implement shadow system
 
 - [ ] Create responsive system
   - [ ] Implement breakpoint definition

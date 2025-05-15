@@ -25,10 +25,10 @@ This milestone delivers a working, shippable library that can render static layo
 
 ### 1.1 Schema Validation and Type Safety
 
-- [ ] Define TypeScript interfaces for the MVP specification schema
+- [x] Define TypeScript interfaces for the MVP specification schema
 - [ ] Create JSON schema definitions for runtime validation
 - [ ] Implement schema validation with detailed error messages
-- [ ] Build type guards and type narrowing utilities
+- [x] Build type guards and type narrowing utilities
 - [ ] Setup TypeScript path aliases and module resolution
 - [ ] Establish strong type safety patterns for the codebase
 

@@ -1,0 +1,152 @@
+/**
+ * Component Schema Types
+ *
+ * This file combines all component specification types into a comprehensive type system
+ * for the Server-Driven UI architecture.
+ */
+
+import type { BaseComponentSpec } from "./base";
+import type { LayoutComponentSpec } from "./layout";
+import type { TypographyComponentSpec } from "./typography";
+import type { UIComponentSpec } from "./ui";
+
+/**
+ * Union type of all component specifications.
+ * This represents any component that can be rendered in the UI.
+ */
+export type ComponentSpec =
+  | BaseComponentSpec
+  | LayoutComponentSpec
+  | TypographyComponentSpec
+  | UIComponentSpec;
+
+/**
+ * Type for component type strings.
+ * This helps with type checking when resolving components.
+ */
+export type ComponentType = ComponentSpec["type"];
+
+/**
+ * Component resolver function type.
+ * Maps component types to their React implementations.
+ */
+export type ComponentResolver = (type: string) => React.ComponentType<unknown> | null;
+
+/**
+ * Component props to be passed to resolved React components.
+ */
+export interface ComponentProps {
+  /**
+   * The component specification.
+   */
+  spec: ComponentSpec;
+
+  /**
+   * Optional children to render inside the component.
+   */
+  children?: React.ReactNode;
+
+  /**
+   * Optional theme context.
+   */
+  theme?: Record<string, unknown>;
+
+  /**
+   * Optional global state.
+   */
+  state?: Record<string, unknown>;
+
+  /**
+   * Optional parent component context.
+   */
+  parentContext?: Record<string, unknown>;
+}
+
+/**
+ * Component render options.
+ */
+export interface RenderOptions {
+  /**
+   * Custom component resolver.
+   */
+  resolver?: ComponentResolver;
+
+  /**
+   * Theme configuration.
+   */
+  theme?: Record<string, unknown>;
+
+  /**
+   * Initial state values.
+   */
+  initialState?: Record<string, unknown>;
+
+  /**
+   * Whether to enable development mode with additional debugging.
+   * @default false
+   */
+  development?: boolean;
+
+  /**
+   * Whether to show error boundaries around components.
+   * @default true
+   */
+  errorBoundaries?: boolean;
+
+  /**
+   * Custom error handler for component rendering errors.
+   */
+  onError?: (error: Error, componentType: string) => void;
+
+  /**
+   * Custom event handlers.
+   */
+  handlers?: Record<string, (...args: unknown[]) => void>;
+
+  /**
+   * Environment variables available to expressions.
+   */
+  env?: Record<string, string>;
+}
+
+/**
+ * Type guard to check if a component spec is a specific type.
+ * 
+ * @param spec The component specification to check
+ * @param type The component type to check against
+ * @returns True if the component is of the specified type
+ */
+export function isComponentType<T extends ComponentSpec>(
+  spec: ComponentSpec, 
+  type: ComponentType
+): spec is T {
+  return spec.type === type;
+}
+
+/**
+ * Type with all component types mapped to their specifications.
+ * This helps with type checking when accessing component props.
+ */
+export interface ComponentTypes {
+  // Layout Components
+  Box: import("./layout").BoxSpec;
+  Container: import("./layout").ContainerSpec;
+  Grid: import("./layout").GridSpec;
+  Flex: import("./layout").FlexSpec;
+  AspectRatio: import("./layout").AspectRatioSpec;
+  Separator: import("./layout").SeparatorSpec;
+
+  // Typography Components
+  Text: import("./typography").TextSpec;
+  Heading: import("./typography").HeadingSpec;
+  BlockQuote: import("./typography").BlockQuoteSpec;
+
+  // UI Components
+  Button: import("./ui").ButtonSpec;
+  Card: import("./ui").CardSpec;
+  Badge: import("./ui").BadgeSpec;
+  Avatar: import("./ui").AvatarSpec;
+  Image: import("./ui").ImageSpec;
+  Skeleton: import("./ui").SkeletonSpec;
+  Label: import("./ui").LabelSpec;
+}

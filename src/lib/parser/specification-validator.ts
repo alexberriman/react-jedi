@@ -12,31 +12,18 @@ import {
   type UISpecification,
 } from "@/types/schema/components";
 import {
-  isBox,
-  isContainer,
   isGrid,
-  isFlex,
-  isAspectRatio,
-  isSeparator,
-  isText,
-  isHeading,
-  isBlockQuote,
-  isButton,
-  isCard,
-  isBadge,
-  isAvatar,
-  isImage,
-  isSkeleton,
-  isLabel,
-  isInput,
 } from "@/types/schema/guards";
 import Validator, { type ValidationError } from "@/lib/validation/validator";
 import { baseComponentSchema } from "@/lib/schemas/base-schema";
 import { gridSchema } from "@/lib/schemas/grid-schema";
 import {
-  type SpecificationParserError,
-  SpecificationParserErrorType,
-} from "./specification-parser";
+  SpecificationErrorType,
+  type SpecificationError,
+} from "./shared-types";
+
+// Import for backward compatibility
+import { SpecificationErrorType as SpecificationParserErrorType } from "./shared-types";
 
 /**
  * Validation options interface
@@ -80,7 +67,7 @@ const DEFAULT_VALIDATION_OPTIONS: Required<SpecificationValidationOptions> = {
 /**
  * Result type for specification validation operations
  */
-export type SpecificationValidationResult<T> = Result<T, SpecificationParserError>;
+export type SpecificationValidationResult<T> = Result<T, SpecificationError>;
 
 /**
  * UI Specification schema
@@ -148,7 +135,7 @@ export class SpecificationValidator {
       
       if (result.err) {
         return Err({
-          type: SpecificationParserErrorType.SCHEMA_VALIDATION,
+          type: SpecificationErrorType.SCHEMA_VALIDATION,
           message: "UI specification validation failed",
           validationErrors: result.val,
         });
@@ -176,6 +163,62 @@ export class SpecificationValidator {
   }
 
   /**
+   * Validates component children
+   * 
+   * @param children - The children of a component
+   * @returns Success or validation error
+   */
+  private validateComponentChildren(
+    children: ComponentSpec["children"]
+  ): SpecificationValidationResult<void> {
+    // If children is a string, no validation needed (text content is always valid)
+    if (typeof children === "string") {
+      return Ok(undefined);
+    } 
+    
+    // If children is a component spec
+    if (children && typeof children === "object" && "type" in children && typeof children.type === "string") {
+      const childResult = this.validateComponentSpec(children as ComponentSpec);
+      if (childResult.err) {
+        return Err({
+          ...childResult.val,
+          path: ["children", ...(childResult.val.path || [])],
+        });
+      }
+      return Ok(undefined);
+    } 
+    
+    // If children is an array of component specs
+    if (Array.isArray(children)) {
+      for (const [index, child] of children.entries()) {
+        if (!("type" in child) || typeof child.type !== "string") {
+          return Err({
+            type: SpecificationErrorType.SCHEMA_VALIDATION,
+            message: "Invalid child component: Missing required 'type' property",
+            path: ["children", index.toString()],
+          });
+        }
+        
+        const childResult = this.validateComponentSpec(child);
+        if (childResult.err) {
+          return Err({
+            ...childResult.val,
+            path: ["children", index.toString(), ...(childResult.val.path || [])],
+          });
+        }
+      }
+      return Ok(undefined);
+    }
+    
+    // Invalid children format
+    return Err({
+      type: SpecificationErrorType.SCHEMA_VALIDATION,
+      message: "Invalid children format",
+      path: ["children"],
+    });
+  }
+
+  /**
    * Validates a component specification
    *
    * @param component - Component specification to validate
@@ -195,7 +238,7 @@ export class SpecificationValidator {
       
       if (baseResult.err) {
         return Err({
-          type: SpecificationParserErrorType.SCHEMA_VALIDATION,
+          type: SpecificationErrorType.SCHEMA_VALIDATION,
           message: `Component validation failed for type '${component.type}'`,
           validationErrors: baseResult.val,
         });
@@ -214,7 +257,7 @@ export class SpecificationValidator {
 
       if (specificSchemaResult.err) {
         return Err({
-          type: SpecificationParserErrorType.SCHEMA_VALIDATION,
+          type: SpecificationErrorType.SCHEMA_VALIDATION,
           message: `Specific component validation failed for type '${component.type}'`,
           validationErrors: specificSchemaResult.val,
         });
@@ -222,41 +265,9 @@ export class SpecificationValidator {
 
       // Validate children if present
       if (component.children) {
-        // If children is a string, no validation needed
-        if (typeof component.children === "string") {
-          // Text content is always valid
-        } 
-        // If children is a component spec
-        else if ("type" in component.children && typeof component.children.type === "string") {
-          const childResult = this.validateComponentSpec(component.children as ComponentSpec);
-          if (childResult.err) {
-            return Err({
-              ...childResult.val,
-              path: ["children", ...(childResult.val.path || [])],
-            });
-          }
-        } 
-        // If children is an array of component specs
-        else if (Array.isArray(component.children)) {
-          for (let i = 0; i < component.children.length; i++) {
-            const child = component.children[i];
-            
-            if (!("type" in child) || typeof child.type !== "string") {
-              return Err({
-                type: SpecificationParserErrorType.SCHEMA_VALIDATION,
-                message: "Invalid child component: Missing required 'type' property",
-                path: ["children", i.toString()],
-              });
-            }
-            
-            const childResult = this.validateComponentSpec(child);
-            if (childResult.err) {
-              return Err({
-                ...childResult.val,
-                path: ["children", i.toString(), ...(childResult.val.path || [])],
-              });
-            }
-          }
+        const childrenResult = this.validateComponentChildren(component.children);
+        if (childrenResult.err) {
+          return childrenResult;
         }
       }
 

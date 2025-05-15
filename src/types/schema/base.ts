@@ -10,6 +10,18 @@ export interface ComponentSpec extends BaseComponentSpec {
   // This extends BaseComponentSpec and may be further extended in other files
   // The empty interface is intentional to support the component type system
   _brand?: never; // Brand property to make the type distinct
+  
+  // GridSpec properties
+  columns?: string | number | Record<string, string | number>;
+  
+  // FlexSpec properties
+  direction?: "row" | "row-reverse" | "column" | "column-reverse";
+  
+  // HeadingSpec properties
+  level?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  
+  // Add [Symbol.iterator] method to support iterator usage
+  [Symbol.iterator]?(): Iterator<ComponentSpec>;
 }
 
 /**

@@ -5,3 +5,5 @@
  */
 
 export * from "./schema";
+export * from "./component-helpers";
+export * from "./components";

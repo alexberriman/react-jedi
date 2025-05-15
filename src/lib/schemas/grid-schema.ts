@@ -21,12 +21,18 @@ export const gridSchema = baseComponentSchema.extend({
   type: z.literal("Grid"),
 
   // Grid specific properties
-  columns: responsiveValueSchema(z.number().int().positive().optional()).optional(),
-  gap: responsiveValueSchema(z.number().int().min(0).optional()).optional(),
+  columns: responsiveValueSchema(
+    z.union([z.number().int().positive(), z.string()])
+  ).optional(),
+  gap: responsiveValueSchema(
+    z.union([z.number().int().min(0), z.string()])
+  ).optional(),
   autoFit: z.boolean().optional(),
   minColWidth: z.string().optional(),
   colWidth: z.string().optional(),
-  rows: responsiveValueSchema(z.number().int().positive().optional()).optional(),
+  rows: responsiveValueSchema(
+    z.union([z.number().int().positive(), z.string()])
+  ).optional(),
   areas: z.array(z.string()).optional(),
   flow: z.enum(["row", "column", "dense", "row-dense", "column-dense"]).optional(),
   stretch: z.boolean().optional(),

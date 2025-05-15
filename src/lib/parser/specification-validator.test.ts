@@ -13,6 +13,7 @@ import {
 } from './specification-validator';
 import { SpecificationParserErrorType } from './specification-parser';
 import { type UISpecification, type ComponentSpec } from '@/types/schema/components';
+import { type ColorScale } from '@/types/schema/specification';
 
 describe('SpecificationValidator', () => {
   // UI Specification validation tests
@@ -37,7 +38,9 @@ describe('SpecificationValidator', () => {
         },
         theme: {
           colors: {
-            primary: '#3b82f6',
+            primary: {
+              "500": '#3b82f6'
+            } as ColorScale,
           },
         },
         state: {
@@ -78,7 +81,7 @@ describe('SpecificationValidator', () => {
         type: 'Button',
         children: 'Click Me',
         className: 'bg-blue-500 text-white',
-        dataAttributes: {
+        data: {
           'test-id': 'test-button',
         },
       };
@@ -141,7 +144,7 @@ describe('SpecificationValidator', () => {
       const spec: ComponentSpec = {
         type: 'Grid',
         columns: 3,
-        gap: 4,
+        gap: "4", // Use string value to match the interface definition
         children: [
           {
             type: 'Box',

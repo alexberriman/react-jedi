@@ -7,6 +7,7 @@
 // Core utilities
 export * from "./utils";
 export * from "./styles";
+export * from "./type-safety";
 
 // Schemas and validation
 export * from "./schemas";

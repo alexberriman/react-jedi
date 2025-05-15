@@ -46,7 +46,7 @@ This milestone delivers a working, shippable library that can render static layo
 - [x] Implement runtime type checking of specifications
 - [x] Add support for simple component nesting
 - [x] Build validation pipeline with descriptive errors
-- [ ] Create initial schema documentation with examples
+- [x] Create initial schema documentation with examples
 
 ### 1.4 Essential Layout Components
 

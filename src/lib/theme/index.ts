@@ -36,3 +36,31 @@ export {
   type TokenResolver,
   type TokenReferenceOptions
 } from "./token-resolver";
+
+// Color system
+export {
+  generateColorPalette,
+  generateColorScale,
+  hexToRgb,
+  rgbToHex,
+  hexToHsl,
+  hslToHex,
+  rgbToHsl,
+  hslToRgb,
+  isLightColor,
+  getContrastRatio,
+  type RgbColor,
+  type HslColor,
+  type ColorIntent,
+  type ColorShadeLevel,
+  type ColorScaleOptions,
+  type ColorPaletteConfig
+} from "./color-system";
+
+// Theme presets
+export {
+  defaultTheme,
+  themePresets,
+  createDarkTheme,
+  generateCustomTheme
+} from "./theme-presets";

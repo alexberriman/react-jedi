@@ -141,10 +141,10 @@ export function extractTokensFromTheme(
   const rawTokens = generateTokens(theme);
   
   // Convert raw tokens to DesignToken objects
-  for (const { path, value, category } of rawTokens) {
+  for (const { path, value } of rawTokens) {
     const parts = path.split(".");
-    const name = parts[parts.length - 1];
-    const id = path.replace(/\./g, "-");
+    const name = parts.at(-1) || "";
+    const id = path.replaceAll(".", "-");
     
     tokens.push({
       id,
@@ -178,9 +178,39 @@ export function createTokenCollection(tokens: DesignToken[]): TokenCollection {
   
   // Organize tokens by category
   for (const token of tokens) {
-    const category = token.category as keyof Omit<TokenCollection, "all" | "getByPath">;
-    if (category && collection[category]) {
-      (collection[category] as Record<string, DesignToken>)[token.id] = token;
+    // Map token.category to the corresponding collection property
+    let collectionKey: keyof Omit<TokenCollection, "all" | "getByPath">;
+    
+    // Map from token.category to collection property
+    switch (token.category) {
+      case "color": {
+        collectionKey = "colors";
+        break;
+      }
+      case "shadow": {
+        collectionKey = "shadows";
+        break;
+      }
+      case "animation": {
+        collectionKey = "animations";
+        break;
+      }
+      case "breakpoint": {
+        collectionKey = "breakpoints";
+        break;
+      }
+      case "zIndex": {
+        collectionKey = "zIndices";
+        break;
+      }
+      default: {
+        collectionKey = token.category;
+        break;
+      }
+    }
+    
+    if (collectionKey && collection[collectionKey]) {
+      (collection[collectionKey] as Record<string, DesignToken>)[token.id] = token;
     }
   }
   
@@ -208,9 +238,9 @@ export function convertThemeTokens(
   prefix = "--theme"
 ): DesignToken[] {
   return themeTokens.map((token) => {
-    const id = token.token.replace(/\./g, "-");
+    const id = token.token.replaceAll(".", "-");
     const parts = token.token.split(".");
-    const name = parts[parts.length - 1];
+    const name = parts.at(-1) || "";
     
     return {
       id,
@@ -272,33 +302,58 @@ function determineCategoryFromPath(path: string): TokenCategory {
   const topLevel = path.split(".")[0];
   
   switch (topLevel) {
-    case "colors":
-    case "background":
-    case "text":
-    case "border":
+    case "colors": {
       return "color";
-    case "typography":
-    case "fontSizes":
-    case "fontWeights":
-    case "lineHeights":
-    case "letterSpacings":
-    case "fonts":
+    }
+    case "background": {
+      return "color";
+    }
+    case "text": {
+      return "color";
+    }
+    case "border": {
+      return "color";
+    }
+    case "typography": {
       return "typography";
-    case "spacing":
+    }
+    case "fontSizes": {
+      return "typography";
+    }
+    case "fontWeights": {
+      return "typography";
+    }
+    case "lineHeights": {
+      return "typography";
+    }
+    case "letterSpacings": {
+      return "typography";
+    }
+    case "fonts": {
+      return "typography";
+    }
+    case "spacing": {
       return "spacing";
-    case "borderRadius":
+    }
+    case "borderRadius": {
       return "borderRadius";
-    case "shadows":
+    }
+    case "shadows": {
       return "shadow";
-    case "animations":
+    }
+    case "animations": {
       return "animation";
-    case "breakpoints":
+    }
+    case "breakpoints": {
       return "breakpoint";
-    case "zIndices":
+    }
+    case "zIndices": {
       return "zIndex";
-    default:
+    }
+    default: {
       // Default to most likely category based on value type
       return "color";
+    }
   }
 }
 
@@ -309,9 +364,9 @@ function determineCategoryFromPath(path: string): TokenCategory {
  */
 function formatTokenName(key: string): string {
   return key
-    .replace(/([A-Z])/g, " $1") // Add space before capital letters
+    .replaceAll(/([A-Z])/g, " $1") // Add space before capital letters
     .replace(/^./, (str) => str.toUpperCase()) // Capitalize first letter
-    .replace(/-/g, " ") // Replace hyphens with spaces
-    .replace(/\./g, " ") // Replace dots with spaces
+    .replaceAll("-", " ") // Replace hyphens with spaces
+    .replaceAll(".", " ") // Replace dots with spaces
     .trim();
 }

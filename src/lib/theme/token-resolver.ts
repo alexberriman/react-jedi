@@ -134,7 +134,7 @@ export function createTokenResolver(
     }
     
     // Generate a CSS variable name from the path
-    const cssVarName = `${cssPrefix}-${path.replace(/\./g, "-")}`;
+    const cssVarName = `${cssPrefix}-${path.replaceAll(".", "-")}`;
     
     if (defaultValue) {
       return `var(${cssVarName}, ${defaultValue})`;
@@ -151,7 +151,7 @@ export function createTokenResolver(
       return value as T;
     }
     
-    const match = value.match(TOKEN_REF_REGEX);
+    const match = TOKEN_REF_REGEX.exec(value);
     
     if (!match) {
       return value as T;
@@ -229,13 +229,13 @@ export function resolveThemeValue(theme: ThemeSpecification, path: string): unkn
   let current: Record<string, unknown> = theme as Record<string, unknown>;
   
   for (const part of parts) {
-    if (current === undefined || current === null) {
+    if (current == null) {
       return undefined;
     }
     
     current = current[part] as Record<string, unknown>;
     
-    if (current === undefined || current === null) {
+    if (current == null) {
       return undefined;
     }
     

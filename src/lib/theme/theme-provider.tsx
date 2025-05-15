@@ -12,7 +12,6 @@ import { ThemeContext, type ThemeContextValue } from "./theme-context";
 import { mergeThemes } from "../schemas/theme-validation";
 import { generateCssVariables } from "./css-variable-generator";
 import { createTokenResolver, type TokenResolver } from "./token-resolver";
-import { createTokenCollection, type TokenCollection } from "./theme-tokens";
 
 /**
  * ThemeProvider Props

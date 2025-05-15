@@ -137,7 +137,7 @@ export function useTheme(): UseThemeResult {
     if (typeof value === "string" && value.startsWith("token(") && value.endsWith(")")) {
       const path = value.slice(6, -1);
       const resolved = getValue<T>(path);
-      return resolved !== undefined ? resolved : value as unknown as T;
+      return resolved === undefined ? value as unknown as T : resolved;
     }
     
     return value as unknown as T;

@@ -164,13 +164,14 @@ export function applyCssVariables(
   }
   
   // For selector targeting, create a style element
-  let styleElement = document.getElementById(styleElementId) as HTMLStyleElement;
+  let styleElement = document.querySelector(`#${styleElementId}`) as HTMLStyleElement;
   
   // Create style element if it doesn't exist
   if (!styleElement) {
     styleElement = document.createElement("style");
     styleElement.id = styleElementId;
-    document.head.appendChild(styleElement);
+    // Using append for DOM insertion
+    document.head.append(styleElement);
   }
   
   // Build CSS content
@@ -183,7 +184,8 @@ export function applyCssVariables(
   // Return cleanup function
   return () => {
     if (styleElement && styleElement.parentNode) {
-      styleElement.parentNode.removeChild(styleElement);
+      // Using remove for DOM element removal
+      styleElement.remove();
     }
   };
 }

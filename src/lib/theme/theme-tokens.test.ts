@@ -8,8 +8,7 @@ import { describe, it, expect } from "vitest";
 import { 
   extractTokensFromTheme, 
   createTokenCollection,
-  convertThemeTokens,
-  type DesignToken
+  convertThemeTokens
 } from "./theme-tokens";
 import type { ThemeSpecification } from "../../types/schema/specification";
 import type { ThemeToken } from "../../types/schema/theme";

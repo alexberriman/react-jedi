@@ -4,7 +4,8 @@
  * This file contains tests for the CSS variable generation system.
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { vi } from "vitest";
 import { generateCssVariables, generateCssRules, applyCssVariables } from "./css-variable-generator";
 import type { ThemeSpecification } from "../../types/schema/specification";
 
@@ -101,27 +102,47 @@ describe("CSS Variable Generator", () => {
   });
   
   describe("applyCssVariables", () => {
-    let document: { head: { appendChild: vi.Mock }, getElementById: vi.Mock, createElement: vi.Mock };
     let mockStyleElement: MockStyleElement;
+    let mockHead: { appendChild: ReturnType<typeof vi.fn> };
+    let mockGetElementById: ReturnType<typeof vi.fn>;
+    let mockCreateElement: ReturnType<typeof vi.fn>;
+    
+    // Store the original document
+    const originalDocument = globalThis.document;
     
     beforeEach(() => {
       mockStyleElement = new MockStyleElement("theme-variables");
       mockStyleElement.parentNode = { removeChild: vi.fn() };
       
-      document = {
-        head: { appendChild: vi.fn() },
-        getElementById: vi.fn().mockReturnValue(mockStyleElement),
-        createElement: vi.fn().mockReturnValue(mockStyleElement)
-      };
+      mockHead = { appendChild: vi.fn() };
+      mockGetElementById = vi.fn().mockReturnValue(mockStyleElement);
+      mockCreateElement = vi.fn().mockReturnValue(mockStyleElement);
       
-      // Using type casting to avoid TS errors
-      (global as any).document = document;
+      // Create a partial mock of document
+      Object.defineProperty(globalThis, "document", {
+        writable: true,
+        value: {
+          head: mockHead,
+          getElementById: mockGetElementById,
+          createElement: mockCreateElement,
+          querySelector: vi.fn().mockImplementation((selector: string) => {
+            if (selector === `#theme-variables`) {
+              return mockStyleElement;
+            }
+            return null;
+          })
+        }
+      });
     });
     
     afterEach(() => {
       vi.restoreAllMocks();
-      // Using type casting to avoid TS errors
-      delete (global as any).document;
+      
+      // Restore the original document
+      Object.defineProperty(globalThis, "document", {
+        writable: true,
+        value: originalDocument
+      });
     });
     
     it("should apply CSS variables to a style element", () => {
@@ -130,12 +151,13 @@ describe("CSS Variable Generator", () => {
         "--theme-spacing-4": "1rem"
       };
       
-      document.getElementById.mockReturnValueOnce(null); // First call returns null to trigger creation
+      // First call returns null to trigger creation of new element
+      (globalThis.document.querySelector as ReturnType<typeof vi.fn>).mockReturnValueOnce(null);
       
       const cleanup = applyCssVariables(variables);
       
-      expect(document.createElement).toHaveBeenCalledWith("style");
-      expect(document.head.appendChild).toHaveBeenCalled();
+      expect(mockCreateElement).toHaveBeenCalledWith("style");
+      expect(mockHead.appendChild).toHaveBeenCalled();
       expect(mockStyleElement.id).toBe("theme-variables");
       expect(mockStyleElement.textContent).toContain("--theme-colors-primary-500: #3b82f6;");
       
@@ -149,7 +171,8 @@ describe("CSS Variable Generator", () => {
       
       applyCssVariables(variables);
       
-      expect(document.createElement).not.toHaveBeenCalled(); // Should use existing element
+      // Should use existing element
+      expect(mockCreateElement).not.toHaveBeenCalled();
       expect(mockStyleElement.textContent).toContain("--theme-colors-primary-500: #3b82f6;");
     });
     

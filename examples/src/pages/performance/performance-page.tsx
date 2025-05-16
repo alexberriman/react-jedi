@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Container, Heading, Text, Flex, Box, Card, Badge } from "@banja/react-jedi";
 import type { CSSProperties } from "react";
 import { runThemeBenchmark, LiveBenchmark, type BenchmarkResult } from "./theme-benchmark";
+import { JsonCodeComparison } from "./json-code-comparison";
 
 interface PerformanceMetrics {
   withTheme: {
@@ -237,6 +238,11 @@ export const PerformancePage: React.FC = () => {
               </Box>
             )}
           </Flex>
+        </Card>
+
+        {/* JSON vs Code Benchmark Section */}
+        <Card className="p-8">
+          <JsonCodeComparison />
         </Card>
       </Flex>
     </Container>

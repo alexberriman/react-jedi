@@ -102,9 +102,17 @@ import * as UI from "@/components/ui";
 type ComponentType = React.ComponentType<ComponentProps>;
 
 // Helper function to safely cast components to accept our standard ComponentProps
+// Special handling for certain components that have required props
 const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
-  component: T
+  component: T,
+  defaultProps?: Partial<Record<string, unknown>>
 ): ComponentType => {
+  if (defaultProps) {
+    return ((props: ComponentProps) => {
+      const componentElement = React.createElement(component, { ...defaultProps, ...props });
+      return componentElement;
+    }) as ComponentType;
+  }
   return component as unknown as ComponentType;
 };
 
@@ -142,14 +150,23 @@ const componentRegistry: Record<string, ComponentType> = {
   FormControl: asComponent(UI.FormControl),
   FormDescription: asComponent(UI.FormDescription),
   FormMessage: asComponent(UI.FormMessage),
-  Form: asComponent(UI.Form),
+  // Form component requires special handling as it's a FormProvider
+  Form: asComponent(UI.Form as React.ComponentType<Record<string, unknown>>),
 
   // Other Components
   RadioGroup: asComponent(UI.RadioGroup),
-  RadioGroupItem: asComponent(UI.RadioGroupItem),
+  RadioGroupItem: ((props: ComponentProps) => {
+    const { spec, theme, state, parentContext, ...restProps } = props;
+    const value = (restProps as { value?: string }).value || "";
+    return React.createElement(UI.RadioGroupItem, { ...restProps, value });
+  }) as ComponentType,
   Select: asComponent(UI.Select),
   SelectContent: asComponent(UI.SelectContent),
-  SelectItem: asComponent(UI.SelectItem),
+  SelectItem: ((props: ComponentProps) => {
+    const { spec, theme, state, parentContext, ...restProps } = props;
+    const value = (restProps as { value?: string }).value || "";
+    return React.createElement(UI.SelectItem, { ...restProps, value });
+  }) as ComponentType,
   SelectTrigger: asComponent(UI.SelectTrigger),
   SelectValue: asComponent(UI.SelectValue),
   Checkbox: asComponent(UI.Checkbox),
@@ -302,18 +319,37 @@ function buildComponentProps(
   styleOverrides: { className?: string; style?: React.CSSProperties }
 ): ExtendedComponentProps {
   // Handle both spec.className and spec.props.className patterns
-  const specProps = spec.props || {};
-  const mergedClassName = cn(spec.className || specProps.className, styleOverrides.className);
+  const specProps = spec.props || ({} as Record<string, unknown>);
+  const mergedClassName = cn(
+    spec.className || (specProps as { className?: string }).className,
+    styleOverrides.className
+  );
   const mergedStyle = {
-    ...(spec.style || specProps.style),
+    ...(spec.style || (specProps as { style?: React.CSSProperties }).style),
     ...styleOverrides.style,
   };
 
   // Build component props excluding internal properties
+  const filteredSpecProps = omit(specProps as Record<string, unknown>, [
+    "className",
+    "style",
+    "children",
+  ]);
+  const filteredSpec = omit(spec as unknown as Record<string, unknown>, [
+    "type",
+    "className",
+    "style",
+    "children",
+    "props",
+    "id",
+    "spec",
+  ]);
+
+  // Type assertion to avoid issues with strict type checking
   const componentProps: ExtendedComponentProps = {
-    ...omit(specProps, ["className", "style", "children"]),
-    ...omit(spec, ["type", "className", "style", "children", "props", "id", "spec"]),
-    className: mergedClassName,
+    ...filteredSpecProps,
+    ...filteredSpec,
+    className: mergedClassName || undefined,
     style: Object.keys(mergedStyle).length > 0 ? mergedStyle : undefined,
     children,
     // Internal props that components will filter out
@@ -355,13 +391,13 @@ function buildComponentProps(
   // Apply data attributes
   if (spec.data) {
     for (const [key, value] of Object.entries(spec.data)) {
-      componentProps[`data-${key}`] = value;
+      (componentProps as Record<string, unknown>)[`data-${key}`] = value;
     }
   }
 
   // Apply test ID
   if (spec.testId) {
-    componentProps["data-testid"] = spec.testId;
+    (componentProps as Record<string, unknown>)["data-testid"] = spec.testId;
   }
 
   return componentProps;

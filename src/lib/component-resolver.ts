@@ -6,9 +6,17 @@ import * as UI from "@/components/ui";
 type ComponentType = React.ComponentType<ComponentProps>;
 
 // Helper function to safely cast components to accept our standard ComponentProps
+// Special handling for certain components that have required props
 const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
-  component: T
+  component: T,
+  defaultProps?: Partial<Record<string, unknown>>
 ): ComponentType => {
+  if (defaultProps) {
+    return ((props: ComponentProps) => {
+      const componentElement = React.createElement(component, { ...defaultProps, ...props });
+      return componentElement;
+    }) as ComponentType;
+  }
   return component as unknown as ComponentType;
 };
 
@@ -77,7 +85,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   FormControl: asComponent(UI.FormControl),
   FormDescription: asComponent(UI.FormDescription),
   FormMessage: asComponent(UI.FormMessage),
-  Form: asComponent(UI.Form),
+  // Form component requires special handling as it's a FormProvider
+  Form: asComponent(UI.Form as React.ComponentType<Record<string, unknown>>),
 };
 
 /**

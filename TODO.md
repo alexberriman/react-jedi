@@ -297,11 +297,11 @@ This milestone adds interactivity to the library, turning static layouts into dy
   - [✅] Create Storybook documentation with examples
   - [✅] Implement specification schema for Checkbox
 
-- [ ] RadioGroup Component
+- [✅] RadioGroup Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add radio-group`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for RadioGroup
+  - [✅] Add from shadcn (`npx shadcn@latest add radio-group`)
+  - [✅] Create Storybook documentation with examples
+  - [✅] Implement specification schema for RadioGroup
 
 - [ ] Select Component
 

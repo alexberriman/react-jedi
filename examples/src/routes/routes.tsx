@@ -6,7 +6,7 @@ import { DocumentationPage } from "../pages/documentation";
 import { ExamplesPage } from "../pages/examples";
 import { LandingExamplePage } from "../pages/examples/landing";
 import { BrandPresetsPage } from "../pages/brand-presets";
-import { ThemingPage } from "../pages/theming";
+import { ThemingPage, ThemePlaygroundPage } from "../pages/theming";
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +44,16 @@ export const router = createBrowserRouter([
       },
       {
         path: "theming",
-        element: <ThemingPage />,
+        children: [
+          {
+            index: true,
+            element: <ThemingPage />,
+          },
+          {
+            path: "playground",
+            element: <ThemePlaygroundPage />,
+          },
+        ],
       },
     ],
   },

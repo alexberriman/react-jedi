@@ -39,3 +39,4 @@ export * from "./collapsible";
 export * from "./stack";
 export * from "./group";
 export * from "./center";
+export * from "./spacer";

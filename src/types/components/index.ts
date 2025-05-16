@@ -53,3 +53,4 @@ export type { ToggleGroupSpec, ToggleGroupItemSpec } from "./toggle-group";
 export type { StackSpec } from "./stack";
 export type { GroupSpec } from "./group";
 export type { CenterSpec } from "./center";
+export type { SpacerSpec } from "./spacer";

@@ -38,6 +38,7 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Stack: asComponent(UI.Stack),
   Group: asComponent(UI.Group),
   Center: asComponent(UI.Center),
+  Spacer: asComponent(UI.Spacer),
 
   // Typography Components
   Text: asComponent(UI.Text),

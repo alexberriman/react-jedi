@@ -475,17 +475,17 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Menubar
 
-- [ ] Toast Component
+- ✅ Toast Component (REPLACED WITH SONNER)
 
-  - [ ] Add from shadcn (`npx shadcn@latest add toast`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Toast
+  - ✅ Deprecated - Use Sonner instead
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Toast
 
-- [ ] Sonner Component (toast manager)
+- ✅ Sonner Component (toast manager)
 
-  - [ ] Add from shadcn (`npx shadcn@latest add sonner`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Sonner
+  - ✅ Add from shadcn (`npx shadcn@latest add sonner`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Sonner
 
 - [ ] Tooltip Component
 

@@ -292,6 +292,13 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "custom",
       },
+      {
+        name: "Testimonial",
+        description:
+          "Customer testimonial component with multiple variants including card, minimal, large, and quote styles.",
+        status: "completed",
+        type: "custom",
+      },
     ],
   },
 ];

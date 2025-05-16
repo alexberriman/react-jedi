@@ -375,6 +375,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
     UI.FeatureCard as unknown as React.ComponentType<Record<string, unknown>>,
     { title: "" } // Provide default title to prevent runtime errors
   ),
+  Testimonial: asComponent(UI.Testimonial),
+  testimonial: asComponent(UI.Testimonial),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

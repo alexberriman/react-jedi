@@ -1529,9 +1529,9 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Testimonial Card</h3>
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Testimonial Component</h3>
               <p className="text-zinc-300 leading-relaxed mb-4">
-                A testimonial card with avatar, quote, and author information:
+                A testimonial component with multiple variants and rating:
               </p>
 
               <div className="relative group mb-8">
@@ -1539,51 +1539,70 @@ function MyApp() {
                 <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
                   <pre className="whitespace-pre-wrap text-sm leading-relaxed">
                     {`{
-  "type": "card",
-  "className": "hover:shadow-2xl transition-all",
+  "type": "testimonial",
+  "author": {
+    "name": "Sarah Johnson",
+    "role": "CTO",
+    "company": "TechCorp Inc.",
+    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
+  },
+  "content": "React Jedi has transformed how we build UIs. The JSON specification approach is intuitive and incredibly powerful. We've cut our development time in half!",
+  "rating": 5,
+  "date": "December 2024",
+  "variant": "card",
+  "highlight": true
+}`}
+                  </pre>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Multiple Testimonials</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                Create a grid of testimonials with different variants:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                  <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+                    {`{
+  "type": "grid",
+  "columns": { "default": 1, "md": 3 },
+  "gap": "lg",
   "children": [
     {
-      "type": "blockquote",
-      "content": "React Jedi has transformed how we build UIs. The JSON specification approach is intuitive and incredibly powerful.",
-      "cite": "TechCorp Inc.",
-      "variant": "primary"
+      "type": "testimonial",
+      "author": {
+        "name": "John Doe",
+        "role": "Developer",
+        "company": "WebDev Co"
+      },
+      "content": "The component quality is outstanding!",
+      "rating": 5,
+      "variant": "card"
     },
     {
-      "type": "separator",
-      "orientation": "horizontal",
-      "className": "my-4"
+      "type": "testimonial",
+      "author": {
+        "name": "Emma Wilson",
+        "role": "Designer",
+        "company": "Design Studio"
+      },
+      "content": "Beautiful, modern components that are easy to style.",
+      "rating": 5,
+      "variant": "card",
+      "highlight": true
     },
     {
-      "type": "flex",
-      "direction": "row",
-      "align": "center",
-      "gap": "md",
-      "children": [
-        {
-          "type": "avatar",
-          "src": "https://example.com/avatar.jpg",
-          "alt": "John Doe",
-          "fallback": "JD",
-          "size": "md"
-        },
-        {
-          "type": "box",
-          "className": "flex-1",
-          "children": [
-            {
-              "type": "text",
-              "text": "John Doe",
-              "weight": "semibold"
-            },
-            {
-              "type": "text",
-              "text": "Senior Developer",
-              "size": "sm",
-              "variant": "muted"
-            }
-          ]
-        }
-      ]
+      "type": "testimonial",
+      "author": {
+        "name": "Mike Chen",
+        "role": "Product Manager",
+        "company": "StartupCo"
+      },
+      "content": "Accelerated our development timeline significantly.",
+      "rating": 5,
+      "variant": "card"
     }
   ]
 }`}

@@ -46,6 +46,7 @@ export * from "./scroll-area";
 export * from "./resizable";
 export * from "./sheet";
 export * from "./tabs";
+export * from "./table";
 export * from "./accordion";
 export * from "./dialog";
 export * from "./drawer";

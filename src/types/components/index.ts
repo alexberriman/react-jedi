@@ -175,3 +175,4 @@ export type { CalendarComponentProps, CalendarDateSpec, CalendarRangeSpec } from
 export type { DatePickerComponentProps } from "./date-picker";
 export type { ComboboxDef } from "./combobox";
 export type { InputOTPDef } from "./input-otp";
+export type { TableSpec, TableCellSpec, TableRowSpec, TableHeadSpec, TableBodySpec, TableFooterSpec } from "./table";

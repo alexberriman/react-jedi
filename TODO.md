@@ -580,11 +580,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
 
 ### 4.5 Data Components
 
-- [ ] Table Component
+- ✅ Table Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add table`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Table
+  - ✅ Add from shadcn (`npx shadcn@latest add table`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Table
 
 - [ ] Data Table Component
 

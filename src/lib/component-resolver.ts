@@ -71,6 +71,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Skeleton: asComponent(UI.Skeleton),
   Label: asComponent(UI.Label),
   Input: asComponent(UI.Input),
+  table: asComponent(UI.TableComponent),
+  Table: asComponent(UI.TableComponent),
   Toggle: asComponent(UI.Toggle),
   ToggleGroup: asComponent(
     UI.ToggleGroup as unknown as React.ComponentType<Record<string, unknown>>

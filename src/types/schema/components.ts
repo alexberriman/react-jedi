@@ -209,4 +209,7 @@ export interface ComponentTypes {
   // Date/Time Components
   Calendar: import("../components/calendar").CalendarComponentProps;
   DatePicker: import("../components/date-picker").DatePickerComponentProps;
+  
+  // Data Display Components
+  Table: import("../components/table").TableSpec;
 }

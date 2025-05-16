@@ -171,3 +171,4 @@ export type {
   SidebarMenuItemAction,
   SidebarGroupAction,
 } from "./sidebar";
+export type { CalendarComponentProps, CalendarDateSpec, CalendarRangeSpec } from "./calendar";

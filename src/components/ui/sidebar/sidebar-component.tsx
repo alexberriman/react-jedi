@@ -24,7 +24,10 @@ import type {
   SidebarMenuItem as SidebarMenuItemType,
   SidebarSubMenuItem,
   SidebarSection,
+  SidebarMenu as SidebarMenuType,
+  SidebarInput as SidebarInputType,
 } from "@/types/components/sidebar";
+import type { ComponentSpec } from "@/types/schema/components";
 import { createSimpleEventHandler } from "@/lib/events/simple-handlers";
 import { render } from "@/lib";
 import * as Icons from "lucide-react";
@@ -110,26 +113,33 @@ export function SidebarComponent({
     if (!section?.children) return null;
 
     return section.children.map((child, index) => {
-      if (child.items) {
-        // This is a menu
+      // Type guard for SidebarMenu
+      if ("items" in child && Array.isArray(child.items)) {
+        const menu = child as SidebarMenuType;
         return (
           <SidebarMenu key={index}>
-            {child.items.map((item, index) => renderMenuItem(item, index))}
+            {menu.items.map((item: SidebarMenuItemType, itemIndex: number) =>
+              renderMenuItem(item, itemIndex)
+            )}
           </SidebarMenu>
         );
-      } else if (child.type === "search") {
-        // This is a search input
+      }
+      // Type guard for SidebarInput
+      else if ("type" in child && child.type === "search") {
+        const input = child as SidebarInputType;
         return (
           <SidebarInput
             key={index}
-            placeholder={child.placeholder}
-            value={child.value}
-            onChange={child.onChange ? createSimpleEventHandler(child.onChange) : undefined}
+            placeholder={input.placeholder}
+            value={input.value}
+            onChange={input.onChange ? createSimpleEventHandler(input.onChange) : undefined}
           />
         );
-      } else {
-        // This is a generic component
-        return <div key={index}>{render(child)}</div>;
+      }
+      // Handle ComponentSpec
+      else {
+        const component = child as ComponentSpec;
+        return <div key={index}>{render(component)}</div>;
       }
     });
   };

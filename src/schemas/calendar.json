@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Calendar Component",
+  "description": "A date picker component that displays dates and allows selection",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "calendar"
+    },
+    "mode": {
+      "description": "The selection mode for the calendar",
+      "type": "string",
+      "enum": ["single", "multiple", "range"],
+      "default": "single"
+    },
+    "selected": {
+      "description": "The selected date(s)",
+      "oneOf": [
+        { "type": "string", "format": "date" },
+        {
+          "type": "array",
+          "items": { "type": "string", "format": "date" }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "from": { "type": "string", "format": "date" },
+            "to": { "type": "string", "format": "date" }
+          }
+        }
+      ]
+    },
+    "defaultMonth": {
+      "description": "The month to display by default",
+      "type": "string",
+      "format": "date"
+    },
+    "disabled": {
+      "description": "Dates that should be disabled",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string", "format": "date" },
+          {
+            "type": "object",
+            "properties": {
+              "year": { "type": "number" },
+              "month": { "type": "number" },
+              "day": { "type": "number" }
+            },
+            "required": ["year", "month", "day"]
+          }
+        ]
+      }
+    },
+    "initialFocus": {
+      "description": "Whether the calendar should have focus when mounted",
+      "type": "boolean",
+      "default": false
+    },
+    "showOutsideDays": {
+      "description": "Whether to show days outside the current month",
+      "type": "boolean",
+      "default": true
+    },
+    "fixedWeeks": {
+      "description": "Display fixed weeks to avoid layout shifts",
+      "type": "boolean",
+      "default": false
+    },
+    "numberOfMonths": {
+      "description": "The number of months to display",
+      "type": "number",
+      "minimum": 1,
+      "default": 1
+    },
+    "fromYear": {
+      "description": "The earliest year to allow",
+      "type": "number"
+    },
+    "toYear": {
+      "description": "The latest year to allow",
+      "type": "number"
+    },
+    "fromMonth": {
+      "description": "The earliest month to navigate",
+      "type": "string",
+      "format": "date"
+    },
+    "toMonth": {
+      "description": "The latest month to navigate",
+      "type": "string",
+      "format": "date"
+    },
+    "fromDate": {
+      "description": "The earliest date that can be selected",
+      "type": "string",
+      "format": "date"
+    },
+    "toDate": {
+      "description": "The latest date that can be selected",
+      "type": "string",
+      "format": "date"
+    },
+    "onSelect": {
+      "description": "Event handler for date selection",
+      "type": "string"
+    },
+    "onMonthChange": {
+      "description": "Event handler for month change",
+      "type": "string"
+    },
+    "style": {
+      "description": "CSS styles to apply to the calendar",
+      "type": "object"
+    },
+    "className": {
+      "description": "CSS class names to apply to the calendar",
+      "type": "string"
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": false
+}

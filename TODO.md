@@ -548,10 +548,10 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Command
 
-- [ ] Sidebar Component
-  - [ ] Add from shadcn (`npx shadcn@latest add sidebar`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Sidebar
+- ✅ Sidebar Component
+  - ✅ Add from shadcn (`npx shadcn@latest add sidebar`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Sidebar
 
 ### 4.4 Complex Input Components
 

@@ -14,6 +14,7 @@ import {
   CommandSeparatorComponent,
   CommandShortcutComponent,
 } from "@/components/ui/command";
+import { CalendarComponent } from "@/components/ui/calendar";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -302,6 +303,12 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   ),
   SidebarTrigger: asComponent(
     UI.SidebarTriggerComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  calendar: asComponent(
+    CalendarComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  Calendar: asComponent(
+    CalendarComponent as unknown as React.ComponentType<Record<string, unknown>>
   ),
 
   // Form Components

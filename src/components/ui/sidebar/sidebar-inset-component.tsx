@@ -3,10 +3,12 @@ import { SidebarInset } from "./sidebar";
 import type { BaseComponentSpec } from "@/types/components/base";
 import { render } from "@/lib";
 
+import type { ComponentSpec } from "@/types/schema/components";
+
 export interface SidebarInsetComponentProps extends BaseComponentSpec {
   type: "sidebar-inset";
-  header?: React.ReactNode;
-  children?: React.ReactNode[];
+  header?: React.ReactNode | ComponentSpec;
+  children?: ComponentSpec[];
 }
 
 export function SidebarInsetComponent({
@@ -20,17 +22,21 @@ export function SidebarInsetComponent({
     <SidebarInset style={style} className={className} {...props}>
       {header && (
         <header className="flex items-center gap-2 p-4 border-b">
-          {typeof header === "string" ? (
-            <h1 className="font-semibold">{header}</h1>
-          ) : (
-            render(header)
-          )}
+          {(() => {
+            if (typeof header === "string") {
+              return <h1 className="font-semibold">{header}</h1>;
+            }
+            if (header && typeof header === "object" && "type" in header) {
+              return render(header as ComponentSpec);
+            }
+            return <>{header}</>;
+          })()}
         </header>
       )}
       {children && (
         <main className="p-4">
           {children.map((child, index) => (
-            <div key={index}>{render(child)}</div>
+            <div key={index}>{child && render(child)}</div>
           ))}
         </main>
       )}

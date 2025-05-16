@@ -22,16 +22,16 @@ export function HomePage() {
                 View Components
               </Link>
               <Link
+                to="/examples"
+                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-md font-medium text-white transition-colors"
+              >
+                Browse Examples
+              </Link>
+              <Link
                 to="/documentation"
                 className="px-8 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-md font-medium text-white transition-colors"
               >
                 Read Docs
-              </Link>
-              <Link
-                to="/landing"
-                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-md font-medium text-white transition-colors"
-              >
-                Landing Page Example
               </Link>
             </div>
           </div>

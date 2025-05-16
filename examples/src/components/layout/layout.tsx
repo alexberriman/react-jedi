@@ -9,8 +9,8 @@ export function Layout({ className }: LayoutProps) {
     <div className="min-h-screen bg-gradient-to-r from-zinc-900 to-slate-900 text-white">
       <header className="border-b border-zinc-800 backdrop-blur-lg bg-black/50 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="text-emerald-400 flex items-center font-bold text-2xl">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="text-emerald-400 flex items-center font-bold text-2xl hover:text-emerald-300 transition-colors">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -20,19 +20,19 @@ export function Layout({ className }: LayoutProps) {
               </svg>
               React Jedi
             </div>
-          </div>
+          </Link>
           <nav className="flex items-center gap-6 font-medium">
-            <Link 
-              to="/"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors"
-            >
-              Home
-            </Link>
             <Link 
               to="/showcase"
               className="text-zinc-200 hover:text-emerald-400 transition-colors"
             >
               Components
+            </Link>
+            <Link 
+              to="/examples"
+              className="text-zinc-200 hover:text-emerald-400 transition-colors"
+            >
+              Examples
             </Link>
             <Link 
               to="/documentation"

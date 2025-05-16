@@ -6,25 +6,25 @@
  */
 
 // Re-export everything except conflicting names
-export {
+export type {
   ComponentChildren,
   EventHandler,
   AccessibilityProps,
 } from "./base";
 
-export {
+export type {
   SkeletonSpec,
 } from "./skeleton";
 
-export {
+export type {
   LabelSpec,
 } from "./label";
 
-export {
+export type {
   InputSpec,
 } from "./input";
 
-export { 
+export type { 
   UISpecification,
   SpecificationMetadata,
   ThemeSpecification,
@@ -41,7 +41,7 @@ export {
   FunctionDataSourceConfig,
 } from "./specification";
 
-export {
+export type {
   ThemeMode,
   ThemePreset,
   ThemeVariant,
@@ -53,7 +53,7 @@ export {
   EnhancedThemeSpecification,
 } from "./theme";
 
-export {
+export type {
   BoxSpec,
   ContainerSpec,
   GridSpec,
@@ -63,14 +63,14 @@ export {
   LayoutComponentSpec,
 } from "./layout";
 
-export {
+export type {
   TextSpec,
   HeadingSpec, 
   BlockQuoteSpec,
   TypographyComponentSpec,
 } from "./typography";
 
-export {
+export type {
   ButtonSpec,
   CardSpec,
   BadgeSpec,
@@ -80,7 +80,7 @@ export {
 } from "./ui";
 
 // Finally export the unified ComponentSpec from components
-export {
+export type {
   ComponentSpec,
   ComponentType,
   ComponentResolver,

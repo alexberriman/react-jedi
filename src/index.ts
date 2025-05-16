@@ -4,6 +4,9 @@
  * This file exports everything from the library.
  */
 
+// Import styles
+import "./styles/global.css";
+
 import type { ComponentResolver, RenderOptions, UISpecification, ComponentSpec } from "./types/schema/components";
 import { render } from "./lib/render";
 import { defaultComponentResolver } from "./lib/component-resolver";
@@ -125,7 +128,13 @@ export {
   spacing, DEFAULT_SPACING_SCALE, RELATIVE_SPACING, DEFAULT_CONTAINER_PRESETS,
   ContainerPresetType,
   defaultTheme, themePresets, createDarkTheme, generateCustomTheme,
-  ColorModeProvider, ColorModeContext, useColorMode, ColorModeToggle, AdvancedModeToggle
+  ColorModeProvider, ColorModeContext, useColorMode, ColorModeToggle, AdvancedModeToggle,
+  brandPresets, getPreset, getPresetsByCategory, getCategories, generateBrandTheme,
+  createThemeFromPreset, describePersonality, analyzeThemePersonality, findMatchingPreset,
+  mergePresets, getComplementaryPresets,
+  // Import types for brand presets
+  type BrandPreset, type BrandCategory, type BrandColors, type BrandTypography,
+  type BrandPersonality, type BrandThemeOptions, type GeneratedBrandTheme
 } from "./lib/theme";
 // Export type-safety
 export * from "./lib/type-safety";
@@ -138,7 +147,7 @@ export * from "./lib/schemas/index";
 
 // Export types with explicit re-exports to avoid conflicts
 export * from "./types/components";
-export {
+export type {
   // Re-export from schema with explicit names to avoid conflicts
   ComponentChildren,
   EventHandler,
@@ -187,6 +196,9 @@ export {
   ThemeToken,
   ThemeGeneratorConfig,
   EnhancedThemeSpecification,
+} from "./types/schema";
+
+export {
   // Guards
   isBox,
   isContainer,

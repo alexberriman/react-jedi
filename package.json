@@ -28,7 +28,8 @@
     "build-storybook": "storybook build",
     "benchmark": "vitest bench -c benchmark.config.ts",
     "benchmark:ui": "vitest bench -c benchmark.config.ts --ui",
-    "benchmark:report": "vitest bench -c benchmark.config.ts --reporter=json --outputFile=./benchmark-results.json"
+    "benchmark:report": "vitest bench -c benchmark.config.ts --reporter=json --outputFile=./benchmark-results.json",
+    "example-app": "npm run build && vite --config examples/vite.config.ts"
   },
   "repository": {
     "type": "git",

@@ -28,16 +28,16 @@ const PresetCard: React.FC<PresetCardProps> = ({ preset, onSelect, isSelected })
     <div
       className={`
         relative overflow-hidden rounded-2xl border-2 transition-all cursor-pointer
-        ${isSelected ? "border-blue-500 shadow-lg scale-105" : "border-gray-200"}
+        ${isSelected ? "border-purple-500 shadow-lg scale-105" : "border-zinc-700"}
       `}
       onClick={() => onSelect(preset)}
       style={cssVars.style}
     >
-      <div className="p-6 bg-white dark:bg-gray-900">
+      <div className="p-6 bg-zinc-900/50">
         <h3 className="text-xl font-bold mb-2" style={{ color: preset.colors.primary }}>
           {preset.name}
         </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        <p className="text-sm text-zinc-400 mb-4">
           {preset.description}
         </p>
         
@@ -93,12 +93,12 @@ const LivePreview: React.FC<LivePreviewProps> = ({ preset }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="p-8 rounded-2xl border-2 border-gray-200 bg-[var(--color-background)]">
+      <div className="p-8 rounded-2xl border-2 border-zinc-700 bg-zinc-900">
         <style>
           {`
             :root {
-              --color-background: ${preset.colors.background || "#FFFFFF"};
-              --color-foreground: ${preset.colors.foreground || "#000000"};
+              --color-background: ${preset.colors.background || "#18181b"};
+              --color-foreground: ${preset.colors.foreground || "#e4e4e7"};
             }
           `}
         </style>
@@ -109,17 +109,17 @@ const LivePreview: React.FC<LivePreviewProps> = ({ preset }) => {
             <h1
               className="text-5xl font-bold mb-4"
               style={{
-                fontFamily: preset.typography.fontFamily?.heading,
+                fontFamily: preset.typography.fontFamily?.heading || "'Inter', system-ui, sans-serif",
                 color: preset.colors.primary,
               }}
             >
               Welcome to {preset.name}
             </h1>
             <p
-              className="text-xl text-gray-600 mb-8"
+              className="text-xl mb-8"
               style={{
-                fontFamily: preset.typography.fontFamily?.body,
-                color: preset.colors.neutral,
+                fontFamily: preset.typography.fontFamily?.body || "'Inter', system-ui, sans-serif",
+                color: preset.colors.neutral || "#a1a1aa",
               }}
             >
               Experience our {preset.description.toLowerCase()}
@@ -151,7 +151,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ preset }) => {
                 <h3
                   className="text-xl font-bold mb-2"
                   style={{
-                    fontFamily: preset.typography.fontFamily?.heading,
+                    fontFamily: preset.typography.fontFamily?.heading || "'Inter', system-ui, sans-serif",
                     color: i === 0 ? preset.colors.primary :
                            i === 1 ? preset.colors.secondary :
                                     preset.colors.accent,
@@ -160,9 +160,9 @@ const LivePreview: React.FC<LivePreviewProps> = ({ preset }) => {
                   {feature}
                 </h3>
                 <p
-                  className="text-gray-600"
+                  className="text-zinc-400"
                   style={{
-                    fontFamily: preset.typography.fontFamily?.body,
+                    fontFamily: preset.typography.fontFamily?.body || "'Inter', system-ui, sans-serif",
                   }}
                 >
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -176,7 +176,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ preset }) => {
             <h2
               className="text-3xl font-bold"
               style={{
-                fontFamily: preset.typography.fontFamily?.heading,
+                fontFamily: preset.typography.fontFamily?.heading || "'Inter', system-ui, sans-serif",
                 color: preset.colors.primary,
               }}
             >
@@ -185,7 +185,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ preset }) => {
             <p
               className="text-lg"
               style={{
-                fontFamily: preset.typography.fontFamily?.body,
+                fontFamily: preset.typography.fontFamily?.body || "'Inter', system-ui, sans-serif",
                 color: preset.colors.foreground,
               }}
             >
@@ -231,11 +231,13 @@ export const BrandPresetsPage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12">
+      <div className="max-w-6xl mx-auto">
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">🎨 Brand Preset Themes</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            🎨 Brand Preset Themes
+          </h1>
+          <p className="text-xl text-zinc-300">
             Professionally designed themes for every industry and style
           </p>
         </header>
@@ -249,8 +251,8 @@ export const BrandPresetsPage: React.FC = () => {
               className={`
                 px-4 py-2 rounded-full text-sm font-medium transition-colors
                 ${selectedCategory === category
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
+                  ? "bg-purple-500 text-white"
+                  : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
                 }
               `}
             >
@@ -262,8 +264,8 @@ export const BrandPresetsPage: React.FC = () => {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Preset list */}
           <div className="lg:col-span-1 space-y-4">
-            <h2 className="text-2xl font-bold mb-4">Available Presets</h2>
-            <div className="space-y-4">
+            <h2 className="text-2xl font-bold mb-4 text-white">Available Presets</h2>
+            <div className="space-y-4 max-h-[600px] overflow-y-auto">
               {filteredPresets.map((preset) => (
                 <PresetCard
                   key={preset.id}
@@ -277,13 +279,13 @@ export const BrandPresetsPage: React.FC = () => {
           
           {/* Live preview */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">Live Preview</h2>
+            <h2 className="text-2xl font-bold mb-4 text-white">Live Preview</h2>
             <LivePreview preset={selectedPreset} />
             
             {/* Code snippet */}
             <div className="mt-8">
-              <h3 className="text-xl font-bold mb-4">Implementation</h3>
-              <pre className="p-4 bg-gray-900 text-white rounded-lg overflow-x-auto">
+              <h3 className="text-xl font-bold mb-4 text-white">Implementation</h3>
+              <pre className="p-4 bg-black/50 border border-zinc-800 text-zinc-300 rounded-lg overflow-x-auto">
                 <code>{`import { generateBrandTheme, ThemeProvider } from "@banja/react-jedi";
 
 const { theme } = generateBrandTheme({ preset: "${selectedPreset.id}" });

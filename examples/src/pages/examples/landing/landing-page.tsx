@@ -1,7 +1,7 @@
 import { render } from "@banja/react-jedi";
-import { landingPageSchema } from "../../schemas/landing-page";
+import { landingPageSchema } from "../../../schemas/landing-page";
 
-export function LandingPage() {
+export function LandingExamplePage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-6xl mx-auto">
@@ -30,7 +30,7 @@ export function LandingPage() {
         {/* Rendered Landing Page from JSON */}
         <div className="border border-indigo-600/30 rounded-xl p-1 glow-sm">
           <div className="bg-zinc-900/90 backdrop-blur-sm rounded-lg overflow-hidden">
-            {render({ spec: landingPageSchema })}
+            {render(landingPageSchema)}
           </div>
         </div>
       </div>

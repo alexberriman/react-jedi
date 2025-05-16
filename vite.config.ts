@@ -23,8 +23,12 @@ export default defineConfig({
           "react-dom": "ReactDOM",
           "react/jsx-runtime": "jsx",
         },
+        // Ensure CSS gets extracted
+        assetFileNames: 'index.css',
       },
     },
+    // Ensure CSS is extracted
+    cssCodeSplit: false,
   },
   resolve: {
     alias: {

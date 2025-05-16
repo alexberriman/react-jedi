@@ -3,7 +3,8 @@ import { Layout } from "../components/layout";
 import { HomePage } from "../pages/home";
 import { ShowcasePage } from "../pages/showcase";
 import { DocumentationPage } from "../pages/documentation";
-import { LandingPage } from "../pages/landing";
+import { ExamplesPage } from "../pages/examples";
+import { LandingExamplePage } from "../pages/examples/landing";
 import { BrandPresetsPage } from "../pages/brand-presets";
 import { ThemingPage } from "../pages/theming";
 
@@ -25,8 +26,17 @@ export const router = createBrowserRouter([
         element: <DocumentationPage />,
       },
       {
-        path: "landing",
-        element: <LandingPage />,
+        path: "examples",
+        children: [
+          {
+            index: true,
+            element: <ExamplesPage />,
+          },
+          {
+            path: "landing",
+            element: <LandingExamplePage />,
+          },
+        ],
       },
       {
         path: "brand-presets",

@@ -15,11 +15,13 @@ html {
 
 body {
   font-family: var(--font-sans);
-  @apply bg-black text-white;
+  background-color: black;
+  color: white;
 }
 
 .prose code {
-  @apply px-1 py-0.5 rounded;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
 }
 
 .fade-in {

@@ -90,7 +90,7 @@ const spec = {
 
 // Render the UI
 function MyComponent() {
-  return render({ spec });
+  return render(spec);
 }`}
                   </pre>
                 </div>
@@ -125,7 +125,7 @@ const spec: ComponentSpec = {
 function MyApp() {
   return (
     <div className="app">
-      {render({ spec })}
+      {render(spec)}
     </div>
   );
 }`}

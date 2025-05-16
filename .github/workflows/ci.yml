@@ -10,18 +10,14 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.x, 20.x]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22.x
           cache: 'npm'
 
       - name: Install dependencies
@@ -40,7 +36,7 @@ jobs:
         run: npm run build
 
       - name: Upload build artifacts
-        if: matrix.node-version == '22.x' && github.event_name == 'push'
+        if: github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
@@ -48,7 +44,6 @@ jobs:
           retention-days: 7
 
       - name: Report build size
-        if: matrix.node-version == '22.x'
         run: |
           echo "Build size report:"
           du -sh dist/

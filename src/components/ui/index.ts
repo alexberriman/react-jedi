@@ -36,3 +36,4 @@ export * from "./toggle-group";
 export * from "./switch";
 export * from "./slider";
 export * from "./collapsible";
+export * from "./stack";

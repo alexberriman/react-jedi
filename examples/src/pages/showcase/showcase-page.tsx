@@ -54,6 +54,12 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "shadcn",
       },
+      {
+        name: "Stack",
+        description: "Vertical or horizontal stacking component with consistent spacing.",
+        status: "completed",
+        type: "custom",
+      },
     ],
   },
   {

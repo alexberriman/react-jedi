@@ -1,0 +1,84 @@
+{
+  "title": "Stack",
+  "description": "Stack component that arranges child elements vertically or horizontally with consistent spacing",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Stack",
+      "description": "The type identifier for the Stack component"
+    },
+    "orientation": {
+      "type": "string",
+      "enum": ["horizontal", "vertical"],
+      "default": "vertical",
+      "description": "The orientation of the stack"
+    },
+    "spacing": {
+      "type": "string",
+      "enum": ["none", "xs", "sm", "md", "lg", "xl", "2xl", "3xl"],
+      "default": "md",
+      "description": "The spacing between child elements"
+    },
+    "align": {
+      "type": "string",
+      "enum": ["start", "center", "end", "stretch", "baseline"],
+      "default": "stretch",
+      "description": "How children align on the cross axis"
+    },
+    "justify": {
+      "type": "string",
+      "enum": ["start", "center", "end", "between", "around", "evenly"],
+      "default": "start",
+      "description": "How children are distributed along the main axis"
+    },
+    "wrap": {
+      "type": "string",
+      "enum": ["wrap", "nowrap", "wrap-reverse"],
+      "default": "nowrap",
+      "description": "Whether child elements can wrap to the next line"
+    },
+    "divider": {
+      "$ref": "#/definitions/ComponentSpecification",
+      "description": "Optional divider component to render between child elements"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ComponentSpecification"
+      },
+      "description": "Child components to render in the stack"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply to the component"
+    },
+    "as": {
+      "type": "string",
+      "default": "div",
+      "description": "The HTML element to render as"
+    },
+    "id": {
+      "type": "string",
+      "description": "Optional component identifier"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline styles to apply"
+    },
+    "data": {
+      "type": "object",
+      "description": "Optional data attributes"
+    },
+    "aria": {
+      "type": "object",
+      "description": "ARIA attributes for accessibility"
+    },
+    "testId": {
+      "type": "string",
+      "description": "Optional test identifier for testing purposes"
+    }
+  },
+  "required": ["type", "children"],
+  "additionalProperties": false
+}

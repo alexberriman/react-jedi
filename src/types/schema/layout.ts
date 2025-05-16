@@ -6,10 +6,11 @@
  */
 
 import type { BaseComponentSpec, ComponentChildren } from "./base";
+import type { StackSpec } from "../components/stack";
 
 /**
  * Box Component Specification
- * 
+ *
  * A primitive div-like container component for general-purpose layouts.
  */
 export interface BoxSpec extends BaseComponentSpec {
@@ -151,7 +152,7 @@ export interface BoxSpec extends BaseComponentSpec {
 
 /**
  * Container Component Specification
- * 
+ *
  * A centered, width-restricted container for page content.
  */
 export interface ContainerSpec extends BaseComponentSpec {
@@ -166,7 +167,19 @@ export interface ContainerSpec extends BaseComponentSpec {
    * @example "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "full", "none"
    * @default "xl"
    */
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "full" | "none";
+  maxWidth?:
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xl"
+    | "3xl"
+    | "4xl"
+    | "5xl"
+    | "6xl"
+    | "7xl"
+    | "full"
+    | "none";
 
   /**
    * The padding to apply inside the container.
@@ -194,7 +207,7 @@ export interface ContainerSpec extends BaseComponentSpec {
 
 /**
  * Grid Component Specification
- * 
+ *
  * A CSS Grid-based layout component for two-dimensional layouts.
  */
 export interface GridSpec extends BaseComponentSpec {
@@ -265,12 +278,26 @@ export interface GridSpec extends BaseComponentSpec {
   /**
    * Alignment of the entire grid within its container along the row axis.
    */
-  alignContent?: "start" | "end" | "center" | "stretch" | "space-between" | "space-around" | "space-evenly";
+  alignContent?:
+    | "start"
+    | "end"
+    | "center"
+    | "stretch"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
 
   /**
    * Justification of the entire grid within its container along the column axis.
    */
-  justifyContent?: "start" | "end" | "center" | "stretch" | "space-between" | "space-around" | "space-evenly";
+  justifyContent?:
+    | "start"
+    | "end"
+    | "center"
+    | "stretch"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
 
   /**
    * Custom CSS class names to add to the grid.
@@ -285,7 +312,7 @@ export interface GridSpec extends BaseComponentSpec {
 
 /**
  * Flex Component Specification
- * 
+ *
  * A Flexbox-based layout component for one-dimensional layouts.
  */
 export interface FlexSpec extends BaseComponentSpec {
@@ -333,7 +360,10 @@ export interface FlexSpec extends BaseComponentSpec {
   /**
    * Responsive justification configurations.
    */
-  responsiveJustify?: Record<string, "start" | "end" | "center" | "space-between" | "space-around" | "space-evenly">;
+  responsiveJustify?: Record<
+    string,
+    "start" | "end" | "center" | "space-between" | "space-around" | "space-evenly"
+  >;
 
   /**
    * Gap between flex items.
@@ -359,7 +389,7 @@ export interface FlexSpec extends BaseComponentSpec {
 
 /**
  * AspectRatio Component Specification
- * 
+ *
  * A component that maintains a specified aspect ratio for its contents.
  */
 export interface AspectRatioSpec extends BaseComponentSpec {
@@ -389,7 +419,7 @@ export interface AspectRatioSpec extends BaseComponentSpec {
 
 /**
  * Separator Component Specification
- * 
+ *
  * A horizontal or vertical dividing line.
  */
 export interface SeparatorSpec extends BaseComponentSpec {
@@ -468,7 +498,8 @@ export type LayoutComponentSpec =
   | GridSpec
   | FlexSpec
   | AspectRatioSpec
-  | SeparatorSpec;
+  | SeparatorSpec
+  | StackSpec;
 
 /**
  * Type for any component specification.

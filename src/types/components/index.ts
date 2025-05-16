@@ -30,3 +30,4 @@ export type {
   FormValidationSpec,
 } from "./form";
 export type { CheckboxSpecification } from "./checkbox";
+export type { RadioGroupSpec, RadioGroupItemSpec } from "./radio-group";

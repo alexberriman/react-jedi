@@ -44,6 +44,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Input: asComponent(UI.Input),
   Textarea: asComponent(UI.TextareaComponent),
   Checkbox: asComponent(UI.Checkbox),
+  RadioGroup: asComponent(UI.RadioGroup),
+  RadioGroupItem: asComponent(UI.RadioGroupItem),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

@@ -724,6 +724,105 @@ export interface CheckboxSpec extends BaseComponentSpec {
 }
 
 /**
+ * RadioGroup Component Specification
+ *
+ * A group of radio buttons for single selection.
+ */
+export interface RadioGroupSpec extends BaseComponentSpec {
+  /**
+   * The type of the component.
+   * Must be "RadioGroup" for this component.
+   */
+  type: "RadioGroup";
+
+  /**
+   * Controlled selected value.
+   */
+  value?: string;
+
+  /**
+   * Default selected value for uncontrolled mode.
+   */
+  defaultValue?: string;
+
+  /**
+   * Whether the radio group is disabled.
+   * @default false
+   */
+  disabled?: boolean;
+
+  /**
+   * Action to dispatch on value change.
+   */
+  onValueChangeAction?: string;
+
+  /**
+   * The orientation of the radio group.
+   * @default "vertical"
+   */
+  orientation?: "horizontal" | "vertical";
+
+  /**
+   * Custom CSS class names to add to the radio group.
+   */
+  className?: string;
+
+  /**
+   * Child components (RadioGroupItem elements).
+   */
+  children?: ComponentChildren;
+}
+
+/**
+ * RadioGroupItem Component Specification
+ *
+ * An individual radio button within a RadioGroup.
+ */
+export interface RadioGroupItemSpec extends BaseComponentSpec {
+  /**
+   * The type of the component.
+   * Must be "RadioGroupItem" for this component.
+   */
+  type: "RadioGroupItem";
+
+  /**
+   * The value of the radio item.
+   */
+  value: string;
+
+  /**
+   * Whether the item is disabled.
+   * @default false
+   */
+  disabled?: boolean;
+
+  /**
+   * ID for label association.
+   */
+  id?: string;
+
+  /**
+   * Accessible label for screen readers.
+   */
+  ariaLabel?: string;
+
+  /**
+   * ID of element that labels this radio item.
+   */
+  ariaLabelledby?: string;
+
+  /**
+   * ID of element that describes this radio item.
+   */
+  ariaDescribedby?: string;
+
+  /**
+   * Custom CSS class names to add to the radio item.
+   */
+  className?: string;
+}
+
+/**
  * Type alias for all UI component specifications.
  */
 export type UIComponentSpec =
@@ -736,7 +835,9 @@ export type UIComponentSpec =
   | LabelSpec
   | InputSpec
   | TextareaSpec
-  | CheckboxSpec;
+  | CheckboxSpec
+  | RadioGroupSpec
+  | RadioGroupItemSpec;
 
 /**
  * Type alias for any component specification.

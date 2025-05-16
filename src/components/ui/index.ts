@@ -29,3 +29,4 @@ export * from "./image";
 export * from "./form";
 export * from "./textarea";
 export * from "./checkbox";
+export * from "./radio-group";

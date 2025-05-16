@@ -171,4 +171,6 @@ export interface ComponentTypes {
   Input: import("./input").InputSpec;
   Textarea: import("./ui").TextareaSpec;
   Checkbox: import("./ui").CheckboxSpec;
+  RadioGroup: import("./ui").RadioGroupSpec;
+  RadioGroupItem: import("./ui").RadioGroupItemSpec;
 }

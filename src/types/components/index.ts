@@ -125,3 +125,9 @@ export type {
   MenubarRadioItemSpec,
   MenubarSeparatorSpec,
 } from "./menubar";
+export type {
+  PopoverSpec,
+  PopoverTriggerSpec,
+  PopoverContentSpec,
+  PopoverAnchorSpec,
+} from "./popover";

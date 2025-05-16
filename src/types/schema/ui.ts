@@ -1000,4 +1000,8 @@ export type UIComponentSpec =
   | import("@/types/components/context-menu").ContextMenuComponentSpec
   | import("@/types/components/menubar").MenubarComponent
   | import("@/types/components/toast").ToastSpec
-  | import("@/types/components/tooltip").TooltipSpec;
+  | import("@/types/components/tooltip").TooltipSpec
+  | import("@/types/components/popover").PopoverSpec
+  | import("@/types/components/popover").PopoverTriggerSpec
+  | import("@/types/components/popover").PopoverContentSpec
+  | import("@/types/components/popover").PopoverAnchorSpec;

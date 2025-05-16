@@ -168,7 +168,13 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Tooltip: asComponent(UI.Tooltip),
   TooltipTrigger: asComponent(UI.TooltipTrigger),
   TooltipContent: asComponent(UI.TooltipContent),
-  TooltipProvider: asComponent(UI.TooltipProvider),
+  TooltipProvider: asComponent(
+    UI.TooltipProvider as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  Popover: asComponent(UI.Popover),
+  PopoverTrigger: asComponent(UI.PopoverTrigger),
+  PopoverContent: asComponent(UI.PopoverContent),
+  PopoverAnchor: asComponent(UI.PopoverAnchor),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

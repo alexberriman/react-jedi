@@ -201,4 +201,8 @@ export interface ComponentTypes {
   TabsList: import("../components/tabs").TabsListSpecification;
   TabsTrigger: import("../components/tabs").TabsTriggerSpecification;
   TabsContent: import("../components/tabs").TabsContentSpecification;
+  Popover: import("../components/popover").PopoverSpec;
+  PopoverTrigger: import("../components/popover").PopoverTriggerSpec;
+  PopoverContent: import("../components/popover").PopoverContentSpec;
+  PopoverAnchor: import("../components/popover").PopoverAnchorSpec;
 }

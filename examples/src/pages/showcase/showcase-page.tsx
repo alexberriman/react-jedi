@@ -265,6 +265,12 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "shadcn",
       },
+      {
+        name: "Popover",
+        description: "Floating panel for contextual content and interactions.",
+        status: "completed",
+        type: "shadcn",
+      },
     ],
   },
 ];

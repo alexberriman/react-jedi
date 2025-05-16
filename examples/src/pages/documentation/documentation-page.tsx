@@ -2447,6 +2447,198 @@ function MyApp() {
                   </pre>
                 </div>
               </div>
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">
+                Interactive Popover Example
+              </h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A modern popover component for contextual content and interactions:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                  <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+                    {`{
+  "type": "flex",
+  "direction": "column",
+  "gap": "lg",
+  "align": "center",
+  "justify": "center",
+  "className": "p-8",
+  "children": [
+    {
+      "type": "heading",
+      "level": "h3",
+      "content": "User Settings",
+      "size": "2xl",
+      "weight": "bold",
+      "className": "mb-4"
+    },
+    {
+      "type": "popover",
+      "children": [
+        {
+          "type": "popoverTrigger",
+          "asChild": true,
+          "children": {
+            "type": "button",
+            "text": "Open Settings",
+            "variant": "outline",
+            "size": "lg"
+          }
+        },
+        {
+          "type": "popoverContent",
+          "className": "w-96",
+          "children": {
+            "type": "flex",
+            "direction": "column",
+            "gap": "md",
+            "children": [
+              {
+                "type": "box",
+                "children": [
+                  {
+                    "type": "heading",
+                    "level": "h4",
+                    "content": "Account Settings",
+                    "size": "lg",
+                    "weight": "semibold"
+                  },
+                  {
+                    "type": "text",
+                    "text": "Manage your account settings and preferences",
+                    "size": "sm",
+                    "variant": "muted",
+                    "className": "mt-1"
+                  }
+                ]
+              },
+              {
+                "type": "separator",
+                "orientation": "horizontal"
+              },
+              {
+                "type": "box",
+                "className": "space-y-4",
+                "children": [
+                  {
+                    "type": "flex",
+                    "direction": "row",
+                    "justify": "between",
+                    "align": "center",
+                    "children": [
+                      {
+                        "type": "label",
+                        "text": "Dark Mode",
+                        "htmlFor": "dark-mode"
+                      },
+                      {
+                        "type": "switch",
+                        "id": "dark-mode",
+                        "defaultChecked": true
+                      }
+                    ]
+                  },
+                  {
+                    "type": "flex",
+                    "direction": "row",
+                    "justify": "between",
+                    "align": "center",
+                    "children": [
+                      {
+                        "type": "label",
+                        "text": "Notifications",
+                        "htmlFor": "notifications"
+                      },
+                      {
+                        "type": "switch",
+                        "id": "notifications",
+                        "defaultChecked": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "flex",
+                    "direction": "column",
+                    "gap": "sm",
+                    "children": [
+                      {
+                        "type": "label",
+                        "text": "Language",
+                        "htmlFor": "language"
+                      },
+                      {
+                        "type": "select",
+                        "id": "language",
+                        "placeholder": "Select language",
+                        "children": [
+                          {
+                            "type": "selectTrigger",
+                            "children": {
+                              "type": "selectValue"
+                            }
+                          },
+                          {
+                            "type": "selectContent",
+                            "children": [
+                              {
+                                "type": "selectItem",
+                                "value": "en",
+                                "children": "English"
+                              },
+                              {
+                                "type": "selectItem",
+                                "value": "es",
+                                "children": "Spanish"
+                              },
+                              {
+                                "type": "selectItem",
+                                "value": "fr",
+                                "children": "French"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "separator",
+                "orientation": "horizontal"
+              },
+              {
+                "type": "flex",
+                "direction": "row",
+                "justify": "end",
+                "gap": "sm",
+                "children": [
+                  {
+                    "type": "button",
+                    "text": "Cancel",
+                    "variant": "ghost",
+                    "size": "sm"
+                  },
+                  {
+                    "type": "button",
+                    "text": "Save Changes",
+                    "variant": "primary",
+                    "size": "sm"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}`}
+                  </pre>
+                </div>
+              </div>
             </div>
           </section>
 

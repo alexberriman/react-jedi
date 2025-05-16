@@ -8,6 +8,24 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    lib: {
+      entry: resolve(__dirname, "src/index.ts"),
+      name: "ReactJedi",
+      formats: ["es", "cjs"],
+      fileName: "index",
+    },
+    rollupOptions: {
+      external: ["react", "react-dom", "react/jsx-runtime"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+          "react/jsx-runtime": "jsx",
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),

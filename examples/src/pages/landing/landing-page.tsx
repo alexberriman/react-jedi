@@ -1,4 +1,4 @@
-import { render } from "../../../..";
+import { render } from "@banja/react-jedi";
 import { landingPageSchema } from "../../schemas/landing-page";
 
 export function LandingPage() {

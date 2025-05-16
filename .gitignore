@@ -121,3 +121,4 @@ assistant_cache/
 prompt_enhancement_cache/
 
 .claude.json
+examples/node_modules

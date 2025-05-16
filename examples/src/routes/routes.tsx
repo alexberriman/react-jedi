@@ -5,6 +5,7 @@ import { ShowcasePage } from "../pages/showcase";
 import { DocumentationPage } from "../pages/documentation";
 import { LandingPage } from "../pages/landing";
 import { BrandPresetsPage } from "../pages/brand-presets";
+import { ThemingPage } from "../pages/theming";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "brand-presets",
         element: <BrandPresetsPage />,
+      },
+      {
+        path: "theming",
+        element: <ThemingPage />,
       },
     ],
   },

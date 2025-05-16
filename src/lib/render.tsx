@@ -13,7 +13,6 @@ import { createTokenResolver } from "./theme/token-resolver";
 import { extractTokensFromTheme, createTokenCollection } from "./theme/theme-tokens";
 import { cn } from "./utils";
 import { 
-  createStyleExtension, 
   resolveExtendedStyles, 
   createChildStyleContext,
   type StyleContext 

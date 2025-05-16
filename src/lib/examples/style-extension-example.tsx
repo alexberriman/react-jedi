@@ -8,22 +8,30 @@
 import * as React from "react";
 import { render } from "../render";
 import { ThemeProvider } from "../theme/theme-provider";
-import type { UISpecification } from "@/types/schema/specification";
+import type { UISpecification, ThemeSpecification } from "@/types/schema/specification";
 
 // Theme with style extension configuration
-const themeWithExtension: UISpecification["theme"] = {
+const themeWithExtension: ThemeSpecification = {
   colors: {
-    primary: "#3b82f6",
-    secondary: "#10b981",
-    text: "#1f2937",
-    background: "#ffffff",
+    primary: {
+      "500": "#3b82f6"
+    },
+    secondary: {
+      "500": "#10b981"
+    },
+    text: {
+      default: "#1f2937"
+    },
+    background: {
+      default: "#ffffff"
+    },
+  },
+  fonts: {
+    heading: ["Georgia", "serif"],
+    body: ["Inter", "sans-serif"],
   },
   typography: {
-    fonts: {
-      heading: "Georgia, serif",
-      body: "Inter, sans-serif",
-    },
-    sizes: {
+    fontSizes: {
       sm: "14px",
       base: "16px",
       lg: "20px",
@@ -90,14 +98,6 @@ const themeWithExtension: UISpecification["theme"] = {
       },
     },
   },
-  // Default styles that cascade to all components
-  defaults: {
-    className: "antialiased",
-    style: {
-      color: "#1f2937",
-      fontFamily: "Inter, sans-serif",
-    },
-  },
 };
 
 // Example specification demonstrating style extension
@@ -114,7 +114,7 @@ const specification: UISpecification = {
     children: [
       {
         type: "Heading",
-        level: 1,
+        level: "h1",
         children: "Style Extension Demo",
         className: "mb-6",
         // Inherits Georgia font and 18px size from Container
@@ -154,7 +154,7 @@ const specification: UISpecification = {
             children: [
               {
                 type: "Heading",
-                level: 3,
+                level: "h3",
                 children: "Card creates style boundary",
               },
               {
@@ -210,7 +210,7 @@ const specification: UISpecification = {
             children: [
               {
                 type: "Heading",
-                level: 3,
+                level: "h3",
                 children: "Style Composition",
               },
               {
@@ -245,8 +245,9 @@ export function StyleExtensionExample() {
  * Standalone example with ThemeProvider
  */
 export function StyleExtensionStandalone() {
+  const definedTheme = themeWithExtension || {};
   return (
-    <ThemeProvider theme={themeWithExtension}>
+    <ThemeProvider theme={definedTheme}>
       <StyleExtensionExample />
     </ThemeProvider>
   );

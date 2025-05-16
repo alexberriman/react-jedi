@@ -15,7 +15,6 @@ import {
   shouldInheritStyles,
   composeStyles,
   cascadeStyles,
-  createStyleExtension,
   type StyleSource
 } from "./style-extension";
 import { ThemeProvider } from "./theme-provider";
@@ -36,11 +35,7 @@ function StyleInheritanceDemo() {
   };
   
   const inheritableStyles = extractInheritableStyles(parentStyles);
-  const nonInheritableStyles = extractInheritableStyles(parentStyles, {
-    inheritableProperties: new Set(Object.keys(parentStyles)),
-    inheritingComponents: new Set(),
-    boundaryComponents: new Set(),
-  });
+  // Remove nonInheritableStyles since it's not being used
   
   return (
     <div className="space-y-8 p-6">
@@ -338,7 +333,7 @@ function CascadeResolutionDemo() {
  */
 function IntegrationDemo() {
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={defaultTheme.theme}>
       <div className="space-y-8 p-6">
         <div>
           <h3 className="text-xl font-bold mb-4">Style Extension Integration</h3>

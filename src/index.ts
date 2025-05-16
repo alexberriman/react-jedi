@@ -127,16 +127,8 @@ export {
   defaultTheme, themePresets, createDarkTheme, generateCustomTheme,
   ColorModeProvider, ColorModeContext, useColorMode, ColorModeToggle, AdvancedModeToggle
 } from "./lib/theme";
-// Export type-safety separately to avoid conflicts
-export {
-  Result, Ok, Err, ok, err,
-  isNotNullOrUndefined, isOfType, hasProperty, hasPropertyOfType,
-  isString, isNumber, isBoolean, isFunction, isObject, isArray, isArrayOf,
-  prop, tryExec, tryExecAsync, assert, assertNotNull,
-  TypedRecord, Discriminated, Awaited, ElementOf, 
-  ensureArray, ComponentPropsWithBase, mapArray, getPath, 
-  typedKeys, typedEntries, safeJsonParse, safeJsonStringify
-} from "./lib/type-safety";
+// Export type-safety
+export * from "./lib/type-safety";
 
 // Export UI components
 export * from "./components/ui/index";

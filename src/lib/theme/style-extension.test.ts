@@ -8,9 +8,6 @@ import {
   cascadeStyles,
   resolveExtendedStyles,
   createStyleExtension,
-  DEFAULT_INHERITABLE_PROPERTIES,
-  DEFAULT_INHERITING_COMPONENTS,
-  DEFAULT_BOUNDARY_COMPONENTS,
   type StyleContext,
   type StyleSource,
 } from "./style-extension";
@@ -21,11 +18,11 @@ import { extractTokensFromTheme, createTokenCollection } from "./theme-tokens";
 
 describe("Style Extension System", () => {
   // Mock token resolver
-  const mockTokens = createTokenResolver(defaultTheme, createTokenCollection(extractTokensFromTheme(defaultTheme)));
+  const mockTokens = createTokenResolver(defaultTheme.theme, createTokenCollection(extractTokensFromTheme(defaultTheme.theme)));
   
   // Mock style context
   const mockContext: StyleContext = {
-    theme: defaultTheme,
+    theme: defaultTheme.theme,
     tokens: mockTokens,
     componentPath: ["root"],
   };
@@ -273,7 +270,7 @@ describe("Style Extension System", () => {
       
       const themeOverrides = {
         className: "theme-text",
-        style: { textAlign: "center" },
+        style: { textAlign: "center" as const },
       };
       
       const resolved = resolveExtendedStyles(spec, context, themeOverrides);
@@ -290,7 +287,7 @@ describe("Style Extension System", () => {
   
   describe("createStyleExtension", () => {
     it("should create a complete style extension utility", () => {
-      const extension = createStyleExtension(defaultTheme);
+      const extension = createStyleExtension(defaultTheme.theme);
       
       expect(extension).toHaveProperty("extractInheritable");
       expect(extension).toHaveProperty("shouldInherit");

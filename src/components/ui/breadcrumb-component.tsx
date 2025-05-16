@@ -14,12 +14,9 @@ import { ChevronRight, Slash } from "lucide-react";
  * Breadcrumb component for JSON specification rendering
  * Maps the JSON specification to the actual shadcn breadcrumb component
  */
-export function BreadcrumbComponent({
-  items,
-  separator,
-  ariaLabel,
-  ...props
-}: Readonly<BreadcrumbProps>) {
+export function BreadcrumbComponent(props: Readonly<Record<string, unknown>>) {
+  const breadcrumbProps = props as BreadcrumbProps;
+  const { items = [], separator, ariaLabel } = breadcrumbProps;
   const separatorMap: Record<string, React.JSX.Element> = {
     chevron: <ChevronRight className="h-4 w-4" />,
     slash: <Slash className="h-4 w-4" />,
@@ -39,7 +36,7 @@ export function BreadcrumbComponent({
   };
 
   return (
-    <Breadcrumb aria-label={ariaLabel} {...props}>
+    <Breadcrumb aria-label={ariaLabel}>
       <BreadcrumbList>
         {items.map((item, index) => (
           <React.Fragment key={index}>

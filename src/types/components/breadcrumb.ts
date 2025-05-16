@@ -1,4 +1,4 @@
-import { BaseComponentProps } from "../schema/base";
+import { BaseComponentSpec } from "../schema/base";
 
 export interface BreadcrumbItemSpec {
   label: string;
@@ -7,7 +7,7 @@ export interface BreadcrumbItemSpec {
   isCurrentPage?: boolean;
 }
 
-export interface BreadcrumbProps extends BaseComponentProps {
+export interface BreadcrumbProps extends BaseComponentSpec {
   type: "breadcrumb";
   items: BreadcrumbItemSpec[];
   separator?: string;

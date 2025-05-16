@@ -416,11 +416,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Masonry
 
-- [ ] ScrollArea Component
+- ✅ ScrollArea Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add scroll-area`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for ScrollArea
+  - ✅ Add from shadcn (`npx shadcn@latest add scroll-area`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for ScrollArea
 
 - [ ] Resizable Component
   - [ ] Add from shadcn (`npx shadcn@latest add resizable`)

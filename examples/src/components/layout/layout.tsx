@@ -1,8 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 
-export type LayoutProps = {
+export type LayoutProps = Readonly<{
   className?: string;
-};
+}>;
 
 export function Layout({ className }: LayoutProps) {
   return (
@@ -22,51 +22,48 @@ export function Layout({ className }: LayoutProps) {
             </div>
           </Link>
           <nav className="flex items-center gap-6 font-medium">
-            <Link 
-              to="/showcase"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors"
-            >
+            <Link to="/showcase" className="text-zinc-200 hover:text-emerald-400 transition-colors">
               Components
             </Link>
-            <Link 
-              to="/examples"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors"
-            >
+            <Link to="/examples" className="text-zinc-200 hover:text-emerald-400 transition-colors">
               Examples
             </Link>
-            <Link 
+            <Link
               to="/documentation"
               className="text-zinc-200 hover:text-emerald-400 transition-colors"
             >
               Documentation
             </Link>
-            <Link 
+            <Link
               to="/brand-presets"
               className="text-zinc-200 hover:text-emerald-400 transition-colors"
             >
               Brand Presets
             </Link>
-            <Link 
-              to="/theming"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors"
-            >
+            <Link to="/theming" className="text-zinc-200 hover:text-emerald-400 transition-colors">
               Theming
             </Link>
-            <a 
+            <Link
+              to="/performance"
+              className="text-zinc-200 hover:text-emerald-400 transition-colors"
+            >
+              Performance
+            </Link>
+            <a
               href="https://github.com/banja-au/react-jedi"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-200 hover:text-emerald-400 transition-colors flex items-center gap-1"
             >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="20" 
-                height="20" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
                 strokeLinejoin="round"
                 className="lucide lucide-github"
               >

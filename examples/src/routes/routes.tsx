@@ -7,6 +7,7 @@ import { ExamplesPage } from "../pages/examples";
 import { LandingExamplePage } from "../pages/examples/landing";
 import { BrandPresetsPage } from "../pages/brand-presets";
 import { ThemingPage, ThemePlaygroundPage } from "../pages/theming";
+import { PerformancePage } from "../pages/performance";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
             element: <ThemePlaygroundPage />,
           },
         ],
+      },
+      {
+        path: "performance",
+        element: <PerformancePage />,
       },
     ],
   },

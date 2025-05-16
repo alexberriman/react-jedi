@@ -3,7 +3,7 @@ import { Button } from "../button";
 import { Toaster, toast } from "./index";
 
 const meta = {
-  title: "Components/UI/Toast",
+  title: "Components/Overlay/Toast",
   component: Toaster,
   decorators: [
     (Story) => (

@@ -21,7 +21,7 @@ const FormStory = ({ children }: { children: React.ReactNode }) => {
 };
 
 const meta = {
-  title: "UI/Form",
+  title: "Components/Layout/Form",
   component: FormStory,
   parameters: {
     layout: "padded",

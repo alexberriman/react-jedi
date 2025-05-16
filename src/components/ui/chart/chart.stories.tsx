@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Chart } from "./chart";
 
 const meta = {
-  title: "Components/Data Display/Chart",
+  title: "Components/DataDisplay/Chart",
   component: Chart,
   parameters: {
     layout: "centered",

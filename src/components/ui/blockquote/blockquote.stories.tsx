@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BlockQuote } from "./blockquote";
 
 const meta = {
-  title: "UI/BlockQuote",
+  title: "Components/Typography/BlockQuote",
   component: BlockQuote,
   parameters: {
     layout: "centered",

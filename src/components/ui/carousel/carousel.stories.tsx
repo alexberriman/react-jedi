@@ -10,7 +10,7 @@ import {
 import { Card, CardContent } from "../card";
 
 const meta: Meta<ComponentProps<typeof Carousel>> = {
-  title: "UI/Carousel",
+  title: "Components/UI/Carousel",
   component: Carousel,
   tags: ["autodocs"],
   argTypes: {

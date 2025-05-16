@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PricingTable } from "./pricing-table";
 
 const meta = {
-  title: "UI/PricingTable",
+  title: "Components/Marketing/PricingTable",
   component: PricingTable,
   parameters: {
     layout: "centered",

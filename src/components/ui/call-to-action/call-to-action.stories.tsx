@@ -3,7 +3,7 @@ import { CallToAction } from "./call-to-action";
 import { Rocket, Star, Zap } from "lucide-react";
 
 const meta: Meta<typeof CallToAction> = {
-  title: "UI/CallToAction",
+  title: "Components/Marketing/CallToAction",
   component: CallToAction,
   parameters: {
     layout: "centered",

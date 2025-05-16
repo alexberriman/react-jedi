@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Testimonial } from "./testimonial";
 
 const meta = {
-  title: "UI/Testimonial",
+  title: "Components/Marketing/Testimonial",
   component: Testimonial,
   parameters: {
     layout: "centered",
@@ -92,6 +92,10 @@ export const WithoutAvatar: Story = {
 };
 
 export const MultipleTestimonials: Story = {
+  args: {
+    author: { name: "", role: "", company: "" },
+    content: "",
+  },
   render: () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl">
       <Testimonial

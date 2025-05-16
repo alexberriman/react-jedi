@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Container } from "./container";
 
 const meta = {
-  title: "UI/Container",
+  title: "Components/Layout/Container",
   component: Container,
   parameters: {
     layout: "centered",

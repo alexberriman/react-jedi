@@ -16,7 +16,7 @@ import { Input } from "../input";
 import { Textarea } from "../textarea";
 
 const meta = {
-  title: "Components/UI/Drawer",
+  title: "Components/Overlay/Drawer",
   component: Drawer,
   parameters: {
     layout: "centered",

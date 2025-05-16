@@ -8,7 +8,7 @@ import { Separator } from "../separator";
 import { Calendar } from "lucide-react";
 
 const meta = {
-  title: "Components/UI/Popover",
+  title: "Components/Overlay/Popover",
   component: Popover,
   tags: ["autodocs"],
   parameters: {

@@ -16,7 +16,7 @@ import {
 } from "./index";
 
 const meta: Meta<typeof Menubar> = {
-  title: "Components/UI/Menubar",
+  title: "Components/Overlay/Menubar",
   component: Menubar,
   parameters: {
     layout: "centered",

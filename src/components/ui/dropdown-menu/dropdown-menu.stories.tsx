@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 
 const meta = {
-  title: "Components/UI/DropdownMenu",
+  title: "Components/Overlay/DropdownMenu",
   component: DropdownMenu,
   parameters: {
     layout: "centered",

@@ -11,7 +11,7 @@ import { Heading } from "../heading";
  * Perfect for showcasing dynamic content like images, cards, or any content with varying heights.
  */
 const meta = {
-  title: "Layout/Masonry",
+  title: "Components/Layout/Masonry",
   component: Masonry,
   tags: ["autodocs"],
   argTypes: {

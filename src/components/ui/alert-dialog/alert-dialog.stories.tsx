@@ -13,7 +13,7 @@ import {
 import { Button } from "../button";
 
 const meta = {
-  title: "Components/UI/AlertDialog",
+  title: "Components/Overlay/AlertDialog",
   component: AlertDialog,
   parameters: {
     layout: "centered",

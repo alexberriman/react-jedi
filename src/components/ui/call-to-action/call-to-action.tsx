@@ -80,7 +80,7 @@ const DefaultDecoration = () => (
   <Sparkles className="absolute top-6 right-6 h-5 w-5 text-yellow-400 animate-pulse" />
 );
 
-const CTAIcon = ({ icon, align }: { icon: React.ReactNode; align?: string }) => (
+const CTAIcon = ({ icon, align }: { icon: React.ReactNode; align?: string | null }) => (
   <div
     className={cn(
       "mb-4 inline-flex",
@@ -92,7 +92,15 @@ const CTAIcon = ({ icon, align }: { icon: React.ReactNode; align?: string }) => 
   </div>
 );
 
-const CTATitle = ({ title, size, align }: { title: string; size?: string; align?: string }) => (
+const CTATitle = ({
+  title,
+  size,
+  align,
+}: {
+  title: string;
+  size?: string | null;
+  align?: string | null;
+}) => (
   <h2
     className={cn(
       "font-bold tracking-tight",
@@ -113,8 +121,8 @@ const CTADescription = ({
   align,
 }: {
   description: string;
-  size?: string;
-  align?: string;
+  size?: string | null;
+  align?: string | null;
 }) => (
   <p
     className={cn(
@@ -135,8 +143,8 @@ interface ActionButtonProps {
     href?: string;
     onClick?: () => void;
   };
-  variant?: string;
-  size?: string;
+  variant?: string | null;
+  size?: string | null;
   showArrow?: boolean;
   isSecondary?: boolean;
 }

@@ -97,7 +97,7 @@ const users: User[] = [
 ];
 
 const meta = {
-  title: "Components/DataTable",
+  title: "Components/DataDisplay/DataTable",
   component: DataTable,
   parameters: {
     layout: "padded",

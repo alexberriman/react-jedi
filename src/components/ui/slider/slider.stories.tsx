@@ -3,7 +3,7 @@ import * as React from "react";
 import { Slider } from "./slider";
 
 const meta: Meta<typeof Slider> = {
-  title: "UI/Slider",
+  title: "Components/Form/Slider",
   component: Slider,
   parameters: {
     docs: {

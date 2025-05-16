@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Grid } from "./grid";
 
 const meta: Meta<typeof Grid> = {
-  title: "UI/Grid",
+  title: "Components/Layout/Grid",
   component: Grid,
   parameters: {
     layout: "centered",

@@ -10,7 +10,7 @@ const BoxItem = ({ className, children }: { className?: string; children?: React
 );
 
 const meta = {
-  title: "UI/Flex",
+  title: "Components/Layout/Flex",
   component: Flex,
   parameters: {
     layout: "centered",

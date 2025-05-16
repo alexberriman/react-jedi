@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PricingTable Component Schema",
+  "description": "Schema for the pricing table component specification",
+  "type": "object",
+  "properties": {
+    "component": {
+      "type": "string",
+      "enum": ["PricingTable", "pricing-table"],
+      "description": "The component type identifier"
+    },
+    "tiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the pricing tier"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description of the tier"
+          },
+          "price": {
+            "oneOf": [
+              { "type": "number" },
+              { "type": "string" }
+            ],
+            "description": "The price of the tier (number or string like 'Custom')"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency symbol (e.g., '$', '€', '£')"
+          },
+          "period": {
+            "type": "string",
+            "description": "Billing period (e.g., 'month', 'year')"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "Feature description"
+                },
+                "included": {
+                  "type": "boolean",
+                  "description": "Whether the feature is included in this tier"
+                }
+              },
+              "required": ["text", "included"]
+            },
+            "description": "List of features for this tier"
+          },
+          "cta": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "Call-to-action button text"
+              },
+              "variant": {
+                "type": "string",
+                "enum": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+                "description": "Button variant"
+              }
+            },
+            "required": ["text"]
+          },
+          "badge": {
+            "type": "string",
+            "description": "Badge text to display on the tier"
+          },
+          "highlighted": {
+            "type": "boolean",
+            "description": "Whether this tier should be highlighted"
+          }
+        },
+        "required": ["name", "price", "features", "cta"]
+      },
+      "description": "Array of pricing tiers"
+    },
+    "columns": {
+      "type": "number",
+      "enum": [1, 2, 3, 4],
+      "default": 3,
+      "description": "Number of columns to display"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    }
+  },
+  "required": ["component", "tiers"]
+}

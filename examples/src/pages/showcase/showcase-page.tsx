@@ -299,6 +299,13 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "custom",
       },
+      {
+        name: "PricingTable",
+        description:
+          "Pricing table component with support for multiple tiers, features, highlighting, and responsive columns.",
+        status: "completed",
+        type: "custom",
+      },
     ],
   },
 ];

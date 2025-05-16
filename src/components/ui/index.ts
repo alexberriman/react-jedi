@@ -75,3 +75,4 @@ export * from "./chart";
 export * from "./hero";
 export * from "./feature-card";
 export * from "./testimonial";
+export * from "./pricing-table";

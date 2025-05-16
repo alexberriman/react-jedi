@@ -377,6 +377,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   ),
   Testimonial: asComponent(UI.Testimonial),
   testimonial: asComponent(UI.Testimonial),
+  PricingTable: asComponent(UI.PricingTable),
+  "pricing-table": asComponent(UI.PricingTable),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

@@ -1610,6 +1610,69 @@ function MyApp() {
                 </div>
               </div>
 
+              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Pricing Table</h3>
+              <p className="text-zinc-300 leading-relaxed mb-4">
+                A beautiful pricing table with tier comparison:
+              </p>
+
+              <div className="relative group mb-8">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+                  <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+                    {`{
+  "type": "pricing-table",
+  "columns": 3,
+  "tiers": [
+    {
+      "name": "Starter",
+      "description": "Perfect for small projects",
+      "price": 9,
+      "currency": "$",
+      "period": "month",
+      "features": [
+        { "text": "5 Projects", "included": true },
+        { "text": "10 Users", "included": true },
+        { "text": "2GB Storage", "included": true },
+        { "text": "Basic Support", "included": true },
+        { "text": "Analytics", "included": false }
+      ],
+      "cta": { "text": "Get Started", "variant": "outline" }
+    },
+    {
+      "name": "Professional",
+      "description": "Best for growing teams",
+      "price": 29,
+      "currency": "$",
+      "period": "month",
+      "badge": "Most Popular",
+      "highlighted": true,
+      "features": [
+        { "text": "Unlimited Projects", "included": true },
+        { "text": "50 Users", "included": true },
+        { "text": "50GB Storage", "included": true },
+        { "text": "Priority Support", "included": true },
+        { "text": "Advanced Analytics", "included": true }
+      ],
+      "cta": { "text": "Start Free Trial" }
+    },
+    {
+      "name": "Enterprise",
+      "price": "Custom",
+      "features": [
+        { "text": "Unlimited Everything", "included": true },
+        { "text": "Dedicated Support", "included": true },
+        { "text": "Custom Features", "included": true },
+        { "text": "SLA", "included": true },
+        { "text": "Priority Updates", "included": true }
+      ],
+      "cta": { "text": "Contact Sales", "variant": "outline" }
+    }
+  ]
+}`}
+                  </pre>
+                </div>
+              </div>
+
               <h3 className="text-xl font-semibold mb-3 text-emerald-400">Dashboard Card</h3>
               <p className="text-zinc-300 leading-relaxed mb-4">
                 A dashboard card with metrics and status indicators:

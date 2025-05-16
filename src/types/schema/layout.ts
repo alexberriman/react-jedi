@@ -8,6 +8,7 @@
 import type { BaseComponentSpec, ComponentChildren } from "./base";
 import type { StackSpec } from "../components/stack";
 import type { GroupSpec } from "../components/group";
+import type { SimpleGridSpec } from "../components/simple-grid";
 
 /**
  * Box Component Specification
@@ -501,7 +502,8 @@ export type LayoutComponentSpec =
   | AspectRatioSpec
   | SeparatorSpec
   | StackSpec
-  | GroupSpec;
+  | GroupSpec
+  | SimpleGridSpec;
 
 /**
  * Type for any component specification.

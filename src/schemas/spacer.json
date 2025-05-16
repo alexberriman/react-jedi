@@ -16,11 +16,11 @@
       "default": "md",
       "description": "The amount of space to add"
     },
-    "direction": {
+    "orientation": {
       "type": "string",
       "enum": ["horizontal", "vertical"],
       "default": "vertical",
-      "description": "The direction of the spacer - vertical adds height, horizontal adds width"
+      "description": "The orientation of the spacer - vertical adds height, horizontal adds width"
     },
     "showGuide": {
       "type": "boolean",
@@ -61,7 +61,7 @@
     {
       "type": "Spacer",
       "size": "xl",
-      "direction": "horizontal"
+      "orientation": "horizontal"
     },
     {
       "type": "Spacer",

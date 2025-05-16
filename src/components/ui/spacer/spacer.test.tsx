@@ -16,8 +16,8 @@ describe("Spacer", () => {
     expect(spacerElement).toHaveStyle({ height: "1rem" }); // md size is 1rem
   });
 
-  it("applies horizontal spacing when direction is horizontal", () => {
-    const { container } = render(<Spacer direction="horizontal" />);
+  it("applies horizontal spacing when orientation is horizontal", () => {
+    const { container } = render(<Spacer orientation="horizontal" />);
     const spacerElement = container.firstChild as HTMLElement;
     expect(spacerElement).toHaveStyle({ width: "1rem" });
   });

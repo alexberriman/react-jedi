@@ -20,10 +20,10 @@ export interface SpacerProps extends React.HTMLAttributes<HTMLDivElement> {
     | "8xl"
     | "9xl";
   /**
-   * The direction of the spacer
+   * The orientation of the spacer
    * @default "vertical"
    */
-  direction?: "horizontal" | "vertical";
+  orientation?: "horizontal" | "vertical";
   /**
    * Whether to show a guide line in development (for debugging)
    * @default false
@@ -48,9 +48,12 @@ const sizeMap = {
 } as const;
 
 const SpacerComponent = React.forwardRef<HTMLDivElement, SpacerProps>(
-  ({ className, size = "md", direction = "vertical", showGuide = false, style, ...props }, ref) => {
+  (
+    { className, size = "md", orientation = "vertical", showGuide = false, style, ...props },
+    ref
+  ) => {
     const spacerSize = sizeMap[size];
-    const isVertical = direction === "vertical";
+    const isVertical = orientation === "vertical";
 
     const spacerStyles: React.CSSProperties = {
       [isVertical ? "height" : "width"]: spacerSize,

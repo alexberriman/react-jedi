@@ -28,10 +28,10 @@ const meta = {
       ],
       description: "The amount of space to add",
     },
-    direction: {
+    orientation: {
       control: { type: "select" },
       options: ["horizontal", "vertical"],
-      description: "The direction of the spacer",
+      description: "The orientation of the spacer",
     },
     showGuide: {
       control: "boolean",
@@ -80,7 +80,7 @@ export const AllSizes: Story = {
 
 export const HorizontalSpacing: Story = {
   args: {
-    direction: "horizontal",
+    orientation: "horizontal",
     size: "lg",
     showGuide: true,
   },
@@ -229,7 +229,7 @@ export const NavigationExample: Story = {
     <nav className="p-4 bg-gray-900 text-white rounded-lg">
       <div className="flex items-center">
         <div className="text-xl font-bold">Logo</div>
-        <Spacer direction="horizontal" size="2xl" />
+        <Spacer orientation="horizontal" size="2xl" />
         <div className="flex items-center space-x-6">
           <button className="hover:text-gray-300 bg-transparent border-none cursor-pointer">
             Home
@@ -244,7 +244,7 @@ export const NavigationExample: Story = {
             Contact
           </button>
         </div>
-        <Spacer direction="horizontal" size="2xl" className="flex-1" />
+        <Spacer orientation="horizontal" size="2xl" className="flex-1" />
         <button className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700">Get Started</button>
       </div>
     </nav>

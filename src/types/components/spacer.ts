@@ -43,12 +43,12 @@ export interface SpacerSpec extends BaseComponentSpec {
   size?: SpacerSize;
 
   /**
-   * The direction of the spacer.
+   * The orientation of the spacer.
    * - "vertical": Adds vertical space (height)
    * - "horizontal": Adds horizontal space (width)
    * @default "vertical"
    */
-  direction?: "horizontal" | "vertical";
+  orientation?: "horizontal" | "vertical";
 
   /**
    * Whether to show a visual guide in development mode.

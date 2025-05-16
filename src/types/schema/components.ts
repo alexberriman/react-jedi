@@ -173,4 +173,12 @@ export interface ComponentTypes {
   Checkbox: import("./ui").CheckboxSpec;
   RadioGroup: import("./ui").RadioGroupSpec;
   RadioGroupItem: import("./ui").RadioGroupItemSpec;
+  Select: import("./ui").SelectSpec;
+  SelectContent: import("./ui").SelectContentSpec;
+  SelectGroup: import("./ui").SelectGroupSpec;
+  SelectItem: import("./ui").SelectItemSpec;
+  SelectLabel: import("./ui").SelectLabelSpec;
+  SelectSeparator: import("./ui").SelectSeparatorSpec;
+  SelectTrigger: import("./ui").SelectTriggerSpec;
+  SelectValue: import("./ui").SelectValueSpec;
 }

@@ -823,6 +823,120 @@ export interface RadioGroupItemSpec extends BaseComponentSpec {
 }
 
 /**
+ * Select Component Specification
+ *
+ * A dropdown select component for choosing from a list of options.
+ */
+export interface SelectSpec extends BaseComponentSpec {
+  /**
+   * The type of the component.
+   * Must be "Select" for this component.
+   */
+  type: "Select";
+
+  /**
+   * Controlled selected value.
+   */
+  value?: string;
+
+  /**
+   * Default selected value for uncontrolled mode.
+   */
+  defaultValue?: string;
+
+  /**
+   * Whether the select is disabled.
+   * @default false
+   */
+  disabled?: boolean;
+
+  /**
+   * Action to dispatch on value change.
+   */
+  onValueChangeAction?: string;
+
+  /**
+   * The name attribute for form submission.
+   */
+  name?: string;
+
+  /**
+   * Custom CSS class names.
+   */
+  className?: string;
+
+  /**
+   * Child components (SelectTrigger and SelectContent).
+   */
+  children?: ComponentChildren;
+}
+
+/**
+ * SelectTrigger Component Specification
+ */
+export interface SelectTriggerSpec extends BaseComponentSpec {
+  type: "SelectTrigger";
+  size?: "sm" | "default";
+  className?: string;
+  children?: ComponentChildren;
+}
+
+/**
+ * SelectValue Component Specification
+ */
+export interface SelectValueSpec extends BaseComponentSpec {
+  type: "SelectValue";
+  placeholder?: string;
+}
+
+/**
+ * SelectContent Component Specification
+ */
+export interface SelectContentSpec extends BaseComponentSpec {
+  type: "SelectContent";
+  position?: "item-aligned" | "popper";
+  className?: string;
+  children?: ComponentChildren;
+}
+
+/**
+ * SelectItem Component Specification
+ */
+export interface SelectItemSpec extends BaseComponentSpec {
+  type: "SelectItem";
+  value: string;
+  disabled?: boolean;
+  className?: string;
+  children?: ComponentChildren;
+}
+
+/**
+ * SelectGroup Component Specification
+ */
+export interface SelectGroupSpec extends BaseComponentSpec {
+  type: "SelectGroup";
+  className?: string;
+  children?: ComponentChildren;
+}
+
+/**
+ * SelectLabel Component Specification
+ */
+export interface SelectLabelSpec extends BaseComponentSpec {
+  type: "SelectLabel";
+  className?: string;
+  children?: ComponentChildren;
+}
+
+/**
+ * SelectSeparator Component Specification
+ */
+export interface SelectSeparatorSpec extends BaseComponentSpec {
+  type: "SelectSeparator";
+  className?: string;
+}
+
+/**
  * Type alias for all UI component specifications.
  */
 export type UIComponentSpec =
@@ -837,7 +951,15 @@ export type UIComponentSpec =
   | TextareaSpec
   | CheckboxSpec
   | RadioGroupSpec
-  | RadioGroupItemSpec;
+  | RadioGroupItemSpec
+  | SelectSpec
+  | SelectTriggerSpec
+  | SelectValueSpec
+  | SelectContentSpec
+  | SelectItemSpec
+  | SelectGroupSpec
+  | SelectLabelSpec
+  | SelectSeparatorSpec;
 
 /**
  * Type alias for any component specification.

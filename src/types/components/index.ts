@@ -31,3 +31,13 @@ export type {
 } from "./form";
 export type { CheckboxSpecification } from "./checkbox";
 export type { RadioGroupSpec, RadioGroupItemSpec } from "./radio-group";
+export type {
+  SelectSpec,
+  SelectTriggerSpec,
+  SelectValueSpec,
+  SelectContentSpec,
+  SelectItemSpec,
+  SelectGroupSpec,
+  SelectLabelSpec,
+  SelectSeparatorSpec,
+} from "./select";

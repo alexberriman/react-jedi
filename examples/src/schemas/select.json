@@ -1,0 +1,249 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Select"
+    },
+    "props": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Controlled selected value"
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "Default selected value for uncontrolled mode"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the select is disabled"
+        },
+        "onValueChange": {
+          "type": "string",
+          "description": "Event handler name for value changes"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text when no value is selected"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name attribute for form submission"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      },
+      "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "description": "Child components (SelectTrigger and SelectContent)",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/definitions/select-trigger" },
+          { "$ref": "#/definitions/select-content" }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "select-trigger": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SelectTrigger"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "string",
+              "enum": ["sm", "default"],
+              "description": "Size variant of the trigger"
+            },
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes"
+            }
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/select-value"
+          }
+        }
+      }
+    },
+    "select-value": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SelectValue"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "placeholder": {
+              "type": "string",
+              "description": "Placeholder text"
+            }
+          }
+        }
+      }
+    },
+    "select-content": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SelectContent"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "position": {
+              "type": "string",
+              "enum": ["item-aligned", "popper"],
+              "description": "Positioning mode"
+            },
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes"
+            }
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/definitions/select-item" },
+              { "$ref": "#/definitions/select-group" },
+              { "$ref": "#/definitions/select-separator" }
+            ]
+          }
+        }
+      }
+    },
+    "select-item": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SelectItem"
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the item"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "type": "boolean",
+              "description": "Whether the item is disabled"
+            },
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes"
+            }
+          }
+        },
+        "children": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Text content"
+            },
+            {
+              "type": "array",
+              "description": "Complex content"
+            }
+          ]
+        }
+      }
+    },
+    "select-group": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SelectGroup"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes"
+            }
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/definitions/select-label" },
+              { "$ref": "#/definitions/select-item" }
+            ]
+          }
+        }
+      }
+    },
+    "select-label": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SelectLabel"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes"
+            }
+          }
+        },
+        "children": {
+          "type": "string",
+          "description": "Label text"
+        }
+      }
+    },
+    "select-separator": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SelectSeparator"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes"
+            }
+          }
+        }
+      }
+    }
+  }
+}

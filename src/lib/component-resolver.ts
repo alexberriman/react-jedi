@@ -106,6 +106,10 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   TabsContent: asComponent(
     UI.TabsContent as unknown as React.ComponentType<Record<string, unknown>>
   ),
+  Accordion: asComponent(UI.Accordion),
+  AccordionItem: asComponent(UI.AccordionItem),
+  AccordionTrigger: asComponent(UI.AccordionTrigger),
+  AccordionContent: asComponent(UI.AccordionContent),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

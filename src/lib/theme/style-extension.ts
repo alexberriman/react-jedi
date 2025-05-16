@@ -1,20 +1,17 @@
 /**
  * Style Extension System
- * 
+ *
  * This module provides a comprehensive style extension system that enables:
  * - Style inheritance from parent components
  * - Component style composition for combining multiple style sources
  * - Cascading style resolution following CSS-like precedence rules
- * 
+ *
  * The system follows CSS principles while being optimized for React and TailwindCSS.
  */
 
 import { cn } from "../utils";
 import type { ComponentSpec } from "@/types/schema/components";
-import type { 
-  ThemeSpecification, 
-  StyleOverride
-} from "@/types/schema/specification";
+import type { ThemeSpecification, StyleOverride } from "@/types/schema/specification";
 import type { TokenResolver } from "./token-resolver";
 
 /**
@@ -25,27 +22,27 @@ export interface StyleContext {
    * Accumulated className from parent components
    */
   inheritedClassName?: string;
-  
+
   /**
    * Accumulated CSS properties from parent components
    */
   inheritedStyle?: React.CSSProperties;
-  
+
   /**
    * Component-specific style overrides from parents
    */
   parentOverrides?: Record<string, StyleOverride>;
-  
+
   /**
    * Component hierarchy path for cascade resolution
    */
   componentPath: string[];
-  
+
   /**
    * Current theme being used
    */
   theme: ThemeSpecification;
-  
+
   /**
    * Token resolver instance
    */
@@ -61,12 +58,12 @@ export interface StyleInheritanceConfig {
    * Based on CSS inheritance model
    */
   inheritableProperties: Set<string>;
-  
+
   /**
    * Component types that should pass down inherited styles
    */
   inheritingComponents: Set<string>;
-  
+
   /**
    * Component types that should reset inheritance
    */
@@ -152,15 +149,15 @@ export function extractInheritableStyles(
   config: StyleInheritanceConfig = DEFAULT_INHERITANCE_CONFIG
 ): React.CSSProperties {
   if (!styles) return {};
-  
+
   const inheritable: React.CSSProperties = {};
-  
+
   for (const [key, value] of Object.entries(styles)) {
     if (config.inheritableProperties.has(key)) {
       inheritable[key as keyof React.CSSProperties] = value;
     }
   }
-  
+
   return inheritable;
 }
 
@@ -172,15 +169,15 @@ export function extractNonInheritableStyles(
   config: StyleInheritanceConfig = DEFAULT_INHERITANCE_CONFIG
 ): React.CSSProperties {
   if (!styles) return {};
-  
+
   const nonInheritable: React.CSSProperties = {};
-  
+
   for (const [key, value] of Object.entries(styles)) {
     if (!config.inheritableProperties.has(key)) {
       nonInheritable[key as keyof React.CSSProperties] = value;
     }
   }
-  
+
   return nonInheritable;
 }
 
@@ -195,7 +192,7 @@ export function shouldInheritStyles(
   if (config.boundaryComponents.has(componentType)) {
     return false;
   }
-  
+
   // Explicitly marked components inherit
   return config.inheritingComponents.has(componentType);
 }
@@ -211,7 +208,7 @@ export function createChildStyleContext(
   const config = DEFAULT_INHERITANCE_CONFIG;
   const shouldInherit = shouldInheritStyles(childSpec.type, config);
   const isBoundary = config.boundaryComponents.has(childSpec.type);
-  
+
   // If it's a boundary component, reset inheritance
   if (isBoundary) {
     return {
@@ -221,12 +218,12 @@ export function createChildStyleContext(
       // No inherited styles for boundary components
     };
   }
-  
+
   // If component should inherit, merge parent styles
   if (shouldInherit) {
     const inheritableParentStyles = extractInheritableStyles(parentContext.inheritedStyle);
     const inheritableChildStyles = extractInheritableStyles(childOverrides.style);
-    
+
     return {
       inheritedClassName: cn(parentContext.inheritedClassName, childOverrides.className),
       inheritedStyle: {
@@ -239,7 +236,7 @@ export function createChildStyleContext(
       componentPath: [...parentContext.componentPath, childSpec.type],
     };
   }
-  
+
   // Otherwise, just maintain context without inheritance
   return {
     ...parentContext,
@@ -255,12 +252,12 @@ export interface StyleCompositionConfig {
    * Order of style sources (later sources override earlier ones)
    */
   precedenceOrder: string[];
-  
+
   /**
    * Whether to merge or replace array values
    */
   mergeArrays: boolean;
-  
+
   /**
    * Custom merge functions for specific properties
    */
@@ -290,17 +287,17 @@ export interface StyleSource {
    * Source identifier for precedence
    */
   source: string;
-  
+
   /**
    * CSS class names
    */
   className?: string;
-  
+
   /**
    * CSS properties
    */
   style?: React.CSSProperties;
-  
+
   /**
    * Priority weight (higher overrides lower)
    */
@@ -320,24 +317,20 @@ export function composeStyles(
     const bPriority = b.priority ?? config.precedenceOrder.indexOf(b.source);
     return aPriority - bPriority;
   });
-  
+
   let composedClassName = "";
   let composedStyle: React.CSSProperties = {};
-  
+
   for (const source of sortedSources) {
     if (source.className) {
       composedClassName = cn(composedClassName, source.className);
     }
-    
+
     if (source.style) {
-      composedStyle = mergeStyleObjects(
-        composedStyle,
-        source.style,
-        config.propertyMergers
-      );
+      composedStyle = mergeStyleObjects(composedStyle, source.style, config.propertyMergers);
     }
   }
-  
+
   return {
     className: composedClassName || undefined,
     style: Object.keys(composedStyle).length > 0 ? composedStyle : undefined,
@@ -353,17 +346,14 @@ function mergeStyleObjects(
   propertyMergers?: Record<string, (a: unknown, b: unknown) => unknown>
 ): React.CSSProperties {
   const merged: React.CSSProperties = { ...base };
-  
+
   for (const [key, value] of Object.entries(override)) {
     const cssKey = key as keyof React.CSSProperties;
-    
+
     if (propertyMergers?.[key]) {
       // Use custom merger for this property
-      const mergedValue = propertyMergers[key](
-        base[cssKey],
-        value
-      );
-      
+      const mergedValue = propertyMergers[key](base[cssKey], value);
+
       // For property mergers, we need to cast the result
       // This is safe because propertyMergers should return appropriate values
       if (mergedValue !== undefined) {
@@ -374,7 +364,7 @@ function mergeStyleObjects(
       (merged as { [key: string]: unknown })[key] = value;
     }
   }
-  
+
   return merged;
 }
 
@@ -395,12 +385,12 @@ export interface CascadeConfig {
    * Enable specificity calculation
    */
   useSpecificity: boolean;
-  
+
   /**
    * Enable !important handling
    */
   handleImportant: boolean;
-  
+
   /**
    * Custom specificity calculator
    */
@@ -421,7 +411,7 @@ export const DEFAULT_CASCADE_CONFIG: CascadeConfig = {
  */
 export function calculateSpecificity(source: StyleSource): number {
   let specificity = 0;
-  
+
   // Base specificity by source type
   switch (source.source) {
     case "theme.defaults": {
@@ -449,18 +439,18 @@ export function calculateSpecificity(source: StyleSource): number {
       break;
     }
   }
-  
+
   // Add priority if specified
   if (source.priority !== undefined) {
     specificity += source.priority * 100;
   }
-  
+
   // Count selectors in className for additional specificity
   if (source.className) {
     const classCount = source.className.split(/\s+/).length;
     specificity += classCount;
   }
-  
+
   return specificity;
 }
 
@@ -473,7 +463,7 @@ function extractImportantStyles(
 ): { regular: React.CSSProperties; important: React.CSSProperties } {
   const regular: React.CSSProperties = {};
   const important: React.CSSProperties = {};
-  
+
   for (const [key, value] of Object.entries(style)) {
     if (config.handleImportant && typeof value === "string" && value.includes("!important")) {
       // Use indexOf/slice for safer string manipulation
@@ -484,7 +474,7 @@ function extractImportantStyles(
       regular[key as keyof React.CSSProperties] = value;
     }
   }
-  
+
   return { regular, important };
 }
 
@@ -505,25 +495,25 @@ function processStyleSource(
   let className = cascadedClassName;
   let style = { ...cascadedStyle };
   let important = { ...importantStyles };
-  
+
   if (source.className) {
     className = cn(className, source.className);
   }
-  
+
   if (source.style) {
     const { regular, important: newImportant } = extractImportantStyles(source.style, config);
-    
+
     // Apply regular styles if not overridden by important
     for (const [key, value] of Object.entries(regular)) {
       if (!important[key as keyof React.CSSProperties]) {
         style[key as keyof React.CSSProperties] = value;
       }
     }
-    
+
     // Important styles override everything
     important = { ...important, ...newImportant };
   }
-  
+
   return { className, style, important };
 }
 
@@ -537,7 +527,7 @@ export function cascadeStyles(
   if (!config.useSpecificity) {
     return composeStyles(sources);
   }
-  
+
   // Sort by specificity
   const specificityCalculator = config.specificityCalculator || calculateSpecificity;
   const sortedSources = [...sources].sort((a, b) => {
@@ -545,21 +535,21 @@ export function cascadeStyles(
     const bSpec = specificityCalculator(b);
     return aSpec - bSpec;
   });
-  
+
   // Apply cascade resolution
   let result = {
     className: "",
     style: {} as React.CSSProperties,
     important: {} as React.CSSProperties,
   };
-  
+
   for (const source of sortedSources) {
     result = processStyleSource(source, result.className, result.style, result.important, config);
   }
-  
+
   // Merge important styles last
   const finalStyle = { ...result.style, ...result.important };
-  
+
   return {
     className: result.className || undefined,
     style: Object.keys(finalStyle).length > 0 ? finalStyle : undefined,
@@ -590,9 +580,9 @@ export function resolveExtendedStyles(
   }
 ): { className?: string; style?: React.CSSProperties } {
   const sources: StyleSource[] = [];
-  
+
   // Skip theme defaults as they're not part of ThemeSpecification
-  
+
   // Add theme component overrides
   if (themeOverrides.className || themeOverrides.style) {
     sources.push({
@@ -601,7 +591,7 @@ export function resolveExtendedStyles(
       style: themeOverrides.style,
     });
   }
-  
+
   // Add inherited styles if applicable
   if (shouldInheritStyles(spec.type, options?.inheritance)) {
     sources.push({
@@ -610,7 +600,7 @@ export function resolveExtendedStyles(
       style: context.inheritedStyle,
     });
   }
-  
+
   // Add spec styles
   if (spec.style) {
     sources.push({
@@ -618,14 +608,14 @@ export function resolveExtendedStyles(
       style: spec.style,
     });
   }
-  
+
   if (spec.className) {
     sources.push({
       source: "spec.className",
-      className: spec.className,
+      className: spec.className as string,
     });
   }
-  
+
   // Apply cascade resolution
   return cascadeStyles(sources, options?.cascade);
 }
@@ -639,47 +629,48 @@ export function createStyleExtension(theme: ThemeSpecification) {
     ...(theme.styleExtension?.inheritance && {
       inheritableProperties: Array.isArray(theme.styleExtension.inheritance.inheritableProperties)
         ? new Set(theme.styleExtension.inheritance.inheritableProperties)
-        : theme.styleExtension.inheritance.inheritableProperties || DEFAULT_INHERITANCE_CONFIG.inheritableProperties,
+        : theme.styleExtension.inheritance.inheritableProperties ||
+          DEFAULT_INHERITANCE_CONFIG.inheritableProperties,
       inheritingComponents: Array.isArray(theme.styleExtension.inheritance.inheritingComponents)
         ? new Set(theme.styleExtension.inheritance.inheritingComponents)
-        : theme.styleExtension.inheritance.inheritingComponents || DEFAULT_INHERITANCE_CONFIG.inheritingComponents,
+        : theme.styleExtension.inheritance.inheritingComponents ||
+          DEFAULT_INHERITANCE_CONFIG.inheritingComponents,
       boundaryComponents: Array.isArray(theme.styleExtension.inheritance.boundaryComponents)
         ? new Set(theme.styleExtension.inheritance.boundaryComponents)
-        : theme.styleExtension.inheritance.boundaryComponents || DEFAULT_INHERITANCE_CONFIG.boundaryComponents,
+        : theme.styleExtension.inheritance.boundaryComponents ||
+          DEFAULT_INHERITANCE_CONFIG.boundaryComponents,
     }),
   };
-  
+
   const compositionConfig = {
     ...DEFAULT_COMPOSITION_CONFIG,
     ...theme.styleExtension?.composition,
   };
-  
+
   const cascadeConfig = {
     ...DEFAULT_CASCADE_CONFIG,
     ...theme.styleExtension?.cascade,
   };
-  
+
   return {
     extractInheritable: (styles: React.CSSProperties | undefined) =>
       extractInheritableStyles(styles, inheritanceConfig),
-      
-    shouldInherit: (componentType: string) =>
-      shouldInheritStyles(componentType, inheritanceConfig),
-      
-    compose: (sources: StyleSource[]) =>
-      composeStyles(sources, compositionConfig),
-      
-    cascade: (sources: StyleSource[]) =>
-      cascadeStyles(sources, cascadeConfig),
-      
+
+    shouldInherit: (componentType: string) => shouldInheritStyles(componentType, inheritanceConfig),
+
+    compose: (sources: StyleSource[]) => composeStyles(sources, compositionConfig),
+
+    cascade: (sources: StyleSource[]) => cascadeStyles(sources, cascadeConfig),
+
     resolve: (
       spec: ComponentSpec,
       context: StyleContext,
       themeOverrides: { className?: string; style?: React.CSSProperties }
-    ) => resolveExtendedStyles(spec, context, themeOverrides, {
-      inheritance: inheritanceConfig,
-      composition: compositionConfig,
-      cascade: cascadeConfig,
-    }),
+    ) =>
+      resolveExtendedStyles(spec, context, themeOverrides, {
+        inheritance: inheritanceConfig,
+        composition: compositionConfig,
+        cascade: cascadeConfig,
+      }),
   };
 }

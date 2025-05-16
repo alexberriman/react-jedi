@@ -6,6 +6,7 @@ import {
   type RenderOptions,
   type UISpecification,
 } from "@/types/schema/components";
+import type { AccessibilityProps } from "@/types/schema/base";
 import type { ThemeSpecification } from "@/types/schema/specification";
 import { isComponentSpec, isComponentSpecArray, isTextContent } from "@/types/schema/guards";
 import { processStyleOverrides } from "./theme/style-overrides";
@@ -372,7 +373,7 @@ function buildComponentProps(
       ariaLive,
       ariaAtomic,
       role,
-    } = spec.a11y;
+    } = spec.a11y as AccessibilityProps;
 
     Object.assign(componentProps, {
       "aria-label": ariaLabel,
@@ -426,7 +427,7 @@ function renderComponent(
   const stateConfig = extractStateConfig(spec);
 
   if (stateConfig && stateManager && spec.id) {
-    initializeComponentState(spec.id, stateConfig, stateManager);
+    initializeComponentState(spec.id as string, stateConfig, stateManager);
   }
 
   // Resolve state bindings in spec properties

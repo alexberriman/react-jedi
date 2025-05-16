@@ -66,8 +66,8 @@ describe("Schema Validation Tests", () => {
       if (result.ok) {
         const parsed = result.val as ComponentSpec;
         expect(parsed.className).toBe("bg-blue-500 text-white");
-        expect(parsed.data?.["test-id"]).toBe("test-button");
-        expect(parsed.style?.margin).toBe("10px");
+        expect((parsed.data as Record<string, string>)?.["test-id"]).toBe("test-button");
+        expect((parsed.style as Record<string, string | number>)?.margin).toBe("10px");
       }
     });
 

@@ -15,6 +15,7 @@ import type {
   TabsTriggerSpecification,
   TabsContentSpecification,
 } from "@/types/components/tabs";
+import type { AccordionType } from "@/types/components/accordion";
 
 /**
  * Button Component Specification
@@ -974,4 +975,5 @@ export type UIComponentSpec =
   | TabsSpecification
   | TabsListSpecification
   | TabsTriggerSpecification
-  | TabsContentSpecification;
+  | TabsContentSpecification
+  | AccordionType;

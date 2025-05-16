@@ -439,11 +439,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Tabs
 
-- [ ] Accordion Component
+- ✅ Accordion Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add accordion`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Accordion
+  - ✅ Add from shadcn (`npx shadcn@latest add accordion`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Accordion
 
 - [ ] Dialog/Modal Component
 

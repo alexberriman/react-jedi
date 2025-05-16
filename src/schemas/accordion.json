@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["accordion"]
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the accordion"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "accordionType": {
+      "type": "string",
+      "enum": ["single", "multiple"],
+      "default": "single",
+      "description": "Whether to allow multiple items to be expanded at once"
+    },
+    "defaultValue": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ],
+      "description": "Default expanded item(s)"
+    },
+    "collapsible": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether all items can be collapsed when using single accordion type"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the accordion is disabled"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Unique value for the accordion item"
+          },
+          "trigger": {
+            "type": "string",
+            "description": "The trigger text for the accordion item"
+          },
+          "content": {
+            "type": "string",
+            "description": "The content to display when the item is expanded"
+          },
+          "disabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether this specific item is disabled"
+          }
+        },
+        "required": ["value", "trigger", "content"],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "description": "Array of accordion items"
+    }
+  },
+  "required": ["type", "items"],
+  "additionalProperties": false
+}

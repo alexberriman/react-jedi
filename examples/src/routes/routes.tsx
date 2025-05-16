@@ -8,6 +8,7 @@ import {
   ResizableDemo,
   SheetDemo,
   TabsDemo,
+  AccordionDemo,
 } from "../pages/showcase";
 import { DocumentationPage } from "../pages/documentation";
 import { ExamplesPage } from "../pages/examples";
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
           {
             path: "tabs",
             element: <TabsDemo />,
+          },
+          {
+            path: "accordion",
+            element: <AccordionDemo />,
           },
         ],
       },

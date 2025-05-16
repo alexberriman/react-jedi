@@ -78,3 +78,4 @@ export type {
   TabsTriggerSpecification,
   TabsContentSpecification,
 } from "./tabs";
+export type { AccordionType } from "./accordion";

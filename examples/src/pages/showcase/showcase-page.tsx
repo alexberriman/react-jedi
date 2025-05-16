@@ -182,6 +182,79 @@ const categories: ComponentCategory[] = [
       },
     ],
   },
+  {
+    id: "advanced-layout",
+    title: "Advanced Layout Components",
+    description: "Advanced layout and navigation components for complex interfaces.",
+    components: [
+      {
+        name: "Stack",
+        description: "Vertical or horizontal stacking with consistent spacing.",
+        status: "completed",
+        type: "custom",
+      },
+      {
+        name: "Group",
+        description: "Inline elements with consistent spacing.",
+        status: "completed",
+        type: "custom",
+      },
+      {
+        name: "Center",
+        description: "Centers children horizontally and vertically.",
+        status: "completed",
+        type: "custom",
+      },
+      {
+        name: "Spacer",
+        description: "Adds flexible spacing.",
+        status: "completed",
+        type: "custom",
+      },
+      {
+        name: "SimpleGrid",
+        description: "Responsive grid with equal-sized cells.",
+        status: "completed",
+        type: "custom",
+      },
+      {
+        name: "Masonry",
+        description: "Pinterest-style grid layout.",
+        status: "completed",
+        type: "custom",
+      },
+      {
+        name: "ScrollArea",
+        description: "Custom scrollbar container.",
+        status: "completed",
+        type: "shadcn",
+      },
+      {
+        name: "Resizable",
+        description: "Resizable panel layout.",
+        status: "completed",
+        type: "shadcn",
+      },
+      {
+        name: "Sheet",
+        description: "Slide-out panel component.",
+        status: "completed",
+        type: "shadcn",
+      },
+      {
+        name: "Tabs",
+        description: "Tab-based navigation interface.",
+        status: "completed",
+        type: "shadcn",
+      },
+      {
+        name: "Accordion",
+        description: "Collapsible content sections.",
+        status: "completed",
+        type: "shadcn",
+      },
+    ],
+  },
 ];
 
 export function ShowcasePage() {
@@ -297,7 +370,8 @@ export function ShowcasePage() {
                       {component.name === "ScrollArea" ||
                       component.name === "Resizable" ||
                       component.name === "Sheet" ||
-                      component.name === "Tabs" ? (
+                      component.name === "Tabs" ||
+                      component.name === "Accordion" ? (
                         <Link
                           to={`/showcase/${component.name.toLowerCase()}`}
                           className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"

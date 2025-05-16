@@ -12,17 +12,21 @@ export {
 } from "./condition-parser";
 
 import type { ComponentSpec } from "@/types/schema/components";
-import { evaluateCondition, type ConditionContext } from "./condition-parser";
+import {
+  evaluateCondition,
+  type ConditionContext,
+  type ConditionExpression,
+} from "./condition-parser";
 
 /**
  * Evaluates the visibility condition for a component
  */
 export function shouldRenderComponent(spec: ComponentSpec, context: ConditionContext): boolean {
-  if (spec.when === undefined) {
+  if (spec.when === undefined || spec.when === null) {
     return true;
   }
 
-  return evaluateCondition(spec.when, context);
+  return evaluateCondition(spec.when as ConditionExpression, context);
 }
 
 /**

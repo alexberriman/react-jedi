@@ -6,10 +6,8 @@
  */
 
 import { Result, Ok, Err } from "ts-results";
-import {
-  type ComponentSpec,
-  type UISpecification,
-} from "@/types/schema/components";
+import { type ComponentSpec, type UISpecification } from "@/types/schema/components";
+import type { AccessibilityProps } from "@/types/schema/base";
 import { type ValidationError, ValidationSeverity } from "@/lib/validation/validator";
 import { defaultValidator } from "./specification-validator";
 import {
@@ -21,10 +19,7 @@ import {
   isButton,
   isCard,
 } from "@/types/schema/guards";
-import { 
-  SpecificationErrorType,
-  type SpecificationError
-} from "./shared-types";
+import { SpecificationErrorType, type SpecificationError } from "./shared-types";
 
 /**
  * Type of validation stage
@@ -45,10 +40,7 @@ export enum ValidationStageType {
 /**
  * Result of a validation stage
  */
-export type ValidationStageResult<T> = Result<
-  T,
-  ValidationStageError[]
->;
+export type ValidationStageResult<T> = Result<T, ValidationStageError[]>;
 
 /**
  * Enhanced validation error with stage information and suggestions
@@ -56,28 +48,28 @@ export type ValidationStageResult<T> = Result<
 export interface ValidationStageError {
   /** Path to the error location in the specification */
   path: string[];
-  
+
   /** Error message */
   message: string;
-  
+
   /** Type of validation stage that found the error */
   stage: ValidationStageType;
-  
+
   /** Error severity */
   severity: ValidationSeverity;
-  
+
   /** Original validation error (if available) */
   originalError?: ValidationError;
-  
+
   /** Error code */
   code?: string;
-  
+
   /** Value that caused the error */
   invalidValue?: unknown;
-  
+
   /** Suggested fixes for the error */
   suggestions?: string[];
-  
+
   /** Related documentation URL */
   documentationUrl?: string;
 }
@@ -88,19 +80,19 @@ export interface ValidationStageError {
 export interface ValidationContext {
   /** Whether running in development mode */
   development: boolean;
-  
+
   /** Custom validation rules to apply */
   customRules?: Record<string, unknown>;
-  
+
   /** Whether to stop at the first error */
   stopAtFirstError: boolean;
-  
+
   /** Parent component hierarchy (for relational validation) */
   parentHierarchy?: ComponentSpec[];
-  
+
   /** Additional metadata for the current validation context */
   metadata?: Record<string, unknown>;
-  
+
   /** Collected errors from previous stages */
   previousErrors: ValidationStageError[];
 }
@@ -120,19 +112,19 @@ export interface ValidationStage<T> {
 export interface ValidationPipelineOptions {
   /** Whether to run in development mode with additional checks */
   development?: boolean;
-  
+
   /** Whether to stop at the first error */
   stopAtFirstError?: boolean;
-  
+
   /** Custom components schemas to validate */
   customComponentSchemas?: Record<string, unknown>;
-  
+
   /** Additional validation stages */
   additionalStages?: ValidationStage<unknown>[];
-  
+
   /** Whether to include suggestions for fixing errors */
   includeSuggestions?: boolean;
-  
+
   /** Base URL for documentation references */
   documentationBaseUrl?: string;
 }
@@ -155,60 +147,60 @@ const DEFAULT_PIPELINE_OPTIONS: Required<ValidationPipelineOptions> = {
 export class ValidationPipeline {
   /** Pipeline options */
   private options: Required<ValidationPipelineOptions>;
-  
+
   /** Preprocessing stages for any specification */
   private preprocessingStages: ValidationStage<unknown>[] = [];
-  
+
   /** Schema validation stages for UI specifications */
   private uiSchemaStages: ValidationStage<UISpecification>[] = [];
-  
+
   /** Schema validation stages for component specifications */
   private componentSchemaStages: ValidationStage<ComponentSpec>[] = [];
-  
+
   /** Semantic validation stages for component specifications */
   private componentSemanticStages: ValidationStage<ComponentSpec>[] = [];
-  
+
   /** Relational validation stages for component specifications */
   private componentRelationalStages: ValidationStage<ComponentSpec>[] = [];
-  
+
   /** Custom validation stages */
   private customStages: ValidationStage<unknown>[] = [];
 
   /**
    * Creates a new ValidationPipeline
-   * 
+   *
    * @param options - Pipeline options
    */
   constructor(options: ValidationPipelineOptions = {}) {
     this.options = { ...DEFAULT_PIPELINE_OPTIONS, ...options };
-    
+
     // Initialize the validation stages
     this.initializeStages();
   }
-  
+
   /**
    * Initialize all validation stages
    */
   private initializeStages(): void {
     // Initialize preprocessing stages (format validation, etc.)
     this.initializePreprocessingStages();
-    
+
     // Initialize UI schema validation stages
     this.initializeUISchemaStages();
-    
+
     // Initialize component schema validation stages
     this.initializeComponentSchemaStages();
-    
+
     // Initialize component semantic validation stages
     this.initializeComponentSemanticStages();
-    
+
     // Initialize component relational validation stages
     this.initializeComponentRelationalStages();
-    
+
     // Add custom stages
     this.customStages = this.options.additionalStages;
   }
-  
+
   /**
    * Initialize preprocessing validation stages
    */
@@ -220,34 +212,38 @@ export class ValidationPipeline {
       validate: (input: unknown, context: ValidationContext) => {
         // Check if input is null or undefined
         if (input === null || input === undefined) {
-          return Err([{
-            path: [],
-            message: "Specification cannot be null or undefined",
-            stage: ValidationStageType.PREPROCESSING,
-            severity: ValidationSeverity.ERROR,
-            code: "SPEC_NULL_OR_UNDEFINED",
-            suggestions: ["Provide a valid specification object"],
-          }]);
+          return Err([
+            {
+              path: [],
+              message: "Specification cannot be null or undefined",
+              stage: ValidationStageType.PREPROCESSING,
+              severity: ValidationSeverity.ERROR,
+              code: "SPEC_NULL_OR_UNDEFINED",
+              suggestions: ["Provide a valid specification object"],
+            },
+          ]);
         }
-        
+
         // Check if input is an object
         if (typeof input !== "object") {
-          return Err([{
-            path: [],
-            message: `Specification must be an object, got ${typeof input}`,
-            stage: ValidationStageType.PREPROCESSING,
-            severity: ValidationSeverity.ERROR,
-            code: "SPEC_INVALID_TYPE",
-            invalidValue: input,
-            suggestions: ["Provide a valid specification object"],
-          }]);
+          return Err([
+            {
+              path: [],
+              message: `Specification must be an object, got ${typeof input}`,
+              stage: ValidationStageType.PREPROCESSING,
+              severity: ValidationSeverity.ERROR,
+              code: "SPEC_INVALID_TYPE",
+              invalidValue: input,
+              suggestions: ["Provide a valid specification object"],
+            },
+          ]);
         }
-        
+
         return Ok(input);
-      }
+      },
     });
   }
-  
+
   /**
    * Initialize UI schema validation stages
    */
@@ -258,7 +254,7 @@ export class ValidationPipeline {
       type: ValidationStageType.SCHEMA,
       validate: (spec: UISpecification, context: ValidationContext) => {
         const result = defaultValidator.validateUISpecification(spec);
-        
+
         if (result.err) {
           const errors = this.convertValidationErrorToStageErrors(
             result.val,
@@ -266,12 +262,12 @@ export class ValidationPipeline {
           );
           return Err(errors);
         }
-        
+
         return Ok(spec);
-      }
+      },
     });
   }
-  
+
   /**
    * Initialize component schema validation stages
    */
@@ -282,7 +278,7 @@ export class ValidationPipeline {
       type: ValidationStageType.SCHEMA,
       validate: (component: ComponentSpec, context: ValidationContext) => {
         const result = defaultValidator.validateComponentSpec(component);
-        
+
         if (result.err) {
           const errors = this.convertValidationErrorToStageErrors(
             result.val,
@@ -290,12 +286,12 @@ export class ValidationPipeline {
           );
           return Err(errors);
         }
-        
+
         return Ok(component);
-      }
+      },
     });
   }
-  
+
   /**
    * Convert validation error to stage errors
    */
@@ -305,10 +301,10 @@ export class ValidationPipeline {
   ): ValidationStageError[] {
     // If there are validation errors, convert each one
     if (error.validationErrors && error.validationErrors.length > 0) {
-      return error.validationErrors.map(validationError => {
+      return error.validationErrors.map((validationError) => {
         // Generate suggestions based on validation error
         const suggestions = this.generateSuggestionsForValidationError(validationError);
-        
+
         return {
           path: validationError.path || error.path || [],
           message: validationError.message,
@@ -322,31 +318,33 @@ export class ValidationPipeline {
         };
       });
     }
-    
+
     // Generate suggestions based on error type
     const suggestions = this.generateSuggestionsForError(error);
-    
+
     // Create a default stage error from the parser error
-    return [{
-      path: error.path || [],
-      message: error.message,
-      stage,
-      severity: ValidationSeverity.ERROR,
-      code: error.type,
-      invalidValue: error.context?.invalidValue,
-      suggestions: this.options.includeSuggestions ? suggestions : undefined,
-      documentationUrl: this.options.documentationBaseUrl
-        ? `${this.options.documentationBaseUrl}${error.type.toLowerCase()}`
-        : undefined,
-    }];
+    return [
+      {
+        path: error.path || [],
+        message: error.message,
+        stage,
+        severity: ValidationSeverity.ERROR,
+        code: error.type,
+        invalidValue: error.context?.invalidValue,
+        suggestions: this.options.includeSuggestions ? suggestions : undefined,
+        documentationUrl: this.options.documentationBaseUrl
+          ? `${this.options.documentationBaseUrl}${error.type.toLowerCase()}`
+          : undefined,
+      },
+    ];
   }
-  
+
   /**
    * Validate Grid component semantics
    */
   private validateGridComponent(component: ComponentSpec): ValidationStageError[] {
     const errors: ValidationStageError[] = [];
-    
+
     // Use type guard to narrow the type
     if (isGrid(component) && component.columns !== undefined) {
       const cols = Number(component.columns);
@@ -362,11 +360,11 @@ export class ValidationPipeline {
         });
       }
     }
-    
+
     // Check if items are provided for grid
     const hasChildren = Boolean(component.children);
     const isEmptyArray = Array.isArray(component.children) && component.children.length === 0;
-    
+
     if (!hasChildren || isEmptyArray) {
       errors.push({
         path: ["children"],
@@ -377,19 +375,23 @@ export class ValidationPipeline {
         suggestions: ["Add child components to the grid"],
       });
     }
-    
+
     return errors;
   }
-  
+
   /**
    * Validate Flex component semantics
    */
   private validateFlexComponent(component: ComponentSpec): ValidationStageError[] {
     const errors: ValidationStageError[] = [];
     const validDirections = ["row", "column", "row-reverse", "column-reverse"];
-    
+
     // Use type guard to narrow the type
-    if (isFlex(component) && component.direction && !validDirections.includes(component.direction)) {
+    if (
+      isFlex(component) &&
+      component.direction &&
+      !validDirections.includes(component.direction)
+    ) {
       errors.push({
         path: ["direction"],
         message: "Invalid flex direction",
@@ -400,17 +402,17 @@ export class ValidationPipeline {
         suggestions: [`Use one of: ${validDirections.join(", ")}`],
       });
     }
-    
+
     return errors;
   }
-  
+
   /**
    * Validate Container component semantics
    */
   private validateContainerComponent(component: ComponentSpec): ValidationStageError[] {
     const errors: ValidationStageError[] = [];
     const hasChildren = Boolean(component.children);
-    
+
     if (!hasChildren) {
       errors.push({
         path: ["children"],
@@ -421,18 +423,18 @@ export class ValidationPipeline {
         suggestions: ["Add child components to the container"],
       });
     }
-    
+
     return errors;
   }
-  
+
   /**
    * Validate Button component semantics
    */
   private validateButtonComponent(component: ComponentSpec): ValidationStageError[] {
     const errors: ValidationStageError[] = [];
     const hasChildren = Boolean(component.children);
-    const hasAriaLabel = component.a11y && component.a11y.ariaLabel;
-    
+    const hasAriaLabel = Boolean((component.a11y as AccessibilityProps)?.ariaLabel);
+
     if (!hasChildren && !hasAriaLabel) {
       errors.push({
         path: ["children"],
@@ -440,23 +442,20 @@ export class ValidationPipeline {
         stage: ValidationStageType.SEMANTIC,
         severity: ValidationSeverity.WARNING,
         code: "BUTTON_NO_LABEL",
-        suggestions: [
-          "Add text content to the button",
-          "Add ariaLabel property to a11y object",
-        ],
+        suggestions: ["Add text content to the button", "Add ariaLabel property to a11y object"],
       });
     }
-    
+
     return errors;
   }
-  
+
   /**
    * Validate Card component semantics
    */
   private validateCardComponent(component: ComponentSpec): ValidationStageError[] {
     const errors: ValidationStageError[] = [];
     const hasChildren = Boolean(component.children);
-    
+
     if (!hasChildren) {
       errors.push({
         path: ["children"],
@@ -467,17 +466,17 @@ export class ValidationPipeline {
         suggestions: ["Add child components to the card"],
       });
     }
-    
+
     return errors;
   }
-  
+
   /**
    * Validate Text component semantics
    */
   private validateTextComponent(component: ComponentSpec): ValidationStageError[] {
     const errors: ValidationStageError[] = [];
     const hasChildren = Boolean(component.children);
-    
+
     if (!hasChildren) {
       errors.push({
         path: ["children"],
@@ -488,17 +487,17 @@ export class ValidationPipeline {
         suggestions: ["Add text content"],
       });
     }
-    
+
     return errors;
   }
-  
+
   /**
    * Validate Heading component semantics
    */
   private validateHeadingComponent(component: ComponentSpec): ValidationStageError[] {
     const errors: ValidationStageError[] = [];
     const hasChildren = Boolean(component.children);
-    
+
     if (!hasChildren) {
       errors.push({
         path: ["children"],
@@ -509,7 +508,7 @@ export class ValidationPipeline {
         suggestions: ["Add heading text content"],
       });
     }
-    
+
     // Use type guard to narrow the type
     if (isHeading(component) && component.level !== undefined) {
       if (typeof component.level === "string" && component.level.startsWith("h")) {
@@ -543,7 +542,7 @@ export class ValidationPipeline {
         }
       }
     }
-    
+
     return errors;
   }
 
@@ -557,50 +556,50 @@ export class ValidationPipeline {
       type: ValidationStageType.SEMANTIC,
       validate: (component: ComponentSpec, context: ValidationContext) => {
         let errors: ValidationStageError[] = [];
-        
+
         // Validate specific component types
         if (isGrid(component)) {
           errors = [...errors, ...this.validateGridComponent(component)];
         }
-        
+
         if (isFlex(component)) {
           errors = [...errors, ...this.validateFlexComponent(component)];
         }
-        
+
         if (isContainer(component)) {
           errors = [...errors, ...this.validateContainerComponent(component)];
         }
-        
+
         if (isButton(component)) {
           errors = [...errors, ...this.validateButtonComponent(component)];
         }
-        
+
         if (isCard(component)) {
           errors = [...errors, ...this.validateCardComponent(component)];
         }
-        
+
         if (isText(component)) {
           errors = [...errors, ...this.validateTextComponent(component)];
         }
-        
+
         if (isHeading(component)) {
           errors = [...errors, ...this.validateHeadingComponent(component)];
         }
-        
+
         if (errors.length > 0) {
           // Add component path prefix to all errors
-          const errorsWithPath = errors.map(err => ({
+          const errorsWithPath = errors.map((err) => ({
             ...err,
             path: [component.type, ...err.path],
           }));
           return Err(errorsWithPath);
         }
-        
+
         return Ok(component);
-      }
+      },
     });
   }
-  
+
   /**
    * Initialize component relational validation stages
    */
@@ -612,7 +611,7 @@ export class ValidationPipeline {
       validate: (component: ComponentSpec, context: ValidationContext) => {
         const errors: ValidationStageError[] = [];
         const parentHierarchy = context.parentHierarchy || [];
-        
+
         // Check for excessive nesting depth
         if (parentHierarchy.length > 10) {
           errors.push({
@@ -627,14 +626,14 @@ export class ValidationPipeline {
             ],
           });
         }
-        
+
         // Check if this component type is valid inside its parent
         if (parentHierarchy.length > 0) {
           const parent = parentHierarchy.at(-1);
-          
+
           // Add specific parent-child relationship validations here
           // For example, some components shouldn't be nested inside others
-          
+
           if (parent && isHeading(component) && isHeading(parent)) {
             errors.push({
               path: [],
@@ -649,116 +648,102 @@ export class ValidationPipeline {
             });
           }
         }
-        
+
         if (errors.length > 0) {
           return Err(errors);
         }
-        
+
         return Ok(component);
-      }
+      },
     });
   }
 
   /**
    * Validates a UI specification through the pipeline
-   * 
+   *
    * @param spec - UI specification to validate
    * @returns Validation result
    */
-  validateUISpecification(
-    spec: unknown
-  ): Result<UISpecification, ValidationStageError[]> {
+  validateUISpecification(spec: unknown): Result<UISpecification, ValidationStageError[]> {
     // Create initial validation context
     const context: ValidationContext = {
       development: this.options.development,
       stopAtFirstError: this.options.stopAtFirstError,
       previousErrors: [],
     };
-    
+
     // Run preprocessing stages
-    const preprocessingResult = this.runStages(
-      this.preprocessingStages,
-      spec,
-      context
-    );
-    
+    const preprocessingResult = this.runStages(this.preprocessingStages, spec, context);
+
     if (preprocessingResult.err) {
       return Err(preprocessingResult.val);
     }
-    
+
     // Type check for UI specification
     const uiSpec = preprocessingResult.val as UISpecification;
-    
+
     // Check if it has required UI specification properties
     if (!("version" in uiSpec) || !("root" in uiSpec)) {
-      return Err([{
-        path: [],
-        message: "Invalid UI specification: missing required properties (version, root)",
-        stage: ValidationStageType.SCHEMA,
-        severity: ValidationSeverity.ERROR,
-        code: "UI_SPEC_MISSING_PROPS",
-        suggestions: [
-          "Add version property (string)",
-          "Add root property (component specification)",
-        ],
-      }]);
+      return Err([
+        {
+          path: [],
+          message: "Invalid UI specification: missing required properties (version, root)",
+          stage: ValidationStageType.SCHEMA,
+          severity: ValidationSeverity.ERROR,
+          code: "UI_SPEC_MISSING_PROPS",
+          suggestions: [
+            "Add version property (string)",
+            "Add root property (component specification)",
+          ],
+        },
+      ]);
     }
-    
+
     // Run UI schema stages
-    const schemaResult = this.runStages(
-      this.uiSchemaStages,
-      uiSpec,
-      context
-    );
-    
+    const schemaResult = this.runStages(this.uiSchemaStages, uiSpec, context);
+
     if (schemaResult.err) {
       return Err(schemaResult.val);
     }
-    
+
     // Validate the root component recursively
     const rootValidationResult = this.validateComponentSpecRecursively(
       uiSpec.root,
       [...context.previousErrors],
       []
     );
-    
+
     if (rootValidationResult.err) {
       return Err([
         ...context.previousErrors,
-        ...rootValidationResult.val.map(err => ({
+        ...rootValidationResult.val.map((err) => ({
           ...err,
           path: ["root", ...err.path],
         })),
       ]);
     }
-    
+
     // Run custom stages
-    const customResult = this.runStages(
-      this.customStages,
-      uiSpec,
-      {
-        ...context,
-        // Only add rootValidationResult errors if it's an error result
-        previousErrors: (() => {
-          if (rootValidationResult.err) {
-            // Safe unwrapping of error value
-            // We already checked that rootValidationResult.err is true
-            // so we know it's an error variant
-            const errVal = (rootValidationResult as Result<never, ValidationStageError[]>).val;
-            if (Array.isArray(errVal)) {
-              return [...context.previousErrors, ...errVal];
-            }
+    const customResult = this.runStages(this.customStages, uiSpec, {
+      ...context,
+      // Only add rootValidationResult errors if it's an error result
+      previousErrors: (() => {
+        if (rootValidationResult.err) {
+          // Safe unwrapping of error value
+          // We already checked that rootValidationResult.err is true
+          // so we know it's an error variant
+          const errVal = (rootValidationResult as Result<never, ValidationStageError[]>).val;
+          if (Array.isArray(errVal)) {
+            return [...context.previousErrors, ...errVal];
           }
-          return [...context.previousErrors];
-        })(),
-      }
-    );
-    
+        }
+        return [...context.previousErrors];
+      })(),
+    });
+
     if (customResult.err) {
-      const errors: ValidationStageError[] = [
-        ...context.previousErrors
-      ];
-      
+      const errors: ValidationStageError[] = [...context.previousErrors];
+
       // Only add rootValidationResult errors if it's an error result
       if (rootValidationResult.err) {
         // Safe unwrapping of error value using type assertion
@@ -767,7 +752,7 @@ export class ValidationPipeline {
           errors.push(...errVal);
         }
       }
-      
+
       // Add customResult errors
       if (customResult.err) {
         // Safe unwrapping of error value using type assertion
@@ -777,62 +762,59 @@ export class ValidationPipeline {
           errors.push(...errVal);
         }
       }
-      
+
       return Err(errors) as Result<never, ValidationStageError[]>;
     }
-    
+
     return Ok(uiSpec);
   }
-  
+
   /**
    * Validates a component specification
-   * 
+   *
    * @param component - Component specification to validate
    * @returns Validation result
    */
-  validateComponentSpec(
-    component: unknown
-  ): Result<ComponentSpec, ValidationStageError[]> {
+  validateComponentSpec(component: unknown): Result<ComponentSpec, ValidationStageError[]> {
     // Create initial validation context
     const context: ValidationContext = {
       development: this.options.development,
       stopAtFirstError: this.options.stopAtFirstError,
       previousErrors: [],
     };
-    
+
     // Run preprocessing stages
-    const preprocessingResult = this.runStages(
-      this.preprocessingStages,
-      component,
-      context
-    );
-    
+    const preprocessingResult = this.runStages(this.preprocessingStages, component, context);
+
     if (preprocessingResult.err) {
       return Err(preprocessingResult.val);
     }
-    
+
     // Type check for component specification
     const componentSpec = preprocessingResult.val as ComponentSpec;
-    
+
     // Check if it has required component properties
     if (!("type" in componentSpec) || typeof componentSpec.type !== "string") {
-      return Err([{
-        path: [],
-        message: "Invalid component specification: missing 'type' property or 'type' is not a string",
-        stage: ValidationStageType.SCHEMA,
-        severity: ValidationSeverity.ERROR,
-        code: "COMPONENT_MISSING_TYPE",
-        suggestions: [
-          "Add type property (string)",
-          "Ensure type property is a valid component type",
-        ],
-      }]);
+      return Err([
+        {
+          path: [],
+          message:
+            "Invalid component specification: missing 'type' property or 'type' is not a string",
+          stage: ValidationStageType.SCHEMA,
+          severity: ValidationSeverity.ERROR,
+          code: "COMPONENT_MISSING_TYPE",
+          suggestions: [
+            "Add type property (string)",
+            "Ensure type property is a valid component type",
+          ],
+        },
+      ]);
     }
-    
+
     // Perform recursive validation
     return this.validateComponentSpecRecursively(componentSpec, [], []);
   }
-  
+
   /**
    * Validates a component specification with all validation stages
    */
@@ -841,61 +823,45 @@ export class ValidationPipeline {
     context: ValidationContext
   ): Result<ComponentSpec, ValidationStageError[]> {
     // Run schema validation stages
-    const schemaResult = this.runStages(
-      this.componentSchemaStages,
-      component,
-      context
-    );
-    
+    const schemaResult = this.runStages(this.componentSchemaStages, component, context);
+
     if (schemaResult.err) {
       return Err(schemaResult.val);
     }
-    
+
     // Run semantic validation stages
-    const semanticResult = this.runStages(
-      this.componentSemanticStages,
-      component,
-      {
-        ...context,
-        previousErrors: context.previousErrors,
-      }
-    );
-    
+    const semanticResult = this.runStages(this.componentSemanticStages, component, {
+      ...context,
+      previousErrors: context.previousErrors,
+    });
+
     if (semanticResult.err) {
       return Err(semanticResult.val);
     }
-    
+
     // Run relational validation stages
-    const relationalResult = this.runStages(
-      this.componentRelationalStages,
-      component,
-      {
-        ...context,
-        previousErrors: context.previousErrors,
-      }
-    );
-    
+    const relationalResult = this.runStages(this.componentRelationalStages, component, {
+      ...context,
+      previousErrors: context.previousErrors,
+    });
+
     if (relationalResult.err) {
       return Err(relationalResult.val);
     }
-    
+
     // Run custom stages
-    const customResult = this.runStages(
-      this.customStages,
-      component,
-      {
-        ...context,
-        previousErrors: context.previousErrors,
-      }
-    );
-    
+    const customResult = this.runStages(this.customStages, component, {
+      ...context,
+      previousErrors: context.previousErrors,
+    });
+
     if (customResult.err) {
       return Err(customResult.val);
     }
-    
+
     return Ok(component);
   }
-  
+
   /**
    * Validates a single child component
    */
@@ -909,19 +875,19 @@ export class ValidationPipeline {
       previousErrors,
       parentHierarchy
     );
-    
+
     if (childResult.err) {
       return Err(
-        childResult.val.map(err => ({
+        childResult.val.map((err) => ({
           ...err,
           path: ["children", ...err.path],
         }))
       );
     }
-    
+
     return Ok(childComponent);
   }
-  
+
   /**
    * Validates each child component in an array
    */
@@ -932,29 +898,29 @@ export class ValidationPipeline {
     parentHierarchy: ComponentSpec[]
   ): ValidationStageError[] {
     const allChildErrors: ValidationStageError[] = [];
-    
+
     for (const [index, child] of children.entries()) {
       const childErrors = this.validateArrayChildComponent(
-        child, 
-        index, 
-        component, 
-        previousErrors, 
+        child,
+        index,
+        component,
+        previousErrors,
         parentHierarchy
       );
-      
+
       if (childErrors.length > 0) {
         allChildErrors.push(...childErrors);
-        
+
         // If stopping at first error, break the loop
         if (this.options.stopAtFirstError) {
           break;
         }
       }
     }
-    
+
     return allChildErrors;
   }
-  
+
   /**
    * Validates a single component within an array of children
    */
@@ -967,52 +933,56 @@ export class ValidationPipeline {
   ): ValidationStageError[] {
     // Skip non-object children
     if (child === null || typeof child !== "object") {
-      return [{
-        path: ["children", index.toString()],
-        message: "Child component must be an object",
-        stage: ValidationStageType.SCHEMA,
-        severity: ValidationSeverity.ERROR,
-        code: "CHILD_NOT_OBJECT",
-        invalidValue: child,
-        suggestions: ["Provide a valid component specification object"],
-      }];
+      return [
+        {
+          path: ["children", index.toString()],
+          message: "Child component must be an object",
+          stage: ValidationStageType.SCHEMA,
+          severity: ValidationSeverity.ERROR,
+          code: "CHILD_NOT_OBJECT",
+          invalidValue: child,
+          suggestions: ["Provide a valid component specification object"],
+        },
+      ];
     }
-    
+
     // Handle child without type property
     if (!("type" in child) || typeof child.type !== "string") {
-      return [{
-        path: [component.type, "children", index.toString()],
-        message: "Child component is missing required 'type' property",
-        stage: ValidationStageType.SCHEMA,
-        severity: ValidationSeverity.ERROR,
-        code: "CHILD_MISSING_TYPE",
-        invalidValue: child,
-        suggestions: ["Add a 'type' property to the child component"],
-      }];
+      return [
+        {
+          path: [component.type, "children", index.toString()],
+          message: "Child component is missing required 'type' property",
+          stage: ValidationStageType.SCHEMA,
+          severity: ValidationSeverity.ERROR,
+          code: "CHILD_MISSING_TYPE",
+          invalidValue: child,
+          suggestions: ["Add a 'type' property to the child component"],
+        },
+      ];
     }
-    
+
     const childComponent = child as ComponentSpec;
-    const childResult = this.validateComponentSpecRecursively(
-      childComponent,
-      previousErrors,
-      [...parentHierarchy, component]
-    );
-    
+    const childResult = this.validateComponentSpecRecursively(childComponent, previousErrors, [
+      ...parentHierarchy,
+      component,
+    ]);
+
     if (childResult.err) {
       // Update the path for each error to include the component hierarchy
-      return childResult.val.map(err => {
+      return childResult.val.map((err) => {
         // If the path doesn't already have component type information, add it
-        const updatedPath = err.path.length > 0 && !err.path[0].includes(childComponent.type)
-          ? [childComponent.type, ...err.path]
-          : err.path;
-        
+        const updatedPath =
+          err.path.length > 0 && !err.path[0].includes(childComponent.type)
+            ? [childComponent.type, ...err.path]
+            : err.path;
+
         return {
           ...err,
           path: ["children", index.toString(), ...updatedPath],
         };
       });
     }
-    
+
     return [];
   }
 
@@ -1027,29 +997,28 @@ export class ValidationPipeline {
     if (!component.children) {
       return Ok(component);
     }
-    
+
     // Handle string children (text content)
     if (typeof component.children === "string") {
       // Text content is always valid
       return Ok(component);
     }
-    
+
     // Handle single component child
     if (!Array.isArray(component.children) && typeof component.children === "object") {
       const childComponent = component.children as ComponentSpec;
-      const result = this.validateSingleChildComponent(
-        childComponent, 
-        previousErrors, 
-        [...parentHierarchy, component]
-      );
-      
+      const result = this.validateSingleChildComponent(childComponent, previousErrors, [
+        ...parentHierarchy,
+        component,
+      ]);
+
       if (result.err) {
         return Err([...previousErrors, ...result.val]);
       }
-      
+
       return Ok(component);
     }
-    
+
     // Handle array of component children
     if (Array.isArray(component.children)) {
       const childErrors = this.validateChildComponentArray(
@@ -1058,18 +1027,18 @@ export class ValidationPipeline {
         previousErrors,
         parentHierarchy
       );
-      
+
       if (childErrors.length > 0) {
         return Err([...previousErrors, ...childErrors]);
       }
     }
-    
+
     return Ok(component);
   }
 
   /**
    * Validates a component specification recursively
-   * 
+   *
    * @param component - Component specification to validate
    * @param previousErrors - Errors from previous validation stages
    * @param parentHierarchy - Parent component hierarchy
@@ -1087,31 +1056,31 @@ export class ValidationPipeline {
       previousErrors,
       parentHierarchy,
     };
-    
+
     // First validate the component itself with all stages
     const componentResult = this.validateComponentWithAllStages(component, context);
-    
+
     if (componentResult.err) {
       return Err([...previousErrors, ...componentResult.val]);
     }
-    
+
     // Then validate its children recursively
     const childrenResult = this.validateComponentChildren(
       component,
       previousErrors,
       parentHierarchy
     );
-    
+
     if (childrenResult.err) {
       return Err(childrenResult.val);
     }
-    
+
     return Ok(component);
   }
-  
+
   /**
    * Runs a series of validation stages on an input
-   * 
+   *
    * @param stages - Validation stages to run
    * @param input - Input to validate
    * @param context - Validation context
@@ -1125,48 +1094,46 @@ export class ValidationPipeline {
     let currentInput = input;
     const allErrors: ValidationStageError[] = [...context.previousErrors];
     const warnings: ValidationStageError[] = [];
-    
+
     for (const stage of stages) {
       const result = stage.validate(currentInput, {
         ...context,
         previousErrors: allErrors,
       });
-      
+
       if (result.err) {
         // Separate errors from warnings
-        const newErrors = result.val.filter(e => e.severity === ValidationSeverity.ERROR);
-        const newWarnings = result.val.filter(e => e.severity === ValidationSeverity.WARNING);
-        
+        const newErrors = result.val.filter((e) => e.severity === ValidationSeverity.ERROR);
+        const newWarnings = result.val.filter((e) => e.severity === ValidationSeverity.WARNING);
+
         // Add warnings to warning collection
         warnings.push(...newWarnings);
-        
+
         // If there are actual errors (not just warnings), process them
         if (newErrors.length > 0) {
           allErrors.push(...newErrors);
-          
+
           // If stopping at first error, return immediately
           if (context.stopAtFirstError) {
             return Err([...allErrors, ...warnings]);
           }
         }
       }
-      
+
       // Update input for next stage (even if there were warnings)
       if (result.ok) {
         currentInput = result.val;
       }
     }
-    
+
     // Only return error if there are actual errors (not just warnings)
-    const actualErrors = allErrors.filter(e => e.severity === ValidationSeverity.ERROR);
-    return actualErrors.length > 0 
-      ? Err([...actualErrors, ...warnings])
-      : Ok(currentInput);
+    const actualErrors = allErrors.filter((e) => e.severity === ValidationSeverity.ERROR);
+    return actualErrors.length > 0 ? Err([...actualErrors, ...warnings]) : Ok(currentInput);
   }
-  
+
   /**
    * Validates a specification (either UI specification or component specification)
-   * 
+   *
    * @param spec - Specification to validate
    * @param options - Optional validation options override
    * @returns Validation result
@@ -1176,34 +1143,35 @@ export class ValidationPipeline {
     options: Partial<ValidationPipelineOptions> = {}
   ): Result<UISpecification | ComponentSpec, ValidationStageError[]> {
     // Create a new validation pipeline with merged options if needed
-    const pipeline = options && Object.keys(options).length > 0
-      ? new ValidationPipeline({ ...this.options, ...options })
-      : this;
-    
+    const pipeline =
+      options && Object.keys(options).length > 0
+        ? new ValidationPipeline({ ...this.options, ...options })
+        : this;
+
     // Check if it's a UI specification or component specification
-    return (spec && typeof spec === "object" && "version" in spec && "root" in spec)
+    return spec && typeof spec === "object" && "version" in spec && "root" in spec
       ? pipeline.validateUISpecification(spec)
       : pipeline.validateComponentSpec(spec);
   }
-  
+
   /**
    * Generates suggestions for fixing a validation error
-   * 
+   *
    * @param error - Validation error
    * @returns Array of suggestions
    */
   private generateSuggestionsForValidationError(error: ValidationError): string[] {
     const suggestions: string[] = [];
-    
+
     // If we already have valid examples, use them
     if (error.validExamples && error.validExamples.length > 0) {
       const examples = error.validExamples
-        .map(ex => typeof ex === "string" ? `"${ex}"` : JSON.stringify(ex))
+        .map((ex) => (typeof ex === "string" ? `"${ex}"` : JSON.stringify(ex)))
         .join(", ");
-      
+
       suggestions.push(`Try one of these valid values: ${examples}`);
     }
-    
+
     // Add suggestions based on error code
     if (error.code) {
       switch (error.code) {
@@ -1214,56 +1182,56 @@ export class ValidationPipeline {
           }
           break;
         }
-          
+
         case "invalid_enum_value": {
           suggestions.push("Check that the value is one of the allowed options");
           break;
         }
-          
+
         case "invalid_string": {
           suggestions.push("Ensure the string format is correct");
           break;
         }
-          
+
         case "too_small": {
           suggestions.push("Increase the value to meet the minimum requirement");
           break;
         }
-          
+
         case "too_big": {
           suggestions.push("Decrease the value to meet the maximum requirement");
           break;
         }
-          
+
         case "custom": {
           suggestions.push("Check the property value against the specific rules");
           break;
         }
       }
     }
-    
+
     // Add a generic suggestion if we haven't added any
     if (suggestions.length === 0) {
       suggestions.push("Check the property value and ensure it meets the requirements");
     }
-    
+
     return suggestions;
   }
-  
+
   /**
    * Generates suggestions for fixing an error
-   * 
+   *
    * @param error - Error object
    * @returns Array of suggestions
    */
   private generateSuggestionsForError(error: SpecificationError): string[] {
     const suggestions: string[] = [];
-    
+
     // Return existing suggestions if available
     if (error.suggestions && error.suggestions.length > 0) {
       return error.suggestions;
     }
-    
+
     // Add suggestions based on error type
     switch (error.type) {
       case SpecificationErrorType.INVALID_FORMAT: {
@@ -1274,7 +1242,7 @@ export class ValidationPipeline {
         );
         break;
       }
-        
+
       case SpecificationErrorType.SCHEMA_VALIDATION: {
         suggestions.push(
           "Validate your specification against the schema",
@@ -1282,7 +1250,7 @@ export class ValidationPipeline {
         );
         break;
       }
-        
+
       case SpecificationErrorType.COMPONENT_RESOLUTION: {
         suggestions.push(
           "Ensure the component type is registered",
@@ -1290,7 +1258,7 @@ export class ValidationPipeline {
         );
         break;
       }
-        
+
       case SpecificationErrorType.REFERENCE_RESOLUTION: {
         suggestions.push(
           "Check that all referenced components exist",
@@ -1298,7 +1266,7 @@ export class ValidationPipeline {
         );
         break;
       }
-        
+
       case SpecificationErrorType.EXPRESSION_PARSING: {
         suggestions.push(
           "Validate your expression syntax",
@@ -1306,7 +1274,7 @@ export class ValidationPipeline {
         );
         break;
       }
-        
+
       case SpecificationErrorType.SEMANTIC_VALIDATION: {
         suggestions.push(
           "Check that component properties satisfy semantic constraints",
@@ -1314,7 +1282,7 @@ export class ValidationPipeline {
         );
         break;
       }
-        
+
       case SpecificationErrorType.RELATIONAL_VALIDATION: {
         suggestions.push(
           "Check that component nesting is valid",
@@ -1323,13 +1291,13 @@ export class ValidationPipeline {
         break;
       }
     }
-    
+
     return suggestions;
   }
-  
+
   /**
    * Formats validation errors into a human-readable string
-   * 
+   *
    * @param errors - Array of validation errors
    * @returns Formatted error message
    */
@@ -1337,35 +1305,33 @@ export class ValidationPipeline {
     if (errors.length === 0) {
       return "No errors";
     }
-    
-    return errors.map((error, index) => {
-      const location = error.path.length > 0
-        ? ` at '${error.path.join(".")}'`
-        : "";
-      
-      const severity = error.severity === ValidationSeverity.WARNING
-        ? "Warning"
-        : "Error";
-      
-      let message = `${severity} ${index + 1}${location}: ${error.message}`;
-      
-      // Add suggestions if available
-      if (error.suggestions && error.suggestions.length > 0) {
-        message += "\nSuggestions:";
-        for (const suggestion of error.suggestions) {
-          message += `\n - ${suggestion}`;
+
+    return errors
+      .map((error, index) => {
+        const location = error.path.length > 0 ? ` at '${error.path.join(".")}'` : "";
+
+        const severity = error.severity === ValidationSeverity.WARNING ? "Warning" : "Error";
+
+        let message = `${severity} ${index + 1}${location}: ${error.message}`;
+
+        // Add suggestions if available
+        if (error.suggestions && error.suggestions.length > 0) {
+          message += "\nSuggestions:";
+          for (const suggestion of error.suggestions) {
+            message += `\n - ${suggestion}`;
+          }
         }
-      }
-      
-      // Add documentation link if available
-      if (error.documentationUrl) {
-        message += `\nDocumentation: ${error.documentationUrl}`;
-      }
-      
-      return message;
-    }).join("\n\n");
+
+        // Add documentation link if available
+        if (error.documentationUrl) {
+          message += `\nDocumentation: ${error.documentationUrl}`;
+        }
+
+        return message;
+      })
+      .join("\n\n");
   }
-  
+
   /**
    * Count errors by severity
    */
@@ -1375,18 +1341,20 @@ export class ValidationPipeline {
     infoCount: number;
   } {
     return {
-      errorCount: errors.filter(e => e.severity === ValidationSeverity.ERROR).length,
-      warningCount: errors.filter(e => e.severity === ValidationSeverity.WARNING).length,
-      infoCount: errors.filter(e => e.severity === ValidationSeverity.INFO).length
+      errorCount: errors.filter((e) => e.severity === ValidationSeverity.ERROR).length,
+      warningCount: errors.filter((e) => e.severity === ValidationSeverity.WARNING).length,
+      infoCount: errors.filter((e) => e.severity === ValidationSeverity.INFO).length,
     };
   }
-  
+
   /**
    * Group errors by validation stage
    */
-  private groupErrorsByStage(errors: ValidationStageError[]): Record<string, ValidationStageError[]> {
+  private groupErrorsByStage(
+    errors: ValidationStageError[]
+  ): Record<string, ValidationStageError[]> {
     const errorsByStage: Record<string, ValidationStageError[]> = {};
-    
+
     for (const error of errors) {
       const stage = error.stage;
       if (!errorsByStage[stage]) {
@@ -1394,44 +1362,42 @@ export class ValidationPipeline {
       }
       errorsByStage[stage].push(error);
     }
-    
+
     return errorsByStage;
   }
-  
+
   /**
    * Creates a summary of error counts
    */
   private createErrorCountSummary(errors: ValidationStageError[]): string {
     let summary = `Found ${errors.length} issue${errors.length === 1 ? "" : "s"}:`;
-    
+
     const { errorCount, warningCount, infoCount } = this.countErrorsBySeverity(errors);
-    
+
     // Append error count if there are errors
     if (errorCount > 0) {
       summary += `\n- ${errorCount} error${errorCount === 1 ? "" : "s"}`;
     }
-    
-    // Append warning count if there are warnings 
+
+    // Append warning count if there are warnings
     if (warningCount > 0) {
       summary += `\n- ${warningCount} warning${warningCount === 1 ? "" : "s"}`;
     }
-    
+
     // Append info count if there are info messages
     if (infoCount > 0) {
       summary += `\n- ${infoCount} info message${infoCount === 1 ? "" : "s"}`;
     }
-    
+
     return summary;
   }
-  
+
   /**
    * Creates a detailed error entry for the report
    */
   private formatErrorEntry(error: ValidationStageError, index: number): string {
-    const location = error.path.length > 0
-      ? ` at '${error.path.join(".")}'`
-      : "";
-    
+    const location = error.path.length > 0 ? ` at '${error.path.join(".")}'` : "";
+
     let severity: string;
     if (error.severity === ValidationSeverity.WARNING) {
       severity = "Warning";
@@ -1440,14 +1406,14 @@ export class ValidationPipeline {
     } else {
       severity = "Error";
     }
-    
+
     let entry = `${severity} ${index + 1}${location}: ${error.message}\n`;
-    
+
     // Add invalid value if available
     if (error.invalidValue !== undefined) {
       entry += `Value: ${JSON.stringify(error.invalidValue)}\n`;
     }
-    
+
     // Add suggestions if available
     if (error.suggestions && error.suggestions.length > 0) {
       entry += "Suggestions:\n";
@@ -1455,49 +1421,48 @@ export class ValidationPipeline {
         entry += `- ${suggestion}\n`;
       }
     }
-    
+
     // Add documentation link if available
     if (error.documentationUrl) {
       entry += `Documentation: ${error.documentationUrl}\n`;
     }
-    
+
     return entry;
   }
-  
+
   /**
    * Creates a section of errors for a specific validation stage
    */
-  private createStageErrorsSection(
-    stage: string, 
-    stageErrors: ValidationStageError[]
-  ): string {
+  private createStageErrorsSection(stage: string, stageErrors: ValidationStageError[]): string {
     if (!stageErrors || stageErrors.length === 0) {
       return "";
     }
-    
+
     let section = `${stage} Stage Errors\n${"-".repeat(stage.length + 13)}\n\n`;
-    
+
     for (const [index, error] of stageErrors.entries()) {
       section += `${this.formatErrorEntry(error, index)}\n`;
     }
-    
+
     return section;
   }
-  
+
   /**
    * Creates common fixes section for error report
    */
   private createCommonFixesSection(): string {
-    return "Common Fixes\n------------\n\n" +
+    return (
+      "Common Fixes\n------------\n\n" +
       "1. Check that all required properties are defined\n" +
       "2. Ensure property types match the schema requirements\n" +
       "3. Validate nested component specifications\n" +
-      "4. Check for typos in property names\n";
+      "4. Check for typos in property names\n"
+    );
   }
 
   /**
    * Creates a detailed error report with colorized output for development
-   * 
+   *
    * @param errors - Array of validation errors
    * @returns Formatted error report
    */
@@ -1505,34 +1470,34 @@ export class ValidationPipeline {
     if (errors.length === 0) {
       return "No errors found";
     }
-    
+
     // Group errors by stage
     const errorsByStage = this.groupErrorsByStage(errors);
-    
+
     // Create report
     let report = "Validation Error Report\n=====================\n\n";
-    
+
     // Add error count summary
     report += this.createErrorCountSummary(errors) + "\n\n";
-    
+
     // Add errors by stage
     for (const stage of Object.keys(ValidationStageType)) {
       const stageEnum = ValidationStageType[stage as keyof typeof ValidationStageType];
       const stageErrors = errorsByStage[stageEnum];
-      
+
       report += this.createStageErrorsSection(stage, stageErrors);
     }
-    
+
     // Add common fixes section
     report += this.createCommonFixesSection();
-    
+
     return report;
   }
 }
 
 /**
  * Creates a new ValidationPipeline
- * 
+ *
  * @param options - Pipeline options
  * @returns ValidationPipeline instance
  */
@@ -1549,7 +1514,7 @@ export const defaultValidationPipeline = createValidationPipeline();
 
 /**
  * Validates a specification (either UI or component)
- * 
+ *
  * @param spec - Specification to validate
  * @param options - Validation options
  * @returns Validation result

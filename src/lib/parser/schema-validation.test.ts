@@ -23,7 +23,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         expect(result.val.type).toBe("Button");
         expect(result.val.children).toBe("Click Me");
@@ -37,13 +37,13 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(false);
-      
+
       if (!result.ok) {
         expect(result.val.type).toBe(SpecificationErrorType.SCHEMA_VALIDATION);
         // The message might vary depending on implementation
         expect(result.val.suggestions).toBeDefined();
         // Should have suggestions about the missing type property
-        expect(result.val.suggestions!.some(s => s.toLowerCase().includes("type"))).toBe(true);
+        expect(result.val.suggestions!.some((s) => s.toLowerCase().includes("type"))).toBe(true);
       }
     });
 
@@ -62,7 +62,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         const parsed = result.val as ComponentSpec;
         expect(parsed.className).toBe("bg-blue-500 text-white");
@@ -80,7 +80,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(false);
-      
+
       if (!result.ok) {
         expect(result.val.type).toBe(SpecificationErrorType.SCHEMA_VALIDATION);
         // The exact error message may vary, but it should mention type error
@@ -125,7 +125,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(spec);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         const parsed = result.val as UISpecification;
         expect(parsed.version).toBe("1.0.0");
@@ -145,7 +145,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(spec);
       expect(result.ok).toBe(false);
-      
+
       if (!result.ok) {
         expect(result.val.type).toBe(SpecificationErrorType.INVALID_FORMAT);
         expect(result.val.message).toContain("version");
@@ -163,12 +163,14 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(spec);
       expect(result.ok).toBe(false);
-      
+
       if (!result.ok) {
         // The path might contain 'root' depending on implementation
         // The message might mention missing or invalid 'type' property
-        expect(result.val.message.toLowerCase().includes("string") || 
-          result.val.message.toLowerCase().includes("type")).toBe(true);
+        expect(
+          result.val.message.toLowerCase().includes("string") ||
+            result.val.message.toLowerCase().includes("type")
+        ).toBe(true);
       }
     });
 
@@ -211,7 +213,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(spec);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         const parsed = result.val as UISpecification;
         expect(parsed.theme?.colors?.primary?.["500"]).toBe("#0ea5e9");
@@ -231,7 +233,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         expect(result.val.children).toBe("Hello World");
       }
@@ -248,7 +250,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         const parsed = result.val as ComponentSpec;
         const childComponent = parsed.children as ComponentSpec;
@@ -274,7 +276,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         const parsed = result.val as ComponentSpec;
         const children = parsed.children as ComponentSpec[];
@@ -301,7 +303,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(false);
-      
+
       if (!result.ok) {
         expect(result.val.type).toBe(SpecificationErrorType.INVALID_FORMAT);
         expect(result.val.message).toContain("Invalid child component");
@@ -334,13 +336,13 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         const parsed = result.val as ComponentSpec;
         const box = parsed.children as ComponentSpec;
         const grid = box.children as ComponentSpec;
         const gridItems = grid.children as ComponentSpec[];
-        
+
         expect(box.type).toBe("Box");
         expect(grid.type).toBe("Grid");
         expect(grid.columns).toBe(2);
@@ -370,12 +372,16 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(true);
-      
+
       if (result.ok) {
         const parsed = result.val as ComponentSpec;
-        expect(parsed.events?.click.action).toBe("incrementCounter");
-        expect(parsed.events?.click.params?.value).toBe(1);
-        expect(parsed.events?.mouseOver.action).toBe("showTooltip");
+        const events = parsed.events as Record<
+          string,
+          { action: string; params?: Record<string, unknown> }
+        >;
+        expect(events.click.action).toBe("incrementCounter");
+        expect(events.click.params?.value).toBe(1);
+        expect(events.mouseOver.action).toBe("showTooltip");
       }
     });
 
@@ -391,16 +397,18 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      
-      // Note: The current implementation might not validate event handlers 
+
+      // Note: The current implementation might not validate event handlers
       // at the schema level, so we make this test conditional
       if (!result.ok) {
         // If it fails, it should be because of the event handler
-        expect(result.val.message.toLowerCase().includes("action") || 
-          result.val.message.toLowerCase().includes("event")).toBe(true);
-        
+        expect(
+          result.val.message.toLowerCase().includes("action") ||
+            result.val.message.toLowerCase().includes("event")
+        ).toBe(true);
+
         if (result.val.path) {
-          expect(result.val.path.some(p => p === "events" || p === "click")).toBe(true);
+          expect(result.val.path.some((p) => p === "events" || p === "click")).toBe(true);
         }
       }
     });
@@ -435,7 +443,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(false);
-      
+
       if (!result.ok) {
         expect(result.val.type).toBe(SpecificationErrorType.SEMANTIC_VALIDATION);
         expect(result.val.message).toContain("columns must be between 1 and 12");
@@ -462,7 +470,7 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component);
       expect(result.ok).toBe(false);
-      
+
       if (!result.ok) {
         expect(result.val.message).toContain("level");
       }
@@ -484,15 +492,15 @@ describe("Schema Validation Tests", () => {
 
       const result = parseSpecification(component, { development: true });
       expect(result.ok).toBe(false);
-      
+
       if (!result.ok) {
         // Check for detailed error information
         expect(result.val.suggestions).toBeDefined();
         expect(result.val.suggestions!.length).toBeGreaterThan(0);
-        
+
         // Development mode should include context information
         expect(result.val.context).toBeDefined();
-        
+
         // Check that we have the correct invalid value
         if (result.val.context?.invalidValue !== undefined) {
           expect(result.val.context.invalidValue).toBe(15);
@@ -506,11 +514,11 @@ describe("Schema Validation Tests", () => {
         children: "Content",
       };
 
-      const result = parseSpecification(component, { 
+      const result = parseSpecification(component, {
         development: true,
-        documentationBaseUrl: "https://react-jedi.org/docs/", 
+        documentationBaseUrl: "https://react-jedi.org/docs/",
       });
-      
+
       // Note: Unknown component types might pass schema validation in the current implementation
       if (result.ok) {
         // Handle the case when result is ok

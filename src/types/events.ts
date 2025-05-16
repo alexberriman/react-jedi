@@ -37,12 +37,32 @@ export interface EventHandlerSpec {
   throttle?: number;
 }
 
-export interface ActionSpec {
+export interface ActionSpec<T = unknown> {
   type: string;
-  payload?: unknown;
+  payload?: T;
   target?: string;
   preventDefault?: boolean;
   stopPropagation?: boolean;
+}
+
+// Specific action payload types
+export interface UpdateValuePayload {
+  key: string;
+  value: unknown;
+}
+
+export interface IncrementPayload {
+  key: string;
+  amount?: number;
+}
+
+export interface ArrayPayload {
+  key: string;
+  value: unknown;
+}
+
+export interface StatePayload {
+  [key: string]: unknown;
 }
 
 export interface EventHandlerOptions {

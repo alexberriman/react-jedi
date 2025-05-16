@@ -114,7 +114,7 @@ const EventDebugger: React.FC<EventDebuggerProps> = ({ logs, enabled, onClear, o
                     <div className="mb-1">
                       <strong>Action:</strong> {log.action.type}
                     </div>
-                    {log.action.payload && (
+                    {log.action.payload !== undefined && (
                       <div className="mb-1">
                         <strong>Payload:</strong>
                         <pre className="mt-1 p-1 bg-gray-100 dark:bg-gray-800 rounded overflow-x-auto">

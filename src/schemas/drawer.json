@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "drawer"
+    },
+    "props": {
+      "type": "object",
+      "properties": {
+        "open": {
+          "type": "boolean",
+          "description": "Whether the drawer is open"
+        },
+        "defaultOpen": {
+          "type": "boolean",
+          "description": "Default open state for uncontrolled usage"
+        },
+        "onOpenChange": {
+          "type": "string",
+          "description": "Callback when open state changes"
+        },
+        "modal": {
+          "type": "boolean",
+          "description": "Whether to render the drawer as a modal",
+          "default": true
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["top", "right", "bottom", "left"],
+          "description": "Direction from which the drawer opens",
+          "default": "bottom"
+        },
+        "dismissible": {
+          "type": "boolean",
+          "description": "Whether the drawer can be dismissed",
+          "default": true
+        },
+        "trigger": {
+          "$ref": "#/definitions/ComponentSpecification",
+          "description": "The trigger element for the drawer"
+        },
+        "content": {
+          "type": "object",
+          "properties": {
+            "header": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "The drawer title"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "The drawer description"
+                },
+                "sticky": {
+                  "type": "boolean",
+                  "description": "Whether the header should be sticky",
+                  "default": false
+                },
+                "className": {
+                  "type": "string",
+                  "description": "Additional CSS classes for the header"
+                }
+              }
+            },
+            "sections": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "$ref": "#/definitions/ComponentSpecification",
+                    "description": "Section content"
+                  },
+                  "sticky": {
+                    "type": "boolean",
+                    "description": "Whether the section should be sticky",
+                    "default": false
+                  },
+                  "className": {
+                    "type": "string",
+                    "description": "Additional CSS classes for the section"
+                  }
+                }
+              }
+            },
+            "footer": {
+              "type": "object",
+              "properties": {
+                "actions": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ComponentSpecification"
+                  },
+                  "description": "Footer action buttons"
+                },
+                "sticky": {
+                  "type": "boolean",
+                  "description": "Whether the footer should be sticky",
+                  "default": false
+                },
+                "className": {
+                  "type": "string",
+                  "description": "Additional CSS classes for the footer"
+                }
+              }
+            },
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes for the drawer content"
+            },
+            "showHandle": {
+              "type": "boolean",
+              "description": "Whether to show a drag handle",
+              "default": true
+            }
+          }
+        }
+      }
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes for the drawer"
+    }
+  },
+  "required": ["type"],
+  "definitions": {
+    "ComponentSpecification": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object"
+        },
+        "children": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ComponentSpecification"
+              }
+            }
+          ]
+        }
+      },
+      "required": ["type"]
+    }
+  }
+}

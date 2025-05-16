@@ -48,3 +48,4 @@ export * from "./sheet";
 export * from "./tabs";
 export * from "./accordion";
 export * from "./dialog";
+export * from "./drawer";

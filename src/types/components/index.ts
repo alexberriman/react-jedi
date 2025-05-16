@@ -89,3 +89,17 @@ export type {
   DialogDescriptionType,
   DialogCloseType,
 } from "./dialog";
+export type {
+  DrawerType,
+  DrawerTriggerType,
+  DrawerPortalType,
+  DrawerContentType,
+  DrawerOverlayType,
+  DrawerHeaderType,
+  DrawerFooterType,
+  DrawerTitleType,
+  DrawerDescriptionType,
+  DrawerCloseType,
+  DrawerSectionType,
+  DrawerHandleType,
+} from "./drawer";

@@ -106,8 +106,10 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   TabsContent: asComponent(
     UI.TabsContent as unknown as React.ComponentType<Record<string, unknown>>
   ),
-  Accordion: asComponent(UI.Accordion),
-  AccordionItem: asComponent(UI.AccordionItem),
+  Accordion: asComponent(UI.Accordion as unknown as React.ComponentType<Record<string, unknown>>),
+  AccordionItem: asComponent(
+    UI.AccordionItem as unknown as React.ComponentType<Record<string, unknown>>
+  ),
   AccordionTrigger: asComponent(UI.AccordionTrigger),
   AccordionContent: asComponent(UI.AccordionContent),
   Dialog: asComponent(UI.Dialog),
@@ -124,6 +126,16 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   DialogClose: asComponent(
     UI.DialogClose as unknown as React.ComponentType<Record<string, unknown>>
   ),
+  Drawer: asComponent(UI.Drawer),
+  DrawerTrigger: asComponent(UI.DrawerTrigger),
+  DrawerContent: asComponent(UI.DrawerContent),
+  DrawerHeader: asComponent(UI.DrawerHeader),
+  DrawerFooter: asComponent(UI.DrawerFooter),
+  DrawerTitle: asComponent(UI.DrawerTitle),
+  DrawerDescription: asComponent(UI.DrawerDescription),
+  DrawerClose: asComponent(UI.DrawerClose),
+  DrawerSection: asComponent(UI.DrawerSection),
+  DrawerHandle: asComponent(UI.DrawerHandle),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

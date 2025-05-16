@@ -184,6 +184,16 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   alert: asComponent(UI.Alert),
   "alert-title": asComponent(UI.AlertTitle),
   "alert-description": asComponent(UI.AlertDescription),
+  AlertDialog: asComponent(UI.AlertDialog),
+  AlertDialogTrigger: asComponent(UI.AlertDialogTrigger),
+  AlertDialogContent: asComponent(UI.AlertDialogContent),
+  AlertDialogHeader: asComponent(UI.AlertDialogHeader),
+  AlertDialogFooter: asComponent(UI.AlertDialogFooter),
+  AlertDialogTitle: asComponent(UI.AlertDialogTitle),
+  AlertDialogDescription: asComponent(UI.AlertDialogDescription),
+  AlertDialogAction: asComponent(UI.AlertDialogAction),
+  AlertDialogCancel: asComponent(UI.AlertDialogCancel),
+  alertDialog: asComponent(UI.AlertDialog),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

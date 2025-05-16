@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "AlertDialog Component Schema",
+  "description": "Alert dialog component for confirming destructive actions",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "alertDialog"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "trigger": {
+          "type": "object",
+          "description": "Trigger component that opens the alert dialog",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": ["Button", "Toggle", "Text"]
+            },
+            "properties": {
+              "type": "object",
+              "description": "Properties for the trigger component"
+            }
+          },
+          "required": ["component", "properties"]
+        },
+        "content": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title of the alert dialog"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description text for the alert dialog"
+            },
+            "actions": {
+              "type": "array",
+              "description": "Action buttons in the alert dialog",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "component": {
+                    "type": "string",
+                    "const": "Button"
+                  },
+                  "properties": {
+                    "type": "object",
+                    "properties": {
+                      "variant": {
+                        "type": "string",
+                        "enum": ["default", "destructive", "outline", "secondary", "ghost", "link"]
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string",
+                        "enum": ["close", "confirm"],
+                        "description": "Action to perform when button is clicked"
+                      },
+                      "disabled": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": ["text", "action"]
+                  }
+                },
+                "required": ["component", "properties"]
+              }
+            }
+          },
+          "required": ["title"]
+        },
+        "defaultOpen": {
+          "type": "boolean",
+          "description": "Whether the dialog should be open by default"
+        },
+        "open": {
+          "type": ["boolean", "string"],
+          "description": "Controlled open state or state variable path"
+        },
+        "onClose": {
+          "type": "string",
+          "description": "Event handler when dialog closes"
+        },
+        "onConfirm": {
+          "type": "string",
+          "description": "Event handler when confirm action is triggered"
+        }
+      },
+      "required": ["trigger", "content"]
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline styles for the component"
+    }
+  },
+  "required": ["type", "properties"]
+}

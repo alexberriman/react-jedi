@@ -132,3 +132,4 @@ export type {
   PopoverAnchorSpec,
 } from "./popover";
 export type { HoverCardProps, HoverCardTriggerSpec, HoverCardContentSpec } from "./hover-card";
+export type { AlertDialogDefinition } from "./alert-dialog";

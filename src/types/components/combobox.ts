@@ -1,6 +1,7 @@
 import type { ComboboxOption } from "@/components/ui/combobox";
+import type { BaseComponentSpec } from "@/types/schema/base";
 
-export interface ComboboxDef {
+export interface ComboboxDef extends BaseComponentSpec {
   type: "combobox";
   props?: {
     value?: string;

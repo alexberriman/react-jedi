@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Breadcrumb Component",
+  "type": "object",
+  "required": ["type", "items"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "breadcrumb",
+      "description": "The component type"
+    },
+    "items": {
+      "type": "array",
+      "description": "Array of breadcrumb items",
+      "items": {
+        "type": "object",
+        "required": ["label"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "The text to display for this breadcrumb item"
+          },
+          "href": {
+            "type": "string",
+            "description": "The link URL for this breadcrumb item"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Optional icon to display before the label"
+          },
+          "isCurrentPage": {
+            "type": "boolean",
+            "description": "Whether this is the current page (non-clickable)",
+            "default": false
+          }
+        }
+      }
+    },
+    "separator": {
+      "type": "string",
+      "description": "The separator style (chevron, slash, or custom text)",
+      "default": "chevron"
+    },
+    "ariaLabel": {
+      "type": "string",
+      "description": "Accessibility label for the breadcrumb navigation",
+      "default": "Breadcrumb"
+    }
+  }
+}

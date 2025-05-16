@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { ComponentResolver, ComponentProps } from "@/types/schema/components";
 import * as UI from "@/components/ui";
+import { BreadcrumbComponent } from "@/components/ui/breadcrumb-component";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -208,6 +209,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   navigationMenu: asComponent(
     UI.NavigationMenu as unknown as React.ComponentType<Record<string, unknown>>
   ),
+  breadcrumb: asComponent(BreadcrumbComponent),
+  Breadcrumb: asComponent(BreadcrumbComponent),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

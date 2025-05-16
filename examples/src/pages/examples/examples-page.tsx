@@ -41,6 +41,14 @@ const examples: Example[] = [
     path: "/examples/form-validation",
     status: "new",
   },
+  {
+    id: "navigation",
+    title: "Navigation Components",
+    description:
+      "Navigation components including breadcrumbs with different styles, separators, and configurations.",
+    path: "/examples/navigation",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

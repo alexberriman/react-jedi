@@ -143,3 +143,4 @@ export type {
   NavigationSectionSpec,
   NavigationFeatureSpec,
 } from "./navigation-menu";
+export type { BreadcrumbProps, BreadcrumbItemSpec } from "./breadcrumb";

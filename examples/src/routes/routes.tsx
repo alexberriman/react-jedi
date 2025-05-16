@@ -16,6 +16,7 @@ import { ExamplesPage } from "../pages/examples";
 import { LandingExamplePage } from "../pages/examples/landing";
 import { ConditionalPage, AdvancedConditionalPage } from "../pages/examples/conditional";
 import { FormValidationPage } from "../pages/examples/form-validation";
+import { NavigationPage } from "../pages/examples/navigation";
 import { BrandPresetsPage } from "../pages/brand-presets";
 import { ThemingPage, ThemePlaygroundPage } from "../pages/theming";
 import { PerformancePage } from "../pages/performance";
@@ -93,6 +94,10 @@ export const router = createBrowserRouter([
           {
             path: "form-validation",
             element: <FormValidationPage />,
+          },
+          {
+            path: "navigation",
+            element: <NavigationPage />,
           },
         ],
       },

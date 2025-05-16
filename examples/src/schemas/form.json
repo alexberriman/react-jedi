@@ -1,0 +1,345 @@
+{
+  "type": "Container",
+  "maxWidth": "md",
+  "padding": "lg",
+  "className": "mx-auto",
+  "children": [
+    {
+      "type": "Heading",
+      "level": "h2",
+      "text": "Form Component Examples",
+      "className": "mb-8"
+    },
+    {
+      "type": "Box",
+      "className": "space-y-8",
+      "children": [
+        {
+          "type": "Card",
+          "children": [
+            {
+              "type": "CardHeader",
+              "children": [
+                {
+                  "type": "CardTitle",
+                  "children": "Basic Contact Form"
+                },
+                {
+                  "type": "CardDescription",
+                  "children": "A simple contact form with validation"
+                }
+              ]
+            },
+            {
+              "type": "CardContent",
+              "children": [
+                {
+                  "type": "Form",
+                  "validation": {
+                    "name": {
+                      "required": "Name is required",
+                      "minLength": {
+                        "value": 2,
+                        "message": "Name must be at least 2 characters"
+                      }
+                    },
+                    "email": {
+                      "required": "Email is required",
+                      "email": "Please enter a valid email address"
+                    },
+                    "message": {
+                      "required": "Message is required",
+                      "minLength": {
+                        "value": 10,
+                        "message": "Message must be at least 10 characters"
+                      }
+                    }
+                  },
+                  "defaultValues": {
+                    "name": "",
+                    "email": "",
+                    "message": ""
+                  },
+                  "children": [
+                    {
+                      "type": "FormField",
+                      "name": "name",
+                      "children": [
+                        {
+                          "type": "FormItem",
+                          "children": [
+                            {
+                              "type": "FormLabel",
+                              "children": "Name"
+                            },
+                            {
+                              "type": "FormControl",
+                              "children": [
+                                {
+                                  "type": "Input",
+                                  "placeholder": "Enter your name"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "FormDescription",
+                              "children": "Your full name"
+                            },
+                            {
+                              "type": "FormMessage"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FormField",
+                      "name": "email",
+                      "children": [
+                        {
+                          "type": "FormItem",
+                          "children": [
+                            {
+                              "type": "FormLabel",
+                              "children": "Email"
+                            },
+                            {
+                              "type": "FormControl",
+                              "children": [
+                                {
+                                  "type": "Input",
+                                  "type": "email",
+                                  "placeholder": "Enter your email"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "FormDescription",
+                              "children": "We'll never share your email"
+                            },
+                            {
+                              "type": "FormMessage"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FormField",
+                      "name": "message",
+                      "children": [
+                        {
+                          "type": "FormItem",
+                          "children": [
+                            {
+                              "type": "FormLabel",
+                              "children": "Message"
+                            },
+                            {
+                              "type": "FormControl",
+                              "children": [
+                                {
+                                  "type": "Input",
+                                  "placeholder": "Enter your message"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "FormDescription",
+                              "children": "Tell us what's on your mind"
+                            },
+                            {
+                              "type": "FormMessage"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Box",
+                      "className": "pt-4",
+                      "children": [
+                        {
+                          "type": "Button",
+                          "text": "Submit",
+                          "variant": "default"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Card",
+          "children": [
+            {
+              "type": "CardHeader",
+              "children": [
+                {
+                  "type": "CardTitle",
+                  "children": "User Registration Form"
+                },
+                {
+                  "type": "CardDescription",
+                  "children": "Create a new account with validation"
+                }
+              ]
+            },
+            {
+              "type": "CardContent",
+              "children": [
+                {
+                  "type": "Form",
+                  "validation": {
+                    "username": {
+                      "required": "Username is required",
+                      "minLength": {
+                        "value": 3,
+                        "message": "Username must be at least 3 characters"
+                      },
+                      "pattern": {
+                        "value": "^[a-zA-Z0-9_]+$",
+                        "message": "Username can only contain letters, numbers, and underscores"
+                      }
+                    },
+                    "email": {
+                      "required": "Email is required",
+                      "email": "Please enter a valid email address"
+                    },
+                    "password": {
+                      "required": "Password is required",
+                      "minLength": {
+                        "value": 8,
+                        "message": "Password must be at least 8 characters"
+                      },
+                      "pattern": {
+                        "value": "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]{8,}$",
+                        "message": "Password must contain at least one letter and one number"
+                      }
+                    }
+                  },
+                  "defaultValues": {
+                    "username": "",
+                    "email": "",
+                    "password": ""
+                  },
+                  "children": [
+                    {
+                      "type": "FormField",
+                      "name": "username",
+                      "children": [
+                        {
+                          "type": "FormItem",
+                          "children": [
+                            {
+                              "type": "FormLabel",
+                              "children": "Username"
+                            },
+                            {
+                              "type": "FormControl",
+                              "children": [
+                                {
+                                  "type": "Input",
+                                  "placeholder": "Choose a username"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "FormDescription",
+                              "children": "This will be your public display name"
+                            },
+                            {
+                              "type": "FormMessage"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FormField",
+                      "name": "email",
+                      "children": [
+                        {
+                          "type": "FormItem",
+                          "children": [
+                            {
+                              "type": "FormLabel",
+                              "children": "Email Address"
+                            },
+                            {
+                              "type": "FormControl",
+                              "children": [
+                                {
+                                  "type": "Input",
+                                  "type": "email",
+                                  "placeholder": "your@email.com"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "FormDescription",
+                              "children": "We'll use this for account recovery"
+                            },
+                            {
+                              "type": "FormMessage"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FormField",
+                      "name": "password",
+                      "children": [
+                        {
+                          "type": "FormItem",
+                          "children": [
+                            {
+                              "type": "FormLabel",
+                              "children": "Password"
+                            },
+                            {
+                              "type": "FormControl",
+                              "children": [
+                                {
+                                  "type": "Input",
+                                  "type": "password",
+                                  "placeholder": "Create a strong password"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "FormDescription",
+                              "children": "Must be at least 8 characters with letters and numbers"
+                            },
+                            {
+                              "type": "FormMessage"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Box",
+                      "className": "pt-4",
+                      "children": [
+                        {
+                          "type": "Button",
+                          "text": "Create Account",
+                          "variant": "default"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

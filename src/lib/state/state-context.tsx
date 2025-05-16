@@ -47,13 +47,13 @@ export function StateProvider({
 }
 
 /**
- * Hook to access the state manager
+ * Hook to access the state manager from context
  */
-export function useStateManager(): StateManager {
+export function useStateContext(): StateManager {
   const manager = React.useContext(StateContext);
 
   if (!manager) {
-    throw new Error("useStateManager must be used within a StateProvider");
+    throw new Error("useStateContext must be used within a StateProvider");
   }
 
   return manager;
@@ -63,7 +63,7 @@ export function useStateManager(): StateManager {
  * Hook to access entire state
  */
 export function useState(): Record<string, unknown> {
-  const manager = useStateManager();
+  const manager = useStateContext();
   return useStateSubscription(manager) as Record<string, unknown>;
 }
 
@@ -71,7 +71,7 @@ export function useState(): Record<string, unknown> {
  * Hook to access specific state value
  */
 export function useStateItem(key: string): [unknown, (value: unknown) => void] {
-  const manager = useStateManager();
+  const manager = useStateContext();
   return useStateValue(manager, key);
 }
 
@@ -79,7 +79,7 @@ export function useStateItem(key: string): [unknown, (value: unknown) => void] {
  * Hook to access computed values
  */
 export function useComputedValues(): Record<string, unknown> {
-  const manager = useStateManager();
+  const manager = useStateContext();
   const [computed, setComputed] = React.useState(manager.getComputedValues());
 
   React.useEffect(() => {
@@ -97,7 +97,7 @@ export function useComputedValues(): Record<string, unknown> {
  * Hook to dispatch actions
  */
 export function useDispatch(): (action: { type: string; payload?: unknown }) => void {
-  const manager = useStateManager();
+  const manager = useStateContext();
   return React.useCallback((action) => manager.dispatch(action), [manager]);
 }
 

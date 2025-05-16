@@ -17,7 +17,10 @@ describe("State Initialization", () => {
         state: {
           initial: { count: 0, text: "hello" },
           reducers: {
-            increment: (state) => ({ ...state, count: state.count + 1 }),
+            increment: (state: { count: number; text: string }) => ({
+              ...state,
+              count: state.count + 1,
+            }),
           },
         },
       };

@@ -5,6 +5,8 @@
  * All component specifications extend this base interface.
  */
 
+import type { EventHandlerSpec } from "../events";
+
 // Forward declaration for circular dependency
 export interface ComponentSpec extends BaseComponentSpec {
   // This extends BaseComponentSpec and may be further extended in other files
@@ -58,7 +60,7 @@ export interface BaseComponentSpec {
   /**
    * Optional event handlers for the component.
    */
-  events?: Record<string, EventHandler>;
+  eventHandlers?: Record<string, EventHandlerSpec>;
 
   /**
    * Optional accessibility properties.

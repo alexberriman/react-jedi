@@ -63,6 +63,11 @@
       "name": "image",
       "type": "ui",
       "description": "A responsive image component with advanced styling options, filters, hover effects, and fallback support"
+    },
+    {
+      "name": "form",
+      "type": "ui",
+      "description": "A comprehensive form component built on react-hook-form with validation and error handling"
     }
   ],
   "systems": [

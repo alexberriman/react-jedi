@@ -14,3 +14,7 @@ export * from "./state-management";
 export * from "./state-initialization";
 export * from "./state-context";
 export * from "./state-debug";
+
+// Re-export with specific names to avoid conflicts
+export { useStateManager } from "./state-management";
+export { useStateContext } from "./state-context";

@@ -19,3 +19,13 @@ export type {
   CardActionSpec,
 } from "./card";
 export type { AvatarSpec, AvatarImageSpec, AvatarFallbackSpec } from "./avatar";
+export type {
+  FormSpec,
+  FormFieldSpec,
+  FormItemSpec,
+  FormLabelSpec,
+  FormControlSpec,
+  FormDescriptionSpec,
+  FormMessageSpec,
+  FormValidationSpec,
+} from "./form";

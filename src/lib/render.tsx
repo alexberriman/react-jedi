@@ -23,6 +23,7 @@ import {
   initializeComponentState,
   resolveStateBindings,
 } from "./state/state-initialization";
+// Import removed - not needed
 
 /**
  * ErrorBoundary component to catch rendering errors

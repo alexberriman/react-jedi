@@ -294,7 +294,7 @@ describe("State Management", () => {
 
   describe("debug mode", () => {
     it("should log state changes when debug is enabled", () => {
-      const consoleLogSpy = vi.spyOn(console, "log").mockImplementation();
+      const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
       const options: StateManagerOptions = {
         initialState: { count: 0 },
@@ -316,7 +316,7 @@ describe("State Management", () => {
     });
 
     it("should log actions when debug is enabled", () => {
-      const consoleLogSpy = vi.spyOn(console, "log").mockImplementation();
+      const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
       const options: StateManagerOptions = {
         initialState: { count: 0 },

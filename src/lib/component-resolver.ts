@@ -14,7 +14,7 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
 
 /**
  * Default component registry for the core UI components
- * 
+ *
  * This registry maps component type strings to their React implementations.
  * It provides a centralized place to register all available components.
  * All components are adapted to accept our standard ComponentProps interface.
@@ -23,7 +23,7 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   // Layout Components
   Box: asComponent(UI.Box),
   Container: asComponent(UI.Container),
-  Grid: asComponent(UI.Grid), 
+  Grid: asComponent(UI.Grid),
   Flex: asComponent(UI.Flex),
   AspectRatio: asComponent(UI.AspectRatio),
   Separator: asComponent(UI.Separator),
@@ -42,14 +42,21 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Skeleton: asComponent(UI.Skeleton),
   Label: asComponent(UI.Label),
   Input: asComponent(UI.Input),
+
+  // Form Components
+  FormItem: asComponent(UI.FormItem),
+  FormLabel: asComponent(UI.FormLabel),
+  FormControl: asComponent(UI.FormControl),
+  FormDescription: asComponent(UI.FormDescription),
+  FormMessage: asComponent(UI.FormMessage),
 };
 
 /**
  * Default component resolver that uses the default registry
- * 
+ *
  * This resolver maps component types to their React implementations
  * using the default component registry.
- * 
+ *
  * @param type Component type string
  * @returns React component implementation or null if not found
  */
@@ -59,11 +66,11 @@ export const defaultComponentResolver: ComponentResolver = (type: string) => {
 
 /**
  * Create a custom component resolver
- * 
+ *
  * This function creates a custom component resolver that combines
  * custom component mappings with the default registry.
  * All components are adapted to accept our standard ComponentProps interface.
- * 
+ *
  * @param customComponents Additional component mappings to include
  * @returns Custom component resolver function
  */

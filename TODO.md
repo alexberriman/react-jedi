@@ -154,8 +154,8 @@ This milestone delivers a working, shippable library that can render static layo
 - [x] Build component showcase page displaying all Milestone 1 components
 - [x] Create JSON schema example for each component
 - [x] Implement simple landing page example with hero, features, and CTA
-- [✅] Add documentation page showing usage examples with code snippets
-- [✅] Create GitHub README with screenshots and getting started instructions
+- [x] Add documentation page showing usage examples with code snippets
+- [x] Create GitHub README with screenshots and getting started instructions
 
 ---
 
@@ -263,11 +263,11 @@ This milestone adds interactivity to the library, turning static layouts into dy
 
 ### 3.1 Basic State Management
 
-- [ ] Implement JSON-defined component local state
-- [ ] Create state initialization from specifications
+- [x] Implement JSON-defined component local state
+- [x] Create state initialization from specifications
 - [ ] Add support for simple state updates via actions
-- [ ] Implement basic state persistence options
-- [ ] Create state debug utilities
+- [x] Implement basic state persistence options
+- [x] Create state debug utilities
 
 ### 3.2 Event Handling System
 

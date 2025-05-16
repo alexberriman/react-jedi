@@ -4,7 +4,7 @@ import {
   type ComponentResolver,
   type ComponentSpec,
   type RenderOptions,
-  type UISpecification
+  type UISpecification,
 } from "@/types/schema/components";
 import type { ThemeSpecification } from "@/types/schema/specification";
 import { isComponentSpec, isComponentSpecArray, isTextContent } from "@/types/schema/guards";
@@ -12,26 +12,32 @@ import { processStyleOverrides } from "./theme/style-overrides";
 import { createTokenResolver } from "./theme/token-resolver";
 import { extractTokensFromTheme, createTokenCollection } from "./theme/theme-tokens";
 import { cn } from "./utils";
-import { 
-  resolveExtendedStyles, 
+import {
+  resolveExtendedStyles,
   createChildStyleContext,
-  type StyleContext 
+  type StyleContext,
 } from "./theme/style-extension";
+import { createStateManager, type StateManager, StateProvider } from "./state";
+import {
+  extractStateConfig,
+  initializeComponentState,
+  resolveStateBindings,
+} from "./state/state-initialization";
 
 /**
  * ErrorBoundary component to catch rendering errors
  */
 class ErrorBoundary extends React.Component<
-  { 
-    children: React.ReactNode; 
+  {
+    children: React.ReactNode;
     componentType: string;
     fallback?: React.ReactNode;
     onError?: (error: Error, componentType: string) => void;
   },
   { hasError: boolean; error: Error | null }
 > {
-  constructor(props: { 
-    children: React.ReactNode; 
+  constructor(props: {
+    children: React.ReactNode;
     componentType: string;
     fallback?: React.ReactNode;
     onError?: (error: Error, componentType: string) => void;
@@ -58,7 +64,7 @@ class ErrorBoundary extends React.Component<
         // Cast to ReactElement since we know it should be a valid React element
         return this.props.fallback as React.ReactElement;
       }
-      
+
       return (
         <div className="p-4 border border-destructive text-destructive rounded-md">
           <p>Error rendering component: {this.props.componentType}</p>
@@ -71,12 +77,12 @@ class ErrorBoundary extends React.Component<
     if (!this.props.children) {
       return <></>;
     }
-    
+
     // If children is a valid ReactElement, return it directly
     if (React.isValidElement(this.props.children)) {
       return this.props.children;
     }
-    
+
     // For other ReactNode types like arrays, strings, etc., wrap in a fragment
     return <>{this.props.children}</>;
   }
@@ -131,11 +137,11 @@ const componentRegistry: Record<string, ComponentType> = {
 const defaultComponentResolver: ComponentResolver = (type: string) => {
   // Use the component registry instead of dynamic imports
   const component = componentRegistry[type];
-  
+
   if (!component) {
     console.warn(`Component type "${type}" not found`);
   }
-  
+
   return component || null;
 };
 
@@ -175,24 +181,34 @@ function renderChildren(
   if (isTextContent(spec.children)) {
     // Always return a consistent type by wrapping primitives
     return React.createElement(React.Fragment, null, spec.children);
-  } 
-  
+  }
+
   if (isComponentSpec(spec.children)) {
-    const childComponent = renderComponent(spec.children, options, {
-      ...parentContext,
-      parent: { type: spec.type, id: spec.id }
-    }, parentStyleContext);
+    const childComponent = renderComponent(
+      spec.children,
+      options,
+      {
+        ...parentContext,
+        parent: { type: spec.type, id: spec.id },
+      },
+      parentStyleContext
+    );
     // Always return a consistent type
     return React.createElement(React.Fragment, null, childComponent);
-  } 
-  
+  }
+
   if (isComponentSpecArray(spec.children)) {
     const elements = spec.children.map((child, index) => {
-      const renderedChild = renderComponent(child, options, {
-        ...parentContext,
-        parent: { type: spec.type, id: spec.id }
-      }, parentStyleContext);
-      
+      const renderedChild = renderComponent(
+        child,
+        options,
+        {
+          ...parentContext,
+          parent: { type: spec.type, id: spec.id },
+        },
+        parentStyleContext
+      );
+
       return React.createElement(
         React.Fragment,
         { key: child.id || `${spec.type}-child-${index}` },
@@ -211,7 +227,7 @@ function renderChildren(
  */
 function applyStyleOverrides(
   spec: ComponentSpec,
-  theme: RenderOptions['theme'],
+  theme: RenderOptions["theme"],
   context?: StyleContext
 ): { className?: string; style?: React.CSSProperties } {
   if (!theme) {
@@ -221,18 +237,18 @@ function applyStyleOverrides(
   const extractedTokens = extractTokensFromTheme(theme as ThemeSpecification);
   const tokens = createTokenCollection(extractedTokens);
   const tokenResolver = createTokenResolver(theme as ThemeSpecification, tokens);
-  
+
   // Use style extension if available and enabled
   if (context && (theme as ThemeSpecification).styleExtension) {
-    const themeOverrides = theme.components 
+    const themeOverrides = theme.components
       ? processStyleOverrides(spec, theme as ThemeSpecification, tokenResolver)
       : {};
-    
+
     return resolveExtendedStyles(spec, context, themeOverrides);
   }
-  
+
   // Fallback to standard overrides
-  return theme.components 
+  return theme.components
     ? processStyleOverrides(spec, theme as ThemeSpecification, tokenResolver)
     : {};
 }
@@ -262,7 +278,7 @@ function buildComponentProps(
     children,
     theme: options.theme,
     state: options.initialState,
-    parentContext
+    parentContext,
   };
 
   // Apply accessibility props
@@ -277,7 +293,7 @@ function buildComponentProps(
       hasPopup,
       ariaLive,
       ariaAtomic,
-      role
+      role,
     } = spec.a11y;
 
     Object.assign(componentProps, {
@@ -290,7 +306,7 @@ function buildComponentProps(
       "aria-haspopup": hasPopup,
       "aria-live": ariaLive,
       "aria-atomic": ariaAtomic,
-      role
+      role,
     });
   }
 
@@ -324,50 +340,70 @@ function renderComponent(
     development = false,
     errorBoundaries = true,
     onError,
-    useStyleExtension = true
+    useStyleExtension = true,
+    stateManager,
   } = options;
 
+  // Extract and initialize component state
+  const stateConfig = extractStateConfig(spec);
+
+  if (stateConfig && stateManager && spec.id) {
+    initializeComponentState(spec.id, stateConfig, stateManager);
+  }
+
+  // Resolve state bindings in spec properties
+  let resolvedSpec = spec;
+  if (stateManager) {
+    const currentState = stateManager.getState();
+    // Resolve state bindings in all spec properties except children
+    const { children, ...specPropsWithoutChildren } = spec;
+    const resolvedProps = resolveStateBindings(specPropsWithoutChildren, currentState);
+    resolvedSpec = { ...resolvedProps, children } as ComponentSpec;
+  }
+
   // Get the component implementation
-  const Component = resolver(spec.type);
+  const Component = resolver(resolvedSpec.type);
 
   if (!Component) {
-    return development ? renderUnknownComponent(spec.type) : null;
+    return development ? renderUnknownComponent(resolvedSpec.type) : null;
   }
 
   // Create or inherit style context
-  const styleContext = parentStyleContext || options.styleContext || (
-    useStyleExtension && theme && (theme as ThemeSpecification).styleExtension
+  const styleContext =
+    parentStyleContext ||
+    options.styleContext ||
+    (useStyleExtension && theme && (theme as ThemeSpecification).styleExtension
       ? (() => {
           const tokens = createTokenResolver(
-            theme as ThemeSpecification, 
+            theme as ThemeSpecification,
             createTokenCollection(extractTokensFromTheme(theme as ThemeSpecification))
           );
           return {
             theme: theme as ThemeSpecification,
             tokens,
-            componentPath: []
+            componentPath: [],
           };
         })()
-      : undefined
-  );
+      : undefined);
 
   // Process style overrides from theme
-  const styleOverrides = applyStyleOverrides(spec, theme, styleContext);
-  
+  const styleOverrides = applyStyleOverrides(resolvedSpec, theme, styleContext);
+
   // Create child style context
-  const childStyleContext = styleContext && useStyleExtension
-    ? createChildStyleContext(styleContext, spec, styleOverrides)
-    : undefined;
+  const childStyleContext =
+    styleContext && useStyleExtension
+      ? createChildStyleContext(styleContext, resolvedSpec, styleOverrides)
+      : undefined;
 
   // Render children with style context
-  const children = renderChildren(spec, options, parentContext, childStyleContext);
-  
+  const children = renderChildren(resolvedSpec, options, parentContext, childStyleContext);
+
   // Build component props
   const componentProps = buildComponentProps(
-    spec, 
-    options, 
-    children, 
-    parentContext, 
+    resolvedSpec,
+    options,
+    children,
+    parentContext,
     styleOverrides
   );
 
@@ -377,10 +413,7 @@ function renderComponent(
   // Wrap in error boundary if enabled
   if (errorBoundaries) {
     return (
-      <ErrorBoundary 
-        componentType={spec.type}
-        onError={onError}
-      >
+      <ErrorBoundary componentType={resolvedSpec.type} onError={onError}>
         {element}
       </ErrorBoundary>
     );
@@ -391,10 +424,10 @@ function renderComponent(
 
 /**
  * Main render function for Server-Driven UI
- * 
+ *
  * This function takes a UI specification and renders it into React components.
  * It provides options for customization, error handling, and context injection.
- * 
+ *
  * @param specification The UI specification to render
  * @param options Rendering options
  * @returns React element representing the UI
@@ -405,16 +438,51 @@ export function render(
 ): React.ReactElement | null {
   // If the specification has a `root` property, it's a full UISpecification
   // Otherwise, it's a ComponentSpec
-  const componentSpec = isComponentSpec(specification)
-    ? specification
-    : specification.root;
+  const componentSpec = isComponentSpec(specification) ? specification : specification.root;
 
   // If we have a full specification with theme but no theme in options, use it
   const effectiveOptions: RenderOptions = {
     ...options,
-    theme: options.theme || (specification && !isComponentSpec(specification) ? specification.theme as Record<string, unknown> : undefined),
-    initialState: options.initialState || (specification && !isComponentSpec(specification) ? specification.state?.initial : undefined)
+    theme:
+      options.theme ||
+      (specification && !isComponentSpec(specification)
+        ? (specification.theme as Record<string, unknown>)
+        : undefined),
+    initialState:
+      options.initialState ||
+      (specification && !isComponentSpec(specification) ? specification.state?.initial : undefined),
   };
 
-  return renderComponent(componentSpec, effectiveOptions);
+  // Create state manager if we have state specification
+  let stateManager: StateManager | undefined;
+  const fullSpec = isComponentSpec(specification) ? null : specification;
+
+  if (fullSpec?.state || effectiveOptions.initialState) {
+    stateManager = createStateManager({
+      initialState: effectiveOptions.initialState || fullSpec?.state?.initial || {},
+      persistence: fullSpec?.state?.persistence,
+      computed: fullSpec?.state?.computed,
+      debug: options.development ? { enabled: true } : undefined,
+    });
+
+    // Store state manager in options for component access
+    effectiveOptions.stateManager = stateManager;
+  }
+
+  const rendered = renderComponent(componentSpec, effectiveOptions);
+
+  // Wrap with state provider if we have state management
+  if (stateManager) {
+    return (
+      <StateProvider
+        specification={fullSpec ? { state: fullSpec.state } : undefined}
+        initialState={effectiveOptions.initialState}
+        debug={options.development}
+      >
+        {rendered}
+      </StateProvider>
+    );
+  }
+
+  return rendered;
 }

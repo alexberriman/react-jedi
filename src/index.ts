@@ -1,13 +1,18 @@
 /**
  * React Jedi - Main Entry Point
- * 
+ *
  * This file exports everything from the library.
  */
 
 // Import styles
 import "./styles/global.css";
 
-import type { ComponentResolver, RenderOptions, UISpecification, ComponentSpec } from "./types/schema/components";
+import type {
+  ComponentResolver,
+  RenderOptions,
+  UISpecification,
+  ComponentSpec,
+} from "./types/schema/components";
 import { render } from "./lib/render";
 import { defaultComponentResolver } from "./lib/component-resolver";
 import { buildComponentTree } from "./lib/component-tree";
@@ -23,18 +28,18 @@ export interface JediOptions {
    * Custom component resolver
    */
   resolver?: ComponentResolver;
-  
+
   /**
    * Default theme configuration
    */
   theme?: Record<string, unknown>;
-  
+
   /**
    * Whether to enable development mode with additional debugging
    * @default false
    */
   development?: boolean;
-  
+
   /**
    * Custom event handlers
    */
@@ -49,17 +54,20 @@ export interface Jedi {
    * Library version
    */
   version: string;
-  
+
   /**
    * Render a UI specification or component specification
    */
-  render: (spec: UISpecification | ComponentSpec, options?: RenderOptions) => React.ReactElement | null;
-  
+  render: (
+    spec: UISpecification | ComponentSpec,
+    options?: RenderOptions
+  ) => React.ReactElement | null;
+
   /**
    * Build a component tree from a specification
    */
   buildTree: (spec: UISpecification | ComponentSpec) => ReturnType<typeof buildComponentTree>;
-  
+
   /**
    * Default options for this instance
    */
@@ -68,7 +76,7 @@ export interface Jedi {
 
 /**
  * Create a React Jedi instance
- * 
+ *
  * @param options Initialization options
  * @returns Jedi instance
  */
@@ -79,12 +87,12 @@ export function createJedi(options: JediOptions = {}): Jedi {
     development: false,
     handlers: {},
   };
-  
+
   const mergedOptions = { ...defaultOptions, ...options };
-  
+
   return {
     version: VERSION,
-    
+
     render: (spec, renderOptions = {}) => {
       // Merge instance options with render-specific options
       const mergedRenderOptions = {
@@ -94,12 +102,12 @@ export function createJedi(options: JediOptions = {}): Jedi {
         handlers: mergedOptions.handlers,
         ...renderOptions,
       };
-      
+
       return render(spec, mergedRenderOptions);
     },
-    
+
     buildTree: (spec) => buildComponentTree(spec),
-    
+
     options: mergedOptions,
   };
 }
@@ -119,22 +127,62 @@ export * from "./lib/error-handling";
 
 // Export theme system without re-exporting duplicate breakpoints
 export {
-  ThemeProvider, ThemeContext, useThemeContext, useTheme,
-  extractTokensFromTheme, createTokenCollection, convertThemeTokens,
-  generateCssVariables, applyCssVariables, generateCssRules,
-  createTokenResolver, resolveThemeValue, cssVar,
-  generateColorPalette, generateColorScale, hexToRgb, rgbToHex,
-  hexToHsl, hslToHex, rgbToHsl, hslToRgb, isLightColor, getContrastRatio,
-  spacing, DEFAULT_SPACING_SCALE, RELATIVE_SPACING, DEFAULT_CONTAINER_PRESETS,
+  ThemeProvider,
+  ThemeContext,
+  useThemeContext,
+  useTheme,
+  extractTokensFromTheme,
+  createTokenCollection,
+  convertThemeTokens,
+  generateCssVariables,
+  applyCssVariables,
+  generateCssRules,
+  createTokenResolver,
+  resolveThemeValue,
+  cssVar,
+  generateColorPalette,
+  generateColorScale,
+  hexToRgb,
+  rgbToHex,
+  hexToHsl,
+  hslToHex,
+  rgbToHsl,
+  hslToRgb,
+  isLightColor,
+  getContrastRatio,
+  spacing,
+  DEFAULT_SPACING_SCALE,
+  RELATIVE_SPACING,
+  DEFAULT_CONTAINER_PRESETS,
   ContainerPresetType,
-  defaultTheme, themePresets, createDarkTheme, generateCustomTheme,
-  ColorModeProvider, ColorModeContext, useColorMode, ColorModeToggle, AdvancedModeToggle,
-  brandPresets, getPreset, getPresetsByCategory, getCategories, generateBrandTheme,
-  createThemeFromPreset, describePersonality, analyzeThemePersonality, findMatchingPreset,
-  mergePresets, getComplementaryPresets,
+  defaultTheme,
+  themePresets,
+  createDarkTheme,
+  generateCustomTheme,
+  ColorModeProvider,
+  ColorModeContext,
+  useColorMode,
+  ColorModeToggle,
+  AdvancedModeToggle,
+  brandPresets,
+  getPreset,
+  getPresetsByCategory,
+  getCategories,
+  generateBrandTheme,
+  createThemeFromPreset,
+  describePersonality,
+  analyzeThemePersonality,
+  findMatchingPreset,
+  mergePresets,
+  getComplementaryPresets,
   // Import types for brand presets
-  type BrandPreset, type BrandCategory, type BrandColors, type BrandTypography,
-  type BrandPersonality, type BrandThemeOptions, type GeneratedBrandTheme
+  type BrandPreset,
+  type BrandCategory,
+  type BrandColors,
+  type BrandTypography,
+  type BrandPersonality,
+  type BrandThemeOptions,
+  type GeneratedBrandTheme,
 } from "./lib/theme";
 // Export type-safety
 export * from "./lib/type-safety";
@@ -144,6 +192,9 @@ export * from "./components/ui/index";
 
 // Export schemas
 export * from "./lib/schemas/index";
+
+// Export state management
+export * from "./lib/state";
 
 // Export types with explicit re-exports to avoid conflicts
 export * from "./types/components";
@@ -185,7 +236,7 @@ export type {
   ComponentProps,
   RenderOptions,
   ComponentTypes,
-  
+
   // Theme types
   ThemeMode,
   ThemePreset,
@@ -220,7 +271,7 @@ export {
   isComponentSpec,
   isTextContent,
   isComponentSpecArray,
-  isComponentType
+  isComponentType,
 } from "./types/schema";
 
 // Export hooks if available

@@ -10,7 +10,7 @@ export interface ComponentSpec extends BaseComponentSpec {
   // This extends BaseComponentSpec and may be further extended in other files
   // The empty interface is intentional to support the component type system
   _brand?: never; // Brand property to make the type distinct
-  
+
   // Add [Symbol.iterator] method to support iterator usage
   [Symbol.iterator]?(): Iterator<ComponentSpec>;
 }
@@ -49,7 +49,7 @@ export interface BaseComponentSpec {
    * Optional inline styles to apply to the component.
    */
   style?: Record<string, string | number>;
-  
+
   /**
    * Allow other properties for component-specific attributes
    */
@@ -80,18 +80,24 @@ export interface BaseComponentSpec {
    * Used by Grid components.
    */
   columns?: string | number | Record<string, string | number>;
-  
+
   /**
    * Flex direction configuration.
    * Used by Flex components.
    */
   direction?: "row" | "row-reverse" | "column" | "column-reverse";
-  
+
   /**
    * Heading level.
    * Used by Heading components.
    */
   level?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
+  /**
+   * Component state configuration.
+   * Can be a string reference to global state key or a full state config.
+   */
+  state?: string | Record<string, unknown>;
 }
 
 /**

@@ -8,6 +8,7 @@ import { LandingExamplePage } from "../pages/examples/landing";
 import { BrandPresetsPage } from "../pages/brand-presets";
 import { ThemingPage, ThemePlaygroundPage } from "../pages/theming";
 import { PerformancePage } from "../pages/performance";
+import { StatePage } from "../pages/state";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
       {
         path: "performance",
         element: <PerformancePage />,
+      },
+      {
+        path: "state",
+        element: <StatePage />,
       },
     ],
   },

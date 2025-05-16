@@ -120,17 +120,23 @@ export interface RenderOptions {
    * @default true
    */
   useStyleExtension?: boolean;
+
+  /**
+   * State manager instance for state management.
+   * Internal use - populated by the render function.
+   */
+  stateManager?: import("@/lib/state").StateManager;
 }
 
 /**
  * Type guard to check if a component spec is a specific type.
- * 
+ *
  * @param spec The component specification to check
  * @param type The component type to check against
  * @returns True if the component is of the specified type
  */
 export function isComponentType<T extends ComponentSpec>(
-  spec: ComponentSpec, 
+  spec: ComponentSpec,
   type: ComponentType
 ): spec is T {
   return spec.type === type;

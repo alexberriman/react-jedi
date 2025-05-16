@@ -191,3 +191,4 @@ export type {
   DataTableFeaturesSpec,
 } from "./data-table";
 export type { CarouselDef } from "./carousel";
+export type { ChartComponentProps } from "./chart";

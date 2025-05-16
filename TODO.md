@@ -598,10 +598,10 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Carousel
 
-- [ ] Chart Component
-  - [ ] Add from shadcn (`npx shadcn@latest add chart`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Chart
+- ✅ Chart Component
+  - ✅ Add from shadcn (`npx shadcn@latest add chart`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Chart
 
 ### 4.6 Marketing Components
 

@@ -1,0 +1,228 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Chart"
+    },
+    "chartType": {
+      "type": "string",
+      "enum": ["line", "bar", "area", "pie", "radar", "radialBar"],
+      "description": "Type of chart to render"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "description": "Array of data objects for the chart"
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Chart configuration for data keys"
+    },
+    "dataKey": {
+      "type": "string",
+      "description": "Single data key for the chart (used for single series)"
+    },
+    "dataKeys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of data keys for multiple series"
+    },
+    "height": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "Height of the chart"
+    },
+    "width": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "Width of the chart"
+    },
+    "margin": {
+      "type": "object",
+      "properties": {
+        "top": {
+          "type": "number"
+        },
+        "right": {
+          "type": "number"
+        },
+        "bottom": {
+          "type": "number"
+        },
+        "left": {
+          "type": "number"
+        }
+      },
+      "description": "Chart margins"
+    },
+    "showGrid": {
+      "type": "boolean",
+      "description": "Show grid lines"
+    },
+    "showXAxis": {
+      "type": "boolean",
+      "description": "Show X axis"
+    },
+    "showYAxis": {
+      "type": "boolean",
+      "description": "Show Y axis"
+    },
+    "showTooltip": {
+      "type": "boolean",
+      "description": "Show tooltip on hover"
+    },
+    "showLegend": {
+      "type": "boolean",
+      "description": "Show chart legend"
+    },
+    "xAxisDataKey": {
+      "type": "string",
+      "description": "Data key for X axis"
+    },
+    "yAxisDomain": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string",
+            "const": "auto"
+          }
+        ]
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Y axis domain [min, max]"
+    },
+    "stackId": {
+      "type": "string",
+      "description": "Stack ID for stacked charts"
+    },
+    "colors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of colors for the chart"
+    },
+    "fillOpacity": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Fill opacity for areas"
+    },
+    "strokeWidth": {
+      "type": "number",
+      "description": "Stroke width for lines"
+    },
+    "animationDuration": {
+      "type": "number",
+      "description": "Animation duration in milliseconds"
+    },
+    "animationEasing": {
+      "type": "string",
+      "enum": ["ease", "ease-in", "ease-out", "ease-in-out", "linear"],
+      "description": "Animation easing function"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "legendPosition": {
+      "type": "string",
+      "enum": ["top", "bottom", "left", "right"],
+      "description": "Position of the legend"
+    },
+    "aspectRatio": {
+      "type": "number",
+      "description": "Aspect ratio for responsive charts"
+    },
+    "innerRadius": {
+      "type": "number",
+      "description": "Inner radius for donut/radial charts"
+    },
+    "outerRadius": {
+      "type": "number",
+      "description": "Outer radius for pie/radial charts"
+    },
+    "startAngle": {
+      "type": "number",
+      "description": "Start angle for pie/radial charts"
+    },
+    "endAngle": {
+      "type": "number",
+      "description": "End angle for pie/radial charts"
+    },
+    "cx": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "description": "Center X position for pie/radial charts"
+    },
+    "cy": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "description": "Center Y position for pie/radial charts"
+    },
+    "labelLine": {
+      "type": "boolean",
+      "description": "Show label lines for pie charts"
+    },
+    "label": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "Show labels on pie charts"
+    }
+  },
+  "required": ["type", "chartType", "data", "config"],
+  "additionalProperties": true
+}

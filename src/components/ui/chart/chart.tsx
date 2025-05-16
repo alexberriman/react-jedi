@@ -1,0 +1,297 @@
+import React from "react";
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  AreaChart,
+  Area,
+  PieChart,
+  Pie,
+  RadarChart,
+  Radar,
+  RadialBarChart,
+  RadialBar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+} from "recharts";
+import {
+  ChartContainer,
+  ChartConfig,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "../chart";
+import type { ComponentProps } from "@/types/schema/components";
+
+export interface ChartProps {
+  // ComponentProps compatibility
+  spec?: ComponentProps["spec"];
+  theme?: ComponentProps["theme"];
+  state?: ComponentProps["state"];
+  children?: ComponentProps["children"];
+
+  // Chart specific props
+  chartType?: "line" | "bar" | "area" | "pie" | "radar" | "radialBar";
+  data: Array<Record<string, unknown>>;
+  config: ChartConfig;
+  dataKey?: string;
+  dataKeys?: string[];
+  width?: number | string;
+  height?: number | string;
+  margin?: {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+  };
+  showGrid?: boolean;
+  showXAxis?: boolean;
+  showYAxis?: boolean;
+  showTooltip?: boolean;
+  showLegend?: boolean;
+  xAxisDataKey?: string;
+  yAxisDomain?: [number | "auto", number | "auto"];
+  stackId?: string;
+  colors?: string[];
+  fillOpacity?: number;
+  strokeWidth?: number;
+  animationDuration?: number;
+  animationEasing?: "ease" | "ease-in" | "ease-out" | "ease-in-out" | "linear";
+  className?: string;
+  onClick?: (data: unknown) => void;
+  onMouseEnter?: (data: unknown) => void;
+  onMouseLeave?: () => void;
+  legendPosition?: "top" | "bottom" | "left" | "right";
+  tooltipFormatter?: (value: unknown, name: string) => React.ReactNode;
+  aspectRatio?: number;
+  innerRadius?: number;
+  outerRadius?: number;
+  startAngle?: number;
+  endAngle?: number;
+  cx?: string | number;
+  cy?: string | number;
+  labelLine?: boolean;
+  label?: boolean | ((data: Record<string, unknown>) => React.ReactNode);
+}
+
+export const Chart: React.FC<ChartProps> = ({
+  spec,
+  theme,
+  state,
+  children,
+  chartType,
+  data,
+  config,
+  dataKey,
+  dataKeys = [],
+  width = "100%",
+  height = 350,
+  margin = { top: 20, right: 20, bottom: 20, left: 20 },
+  showGrid = true,
+  showXAxis = true,
+  showYAxis = true,
+  showTooltip = true,
+  showLegend = false,
+  xAxisDataKey = "name",
+  yAxisDomain,
+  stackId,
+  colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff7c7c", "#8dd1e1", "#d084d0"],
+  fillOpacity = 0.6,
+  strokeWidth = 2,
+  animationDuration = 1000,
+  animationEasing = "ease-in-out",
+  className,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  legendPosition = "bottom",
+  tooltipFormatter,
+  aspectRatio,
+  innerRadius = 0,
+  outerRadius = 80,
+  startAngle = 90,
+  endAngle = -270,
+  cx = "50%",
+  cy = "50%",
+  labelLine = false,
+  label = false,
+}) => {
+  // Get the chart type, preferring the direct prop over spec
+  const type = chartType || (spec as Record<string, unknown>)?.chartType || "line";
+
+  const chartProps = {
+    data,
+    margin,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+  };
+
+  const renderChart = () => {
+    switch (type) {
+      case "line": {
+        return (
+          <LineChart {...chartProps}>
+            {showGrid && <CartesianGrid strokeDasharray="3 3" />}
+            {showXAxis && <XAxis dataKey={xAxisDataKey} />}
+            {showYAxis && <YAxis domain={yAxisDomain} />}
+            {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
+            {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+            {(dataKeys.length > 0 ? dataKeys : [dataKey || "value"]).map((key, index) => (
+              <Line
+                key={key}
+                type="monotone"
+                dataKey={key}
+                stroke={colors[index % colors.length]}
+                strokeWidth={strokeWidth}
+                animationDuration={animationDuration}
+                animationEasing={animationEasing}
+                dot={{ fill: colors[index % colors.length] }}
+              />
+            ))}
+          </LineChart>
+        );
+      }
+
+      case "bar": {
+        return (
+          <BarChart {...chartProps}>
+            {showGrid && <CartesianGrid strokeDasharray="3 3" />}
+            {showXAxis && <XAxis dataKey={xAxisDataKey} />}
+            {showYAxis && <YAxis domain={yAxisDomain} />}
+            {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
+            {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+            {(dataKeys.length > 0 ? dataKeys : [dataKey || "value"]).map((key, index) => (
+              <Bar
+                key={key}
+                dataKey={key}
+                fill={colors[index % colors.length]}
+                stackId={stackId}
+                animationDuration={animationDuration}
+                animationEasing={animationEasing}
+              />
+            ))}
+          </BarChart>
+        );
+      }
+
+      case "area": {
+        return (
+          <AreaChart {...chartProps}>
+            {showGrid && <CartesianGrid strokeDasharray="3 3" />}
+            {showXAxis && <XAxis dataKey={xAxisDataKey} />}
+            {showYAxis && <YAxis domain={yAxisDomain} />}
+            {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
+            {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+            {(dataKeys.length > 0 ? dataKeys : [dataKey || "value"]).map((key, index) => (
+              <Area
+                key={key}
+                type="monotone"
+                dataKey={key}
+                stroke={colors[index % colors.length]}
+                fill={colors[index % colors.length]}
+                fillOpacity={fillOpacity}
+                strokeWidth={strokeWidth}
+                stackId={stackId}
+                animationDuration={animationDuration}
+                animationEasing={animationEasing}
+              />
+            ))}
+          </AreaChart>
+        );
+      }
+
+      case "pie": {
+        return (
+          <PieChart>
+            {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
+            {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+            <Pie
+              data={data}
+              dataKey={dataKey || "value"}
+              nameKey={xAxisDataKey}
+              cx={cx}
+              cy={cy}
+              innerRadius={innerRadius}
+              outerRadius={outerRadius}
+              startAngle={startAngle}
+              endAngle={endAngle}
+              labelLine={labelLine}
+              label={label}
+              animationDuration={animationDuration}
+              animationEasing={animationEasing}
+            >
+              {data.map((_, index) => (
+                <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+              ))}
+            </Pie>
+          </PieChart>
+        );
+      }
+
+      case "radar": {
+        return (
+          <RadarChart {...chartProps}>
+            <PolarGrid />
+            <PolarAngleAxis dataKey={xAxisDataKey} />
+            <PolarRadiusAxis domain={yAxisDomain} />
+            {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
+            {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+            {(dataKeys.length > 0 ? dataKeys : [dataKey || "value"]).map((key, index) => (
+              <Radar
+                key={key}
+                dataKey={key}
+                stroke={colors[index % colors.length]}
+                fill={colors[index % colors.length]}
+                fillOpacity={fillOpacity}
+                animationDuration={animationDuration}
+                animationEasing={animationEasing}
+              />
+            ))}
+          </RadarChart>
+        );
+      }
+
+      case "radialBar": {
+        return (
+          <RadialBarChart
+            {...chartProps}
+            innerRadius={innerRadius}
+            outerRadius={outerRadius}
+            startAngle={startAngle}
+            endAngle={endAngle}
+          >
+            <PolarGrid />
+            {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
+            {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+            <RadialBar
+              dataKey={dataKey || "value"}
+              cornerRadius={10}
+              fill="#8884d8"
+              label={label}
+              animationDuration={animationDuration}
+              animationEasing={animationEasing}
+            />
+          </RadialBarChart>
+        );
+      }
+
+      default: {
+        return null;
+      }
+    }
+  };
+
+  return (
+    <ChartContainer config={config} className={className}>
+      {renderChart()}
+    </ChartContainer>
+  );
+};

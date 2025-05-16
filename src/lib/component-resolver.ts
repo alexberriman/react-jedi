@@ -17,6 +17,7 @@ import {
 import { CalendarComponent } from "@/components/ui/calendar";
 import { DataTableComponent } from "@/components/ui/data-table";
 import { CarouselComponent } from "@/components/ui/carousel";
+import { Chart } from "@/components/ui/chart/chart";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -357,6 +358,10 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   CarouselNext: asComponent(
     UI.CarouselNext as unknown as React.ComponentType<Record<string, unknown>>
   ),
+
+  // Chart Component
+  Chart: asComponent(Chart as unknown as React.ComponentType<Record<string, unknown>>),
+  chart: asComponent(Chart as unknown as React.ComponentType<Record<string, unknown>>),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

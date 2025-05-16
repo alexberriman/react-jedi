@@ -965,9 +965,3 @@ export type UIComponentSpec =
   | ToggleSpec
   | ToggleGroupSpec
   | ToggleGroupItemSpec;
-
-/**
- * Type alias for any component specification.
- * This is more specific than the base ComponentSpec and includes all defined component types.
- */
-export type ComponentSpec = BaseComponentSpec | UIComponentSpec;

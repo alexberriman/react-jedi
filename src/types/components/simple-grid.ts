@@ -5,8 +5,7 @@
  * It's ideal for creating uniform grids like image galleries or product cards.
  */
 
-import type { BaseComponentSpec } from "./base";
-import type { ComponentChildren } from "../schema/base";
+import type { BaseComponentSpec, ComponentChildren } from "../schema/base";
 
 /**
  * SimpleGrid Component Specification

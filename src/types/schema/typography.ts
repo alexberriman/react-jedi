@@ -9,7 +9,7 @@ import type { BaseComponentSpec, ComponentChildren } from "./base";
 
 /**
  * Text Component Specification
- * 
+ *
  * A component for rendering paragraph and span text elements.
  */
 export interface TextSpec extends BaseComponentSpec {
@@ -41,7 +41,16 @@ export interface TextSpec extends BaseComponentSpec {
    * Font weight of the text.
    * @default "normal"
    */
-  weight?: "hairline" | "thin" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black";
+  weight?:
+    | "hairline"
+    | "thin"
+    | "light"
+    | "normal"
+    | "medium"
+    | "semibold"
+    | "bold"
+    | "extrabold"
+    | "black";
 
   /**
    * Text alignment.
@@ -110,7 +119,7 @@ export interface TextSpec extends BaseComponentSpec {
 
 /**
  * Heading Component Specification
- * 
+ *
  * A component for rendering heading elements (h1-h6).
  */
 export interface HeadingSpec extends BaseComponentSpec {
@@ -135,13 +144,35 @@ export interface HeadingSpec extends BaseComponentSpec {
    * Font size of the heading.
    * Will default based on heading level if not specified.
    */
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl";
+  size?:
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xl"
+    | "3xl"
+    | "4xl"
+    | "5xl"
+    | "6xl"
+    | "7xl"
+    | "8xl"
+    | "9xl";
 
   /**
    * Font weight of the heading.
    * @default "bold"
    */
-  weight?: "hairline" | "thin" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black";
+  weight?:
+    | "hairline"
+    | "thin"
+    | "light"
+    | "normal"
+    | "medium"
+    | "semibold"
+    | "bold"
+    | "extrabold"
+    | "black";
 
   /**
    * Text alignment.
@@ -195,7 +226,7 @@ export interface HeadingSpec extends BaseComponentSpec {
 
 /**
  * BlockQuote Component Specification
- * 
+ *
  * A component for rendering quoted blocks of content.
  */
 export interface BlockQuoteSpec extends BaseComponentSpec {
@@ -281,13 +312,4 @@ export interface BlockQuoteSpec extends BaseComponentSpec {
 /**
  * Type for all typography component specifications.
  */
-export type TypographyComponentSpec =
-  | TextSpec
-  | HeadingSpec
-  | BlockQuoteSpec;
-
-/**
- * Type for any component specification.
- * This is more specific than the base ComponentSpec and includes all defined component types.
- */
-export type ComponentSpec = BaseComponentSpec | TypographyComponentSpec;
+export type TypographyComponentSpec = TextSpec | HeadingSpec | BlockQuoteSpec;

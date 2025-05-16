@@ -5,11 +5,11 @@
  * It establishes the foundation for the JSON-based UI definition system.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { ComponentSpec } from "./components";
 
 /**
  * Main UI Specification Interface
- * 
+ *
  * This is the top-level interface for a complete UI specification.
  * It defines the structure of a JSON object that can be rendered by the system.
  */
@@ -60,7 +60,7 @@ export interface UISpecification {
 
 /**
  * Metadata for a UI Specification
- * 
+ *
  * Contains information about the specification itself, not the UI.
  */
 export interface SpecificationMetadata {
@@ -102,7 +102,7 @@ export interface SpecificationMetadata {
 
 /**
  * Theme Specification Interface
- * 
+ *
  * Defines the theme and styling configuration for the UI.
  */
 export interface ThemeSpecification {
@@ -155,12 +155,12 @@ export interface ThemeSpecification {
    * Animation and transition presets.
    */
   animations?: Record<string, AnimationPreset>;
-  
+
   /**
    * Component style overrides for customizing appearance
    */
   components?: ComponentStyleOverrides;
-  
+
   /**
    * Style extension configuration for inheritance and cascade
    */
@@ -189,18 +189,18 @@ export interface StyleExtensionConfig {
      * CSS properties that should inherit
      */
     inheritableProperties?: string[];
-    
+
     /**
      * Component types that inherit styles
      */
     inheritingComponents?: string[];
-    
+
     /**
      * Component types that create style boundaries
      */
     boundaryComponents?: string[];
   };
-  
+
   /**
    * Style composition configuration
    */
@@ -209,13 +209,13 @@ export interface StyleExtensionConfig {
      * Precedence order for style sources
      */
     precedenceOrder?: string[];
-    
+
     /**
      * Whether to merge array values
      */
     mergeArrays?: boolean;
   };
-  
+
   /**
    * Cascade resolution configuration
    */
@@ -224,7 +224,7 @@ export interface StyleExtensionConfig {
      * Enable specificity calculation
      */
     useSpecificity?: boolean;
-    
+
     /**
      * Handle !important declarations
      */
@@ -240,22 +240,22 @@ export interface ComponentStyleOverride {
    * Global overrides for all instances of this component
    */
   global?: StyleOverride;
-  
+
   /**
    * Variant-specific overrides
    */
   variants?: Record<string, StyleOverride>;
-  
+
   /**
    * Size-specific overrides
    */
   sizes?: Record<string, StyleOverride>;
-  
+
   /**
    * State-specific overrides
    */
   states?: Record<string, StyleOverride>;
-  
+
   /**
    * Combination overrides (variant + size + state)
    */
@@ -270,27 +270,27 @@ export interface StyleOverride {
    * Variant to match (used in combinations)
    */
   variant?: string;
-  
+
   /**
    * Size to match (used in combinations)
    */
   size?: string;
-  
+
   /**
    * State to match (used in combinations)
    */
   state?: string;
-  
+
   /**
    * CSS classes to apply
    */
   className?: string;
-  
+
   /**
    * Style object to apply
    */
   styles?: React.CSSProperties;
-  
+
   /**
    * Theme tokens to apply (resolved to CSS properties)
    */
@@ -514,7 +514,7 @@ export interface AnimationPreset {
 
 /**
  * State Specification Interface
- * 
+ *
  * Defines the global state structure for the UI.
  */
 export interface StateSpecification {
@@ -551,22 +551,25 @@ export interface StateSpecification {
   /**
    * Computed state definitions.
    */
-  computed?: Record<string, {
-    /**
-     * Dependencies for this computed value.
-     */
-    dependencies: string[];
+  computed?: Record<
+    string,
+    {
+      /**
+       * Dependencies for this computed value.
+       */
+      dependencies: string[];
 
-    /**
-     * Expression to evaluate.
-     */
-    expression: string;
-  }>;
+      /**
+       * Expression to evaluate.
+       */
+      expression: string;
+    }
+  >;
 }
 
 /**
  * Data Source Specification Interface
- * 
+ *
  * Defines a source of data for the UI.
  */
 export interface DataSourceSpecification {
@@ -583,7 +586,12 @@ export interface DataSourceSpecification {
   /**
    * Configuration specific to the data source type.
    */
-  config: RestDataSourceConfig | GraphQLDataSourceConfig | StaticDataSourceConfig | WebSocketDataSourceConfig | FunctionDataSourceConfig;
+  config:
+    | RestDataSourceConfig
+    | GraphQLDataSourceConfig
+    | StaticDataSourceConfig
+    | WebSocketDataSourceConfig
+    | FunctionDataSourceConfig;
 
   /**
    * Caching configuration.
@@ -730,9 +738,3 @@ export interface FunctionDataSourceConfig {
    */
   args?: Record<string, unknown>;
 }
-
-/**
- * Type alias for any component specification.
- * This represents any UI component that can be rendered.
- */
-export type ComponentSpec = BaseComponentSpec;

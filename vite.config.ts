@@ -4,10 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { resolve } from "path";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
@@ -15,6 +12,7 @@ export default defineConfig({
       formats: ["es", "cjs"],
       fileName: "index",
     },
+    sourcemap: true,
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime"],
       output: {
@@ -24,7 +22,7 @@ export default defineConfig({
           "react/jsx-runtime": "jsx",
         },
         // Ensure CSS gets extracted
-        assetFileNames: 'index.css',
+        assetFileNames: "index.css",
       },
     },
     // Ensure CSS is extracted

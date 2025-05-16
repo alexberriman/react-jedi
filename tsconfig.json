@@ -34,6 +34,6 @@
       "@testing-library/jest-dom"
     ]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/testing-setup.ts", "src/types/*.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/testing-setup.ts", "src/types/*.d.ts", "vite.config.ts"],
   "exclude": ["node_modules"]
 }

@@ -77,6 +77,7 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   FormControl: asComponent(UI.FormControl),
   FormDescription: asComponent(UI.FormDescription),
   FormMessage: asComponent(UI.FormMessage),
+  Form: asComponent(UI.Form),
 };
 
 /**
@@ -89,7 +90,16 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
  * @returns React component implementation or null if not found
  */
 export const defaultComponentResolver: ComponentResolver = (type: string) => {
-  return defaultComponentRegistry[type] || null;
+  // Try the exact type first
+  let component = defaultComponentRegistry[type];
+
+  // If not found, try PascalCase (e.g., "box" -> "Box")
+  if (!component) {
+    const pascalCaseType = type.charAt(0).toUpperCase() + type.slice(1);
+    component = defaultComponentRegistry[pascalCaseType];
+  }
+
+  return component || null;
 };
 
 /**
@@ -106,6 +116,20 @@ export function createCustomResolver(
   customComponents: Record<string, ComponentType>
 ): ComponentResolver {
   return (type: string) => {
-    return customComponents[type] || defaultComponentRegistry[type] || null;
+    // Try the exact type first in custom components
+    let component = customComponents[type];
+
+    // Try the exact type in default registry
+    if (!component) {
+      component = defaultComponentRegistry[type];
+    }
+
+    // If not found, try PascalCase (e.g., "box" -> "Box")
+    if (!component) {
+      const pascalCaseType = type.charAt(0).toUpperCase() + type.slice(1);
+      component = customComponents[pascalCaseType] || defaultComponentRegistry[pascalCaseType];
+    }
+
+    return component || null;
   };
 }

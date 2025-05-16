@@ -1,740 +1,712 @@
 import { render } from "@banja/react-jedi";
 import type { Specification } from "@banja/react-jedi";
 
+// Simplified form examples that work with the JSON structure
 const formValidationExamples: Specification = {
-  type: "container",
+  type: "Container",
   props: {
     className: "space-y-8",
   },
   children: [
     {
-      type: "heading",
+      type: "Heading",
       props: {
-        as: "h1",
+        level: 1,
         className: "text-4xl font-bold mb-8",
       },
-      content: "Form Validation Examples",
+      children: "Form Examples",
     },
 
     {
-      type: "text",
+      type: "Text",
       props: {
         className: "text-lg text-gray-600 mb-8",
       },
-      content:
-        "Comprehensive examples showcasing different validation rules, error states, and field types.",
+      children: "Examples showcasing different input types, states, and layouts.",
     },
 
-    // Basic validation example
+    // Basic form example
     {
-      type: "card",
+      type: "Card",
       props: {
         className: "p-6",
       },
       children: [
         {
-          type: "heading",
+          type: "Heading",
           props: {
-            as: "h2",
+            level: 2,
             className: "text-2xl font-semibold mb-4",
           },
-          content: "Basic Form Validation",
+          children: "Contact Form",
         },
         {
-          type: "form",
+          type: "Box",
           props: {
             className: "space-y-4",
           },
-          state: {
-            formData: {},
-          },
-          onSubmit: {
-            handler: "submit",
-            preventDefault: true,
-            actions: [
-              {
-                action: "console",
-                level: "log",
-                message: "Form submitted successfully!",
-              },
-            ],
-          },
-          validation: {
-            fields: {
-              name: {
-                required: "Name is required",
-                minLength: {
-                  value: 2,
-                  message: "Name must be at least 2 characters",
-                },
-              },
-              email: {
-                required: "Email is required",
-                pattern: {
-                  value: String.raw`^[^\s@]+@[^\s@]+\.[^\s@]+$`,
-                  message: "Please enter a valid email",
-                },
-              },
-            },
-          },
           children: [
             {
-              type: "form-field",
-              props: {
-                name: "name",
-                label: "Full Name",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "text",
-                  placeholder: "Enter your name",
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "name",
+                    className: "mb-2",
+                  },
+                  children: "Full Name",
                 },
-              },
+                {
+                  type: "Input",
+                  props: {
+                    id: "name",
+                    type: "text",
+                    placeholder: "Enter your name",
+                  },
+                },
+              ],
             },
             {
-              type: "form-field",
-              props: {
-                name: "email",
-                label: "Email Address",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "email",
-                  placeholder: "john@example.com",
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "email",
+                    className: "mb-2",
+                  },
+                  children: "Email Address",
                 },
-              },
+                {
+                  type: "Input",
+                  props: {
+                    id: "email",
+                    type: "email",
+                    placeholder: "john@example.com",
+                  },
+                },
+              ],
             },
             {
-              type: "button",
-              props: {
-                type: "submit",
-                className: "w-full",
-              },
-              content: "Submit",
-            },
-          ],
-        },
-      ],
-    },
-
-    // Advanced validation with multiple rules
-    {
-      type: "card",
-      props: {
-        className: "p-6",
-      },
-      children: [
-        {
-          type: "heading",
-          props: {
-            as: "h2",
-            className: "text-2xl font-semibold mb-4",
-          },
-          content: "User Registration Form",
-        },
-        {
-          type: "form",
-          props: {
-            className: "space-y-4",
-          },
-          state: {
-            formData: {},
-          },
-          onSubmit: {
-            handler: "submit",
-            preventDefault: true,
-            actions: [
-              {
-                action: "console",
-                level: "log",
-                message: "Registration successful!",
-              },
-            ],
-          },
-          validation: {
-            fields: {
-              username: {
-                required: "Username is required",
-                minLength: {
-                  value: 3,
-                  message: "Username must be at least 3 characters",
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "message",
+                    className: "mb-2",
+                  },
+                  children: "Message",
                 },
-                maxLength: {
-                  value: 20,
-                  message: "Username must not exceed 20 characters",
+                {
+                  type: "Textarea",
+                  props: {
+                    id: "message",
+                    placeholder: "Enter your message...",
+                    rows: 5,
+                  },
                 },
-                pattern: {
-                  value: "^[a-zA-Z0-9_]+$",
-                  message: "Username can only contain letters, numbers, and underscores",
-                },
-              },
-              email: {
-                required: "Email is required",
-                email: true,
-              },
-              password: {
-                required: "Password is required",
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters",
-                },
-                pattern: {
-                  value: String.raw`^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]`,
-                  message:
-                    "Password must contain uppercase, lowercase, number, and special character",
-                },
-              },
-              confirmPassword: {
-                required: "Please confirm your password",
-              },
-              age: {
-                required: "Age is required",
-                min: {
-                  value: 18,
-                  message: "You must be at least 18 years old",
-                },
-                max: {
-                  value: 120,
-                  message: "Please enter a valid age",
-                },
-              },
-              terms: {
-                required: "You must accept the terms and conditions",
-              },
-            },
-          },
-          children: [
-            {
-              type: "form-field",
-              props: {
-                name: "username",
-                label: "Username",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "text",
-                  placeholder: "Choose a username",
-                },
-              },
+              ],
             },
             {
-              type: "form-field",
+              type: "Button",
               props: {
-                name: "email",
-                label: "Email",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "email",
-                  placeholder: "email@example.com",
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "password",
-                label: "Password",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "password",
-                  placeholder: "Create a strong password",
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "confirmPassword",
-                label: "Confirm Password",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "password",
-                  placeholder: "Confirm your password",
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "age",
-                label: "Age",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "number",
-                  placeholder: "Enter your age",
-                  min: 1,
-                  max: 150,
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "terms",
-              },
-              children: {
-                type: "checkbox",
-                props: {
-                  label: "I accept the terms and conditions",
-                },
-              },
-            },
-            {
-              type: "button",
-              props: {
-                type: "submit",
                 className: "w-full",
                 variant: "default",
               },
-              content: "Register",
+              children: "Submit",
             },
           ],
         },
       ],
     },
 
-    // Different field types with validation
+    // User registration form
     {
-      type: "card",
+      type: "Card",
       props: {
         className: "p-6",
       },
       children: [
         {
-          type: "heading",
+          type: "Heading",
           props: {
-            as: "h2",
+            level: 2,
             className: "text-2xl font-semibold mb-4",
           },
-          content: "Contact Form with Various Field Types",
+          children: "User Registration",
         },
         {
-          type: "form",
+          type: "Grid",
           props: {
-            className: "space-y-4",
-          },
-          state: {
-            formData: {
-              contactMethod: "email",
-            },
-          },
-          onSubmit: {
-            handler: "submit",
-            preventDefault: true,
-            actions: [
-              {
-                action: "console",
-                level: "log",
-                message: "Contact form submitted!",
-              },
-            ],
-          },
-          validation: {
-            fields: {
-              fullName: {
-                required: "Please enter your full name",
-              },
-              phone: {
-                pattern: {
-                  value: String.raw`^\+?[1-9]\d{1,14}$`,
-                  message: "Please enter a valid phone number",
-                },
-              },
-              contactMethod: {
-                required: "Please select a contact method",
-              },
-              department: {
-                required: "Please select a department",
-              },
-              message: {
-                required: "Please enter your message",
-                minLength: {
-                  value: 10,
-                  message: "Message must be at least 10 characters",
-                },
-                maxLength: {
-                  value: 500,
-                  message: "Message must not exceed 500 characters",
-                },
-              },
-            },
+            columns: { sm: 1, md: 2 },
+            gap: 4,
+            className: "mb-4",
           },
           children: [
             {
-              type: "form-field",
-              props: {
-                name: "fullName",
-                label: "Full Name",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "text",
-                  placeholder: "John Doe",
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "firstName",
+                    className: "mb-2",
+                  },
+                  children: "First Name",
                 },
-              },
+                {
+                  type: "Input",
+                  props: {
+                    id: "firstName",
+                    type: "text",
+                    placeholder: "John",
+                  },
+                },
+              ],
             },
             {
-              type: "form-field",
-              props: {
-                name: "phone",
-                label: "Phone Number",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "tel",
-                  placeholder: "+1234567890",
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "lastName",
+                    className: "mb-2",
+                  },
+                  children: "Last Name",
                 },
-              },
+                {
+                  type: "Input",
+                  props: {
+                    id: "lastName",
+                    type: "text",
+                    placeholder: "Doe",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "Box",
+          props: {
+            className: "space-y-4",
+          },
+          children: [
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "regEmail",
+                    className: "mb-2",
+                  },
+                  children: "Email",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "regEmail",
+                    type: "email",
+                    placeholder: "email@example.com",
+                  },
+                },
+              ],
             },
             {
-              type: "form-field",
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "password",
+                    className: "mb-2",
+                  },
+                  children: "Password",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "password",
+                    type: "password",
+                    placeholder: "Create a strong password",
+                  },
+                },
+              ],
+            },
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "confirmPassword",
+                    className: "mb-2",
+                  },
+                  children: "Confirm Password",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "confirmPassword",
+                    type: "password",
+                    placeholder: "Confirm your password",
+                  },
+                },
+              ],
+            },
+            {
+              type: "Box",
               props: {
-                name: "contactMethod",
-                label: "Preferred Contact Method",
+                className: "flex items-center space-x-2",
               },
-              children: {
-                type: "radio-group",
-                props: {
-                  defaultValue: "email",
-                  options: [
-                    { value: "email", label: "Email" },
-                    { value: "phone", label: "Phone" },
-                    { value: "text", label: "Text Message" },
+              children: [
+                {
+                  type: "Checkbox",
+                  props: {
+                    id: "terms",
+                  },
+                },
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "terms",
+                    className:
+                      "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                  },
+                  children: "I accept the terms and conditions",
+                },
+              ],
+            },
+            {
+              type: "Button",
+              props: {
+                className: "w-full",
+                variant: "default",
+              },
+              children: "Register",
+            },
+          ],
+        },
+      ],
+    },
+
+    // Different input types
+    {
+      type: "Card",
+      props: {
+        className: "p-6",
+      },
+      children: [
+        {
+          type: "Heading",
+          props: {
+            level: 2,
+            className: "text-2xl font-semibold mb-4",
+          },
+          children: "Input Types Showcase",
+        },
+        {
+          type: "Box",
+          props: {
+            className: "space-y-4",
+          },
+          children: [
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "text-input",
+                    className: "mb-2",
+                  },
+                  children: "Text Input",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "text-input",
+                    type: "text",
+                    placeholder: "Enter text",
+                  },
+                },
+              ],
+            },
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "email-input",
+                    className: "mb-2",
+                  },
+                  children: "Email Input",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "email-input",
+                    type: "email",
+                    placeholder: "email@example.com",
+                  },
+                },
+              ],
+            },
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "password-input",
+                    className: "mb-2",
+                  },
+                  children: "Password Input",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "password-input",
+                    type: "password",
+                    placeholder: "Enter password",
+                  },
+                },
+              ],
+            },
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "number-input",
+                    className: "mb-2",
+                  },
+                  children: "Number Input",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "number-input",
+                    type: "number",
+                    placeholder: "Enter number",
+                    min: 0,
+                    max: 100,
+                  },
+                },
+              ],
+            },
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "date-input",
+                    className: "mb-2",
+                  },
+                  children: "Date Input",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "date-input",
+                    type: "date",
+                  },
+                },
+              ],
+            },
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "file-input",
+                    className: "mb-2",
+                  },
+                  children: "File Input",
+                },
+                {
+                  type: "Input",
+                  props: {
+                    id: "file-input",
+                    type: "file",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    // Choice inputs
+    {
+      type: "Card",
+      props: {
+        className: "p-6",
+      },
+      children: [
+        {
+          type: "Heading",
+          props: {
+            level: 2,
+            className: "text-2xl font-semibold mb-4",
+          },
+          children: "Choice Inputs",
+        },
+        {
+          type: "Box",
+          props: {
+            className: "space-y-6",
+          },
+          children: [
+            // Checkboxes
+            {
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    className: "mb-3 font-medium",
+                  },
+                  children: "Checkboxes",
+                },
+                {
+                  type: "Box",
+                  props: {
+                    className: "space-y-2",
+                  },
+                  children: [
+                    {
+                      type: "Box",
+                      props: {
+                        className: "flex items-center space-x-2",
+                      },
+                      children: [
+                        {
+                          type: "Checkbox",
+                          props: {
+                            id: "option1",
+                          },
+                        },
+                        {
+                          type: "Label",
+                          props: {
+                            htmlFor: "option1",
+                            className:
+                              "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                          },
+                          children: "Option 1",
+                        },
+                      ],
+                    },
+                    {
+                      type: "Box",
+                      props: {
+                        className: "flex items-center space-x-2",
+                      },
+                      children: [
+                        {
+                          type: "Checkbox",
+                          props: {
+                            id: "option2",
+                            defaultChecked: true,
+                          },
+                        },
+                        {
+                          type: "Label",
+                          props: {
+                            htmlFor: "option2",
+                            className:
+                              "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                          },
+                          children: "Option 2 (pre-checked)",
+                        },
+                      ],
+                    },
+                    {
+                      type: "Box",
+                      props: {
+                        className: "flex items-center space-x-2",
+                      },
+                      children: [
+                        {
+                          type: "Checkbox",
+                          props: {
+                            id: "option3",
+                            disabled: true,
+                          },
+                        },
+                        {
+                          type: "Label",
+                          props: {
+                            htmlFor: "option3",
+                            className:
+                              "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                          },
+                          children: "Option 3 (disabled)",
+                        },
+                      ],
+                    },
                   ],
                 },
-              },
+              ],
             },
+
+            // Radio buttons
             {
-              type: "form-field",
-              props: {
-                name: "department",
-                label: "Department",
-              },
-              children: {
-                type: "select",
-                props: {
-                  placeholder: "Select a department",
-                  options: [
-                    { value: "sales", label: "Sales" },
-                    { value: "support", label: "Support" },
-                    { value: "billing", label: "Billing" },
-                    { value: "general", label: "General Inquiry" },
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    className: "mb-3 font-medium",
+                  },
+                  children: "Radio Buttons",
+                },
+                {
+                  type: "RadioGroup",
+                  props: {
+                    defaultValue: "comfortable",
+                  },
+                  children: [
+                    {
+                      type: "Box",
+                      props: {
+                        className: "flex items-center space-x-2",
+                      },
+                      children: [
+                        {
+                          type: "RadioGroupItem",
+                          props: {
+                            value: "default",
+                            id: "r1",
+                          },
+                        },
+                        {
+                          type: "Label",
+                          props: {
+                            htmlFor: "r1",
+                            className: "font-normal",
+                          },
+                          children: "Default",
+                        },
+                      ],
+                    },
+                    {
+                      type: "Box",
+                      props: {
+                        className: "flex items-center space-x-2",
+                      },
+                      children: [
+                        {
+                          type: "RadioGroupItem",
+                          props: {
+                            value: "comfortable",
+                            id: "r2",
+                          },
+                        },
+                        {
+                          type: "Label",
+                          props: {
+                            htmlFor: "r2",
+                            className: "font-normal",
+                          },
+                          children: "Comfortable",
+                        },
+                      ],
+                    },
+                    {
+                      type: "Box",
+                      props: {
+                        className: "flex items-center space-x-2",
+                      },
+                      children: [
+                        {
+                          type: "RadioGroupItem",
+                          props: {
+                            value: "compact",
+                            id: "r3",
+                          },
+                        },
+                        {
+                          type: "Label",
+                          props: {
+                            htmlFor: "r3",
+                            className: "font-normal",
+                          },
+                          children: "Compact",
+                        },
+                      ],
+                    },
                   ],
                 },
-              },
+              ],
             },
-            {
-              type: "form-field",
-              props: {
-                name: "message",
-                label: "Message",
-              },
-              children: {
-                type: "textarea",
-                props: {
-                  placeholder: "Enter your message here...",
-                  rows: 5,
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "newsletter",
-              },
-              children: {
-                type: "checkbox",
-                props: {
-                  label: "Subscribe to newsletter",
-                },
-              },
-            },
-            {
-              type: "button",
-              props: {
-                type: "submit",
-                className: "w-full",
-                variant: "default",
-              },
-              content: "Send Message",
-            },
-          ],
-        },
-      ],
-    },
 
-    // Error state styling example
-    {
-      type: "card",
-      props: {
-        className: "p-6",
-      },
-      children: [
-        {
-          type: "heading",
-          props: {
-            as: "h2",
-            className: "text-2xl font-semibold mb-4",
-          },
-          content: "Shipping Form with Pre-filled Errors",
-        },
-        {
-          type: "text",
-          props: {
-            className: "text-sm text-gray-600 mb-4",
-          },
-          content: "This form has intentional errors to demonstrate error state styling.",
-        },
-        {
-          type: "form",
-          props: {
-            className: "space-y-4",
-          },
-          state: {
-            formData: {
-              recipientName: "J",
-              address: "",
-              city: "",
-              zipCode: "123",
-              shippingType: "",
-            },
-            errors: {
-              recipientName: "Name must be at least 2 characters",
-              address: "Address is required",
-              city: "City is required",
-              zipCode: "Please enter a valid ZIP code",
-              shippingType: "Please select a shipping type",
-            },
-          },
-          validation: {
-            fields: {
-              recipientName: {
-                required: "Recipient name is required",
-                minLength: {
-                  value: 2,
-                  message: "Name must be at least 2 characters",
-                },
-              },
-              address: {
-                required: "Address is required",
-              },
-              city: {
-                required: "City is required",
-              },
-              zipCode: {
-                required: "ZIP code is required",
-                pattern: {
-                  value: String.raw`^\d{5}(?:-\d{4})?$`,
-                  message: "Please enter a valid ZIP code",
-                },
-              },
-              shippingType: {
-                required: "Please select a shipping type",
-              },
-            },
-          },
-          children: [
+            // Select dropdown
             {
-              type: "form-field",
-              props: {
-                name: "recipientName",
-                label: "Recipient Name",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "text",
-                  placeholder: "Enter recipient name",
-                  defaultValue: "J",
+              type: "Box",
+              children: [
+                {
+                  type: "Label",
+                  props: {
+                    htmlFor: "select-demo",
+                    className: "mb-2",
+                  },
+                  children: "Select Dropdown",
                 },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "address",
-                label: "Shipping Address",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "text",
-                  placeholder: "Enter street address",
-                  defaultValue: "",
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "city",
-                label: "City",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "text",
-                  placeholder: "Enter city",
-                  defaultValue: "",
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "zipCode",
-                label: "ZIP Code",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "text",
-                  placeholder: "12345",
-                  defaultValue: "123",
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "shippingType",
-                label: "Shipping Type",
-              },
-              children: {
-                type: "radio-group",
-                props: {
-                  options: [
-                    { value: "standard", label: "Standard (5-7 days)" },
-                    { value: "express", label: "Express (2-3 days)" },
-                    { value: "overnight", label: "Overnight" },
+                {
+                  type: "Select",
+                  children: [
+                    {
+                      type: "SelectTrigger",
+                      props: {
+                        id: "select-demo",
+                      },
+                      children: {
+                        type: "SelectValue",
+                        props: {
+                          placeholder: "Select an option",
+                        },
+                      },
+                    },
+                    {
+                      type: "SelectContent",
+                      children: [
+                        {
+                          type: "SelectItem",
+                          props: {
+                            value: "apple",
+                          },
+                          children: "Apple",
+                        },
+                        {
+                          type: "SelectItem",
+                          props: {
+                            value: "banana",
+                          },
+                          children: "Banana",
+                        },
+                        {
+                          type: "SelectItem",
+                          props: {
+                            value: "orange",
+                          },
+                          children: "Orange",
+                        },
+                      ],
+                    },
                   ],
                 },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "giftMessage",
-                label: "Gift Message (Optional)",
-              },
-              children: {
-                type: "textarea",
-                props: {
-                  placeholder: "Add a gift message...",
-                  rows: 3,
-                },
-              },
-            },
-            {
-              type: "button",
-              props: {
-                type: "submit",
-                className: "w-full",
-                variant: "default",
-              },
-              content: "Continue to Payment",
-            },
-          ],
-        },
-      ],
-    },
-
-    // Real-time validation example
-    {
-      type: "card",
-      props: {
-        className: "p-6",
-      },
-      children: [
-        {
-          type: "heading",
-          props: {
-            as: "h2",
-            className: "text-2xl font-semibold mb-4",
-          },
-          content: "Real-time Validation",
-        },
-        {
-          type: "text",
-          props: {
-            className: "text-sm text-gray-600 mb-4",
-          },
-          content: "This form validates fields as you type.",
-        },
-        {
-          type: "form",
-          props: {
-            className: "space-y-4",
-          },
-          state: {
-            formData: {},
-          },
-          validation: {
-            mode: "onChange",
-            fields: {
-              email: {
-                required: "Email is required",
-                email: true,
-              },
-              password: {
-                required: "Password is required",
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters",
-                },
-              },
-            },
-          },
-          children: [
-            {
-              type: "form-field",
-              props: {
-                name: "email",
-                label: "Email with real-time validation",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "email",
-                  placeholder: "Enter your email",
-                },
-              },
-            },
-            {
-              type: "form-field",
-              props: {
-                name: "password",
-                label: "Password with real-time validation",
-              },
-              children: {
-                type: "input",
-                props: {
-                  type: "password",
-                  placeholder: "Enter your password",
-                },
-              },
-            },
-            {
-              type: "button",
-              props: {
-                type: "submit",
-                className: "w-full",
-                variant: "default",
-              },
-              content: "Submit",
+              ],
             },
           ],
         },

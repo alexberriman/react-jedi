@@ -1,508 +1,537 @@
 export const landingPageSchema = {
-  type: "box",
+  type: "Box",
   props: {
-    className: "w-full min-h-screen"
+    className: "w-full min-h-screen",
   },
   children: [
     // Hero Section
     {
-      type: "box",
+      type: "Box",
       props: {
-        className: "relative py-24 px-6 overflow-hidden bg-gradient-to-br from-indigo-900/40 to-purple-900/40"
+        className:
+          "relative py-24 px-6 overflow-hidden bg-gradient-to-br from-indigo-900/40 to-purple-900/40",
       },
       children: [
         // Background elements
         {
-          type: "box",
+          type: "Box",
           props: {
-            className: "absolute inset-0 z-0"
+            className: "absolute inset-0 z-0",
           },
           children: [
             {
-              type: "box",
+              type: "Box",
               props: {
-                className: "absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl"
-              }
+                className:
+                  "absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl",
+              },
             },
             {
-              type: "box",
+              type: "Box",
               props: {
-                className: "absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl"
-              }
+                className:
+                  "absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl",
+              },
             },
             {
-              type: "box",
+              type: "Box",
               props: {
-                className: "absolute top-1/2 left-1/2 w-96 h-96 -translate-x-1/2 -translate-y-1/2 bg-pink-500/10 rounded-full filter blur-3xl"
-              }
-            }
-          ]
+                className:
+                  "absolute top-1/2 left-1/2 w-96 h-96 -translate-x-1/2 -translate-y-1/2 bg-pink-500/10 rounded-full filter blur-3xl",
+              },
+            },
+          ],
         },
         // Content
         {
-          type: "container",
+          type: "Container",
           props: {
-            className: "relative z-10 text-center"
+            className: "relative z-10 text-center",
           },
           children: [
             {
-              type: "heading",
+              type: "Heading",
               props: {
                 level: 1,
-                className: "text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400",
-                children: "SkyScape Studios"
-              }
+                className:
+                  "text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400",
+                children: "SkyScape Studios",
+              },
             },
             {
-              type: "text",
+              type: "Text",
               props: {
                 className: "text-xl md:text-2xl text-zinc-300 mb-8 max-w-3xl mx-auto",
-                children: "Creating immersive digital experiences that captivate and inspire."
-              }
+                children: "Creating immersive digital experiences that captivate and inspire.",
+              },
             },
             {
-              type: "box",
+              type: "Box",
               props: {
-                className: "flex flex-wrap justify-center gap-4"
+                className: "flex flex-wrap justify-center gap-4",
               },
               children: [
                 {
-                  type: "button",
+                  type: "Button",
                   props: {
                     variant: "default",
                     size: "lg",
-                    className: "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-0",
-                    children: "Our Portfolio"
-                  }
+                    className:
+                      "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-0",
+                    children: "Our Portfolio",
+                  },
                 },
                 {
-                  type: "button",
+                  type: "Button",
                   props: {
                     variant: "outline",
                     size: "lg",
                     className: "backdrop-blur-sm",
-                    children: "Contact Us"
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                    children: "Contact Us",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
-    
+
     // About Section
     {
-      type: "box",
+      type: "Box",
       props: {
-        className: "py-24 bg-zinc-900"
+        className: "py-24 bg-zinc-900",
       },
       children: [
         {
-          type: "container",
+          type: "Container",
           children: [
             {
-              type: "grid",
+              type: "Grid",
               props: {
                 columns: { sm: 1, md: 2 },
                 gap: 16,
-                className: "items-center"
+                className: "items-center",
               },
               children: [
                 {
-                  type: "box",
+                  type: "Box",
                   children: [
                     {
-                      type: "heading",
+                      type: "Heading",
                       props: {
                         level: 2,
-                        className: "text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400",
-                        children: "Crafting Digital Dreams Since 2020"
-                      }
+                        className:
+                          "text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400",
+                        children: "Crafting Digital Dreams Since 2020",
+                      },
                     },
                     {
-                      type: "text",
+                      type: "Text",
                       props: {
                         className: "text-zinc-300 mb-6",
-                        children: "SkyScape Studios is a creative digital agency specializing in web design, 3D animation, and immersive experiences. We blend cutting-edge technology with artistic vision to create unforgettable digital journeys."
-                      }
+                        children:
+                          "SkyScape Studios is a creative digital agency specializing in web design, 3D animation, and immersive experiences. We blend cutting-edge technology with artistic vision to create unforgettable digital journeys.",
+                      },
                     },
                     {
-                      type: "text",
+                      type: "Text",
                       props: {
                         className: "text-zinc-300 mb-8",
-                        children: "Our team of designers, developers, and creative thinkers work together to push the boundaries of what's possible in the digital realm."
-                      }
+                        children:
+                          "Our team of designers, developers, and creative thinkers work together to push the boundaries of what's possible in the digital realm.",
+                      },
                     },
                     {
-                      type: "button",
+                      type: "Button",
                       props: {
                         variant: "outline",
-                        children: "Learn More About Us"
-                      }
-                    }
-                  ]
+                        children: "Learn More About Us",
+                      },
+                    },
+                  ],
                 },
                 {
-                  type: "box",
+                  type: "Box",
                   props: {
-                    className: "relative h-[400px] rounded-2xl overflow-hidden"
+                    className: "relative h-[400px] rounded-2xl overflow-hidden",
                   },
                   children: [
                     {
-                      type: "image",
+                      type: "Image",
                       props: {
                         src: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?q=80&w=1000",
                         alt: "Creative studio space",
                         className: "object-cover rounded-2xl",
                         width: 600,
-                        height: 400
-                      }
+                        height: 400,
+                      },
                     },
                     {
-                      type: "box",
+                      type: "Box",
                       props: {
-                        className: "absolute inset-0 bg-gradient-to-tr from-indigo-900/40 to-transparent"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                        className:
+                          "absolute inset-0 bg-gradient-to-tr from-indigo-900/40 to-transparent",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
-    
+
     // Features Section
     {
-      type: "box",
+      type: "Box",
       props: {
-        className: "py-24 bg-gradient-to-b from-zinc-900 to-zinc-950"
+        className: "py-24 bg-gradient-to-b from-zinc-900 to-zinc-950",
       },
       children: [
         {
-          type: "container",
+          type: "Container",
           children: [
             {
-              type: "box",
+              type: "Box",
               props: {
-                className: "text-center mb-16"
+                className: "text-center mb-16",
               },
               children: [
                 {
-                  type: "heading",
+                  type: "Heading",
                   props: {
                     level: 2,
                     className: "text-4xl font-bold mb-4",
-                    children: "Our Services"
-                  }
+                    children: "Our Services",
+                  },
                 },
                 {
-                  type: "text",
+                  type: "Text",
                   props: {
                     className: "text-xl text-zinc-300 max-w-3xl mx-auto",
-                    children: "From concept to completion, we provide end-to-end creative solutions."
-                  }
-                }
-              ]
+                    children:
+                      "From concept to completion, we provide end-to-end creative solutions.",
+                  },
+                },
+              ],
             },
             {
-              type: "grid",
+              type: "Grid",
               props: {
                 columns: { sm: 1, md: 2, lg: 3 },
-                gap: 8
+                gap: 8,
               },
               children: [
                 // Feature 1
                 {
-                  type: "card",
+                  type: "Card",
                   props: {
-                    className: "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-indigo-500/50 transition-colors group overflow-hidden"
+                    className:
+                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-indigo-500/50 transition-colors group overflow-hidden",
                   },
                   children: [
                     {
-                      type: "box",
+                      type: "Box",
                       props: {
-                        className: "p-6"
+                        className: "p-6",
                       },
                       children: [
                         {
-                          type: "box",
+                          type: "Box",
                           props: {
-                            className: "w-14 h-14 rounded-full bg-indigo-500/20 flex items-center justify-center mb-6 group-hover:bg-indigo-500/30 transition-colors"
+                            className:
+                              "w-14 h-14 rounded-full bg-indigo-500/20 flex items-center justify-center mb-6 group-hover:bg-indigo-500/30 transition-colors",
                           },
                           children: [
                             {
-                              type: "text",
+                              type: "Text",
                               props: {
                                 className: "text-2xl text-indigo-400",
-                                children: "✨"
-                              }
-                            }
-                          ]
+                                children: "✨",
+                              },
+                            },
+                          ],
                         },
                         {
-                          type: "heading",
+                          type: "Heading",
                           props: {
                             level: 3,
                             className: "text-xl font-semibold mb-3",
-                            children: "Web Design & Development"
-                          }
+                            children: "Web Design & Development",
+                          },
                         },
                         {
-                          type: "text",
+                          type: "Text",
                           props: {
                             className: "text-zinc-400",
-                            children: "Beautiful, responsive websites that engage users and drive conversions. We use cutting-edge technologies to create seamless experiences."
-                          }
-                        }
-                      ]
-                    }
-                  ]
+                            children:
+                              "Beautiful, responsive websites that engage users and drive conversions. We use cutting-edge technologies to create seamless experiences.",
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 },
                 // Feature 2
                 {
-                  type: "card",
+                  type: "Card",
                   props: {
-                    className: "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-purple-500/50 transition-colors group overflow-hidden"
+                    className:
+                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-purple-500/50 transition-colors group overflow-hidden",
                   },
                   children: [
                     {
-                      type: "box",
+                      type: "Box",
                       props: {
-                        className: "p-6"
+                        className: "p-6",
                       },
                       children: [
                         {
-                          type: "box",
+                          type: "Box",
                           props: {
-                            className: "w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center mb-6 group-hover:bg-purple-500/30 transition-colors"
+                            className:
+                              "w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center mb-6 group-hover:bg-purple-500/30 transition-colors",
                           },
                           children: [
                             {
-                              type: "text",
+                              type: "Text",
                               props: {
                                 className: "text-2xl text-purple-400",
-                                children: "🎨"
-                              }
-                            }
-                          ]
+                                children: "🎨",
+                              },
+                            },
+                          ],
                         },
                         {
-                          type: "heading",
+                          type: "Heading",
                           props: {
                             level: 3,
                             className: "text-xl font-semibold mb-3",
-                            children: "3D Visualization"
-                          }
+                            children: "3D Visualization",
+                          },
                         },
                         {
-                          type: "text",
+                          type: "Text",
                           props: {
                             className: "text-zinc-400",
-                            children: "Stunning 3D models and animations that bring your ideas to life. Perfect for product showcases, architectural visualization, and more."
-                          }
-                        }
-                      ]
-                    }
-                  ]
+                            children:
+                              "Stunning 3D models and animations that bring your ideas to life. Perfect for product showcases, architectural visualization, and more.",
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 },
                 // Feature 3
                 {
-                  type: "card",
+                  type: "Card",
                   props: {
-                    className: "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-pink-500/50 transition-colors group overflow-hidden"
+                    className:
+                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-pink-500/50 transition-colors group overflow-hidden",
                   },
                   children: [
                     {
-                      type: "box",
+                      type: "Box",
                       props: {
-                        className: "p-6"
+                        className: "p-6",
                       },
                       children: [
                         {
-                          type: "box",
+                          type: "Box",
                           props: {
-                            className: "w-14 h-14 rounded-full bg-pink-500/20 flex items-center justify-center mb-6 group-hover:bg-pink-500/30 transition-colors"
+                            className:
+                              "w-14 h-14 rounded-full bg-pink-500/20 flex items-center justify-center mb-6 group-hover:bg-pink-500/30 transition-colors",
                           },
                           children: [
                             {
-                              type: "text",
+                              type: "Text",
                               props: {
                                 className: "text-2xl text-pink-400",
-                                children: "🚀"
-                              }
-                            }
-                          ]
+                                children: "🚀",
+                              },
+                            },
+                          ],
                         },
                         {
-                          type: "heading",
+                          type: "Heading",
                           props: {
                             level: 3,
                             className: "text-xl font-semibold mb-3",
-                            children: "Digital Marketing"
-                          }
+                            children: "Digital Marketing",
+                          },
                         },
                         {
-                          type: "text",
+                          type: "Text",
                           props: {
                             className: "text-zinc-400",
-                            children: "Strategic digital marketing campaigns that connect with your audience and drive results. SEO, social media, content marketing, and more."
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                            children:
+                              "Strategic digital marketing campaigns that connect with your audience and drive results. SEO, social media, content marketing, and more.",
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
-    
+
     // CTA Section
     {
-      type: "box",
+      type: "Box",
       props: {
-        className: "py-24 bg-zinc-950"
+        className: "py-24 bg-zinc-950",
       },
       children: [
         {
-          type: "container",
+          type: "Container",
           children: [
             {
-              type: "box",
+              type: "Box",
               props: {
-                className: "relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border border-indigo-600/30 p-12 text-center"
+                className:
+                  "relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border border-indigo-600/30 p-12 text-center",
               },
               children: [
                 // Background elements
                 {
-                  type: "box",
+                  type: "Box",
                   props: {
-                    className: "absolute inset-0 z-0"
+                    className: "absolute inset-0 z-0",
                   },
                   children: [
                     {
-                      type: "box",
+                      type: "Box",
                       props: {
-                        className: "absolute top-0 left-0 w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl"
-                      }
+                        className:
+                          "absolute top-0 left-0 w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl",
+                      },
                     },
                     {
-                      type: "box",
+                      type: "Box",
                       props: {
-                        className: "absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl"
-                      }
-                    }
-                  ]
+                        className:
+                          "absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl",
+                      },
+                    },
+                  ],
                 },
                 // Content
                 {
-                  type: "box",
+                  type: "Box",
                   props: {
-                    className: "relative z-10"
+                    className: "relative z-10",
                   },
                   children: [
                     {
-                      type: "heading",
+                      type: "Heading",
                       props: {
                         level: 2,
                         className: "text-3xl md:text-4xl font-bold mb-4",
-                        children: "Ready to Transform Your Digital Presence?"
-                      }
+                        children: "Ready to Transform Your Digital Presence?",
+                      },
                     },
                     {
-                      type: "text",
+                      type: "Text",
                       props: {
                         className: "text-xl text-zinc-300 mb-8 max-w-2xl mx-auto",
-                        children: "Let's create something extraordinary together. Contact us today to start your journey."
-                      }
+                        children:
+                          "Let's create something extraordinary together. Contact us today to start your journey.",
+                      },
                     },
                     {
-                      type: "button",
+                      type: "Button",
                       props: {
                         variant: "default",
                         size: "lg",
-                        className: "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-0",
-                        children: "Start Your Project"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                        className:
+                          "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-0",
+                        children: "Start Your Project",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
-    
+
     // Footer
     {
-      type: "box",
+      type: "Box",
       props: {
-        className: "py-12 bg-zinc-950"
+        className: "py-12 bg-zinc-950",
       },
       children: [
         {
-          type: "container",
+          type: "Container",
           children: [
             {
-              type: "box",
+              type: "Box",
               props: {
-                className: "flex flex-col md:flex-row justify-between items-center"
+                className: "flex flex-col md:flex-row justify-between items-center",
               },
               children: [
                 {
-                  type: "text",
+                  type: "Text",
                   props: {
                     className: "text-zinc-400 mb-4 md:mb-0",
-                    children: "© 2025 SkyScape Studios. All rights reserved."
-                  }
+                    children: "© 2025 SkyScape Studios. All rights reserved.",
+                  },
                 },
                 {
-                  type: "flex",
+                  type: "Flex",
                   props: {
-                    gap: 6
+                    gap: 6,
                   },
                   children: [
                     {
-                      type: "text",
+                      type: "Text",
                       props: {
-                        className: "text-zinc-400 hover:text-white transition-colors cursor-pointer",
-                        children: "Twitter"
-                      }
+                        className:
+                          "text-zinc-400 hover:text-white transition-colors cursor-pointer",
+                        children: "Twitter",
+                      },
                     },
                     {
-                      type: "text",
+                      type: "Text",
                       props: {
-                        className: "text-zinc-400 hover:text-white transition-colors cursor-pointer",
-                        children: "Instagram"
-                      }
+                        className:
+                          "text-zinc-400 hover:text-white transition-colors cursor-pointer",
+                        children: "Instagram",
+                      },
                     },
                     {
-                      type: "text",
+                      type: "Text",
                       props: {
-                        className: "text-zinc-400 hover:text-white transition-colors cursor-pointer",
-                        children: "LinkedIn"
-                      }
+                        className:
+                          "text-zinc-400 hover:text-white transition-colors cursor-pointer",
+                        children: "LinkedIn",
+                      },
                     },
                     {
-                      type: "text",
+                      type: "Text",
                       props: {
-                        className: "text-zinc-400 hover:text-white transition-colors cursor-pointer",
-                        children: "Dribbble"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+                        className:
+                          "text-zinc-400 hover:text-white transition-colors cursor-pointer",
+                        children: "Dribbble",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
 };

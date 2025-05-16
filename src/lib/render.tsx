@@ -135,6 +135,25 @@ const componentRegistry: Record<string, ComponentType> = {
   Skeleton: asComponent(UI.Skeleton),
   Label: asComponent(UI.Label),
   Input: asComponent(UI.Input),
+
+  // Form Components
+  FormItem: asComponent(UI.FormItem),
+  FormLabel: asComponent(UI.FormLabel),
+  FormControl: asComponent(UI.FormControl),
+  FormDescription: asComponent(UI.FormDescription),
+  FormMessage: asComponent(UI.FormMessage),
+  Form: asComponent(UI.Form),
+
+  // Other Components
+  RadioGroup: asComponent(UI.RadioGroup),
+  RadioGroupItem: asComponent(UI.RadioGroupItem),
+  Select: asComponent(UI.Select),
+  SelectContent: asComponent(UI.SelectContent),
+  SelectItem: asComponent(UI.SelectItem),
+  SelectTrigger: asComponent(UI.SelectTrigger),
+  SelectValue: asComponent(UI.SelectValue),
+  Checkbox: asComponent(UI.Checkbox),
+  Textarea: asComponent(UI.TextareaComponent),
 };
 
 /**
@@ -148,8 +167,14 @@ const memoizedComponentRegistry: Record<string, ComponentType> = {};
  * Maps component type strings to their React implementations
  */
 const defaultComponentResolver: ComponentResolver = (type: string) => {
-  // Use the component registry instead of dynamic imports
-  const component = componentRegistry[type];
+  // Try the exact type first
+  let component = componentRegistry[type];
+
+  // If not found, try PascalCase (e.g., "box" -> "Box")
+  if (!component) {
+    const pascalCaseType = type.charAt(0).toUpperCase() + type.slice(1);
+    component = componentRegistry[pascalCaseType];
+  }
 
   if (!component) {
     console.warn(`Component type "${type}" not found`);

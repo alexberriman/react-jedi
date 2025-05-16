@@ -43,7 +43,7 @@ export interface CenterSpec extends BaseComponentSpec {
    * - "both": Centers both horizontally and vertically
    * @default "both"
    */
-  direction?: "horizontal" | "vertical" | "both";
+  centerDirection?: "horizontal" | "vertical" | "both";
 
   /**
    * Child components to render centered.
@@ -60,5 +60,5 @@ export interface CenterSpec extends BaseComponentSpec {
   /**
    * Optional inline styles to apply to the component.
    */
-  style?: React.CSSProperties;
+  style?: Record<string, string | number>;
 }

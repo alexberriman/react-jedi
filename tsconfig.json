@@ -30,9 +30,10 @@
     "types": [
       "vite/client",
       "vitest",
-      "node"
+      "node",
+      "@testing-library/jest-dom"
     ]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/testing-setup.ts", "src/types/*.d.ts"],
   "exclude": ["node_modules"]
 }

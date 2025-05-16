@@ -1,15 +1,18 @@
 import { render } from "@testing-library/react";
+import { screen } from "@testing-library/dom";
+import "@testing-library/jest-dom/vitest";
 import { Center } from "./center";
 import { describe, it, expect } from "vitest";
 
 describe("Center", () => {
   it("renders children correctly", () => {
-    const { getByText } = render(
+    render(
       <Center>
         <div>Centered content</div>
       </Center>
     );
-    expect(getByText("Centered content")).toBeInTheDocument();
+    const element = screen.getByText("Centered content");
+    expect(element).toBeInTheDocument();
   });
 
   it("applies default centering classes", () => {
@@ -22,9 +25,9 @@ describe("Center", () => {
     expect(centerElement).toHaveClass("flex", "items-center", "justify-center");
   });
 
-  it("centers only horizontally when direction is horizontal", () => {
+  it("centers only horizontally when centerDirection is horizontal", () => {
     const { container } = render(
-      <Center direction="horizontal">
+      <Center centerDirection="horizontal">
         <div>Content</div>
       </Center>
     );
@@ -33,9 +36,9 @@ describe("Center", () => {
     expect(centerElement).not.toHaveClass("items-center");
   });
 
-  it("centers only vertically when direction is vertical", () => {
+  it("centers only vertically when centerDirection is vertical", () => {
     const { container } = render(
-      <Center direction="vertical">
+      <Center centerDirection="vertical">
         <div>Content</div>
       </Center>
     );

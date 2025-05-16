@@ -22,7 +22,7 @@ const meta = {
       control: "boolean",
       description: "Makes the container take full width",
     },
-    direction: {
+    centerDirection: {
       control: { type: "select" },
       options: ["horizontal", "vertical", "both"],
       description: "The direction to center content",
@@ -70,7 +70,7 @@ export const FullHeightCenter: Story = {
 
 export const HorizontalOnly: Story = {
   args: {
-    direction: "horizontal",
+    centerDirection: "horizontal",
     children: (
       <div className="w-64 p-4 bg-blue-500 text-white rounded-lg text-center">
         <p>Only horizontally centered</p>
@@ -82,7 +82,7 @@ export const HorizontalOnly: Story = {
 
 export const VerticalOnly: Story = {
   args: {
-    direction: "vertical",
+    centerDirection: "vertical",
     children: (
       <div className="w-64 p-4 bg-green-500 text-white rounded-lg text-center">
         <p>Only vertically centered</p>

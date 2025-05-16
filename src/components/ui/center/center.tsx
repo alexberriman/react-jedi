@@ -5,7 +5,7 @@ export interface CenterProps extends React.HTMLAttributes<HTMLDivElement> {
   as?: React.ElementType;
   fullHeight?: boolean;
   fullWidth?: boolean;
-  direction?: "horizontal" | "vertical" | "both";
+  centerDirection?: "horizontal" | "vertical" | "both";
 }
 
 const Center = React.forwardRef<HTMLDivElement, CenterProps>(
@@ -15,7 +15,7 @@ const Center = React.forwardRef<HTMLDivElement, CenterProps>(
       as: Component = "div",
       fullHeight = false,
       fullWidth = false,
-      direction = "both",
+      centerDirection = "both",
       children,
       ...props
     },
@@ -27,8 +27,8 @@ const Center = React.forwardRef<HTMLDivElement, CenterProps>(
         className={cn(
           "flex",
           {
-            "items-center": direction === "vertical" || direction === "both",
-            "justify-center": direction === "horizontal" || direction === "both",
+            "items-center": centerDirection === "vertical" || centerDirection === "both",
+            "justify-center": centerDirection === "horizontal" || centerDirection === "both",
             "min-h-screen": fullHeight,
             "w-full": fullWidth,
           },

@@ -487,11 +487,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Sonner
 
-- [ ] Tooltip Component
+- ✅ Tooltip Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add tooltip`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Tooltip
+  - ✅ Add from shadcn (`npx shadcn@latest add tooltip`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Tooltip
 
 - [ ] Popover Component
 

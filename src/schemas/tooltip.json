@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tooltip Component Schema",
+  "description": "Schema for the tooltip component that displays helpful information on hover or focus",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["Tooltip"],
+      "description": "Component type identifier"
+    },
+    "props": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Optional unique identifier"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        },
+        "delayDuration": {
+          "type": "number",
+          "description": "Delay in milliseconds before tooltip appears",
+          "default": 0
+        },
+        "skipDelayDuration": {
+          "type": "number",
+          "description": "Duration from when the mouse enters a trigger until the tooltip opens (when reopening)",
+          "default": 300  
+        },
+        "disableHoverableContent": {
+          "type": "boolean",
+          "description": "Disable hovering content to keep tooltip open",
+          "default": false
+        },
+        "defaultOpen": {
+          "type": "boolean",
+          "description": "The open state of the tooltip when it is initially rendered",
+          "default": false
+        },
+        "content": {
+          "type": "object",
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": ["top", "right", "bottom", "left"],
+              "description": "The preferred side of the trigger to render against",
+              "default": "top"
+            },
+            "sideOffset": {
+              "type": "number",
+              "description": "The distance in pixels from the trigger",
+              "default": 0
+            },
+            "align": {
+              "type": "string",
+              "enum": ["start", "center", "end"],
+              "description": "The preferred alignment against the trigger",
+              "default": "center"
+            },
+            "alignOffset": {
+              "type": "number",
+              "description": "An offset in pixels from the start or end alignment options",
+              "default": 0
+            },
+            "avoidCollisions": {
+              "type": "boolean",
+              "description": "Whether to avoid viewport collisions",
+              "default": true
+            },
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes for tooltip content"
+            }
+          }
+        }
+      }
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["TooltipTrigger", "TooltipContent"]
+          }
+        },
+        "required": ["type"]
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Must contain exactly two children: TooltipTrigger and TooltipContent"
+    }
+  },
+  "required": ["type", "children"],
+  "definitions": {
+    "TooltipTrigger": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["TooltipTrigger"],
+          "description": "Tooltip trigger component type"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "asChild": {
+              "type": "boolean",
+              "description": "Whether to render as child element",
+              "default": true
+            }
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReactComponent"
+          },
+          "description": "The trigger element (button, icon, etc.)"
+        }
+      },
+      "required": ["type", "children"]
+    },
+    "TooltipContent": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["TooltipContent"],
+          "description": "Tooltip content component type"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": ["top", "right", "bottom", "left"],
+              "description": "The preferred side of the trigger to render against",
+              "default": "top"
+            },
+            "sideOffset": {
+              "type": "number",
+              "description": "The distance in pixels from the trigger",
+              "default": 0
+            },
+            "align": {
+              "type": "string",
+              "enum": ["start", "center", "end"],
+              "description": "The preferred alignment against the trigger",
+              "default": "center"
+            },
+            "alignOffset": {
+              "type": "number",
+              "description": "An offset in pixels from the start or end alignment options",
+              "default": 0
+            },
+            "avoidCollisions": {
+              "type": "boolean",
+              "description": "Whether to avoid viewport collisions",
+              "default": true
+            },
+            "collisionBoundary": {
+              "type": "array",
+              "description": "Boundary element(s) for collision detection"
+            },
+            "collisionPadding": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "top": { "type": "number" },
+                    "right": { "type": "number" },
+                    "bottom": { "type": "number" },
+                    "left": { "type": "number" }
+                  }
+                }
+              ],
+              "description": "Distance from collision boundaries",
+              "default": 0
+            },
+            "arrowPadding": {
+              "type": "number",
+              "description": "Distance from arrow to edges",
+              "default": 0
+            },
+            "sticky": {
+              "type": "string",
+              "enum": ["partial", "always"],
+              "description": "Sticky behavior on scroll",
+              "default": "partial"
+            },
+            "hideWhenDetached": {
+              "type": "boolean",
+              "description": "Hide when trigger is fully occluded",
+              "default": false
+            },
+            "className": {
+              "type": "string",
+              "description": "Additional CSS classes"
+            }
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReactComponent"
+          },
+          "description": "The content of the tooltip"
+        }
+      },
+      "required": ["type", "children"]
+    },
+    "ReactComponent": {
+      "type": "object",
+      "description": "Any valid React component or element"
+    }
+  }
+}

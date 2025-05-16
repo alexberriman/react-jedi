@@ -167,6 +167,12 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "shadcn",
       },
+      {
+        name: "Tooltip",
+        description: "Displays helpful information on hover or focus.",
+        status: "completed",
+        type: "shadcn",
+      },
     ],
   },
   {

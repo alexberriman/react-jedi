@@ -999,4 +999,5 @@ export type UIComponentSpec =
   | DropdownMenuProps
   | import("@/types/components/context-menu").ContextMenuComponentSpec
   | import("@/types/components/menubar").MenubarComponent
-  | import("@/types/components/toast").ToastSpec;
+  | import("@/types/components/toast").ToastSpec
+  | import("@/types/components/tooltip").TooltipSpec;

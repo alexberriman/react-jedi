@@ -165,6 +165,10 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   menubar: asComponent(UI.Menubar as unknown as React.ComponentType<Record<string, unknown>>),
   Toast: asComponent(UI.Toaster as unknown as React.ComponentType<Record<string, unknown>>),
   Toaster: asComponent(UI.Toaster as unknown as React.ComponentType<Record<string, unknown>>),
+  Tooltip: asComponent(UI.Tooltip),
+  TooltipTrigger: asComponent(UI.TooltipTrigger),
+  TooltipContent: asComponent(UI.TooltipContent),
+  TooltipProvider: asComponent(UI.TooltipProvider),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

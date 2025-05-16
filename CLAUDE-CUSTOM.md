@@ -26,8 +26,6 @@ When implementing new UI components:
 
 - **Custom components must be sexy as fuck** - implement cutting-edge design that looks like it's from 2025
 
-- **Register all components** in the `./components.json` file at the project root
-
 - **Follow the structured component organization** with proper directory structure
 
 - **Create comprehensive Storybook documentation** for all components

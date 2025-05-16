@@ -7,7 +7,6 @@
 - **CHECK CLAUDE-CUSTOM.MD** before implementing components
 - **ALWAYS USE @shadcn/ui COMPONENTS** when available (install via CLI: `npx shadcn@latest add [component-name]`)
 - **CREATE CUSTOM COMPONENTS** only when needed (make them sexy as fuck - 2025 design aesthetic)
-- **REGISTER ALL COMPONENTS** in the `./components.json` file in project root
 - **FOLLOW COMPONENT STRUCTURE** with proper directory organization and barrel files
 - **ALWAYS CREATE STORYBOOK FILES** for all UI components for documentation
 
@@ -644,7 +643,6 @@ This milestone enhances the visual capabilities of the library with advanced lay
 ### 4.7 Documentation and Examples
 
 - [ ] Make sure all components have storybook files and are correctly categorized
-- [ ] Make sure all components are registered in components.json
 
 ### 4.8 Documentation and Developer Experience
 

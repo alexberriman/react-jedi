@@ -10,7 +10,7 @@ import type { InputSpec } from "./input";
 
 /**
  * Button Component Specification
- * 
+ *
  * A component for triggering actions or events.
  */
 export interface ButtonSpec extends BaseComponentSpec {
@@ -89,7 +89,7 @@ export interface ButtonSpec extends BaseComponentSpec {
 
 /**
  * Card Component Specification
- * 
+ *
  * A container component with a distinct visual style for grouping related content.
  */
 export interface CardSpec extends BaseComponentSpec {
@@ -171,7 +171,7 @@ export interface CardSpec extends BaseComponentSpec {
 
 /**
  * Badge Component Specification
- * 
+ *
  * A small status indicator component.
  */
 export interface BadgeSpec extends BaseComponentSpec {
@@ -228,7 +228,7 @@ export interface BadgeSpec extends BaseComponentSpec {
 
 /**
  * Avatar Component Specification
- * 
+ *
  * A component for displaying a user's profile picture or initials.
  */
 export interface AvatarSpec extends BaseComponentSpec {
@@ -315,7 +315,7 @@ export interface AvatarSpec extends BaseComponentSpec {
 
 /**
  * Image Component Specification
- * 
+ *
  * A component for displaying images with various styling options.
  */
 export interface ImageSpec extends BaseComponentSpec {
@@ -427,7 +427,7 @@ export interface ImageSpec extends BaseComponentSpec {
 
 /**
  * Skeleton Component Specification
- * 
+ *
  * A placeholder component for showing content loading states.
  */
 export interface SkeletonSpec extends BaseComponentSpec {
@@ -477,7 +477,7 @@ export interface SkeletonSpec extends BaseComponentSpec {
 
 /**
  * Label Component Specification
- * 
+ *
  * A component for rendering form labels with accessibility support.
  */
 export interface LabelSpec extends BaseComponentSpec {
@@ -544,6 +544,110 @@ export interface LabelSpec extends BaseComponentSpec {
 }
 
 /**
+ * Textarea Component Specification
+ *
+ * A multi-line text input component for longer text content.
+ */
+export interface TextareaSpec extends BaseComponentSpec {
+  /**
+   * The type of the component.
+   * Must be "Textarea" for this component.
+   */
+  type: "Textarea";
+
+  /**
+   * The name attribute for form submission.
+   */
+  name?: string;
+
+  /**
+   * Placeholder text when textarea is empty.
+   */
+  placeholder?: string;
+
+  /**
+   * Default text content.
+   */
+  defaultValue?: string;
+
+  /**
+   * Number of visible text rows.
+   * @default 4
+   */
+  rows?: number;
+
+  /**
+   * Maximum character limit.
+   */
+  maxLength?: number;
+
+  /**
+   * Whether the textarea is required.
+   * @default false
+   */
+  required?: boolean;
+
+  /**
+   * Whether the textarea is disabled.
+   * @default false
+   */
+  disabled?: boolean;
+
+  /**
+   * Whether the textarea is read-only.
+   * @default false
+   */
+  readonly?: boolean;
+
+  /**
+   * Whether to focus on mount.
+   * @default false
+   */
+  autoFocus?: boolean;
+
+  /**
+   * Resize behavior of the textarea.
+   * @default "auto"
+   */
+  resize?: "none" | "both" | "horizontal" | "vertical" | "auto";
+
+  /**
+   * HTML autocomplete attribute.
+   */
+  autoComplete?: string;
+
+  /**
+   * Whether to enable spell checking.
+   */
+  spellCheck?: boolean;
+
+  /**
+   * Text wrapping behavior.
+   */
+  wrap?: "hard" | "soft" | "off";
+
+  /**
+   * Custom CSS class names to add to the textarea.
+   */
+  className?: string;
+
+  /**
+   * Action to dispatch on text change.
+   */
+  onChangeAction?: string;
+
+  /**
+   * Action to dispatch on focus.
+   */
+  onFocusAction?: string;
+
+  /**
+   * Action to dispatch on blur.
+   */
+  onBlurAction?: string;
+}
+
+/**
  * Type alias for all UI component specifications.
  */
 export type UIComponentSpec =
@@ -554,7 +658,8 @@ export type UIComponentSpec =
   | ImageSpec
   | SkeletonSpec
   | LabelSpec
-  | InputSpec;
+  | InputSpec
+  | TextareaSpec;
 
 /**
  * Type alias for any component specification.

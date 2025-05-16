@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TextareaComponent",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "textarea"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the textarea"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name attribute for form submission"
+    },
+    "placeholder": {
+      "type": "string",
+      "description": "Placeholder text when textarea is empty"
+    },
+    "defaultValue": {
+      "type": "string",
+      "description": "Default text content"
+    },
+    "rows": {
+      "type": "number",
+      "minimum": 1,
+      "default": 4,
+      "description": "Number of visible text rows"
+    },
+    "maxLength": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Maximum character limit"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the textarea is required"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the textarea is disabled"
+    },
+    "readonly": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the textarea is read-only"
+    },
+    "autoFocus": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to focus on mount"
+    },
+    "resize": {
+      "type": "string",
+      "enum": ["none", "both", "horizontal", "vertical", "auto"],
+      "default": "auto",
+      "description": "Resize behavior of the textarea"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline styles"
+    },
+    "autoComplete": {
+      "type": "string",
+      "description": "HTML autocomplete attribute"
+    },
+    "spellCheck": {
+      "type": "boolean",
+      "description": "Whether to enable spell checking"
+    },
+    "wrap": {
+      "type": "string",
+      "enum": ["hard", "soft", "off"],
+      "description": "Text wrapping behavior"
+    },
+    "onChangeAction": {
+      "type": "string",
+      "description": "Action to dispatch on text change"
+    },
+    "onFocusAction": {
+      "type": "string",
+      "description": "Action to dispatch on focus"
+    },
+    "onBlurAction": {
+      "type": "string",
+      "description": "Action to dispatch on blur"
+    }
+  }
+}

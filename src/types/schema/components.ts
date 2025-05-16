@@ -169,4 +169,5 @@ export interface ComponentTypes {
   Skeleton: import("./ui").SkeletonSpec;
   Label: import("./ui").LabelSpec;
   Input: import("./input").InputSpec;
+  Textarea: import("./ui").TextareaSpec;
 }

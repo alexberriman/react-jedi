@@ -114,3 +114,4 @@ export type {
   DropdownMenuGroupSpecification,
   DropdownMenuSubSpecification,
 } from "./dropdown-menu";
+export type { ContextMenuComponent, ContextMenuItem } from "./context-menu";

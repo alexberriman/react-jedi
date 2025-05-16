@@ -996,4 +996,5 @@ export type UIComponentSpec =
   | DialogTitleType
   | DialogDescriptionType
   | DialogCloseType
-  | DropdownMenuProps;
+  | DropdownMenuProps
+  | import("@/types/components/context-menu").ContextMenuComponent;

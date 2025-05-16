@@ -463,11 +463,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for DropdownMenu
 
-- [ ] Context Menu Component
+- ✅ Context Menu Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add context-menu`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for ContextMenu
+  - ✅ Add from shadcn (`npx shadcn@latest add context-menu`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for ContextMenu
 
 - [ ] Menubar Component
 

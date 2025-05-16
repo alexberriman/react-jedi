@@ -43,3 +43,8 @@ export type {
 } from "./select";
 export type { SwitchSpec } from "./switch";
 export type { SliderSpec } from "./slider";
+export type {
+  CollapsibleSpec,
+  CollapsibleTriggerSpec,
+  CollapsibleContentSpec,
+} from "./collapsible";

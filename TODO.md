@@ -333,11 +333,11 @@ This milestone adds interactivity to the library, turning static layouts into dy
 
 ### 3.4 Interactive UI Components
 
-- [ ] Collapsible Component
+- [✅] Collapsible Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add collapsible`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Collapsible
+  - [✅] Add from shadcn (`npx shadcn@latest add collapsible`)
+  - [✅] Create Storybook documentation with examples
+  - [✅] Implement specification schema for Collapsible
 
 - [ ] Toggle Component
 

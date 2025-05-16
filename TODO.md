@@ -285,11 +285,11 @@ This milestone adds interactivity to the library, turning static layouts into dy
   - [✅] Implement specification schema with submission handling
 
 
-- [ ] Textarea Component
+- [✅] Textarea Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add textarea`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema with validation options
+  - [✅] Add from shadcn (`npx shadcn@latest add textarea`)
+  - [✅] Create Storybook documentation with examples
+  - [✅] Implement specification schema with validation options
 
 - [ ] Checkbox Component
 

@@ -1,8 +1,8 @@
 import React, { useRef, useCallback } from "react";
 import { renderToString } from "react-dom/server";
-import { ThemeProvider } from "../../../../src/lib/theme/theme-provider";
-import { Box, Text, Button, Card, Heading } from "../../components";
-import { presets } from "../../../../src/lib/theme/brand-presets";
+import { ThemeProvider } from "@banja/react-jedi";
+import { Box, Text, Button, Card, Heading } from "@banja/react-jedi";
+import { brandPresets as presets } from "@banja/react-jedi";
 
 // Polyfill for performance in case it's not available
 const getPerformance = () => {

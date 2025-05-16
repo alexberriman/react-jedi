@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ThemeProvider } from "@/lib/theme/theme-provider";
-import { useTheme } from "@/lib/theme/use-theme";
-import type { Theme } from "@/types/schema/theme";
+import { ThemeProvider, useTheme } from "@banja/react-jedi";
+import type { Theme } from "@banja/react-jedi";
 import {
   Button,
   Card,
@@ -22,7 +21,7 @@ import {
   Input,
   Label,
   Skeleton,
-} from "@/components/ui";
+} from "@banja/react-jedi";
 
 interface ThemePlaygroundProps {
   initialTheme?: Theme;

@@ -29,7 +29,8 @@
     "benchmark": "vitest bench -c benchmark.config.ts",
     "benchmark:ui": "vitest bench -c benchmark.config.ts --ui",
     "benchmark:report": "vitest bench -c benchmark.config.ts --reporter=json --outputFile=./benchmark-results.json",
-    "example-app": "npm run build && vite --config examples/vite.config.ts"
+    "example-app": "npm run build && vite --config examples/vite.config.ts",
+    "example-app:build": "npm run build && vite build --config examples/vite.config.ts"
   },
   "repository": {
     "type": "git",

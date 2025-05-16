@@ -131,3 +131,4 @@ export type {
   PopoverContentSpec,
   PopoverAnchorSpec,
 } from "./popover";
+export type { HoverCardProps, HoverCardTriggerSpec, HoverCardContentSpec } from "./hover-card";

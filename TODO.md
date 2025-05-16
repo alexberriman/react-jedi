@@ -499,11 +499,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Popover
 
-- [ ] HoverCard Component
+- ✅ HoverCard Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add hover-card`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for HoverCard
+  - ✅ Add from shadcn (`npx shadcn@latest add hover-card`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for HoverCard
 
 - [ ] Alert Component
 

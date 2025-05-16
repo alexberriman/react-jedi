@@ -175,6 +175,9 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   PopoverTrigger: asComponent(UI.PopoverTrigger),
   PopoverContent: asComponent(UI.PopoverContent),
   PopoverAnchor: asComponent(UI.PopoverAnchor),
+  HoverCard: asComponent(UI.HoverCard),
+  HoverCardTrigger: asComponent(UI.HoverCardTrigger),
+  HoverCardContent: asComponent(UI.HoverCardContent),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

@@ -296,7 +296,8 @@ export function ShowcasePage() {
                     <div className="flex items-center gap-3 mt-auto pt-2">
                       {component.name === "ScrollArea" ||
                       component.name === "Resizable" ||
-                      component.name === "Sheet" ? (
+                      component.name === "Sheet" ||
+                      component.name === "Tabs" ? (
                         <Link
                           to={`/showcase/${component.name.toLowerCase()}`}
                           className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"

@@ -197,4 +197,8 @@ export interface ComponentTypes {
   Toggle: import("../components/toggle").ToggleSpec;
   ToggleGroup: import("../components/toggle-group").ToggleGroupSpec;
   ToggleGroupItem: import("../components/toggle-group").ToggleGroupItemSpec;
+  Tabs: import("../components/tabs").TabsSpecification;
+  TabsList: import("../components/tabs").TabsListSpecification;
+  TabsTrigger: import("../components/tabs").TabsTriggerSpecification;
+  TabsContent: import("../components/tabs").TabsContentSpecification;
 }

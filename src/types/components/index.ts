@@ -72,3 +72,9 @@ export type {
   SheetDescriptionSpecification,
   SheetCloseSpecification,
 } from "./sheet";
+export type {
+  TabsSpecification,
+  TabsListSpecification,
+  TabsTriggerSpecification,
+  TabsContentSpecification,
+} from "./tabs";

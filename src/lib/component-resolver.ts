@@ -98,6 +98,14 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   SheetFooter: asComponent(UI.SheetFooter),
   SheetTitle: asComponent(UI.SheetTitle),
   SheetDescription: asComponent(UI.SheetDescription),
+  Tabs: asComponent(UI.Tabs),
+  TabsList: asComponent(UI.TabsList),
+  TabsTrigger: asComponent(
+    UI.TabsTrigger as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  TabsContent: asComponent(
+    UI.TabsContent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

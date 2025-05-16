@@ -9,6 +9,12 @@ import type { BaseComponentSpec, ComponentChildren } from "./base";
 import type { InputSpec } from "./input";
 import type { ToggleSpec } from "@/types/components/toggle";
 import type { ToggleGroupSpec, ToggleGroupItemSpec } from "@/types/components/toggle-group";
+import type {
+  TabsSpecification,
+  TabsListSpecification,
+  TabsTriggerSpecification,
+  TabsContentSpecification,
+} from "@/types/components/tabs";
 
 /**
  * Button Component Specification
@@ -964,4 +970,8 @@ export type UIComponentSpec =
   | SelectSeparatorSpec
   | ToggleSpec
   | ToggleGroupSpec
-  | ToggleGroupItemSpec;
+  | ToggleGroupItemSpec
+  | TabsSpecification
+  | TabsListSpecification
+  | TabsTriggerSpecification
+  | TabsContentSpecification;

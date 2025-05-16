@@ -45,3 +45,4 @@ export * from "./masonry";
 export * from "./scroll-area";
 export * from "./resizable";
 export * from "./sheet";
+export * from "./tabs";

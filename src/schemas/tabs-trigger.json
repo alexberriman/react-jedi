@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["TabsTrigger"],
+      "description": "Component type identifier"
+    },
+    "id": {
+      "type": "string",
+      "description": "Optional identifier"
+    },
+    "value": {
+      "type": "string",
+      "description": "The value associated with this trigger"
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the trigger is disabled"
+    },
+    "className": {
+      "type": "string",
+      "description": "CSS class name"
+    },
+    "styles": {
+      "type": "object",
+      "description": "Style overrides"
+    },
+    "children": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Component"
+          }
+        },
+        {
+          "$ref": "#/definitions/Component"
+        }
+      ],
+      "description": "Child components or text"
+    }
+  },
+  "required": ["type", "value"],
+  "additionalProperties": false,
+  "definitions": {
+    "Component": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -451,11 +451,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Dialog
 
-- [ ] Drawer Component
+- ✅ Drawer Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add drawer`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Drawer
+  - ✅ Add from shadcn (`npx shadcn@latest add drawer`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Drawer
 
 - [ ] Dropdown Menu Component
 

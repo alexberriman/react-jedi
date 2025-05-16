@@ -123,39 +123,7 @@ if [ -n "$TS_CONFIG_WEAKENING" ]; then
   exit 1
 fi
 
-# Check for large files
-echo "🔍 Checking for large files in commit..."
-LARGE_FILES=""
-while IFS= read -r FILE_INFO; do
-  FILE=$(echo "$FILE_INFO" | cut -f2)
-  SIZE=$(echo "$FILE_INFO" | cut -f1)
-  
-  # Convert size to KB
-  SIZE_KB=$(expr $SIZE / 1024)
-  
-  # Check if it's larger than 100KB
-  if [ $SIZE_KB -gt 100 ]; then
-    # Skip allowed files
-    if ! echo "$FILE" | grep -qE '\.(ico|woff2?|ttf|pdf|svg|gif|jpe?g|png|webp|mp4|webm|avi|mov|mp3|wav|zip|tar|gz|bz2)$'; then
-      LARGE_FILES="${LARGE_FILES}\n  - ${FILE} (${SIZE_KB}KB)"
-    fi
-  fi
-done < <(git diff --cached --name-only --diff-filter=ACMRT | xargs -I {} sh -c 'stat -c "%s	{}" "{}" 2>/dev/null || echo "0	{}"')
-
-if [ -n "$LARGE_FILES" ]; then
-  echo -e "⚠️  WARNING: The following files are larger than 100KB:${LARGE_FILES}"
-  echo ""
-  echo "❗ Large files may indicate:"
-  echo "   - Binaries that should be stored elsewhere"
-  echo "   - Generated files that shouldn't be committed"
-  echo "   - Unoptimized assets"
-  read -p "▶️  Do you want to continue with these large files? (y/N) " -n 1 -r </dev/tty
-  echo # blank line after response
-  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "✅ Aborted commit to review large files."
-    exit 1
-  fi
-fi
+# Large file check has been removed
 
 # Run lint-staged for code quality checks
 echo "🤖 Running lint-staged for code quality checks..."

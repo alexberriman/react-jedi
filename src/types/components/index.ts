@@ -192,3 +192,4 @@ export type {
 } from "./data-table";
 export type { CarouselDef } from "./carousel";
 export type { ChartComponentProps } from "./chart";
+export type { FooterProps } from "./footer";

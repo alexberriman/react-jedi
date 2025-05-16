@@ -1,0 +1,198 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Footer Component Schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Footer"
+    },
+    "props": {
+      "type": "object",
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["default", "light", "dark", "gradient", "minimal"],
+          "default": "default",
+          "description": "The visual style variant of the footer"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["sm", "default", "lg"],
+          "default": "default",
+          "description": "The size/padding of the footer"
+        },
+        "layout": {
+          "type": "string",
+          "enum": ["default", "centered", "minimal"],
+          "default": "default",
+          "description": "The layout style of the footer"
+        },
+        "logo": {
+          "type": ["string", "object"],
+          "description": "Logo content (can be text or component specification)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Company description text"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Section heading"
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "description": "Link text"
+                    },
+                    "href": {
+                      "type": "string",
+                      "description": "Link URL"
+                    },
+                    "external": {
+                      "type": "boolean",
+                      "description": "Whether the link opens in a new tab"
+                    }
+                  },
+                  "required": ["label", "href"]
+                }
+              }
+            },
+            "required": ["title", "links"]
+          },
+          "description": "Footer navigation sections"
+        },
+        "socialLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string",
+                "enum": ["facebook", "twitter", "instagram", "linkedin", "youtube", "github"],
+                "description": "Social media platform"
+              },
+              "href": {
+                "type": "string",
+                "description": "Social media profile URL"
+              },
+              "label": {
+                "type": "string",
+                "description": "Accessibility label for the link"
+              }
+            },
+            "required": ["platform", "href"]
+          },
+          "description": "Social media links"
+        },
+        "contactInfo": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "Contact email address"
+            },
+            "phone": {
+              "type": "string",
+              "description": "Contact phone number"
+            },
+            "address": {
+              "type": "string",
+              "description": "Physical address"
+            }
+          },
+          "description": "Contact information"
+        },
+        "newsletter": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Newsletter section title"
+            },
+            "description": {
+              "type": "string",
+              "description": "Newsletter description text"
+            },
+            "placeholder": {
+              "type": "string",
+              "description": "Email input placeholder text"
+            },
+            "buttonText": {
+              "type": "string",
+              "description": "Submit button text"
+            },
+            "onSubmit": {
+              "type": "string",
+              "description": "Newsletter submission handler"
+            }
+          },
+          "description": "Newsletter signup configuration"
+        },
+        "copyright": {
+          "type": "string",
+          "description": "Copyright text"
+        },
+        "legalLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Link text"
+              },
+              "href": {
+                "type": "string",
+                "description": "Link URL"
+              }
+            },
+            "required": ["label", "href"]
+          },
+          "description": "Legal/policy links"
+        },
+        "showDivider": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to show divider before bottom section"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Component"
+      },
+      "description": "Custom child components"
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": false,
+  "definitions": {
+    "Component": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object"
+        }
+      },
+      "required": ["type"]
+    }
+  }
+}

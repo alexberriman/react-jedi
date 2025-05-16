@@ -25,6 +25,14 @@ const examples: Example[] = [
     path: "/examples/conditional",
     status: "new",
   },
+  {
+    id: "form-validation",
+    title: "Form Validation",
+    description:
+      "Comprehensive form validation examples with error states, different field types, and complex validation rules.",
+    path: "/examples/form-validation",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

@@ -5,7 +5,10 @@ import { Flex } from "@/components/ui/flex/flex";
 import { createComponentBenchmark, createScalingBenchmark } from "./component-benchmark";
 
 // Basic flex benchmark
-const BasicFlex = (props: { direction?: "row" | "column"; justify?: string }) => (
+const BasicFlex = (props: {
+  direction?: "row" | "column";
+  justify?: "start" | "end" | "center" | "between" | "around" | "evenly";
+}) => (
   <Flex direction={props.direction} justify={props.justify} gap="md">
     <div>Item 1</div>
     <div>Item 2</div>
@@ -23,7 +26,7 @@ createComponentBenchmark({
 
 // Test flex with scaling content
 const ScalingFlex = ({ items }: { items: Array<{ id: string; value: string }> }) => (
-  <Flex direction="row" gap="sm" wrap>
+  <Flex direction="row" gap="sm" wrap="wrap">
     {items.map((item) => (
       <div key={item.id} className="p-2 bg-secondary rounded">
         {item.value}
@@ -90,7 +93,7 @@ describe("Flex Configurations Performance", () => {
 
   bench("Flex - with wrap", () => {
     const { unmount } = render(
-      <Flex wrap>
+      <Flex wrap="wrap">
         <div>Item 1</div>
         <div>Item 2</div>
         <div>Item 3</div>
@@ -175,7 +178,14 @@ describe("Flex Complex Layouts Performance", () => {
 
   bench("Flex - with all props", () => {
     const { unmount } = render(
-      <Flex direction="row" justify="between" align="center" gap="md" wrap className="custom-class">
+      <Flex
+        direction="row"
+        justify="between"
+        align="center"
+        gap="md"
+        wrap="wrap"
+        className="custom-class"
+      >
         <div>Item 1</div>
         <div>Item 2</div>
         <div>Item 3</div>

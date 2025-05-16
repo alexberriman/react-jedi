@@ -6,7 +6,7 @@ import { createComponentBenchmark, createScalingBenchmark } from "./component-be
 
 // Basic grid benchmark
 const BasicGrid = (props: { columns?: number }) => (
-  <Grid columns={props.columns || 3} gap="md">
+  <Grid columns={props.columns || 3} gap={4}>
     <div>Cell 1</div>
     <div>Cell 2</div>
     <div>Cell 3</div>
@@ -26,7 +26,7 @@ createComponentBenchmark({
 
 // Test grid with scaling content
 const ScalingGrid = ({ items }: { items: Array<{ id: string; value: string }> }) => (
-  <Grid columns={4} gap="lg">
+  <Grid columns={4} gap={6}>
     {items.map((item) => (
       <div key={item.id} className="p-4 bg-secondary rounded">
         {item.value}
@@ -106,7 +106,7 @@ describe("Grid Configurations Performance", () => {
 describe("Grid Gap Performance", () => {
   bench("Grid - no gap", () => {
     const { unmount } = render(
-      <Grid columns={3} gap="none">
+      <Grid columns={3} gap={0}>
         <div>1</div>
         <div>2</div>
         <div>3</div>
@@ -118,7 +118,7 @@ describe("Grid Gap Performance", () => {
 
   bench("Grid - small gap", () => {
     const { unmount } = render(
-      <Grid columns={3} gap="sm">
+      <Grid columns={3} gap={2}>
         <div>1</div>
         <div>2</div>
         <div>3</div>
@@ -130,7 +130,7 @@ describe("Grid Gap Performance", () => {
 
   bench("Grid - medium gap", () => {
     const { unmount } = render(
-      <Grid columns={3} gap="md">
+      <Grid columns={3} gap={4}>
         <div>1</div>
         <div>2</div>
         <div>3</div>
@@ -142,7 +142,7 @@ describe("Grid Gap Performance", () => {
 
   bench("Grid - large gap", () => {
     const { unmount } = render(
-      <Grid columns={3} gap="lg">
+      <Grid columns={3} gap={6}>
         <div>1</div>
         <div>2</div>
         <div>3</div>

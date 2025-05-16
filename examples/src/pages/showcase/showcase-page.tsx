@@ -279,6 +279,21 @@ const categories: ComponentCategory[] = [
       },
     ],
   },
+  {
+    id: "marketing",
+    title: "Marketing Components",
+    description:
+      "Pre-built marketing components for creating stunning landing pages and marketing sites.",
+    components: [
+      {
+        name: "Hero",
+        description:
+          "Full-width hero section with multiple layout variants, backgrounds, and animations.",
+        status: "completed",
+        type: "custom",
+      },
+    ],
+  },
 ];
 
 export function ShowcasePage() {
@@ -396,7 +411,8 @@ export function ShowcasePage() {
                       component.name === "Sheet" ||
                       component.name === "Tabs" ||
                       component.name === "Accordion" ||
-                      component.name === "Dialog" ? (
+                      component.name === "Dialog" ||
+                      component.name === "Hero" ? (
                         <Link
                           to={`/showcase/${component.name.toLowerCase()}`}
                           className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"

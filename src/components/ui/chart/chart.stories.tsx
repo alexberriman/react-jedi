@@ -9,7 +9,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
-    type: {
+    chartType: {
       control: "select",
       options: ["line", "bar", "area", "pie", "radar", "radialBar"],
     },
@@ -64,7 +64,7 @@ const radialBarData = [
 
 export const LineChartExample: Story = {
   args: {
-    type: "line",
+    chartType: "line",
     data: lineChartData,
     config: {
       desktop: {
@@ -85,7 +85,7 @@ export const LineChartExample: Story = {
 
 export const BarChartExample: Story = {
   args: {
-    type: "bar",
+    chartType: "bar",
     data: barChartData,
     config: {
       visitors: {
@@ -106,7 +106,7 @@ export const BarChartExample: Story = {
 
 export const StackedBarChart: Story = {
   args: {
-    type: "bar",
+    chartType: "bar",
     data: barChartData,
     config: {
       visitors: {
@@ -128,7 +128,7 @@ export const StackedBarChart: Story = {
 
 export const AreaChartExample: Story = {
   args: {
-    type: "area",
+    chartType: "area",
     data: lineChartData,
     config: {
       desktop: {
@@ -150,7 +150,7 @@ export const AreaChartExample: Story = {
 
 export const PieChartExample: Story = {
   args: {
-    type: "pie",
+    chartType: "pie",
     data: pieChartData,
     config: {
       Desktop: {
@@ -179,7 +179,7 @@ export const PieChartExample: Story = {
 
 export const DonutChart: Story = {
   args: {
-    type: "pie",
+    chartType: "pie",
     data: pieChartData,
     config: {
       Desktop: {
@@ -209,7 +209,7 @@ export const DonutChart: Story = {
 
 export const RadarChartExample: Story = {
   args: {
-    type: "radar",
+    chartType: "radar",
     data: radarChartData,
     config: {
       A: {
@@ -231,7 +231,7 @@ export const RadarChartExample: Story = {
 
 export const RadialBarChartExample: Story = {
   args: {
-    type: "radialBar",
+    chartType: "radialBar",
     data: radialBarData,
     config: {
       uv: {
@@ -249,7 +249,7 @@ export const RadialBarChartExample: Story = {
 
 export const WithCustomColors: Story = {
   args: {
-    type: "line",
+    chartType: "line",
     data: lineChartData,
     config: {
       desktop: {
@@ -271,7 +271,7 @@ export const WithCustomColors: Story = {
 
 export const NoGrid: Story = {
   args: {
-    type: "line",
+    chartType: "line",
     data: lineChartData,
     config: {
       desktop: {
@@ -293,7 +293,7 @@ export const NoGrid: Story = {
 
 export const WithoutAxes: Story = {
   args: {
-    type: "area",
+    chartType: "area",
     data: lineChartData,
     config: {
       desktop: {
@@ -317,7 +317,7 @@ export const WithoutAxes: Story = {
 
 export const WithClickHandler: Story = {
   args: {
-    type: "bar",
+    chartType: "bar",
     data: barChartData,
     config: {
       visitors: {

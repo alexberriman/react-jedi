@@ -1,6 +1,6 @@
-import type { BaseComponentProps } from "./base";
+import type { BaseComponentSpec } from "./base";
 
-export interface ChartComponentProps extends BaseComponentProps {
+export interface ChartComponentProps extends BaseComponentSpec {
   type: "Chart";
   chartType: "line" | "bar" | "area" | "pie" | "radar" | "radialBar";
   data: Array<Record<string, unknown>>;

@@ -1,0 +1,19 @@
+{
+  "type": "hero",
+  "id": "hero-example",
+  "title": "Welcome to React Jedi",
+  "subtitle": "Server-Driven UI Architecture",
+  "description": "Build beautiful web interfaces using JSON specifications with our cutting-edge component library.",
+  "variant": "centered",
+  "primaryAction": {
+    "text": "Get Started",
+    "href": "/documentation"
+  },
+  "secondaryAction": {
+    "text": "View Components",
+    "href": "/showcase",
+    "variant": "outline"
+  },
+  "backgroundGradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  "className": "min-h-[600px]"
+}

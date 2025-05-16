@@ -27,7 +27,7 @@ import {
   ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
-} from "../chart";
+} from "@/components/ui/chart";
 import type { ComponentProps } from "@/types/schema/components";
 
 export interface ChartProps {
@@ -78,7 +78,7 @@ export interface ChartProps {
   cx?: string | number;
   cy?: string | number;
   labelLine?: boolean;
-  label?: boolean | ((data: Record<string, unknown>) => React.ReactNode);
+  label?: boolean | ((data: Record<string, unknown>) => React.ReactElement<SVGElement>);
 }
 
 export const Chart: React.FC<ChartProps> = ({
@@ -289,9 +289,14 @@ export const Chart: React.FC<ChartProps> = ({
     }
   };
 
+  const chart = renderChart();
+  if (!chart) {
+    return null;
+  }
+
   return (
     <ChartContainer config={config} className={className}>
-      {renderChart()}
+      {chart}
     </ChartContainer>
   );
 };

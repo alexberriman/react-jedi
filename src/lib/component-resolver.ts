@@ -363,6 +363,10 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Chart: asComponent(Chart as unknown as React.ComponentType<Record<string, unknown>>),
   chart: asComponent(Chart as unknown as React.ComponentType<Record<string, unknown>>),
 
+  // Marketing Components
+  Hero: asComponent(UI.Hero),
+  hero: asComponent(UI.Hero),
+
   // Form Components
   FormItem: asComponent(UI.FormItem),
   FormLabel: asComponent(UI.FormLabel),

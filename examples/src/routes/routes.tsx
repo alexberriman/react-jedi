@@ -11,6 +11,7 @@ import {
   AccordionDemo,
   DialogDemo,
 } from "../pages/showcase";
+import { HeroPreview } from "../pages/showcase/hero";
 import { DocumentationPage } from "../pages/documentation";
 import { ExamplesPage } from "../pages/examples";
 import { LandingExamplePage } from "../pages/examples/landing";
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
           {
             path: "dialog",
             element: <DialogDemo />,
+          },
+          {
+            path: "hero",
+            element: <HeroPreview />,
           },
         ],
       },

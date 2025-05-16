@@ -605,11 +605,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
 
 ### 4.6 Marketing Components
 
-- [ ] Hero Component
+- [x] Hero Component
 
-  - [ ] Create custom implementation with multiple layouts
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema with variants
+  - [x] Create custom implementation with multiple layouts
+  - [x] Create Storybook documentation with examples
+  - [x] Implement specification schema with variants
 
 - [ ] Feature Card Component
 

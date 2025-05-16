@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["Sheet"],
+      "description": "Component type identifier"
+    },
+    "open": {
+      "type": "boolean",
+      "description": "Whether the sheet is open"
+    },
+    "onOpenChange": {
+      "type": "string",
+      "description": "Event handler for open state changes"
+    },
+    "modal": {
+      "type": "boolean",
+      "description": "When true, interaction with outside elements will be disabled and only content visible to screen readers"
+    },
+    "defaultOpen": {
+      "type": "boolean",
+      "description": "Whether the sheet is open by default"
+    },
+    "children": {
+      "anyOf": [
+        { "type": "string" },
+        { "$ref": "#/definitions/ComponentSpec" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ComponentSpec" }
+        }
+      ],
+      "description": "Child components to render inside the sheet"
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": true,
+  "definitions": {
+    "ComponentSpec": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" }
+      },
+      "required": ["type"],
+      "additionalProperties": true
+    }
+  }
+}

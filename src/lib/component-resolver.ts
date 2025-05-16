@@ -90,6 +90,14 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   ),
   ResizablePanel: asComponent(UI.ResizablePanel),
   ResizableHandle: asComponent(UI.ResizableHandle),
+  Sheet: asComponent(UI.Sheet),
+  SheetTrigger: asComponent(UI.SheetTrigger),
+  SheetClose: asComponent(UI.SheetClose),
+  SheetContent: asComponent(UI.SheetContent),
+  SheetHeader: asComponent(UI.SheetHeader),
+  SheetFooter: asComponent(UI.SheetFooter),
+  SheetTitle: asComponent(UI.SheetTitle),
+  SheetDescription: asComponent(UI.SheetDescription),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

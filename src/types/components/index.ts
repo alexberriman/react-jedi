@@ -62,3 +62,13 @@ export type {
   ResizablePanelSpecification,
   ResizableHandleSpecification,
 } from "./resizable";
+export type {
+  SheetSpecification,
+  SheetTriggerSpecification,
+  SheetContentSpecification,
+  SheetHeaderSpecification,
+  SheetFooterSpecification,
+  SheetTitleSpecification,
+  SheetDescriptionSpecification,
+  SheetCloseSpecification,
+} from "./sheet";

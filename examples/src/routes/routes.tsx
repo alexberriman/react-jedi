@@ -6,6 +6,7 @@ import {
   InteractiveShowcasePage,
   ScrollAreaDemo,
   ResizableDemo,
+  SheetDemo,
 } from "../pages/showcase";
 import { DocumentationPage } from "../pages/documentation";
 import { ExamplesPage } from "../pages/examples";
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
           {
             path: "resizable",
             element: <ResizableDemo />,
+          },
+          {
+            path: "sheet",
+            element: <SheetDemo />,
           },
         ],
       },

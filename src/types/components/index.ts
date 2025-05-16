@@ -41,3 +41,4 @@ export type {
   SelectLabelSpec,
   SelectSeparatorSpec,
 } from "./select";
+export type { SwitchSpec } from "./switch";

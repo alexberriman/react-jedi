@@ -309,11 +309,11 @@ This milestone adds interactivity to the library, turning static layouts into dy
   - [✅] Create Storybook documentation with examples
   - [✅] Implement specification schema with options
 
-- [ ] Switch Component
+- [✅] Switch Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add switch`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Switch
+  - [✅] Add from shadcn (`npx shadcn@latest add switch`)
+  - [✅] Create Storybook documentation with examples
+  - [✅] Implement specification schema for Switch
 
 - [ ] Slider Component
 

@@ -366,6 +366,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   // Marketing Components
   Hero: asComponent(UI.Hero),
   hero: asComponent(UI.Hero),
+  FeatureCard: asComponent(UI.FeatureCard),
+  "feature-card": asComponent(UI.FeatureCard),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

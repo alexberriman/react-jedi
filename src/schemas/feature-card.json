@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "feature-card"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the feature card component"
+    },
+    "title": {
+      "type": "string",
+      "description": "The feature title",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Feature description text"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Icon name or reference for the feature"
+    },
+    "iconColor": {
+      "type": "string",
+      "description": "Color for the icon",
+      "default": "currentColor"
+    },
+    "badge": {
+      "type": "string",
+      "description": "Badge text to display"
+    },
+    "badgeVariant": {
+      "type": "string",
+      "enum": ["default", "secondary", "destructive", "outline"],
+      "default": "secondary",
+      "description": "Badge style variant"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "highlighted", "minimal", "bordered"],
+      "default": "default",
+      "description": "Visual style variant for the card"
+    },
+    "orientation": {
+      "type": "string",
+      "enum": ["vertical", "horizontal"],
+      "default": "vertical",
+      "description": "Layout orientation"
+    },
+    "align": {
+      "type": "string",
+      "enum": ["left", "center", "right"],
+      "default": "left",
+      "description": "Content alignment"
+    },
+    "highlight": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to highlight the card"
+    },
+    "highlightColor": {
+      "type": "string",
+      "description": "Custom highlight color",
+      "default": "hsl(var(--primary))"
+    },
+    "link": {
+      "type": "string",
+      "description": "URL to navigate to when clicked"
+    },
+    "onClick": {
+      "type": "string",
+      "description": "Click handler action"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/componentSpecification"
+      },
+      "description": "Nested child components"
+    }
+  },
+  "required": ["type", "title"],
+  "additionalProperties": false
+}

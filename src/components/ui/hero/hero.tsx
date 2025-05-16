@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 export interface HeroProps {
-  title: string;
+  title?: string;
   subtitle?: string;
   description?: string;
   variant?: "centered" | "left-aligned" | "split";
@@ -28,7 +28,7 @@ export interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({
-  title,
+  title = "Hero Title",
   subtitle,
   description,
   variant = "centered",

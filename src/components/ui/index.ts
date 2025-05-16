@@ -73,3 +73,4 @@ export * from "./data-table";
 export * from "./carousel";
 export * from "./chart";
 export * from "./hero";
+export * from "./feature-card";

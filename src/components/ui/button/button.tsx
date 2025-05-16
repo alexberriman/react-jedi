@@ -41,6 +41,12 @@ export interface ButtonProps
   readonly spec?: import("@/types/schema/components").ComponentSpec;
   readonly theme?: Record<string, unknown>;
   readonly state?: Record<string, unknown>;
+  // Additional props that could be passed but shouldn't go to DOM
+  readonly conditionalProps?: Record<string, unknown>;
+  readonly isPrimary?: boolean;
+  readonly computedProps?: Record<string, unknown>;
+  readonly when?: string | boolean;
+  readonly actions?: Record<string, unknown>;
 }
 
 function Button({
@@ -53,6 +59,11 @@ function Button({
   spec,
   theme,
   state,
+  conditionalProps,
+  isPrimary,
+  computedProps,
+  when,
+  actions,
   ...props
 }: Readonly<ButtonProps>) {
   const Comp = asChild ? Slot : "button";

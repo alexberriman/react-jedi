@@ -163,7 +163,7 @@ function CarouselPrevious({
   variant = "outline",
   size = "icon",
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: Readonly<React.ComponentProps<typeof Button>>) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
   return (
@@ -193,7 +193,7 @@ function CarouselNext({
   variant = "outline",
   size = "icon",
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: Readonly<React.ComponentProps<typeof Button>>) {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (

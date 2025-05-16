@@ -30,10 +30,11 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
   // Wrap the component to accept ComponentProps and extract the relevant props
   return ((componentProps: ComponentProps) => {
     const { spec, children, theme, state } = componentProps;
-    const specProps = spec.props || undefined;
+    // Extract component-specific props from spec, excluding common properties
+    const { type, id, ...restSpec } = spec;
     const props = {
       ...defaultProps,
-      ...specProps,
+      ...restSpec,
       children,
       theme,
       state,

@@ -71,8 +71,8 @@ describe("Conditional Rendering Module", () => {
       };
 
       const result = applyConditionalProps(spec, context);
-      expect(result.variant).toBe("default");
-      expect(result.disabled).toBe(true);
+      expect((result as Record<string, unknown>).variant).toBe("default");
+      expect((result as Record<string, unknown>).disabled).toBe(true);
     });
 
     it("should use first matching condition", () => {
@@ -92,7 +92,7 @@ describe("Conditional Rendering Module", () => {
       };
 
       const result = applyConditionalProps(spec, context);
-      expect(result.className).toBe("bg-green-500");
+      expect((result as Record<string, unknown>).className).toBe("bg-green-500");
     });
 
     it("should handle no matching conditions", () => {
@@ -111,7 +111,7 @@ describe("Conditional Rendering Module", () => {
       };
 
       const result = applyConditionalProps(spec, context);
-      expect(result.variant).toBeUndefined();
+      expect((result as Record<string, unknown>).variant).toBeUndefined();
     });
   });
 
@@ -146,7 +146,7 @@ describe("Conditional Rendering Module", () => {
 
       const result = processConditionals(spec, context);
       expect(result).not.toBeNull();
-      expect(result?.variant).toBe("default");
+      expect((result as Record<string, unknown>)?.variant).toBe("default");
     });
 
     it("should handle complex scenarios", () => {
@@ -175,8 +175,11 @@ describe("Conditional Rendering Module", () => {
 
       const result = processConditionals(spec, context);
       expect(result).not.toBeNull();
-      expect(result?.className).toBe("user-card admin-card");
-      expect(result?.style).toEqual({ backgroundColor: "#000", color: "#fff" });
+      expect((result as Record<string, unknown>)?.className).toBe("user-card admin-card");
+      expect((result as Record<string, unknown>)?.style).toEqual({
+        backgroundColor: "#000",
+        color: "#fff",
+      });
     });
   });
 });

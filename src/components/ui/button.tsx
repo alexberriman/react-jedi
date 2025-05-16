@@ -32,16 +32,40 @@ const buttonVariants = cva(
   }
 );
 
+export interface ButtonProps
+  extends React.ComponentProps<"button">,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  // React-specific props that should not be passed to DOM element
+  readonly parentContext?: Record<string, unknown>;
+  readonly spec?: import("@/types/schema/components").ComponentSpec;
+  readonly theme?: Record<string, unknown>;
+  readonly state?: Record<string, unknown>;
+  // Additional props that could be passed but shouldn't go to DOM
+  readonly conditionalProps?: Record<string, unknown>;
+  readonly isPrimary?: boolean;
+  readonly computedProps?: Record<string, unknown>;
+  readonly when?: string | boolean;
+  readonly actions?: Record<string, unknown>;
+}
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  // Extract React-specific props that shouldn't be passed to DOM
+  parentContext,
+  spec,
+  theme,
+  state,
+  conditionalProps,
+  isPrimary,
+  computedProps,
+  when,
+  actions,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
+}: Readonly<ButtonProps>) {
   const Comp = asChild ? Slot : "button";
 
   return (

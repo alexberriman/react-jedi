@@ -1,4 +1,4 @@
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 import type { ComponentChildren } from "../schema/base";
 
 export interface CarouselDef extends BaseComponentSpec {
@@ -20,5 +20,4 @@ export interface CarouselDef extends BaseComponentSpec {
     delay?: number;
     stopOnInteraction?: boolean;
   };
-  styles?: Record<string, string | number>;
 }

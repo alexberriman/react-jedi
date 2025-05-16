@@ -319,36 +319,33 @@ function buildComponentProps(
   parentContext: Record<string, unknown>,
   styleOverrides: { className?: string; style?: React.CSSProperties }
 ): ExtendedComponentProps {
-  // Handle both spec.className and spec.props.className patterns
-  const specProps = spec.props || ({} as Record<string, unknown>);
-  const mergedClassName = cn(
-    spec.className || (specProps as { className?: string }).className,
-    styleOverrides.className
-  );
-  const mergedStyle = {
-    ...(spec.style || (specProps as { style?: React.CSSProperties }).style),
-    ...styleOverrides.style,
-  };
+  // Handle className and style from the spec
+  const mergedClassName = cn(spec.className || undefined, styleOverrides.className);
+  const mergedStyle: React.CSSProperties = {};
+  if (spec.style) {
+    Object.assign(mergedStyle, spec.style);
+  }
+  if (styleOverrides.style) {
+    Object.assign(mergedStyle, styleOverrides.style);
+  }
 
   // Build component props excluding internal properties
-  const filteredSpecProps = omit(specProps as Record<string, unknown>, [
-    "className",
-    "style",
-    "children",
-  ]);
   const filteredSpec = omit(spec as unknown as Record<string, unknown>, [
     "type",
     "className",
     "style",
     "children",
-    "props",
     "id",
     "spec",
+    "conditionalProps",
+    "when",
+    "state",
+    "actions",
+    "computedProps",
   ]);
 
   // Type assertion to avoid issues with strict type checking
   const componentProps: ExtendedComponentProps = {
-    ...filteredSpecProps,
     ...filteredSpec,
     className: mergedClassName || undefined,
     style: Object.keys(mergedStyle).length > 0 ? mergedStyle : undefined,

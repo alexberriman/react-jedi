@@ -248,7 +248,11 @@ function Sidebar({
   );
 }
 
-function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<typeof Button>) {
+function SidebarTrigger({
+  className,
+  onClick,
+  ...props
+}: Readonly<React.ComponentProps<typeof Button>>) {
   const { toggleSidebar } = useSidebar();
 
   return (

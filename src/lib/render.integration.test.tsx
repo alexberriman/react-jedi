@@ -12,9 +12,9 @@ describe("Render Prop Filtering", () => {
   it("should not include internal props in component props", () => {
     const spec = {
       type: "Box",
-      props: {
-        className: "test-class",
-        "data-testid": "test-box",
+      className: "test-class",
+      data: {
+        testid: "test-box",
       },
       children: "Test content",
     };

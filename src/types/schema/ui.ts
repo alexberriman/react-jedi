@@ -26,6 +26,7 @@ import type {
   DialogDescriptionType,
   DialogCloseType,
 } from "@/types/components/dialog";
+import type { DropdownMenuProps } from "@/types/components/dropdown-menu";
 
 /**
  * Button Component Specification
@@ -994,4 +995,5 @@ export type UIComponentSpec =
   | DialogFooterType
   | DialogTitleType
   | DialogDescriptionType
-  | DialogCloseType;
+  | DialogCloseType
+  | DropdownMenuProps;

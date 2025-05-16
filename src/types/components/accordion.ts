@@ -1,4 +1,4 @@
-import type { BaseComponentType } from "./base";
+import type { BaseComponentSpec } from "@/types/schema/base";
 
 export interface AccordionItem {
   value: string;
@@ -7,7 +7,7 @@ export interface AccordionItem {
   disabled?: boolean;
 }
 
-export interface AccordionType extends BaseComponentType {
+export interface AccordionType extends BaseComponentSpec {
   type: "accordion";
   accordionType?: "single" | "multiple";
   defaultValue?: string | string[];

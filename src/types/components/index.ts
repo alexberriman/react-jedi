@@ -103,3 +103,14 @@ export type {
   DrawerSectionType,
   DrawerHandleType,
 } from "./drawer";
+export type {
+  DropdownMenuProps,
+  DropdownMenuContentItem,
+  DropdownMenuItemSpecification,
+  DropdownMenuLabelSpecification,
+  DropdownMenuSeparatorSpecification,
+  DropdownMenuCheckboxSpecification,
+  DropdownMenuRadioGroupSpecification,
+  DropdownMenuGroupSpecification,
+  DropdownMenuSubSpecification,
+} from "./dropdown-menu";

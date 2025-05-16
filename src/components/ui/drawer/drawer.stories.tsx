@@ -15,19 +15,22 @@ import { Label } from "../label";
 import { Input } from "../input";
 import { Textarea } from "../textarea";
 
-const meta: Meta<typeof Drawer> = {
+const meta = {
   title: "Components/UI/Drawer",
   component: Drawer,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-};
+  argTypes: {},
+  args: {},
+} satisfies Meta<typeof Drawer>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  args: {},
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
@@ -68,6 +71,7 @@ export const Default: Story = {
 };
 
 export const RightSide: Story = {
+  args: {},
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
@@ -110,6 +114,7 @@ export const RightSide: Story = {
 };
 
 export const LeftSide: Story = {
+  args: {},
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
@@ -148,6 +153,7 @@ export const LeftSide: Story = {
 };
 
 export const TopDrawer: Story = {
+  args: {},
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
@@ -179,6 +185,7 @@ export const TopDrawer: Story = {
 };
 
 export const NestedDrawers: Story = {
+  args: {},
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
@@ -224,6 +231,7 @@ export const NestedDrawers: Story = {
 };
 
 export const StickyHeaderFooter: Story = {
+  args: {},
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
@@ -260,6 +268,7 @@ export const StickyHeaderFooter: Story = {
 };
 
 export const CustomStyling: Story = {
+  args: {},
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
@@ -296,6 +305,7 @@ export const CustomStyling: Story = {
 };
 
 export const MobileOptimized: Story = {
+  args: {},
   parameters: {
     viewport: {
       defaultViewport: "mobile1",

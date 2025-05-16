@@ -136,6 +136,25 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   DrawerClose: asComponent(UI.DrawerClose),
   DrawerSection: asComponent(UI.DrawerSection),
   DrawerHandle: asComponent(UI.DrawerHandle),
+  dropdownMenu: asComponent(
+    UI.DropdownMenuWrapper as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  DropdownMenu: asComponent(UI.DropdownMenu),
+  DropdownMenuTrigger: asComponent(UI.DropdownMenuTrigger),
+  DropdownMenuContent: asComponent(UI.DropdownMenuContent),
+  DropdownMenuLabel: asComponent(UI.DropdownMenuLabel),
+  DropdownMenuItem: asComponent(UI.DropdownMenuItem),
+  DropdownMenuCheckboxItem: asComponent(UI.DropdownMenuCheckboxItem),
+  DropdownMenuRadioGroup: asComponent(UI.DropdownMenuRadioGroup),
+  DropdownMenuRadioItem: asComponent(
+    UI.DropdownMenuRadioItem as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  DropdownMenuSeparator: asComponent(UI.DropdownMenuSeparator),
+  DropdownMenuShortcut: asComponent(UI.DropdownMenuShortcut),
+  DropdownMenuSub: asComponent(UI.DropdownMenuSub),
+  DropdownMenuSubTrigger: asComponent(UI.DropdownMenuSubTrigger),
+  DropdownMenuSubContent: asComponent(UI.DropdownMenuSubContent),
+  DropdownMenuGroup: asComponent(UI.DropdownMenuGroup),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

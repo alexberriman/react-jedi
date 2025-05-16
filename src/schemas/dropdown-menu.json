@@ -1,0 +1,284 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DropdownMenuSpecification",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "dropdownMenu"
+    },
+    "trigger": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "type": "object",
+          "description": "Component specification for the trigger element"
+        },
+        "asChild": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to pass props to child component"
+        }
+      },
+      "required": ["component"]
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes for the content"
+        },
+        "align": {
+          "type": "string",
+          "enum": ["start", "center", "end"],
+          "default": "center",
+          "description": "Alignment of the dropdown relative to trigger"
+        },
+        "alignOffset": {
+          "type": "number",
+          "default": 0,
+          "description": "Offset from the align option"
+        },
+        "side": {
+          "type": "string",
+          "enum": ["top", "right", "bottom", "left"],
+          "default": "bottom",
+          "description": "Side of the trigger to render the dropdown"
+        },
+        "sideOffset": {
+          "type": "number",
+          "default": 4,
+          "description": "Offset from the side option"
+        },
+        "collisionPadding": {
+          "type": "number",
+          "default": 0,
+          "description": "Padding from the viewport edges to detect collision"
+        },
+        "avoidCollisions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the dropdown should avoid collisions"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "label"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Label text"
+                  },
+                  "inset": {
+                    "type": "boolean",
+                    "description": "Whether to inset the label"
+                  }
+                },
+                "required": ["type", "text"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "separator"
+                  }
+                },
+                "required": ["type"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "item"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Item text"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "description": "Icon name to display"
+                  },
+                  "shortcut": {
+                    "type": "string",
+                    "description": "Keyboard shortcut text"
+                  },
+                  "variant": {
+                    "type": "string",
+                    "enum": ["default", "destructive"],
+                    "default": "default",
+                    "description": "Visual variant of the item"
+                  },
+                  "disabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether the item is disabled"
+                  },
+                  "inset": {
+                    "type": "boolean",
+                    "description": "Whether to inset the item"
+                  },
+                  "onClick": {
+                    "type": "object",
+                    "description": "Action to perform when item is clicked"
+                  }
+                },
+                "required": ["type", "text"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "checkbox"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Checkbox text"
+                  },
+                  "checked": {
+                    "type": "boolean",
+                    "description": "Whether the checkbox is checked"
+                  },
+                  "disabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether the checkbox is disabled"
+                  },
+                  "onCheckedChange": {
+                    "type": "object",
+                    "description": "Action to perform when checked state changes"
+                  }
+                },
+                "required": ["type", "text"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "radioGroup"
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "Current selected value"
+                  },
+                  "onValueChange": {
+                    "type": "object",
+                    "description": "Action to perform when value changes"
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "description": "Radio item value"
+                        },
+                        "text": {
+                          "type": "string",
+                          "description": "Radio item text"
+                        },
+                        "icon": {
+                          "type": "string",
+                          "description": "Icon name to display"
+                        },
+                        "disabled": {
+                          "type": "boolean",
+                          "default": false,
+                          "description": "Whether the radio item is disabled"
+                        }
+                      },
+                      "required": ["value", "text"]
+                    }
+                  }
+                },
+                "required": ["type", "items"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "group"
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/properties/content/properties/items/items"
+                    }
+                  }
+                },
+                "required": ["type", "items"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "sub"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Sub menu trigger text"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "description": "Icon name to display"
+                  },
+                  "inset": {
+                    "type": "boolean",
+                    "description": "Whether to inset the sub trigger"
+                  },
+                  "content": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/properties/content/properties/items/items"
+                        }
+                      }
+                    },
+                    "required": ["items"]
+                  }
+                },
+                "required": ["type", "text", "content"]
+              }
+            ]
+          }
+        }
+      },
+      "required": ["items"]
+    },
+    "open": {
+      "type": "boolean",
+      "description": "Controlled open state"
+    },
+    "defaultOpen": {
+      "type": "boolean",
+      "default": false,
+      "description": "Default open state"
+    },
+    "modal": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the dropdown is modal"
+    },
+    "onOpenChange": {
+      "type": "object",
+      "description": "Action to perform when open state changes"
+    }
+  },
+  "required": ["type", "trigger", "content"]
+}

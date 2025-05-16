@@ -1,6 +1,7 @@
 import type { BaseComponentSpec } from "@/types/schema/base";
 
-export interface DrawerType extends BaseComponentSpec {
+// Omit direction from BaseComponentSpec to avoid conflict
+export interface DrawerType extends Omit<BaseComponentSpec, "direction"> {
   type: "drawer" | "Drawer";
   open?: boolean;
   defaultOpen?: boolean;
@@ -19,7 +20,8 @@ export interface DrawerPortalType extends BaseComponentSpec {
   type: "DrawerPortal";
 }
 
-export interface DrawerContentType extends BaseComponentSpec {
+// Omit direction from BaseComponentSpec to avoid conflict
+export interface DrawerContentType extends Omit<BaseComponentSpec, "direction"> {
   type: "DrawerContent";
   showHandle?: boolean;
   direction?: "top" | "right" | "bottom" | "left";

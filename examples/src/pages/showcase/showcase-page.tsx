@@ -79,6 +79,13 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "custom",
       },
+      {
+        name: "ScrollArea",
+        description:
+          "Customizable scrollbar component for overflowing content with smooth scrolling.",
+        status: "completed",
+        type: "shadcn",
+      },
     ],
   },
   {

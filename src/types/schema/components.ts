@@ -164,6 +164,7 @@ export interface ComponentTypes {
   Flex: import("./layout").FlexSpec;
   AspectRatio: import("./layout").AspectRatioSpec;
   Separator: import("./layout").SeparatorSpec;
+  ScrollArea: import("../components/scroll-area").ScrollAreaSpecification;
   Stack: import("../components/stack").StackSpec;
   Group: import("../components/group").GroupSpec;
 

@@ -41,6 +41,7 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Spacer: asComponent(UI.Spacer),
   SimpleGrid: asComponent(UI.SimpleGrid),
   Masonry: asComponent(UI.Masonry),
+  ScrollArea: asComponent(UI.ScrollArea),
 
   // Typography Components
   Text: asComponent(UI.Text),

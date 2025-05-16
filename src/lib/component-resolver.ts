@@ -45,11 +45,13 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Textarea: asComponent(UI.TextareaComponent),
   Checkbox: asComponent(UI.Checkbox),
   RadioGroup: asComponent(UI.RadioGroup),
-  RadioGroupItem: asComponent(UI.RadioGroupItem as React.ComponentType<Record<string, unknown>>),
+  RadioGroupItem: asComponent(
+    UI.RadioGroupItem as unknown as React.ComponentType<Record<string, unknown>>
+  ),
   Select: asComponent(UI.Select),
   SelectContent: asComponent(UI.SelectContent),
   SelectGroup: asComponent(UI.SelectGroup),
-  SelectItem: asComponent(UI.SelectItem as React.ComponentType<Record<string, unknown>>),
+  SelectItem: asComponent(UI.SelectItem as unknown as React.ComponentType<Record<string, unknown>>),
   SelectLabel: asComponent(UI.SelectLabel),
   SelectScrollDownButton: asComponent(UI.SelectScrollDownButton),
   SelectScrollUpButton: asComponent(UI.SelectScrollUpButton),

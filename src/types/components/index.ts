@@ -57,3 +57,8 @@ export type { SpacerSpec } from "./spacer";
 export type { SimpleGridSpec } from "./simple-grid";
 export type { MasonrySpec } from "./masonry";
 export type { ScrollAreaSpecification } from "./scroll-area";
+export type {
+  ResizablePanelGroupSpecification,
+  ResizablePanelSpecification,
+  ResizableHandleSpecification,
+} from "./resizable";

@@ -43,3 +43,4 @@ export * from "./spacer";
 export * from "./simple-grid";
 export * from "./masonry";
 export * from "./scroll-area";
+export * from "./resizable";

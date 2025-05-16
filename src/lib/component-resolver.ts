@@ -85,6 +85,11 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Collapsible: asComponent(UI.Collapsible),
   CollapsibleContent: asComponent(UI.CollapsibleContent),
   CollapsibleTrigger: asComponent(UI.CollapsibleTrigger),
+  ResizablePanelGroup: asComponent(
+    UI.ResizablePanelGroup as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  ResizablePanel: asComponent(UI.ResizablePanel),
+  ResizableHandle: asComponent(UI.ResizableHandle),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

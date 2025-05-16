@@ -86,6 +86,13 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "shadcn",
       },
+      {
+        name: "Resizable",
+        description:
+          "Split pane component with draggable dividers for creating resizable panels, supporting both horizontal and vertical layouts.",
+        status: "completed",
+        type: "shadcn",
+      },
     ],
   },
   {
@@ -287,23 +294,46 @@ export function ShowcasePage() {
                     <p className="text-zinc-400 mb-4">{component.description}</p>
 
                     <div className="flex items-center gap-3 mt-auto pt-2">
-                      <button className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                      {component.name === "ScrollArea" || component.name === "Resizable" ? (
+                        <Link
+                          to={`/showcase/${component.name.toLowerCase()}`}
+                          className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
                         >
-                          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                          <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                        Preview
-                      </button>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                          Preview
+                        </Link>
+                      ) : (
+                        <button className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                          Preview
+                        </button>
+                      )}
                       <button className="text-sm text-zinc-400 hover:text-zinc-300 transition-colors flex items-center gap-1">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

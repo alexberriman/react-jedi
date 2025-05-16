@@ -253,6 +253,12 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "shadcn",
       },
+      {
+        name: "Dialog",
+        description: "Modal dialog for important content.",
+        status: "completed",
+        type: "shadcn",
+      },
     ],
   },
 ];
@@ -371,7 +377,8 @@ export function ShowcasePage() {
                       component.name === "Resizable" ||
                       component.name === "Sheet" ||
                       component.name === "Tabs" ||
-                      component.name === "Accordion" ? (
+                      component.name === "Accordion" ||
+                      component.name === "Dialog" ? (
                         <Link
                           to={`/showcase/${component.name.toLowerCase()}`}
                           className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"

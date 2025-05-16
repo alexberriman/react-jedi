@@ -79,3 +79,13 @@ export type {
   TabsContentSpecification,
 } from "./tabs";
 export type { AccordionType } from "./accordion";
+export type {
+  DialogType,
+  DialogTriggerType,
+  DialogContentType,
+  DialogHeaderType,
+  DialogFooterType,
+  DialogTitleType,
+  DialogDescriptionType,
+  DialogCloseType,
+} from "./dialog";

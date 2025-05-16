@@ -16,6 +16,16 @@ import type {
   TabsContentSpecification,
 } from "@/types/components/tabs";
 import type { AccordionType } from "@/types/components/accordion";
+import type {
+  DialogType,
+  DialogTriggerType,
+  DialogContentType,
+  DialogHeaderType,
+  DialogFooterType,
+  DialogTitleType,
+  DialogDescriptionType,
+  DialogCloseType,
+} from "@/types/components/dialog";
 
 /**
  * Button Component Specification
@@ -976,4 +986,12 @@ export type UIComponentSpec =
   | TabsListSpecification
   | TabsTriggerSpecification
   | TabsContentSpecification
-  | AccordionType;
+  | AccordionType
+  | DialogType
+  | DialogTriggerType
+  | DialogContentType
+  | DialogHeaderType
+  | DialogFooterType
+  | DialogTitleType
+  | DialogDescriptionType
+  | DialogCloseType;

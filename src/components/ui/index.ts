@@ -47,3 +47,4 @@ export * from "./resizable";
 export * from "./sheet";
 export * from "./tabs";
 export * from "./accordion";
+export * from "./dialog";

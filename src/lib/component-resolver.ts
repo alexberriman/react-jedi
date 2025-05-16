@@ -110,6 +110,20 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   AccordionItem: asComponent(UI.AccordionItem),
   AccordionTrigger: asComponent(UI.AccordionTrigger),
   AccordionContent: asComponent(UI.AccordionContent),
+  Dialog: asComponent(UI.Dialog),
+  DialogTrigger: asComponent(
+    UI.DialogTrigger as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  DialogContent: asComponent(
+    UI.DialogContent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  DialogHeader: asComponent(UI.DialogHeader),
+  DialogFooter: asComponent(UI.DialogFooter),
+  DialogTitle: asComponent(UI.DialogTitle),
+  DialogDescription: asComponent(UI.DialogDescription),
+  DialogClose: asComponent(
+    UI.DialogClose as unknown as React.ComponentType<Record<string, unknown>>
+  ),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

@@ -9,6 +9,7 @@ import {
   SheetDemo,
   TabsDemo,
   AccordionDemo,
+  DialogDemo,
 } from "../pages/showcase";
 import { DocumentationPage } from "../pages/documentation";
 import { ExamplesPage } from "../pages/examples";
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
           {
             path: "accordion",
             element: <AccordionDemo />,
+          },
+          {
+            path: "dialog",
+            element: <DialogDemo />,
           },
         ],
       },

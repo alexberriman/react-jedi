@@ -445,11 +445,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Accordion
 
-- [ ] Dialog/Modal Component
+- ✅ Dialog/Modal Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add dialog`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Dialog
+  - ✅ Add from shadcn (`npx shadcn@latest add dialog`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Dialog
 
 - [ ] Drawer Component
 

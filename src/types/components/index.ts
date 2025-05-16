@@ -4,7 +4,7 @@
  * This file exports all component specification types.
  */
 
-export type { BaseComponentSpec } from "./base";
+export type { BaseComponentSpec } from "../schema/base";
 export type { AspectRatioSpec } from "./aspect-ratio";
 export type { BadgeSpec } from "./badge";
 export type { ButtonSpec } from "./button";
@@ -173,3 +173,4 @@ export type {
 } from "./sidebar";
 export type { CalendarComponentProps, CalendarDateSpec, CalendarRangeSpec } from "./calendar";
 export type { DatePickerComponentProps } from "./date-picker";
+export type { ComboboxDef } from "./combobox";

@@ -6,7 +6,7 @@
  * or counts in a compact visual format.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * Badge component specification.
@@ -37,18 +37,6 @@ export interface BadgeSpec extends BaseComponentSpec {
    * @default false
    */
   asChild?: boolean;
-
-  /**
-   * Optional additional CSS classes to apply to the component.
-   * Can be used for custom styling.
-   */
-  className?: string;
-
-  /**
-   * Optional ARIA label for accessibility.
-   * Important when badge contains only visual elements.
-   */
-  ariaLabel?: string;
 
   /**
    * Optional icon component to display before text content.

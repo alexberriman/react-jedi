@@ -567,11 +567,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for DatePicker
 
-- [ ] Combobox Component
+- ✅ Combobox Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add combobox`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Combobox
+  - ✅ Created custom implementation (shadcn doesn't have Combobox directly)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Combobox
 
 - [ ] Input OTP Component (one-time password)
   - [ ] Add from shadcn (`npx shadcn@latest add input-otp`)

@@ -5,7 +5,7 @@
  * The AspectRatio component is used to maintain a consistent width/height ratio for its content.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * AspectRatio component specification.

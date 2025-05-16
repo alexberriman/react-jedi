@@ -1,4 +1,4 @@
-import { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 export interface CalendarDateSpec {
   year: number;
@@ -41,7 +41,5 @@ export interface CalendarComponentProps extends BaseComponentSpec {
   onSelect?: string;
   onMonthChange?: string;
 
-  // Styling
-  style?: Record<string, unknown>;
-  className?: string;
+  // The styling properties are inherited from BaseComponentSpec
 }

@@ -5,7 +5,7 @@
  * The Avatar component is used to represent a user or entity with an image, fallback initial, or icon.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * Type alias for component children that can be a string, a single component, or an array of components.

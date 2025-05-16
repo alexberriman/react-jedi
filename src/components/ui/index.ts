@@ -65,3 +65,4 @@ export * from "./command";
 export * from "./sidebar";
 export * from "./calendar";
 export * from "./date-picker";
+export * from "./combobox";

@@ -5,7 +5,7 @@
  * The Container component is a layout component for controlling max-width and centering content.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * Type alias for component children that can be a string, a single component, or an array of components.
@@ -78,9 +78,4 @@ export interface ContainerSpec extends BaseComponentSpec {
    * Default is "div".
    */
   as?: string;
-
-  /**
-   * Optional additional CSS classes to apply to the component.
-   */
-  className?: string;
 }

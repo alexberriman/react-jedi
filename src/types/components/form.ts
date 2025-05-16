@@ -5,7 +5,7 @@
  * The Form component is built on react-hook-form and provides comprehensive form management.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * Type alias for component children that can be a string, a single component, or an array of components.

@@ -1,6 +1,6 @@
-import type { BaseComponentProps } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
-export interface DatePickerComponentProps extends BaseComponentProps {
+export interface DatePickerComponentProps extends BaseComponentSpec {
   type: "DatePicker";
   value?: string;
   placeholder?: string;

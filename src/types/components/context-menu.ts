@@ -1,4 +1,4 @@
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 import type { ComponentSpec } from "../schema/components";
 
 export interface ContextMenuItemSpec {
@@ -32,26 +32,6 @@ export interface ContextMenuComponentSpec extends BaseComponentSpec {
   };
 
   modal?: boolean;
-
-  // Extend with all common properties to fix type issues
-  children?: ComponentSpec | ComponentSpec[] | string;
-  className?: string;
-  style?: Record<string, unknown>;
-  state?: Record<string, unknown>;
-  visible?: boolean;
-  when?: string;
-  theme?: Record<string, unknown>;
-  conditionalProps?: Record<string, unknown>;
-  data?: Record<string, unknown>;
-  a11y?: Record<string, unknown>;
-  testId?: string;
-  variant?: string;
-  disabled?: boolean;
-  columns?: number;
-  direction?: string;
-  level?: number;
-  props?: Record<string, unknown>;
-  conditions?: unknown;
 
   // Add index signature for compatibility
   [key: string]: unknown;

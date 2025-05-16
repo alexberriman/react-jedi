@@ -1,4 +1,4 @@
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 import type { ComponentSpec } from "../schema/components";
 
 export interface HoverCardProps extends BaseComponentSpec {

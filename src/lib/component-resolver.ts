@@ -312,6 +312,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   ),
   datePicker: asComponent(UI.DatePicker as unknown as React.ComponentType<Record<string, unknown>>),
   DatePicker: asComponent(UI.DatePicker as unknown as React.ComponentType<Record<string, unknown>>),
+  combobox: asComponent(UI.Combobox as unknown as React.ComponentType<Record<string, unknown>>),
+  Combobox: asComponent(UI.Combobox as unknown as React.ComponentType<Record<string, unknown>>),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

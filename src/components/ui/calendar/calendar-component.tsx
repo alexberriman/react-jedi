@@ -31,8 +31,7 @@ export interface CalendarComponentProps extends BaseComponentSpec {
   toDate?: Date;
   onSelect?: string;
   onMonthChange?: string;
-  style?: React.CSSProperties;
-  className?: string;
+  // style and className are inherited from BaseComponentSpec
 }
 
 // Handle date parsing from JSON specification

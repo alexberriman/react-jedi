@@ -1,4 +1,4 @@
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 export interface AlertDialogTrigger {
   component: "Button" | "Toggle" | "Text";

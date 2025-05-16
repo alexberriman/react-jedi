@@ -5,7 +5,7 @@
  * The Card component is a flexible container for grouping and displaying content.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * Type alias for component children that can be a string, a single component, or an array of components.

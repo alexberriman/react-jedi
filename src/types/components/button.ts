@@ -5,7 +5,7 @@
  * The Button component is used to trigger actions or events in the user interface.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * Button component specification.
@@ -57,23 +57,6 @@ export interface ButtonSpec extends BaseComponentSpec {
    * @default "button"
    */
   buttonType?: "button" | "submit" | "reset";
-
-  /**
-   * Optional additional CSS classes to apply to the component.
-   * Can be used for custom styling.
-   */
-  className?: string;
-
-  /**
-   * Optional ARIA label for accessibility.
-   * Important when button has only icon content.
-   */
-  ariaLabel?: string;
-
-  /**
-   * Optional ARIA description for more detailed accessibility information.
-   */
-  ariaDescription?: string;
 
   /**
    * Optional property for loading state.

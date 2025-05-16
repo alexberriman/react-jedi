@@ -1,4 +1,4 @@
-import { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 import { ComponentChildren } from "../schema";
 
 export interface SheetSpecification extends BaseComponentSpec {

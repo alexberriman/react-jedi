@@ -5,7 +5,7 @@
  * The Separator component is used to visually separate content with a horizontal or vertical divider.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * Separator component specification.
@@ -31,10 +31,4 @@ export interface SeparatorSpec extends BaseComponentSpec {
    * @default true
    */
   decorative?: boolean;
-
-  /**
-   * Optional additional CSS classes to apply to the component.
-   * Can be used for custom styling like colors, thickness, etc.
-   */
-  className?: string;
 }

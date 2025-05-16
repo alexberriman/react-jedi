@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/banja/react-jedi/schemas/data-table.json",
+  "title": "DataTable Component Schema",
+  "description": "Schema for DataTable component configuration",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "DataTable",
+      "description": "Component type identifier"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes for the data table container"
+    },
+    "columns": {
+      "type": "array",
+      "description": "Column definitions for the table",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the column"
+          },
+          "header": {
+            "type": "string",
+            "description": "Display text for the column header"
+          },
+          "accessorKey": {
+            "type": "string",
+            "description": "Property key to access from the data object"
+          },
+          "enableSorting": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether this column is sortable"
+          },
+          "enableHiding": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether this column can be hidden via column visibility toggle"
+          },
+          "className": {
+            "type": "string",
+            "description": "Additional CSS classes for this column's cells"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["text", "number", "date", "badge", "currency", "custom"],
+            "default": "text",
+            "description": "Type of data displayed in this column, affects formatting"
+          },
+          "format": {
+            "type": "object",
+            "description": "Formatting options for specific column types",
+            "properties": {
+              "currency": {
+                "type": "string",
+                "description": "Currency code for currency type columns (e.g., 'USD')"
+              },
+              "locale": {
+                "type": "string",
+                "description": "Locale for number/date formatting (e.g., 'en-US')"
+              },
+              "dateFormat": {
+                "type": "string",
+                "description": "Custom date format string"
+              }
+            }
+          }
+        },
+        "required": ["id", "header"]
+      }
+    },
+    "data": {
+      "oneOf": [
+        {
+          "type": "array",
+          "description": "Inline data array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        {
+          "type": "string",
+          "description": "Reference to a data source"
+        }
+      ]
+    },
+    "filterColumn": {
+      "type": "string",
+      "description": "Column ID to use for the global filter input"
+    },
+    "filterPlaceholder": {
+      "type": "string",
+      "default": "Filter...",
+      "description": "Placeholder text for the filter input"
+    },
+    "actions": {
+      "type": "array",
+      "description": "Row action definitions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Display text for the action"
+          },
+          "handler": {
+            "type": "string",
+            "description": "Event handler name or action identifier"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Icon identifier for the action"
+          }
+        },
+        "required": ["label", "handler"]
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "description": "Pagination configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to show pagination controls"
+        },
+        "pageSize": {
+          "type": "integer",
+          "default": 10,
+          "minimum": 1,
+          "description": "Number of rows per page"
+        }
+      }
+    },
+    "features": {
+      "type": "object",
+      "description": "Feature toggles for the data table",
+      "properties": {
+        "columnFilter": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to show the column filter input"
+        },
+        "viewOptions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to show the column visibility toggle dropdown"
+        },
+        "selectable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether rows can be selected with checkboxes"
+        },
+        "sortable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether columns can be sorted"
+        }
+      }
+    },
+    "onSelectionChange": {
+      "type": "string",
+      "description": "Event handler for row selection changes"
+    },
+    "onAction": {
+      "type": "string",
+      "description": "Event handler for row actions"
+    }
+  },
+  "required": ["type", "columns", "data"]
+}

@@ -1,3 +1,4 @@
+import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./input-otp";
 
@@ -6,28 +7,33 @@ const meta = {
   component: InputOTP,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component: `
+An accessible one-time password (OTP) input component.
+Built on the input-otp library, this component provides
+a user-friendly way to enter verification codes, PINs, and other
+numeric inputs that require digit-by-digit entry.
+
+### Features
+- Accessible keyboard navigation
+- Automatic focus management
+- Visual grouping and separators
+- Support for different patterns (PIN, SMS code, 2FA)
+- Customizable slot appearance
+        `,
+      },
+    },
   },
   tags: ["autodocs"],
   argTypes: {
-    value: {
-      control: { type: "text" },
-      description: "Current value of the OTP input",
-    },
-    onChange: {
-      description: "Callback when value changes",
-    },
     maxLength: {
-      control: { type: "number" },
+      control: { type: "number", min: 1, max: 12 },
       description: "Maximum number of characters",
-      defaultValue: 6,
     },
     pattern: {
-      control: { type: "text" },
-      description: "Regex pattern for validation",
-    },
-    disabled: {
-      control: { type: "boolean" },
-      description: "Whether the input is disabled",
+      control: "text",
+      description: "Regex pattern to validate input",
     },
   },
 } satisfies Meta<typeof InputOTP>;
@@ -36,9 +42,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Default OTP input with 6 digits grouped by 3
+ * Default OTP input with 6 digits
  */
 export const Default: Story = {
+  args: {},
   render: () => (
     <InputOTP maxLength={6}>
       <InputOTPGroup>
@@ -57,11 +64,12 @@ export const Default: Story = {
 };
 
 /**
- * Single group of 4 digits
+ * 4-digit PIN input
  */
-export const FourDigits: Story = {
+export const FourDigitPIN: Story = {
+  args: {},
   render: () => (
-    <InputOTP maxLength={4}>
+    <InputOTP maxLength={4} pattern="[0-9]*">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -73,26 +81,71 @@ export const FourDigits: Story = {
 };
 
 /**
- * Custom pattern with dashes between groups
+ * SMS verification code with focus management
  */
-export const CustomPattern: Story = {
+export const SMSCode: Story = {
+  args: {},
+  render: () => (
+    <InputOTP maxLength={6}>
+      <InputOTPGroup>
+        <InputOTPSlot index={0} />
+        <InputOTPSlot index={1} />
+        <InputOTPSlot index={2} />
+      </InputOTPGroup>
+      <InputOTPSeparator />
+      <InputOTPGroup>
+        <InputOTPSlot index={3} />
+        <InputOTPSlot index={4} />
+        <InputOTPSlot index={5} />
+      </InputOTPGroup>
+    </InputOTP>
+  ),
+};
+
+/**
+ * Alphanumeric code (letters and numbers)
+ */
+export const AlphanumericCode: Story = {
+  args: {},
+  render: () => (
+    <InputOTP maxLength={6} pattern="[A-Z0-9]*">
+      <InputOTPGroup>
+        <InputOTPSlot index={0} />
+        <InputOTPSlot index={1} />
+        <InputOTPSlot index={2} />
+      </InputOTPGroup>
+      <InputOTPSeparator>-</InputOTPSeparator>
+      <InputOTPGroup>
+        <InputOTPSlot index={3} />
+        <InputOTPSlot index={4} />
+        <InputOTPSlot index={5} />
+      </InputOTPGroup>
+    </InputOTP>
+  ),
+};
+
+/**
+ * Custom separator style
+ */
+export const CustomSeparator: Story = {
+  args: {},
   render: () => (
     <InputOTP maxLength={8}>
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
       </InputOTPGroup>
-      <InputOTPSeparator />
+      <InputOTPSeparator>•</InputOTPSeparator>
       <InputOTPGroup>
         <InputOTPSlot index={2} />
         <InputOTPSlot index={3} />
       </InputOTPGroup>
-      <InputOTPSeparator />
+      <InputOTPSeparator>•</InputOTPSeparator>
       <InputOTPGroup>
         <InputOTPSlot index={4} />
         <InputOTPSlot index={5} />
       </InputOTPGroup>
-      <InputOTPSeparator />
+      <InputOTPSeparator>•</InputOTPSeparator>
       <InputOTPGroup>
         <InputOTPSlot index={6} />
         <InputOTPSlot index={7} />
@@ -102,30 +155,12 @@ export const CustomPattern: Story = {
 };
 
 /**
- * Individual slots without grouping
+ * With default value
  */
-export const Segmented: Story = {
+export const WithDefaultValue: Story = {
+  args: {},
   render: () => (
-    <InputOTP maxLength={6}>
-      <InputOTPSlot index={0} />
-      <InputOTPSlot index={1} />
-      <InputOTPSlot index={2} />
-      <InputOTPSlot index={3} />
-      <InputOTPSlot index={4} />
-      <InputOTPSlot index={5} />
-    </InputOTP>
-  ),
-};
-
-/**
- * With controlled value
- */
-export const Controlled: Story = {
-  args: {
-    value: "123",
-  },
-  render: (args) => (
-    <InputOTP {...args}>
+    <InputOTP maxLength={6} defaultValue="123456">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -145,11 +180,9 @@ export const Controlled: Story = {
  * Disabled state
  */
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-  render: (args) => (
-    <InputOTP {...args}>
+  args: {},
+  render: () => (
+    <InputOTP maxLength={6} disabled defaultValue="123456">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -166,76 +199,83 @@ export const Disabled: Story = {
 };
 
 /**
- * With pattern validation (only numbers)
+ * Controlled component with value and onChange
  */
-export const NumericOnly: Story = {
-  args: {
-    pattern: "^[0-9]*$",
+export const Controlled: Story = {
+  args: {},
+  render: function ControlledRender() {
+    const [value, setValue] = React.useState("");
+
+    return (
+      <div className="space-y-4">
+        <InputOTP maxLength={6} value={value} onChange={setValue}>
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
+        <p className="text-sm text-muted-foreground">Current value: {value || "(empty)"}</p>
+      </div>
+    );
   },
-  render: (args) => (
-    <InputOTP {...args}>
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-      </InputOTPGroup>
-      <InputOTPSeparator />
-      <InputOTPGroup>
-        <InputOTPSlot index={3} />
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
 };
 
 /**
- * Mixed alphanumeric pattern
+ * With onChange handler for form integration
  */
-export const Alphanumeric: Story = {
-  args: {
-    pattern: "^[A-Za-z0-9]*$",
-    maxLength: 8,
+export const WithOnComplete: Story = {
+  args: {},
+  render: function WithOnCompleteRender() {
+    const [value, setValue] = React.useState("");
+    const [isComplete, setIsComplete] = React.useState(false);
+
+    return (
+      <div className="space-y-4">
+        <InputOTP
+          maxLength={6}
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+            setIsComplete(newValue.length === 6);
+          }}
+        >
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
+
+        {isComplete && <p className="text-sm text-green-600">✓ Code complete! Value: {value}</p>}
+      </div>
+    );
   },
-  render: (args) => (
-    <InputOTP {...args}>
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-        <InputOTPSlot index={3} />
-      </InputOTPGroup>
-      <InputOTPSeparator />
-      <InputOTPGroup>
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
-        <InputOTPSlot index={6} />
-        <InputOTPSlot index={7} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
 };
 
 /**
- * Custom styling
+ * Password input style with masked characters
  */
-export const CustomStyling: Story = {
-  args: {
-    className: "text-blue-500",
-    containerClassName: "gap-4",
-  },
-  render: (args) => (
-    <InputOTP {...args}>
+export const Password: Story = {
+  render: () => (
+    <InputOTP maxLength={4} pattern="[0-9]*" className="password">
       <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-      </InputOTPGroup>
-      <InputOTPSeparator />
-      <InputOTPGroup>
-        <InputOTPSlot index={3} />
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
+        <InputOTPSlot index={0} className="password-char" />
+        <InputOTPSlot index={1} className="password-char" />
+        <InputOTPSlot index={2} className="password-char" />
+        <InputOTPSlot index={3} className="password-char" />
       </InputOTPGroup>
     </InputOTP>
   ),

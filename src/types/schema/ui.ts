@@ -30,6 +30,7 @@ import type { DropdownMenuProps } from "@/types/components/dropdown-menu";
 import type { ComboboxDef } from "@/types/components/combobox";
 import type { InputOTPDef } from "@/types/components/input-otp";
 import type { TableSpec } from "@/types/components/table";
+import type { DataTableSpec } from "@/types/components/data-table";
 
 /**
  * Button Component Specification
@@ -1013,4 +1014,5 @@ export type UIComponentSpec =
   | import("@/types/components/date-picker").DatePickerComponentProps
   | ComboboxDef
   | InputOTPDef
-  | TableSpec;
+  | TableSpec
+  | DataTableSpec;

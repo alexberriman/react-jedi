@@ -15,6 +15,7 @@ import {
   CommandShortcutComponent,
 } from "@/components/ui/command";
 import { CalendarComponent } from "@/components/ui/calendar";
+import { DataTableComponent } from "@/components/ui/data-table";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -25,13 +26,19 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
   component: T,
   defaultProps?: Partial<Record<string, unknown>>
 ): ComponentType => {
-  if (defaultProps) {
-    return ((props: ComponentProps) => {
-      const componentElement = React.createElement(component, { ...defaultProps, ...props });
-      return componentElement;
-    }) as ComponentType;
-  }
-  return component as unknown as ComponentType;
+  // Wrap the component to accept ComponentProps and extract the relevant props
+  return ((componentProps: ComponentProps) => {
+    const { spec, children, theme, state } = componentProps;
+    const specProps = spec.props || undefined;
+    const props = {
+      ...defaultProps,
+      ...specProps,
+      children,
+      theme,
+      state,
+    };
+    return React.createElement(component, props);
+  }) as ComponentType;
 };
 
 /**
@@ -71,8 +78,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Skeleton: asComponent(UI.Skeleton),
   Label: asComponent(UI.Label),
   Input: asComponent(UI.Input),
-  table: asComponent(UI.TableComponent),
-  Table: asComponent(UI.TableComponent),
+  table: asComponent(UI.TableComponent as unknown as React.ComponentType<Record<string, unknown>>),
+  Table: asComponent(UI.TableComponent as unknown as React.ComponentType<Record<string, unknown>>),
   Toggle: asComponent(UI.Toggle),
   ToggleGroup: asComponent(
     UI.ToggleGroup as unknown as React.ComponentType<Record<string, unknown>>
@@ -321,6 +328,12 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   ),
   InputOTP: asComponent(
     UI.InputOTPComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  dataTable: asComponent(
+    DataTableComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  DataTable: asComponent(
+    DataTableComponent as unknown as React.ComponentType<Record<string, unknown>>
   ),
 
   // Form Components

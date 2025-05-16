@@ -3,7 +3,7 @@
 import * as React from "react";
 import type { ComponentProps } from "@/types/schema/components";
 import type { InputOTPDef } from "@/types/components/input-otp";
-import { useEventHandlers } from "@/lib/events/use-event-handlers";
+// Event handlers will be implemented when the event system is ready
 import {
   InputOTP as BaseInputOTP,
   InputOTPGroup,
@@ -16,30 +16,25 @@ import {
  */
 export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
   const { props = {} } = spec as InputOTPDef;
-  const { registerHandler } = useEventHandlers({ spec, value: props.value || "" });
 
   const handleValueChange = React.useCallback(
     (value: string) => {
       if (props.onValueChange) {
-        registerHandler({
-          eventType: "otp-change",
-          handler: () => ({ action: props.onValueChange!.action, value }),
-        });
+        console.log("OTP value changed:", value);
+        // Event handlers will be implemented when the event system is ready
       }
     },
-    [props.onValueChange, registerHandler]
+    [props.onValueChange]
   );
 
   const handleComplete = React.useCallback(
     (value: string) => {
       if (props.onComplete) {
-        registerHandler({
-          eventType: "otp-complete",
-          handler: () => ({ action: props.onComplete!.action, value }),
-        });
+        console.log("OTP complete:", value);
+        // Event handlers will be implemented when the event system is ready
       }
     },
-    [props.onComplete, registerHandler]
+    [props.onComplete]
   );
 
   // Render the OTP input based on render type
@@ -95,11 +90,11 @@ export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
       value={props.value}
       onChange={(value) => {
         handleValueChange(value);
-        if (value.length === props.maxLength) {
+        if (props.maxLength && value.length === props.maxLength) {
           handleComplete(value);
         }
       }}
-      maxLength={props.maxLength}
+      maxLength={props.maxLength || 6}
       pattern={props.pattern}
       disabled={props.disabled}
       className={props.className}
@@ -109,6 +104,3 @@ export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
     </BaseInputOTP>
   );
 }
-
-// Export the base InputOTP component from the sub-module
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./input-otp/input-otp";

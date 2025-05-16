@@ -12,7 +12,7 @@ import type {
   BrandTypography,
   BrandPersonality,
 } from "./types";
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../../types/schema/specification";
 import { getPreset } from "./presets";
 import { generateColorScale } from "../color-system";
 

@@ -12,7 +12,7 @@ import {
   combineShadows,
   createResponsiveShadow,
 } from "./shadow-system";
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 
 describe("Shadow System", () => {
   describe("getShadow", () => {

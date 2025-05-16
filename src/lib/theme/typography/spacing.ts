@@ -6,7 +6,7 @@
  * and variable generation functions.
  */
 
-import type { ThemeTypography } from "../types/schema/specification";
+import type { ThemeTypography } from "../../../types/schema/specification";
 
 /**
  * Default line height values
@@ -139,7 +139,7 @@ export function extractLineHeights(typography?: ThemeTypography): Record<string,
   const lineHeights: Record<string, string> = {};
 
   for (const [key, value] of Object.entries(typography.lineHeights)) {
-    lineHeights[key] = formatLineHeight(value);
+    lineHeights[key] = formatLineHeight(value as string | number);
   }
 
   return lineHeights;
@@ -158,7 +158,7 @@ export function extractLetterSpacings(typography?: ThemeTypography): Record<stri
   const letterSpacings: Record<string, string> = {};
 
   for (const [key, value] of Object.entries(typography.letterSpacings)) {
-    letterSpacings[key] = formatLetterSpacing(value);
+    letterSpacings[key] = formatLetterSpacing(value as string);
   }
 
   return letterSpacings;

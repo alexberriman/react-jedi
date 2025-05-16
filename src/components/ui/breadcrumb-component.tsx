@@ -1,5 +1,5 @@
 import React from "react";
-import { BreadcrumbProps } from "../../../types/components/breadcrumb";
+import { BreadcrumbProps, BreadcrumbItemSpec } from "@/types/components/breadcrumb";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -38,7 +38,7 @@ export function BreadcrumbComponent(props: Readonly<Record<string, unknown>>) {
   return (
     <Breadcrumb aria-label={ariaLabel}>
       <BreadcrumbList>
-        {items.map((item, index) => (
+        {items.map((item: BreadcrumbItemSpec, index: number) => (
           <React.Fragment key={index}>
             <BreadcrumbItem>
               {(() => {

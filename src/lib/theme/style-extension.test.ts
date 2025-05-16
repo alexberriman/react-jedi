@@ -11,7 +11,7 @@ import {
   type StyleContext,
   type StyleSource,
 } from "./style-extension";
-import type { ComponentSpec } from "../types/schema/components";
+import type { ComponentSpec } from "../../types/schema/components";
 import { defaultTheme } from "./theme-presets";
 import { createTokenResolver } from "./token-resolver";
 import { extractTokensFromTheme, createTokenCollection } from "./theme-tokens";

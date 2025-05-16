@@ -5,7 +5,7 @@
  * It includes default scales, utilities for responsive spacing, and container presets.
  */
 
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 
 /**
  * Default spacing scale values in rem units

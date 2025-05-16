@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import type { ComponentProps } from "../../../types/schema/components";
-import type { InputOTPDef } from "../../../types/components/input-otp";
+import type { ComponentProps } from "@/types/schema/components";
+import type { InputOTPDef } from "@/types/components/input-otp";
 // Event handlers will be implemented when the event system is ready
 import {
   InputOTP as BaseInputOTP,
@@ -48,7 +48,7 @@ export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
       const parts = pattern.split(/[-_\\s]/);
       const separators = pattern.match(/[-_\\s]/g) || [];
 
-      return parts.map((part, index) => (
+      return parts.map((part: string, index: number) => (
         <React.Fragment key={index}>
           <InputOTPGroup>
             {Array.from({ length: part.length }, (_, i) => (

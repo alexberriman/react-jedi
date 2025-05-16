@@ -1,10 +1,10 @@
 import * as React from "react";
 import { render } from "../render";
 import { defaultComponentResolver } from "../component-resolver";
-import type { UISpecification } from "../types/schema/specification";
-import type { HeadingSpec, TextSpec } from "../types/schema/typography";
-import type { ButtonSpec } from "../types/schema/ui";
-import type { BoxSpec, FlexSpec } from "../types/schema/layout";
+import type { UISpecification } from "../../types/schema/specification";
+import type { HeadingSpec, TextSpec } from "../../types/schema/typography";
+import type { ButtonSpec } from "../../types/schema/ui";
+import type { BoxSpec, FlexSpec } from "../../types/schema/layout";
 
 /**
  * Example UI specification for testing the render function

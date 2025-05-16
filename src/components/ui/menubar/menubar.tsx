@@ -7,10 +7,56 @@ const Menubar = MenubarPrimitive.Root;
 const MenubarMenu = MenubarPrimitive.Menu;
 const MenubarTrigger = MenubarPrimitive.Trigger;
 const MenubarContent = MenubarPrimitive.Content;
-const MenubarItem = MenubarPrimitive.Item;
+const MenubarItemPrimitive = MenubarPrimitive.Item;
+
+// Extended MenubarItem with inset and variant props
+export interface MenubarItemProps
+  extends React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Item> {
+  inset?: boolean;
+  variant?: "default" | "destructive";
+}
+
+export const MenubarItem = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.Item>,
+  MenubarItemProps
+>(({ className, inset, variant, ...props }, ref) => (
+  <MenubarItemPrimitive
+    ref={ref}
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      inset && "pl-8",
+      variant === "destructive" && "text-destructive focus:text-destructive",
+      className
+    )}
+    {...props}
+  />
+));
+MenubarItem.displayName = MenubarPrimitive.Item.displayName;
 const MenubarSeparator = MenubarPrimitive.Separator;
 const MenubarSub = MenubarPrimitive.Sub;
-const MenubarSubTrigger = MenubarPrimitive.SubTrigger;
+const MenubarSubTriggerPrimitive = MenubarPrimitive.SubTrigger;
+
+// Extended MenubarSubTrigger with inset prop
+export interface MenubarSubTriggerProps
+  extends React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubTrigger> {
+  inset?: boolean;
+}
+
+export const MenubarSubTrigger = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.SubTrigger>,
+  MenubarSubTriggerProps
+>(({ className, inset, ...props }, ref) => (
+  <MenubarSubTriggerPrimitive
+    ref={ref}
+    className={cn(
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
+      inset && "pl-8",
+      className
+    )}
+    {...props}
+  />
+));
+MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName;
 const MenubarSubContent = MenubarPrimitive.SubContent;
 const MenubarCheckboxItem = MenubarPrimitive.CheckboxItem;
 const MenubarRadioGroup = MenubarPrimitive.RadioGroup;
@@ -125,10 +171,10 @@ export {
   MenubarMenu,
   MenubarTrigger,
   MenubarContent,
-  MenubarItem,
+  // MenubarItem is defined above
   MenubarSeparator,
   MenubarSub,
-  MenubarSubTrigger,
+  // MenubarSubTrigger is defined above
   MenubarSubContent,
   MenubarCheckboxItem,
   MenubarRadioGroup,

@@ -12,8 +12,8 @@ import {
   createValidator,
 } from "./specification-validator";
 import { SpecificationParserErrorType } from "./specification-parser";
-import { type UISpecification, type ComponentSpec } from "../types/schema/components";
-import { type ColorScale } from "../types/schema/specification";
+import { type UISpecification, type ComponentSpec } from "../../types/schema/components";
+import { type ColorScale } from "../../types/schema/specification";
 
 describe("SpecificationValidator", () => {
   // UI Specification validation tests

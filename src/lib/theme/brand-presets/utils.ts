@@ -5,7 +5,7 @@
  */
 
 import type { BrandPreset, BrandPersonality } from "./types";
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../../types/schema/specification";
 import { brandPresets, getPreset } from "./presets";
 import { generateBrandTheme } from "./generator";
 
@@ -51,15 +51,15 @@ export function analyzeThemePersonality(theme: ThemeSpecification): BrandPersona
 
   // Analyze typography
   if (
-    theme.typography?.fontFamilies?.sans?.some((f) => f.includes("Inter")) ||
-    theme.typography?.fontFamilies?.sans?.some((f) => f.includes("system-ui"))
+    theme.typography?.fontFamilies?.sans?.some((f: string) => f.includes("Inter")) ||
+    theme.typography?.fontFamilies?.sans?.some((f: string) => f.includes("system-ui"))
   ) {
     personality.modern += 10;
   }
 
   if (
-    theme.typography?.fontFamilies?.serif?.some((f) => f.includes("Georgia")) ||
-    theme.typography?.fontFamilies?.serif?.some((f) => f.includes("Playfair"))
+    theme.typography?.fontFamilies?.serif?.some((f: string) => f.includes("Georgia")) ||
+    theme.typography?.fontFamilies?.serif?.some((f: string) => f.includes("Playfair"))
   ) {
     personality.elegant += 10;
     personality.professional += 10;
@@ -68,7 +68,7 @@ export function analyzeThemePersonality(theme: ThemeSpecification): BrandPersona
   // Analyze spacing
   const spacingValues = Object.values(theme.spacing || {});
   const hasLargeSpacing = spacingValues.some(
-    (val) => typeof val === "string" && Number.parseFloat(val) > 4
+    (val: unknown) => typeof val === "string" && Number.parseFloat(val) > 4
   );
   if (hasLargeSpacing) {
     personality.minimal += 10;

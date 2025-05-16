@@ -12,8 +12,8 @@ import {
   FormLabel,
   FormMessage,
 } from "./form";
-import { Input } from "./input";
-import { Button } from "./button";
+import { Input } from "../input/input";
+import { Button } from "../button/button";
 
 // Create a wrapper component for stories that doesn't require form props
 const FormStory = ({ children }: { children: React.ReactNode }) => {

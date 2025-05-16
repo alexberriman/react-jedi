@@ -8,7 +8,7 @@
 import * as React from "react";
 import { render } from "../render";
 import { ThemeProvider } from "../theme/theme-provider";
-import type { UISpecification, ThemeSpecification } from "../types/schema/specification";
+import type { UISpecification, ThemeSpecification } from "../../types/schema/specification";
 
 // Theme with style extension configuration
 const themeWithExtension: ThemeSpecification = {

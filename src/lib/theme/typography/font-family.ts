@@ -5,7 +5,7 @@
  * It includes default font stacks, font family generation, and font loading utilities.
  */
 
-import type { ThemeTypography } from "../types/schema/specification";
+import type { ThemeTypography } from "../../../types/schema/specification";
 
 /**
  * Default font stacks for different font categories
@@ -136,7 +136,7 @@ export function extractFontFamilies(typography?: ThemeTypography): Record<string
   // Extract from fontFamilies object
   if (typography.fontFamilies) {
     for (const [key, value] of Object.entries(typography.fontFamilies)) {
-      if (value) {
+      if (value !== undefined) {
         families[key] = value;
       }
     }

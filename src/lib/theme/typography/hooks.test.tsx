@@ -15,7 +15,7 @@ import {
   useFluidTypography,
 } from "./hooks";
 import { ThemeProvider } from "../theme-provider";
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../../types/schema/specification";
 
 // Define a type for window.matchMedia
 type MediaQueryListMock = {

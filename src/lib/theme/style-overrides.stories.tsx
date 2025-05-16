@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { render } from "../render";
 import { ThemeProvider } from "./theme-provider";
-import type { UISpecification, ThemeSpecification } from "../types/schema/specification";
-import type { ButtonSpec } from "../types/schema/ui";
+import type { UISpecification, ThemeSpecification } from "../../types/schema/specification";
+import type { ButtonSpec } from "../../types/schema/ui";
 
 const meta = {
   title: "Theme/Style Overrides",

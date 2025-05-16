@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { StateManager } from "../lib/state";
+import type { StateManager } from "../state";
 
 /**
  * Extended state manager interface to support optional promise returns from setState
@@ -164,9 +164,12 @@ export function createOptimizedStateManager(
 
   // Create optimized manager
   return {
-    ...baseManager,
+    getState: baseManager.getState,
     setState,
+    dispatch: baseManager.dispatch,
     subscribe,
+    reset: baseManager.reset,
+    getComputedValues: baseManager.getComputedValues,
   };
 }
 

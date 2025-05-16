@@ -12,7 +12,7 @@ import {
   getComplementaryPresets,
 } from "./utils";
 import { techStartupPreset, minimalPreset } from "./presets";
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../../types/schema/specification";
 
 describe("Brand Preset Utils", () => {
   describe("describePersonality", () => {

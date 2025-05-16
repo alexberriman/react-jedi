@@ -15,7 +15,7 @@ import {
   type ResponsiveDesignToken,
 } from "./responsive-variants";
 import type { DesignToken } from "./theme-tokens";
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 import { DEFAULT_BREAKPOINTS } from "./responsive-system";
 
 function transformer(value: number): string {

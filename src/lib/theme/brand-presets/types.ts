@@ -4,7 +4,7 @@
  * Defines the structure for brand preset themes and utilities
  */
 
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../../types/schema/specification";
 
 /**
  * Brand preset definition

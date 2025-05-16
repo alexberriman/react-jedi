@@ -6,7 +6,7 @@
 
 import React from "react";
 import { render } from "../render";
-import type { UISpecification } from "../types/schema/specification";
+import type { UISpecification } from "../../types/schema/specification";
 
 export function ConditionalRenderingExample() {
   const [showAdvanced, setShowAdvanced] = React.useState(false);

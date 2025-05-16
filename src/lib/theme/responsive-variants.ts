@@ -5,7 +5,7 @@
  * spacing, and other design tokens.
  */
 
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 import type { DesignToken, TokenCollection } from "./theme-tokens";
 import type { ResponsiveValue, Breakpoints, BreakpointKey } from "./responsive-system";
 import {

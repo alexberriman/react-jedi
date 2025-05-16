@@ -5,7 +5,7 @@
  * that can be applied consistently across different components.
  */
 
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 import type { SpacingKey } from "./spacing-system";
 import type { ResponsiveSpacingObject, BreakpointKey } from "./responsive-spacing";
 import { extractSpacingScale, getSpacing } from "./spacing-system";

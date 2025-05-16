@@ -6,7 +6,7 @@
  * and utilities for converting between absolute and relative units.
  */
 
-import type { ThemeTypography } from "../types/schema/specification";
+import type { ThemeTypography } from "../../../types/schema/specification";
 
 /**
  * Font size scale ratio presets

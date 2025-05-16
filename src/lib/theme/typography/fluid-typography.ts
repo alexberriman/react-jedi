@@ -5,7 +5,7 @@
  * that automatically scales based on viewport size using CSS clamp.
  */
 
-import type { ThemeTypography } from "../types/schema/specification";
+import type { ThemeTypography } from "../../../types/schema/specification";
 import { type ScaleRatio, SCALE_RATIOS } from "./type-scale";
 
 /**

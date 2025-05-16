@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { processStyleOverrides, mergeStyles, cascadeStyles } from "./style-overrides";
 import { createTokenResolver } from "./token-resolver";
 import { extractTokensFromTheme, createTokenCollection } from "./theme-tokens";
-import type { ComponentSpec } from "../types/schema/components";
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ComponentSpec } from "../../types/schema/components";
+import type { ThemeSpecification } from "../../types/schema/specification";
 
 describe("Style Overrides", () => {
   describe("processStyleOverrides", () => {

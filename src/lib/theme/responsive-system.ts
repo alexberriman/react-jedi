@@ -5,7 +5,7 @@
  * Provides utilities for breakpoint management, responsive values, and container queries.
  */
 
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 
 /**
  * Breakpoint definitions

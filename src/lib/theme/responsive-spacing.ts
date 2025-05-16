@@ -5,7 +5,7 @@
  * It enables spacing adjustments based on breakpoints and container queries.
  */
 
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 import type { SpacingKey, SpacingScale } from "./spacing-system";
 import { getSpacing, extractSpacingScale } from "./spacing-system";
 

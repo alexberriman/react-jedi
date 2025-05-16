@@ -11,7 +11,7 @@ export {
   type ConditionContext,
 } from "./condition-parser";
 
-import type { ComponentSpec } from "../types/schema/components";
+import type { ComponentSpec } from "../../types/schema/components";
 import {
   evaluateCondition,
   type ConditionContext,
@@ -43,7 +43,7 @@ export function applyConditionalProps(
   const appliedProps: Record<string, unknown> = {};
 
   for (const [propName, conditions] of Object.entries(spec.conditionalProps)) {
-    for (const [condition, value] of Object.entries(conditions)) {
+    for (const [condition, value] of Object.entries(conditions as Record<string, unknown>)) {
       if (evaluateCondition(condition, context)) {
         appliedProps[propName] = value;
         break; // First matching condition wins

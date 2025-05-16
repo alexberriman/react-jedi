@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "../button";
-import { Toaster, toast } from "./index";
+import { Toaster } from "./index";
+import { toast } from "sonner";
 
 const meta = {
   title: "Components/Overlay/Toast",
@@ -264,13 +265,13 @@ export const RichContent: Story = {
       </Button>
       <Button
         onClick={() =>
-          toast.custom((t) => (
+          toast.custom((id: string | number) => (
             <div className="bg-card border rounded-lg p-4 shadow-lg">
               <h4 className="font-semibold mb-2">Custom Toast Component</h4>
               <p className="text-sm text-muted-foreground mb-3">
                 This is a completely custom toast design.
               </p>
-              <Button size="sm" onClick={() => toast.dismiss(t)}>
+              <Button size="sm" onClick={() => toast.dismiss(id)}>
                 Dismiss
               </Button>
             </div>

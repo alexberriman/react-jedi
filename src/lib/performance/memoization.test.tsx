@@ -12,7 +12,7 @@ import {
   getComponentMetrics,
   defaultMemoizationOptions,
 } from "./memoization";
-import type { ComponentProps } from "../types/schema/components";
+import type { ComponentProps } from "../../types/schema/components";
 
 // Test components
 const TestComponent = ({ spec }: ComponentProps) => {

@@ -1,7 +1,7 @@
 import React from "react";
-import { render } from "../lib/render";
-import { ComponentSpec } from "../types/schema/components";
-import { useEventDebugger } from "../lib/events";
+import { render } from "../render";
+import { ComponentSpec } from "../../types/schema/components";
+import { useEventDebugger } from "../events";
 
 export function EventHandlersExample() {
   const { DebuggerPortal, toggleDebugger } = useEventDebugger({ enabled: true });

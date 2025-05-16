@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DataTable, createSortableHeader, type DataTableColumn } from "./data-table";
 import { Copy, Edit, Trash } from "lucide-react";
 import type { Column, Row } from "@tanstack/react-table";
-import { Checkbox } from "./checkbox";
+import { Checkbox } from "../checkbox/checkbox";
 
 // Sample data types
 interface Payment {
@@ -137,14 +137,16 @@ const paymentColumns: DataTableColumn<Payment>[] = [
     header: ({ column, table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value: boolean | "indeterminate") =>
+          table.toggleAllPageRowsSelected(!!value)
+        }
         aria-label="Select all"
       />
     ),
     cell: ({ row }: { row: Row<Payment> }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: boolean | "indeterminate") => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),

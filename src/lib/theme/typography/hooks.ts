@@ -8,7 +8,7 @@ import { useCallback, useMemo } from "react";
 import { useTheme } from "../use-theme";
 import type { FluidTypographyConfig } from "./fluid-typography";
 import { enhanceWithFluidTypography, isFluidTypography } from "./fluid-typography";
-import type { ThemeTypography } from "../types/schema/specification";
+import type { ThemeTypography } from "../../../types/schema/specification";
 
 /**
  * Hook to access typography settings from the theme

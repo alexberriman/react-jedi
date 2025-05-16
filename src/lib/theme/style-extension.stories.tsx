@@ -19,7 +19,7 @@ import {
 } from "./style-extension";
 import { ThemeProvider } from "./theme-provider";
 import { defaultTheme } from "./theme-presets";
-import * as UI from "../components/ui";
+import * as UI from "../../components/ui";
 
 /**
  * Demo component for style inheritance

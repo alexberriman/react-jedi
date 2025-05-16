@@ -5,7 +5,7 @@
  * and validation pipeline to avoid circular dependencies.
  */
 
-import { type ValidationError } from "../lib/validation/validator";
+import { type ValidationError } from "../validation/validator";
 
 /**
  * Error types for specification validation

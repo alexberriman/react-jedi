@@ -5,7 +5,7 @@
  * It includes default scales, utilities for responsive shadows, and preset collections.
  */
 
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 
 /**
  * Default shadow scale values

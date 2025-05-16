@@ -8,10 +8,10 @@
 import * as React from "react";
 import { render } from "../render";
 import { ThemeProvider } from "../theme/theme-provider";
-import type { UISpecification, ThemeSpecification } from "../types/schema/specification";
-import type { ButtonSpec } from "../types/schema/ui";
-import type { FlexSpec } from "../types/schema/layout";
-import type { TextSpec } from "../types/schema/typography";
+import type { UISpecification, ThemeSpecification } from "../../types/schema/specification";
+import type { ButtonSpec } from "../../types/schema/ui";
+import type { FlexSpec } from "../../types/schema/layout";
+import type { TextSpec } from "../../types/schema/typography";
 
 /**
  * Example theme with style overrides

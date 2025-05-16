@@ -19,7 +19,7 @@ import {
   createResponsiveUtils,
   type ResponsiveObject,
 } from "./responsive-system";
-import type { ThemeSpecification } from "../types/schema/specification";
+import type { ThemeSpecification } from "../../types/schema/specification";
 
 function transformer(value: string): string {
   return `${value}px`;

@@ -12,7 +12,7 @@ import {
   ValidationStageType,
   ValidationStageError,
 } from "./validation-pipeline";
-import { ValidationSeverity } from "../lib/validation/validator";
+import { ValidationSeverity } from "../validation/validator";
 import { type ComponentSpec, type UISpecification } from "../../types/schema/components";
 
 describe("ValidationPipeline", () => {

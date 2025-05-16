@@ -6,7 +6,7 @@
  * It exports utilities for generating and managing typography tokens.
  */
 
-import type { ThemeTypography } from "../types/schema/specification";
+import type { ThemeTypography } from "../../../types/schema/specification";
 
 // Import necessary functions from individual modules
 import { fontFamiliesToVariables, defaultFontStacks } from "./font-family";

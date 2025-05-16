@@ -422,10 +422,10 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for ScrollArea
 
-- [ ] Resizable Component
-  - [ ] Add from shadcn (`npx shadcn@latest add resizable`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Resizable
+- ✅ Resizable Component
+  - ✅ Add from shadcn (`npx shadcn@latest add resizable`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Resizable
 - [ ] Sheet Component
   - [ ] Add from shadcn (`npx shadcn@latest add sheet`)
   - [ ] Create Storybook documentation with examples

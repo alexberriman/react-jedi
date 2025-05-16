@@ -1,5 +1,5 @@
-import type { SpecificationRoot } from "@banja/react-jedi";
-import ReactJedi from "@banja/react-jedi";
+import type { ComponentSpec } from "@banja/react-jedi";
+import { render } from "@banja/react-jedi";
 import { useState } from "react";
 
 export const AdvancedConditionalPage = () => {
@@ -10,28 +10,27 @@ export const AdvancedConditionalPage = () => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [premiumTier, setPremiumTier] = useState("free");
 
-  const specification: SpecificationRoot = {
-    type: "container",
+  const specification: ComponentSpec = {
+    type: "Container",
+    className: "container mx-auto px-4 py-8",
     children: [
       // Main Header
       {
-        type: "heading",
-        props: {
-          level: 1,
-          className: "mb-8 text-4xl font-bold",
-        },
+        type: "Heading",
+        level: "h1",
+        className: "mb-8 text-4xl font-bold",
         children: "Advanced Conditional Rendering Demo",
       },
 
       // Control Panel
       {
-        type: "box",
+        type: "Box",
         props: {
           className: "mb-12 p-6 bg-gray-50 dark:bg-gray-900 rounded-lg space-y-4",
         },
         children: [
           {
-            type: "heading",
+            type: "Heading",
             props: {
               level: 2,
               className: "mb-4 text-2xl font-semibold",
@@ -39,7 +38,7 @@ export const AdvancedConditionalPage = () => {
             children: "State Controls",
           },
           {
-            type: "grid",
+            type: "Grid",
             props: {
               cols: { base: 1, md: 2, lg: 3 },
               gap: 4,
@@ -47,13 +46,13 @@ export const AdvancedConditionalPage = () => {
             children: [
               // Login Toggle
               {
-                type: "box",
+                type: "Box",
                 props: {
                   className: "flex items-center space-x-2",
                 },
                 children: [
                   {
-                    type: "label",
+                    type: "Label",
                     props: {
                       htmlFor: "login-switch",
                       className: "flex-1",
@@ -61,7 +60,7 @@ export const AdvancedConditionalPage = () => {
                     children: "User Logged In",
                   },
                   {
-                    type: "switch",
+                    type: "Switch",
                     props: {
                       id: "login-switch",
                       checked: userLoggedIn,
@@ -73,33 +72,33 @@ export const AdvancedConditionalPage = () => {
 
               // Role Select
               {
-                type: "box",
+                type: "Box",
                 props: {
                   className: "space-y-2",
                 },
                 children: [
                   {
-                    type: "label",
+                    type: "Label",
                     props: {
                       htmlFor: "role-select",
                     },
                     children: "User Role",
                   },
                   {
-                    type: "select",
+                    type: "Select",
                     props: {
                       value: userRole,
                       onValueChange: setUserRole,
                     },
                     children: [
                       {
-                        type: "selectTrigger",
+                        type: "SelectTrigger",
                         props: {
                           id: "role-select",
                         },
                         children: [
                           {
-                            type: "selectValue",
+                            type: "SelectValue",
                             props: {
                               placeholder: "Select role",
                             },
@@ -107,20 +106,20 @@ export const AdvancedConditionalPage = () => {
                         ],
                       },
                       {
-                        type: "selectContent",
+                        type: "SelectContent",
                         children: [
                           {
-                            type: "selectItem",
+                            type: "SelectItem",
                             props: { value: "guest" },
                             children: "Guest",
                           },
                           {
-                            type: "selectItem",
+                            type: "SelectItem",
                             props: { value: "user" },
                             children: "User",
                           },
                           {
-                            type: "selectItem",
+                            type: "SelectItem",
                             props: { value: "admin" },
                             children: "Admin",
                           },
@@ -133,33 +132,33 @@ export const AdvancedConditionalPage = () => {
 
               // Premium Tier
               {
-                type: "box",
+                type: "Box",
                 props: {
                   className: "space-y-2",
                 },
                 children: [
                   {
-                    type: "label",
+                    type: "Label",
                     props: {
                       htmlFor: "premium-select",
                     },
                     children: "Premium Tier",
                   },
                   {
-                    type: "select",
+                    type: "Select",
                     props: {
                       value: premiumTier,
                       onValueChange: setPremiumTier,
                     },
                     children: [
                       {
-                        type: "selectTrigger",
+                        type: "SelectTrigger",
                         props: {
                           id: "premium-select",
                         },
                         children: [
                           {
-                            type: "selectValue",
+                            type: "SelectValue",
                             props: {
                               placeholder: "Select tier",
                             },
@@ -167,25 +166,25 @@ export const AdvancedConditionalPage = () => {
                         ],
                       },
                       {
-                        type: "selectContent",
+                        type: "SelectContent",
                         children: [
                           {
-                            type: "selectItem",
+                            type: "SelectItem",
                             props: { value: "free" },
                             children: "Free",
                           },
                           {
-                            type: "selectItem",
+                            type: "SelectItem",
                             props: { value: "basic" },
                             children: "Basic",
                           },
                           {
-                            type: "selectItem",
+                            type: "SelectItem",
                             props: { value: "premium" },
                             children: "Premium",
                           },
                           {
-                            type: "selectItem",
+                            type: "SelectItem",
                             props: { value: "enterprise" },
                             children: "Enterprise",
                           },
@@ -198,13 +197,13 @@ export const AdvancedConditionalPage = () => {
 
               // Notifications Toggle
               {
-                type: "box",
+                type: "Box",
                 props: {
                   className: "flex items-center space-x-2",
                 },
                 children: [
                   {
-                    type: "label",
+                    type: "Label",
                     props: {
                       htmlFor: "notifications-switch",
                       className: "flex-1",
@@ -212,7 +211,7 @@ export const AdvancedConditionalPage = () => {
                     children: "Notifications Enabled",
                   },
                   {
-                    type: "switch",
+                    type: "Switch",
                     props: {
                       id: "notifications-switch",
                       checked: notificationsEnabled,
@@ -224,26 +223,26 @@ export const AdvancedConditionalPage = () => {
 
               // Cart Items
               {
-                type: "box",
+                type: "Box",
                 props: {
                   className: "space-y-2",
                 },
                 children: [
                   {
-                    type: "label",
+                    type: "Label",
                     props: {
                       htmlFor: "cart-items",
                     },
                     children: "Cart Items",
                   },
                   {
-                    type: "box",
+                    type: "Box",
                     props: {
                       className: "flex items-center space-x-2",
                     },
                     children: [
                       {
-                        type: "button",
+                        type: "Button",
                         props: {
                           onClick: () => setCartItemCount(Math.max(0, cartItemCount - 1)),
                           variant: "outline",
@@ -252,14 +251,14 @@ export const AdvancedConditionalPage = () => {
                         children: "-",
                       },
                       {
-                        type: "text",
+                        type: "Text",
                         props: {
                           className: "px-4",
                         },
                         children: cartItemCount.toString(),
                       },
                       {
-                        type: "button",
+                        type: "Button",
                         props: {
                           onClick: () => setCartItemCount(cartItemCount + 1),
                           variant: "outline",
@@ -274,13 +273,13 @@ export const AdvancedConditionalPage = () => {
 
               // Dark Mode Toggle
               {
-                type: "box",
+                type: "Box",
                 props: {
                   className: "flex items-center space-x-2",
                 },
                 children: [
                   {
-                    type: "label",
+                    type: "Label",
                     props: {
                       htmlFor: "dark-mode-switch",
                       className: "flex-1",
@@ -288,7 +287,7 @@ export const AdvancedConditionalPage = () => {
                     children: "Dark Mode",
                   },
                   {
-                    type: "switch",
+                    type: "Switch",
                     props: {
                       id: "dark-mode-switch",
                       checked: darkMode,
@@ -304,20 +303,20 @@ export const AdvancedConditionalPage = () => {
 
       // Conditional Content
       {
-        type: "box",
+        type: "Box",
         props: {
           className: "space-y-8",
         },
         children: [
           // Welcome Message - different for each user type
           {
-            type: "card",
+            type: "Card",
             props: {
               className: "p-6",
             },
             children: [
               {
-                type: "heading",
+                type: "Heading",
                 props: {
                   level: 3,
                   className: "mb-2 text-xl font-semibold",
@@ -325,11 +324,11 @@ export const AdvancedConditionalPage = () => {
                 children: "Welcome Section",
               },
               {
-                type: "box",
-                if: "!userLoggedIn",
+                type: "Box",
+                when: "!userLoggedIn",
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "text-gray-600",
                     },
@@ -338,11 +337,11 @@ export const AdvancedConditionalPage = () => {
                 ],
               },
               {
-                type: "box",
-                if: "userLoggedIn && userRole === 'user'",
+                type: "Box",
+                when: "userLoggedIn && userRole === 'user'",
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "text-blue-600",
                     },
@@ -351,11 +350,11 @@ export const AdvancedConditionalPage = () => {
                 ],
               },
               {
-                type: "box",
-                if: "userLoggedIn && userRole === 'admin'",
+                type: "Box",
+                when: "userLoggedIn && userRole === 'admin'",
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "text-purple-600 font-semibold",
                     },
@@ -368,21 +367,19 @@ export const AdvancedConditionalPage = () => {
 
           // Premium Features - only show for premium users
           {
-            type: "card",
-            if: "premiumTier !== 'free'",
-            props: {
-              className: "p-6 border-2",
-              style: {
-                borderColor: (() => {
-                  if (premiumTier === "enterprise") return "#10b981";
-                  if (premiumTier === "premium") return "#3b82f6";
-                  return "#6b7280";
-                })(),
-              },
+            type: "Card",
+            when: "premiumTier !== 'free'",
+            className: "p-6 border-2",
+            style: {
+              borderColor: (() => {
+                if (premiumTier === "enterprise") return "#10b981";
+                if (premiumTier === "premium") return "#3b82f6";
+                return "#6b7280";
+              })(),
             },
             children: [
               {
-                type: "heading",
+                type: "Heading",
                 props: {
                   level: 3,
                   className: "mb-2 text-xl font-semibold",
@@ -390,7 +387,7 @@ export const AdvancedConditionalPage = () => {
                 children: `${premiumTier.charAt(0).toUpperCase() + premiumTier.slice(1)} Features`,
               },
               {
-                type: "grid",
+                type: "Grid",
                 props: {
                   cols: { base: 1, md: 2 },
                   gap: 4,
@@ -398,11 +395,11 @@ export const AdvancedConditionalPage = () => {
                 children: [
                   // Basic tier features
                   {
-                    type: "box",
-                    if: "premiumTier === 'basic' || premiumTier === 'premium' || premiumTier === 'enterprise'",
+                    type: "Box",
+                    when: "premiumTier === 'basic' || premiumTier === 'premium' || premiumTier === 'enterprise'",
                     children: [
                       {
-                        type: "badge",
+                        type: "Badge",
                         props: {
                           variant: "secondary",
                         },
@@ -412,11 +409,11 @@ export const AdvancedConditionalPage = () => {
                   },
                   // Premium tier features
                   {
-                    type: "box",
-                    if: "premiumTier === 'premium' || premiumTier === 'enterprise'",
+                    type: "Box",
+                    when: "premiumTier === 'premium' || premiumTier === 'enterprise'",
                     children: [
                       {
-                        type: "badge",
+                        type: "Badge",
                         props: {
                           variant: "default",
                         },
@@ -426,11 +423,11 @@ export const AdvancedConditionalPage = () => {
                   },
                   // Enterprise features
                   {
-                    type: "box",
-                    if: "premiumTier === 'enterprise'",
+                    type: "Box",
+                    when: "premiumTier === 'enterprise'",
                     children: [
                       {
-                        type: "badge",
+                        type: "Badge",
                         props: {
                           variant: "default",
                           className: "bg-green-600",
@@ -440,11 +437,11 @@ export const AdvancedConditionalPage = () => {
                     ],
                   },
                   {
-                    type: "box",
-                    if: "premiumTier === 'enterprise'",
+                    type: "Box",
+                    when: "premiumTier === 'enterprise'",
                     children: [
                       {
-                        type: "badge",
+                        type: "Badge",
                         props: {
                           variant: "default",
                           className: "bg-green-600",
@@ -460,14 +457,14 @@ export const AdvancedConditionalPage = () => {
 
           // Notification Settings - only show if logged in
           {
-            type: "card",
-            if: "userLoggedIn",
+            type: "Card",
+            when: "userLoggedIn",
             props: {
               className: "p-6",
             },
             children: [
               {
-                type: "heading",
+                type: "Heading",
                 props: {
                   level: 3,
                   className: "mb-4 text-xl font-semibold",
@@ -475,40 +472,40 @@ export const AdvancedConditionalPage = () => {
                 children: "Notification Preferences",
               },
               {
-                type: "box",
-                if: "notificationsEnabled",
+                type: "Box",
+                when: "notificationsEnabled",
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "text-green-600",
                     },
                     children: "🔔 Notifications are enabled",
                   },
                   {
-                    type: "box",
+                    type: "Box",
                     props: {
                       className: "mt-2 space-y-2",
                     },
                     children: [
                       {
-                        type: "text",
+                        type: "Text",
                         props: {
                           className: "text-sm text-gray-600",
                         },
                         children: "• Email notifications",
                       },
                       {
-                        type: "text",
-                        if: "premiumTier !== 'free'",
+                        type: "Text",
+                        when: "premiumTier !== 'free'",
                         props: {
                           className: "text-sm text-gray-600",
                         },
                         children: "• SMS notifications (Premium feature)",
                       },
                       {
-                        type: "text",
-                        if: "userRole === 'admin'",
+                        type: "Text",
+                        when: "userRole === 'admin'",
                         props: {
                           className: "text-sm text-gray-600",
                         },
@@ -519,11 +516,11 @@ export const AdvancedConditionalPage = () => {
                 ],
               },
               {
-                type: "box",
-                if: "!notificationsEnabled",
+                type: "Box",
+                when: "!notificationsEnabled",
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "text-red-600",
                     },
@@ -536,7 +533,7 @@ export const AdvancedConditionalPage = () => {
 
           // Shopping Cart - show different states
           {
-            type: "card",
+            type: "Card",
             props: {
               className: "p-6",
               style: {
@@ -546,7 +543,7 @@ export const AdvancedConditionalPage = () => {
             },
             children: [
               {
-                type: "heading",
+                type: "Heading",
                 props: {
                   level: 3,
                   className: "mb-4 text-xl font-semibold",
@@ -554,11 +551,11 @@ export const AdvancedConditionalPage = () => {
                 children: "Shopping Cart",
               },
               {
-                type: "box",
-                if: "cartItemCount === 0",
+                type: "Box",
+                when: "cartItemCount === 0",
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "text-gray-500",
                     },
@@ -567,22 +564,22 @@ export const AdvancedConditionalPage = () => {
                 ],
               },
               {
-                type: "box",
-                if: "cartItemCount > 0",
+                type: "Box",
+                when: "cartItemCount > 0",
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "mb-2",
                     },
                     children: `You have ${cartItemCount} item${cartItemCount > 1 ? "s" : ""} in your cart`,
                   },
                   {
-                    type: "box",
-                    if: "cartItemCount >= 5",
+                    type: "Box",
+                    when: "cartItemCount >= 5",
                     children: [
                       {
-                        type: "badge",
+                        type: "Badge",
                         props: {
                           variant: "default",
                           className: "bg-green-500",
@@ -592,8 +589,8 @@ export const AdvancedConditionalPage = () => {
                     ],
                   },
                   {
-                    type: "button",
-                    if: "userLoggedIn",
+                    type: "Button",
+                    when: "userLoggedIn",
                     props: {
                       className: "mt-4",
                       variant: "default",
@@ -601,8 +598,8 @@ export const AdvancedConditionalPage = () => {
                     children: "Proceed to Checkout",
                   },
                   {
-                    type: "button",
-                    if: "!userLoggedIn",
+                    type: "Button",
+                    when: "!userLoggedIn",
                     props: {
                       className: "mt-4",
                       variant: "outline",
@@ -616,14 +613,14 @@ export const AdvancedConditionalPage = () => {
 
           // Admin Panel - only for admins
           {
-            type: "card",
-            if: "userLoggedIn && userRole === 'admin'",
+            type: "Card",
+            when: "userLoggedIn && userRole === 'admin'",
             props: {
               className: "p-6 border-2 border-purple-500",
             },
             children: [
               {
-                type: "heading",
+                type: "Heading",
                 props: {
                   level: 3,
                   className: "mb-4 text-xl font-semibold text-purple-600",
@@ -631,14 +628,14 @@ export const AdvancedConditionalPage = () => {
                 children: "Admin Control Panel",
               },
               {
-                type: "grid",
+                type: "Grid",
                 props: {
                   cols: { base: 1, md: 3 },
                   gap: 4,
                 },
                 children: [
                   {
-                    type: "button",
+                    type: "Button",
                     props: {
                       variant: "outline",
                       className: "w-full",
@@ -646,7 +643,7 @@ export const AdvancedConditionalPage = () => {
                     children: "Manage Users",
                   },
                   {
-                    type: "button",
+                    type: "Button",
                     props: {
                       variant: "outline",
                       className: "w-full",
@@ -654,7 +651,7 @@ export const AdvancedConditionalPage = () => {
                     children: "View Analytics",
                   },
                   {
-                    type: "button",
+                    type: "Button",
                     props: {
                       variant: "outline",
                       className: "w-full",
@@ -664,14 +661,14 @@ export const AdvancedConditionalPage = () => {
                 ],
               },
               {
-                type: "box",
-                if: "premiumTier === 'enterprise'",
+                type: "Box",
+                when: "premiumTier === 'enterprise'",
                 props: {
                   className: "mt-4 p-4 bg-green-50 rounded",
                 },
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "text-green-800 font-semibold",
                     },
@@ -684,13 +681,13 @@ export const AdvancedConditionalPage = () => {
 
           // Complex Nested Conditions
           {
-            type: "card",
+            type: "Card",
             props: {
               className: "p-6",
             },
             children: [
               {
-                type: "heading",
+                type: "Heading",
                 props: {
                   level: 3,
                   className: "mb-4 text-xl font-semibold",
@@ -698,49 +695,49 @@ export const AdvancedConditionalPage = () => {
                 children: "Personalized Recommendations",
               },
               {
-                type: "box",
-                if: "userLoggedIn && cartItemCount > 0 && premiumTier !== 'free'",
+                type: "Box",
+                when: "userLoggedIn && cartItemCount > 0 && premiumTier !== 'free'",
                 children: [
                   {
-                    type: "text",
+                    type: "Text",
                     props: {
                       className: "text-blue-600 mb-2",
                     },
                     children: "Based on your cart and premium status:",
                   },
                   {
-                    type: "grid",
+                    type: "Grid",
                     props: {
                       cols: { base: 1, md: 2 },
                       gap: 4,
                     },
                     children: [
                       {
-                        type: "badge",
+                        type: "Badge",
                         props: {
                           variant: "secondary",
                         },
                         children: "Similar Products",
                       },
                       {
-                        type: "badge",
-                        if: "cartItemCount >= 3",
+                        type: "Badge",
+                        when: "cartItemCount >= 3",
                         props: {
                           variant: "secondary",
                         },
                         children: "Bundle Discount Available",
                       },
                       {
-                        type: "badge",
-                        if: "premiumTier === 'enterprise'",
+                        type: "Badge",
+                        when: "premiumTier === 'enterprise'",
                         props: {
                           variant: "secondary",
                         },
                         children: "Enterprise Pricing",
                       },
                       {
-                        type: "badge",
-                        if: "notificationsEnabled",
+                        type: "Badge",
+                        when: "notificationsEnabled",
                         props: {
                           variant: "secondary",
                         },
@@ -751,8 +748,8 @@ export const AdvancedConditionalPage = () => {
                 ],
               },
               {
-                type: "text",
-                if: "!userLoggedIn || (cartItemCount === 0 && premiumTier === 'free')",
+                type: "Text",
+                when: "!userLoggedIn || (cartItemCount === 0 && premiumTier === 'free')",
                 props: {
                   className: "text-gray-500",
                 },
@@ -766,25 +763,22 @@ export const AdvancedConditionalPage = () => {
     ],
   };
 
-  return (
-    <ReactJedi
-      specification={specification}
-      theme={{
-        colors: {
-          primary: "#3b82f6",
-          secondary: "#10b981",
-        },
-      }}
-      state={{
-        userLoggedIn,
-        userRole,
-        notificationsEnabled,
-        darkMode,
-        cartItemCount,
-        premiumTier,
-      }}
-    />
-  );
+  return render(specification, {
+    theme: {
+      colors: {
+        primary: "#3b82f6",
+        secondary: "#10b981",
+      },
+    },
+    state: {
+      userLoggedIn,
+      userRole,
+      notificationsEnabled,
+      darkMode,
+      cartItemCount,
+      premiumTier,
+    },
+  });
 };
 
 export default AdvancedConditionalPage;

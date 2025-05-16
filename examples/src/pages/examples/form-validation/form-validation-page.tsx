@@ -1,4 +1,4 @@
-import { ComponentRenderer } from "@banja/react-jedi";
+import { render } from "@banja/react-jedi";
 import type { Specification } from "@banja/react-jedi";
 
 const formValidationExamples: Specification = {
@@ -744,9 +744,5 @@ const formValidationExamples: Specification = {
 };
 
 export const FormValidationPage = () => {
-  return (
-    <div className="max-w-6xl mx-auto py-12 px-4">
-      <ComponentRenderer specification={formValidationExamples} />
-    </div>
-  );
+  return <div className="max-w-6xl mx-auto py-12 px-4">{render(formValidationExamples)}</div>;
 };

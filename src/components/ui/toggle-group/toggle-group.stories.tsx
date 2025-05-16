@@ -193,6 +193,9 @@ export const Disabled: Story = {
 };
 
 export const SizeComparison: Story = {
+  args: {
+    type: "single",
+  },
   render: () => (
     <div className="space-y-4">
       <div className="space-y-2">
@@ -242,6 +245,9 @@ export const SizeComparison: Story = {
 };
 
 export const VariantsShowcase: Story = {
+  args: {
+    type: "single",
+  },
   render: () => (
     <div className="space-y-4">
       <div className="space-y-2">

@@ -23,7 +23,7 @@ import {
   initializeComponentState,
   resolveStateBindings,
 } from "./state/state-initialization";
-// Import removed - not needed
+import { processConditionals, type ConditionContext } from "./conditions";
 
 /**
  * ErrorBoundary component to catch rendering errors
@@ -361,6 +361,24 @@ function renderComponent(
     const resolvedProps = resolveStateBindings(specPropsWithoutChildren, currentState);
     resolvedSpec = { ...resolvedProps, children } as ComponentSpec;
   }
+
+  // Create condition context for conditional rendering
+  const conditionContext: ConditionContext = {
+    state: stateManager?.getState() || options.initialState || {},
+    props: resolvedSpec,
+    env: options.env,
+  };
+
+  // Process conditional rendering and props
+  const conditionalSpec = processConditionals(resolvedSpec, conditionContext);
+
+  // If component should not render based on conditions, return null
+  if (!conditionalSpec) {
+    return null;
+  }
+
+  // Use the conditionally processed spec
+  resolvedSpec = conditionalSpec;
 
   // Get the component implementation
   const Component = resolver(resolvedSpec.type);

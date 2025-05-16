@@ -5,7 +5,7 @@
  * The ToggleGroup component is a container for Toggle items that allows single or multiple selection.
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * ToggleGroup component specification.

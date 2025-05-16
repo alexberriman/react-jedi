@@ -43,8 +43,12 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Label: asComponent(UI.Label),
   Input: asComponent(UI.Input),
   Toggle: asComponent(UI.Toggle),
-  ToggleGroup: asComponent(UI.ToggleGroup),
-  ToggleGroupItem: asComponent(UI.ToggleGroupItem),
+  ToggleGroup: asComponent(
+    UI.ToggleGroup as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  ToggleGroupItem: asComponent(
+    UI.ToggleGroupItem as unknown as React.ComponentType<Record<string, unknown>>
+  ),
   Textarea: asComponent(UI.TextareaComponent),
   Checkbox: asComponent(UI.Checkbox),
   RadioGroup: asComponent(UI.RadioGroup),

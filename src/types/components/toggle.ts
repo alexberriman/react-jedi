@@ -5,7 +5,7 @@
  * The Toggle component is a button that can be toggled between two states (on/off).
  */
 
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
 /**
  * Toggle component specification.

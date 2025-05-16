@@ -100,6 +100,20 @@ export interface BaseComponentSpec {
    * Can be a string reference to global state key or a full state config.
    */
   state?: string | Record<string, unknown>;
+
+  /**
+   * Conditional rendering expression.
+   * If provided, the component will only render when this condition evaluates to true.
+   * Can be a boolean or a string expression like "state.isVisible" or "props.type === 'primary'".
+   */
+  when?: string | boolean;
+
+  /**
+   * Conditional properties.
+   * Properties that are applied conditionally based on expressions.
+   * Each key is a property name, and the value is an object mapping conditions to values.
+   */
+  conditionalProps?: Record<string, Record<string, unknown>>;
 }
 
 /**

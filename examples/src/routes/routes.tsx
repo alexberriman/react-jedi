@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../components/layout";
 import { HomePage } from "../pages/home";
-import { ShowcasePage } from "../pages/showcase";
+import { ShowcasePage, InteractiveShowcasePage } from "../pages/showcase";
 import { DocumentationPage } from "../pages/documentation";
 import { ExamplesPage } from "../pages/examples";
 import { LandingExamplePage } from "../pages/examples/landing";
@@ -22,7 +22,16 @@ export const router = createBrowserRouter([
       },
       {
         path: "showcase",
-        element: <ShowcasePage />,
+        children: [
+          {
+            index: true,
+            element: <ShowcasePage />,
+          },
+          {
+            path: "interactive",
+            element: <InteractiveShowcasePage />,
+          },
+        ],
       },
       {
         path: "documentation",

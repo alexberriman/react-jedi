@@ -11,7 +11,7 @@ import { isComponentSpec, isComponentSpecArray, isTextContent } from "@/types/sc
 import { processStyleOverrides } from "./theme/style-overrides";
 import { createTokenResolver } from "./theme/token-resolver";
 import { extractTokensFromTheme, createTokenCollection } from "./theme/theme-tokens";
-import { cn } from "./utils";
+import { cn, omit } from "./utils";
 import {
   resolveExtendedStyles,
   createChildStyleContext,
@@ -301,19 +301,23 @@ function buildComponentProps(
   parentContext: Record<string, unknown>,
   styleOverrides: { className?: string; style?: React.CSSProperties }
 ): ExtendedComponentProps {
-  const mergedClassName = cn(spec.className, styleOverrides.className);
+  // Handle both spec.className and spec.props.className patterns
+  const specProps = spec.props || {};
+  const mergedClassName = cn(spec.className || specProps.className, styleOverrides.className);
   const mergedStyle = {
-    ...spec.style,
+    ...(spec.style || specProps.style),
     ...styleOverrides.style,
   };
 
+  // Build component props excluding internal properties
   const componentProps: ExtendedComponentProps = {
-    spec: {
-      ...spec,
-      className: mergedClassName,
-      style: Object.keys(mergedStyle).length > 0 ? mergedStyle : undefined,
-    },
+    ...omit(specProps, ["className", "style", "children"]),
+    ...omit(spec, ["type", "className", "style", "children", "props", "id", "spec"]),
+    className: mergedClassName,
+    style: Object.keys(mergedStyle).length > 0 ? mergedStyle : undefined,
     children,
+    // Internal props that components will filter out
+    spec,
     theme: options.theme,
     state: options.initialState,
     parentContext,

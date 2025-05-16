@@ -648,6 +648,82 @@ export interface TextareaSpec extends BaseComponentSpec {
 }
 
 /**
+ * Checkbox Component Specification
+ *
+ * A checkable input component for binary choices.
+ */
+export interface CheckboxSpec extends BaseComponentSpec {
+  /**
+   * The type of the component.
+   * Must be "Checkbox" for this component.
+   */
+  type: "Checkbox";
+
+  /**
+   * Controlled checked state.
+   */
+  checked?: boolean;
+
+  /**
+   * Default checked state for uncontrolled mode.
+   * @default false
+   */
+  defaultChecked?: boolean;
+
+  /**
+   * Whether the checkbox is disabled.
+   * @default false
+   */
+  disabled?: boolean;
+
+  /**
+   * Name attribute for form submission.
+   */
+  name?: string;
+
+  /**
+   * Value attribute for form submission.
+   */
+  value?: string;
+
+  /**
+   * Action to dispatch on checked state change.
+   */
+  onCheckedChangeAction?: string;
+
+  /**
+   * Whether the checkbox is required in a form.
+   * @default false
+   */
+  required?: boolean;
+
+  /**
+   * ID for label association.
+   */
+  id?: string;
+
+  /**
+   * Accessible label for screen readers.
+   */
+  ariaLabel?: string;
+
+  /**
+   * ID of element that labels this checkbox.
+   */
+  ariaLabelledby?: string;
+
+  /**
+   * ID of element that describes this checkbox.
+   */
+  ariaDescribedby?: string;
+
+  /**
+   * Custom CSS class names to add to the checkbox.
+   */
+  className?: string;
+}
+
+/**
  * Type alias for all UI component specifications.
  */
 export type UIComponentSpec =
@@ -659,7 +735,8 @@ export type UIComponentSpec =
   | SkeletonSpec
   | LabelSpec
   | InputSpec
-  | TextareaSpec;
+  | TextareaSpec
+  | CheckboxSpec;
 
 /**
  * Type alias for any component specification.

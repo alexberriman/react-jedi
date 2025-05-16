@@ -170,4 +170,5 @@ export interface ComponentTypes {
   Label: import("./ui").LabelSpec;
   Input: import("./input").InputSpec;
   Textarea: import("./ui").TextareaSpec;
+  Checkbox: import("./ui").CheckboxSpec;
 }

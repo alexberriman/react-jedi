@@ -29,3 +29,4 @@ export type {
   FormMessageSpec,
   FormValidationSpec,
 } from "./form";
+export type { CheckboxSpecification } from "./checkbox";

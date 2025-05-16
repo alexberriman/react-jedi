@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Checkbox"
+    },
+    "props": {
+      "type": "object",
+      "properties": {
+        "checked": {
+          "type": "boolean",
+          "description": "Controlled checked state"
+        },
+        "defaultChecked": {
+          "type": "boolean",
+          "description": "Default checked state for uncontrolled mode"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the checkbox is disabled"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name attribute for form submission"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value attribute for form submission"
+        },
+        "onCheckedChange": {
+          "type": "string",
+          "description": "Event handler name for checked state changes"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        },
+        "id": {
+          "type": "string",
+          "description": "ID for label association"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether the checkbox is required in a form"
+        },
+        "aria-label": {
+          "type": "string",
+          "description": "Accessible label for screen readers"
+        },
+        "aria-labelledby": {
+          "type": "string",
+          "description": "ID of element that labels this checkbox"
+        },
+        "aria-describedby": {
+          "type": "string",
+          "description": "ID of element that describes this checkbox"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

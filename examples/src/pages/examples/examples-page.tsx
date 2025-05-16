@@ -23,6 +23,14 @@ const examples: Example[] = [
     description:
       "Interactive demo showing conditional visibility and dynamic properties based on state, user roles, and themes.",
     path: "/examples/conditional",
+    status: "stable",
+  },
+  {
+    id: "conditional-advanced",
+    title: "Advanced Conditional Rendering",
+    description:
+      "Comprehensive demo with multiple states, complex conditions, nested logic, and real-world UI patterns.",
+    path: "/examples/conditional-advanced",
     status: "new",
   },
   {

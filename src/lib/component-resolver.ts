@@ -65,6 +65,11 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   SelectSeparator: asComponent(UI.SelectSeparator),
   SelectTrigger: asComponent(UI.SelectTrigger),
   SelectValue: asComponent(UI.SelectValue),
+  Switch: asComponent(UI.Switch),
+  Slider: asComponent(UI.Slider),
+  Collapsible: asComponent(UI.Collapsible),
+  CollapsibleContent: asComponent(UI.CollapsibleContent),
+  CollapsibleTrigger: asComponent(UI.CollapsibleTrigger),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

@@ -5,6 +5,7 @@ export { useEventHandlers } from "./use-event-handlers";
 export { withEventHandlers } from "./with-event-handlers";
 export { mapDOMEventsToSpecs, extractEventHandlers } from "./event-mapper";
 export { useEventDebugger } from "./event-debugger";
+export { createSimpleEventHandler, mapStringEventHandlers } from "./simple-handlers";
 
 export type {
   EventHandlerType,

@@ -1,0 +1,39 @@
+import React from "react";
+import { SidebarInset } from "./sidebar";
+import type { BaseComponentSpec } from "@/types/components/base";
+import { render } from "@/lib";
+
+export interface SidebarInsetComponentProps extends BaseComponentSpec {
+  type: "sidebar-inset";
+  header?: React.ReactNode;
+  children?: React.ReactNode[];
+}
+
+export function SidebarInsetComponent({
+  header,
+  children,
+  style = {},
+  className = "",
+  ...props
+}: SidebarInsetComponentProps & { style?: React.CSSProperties; className?: string }) {
+  return (
+    <SidebarInset style={style} className={className} {...props}>
+      {header && (
+        <header className="flex items-center gap-2 p-4 border-b">
+          {typeof header === "string" ? (
+            <h1 className="font-semibold">{header}</h1>
+          ) : (
+            render(header)
+          )}
+        </header>
+      )}
+      {children && (
+        <main className="p-4">
+          {children.map((child, index) => (
+            <div key={index}>{render(child)}</div>
+          ))}
+        </main>
+      )}
+    </SidebarInset>
+  );
+}

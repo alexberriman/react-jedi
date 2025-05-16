@@ -20,6 +20,8 @@ import type {
   CommandItemComponentSpec,
   CommandShortcutSpec,
 } from "@/types/components/command";
+import { render } from "@/lib/render";
+import { isComponentSpecArray } from "@/types/schema/guards";
 
 /**
  * Command component for JSON specification rendering
@@ -126,24 +128,77 @@ export function CommandInputComponent(props: Readonly<Record<string, unknown>>) 
 
 export function CommandListComponent(props: Readonly<Record<string, unknown>>) {
   const listProps = props as CommandListSpec;
-  return <CommandList>{listProps.children}</CommandList>;
+  const children = listProps.children;
+
+  if (!children) {
+    return <CommandList />;
+  }
+
+  // Render the children using the render function
+  const renderedChildren = isComponentSpecArray(children)
+    ? children.map((child, index) => (
+        <React.Fragment key={child.id || `command-child-${index}`}>{render(child)}</React.Fragment>
+      ))
+    : render(children);
+
+  return <CommandList>{renderedChildren}</CommandList>;
 }
 
 export function CommandEmptyComponent(props: Readonly<Record<string, unknown>>) {
   const emptyProps = props as CommandEmptySpec;
-  return <CommandEmpty>{emptyProps.message || emptyProps.children}</CommandEmpty>;
+
+  if (emptyProps.message) {
+    return <CommandEmpty>{emptyProps.message}</CommandEmpty>;
+  }
+
+  if (!emptyProps.children) {
+    return <CommandEmpty />;
+  }
+
+  // Render the children using the render function
+  const renderedChildren = isComponentSpecArray(emptyProps.children)
+    ? emptyProps.children.map((child, index) => (
+        <React.Fragment key={child.id || `empty-child-${index}`}>{render(child)}</React.Fragment>
+      ))
+    : render(emptyProps.children);
+
+  return <CommandEmpty>{renderedChildren}</CommandEmpty>;
 }
 
 export function CommandGroupComponent(props: Readonly<Record<string, unknown>>) {
   const groupProps = props as CommandGroupComponentSpec;
-  return <CommandGroup heading={groupProps.heading}>{groupProps.children}</CommandGroup>;
+
+  if (!groupProps.children) {
+    return <CommandGroup heading={groupProps.heading} />;
+  }
+
+  // Render the children using the render function
+  const renderedChildren = isComponentSpecArray(groupProps.children)
+    ? groupProps.children.map((child, index) => (
+        <React.Fragment key={child.id || `group-child-${index}`}>{render(child)}</React.Fragment>
+      ))
+    : render(groupProps.children);
+
+  return <CommandGroup heading={groupProps.heading}>{renderedChildren}</CommandGroup>;
 }
 
 export function CommandItemComponent(props: Readonly<Record<string, unknown>>) {
   const itemProps = props as CommandItemComponentSpec;
+
+  if (!itemProps.children) {
+    return <CommandItem value={itemProps.value} disabled={itemProps.disabled} />;
+  }
+
+  // Render the children using the render function
+  const renderedChildren = isComponentSpecArray(itemProps.children)
+    ? itemProps.children.map((child, index) => (
+        <React.Fragment key={child.id || `item-child-${index}`}>{render(child)}</React.Fragment>
+      ))
+    : render(itemProps.children);
+
   return (
     <CommandItem value={itemProps.value} disabled={itemProps.disabled}>
-      {itemProps.children}
+      {renderedChildren}
     </CommandItem>
   );
 }
@@ -154,7 +209,19 @@ export function CommandSeparatorComponent(props: Readonly<Record<string, unknown
 
 export function CommandShortcutComponent(props: Readonly<Record<string, unknown>>) {
   const shortcutProps = props as CommandShortcutSpec;
-  return <CommandShortcut>{shortcutProps.children}</CommandShortcut>;
+
+  if (!shortcutProps.children) {
+    return <CommandShortcut />;
+  }
+
+  // Render the children using the render function
+  const renderedChildren = isComponentSpecArray(shortcutProps.children)
+    ? shortcutProps.children.map((child, index) => (
+        <React.Fragment key={child.id || `shortcut-child-${index}`}>{render(child)}</React.Fragment>
+      ))
+    : render(shortcutProps.children);
+
+  return <CommandShortcut>{renderedChildren}</CommandShortcut>;
 }
 
 // Register components

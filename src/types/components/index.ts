@@ -158,3 +158,16 @@ export type {
   CommandSeparatorSpec,
   CommandShortcutSpec,
 } from "./command";
+export type {
+  SidebarComponentProps,
+  SidebarSpecification,
+  SidebarMenuItem,
+  SidebarMenu,
+  SidebarGroup,
+  SidebarContent,
+  SidebarSection,
+  SidebarInput,
+  SidebarSubMenuItem,
+  SidebarMenuItemAction,
+  SidebarGroupAction,
+} from "./sidebar";

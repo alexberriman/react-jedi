@@ -48,3 +48,4 @@ export type {
   CollapsibleTriggerSpec,
   CollapsibleContentSpec,
 } from "./collapsible";
+export type { ToggleSpec } from "./toggle";

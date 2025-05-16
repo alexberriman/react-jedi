@@ -42,6 +42,7 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Skeleton: asComponent(UI.Skeleton),
   Label: asComponent(UI.Label),
   Input: asComponent(UI.Input),
+  Toggle: asComponent(UI.Toggle),
   Textarea: asComponent(UI.TextareaComponent),
   Checkbox: asComponent(UI.Checkbox),
   RadioGroup: asComponent(UI.RadioGroup),

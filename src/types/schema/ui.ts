@@ -7,6 +7,7 @@
 
 import type { BaseComponentSpec, ComponentChildren } from "./base";
 import type { InputSpec } from "./input";
+import type { ToggleSpec } from "@/types/components/toggle";
 
 /**
  * Button Component Specification
@@ -959,7 +960,8 @@ export type UIComponentSpec =
   | SelectItemSpec
   | SelectGroupSpec
   | SelectLabelSpec
-  | SelectSeparatorSpec;
+  | SelectSeparatorSpec
+  | ToggleSpec;
 
 /**
  * Type alias for any component specification.

@@ -181,4 +181,5 @@ export interface ComponentTypes {
   SelectSeparator: import("./ui").SelectSeparatorSpec;
   SelectTrigger: import("./ui").SelectTriggerSpec;
   SelectValue: import("./ui").SelectValueSpec;
+  Toggle: import("../components/toggle").ToggleSpec;
 }

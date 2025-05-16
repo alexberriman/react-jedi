@@ -1,0 +1,5 @@
+{
+  "type": "Toggle",
+  "variant": "outline",
+  "children": "Toggle"
+}

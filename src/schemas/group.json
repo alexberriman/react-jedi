@@ -1,0 +1,89 @@
+{
+  "title": "Group",
+  "description": "Group component that arranges inline elements horizontally with consistent spacing",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Group",
+      "description": "The type identifier for the Group component"
+    },
+    "spacing": {
+      "type": "string",
+      "enum": ["none", "xs", "sm", "md", "lg", "xl", "2xl"],
+      "default": "md",
+      "description": "The spacing between child elements"
+    },
+    "align": {
+      "type": "string",
+      "enum": ["start", "center", "end", "baseline", "stretch"],
+      "default": "center",
+      "description": "How children align vertically"
+    },
+    "justify": {
+      "type": "string",
+      "enum": ["start", "center", "end", "between", "around", "evenly"],
+      "default": "start",
+      "description": "How children are distributed horizontally"
+    },
+    "wrap": {
+      "type": "string",
+      "enum": ["wrap", "nowrap", "wrap-reverse"],
+      "default": "wrap",
+      "description": "Whether child elements can wrap to the next line"
+    },
+    "grow": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether child elements should grow to fill available space"
+    },
+    "preventGrow": {
+      "type": "boolean",
+      "default": false,
+      "description": "Prevents individual child elements from growing"
+    },
+    "fullWidth": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the group should display as a full-width block element"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ComponentSpecification"
+      },
+      "description": "Child components to render in the group"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply to the component"
+    },
+    "as": {
+      "type": "string",
+      "default": "div",
+      "description": "The HTML element to render as"
+    },
+    "id": {
+      "type": "string",
+      "description": "Optional component identifier"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline styles to apply"
+    },
+    "data": {
+      "type": "object",
+      "description": "Optional data attributes"
+    },
+    "aria": {
+      "type": "object",
+      "description": "ARIA attributes for accessibility"
+    },
+    "testId": {
+      "type": "string",
+      "description": "Optional test identifier for testing purposes"
+    }
+  },
+  "required": ["type", "children"],
+  "additionalProperties": false
+}

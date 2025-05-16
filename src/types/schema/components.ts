@@ -164,6 +164,8 @@ export interface ComponentTypes {
   Flex: import("./layout").FlexSpec;
   AspectRatio: import("./layout").AspectRatioSpec;
   Separator: import("./layout").SeparatorSpec;
+  Stack: import("../components/stack").StackSpec;
+  Group: import("../components/group").GroupSpec;
 
   // Typography Components
   Text: import("./typography").TextSpec;

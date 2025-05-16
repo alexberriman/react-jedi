@@ -51,3 +51,4 @@ export type {
 export type { ToggleSpec } from "./toggle";
 export type { ToggleGroupSpec, ToggleGroupItemSpec } from "./toggle-group";
 export type { StackSpec } from "./stack";
+export type { GroupSpec } from "./group";

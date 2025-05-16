@@ -36,6 +36,7 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   AspectRatio: asComponent(UI.AspectRatio),
   Separator: asComponent(UI.Separator),
   Stack: asComponent(UI.Stack),
+  Group: asComponent(UI.Group),
 
   // Typography Components
   Text: asComponent(UI.Text),

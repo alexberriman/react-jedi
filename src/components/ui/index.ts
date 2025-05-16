@@ -37,3 +37,4 @@ export * from "./switch";
 export * from "./slider";
 export * from "./collapsible";
 export * from "./stack";
+export * from "./group";

@@ -7,6 +7,7 @@
 
 import type { BaseComponentSpec, ComponentChildren } from "./base";
 import type { StackSpec } from "../components/stack";
+import type { GroupSpec } from "../components/group";
 
 /**
  * Box Component Specification
@@ -499,7 +500,8 @@ export type LayoutComponentSpec =
   | FlexSpec
   | AspectRatioSpec
   | SeparatorSpec
-  | StackSpec;
+  | StackSpec
+  | GroupSpec;
 
 /**
  * Type for any component specification.

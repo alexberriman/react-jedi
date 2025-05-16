@@ -4,7 +4,6 @@ import type { UISpecification } from "@/types/schema/specification";
 
 // Example specification that demonstrates state optimization benefits
 const stateOptimizationExample: UISpecification = {
-  type: "root",
   version: "1.0",
   root: {
     type: "Container",
@@ -198,55 +197,6 @@ const stateOptimizationExample: UISpecification = {
         updateCount: 0,
         batchCount: 0,
       },
-    },
-  },
-  events: {
-    incrementAll: {
-      type: "batch",
-      actions: [
-        ...Array.from({ length: 12 }, (_, i) => ({
-          type: "updateState",
-          payload: {
-            path: `counters.counter${i}`,
-            operation: "increment",
-          },
-        })),
-        {
-          type: "updateState",
-          payload: {
-            path: "renderMetrics.updateCount",
-            operation: "add",
-            value: 12,
-          },
-        },
-        {
-          type: "updateState",
-          payload: {
-            path: "renderMetrics.batchCount",
-            operation: "increment",
-          },
-        },
-      ],
-    },
-    resetAll: {
-      type: "batch",
-      actions: Array.from({ length: 12 }, (_, i) => ({
-        type: "updateState",
-        payload: {
-          path: `counters.counter${i}`,
-          value: 0,
-        },
-      })),
-    },
-    randomizeAll: {
-      type: "batch",
-      actions: Array.from({ length: 12 }, (_, i) => ({
-        type: "updateState",
-        payload: {
-          path: `counters.counter${i}`,
-          value: i * 7, // Using a deterministic value instead of random
-        },
-      })),
     },
   },
 };

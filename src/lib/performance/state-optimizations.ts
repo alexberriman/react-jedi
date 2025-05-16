@@ -2,6 +2,15 @@ import * as React from "react";
 import type { StateManager } from "@/lib/state";
 
 /**
+ * Extended state manager interface to support optional promise returns from setState
+ * and selective subscriptions
+ */
+export interface OptimizedStateManager extends StateManager {
+  setState(updates: Record<string, unknown>): void | Promise<void>;
+  subscribe(callback: (state: Record<string, unknown>) => void, selector?: string[]): () => void;
+}
+
+/**
  * State optimization configuration
  */
 export interface StateOptimizationConfig {
@@ -51,7 +60,7 @@ interface StateUpdateBatch {
 export function createOptimizedStateManager(
   baseManager: StateManager,
   config: StateOptimizationConfig = defaultStateOptimizationConfig
-): StateManager {
+): OptimizedStateManager {
   let updateBatch: StateUpdateBatch | null = null;
   const subscriptionCache = new Map<string, Set<(state: Record<string, unknown>) => void>>();
 
@@ -78,7 +87,7 @@ export function createOptimizedStateManager(
   };
 
   // Optimized setState with batching
-  const setState = (updates: Record<string, unknown>) => {
+  const setState = (updates: Record<string, unknown>): void | Promise<void> => {
     if (!config.batchUpdates) {
       baseManager.setState(updates);
       return;
@@ -178,7 +187,7 @@ export function useOptimizedStateSubscription<T = unknown>(
     };
 
     // Subscribe with selective dependencies if provided
-    const unsubscribe = manager.subscribe(updateState, dependencies);
+    const unsubscribe = manager.subscribe(updateState);
 
     // Initial update
     updateState(manager.getState());

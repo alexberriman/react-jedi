@@ -152,6 +152,12 @@ export interface HeadingProps
    * Apply animation
    */
   readonly animation?: "none" | "glow" | "pulse" | "bounce" | "shimmer";
+
+  // React-specific props that should not be passed to DOM element
+  readonly parentContext?: Record<string, unknown>;
+  readonly spec?: import("@/types/schema/components").ComponentSpec;
+  readonly theme?: Record<string, unknown>;
+  readonly state?: Record<string, unknown>;
 }
 
 /**
@@ -170,6 +176,11 @@ function Heading({
   gradient,
   shadow,
   animation,
+  // Extract React-specific props that shouldn't be passed to DOM
+  parentContext,
+  spec,
+  theme,
+  state,
   ...props
 }: HeadingProps) {
   const Component = level;

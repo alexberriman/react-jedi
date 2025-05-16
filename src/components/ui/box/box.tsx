@@ -248,6 +248,12 @@ export interface BoxProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof boxVariants> {
   readonly as?: React.ElementType;
+
+  // React-specific props that should not be passed to DOM element
+  readonly parentContext?: Record<string, unknown>;
+  readonly spec?: import("@/types/schema/components").ComponentSpec;
+  readonly theme?: Record<string, unknown>;
+  readonly state?: Record<string, unknown>;
 }
 
 function Box({
@@ -277,6 +283,11 @@ function Box({
   backdropBlur,
   glassmorphism,
   neumorphism,
+  // Extract React-specific props that shouldn't be passed to DOM
+  parentContext,
+  spec,
+  theme,
+  state,
   ...props
 }: BoxProps) {
   return (

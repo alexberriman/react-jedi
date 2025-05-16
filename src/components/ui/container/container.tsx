@@ -37,6 +37,12 @@ export interface ContainerProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof containerVariants> {
   readonly as?: React.ElementType;
+
+  // React-specific props that should not be passed to DOM element
+  readonly parentContext?: Record<string, unknown>;
+  readonly spec?: import("@/types/schema/components").ComponentSpec;
+  readonly theme?: Record<string, unknown>;
+  readonly state?: Record<string, unknown>;
 }
 
 function Container({
@@ -45,6 +51,11 @@ function Container({
   padding,
   align,
   as: Component = "div",
+  // Extract React-specific props that shouldn't be passed to DOM
+  parentContext,
+  spec,
+  theme,
+  state,
   ...props
 }: ContainerProps) {
   return (

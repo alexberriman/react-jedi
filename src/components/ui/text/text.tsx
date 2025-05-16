@@ -210,6 +210,12 @@ export interface TextProps
    * Letter spacing
    */
   readonly tracking?: "tighter" | "tight" | "normal" | "wide" | "wider" | "widest";
+
+  // React-specific props that should not be passed to DOM element
+  readonly parentContext?: Record<string, unknown>;
+  readonly spec?: import("@/types/schema/components").ComponentSpec;
+  readonly theme?: Record<string, unknown>;
+  readonly state?: Record<string, unknown>;
 }
 
 /**
@@ -233,6 +239,11 @@ function Text({
   wrap,
   lineHeight,
   tracking,
+  // Extract React-specific props that shouldn't be passed to DOM
+  parentContext,
+  spec,
+  theme,
+  state,
   ...props
 }: TextProps) {
   const Component = element;

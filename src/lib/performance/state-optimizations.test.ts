@@ -97,6 +97,7 @@ describe("state-optimizations", () => {
       const optimizedManager = createOptimizedStateManager(baseManager, config);
 
       const callback = vi.fn();
+      // Use selector to only subscribe to "count" property
       const unsubscribe = optimizedManager.subscribe(callback, ["count"]);
 
       // Update state
@@ -115,14 +116,16 @@ describe("state-optimizations", () => {
     it("returns promise that resolves when batch is flushed", async () => {
       const optimizedManager = createOptimizedStateManager(baseManager);
 
-      const promises: Promise<void>[] = [
-        optimizedManager.setState({ count: 1 }) as Promise<void>,
-        optimizedManager.setState({ value: "test" }) as Promise<void>,
-      ];
+      const result1 = optimizedManager.setState({ count: 1 });
+      const result2 = optimizedManager.setState({ value: "test" });
+
+      // Results should be promises
+      expect(result1).toBeInstanceOf(Promise);
+      expect(result2).toBeInstanceOf(Promise);
 
       // Promises should be pending
       let resolved = false;
-      Promise.all(promises).then(() => {
+      Promise.all([result1, result2]).then(() => {
         resolved = true;
       });
 
@@ -132,7 +135,7 @@ describe("state-optimizations", () => {
       vi.advanceTimersByTime(defaultStateOptimizationConfig.batchDebounceMs!);
 
       // Wait for promises to resolve
-      await Promise.all(promises);
+      await Promise.all([result1, result2]);
       expect(resolved).toBe(true);
 
       // Verify state was updated

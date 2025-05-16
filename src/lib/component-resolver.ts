@@ -366,8 +366,15 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   // Marketing Components
   Hero: asComponent(UI.Hero),
   hero: asComponent(UI.Hero),
-  FeatureCard: asComponent(UI.FeatureCard),
-  "feature-card": asComponent(UI.FeatureCard),
+  // FeatureCard requires double type assertion due to required props
+  FeatureCard: asComponent(
+    UI.FeatureCard as unknown as React.ComponentType<Record<string, unknown>>,
+    { title: "" } // Provide default title to prevent runtime errors
+  ),
+  "feature-card": asComponent(
+    UI.FeatureCard as unknown as React.ComponentType<Record<string, unknown>>,
+    { title: "" } // Provide default title to prevent runtime errors
+  ),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

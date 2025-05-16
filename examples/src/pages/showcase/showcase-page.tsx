@@ -173,6 +173,12 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "shadcn",
       },
+      {
+        name: "Carousel",
+        description: "Displays multiple items in a scrollable slideshow format.",
+        status: "completed",
+        type: "shadcn",
+      },
     ],
   },
   {

@@ -37,11 +37,18 @@ import {
 import { cn } from "@/lib/utils";
 
 export interface DataTableColumn<TData, TValue = unknown>
-  extends Omit<ColumnDef<TData, TValue>, "header"> {
+  extends Omit<ColumnDef<TData, TValue>, "header" | "cell"> {
   id: string;
   accessorKey?: string;
-  header?: string | ((props: { column: Column<TData, TValue> }) => React.ReactNode);
-  cell?: (props: { row: Row<TData>; getValue: () => TValue }) => React.ReactNode;
+  header?:
+    | string
+    | ((props: {
+        column: Column<TData, TValue>;
+        table: ReturnType<typeof useReactTable<TData>>;
+      }) => React.ReactNode);
+  cell?:
+    | ((props: { row: Row<TData>; getValue: () => TValue }) => React.ReactNode)
+    | ((props: { row: Row<TData> }) => React.ReactNode);
   enableSorting?: boolean;
   enableHiding?: boolean;
   className?: string;

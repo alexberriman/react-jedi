@@ -1015,4 +1015,5 @@ export type UIComponentSpec =
   | ComboboxDef
   | InputOTPDef
   | TableSpec
-  | DataTableSpec;
+  | DataTableSpec
+  | import("@/types/components/carousel").CarouselDef;

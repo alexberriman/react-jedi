@@ -45,7 +45,7 @@ type Story = StoryObj<typeof meta>;
  * Default OTP input with 6 digits
  */
 export const Default: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
     <InputOTP maxLength={6}>
       <InputOTPGroup>
@@ -67,7 +67,7 @@ export const Default: Story = {
  * 4-digit PIN input
  */
 export const FourDigitPIN: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
     <InputOTP maxLength={4} pattern="[0-9]*">
       <InputOTPGroup>
@@ -84,7 +84,7 @@ export const FourDigitPIN: Story = {
  * SMS verification code with focus management
  */
 export const SMSCode: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
     <InputOTP maxLength={6}>
       <InputOTPGroup>
@@ -106,7 +106,7 @@ export const SMSCode: Story = {
  * Alphanumeric code (letters and numbers)
  */
 export const AlphanumericCode: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
     <InputOTP maxLength={6} pattern="[A-Z0-9]*">
       <InputOTPGroup>
@@ -128,7 +128,7 @@ export const AlphanumericCode: Story = {
  * Custom separator style
  */
 export const CustomSeparator: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
     <InputOTP maxLength={8}>
       <InputOTPGroup>
@@ -158,7 +158,7 @@ export const CustomSeparator: Story = {
  * With default value
  */
 export const WithDefaultValue: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
     <InputOTP maxLength={6} defaultValue="123456">
       <InputOTPGroup>
@@ -180,7 +180,7 @@ export const WithDefaultValue: Story = {
  * Disabled state
  */
 export const Disabled: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
     <InputOTP maxLength={6} disabled defaultValue="123456">
       <InputOTPGroup>
@@ -202,7 +202,7 @@ export const Disabled: Story = {
  * Controlled component with value and onChange
  */
 export const Controlled: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: function ControlledRender() {
     const [value, setValue] = React.useState("");
 
@@ -231,7 +231,7 @@ export const Controlled: Story = {
  * With onChange handler for form integration
  */
 export const WithOnComplete: Story = {
-  args: {},
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: function WithOnCompleteRender() {
     const [value, setValue] = React.useState("");
     const [isComplete, setIsComplete] = React.useState(false);
@@ -269,6 +269,7 @@ export const WithOnComplete: Story = {
  * Password input style with masked characters
  */
 export const Password: Story = {
+  args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
     <InputOTP maxLength={4} pattern="[0-9]*" className="password">
       <InputOTPGroup>

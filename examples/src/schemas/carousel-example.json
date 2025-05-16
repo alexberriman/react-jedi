@@ -1,0 +1,151 @@
+{
+  "type": "Container",
+  "children": [
+    {
+      "type": "Heading",
+      "level": "h1",
+      "className": "text-center mb-8",
+      "children": "Carousel Component Examples"
+    },
+    {
+      "type": "Carousel",
+      "showArrows": true,
+      "className": "max-w-4xl mx-auto mb-12",
+      "options": {
+        "loop": true
+      },
+      "items": [
+        {
+          "type": "Card",
+          "className": "h-64",
+          "children": [
+            {
+              "type": "CardContent",
+              "className": "h-full flex items-center justify-center",
+              "children": [
+                {
+                  "type": "Heading",
+                  "level": "h2",
+                  "children": "Slide 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Card",
+          "className": "h-64",
+          "children": [
+            {
+              "type": "CardContent",
+              "className": "h-full flex items-center justify-center",
+              "children": [
+                {
+                  "type": "Heading",
+                  "level": "h2",
+                  "children": "Slide 2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Card",
+          "className": "h-64",
+          "children": [
+            {
+              "type": "CardContent",
+              "className": "h-full flex items-center justify-center",
+              "children": [
+                {
+                  "type": "Heading",
+                  "level": "h2",
+                  "children": "Slide 3"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Heading",
+      "level": "h2",
+      "className": "text-center mb-6",
+      "children": "Multiple Items Carousel"
+    },
+    {
+      "type": "Carousel",
+      "showArrows": true,
+      "className": "max-w-5xl mx-auto",
+      "options": {
+        "align": "start"
+      },
+      "items": [
+        {
+          "type": "Card",
+          "className": "bg-blue-500 text-white",
+          "children": [
+            {
+              "type": "CardContent",
+              "className": "p-6",
+              "children": [
+                {
+                  "type": "Heading",
+                  "level": "h3",
+                  "children": "Modern Design"
+                },
+                {
+                  "type": "Text",
+                  "children": "Beautiful and responsive interfaces"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Card",
+          "className": "bg-green-500 text-white",
+          "children": [
+            {
+              "type": "CardContent",
+              "className": "p-6",
+              "children": [
+                {
+                  "type": "Heading",
+                  "level": "h3",
+                  "children": "Fast Performance"
+                },
+                {
+                  "type": "Text",
+                  "children": "Optimized for speed and efficiency"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Card",
+          "className": "bg-purple-500 text-white",
+          "children": [
+            {
+              "type": "CardContent",
+              "className": "p-6",
+              "children": [
+                {
+                  "type": "Heading",
+                  "level": "h3",
+                  "children": "Easy to Use"
+                },
+                {
+                  "type": "Text",
+                  "children": "Intuitive API and documentation"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

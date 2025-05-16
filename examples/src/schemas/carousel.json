@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Carousel"
+    },
+    "id": {
+      "type": "string",
+      "description": "Optional component identifier"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "children": {
+      "$ref": "#/definitions/ComponentChildren",
+      "description": "Children components to render in the carousel"
+    },
+    "items": {
+      "type": "array",
+      "description": "Array of carousel items",
+      "items": {
+        "$ref": "#/definitions/ComponentChildren"
+      }
+    },
+    "options": {
+      "type": "object",
+      "description": "Carousel options",
+      "properties": {
+        "loop": {
+          "type": "boolean",
+          "description": "Enable infinite loop"
+        },
+        "align": {
+          "type": "string",
+          "enum": ["start", "center", "end"],
+          "description": "Alignment of items"
+        },
+        "slidesToScroll": {
+          "type": "number",
+          "description": "Number of slides to scroll at once"
+        },
+        "dragFree": {
+          "type": "boolean",
+          "description": "Enable free drag"
+        },
+        "containScroll": {
+          "type": "string",
+          "enum": ["trimSnaps", "keepSnaps"],
+          "description": "Contain scroll behavior"
+        }
+      }
+    },
+    "orientation": {
+      "type": "string",
+      "enum": ["horizontal", "vertical"],
+      "description": "Carousel orientation",
+      "default": "horizontal"
+    },
+    "showArrows": {
+      "type": "boolean",
+      "description": "Show navigation arrows",
+      "default": true
+    },
+    "showDots": {
+      "type": "boolean",
+      "description": "Show pagination dots",
+      "default": false
+    },
+    "autoplay": {
+      "type": "object",
+      "description": "Autoplay configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable autoplay",
+          "default": false
+        },
+        "delay": {
+          "type": "number",
+          "description": "Delay between slides in milliseconds",
+          "default": 4000
+        },
+        "stopOnInteraction": {
+          "type": "boolean",
+          "description": "Stop autoplay on user interaction",
+          "default": true
+        }
+      }
+    },
+    "if": {
+      "type": "object",
+      "description": "Conditional rendering"
+    },
+    "styles": {
+      "type": "object",
+      "description": "Custom styles or style overrides"
+    }
+  },
+  "definitions": {
+    "ComponentChildren": {
+      "oneOf": [
+        { "$ref": "#/definitions/ComponentSpec" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ComponentSpec" }
+        }
+      ]
+    },
+    "ComponentSpec": {
+      "type": "object",
+      "description": "Any valid component specification"
+    }
+  }
+}

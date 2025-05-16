@@ -65,7 +65,7 @@ export function DataTableComponent({
       // Add custom cell renderers based on type
       switch (col.type) {
         case "badge": {
-          column.cell = ({ getValue }) => {
+          column.cell = ({ getValue }: { getValue: () => unknown }) => {
             const value = getValue();
             const colorMap: Record<string, string> = {
               success: "bg-green-100 text-green-700",
@@ -90,14 +90,14 @@ export function DataTableComponent({
           break;
         }
         case "number": {
-          column.cell = ({ getValue }) => {
+          column.cell = ({ getValue }: { getValue: () => unknown }) => {
             const value = getValue() as number;
             return new Intl.NumberFormat().format(value);
           };
           break;
         }
         case "date": {
-          column.cell = ({ getValue }) => {
+          column.cell = ({ getValue }: { getValue: () => unknown }) => {
             const value = getValue() as string | number | Date;
             return new Date(value).toLocaleDateString();
           };

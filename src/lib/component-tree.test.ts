@@ -96,20 +96,33 @@ describe("component-tree", () => {
     const tree = buildComponentTree(testSpec);
 
     const transformed = transformTree(tree, (node) => {
-      // Add a data attribute to every node
+      // Add a data attribute to every node, respecting the schema
+      const spec = { ...node.spec };
+
+      // For DataTable, data must be an array of records or string
+      if (spec.type === "DataTable" && spec.data) {
+        if (Array.isArray(spec.data)) {
+          // Transform array items
+          spec.data = spec.data.map((item) => ({
+            ...item,
+            transformed: "true",
+          }));
+        }
+      } else {
+        // For other components, data can be any format
+        spec.data = spec.data
+          ? {
+              ...spec.data,
+              transformed: "true",
+            }
+          : {
+              transformed: "true",
+            };
+      }
+
       return {
         ...node,
-        spec: {
-          ...node.spec,
-          data: node.spec.data
-            ? {
-                ...node.spec.data,
-                transformed: "true",
-              }
-            : {
-                transformed: "true",
-              },
-        },
+        spec,
       };
     });
 

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { DataTable, createSortableHeader, type DataTableColumn } from "./data-table";
 import { Copy, Edit, Trash } from "lucide-react";
-import type { Column, Table } from "@tanstack/react-table";
+import type { Column, Row } from "@tanstack/react-table";
+import { Checkbox } from "@/components/ui/checkbox";
 
 // Sample data types
 interface Payment {
@@ -133,19 +134,17 @@ type Story = StoryObj<typeof meta>;
 const paymentColumns: DataTableColumn<Payment>[] = [
   {
     id: "select",
-    header: ({ table }: { table: Table<Payment> }) => (
-      <input
-        type="checkbox"
+    header: ({ column, table }) => (
+      <Checkbox
         checked={table.getIsAllPageRowsSelected()}
-        onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
-    cell: ({ row }) => (
-      <input
-        type="checkbox"
+    cell: ({ row }: { row: Row<Payment> }) => (
+      <Checkbox
         checked={row.getIsSelected()}
-        onChange={(e) => row.toggleSelected(e.target.checked)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -171,7 +170,7 @@ const paymentColumns: DataTableColumn<Payment>[] = [
     header: createSortableHeader<Payment>("Amount") as
       | string
       | ((props: { column: Column<Payment, unknown> }) => React.ReactNode),
-    cell: ({ row }) => {
+    cell: ({ row }: { row: Row<Payment> }) => {
       const amount = Number.parseFloat(String(row.getValue("amount")));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -185,7 +184,7 @@ const paymentColumns: DataTableColumn<Payment>[] = [
     id: "status",
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => {
+    cell: ({ row }: { row: Row<Payment> }) => {
       const status = row.getValue("status") as string;
       const colorMap = {
         pending: "bg-yellow-100 text-yellow-700",
@@ -209,7 +208,7 @@ const paymentColumns: DataTableColumn<Payment>[] = [
     header: createSortableHeader<Payment>("Date") as
       | string
       | ((props: { column: Column<Payment, unknown> }) => React.ReactNode),
-    cell: ({ row }) => {
+    cell: ({ row }: { row: Row<Payment> }) => {
       const date = row.getValue("createdAt") as Date;
       return date.toLocaleDateString();
     },
@@ -280,7 +279,7 @@ const userColumns: DataTableColumn<User>[] = [
     id: "role",
     accessorKey: "role",
     header: "Role",
-    cell: ({ row }) => {
+    cell: ({ row }: { row: Row<User> }) => {
       const role = row.getValue("role") as string;
       const colorMap = {
         Admin: "bg-purple-100 text-purple-700",
@@ -301,7 +300,7 @@ const userColumns: DataTableColumn<User>[] = [
     id: "status",
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => {
+    cell: ({ row }: { row: Row<User> }) => {
       const status = row.getValue("status") as string;
       const color =
         status === "active" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700";
@@ -320,7 +319,7 @@ const userColumns: DataTableColumn<User>[] = [
     header: createSortableHeader<User>("Last Login") as
       | string
       | ((props: { column: Column<User, unknown> }) => React.ReactNode),
-    cell: ({ row }) => {
+    cell: ({ row }: { row: Row<User> }) => {
       const date = row.getValue("lastLogin") as Date;
       return date.toLocaleDateString();
     },

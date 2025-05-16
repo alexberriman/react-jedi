@@ -592,11 +592,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - [x] Create Storybook documentation with examples
   - [x] Implement specification schema for DataTable
 
-- [ ] Carousel Component
+- ✅ Carousel Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add carousel`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Carousel
+  - ✅ Add from shadcn (`npx shadcn@latest add carousel`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Carousel
 
 - [ ] Chart Component
   - [ ] Add from shadcn (`npx shadcn@latest add chart`)

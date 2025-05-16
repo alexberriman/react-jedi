@@ -190,3 +190,4 @@ export type {
   DataTablePaginationSpec,
   DataTableFeaturesSpec,
 } from "./data-table";
+export type { CarouselDef } from "./carousel";

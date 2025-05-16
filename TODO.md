@@ -265,7 +265,7 @@ This milestone adds interactivity to the library, turning static layouts into dy
 
 - [x] Implement JSON-defined component local state
 - [x] Create state initialization from specifications
-- [ ] Add support for simple state updates via actions
+- [x] Add support for simple state updates via actions
 - [x] Implement basic state persistence options
 - [x] Create state debug utilities
 

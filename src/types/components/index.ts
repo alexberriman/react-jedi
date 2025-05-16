@@ -55,3 +55,4 @@ export type { GroupSpec } from "./group";
 export type { CenterSpec } from "./center";
 export type { SpacerSpec } from "./spacer";
 export type { SimpleGridSpec } from "./simple-grid";
+export type { MasonrySpec } from "./masonry";

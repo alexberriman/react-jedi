@@ -41,3 +41,4 @@ export * from "./group";
 export * from "./center";
 export * from "./spacer";
 export * from "./simple-grid";
+export * from "./masonry";

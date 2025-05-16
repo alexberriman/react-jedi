@@ -66,6 +66,19 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "custom",
       },
+      {
+        name: "SimpleGrid",
+        description: "Responsive grid with equal-sized cells and automatic responsive behavior.",
+        status: "completed",
+        type: "custom",
+      },
+      {
+        name: "Masonry",
+        description:
+          "Pinterest-style grid layout with items flowing vertically, perfect for dynamic content.",
+        status: "completed",
+        type: "custom",
+      },
     ],
   },
   {

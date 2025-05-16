@@ -9,6 +9,7 @@ import type { BaseComponentSpec, ComponentChildren } from "./base";
 import type { StackSpec } from "../components/stack";
 import type { GroupSpec } from "../components/group";
 import type { SimpleGridSpec } from "../components/simple-grid";
+import type { MasonrySpec } from "../components/masonry";
 
 /**
  * Box Component Specification
@@ -503,4 +504,5 @@ export type LayoutComponentSpec =
   | SeparatorSpec
   | StackSpec
   | GroupSpec
-  | SimpleGridSpec;
+  | SimpleGridSpec
+  | MasonrySpec;

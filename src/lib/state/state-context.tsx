@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { StateManager } from "./state-management";
-import { createStateManager, useStateSubscription, useStateValue } from "./state-management";
+import { createStateManager, useStateValue } from "./state-management";
 import type { StateSpecification } from "@/types/schema/specification";
 
 /**
@@ -64,7 +64,15 @@ export function useStateContext(): StateManager {
  */
 export function useState(): Record<string, unknown> {
   const manager = useStateContext();
-  return useStateSubscription(manager) as Record<string, unknown>;
+  // Use React.useReducer to force re-renders on state changes
+  const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
+
+  React.useEffect(() => {
+    const unsubscribe = manager.subscribe(() => forceUpdate());
+    return unsubscribe;
+  }, [manager]);
+
+  return manager.getState();
 }
 
 /**

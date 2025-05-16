@@ -24,7 +24,12 @@ import {
   resolveStateBindings,
 } from "./state/state-initialization";
 import { processConditionals, type ConditionContext } from "./conditions";
-import { createMemoizedComponent, defaultMemoizationOptions } from "./performance/memoization";
+import {
+  createMemoizedComponent,
+  defaultMemoizationOptions,
+  createOptimizedStateManager,
+  OptimizedStateProvider,
+} from "./performance";
 
 /**
  * ErrorBoundary component to catch rendering errors
@@ -398,7 +403,7 @@ function renderComponent(
   const memoOptions = options.memoization || defaultMemoizationOptions;
   if (memoOptions.enabled) {
     const cacheKey = `${resolvedSpec.type}_${memoOptions.enabled}_${memoOptions.trackPerformance}`;
-    
+
     // Check if we already have a memoized version
     if (!memoizedComponentRegistry[cacheKey]) {
       memoizedComponentRegistry[cacheKey] = createMemoizedComponent(
@@ -407,7 +412,7 @@ function renderComponent(
         memoOptions
       );
     }
-    
+
     Component = memoizedComponentRegistry[cacheKey];
   }
 
@@ -474,58 +479,110 @@ function renderComponent(
  * @param specification The UI specification to render
  * @param options Rendering options
  * @returns React element representing the UI
+ *
+ * Note: This function has high cognitive complexity due to the many features
+ * it needs to support (state management, optimization, theme handling, etc).
+ * Consider refactoring into smaller functions if complexity increases further.
  */
+/**
+ * Extract the component spec from the specification
+ */
+function getComponentSpec(specification: UISpecification | ComponentSpec): ComponentSpec {
+  return isComponentSpec(specification) ? specification : specification.root;
+}
+
+/**
+ * Prepare effective render options
+ */
+function prepareRenderOptions(
+  specification: UISpecification | ComponentSpec,
+  options: RenderOptions
+): RenderOptions {
+  if (isComponentSpec(specification)) {
+    return options;
+  }
+
+  return {
+    ...options,
+    theme: options.theme || (specification.theme as Record<string, unknown>),
+    initialState: options.initialState || specification.state?.initial,
+  };
+}
+
+/**
+ * Create and configure state manager
+ */
+function createConfiguredStateManager(
+  fullSpec: UISpecification | null,
+  options: RenderOptions
+): StateManager | undefined {
+  if (!fullSpec?.state && !options.initialState) {
+    return undefined;
+  }
+
+  const baseStateManager = createStateManager({
+    initialState: options.initialState || fullSpec?.state?.initial || {},
+    persistence: fullSpec?.state?.persistence,
+    computed: fullSpec?.state?.computed,
+    debug: options.development ? { enabled: true } : undefined,
+  });
+
+  // Apply optimizations if configured
+  return options.stateOptimization?.batchUpdates
+    ? createOptimizedStateManager(baseStateManager, options.stateOptimization)
+    : baseStateManager;
+}
+
+/**
+ * Wrap rendered content with providers as needed
+ */
+function wrapWithProviders(
+  content: React.ReactElement | null,
+  stateManager: StateManager | undefined,
+  fullSpec: UISpecification | null,
+  options: RenderOptions
+): React.ReactElement | null {
+  if (!stateManager) {
+    return content;
+  }
+
+  const stateProviderContent = (
+    <StateProvider
+      specification={fullSpec ? { state: fullSpec.state } : undefined}
+      initialState={options.initialState}
+      debug={options.development}
+    >
+      {content}
+    </StateProvider>
+  );
+
+  // Wrap with optimized provider if optimization is enabled
+  if (options.stateOptimization?.batchUpdates) {
+    return (
+      <OptimizedStateProvider stateManager={stateManager} optimization={options.stateOptimization}>
+        {stateProviderContent}
+      </OptimizedStateProvider>
+    );
+  }
+
+  return stateProviderContent;
+}
+
 export function render(
   specification: UISpecification | ComponentSpec,
   options: RenderOptions = {}
 ): React.ReactElement | null {
-  // If the specification has a `root` property, it's a full UISpecification
-  // Otherwise, it's a ComponentSpec
-  const componentSpec = isComponentSpec(specification) ? specification : specification.root;
+  const componentSpec = getComponentSpec(specification);
+  const effectiveOptions = prepareRenderOptions(specification, options);
 
-  // If we have a full specification with theme but no theme in options, use it
-  const effectiveOptions: RenderOptions = {
-    ...options,
-    theme:
-      options.theme ||
-      (specification && !isComponentSpec(specification)
-        ? (specification.theme as Record<string, unknown>)
-        : undefined),
-    initialState:
-      options.initialState ||
-      (specification && !isComponentSpec(specification) ? specification.state?.initial : undefined),
-  };
-
-  // Create state manager if we have state specification
-  let stateManager: StateManager | undefined;
   const fullSpec = isComponentSpec(specification) ? null : specification;
+  const stateManager = createConfiguredStateManager(fullSpec, effectiveOptions);
 
-  if (fullSpec?.state || effectiveOptions.initialState) {
-    stateManager = createStateManager({
-      initialState: effectiveOptions.initialState || fullSpec?.state?.initial || {},
-      persistence: fullSpec?.state?.persistence,
-      computed: fullSpec?.state?.computed,
-      debug: options.development ? { enabled: true } : undefined,
-    });
-
-    // Store state manager in options for component access
+  if (stateManager) {
     effectiveOptions.stateManager = stateManager;
   }
 
   const rendered = renderComponent(componentSpec, effectiveOptions);
 
-  // Wrap with state provider if we have state management
-  if (stateManager) {
-    return (
-      <StateProvider
-        specification={fullSpec ? { state: fullSpec.state } : undefined}
-        initialState={effectiveOptions.initialState}
-        debug={options.development}
-      >
-        {rendered}
-      </StateProvider>
-    );
-  }
-
-  return rendered;
+  return wrapWithProviders(rendered, stateManager, fullSpec, effectiveOptions);
 }

@@ -131,6 +131,11 @@ export interface RenderOptions {
    * Memoization options for performance optimization.
    */
   memoization?: import("@/lib/performance/memoization").MemoizationOptions;
+
+  /**
+   * State optimization configuration for performance.
+   */
+  stateOptimization?: import("@/lib/performance/state-optimizations").StateOptimizationConfig;
 }
 
 /**

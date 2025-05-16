@@ -555,11 +555,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
 
 ### 4.4 Complex Input Components
 
-- [ ] Calendar Component
+- ✅ Calendar Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add calendar`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Calendar
+  - ✅ Add from shadcn (`npx shadcn@latest add calendar`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Calendar
 
 - [ ] Date Picker Component
 

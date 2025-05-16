@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # Enable debugging
 set -x
@@ -131,12 +131,12 @@ while IFS= read -r FILE_INFO; do
   SIZE=$(echo "$FILE_INFO" | cut -f1)
   
   # Convert size to KB
-  SIZE_KB=$((SIZE/1024))
+  SIZE_KB=$(expr $SIZE / 1024)
   
   # Check if it's larger than 100KB
   if [ $SIZE_KB -gt 100 ]; then
     # Skip allowed files
-    if [[ ! "$FILE" =~ \.(ico|woff2?|ttf|pdf|svg|gif|jpe?g|png|webp|mp4|webm|avi|mov|mp3|wav|zip|tar|gz|bz2)$ ]]; then
+    if ! echo "$FILE" | grep -qE '\.(ico|woff2?|ttf|pdf|svg|gif|jpe?g|png|webp|mp4|webm|avi|mov|mp3|wav|zip|tar|gz|bz2)$'; then
       LARGE_FILES="${LARGE_FILES}\n  - ${FILE} (${SIZE_KB}KB)"
     fi
   fi

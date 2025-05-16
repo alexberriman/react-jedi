@@ -375,10 +375,30 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
     UI.FeatureCard as unknown as React.ComponentType<Record<string, unknown>>,
     { title: "" } // Provide default title to prevent runtime errors
   ),
-  Testimonial: asComponent(UI.Testimonial),
-  testimonial: asComponent(UI.Testimonial),
-  PricingTable: asComponent(UI.PricingTable),
-  "pricing-table": asComponent(UI.PricingTable),
+  Testimonial: asComponent(
+    UI.Testimonial as unknown as React.ComponentType<Record<string, unknown>>,
+    { author: { name: "" }, content: "" } // Provide default required props
+  ),
+  testimonial: asComponent(
+    UI.Testimonial as unknown as React.ComponentType<Record<string, unknown>>,
+    { author: { name: "" }, content: "" } // Provide default required props
+  ),
+  PricingTable: asComponent(
+    UI.PricingTable as unknown as React.ComponentType<Record<string, unknown>>,
+    { tiers: [] } // Provide default required props
+  ),
+  "pricing-table": asComponent(
+    UI.PricingTable as unknown as React.ComponentType<Record<string, unknown>>,
+    { tiers: [] } // Provide default required props
+  ),
+  CallToAction: asComponent(
+    UI.CallToAction as unknown as React.ComponentType<Record<string, unknown>>,
+    { title: "" } // Provide default required props
+  ),
+  "call-to-action": asComponent(
+    UI.CallToAction as unknown as React.ComponentType<Record<string, unknown>>,
+    { title: "" } // Provide default required props
+  ),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

@@ -629,11 +629,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for PricingTable
 
-- [ ] Call to Action Component
+- ✅ Call to Action Component
 
-  - [ ] Create custom implementation with background options
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for CTA
+  - ✅ Create custom implementation with background options
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for CTA
 
 - [ ] Footer Component
   - [ ] Create custom implementation with multiple sections

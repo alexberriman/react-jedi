@@ -76,3 +76,4 @@ export * from "./hero";
 export * from "./feature-card";
 export * from "./testimonial";
 export * from "./pricing-table";
+export * from "./call-to-action";

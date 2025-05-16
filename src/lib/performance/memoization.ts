@@ -72,13 +72,6 @@ export function shouldMemoizeComponent(
   if (options.alwaysMemoize?.includes(componentType)) return true;
   if (options.neverMemoize?.includes(componentType)) return false;
   
-  // Check if component is expensive based on metrics
-  const metrics = renderMetrics.get(componentType);
-  const isExpensive = metrics && options.expensiveRenderThreshold && 
-    metrics.averageRenderTime > options.expensiveRenderThreshold;
-  
-  if (isExpensive) return true;
-  
   // Default memoization rules for interactive components
   const interactiveComponents = [
     "Button", "Input", "Select", "Switch", "Checkbox", "RadioGroup", 
@@ -89,8 +82,14 @@ export function shouldMemoizeComponent(
     "Grid", "Flex", "Container", "Box", "Card", "AspectRatio"
   ];
   
-  // Default memoization: interactive components yes, containers no, everything else yes
-  return interactiveComponents.includes(componentType) || 
+  // Check if component is expensive based on metrics
+  const metrics = renderMetrics.get(componentType);
+  const isExpensive = metrics && options.expensiveRenderThreshold && 
+    metrics.averageRenderTime > options.expensiveRenderThreshold;
+  
+  // Default memoization: expensive, interactive, or non-container components
+  return isExpensive || 
+    interactiveComponents.includes(componentType) || 
     !containerComponents.includes(componentType);
 }
 
@@ -379,7 +378,7 @@ export function useMemoizedValue<T>(
     }
     previousValueRef.current = value;
     return value;
-  }, [memoDepString, value]);
+  }, [value, memoDepString]);
   
   return memoizedValue;
 }
@@ -391,7 +390,10 @@ export function useMemoizedCallback<T extends (...args: unknown[]) => unknown>(
   callback: T,
   dependencies: React.DependencyList
 ): T {
-  return React.useCallback(() => callback, dependencies)() as T;
+  // Return the callback directly instead of trying to memoize it
+  // This is a limitation due to linting rules
+  const memoized = React.useCallback((...args: Parameters<T>) => callback(...args), [...dependencies, callback]) as T;
+  return memoized;
 }
 
 /**

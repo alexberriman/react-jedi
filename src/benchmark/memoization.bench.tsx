@@ -139,19 +139,6 @@ const StateChangeComponent = ({ memoizationEnabled }: { memoizationEnabled: bool
   });
 };
 
-describe("Memoization Re-render Performance", () => {
-  bench("Re-render without memoization - state change", () => {
-    const { unmount } = render(<StateChangeComponent memoizationEnabled={false} />);
-    cleanup();
-    unmount();
-  });
-
-  bench("Re-render with memoization - state change", () => {
-    const { unmount } = render(<StateChangeComponent memoizationEnabled={true} />);
-    cleanup();
-    unmount();
-  });
-
 // Test wrapper for props change benchmarks - using inline render to avoid scope warning
 function createPropsChangeWrapper(memoizationEnabled: boolean) {
   return () => {
@@ -170,6 +157,19 @@ function createPropsChangeWrapper(memoizationEnabled: boolean) {
     });
   };
 }
+
+describe("Memoization Re-render Performance", () => {
+  bench("Re-render without memoization - state change", () => {
+    const { unmount } = render(<StateChangeComponent memoizationEnabled={false} />);
+    cleanup();
+    unmount();
+  });
+
+  bench("Re-render with memoization - state change", () => {
+    const { unmount } = render(<StateChangeComponent memoizationEnabled={true} />);
+    cleanup();
+    unmount();
+  });
 
   bench("Re-render without memoization - props change", () => {
     const PropsChangeWrapper = createPropsChangeWrapper(false);

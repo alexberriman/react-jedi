@@ -24,6 +24,7 @@ import {
   resolveStateBindings,
 } from "./state/state-initialization";
 import { processConditionals, type ConditionContext } from "./conditions";
+import { createMemoizedComponent, defaultMemoizationOptions } from "./performance/memoization";
 
 /**
  * ErrorBoundary component to catch rendering errors
@@ -130,6 +131,12 @@ const componentRegistry: Record<string, ComponentType> = {
   Label: asComponent(UI.Label),
   Input: asComponent(UI.Input),
 };
+
+/**
+ * Memoized component registry
+ * Components are memoized based on their type and memoization options
+ */
+const memoizedComponentRegistry: Record<string, ComponentType> = {};
 
 /**
  * Default component resolver function
@@ -381,10 +388,27 @@ function renderComponent(
   resolvedSpec = conditionalSpec;
 
   // Get the component implementation
-  const Component = resolver(resolvedSpec.type);
+  let Component = resolver(resolvedSpec.type);
 
   if (!Component) {
     return development ? renderUnknownComponent(resolvedSpec.type) : null;
+  }
+
+  // Apply memoization if enabled
+  const memoOptions = options.memoization || defaultMemoizationOptions;
+  if (memoOptions.enabled) {
+    const cacheKey = `${resolvedSpec.type}_${memoOptions.enabled}_${memoOptions.trackPerformance}`;
+    
+    // Check if we already have a memoized version
+    if (!memoizedComponentRegistry[cacheKey]) {
+      memoizedComponentRegistry[cacheKey] = createMemoizedComponent(
+        Component,
+        resolvedSpec.type,
+        memoOptions
+      );
+    }
+    
+    Component = memoizedComponentRegistry[cacheKey];
   }
 
   // Create or inherit style context

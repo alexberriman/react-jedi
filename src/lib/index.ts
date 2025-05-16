@@ -37,3 +37,15 @@ export * from "./render";
 export * from "./component-resolver";
 export * from "./component-tree";
 export * from "./error-handling";
+
+// Performance utilities
+export {
+  createMemoizedComponent,
+  shouldMemoizeComponent,
+  getRenderMetrics,
+  clearRenderMetrics,
+  getComponentMetrics,
+  defaultMemoizationOptions,
+  type MemoizationOptions,
+  type RenderMetrics,
+} from "./performance/memoization";

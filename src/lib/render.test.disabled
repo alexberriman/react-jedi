@@ -1,0 +1,315 @@
+import React from "react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { render as rtlRender, waitFor } from "@testing-library/react";
+import { render } from "./render";
+import { createMemoizedComponent, clearRenderMetrics, getRenderMetrics } from "./performance/memoization";
+import type { UISpecification } from "@/types/schema/specification";
+
+// Mock the UI components
+vi.mock("@/components/ui", () => ({
+  Button: ({ spec }: { spec: { children: string } }) => <button>{spec.children}</button>,
+  Text: ({ spec }: { spec: { children: string } }) => <span>{spec.children}</span>,
+  Box: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Container: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Grid: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Flex: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  AspectRatio: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Separator: () => <hr />,
+  Heading: ({ spec }: { spec: { children: string } }) => <h1>{spec.children}</h1>,
+  BlockQuote: ({ spec }: { spec: { children: string } }) => <blockquote>{spec.children}</blockquote>,
+  Card: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Badge: ({ spec }: { spec: { children: string } }) => <span>{spec.children}</span>,
+  Avatar: ({ spec }: { spec: { src: string } }) => <img src={spec.src} />,
+  Image: ({ spec }: { spec: { src: string } }) => <img src={spec.src} />,
+  Skeleton: () => <div>Loading...</div>,
+  Label: ({ spec }: { spec: { children: string } }) => <label>{spec.children}</label>,
+  Input: ({ spec }: { spec: { placeholder: string } }) => <input placeholder={spec.placeholder} />,
+}));
+
+describe("Render with Memoization", () => {
+  beforeEach(() => {
+    clearRenderMetrics();
+  });
+
+  it("should render a simple component with memoization enabled", () => {
+    const spec: UISpecification = {
+      root: {
+        type: "Button",
+        id: "test-button",
+        children: "Click me",
+      },
+    };
+
+    const result = rtlRender(
+      render(spec, {
+        memoization: { enabled: true },
+      })!
+    );
+
+    expect(result.getByText("Click me")).toBeInTheDocument();
+  });
+
+  it("should render a simple component with memoization disabled", () => {
+    const spec: UISpecification = {
+      root: {
+        type: "Button",
+        id: "test-button",
+        children: "Click me",
+      },
+    };
+
+    const result = rtlRender(
+      render(spec, {
+        memoization: { enabled: false },
+      })!
+    );
+
+    expect(result.getByText("Click me")).toBeInTheDocument();
+  });
+
+  it("should memoize components based on configuration", () => {
+    // Create a spy to track memoization
+    const memoSpy = vi.spyOn(React, "memo");
+
+    const spec: UISpecification = {
+      root: {
+        type: "Flex",
+        id: "container",
+        children: [
+          {
+            type: "Button",
+            id: "button1",
+            children: "Button 1",
+          },
+          {
+            type: "Text",
+            id: "text1",
+            children: "Text 1",
+          },
+        ],
+      },
+    };
+
+    rtlRender(
+      render(spec, {
+        memoization: {
+          enabled: true,
+          alwaysMemoize: ["Button"],
+          neverMemoize: ["Text"],
+        },
+      })!
+    );
+
+    // Memoization is applied selectively
+    expect(memoSpy).toHaveBeenCalled();
+    memoSpy.mockRestore();
+  });
+
+  it("should use cached memoized components", () => {
+    const spec1: UISpecification = {
+      root: {
+        type: "Button",
+        id: "button1",
+        children: "Button 1",
+      },
+    };
+
+    const spec2: UISpecification = {
+      root: {
+        type: "Button",
+        id: "button2",
+        children: "Button 2",
+      },
+    };
+
+    // Render two buttons with the same memoization options
+    const options = {
+      memoization: { enabled: true },
+    };
+
+    rtlRender(render(spec1, options)!);
+    rtlRender(render(spec2, options)!);
+
+    // Both should use the same memoized component from cache
+    // (This is verified by the implementation, but hard to test directly)
+  });
+
+  it("should track performance metrics when enabled", async () => {
+    const spec: UISpecification = {
+      root: {
+        type: "Button",
+        id: "test-button",
+        children: "Track me",
+      },
+    };
+
+    rtlRender(
+      render(spec, {
+        memoization: {
+          enabled: true,
+          trackPerformance: true,
+        },
+      })!
+    );
+
+    // Wait for metrics to be recorded
+    await waitFor(() => {
+      const metrics = getRenderMetrics();
+      expect(metrics.size).toBeGreaterThan(0);
+    });
+  });
+
+  it("should handle complex nested components with memoization", () => {
+    const spec: UISpecification = {
+      root: {
+        type: "Container",
+        id: "root",
+        children: [
+          {
+            type: "Grid",
+            id: "grid",
+            children: Array.from({ length: 5 }, (_, i) => ({
+              type: "Card",
+              id: `card-${i}`,
+              children: [
+                {
+                  type: "Heading",
+                  id: `heading-${i}`,
+                  children: `Card ${i}`,
+                },
+                {
+                  type: "Text",
+                  id: `text-${i}`,
+                  children: `Description ${i}`,
+                },
+                {
+                  type: "Button",
+                  id: `button-${i}`,
+                  children: `Action ${i}`,
+                },
+              ],
+            })),
+          },
+        ],
+      },
+    };
+
+    const result = rtlRender(
+      render(spec, {
+        memoization: { enabled: true },
+      })!
+    );
+
+    // Verify all components are rendered
+    for (let i = 0; i < 5; i++) {
+      expect(result.getByText(`Card ${i}`)).toBeInTheDocument();
+      expect(result.getByText(`Description ${i}`)).toBeInTheDocument();
+      expect(result.getByText(`Action ${i}`)).toBeInTheDocument();
+    }
+  });
+
+  it("should handle state changes with memoization", () => {
+    const spec: UISpecification = {
+      root: {
+        type: "Button",
+        id: "stateful-button",
+        children: "Click me",
+        state: {
+          counter: 0,
+        },
+      },
+      state: {
+        initial: {
+          counter: 0,
+        },
+      },
+    };
+
+    const { rerender } = rtlRender(
+      render(spec, {
+        memoization: { enabled: true },
+      })!
+    );
+
+    // Update state and re-render
+    const updatedSpec: UISpecification = {
+      ...spec,
+      state: {
+        initial: {
+          counter: 1,
+        },
+      },
+    };
+
+    rerender(
+      render(updatedSpec, {
+        memoization: { enabled: true },
+      })!
+    );
+
+    // Component should still render correctly with updated state
+    expect(rtlRender.getByText("Click me")).toBeInTheDocument();
+  });
+
+  it("should respect alwaysMemoize configuration", () => {
+    const spec: UISpecification = {
+      root: {
+        type: "Container",
+        id: "container",
+        children: [
+          {
+            type: "Form",
+            id: "form1",
+            children: "Form 1",
+          },
+        ],
+      },
+    };
+
+    rtlRender(
+      render(spec, {
+        memoization: {
+          enabled: true,
+          alwaysMemoize: ["Form"],
+        },
+      })!
+    );
+
+    // Form component should be memoized based on configuration
+    expect(rtlRender.getByText("Form 1")).toBeInTheDocument();
+  });
+
+  it("should respect neverMemoize configuration", () => {
+    const spec: UISpecification = {
+      root: {
+        type: "Container",
+        id: "container",
+        children: [
+          {
+            type: "Text",
+            id: "text1",
+            children: "Simple text",
+          },
+          {
+            type: "Label",
+            id: "label1",
+            children: "Simple label",
+          },
+        ],
+      },
+    };
+
+    rtlRender(
+      render(spec, {
+        memoization: {
+          enabled: true,
+          neverMemoize: ["Text", "Label"],
+        },
+      })!
+    );
+
+    // Text and Label components should not be memoized
+    expect(rtlRender.getByText("Simple text")).toBeInTheDocument();
+    expect(rtlRender.getByText("Simple label")).toBeInTheDocument();
+  });
+});

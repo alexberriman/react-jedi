@@ -1,11 +1,13 @@
+import React from "react";
 import { describe, it, expect } from "vitest";
-import { render as reactRender } from "@testing-library/react";
+import { render as rtlRender } from "@testing-library/react";  
 import { render } from "../render";
 import type { UISpecification } from "@/types/schema/specification";
 
 describe("Conditional Rendering Integration", () => {
   it("should conditionally render components based on state", () => {
     const specification: UISpecification = {
+      version: "1.0.0",
       root: {
         type: "Box",
         children: [
@@ -28,9 +30,11 @@ describe("Conditional Rendering Integration", () => {
     };
 
     // First render with showMessage = false
-    const { rerender, queryByText } = reactRender(render(specification));
-    expect(queryByText("Always visible")).toBeTruthy();
-    expect(queryByText("Conditionally visible")).toBeNull();
+    const result = render(specification);
+    if (!result) throw new Error("Failed to render specification");
+    const { container, rerender } = rtlRender(result);
+    expect(container.textContent).toContain("Always visible");
+    expect(container.textContent).not.toContain("Conditionally visible");
 
     // Render with showMessage = true
     const updatedSpec = {
@@ -41,13 +45,16 @@ describe("Conditional Rendering Integration", () => {
         },
       },
     };
-    rerender(render(updatedSpec));
-    expect(queryByText("Always visible")).toBeTruthy();
-    expect(queryByText("Conditionally visible")).toBeTruthy();
+    const updatedResult = render(updatedSpec);
+    if (!updatedResult) throw new Error("Failed to render updated specification");
+    rerender(updatedResult);
+    expect(container.textContent).toContain("Always visible");
+    expect(container.textContent).toContain("Conditionally visible");
   });
 
   it("should apply conditional props based on expressions", () => {
     const specification: UISpecification = {
+      version: "1.0.0",
       root: {
         type: "Button",
         children: "Click me",
@@ -74,12 +81,13 @@ describe("Conditional Rendering Integration", () => {
 
     // Since we can't easily inspect the props directly in this test,
     // we'll just verify that the component renders without errors
-    const { container } = reactRender(result as React.ReactElement);
+    const { container } = rtlRender(result as React.ReactElement);
     expect(container.firstChild).toBeTruthy();
   });
 
   it("should handle complex conditional scenarios", () => {
     const specification: UISpecification = {
+      version: "1.0.0",
       root: {
         type: "Container",
         children: [
@@ -128,14 +136,17 @@ describe("Conditional Rendering Integration", () => {
       },
     };
 
-    const { queryByText } = reactRender(render(specification));
-    expect(queryByText("Admin Dashboard")).toBeTruthy();
-    expect(queryByText("Admin controls here")).toBeTruthy();
-    expect(queryByText("Please log in")).toBeNull();
+    const result = render(specification);
+    if (!result) throw new Error("Failed to render specification");
+    const { container } = rtlRender(result);
+    expect(container.textContent).toContain("Admin Dashboard");
+    expect(container.textContent).toContain("Admin controls here");
+    expect(container.textContent).not.toContain("Please log in");
   });
 
   it("should handle nested conditions", () => {
     const specification: UISpecification = {
+      version: "1.0.0",
       root: {
         type: "Box",
         when: "state.showParent",
@@ -156,8 +167,10 @@ describe("Conditional Rendering Integration", () => {
       },
     };
 
-    const { queryByText, rerender } = reactRender(render(specification));
-    expect(queryByText("Nested content")).toBeNull();
+    const result = render(specification);
+    if (!result) throw new Error("Failed to render specification");
+    const { container, rerender } = rtlRender(result);
+    expect(container.textContent).not.toContain("Nested content");
 
     // Show child
     const updatedSpec = {
@@ -169,8 +182,10 @@ describe("Conditional Rendering Integration", () => {
         },
       },
     };
-    rerender(render(updatedSpec));
-    expect(queryByText("Nested content")).toBeTruthy();
+    const updatedResult = render(updatedSpec);
+    if (!updatedResult) throw new Error("Failed to render updated specification");
+    rerender(updatedResult);
+    expect(container.textContent).toContain("Nested content");
 
     // Hide parent
     const hiddenSpec = {
@@ -182,7 +197,9 @@ describe("Conditional Rendering Integration", () => {
         },
       },
     };
-    rerender(render(hiddenSpec));
-    expect(queryByText("Nested content")).toBeNull();
+    const hiddenResult = render(hiddenSpec);
+    if (!hiddenResult) throw new Error("Failed to render hidden specification");
+    rerender(hiddenResult);
+    expect(container.textContent).not.toContain("Nested content");
   });
 });

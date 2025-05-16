@@ -14,6 +14,7 @@ export function ConditionalRenderingExample() {
   const [userRole, setUserRole] = React.useState<"guest" | "user" | "admin">("guest");
 
   const specification: UISpecification = {
+    version: "1.0.0",
     root: {
       type: "Container",
       className: "space-y-6",

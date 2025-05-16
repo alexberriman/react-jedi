@@ -126,6 +126,11 @@ export interface RenderOptions {
    * Internal use - populated by the render function.
    */
   stateManager?: import("@/lib/state").StateManager;
+
+  /**
+   * Memoization options for performance optimization.
+   */
+  memoization?: import("@/lib/performance/memoization").MemoizationOptions;
 }
 
 /**

@@ -310,6 +310,8 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Calendar: asComponent(
     CalendarComponent as unknown as React.ComponentType<Record<string, unknown>>
   ),
+  datePicker: asComponent(UI.DatePicker as unknown as React.ComponentType<Record<string, unknown>>),
+  DatePicker: asComponent(UI.DatePicker as unknown as React.ComponentType<Record<string, unknown>>),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

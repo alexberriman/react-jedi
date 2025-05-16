@@ -205,4 +205,8 @@ export interface ComponentTypes {
   PopoverTrigger: import("../components/popover").PopoverTriggerSpec;
   PopoverContent: import("../components/popover").PopoverContentSpec;
   PopoverAnchor: import("../components/popover").PopoverAnchorSpec;
+
+  // Date/Time Components
+  Calendar: import("../components/calendar").CalendarComponentProps;
+  DatePicker: import("../components/date-picker").DatePickerComponentProps;
 }

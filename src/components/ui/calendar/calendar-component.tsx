@@ -1,17 +1,22 @@
 import React from "react";
 import { Calendar } from "./calendar";
 import { BaseComponentSpec } from "@/types";
+import type {
+  SelectSingleEventHandler,
+  SelectMultipleEventHandler,
+  SelectRangeEventHandler,
+} from "react-day-picker";
 
 // Type for parsed selected value - this is a discriminated union
 type ParsedSelectedValue =
   | { mode: "single"; value: Date | undefined }
   | { mode: "multiple"; value: Date[] }
-  | { mode: "range"; value: { from?: Date; to?: Date } | undefined };
+  | { mode: "range"; value: { from: Date | undefined; to: Date | undefined } | undefined };
 
 export interface CalendarComponentProps extends BaseComponentSpec {
   type: "calendar";
   mode?: "single" | "multiple" | "range";
-  selected?: Date | Date[] | { from?: Date; to?: Date };
+  selected?: Date | Date[] | { from: Date | undefined; to: Date | undefined };
   defaultMonth?: Date;
   disabled?: Date[] | ((date: Date) => boolean);
   initialFocus?: boolean;
@@ -78,7 +83,9 @@ export function CalendarComponent({
     return [];
   };
 
-  const parseRangeSelect = (selected: unknown): { from?: Date; to?: Date } | undefined => {
+  const parseRangeSelect = (
+    selected: unknown
+  ): { from: Date | undefined; to: Date | undefined } | undefined => {
     if (typeof selected === "object" && !Array.isArray(selected)) {
       const range = selected as { from?: Date | string; to?: Date | string };
       const fromDate = parseDate(range.from);
@@ -110,12 +117,9 @@ export function CalendarComponent({
     }
   }, [selected, mode]);
 
-  // Extract the actual selected value for the calendar
-  const parsedSelected = parsedValue.value;
-
-  // Event handlers for calendar
-  const handleSelectSingle = React.useCallback(
-    (date: Date | undefined) => {
+  // Event handlers for calendar - these need to match react-day-picker's exact signatures
+  const handleSelectSingle: SelectSingleEventHandler = React.useCallback(
+    (date, selectedDay, activeModifiers, e) => {
       if (onSelect) {
         // For now, just log the selection. In a real implementation,
         // this would dispatch an action or call a handler
@@ -125,8 +129,8 @@ export function CalendarComponent({
     [onSelect]
   );
 
-  const handleSelectMultiple = React.useCallback(
-    (dates: Date[] | undefined) => {
+  const handleSelectMultiple: SelectMultipleEventHandler = React.useCallback(
+    (dates, selectedDay, activeModifiers, e) => {
       if (onSelect) {
         console.log("Calendar selected multiple:", dates);
       }
@@ -134,8 +138,8 @@ export function CalendarComponent({
     [onSelect]
   );
 
-  const handleSelectRange = React.useCallback(
-    (range: { from?: Date; to?: Date } | undefined) => {
+  const handleSelectRange: SelectRangeEventHandler = React.useCallback(
+    (range, selectedDay, activeModifiers, e) => {
       if (onSelect) {
         console.log("Calendar selected range:", range);
       }
@@ -152,37 +156,52 @@ export function CalendarComponent({
     [onMonthChange]
   );
 
-  // Select the appropriate handler based on mode
-  let selectHandler: ((value: unknown) => void) | undefined;
+  // Common props for all modes
+  const commonProps = {
+    defaultMonth: parseDate(defaultMonth),
+    disabled,
+    initialFocus,
+    showOutsideDays,
+    fixedWeeks,
+    numberOfMonths,
+    fromYear,
+    toYear,
+    fromMonth: parseDate(fromMonth),
+    toMonth: parseDate(toMonth),
+    fromDate: parseDate(fromDate),
+    toDate: parseDate(toDate),
+    className,
+    style,
+    onMonthChange: handleMonthChange,
+  };
 
+  // Render different Calendar variants based on mode
   if (mode === "single") {
-    selectHandler = handleSelectSingle;
+    return (
+      <Calendar
+        {...commonProps}
+        mode="single"
+        selected={parsedValue.mode === "single" ? parsedValue.value : undefined}
+        onSelect={handleSelectSingle}
+      />
+    );
   } else if (mode === "multiple") {
-    selectHandler = handleSelectMultiple;
+    return (
+      <Calendar
+        {...commonProps}
+        mode="multiple"
+        selected={parsedValue.mode === "multiple" ? parsedValue.value : undefined}
+        onSelect={handleSelectMultiple}
+      />
+    );
   } else {
-    selectHandler = handleSelectRange;
+    return (
+      <Calendar
+        {...commonProps}
+        mode="range"
+        selected={parsedValue.mode === "range" ? parsedValue.value : undefined}
+        onSelect={handleSelectRange}
+      />
+    );
   }
-
-  return (
-    <Calendar
-      mode={mode}
-      selected={parsedSelected}
-      defaultMonth={parseDate(defaultMonth)}
-      disabled={disabled}
-      initialFocus={initialFocus}
-      showOutsideDays={showOutsideDays}
-      fixedWeeks={fixedWeeks}
-      numberOfMonths={numberOfMonths}
-      fromYear={fromYear}
-      toYear={toYear}
-      fromMonth={parseDate(fromMonth)}
-      toMonth={parseDate(toMonth)}
-      fromDate={parseDate(fromDate)}
-      toDate={parseDate(toDate)}
-      className={className}
-      style={style}
-      onSelect={selectHandler as unknown}
-      onMonthChange={handleMonthChange}
-    />
-  );
 }

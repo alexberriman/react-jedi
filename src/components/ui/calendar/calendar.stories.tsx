@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Calendar } from "./calendar";
 import { addDays, isSaturday, isSunday } from "date-fns";
+import type { DateRange } from "react-day-picker";
 
 const meta = {
   title: "Components/UI/Calendar",
@@ -94,11 +95,7 @@ export const MultipleDateSelection: Story = {
 export const DateRangeSelection: Story = {
   render: () => {
     const DateRangeExample = () => {
-      interface DateRangeValue {
-        from?: Date;
-        to?: Date;
-      }
-      const [dateRange, setDateRange] = useState<DateRangeValue | undefined>({
+      const [dateRange, setDateRange] = useState<DateRange | undefined>({
         from: new Date(),
         to: addDays(new Date(), 7),
       });

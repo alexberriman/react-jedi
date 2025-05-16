@@ -64,3 +64,4 @@ export * from "./pagination";
 export * from "./command";
 export * from "./sidebar";
 export * from "./calendar";
+export * from "./date-picker";

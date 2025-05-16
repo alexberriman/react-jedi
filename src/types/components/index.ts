@@ -172,3 +172,4 @@ export type {
   SidebarGroupAction,
 } from "./sidebar";
 export type { CalendarComponentProps, CalendarDateSpec, CalendarRangeSpec } from "./calendar";
+export type { DatePickerComponentProps } from "./date-picker";

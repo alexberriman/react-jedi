@@ -1006,4 +1006,5 @@ export type UIComponentSpec =
   | import("@/types/components/popover").PopoverContentSpec
   | import("@/types/components/popover").PopoverAnchorSpec
   | import("@/types/components/navigation-menu").NavigationMenuComponent
-  | import("@/types/components/breadcrumb").BreadcrumbProps;
+  | import("@/types/components/breadcrumb").BreadcrumbProps
+  | import("@/types/components/date-picker").DatePickerComponentProps;

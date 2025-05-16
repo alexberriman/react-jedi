@@ -178,6 +178,12 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   HoverCard: asComponent(UI.HoverCard),
   HoverCardTrigger: asComponent(UI.HoverCardTrigger),
   HoverCardContent: asComponent(UI.HoverCardContent),
+  Alert: asComponent(UI.Alert),
+  AlertTitle: asComponent(UI.AlertTitle),
+  AlertDescription: asComponent(UI.AlertDescription),
+  alert: asComponent(UI.Alert),
+  "alert-title": asComponent(UI.AlertTitle),
+  "alert-description": asComponent(UI.AlertDescription),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

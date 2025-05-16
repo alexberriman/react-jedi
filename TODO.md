@@ -505,11 +505,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for HoverCard
 
-- [ ] Alert Component
+- ✅ Alert Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add alert`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Alert
+  - ✅ Add from shadcn (`npx shadcn@latest add alert`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Alert
 
 - [ ] Alert Dialog Component
 

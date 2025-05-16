@@ -56,3 +56,4 @@ export * from "./toast";
 export * from "./tooltip";
 export * from "./popover";
 export * from "./hover-card";
+export * from "./alert";

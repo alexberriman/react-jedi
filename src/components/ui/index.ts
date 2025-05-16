@@ -66,3 +66,4 @@ export * from "./sidebar";
 export * from "./calendar";
 export * from "./date-picker";
 export * from "./combobox";
+export * from "./input-otp";

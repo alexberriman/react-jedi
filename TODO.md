@@ -573,10 +573,10 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Combobox
 
-- [ ] Input OTP Component (one-time password)
-  - [ ] Add from shadcn (`npx shadcn@latest add input-otp`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for InputOTP
+- ✅ Input OTP Component (one-time password)
+  - ✅ Add from shadcn (`npx shadcn@latest add input-otp`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for InputOTP
 
 ### 4.5 Data Components
 

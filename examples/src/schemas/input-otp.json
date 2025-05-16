@@ -1,0 +1,18 @@
+{
+  "type": "inputOTP",
+  "props": {
+    "maxLength": 6,
+    "placeholder": "•",
+    "render": {
+      "type": "grouped"
+    },
+    "onValueChange": {
+      "type": "action",
+      "action": "updateOTPValue"
+    },
+    "onComplete": {
+      "type": "action",
+      "action": "handleOTPComplete"
+    }
+  }
+}

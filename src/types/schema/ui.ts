@@ -28,6 +28,7 @@ import type {
 } from "@/types/components/dialog";
 import type { DropdownMenuProps } from "@/types/components/dropdown-menu";
 import type { ComboboxDef } from "@/types/components/combobox";
+import type { InputOTPDef } from "@/types/components/input-otp";
 
 /**
  * Button Component Specification
@@ -1009,4 +1010,5 @@ export type UIComponentSpec =
   | import("@/types/components/navigation-menu").NavigationMenuComponent
   | import("@/types/components/breadcrumb").BreadcrumbProps
   | import("@/types/components/date-picker").DatePickerComponentProps
-  | ComboboxDef;
+  | ComboboxDef
+  | InputOTPDef;

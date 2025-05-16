@@ -997,4 +997,5 @@ export type UIComponentSpec =
   | DialogDescriptionType
   | DialogCloseType
   | DropdownMenuProps
-  | import("@/types/components/context-menu").ContextMenuComponent;
+  | import("@/types/components/context-menu").ContextMenuComponentSpec
+  | import("@/types/components/menubar").MenubarComponent;

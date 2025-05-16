@@ -16,8 +16,8 @@ import {
 } from "./";
 import type { ComponentProps } from "@/types/schema";
 import type {
-  ContextMenuComponent,
-  ContextMenuItem as ContextMenuItemType,
+  ContextMenuComponentSpec,
+  ContextMenuItemSpec as ContextMenuItemType,
 } from "@/types/components/context-menu";
 import { render as renderComponent } from "@/lib/render";
 import { useEventHandlers } from "@/lib/events";
@@ -142,16 +142,32 @@ function getIcon(iconName?: string): React.ReactElement | null {
 
 // Custom hook for menu item handlers
 function useMenuItemHandlers(item: ContextMenuItemType, options: ComponentProps): () => void {
+  const eventHandlers = React.useMemo(() => {
+    if (!item.onSelect) return undefined;
+    return {
+      click: {
+        type: "click" as const,
+        handler: {
+          type: item.onSelect.action,
+          ...item.onSelect,
+        },
+      },
+    };
+  }, [item.onSelect]);
+
+  const [localState, setLocalState] = React.useState(options.state || {});
+
   const handlers = useEventHandlers({
-    spec: { ...item, type: "context-menu-item" } as never,
-    options,
+    eventHandlers,
+    state: localState,
+    setState: setLocalState,
   });
 
   return React.useCallback(() => {
-    if (item.onSelect && options.handlers && handlers[`on${item.onSelect.action}`]) {
-      handlers[`on${item.onSelect.action}`]();
+    if (item.onSelect && handlers.elementRef.current) {
+      handlers.elementRef.current.click();
     }
-  }, [item.onSelect, options.handlers, handlers]);
+  }, [item.onSelect, handlers]);
 }
 
 // Component for rendering individual menu items
@@ -228,7 +244,28 @@ function MenuItemContent({
 }
 
 export default function ContextMenuWrapper({ spec, ...props }: Readonly<ComponentProps>) {
-  const { trigger, items = [], ...contextMenuProps } = spec as ContextMenuComponent;
+  const {
+    trigger,
+    items = [],
+    onOpenChange,
+    ...contextMenuProps
+  } = spec as ContextMenuComponentSpec;
+
+  // Handle onOpenChange event
+  const handleOpenChange = React.useCallback(
+    (open: boolean) => {
+      if (onOpenChange && onOpenChange.action && props.state) {
+        const state = props.state;
+        if ("dispatch" in state && typeof state.dispatch === "function") {
+          state.dispatch({
+            type: onOpenChange.action,
+            payload: { open },
+          });
+        }
+      }
+    },
+    [onOpenChange, props.state]
+  );
 
   // Group radio items for proper radio group rendering
   const groupedItems: (ContextMenuItemType | ContextMenuItemType[])[] = [];
@@ -250,7 +287,7 @@ export default function ContextMenuWrapper({ spec, ...props }: Readonly<Componen
   const triggerElement = trigger ? renderComponent(trigger, props) : null;
 
   return (
-    <ContextMenu {...contextMenuProps}>
+    <ContextMenu {...contextMenuProps} onOpenChange={handleOpenChange}>
       <ContextMenuTrigger asChild>{triggerElement}</ContextMenuTrigger>
       <ContextMenuContent>
         {groupedItems.map((item, index) => {
@@ -262,12 +299,16 @@ export default function ContextMenuWrapper({ spec, ...props }: Readonly<Componen
                 value={item.find((radio) => radio.checked)?.value}
               >
                 {item.map((radio, radioIndex) => (
-                  <MenuItemContent key={`radio-${radioIndex}`} item={radio} options={props} />
+                  <MenuItemContent
+                    key={`radio-${radioIndex}`}
+                    item={radio}
+                    options={{ ...props, spec }}
+                  />
                 ))}
               </ContextMenuRadioGroup>
             );
           }
-          return <MenuItemContent key={`item-${index}`} item={item} options={props} />;
+          return <MenuItemContent key={`item-${index}`} item={item} options={{ ...props, spec }} />;
         })}
       </ContextMenuContent>
     </ContextMenu>

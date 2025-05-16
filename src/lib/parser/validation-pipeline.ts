@@ -511,9 +511,10 @@ export class ValidationPipeline {
 
     // Use type guard to narrow the type
     if (isHeading(component) && component.level !== undefined) {
-      if (typeof component.level === "string" && component.level.startsWith("h")) {
+      const componentLevel = component.level;
+      if (typeof componentLevel === "string" && componentLevel.startsWith("h")) {
         // Handle string level values like "h1", "h2", etc.
-        const levelStr = component.level.slice(1);
+        const levelStr = componentLevel.slice(1);
         const level = Number(levelStr);
         if (Number.isNaN(level) || level < 1 || level > 6) {
           errors.push({
@@ -522,24 +523,21 @@ export class ValidationPipeline {
             stage: ValidationStageType.SEMANTIC,
             severity: ValidationSeverity.ERROR,
             code: "HEADING_INVALID_LEVEL",
-            invalidValue: component.level,
+            invalidValue: componentLevel,
             suggestions: ["Use a value between h1 and h6 for heading level"],
           });
         }
-      } else if (typeof component.level === "number") {
+      } else if (typeof componentLevel === "number" && (componentLevel < 1 || componentLevel > 6)) {
         // Handle numeric level values
-        const level = component.level;
-        if (level < 1 || level > 6) {
-          errors.push({
-            path: ["level"],
-            message: "Heading level must be between 1 and 6",
-            stage: ValidationStageType.SEMANTIC,
-            severity: ValidationSeverity.ERROR,
-            code: "HEADING_INVALID_LEVEL",
-            invalidValue: component.level,
-            suggestions: ["Use a value between 1 and 6 for heading level"],
-          });
-        }
+        errors.push({
+          path: ["level"],
+          message: "Heading level must be between 1 and 6",
+          stage: ValidationStageType.SEMANTIC,
+          severity: ValidationSeverity.ERROR,
+          code: "HEADING_INVALID_LEVEL",
+          invalidValue: componentLevel,
+          suggestions: ["Use a value between 1 and 6 for heading level"],
+        });
       }
     }
 

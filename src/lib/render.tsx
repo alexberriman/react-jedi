@@ -267,7 +267,7 @@ function renderChildren(
 
       return React.createElement(
         React.Fragment,
-        { key: child.id || `${spec.type}-child-${index}` },
+        { key: (child.id || `${spec.type}-child-${index}`) as React.Key },
         renderedChild
       );
     });

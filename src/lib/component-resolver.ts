@@ -156,11 +156,13 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   DropdownMenuSubContent: asComponent(UI.DropdownMenuSubContent),
   DropdownMenuGroup: asComponent(UI.DropdownMenuGroup),
   "context-menu": asComponent(
-    UI.ContextMenuComponent as unknown as React.ComponentType<Record<string, unknown>>
+    UI.ContextMenu as unknown as React.ComponentType<Record<string, unknown>>
   ),
   ContextMenu: asComponent(
-    UI.ContextMenuComponent as unknown as React.ComponentType<Record<string, unknown>>
+    UI.ContextMenu as unknown as React.ComponentType<Record<string, unknown>>
   ),
+  Menubar: asComponent(UI.Menubar as unknown as React.ComponentType<Record<string, unknown>>),
+  menubar: asComponent(UI.Menubar as unknown as React.ComponentType<Record<string, unknown>>),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

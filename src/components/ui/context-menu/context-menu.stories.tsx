@@ -17,8 +17,8 @@ import {
 } from "./";
 import {
   CopyIcon,
-  CutIcon,
-  PasteIcon,
+  Scissors as CutIcon,
+  ClipboardPaste as PasteIcon,
   TrashIcon,
   LinkIcon,
   UserIcon,

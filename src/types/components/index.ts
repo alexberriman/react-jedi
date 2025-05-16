@@ -114,4 +114,14 @@ export type {
   DropdownMenuGroupSpecification,
   DropdownMenuSubSpecification,
 } from "./dropdown-menu";
-export type { ContextMenuComponent, ContextMenuItem } from "./context-menu";
+export type { ContextMenuComponentSpec, ContextMenuItemSpec } from "./context-menu";
+export type {
+  MenubarComponent,
+  MenubarMenuSpec,
+  MenubarItemSpec,
+  MenubarSubmenuSpec,
+  MenubarCheckboxItemSpec,
+  MenubarRadioGroupSpec,
+  MenubarRadioItemSpec,
+  MenubarSeparatorSpec,
+} from "./menubar";

@@ -9,22 +9,22 @@ export interface MemoizationOptions {
    * Whether to enable memoization globally
    */
   enabled: boolean;
-  
+
   /**
    * Component types that should always be memoized
    */
   alwaysMemoize?: string[];
-  
+
   /**
    * Component types that should never be memoized
    */
   neverMemoize?: string[];
-  
+
   /**
    * Maximum time (in ms) before considering a component "expensive" to render
    */
   expensiveRenderThreshold?: number;
-  
+
   /**
    * Whether to track render performance metrics
    */
@@ -67,58 +67,66 @@ export function shouldMemoizeComponent(
   options: MemoizationOptions = defaultMemoizationOptions
 ): boolean {
   if (!options.enabled) return false;
-  
+
   // Check explicit lists
   if (options.alwaysMemoize?.includes(componentType)) return true;
   if (options.neverMemoize?.includes(componentType)) return false;
-  
+
   // Default memoization rules for interactive components
   const interactiveComponents = [
-    "Button", "Input", "Select", "Switch", "Checkbox", "RadioGroup", 
-    "Slider", "Toggle", "ToggleGroup", "Textarea", "Form"
+    "Button",
+    "Input",
+    "Select",
+    "Switch",
+    "Checkbox",
+    "RadioGroup",
+    "Slider",
+    "Toggle",
+    "ToggleGroup",
+    "Textarea",
+    "Form",
   ];
-  
-  const containerComponents = [
-    "Grid", "Flex", "Container", "Box", "Card", "AspectRatio"
-  ];
-  
+
+  const containerComponents = ["Grid", "Flex", "Container", "Box", "Card", "AspectRatio"];
+
   // Check if component is expensive based on metrics
   const metrics = renderMetrics.get(componentType);
-  const isExpensive = metrics && options.expensiveRenderThreshold && 
+  const isExpensive =
+    metrics &&
+    options.expensiveRenderThreshold &&
     metrics.averageRenderTime > options.expensiveRenderThreshold;
-  
+
   // Default memoization: expensive, interactive, or non-container components
-  return isExpensive || 
-    interactiveComponents.includes(componentType) || 
-    !containerComponents.includes(componentType);
+  return (
+    isExpensive ||
+    interactiveComponents.includes(componentType) ||
+    !containerComponents.includes(componentType)
+  );
 }
 
 /**
  * Custom props comparator for React.memo
- * 
+ *
  * This function performs a shallow comparison of props but handles
  * special cases like spec objects, children, and functions
  */
 export function createPropsComparator(componentType: string) {
-  return function propsAreEqual(
-    prevProps: ComponentProps,
-    nextProps: ComponentProps
-  ): boolean {
+  return function propsAreEqual(prevProps: ComponentProps, nextProps: ComponentProps): boolean {
     // Handle spec changes
     if (!specAreEqual(prevProps.spec, nextProps.spec)) {
       return false;
     }
-    
+
     // Handle theme changes
     if (!themeAreEqual(prevProps.theme, nextProps.theme)) {
       return false;
     }
-    
+
     // Handle state changes
     if (!stateAreEqual(prevProps.state, nextProps.state)) {
       return false;
     }
-    
+
     // Handle children changes
     if (!React.isValidElement(prevProps.children) && !React.isValidElement(nextProps.children)) {
       // For non-React elements (strings, numbers, etc.), use simple equality
@@ -131,13 +139,9 @@ export function createPropsComparator(componentType: string) {
         return false;
       }
     }
-    
+
     // Handle parent context changes
-    if (!shallowEqual(prevProps.parentContext, nextProps.parentContext)) {
-      return false;
-    }
-    
-    return true;
+    return shallowEqual(prevProps.parentContext, nextProps.parentContext);
   };
 }
 
@@ -147,19 +151,28 @@ export function createPropsComparator(componentType: string) {
 function specAreEqual(prevSpec?: ComponentSpec, nextSpec?: ComponentSpec): boolean {
   if (prevSpec === nextSpec) return true;
   if (!prevSpec || !nextSpec) return false;
-  
+
   // Compare important spec properties
   const keys: (keyof ComponentSpec)[] = [
-    "type", "id", "className", "style", "props", "events", 
-    "conditions", "state", "data", "a11y", "testId"
+    "type",
+    "id",
+    "className",
+    "style",
+    "props",
+    "events",
+    "conditions",
+    "state",
+    "data",
+    "a11y",
+    "testId",
   ];
-  
+
   for (const key of keys) {
     if (!shallowEqual(prevSpec[key], nextSpec[key])) {
       return false;
     }
   }
-  
+
   // Special handling for children (already handled separately)
   return true;
 }
@@ -185,44 +198,40 @@ function stateAreEqual(
 ): boolean {
   if (prevState === nextState) return true;
   if (!prevState || !nextState) return false;
-  
+
   // Compare state keys and values
   const prevKeys = Object.keys(prevState);
   const nextKeys = Object.keys(nextState);
-  
-  return prevKeys.length === nextKeys.length && 
-    prevKeys.every(key => key in nextState && Object.is(prevState[key], nextState[key]));
+
+  return (
+    prevKeys.length === nextKeys.length &&
+    prevKeys.every((key) => key in nextState && Object.is(prevState[key], nextState[key]))
+  );
 }
 
 /**
  * Compare children for equality
  */
-function childrenAreEqual(
-  prevChildren: React.ReactNode,
-  nextChildren: React.ReactNode
-): boolean {
+function childrenAreEqual(prevChildren: React.ReactNode, nextChildren: React.ReactNode): boolean {
   // Use React's built-in comparison for most cases
   if (React.isValidElement(prevChildren) && React.isValidElement(nextChildren)) {
     // For React elements, check type and key
-    return (
-      prevChildren.type === nextChildren.type &&
-      prevChildren.key === nextChildren.key
-    );
+    return prevChildren.type === nextChildren.type && prevChildren.key === nextChildren.key;
   }
-  
+
   // For arrays of children
   if (Array.isArray(prevChildren) && Array.isArray(nextChildren)) {
     if (prevChildren.length !== nextChildren.length) return false;
-    
+
     for (const [i, prevChild] of prevChildren.entries()) {
       if (!childrenAreEqual(prevChild, nextChildren[i])) {
         return false;
       }
     }
-    
+
     return true;
   }
-  
+
   // For primitive values
   return Object.is(prevChildren, nextChildren);
 }
@@ -232,23 +241,18 @@ function childrenAreEqual(
  */
 function shallowEqual(obj1: unknown, obj2: unknown): boolean {
   if (Object.is(obj1, obj2)) return true;
-  
-  if (
-    typeof obj1 !== "object" ||
-    obj1 === null ||
-    typeof obj2 !== "object" ||
-    obj2 === null
-  ) {
+
+  if (typeof obj1 !== "object" || obj1 === null || typeof obj2 !== "object" || obj2 === null) {
     return false;
   }
-  
+
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
-  
+
   if (keys1.length !== keys2.length) {
     return false;
   }
-  
+
   for (const key of keys1) {
     if (
       !keys2.includes(key) ||
@@ -257,7 +261,22 @@ function shallowEqual(obj1: unknown, obj2: unknown): boolean {
       return false;
     }
   }
-  
+
+  return true;
+}
+
+/**
+ * Shallow equality comparison for arrays
+ */
+function shallowArrayEqual(arr1: React.DependencyList, arr2: React.DependencyList): boolean {
+  if (arr1.length !== arr2.length) return false;
+
+  for (const [i, value] of arr1.entries()) {
+    if (!Object.is(value, arr2[i])) {
+      return false;
+    }
+  }
+
   return true;
 }
 
@@ -270,11 +289,11 @@ export function withRenderTracking<P extends object>(
 ): React.ComponentType<P> {
   return function TrackedComponent(props: P) {
     const renderStartTime = globalThis.performance?.now() || Date.now();
-    
+
     React.useEffect(() => {
       const renderEndTime = globalThis.performance?.now() || Date.now();
       const renderTime = renderEndTime - renderStartTime;
-      
+
       // Update metrics
       const existing = renderMetrics.get(componentType) || {
         componentType,
@@ -284,7 +303,7 @@ export function withRenderTracking<P extends object>(
         maxRenderTime: 0,
         lastRenderTime: 0,
       };
-      
+
       const newMetrics: RenderMetrics = {
         componentType,
         renderCount: existing.renderCount + 1,
@@ -293,10 +312,10 @@ export function withRenderTracking<P extends object>(
         maxRenderTime: Math.max(existing.maxRenderTime, renderTime),
         lastRenderTime: renderTime,
       };
-      
+
       renderMetrics.set(componentType, newMetrics);
     });
-    
+
     return React.createElement(Component, props);
   };
 }
@@ -333,25 +352,25 @@ export function createMemoizedComponent<P extends ComponentProps>(
   if (!shouldMemoizeComponent(componentType, options)) {
     return Component;
   }
-  
+
   // Only memoize function components
-  if (typeof Component !== 'function') {
+  if (typeof Component !== "function") {
     return Component;
   }
-  
+
   const MemoizedComponent = React.memo(
     Component as React.FunctionComponent<P>,
     createPropsComparator(componentType) as (prevProps: P, nextProps: P) => boolean
   );
-  
+
   // Add display name for debugging
   MemoizedComponent.displayName = `Memoized${componentType}`;
-  
+
   // Optionally add render tracking
   if (options.trackPerformance) {
     return withRenderTracking(MemoizedComponent as React.ComponentType<P>, componentType);
   }
-  
+
   return MemoizedComponent as React.ComponentType<P>;
 }
 
@@ -364,23 +383,33 @@ export function useMemoizedValue<T>(
   compareFn?: (prevValue: T, nextValue: T) => boolean
 ): T {
   const previousValueRef = React.useRef<T>(value);
-  
-  // Create stable compareFn reference
-  const compareFnRef = React.useRef(compareFn);
-  compareFnRef.current = compareFn;
-  
-  // Create a complex dependency that includes value
-  const memoDepString = JSON.stringify([value, ...dependencies]);
-  
-  const memoizedValue = React.useMemo(() => {
-    if (compareFnRef.current && compareFnRef.current(previousValueRef.current, value)) {
-      return previousValueRef.current;
-    }
+  const previousDepsRef = React.useRef(dependencies);
+
+  // Determine if dependencies have changed
+  const depsChanged = !shallowArrayEqual(previousDepsRef.current, dependencies);
+
+  if (depsChanged) {
+    previousDepsRef.current = dependencies;
     previousValueRef.current = value;
     return value;
-  }, [value, memoDepString]);
-  
-  return memoizedValue;
+  }
+
+  // Dependencies haven't changed
+  if (compareFn) {
+    // Use custom comparison function
+    if (compareFn(previousValueRef.current, value)) {
+      return previousValueRef.current;
+    }
+  } else {
+    // Default object reference equality
+    if (previousValueRef.current === value) {
+      return previousValueRef.current;
+    }
+  }
+
+  // Value has changed even though deps haven't
+  previousValueRef.current = value;
+  return value;
 }
 
 /**
@@ -390,10 +419,22 @@ export function useMemoizedCallback<T extends (...args: unknown[]) => unknown>(
   callback: T,
   dependencies: React.DependencyList
 ): T {
-  // Return the callback directly instead of trying to memoize it
-  // This is a limitation due to linting rules
-  const memoized = React.useCallback((...args: Parameters<T>) => callback(...args), [...dependencies, callback]) as T;
-  return memoized;
+  // Store callback in ref
+  const callbackRef = React.useRef(callback);
+  callbackRef.current = callback;
+
+  // Track dependencies change
+  const previousDepsRef = React.useRef(dependencies);
+  const depsChanged = !shallowArrayEqual(previousDepsRef.current, dependencies);
+  previousDepsRef.current = dependencies;
+
+  // Create stable callback reference
+  const stableCallbackRef = React.useRef<T>();
+  if (!stableCallbackRef.current || depsChanged) {
+    stableCallbackRef.current = ((...args: Parameters<T>) => callbackRef.current(...args)) as T;
+  }
+
+  return stableCallbackRef.current;
 }
 
 /**
@@ -401,14 +442,14 @@ export function useMemoizedCallback<T extends (...args: unknown[]) => unknown>(
  */
 export function useRenderPerformance(componentType: string): RenderMetrics | undefined {
   const [metrics, setMetrics] = React.useState(() => getComponentMetrics(componentType));
-  
+
   React.useEffect(() => {
     const interval = globalThis.setInterval(() => {
       setMetrics(getComponentMetrics(componentType));
     }, 1000);
-    
+
     return () => globalThis.clearInterval(interval);
   }, [componentType]);
-  
+
   return metrics;
 }

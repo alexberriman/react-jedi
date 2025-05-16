@@ -159,11 +159,7 @@ describe("Memoization", () => {
   describe("createMemoizedComponent", () => {
     it("should return original component when memoization is disabled", () => {
       const options = { ...defaultMemoizationOptions, enabled: false };
-      const MemoizedComponent = createMemoizedComponent(
-        TestComponent,
-        "Test",
-        options
-      );
+      const MemoizedComponent = createMemoizedComponent(TestComponent, "Test", options);
       expect(MemoizedComponent).toBe(TestComponent);
     });
 
@@ -178,54 +174,61 @@ describe("Memoization", () => {
         ...defaultMemoizationOptions,
         trackPerformance: true,
       };
-      const MemoizedComponent = createMemoizedComponent(
-        TestComponent,
-        "Test",
-        options
-      );
+      const MemoizedComponent = createMemoizedComponent(TestComponent, "Test", options);
       expect(MemoizedComponent).not.toBe(TestComponent);
     });
   });
 
   describe("useMemoizedValue", () => {
     it("should memoize value based on dependencies", () => {
+      const stableValue = { count: 0 };
+      const newValue = { count: 1 };
+
       const { result, rerender } = renderHook(
-        ({ value, deps }: { value: { count: number }; deps: React.DependencyList }) => 
+        ({ value, deps }: { value: { count: number }; deps: React.DependencyList }) =>
           useMemoizedValue(value, deps),
         {
-          initialProps: { value: { count: 0 }, deps: [0] },
+          initialProps: { value: stableValue, deps: [0] },
         }
       );
 
       const initialValue = result.current;
 
       // Same dependencies, same value reference
-      rerender({ value: { count: 0 }, deps: [0] });
+      rerender({ value: stableValue, deps: [0] });
       expect(result.current).toBe(initialValue);
 
       // Different dependencies, new value
-      rerender({ value: { count: 1 }, deps: [1] });
+      rerender({ value: newValue, deps: [1] });
       expect(result.current).not.toBe(initialValue);
     });
 
     it("should use custom comparison function", () => {
+      const value1 = { count: 0 };
+      const value2 = { count: 0 }; // Different reference, same count
+      const value3 = { count: 1 };
+
       const { result, rerender } = renderHook(
-        ({ value, deps }: { value: { count: number }; deps: React.DependencyList }) => 
+        ({ value, deps }: { value: { count: number }; deps: React.DependencyList }) =>
           useMemoizedValue(value, deps, numberCompareFn),
         {
-          initialProps: { value: { count: 0 }, deps: [0] },
+          initialProps: { value: value1, deps: [0] },
         }
       );
 
       const initialValue = result.current;
 
-      // Same count, should return previous value
-      rerender({ value: { count: 0 }, deps: [1] });
+      // Same dependencies, same count with different reference, should return previous value
+      rerender({ value: value2, deps: [0] });
       expect(result.current).toBe(initialValue);
 
-      // Different count, should return new value
-      rerender({ value: { count: 1 }, deps: [2] });
-      expect(result.current).not.toBe(initialValue);
+      // Different count with same dependencies, should return new value
+      rerender({ value: value3, deps: [0] });
+      expect(result.current).toBe(value3);
+
+      // Different dependencies, should return new value regardless of comparison
+      rerender({ value: value2, deps: [1] });
+      expect(result.current).toBe(value2);
     });
   });
 

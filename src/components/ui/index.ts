@@ -38,3 +38,4 @@ export * from "./slider";
 export * from "./collapsible";
 export * from "./stack";
 export * from "./group";
+export * from "./center";

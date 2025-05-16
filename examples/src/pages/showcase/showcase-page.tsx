@@ -60,6 +60,12 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "custom",
       },
+      {
+        name: "Center",
+        description: "Centers its children horizontally and/or vertically using flexbox.",
+        status: "completed",
+        type: "custom",
+      },
     ],
   },
   {

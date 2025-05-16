@@ -182,4 +182,6 @@ export interface ComponentTypes {
   SelectTrigger: import("./ui").SelectTriggerSpec;
   SelectValue: import("./ui").SelectValueSpec;
   Toggle: import("../components/toggle").ToggleSpec;
+  ToggleGroup: import("../components/toggle-group").ToggleGroupSpec;
+  ToggleGroupItem: import("../components/toggle-group").ToggleGroupItemSpec;
 }

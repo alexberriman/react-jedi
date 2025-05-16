@@ -32,3 +32,4 @@ export * from "./checkbox";
 export * from "./radio-group";
 export * from "./select";
 export * from "./toggle";
+export * from "./toggle-group";

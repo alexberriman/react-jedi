@@ -345,10 +345,10 @@ This milestone adds interactivity to the library, turning static layouts into dy
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Toggle
 
-- [ ] Toggle Group Component
-  - [ ] Add from shadcn (`npx shadcn@latest add toggle-group`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for ToggleGroup
+- ✅ Toggle Group Component
+  - ✅ Add from shadcn (`npx shadcn@latest add toggle-group`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for ToggleGroup
 
 ### 3.5 Conditional Rendering
 

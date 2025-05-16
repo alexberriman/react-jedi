@@ -49,3 +49,4 @@ export type {
   CollapsibleContentSpec,
 } from "./collapsible";
 export type { ToggleSpec } from "./toggle";
+export type { ToggleGroupSpec, ToggleGroupItemSpec } from "./toggle-group";

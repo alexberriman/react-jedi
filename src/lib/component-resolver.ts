@@ -2,6 +2,7 @@ import * as React from "react";
 import type { ComponentResolver, ComponentProps } from "@/types/schema/components";
 import * as UI from "@/components/ui";
 import { BreadcrumbComponent } from "@/components/ui/breadcrumb-component";
+import { PaginationComponent } from "@/components/ui/pagination";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -211,6 +212,12 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   ),
   breadcrumb: asComponent(BreadcrumbComponent),
   Breadcrumb: asComponent(BreadcrumbComponent),
+  pagination: asComponent(
+    PaginationComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  Pagination: asComponent(
+    PaginationComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

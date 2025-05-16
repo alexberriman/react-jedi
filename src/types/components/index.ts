@@ -144,3 +144,4 @@ export type {
   NavigationFeatureSpec,
 } from "./navigation-menu";
 export type { BreadcrumbProps, BreadcrumbItemSpec } from "./breadcrumb";
+export type { PaginationProps, PaginationLinkItemSpec } from "./pagination";

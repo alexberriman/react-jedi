@@ -60,3 +60,4 @@ export * from "./alert";
 export * from "./alert-dialog";
 export * from "./progress";
 export * from "./navigation-menu";
+export * from "./pagination";

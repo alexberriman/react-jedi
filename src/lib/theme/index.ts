@@ -138,6 +138,32 @@ export {
   type StyleFunction
 } from "./style-overrides";
 
+// Style extension system
+export {
+  extractInheritableStyles,
+  extractNonInheritableStyles,
+  shouldInheritStyles,
+  createChildStyleContext,
+  composeStyles,
+  cascadeStyles as cascadeExtendedStyles,
+  resolveExtendedStyles,
+  createStyleExtension,
+  DEFAULT_INHERITABLE_PROPERTIES,
+  DEFAULT_INHERITING_COMPONENTS,
+  DEFAULT_BOUNDARY_COMPONENTS,
+  DEFAULT_INHERITANCE_CONFIG,
+  DEFAULT_COMPOSITION_CONFIG,
+  DEFAULT_CASCADE_CONFIG,
+  calculateSpecificity,
+  createStyleComposer,
+  createCascadeResolver,
+  type StyleContext,
+  type StyleInheritanceConfig,
+  type StyleCompositionConfig,
+  type StyleSource,
+  type CascadeConfig
+} from "./style-extension";
+
 // Color mode system
 export {
   ColorModeProvider,

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { render } from "../render";
 import { ThemeProvider } from "./theme-provider";
-import type { UISpecification } from "@/types/schema/specification";
+import type { UISpecification, ThemeSpecification } from "@/types/schema/specification";
+import type { ButtonSpec } from "@/types/schema/ui";
 
 const meta = {
   title: "Theme/Style Overrides",
@@ -22,7 +23,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const GlobalOverrides: Story = {
   render: () => {
-    const theme: UISpecification["theme"] = {
+    const theme: ThemeSpecification = {
       components: {
         Button: {
           global: {
@@ -72,14 +73,14 @@ export const GlobalOverrides: Story = {
               },
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 children: "Primary Button",
-              },
+              } as ButtonSpec,
               {
                 type: "Button",
                 variant: "secondary",
                 children: "Secondary Button",
-              },
+              } as ButtonSpec,
             ],
           },
           {
@@ -104,7 +105,7 @@ export const GlobalOverrides: Story = {
  */
 export const VariantOverrides: Story = {
   render: () => {
-    const theme: UISpecification["theme"] = {
+    const theme: ThemeSpecification = {
       colors: {
         primary: { 500: "#3B82F6", 600: "#2563EB" },
         secondary: { 500: "#10B981", 600: "#059669" },
@@ -160,7 +161,7 @@ export const VariantOverrides: Story = {
             children: [
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 children: "Primary Gradient",
               },
               {
@@ -190,7 +191,7 @@ export const VariantOverrides: Story = {
  */
 export const SizeOverrides: Story = {
   render: () => {
-    const theme: UISpecification["theme"] = {
+    const theme: ThemeSpecification = {
       components: {
         Button: {
           sizes: {
@@ -243,19 +244,19 @@ export const SizeOverrides: Story = {
               {
                 type: "Button",
                 size: "sm",
-                variant: "primary",
+                variant: "default",
                 children: "Small",
               },
               {
                 type: "Button",
                 size: "md",
-                variant: "primary",
+                variant: "default",
                 children: "Medium",
               },
               {
                 type: "Button",
                 size: "lg",
-                variant: "primary",
+                variant: "default",
                 children: "Large",
               },
             ],
@@ -275,7 +276,7 @@ export const SizeOverrides: Story = {
  */
 export const CombinationOverrides: Story = {
   render: () => {
-    const theme: UISpecification["theme"] = {
+    const theme: ThemeSpecification = {
       colors: {
         primary: { 500: "#3B82F6", 600: "#2563EB", 700: "#1D4ED8" },
       },
@@ -300,7 +301,7 @@ export const CombinationOverrides: Story = {
           // Special combination override
           combinations: [
             {
-              variant: "primary",
+              variant: "default",
               size: "lg",
               className: "bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-white px-8 py-4 text-xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105",
               styles: {
@@ -339,19 +340,19 @@ export const CombinationOverrides: Story = {
               // Regular variants
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 size: "sm",
                 children: "Primary Small",
               },
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 size: "md",
                 children: "Primary Medium",
               },
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 size: "lg",
                 children: "✨ Special Combo",
               },
@@ -391,7 +392,7 @@ export const CombinationOverrides: Story = {
  */
 export const TokenBasedOverrides: Story = {
   render: () => {
-    const theme: UISpecification["theme"] = {
+    const theme: ThemeSpecification = {
       colors: {
         primary: { 
           500: "#3B82F6", 
@@ -473,7 +474,7 @@ export const TokenBasedOverrides: Story = {
           },
           {
             type: "Button",
-            variant: "accent",
+            variant: "secondary",
             children: "Accent Button with Tokens",
           },
         ],
@@ -491,7 +492,7 @@ export const TokenBasedOverrides: Story = {
  */
 export const SpecLevelStyleMerging: Story = {
   render: () => {
-    const theme: UISpecification["theme"] = {
+    const theme: ThemeSpecification = {
       components: {
         Button: {
           global: {
@@ -533,12 +534,12 @@ export const SpecLevelStyleMerging: Story = {
             children: [
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 children: "Theme Styled",
               },
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 // These will merge with theme styles
                 className: "animate-pulse",
                 style: {

@@ -49,6 +49,11 @@ export interface BaseComponentSpec {
    * Optional inline styles to apply to the component.
    */
   style?: Record<string, string | number>;
+  
+  /**
+   * Allow other properties for component-specific attributes
+   */
+  [key: string]: unknown;
 
   /**
    * Optional event handlers for the component.

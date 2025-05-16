@@ -8,12 +8,15 @@
 import * as React from "react";
 import { render } from "../render";
 import { ThemeProvider } from "../theme/theme-provider";
-import type { UISpecification } from "@/types/schema/specification";
+import type { UISpecification, ThemeSpecification } from "@/types/schema/specification";
+import type { ButtonSpec } from "@/types/schema/ui";
+import type { FlexSpec } from "@/types/schema/layout";
+import type { TextSpec } from "@/types/schema/typography";
 
 /**
  * Example theme with style overrides
  */
-const themeWithOverrides: UISpecification["theme"] = {
+const themeWithOverrides: ThemeSpecification = {
   colors: {
     primary: {
       500: "#3B82F6",
@@ -89,7 +92,7 @@ const themeWithOverrides: UISpecification["theme"] = {
       },
       combinations: [
         {
-          variant: "primary",
+          variant: "default",
           size: "lg",
           className: "bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800",
           styles: {
@@ -160,24 +163,24 @@ const uiSpec: UISpecification = {
             children: [
               {
                 type: "Button",
-                variant: "primary",
-                size: "md",
+                variant: "default",
+                size: "default",
                 children: "Primary Button",
-              },
+              } as ButtonSpec,
               {
                 type: "Button",
                 variant: "secondary",
-                size: "md",
+                size: "default",
                 children: "Secondary Button",
-              },
+              } as ButtonSpec,
               {
                 type: "Button",
                 variant: "outline",
-                size: "md",
+                size: "default",
                 children: "Outline Button",
-              },
+              } as ButtonSpec,
             ],
-          },
+          } as FlexSpec,
         ],
       },
       
@@ -199,24 +202,24 @@ const uiSpec: UISpecification = {
             children: [
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 size: "sm",
                 children: "Small",
-              },
+              } as ButtonSpec,
               {
                 type: "Button",
-                variant: "primary",
-                size: "md",
+                variant: "default",
+                size: "default",
                 children: "Medium",
-              },
+              } as ButtonSpec,
               {
                 type: "Button",
-                variant: "primary",
+                variant: "default",
                 size: "lg",
                 children: "Large",
-              },
+              } as ButtonSpec,
             ],
-          },
+          } as FlexSpec,
         ],
       },
       
@@ -238,10 +241,10 @@ const uiSpec: UISpecification = {
           },
           {
             type: "Button",
-            variant: "primary",
+            variant: "default",
             size: "lg",
             children: "Gradient Primary Large",
-          },
+          } as ButtonSpec,
         ],
       },
       
@@ -291,19 +294,19 @@ const uiSpec: UISpecification = {
             children: [
               {
                 type: "Text",
-                variant: "primary",
+                variant: "default",
                 children: "Primary text with custom styling",
-              },
+              } as TextSpec,
               {
                 type: "Text",
                 variant: "secondary",
                 children: "Secondary text with custom styling",
-              },
+              } as TextSpec,
               {
                 type: "Text",
                 variant: "muted",
                 children: "Muted text with custom styling",
-              },
+              } as TextSpec,
               {
                 type: "Text",
                 children: "Default text with global overrides",
@@ -340,7 +343,7 @@ export function ProgrammaticExample(): React.ReactElement {
     version: "1.0.0",
     root: {
       type: "Button",
-      variant: "primary",
+      variant: "default",
       size: "lg",
       // These spec-level overrides will merge with theme overrides
       className: "animate-pulse",
@@ -348,7 +351,7 @@ export function ProgrammaticExample(): React.ReactElement {
         boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)",
       },
       children: "Animated Button",
-    },
+    } as ButtonSpec,
     theme: themeWithOverrides,
   };
   

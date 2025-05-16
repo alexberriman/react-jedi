@@ -158,7 +158,7 @@ export function composeTheme(
   parentTheme: ThemeSpecification
 ): ThemeSpecification {
   if (!theme.inheritance) {
-    return theme;
+    return theme as ThemeSpecification;
   }
   
   const { strategy, exclude = [] } = theme.inheritance;
@@ -171,8 +171,8 @@ export function composeTheme(
   
   // Apply the composition strategy
   return strategy === "merge" 
-    ? mergeThemes(filteredParent, theme)
-    : { ...filteredParent, ...theme };
+    ? mergeThemes(filteredParent, theme as ThemeSpecification)
+    : { ...filteredParent, ...(theme as ThemeSpecification) };
 }
 
 /**

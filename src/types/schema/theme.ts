@@ -5,7 +5,7 @@
  * It provides a comprehensive typing system for theme-related structures.
  */
 
-import type { ThemeColors, ThemeSpecification } from "./specification";
+import type { ThemeColors, ThemeSpecification, ComponentStyleOverrides } from "./specification";
 
 /**
  * Theme Mode for light/dark mode support
@@ -135,21 +135,22 @@ export interface ThemeColorModePreset {
 /**
  * Theme Extension - extends the base ThemeSpecification with additional properties
  */
-export interface ThemeExtension extends ThemeSpecification {
+export interface ThemeExtension extends Omit<ThemeSpecification, 'components'> {
   /**
    * Color mode settings for light/dark mode
    */
   colorMode?: ColorModeSettings;
   
   /**
+   * Component style overrides using the proper structure
+   */
+  components?: ComponentStyleOverrides;
+  
+  /**
    * Theme variants for component-specific styling
    */
   variants?: Record<string, ThemeVariant>;
   
-  /**
-   * Component-specific theme overrides
-   */
-  components?: Record<string, Partial<ThemeSpecification>>;
   
   /**
    * Theme inheritance configuration

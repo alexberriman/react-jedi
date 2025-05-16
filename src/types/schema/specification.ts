@@ -160,6 +160,11 @@ export interface ThemeSpecification {
    * Component style overrides for customizing appearance
    */
   components?: ComponentStyleOverrides;
+  
+  /**
+   * Style extension configuration for inheritance and cascade
+   */
+  styleExtension?: StyleExtensionConfig;
 }
 
 /**
@@ -170,6 +175,61 @@ export interface ComponentStyleOverrides {
    * Component style overrides organized by component type
    */
   [componentType: string]: ComponentStyleOverride;
+}
+
+/**
+ * Style extension configuration
+ */
+export interface StyleExtensionConfig {
+  /**
+   * Inheritance configuration
+   */
+  inheritance?: {
+    /**
+     * CSS properties that should inherit
+     */
+    inheritableProperties?: string[];
+    
+    /**
+     * Component types that inherit styles
+     */
+    inheritingComponents?: string[];
+    
+    /**
+     * Component types that create style boundaries
+     */
+    boundaryComponents?: string[];
+  };
+  
+  /**
+   * Style composition configuration
+   */
+  composition?: {
+    /**
+     * Precedence order for style sources
+     */
+    precedenceOrder?: string[];
+    
+    /**
+     * Whether to merge array values
+     */
+    mergeArrays?: boolean;
+  };
+  
+  /**
+   * Cascade resolution configuration
+   */
+  cascade?: {
+    /**
+     * Enable specificity calculation
+     */
+    useSpecificity?: boolean;
+    
+    /**
+     * Handle !important declarations
+     */
+    handleImportant?: boolean;
+  };
 }
 
 /**

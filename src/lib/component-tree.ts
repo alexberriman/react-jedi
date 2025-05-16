@@ -39,7 +39,7 @@ export function buildComponentTree(
   spec: UISpecification | ComponentSpec
 ): ComponentNode {
   // If it's a complete UI specification, use the root component
-  const rootSpec = "root" in spec ? spec.root : spec;
+  const rootSpec: ComponentSpec = "root" in spec ? (spec as UISpecification).root : spec as ComponentSpec;
   
   // Create the root node
   const rootNode: ComponentNode = {

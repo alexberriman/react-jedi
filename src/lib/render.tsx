@@ -12,6 +12,12 @@ import { processStyleOverrides } from "./theme/style-overrides";
 import { createTokenResolver } from "./theme/token-resolver";
 import { extractTokensFromTheme, createTokenCollection } from "./theme/theme-tokens";
 import { cn } from "./utils";
+import { 
+  createStyleExtension, 
+  resolveExtendedStyles, 
+  createChildStyleContext,
+  type StyleContext 
+} from "./theme/style-extension";
 
 /**
  * ErrorBoundary component to catch rendering errors
@@ -142,101 +148,121 @@ interface ExtendedComponentProps extends ComponentProps {
 }
 
 /**
- * Renders a component spec into a React element
+ * Renders development placeholder for unknown components
  */
-function renderComponent(
+function renderUnknownComponent(type: string): React.ReactElement {
+  return (
+    <div className="p-2 border border-dashed border-yellow-500 bg-yellow-50 rounded">
+      <p className="text-sm text-yellow-700">
+        Unknown component type: <code>{type}</code>
+      </p>
+    </div>
+  );
+}
+
+/**
+ * Renders children for a component spec
+ */
+function renderChildren(
   spec: ComponentSpec,
-  options: RenderOptions = {},
-  parentContext: Record<string, unknown> = {}
+  options: RenderOptions,
+  parentContext: Record<string, unknown>,
+  parentStyleContext?: StyleContext
 ): React.ReactElement | null {
-  const {
-    resolver = defaultComponentResolver,
-    theme = {},
-    initialState = {},
-    development = false,
-    errorBoundaries = true,
-    onError
-  } = options;
-
-  // Get the component implementation
-  const Component = resolver(spec.type);
-
-  if (!Component) {
-    if (development) {
-      // Return a JSX element placeholder
-      return (
-        <div className="p-2 border border-dashed border-yellow-500 bg-yellow-50 rounded">
-          <p className="text-sm text-yellow-700">
-            Unknown component type: <code>{spec.type}</code>
-          </p>
-        </div>
-      );
-    }
+  if (!spec.children) {
     return null;
   }
 
-  // Render children
-  let children: React.ReactNode = null;
-
-  if (spec.children) {
-    if (isTextContent(spec.children)) {
-      // Text content
-      children = spec.children;
-    } else if (isComponentSpec(spec.children)) {
-      // Single child component
-      const childComponent = renderComponent(spec.children, options, {
+  if (isTextContent(spec.children)) {
+    // Always return a consistent type by wrapping primitives
+    return React.createElement(React.Fragment, null, spec.children);
+  } 
+  
+  if (isComponentSpec(spec.children)) {
+    const childComponent = renderComponent(spec.children, options, {
+      ...parentContext,
+      parent: { type: spec.type, id: spec.id }
+    }, parentStyleContext);
+    // Always return a consistent type
+    return React.createElement(React.Fragment, null, childComponent);
+  } 
+  
+  if (isComponentSpecArray(spec.children)) {
+    const elements = spec.children.map((child, index) => {
+      const renderedChild = renderComponent(child, options, {
         ...parentContext,
         parent: { type: spec.type, id: spec.id }
-      });
-      // Ensure we handle null case
-      children = childComponent || <></>;
-    } else if (isComponentSpecArray(spec.children)) {
-      // Multiple child components
-      children = spec.children.map((child, index) => {
-        const renderedChild = renderComponent(child, options, {
-          ...parentContext,
-          parent: { type: spec.type, id: spec.id }
-        });
-        
-        return React.createElement(
-          React.Fragment,
-          { key: child.id || `${spec.type}-child-${index}` },
-          // Ensure we handle null case
-          renderedChild || <></>
-        );
-      });
-    }
+      }, parentStyleContext);
+      
+      return React.createElement(
+        React.Fragment,
+        { key: child.id || `${spec.type}-child-${index}` },
+        renderedChild
+      );
+    });
+    // Return wrapped elements
+    return React.createElement(React.Fragment, null, ...elements);
   }
 
-  // Process style overrides from theme
-  let styleOverrides: { className?: string; style?: React.CSSProperties } = {};
-  if (theme && theme.components) {
-    // Create token resolver if we have a theme
-    const extractedTokens = extractTokensFromTheme(theme as ThemeSpecification);
-    const tokens = createTokenCollection(extractedTokens);
-    const tokenResolver = createTokenResolver(theme as ThemeSpecification, tokens);
-    styleOverrides = processStyleOverrides(spec, theme as ThemeSpecification, tokenResolver);
+  return null;
+}
+
+/**
+ * Applies style overrides from theme
+ */
+function applyStyleOverrides(
+  spec: ComponentSpec,
+  theme: RenderOptions['theme'],
+  context?: StyleContext
+): { className?: string; style?: React.CSSProperties } {
+  if (!theme) {
+    return {};
+  }
+
+  const extractedTokens = extractTokensFromTheme(theme as ThemeSpecification);
+  const tokens = createTokenCollection(extractedTokens);
+  const tokenResolver = createTokenResolver(theme as ThemeSpecification, tokens);
+  
+  // Use style extension if available and enabled
+  if (context && (theme as ThemeSpecification).styleExtension) {
+    const themeOverrides = theme.components 
+      ? processStyleOverrides(spec, theme as ThemeSpecification, tokenResolver)
+      : {};
+    
+    return resolveExtendedStyles(spec, context, themeOverrides);
   }
   
-  // Merge style overrides with spec styles
+  // Fallback to standard overrides
+  return theme.components 
+    ? processStyleOverrides(spec, theme as ThemeSpecification, tokenResolver)
+    : {};
+}
+
+/**
+ * Builds component props from spec
+ */
+function buildComponentProps(
+  spec: ComponentSpec,
+  options: RenderOptions,
+  children: React.ReactNode,
+  parentContext: Record<string, unknown>,
+  styleOverrides: { className?: string; style?: React.CSSProperties }
+): ExtendedComponentProps {
   const mergedClassName = cn(spec.className, styleOverrides.className);
   const mergedStyle = {
     ...spec.style,
     ...styleOverrides.style,
   };
-  
-  // The mock components in the test are directly extracting spec, so we need to make sure
-  // spec.a11y, spec.data, and spec.testId are preserved in the props
+
   const componentProps: ExtendedComponentProps = {
-    // Make sure spec includes all the original properties by creating a fresh copy
     spec: {
       ...spec,
       className: mergedClassName,
       style: Object.keys(mergedStyle).length > 0 ? mergedStyle : undefined,
     },
     children,
-    theme,
-    state: initialState,
+    theme: options.theme,
+    state: options.initialState,
     parentContext
   };
 
@@ -281,8 +307,72 @@ function renderComponent(
     componentProps["data-testid"] = spec.testId;
   }
 
-  // Create the React element - componentProps already matches the ComponentProps type
-  // that our components are adapted to accept
+  return componentProps;
+}
+
+/**
+ * Renders a component spec into a React element
+ */
+function renderComponent(
+  spec: ComponentSpec,
+  options: RenderOptions = {},
+  parentContext: Record<string, unknown> = {},
+  parentStyleContext?: StyleContext
+): React.ReactElement | null {
+  const {
+    resolver = defaultComponentResolver,
+    theme = {},
+    development = false,
+    errorBoundaries = true,
+    onError,
+    useStyleExtension = true
+  } = options;
+
+  // Get the component implementation
+  const Component = resolver(spec.type);
+
+  if (!Component) {
+    return development ? renderUnknownComponent(spec.type) : null;
+  }
+
+  // Create or inherit style context
+  const styleContext = parentStyleContext || options.styleContext || (
+    useStyleExtension && theme && (theme as ThemeSpecification).styleExtension
+      ? (() => {
+          const tokens = createTokenResolver(
+            theme as ThemeSpecification, 
+            createTokenCollection(extractTokensFromTheme(theme as ThemeSpecification))
+          );
+          return {
+            theme: theme as ThemeSpecification,
+            tokens,
+            componentPath: []
+          };
+        })()
+      : undefined
+  );
+
+  // Process style overrides from theme
+  const styleOverrides = applyStyleOverrides(spec, theme, styleContext);
+  
+  // Create child style context
+  const childStyleContext = styleContext && useStyleExtension
+    ? createChildStyleContext(styleContext, spec, styleOverrides)
+    : undefined;
+
+  // Render children with style context
+  const children = renderChildren(spec, options, parentContext, childStyleContext);
+  
+  // Build component props
+  const componentProps = buildComponentProps(
+    spec, 
+    options, 
+    children, 
+    parentContext, 
+    styleOverrides
+  );
+
+  // Create the React element
   const element = React.createElement(Component, componentProps);
 
   // Wrap in error boundary if enabled
@@ -314,52 +404,18 @@ export function render(
   specification: UISpecification | ComponentSpec,
   options: RenderOptions = {}
 ): React.ReactElement | null {
-  // Handle different input types
-  if ("root" in specification) {
-    // It's a complete UI specification
-    const { root, theme, state } = specification;
-    return renderComponent(root, {
-      ...options,
-      theme: { ...options.theme, ...theme },
-      initialState: { ...options.initialState, ...state }
-    });
-  } else {
-    // It's a single component spec
-    return renderComponent(specification, options);
-  }
-}
+  // If the specification has a `root` property, it's a full UISpecification
+  // Otherwise, it's a ComponentSpec
+  const componentSpec = isComponentSpec(specification)
+    ? specification
+    : specification.root;
 
-/**
- * Create a component resolver that combines multiple resolvers
- * 
- * This allows for extensibility by combining custom resolvers with the default one.
- * 
- * @param resolvers Array of component resolvers
- * @returns Combined resolver function
- */
-export function createResolver(...resolvers: ComponentResolver[]): ComponentResolver {
-  return (type: string) => {
-    for (const resolver of resolvers) {
-      const component = resolver(type);
-      if (component) {
-        return component;
-      }
-    }
-    return null;
+  // If we have a full specification with theme but no theme in options, use it
+  const effectiveOptions: RenderOptions = {
+    ...options,
+    theme: options.theme || (specification && !isComponentSpec(specification) ? specification.theme as Record<string, unknown> : undefined),
+    initialState: options.initialState || (specification && !isComponentSpec(specification) ? specification.state?.initial : undefined)
   };
-}
 
-/**
- * Create a registry-based component resolver
- * 
- * This creates a resolver based on a map of component types to implementations.
- * All components are adapted to accept our standard ComponentProps interface.
- * 
- * @param registry Map of component types to React component implementations
- * @returns Resolver function
- */
-export function createRegistryResolver(
-  registry: Record<string, ComponentType>
-): ComponentResolver {
-  return (type: string) => registry[type] || null;
+  return renderComponent(componentSpec, effectiveOptions);
 }

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { describe, it, expect } from "vitest";
-import { render, createResolver, createRegistryResolver } from "./render";
+import { render } from "./render";
+import { createCustomResolver } from "./component-resolver";
 import type { ComponentSpec, ComponentProps, UISpecification } from "@/types/schema/components";
 
 // Type definition for components in our tests
@@ -178,10 +179,11 @@ describe("render function", () => {
 
   it("should create a combined resolver", () => {
     // Create a combined resolver with a simpler approach
-    const combinedResolver = createResolver(
-      (type: string) => type === "Custom" ? asComponent(MockComponent) : null,
-      mockResolver
-    );
+    // Create a combined resolver manually
+    const customComponents = {
+      Custom: asComponent(MockComponent),
+    };
+    const combinedResolver = createCustomResolver(customComponents);
     
     // Should resolve from custom resolver
     expect(combinedResolver("Custom")).toBeDefined();
@@ -199,7 +201,7 @@ describe("render function", () => {
       Box: asComponent(MockComponent),
     };
 
-    const registryResolver = createRegistryResolver(registry);
+    const registryResolver = createCustomResolver(registry);
     
     // Should resolve registered components
     expect(registryResolver("Custom")).toBeDefined();

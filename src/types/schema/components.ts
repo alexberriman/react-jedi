@@ -109,6 +109,17 @@ export interface RenderOptions {
    * Environment variables available to expressions.
    */
   env?: Record<string, string>;
+
+  /**
+   * Style context for style extension system.
+   */
+  styleContext?: import("@/lib/theme/style-extension").StyleContext;
+
+  /**
+   * Whether to use the style extension system.
+   * @default true
+   */
+  useStyleExtension?: boolean;
 }
 
 /**

@@ -10,8 +10,6 @@ import { cn } from "../utils";
 import type { ComponentSpec } from "@/types/schema/components";
 import type { 
   ThemeSpecification,
-  ComponentStyleOverrides,
-  ComponentStyleOverride,
   StyleOverride 
 } from "@/types/schema/specification";
 import { type TokenResolver } from "./token-resolver";
@@ -27,6 +25,79 @@ export type StyleFunction = (props: {
   className?: string;
   style?: React.CSSProperties;
 };
+
+/**
+ * Override result type for accumulating styles
+ */
+interface OverrideResult {
+  classes: string[];
+  styles: React.CSSProperties;
+}
+
+/**
+ * Apply a single style override
+ * 
+ * @param spec The component specification
+ * @param override The style override to apply
+ * @param tokens The token resolver instance
+ * @param result The accumulated result object
+ */
+function applyOverride(
+  override: StyleOverride | undefined,
+  tokenResolver: TokenResolver
+): OverrideResult {
+  if (!override) {
+    return { classes: [], styles: {} };
+  }
+  
+  const result: OverrideResult = { classes: [], styles: {} };
+  
+  if (override.className) {
+    result.classes.push(override.className);
+  }
+  if (override.styles) {
+    Object.assign(result.styles, override.styles);
+  }
+  if (override.tokens) {
+    applyTokenStyles(override.tokens, result.styles, tokenResolver);
+  }
+  
+  return result;
+}
+
+/**
+ * Merge override results
+ */
+function mergeOverrideResult(target: OverrideResult, source: OverrideResult): void {
+  target.classes.push(...source.classes);
+  Object.assign(target.styles, source.styles);
+}
+
+/**
+ * Apply style override conditionally based on component spec
+ */
+function applyStyleOverride(
+  spec: ComponentSpec,
+  override: StyleOverride,
+  tokens: TokenResolver,
+  result: OverrideResult
+): boolean {
+  // Component type checking is done at a higher level
+  if (override.variant && getComponentVariant(spec) !== override.variant) return false;
+  if (override.size !== undefined && getComponentSize(spec) !== override.size) return false;
+  
+  if (override.className) {
+    result.classes.push(override.className);
+  }
+  if (override.styles) {
+    Object.assign(result.styles, override.styles);
+  }
+  if (override.tokens) {
+    applyTokenStyles(override.tokens, result.styles, tokens);
+  }
+  
+  return true;
+}
 
 /**
  * Process style overrides for a component
@@ -46,80 +117,41 @@ export function processStyleOverrides(
     return {};
   }
   
-  const classes: string[] = [];
-  const styles: React.CSSProperties = {};
-  
-  // Apply global overrides
-  if (overrides.global) {
-    if (overrides.global.className) {
-      classes.push(overrides.global.className);
-    }
-    if (overrides.global.styles) {
-      Object.assign(styles, overrides.global.styles);
-    }
-    if (overrides.global.tokens) {
-      applyTokenStyles(overrides.global.tokens, styles, tokenResolver);
-    }
-  }
+  // Apply base override styles
+  const result = applyOverride(overrides.global, tokenResolver);
   
   // Apply variant-specific overrides
   const variant = getComponentVariant(spec);
   if (variant && overrides.variants?.[variant]) {
-    const variantOverride = overrides.variants[variant];
-    if (variantOverride.className) {
-      classes.push(variantOverride.className);
-    }
-    if (variantOverride.styles) {
-      Object.assign(styles, variantOverride.styles);
-    }
-    if (variantOverride.tokens) {
-      applyTokenStyles(variantOverride.tokens, styles, tokenResolver);
-    }
+    mergeOverrideResult(result, applyOverride(overrides.variants[variant], tokenResolver));
   }
   
   // Apply size-specific overrides
   const size = getComponentSize(spec);
   if (size && overrides.sizes?.[size]) {
-    const sizeOverride = overrides.sizes[size];
-    if (sizeOverride.className) {
-      classes.push(sizeOverride.className);
-    }
-    if (sizeOverride.styles) {
-      Object.assign(styles, sizeOverride.styles);
-    }
-    if (sizeOverride.tokens) {
-      applyTokenStyles(sizeOverride.tokens, styles, tokenResolver);
-    }
+    mergeOverrideResult(result, applyOverride(overrides.sizes[size], tokenResolver));
   }
   
   // Apply combination overrides
   if (overrides.combinations) {
     for (const combo of overrides.combinations) {
       if (matchesCombination(spec, combo)) {
-        if (combo.className) {
-          classes.push(combo.className);
-        }
-        if (combo.styles) {
-          Object.assign(styles, combo.styles);
-        }
-        if (combo.tokens) {
-          applyTokenStyles(combo.tokens, styles, tokenResolver);
-        }
+        mergeOverrideResult(result, applyOverride(combo, tokenResolver));
       }
     }
   }
   
   // Apply spec-level style overrides
   if (spec.className) {
-    classes.push(spec.className);
+    result.classes.push(spec.className);
   }
   if (spec.style) {
-    Object.assign(styles, spec.style);
+    Object.assign(result.styles, spec.style);
   }
   
   return {
-    className: cn(...classes),
-    style: Object.keys(styles).length > 0 ? styles : undefined,
+    className: cn(...result.classes),
+    style: Object.keys(result.styles).length > 0 ? result.styles : undefined,
   };
 }
 
@@ -127,30 +159,18 @@ export function processStyleOverrides(
  * Create a style function from overrides
  */
 export function createStyleFunction(overrides: StyleOverride[]): StyleFunction {
-  return ({ theme, tokens, spec }) => {
-    const classes: string[] = [];
-    const styles: React.CSSProperties = {};
+  return ({ tokens, spec }) => {
+    const result = { classes: [] as string[], styles: {} as React.CSSProperties };
     
     for (const override of overrides) {
-      if (override.component !== spec.type) continue;
-      
-      if (override.variant && getComponentVariant(spec) !== override.variant) continue;
-      if (override.size && getComponentSize(spec) !== override.size) continue;
-      
-      if (override.className) {
-        classes.push(override.className);
-      }
-      if (override.styles) {
-        Object.assign(styles, override.styles);
-      }
-      if (override.tokens) {
-        applyTokenStyles(override.tokens, styles, tokens);
+      if (!applyStyleOverride(spec, override, tokens, result)) {
+        continue;
       }
     }
     
     return {
-      className: cn(...classes),
-      style: Object.keys(styles).length > 0 ? styles : undefined,
+      className: cn(...result.classes),
+      style: Object.keys(result.styles).length > 0 ? result.styles : undefined,
     };
   };
 }
@@ -167,7 +187,7 @@ function applyTokenStyles(
     const value = tokenResolver.resolve(token);
     if (value !== undefined) {
       // Convert CSS property names from camelCase to kebab-case if needed
-      const cssProperty = property.replace(/([A-Z])/g, "-$1").toLowerCase();
+      const cssProperty = property.replaceAll(/([A-Z])/g, "-$1").toLowerCase();
       (styles as Record<string, unknown>)[cssProperty] = value;
     }
   }
@@ -178,7 +198,7 @@ function applyTokenStyles(
  */
 function getComponentVariant(spec: ComponentSpec): string | undefined {
   // Cast to any to access variant property if it exists
-  const anySpec = spec as Record<string, unknown>;
+  const anySpec = spec as unknown as Record<string, unknown>;
   if ("variant" in anySpec && typeof anySpec.variant === "string") {
     return anySpec.variant;
   }
@@ -190,7 +210,7 @@ function getComponentVariant(spec: ComponentSpec): string | undefined {
  */
 function getComponentSize(spec: ComponentSpec): string | undefined {
   // Cast to any to access size property if it exists
-  const anySpec = spec as Record<string, unknown>;
+  const anySpec = spec as unknown as Record<string, unknown>;
   if ("size" in anySpec && typeof anySpec.size === "string") {
     return anySpec.size;
   }
@@ -201,10 +221,8 @@ function getComponentSize(spec: ComponentSpec): string | undefined {
  * Check if spec matches a combination override
  */
 function matchesCombination(spec: ComponentSpec, combo: StyleOverride): boolean {
-  if (combo.variant && getComponentVariant(spec) !== combo.variant) return false;
-  if (combo.size && getComponentSize(spec) !== combo.size) return false;
-  
-  return true;
+  return (!combo.variant || getComponentVariant(spec) === combo.variant) && 
+         (combo.size === undefined || getComponentSize(spec) === combo.size);
 }
 
 /**
@@ -229,5 +247,11 @@ export function mergeStyles(
 export function cascadeStyles(
   ...sources: Array<{ className?: string; style?: React.CSSProperties }>
 ): { className?: string; style?: React.CSSProperties } {
-  return sources.reduce((acc, source) => mergeStyles(acc, source), {});
+  let result = {} as { className?: string; style?: React.CSSProperties };
+  
+  for (const source of sources) {
+    result = mergeStyles(result, source);
+  }
+  
+  return result;
 }

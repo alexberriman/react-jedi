@@ -151,7 +151,9 @@ export function resolveTheme(
   for (const extension of extensions) {
     // For actual implementation, you might implement special handling for inheritance
     // but for now we just merge the extension with the current result
-    result = mergeThemes(result, extension);
+    // Convert ThemeExtension to Partial<ThemeSpecification> for merging
+    const { colorMode, variants, ...extensionSpec } = extension;
+    result = mergeThemes(result, extensionSpec as Partial<ThemeSpecification>);
   }
   
   return result;

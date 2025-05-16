@@ -1004,4 +1004,5 @@ export type UIComponentSpec =
   | import("@/types/components/popover").PopoverSpec
   | import("@/types/components/popover").PopoverTriggerSpec
   | import("@/types/components/popover").PopoverContentSpec
-  | import("@/types/components/popover").PopoverAnchorSpec;
+  | import("@/types/components/popover").PopoverAnchorSpec
+  | import("@/types/components/navigation-menu").NavigationMenuComponent;

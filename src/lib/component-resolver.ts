@@ -195,6 +195,19 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   AlertDialogCancel: asComponent(UI.AlertDialogCancel),
   alertDialog: asComponent(UI.AlertDialog),
   Progress: asComponent(UI.Progress),
+  NavigationMenu: asComponent(
+    UI.NavigationMenu as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  NavigationMenuList: asComponent(UI.NavigationMenuList),
+  NavigationMenuItem: asComponent(UI.NavigationMenuItem),
+  NavigationMenuContent: asComponent(UI.NavigationMenuContent),
+  NavigationMenuTrigger: asComponent(UI.NavigationMenuTrigger),
+  NavigationMenuLink: asComponent(UI.NavigationMenuLink),
+  NavigationMenuIndicator: asComponent(UI.NavigationMenuIndicator),
+  NavigationMenuViewport: asComponent(UI.NavigationMenuViewport),
+  navigationMenu: asComponent(
+    UI.NavigationMenu as unknown as React.ComponentType<Record<string, unknown>>
+  ),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

@@ -134,3 +134,12 @@ export type {
 } from "./popover";
 export type { HoverCardProps, HoverCardTriggerSpec, HoverCardContentSpec } from "./hover-card";
 export type { AlertDialogDefinition } from "./alert-dialog";
+export type {
+  NavigationMenuComponent,
+  NavigationItemSpec,
+  NavigationTriggerSpec,
+  NavigationContentSpec,
+  NavigationLinkSpec,
+  NavigationSectionSpec,
+  NavigationFeatureSpec,
+} from "./navigation-menu";

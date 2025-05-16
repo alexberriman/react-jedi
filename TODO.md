@@ -511,16 +511,16 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Alert
 
-- [ ] Alert Dialog Component
+- ✅ Alert Dialog Component
 
-  - [ ] Add from shadcn (`npx shadcn@latest add alert-dialog`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for AlertDialog
+  - ✅ Add from shadcn (`npx shadcn@latest add alert-dialog`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for AlertDialog
 
-- [ ] Progress Component
-  - [ ] Add from shadcn (`npx shadcn@latest add progress`)
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Progress
+- ✅ Progress Component
+  - ✅ Add from shadcn (`npx shadcn@latest add progress`)
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Progress
 
 ### 4.3 Navigation Components
 

@@ -58,3 +58,4 @@ export * from "./popover";
 export * from "./hover-card";
 export * from "./alert";
 export * from "./alert-dialog";
+export * from "./progress";

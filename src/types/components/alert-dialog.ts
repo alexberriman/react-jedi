@@ -1,4 +1,4 @@
-import { BaseComponentDefinition } from "@banja/json-schema";
+import type { BaseComponentSpec } from "./base";
 
 export interface AlertDialogTrigger {
   component: "Button" | "Toggle" | "Text";
@@ -30,7 +30,7 @@ export interface AlertDialogProperties {
   onConfirm?: string;
 }
 
-export interface AlertDialogDefinition extends BaseComponentDefinition {
+export interface AlertDialogDefinition extends BaseComponentSpec {
   type: "alertDialog";
   properties: AlertDialogProperties;
 }

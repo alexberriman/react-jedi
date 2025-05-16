@@ -1,0 +1,171 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { Progress } from "./progress";
+
+const meta = {
+  title: "UI/Progress",
+  component: Progress,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    value: {
+      control: { type: "range", min: 0, max: 100, step: 1 },
+      description: "Progress value from 0 to 100",
+    },
+    className: {
+      control: "text",
+      description: "Additional CSS classes",
+    },
+  },
+} satisfies Meta<typeof Progress>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    value: 60,
+  },
+};
+
+export const Empty: Story = {
+  args: {
+    value: 0,
+  },
+};
+
+export const Quarter: Story = {
+  args: {
+    value: 25,
+  },
+};
+
+export const Half: Story = {
+  args: {
+    value: 50,
+  },
+};
+
+export const ThreeQuarters: Story = {
+  args: {
+    value: 75,
+  },
+};
+
+export const Complete: Story = {
+  args: {
+    value: 100,
+  },
+};
+
+export const CustomSized: Story = {
+  args: {
+    value: 40,
+    className: "w-96",
+  },
+};
+
+export const CustomHeight: Story = {
+  args: {
+    value: 70,
+    className: "h-4",
+  },
+};
+
+export const CustomColors: Story = {
+  args: {
+    value: 85,
+    className: "bg-blue-100 [&_[data-slot='progress-indicator']]:bg-blue-500",
+  },
+};
+
+export const Interactive: Story = {
+  render: function InteractiveProgress() {
+    const [progress, setProgress] = React.useState(0);
+
+    React.useEffect(() => {
+      const timer = globalThis.setInterval(() => {
+        setProgress((prev) => {
+          const newValue = prev + 10;
+          if (newValue >= 100) {
+            globalThis.clearInterval(timer);
+            return 100;
+          }
+          return newValue;
+        });
+      }, 1000);
+
+      return () => globalThis.clearInterval(timer);
+    }, []);
+
+    return (
+      <div className="w-96 space-y-4">
+        <Progress value={progress} />
+        <p className="text-center text-sm text-muted-foreground">{progress}% Complete</p>
+      </div>
+    );
+  },
+};
+
+export const IndeterminateProgress: Story = {
+  render: () => {
+    // Progress component doesn't support indeterminate state by default
+    // This is a demo of how it could be customized
+    return (
+      <div className="w-96 space-y-4">
+        <div className="bg-primary/20 relative h-2 w-full overflow-hidden rounded-full">
+          <div className="bg-primary h-full w-1/2 animate-pulse" />
+        </div>
+        <p className="text-center text-sm text-muted-foreground">Loading...</p>
+      </div>
+    );
+  },
+};
+
+export const WithLabel: Story = {
+  render: () => {
+    const value = 65;
+    return (
+      <div className="w-96 space-y-2">
+        <div className="flex justify-between text-sm text-muted-foreground">
+          <span>Progress</span>
+          <span>{value}%</span>
+        </div>
+        <Progress value={value} />
+      </div>
+    );
+  },
+};
+
+export const MultipleProgress: Story = {
+  render: () => {
+    return (
+      <div className="w-96 space-y-6">
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span>File 1</span>
+            <span>25%</span>
+          </div>
+          <Progress value={25} />
+        </div>
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span>File 2</span>
+            <span>50%</span>
+          </div>
+          <Progress value={50} />
+        </div>
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span>File 3</span>
+            <span>90%</span>
+          </div>
+          <Progress value={90} />
+        </div>
+      </div>
+    );
+  },
+};
+
+import React from "react";

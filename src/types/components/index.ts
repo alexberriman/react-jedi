@@ -50,6 +50,7 @@ export type {
 } from "./collapsible";
 export type { ToggleSpec } from "./toggle";
 export type { ToggleGroupSpec, ToggleGroupItemSpec } from "./toggle-group";
+export type { ProgressSpec } from "./progress";
 export type { StackSpec } from "./stack";
 export type { GroupSpec } from "./group";
 export type { CenterSpec } from "./center";

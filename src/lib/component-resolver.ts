@@ -194,6 +194,7 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   AlertDialogAction: asComponent(UI.AlertDialogAction),
   AlertDialogCancel: asComponent(UI.AlertDialogCancel),
   alertDialog: asComponent(UI.AlertDialog),
+  Progress: asComponent(UI.Progress),
 
   // Form Components
   FormItem: asComponent(UI.FormItem),

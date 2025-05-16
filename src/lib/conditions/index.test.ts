@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { shouldRenderComponent, applyConditionalProps, processConditionals } from "./index";
-import type { ComponentSpec } from "@/types/schema/components";
+import type { ComponentSpec } from "../types/schema/components";
 
 describe("Conditional Rendering Module", () => {
   describe("shouldRenderComponent", () => {

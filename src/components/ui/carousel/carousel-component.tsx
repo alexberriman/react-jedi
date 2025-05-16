@@ -7,8 +7,8 @@
 
 import * as React from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import type { ComponentProps as ReactJediComponentProps } from "@/types/schema/components";
-import type { CarouselDef } from "@/types/components/carousel";
+import type { ComponentProps as ReactJediComponentProps } from "../../../types/schema/components";
+import type { CarouselDef } from "../../../types/components/carousel";
 import {
   Carousel,
   CarouselContent,
@@ -16,8 +16,8 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "./carousel";
-import { render } from "@/lib/render";
-import { isComponentSpec } from "@/types/schema/guards";
+import { render } from "../../../lib/render";
+import { isComponentSpec } from "../../../types/schema/guards";
 
 interface CarouselComponentProps extends ReactJediComponentProps {
   readonly spec: CarouselDef;

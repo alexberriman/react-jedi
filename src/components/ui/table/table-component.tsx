@@ -9,9 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
-import type { TableSpec, TableCellAlign } from "@/types/components/table";
-import type { ComponentProps } from "@/types/schema/components";
-import { cn } from "@/lib/utils";
+import type { TableSpec, TableCellAlign } from "../../../types/components/table";
+import type { ComponentProps } from "../../../types/schema/components";
+import { cn } from "../../../lib/utils";
 
 function getAlignmentClass(align?: TableCellAlign): string {
   if (!align || align === "left") return "";
@@ -28,7 +28,7 @@ export function TableComponent(props: Readonly<ComponentProps>) {
   return (
     <Table className={className}>
       {caption && <TableCaption>{caption}</TableCaption>}
-      
+
       {head && (
         <TableHeader>
           {head.rows.map((row, rowIndex) => (
@@ -46,7 +46,7 @@ export function TableComponent(props: Readonly<ComponentProps>) {
           ))}
         </TableHeader>
       )}
-      
+
       <TableBody>
         {body.rows.map((row, rowIndex) => (
           <TableRow
@@ -66,7 +66,7 @@ export function TableComponent(props: Readonly<ComponentProps>) {
           </TableRow>
         ))}
       </TableBody>
-      
+
       {footer && (
         <TableFooter>
           {footer.rows.map((row, rowIndex) => (

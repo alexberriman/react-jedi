@@ -1,8 +1,8 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
-import { render as rtlRender } from "@testing-library/react";  
+import { render as rtlRender } from "@testing-library/react";
 import { render } from "../render";
-import type { UISpecification } from "@/types/schema/specification";
+import type { UISpecification } from "../types/schema/specification";
 
 describe("Conditional Rendering Integration", () => {
   it("should conditionally render components based on state", () => {

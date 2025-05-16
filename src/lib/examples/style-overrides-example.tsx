@@ -1,6 +1,6 @@
 /**
  * Style Overrides Example
- * 
+ *
  * This example demonstrates how to use the component style override system
  * to customize the appearance of components through the theme.
  */
@@ -8,10 +8,10 @@
 import * as React from "react";
 import { render } from "../render";
 import { ThemeProvider } from "../theme/theme-provider";
-import type { UISpecification, ThemeSpecification } from "@/types/schema/specification";
-import type { ButtonSpec } from "@/types/schema/ui";
-import type { FlexSpec } from "@/types/schema/layout";
-import type { TextSpec } from "@/types/schema/typography";
+import type { UISpecification, ThemeSpecification } from "../types/schema/specification";
+import type { ButtonSpec } from "../types/schema/ui";
+import type { FlexSpec } from "../types/schema/layout";
+import type { TextSpec } from "../types/schema/typography";
 
 /**
  * Example theme with style overrides
@@ -94,7 +94,8 @@ const themeWithOverrides: ThemeSpecification = {
         {
           variant: "default",
           size: "lg",
-          className: "bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800",
+          className:
+            "bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800",
           styles: {
             padding: "1rem 2rem",
             fontSize: "1.25rem",
@@ -145,7 +146,7 @@ const uiSpec: UISpecification = {
         className: "text-3xl font-bold mb-6",
         children: "Style Overrides Example",
       },
-      
+
       // Button Examples
       {
         type: "Box",
@@ -183,7 +184,7 @@ const uiSpec: UISpecification = {
           } as FlexSpec,
         ],
       },
-      
+
       // Button Sizes
       {
         type: "Box",
@@ -222,7 +223,7 @@ const uiSpec: UISpecification = {
           } as FlexSpec,
         ],
       },
-      
+
       // Combination Override
       {
         type: "Box",
@@ -237,7 +238,8 @@ const uiSpec: UISpecification = {
           {
             type: "Text",
             className: "mb-4",
-            children: "This button has special styling when it's both primary variant and large size:",
+            children:
+              "This button has special styling when it's both primary variant and large size:",
           },
           {
             type: "Button",
@@ -247,7 +249,7 @@ const uiSpec: UISpecification = {
           } as ButtonSpec,
         ],
       },
-      
+
       // Card with Overrides
       {
         type: "Box",
@@ -276,7 +278,7 @@ const uiSpec: UISpecification = {
           },
         ],
       },
-      
+
       // Text Variants
       {
         type: "Box",
@@ -325,12 +327,10 @@ const uiSpec: UISpecification = {
  */
 export function StyleOverridesExample(): React.ReactElement {
   const ui = render(uiSpec);
-  
+
   return (
     <ThemeProvider theme={themeWithOverrides}>
-      <div className="min-h-screen bg-gray-50">
-        {ui}
-      </div>
+      <div className="min-h-screen bg-gray-50">{ui}</div>
     </ThemeProvider>
   );
 }
@@ -354,12 +354,8 @@ export function ProgrammaticExample(): React.ReactElement {
     } as ButtonSpec,
     theme: themeWithOverrides,
   };
-  
+
   const ui = render(spec);
-  
-  return (
-    <ThemeProvider theme={themeWithOverrides}>
-      {ui}
-    </ThemeProvider>
-  );
+
+  return <ThemeProvider theme={themeWithOverrides}>{ui}</ThemeProvider>;
 }

@@ -5,7 +5,7 @@
  * It includes default font stacks, font family generation, and font loading utilities.
  */
 
-import type { ThemeTypography } from "@/types/schema/specification";
+import type { ThemeTypography } from "../types/schema/specification";
 
 /**
  * Default font stacks for different font categories
@@ -34,14 +34,7 @@ export const defaultFontStacks = {
   /**
    * Serif font stack
    */
-  serif: [
-    "ui-serif",
-    "Georgia",
-    "Cambria",
-    "Times New Roman",
-    "Times",
-    "serif",
-  ],
+  serif: ["ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
 
   /**
    * Monospace font stack
@@ -107,13 +100,15 @@ export interface FontFamilyConfig {
  * Generate CSS font-family value from array of font names
  */
 export function fontStackToString(fonts: string[]): string {
-  return fonts.map((font) => {
-    // If font name contains spaces and doesn't have quotes, add quotes
-    if (font.includes(" ") && !font.startsWith('"') && !font.startsWith("'")) {
-      return `"${font}"`;
-    }
-    return font;
-  }).join(", ");
+  return fonts
+    .map((font) => {
+      // If font name contains spaces and doesn't have quotes, add quotes
+      if (font.includes(" ") && !font.startsWith('"') && !font.startsWith("'")) {
+        return `"${font}"`;
+      }
+      return font;
+    })
+    .join(", ");
 }
 
 /**
@@ -137,7 +132,7 @@ export function extractFontFamilies(typography?: ThemeTypography): Record<string
   }
 
   const families: Record<string, string[]> = {};
-  
+
   // Extract from fontFamilies object
   if (typography.fontFamilies) {
     for (const [key, value] of Object.entries(typography.fontFamilies)) {
@@ -189,9 +184,7 @@ export function generateFontFamilyVariables(
 /**
  * Convert font families to CSS variables mapping
  */
-export function fontFamiliesToVariables(
-  typography?: ThemeTypography
-): Record<string, string> {
+export function fontFamiliesToVariables(typography?: ThemeTypography): Record<string, string> {
   const families = extractFontFamilies(typography);
   return generateFontFamilyVariables(families);
 }

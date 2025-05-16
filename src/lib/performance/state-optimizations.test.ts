@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { createStateManager } from "@/lib/state";
+import { createStateManager } from "../lib/state";
 import {
   createOptimizedStateManager,
   defaultStateOptimizationConfig,

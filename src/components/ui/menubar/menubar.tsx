@@ -1,25 +1,32 @@
-import {
-  Menubar as MenubarBase,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarContent,
-  MenubarItem,
-  MenubarSeparator,
-  MenubarSub,
-  MenubarSubTrigger,
-  MenubarSubContent,
-  MenubarCheckboxItem,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarShortcut,
-} from "../menubar";
+import * as React from "react";
+import * as MenubarPrimitive from "@radix-ui/react-menubar";
+import { cn } from "../../../lib/utils";
+
+// Define Menubar components from Radix UI
+const Menubar = MenubarPrimitive.Root;
+const MenubarMenu = MenubarPrimitive.Menu;
+const MenubarTrigger = MenubarPrimitive.Trigger;
+const MenubarContent = MenubarPrimitive.Content;
+const MenubarItem = MenubarPrimitive.Item;
+const MenubarSeparator = MenubarPrimitive.Separator;
+const MenubarSub = MenubarPrimitive.Sub;
+const MenubarSubTrigger = MenubarPrimitive.SubTrigger;
+const MenubarSubContent = MenubarPrimitive.SubContent;
+const MenubarCheckboxItem = MenubarPrimitive.CheckboxItem;
+const MenubarRadioGroup = MenubarPrimitive.RadioGroup;
+const MenubarRadioItem = MenubarPrimitive.RadioItem;
+const MenubarShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
+  return (
+    <span className={cn("ml-auto text-xs tracking-widest opacity-60", className)} {...props} />
+  );
+};
 import type { MenubarComponent } from "../../../types/components/menubar";
 
 export type MenubarProps = MenubarComponent;
 
-export function Menubar({ menus, ...props }: Readonly<MenubarProps>) {
+export function MenubarWrapper({ menus, ...props }: Readonly<MenubarProps>) {
   return (
-    <MenubarBase>
+    <Menubar>
       {menus.map((menu, menuIndex) => (
         <MenubarMenu key={menuIndex}>
           <MenubarTrigger>{menu.trigger}</MenubarTrigger>
@@ -109,6 +116,22 @@ export function Menubar({ menus, ...props }: Readonly<MenubarProps>) {
           </MenubarContent>
         </MenubarMenu>
       ))}
-    </MenubarBase>
+    </Menubar>
   );
 }
+
+export {
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+  MenubarSub,
+  MenubarSubTrigger,
+  MenubarSubContent,
+  MenubarCheckboxItem,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarShortcut,
+};

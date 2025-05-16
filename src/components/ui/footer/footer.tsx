@@ -2,19 +2,21 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-import { Container } from "@/components/ui/container";
-import { Text } from "@/components/ui/text";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { cn } from "../../../lib/utils";
+import { Container } from "../container";
+import { Text } from "../text";
+import { Button } from "../button";
+import { Input } from "../input";
 import { Mail, Phone, MapPin, Send, ExternalLink } from "lucide-react";
-// Using lucide-react/icons approach for individual icon imports
-import FacebookIcon from "lucide-react/dist/esm/icons/facebook";
-import TwitterIcon from "lucide-react/dist/esm/icons/twitter";
-import InstagramIcon from "lucide-react/dist/esm/icons/instagram";
-import LinkedinIcon from "lucide-react/dist/esm/icons/linkedin";
-import YoutubeIcon from "lucide-react/dist/esm/icons/youtube";
-import GithubIcon from "lucide-react/dist/esm/icons/github";
+// Import social media icons from simple icons
+import {
+  SiFacebook,
+  SiX, // Twitter has been renamed to X
+  SiInstagram,
+  SiYoutube,
+  SiGithub,
+} from "@icons-pack/react-simple-icons";
+import { Building } from "lucide-react"; // Temporary icon for LinkedIn
 
 const footerVariants = cva("relative w-full transition-colors duration-300", {
   variants: {
@@ -38,12 +40,12 @@ const footerVariants = cva("relative w-full transition-colors duration-300", {
 });
 
 const socialIcons = {
-  facebook: FacebookIcon,
-  twitter: TwitterIcon,
-  instagram: InstagramIcon,
-  linkedin: LinkedinIcon,
-  youtube: YoutubeIcon,
-  github: GithubIcon,
+  facebook: SiFacebook,
+  twitter: SiX,
+  instagram: SiInstagram,
+  linkedin: Building, // Using Building icon as a temporary placeholder
+  youtube: SiYoutube,
+  github: SiGithub,
 } as const;
 
 interface FooterLink {

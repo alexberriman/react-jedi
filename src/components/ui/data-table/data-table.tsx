@@ -15,7 +15,7 @@ import {
 } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "../button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -24,17 +24,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+} from "../dropdown-menu";
+import { Input } from "../input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../table";
+import { cn } from "../../../lib/utils";
 
 export interface DataTableColumn<TData, TValue = unknown>
   extends Omit<ColumnDef<TData, TValue>, "header" | "cell"> {

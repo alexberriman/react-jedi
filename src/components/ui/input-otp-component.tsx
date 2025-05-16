@@ -1,15 +1,15 @@
 "use client";
 
 import * as React from "react";
-import type { ComponentProps } from "@/types/schema/components";
-import type { InputOTPDef } from "@/types/components/input-otp";
+import type { ComponentProps } from "../../../types/schema/components";
+import type { InputOTPDef } from "../../../types/components/input-otp";
 // Event handlers will be implemented when the event system is ready
 import {
   InputOTP as BaseInputOTP,
   InputOTPGroup,
   InputOTPSlot,
   InputOTPSeparator,
-} from "./input-otp/input-otp";
+} from "./input-otp";
 
 /**
  * Wrapped InputOTP component that integrates with the SDUI system

@@ -6,8 +6,8 @@
  */
 
 import { Result, Ok, Err } from "ts-results";
-import { type ComponentSpec, type UISpecification } from "@/types/schema/components";
-import { isTextContent } from "@/types/schema/guards";
+import { type ComponentSpec, type UISpecification } from "../../types/schema/components";
+import { isTextContent } from "../../types/schema/guards";
 import {
   ValidationPipeline,
   createValidationPipeline,

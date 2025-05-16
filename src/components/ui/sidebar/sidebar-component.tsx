@@ -26,10 +26,10 @@ import type {
   SidebarSection,
   SidebarMenu as SidebarMenuType,
   SidebarInput as SidebarInputType,
-} from "@/types/components/sidebar";
-import type { ComponentSpec } from "@/types/schema/components";
-import { createSimpleEventHandler } from "@/lib/events/simple-handlers";
-import { render } from "@/lib";
+} from "../../../types/components/sidebar";
+import type { ComponentSpec } from "../../../types/schema/components";
+import { createSimpleEventHandler } from "../../../lib/events/simple-handlers";
+import { render } from "../../../lib";
 import * as Icons from "lucide-react";
 
 export function SidebarComponent({

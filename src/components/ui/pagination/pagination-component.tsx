@@ -8,7 +8,7 @@ import {
   PaginationNext,
   PaginationEllipsis,
 } from "./pagination";
-import type { PaginationProps } from "@/types/components/pagination";
+import type { PaginationProps } from "../../../types/components/pagination";
 
 /**
  * Pagination component for JSON specification rendering

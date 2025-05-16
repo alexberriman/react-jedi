@@ -9,8 +9,8 @@
 import { describe, it, expect } from "vitest";
 import { parseSpecification } from "./specification-parser";
 import { SpecificationErrorType } from "./shared-types";
-import { type UISpecification, type ComponentSpec } from "@/types/schema/components";
-import { type ColorScale } from "@/types/schema/specification";
+import { type UISpecification, type ComponentSpec } from "../../types/schema/components";
+import { type ColorScale } from "../../types/schema/specification";
 
 describe("Schema Validation Tests", () => {
   // Basic Component Schema Validation

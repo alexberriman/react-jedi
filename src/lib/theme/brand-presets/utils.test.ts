@@ -12,7 +12,7 @@ import {
   getComplementaryPresets,
 } from "./utils";
 import { techStartupPreset, minimalPreset } from "./presets";
-import type { ThemeSpecification } from "@/types/schema/specification";
+import type { ThemeSpecification } from "../types/schema/specification";
 
 describe("Brand Preset Utils", () => {
   describe("describePersonality", () => {
@@ -156,7 +156,7 @@ describe("Brand Preset Utils", () => {
       const complementary = getComplementaryPresets(minimalPreset);
 
       expect(complementary.length).toBeGreaterThan(0);
-      
+
       // Creative should be complementary to minimal
       const hasCreative = complementary.some((p) => p.id === "creative-agency");
       expect(hasCreative).toBe(true);
@@ -164,7 +164,7 @@ describe("Brand Preset Utils", () => {
 
     it("should not include the same preset", () => {
       const complementary = getComplementaryPresets(techStartupPreset);
-      
+
       const hasSelf = complementary.some((p) => p.id === "tech-startup");
       expect(hasSelf).toBe(false);
     });

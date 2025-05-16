@@ -1,6 +1,6 @@
 /**
  * Style Extension System Stories
- * 
+ *
  * Interactive demonstrations of the style extension system including:
  * - Style inheritance
  * - Component style composition
@@ -10,16 +10,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { cn } from "../utils";
-import { 
+import {
   extractInheritableStyles,
   shouldInheritStyles,
   composeStyles,
   cascadeStyles,
-  type StyleSource
+  type StyleSource,
 } from "./style-extension";
 import { ThemeProvider } from "./theme-provider";
 import { defaultTheme } from "./theme-presets";
-import * as UI from "@/components/ui";
+import * as UI from "../components/ui";
 
 /**
  * Demo component for style inheritance
@@ -33,10 +33,10 @@ function StyleInheritanceDemo() {
     padding: "20px",
     border: "2px solid #e5e7eb",
   };
-  
+
   const inheritableStyles = extractInheritableStyles(parentStyles);
   // Remove nonInheritableStyles since it's not being used
-  
+
   return (
     <div className="space-y-8 p-6">
       <div>
@@ -44,7 +44,7 @@ function StyleInheritanceDemo() {
         <p className="text-gray-600 mb-6">
           Demonstrates which CSS properties are inherited by default
         </p>
-        
+
         <div className="grid gap-6 md:grid-cols-2">
           <div>
             <h4 className="font-semibold mb-2">Parent Styles</h4>
@@ -55,7 +55,7 @@ function StyleInheritanceDemo() {
               </div>
             </div>
           </div>
-          
+
           <div>
             <h4 className="font-semibold mb-2">Style Analysis</h4>
             <div className="space-y-3">
@@ -65,32 +65,38 @@ function StyleInheritanceDemo() {
                   {JSON.stringify(inheritableStyles, null, 2)}
                 </pre>
               </div>
-              
+
               <div className="bg-red-50 p-3 rounded">
                 <div className="font-semibold text-red-800">Non-Inheritable</div>
                 <pre className="text-sm mt-1 text-red-700">
-                  {JSON.stringify({
-                    margin: parentStyles.margin,
-                    padding: parentStyles.padding,
-                    border: parentStyles.border,
-                  }, null, 2)}
+                  {JSON.stringify(
+                    {
+                      margin: parentStyles.margin,
+                      padding: parentStyles.padding,
+                      border: parentStyles.border,
+                    },
+                    null,
+                    2
+                  )}
                 </pre>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       <div>
         <h4 className="font-semibold mb-4">Component Inheritance Behavior</h4>
         <div className="grid gap-4 md:grid-cols-3">
           {["Text", "Card", "Button"].map((component) => (
             <div key={component} className="bg-gray-50 p-4 rounded">
               <div className="font-medium text-lg">{component}</div>
-              <div className={cn(
-                "text-sm mt-2",
-                shouldInheritStyles(component) ? "text-green-600" : "text-red-600"
-              )}>
+              <div
+                className={cn(
+                  "text-sm mt-2",
+                  shouldInheritStyles(component) ? "text-green-600" : "text-red-600"
+                )}
+              >
                 {shouldInheritStyles(component) ? "✓ Inherits styles" : "✗ Boundary component"}
               </div>
             </div>
@@ -130,27 +136,23 @@ function StyleCompositionDemo() {
       className: "uppercase tracking-wide",
     },
   ];
-  
+
   const composed = composeStyles(sources);
-  
+
   return (
     <div className="space-y-8 p-6">
       <div>
         <h3 className="text-xl font-bold mb-4">Style Composition Demo</h3>
-        <p className="text-gray-600 mb-6">
-          Shows how multiple style sources are combined in order
-        </p>
+        <p className="text-gray-600 mb-6">Shows how multiple style sources are combined in order</p>
       </div>
-      
+
       <div className="grid gap-6 lg:grid-cols-2">
         <div>
           <h4 className="font-semibold mb-4">Style Sources (in precedence order)</h4>
           <div className="space-y-3">
             {sources.map((source, index) => (
               <div key={index} className="bg-gray-50 p-4 rounded">
-                <div className="font-medium text-sm text-gray-700 mb-2">
-                  {source.source}
-                </div>
+                <div className="font-medium text-sm text-gray-700 mb-2">{source.source}</div>
                 {source.className && (
                   <div className="text-sm">
                     <span className="text-gray-600">className:</span>{" "}
@@ -160,16 +162,14 @@ function StyleCompositionDemo() {
                 {source.style && (
                   <div className="text-sm">
                     <span className="text-gray-600">style:</span>{" "}
-                    <span className="text-green-600 font-mono">
-                      {JSON.stringify(source.style)}
-                    </span>
+                    <span className="text-green-600 font-mono">{JSON.stringify(source.style)}</span>
                   </div>
                 )}
               </div>
             ))}
           </div>
         </div>
-        
+
         <div>
           <h4 className="font-semibold mb-4">Composed Result</h4>
           <div className="bg-purple-50 p-4 rounded">
@@ -186,7 +186,7 @@ function StyleCompositionDemo() {
                 </pre>
               </div>
             </div>
-            
+
             <div className="mt-6 p-4 bg-white rounded shadow-sm">
               <div className={composed.className} style={composed.style}>
                 Sample text with composed styles
@@ -223,13 +223,13 @@ function CascadeResolutionDemo() {
       priority: 2,
     },
   ];
-  
+
   const cascaded = cascadeStyles(sources);
   const cascadedWithoutImportant = cascadeStyles(sources, {
     useSpecificity: true,
     handleImportant: false,
   });
-  
+
   return (
     <div className="space-y-8 p-6">
       <div>
@@ -238,7 +238,7 @@ function CascadeResolutionDemo() {
           Demonstrates CSS-like cascade resolution with specificity and !important
         </p>
       </div>
-      
+
       <div className="grid gap-6 lg:grid-cols-2">
         <div>
           <h4 className="font-semibold mb-4">Style Sources with Priority</h4>
@@ -246,9 +246,7 @@ function CascadeResolutionDemo() {
             {sources.map((source, index) => (
               <div key={index} className="bg-gray-50 p-4 rounded">
                 <div className="flex justify-between items-start mb-2">
-                  <div className="font-medium text-sm text-gray-700">
-                    {source.source}
-                  </div>
+                  <div className="font-medium text-sm text-gray-700">{source.source}</div>
                   <div className="text-xs bg-gray-200 px-2 py-1 rounded">
                     Priority: {source.priority}
                   </div>
@@ -262,12 +260,14 @@ function CascadeResolutionDemo() {
                 {source.style && (
                   <div className="text-sm">
                     <span className="text-gray-600">style:</span>{" "}
-                    <span className={cn(
-                      "font-mono",
-                      source.style.color?.includes("!important") 
-                        ? "text-red-600 font-bold" 
-                        : "text-green-600"
-                    )}>
+                    <span
+                      className={cn(
+                        "font-mono",
+                        source.style.color?.includes("!important")
+                          ? "text-red-600 font-bold"
+                          : "text-green-600"
+                      )}
+                    >
                       {JSON.stringify(source.style)}
                     </span>
                   </div>
@@ -276,14 +276,12 @@ function CascadeResolutionDemo() {
             ))}
           </div>
         </div>
-        
+
         <div>
           <h4 className="font-semibold mb-4">Cascade Results</h4>
           <div className="space-y-4">
             <div className="bg-blue-50 p-4 rounded">
-              <div className="font-medium text-blue-800 mb-3">
-                With !important handling
-              </div>
+              <div className="font-medium text-blue-800 mb-3">With !important handling</div>
               <div className="text-sm space-y-2">
                 <div>
                   <span className="text-gray-600">Final color:</span>{" "}
@@ -293,18 +291,14 @@ function CascadeResolutionDemo() {
                 </div>
                 <div className="mt-3 p-3 bg-white rounded" style={cascaded.style}>
                   {cascaded.className && (
-                    <div className={cascaded.className}>
-                      This text is blue due to !important
-                    </div>
+                    <div className={cascaded.className}>This text is blue due to !important</div>
                   )}
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-green-50 p-4 rounded">
-              <div className="font-medium text-green-800 mb-3">
-                Without !important handling
-              </div>
+              <div className="font-medium text-green-800 mb-3">Without !important handling</div>
               <div className="text-sm space-y-2">
                 <div>
                   <span className="text-gray-600">Final color:</span>{" "}
@@ -341,19 +335,17 @@ function IntegrationDemo() {
             Complete example showing inheritance, composition, and cascade working together
           </p>
         </div>
-        
+
         <div className="bg-gray-50 p-6 rounded-lg" style={{ color: "blue", fontSize: "16px" }}>
           <div className="font-medium mb-4">Parent Container (blue text, 16px)</div>
-          
+
           <UI.Card className="mb-4">
             <div className="p-4">
               <div className="font-medium mb-2">Card (boundary component)</div>
-              <div className="text-sm text-gray-600">
-                Does not inherit blue color or font size
-              </div>
+              <div className="text-sm text-gray-600">Does not inherit blue color or font size</div>
             </div>
           </UI.Card>
-          
+
           <UI.Box className="bg-white p-4 rounded">
             <div className="font-medium mb-2">Box with Text children</div>
             <UI.Text>This text inherits blue color and 16px size</UI.Text>
@@ -362,11 +354,11 @@ function IntegrationDemo() {
             </UI.Text>
           </UI.Box>
         </div>
-        
+
         <div className="bg-gray-100 p-6 rounded-lg">
           <div className="font-medium mb-4">Style Extension API</div>
           <pre className="bg-white p-4 rounded text-sm overflow-x-auto">
-{`const extension = createStyleExtension(theme);
+            {`const extension = createStyleExtension(theme);
 
 // Extract inheritable styles
 const inheritable = extension.extractInheritable({ 

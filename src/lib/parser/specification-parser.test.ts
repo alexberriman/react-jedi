@@ -12,7 +12,7 @@ import {
   createParser,
   createValidationReport,
 } from "./specification-parser";
-import { type UISpecification, type ComponentSpec } from "@/types/schema/components";
+import { type UISpecification, type ComponentSpec } from "../../types/schema/components";
 
 describe("SpecificationParser", () => {
   // Basic JSON parsing tests

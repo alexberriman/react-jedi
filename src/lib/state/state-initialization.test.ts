@@ -6,7 +6,7 @@ import {
   resolveStateBindings,
   extractStateDependencies,
 } from "./state-initialization";
-import type { ComponentSpec } from "@/types/schema/components";
+import type { ComponentSpec } from "../types/schema/components";
 
 describe("State Initialization", () => {
   describe("extractStateConfig", () => {

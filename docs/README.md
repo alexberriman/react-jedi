@@ -4,20 +4,46 @@ Welcome to the React Jedi documentation! This directory contains comprehensive g
 
 ## Documentation Index
 
+### API Reference
+
+- [Complete API Documentation](./api/README.md) - Comprehensive API reference
+  - [Component Reference](./api/components/README.md) - All components with detailed props
+  - [Type System](./api/types.md) - TypeScript types and interfaces
+  - [Theme System](./api/theme.md) - Theming and styling
+  - [State Management](./api/state.md) - State patterns and APIs
+  - [Events](./api/events.md) - Event handling system
+  - [Performance](./api/performance.md) - Optimization guide
+  - [Quick Reference](./api/quick-reference.md) - Common patterns
+
 ### Core Concepts
 
 - [Theming System](./theming-system.md) - Complete guide to React Jedi's powerful theming system
 - [Component Style Overrides](./component-style-overrides.md) - How to customize component styles
 - [Schema Documentation](./schema-documentation.md) - JSON schema specification reference
 - [Type Safety Patterns](./type-safety-patterns.md) - TypeScript patterns and best practices
-
-### API References
-
-For detailed API documentation and component specifications, see the documentation page in the examples app.
+- [State Management Patterns](./state-management-patterns.md) - State handling patterns
+- [Performance Optimization](./performance-optimization.md) - Performance best practices
+- [Performance Memoization](./performance-memoization.md) - Memoization strategies
+- [Conditional Rendering](./conditional-rendering.md) - Dynamic UI patterns
 
 ### Getting Started
 
 For quick start guides and examples, visit the [examples app documentation](/examples/src/pages/documentation/documentation-page.tsx).
+
+## Finding Information
+
+### Component Documentation
+Each component has detailed documentation including:
+- TypeScript interface
+- All available props
+- Usage examples
+- Styling options
+- Performance tips
+
+### Quick Lookup
+- Use the [Component Index](./api/components/component-index.md) for a complete list
+- Check the [Quick Reference](./api/quick-reference.md) for common patterns
+- See the [Type System](./api/types.md) for type definitions
 
 ## Contributing
 

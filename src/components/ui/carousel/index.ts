@@ -1,2 +1,2 @@
 export * from "./carousel";
-export { CarouselComponent } from "./carousel-component";
+export * from "./carousel-component";

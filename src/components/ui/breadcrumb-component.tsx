@@ -1,5 +1,5 @@
 import React from "react";
-import { BreadcrumbProps } from "@/types/components/breadcrumb";
+import { BreadcrumbProps } from "../../../types/components/breadcrumb";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -7,7 +7,7 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+} from "./breadcrumb";
 import { ChevronRight, Slash } from "lucide-react";
 
 /**

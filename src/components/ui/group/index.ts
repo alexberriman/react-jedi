@@ -1,1 +1,1 @@
-export { Group, type GroupProps } from "./group";
+export * from "./group";

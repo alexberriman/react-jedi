@@ -1,5 +1,5 @@
-import type { ComponentSpec } from "@/types/schema/components";
-import type { StateSpecification } from "@/types/schema/specification";
+import type { ComponentSpec } from "../types/schema/components";
+import type { StateSpecification } from "../types/schema/specification";
 import type { StateManager } from "./state-management";
 
 /**

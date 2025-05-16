@@ -1,9 +1,9 @@
 import React from "react";
 import { SidebarInset } from "./sidebar";
-import type { BaseComponentSpec } from "@/types/components/base";
+import type { BaseComponentSpec } from "../../../types/components/base";
 import { render } from "@/lib";
 
-import type { ComponentSpec } from "@/types/schema/components";
+import type { ComponentSpec } from "../../../types/schema/components";
 
 export interface SidebarInsetComponentProps extends BaseComponentSpec {
   type: "sidebar-inset";

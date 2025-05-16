@@ -6,9 +6,9 @@
  */
 
 import { Result, Ok, Err } from "ts-results";
-import { type ComponentSpec, type UISpecification } from "@/types/schema/components";
-import type { AccessibilityProps } from "@/types/schema/base";
-import { type ValidationError, ValidationSeverity } from "@/lib/validation/validator";
+import { type ComponentSpec, type UISpecification } from "../../types/schema/components";
+import type { AccessibilityProps } from "../../types/schema/base";
+import { type ValidationError, ValidationSeverity } from "../validation/validator";
 import { defaultValidator } from "./specification-validator";
 import {
   isGrid,
@@ -18,7 +18,7 @@ import {
   isText,
   isButton,
   isCard,
-} from "@/types/schema/guards";
+} from "../../types/schema/guards";
 import { SpecificationErrorType, type SpecificationError } from "./shared-types";
 
 /**

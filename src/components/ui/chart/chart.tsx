@@ -20,15 +20,104 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
 } from "recharts";
-import {
-  ChartContainer,
-  ChartConfig,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-} from "@/components/ui/chart";
-import type { ComponentProps } from "@/types/schema/components";
+// Chart utility components will be defined below
+import { cn } from "../../../lib/utils";
+import type { ComponentProps } from "../../../types/schema/components";
+import { Tooltip, Legend } from "recharts";
+
+// Chart configuration types
+export interface ChartConfig {
+  [key: string]: {
+    label?: string;
+    color?: string;
+    icon?: React.ReactNode;
+  };
+}
+
+// Chart container component
+export function ChartContainer({
+  children,
+  config,
+  className,
+  ...props
+}: Readonly<{
+  children: React.ReactNode;
+  config: ChartConfig;
+  className?: string;
+}>) {
+  return (
+    <div className={cn("w-full", className)} {...props}>
+      {children}
+    </div>
+  );
+}
+
+// Chart tooltip component
+export const ChartTooltip = Tooltip;
+
+// Chart tooltip content
+export function ChartTooltipContent({
+  active,
+  payload,
+  label,
+  config,
+}: Readonly<{
+  active?: boolean;
+  payload?: Array<{
+    color: string;
+    name: string;
+    value: number | string;
+  }>;
+  label?: string;
+  config?: ChartConfig;
+}>) {
+  if (!active || !payload) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-lg border bg-background p-2 shadow-sm">
+      <div className="flex flex-col gap-2">
+        <span className="text-muted-foreground">{label}</span>
+        {payload.map((entry, index) => (
+          <div key={index} className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-full" style={{ backgroundColor: entry.color }} />
+            <span className="font-medium">{entry.name}</span>
+            <span className="ml-auto font-mono text-sm">{entry.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Chart legend component
+export const ChartLegend = Legend;
+
+// Chart legend content
+export function ChartLegendContent({
+  payload,
+}: Readonly<{
+  payload?: Array<{
+    color: string;
+    value: string;
+  }>;
+}>) {
+  if (!payload) {
+    return null;
+  }
+
+  return (
+    <ul className="flex flex-wrap gap-4">
+      {payload.map((entry, index) => (
+        <li key={index} className="flex items-center gap-2">
+          <div className="h-3 w-3 rounded-full" style={{ backgroundColor: entry.color }} />
+          <span className="text-sm">{entry.value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export interface ChartProps {
   // ComponentProps compatibility

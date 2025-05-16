@@ -15,7 +15,7 @@ import {
   type ResponsiveDesignToken,
 } from "./responsive-variants";
 import type { DesignToken } from "./theme-tokens";
-import type { ThemeSpecification } from "@/types/schema/specification";
+import type { ThemeSpecification } from "../types/schema/specification";
 import { DEFAULT_BREAKPOINTS } from "./responsive-system";
 
 function transformer(value: number): string {
@@ -38,12 +38,8 @@ describe("Responsive Variants System", () => {
 
   describe("createResponsiveToken", () => {
     it("should create responsive token from single value", () => {
-      const result = createResponsiveToken(
-        mockBaseToken,
-        "#3B82F6",
-        DEFAULT_BREAKPOINTS
-      );
-      
+      const result = createResponsiveToken(mockBaseToken, "#3B82F6", DEFAULT_BREAKPOINTS);
+
       expect(result).toEqual({
         ...mockBaseToken,
         value: { base: "#3B82F6" },
@@ -57,13 +53,9 @@ describe("Responsive Variants System", () => {
         md: "#2563EB",
         lg: "#1D4ED8",
       };
-      
-      const result = createResponsiveToken(
-        mockBaseToken,
-        responsiveValue,
-        DEFAULT_BREAKPOINTS
-      );
-      
+
+      const result = createResponsiveToken(mockBaseToken, responsiveValue, DEFAULT_BREAKPOINTS);
+
       expect(result).toEqual({
         ...mockBaseToken,
         value: responsiveValue,
@@ -73,13 +65,9 @@ describe("Responsive Variants System", () => {
 
     it("should create responsive token from array", () => {
       const responsiveValue = ["#3B82F6", "#2563EB", "#1D4ED8"];
-      
-      const result = createResponsiveToken(
-        mockBaseToken,
-        responsiveValue,
-        DEFAULT_BREAKPOINTS
-      );
-      
+
+      const result = createResponsiveToken(mockBaseToken, responsiveValue, DEFAULT_BREAKPOINTS);
+
       expect(result.value).toEqual({
         base: "#3B82F6",
         xs: "#2563EB",
@@ -96,9 +84,9 @@ describe("Responsive Variants System", () => {
         value: { base: "#3B82F6" },
         responsive: false,
       };
-      
+
       const result = generateResponsiveCssVars(token, DEFAULT_BREAKPOINTS);
-      
+
       expect(result).toEqual({
         "--color-primary-500": "#3B82F6",
       });
@@ -114,9 +102,9 @@ describe("Responsive Variants System", () => {
         },
         responsive: true,
       };
-      
+
       const result = generateResponsiveCssVars(token, DEFAULT_BREAKPOINTS);
-      
+
       expect(result).toEqual({
         "--color-primary-500": "#3B82F6",
         "--color-primary-500-md": "#2563EB",
@@ -134,9 +122,9 @@ describe("Responsive Variants System", () => {
         path: "spacing.4",
         responsive: false,
       };
-      
+
       const result = generateResponsiveCssVars(token, DEFAULT_BREAKPOINTS, transformer);
-      
+
       expect(result).toEqual({
         "--spacing-4": "16px",
       });
@@ -170,13 +158,9 @@ describe("Responsive Variants System", () => {
           md: "#2563EB",
         },
       };
-      
-      const result = createResponsiveCategory(
-        mockTokens,
-        variants,
-        DEFAULT_BREAKPOINTS
-      );
-      
+
+      const result = createResponsiveCategory(mockTokens, variants, DEFAULT_BREAKPOINTS);
+
       expect(result.primary.value).toEqual(variants.primary);
       expect(result.primary.responsive).toBe(true);
       expect(result.secondary.value).toEqual({ base: "#10B981" });
@@ -196,13 +180,11 @@ describe("Responsive Variants System", () => {
     };
 
     it("should resolve value at specific breakpoint", () => {
-      expect(resolveTokenAtBreakpoint(responsiveToken, "md", DEFAULT_BREAKPOINTS))
-        .toBe("#2563EB");
+      expect(resolveTokenAtBreakpoint(responsiveToken, "md", DEFAULT_BREAKPOINTS)).toBe("#2563EB");
     });
 
     it("should fallback to smaller breakpoint", () => {
-      expect(resolveTokenAtBreakpoint(responsiveToken, "sm", DEFAULT_BREAKPOINTS))
-        .toBe("#3B82F6");
+      expect(resolveTokenAtBreakpoint(responsiveToken, "sm", DEFAULT_BREAKPOINTS)).toBe("#3B82F6");
     });
 
     it("should return undefined if no value found", () => {
@@ -211,9 +193,8 @@ describe("Responsive Variants System", () => {
         value: { md: "#2563EB" },
         responsive: true,
       };
-      
-      expect(resolveTokenAtBreakpoint(token, "sm", DEFAULT_BREAKPOINTS))
-        .toBeUndefined();
+
+      expect(resolveTokenAtBreakpoint(token, "sm", DEFAULT_BREAKPOINTS)).toBeUndefined();
     });
   });
 
@@ -228,13 +209,8 @@ describe("Responsive Variants System", () => {
     };
 
     it("should apply token to CSS property", () => {
-      const result = applyResponsiveToken(
-        responsiveToken,
-        "color",
-        v => v,
-        DEFAULT_BREAKPOINTS
-      );
-      
+      const result = applyResponsiveToken(responsiveToken, "color", (v) => v, DEFAULT_BREAKPOINTS);
+
       expect(result).toEqual({
         color: "#3B82F6",
         "@media (min-width: 768px)": { color: "#2563EB" },
@@ -251,14 +227,14 @@ describe("Responsive Variants System", () => {
         path: "spacing",
         responsive: true,
       };
-      
+
       const result = applyResponsiveToken(
         numberToken,
         "margin",
-        v => `${v * 4}px`,
+        (v) => `${v * 4}px`,
         DEFAULT_BREAKPOINTS
       );
-      
+
       expect(result).toEqual({
         margin: "16px",
         "@media (min-width: 768px)": { margin: "32px" },
@@ -275,7 +251,7 @@ describe("Responsive Variants System", () => {
           { base: "#3B82F6", md: "#2563EB" },
           mockTheme
         );
-        
+
         expect(result.category).toBe("color");
         expect(result.cssVariable).toBe("--color-primary");
         expect(result.value).toEqual({ base: "#3B82F6", md: "#2563EB" });
@@ -291,7 +267,7 @@ describe("Responsive Variants System", () => {
           { base: "1rem", md: "1.5rem" },
           mockTheme
         );
-        
+
         expect(result.category).toBe("spacing");
         expect(result.cssVariable).toBe("--spacing-4");
         expect(result.value).toEqual({ base: "1rem", md: "1.5rem" });
@@ -307,7 +283,7 @@ describe("Responsive Variants System", () => {
           { base: "14px", md: "16px" },
           mockTheme
         );
-        
+
         expect(result.category).toBe("typography");
         expect(result.cssVariable).toBe("--typography-body");
         expect(result.value).toEqual({ base: "14px", md: "16px" });

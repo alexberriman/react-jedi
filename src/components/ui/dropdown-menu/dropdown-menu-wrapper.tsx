@@ -1,8 +1,11 @@
 import React from "react";
 import * as UI from "./dropdown-menu";
-import type { DropdownMenuProps, DropdownMenuContentItem } from "@/types/components/dropdown-menu";
-import { render } from "@/lib/render";
-import type { ComponentSpec } from "@/types/schema";
+import type {
+  DropdownMenuProps,
+  DropdownMenuContentItem,
+} from "../../../types/components/dropdown-menu";
+import { render } from "../../../lib/render";
+import type { ComponentSpec } from "../../../types/schema";
 
 /**
  * Wrapper component for DropdownMenu that handles JSON specification rendering

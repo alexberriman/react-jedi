@@ -6,16 +6,21 @@
  * It exports utilities for generating and managing typography tokens.
  */
 
-import type { ThemeTypography } from "@/types/schema/specification";
+import type { ThemeTypography } from "../types/schema/specification";
 
 // Import necessary functions from individual modules
 import { fontFamiliesToVariables, defaultFontStacks } from "./font-family";
 import { fontSizesToVariables, generateTypeScale, ScaleRatio } from "./type-scale";
-import { lineHeightsToVariables, letterSpacingsToVariables, DEFAULT_LINE_HEIGHTS, DEFAULT_LETTER_SPACINGS } from "./spacing";
-import { 
-  generateBreakpointFluidTypeScale, 
-  generateOptimizedFluidTypeScale, 
-  type FluidTypographyConfig 
+import {
+  lineHeightsToVariables,
+  letterSpacingsToVariables,
+  DEFAULT_LINE_HEIGHTS,
+  DEFAULT_LETTER_SPACINGS,
+} from "./spacing";
+import {
+  generateBreakpointFluidTypeScale,
+  generateOptimizedFluidTypeScale,
+  type FluidTypographyConfig,
 } from "./fluid-typography";
 
 // Export all typography system components
@@ -28,10 +33,7 @@ export * from "./hooks";
 /**
  * Generate CSS variables for the entire typography system
  */
-export function generateTypographyVariables(
-  typography?: ThemeTypography
-): Record<string, string> {
-  
+export function generateTypographyVariables(typography?: ThemeTypography): Record<string, string> {
   // Generate all typography-related CSS variables
   return {
     ...fontFamiliesToVariables(typography),
@@ -44,12 +46,9 @@ export function generateTypographyVariables(
 /**
  * Apply typography variables to a DOM element
  */
-export function applyTypographyVariables(
-  element: HTMLElement,
-  typography?: ThemeTypography
-): void {
+export function applyTypographyVariables(element: HTMLElement, typography?: ThemeTypography): void {
   const variables = generateTypographyVariables(typography);
-  
+
   for (const [property, value] of Object.entries(variables)) {
     element.style.setProperty(property, value);
   }
@@ -58,21 +57,23 @@ export function applyTypographyVariables(
 /**
  * Generate a complete typography system from base configuration
  */
-export function generateTypographySystem(config: {
-  baseFontSize?: number;
-  scaleRatio?: number | ScaleRatio;
-  primaryFont?: string[];
-  headingFont?: string[];
-  monoFont?: string[];
-  baseLineHeight?: number | string;
-  headingLineHeight?: number | string;
-  baseFontWeight?: number;
-  headingFontWeight?: number;
-  fluid?: boolean;
-  fluidConfig?: Partial<FluidTypographyConfig>;
-} = {}): ThemeTypography {
+export function generateTypographySystem(
+  config: {
+    baseFontSize?: number;
+    scaleRatio?: number | ScaleRatio;
+    primaryFont?: string[];
+    headingFont?: string[];
+    monoFont?: string[];
+    baseLineHeight?: number | string;
+    headingLineHeight?: number | string;
+    baseFontWeight?: number;
+    headingFontWeight?: number;
+    fluid?: boolean;
+    fluidConfig?: Partial<FluidTypographyConfig>;
+  } = {}
+): ThemeTypography {
   // Use imported functions and constants from the module imports
-  
+
   // Set defaults
   const {
     baseFontSize = 16,
@@ -87,14 +88,14 @@ export function generateTypographySystem(config: {
     fluid = false,
     fluidConfig = {},
   } = config;
-  
+
   // Determine font sizes based on fluid typography settings
   let fontSizes;
-  
+
   if (fluid) {
     // For fluid typography, determine which implementation to use based on valid breakpoints
     const hasValidBreakpoints = fluidConfig.breakpoints && fluidConfig.breakpoints.length >= 2;
-    
+
     // Use appropriate fluid typography generation function
     fontSizes = hasValidBreakpoints
       ? generateBreakpointFluidTypeScale({
@@ -114,7 +115,7 @@ export function generateTypographySystem(config: {
       scaleRatio: scaleRatio,
     });
   }
-  
+
   // Create typography system
   const typography: ThemeTypography = {
     fontFamilies: {
@@ -146,6 +147,6 @@ export function generateTypographySystem(config: {
       ...DEFAULT_LETTER_SPACINGS,
     },
   };
-  
+
   return typography;
 }

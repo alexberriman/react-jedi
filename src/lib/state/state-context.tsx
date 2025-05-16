@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { StateManager } from "./state-management";
 import { createStateManager, useStateValue } from "./state-management";
-import type { StateSpecification } from "@/types/schema/specification";
+import type { StateSpecification } from "../../types/schema/specification";
 
 /**
  * State context for providing state management to components

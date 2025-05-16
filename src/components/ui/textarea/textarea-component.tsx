@@ -1,8 +1,8 @@
 import * as React from "react";
-import type { ComponentProps } from "@/types/schema/components";
-import type { TextareaSpec } from "@/types/schema/ui";
+import type { ComponentProps } from "../../../types/schema/components";
+import type { TextareaSpec } from "../../../types/schema/ui";
 import { Textarea } from "./textarea";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../lib/utils";
 
 export const TextareaComponent: React.FC<Record<string, unknown>> = (props) => {
   const { spec, state } = props as unknown as ComponentProps;

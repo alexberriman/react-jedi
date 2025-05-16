@@ -2,21 +2,23 @@ import * as React from "react";
 import { describe, it, expect } from "vitest";
 import { render } from "./render";
 import { createCustomResolver } from "./component-resolver";
-import type { ComponentSpec, ComponentProps, UISpecification } from "@/types/schema/components";
+import type { ComponentSpec, ComponentProps, UISpecification } from "../types/schema/components";
 
 // Type definition for components in our tests
 // Use the same ComponentProps interface that's used in the main code
 type ComponentType = React.ComponentType<ComponentProps>;
 
 // Helper function to safely cast components to accept ComponentProps
-const asComponent = <T extends React.ComponentType<Partial<ComponentProps> & Record<string, unknown>>>(
+const asComponent = <
+  T extends React.ComponentType<Partial<ComponentProps> & Record<string, unknown>>,
+>(
   component: T
 ): ComponentType => {
   return component as unknown as ComponentType;
 };
 
 // Define props for mock components with index signature for unknown props
-interface MockProps extends Omit<ComponentProps, 'spec'> {
+interface MockProps extends Omit<ComponentProps, "spec"> {
   // Make spec optional for testing purposes
   spec?: ComponentSpec;
   // Add test-specific prop to avoid empty interface error
@@ -106,11 +108,11 @@ describe("render function", () => {
     if (result) {
       // The rendered component has an ErrorBoundary wrapper, so we need to look at result.props.children
       const component = result.props.children;
-      
+
       // Check that the accessibility attributes are correctly passed to the component
       expect(component.props["aria-label"]).toBe("Action Button");
       expect(component.props.role).toBe("button");
-      
+
       // Also verify the original spec is properly passed through
       expect(component.props.spec.a11y).toEqual(spec.a11y);
     }
@@ -131,10 +133,10 @@ describe("render function", () => {
     if (result) {
       // The rendered component has an ErrorBoundary wrapper, so we need to look at result.props.children
       const component = result.props.children;
-      
+
       // Check that the data attributes are correctly passed to the component
       expect(component.props["data-test"]).toBe("value");
-      
+
       // Also verify the original spec is properly passed through
       expect(component.props.spec.data).toEqual(spec.data);
     }
@@ -153,10 +155,10 @@ describe("render function", () => {
     if (result) {
       // The rendered component has an ErrorBoundary wrapper, so we need to look at result.props.children
       const component = result.props.children;
-      
+
       // Check that the testId is correctly passed to the component as data-testid
       expect(component.props["data-testid"]).toBe("box-test");
-      
+
       // Also verify the original spec is properly passed through
       expect(component.props.spec.testId).toBe("box-test");
     }
@@ -184,13 +186,13 @@ describe("render function", () => {
       Custom: asComponent(MockComponent),
     };
     const combinedResolver = createCustomResolver(customComponents);
-    
+
     // Should resolve from custom resolver
     expect(combinedResolver("Custom")).toBeDefined();
-    
+
     // Should resolve from fallback resolver
     expect(combinedResolver("Box")).toBeDefined();
-    
+
     // Should return null for unknown types
     expect(combinedResolver("Unknown")).toBeNull();
   });
@@ -202,11 +204,11 @@ describe("render function", () => {
     };
 
     const registryResolver = createCustomResolver(registry);
-    
+
     // Should resolve registered components
     expect(registryResolver("Custom")).toBeDefined();
     expect(registryResolver("Box")).toBeDefined();
-    
+
     // Should return null for unregistered components
     expect(registryResolver("Unknown")).toBeNull();
   });

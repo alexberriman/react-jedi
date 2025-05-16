@@ -5,10 +5,10 @@ import {
   type ComponentSpec,
   type RenderOptions,
   type UISpecification,
-} from "@/types/schema/components";
-import type { AccessibilityProps } from "@/types/schema/base";
-import type { ThemeSpecification } from "@/types/schema/specification";
-import { isComponentSpec, isComponentSpecArray, isTextContent } from "@/types/schema/guards";
+} from "../types/schema/components";
+import type { AccessibilityProps } from "../types/schema/base";
+import type { ThemeSpecification } from "../types/schema/specification";
+import { isComponentSpec, isComponentSpecArray, isTextContent } from "../types/schema/guards";
 import { processStyleOverrides } from "./theme/style-overrides";
 import { createTokenResolver } from "./theme/token-resolver";
 import { extractTokensFromTheme, createTokenCollection } from "./theme/theme-tokens";
@@ -97,7 +97,7 @@ class ErrorBoundary extends React.Component<
 }
 
 // Import components directly
-import * as UI from "@/components/ui";
+import * as UI from "../components/ui";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;

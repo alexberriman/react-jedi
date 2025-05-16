@@ -1,6 +1,6 @@
 /**
  * Style Extension Example
- * 
+ *
  * Demonstrates the style extension system with inheritance,
  * composition, and cascade resolution in action.
  */
@@ -8,22 +8,22 @@
 import * as React from "react";
 import { render } from "../render";
 import { ThemeProvider } from "../theme/theme-provider";
-import type { UISpecification, ThemeSpecification } from "@/types/schema/specification";
+import type { UISpecification, ThemeSpecification } from "../types/schema/specification";
 
 // Theme with style extension configuration
 const themeWithExtension: ThemeSpecification = {
   colors: {
     primary: {
-      "500": "#3b82f6"
+      "500": "#3b82f6",
     },
     secondary: {
-      "500": "#10b981"
+      "500": "#10b981",
     },
     text: {
-      default: "#1f2937"
+      default: "#1f2937",
     },
     background: {
-      default: "#ffffff"
+      default: "#ffffff",
     },
   },
   fonts: {
@@ -143,7 +143,7 @@ const specification: UISpecification = {
               },
             ],
           },
-          
+
           // Boundary component example
           {
             type: "Card",
@@ -176,7 +176,7 @@ const specification: UISpecification = {
               },
             ],
           },
-          
+
           // Cascade and composition example
           {
             type: "Box",
@@ -200,7 +200,7 @@ const specification: UISpecification = {
               },
             ],
           },
-          
+
           // Style composition example
           {
             type: "Flex",
@@ -234,11 +234,7 @@ const specification: UISpecification = {
  * Style Extension Example Component
  */
 export function StyleExtensionExample() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {render(specification)}
-    </div>
-  );
+  return <div className="min-h-screen bg-gray-50">{render(specification)}</div>;
 }
 
 /**

@@ -7,8 +7,8 @@
  */
 
 import { cn } from "../utils";
-import type { ComponentSpec } from "@/types/schema/components";
-import type { ThemeSpecification, StyleOverride } from "@/types/schema/specification";
+import type { ComponentSpec } from "../types/schema/components";
+import type { ThemeSpecification, StyleOverride } from "../types/schema/specification";
 import { type TokenResolver } from "./token-resolver";
 
 /**

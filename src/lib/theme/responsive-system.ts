@@ -5,7 +5,7 @@
  * Provides utilities for breakpoint management, responsive values, and container queries.
  */
 
-import type { ThemeSpecification } from "@/types/schema/specification";
+import type { ThemeSpecification } from "../types/schema/specification";
 
 /**
  * Breakpoint definitions
@@ -91,9 +91,7 @@ export interface ContainerQueryOptions {
 /**
  * Extract breakpoints from theme
  */
-export function extractBreakpoints(
-  theme?: ThemeSpecification
-): Breakpoints {
+export function extractBreakpoints(theme?: ThemeSpecification): Breakpoints {
   if (!theme?.breakpoints || Object.keys(theme.breakpoints).length === 0) {
     return DEFAULT_BREAKPOINTS;
   }
@@ -105,9 +103,7 @@ export function extractBreakpoints(
  */
 export function getBreakpointOrder(breakpoints: Breakpoints): string[] {
   const defaultOrder = ["base", "xs", "sm", "md", "lg", "xl", "2xl"];
-  const customKeys = Object.keys(breakpoints).filter(
-    key => !defaultOrder.includes(key)
-  );
+  const customKeys = Object.keys(breakpoints).filter((key) => !defaultOrder.includes(key));
   return [...defaultOrder, ...customKeys];
 }
 
@@ -129,7 +125,7 @@ export function generateMediaQuery(
   }
 
   const parts: string[] = [];
-  
+
   // Media type
   const mediaType = options.type || "min-width";
   parts.push(`(${mediaType}: ${value})`);
@@ -150,13 +146,10 @@ export function generateMediaQuery(
 /**
  * Generate container query string
  */
-export function generateContainerQuery(
-  size: string,
-  options: ContainerQueryOptions = {}
-): string {
+export function generateContainerQuery(size: string, options: ContainerQueryOptions = {}): string {
   const queryType = options.type || "inline-size";
   const container = options.container ? `${options.container} ` : "";
-  
+
   return `@container ${container}(${queryType} >= ${size})`;
 }
 
@@ -168,13 +161,13 @@ export function createMediaQueries(
   options: MediaQueryOptions = {}
 ): Record<string, string> {
   const queries: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(breakpoints)) {
     if (value) {
       queries[key] = generateMediaQuery(key, breakpoints, options);
     }
   }
-  
+
   return queries;
 }
 
@@ -186,34 +179,29 @@ export function createContainerQueries(
   options: ContainerQueryOptions = {}
 ): Record<string, string> {
   const queries: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(breakpoints)) {
     if (value) {
       queries[key] = generateContainerQuery(value, options);
     }
   }
-  
+
   return queries;
 }
 
 /**
  * Check if a value is responsive
  */
-export function isResponsiveValue<T>(
-  value: unknown
-): value is ResponsiveValue<T> {
+export function isResponsiveValue<T>(value: unknown): value is ResponsiveValue<T> {
   if (Array.isArray(value)) {
     return true;
   }
-  
+
   if (typeof value === "object" && value !== null) {
     const keys = Object.keys(value);
-    return keys.some(key => 
-      key === "base" || 
-      Object.keys(DEFAULT_BREAKPOINTS).includes(key)
-    );
+    return keys.some((key) => key === "base" || Object.keys(DEFAULT_BREAKPOINTS).includes(key));
   }
-  
+
   return false;
 }
 
@@ -237,13 +225,13 @@ export function normalizeResponsiveValue<T>(
   // Array format - map to breakpoints
   const breakpointKeys = getBreakpointOrder(breakpoints);
   const result: ResponsiveObject<T> = {};
-  
+
   for (const [index, val] of value.entries()) {
     if (index < breakpointKeys.length && val != null) {
       result[breakpointKeys[index]] = val;
     }
   }
-  
+
   return result;
 }
 
@@ -256,23 +244,23 @@ export function getResponsiveValue<T>(
   breakpoints: Breakpoints = DEFAULT_BREAKPOINTS
 ): T | undefined {
   const normalizedValue = normalizeResponsiveValue(value, breakpoints);
-  
+
   // Direct match
   if (normalizedValue[breakpoint] !== undefined) {
     return normalizedValue[breakpoint];
   }
-  
+
   // Fall back to smaller breakpoints
   const order = getBreakpointOrder(breakpoints);
   const currentIndex = order.indexOf(String(breakpoint));
-  
+
   for (let i = currentIndex - 1; i >= 0; i--) {
     const smallerBreakpoint = order[i];
     if (normalizedValue[smallerBreakpoint] !== undefined) {
       return normalizedValue[smallerBreakpoint];
     }
   }
-  
+
   return undefined;
 }
 
@@ -287,12 +275,12 @@ export function mapResponsiveValues<T>(
 ): Record<string, string> {
   const css: Record<string, string> = {};
   const normalizedValue = normalizeResponsiveValue(value, breakpoints);
-  
+
   // Apply base value
   if (normalizedValue.base !== undefined) {
     css[property] = transformer(normalizedValue.base);
   }
-  
+
   // Apply breakpoint values
   for (const [breakpoint, breakpointValue] of Object.entries(normalizedValue)) {
     if (breakpoint !== "base" && breakpointValue !== undefined) {
@@ -302,7 +290,7 @@ export function mapResponsiveValues<T>(
       }
     }
   }
-  
+
   return css;
 }
 
@@ -316,7 +304,7 @@ export function createResponsiveStyles<T>(
   breakpoints: Breakpoints = DEFAULT_BREAKPOINTS
 ): string {
   const styles = mapResponsiveValues(property, value, transformer, breakpoints);
-  
+
   return Object.entries(styles)
     .map(([key, val]) => {
       if (key.startsWith("@media")) {
@@ -333,25 +321,24 @@ export function createResponsiveStyles<T>(
 export function createResponsiveUtils(breakpoints: Breakpoints = DEFAULT_BREAKPOINTS) {
   return {
     breakpoints,
-    
-    up: (breakpoint: BreakpointKey) => 
-      generateMediaQuery(breakpoint, breakpoints),
-    
-    down: (breakpoint: BreakpointKey) => 
+
+    up: (breakpoint: BreakpointKey) => generateMediaQuery(breakpoint, breakpoints),
+
+    down: (breakpoint: BreakpointKey) =>
       generateMediaQuery(breakpoint, breakpoints, { type: "max-width" }),
-    
+
     between: (min: BreakpointKey, max: BreakpointKey) => {
       const minQuery = generateMediaQuery(min, breakpoints);
       const maxQuery = generateMediaQuery(max, breakpoints, { type: "max-width" });
       return `${minQuery} and ${maxQuery}`;
     },
-    
+
     container: (size: string, options?: ContainerQueryOptions) =>
       generateContainerQuery(size, options),
-    
+
     getValue: <T>(value: ResponsiveValue<T>, breakpoint: BreakpointKey) =>
       getResponsiveValue(value, breakpoint, breakpoints),
-    
+
     mapValues: <T>(
       property: string,
       value: ResponsiveValue<T>,
@@ -380,9 +367,7 @@ export interface UseResponsiveResult {
 /**
  * Create responsive hook
  */
-export function useResponsive(
-  theme?: ThemeSpecification
-): UseResponsiveResult {
+export function useResponsive(theme?: ThemeSpecification): UseResponsiveResult {
   const breakpoints = extractBreakpoints(theme);
   return createResponsiveUtils(breakpoints);
 }

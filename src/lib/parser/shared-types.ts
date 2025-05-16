@@ -5,7 +5,7 @@
  * and validation pipeline to avoid circular dependencies.
  */
 
-import { type ValidationError } from "@/lib/validation/validator";
+import { type ValidationError } from "../lib/validation/validator";
 
 /**
  * Error types for specification validation
@@ -48,12 +48,12 @@ export interface SpecificationError {
    * Additional context information
    */
   context?: Record<string, unknown>;
-  
+
   /**
    * Suggested fixes for the error
    */
   suggestions?: string[];
-  
+
   /**
    * Related documentation URL
    */

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import type { TextareaSpec } from "@/types/schema/ui";
+import type { TextareaSpec } from "../../../types/schema/ui";
 import { Textarea } from "./textarea";
-import { render } from "@/lib/render";
-import { Label } from "@/components/ui/label";
+import { render } from "../../../lib/render";
+import { Label } from "./label";
 
 const meta = {
   title: "Components/Form/Textarea",

@@ -1,4 +1,4 @@
-import type { StateSpecification } from "@/types/schema/specification";
+import type { StateSpecification } from "../../types/schema/specification";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 /**

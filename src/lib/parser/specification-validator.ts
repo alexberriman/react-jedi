@@ -7,20 +7,12 @@
 
 import { Result, Ok, Err } from "ts-results";
 import { z } from "zod";
-import {
-  type ComponentSpec,
-  type UISpecification,
-} from "@/types/schema/components";
-import {
-  isGrid,
-} from "@/types/schema/guards";
-import Validator, { type ValidationError } from "@/lib/validation/validator";
-import { baseComponentSchema } from "@/lib/schemas/base-schema";
-import { gridSchema } from "@/lib/schemas/grid-schema";
-import {
-  SpecificationErrorType,
-  type SpecificationError,
-} from "./shared-types";
+import { type ComponentSpec, type UISpecification } from "../../types/schema/components";
+import { isGrid } from "../../types/schema/guards";
+import Validator, { type ValidationError } from "../validation/validator";
+import { baseComponentSchema } from "../schemas/base-schema";
+import { gridSchema } from "../schemas/grid-schema";
+import { SpecificationErrorType, type SpecificationError } from "./shared-types";
 
 // Import for backward compatibility
 import { SpecificationErrorType as SpecificationParserErrorType } from "./shared-types";
@@ -84,20 +76,26 @@ const uiSpecificationSchema = z.object({
       tags: z.array(z.string()).optional(),
     })
     .optional(),
-  root: z.object({
-    type: z.string(),
-  }).passthrough(),
+  root: z
+    .object({
+      type: z.string(),
+    })
+    .passthrough(),
   theme: z.record(z.unknown()).optional(),
   state: z
     .object({
       initial: z.record(z.unknown()),
     })
     .optional(),
-  dataSources: z.array(z.object({
-    id: z.string(),
-    type: z.enum(["rest", "graphql", "static", "websocket", "function"]),
-    config: z.record(z.unknown()),
-  })).optional(),
+  dataSources: z
+    .array(
+      z.object({
+        id: z.string(),
+        type: z.enum(["rest", "graphql", "static", "websocket", "function"]),
+        config: z.record(z.unknown()),
+      })
+    )
+    .optional(),
 });
 
 /**
@@ -126,13 +124,11 @@ export class SpecificationValidator {
    * @param spec - UI specification to validate
    * @returns Validated UI specification or error
    */
-  validateUISpecification(
-    spec: UISpecification
-  ): SpecificationValidationResult<UISpecification> {
+  validateUISpecification(spec: UISpecification): SpecificationValidationResult<UISpecification> {
     try {
       // Basic structure validation using Zod
       const result = Validator.validate(uiSpecificationSchema, spec);
-      
+
       if (result.err) {
         return Err({
           type: SpecificationErrorType.SCHEMA_VALIDATION,
@@ -164,7 +160,7 @@ export class SpecificationValidator {
 
   /**
    * Validates component children
-   * 
+   *
    * @param children - The children of a component
    * @returns Success or validation error
    */
@@ -174,10 +170,15 @@ export class SpecificationValidator {
     // If children is a string, no validation needed (text content is always valid)
     if (typeof children === "string") {
       return Ok(undefined);
-    } 
-    
+    }
+
     // If children is a component spec
-    if (children && typeof children === "object" && "type" in children && typeof children.type === "string") {
+    if (
+      children &&
+      typeof children === "object" &&
+      "type" in children &&
+      typeof children.type === "string"
+    ) {
       const childResult = this.validateComponentSpec(children as ComponentSpec);
       if (childResult.err) {
         return Err({
@@ -186,8 +187,8 @@ export class SpecificationValidator {
         });
       }
       return Ok(undefined);
-    } 
-    
+    }
+
     // If children is an array of component specs
     if (Array.isArray(children)) {
       for (const [index, child] of children.entries()) {
@@ -198,7 +199,7 @@ export class SpecificationValidator {
             path: ["children", index.toString()],
           });
         }
-        
+
         const childResult = this.validateComponentSpec(child);
         if (childResult.err) {
           return Err({
@@ -209,7 +210,7 @@ export class SpecificationValidator {
       }
       return Ok(undefined);
     }
-    
+
     // Invalid children format
     return Err({
       type: SpecificationErrorType.SCHEMA_VALIDATION,
@@ -224,9 +225,7 @@ export class SpecificationValidator {
    * @param component - Component specification to validate
    * @returns Validated component specification or error
    */
-  validateComponentSpec(
-    component: ComponentSpec
-  ): SpecificationValidationResult<ComponentSpec> {
+  validateComponentSpec(component: ComponentSpec): SpecificationValidationResult<ComponentSpec> {
     try {
       // Skip schema validation if disabled
       if (!this.options.validateSchemas) {
@@ -235,7 +234,7 @@ export class SpecificationValidator {
 
       // Validate against the base component schema first
       const baseResult = Validator.validate(baseComponentSchema, component);
-      
+
       if (baseResult.err) {
         return Err({
           type: SpecificationErrorType.SCHEMA_VALIDATION,
@@ -246,12 +245,12 @@ export class SpecificationValidator {
 
       // Validate against specific component schemas
       let specificSchemaResult: Result<unknown, ValidationError[]> = Ok(component);
-      
+
       // Validate Grid components
       if (isGrid(component)) {
         specificSchemaResult = Validator.validate(gridSchema, component);
       }
-      
+
       // Additional component-specific schema validation will be added here
       // as more component schemas are implemented
 

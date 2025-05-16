@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { render } from "../render";
 import { ThemeProvider } from "./theme-provider";
-import type { UISpecification, ThemeSpecification } from "@/types/schema/specification";
-import type { ButtonSpec } from "@/types/schema/ui";
+import type { UISpecification, ThemeSpecification } from "../types/schema/specification";
+import type { ButtonSpec } from "../types/schema/ui";
 
 const meta = {
   title: "Theme/Style Overrides",
@@ -115,19 +115,22 @@ export const VariantOverrides: Story = {
         Button: {
           variants: {
             primary: {
-              className: "bg-gradient-to-r from-primary-500 to-primary-600 text-white hover:from-primary-600 hover:to-primary-700",
+              className:
+                "bg-gradient-to-r from-primary-500 to-primary-600 text-white hover:from-primary-600 hover:to-primary-700",
               styles: {
                 boxShadow: "0 4px 12px rgba(59, 130, 246, 0.3)",
               },
             },
             secondary: {
-              className: "bg-gradient-to-r from-secondary-500 to-secondary-600 text-white hover:from-secondary-600 hover:to-secondary-700",
+              className:
+                "bg-gradient-to-r from-secondary-500 to-secondary-600 text-white hover:from-secondary-600 hover:to-secondary-700",
               styles: {
                 boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
               },
             },
             destructive: {
-              className: "bg-gradient-to-r from-destructive-500 to-destructive-600 text-white hover:from-destructive-600 hover:to-destructive-700",
+              className:
+                "bg-gradient-to-r from-destructive-500 to-destructive-600 text-white hover:from-destructive-600 hover:to-destructive-700",
               styles: {
                 boxShadow: "0 4px 12px rgba(239, 68, 68, 0.3)",
               },
@@ -303,7 +306,8 @@ export const CombinationOverrides: Story = {
             {
               variant: "default",
               size: "lg",
-              className: "bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-white px-8 py-4 text-xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105",
+              className:
+                "bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-white px-8 py-4 text-xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105",
               styles: {
                 borderRadius: "999px",
                 letterSpacing: "0.1em",
@@ -394,13 +398,13 @@ export const TokenBasedOverrides: Story = {
   render: () => {
     const theme: ThemeSpecification = {
       colors: {
-        primary: { 
-          500: "#3B82F6", 
-          600: "#2563EB" 
+        primary: {
+          500: "#3B82F6",
+          600: "#2563EB",
         },
-        accent: { 
-          500: "#F97316", 
-          600: "#EA580C" 
+        accent: {
+          500: "#F97316",
+          600: "#EA580C",
         },
       },
       spacing: {

@@ -6,7 +6,7 @@
  * and utilities for converting between absolute and relative units.
  */
 
-import type { ThemeTypography } from "@/types/schema/specification";
+import type { ThemeTypography } from "../types/schema/specification";
 
 /**
  * Font size scale ratio presets
@@ -82,9 +82,7 @@ export const DEFAULT_TYPE_SCALE_CONFIG: TypeScaleConfig = {
 /**
  * Generate a modular type scale
  */
-export function generateTypeScale(
-  config: Partial<TypeScaleConfig> = {}
-): Record<string, string> {
+export function generateTypeScale(config: Partial<TypeScaleConfig> = {}): Record<string, string> {
   // Extract config values with fallbacks to defaults
   const mergedConfig = { ...DEFAULT_TYPE_SCALE_CONFIG, ...config };
   const baseFontSize = mergedConfig.baseFontSize;
@@ -92,19 +90,19 @@ export function generateTypeScale(
   const precision = mergedConfig.precision;
   const stepsUp = mergedConfig.stepsUp;
   const stepsDown = mergedConfig.stepsDown;
-  
+
   // Determine the scale ratio to use (number or named ratio)
   let ratio: number;
   if (typeof mergedConfig.scaleRatio === "string") {
     ratio = SCALE_RATIOS[mergedConfig.scaleRatio as ScaleRatio];
-  } else if (typeof mergedConfig.scaleRatio === 'number') {
+  } else if (typeof mergedConfig.scaleRatio === "number") {
     ratio = mergedConfig.scaleRatio;
   } else {
     ratio = SCALE_RATIOS.perfectFourth;
   }
-  
+
   const scale: Record<string, string> = {};
-  
+
   // Generate steps below the base size
   // Use non-null assertion since we've set defaults in mergedConfig
   const safeStepsDown = stepsDown!;
@@ -113,37 +111,33 @@ export function generateTypeScale(
     const value = formatFontSize(size, unit, precision);
     scale[`xs${i}`] = value;
   }
-  
+
   // Base size
   scale.base = formatFontSize(baseFontSize, unit, precision);
-  
+
   // Generate steps above the base size
   // Default to 7 steps up if not defined
   const safeStepsUp = stepsUp ?? 7;
   for (let i = 1; i <= safeStepsUp; i++) {
     const size = baseFontSize * Math.pow(ratio, i);
     const value = formatFontSize(size, unit, precision);
-    
+
     if (i <= 2) {
       scale[`lg${i}`] = value;
     } else {
       scale[`${i - 2}xl`] = value;
     }
   }
-  
+
   return scale;
 }
 
 /**
  * Format a font size value with the specified unit
  */
-export function formatFontSize(
-  size: number,
-  unit: FontSizeUnit,
-  precision: number = 4
-): string {
+export function formatFontSize(size: number, unit: FontSizeUnit, precision: number = 4): string {
   let value: number;
-  
+
   switch (unit) {
     case "rem": {
       value = size / 16;
@@ -166,23 +160,23 @@ export function formatFontSize(
       break;
     }
   }
-  
+
   // First get the fixed precision string
   const fixed = value.toFixed(precision);
-  
+
   // Then manually trim trailing zeros without regex
   let trimmed = fixed;
-  if (trimmed.includes('.')) {
+  if (trimmed.includes(".")) {
     // Remove trailing zeros
-    while (trimmed.endsWith('0')) {
+    while (trimmed.endsWith("0")) {
       trimmed = trimmed.slice(0, -1);
     }
     // Remove decimal point if it's the last character
-    if (trimmed.endsWith('.')) {
+    if (trimmed.endsWith(".")) {
       trimmed = trimmed.slice(0, -1);
     }
   }
-  
+
   return `${trimmed}${unit}`;
 }
 
@@ -203,60 +197,60 @@ export function generateFluidTypeScale(
   const precision = mergedConfig.precision || 4;
   const stepsUp = mergedConfig.stepsUp || 7;
   const stepsDown = mergedConfig.stepsDown || 2;
-  
+
   // Set defaults for fluid-specific options
   const minViewport = config.minViewport || 320;
   const maxViewport = config.maxViewport || 1200;
   const minBaseFontSize = config.minBaseFontSize || baseFontSize * 0.75;
   const maxBaseFontSize = config.maxBaseFontSize || baseFontSize * 1.25;
-  
+
   // Determine the scale ratio to use (number or named ratio)
   let ratio: number;
   if (typeof mergedConfig.scaleRatio === "string") {
     ratio = SCALE_RATIOS[mergedConfig.scaleRatio as ScaleRatio];
-  } else if (typeof mergedConfig.scaleRatio === 'number') {
+  } else if (typeof mergedConfig.scaleRatio === "number") {
     ratio = mergedConfig.scaleRatio;
   } else {
     ratio = SCALE_RATIOS.perfectFourth;
   }
-  
+
   const scale: Record<string, string> = {};
-  
+
   // Function to generate clamp value
   const generateClamp = (minSize: number, maxSize: number): string => {
     const minRem = minSize / 16;
     const maxRem = maxSize / 16;
     const slope = (maxRem - minRem) / (maxViewport - minViewport);
     const yAxisIntersection = minRem - slope * minViewport;
-    
+
     // Simplified formula to avoid very long strings
     const vwValue = slope * 100;
-    
+
     return `clamp(${minRem.toFixed(precision)}rem, ${yAxisIntersection.toFixed(precision)}rem + ${vwValue.toFixed(precision)}vw, ${maxRem.toFixed(precision)}rem)`;
   };
-  
+
   // Generate steps below the base size
   for (let i = stepsDown; i > 0; i--) {
     const minSize = minBaseFontSize / Math.pow(ratio, i);
     const maxSize = maxBaseFontSize / Math.pow(ratio, i);
     scale[`xs${i}`] = generateClamp(minSize, maxSize);
   }
-  
+
   // Base size
   scale.base = generateClamp(minBaseFontSize, maxBaseFontSize);
-  
+
   // Generate steps above the base size
   for (let i = 1; i <= stepsUp; i++) {
     const minSize = minBaseFontSize * Math.pow(ratio, i);
     const maxSize = maxBaseFontSize * Math.pow(ratio, i);
-    
+
     if (i <= 2) {
       scale[`lg${i}`] = generateClamp(minSize, maxSize);
     } else {
       scale[`${i - 2}xl`] = generateClamp(minSize, maxSize);
     }
   }
-  
+
   return scale;
 }
 
@@ -268,7 +262,7 @@ export function extractFontSizes(typography?: ThemeTypography): Record<string, s
   if (!typography || !typography.fontSizes || Object.keys(typography.fontSizes).length === 0) {
     return generateTypeScale();
   }
-  
+
   return { ...typography.fontSizes };
 }
 
@@ -280,20 +274,18 @@ export function generateFontSizeVariables(
   prefix = "--font-size"
 ): Record<string, string> {
   const variables: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(sizes)) {
     variables[`${prefix}-${key}`] = value;
   }
-  
+
   return variables;
 }
 
 /**
  * Convert font sizes to CSS variables mapping
  */
-export function fontSizesToVariables(
-  typography?: ThemeTypography
-): Record<string, string> {
+export function fontSizesToVariables(typography?: ThemeTypography): Record<string, string> {
   const sizes = extractFontSizes(typography);
   return generateFontSizeVariables(sizes);
 }

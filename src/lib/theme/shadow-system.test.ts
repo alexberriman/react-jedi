@@ -12,7 +12,7 @@ import {
   combineShadows,
   createResponsiveShadow,
 } from "./shadow-system";
-import type { ThemeSpecification } from "@/types/schema/specification";
+import type { ThemeSpecification } from "../types/schema/specification";
 
 describe("Shadow System", () => {
   describe("getShadow", () => {
@@ -53,7 +53,9 @@ describe("Shadow System", () => {
         ...DARK_MODE_SHADOW_SCALE,
         custom: "0 0 10px rgba(255, 255, 255, 0.1)",
       };
-      expect(getDarkModeShadow("custom", customDarkScale)).toBe("0 0 10px rgba(255, 255, 255, 0.1)");
+      expect(getDarkModeShadow("custom", customDarkScale)).toBe(
+        "0 0 10px rgba(255, 255, 255, 0.1)"
+      );
     });
   });
 
@@ -154,19 +156,12 @@ describe("Shadow System", () => {
 
   describe("combineShadows", () => {
     it("should combine multiple shadows", () => {
-      const combined = combineShadows(
-        DEFAULT_SHADOW_SCALE.sm,
-        DEFAULT_SHADOW_SCALE.inner
-      );
+      const combined = combineShadows(DEFAULT_SHADOW_SCALE.sm, DEFAULT_SHADOW_SCALE.inner);
       expect(combined).toBe(`${DEFAULT_SHADOW_SCALE.sm}, ${DEFAULT_SHADOW_SCALE.inner}`);
     });
 
     it("should filter out empty values", () => {
-      const combined = combineShadows(
-        DEFAULT_SHADOW_SCALE.sm,
-        "",
-        DEFAULT_SHADOW_SCALE.lg
-      );
+      const combined = combineShadows(DEFAULT_SHADOW_SCALE.sm, "", DEFAULT_SHADOW_SCALE.lg);
       expect(combined).toBe(`${DEFAULT_SHADOW_SCALE.sm}, ${DEFAULT_SHADOW_SCALE.lg}`);
     });
 

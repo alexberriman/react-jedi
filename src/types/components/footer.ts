@@ -1,4 +1,4 @@
-import type { BaseComponentProps } from "./base";
+import type { BaseComponentSpec } from "./base";
 
 export interface FooterLink {
   label: string;
@@ -31,7 +31,7 @@ export interface NewsletterConfig {
   onSubmit?: string;
 }
 
-export interface FooterProps extends BaseComponentProps {
+export interface FooterProps extends BaseComponentSpec {
   variant?: "default" | "light" | "dark" | "gradient" | "minimal";
   size?: "sm" | "default" | "lg";
   layout?: "default" | "centered" | "minimal";

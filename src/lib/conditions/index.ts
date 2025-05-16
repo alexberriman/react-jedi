@@ -11,7 +11,7 @@ export {
   type ConditionContext,
 } from "./condition-parser";
 
-import type { ComponentSpec } from "@/types/schema/components";
+import type { ComponentSpec } from "../types/schema/components";
 import {
   evaluateCondition,
   type ConditionContext,

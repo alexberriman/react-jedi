@@ -1,2 +1,2 @@
 export * from "./textarea";
-export { TextareaComponent } from "./textarea-component";
+export * from "./textarea-component";

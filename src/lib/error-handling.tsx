@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ComponentSpec, ComponentProps } from "@/types/schema/components";
+import type { ComponentSpec, ComponentProps } from "../types/schema/components";
 
 /**
  * Props for the ErrorFallback component
@@ -9,17 +9,17 @@ interface ErrorFallbackProps {
    * The error that occurred
    */
   readonly error: Error;
-  
+
   /**
    * The component specification that caused the error
    */
   readonly spec?: ComponentSpec;
-  
+
   /**
    * Callback to reset the error state
    */
   readonly resetErrorBoundary?: () => void;
-  
+
   /**
    * Whether to show detailed error information
    * @default false
@@ -29,7 +29,7 @@ interface ErrorFallbackProps {
 
 /**
  * Default fallback component for rendering errors
- * 
+ *
  * This component displays error information with optional details
  * and a reset button.
  */
@@ -42,9 +42,7 @@ export function ErrorFallback({
   return (
     <div className="p-4 rounded-md bg-destructive/10 border border-destructive text-destructive">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">
-          Error Rendering {spec?.type || "Component"}
-        </h3>
+        <h3 className="text-lg font-semibold">Error Rendering {spec?.type || "Component"}</h3>
         {resetErrorBoundary && (
           <button
             onClick={resetErrorBoundary}
@@ -54,9 +52,9 @@ export function ErrorFallback({
           </button>
         )}
       </div>
-      
+
       <p className="mt-2">{error.message}</p>
-      
+
       {showDetails && (
         <div className="mt-4">
           <details>
@@ -81,7 +79,7 @@ export function ErrorFallback({
 
 /**
  * Format an error message for display
- * 
+ *
  * @param error The error object
  * @param componentType The type of component that caused the error
  * @returns Formatted error message
@@ -95,7 +93,7 @@ export function formatErrorMessage(error: Error, componentType?: string): string
 
 /**
  * Create a placeholder component for missing components
- * 
+ *
  * @param type Component type that's missing
  * @returns React component that shows a placeholder
  */
@@ -125,7 +123,7 @@ const errorHandlers: ErrorHandler[] = [];
 
 /**
  * Register a global error handler
- * 
+ *
  * @param handler Error handler function
  */
 export function registerErrorHandler(handler: ErrorHandler): void {
@@ -134,7 +132,7 @@ export function registerErrorHandler(handler: ErrorHandler): void {
 
 /**
  * Handle a rendering error by notifying all registered handlers
- * 
+ *
  * @param error The error that occurred
  * @param componentType The type of component that caused the error
  */
@@ -147,7 +145,7 @@ export function handleRenderError(error: Error, componentType: string): void {
       console.error("Error in error handler:", handlerError);
     }
   }
-  
+
   // Always log the error to console
   console.error(`Error rendering component "${componentType}":`, error);
 }

@@ -1,1 +1,1 @@
-export { Spacer, type SpacerProps } from "./spacer";
+export * from "./spacer";

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { render } from "@/lib/render";
-import type { UISpecification } from "@/types/schema/specification";
+import { render } from "../lib/render";
+import type { UISpecification } from "../types/schema/specification";
 
 // Example specification that demonstrates state optimization benefits
 const stateOptimizationExample: UISpecification = {

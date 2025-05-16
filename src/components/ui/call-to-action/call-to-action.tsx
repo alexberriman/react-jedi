@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cn } from "../../../lib/utils";
+import { Button } from "../button";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const callToActionVariants = cva(

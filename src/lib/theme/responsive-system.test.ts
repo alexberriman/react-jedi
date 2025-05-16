@@ -19,7 +19,7 @@ import {
   createResponsiveUtils,
   type ResponsiveObject,
 } from "./responsive-system";
-import type { ThemeSpecification } from "@/types/schema/specification";
+import type { ThemeSpecification } from "../types/schema/specification";
 
 function transformer(value: string): string {
   return `${value}px`;
@@ -66,17 +66,7 @@ describe("Responsive System", () => {
         mobile: "375px",
       };
       const order = getBreakpointOrder(customBreakpoints);
-      expect(order).toEqual([
-        "base",
-        "xs",
-        "sm",
-        "md",
-        "lg",
-        "xl",
-        "2xl",
-        "3xl",
-        "mobile",
-      ]);
+      expect(order).toEqual(["base", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "mobile"]);
     });
   });
 
@@ -113,9 +103,7 @@ describe("Responsive System", () => {
     });
 
     it("should throw error for unknown breakpoint", () => {
-      expect(() => generateMediaQuery("unknown")).toThrow(
-        'Breakpoint "unknown" not found'
-      );
+      expect(() => generateMediaQuery("unknown")).toThrow('Breakpoint "unknown" not found');
     });
   });
 
@@ -294,9 +282,7 @@ describe("Responsive System", () => {
 
     it("should create between utility", () => {
       const result = utils.between("sm", "lg");
-      expect(result).toBe(
-        "@media (min-width: 640px) and @media (max-width: 1024px)"
-      );
+      expect(result).toBe("@media (min-width: 640px) and @media (max-width: 1024px)");
     });
 
     it("should create container utility", () => {
@@ -317,7 +303,7 @@ describe("Responsive System", () => {
         base: "10",
         md: "20",
       };
-      const result = utils.mapValues("width", value, v => `${v}px`);
+      const result = utils.mapValues("width", value, (v) => `${v}px`);
       expect(result).toEqual({
         width: "10px",
         "@media (min-width: 768px) { width": "20px",

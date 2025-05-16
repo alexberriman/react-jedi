@@ -1,7 +1,7 @@
 import React from "react";
 import { SidebarTrigger } from "./sidebar";
-import type { BaseComponentSpec } from "@/types/components/base";
-import { createSimpleEventHandler } from "@/lib/events/simple-handlers";
+import type { BaseComponentSpec } from "../../../types/components/base";
+import { createSimpleEventHandler } from "../../../lib/events/simple-handlers";
 
 export interface SidebarTriggerComponentProps extends BaseComponentSpec {
   type: "sidebar-trigger";

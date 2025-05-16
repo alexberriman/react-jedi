@@ -1,1 +1,1 @@
-export { Flex, flexVariants, type FlexProps } from "./flex";
+export * from "./flex";

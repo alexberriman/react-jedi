@@ -7,7 +7,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuLink,
 } from "./navigation-menu";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../badge";
 import * as React from "react";
 

@@ -1,3 +1,2 @@
-export { DataTable, createSortableHeader } from "./data-table";
-export { DataTableComponent } from "./data-table-component";
-export type { DataTableColumn, DataTableAction } from "./data-table";
+export * from "./data-table";
+export * from "./data-table-component";

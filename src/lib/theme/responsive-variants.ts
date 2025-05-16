@@ -5,18 +5,14 @@
  * spacing, and other design tokens.
  */
 
-import type { ThemeSpecification } from "@/types/schema/specification";
+import type { ThemeSpecification } from "../types/schema/specification";
 import type { DesignToken, TokenCollection } from "./theme-tokens";
-import type { 
-  ResponsiveValue, 
-  Breakpoints,
-  BreakpointKey 
-} from "./responsive-system";
-import { 
+import type { ResponsiveValue, Breakpoints, BreakpointKey } from "./responsive-system";
+import {
   normalizeResponsiveValue,
   getResponsiveValue,
   createResponsiveUtils,
-  extractBreakpoints 
+  extractBreakpoints,
 } from "./responsive-system";
 
 /**
@@ -59,8 +55,7 @@ export function createResponsiveToken<T>(
   breakpoints: Breakpoints
 ): ResponsiveDesignToken<T> {
   const normalizedValue = normalizeResponsiveValue(responsiveValue, breakpoints);
-  const isResponsive = Object.keys(normalizedValue).length > 1 || 
-    !normalizedValue.base;
+  const isResponsive = Object.keys(normalizedValue).length > 1 || !normalizedValue.base;
 
   return {
     ...base,
@@ -79,13 +74,13 @@ export function generateResponsiveCssVars<T>(
 ): Record<string, string> {
   const cssVars: Record<string, string> = {};
   const normalizedValue = normalizeResponsiveValue(token.value, breakpoints);
-  
+
   // Base value
   if (normalizedValue.base !== undefined) {
     const value = transformer ? transformer(normalizedValue.base) : String(normalizedValue.base);
     cssVars[token.cssVariable] = value;
   }
-  
+
   // Breakpoint-specific values
   for (const [breakpoint, value] of Object.entries(normalizedValue)) {
     if (breakpoint !== "base" && value !== undefined) {
@@ -94,7 +89,7 @@ export function generateResponsiveCssVars<T>(
       cssVars[cssVarName] = transformedValue;
     }
   }
-  
+
   return cssVars;
 }
 
@@ -107,23 +102,21 @@ export function createResponsiveCategory<T>(
   breakpoints: Breakpoints
 ): Record<string, ResponsiveDesignToken<T>> {
   const responsiveTokens: Record<string, ResponsiveDesignToken<T>> = {};
-  
+
   for (const [key, token] of Object.entries(tokens)) {
     const responsiveValue = variants[key] || token.value;
     responsiveTokens[key] = createResponsiveToken(token, responsiveValue, breakpoints);
   }
-  
+
   return responsiveTokens;
 }
 
 /**
  * Convert theme object to responsive values
  */
-function convertToResponsiveValues<T>(
-  obj: unknown
-): Record<string, ResponsiveValue<T>> {
+function convertToResponsiveValues<T>(obj: unknown): Record<string, ResponsiveValue<T>> {
   const result: Record<string, ResponsiveValue<T>> = {};
-  
+
   if (obj && typeof obj === "object") {
     for (const [key, value] of Object.entries(obj)) {
       if (value !== undefined && value !== null) {
@@ -131,7 +124,7 @@ function convertToResponsiveValues<T>(
       }
     }
   }
-  
+
   return result;
 }
 
@@ -143,7 +136,7 @@ export function createResponsiveTokenCollection(
   theme: ThemeSpecification
 ): ResponsiveTokenCollection {
   const breakpoints = extractBreakpoints(theme);
-  
+
   return {
     colors: createResponsiveCategory(
       collection.colors,
@@ -155,21 +148,13 @@ export function createResponsiveTokenCollection(
       convertToResponsiveValues(theme.typography || {}),
       breakpoints
     ),
-    spacing: createResponsiveCategory(
-      collection.spacing,
-      theme.spacing || {},
-      breakpoints
-    ),
+    spacing: createResponsiveCategory(collection.spacing, theme.spacing || {}, breakpoints),
     borderRadius: createResponsiveCategory(
       collection.borderRadius,
       theme.borderRadius || {},
       breakpoints
     ),
-    shadows: createResponsiveCategory(
-      collection.shadows,
-      theme.shadows || {},
-      breakpoints
-    ),
+    shadows: createResponsiveCategory(collection.shadows, theme.shadows || {}, breakpoints),
     breakpoints: createResponsiveCategory(
       collection.breakpoints,
       theme.breakpoints || {},
@@ -211,12 +196,12 @@ export function applyResponsiveToken<T>(
   const styles: Record<string, unknown> = {};
   const normalizedValue = normalizeResponsiveValue(token.value, breakpoints);
   const utils = createResponsiveUtils(breakpoints);
-  
+
   // Base value
   if (normalizedValue.base !== undefined) {
     styles[property] = transformer(normalizedValue.base);
   }
-  
+
   // Breakpoint values
   for (const [breakpoint, value] of Object.entries(normalizedValue)) {
     if (breakpoint !== "base" && value !== undefined) {
@@ -226,7 +211,7 @@ export function applyResponsiveToken<T>(
       }
     }
   }
-  
+
   return styles;
 }
 
@@ -235,18 +220,15 @@ export function applyResponsiveToken<T>(
  */
 export function createResponsiveTokenUtils(theme: ThemeSpecification) {
   const breakpoints = extractBreakpoints(theme);
-  
+
   return {
     /**
      * Get token value at current breakpoint
      */
-    getValue: <T>(
-      token: ResponsiveDesignToken<T>,
-      breakpoint: BreakpointKey
-    ): T | undefined => {
+    getValue: <T>(token: ResponsiveDesignToken<T>, breakpoint: BreakpointKey): T | undefined => {
       return resolveTokenAtBreakpoint(token, breakpoint, breakpoints);
     },
-    
+
     /**
      * Apply token to CSS property
      */
@@ -257,7 +239,7 @@ export function createResponsiveTokenUtils(theme: ThemeSpecification) {
     ): Record<string, unknown> => {
       return applyResponsiveToken(token, property, transformer, breakpoints);
     },
-    
+
     /**
      * Generate CSS variables
      */
@@ -267,7 +249,7 @@ export function createResponsiveTokenUtils(theme: ThemeSpecification) {
     ): Record<string, string> => {
       return generateResponsiveCssVars(token, breakpoints, transformer);
     },
-    
+
     /**
      * Check if token is responsive
      */
@@ -287,7 +269,7 @@ export function createResponsiveColorToken(
   theme: ThemeSpecification
 ): ResponsiveDesignToken<string> {
   const breakpoints = extractBreakpoints(theme);
-  
+
   const baseToken: DesignToken<string> = {
     id,
     name,
@@ -296,7 +278,7 @@ export function createResponsiveColorToken(
     cssVariable: `--color-${id}`,
     path: `colors.${id}`,
   };
-  
+
   return createResponsiveToken(baseToken, responsiveValue, breakpoints);
 }
 
@@ -310,7 +292,7 @@ export function createResponsiveSpacingToken(
   theme: ThemeSpecification
 ): ResponsiveDesignToken<string> {
   const breakpoints = extractBreakpoints(theme);
-  
+
   const baseToken: DesignToken<string> = {
     id,
     name,
@@ -319,7 +301,7 @@ export function createResponsiveSpacingToken(
     cssVariable: `--spacing-${id}`,
     path: `spacing.${id}`,
   };
-  
+
   return createResponsiveToken(baseToken, responsiveValue, breakpoints);
 }
 
@@ -333,16 +315,18 @@ export function createResponsiveTypographyToken(
   theme: ThemeSpecification
 ): ResponsiveDesignToken<string | number> {
   const breakpoints = extractBreakpoints(theme);
-  
+
   const baseToken: DesignToken<string | number> = {
     id,
     name,
-    value: typeof responsiveValue === "string" || typeof responsiveValue === "number" 
-      ? responsiveValue : "",
+    value:
+      typeof responsiveValue === "string" || typeof responsiveValue === "number"
+        ? responsiveValue
+        : "",
     category: "typography",
     cssVariable: `--typography-${id}`,
     path: `typography.${id}`,
   };
-  
+
   return createResponsiveToken(baseToken, responsiveValue, breakpoints);
 }

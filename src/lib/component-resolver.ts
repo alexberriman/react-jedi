@@ -1,8 +1,8 @@
 import * as React from "react";
-import type { ComponentResolver, ComponentProps } from "@/types/schema/components";
-import * as UI from "@/components/ui";
-import { BreadcrumbComponent } from "@/components/ui/breadcrumb-component";
-import { PaginationComponent } from "@/components/ui/pagination";
+import type { ComponentResolver, ComponentProps } from "../types/schema/components";
+import * as UI from "../components/ui";
+import { BreadcrumbComponent } from "../components/ui/breadcrumb-component";
+import { PaginationComponent } from "../components/ui/pagination";
 import {
   CommandComponent,
   CommandDialogComponent,
@@ -13,11 +13,11 @@ import {
   CommandItemComponent,
   CommandSeparatorComponent,
   CommandShortcutComponent,
-} from "@/components/ui/command";
-import { CalendarComponent } from "@/components/ui/calendar";
-import { DataTableComponent } from "@/components/ui/data-table";
-import { CarouselComponent } from "@/components/ui/carousel";
-import { Chart } from "@/components/ui/chart/chart";
+} from "../components/ui/command";
+import { CalendarComponent } from "../components/ui/calendar";
+import { DataTableComponent } from "../components/ui/data-table";
+import { CarouselComponent } from "../components/ui/carousel";
+import { Chart } from "../components/ui/chart/chart";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;

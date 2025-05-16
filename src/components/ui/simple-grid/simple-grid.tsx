@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react";
 import type { ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../lib/utils";
 
 export interface SimpleGridProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Number of columns for the grid */

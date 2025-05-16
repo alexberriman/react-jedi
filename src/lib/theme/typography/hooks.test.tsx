@@ -5,17 +5,17 @@
 import { describe, it, expect, vi, beforeAll, afterAll, beforeEach } from "vitest";
 import { render } from "@testing-library/react";
 import React from "react";
-import { 
-  useTypography, 
-  useFontSize, 
-  useFontFamily, 
-  useLineHeight, 
-  useLetterSpacing, 
+import {
+  useTypography,
+  useFontSize,
+  useFontFamily,
+  useLineHeight,
+  useLetterSpacing,
   useFontWeight,
-  useFluidTypography
+  useFluidTypography,
 } from "./hooks";
 import { ThemeProvider } from "../theme-provider";
-import type { ThemeSpecification } from "@/types/schema/specification";
+import type { ThemeSpecification } from "../types/schema/specification";
 
 // Define a type for window.matchMedia
 type MediaQueryListMock = {
@@ -32,17 +32,19 @@ type MediaQueryListMock = {
 // Mock matchMedia for tests
 beforeAll(() => {
   // Create a matchMedia mock function
-  const mockMatchMedia = vi.fn().mockImplementation((query: string): MediaQueryListMock => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(), // Deprecated
-    removeListener: vi.fn(), // Deprecated
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  }));
-  
+  const mockMatchMedia = vi.fn().mockImplementation(
+    (query: string): MediaQueryListMock => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(), // Deprecated
+      removeListener: vi.fn(), // Deprecated
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })
+  );
+
   // Add the matchMedia property to globalThis
   Object.defineProperty(globalThis, "matchMedia", {
     writable: true,
@@ -62,7 +64,7 @@ const baseTheme: ThemeSpecification = {
       sans: ["Roboto", "sans-serif"],
       serif: ["Georgia", "serif"],
       mono: ["Fira Code", "monospace"],
-      display: ["Montserrat", "sans-serif"]
+      display: ["Montserrat", "sans-serif"],
     },
     fontSizes: {
       xs1: "0.75rem",
@@ -74,7 +76,7 @@ const baseTheme: ThemeSpecification = {
       "2xl": "1.875rem",
       "3xl": "2.25rem",
       "4xl": "3rem",
-      "5xl": "3.75rem"
+      "5xl": "3.75rem",
     },
     fontWeights: {
       thin: 100,
@@ -83,7 +85,7 @@ const baseTheme: ThemeSpecification = {
       medium: 500,
       semibold: 600,
       bold: 700,
-      black: 900
+      black: 900,
     },
     lineHeights: {
       none: 1,
@@ -91,7 +93,7 @@ const baseTheme: ThemeSpecification = {
       snug: 1.375,
       normal: 1.5,
       relaxed: 1.625,
-      loose: 2
+      loose: 2,
     },
     letterSpacings: {
       tighter: "-0.05em",
@@ -99,9 +101,9 @@ const baseTheme: ThemeSpecification = {
       normal: "0",
       wide: "0.025em",
       wider: "0.05em",
-      widest: "0.1em"
-    }
-  }
+      widest: "0.1em",
+    },
+  },
 };
 
 // Helper function to create a themed test component
@@ -126,169 +128,169 @@ describe("Typography Hooks", () => {
       const typography = useTypography();
       return <div>{JSON.stringify(typography)}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     const result = JSON.parse(container.textContent || "{}");
     expect(result).toEqual(baseTheme.typography);
   });
-  
+
   // For useFontSize hook
   it("should return font size", () => {
     const TestComponent = () => {
       const fontSize = useFontSize("lg1");
       return <div>{fontSize}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("1.125rem");
   });
-  
+
   it("should return default font size when size is not specified", () => {
     const TestComponent = () => {
       const fontSize = useFontSize();
       return <div>{fontSize}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("1rem");
   });
-  
+
   // For useFontFamily hook
   it("should return font family", () => {
     const TestComponent = () => {
       const fontFamily = useFontFamily("serif");
       return <div>{fontFamily}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("Georgia, serif");
   });
-  
+
   it("should return default font family when category is not specified", () => {
     const TestComponent = () => {
       const fontFamily = useFontFamily();
       return <div>{fontFamily}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("Roboto, sans-serif");
   });
-  
+
   // For useLineHeight hook
   it("should return line height", () => {
     const TestComponent = () => {
       const lineHeight = useLineHeight("tight");
       return <div>{lineHeight}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("1.25");
   });
-  
+
   it("should return default line height when size is not specified", () => {
     const TestComponent = () => {
       const lineHeight = useLineHeight();
       return <div>{lineHeight}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("1.5");
   });
-  
+
   // For useLetterSpacing hook
   it("should return letter spacing", () => {
     const TestComponent = () => {
       const letterSpacing = useLetterSpacing("wide");
       return <div>{letterSpacing}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("0.025em");
   });
-  
+
   it("should return default letter spacing when size is not specified", () => {
     const TestComponent = () => {
       const letterSpacing = useLetterSpacing();
       return <div>{letterSpacing}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("0");
   });
-  
+
   // For useFontWeight hook
   it("should return font weight", () => {
     const TestComponent = () => {
       const fontWeight = useFontWeight("bold");
       return <div>{fontWeight}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("700");
   });
-  
+
   it("should return default font weight when weight is not specified", () => {
     const TestComponent = () => {
       const fontWeight = useFontWeight();
       return <div>{fontWeight}</div>;
     };
-    
+
     const { container } = render(
       <ThemeProvider theme={baseTheme}>
         <TestComponent />
       </ThemeProvider>
     );
-    
+
     expect(container.textContent).toBe("400");
   });
 });
@@ -316,16 +318,17 @@ vi.mock("../use-theme", () => ({
     updateTheme: mockUpdateTheme,
     getValue: getValueMock,
     getCssVar: (path: string): string => `--theme-${path.replaceAll(".", "-")}`,
-    cssVar: (path: string, defaultValue?: string): string => 
-      defaultValue ? `var(--theme-${path.replaceAll(".", "-")}, ${defaultValue})` : `var(--theme-${path.replaceAll(".", "-")})`,
+    cssVar: (path: string, defaultValue?: string): string =>
+      defaultValue
+        ? `var(--theme-${path.replaceAll(".", "-")}, ${defaultValue})`
+        : `var(--theme-${path.replaceAll(".", "-")})`,
     cssVariables: {},
-    resolveReference: resolveReferenceMock
-  })
+    resolveReference: resolveReferenceMock,
+  }),
 }));
 
 // Tests for useFluidTypography hook
 describe("useFluidTypography Hook", () => {
-
   beforeEach(() => {
     // Reset mock counters before each test
     mockUpdateTheme.mockClear();
@@ -345,9 +348,9 @@ describe("useFluidTypography Hook", () => {
         ...baseTheme.typography,
         fontSizes: {
           base: "clamp(1rem, 0.5rem + 2vw, 1.5rem)",
-          lg1: "clamp(1.25rem, 0.75rem + 2.5vw, 2rem)"
-        }
-      }
+          lg1: "clamp(1.25rem, 0.75rem + 2.5vw, 2rem)",
+        },
+      },
     };
 
     // Set the current theme to include fluid font sizes
@@ -386,7 +389,7 @@ describe("useFluidTypography Hook", () => {
     // Verify updateTheme was called with the correct parameters
     expect(mockUpdateTheme).toHaveBeenCalledTimes(1);
     expect(mockUpdateTheme).toHaveBeenCalledWith({
-      typography: expect.any(Object)
+      typography: expect.any(Object),
     });
   });
 
@@ -408,9 +411,9 @@ describe("useFluidTypography Hook", () => {
         ...baseTheme.typography,
         fontSizes: {
           base: "clamp(1rem, 0.5rem + 2vw, 1.5rem)",
-          lg1: "clamp(1.25rem, 0.75rem + 2.5vw, 2rem)"
-        }
-      }
+          lg1: "clamp(1.25rem, 0.75rem + 2.5vw, 2rem)",
+        },
+      },
     };
 
     // Set fluid theme for the test
@@ -444,9 +447,9 @@ describe("useFluidTypography Hook", () => {
         ...baseTheme.typography,
         fontSizes: {
           base: "clamp(1rem, 0.5rem + 2vw, 1.5rem)",
-          lg1: "clamp(1.25rem, 0.75rem + 2.5vw, 2rem)"
-        }
-      }
+          lg1: "clamp(1.25rem, 0.75rem + 2.5vw, 2rem)",
+        },
+      },
     };
 
     // Set fluid theme for the test
@@ -461,7 +464,7 @@ describe("useFluidTypography Hook", () => {
     // Verify updateTheme was called with the correct parameters
     expect(mockUpdateTheme).toHaveBeenCalledTimes(1);
     expect(mockUpdateTheme).toHaveBeenCalledWith({
-      typography: expect.any(Object)
+      typography: expect.any(Object),
     });
   });
 });

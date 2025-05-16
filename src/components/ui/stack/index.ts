@@ -1,1 +1,1 @@
-export { Stack, type StackProps } from "./stack";
+export * from "./stack";

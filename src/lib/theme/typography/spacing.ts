@@ -6,7 +6,7 @@
  * and variable generation functions.
  */
 
-import type { ThemeTypography } from "@/types/schema/specification";
+import type { ThemeTypography } from "../types/schema/specification";
 
 /**
  * Default line height values
@@ -57,17 +57,17 @@ export interface LineHeightConfig {
    * Line height presets and their values
    */
   values: Record<string, string | number>;
-  
+
   /**
    * Default line height for body text
    */
   body?: string | number;
-  
+
   /**
    * Default line height for headings
    */
   heading?: string | number;
-  
+
   /**
    * Default line height for code blocks
    */
@@ -82,22 +82,22 @@ export interface LetterSpacingConfig {
    * Letter spacing presets and their values
    */
   values: Record<string, string>;
-  
+
   /**
    * Default letter spacing for body text
    */
   body?: string;
-  
+
   /**
    * Default letter spacing for headings
    */
   heading?: string;
-  
+
   /**
    * Default letter spacing for buttons
    */
   button?: string;
-  
+
   /**
    * Default letter spacing for all-caps text
    */
@@ -134,14 +134,14 @@ export function extractLineHeights(typography?: ThemeTypography): Record<string,
   if (!typography?.lineHeights || Object.keys(typography.lineHeights).length === 0) {
     return DEFAULT_LINE_HEIGHTS;
   }
-  
+
   // Convert all values to strings
   const lineHeights: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(typography.lineHeights)) {
     lineHeights[key] = formatLineHeight(value);
   }
-  
+
   return lineHeights;
 }
 
@@ -153,14 +153,14 @@ export function extractLetterSpacings(typography?: ThemeTypography): Record<stri
   if (!typography?.letterSpacings || Object.keys(typography.letterSpacings).length === 0) {
     return DEFAULT_LETTER_SPACINGS;
   }
-  
+
   // Ensure all values have appropriate units
   const letterSpacings: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(typography.letterSpacings)) {
     letterSpacings[key] = formatLetterSpacing(value);
   }
-  
+
   return letterSpacings;
 }
 
@@ -172,11 +172,11 @@ export function generateLineHeightVariables(
   prefix = "--line-height"
 ): Record<string, string> {
   const variables: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(lineHeights)) {
     variables[`${prefix}-${key}`] = value;
   }
-  
+
   return variables;
 }
 
@@ -188,20 +188,18 @@ export function generateLetterSpacingVariables(
   prefix = "--letter-spacing"
 ): Record<string, string> {
   const variables: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(letterSpacings)) {
     variables[`${prefix}-${key}`] = value;
   }
-  
+
   return variables;
 }
 
 /**
  * Convert line heights to CSS variables mapping
  */
-export function lineHeightsToVariables(
-  typography?: ThemeTypography
-): Record<string, string> {
+export function lineHeightsToVariables(typography?: ThemeTypography): Record<string, string> {
   const lineHeights = extractLineHeights(typography);
   return generateLineHeightVariables(lineHeights);
 }
@@ -209,9 +207,7 @@ export function lineHeightsToVariables(
 /**
  * Convert letter spacings to CSS variables mapping
  */
-export function letterSpacingsToVariables(
-  typography?: ThemeTypography
-): Record<string, string> {
+export function letterSpacingsToVariables(typography?: ThemeTypography): Record<string, string> {
   const letterSpacings = extractLetterSpacings(typography);
   return generateLetterSpacingVariables(letterSpacings);
 }
@@ -229,12 +225,12 @@ export function calculateOptimalLineHeight(fontSize: number): number {
   const maxLineHeight = 1.7;
   const baseFontSize = 16;
   const baseLineHeight = 1.5;
-  
+
   // Calculate adjustment factor based on font size difference from base
   const factor = Math.max(0, Math.min(1, Math.abs(fontSize - baseFontSize) / 32));
-  
+
   // Return the appropriate line height based on font size
-  return fontSize >= baseFontSize 
+  return fontSize >= baseFontSize
     ? baseLineHeight - (baseLineHeight - minLineHeight) * factor // For larger text, reduce line height
     : baseLineHeight + (maxLineHeight - baseLineHeight) * factor; // For smaller text, increase line height
 }
@@ -242,17 +238,14 @@ export function calculateOptimalLineHeight(fontSize: number): number {
 /**
  * Generate optimal letter spacing based on font size and weight
  */
-export function calculateOptimalLetterSpacing(
-  fontSize: number,
-  fontWeight: number = 400
-): string {
-  // Base logic: 
+export function calculateOptimalLetterSpacing(fontSize: number, fontWeight: number = 400): string {
+  // Base logic:
   // - Larger text (especially headings) often needs tighter letter spacing
   // - Smaller text needs normal to slightly wider spacing
   // - Heavier weights often need slightly looser spacing
-  
+
   let spacing = 0; // em units
-  
+
   // Adjust for font size
   if (fontSize >= 24) {
     // Headings and large text: tighter spacing
@@ -261,7 +254,7 @@ export function calculateOptimalLetterSpacing(
     // Small text: slightly wider spacing
     spacing += 0.01;
   }
-  
+
   // Adjust for font weight
   if (fontWeight >= 700) {
     // Bold and heavier weights
@@ -270,10 +263,10 @@ export function calculateOptimalLetterSpacing(
     // Light weights
     spacing -= 0.005; // Slightly tighter for light weights
   }
-  
+
   // Clamp to reasonable bounds
   spacing = Math.max(-0.05, Math.min(0.1, spacing));
-  
+
   // Format with "em" unit and return
   return spacing === 0 ? "0" : `${spacing.toFixed(4)}em`;
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { StateManager } from "@/lib/state";
+import type { StateManager } from "../lib/state";
 
 /**
  * Extended state manager interface to support optional promise returns from setState

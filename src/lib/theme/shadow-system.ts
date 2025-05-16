@@ -5,7 +5,7 @@
  * It includes default scales, utilities for responsive shadows, and preset collections.
  */
 
-import type { ThemeSpecification } from "@/types/schema/specification";
+import type { ThemeSpecification } from "../types/schema/specification";
 
 /**
  * Default shadow scale values
@@ -35,32 +35,32 @@ export const SEMANTIC_SHADOW_PRESETS = {
   card: DEFAULT_SHADOW_SCALE.default,
   "card-hover": DEFAULT_SHADOW_SCALE.lg,
   "card-elevated": DEFAULT_SHADOW_SCALE.xl,
-  
+
   // Modals and dialogs
   modal: DEFAULT_SHADOW_SCALE["2xl"],
   dialog: DEFAULT_SHADOW_SCALE.xl,
-  
+
   // Interactive elements
   button: DEFAULT_SHADOW_SCALE.sm,
   "button-hover": DEFAULT_SHADOW_SCALE.md,
   "button-active": DEFAULT_SHADOW_SCALE.inner,
   "button-focus": DEFAULT_SHADOW_SCALE.ring,
-  
+
   // Dropdowns and popovers
   dropdown: DEFAULT_SHADOW_SCALE.lg,
   popover: DEFAULT_SHADOW_SCALE.lg,
   tooltip: DEFAULT_SHADOW_SCALE.md,
-  
+
   // Navigation elements
   navbar: DEFAULT_SHADOW_SCALE.sm,
   sidebar: DEFAULT_SHADOW_SCALE.md,
   tab: DEFAULT_SHADOW_SCALE.sm,
-  
+
   // Form elements
   input: DEFAULT_SHADOW_SCALE.sm,
   "input-focus": DEFAULT_SHADOW_SCALE.focus,
   "input-error": "0 0 0 2px rgba(239, 68, 68, 0.2)",
-  
+
   // Special effects
   glow: "0 0 20px rgba(99, 102, 241, 0.3)",
   neon: "0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de",
@@ -116,12 +116,12 @@ export function getShadow(
   if (key in SEMANTIC_SHADOW_PRESETS) {
     return SEMANTIC_SHADOW_PRESETS[key as SemanticShadowKey];
   }
-  
+
   // Then check the scale
   if (key in scale) {
     return scale[key as keyof typeof scale];
   }
-  
+
   // Return as raw value if not found
   return key;
 }
@@ -149,12 +149,12 @@ export function generateShadowScale(config: {
   darkMode?: boolean;
   baseScale?: ShadowScale;
 }): ShadowScale & Record<string, string> {
-  const { 
-    customValues = {}, 
-    darkMode = false, 
-    baseScale = darkMode ? DARK_MODE_SHADOW_SCALE : DEFAULT_SHADOW_SCALE 
+  const {
+    customValues = {},
+    darkMode = false,
+    baseScale = darkMode ? DARK_MODE_SHADOW_SCALE : DEFAULT_SHADOW_SCALE,
   } = config;
-  
+
   // Merge base scale with custom values
   return { ...baseScale, ...customValues };
 }
@@ -164,11 +164,13 @@ export function generateShadowScale(config: {
  * @param theme - Theme specification
  * @returns Extracted shadow scale
  */
-export function extractShadowScale(theme?: ThemeSpecification): ShadowScale & Record<string, string> {
+export function extractShadowScale(
+  theme?: ThemeSpecification
+): ShadowScale & Record<string, string> {
   if (!theme?.shadows || Object.keys(theme.shadows).length === 0) {
     return DEFAULT_SHADOW_SCALE;
   }
-  
+
   return { ...DEFAULT_SHADOW_SCALE, ...theme.shadows };
 }
 
@@ -183,16 +185,16 @@ export function generateShadowVariables(
   prefix = "--shadow"
 ): Record<string, string> {
   const variables: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(scale)) {
     variables[`${prefix}-${key}`] = value;
   }
-  
+
   // Add semantic shadows as well
   for (const [key, value] of Object.entries(SEMANTIC_SHADOW_PRESETS)) {
     variables[`${prefix}-${key}`] = value;
   }
-  
+
   return variables;
 }
 
@@ -228,17 +230,17 @@ export function createResponsiveShadow(breakpoints: {
   xl?: ShadowKey | string;
 }): Record<string, string> {
   const responsive: Record<string, string> = {};
-  
+
   if (breakpoints.base) {
     responsive.shadow = getShadow(breakpoints.base);
   }
-  
+
   for (const [breakpoint, value] of Object.entries(breakpoints)) {
     if (breakpoint !== "base" && value) {
       responsive[`shadow-${breakpoint}`] = getShadow(value);
     }
   }
-  
+
   return responsive;
 }
 

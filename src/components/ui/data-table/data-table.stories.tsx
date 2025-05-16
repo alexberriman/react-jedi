@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DataTable, createSortableHeader, type DataTableColumn } from "./data-table";
 import { Copy, Edit, Trash } from "lucide-react";
 import type { Column, Row } from "@tanstack/react-table";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "./checkbox";
 
 // Sample data types
 interface Payment {

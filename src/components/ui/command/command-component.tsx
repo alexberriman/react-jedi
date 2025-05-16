@@ -19,9 +19,9 @@ import type {
   CommandGroupComponentSpec,
   CommandItemComponentSpec,
   CommandShortcutSpec,
-} from "@/types/components/command";
-import { render } from "@/lib/render";
-import { isComponentSpecArray } from "@/types/schema/guards";
+} from "../../../types/components/command";
+import { render } from "../../../lib/render";
+import { isComponentSpecArray } from "../../../types/schema/guards";
 
 /**
  * Command component for JSON specification rendering

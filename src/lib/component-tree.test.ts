@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { buildComponentTree, findNodeById, findNodesByType, transformTree } from "./component-tree";
-import type { ComponentSpec, UISpecification } from "@/types/schema/components";
+import type { ComponentSpec, UISpecification } from "../types/schema/components";
 
 describe("component-tree", () => {
   const testSpec: ComponentSpec = {

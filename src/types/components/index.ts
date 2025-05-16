@@ -42,3 +42,4 @@ export type {
   SelectSeparatorSpec,
 } from "./select";
 export type { SwitchSpec } from "./switch";
+export type { SliderSpec } from "./slider";

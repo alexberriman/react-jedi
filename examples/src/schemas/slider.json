@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/slider-component.schema.json",
+  "title": "Slider Component Schema",
+  "description": "Schema for React Slider component specification",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Slider"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component"
+    },
+    "props": {
+      "type": "object",
+      "properties": {
+        "defaultValue": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "The default value of the slider (array of numbers)",
+          "examples": [[50], [25, 75]]
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "The controlled value of the slider (array of numbers)"
+        },
+        "min": {
+          "type": "number",
+          "description": "The minimum value of the slider",
+          "default": 0
+        },
+        "max": {
+          "type": "number",
+          "description": "The maximum value of the slider",
+          "default": 100
+        },
+        "step": {
+          "type": "number",
+          "description": "The step increment of the slider",
+          "default": 1
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the slider is disabled",
+          "default": false
+        },
+        "orientation": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "description": "The orientation of the slider",
+          "default": "horizontal"
+        },
+        "onValueChange": {
+          "type": "string",
+          "description": "Event handler name for when the value changes"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name attribute for form submission"
+        },
+        "inverted": {
+          "type": "boolean",
+          "description": "Inverted direction of the slider",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "example": {
+    "type": "Slider",
+    "id": "volume-slider",
+    "props": {
+      "defaultValue": [50],
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "onValueChange": "updateVolume",
+      "name": "volume"
+    }
+  }
+}

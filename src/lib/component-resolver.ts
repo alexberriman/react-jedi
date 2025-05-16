@@ -3,6 +3,17 @@ import type { ComponentResolver, ComponentProps } from "@/types/schema/component
 import * as UI from "@/components/ui";
 import { BreadcrumbComponent } from "@/components/ui/breadcrumb-component";
 import { PaginationComponent } from "@/components/ui/pagination";
+import {
+  CommandComponent,
+  CommandDialogComponent,
+  CommandInputComponent,
+  CommandListComponent,
+  CommandEmptyComponent,
+  CommandGroupComponent,
+  CommandItemComponent,
+  CommandSeparatorComponent,
+  CommandShortcutComponent,
+} from "@/components/ui/command";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -217,6 +228,56 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   ),
   Pagination: asComponent(
     PaginationComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  command: asComponent(CommandComponent as unknown as React.ComponentType<Record<string, unknown>>),
+  Command: asComponent(CommandComponent as unknown as React.ComponentType<Record<string, unknown>>),
+  commandDialog: asComponent(
+    CommandDialogComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  CommandDialog: asComponent(
+    CommandDialogComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  commandInput: asComponent(
+    CommandInputComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  CommandInput: asComponent(
+    CommandInputComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  commandList: asComponent(
+    CommandListComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  CommandList: asComponent(
+    CommandListComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  commandEmpty: asComponent(
+    CommandEmptyComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  CommandEmpty: asComponent(
+    CommandEmptyComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  commandGroup: asComponent(
+    CommandGroupComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  CommandGroup: asComponent(
+    CommandGroupComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  commandItem: asComponent(
+    CommandItemComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  CommandItem: asComponent(
+    CommandItemComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  commandSeparator: asComponent(
+    CommandSeparatorComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  CommandSeparator: asComponent(
+    CommandSeparatorComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  commandShortcut: asComponent(
+    CommandShortcutComponent as unknown as React.ComponentType<Record<string, unknown>>
+  ),
+  CommandShortcut: asComponent(
+    CommandShortcutComponent as unknown as React.ComponentType<Record<string, unknown>>
   ),
 
   // Form Components

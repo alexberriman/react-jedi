@@ -145,3 +145,16 @@ export type {
 } from "./navigation-menu";
 export type { BreadcrumbProps, BreadcrumbItemSpec } from "./breadcrumb";
 export type { PaginationProps, PaginationLinkItemSpec } from "./pagination";
+export type {
+  CommandSpec,
+  CommandDialogSpec,
+  CommandItemSpec,
+  CommandGroupSpec,
+  CommandInputSpec,
+  CommandListSpec,
+  CommandEmptySpec,
+  CommandGroupComponentSpec,
+  CommandItemComponentSpec,
+  CommandSeparatorSpec,
+  CommandShortcutSpec,
+} from "./command";

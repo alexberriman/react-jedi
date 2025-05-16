@@ -392,11 +392,11 @@ This milestone enhances the visual capabilities of the library with advanced lay
   - ✅ Create Storybook documentation with examples
   - ✅ Implement specification schema for Group
 
-- [ ] Center Component (centers children horizontally and vertically)
+- ✅ Center Component (centers children horizontally and vertically)
 
-  - [ ] Create custom implementation with flexbox
-  - [ ] Create Storybook documentation with examples
-  - [ ] Implement specification schema for Center
+  - ✅ Create custom implementation with flexbox
+  - ✅ Create Storybook documentation with examples
+  - ✅ Implement specification schema for Center
 
 - [ ] Spacer Component (adds flexible spacing)
 

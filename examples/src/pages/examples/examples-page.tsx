@@ -119,11 +119,17 @@ export function ExamplesPage() {
         </div>
 
         <div className="mt-8 sm:mt-12 p-4 sm:p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg">
-          <h2 className="text-lg sm:text-xl font-semibold mb-3">More Examples Coming Soon</h2>
-          <p className="text-sm sm:text-base text-zinc-400">
-            We&apos;re continuously adding new examples to showcase different features and use
-            cases. Check back regularly or contribute your own examples!
+          <h2 className="text-lg sm:text-xl font-semibold mb-3">Advanced Example Ideas</h2>
+          <p className="text-sm sm:text-base text-zinc-400 mb-4">
+            Ready to build more complex applications? Try these advanced patterns:
           </p>
+          <ul className="list-disc list-inside text-sm sm:text-base text-zinc-400 space-y-2">
+            <li>Real-time dashboards with WebSocket-driven state updates</li>
+            <li>E-commerce product catalog with filtering and search</li>
+            <li>Content management system with drag-and-drop page builder</li>
+            <li>Multi-step wizards with progress tracking and validation</li>
+            <li>Dynamic forms with conditional fields and branching logic</li>
+          </ul>
         </div>
       </div>
     </div>

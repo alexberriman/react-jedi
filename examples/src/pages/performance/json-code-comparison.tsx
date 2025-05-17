@@ -139,7 +139,9 @@ const createJsonSpecification = (itemCount: number) => ({
                 props: {
                   className: "text-gray-600",
                 },
-                children: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit."],
+                children: [
+                  `Processing ${(i + 1) * 125} operations/sec, Memory: ${((i + 1) * 0.5 + 5).toFixed(1)}MB`,
+                ],
               },
             ],
           })),
@@ -190,7 +192,8 @@ const CodeBasedDashboard: React.FC<{ itemCount: number }> = ({ itemCount }) => {
                 Item {i + 1}
               </Heading>
               <Text className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Processing {(i + 1) * 125} operations/sec, Memory: {((i + 1) * 0.5 + 5).toFixed(1)}
+                MB
               </Text>
             </Box>
           ))}

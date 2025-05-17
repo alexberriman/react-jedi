@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { render } from "@banja/react-jedi";
 import { Container, Box, Flex, Grid, Text, Heading, Button, Card } from "@banja/react-jedi";
 
@@ -170,7 +170,7 @@ const jsonSpecification = {
                   props: {
                     className: "text-gray-600",
                   },
-                  children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                  children: `Performance metrics for item ${i + 1}. Response time: ${((i + 1) * 0.03 + 0.1).toFixed(3)}s, CPU usage: ${((i + 1) * 2 + 20) % 50}%`,
                 },
               ],
             })),
@@ -213,7 +213,8 @@ const CodeBasedDashboard: React.FC = () => {
               <Box key={i} className="p-4 bg-gray-100 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Item {i + 1}</h3>
                 <Text className="text-gray-600">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Performance metrics for item {i + 1}. Response time:{" "}
+                  {((i + 1) * 0.03 + 0.1).toFixed(3)}s, CPU usage: {((i + 1) * 2 + 20) % 50}%
                 </Text>
               </Box>
             ))}
@@ -252,7 +253,7 @@ export const JsonVsCodeBenchmark: React.FC<BenchmarkProps> = ({ onResults, itera
   const [isRunning, setIsRunning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const runBenchmark = async () => {
+  const runBenchmark = useCallback(async () => {
     setIsRunning(true);
 
     // Create separate containers for each test
@@ -335,7 +336,7 @@ export const JsonVsCodeBenchmark: React.FC<BenchmarkProps> = ({ onResults, itera
       codeContainer.remove();
       setIsRunning(false);
     }
-  };
+  }, [iterations, onResults]);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -344,7 +345,7 @@ export const JsonVsCodeBenchmark: React.FC<BenchmarkProps> = ({ onResults, itera
       };
       benchmark();
     }
-  }, [iterations, onResults]);
+  }, [iterations, onResults, runBenchmark]);
 
   return (
     <div ref={containerRef}>

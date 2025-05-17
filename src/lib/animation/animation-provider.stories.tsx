@@ -5,7 +5,9 @@ import {
   useAnimationVariants,
   useStaggerAnimation,
   useHoverAnimation,
+  useHoverPreset,
   useFocusAnimation,
+  type HoverPreset,
 } from "./animation-hooks";
 import { motion } from "framer-motion";
 
@@ -293,6 +295,62 @@ export const StaggerAnimation: Story = {
   ),
 };
 
+const HoverPresetBox: React.FC<{ preset: HoverPreset; children: React.ReactNode }> = ({
+  preset,
+  children,
+}) => {
+  const hoverProps = useHoverPreset(preset);
+
+  return (
+    <motion.div
+      {...hoverProps}
+      style={{
+        padding: "24px",
+        background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+        borderRadius: "16px",
+        color: "white",
+        fontWeight: "600",
+        fontSize: "16px",
+        textAlign: "center",
+        cursor: "pointer",
+        boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const CustomHoverBox: React.FC = () => {
+  const hoverProps = useHoverAnimation({
+    scale: 1.1,
+    rotate: 3,
+    brightness: 1.1,
+    translateY: -8,
+    shadow: "0 20px 40px rgba(99, 102, 241, 0.3)",
+    borderColor: "#8b5cf6",
+  });
+
+  return (
+    <motion.div
+      {...hoverProps}
+      style={{
+        padding: "32px",
+        background: "white",
+        border: "2px solid #e5e7eb",
+        borderRadius: "20px",
+        color: "#111827",
+        fontWeight: "bold",
+        fontSize: "18px",
+        textAlign: "center",
+        cursor: "pointer",
+      }}
+    >
+      Custom Hover Effect 🎨
+    </motion.div>
+  );
+};
+
 export const InteractiveAnimations: Story = {
   render: () => (
     <AnimationProvider>
@@ -302,6 +360,50 @@ export const InteractiveAnimations: Story = {
       </div>
     </AnimationProvider>
   ),
+};
+
+export const HoverEffectPresets: Story = {
+  render: () => (
+    <AnimationProvider>
+      <div style={{ display: "grid", gap: "20px", gridTemplateColumns: "repeat(3, 1fr)" }}>
+        <HoverPresetBox preset="lift">Lift Effect ⬆️</HoverPresetBox>
+        <HoverPresetBox preset="glow">Glow Effect ✨</HoverPresetBox>
+        <HoverPresetBox preset="subtle">Subtle Effect 🌟</HoverPresetBox>
+        <HoverPresetBox preset="bounce">Bounce Effect 🎪</HoverPresetBox>
+        <HoverPresetBox preset="press">Press Effect 👇</HoverPresetBox>
+        <HoverPresetBox preset="shine">Shine Effect 💫</HoverPresetBox>
+        <HoverPresetBox preset="depth">Depth Effect 🎯</HoverPresetBox>
+        <HoverPresetBox preset="float">Float Effect 🎈</HoverPresetBox>
+        <CustomHoverBox />
+      </div>
+    </AnimationProvider>
+  ),
+};
+
+const EnhancedFocusInput: React.FC = () => {
+  const focusProps = useFocusAnimation({
+    scale: 1.02,
+    boxShadow: "0 0 0 4px rgba(99, 102, 241, 0.3)",
+    borderColor: "#6366f1",
+    backgroundColor: "#f0f1ff",
+  });
+
+  return (
+    <motion.input
+      {...focusProps}
+      type="text"
+      placeholder="Enhanced focus effect..."
+      style={{
+        padding: "16px 24px",
+        fontSize: "16px",
+        borderRadius: "12px",
+        border: "2px solid #e5e7eb",
+        outline: "none",
+        width: "100%",
+        transition: "border-color 0.2s, background-color 0.2s",
+      }}
+    />
+  );
 };
 
 export const CustomConfiguration: Story = {
@@ -542,6 +644,82 @@ export const InteractiveShowcase: Story = {
       description: {
         story:
           "An interactive showcase allowing you to test all animation variants with different configurations.",
+      },
+    },
+  },
+};
+
+const FocusButtons: React.FC = () => {
+  const successFocusProps = useFocusAnimation({
+    scale: 1.05,
+    boxShadow: "0 0 0 3px rgba(34, 197, 94, 0.3)",
+    backgroundColor: "#ecfdf5",
+  });
+
+  const dangerFocusProps = useFocusAnimation({
+    scale: 1.05,
+    boxShadow: "0 0 0 3px rgba(239, 68, 68, 0.3)",
+    backgroundColor: "#fef2f2",
+  });
+
+  return (
+    <div style={{ display: "flex", gap: "10px" }}>
+      <motion.button
+        {...successFocusProps}
+        style={{
+          padding: "12px 24px",
+          borderRadius: "8px",
+          border: "1px solid #10b981",
+          background: "white",
+          color: "#10b981",
+          fontWeight: "600",
+          cursor: "pointer",
+          outline: "none",
+        }}
+      >
+        Success Button
+      </motion.button>
+      <motion.button
+        {...dangerFocusProps}
+        style={{
+          padding: "12px 24px",
+          borderRadius: "8px",
+          border: "1px solid #ef4444",
+          background: "white",
+          color: "#ef4444",
+          fontWeight: "600",
+          cursor: "pointer",
+          outline: "none",
+        }}
+      >
+        Danger Button
+      </motion.button>
+    </div>
+  );
+};
+
+export const FocusEffects: Story = {
+  render: () => (
+    <AnimationProvider>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          maxWidth: "400px",
+          margin: "0 auto",
+        }}
+      >
+        <FocusableInput />
+        <EnhancedFocusInput />
+        <FocusButtons />
+      </div>
+    </AnimationProvider>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Various focus effects for form controls and interactive elements.",
       },
     },
   },

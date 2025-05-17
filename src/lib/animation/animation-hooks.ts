@@ -245,32 +245,178 @@ export const useStaggerAnimation = (
   };
 };
 
-export const useHoverAnimation = (scale: number = 1.05) => {
-  const config = useAnimation();
+export interface HoverAnimationConfig {
+  scale?: number;
+  rotate?: number;
+  brightness?: number;
+  blur?: number;
+  shadow?: string;
+  color?: string;
+  backgroundColor?: string;
+  translateY?: number;
+  translateX?: number;
+  borderColor?: string;
+}
 
-  if (config.reducedMotion) {
+export const useHoverAnimation = (config: HoverAnimationConfig | number = {}) => {
+  const animationConfig = useAnimation();
+
+  if (animationConfig.reducedMotion) {
     return {};
   }
 
+  // Support legacy API
+  const hoverConfig = typeof config === "number" ? { scale: config } : config;
+
+  const {
+    scale = 1.05,
+    rotate = 0,
+    brightness,
+    blur,
+    shadow,
+    color,
+    backgroundColor,
+    translateY = 0,
+    translateX = 0,
+    borderColor,
+  } = hoverConfig;
+
+  const whileHover: Record<string, unknown> = {
+    scale,
+    rotate,
+    y: translateY,
+    x: translateX,
+  };
+
+  const whileTap: Record<string, unknown> = {
+    scale: scale * 0.95,
+    rotate: rotate === 0 ? 0 : rotate * -0.5,
+    y: translateY === 0 ? 0 : translateY * 0.5,
+    x: translateX === 0 ? 0 : translateX * 0.5,
+  };
+
+  // Add filter effects if specified
+  const filters: string[] = [];
+  if (brightness !== undefined) {
+    filters.push(`brightness(${brightness})`);
+  }
+  if (blur !== undefined) {
+    filters.push(`blur(${blur}px)`);
+  }
+  if (filters.length > 0) {
+    whileHover.filter = filters.join(" ");
+    whileTap.filter = filters
+      .map((f) => {
+        // Simple regex for extracting value from filter function
+        const startIndex = f.indexOf("(");
+        const endIndex = f.indexOf(")");
+        if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
+          const value = Number.parseFloat(f.slice(startIndex + 1, endIndex));
+          return f.slice(0, startIndex + 1) + value * 0.8 + f.slice(endIndex);
+        }
+        return f;
+      })
+      .join(" ");
+  }
+
+  // Add color effects
+  if (shadow) whileHover.boxShadow = shadow;
+  if (color) whileHover.color = color;
+  if (backgroundColor) whileHover.backgroundColor = backgroundColor;
+  if (borderColor) whileHover.borderColor = borderColor;
+
   return {
-    whileHover: { scale },
-    whileTap: { scale: scale * 0.95 },
-    transition: { duration: config.duration.fast, ...config.transition },
+    whileHover,
+    whileTap,
+    transition: {
+      duration: animationConfig.duration.fast,
+      ...animationConfig.transition,
+    },
   };
 };
 
-export const useFocusAnimation = () => {
-  const config = useAnimation();
+// Preset hover effects
+export const hoverPresets = {
+  lift: {
+    translateY: -6,
+    shadow: "0 16px 32px rgba(0,0,0,0.15)",
+  },
+  glow: {
+    brightness: 1.1,
+    shadow: "0 0 30px rgba(124, 58, 237, 0.4)",
+  },
+  subtle: {
+    scale: 1.02,
+    brightness: 1.05,
+  },
+  bounce: {
+    scale: 1.1,
+    rotate: 5,
+    translateY: -4,
+  },
+  press: {
+    scale: 0.95,
+    brightness: 0.9,
+  },
+  shine: {
+    brightness: 1.2,
+    shadow: "0 0 20px rgba(255,255,255,0.5)",
+  },
+  depth: {
+    translateY: -8,
+    shadow: "0 20px 40px rgba(0,0,0,0.2)",
+    brightness: 1.05,
+  },
+  float: {
+    translateY: -10,
+    scale: 1.05,
+    shadow: "0 20px 35px rgba(0,0,0,0.1)",
+  },
+} as const;
 
-  if (config.reducedMotion) {
+export type HoverPreset = keyof typeof hoverPresets;
+
+export const useHoverPreset = (preset: HoverPreset) => {
+  return useHoverAnimation(hoverPresets[preset]);
+};
+
+export interface FocusAnimationConfig {
+  scale?: number;
+  boxShadow?: string;
+  outline?: string;
+  borderColor?: string;
+  backgroundColor?: string;
+}
+
+export const useFocusAnimation = (config: FocusAnimationConfig = {}) => {
+  const animationConfig = useAnimation();
+
+  if (animationConfig.reducedMotion) {
     return {};
   }
 
+  const {
+    scale = 1.02,
+    boxShadow = "0 0 0 3px var(--ring)",
+    outline,
+    borderColor,
+    backgroundColor,
+  } = config;
+
+  const whileFocus: Record<string, unknown> = {
+    scale,
+    boxShadow,
+  };
+
+  if (outline) whileFocus.outline = outline;
+  if (borderColor) whileFocus.borderColor = borderColor;
+  if (backgroundColor) whileFocus.backgroundColor = backgroundColor;
+
   return {
-    whileFocus: {
-      scale: 1.02,
-      boxShadow: "0 0 0 3px var(--ring)",
+    whileFocus,
+    transition: {
+      duration: animationConfig.duration.fast,
+      ...animationConfig.transition,
     },
-    transition: { duration: config.duration.fast, ...config.transition },
   };
 };

@@ -6,6 +6,7 @@ import {
   useAnimationVariants,
   useStaggerAnimation,
   useHoverAnimation,
+  useHoverPreset,
   useFocusAnimation,
 } from "./animation-hooks";
 
@@ -247,21 +248,45 @@ describe("useStaggerAnimation", () => {
 });
 
 describe("useHoverAnimation", () => {
-  it("returns hover and tap animations", () => {
+  it("returns hover and tap animations with default scale", () => {
     const { result } = renderHook(() => useHoverAnimation(), { wrapper });
 
     expect(result.current).toMatchObject({
-      whileHover: { scale: 1.05 },
-      whileTap: { scale: expect.closeTo(0.9975, 5) },
+      whileHover: { scale: 1.05, rotate: 0, y: 0, x: 0 },
+      whileTap: { scale: expect.closeTo(0.9975, 5), rotate: 0, y: 0, x: 0 },
     });
   });
 
-  it("accepts custom scale", () => {
+  it("accepts custom scale number (legacy API)", () => {
     const { result } = renderHook(() => useHoverAnimation(1.1), { wrapper });
 
     expect(result.current).toMatchObject({
       whileHover: { scale: 1.1 },
       whileTap: { scale: 1.045 },
+    });
+  });
+
+  it("accepts config object with various properties", () => {
+    const config = {
+      scale: 1.2,
+      rotate: 10,
+      translateY: -5,
+      shadow: "0 10px 20px rgba(0,0,0,0.2)",
+      brightness: 1.1,
+    };
+    const { result } = renderHook(() => useHoverAnimation(config), { wrapper });
+
+    expect(result.current.whileHover).toMatchObject({
+      scale: 1.2,
+      rotate: 10,
+      y: -5,
+      boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+      filter: "brightness(1.1)",
+    });
+    expect(result.current.whileTap).toMatchObject({
+      scale: 1.14, // 1.2 * 0.95
+      rotate: -5, // 10 * -0.5
+      y: -2.5, // -5 * 0.5
     });
   });
 
@@ -274,8 +299,28 @@ describe("useHoverAnimation", () => {
   });
 });
 
+describe("useHoverPreset", () => {
+  it("returns lift preset animation", () => {
+    const { result } = renderHook(() => useHoverPreset("lift"), { wrapper });
+
+    expect(result.current.whileHover).toMatchObject({
+      y: -6,
+      boxShadow: "0 16px 32px rgba(0,0,0,0.15)",
+    });
+  });
+
+  it("returns glow preset animation", () => {
+    const { result } = renderHook(() => useHoverPreset("glow"), { wrapper });
+
+    expect(result.current.whileHover).toMatchObject({
+      filter: "brightness(1.1)",
+      boxShadow: "0 0 30px rgba(124, 58, 237, 0.4)",
+    });
+  });
+});
+
 describe("useFocusAnimation", () => {
-  it("returns focus animation", () => {
+  it("returns focus animation with defaults", () => {
     const { result } = renderHook(() => useFocusAnimation(), { wrapper });
 
     expect(result.current).toMatchObject({
@@ -283,6 +328,23 @@ describe("useFocusAnimation", () => {
         scale: 1.02,
         boxShadow: "0 0 0 3px var(--ring)",
       },
+    });
+  });
+
+  it("accepts custom config", () => {
+    const config = {
+      scale: 1.05,
+      boxShadow: "0 0 0 4px rgba(99, 102, 241, 0.3)",
+      borderColor: "#6366f1",
+      backgroundColor: "#f0f1ff",
+    };
+    const { result } = renderHook(() => useFocusAnimation(config), { wrapper });
+
+    expect(result.current.whileFocus).toMatchObject({
+      scale: 1.05,
+      boxShadow: "0 0 0 4px rgba(99, 102, 241, 0.3)",
+      borderColor: "#6366f1",
+      backgroundColor: "#f0f1ff",
     });
   });
 

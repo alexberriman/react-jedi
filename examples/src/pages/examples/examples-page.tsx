@@ -49,6 +49,14 @@ const examples: Example[] = [
     path: "/examples/navigation",
     status: "new",
   },
+  {
+    id: "data-display",
+    title: "Data Display & Visualization",
+    description:
+      "Modern data tables and charts with stunning 2025 design. Features sorting, filtering, and beautiful visualizations.",
+    path: "/examples/data-display",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

@@ -14,11 +14,13 @@ export type AnimationVariant =
   | "custom";
 export type AnimationDirection = "up" | "down" | "left" | "right";
 export type ScaleDirection = "uniform" | "horizontal" | "vertical";
+export type RotationDirection = "clockwise" | "counterclockwise" | "full" | "halfTurn";
 
 export interface UseAnimationProps {
   variant?: AnimationVariant;
   direction?: AnimationDirection;
   scaleDirection?: ScaleDirection;
+  rotationDirection?: RotationDirection;
   delay?: number;
   duration?: "fast" | "normal" | "slow" | number;
   custom?: Variants;
@@ -29,6 +31,7 @@ export const useAnimationVariants = ({
   variant = "fadeIn",
   direction = "up",
   scaleDirection = "uniform",
+  rotationDirection = "clockwise",
   delay = 0,
   duration = "normal",
   custom,
@@ -156,26 +159,40 @@ export const useAnimationVariants = ({
       }
 
       case "rotateIn": {
+        const rotationAngles = {
+          clockwise: { initial: -45, animate: 0, exit: 45 },
+          counterclockwise: { initial: 45, animate: 0, exit: -45 },
+          full: { initial: -360, animate: 0, exit: 360 },
+          halfTurn: { initial: -180, animate: 0, exit: 180 },
+        };
+        const angles = rotationAngles[rotationDirection];
         return {
-          initial: { opacity: 0, rotate: -10 },
+          initial: { opacity: 0, rotate: angles.initial },
           animate: {
             opacity: 1,
-            rotate: 0,
+            rotate: angles.animate,
             transition: { duration: durationValue, delay, ...config.transition },
           },
-          exit: { opacity: 0, rotate: 10 },
+          exit: { opacity: 0, rotate: angles.exit },
         };
       }
 
       case "rotateOut": {
+        const rotationAngles = {
+          clockwise: { initial: 0, animate: 45, exit: 0 },
+          counterclockwise: { initial: 0, animate: -45, exit: 0 },
+          full: { initial: 0, animate: 360, exit: 0 },
+          halfTurn: { initial: 0, animate: 180, exit: 0 },
+        };
+        const angles = rotationAngles[rotationDirection];
         return {
-          initial: { opacity: 1, rotate: 0 },
+          initial: { opacity: 1, rotate: angles.initial },
           animate: {
             opacity: 0,
-            rotate: 10,
+            rotate: angles.animate,
             transition: { duration: durationValue, delay, ...config.transition },
           },
-          exit: { opacity: 1, rotate: 0 },
+          exit: { opacity: 1, rotate: angles.exit },
         };
       }
 
@@ -187,7 +204,17 @@ export const useAnimationVariants = ({
         };
       }
     }
-  }, [variant, direction, scaleDirection, delay, durationValue, config, disabled, custom]);
+  }, [
+    variant,
+    direction,
+    scaleDirection,
+    rotationDirection,
+    delay,
+    durationValue,
+    config,
+    disabled,
+    custom,
+  ]);
 
   return {
     initial: "initial",

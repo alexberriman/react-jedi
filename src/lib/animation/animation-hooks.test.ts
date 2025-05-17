@@ -129,13 +129,52 @@ describe("useAnimationVariants", () => {
     });
   });
 
-  it("returns rotateIn animation", () => {
+  it("returns rotateIn animation with clockwise direction", () => {
     const { result } = renderHook(() => useAnimationVariants({ variant: "rotateIn" }), { wrapper });
 
     expect(result.current.variants).toMatchObject({
-      initial: { opacity: 0, rotate: -10 },
+      initial: { opacity: 0, rotate: -45 },
       animate: { opacity: 1, rotate: 0 },
-      exit: { opacity: 0, rotate: 10 },
+      exit: { opacity: 0, rotate: 45 },
+    });
+  });
+
+  it("returns rotateIn animation with counterclockwise direction", () => {
+    const { result } = renderHook(
+      () => useAnimationVariants({ variant: "rotateIn", rotationDirection: "counterclockwise" }),
+      { wrapper }
+    );
+
+    expect(result.current.variants).toMatchObject({
+      initial: { opacity: 0, rotate: 45 },
+      animate: { opacity: 1, rotate: 0 },
+      exit: { opacity: 0, rotate: -45 },
+    });
+  });
+
+  it("returns rotateIn animation with full rotation", () => {
+    const { result } = renderHook(
+      () => useAnimationVariants({ variant: "rotateIn", rotationDirection: "full" }),
+      { wrapper }
+    );
+
+    expect(result.current.variants).toMatchObject({
+      initial: { opacity: 0, rotate: -360 },
+      animate: { opacity: 1, rotate: 0 },
+      exit: { opacity: 0, rotate: 360 },
+    });
+  });
+
+  it("returns rotateOut animation with halfTurn direction", () => {
+    const { result } = renderHook(
+      () => useAnimationVariants({ variant: "rotateOut", rotationDirection: "halfTurn" }),
+      { wrapper }
+    );
+
+    expect(result.current.variants).toMatchObject({
+      initial: { opacity: 1, rotate: 0 },
+      animate: { opacity: 0, rotate: 180 },
+      exit: { opacity: 1, rotate: 0 },
     });
   });
 

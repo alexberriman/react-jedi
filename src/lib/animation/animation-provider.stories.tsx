@@ -45,13 +45,27 @@ type AnimationVariant =
 type AnimationDirection = "up" | "down" | "left" | "right";
 type ScaleDirection = "uniform" | "horizontal" | "vertical";
 
+type RotationDirection = "clockwise" | "counterclockwise" | "full" | "halfTurn";
+
 const AnimatedBox: React.FC<{
   children: React.ReactNode;
   variant?: AnimationVariant;
   direction?: AnimationDirection;
   scaleDirection?: ScaleDirection;
-}> = ({ children, variant = "fadeIn", direction = "up", scaleDirection = "uniform" }) => {
-  const animationProps = useAnimationVariants({ variant, direction, scaleDirection });
+  rotationDirection?: RotationDirection;
+}> = ({
+  children,
+  variant = "fadeIn",
+  direction = "up",
+  scaleDirection = "uniform",
+  rotationDirection = "clockwise",
+}) => {
+  const animationProps = useAnimationVariants({
+    variant,
+    direction,
+    scaleDirection,
+    rotationDirection,
+  });
 
   return (
     <motion.div
@@ -215,10 +229,58 @@ export const ScaleOutAnimations: Story = {
   ),
 };
 
-export const RotateAnimation: Story = {
+export const RotateInAnimations: Story = {
   render: () => (
     <AnimationProvider>
-      <AnimatedBox variant="rotateIn">Rotate In Animation 🌀</AnimatedBox>
+      <div
+        style={{
+          display: "grid",
+          gap: "20px",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gridTemplateRows: "repeat(2, 1fr)",
+        }}
+      >
+        <AnimatedBox variant="rotateIn" rotationDirection="clockwise">
+          Rotate In Clockwise 🌀
+        </AnimatedBox>
+        <AnimatedBox variant="rotateIn" rotationDirection="counterclockwise">
+          Rotate In Counter 🔄
+        </AnimatedBox>
+        <AnimatedBox variant="rotateIn" rotationDirection="full">
+          Rotate In Full 360° 🎡
+        </AnimatedBox>
+        <AnimatedBox variant="rotateIn" rotationDirection="halfTurn">
+          Rotate In Half Turn 🔁
+        </AnimatedBox>
+      </div>
+    </AnimationProvider>
+  ),
+};
+
+export const RotateOutAnimations: Story = {
+  render: () => (
+    <AnimationProvider>
+      <div
+        style={{
+          display: "grid",
+          gap: "20px",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gridTemplateRows: "repeat(2, 1fr)",
+        }}
+      >
+        <AnimatedBox variant="rotateOut" rotationDirection="clockwise">
+          Rotate Out Clockwise 🌀
+        </AnimatedBox>
+        <AnimatedBox variant="rotateOut" rotationDirection="counterclockwise">
+          Rotate Out Counter 🔄
+        </AnimatedBox>
+        <AnimatedBox variant="rotateOut" rotationDirection="full">
+          Rotate Out Full 360° 🎡
+        </AnimatedBox>
+        <AnimatedBox variant="rotateOut" rotationDirection="halfTurn">
+          Rotate Out Half Turn 🔁
+        </AnimatedBox>
+      </div>
     </AnimationProvider>
   ),
 };
@@ -302,12 +364,15 @@ const AnimationShowcase: React.FC = () => {
   const [selectedDirection, setSelectedDirection] = React.useState<AnimationDirection>("up");
   const [selectedScaleDirection, setSelectedScaleDirection] =
     React.useState<ScaleDirection>("uniform");
+  const [selectedRotationDirection, setSelectedRotationDirection] =
+    React.useState<RotationDirection>("clockwise");
   const [key, setKey] = React.useState(0);
 
   const animationProps = useAnimationVariants({
     variant: selectedVariant,
     direction: selectedDirection,
     scaleDirection: selectedScaleDirection,
+    rotationDirection: selectedRotationDirection,
   });
 
   const resetAnimation = () => {
@@ -393,6 +458,32 @@ const AnimationShowcase: React.FC = () => {
               <option value="uniform">Uniform</option>
               <option value="horizontal">Horizontal</option>
               <option value="vertical">Vertical</option>
+            </select>
+          </div>
+        )}
+        {selectedVariant.includes("rotate") && (
+          <div>
+            <label
+              htmlFor="rotation-direction"
+              style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}
+            >
+              Rotation Direction
+            </label>
+            <select
+              id="rotation-direction"
+              value={selectedRotationDirection}
+              onChange={(e) => setSelectedRotationDirection(e.target.value as RotationDirection)}
+              style={{
+                padding: "8px 12px",
+                borderRadius: "8px",
+                border: "1px solid #e5e7eb",
+                fontSize: "14px",
+              }}
+            >
+              <option value="clockwise">Clockwise</option>
+              <option value="counterclockwise">Counter-clockwise</option>
+              <option value="full">Full 360°</option>
+              <option value="halfTurn">Half Turn</option>
             </select>
           </div>
         )}

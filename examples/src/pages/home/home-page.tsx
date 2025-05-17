@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
+import { Heading, Text, spacing } from "../../components/ui";
 
 export function HomePage() {
   usePageMetadata({
@@ -122,8 +123,12 @@ export function HomePage() {
               <div className="bg-zinc-900 rounded-lg p-3 w-12 h-12 flex items-center justify-center mb-4">
                 {feature.icon}
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-3">{feature.title}</h3>
-              <p className="text-sm sm:text-base text-zinc-300">{feature.description}</p>
+              <Heading as="h3" size="card" className={spacing.small}>
+                {feature.title}
+              </Heading>
+              <Text size="base" variant="muted" className="text-zinc-300">
+                {feature.description}
+              </Text>
             </div>
           ))}
         </div>
@@ -208,12 +213,14 @@ export function HomePage() {
                   <path d="m8 8-4 4 4 4"></path>
                 </svg>
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold">Performance Benchmarks</h3>
+              <Heading as="h3" size="card">
+                Performance Benchmarks
+              </Heading>
             </div>
-            <p className="text-sm sm:text-base text-zinc-300 mb-4">
+            <Text size="base" variant="muted" className={`text-zinc-300 ${spacing.small}`}>
               Comprehensive performance benchmarks added for all components. Run benchmarks to
               measure rendering speed and optimize your applications.
-            </p>
+            </Text>
             <Link
               to="/performance"
               className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-2"
@@ -254,12 +261,14 @@ export function HomePage() {
                   <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold">Marketing Template</h3>
+              <Heading as="h3" size="card">
+                Marketing Template
+              </Heading>
             </div>
-            <p className="text-sm sm:text-base text-zinc-300 mb-4">
+            <Text size="base" variant="muted" className={`text-zinc-300 ${spacing.small}`}>
               New full marketing website template! A complete multi-page site showcasing modern
               design and complex layouts, all driven by JSON.
-            </p>
+            </Text>
             <Link
               to="/templates/marketing"
               className="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2"
@@ -302,12 +311,14 @@ export function HomePage() {
                   <rect x="3" y="14" width="7" height="7" />
                 </svg>
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold">Advanced Layouts</h3>
+              <Heading as="h3" size="card">
+                Advanced Layouts
+              </Heading>
             </div>
-            <p className="text-sm sm:text-base text-zinc-300 mb-4">
+            <Text size="base" variant="muted" className={`text-zinc-300 ${spacing.small}`}>
               Milestone 4 advanced layouts now available! Explore our comprehensive showcase of
               layout components including Stack, Grid, Resizable panels, and more.
-            </p>
+            </Text>
             <Link
               to="/showcase/layout"
               className="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-2"

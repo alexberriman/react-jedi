@@ -10,3 +10,4 @@ export * from "./progress";
 export * from "./select";
 export * from "./switch";
 export * from "./table";
+export * from "./typography";

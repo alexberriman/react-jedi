@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
+import { Heading, Text, spacing, padding } from "../../components/ui";
 
 export function DocumentationPage() {
   usePageMetadata({
@@ -9,20 +10,25 @@ export function DocumentationPage() {
   });
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-950 to-slate-900">
-      <div className="container mx-auto px-4 py-12">
+      <div className={`container mx-auto ${padding.container} ${padding.page}`}>
         <div className="max-w-6xl mx-auto">
-          <div className="space-y-2 mb-16">
+          <div className={`space-y-2 ${spacing.section}`}>
             <div className="relative w-fit">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 mb-2">
+              <Heading
+                as="h1"
+                size="page"
+                weight="bold"
+                className={`text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 ${spacing.xs}`}
+              >
                 Documentation
-              </h1>
+              </Heading>
               <div className="absolute -bottom-4 left-0 w-1/2 h-1 bg-gradient-to-r from-emerald-400 to-transparent rounded-full blur-sm" />
               <div className="absolute -bottom-4 left-0 w-1/3 h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-full" />
             </div>
-            <p className="text-lg sm:text-xl text-zinc-300 max-w-3xl">
+            <Text size="lg" variant="description" className="sm:text-xl max-w-3xl">
               Learn how to build beautiful, server-driven interfaces with React Jedi&apos;s
               JSON-based approach.
-            </p>
+            </Text>
           </div>
 
           {/* Navigation Tabs */}
@@ -90,12 +96,16 @@ export function DocumentationPage() {
           </div>
 
           {/* Getting Started Section */}
-          <section id="getting-started" className="mb-20 scroll-mt-32">
+          <section id="getting-started" className={`${spacing.section} scroll-mt-32`}>
             <div className="relative">
-              <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+              <Heading
+                as="h2"
+                size="section"
+                className={`${spacing.heading} pb-2 border-b border-zinc-800 inline-block pr-8`}
+              >
                 Getting Started
                 <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50" />
-              </h2>
+              </Heading>
             </div>
             <div className="prose prose-invert prose-emerald max-w-none">
               <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">

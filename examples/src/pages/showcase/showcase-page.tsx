@@ -3,6 +3,7 @@ import { useState } from "react";
 import { render } from "@banja/react-jedi";
 import type { UISpecification, ComponentSpec } from "@banja/react-jedi";
 import { usePageMetadata } from "../../lib/meta";
+import { Heading, Text, spacing, padding } from "../../components/ui";
 
 type ComponentCategory = {
   id: string;
@@ -1220,17 +1221,24 @@ export function ShowcasePage() {
   const [expandedComponent, setExpandedComponent] = useState<string | null>(null);
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className={`container mx-auto ${padding.container} ${padding.page}`}>
       <div className="max-w-6xl mx-auto">
         {/* Hero Section */}
-        <div className="rounded-xl sm:rounded-2xl mb-8 sm:mb-16 p-6 sm:p-8 bg-gradient-to-br from-emerald-900/30 via-zinc-900/50 to-violet-900/30 border border-emerald-500/20 backdrop-blur-sm">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
+        <div
+          className={`rounded-xl sm:rounded-2xl ${spacing.section} ${padding.card} sm:p-8 bg-gradient-to-br from-emerald-900/30 via-zinc-900/50 to-violet-900/30 border border-emerald-500/20 backdrop-blur-sm`}
+        >
+          <Heading
+            as="h1"
+            size="page"
+            weight="bold"
+            className={`${spacing.small} bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent`}
+          >
             Component Showcase
-          </h1>
-          <p className="text-lg sm:text-xl text-zinc-300 max-w-3xl">
+          </Heading>
+          <Text size="lg" variant="description" className="sm:text-xl max-w-3xl">
             Explore all the available components. Each component is rendered live below and can be
             defined via JSON specification using React Jedi&apos;s server-driven UI architecture.
-          </p>
+          </Text>
         </div>
 
         {/* Filter & Navigation Section */}
@@ -1279,13 +1287,15 @@ export function ShowcasePage() {
         <div className="space-y-20">
           {categories.map((category) => (
             <section key={category.id} id={category.id} className="scroll-mt-32">
-              <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <h2 className="text-2xl sm:text-3xl font-bold">{category.title}</h2>
+              <div className={`flex items-center gap-3 ${spacing.small} sm:mb-6`}>
+                <Heading as="h2" size="section">
+                  {category.title}
+                </Heading>
                 <div className="h-px flex-grow bg-gradient-to-r from-emerald-500/30 to-transparent"></div>
               </div>
-              <p className="text-lg sm:text-xl text-zinc-300 mb-6 sm:mb-8">
+              <Text size="lg" variant="description" className={`sm:text-xl ${spacing.heading}`}>
                 {category.description}
-              </p>
+              </Text>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {category.components.map((component) => (
@@ -1336,13 +1346,17 @@ export function ShowcasePage() {
                         </span>
                       </div>
 
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 flex items-center gap-2">
+                      <Heading
+                        as="h3"
+                        size="card"
+                        className={`${spacing.xs} flex items-center gap-2`}
+                      >
                         {component.name}
-                      </h3>
+                      </Heading>
 
-                      <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 mb-4">
+                      <Text size="base" variant="muted" className={spacing.small}>
                         {component.description}
-                      </p>
+                      </Text>
 
                       <div className="flex items-center gap-3 mt-auto pt-2">
                         {component.name === "ScrollArea" ||

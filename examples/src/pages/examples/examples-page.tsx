@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
+import { Text, spacing } from "../../components/ui";
 
 interface Example {
   id: string;
@@ -111,9 +112,9 @@ export function ExamplesPage() {
                     </span>
                   )}
                 </div>
-                <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 mb-4">
+                <Text size="base" variant="muted" className={spacing.small}>
                   {example.description}
-                </p>
+                </Text>
                 <div className="flex items-center text-purple-400 group-hover:text-purple-300">
                   <span className="text-sm">View Example</span>
                   <svg

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
+import { Heading, Text, spacing, padding } from "../../components/ui";
 
 export const ThemingPage: React.FC = () => {
   usePageMetadata({
@@ -10,30 +11,41 @@ export const ThemingPage: React.FC = () => {
   });
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-950 to-slate-900">
-      <div className="container mx-auto px-4 py-12">
+      <div className={`container mx-auto ${padding.container} ${padding.page}`}>
         <div className="max-w-6xl mx-auto">
-          <div className="space-y-2 mb-16">
+          <div className={`space-y-2 ${spacing.section}`}>
             <div className="relative w-fit">
-              <h1 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 mb-2">
+              <Heading
+                as="h1"
+                size="page"
+                weight="bold"
+                className={`text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 ${spacing.xs}`}
+              >
                 Theme System
-              </h1>
+              </Heading>
               <div className="absolute -bottom-4 left-0 w-1/2 h-1 bg-gradient-to-r from-amber-400 to-transparent rounded-full blur-sm" />
               <div className="absolute -bottom-4 left-0 w-1/3 h-1 bg-gradient-to-r from-amber-500 to-transparent rounded-full" />
             </div>
-            <p className="text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl">
+            <Text size="xl" variant="description" className="max-w-3xl">
               Explore React Jedi&apos;s powerful theming capabilities with dynamic theme switching,
               custom color palettes, and real-time preview.
-            </p>
+            </Text>
           </div>
 
-          <div className="bg-white dark:bg-black/40 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl p-8 mb-12">
-            <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
+          <div
+            className={`bg-white dark:bg-black/40 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl ${padding.card} ${spacing.subsection}`}
+          >
+            <Heading
+              as="h2"
+              size="subsection"
+              className={`text-zinc-900 dark:text-white ${spacing.heading}`}
+            >
               Theming Capabilities
-            </h2>
-            <p className="text-zinc-600 dark:text-zinc-400 mb-4">
+            </Heading>
+            <Text variant="muted" className={spacing.small}>
               Explore React Jedi&apos;s powerful theming system with dynamic customization, color
               palettes, and real-time preview.
-            </p>
+            </Text>
             <div className="space-y-6">
               <Link to="/theming/playground" className="block group">
                 <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-6 rounded-lg border border-purple-500/20 hover:border-purple-400/40 transition-all">

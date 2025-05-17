@@ -99,6 +99,14 @@ const examples: Example[] = [
     path: "/examples/stagger-animations",
     status: "new",
   },
+  {
+    id: "animation-sequence",
+    title: "Animation Sequences",
+    description:
+      "Chain multiple animations together with precise timing control. Create complex multi-step animations with loops, callbacks, and dynamic sequencing.",
+    path: "/examples/animation-sequence",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

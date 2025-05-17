@@ -141,6 +141,11 @@ const StaggerAnimationsPage = lazy(() =>
     default: module.default,
   }))
 );
+const AnimationSequencePage = lazy(() =>
+  import("../pages/examples/animation-sequence").then((module) => ({
+    default: module.default,
+  }))
+);
 
 // Other pages
 const BrandPresetsPage = lazy(() =>
@@ -442,6 +447,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={StaggerAnimationsPage}
                 loadingText="Loading stagger animations..."
+              />
+            ),
+          },
+          {
+            path: "animation-sequence",
+            element: (
+              <AsyncRoute
+                component={AnimationSequencePage}
+                loadingText="Loading animation sequences..."
               />
             ),
           },

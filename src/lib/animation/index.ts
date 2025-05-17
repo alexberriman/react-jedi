@@ -162,5 +162,19 @@ export type {
   InertiaPreset,
 } from "./transition-timing";
 
+// Animation sequence
+export {
+  AnimationSequence,
+  createAnimationSequence,
+  createComplexSequence,
+  useAnimationSequence,
+} from "./animation-sequence";
+export type {
+  AnimationStep,
+  AnimationSequenceConfig,
+  AnimationSequenceProps,
+  AnimationSequenceControls,
+} from "./animation-sequence";
+
 export { motion, AnimatePresence } from "framer-motion";
 export type { MotionProps, AnimationProps, Variants, Transition } from "framer-motion";

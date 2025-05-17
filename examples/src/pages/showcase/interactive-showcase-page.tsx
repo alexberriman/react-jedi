@@ -629,7 +629,7 @@ export function InteractiveShowcasePage() {
                 className={`pb-4 px-1 border-b-2 transition-colors whitespace-nowrap ${
                   activeDemo === key
                     ? "border-purple-500 text-purple-400"
-                    : "border-transparent text-zinc-400 hover:text-zinc-200"
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
                 }`}
               >
                 {demo.name}
@@ -644,7 +644,9 @@ export function InteractiveShowcasePage() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-bold">Live Demo</h2>
-              <span className="text-sm text-zinc-400">{currentDemo.description}</span>
+              <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                {currentDemo.description}
+              </span>
             </div>
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               {render(currentDemo.specification)}
@@ -670,7 +672,7 @@ export function InteractiveShowcasePage() {
               </div>
             ) : (
               <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
-                <p className="text-zinc-400 text-center">
+                <p className="text-zinc-600 dark:text-zinc-400 text-center">
                   Click &quot;Show Code&quot; to see the JSON specification for this demo
                 </p>
               </div>
@@ -699,8 +701,10 @@ export function InteractiveShowcasePage() {
                 <path d="M8 12h8"></path>
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2">State Management</h3>
-            <p className="text-zinc-400">
+            <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-white transition-colors">
+              State Management
+            </h3>
+            <p className="text-zinc-600 dark:text-zinc-400">
               Local and global state defined declaratively in JSON specifications with automatic
               reactivity.
             </p>
@@ -729,8 +733,10 @@ export function InteractiveShowcasePage() {
                 <path d="m4.9 4.9 2.9 2.9"></path>
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2">Event Handling</h3>
-            <p className="text-zinc-400">
+            <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-white transition-colors">
+              Event Handling
+            </h3>
+            <p className="text-zinc-600 dark:text-zinc-400">
               JSON-defined event handlers mapped to component callbacks with action dispatch system.
             </p>
           </div>
@@ -753,8 +759,10 @@ export function InteractiveShowcasePage() {
                 <path d="M12 8h.01"></path>
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2">Conditional Rendering</h3>
-            <p className="text-zinc-400">
+            <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-white transition-colors">
+              Conditional Rendering
+            </h3>
+            <p className="text-zinc-600 dark:text-zinc-400">
               Show or hide components dynamically based on state values with expression evaluation.
             </p>
           </div>

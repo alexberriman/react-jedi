@@ -24,7 +24,7 @@ const ComponentWithoutTheme: React.FC = () => {
           <div key={i} className="p-4 border rounded-lg shadow-sm">
             <h3 className="text-lg font-bold mb-2">Component {i + 1}</h3>
             <p className="text-gray-600 mb-4">This is a test component without theming</p>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+            <button className="px-4 py-2 bg-blue-600 text-zinc-900 dark:text-white rounded hover:bg-blue-700">
               Click me
             </button>
           </div>
@@ -184,7 +184,7 @@ export const LiveBenchmark: React.FC<{
     <div>
       <button
         onClick={runLiveBenchmark}
-        className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+        className="px-6 py-3 bg-green-600 text-zinc-900 dark:text-white rounded-lg hover:bg-green-700 transition-colors"
       >
         Run Live Benchmark
       </button>

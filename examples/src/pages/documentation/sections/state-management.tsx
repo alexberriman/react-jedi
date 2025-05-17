@@ -2,61 +2,65 @@ export function StateManagementPage() {
   return (
     <section id="state-management" className="mb-20">
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           State Management
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-purple-500/50" />
+          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-purple-500/50 transition-colors" />
         </h2>
       </div>
 
       <div className="prose prose-invert prose-purple max-w-none">
-        <p className="text-xl text-zinc-300 mb-6">
+        <p className="text-xl text-zinc-700 dark:text-zinc-300 mb-6 transition-colors">
           React Jedi provides a powerful, declarative state management system that works seamlessly
           with JSON specifications. Manage complex application state with ease.
         </p>
 
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300">
+          <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 transition-colors">
             <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-purple-400">State Features</h3>
-              <ul className="space-y-2 text-zinc-300">
+              <h3 className="text-xl font-semibold mb-4 text-purple-400 transition-colors">
+                State Features
+              </h3>
+              <ul className="space-y-2 text-zinc-700 dark:text-zinc-300 transition-colors">
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-purple-400 mr-2 transition-colors">•</span>
                   <span>Local component state</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-purple-400 mr-2 transition-colors">•</span>
                   <span>Global application state</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-purple-400 mr-2 transition-colors">•</span>
                   <span>Computed/derived values</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-purple-400 mr-2 transition-colors">•</span>
                   <span>State persistence</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300">
+          <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 transition-colors">
             <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-purple-400">Update Patterns</h3>
-              <ul className="space-y-2 text-zinc-300">
+              <h3 className="text-xl font-semibold mb-4 text-purple-400 transition-colors">
+                Update Patterns
+              </h3>
+              <ul className="space-y-2 text-zinc-700 dark:text-zinc-300 transition-colors">
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-purple-400 mr-2 transition-colors">•</span>
                   <span>Event-driven updates</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-purple-400 mr-2 transition-colors">•</span>
                   <span>Batch operations</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-purple-400 mr-2 transition-colors">•</span>
                   <span>Conditional updates</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-purple-400 mr-2 transition-colors">•</span>
                   <span>Array manipulations</span>
                 </li>
               </ul>
@@ -64,15 +68,17 @@ export function StateManagementPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Basic State Definition</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
+          Basic State Definition
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           Define initial state directly in your JSON specification:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "Container",
   "state": {
@@ -104,15 +110,17 @@ export function StateManagementPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Computed Values</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
+          Computed Values
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           Define derived state that automatically updates when dependencies change:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "Container",
   "state": {
@@ -136,15 +144,17 @@ export function StateManagementPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Complex State Updates</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
+          Complex State Updates
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           Handle complex state operations with ease:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "Container",
   "state": {
@@ -173,15 +183,17 @@ export function StateManagementPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">State Persistence</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
+          State Persistence
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           Automatically persist state to browser storage:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "Container",
   "state": {
@@ -201,12 +213,18 @@ export function StateManagementPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">State Patterns</h3>
+        <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
+          State Patterns
+        </h3>
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden p-6">
-            <h4 className="text-lg font-semibold mb-3 text-purple-400">Form State</h4>
-            <p className="text-zinc-300 mb-4">Manage form inputs with validation:</p>
-            <div className="bg-black/50 border border-zinc-800 rounded-lg p-3 font-mono text-xs">
+          <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">
+            <h4 className="text-lg font-semibold mb-3 text-purple-400 transition-colors">
+              Form State
+            </h4>
+            <p className="text-zinc-700 dark:text-zinc-300 mb-4 transition-colors">
+              Manage form inputs with validation:
+            </p>
+            <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 font-mono text-xs transition-colors">
               <pre className="whitespace-pre-wrap">
                 {`{
   "state": {
@@ -224,10 +242,14 @@ export function StateManagementPage() {
             </div>
           </div>
 
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden p-6">
-            <h4 className="text-lg font-semibold mb-3 text-purple-400">List State</h4>
-            <p className="text-zinc-300 mb-4">Manage dynamic lists with CRUD operations:</p>
-            <div className="bg-black/50 border border-zinc-800 rounded-lg p-3 font-mono text-xs">
+          <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">
+            <h4 className="text-lg font-semibold mb-3 text-purple-400 transition-colors">
+              List State
+            </h4>
+            <p className="text-zinc-700 dark:text-zinc-300 mb-4 transition-colors">
+              Manage dynamic lists with CRUD operations:
+            </p>
+            <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 font-mono text-xs transition-colors">
               <pre className="whitespace-pre-wrap">
                 {`{
   "state": {
@@ -243,23 +265,25 @@ export function StateManagementPage() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-800/30 rounded-lg p-6">
-          <h4 className="text-lg font-semibold mb-3 text-purple-300">Best Practices</h4>
-          <ul className="space-y-2 text-zinc-300">
+        <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-800/30 rounded-lg p-6 transition-colors">
+          <h4 className="text-lg font-semibold mb-3 text-purple-300 transition-colors">
+            Best Practices
+          </h4>
+          <ul className="space-y-2 text-zinc-700 dark:text-zinc-300 transition-colors">
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">1.</span>
+              <span className="text-purple-400 mr-2 transition-colors">1.</span>
               <span>Keep state structure flat when possible for better performance</span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">2.</span>
+              <span className="text-purple-400 mr-2 transition-colors">2.</span>
               <span>Use computed values instead of storing derived data</span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">3.</span>
+              <span className="text-purple-400 mr-2 transition-colors">3.</span>
               <span>Batch related state updates in a single action</span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">4.</span>
+              <span className="text-purple-400 mr-2 transition-colors">4.</span>
               <span>Use state validation for data integrity</span>
             </li>
           </ul>

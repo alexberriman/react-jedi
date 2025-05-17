@@ -225,8 +225,10 @@ export function DialogDemo() {
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Component Overview */}
         <section className="space-y-4">
-          <h1 className="text-4xl font-bold text-emerald-400">Dialog Component</h1>
-          <p className="text-lg text-zinc-300">
+          <h1 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">
+            Dialog Component
+          </h1>
+          <p className="text-lg text-zinc-700 dark:text-zinc-300">
             A modal dialog that interrupts the user with important content and expects a response.
           </p>
         </section>
@@ -235,16 +237,20 @@ export function DialogDemo() {
         <section className="space-y-6">
           <div>
             <h2 className="text-2xl font-semibold mb-3 text-zinc-100">Basic Dialog</h2>
-            <p className="text-zinc-400">A simple dialog with title and description.</p>
+            <p className="text-zinc-600 dark:text-zinc-400">
+              A simple dialog with title and description.
+            </p>
           </div>
 
-          <div className="bg-zinc-900 rounded-lg border border-zinc-800 p-8">
+          <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-8">
             {render(basicDialogSpec)}
           </div>
 
-          <div className="bg-zinc-950 rounded-lg border border-zinc-800 p-4">
-            <h3 className="text-sm font-mono text-emerald-400 mb-2">JSON Specification:</h3>
-            <pre className="text-xs text-zinc-300 overflow-x-auto whitespace-pre">
+          <div className="bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+            <h3 className="text-sm font-mono text-emerald-600 dark:text-emerald-400 mb-2">
+              JSON Specification:
+            </h3>
+            <pre className="text-xs text-zinc-700 dark:text-zinc-300 overflow-x-auto whitespace-pre">
               {basicJsonExample}
             </pre>
           </div>
@@ -254,16 +260,20 @@ export function DialogDemo() {
         <section className="space-y-6">
           <div>
             <h2 className="text-2xl font-semibold mb-3 text-zinc-100">Dialog with Form</h2>
-            <p className="text-zinc-400">A dialog containing form elements and footer actions.</p>
+            <p className="text-zinc-600 dark:text-zinc-400">
+              A dialog containing form elements and footer actions.
+            </p>
           </div>
 
-          <div className="bg-zinc-900 rounded-lg border border-zinc-800 p-8">
+          <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-8">
             {render(formDialogSpec)}
           </div>
 
-          <div className="bg-zinc-950 rounded-lg border border-zinc-800 p-4">
-            <h3 className="text-sm font-mono text-emerald-400 mb-2">JSON Specification:</h3>
-            <pre className="text-xs text-zinc-300 overflow-x-auto whitespace-pre">
+          <div className="bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+            <h3 className="text-sm font-mono text-emerald-600 dark:text-emerald-400 mb-2">
+              JSON Specification:
+            </h3>
+            <pre className="text-xs text-zinc-700 dark:text-zinc-300 overflow-x-auto whitespace-pre">
               {formJsonExample}
             </pre>
           </div>
@@ -274,64 +284,72 @@ export function DialogDemo() {
           <h2 className="text-2xl font-semibold mb-4 text-zinc-100">Schema Properties</h2>
 
           <div className="space-y-4">
-            <div className="bg-zinc-900 rounded-lg border border-zinc-800 p-6">
-              <h3 className="text-lg font-semibold text-emerald-400 mb-3">Dialog Properties</h3>
+            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+              <h3 className="text-lg font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
+                Dialog Properties
+              </h3>
               <dl className="space-y-3">
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">type</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">Must be &quot;Dialog&quot;</dd>
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">type</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+                    Must be &quot;Dialog&quot;
+                  </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">open</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">open</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                     boolean - Whether the dialog is open
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">defaultOpen</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">
+                    defaultOpen
+                  </dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                     boolean - Whether the dialog is initially open (default: false)
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">modal</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">modal</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                     boolean - Whether to add backdrop and lock scrolling (default: true)
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">children</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">children</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                     [DialogTrigger, DialogContent] - Must contain trigger and content components
                   </dd>
                 </div>
               </dl>
             </div>
 
-            <div className="bg-zinc-900 rounded-lg border border-zinc-800 p-6">
-              <h3 className="text-lg font-semibold text-emerald-400 mb-3">
+            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+              <h3 className="text-lg font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
                 DialogContent Properties
               </h3>
               <dl className="space-y-3">
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">type</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">Must be &quot;DialogContent&quot;</dd>
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">type</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+                    Must be &quot;DialogContent&quot;
+                  </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">overlay</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">overlay</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                     boolean - Whether to show overlay (default: true)
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">showClose</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">showClose</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                     boolean - Whether to show close button (default: true)
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-sm text-zinc-300">className</dt>
-                  <dd className="text-sm text-zinc-400 mt-1">
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">className</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                     string - Additional CSS classes for styling
                   </dd>
                 </div>
@@ -344,18 +362,22 @@ export function DialogDemo() {
         <section className="space-y-6">
           <h2 className="text-2xl font-semibold mb-4 text-zinc-100">Key Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-zinc-900 rounded-lg border border-zinc-800 p-6">
-              <h3 className="text-lg font-semibold text-emerald-400 mb-3">Accessibility</h3>
-              <ul className="space-y-2 text-sm text-zinc-300">
+            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+              <h3 className="text-lg font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
+                Accessibility
+              </h3>
+              <ul className="space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
                 <li>✓ Full keyboard navigation support</li>
                 <li>✓ Focus management and trapping</li>
                 <li>✓ Screen reader announcements</li>
                 <li>✓ Escape key closes dialog</li>
               </ul>
             </div>
-            <div className="bg-zinc-900 rounded-lg border border-zinc-800 p-6">
-              <h3 className="text-lg font-semibold text-emerald-400 mb-3">Customization</h3>
-              <ul className="space-y-2 text-sm text-zinc-300">
+            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+              <h3 className="text-lg font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
+                Customization
+              </h3>
+              <ul className="space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
                 <li>✓ Modal or non-modal behavior</li>
                 <li>✓ Customizable content layout</li>
                 <li>✓ Optional close button</li>
@@ -366,10 +388,10 @@ export function DialogDemo() {
         </section>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between pt-8 border-t border-zinc-800">
+        <div className="flex items-center justify-between pt-8 border-t border-zinc-200 dark:border-zinc-800">
           <a
             href="/showcase"
-            className="flex items-center gap-2 text-zinc-400 hover:text-emerald-400 transition-colors"
+            className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:text-emerald-400 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -389,7 +411,7 @@ export function DialogDemo() {
 
           <a
             href="/documentation"
-            className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors"
+            className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:text-emerald-300 transition-colors"
           >
             View Documentation
             <svg

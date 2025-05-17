@@ -4,19 +4,19 @@ export function UIComponentsPage() {
   return (
     <section id="ui-components" className="mb-20">
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           UI Components
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50" />
+          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50 transition-colors" />
         </h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group">
+        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group transition-colors">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3 transition-colors">
                 <svg
-                  className="w-4 h-4 text-emerald-400"
+                  className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -30,15 +30,15 @@ export function UIComponentsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold">Button</h3>
+              <h3 className="text-xl font-semibold transition-colors">Button</h3>
             </div>
-            <p className="text-zinc-400 mb-4">
+            <p className="text-zinc-600 dark:text-zinc-400 mb-4 transition-colors">
               Versatile button component with multiple variants and sizes.
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                <pre className="whitespace-pre-wrap text-sm">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
+                <pre className="whitespace-pre-wrap text-sm transition-colors">
                   {`{
   "type": "button",
   "text": "Click Me",
@@ -54,12 +54,12 @@ export function UIComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group">
+        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group transition-colors">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3 transition-colors">
                 <svg
-                  className="w-4 h-4 text-emerald-400"
+                  className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -73,15 +73,15 @@ export function UIComponentsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold">Card</h3>
+              <h3 className="text-xl font-semibold transition-colors">Card</h3>
             </div>
-            <p className="text-zinc-400 mb-4">
+            <p className="text-zinc-600 dark:text-zinc-400 mb-4 transition-colors">
               Container for grouping related content with optional header and footer.
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                <pre className="whitespace-pre-wrap text-sm">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
+                <pre className="whitespace-pre-wrap text-sm transition-colors">
                   {`{
   "type": "card",
   "children": [
@@ -102,12 +102,12 @@ export function UIComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group">
+        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group transition-colors">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3 transition-colors">
                 <svg
-                  className="w-4 h-4 text-emerald-400"
+                  className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -121,15 +121,15 @@ export function UIComponentsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold">Badge</h3>
+              <h3 className="text-xl font-semibold transition-colors">Badge</h3>
             </div>
-            <p className="text-zinc-400 mb-4">
+            <p className="text-zinc-600 dark:text-zinc-400 mb-4 transition-colors">
               Small status indicators with various styling options.
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                <pre className="whitespace-pre-wrap text-sm">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
+                <pre className="whitespace-pre-wrap text-sm transition-colors">
                   {`{
   "type": "badge",
   "text": "New",
@@ -155,12 +155,12 @@ export function UIComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group">
+        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group transition-colors">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3 transition-colors">
                 <svg
-                  className="w-4 h-4 text-emerald-400"
+                  className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -174,15 +174,15 @@ export function UIComponentsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold">Avatar</h3>
+              <h3 className="text-xl font-semibold transition-colors">Avatar</h3>
             </div>
-            <p className="text-zinc-400 mb-4">
+            <p className="text-zinc-600 dark:text-zinc-400 mb-4 transition-colors">
               Display user profile images with fallback initials.
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                <pre className="whitespace-pre-wrap text-sm">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
+                <pre className="whitespace-pre-wrap text-sm transition-colors">
                   {`{
   "type": "avatar",
   "src": "https://example.com/avatar.jpg",
@@ -197,10 +197,10 @@ export function UIComponentsPage() {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="text-center transition-colors">
         <Link
           to="/showcase"
-          className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full text-white font-medium hover:from-emerald-600 hover:to-blue-600 transition-all shadow-lg hover:shadow-emerald-500/20 group"
+          className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full text-zinc-900 dark:text-white font-medium hover:from-emerald-600 hover:to-blue-600 transition-all shadow-lg hover:shadow-emerald-500/20 group transition-colors"
         >
           <span>View UI Components Showcase</span>
           <svg

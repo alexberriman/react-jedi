@@ -120,15 +120,15 @@ export function HeroPreview() {
   const currentExample = examples[selectedExample];
 
   return (
-    <div className="min-h-screen bg-zinc-900">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-zinc-900/80 backdrop-blur-xl border-b border-zinc-800">
+      <div className="sticky top-0 z-10 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">Hero Component Preview</h1>
             <a
               href="/showcase"
-              className="text-sm text-zinc-400 hover:text-zinc-300 transition-colors"
+              className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors"
             >
               ← Back to Showcase
             </a>
@@ -145,8 +145,8 @@ export function HeroPreview() {
               onClick={() => setSelectedExample(key)}
               className={`px-4 py-2 rounded-lg transition-all whitespace-nowrap ${
                 selectedExample === key
-                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
-                  : "bg-zinc-800/50 text-zinc-300 hover:bg-zinc-700/50"
+                  ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
+                  : "bg-zinc-100 dark:bg-zinc-800/50 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:bg-zinc-700/50"
               }`}
             >
               {example.name}
@@ -155,11 +155,13 @@ export function HeroPreview() {
         </div>
 
         {/* Code Preview */}
-        <div className="bg-zinc-800/50 rounded-lg border border-zinc-700 mb-8">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-700">
-            <span className="text-sm font-medium text-zinc-400">JSON Specification</span>
+        <div className="bg-zinc-100 dark:bg-zinc-800/50 rounded-lg border border-zinc-300 dark:border-zinc-700 mb-8">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-300 dark:border-zinc-700">
+            <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+              JSON Specification
+            </span>
             <button
-              className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+              className="text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:text-emerald-300 transition-colors"
               onClick={() =>
                 navigator.clipboard.writeText(JSON.stringify(currentExample.spec, null, 2))
               }
@@ -168,7 +170,7 @@ export function HeroPreview() {
             </button>
           </div>
           <div className="p-4 overflow-x-auto">
-            <pre className="text-sm text-zinc-300">
+            <pre className="text-sm text-zinc-700 dark:text-zinc-300">
               <code>{JSON.stringify(currentExample.spec, null, 2)}</code>
             </pre>
           </div>

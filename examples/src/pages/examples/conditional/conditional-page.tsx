@@ -21,7 +21,7 @@ export function ConditionalPage() {
         },
         {
           type: "Text",
-          className: "text-lg text-zinc-400 mb-8",
+          className: "text-lg text-zinc-600 dark:text-zinc-400 mb-8",
           children:
             "This example demonstrates conditional visibility and dynamic properties based on application state.",
         },
@@ -32,7 +32,8 @@ export function ConditionalPage() {
             // Control panel
             {
               type: "Box",
-              className: "p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg space-y-4",
+              className:
+                "p-6 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg space-y-4",
               children: [
                 {
                   type: "Heading",
@@ -89,7 +90,8 @@ export function ConditionalPage() {
             // Conditional visibility example
             {
               type: "Box",
-              className: "p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg",
+              className:
+                "p-6 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg",
               children: [
                 {
                   type: "Heading",
@@ -99,7 +101,7 @@ export function ConditionalPage() {
                 },
                 {
                   type: "Text",
-                  className: "text-zinc-400 mb-4",
+                  className: "text-zinc-600 dark:text-zinc-400 mb-4",
                   children: "Components can be shown or hidden based on state conditions.",
                 },
                 {
@@ -115,7 +117,8 @@ export function ConditionalPage() {
                 {
                   type: "Box",
                   when: "!state.showAdvanced",
-                  className: "p-4 bg-zinc-800/50 border border-zinc-700 rounded-lg",
+                  className:
+                    "p-4 bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-300 dark:border-zinc-700 rounded-lg",
                   children: {
                     type: "Text",
                     children: "Basic view is active. Click 'Show Advanced' to see more options.",
@@ -127,7 +130,8 @@ export function ConditionalPage() {
             // Role-based content
             {
               type: "Box",
-              className: "p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg",
+              className:
+                "p-6 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg",
               children: [
                 {
                   type: "Heading",
@@ -137,13 +141,14 @@ export function ConditionalPage() {
                 },
                 {
                   type: "Text",
-                  className: "text-zinc-400 mb-4",
+                  className: "text-zinc-600 dark:text-zinc-400 mb-4",
                   children: "Different content appears based on the user's role.",
                 },
                 {
                   type: "Box",
                   when: 'state.userRole === "guest"',
-                  className: "p-4 bg-zinc-800/50 border border-zinc-700 rounded-lg",
+                  className:
+                    "p-4 bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-300 dark:border-zinc-700 rounded-lg",
                   children: [
                     {
                       type: "Text",
@@ -224,7 +229,8 @@ export function ConditionalPage() {
             // Conditional properties
             {
               type: "Box",
-              className: "p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg",
+              className:
+                "p-6 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg",
               children: [
                 {
                   type: "Heading",
@@ -234,7 +240,7 @@ export function ConditionalPage() {
                 },
                 {
                   type: "Text",
-                  className: "text-zinc-400 mb-4",
+                  className: "text-zinc-600 dark:text-zinc-400 mb-4",
                   children: "Component properties can change dynamically based on state.",
                 },
                 {
@@ -289,7 +295,8 @@ export function ConditionalPage() {
             // Complex conditions
             {
               type: "Box",
-              className: "p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg",
+              className:
+                "p-6 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg",
               children: [
                 {
                   type: "Heading",
@@ -299,7 +306,7 @@ export function ConditionalPage() {
                 },
                 {
                   type: "Text",
-                  className: "text-zinc-400 mb-4",
+                  className: "text-zinc-600 dark:text-zinc-400 mb-4",
                   children: "Combine multiple conditions with logical operators.",
                 },
                 {
@@ -329,7 +336,8 @@ export function ConditionalPage() {
               type: "Box",
               conditionalProps: {
                 className: {
-                  'state.theme === "dark"': "p-6 bg-zinc-900 border border-zinc-700 rounded-lg",
+                  'state.theme === "dark"':
+                    "p-6 bg-zinc-50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-lg",
                   'state.theme === "light"': "p-6 bg-white border border-zinc-200 rounded-lg",
                 },
               },
@@ -340,7 +348,8 @@ export function ConditionalPage() {
                   className: "text-xl font-semibold mb-4",
                   conditionalProps: {
                     className: {
-                      'state.theme === "dark"': "text-xl font-semibold mb-4 text-white",
+                      'state.theme === "dark"':
+                        "text-xl font-semibold mb-4 text-zinc-900 dark:text-white",
                       'state.theme === "light"': "text-xl font-semibold mb-4 text-zinc-900",
                     },
                   },
@@ -350,7 +359,7 @@ export function ConditionalPage() {
                   type: "Text",
                   conditionalProps: {
                     className: {
-                      'state.theme === "dark"': "text-zinc-300",
+                      'state.theme === "dark"': "text-zinc-700 dark:text-zinc-300",
                       'state.theme === "light"': "text-zinc-600",
                     },
                   },

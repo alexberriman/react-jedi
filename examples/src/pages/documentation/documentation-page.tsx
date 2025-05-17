@@ -92,7 +92,9 @@ export function DocumentationPage() {
               </h2>
             </div>
             <div className="prose prose-invert prose-emerald max-w-none">
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Installation</h3>
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Installation
+              </h3>
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                 <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono mb-6 overflow-x-auto">
@@ -100,8 +102,10 @@ export function DocumentationPage() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Basic Usage</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Basic Usage
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 React Jedi uses JSON specifications to define UI components and their properties.
                 The library&apos;s core function is{" "}
                 <code className="bg-zinc-800/70 px-1.5 py-0.5 rounded text-sm">render()</code>,
@@ -138,8 +142,10 @@ function MyComponent() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">TypeScript Support</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                TypeScript Support
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 React Jedi includes comprehensive TypeScript definitions for all component
                 specifications, ensuring type safety when building your UIs.
               </p>
@@ -176,8 +182,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Project Structure</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Project Structure
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 React Jedi is designed to be integrated with any React project. Here&apos;s a
                 recommended project structure for using React Jedi:
               </p>
@@ -211,17 +219,17 @@ function MyApp() {
               </h2>
             </div>
             <div className="prose prose-invert prose-emerald max-w-none">
-              <p className="text-zinc-300 leading-relaxed mb-6">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6">
                 React Jedi&apos;s component system is built around a simple, consistent pattern.
                 Each component in a JSON specification has a{" "}
                 <code className="bg-zinc-800/70 px-1.5 py-0.5 rounded text-sm">type</code> property
                 that identifies the component, and additional properties specific to that component.
               </p>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
                 Specification Structure
               </h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Every component specification follows this general structure:
               </p>
 
@@ -253,8 +261,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Component Properties</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Component Properties
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 React Jedi components support several common properties in addition to their
                 specific properties:
               </p>
@@ -281,8 +291,10 @@ function MyApp() {
                 </li>
               </ul>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Complete Example</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Complete Example
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Here&apos;s a more comprehensive example using multiple components together:
               </p>
 
@@ -383,7 +395,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -399,7 +411,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Container</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     A centered, responsive container with configurable max-width and padding.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -426,7 +438,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -442,7 +454,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Box</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     A flexible, all-purpose container for building layouts.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -482,7 +494,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -498,7 +510,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Grid</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     A powerful grid layout system with responsive columns and gaps.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -529,7 +541,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -545,7 +557,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Flex</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     A flexbox layout component for arranging items in a row or column.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -571,7 +583,9 @@ function MyApp() {
             </div>
 
             <div className="bg-gradient-to-br from-emerald-900/30 to-blue-900/30 border border-emerald-800/30 rounded-xl p-6 mb-8">
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Layout Tips</h3>
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Layout Tips
+              </h3>
               <ul className="space-y-2 list-none pl-0">
                 <li className="pl-6 relative">
                   <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -635,7 +649,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -651,7 +665,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Heading</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Headings from h1 to h6 with customizable styling options.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -678,7 +692,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -694,7 +708,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Text</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Paragraphs and text spans with rich styling options.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -725,7 +739,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -741,7 +755,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">BlockQuote</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Stylized blockquotes for testimonials and citations.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -763,7 +777,9 @@ function MyApp() {
             </div>
 
             <div className="bg-gradient-to-br from-emerald-900/30 to-blue-900/30 border border-emerald-800/30 rounded-xl p-6 mb-8">
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Typography Features</h3>
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Typography Features
+              </h3>
               <ul className="space-y-2 list-none pl-0">
                 <li className="pl-6 relative">
                   <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -827,7 +843,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -843,7 +859,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Button</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Versatile button component with multiple variants and sizes.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -870,7 +886,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -886,7 +902,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Card</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Container for grouping related content with optional header and footer.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -918,7 +934,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -934,7 +950,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Badge</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Small status indicators with various styling options.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -971,7 +987,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -987,7 +1003,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Avatar</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Display user profile images with fallback initials.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -1047,7 +1063,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1063,7 +1079,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Input</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Text input field with support for various input types.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -1089,7 +1105,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1105,7 +1121,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Label</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Form label component with accessibility features.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -1126,7 +1142,7 @@ function MyApp() {
             </div>
 
             <div className="bg-gradient-to-br from-emerald-900/30 to-blue-900/30 border border-emerald-800/30 rounded-xl p-6 mb-8">
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
                 Form Component Features
               </h3>
               <ul className="space-y-2 list-none pl-0">
@@ -1243,7 +1259,7 @@ function MyApp() {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Basic State Definition</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Define initial state directly in your JSON specification:
               </p>
 
@@ -1283,7 +1299,7 @@ function MyApp() {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Computed Values</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Define derived state that automatically updates when dependencies change:
               </p>
 
@@ -1315,7 +1331,7 @@ function MyApp() {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Complex State Updates</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Handle complex state operations with ease:
               </p>
 
@@ -1352,7 +1368,7 @@ function MyApp() {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">State Persistence</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Automatically persist state to browser storage:
               </p>
 
@@ -1383,7 +1399,9 @@ function MyApp() {
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden p-6">
                   <h4 className="text-lg font-semibold mb-3 text-purple-400">Form State</h4>
-                  <p className="text-zinc-300 mb-4">Manage form inputs with validation:</p>
+                  <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+                    Manage form inputs with validation:
+                  </p>
                   <div className="bg-black/50 border border-zinc-800 rounded-lg p-3 font-mono text-xs">
                     <pre className="whitespace-pre-wrap">
                       {`{
@@ -1404,7 +1422,9 @@ function MyApp() {
 
                 <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden p-6">
                   <h4 className="text-lg font-semibold mb-3 text-purple-400">List State</h4>
-                  <p className="text-zinc-300 mb-4">Manage dynamic lists with CRUD operations:</p>
+                  <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+                    Manage dynamic lists with CRUD operations:
+                  </p>
                   <div className="bg-black/50 border border-zinc-800 rounded-lg p-3 font-mono text-xs">
                     <pre className="whitespace-pre-wrap">
                       {`{
@@ -1455,13 +1475,15 @@ function MyApp() {
             </div>
 
             <div className="prose prose-invert prose-emerald max-w-none">
-              <p className="text-zinc-300 leading-relaxed mb-6">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6">
                 Here are some complex examples that combine multiple components to create real-world
                 UI patterns.
               </p>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Hero Section</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Hero Section
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A complete hero section with gradient heading, description, and call-to-action
                 buttons:
               </p>
@@ -1529,8 +1551,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Testimonial Component</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Testimonial Component
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A testimonial component with multiple variants and rating:
               </p>
 
@@ -1556,8 +1580,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Multiple Testimonials</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Multiple Testimonials
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Create a grid of testimonials with different variants:
               </p>
 
@@ -1610,8 +1636,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Pricing Table</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Pricing Table
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A beautiful pricing table with tier comparison:
               </p>
 
@@ -1673,8 +1701,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Dashboard Card</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Dashboard Card
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A dashboard card with metrics and status indicators:
               </p>
 
@@ -1745,7 +1775,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1761,7 +1791,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">Image</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Responsive image component with advanced styling, lazy loading, and fallback
                     support.
                   </p>
@@ -1794,7 +1824,7 @@ function MyApp() {
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                       <svg
-                        className="w-4 h-4 text-emerald-400"
+                        className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1816,7 +1846,7 @@ function MyApp() {
                     </div>
                     <h3 className="text-xl font-semibold">AspectRatio</h3>
                   </div>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Maintain consistent aspect ratios for images and media content.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -1844,7 +1874,9 @@ function MyApp() {
             </div>
 
             <div className="bg-gradient-to-br from-emerald-900/30 to-blue-900/30 border border-emerald-800/30 rounded-xl p-6 mb-8">
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Image Features</h3>
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Image Features
+              </h3>
               <ul className="space-y-2 list-none pl-0">
                 <li className="pl-6 relative">
                   <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -1903,13 +1935,15 @@ function MyApp() {
             </div>
 
             <div className="prose prose-invert prose-emerald max-w-none">
-              <p className="text-zinc-300 leading-relaxed mb-6">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6">
                 Here are some practical examples showing how to build common UI patterns with React
                 Jedi.
               </p>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Simple Form Layout</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Simple Form Layout
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A form layout with labels and input fields:
               </p>
 
@@ -1995,8 +2029,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Product Card Grid</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Product Card Grid
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A responsive grid of product cards with images and details:
               </p>
 
@@ -2074,10 +2110,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
                 Profile Card with Avatar
               </h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A user profile card with avatar, info, and action buttons:
               </p>
 
@@ -2186,8 +2222,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Stats Dashboard</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Stats Dashboard
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A dashboard layout with stats cards:
               </p>
 
@@ -2377,8 +2415,10 @@ function MyApp() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">Feature Section</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                Feature Section
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A features section with icons and descriptions:
               </p>
 
@@ -2529,10 +2569,10 @@ function MyApp() {
                   </pre>
                 </div>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
                 Interactive Popover Example
               </h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A modern popover component for contextual content and interactions:
               </p>
 
@@ -2734,8 +2774,10 @@ function MyApp() {
             </div>
 
             <div className="prose prose-invert prose-emerald max-w-none">
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">render() Function</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                render() Function
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 The main function for rendering JSON specifications into React components:
               </p>
 
@@ -2758,10 +2800,10 @@ const component = render(spec, {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 text-emerald-400">
+              <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
                 Component Specification Options
               </h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 All components support these common properties:
               </p>
 
@@ -2805,7 +2847,7 @@ const component = render(spec, {
                     <h3 className="text-xl font-semibold mb-4 text-purple-400">
                       Theme Architecture
                     </h3>
-                    <p className="text-zinc-400 mb-4">
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                       Our theming system is built on design tokens, CSS variables, and a cascading
                       hierarchy that ensures consistency across your application.
                     </p>
@@ -2833,7 +2875,7 @@ const component = render(spec, {
                 <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
                   <div className="p-6">
                     <h3 className="text-xl font-semibold mb-4 text-purple-400">Key Features</h3>
-                    <p className="text-zinc-400 mb-4">
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                       The theming system provides powerful features for creating consistent,
                       beautiful interfaces.
                     </p>
@@ -2860,7 +2902,7 @@ const component = render(spec, {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Theme Provider</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Wrap your application with the ThemeProvider to enable theming:
               </p>
 
@@ -2882,7 +2924,7 @@ function App() {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Theme Structure</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Themes are structured JSON objects with comprehensive design tokens:
               </p>
 
@@ -2973,7 +3015,7 @@ function App() {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Color System</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 The color system supports comprehensive palettes with automatic shade generation:
               </p>
 
@@ -2981,7 +3023,7 @@ function App() {
                 <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
                   <div className="p-6">
                     <h4 className="text-lg font-semibold mb-3 text-purple-400">Primary Colors</h4>
-                    <p className="text-zinc-400 mb-4">
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                       Define your brand&apos;s primary color palette with automatic shade
                       generation.
                     </p>
@@ -3006,7 +3048,7 @@ function App() {
                 <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
                   <div className="p-6">
                     <h4 className="text-lg font-semibold mb-3 text-purple-400">Semantic Colors</h4>
-                    <p className="text-zinc-400 mb-4">
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                       Use semantic colors for consistent messaging across your app.
                     </p>
                     <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -3030,7 +3072,7 @@ error: {
                 <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
                   <div className="p-6">
                     <h4 className="text-lg font-semibold mb-3 text-purple-400">Color Modes</h4>
-                    <p className="text-zinc-400 mb-4">
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                       Support for light and dark modes with automatic system detection.
                     </p>
                     <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -3055,14 +3097,14 @@ error: {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Typography System</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Create beautiful, readable text with our comprehensive typography system:
               </p>
 
               <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group mb-8">
                 <div className="p-6">
                   <h4 className="text-lg font-semibold mb-3 text-purple-400">Fluid Typography</h4>
-                  <p className="text-zinc-400 mb-4">
+                  <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                     Typography scales smoothly between breakpoints for optimal readability.
                   </p>
                   <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -3092,7 +3134,7 @@ error: {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Spacing System</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 A harmonious spacing system ensures consistent layouts:
               </p>
 
@@ -3100,7 +3142,7 @@ error: {
                 <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
                   <div className="p-6">
                     <h4 className="text-lg font-semibold mb-3 text-purple-400">Spacing Scale</h4>
-                    <p className="text-zinc-400 mb-4">
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                       Use consistent spacing values throughout your application.
                     </p>
                     <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -3129,7 +3171,7 @@ error: {
                     <h4 className="text-lg font-semibold mb-3 text-purple-400">
                       Responsive Spacing
                     </h4>
-                    <p className="text-zinc-400 mb-4">
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                       Spacing adapts to different screen sizes automatically.
                     </p>
                     <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
@@ -3154,7 +3196,7 @@ error: {
               <h3 className="text-xl font-semibold mb-3 text-purple-400">
                 Component Style Overrides
               </h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Override component styles at the theme level for global consistency:
               </p>
 
@@ -3201,7 +3243,7 @@ error: {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Using the Theme Hook</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Access theme values in your components with the useTheme hook:
               </p>
 
@@ -3239,7 +3281,7 @@ function MyComponent() {
               </div>
 
               <h3 className="text-xl font-semibold mb-3 text-purple-400">Brand Presets</h3>
-              <p className="text-zinc-300 leading-relaxed mb-4">
+              <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
                 Quickly apply beautiful themes with our pre-built brand presets:
               </p>
 
@@ -3248,7 +3290,7 @@ function MyComponent() {
                   <div className="p-6">
                     <h4 className="text-lg font-semibold mb-3 text-purple-400">Modern Tech</h4>
                     <div className="h-32 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 mb-4"></div>
-                    <p className="text-zinc-400">
+                    <p className="text-zinc-600 dark:text-zinc-400">
                       A sleek, modern theme perfect for tech startups and SaaS products.
                     </p>
                   </div>
@@ -3258,7 +3300,7 @@ function MyComponent() {
                   <div className="p-6">
                     <h4 className="text-lg font-semibold mb-3 text-purple-400">Elegant Business</h4>
                     <div className="h-32 rounded-lg bg-gradient-to-br from-slate-600 to-zinc-600 mb-4"></div>
-                    <p className="text-zinc-400">
+                    <p className="text-zinc-600 dark:text-zinc-400">
                       Professional and sophisticated for corporate websites.
                     </p>
                   </div>
@@ -3268,7 +3310,7 @@ function MyComponent() {
                   <div className="p-6">
                     <h4 className="text-lg font-semibold mb-3 text-purple-400">Creative Agency</h4>
                     <div className="h-32 rounded-lg bg-gradient-to-br from-pink-600 to-orange-600 mb-4"></div>
-                    <p className="text-zinc-400">
+                    <p className="text-zinc-600 dark:text-zinc-400">
                       Bold and vibrant for creative agencies and portfolios.
                     </p>
                   </div>
@@ -3363,7 +3405,7 @@ const customTheme = {
                 <h3 className="text-xl font-semibold mb-4 text-blue-400">
                   JSON vs Code Performance Comparison
                 </h3>
-                <p className="text-zinc-300 mb-4">
+                <p className="text-zinc-700 dark:text-zinc-300 mb-4">
                   Our benchmarks show that React Jedi&apos;s JSON-based approach adds minimal
                   overhead while providing significant benefits:
                 </p>
@@ -3418,7 +3460,7 @@ const customTheme = {
 
                 <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 border border-blue-800/30 rounded-lg p-4">
                   <h5 className="font-semibold mb-2 text-blue-300">Benchmark Results</h5>
-                  <p className="text-zinc-300">
+                  <p className="text-zinc-700 dark:text-zinc-300">
                     In typical use cases, React Jedi adds{" "}
                     <strong>15-30% render time overhead</strong> compared to traditional React
                     components, which is negligible for most applications and outweighed by the
@@ -3442,7 +3484,7 @@ const customTheme = {
                   <h4 className="text-lg font-semibold mb-3 text-blue-400">
                     1. Optimize JSON Specifications
                   </h4>
-                  <p className="text-zinc-300 mb-3">
+                  <p className="text-zinc-700 dark:text-zinc-300 mb-3">
                     Keep your JSON specifications lean and focused:
                   </p>
                   <div className="bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
@@ -3475,7 +3517,7 @@ const customTheme = {
                   <h4 className="text-lg font-semibold mb-3 text-blue-400">
                     2. Component Memoization
                   </h4>
-                  <p className="text-zinc-300 mb-3">
+                  <p className="text-zinc-700 dark:text-zinc-300 mb-3">
                     React Jedi automatically memoizes component rendering for optimal performance:
                   </p>
                   <ul className="space-y-2 text-zinc-300">
@@ -3496,7 +3538,9 @@ const customTheme = {
 
                 <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden p-6">
                   <h4 className="text-lg font-semibold mb-3 text-blue-400">3. Lazy Loading</h4>
-                  <p className="text-zinc-300 mb-3">Load complex components only when needed:</p>
+                  <p className="text-zinc-700 dark:text-zinc-300 mb-3">
+                    Load complex components only when needed:
+                  </p>
                   <div className="bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
                     <pre className="whitespace-pre-wrap text-sm leading-relaxed">
                       {`{
@@ -3519,18 +3563,22 @@ const customTheme = {
                   <h4 className="text-lg font-semibold mb-3 text-blue-400">
                     4. Bundle Size Optimization
                   </h4>
-                  <p className="text-zinc-300 mb-3">
+                  <p className="text-zinc-700 dark:text-zinc-300 mb-3">
                     React Jedi significantly reduces bundle sizes:
                   </p>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-black/50 border border-zinc-800 rounded-lg p-4">
                       <h5 className="font-semibold mb-2 text-green-400">Traditional React App</h5>
-                      <p className="text-zinc-400 text-sm">Bundle includes all component code</p>
+                      <p className="text-zinc-600 dark:text-zinc-400 text-sm">
+                        Bundle includes all component code
+                      </p>
                       <p className="text-xl font-bold text-green-400 mt-2">~250KB</p>
                     </div>
                     <div className="bg-black/50 border border-zinc-800 rounded-lg p-4">
                       <h5 className="font-semibold mb-2 text-purple-400">React Jedi App</h5>
-                      <p className="text-zinc-400 text-sm">Bundle includes only core renderer</p>
+                      <p className="text-zinc-600 dark:text-zinc-400 text-sm">
+                        Bundle includes only core renderer
+                      </p>
                       <p className="text-xl font-bold text-purple-400 mt-2">~80KB</p>
                     </div>
                   </div>
@@ -3542,32 +3590,32 @@ const customTheme = {
               </h3>
 
               <div className="bg-gradient-to-r from-emerald-900/20 to-blue-900/20 border border-emerald-800/30 rounded-lg p-6">
-                <p className="text-zinc-300 mb-4">
+                <p className="text-zinc-700 dark:text-zinc-300 mb-4">
                   React Jedi is ideal for applications that prioritize:
                 </p>
                 <ul className="space-y-2 text-zinc-300">
                   <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2">✓</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 mr-2">✓</span>
                     <span>
                       <strong>Dynamic content</strong> - Marketing sites, landing pages, and
                       content-driven apps
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2">✓</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 mr-2">✓</span>
                     <span>
                       <strong>Rapid iteration</strong> - Prototypes and MVPs that need quick updates
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2">✓</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 mr-2">✓</span>
                     <span>
                       <strong>Multi-tenant apps</strong> - SaaS platforms with customizable
                       interfaces
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2">✓</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 mr-2">✓</span>
                     <span>
                       <strong>A/B testing</strong> - Easy experimentation with different layouts
                     </span>
@@ -3576,7 +3624,7 @@ const customTheme = {
               </div>
 
               <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden p-6 mt-6">
-                <p className="text-zinc-300">
+                <p className="text-zinc-700 dark:text-zinc-300">
                   <strong className="text-blue-400">Bottom Line:</strong> The small performance
                   trade-off of React Jedi is more than compensated by its flexibility, smaller
                   bundle sizes, and development speed benefits. For most web applications, the ~20ms
@@ -3601,13 +3649,15 @@ const customTheme = {
                 </h2>
                 <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 mb-8">
                   <div className="bg-zinc-900/70 rounded-xl p-6 backdrop-blur-lg border border-zinc-800">
-                    <h3 className="text-xl font-semibold mb-3 text-emerald-400">API Reference</h3>
-                    <p className="text-zinc-300 mb-4">
+                    <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                      API Reference
+                    </h3>
+                    <p className="text-zinc-700 dark:text-zinc-300 mb-4">
                       Comprehensive documentation for all components, hooks, and utilities.
                     </p>
                     <Link
                       to="/showcase"
-                      className="text-emerald-400 hover:text-emerald-300 flex items-center gap-2"
+                      className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-300 flex items-center gap-2"
                     >
                       Browse Components <span>→</span>
                     </Link>
@@ -3616,7 +3666,7 @@ const customTheme = {
                     <h3 className="text-xl font-semibold mb-3 text-blue-400">
                       Schema Specifications
                     </h3>
-                    <p className="text-zinc-300 mb-4">
+                    <p className="text-zinc-700 dark:text-zinc-300 mb-4">
                       Learn about our JSON schema format and validation rules.
                     </p>
                     <Link
@@ -3628,7 +3678,7 @@ const customTheme = {
                   </div>
                   <div className="bg-zinc-900/70 rounded-xl p-6 backdrop-blur-lg border border-zinc-800">
                     <h3 className="text-xl font-semibold mb-3 text-purple-400">Best Practices</h3>
-                    <p className="text-zinc-300 mb-4">
+                    <p className="text-zinc-700 dark:text-zinc-300 mb-4">
                       Performance tips, design patterns, and optimization techniques.
                     </p>
                     <Link

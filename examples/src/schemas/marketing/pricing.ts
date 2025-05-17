@@ -73,7 +73,7 @@ export const marketingPricingSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl md:text-2xl text-zinc-300 mb-8",
+                    className: "text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 mb-8",
                     children:
                       "Choose the perfect plan for your business. Flexible pricing designed to grow with your needs.",
                   },
@@ -106,7 +106,7 @@ export const marketingPricingSchema = {
                   type: "Box",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm rounded-full p-1 border border-zinc-800",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm rounded-full p-1 border border-zinc-200 dark:border-zinc-800",
                   },
                   children: [
                     {
@@ -120,7 +120,7 @@ export const marketingPricingSchema = {
                           props: {
                             variant: "ghost",
                             className:
-                              "rounded-full px-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-white",
+                              "rounded-full px-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-zinc-900 dark:text-white",
                             children: "Monthly",
                           },
                         },
@@ -152,7 +152,7 @@ export const marketingPricingSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 relative overflow-hidden hover:border-purple-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 relative overflow-hidden hover:border-purple-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -172,7 +172,7 @@ export const marketingPricingSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 mb-6",
+                            className: "text-zinc-600 dark:text-zinc-400 mb-6",
                             children: "Perfect for small businesses just getting started",
                           },
                         },
@@ -192,7 +192,7 @@ export const marketingPricingSchema = {
                             {
                               type: "Text",
                               props: {
-                                className: "text-zinc-400",
+                                className: "text-zinc-600 dark:text-zinc-400",
                                 children: "per month",
                               },
                             },
@@ -229,7 +229,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "5 Project limit",
                                   },
                                 },
@@ -252,7 +252,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Basic analytics",
                                   },
                                 },
@@ -275,7 +275,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Email support",
                                   },
                                 },
@@ -298,7 +298,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Mobile app access",
                                   },
                                 },
@@ -316,7 +316,7 @@ export const marketingPricingSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-purple-500/50 relative overflow-hidden transition-all duration-300 scale-105",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-purple-500/50 relative overflow-hidden transition-all duration-300 scale-105",
                   },
                   children: [
                     // Popular badge
@@ -324,7 +324,7 @@ export const marketingPricingSchema = {
                       type: "Box",
                       props: {
                         className:
-                          "absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-1 rounded-bl-lg",
+                          "absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-pink-600 text-zinc-900 dark:text-white px-4 py-1 rounded-bl-lg",
                       },
                       children: [
                         {
@@ -353,7 +353,7 @@ export const marketingPricingSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 mb-6",
+                            className: "text-zinc-600 dark:text-zinc-400 mb-6",
                             children: "Ideal for growing businesses with advanced needs",
                           },
                         },
@@ -374,7 +374,7 @@ export const marketingPricingSchema = {
                             {
                               type: "Text",
                               props: {
-                                className: "text-zinc-400",
+                                className: "text-zinc-600 dark:text-zinc-400",
                                 children: "per month",
                               },
                             },
@@ -412,7 +412,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Unlimited projects",
                                   },
                                 },
@@ -435,7 +435,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Advanced analytics",
                                   },
                                 },
@@ -458,7 +458,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Priority support",
                                   },
                                 },
@@ -481,7 +481,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Team collaboration",
                                   },
                                 },
@@ -504,7 +504,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300 font-medium",
+                                    className: "text-zinc-700 dark:text-zinc-300 font-medium",
                                     children: "All Starter features",
                                   },
                                 },
@@ -522,7 +522,7 @@ export const marketingPricingSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 relative overflow-hidden hover:border-indigo-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 relative overflow-hidden hover:border-indigo-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -542,7 +542,7 @@ export const marketingPricingSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 mb-6",
+                            className: "text-zinc-600 dark:text-zinc-400 mb-6",
                             children: "Custom solutions for large organizations",
                           },
                         },
@@ -562,7 +562,7 @@ export const marketingPricingSchema = {
                             {
                               type: "Text",
                               props: {
-                                className: "text-zinc-400",
+                                className: "text-zinc-600 dark:text-zinc-400",
                                 children: "Contact for pricing",
                               },
                             },
@@ -599,7 +599,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Custom integrations",
                                   },
                                 },
@@ -622,7 +622,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Dedicated account manager",
                                   },
                                 },
@@ -645,7 +645,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "24/7 phone support",
                                   },
                                 },
@@ -668,7 +668,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "SLA guarantees",
                                   },
                                 },
@@ -691,7 +691,7 @@ export const marketingPricingSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300 font-medium",
+                                    className: "text-zinc-700 dark:text-zinc-300 font-medium",
                                     children: "All Professional features",
                                   },
                                 },
@@ -742,28 +742,32 @@ export const marketingPricingSchema = {
                                 {
                                   type: "th",
                                   props: {
-                                    className: "text-left p-4 border-b border-zinc-800",
+                                    className:
+                                      "text-left p-4 border-b border-zinc-200 dark:border-zinc-800",
                                     children: "Features",
                                   },
                                 },
                                 {
                                   type: "th",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
                                     children: "Starter",
                                   },
                                 },
                                 {
                                   type: "th",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
                                     children: "Professional",
                                   },
                                 },
                                 {
                                   type: "th",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
                                     children: "Enterprise",
                                   },
                                 },
@@ -780,28 +784,32 @@ export const marketingPricingSchema = {
                                 {
                                   type: "td",
                                   props: {
-                                    className: "p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "Projects",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "5",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "Unlimited",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "Unlimited",
                                   },
                                 },
@@ -813,28 +821,32 @@ export const marketingPricingSchema = {
                                 {
                                   type: "td",
                                   props: {
-                                    className: "p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "Team Members",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "1",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "10",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "Unlimited",
                                   },
                                 },
@@ -846,28 +858,32 @@ export const marketingPricingSchema = {
                                 {
                                   type: "td",
                                   props: {
-                                    className: "p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "Storage",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "10GB",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "100GB",
                                   },
                                 },
                                 {
                                   type: "td",
                                   props: {
-                                    className: "text-center p-4 border-b border-zinc-800/50",
+                                    className:
+                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
                                     children: "Custom",
                                   },
                                 },
@@ -890,7 +906,7 @@ export const marketingPricingSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-black",
+        className: "py-24 bg-white dark:bg-black",
       },
       children: [
         {
@@ -1085,7 +1101,8 @@ export const marketingPricingSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-xl text-zinc-300 mb-8 max-w-2xl mx-auto",
+                        className:
+                          "text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto",
                         children:
                           "Join thousands of businesses that trust Nexus Digital. Start your free trial today.",
                       },

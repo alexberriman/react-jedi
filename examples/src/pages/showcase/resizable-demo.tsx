@@ -225,7 +225,7 @@ const resizableDemo: ComponentSpec = {
                     collapsible: true,
                     children: {
                       type: "Container",
-                      className: "h-full bg-gray-800 text-white p-4",
+                      className: "h-full bg-gray-800 text-zinc-900 dark:text-white p-4",
                       children: [
                         {
                           type: "Heading",
@@ -263,7 +263,7 @@ const resizableDemo: ComponentSpec = {
                           defaultSize: 70,
                           children: {
                             type: "Container",
-                            className: "h-full bg-gray-900 text-white p-4",
+                            className: "h-full bg-gray-900 text-zinc-900 dark:text-white p-4",
                             children: [
                               {
                                 type: "Heading",
@@ -296,7 +296,7 @@ const resizableDemo: ComponentSpec = {
                           collapsible: true,
                           children: {
                             type: "Container",
-                            className: "h-full bg-gray-800 text-white p-4",
+                            className: "h-full bg-gray-800 text-zinc-900 dark:text-white p-4",
                             children: [
                               {
                                 type: "Heading",

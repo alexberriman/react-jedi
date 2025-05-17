@@ -85,20 +85,20 @@ export function DataTable<T extends Record<string, unknown>>({
           placeholder={filterPlaceholder}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="max-w-sm bg-white/10 border-white/20 text-white placeholder-gray-400"
+          className="max-w-sm bg-white/10 border-white/20 text-zinc-900 dark:text-white placeholder-gray-400 transition-colors"
         />
       )}
 
-      <div className="rounded-lg border border-white/10 overflow-hidden">
+      <div className="rounded-lg border border-white/10 overflow-hidden transition-colors">
         <Table>
           <TableHeader>
-            <TableRow className="border-white/10 hover:bg-white/5">
+            <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
               {columns.map((column) => (
                 <TableHead
                   key={column.id}
                   className={cn(
                     "text-gray-300",
-                    column.enableSorting && "cursor-pointer hover:text-white"
+                    column.enableSorting && "cursor-pointer hover:text-zinc-900 dark:text-white"
                   )}
                   onClick={() => handleSort(column.id)}
                 >
@@ -110,7 +110,7 @@ export function DataTable<T extends Record<string, unknown>>({
                           className={cn(
                             "h-3 w-3",
                             sorting?.column === column.id && sorting.direction === "asc"
-                              ? "text-white"
+                              ? "text-zinc-900 dark:text-white"
                               : "text-gray-600"
                           )}
                         />
@@ -118,7 +118,7 @@ export function DataTable<T extends Record<string, unknown>>({
                           className={cn(
                             "h-3 w-3 -mt-1",
                             sorting?.column === column.id && sorting.direction === "desc"
-                              ? "text-white"
+                              ? "text-zinc-900 dark:text-white"
                               : "text-gray-600"
                           )}
                         />
@@ -131,9 +131,12 @@ export function DataTable<T extends Record<string, unknown>>({
           </TableHeader>
           <TableBody>
             {sortedAndFilteredData.map((row, index) => (
-              <TableRow key={index} className="border-white/10 hover:bg-white/5">
+              <TableRow key={index} className="border-white/10 hover:bg-white/5 transition-colors">
                 {columns.map((column) => (
-                  <TableCell key={column.id} className="text-white">
+                  <TableCell
+                    key={column.id}
+                    className="text-zinc-900 dark:text-white transition-colors"
+                  >
                     {column.cell
                       ? column.cell({ row: { original: row } })
                       : row[column.accessorKey || column.id]}

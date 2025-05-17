@@ -4,32 +4,32 @@ export function HomePage() {
   return (
     <div className="flex flex-col gap-16 pb-20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-black to-transparent pt-20 pb-32">
+      <section className="bg-gradient-to-b from-white to-transparent dark:from-black dark:to-transparent pt-20 pb-32 transition-colors duration-300">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-500">
               Server-Driven UI for React
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-zinc-300 mb-10">
+            <p className="text-lg sm:text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 mb-10 transition-colors">
               Build beautiful, dynamic interfaces with JSON specifications. Leverage the power of
               React, TailwindCSS, and ShadCN components.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 to="/showcase"
-                className="px-6 sm:px-8 py-3 bg-emerald-500 hover:bg-emerald-600 rounded-md font-medium text-white transition-colors text-center"
+                className="px-6 sm:px-8 py-3 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 rounded-md font-medium text-white transition-all shadow-lg hover:shadow-xl text-center"
               >
                 View Components
               </Link>
               <Link
                 to="/examples"
-                className="px-6 sm:px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-md font-medium text-white transition-colors text-center"
+                className="px-6 sm:px-8 py-3 bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-800 rounded-md font-medium text-white transition-all shadow-lg hover:shadow-xl text-center"
               >
                 Browse Examples
               </Link>
               <Link
                 to="/documentation"
-                className="px-6 sm:px-8 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-md font-medium text-white transition-colors text-center"
+                className="px-6 sm:px-8 py-3 bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md font-medium text-zinc-900 dark:text-white transition-all shadow-lg hover:shadow-xl text-center"
               >
                 Read Docs
               </Link>
@@ -40,7 +40,9 @@ export function HomePage() {
 
       {/* Features Section */}
       <section className="container mx-auto px-4">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center">Core Features</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center text-zinc-900 dark:text-white transition-colors">
+          Core Features
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {[
             {
@@ -56,7 +58,7 @@ export function HomePage() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="w-6 h-6 text-emerald-400"
+                  className="w-6 h-6 text-emerald-600 dark:text-emerald-400 transition-colors"
                 >
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
@@ -78,7 +80,7 @@ export function HomePage() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="w-6 h-6 text-emerald-400"
+                  className="w-6 h-6 text-emerald-600 dark:text-emerald-400 transition-colors"
                 >
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -98,7 +100,7 @@ export function HomePage() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="w-6 h-6 text-emerald-400"
+                  className="w-6 h-6 text-emerald-600 dark:text-emerald-400 transition-colors"
                 >
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                   <path d="M12 8v8" />

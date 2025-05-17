@@ -139,7 +139,7 @@ export const CenterShowcase = () => {
                     type: "Button",
                     size: "lg",
                     className:
-                      "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg transition-shadow",
+                      "bg-gradient-to-r from-purple-600 to-pink-600 text-zinc-900 dark:text-white hover:shadow-lg transition-shadow",
                     children: "Get Started",
                   },
                 ],
@@ -175,7 +175,7 @@ export const CenterShowcase = () => {
                     children: [
                       {
                         type: "Text",
-                        className: "text-white font-medium",
+                        className: "text-zinc-900 dark:text-white font-medium",
                         children: "Nested",
                       },
                     ],
@@ -192,7 +192,7 @@ export const CenterShowcase = () => {
                     children: [
                       {
                         type: "Text",
-                        className: "text-white font-medium",
+                        className: "text-zinc-900 dark:text-white font-medium",
                         children: "Center",
                       },
                     ],
@@ -206,5 +206,7 @@ export const CenterShowcase = () => {
     ],
   };
 
-  return <div className="min-h-screen bg-white">{render(showcaseSpec, { theme })}</div>;
+  return (
+    <div className="min-h-screen bg-white transition-colors">{render(showcaseSpec, { theme })}</div>
+  );
 };

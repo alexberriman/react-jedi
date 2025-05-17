@@ -414,7 +414,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     className: "h-32 bg-zinc-800/30 rounded-lg border border-zinc-700",
     children: {
       type: "Text",
-      className: "text-emerald-400 font-semibold",
+      className: "text-emerald-600 dark:text-emerald-400 font-semibold",
       children: "Centered Content",
     },
   },
@@ -432,10 +432,14 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     className: "space-y-2",
     children: [
       { type: "Text", children: "Default text style" },
-      { type: "Text", className: "text-sm text-zinc-400", children: "Small muted text" },
       {
         type: "Text",
-        className: "text-lg font-semibold text-emerald-400",
+        className: "text-sm text-zinc-600 dark:text-zinc-400",
+        children: "Small muted text",
+      },
+      {
+        type: "Text",
+        className: "text-lg font-semibold text-emerald-600 dark:text-emerald-400",
         children: "Large bold colored text",
       },
     ],
@@ -647,7 +651,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
           { type: "Text", className: "font-semibold", children: "Popover Content" },
           {
             type: "Text",
-            className: "text-sm text-zinc-400",
+            className: "text-sm text-zinc-600 dark:text-zinc-400",
             children: "This is a popover with some content inside.",
           },
         ],
@@ -684,7 +688,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Sheet component - View full demo →",
     },
   },
@@ -692,7 +696,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Tabs component - View full demo →",
     },
   },
@@ -700,7 +704,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Accordion component - View full demo →",
     },
   },
@@ -708,7 +712,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Dialog component - View full demo →",
     },
   },
@@ -716,7 +720,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "ScrollArea component - View full demo →",
     },
   },
@@ -724,7 +728,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Resizable component - View full demo →",
     },
   },
@@ -772,7 +776,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
         className: "mb-4 h-12 w-12 rounded-lg bg-emerald-500/20 flex items-center justify-center",
         children: {
           type: "Text",
-          className: "text-emerald-400 text-xl",
+          className: "text-emerald-600 dark:text-emerald-400 text-xl",
           children: "✨",
         },
       },
@@ -784,7 +788,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
       },
       {
         type: "Text",
-        className: "text-zinc-400",
+        className: "text-zinc-600 dark:text-zinc-400",
         children: "This is a feature card component for showcasing product features with icons.",
       },
     ],
@@ -812,9 +816,21 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
                 type: "Stack",
                 spacing: "2",
                 children: [
-                  { type: "Text", className: "text-sm text-zinc-400", children: "About" },
-                  { type: "Text", className: "text-sm text-zinc-400", children: "Team" },
-                  { type: "Text", className: "text-sm text-zinc-400", children: "Careers" },
+                  {
+                    type: "Text",
+                    className: "text-sm text-zinc-600 dark:text-zinc-400",
+                    children: "About",
+                  },
+                  {
+                    type: "Text",
+                    className: "text-sm text-zinc-600 dark:text-zinc-400",
+                    children: "Team",
+                  },
+                  {
+                    type: "Text",
+                    className: "text-sm text-zinc-600 dark:text-zinc-400",
+                    children: "Careers",
+                  },
                 ],
               },
             ],
@@ -832,9 +848,21 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
                 type: "Stack",
                 spacing: "2",
                 children: [
-                  { type: "Text", className: "text-sm text-zinc-400", children: "Features" },
-                  { type: "Text", className: "text-sm text-zinc-400", children: "Pricing" },
-                  { type: "Text", className: "text-sm text-zinc-400", children: "Docs" },
+                  {
+                    type: "Text",
+                    className: "text-sm text-zinc-600 dark:text-zinc-400",
+                    children: "Features",
+                  },
+                  {
+                    type: "Text",
+                    className: "text-sm text-zinc-600 dark:text-zinc-400",
+                    children: "Pricing",
+                  },
+                  {
+                    type: "Text",
+                    className: "text-sm text-zinc-600 dark:text-zinc-400",
+                    children: "Docs",
+                  },
                 ],
               },
             ],
@@ -849,15 +877,23 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
         children: [
           {
             type: "Text",
-            className: "text-sm text-zinc-400",
+            className: "text-sm text-zinc-600 dark:text-zinc-400",
             children: "© 2025 React Jedi. All rights reserved.",
           },
           {
             type: "Flex",
             gap: "4",
             children: [
-              { type: "Text", className: "text-sm text-zinc-400", children: "Privacy" },
-              { type: "Text", className: "text-sm text-zinc-400", children: "Terms" },
+              {
+                type: "Text",
+                className: "text-sm text-zinc-600 dark:text-zinc-400",
+                children: "Privacy",
+              },
+              {
+                type: "Text",
+                className: "text-sm text-zinc-600 dark:text-zinc-400",
+                children: "Terms",
+              },
             ],
           },
         ],
@@ -868,7 +904,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Drawer component - Dynamic sliding panel",
     },
   },
@@ -876,7 +912,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Dropdown Menu - Interactive menu system",
     },
   },
@@ -884,7 +920,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Context Menu - Right-click menu",
     },
   },
@@ -892,7 +928,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Menubar - Application menubar",
     },
   },
@@ -900,7 +936,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Navigation Menu - Site navigation",
     },
   },
@@ -908,9 +944,9 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     className: "flex items-center gap-2 text-sm",
     children: [
-      { type: "Text", className: "text-zinc-400", children: "Home" },
+      { type: "Text", className: "text-zinc-600 dark:text-zinc-400", children: "Home" },
       { type: "Text", className: "text-zinc-500", children: "/" },
-      { type: "Text", className: "text-zinc-400", children: "Products" },
+      { type: "Text", className: "text-zinc-600 dark:text-zinc-400", children: "Products" },
       { type: "Text", className: "text-zinc-500", children: "/" },
       { type: "Text", className: "text-white", children: "React Jedi" },
     ],
@@ -931,7 +967,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Command Palette - Press ⌘K to open",
     },
   },
@@ -939,7 +975,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Sidebar - App navigation sidebar",
     },
   },
@@ -947,7 +983,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Calendar - Date picker component",
     },
   },
@@ -955,7 +991,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Date Picker - Select date with calendar",
     },
   },
@@ -963,7 +999,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Combobox - Searchable select input",
     },
   },
@@ -971,7 +1007,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Input OTP - One-time password input",
     },
   },
@@ -979,7 +1015,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Table - Data table component",
     },
   },
@@ -987,7 +1023,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Data Table - Advanced sortable table",
     },
   },
@@ -995,7 +1031,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Chart - Data visualization component",
     },
   },
@@ -1004,14 +1040,18 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     className: "space-y-3",
     children: [
       { type: "Progress", value: 33, className: "h-2" },
-      { type: "Text", className: "text-sm text-zinc-400", children: "33% Complete" },
+      {
+        type: "Text",
+        className: "text-sm text-zinc-600 dark:text-zinc-400",
+        children: "33% Complete",
+      },
     ],
   },
   HoverCard: {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Hover Card - Content on hover",
     },
   },
@@ -1035,7 +1075,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Alert Dialog - Confirmation dialog",
     },
   },
@@ -1130,14 +1170,18 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     className: "space-y-3",
     children: [
       { type: "Slider", defaultValue: [50], max: 100, step: 1 },
-      { type: "Text", className: "text-sm text-zinc-400", children: "Volume: 50%" },
+      {
+        type: "Text",
+        className: "text-sm text-zinc-600 dark:text-zinc-400",
+        children: "Volume: 50%",
+      },
     ],
   },
   Collapsible: {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Collapsible - Expandable content section",
     },
   },
@@ -1158,7 +1202,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     children: {
       type: "Text",
-      className: "text-center text-zinc-400",
+      className: "text-center text-zinc-600 dark:text-zinc-400",
       children: "Sonner - Toast notifications",
     },
   },
@@ -1187,7 +1231,7 @@ export function ShowcasePage() {
           <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 w-full sm:w-auto">
             <a
               href="#all"
-              className="px-4 py-2 bg-emerald-500/15 rounded-lg text-emerald-400 hover:bg-emerald-500/25 transition-all whitespace-nowrap"
+              className="px-4 py-2 bg-emerald-500/15 rounded-lg text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/25 transition-all whitespace-nowrap"
             >
               All Components
             </a>
@@ -1261,7 +1305,7 @@ export function ShowcasePage() {
                         <span
                           className={`text-xs px-2 py-1 rounded-full ${
                             component.type === "custom"
-                              ? "bg-emerald-500/20 text-emerald-400"
+                              ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
                               : "bg-zinc-700/80 text-zinc-300"
                           }`}
                         >
@@ -1278,7 +1322,7 @@ export function ShowcasePage() {
                             "bg-zinc-500"
                           }`}
                         ></div>
-                        <span className="text-xs text-zinc-400 uppercase tracking-wider">
+                        <span className="text-xs text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
                           {(component.status === "completed" && "Ready") ||
                             (component.status === "in-progress" && "In Progress") ||
                             "Planned"}
@@ -1289,7 +1333,7 @@ export function ShowcasePage() {
                         {component.name}
                       </h3>
 
-                      <p className="text-sm sm:text-base text-zinc-400 mb-4">
+                      <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 mb-4">
                         {component.description}
                       </p>
 
@@ -1303,7 +1347,7 @@ export function ShowcasePage() {
                         component.name === "Hero" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase()}`}
-                            className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
+                            className="text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1331,7 +1375,7 @@ export function ShowcasePage() {
                                 expandedComponent === component.name ? null : component.name
                               )
                             }
-                            className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
+                            className="text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1355,7 +1399,7 @@ export function ShowcasePage() {
                           onClick={() =>
                             setShowJson(showJson === component.name ? null : component.name)
                           }
-                          className="text-sm text-zinc-400 hover:text-zinc-300 transition-colors flex items-center gap-1"
+                          className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-300 transition-colors flex items-center gap-1"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

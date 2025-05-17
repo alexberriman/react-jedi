@@ -1,7 +1,8 @@
 export const header = {
   type: "Box",
   props: {
-    className: "fixed top-0 w-full z-50 backdrop-blur-md bg-zinc-950/80 border-b border-zinc-800",
+    className:
+      "fixed top-0 w-full z-50 backdrop-blur-md bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800",
   },
   children: [
     {
@@ -42,7 +43,7 @@ export const header = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-300 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "Home",
                       },
                     },
@@ -50,7 +51,7 @@ export const header = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-300 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "About",
                       },
                     },
@@ -58,7 +59,7 @@ export const header = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-300 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "Services",
                       },
                     },
@@ -66,7 +67,7 @@ export const header = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-300 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "Portfolio",
                       },
                     },
@@ -74,7 +75,7 @@ export const header = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-300 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "Pricing",
                       },
                     },
@@ -82,7 +83,7 @@ export const header = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-300 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "Contact",
                       },
                     },

@@ -73,7 +73,7 @@ export const marketingCasesSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl md:text-2xl text-zinc-300 mb-8",
+                    className: "text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 mb-8",
                     children:
                       "Explore how we've helped businesses transform their digital presence and achieve remarkable results.",
                   },
@@ -107,7 +107,7 @@ export const marketingCasesSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-yellow-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-yellow-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -137,7 +137,7 @@ export const marketingCasesSchema = {
                           props: {
                             variant: "outline",
                             className:
-                              "absolute top-4 left-4 bg-zinc-900/80 backdrop-blur-sm border-yellow-500/50",
+                              "absolute top-4 left-4 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-sm border-yellow-500/50",
                             children: "E-commerce",
                           },
                         },
@@ -160,7 +160,7 @@ export const marketingCasesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 mb-4",
+                            className: "text-zinc-700 dark:text-zinc-300 mb-4",
                             children:
                               "Revolutionizing online tech shopping with a modern, user-centric platform that increased conversions by 240%.",
                           },
@@ -193,7 +193,8 @@ export const marketingCasesSchema = {
                         {
                           type: "Box",
                           props: {
-                            className: "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800",
+                            className:
+                              "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800",
                           },
                           children: [
                             {
@@ -209,7 +210,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Conversion Increase",
                                   },
                                 },
@@ -228,7 +229,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Monthly Visitors",
                                   },
                                 },
@@ -246,7 +247,7 @@ export const marketingCasesSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-orange-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-orange-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -276,7 +277,7 @@ export const marketingCasesSchema = {
                           props: {
                             variant: "outline",
                             className:
-                              "absolute top-4 left-4 bg-zinc-900/80 backdrop-blur-sm border-orange-500/50",
+                              "absolute top-4 left-4 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-sm border-orange-500/50",
                             children: "Healthcare",
                           },
                         },
@@ -299,7 +300,7 @@ export const marketingCasesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 mb-4",
+                            className: "text-zinc-700 dark:text-zinc-300 mb-4",
                             children:
                               "Transforming patient care with an intuitive mobile app that streamlined healthcare management for millions.",
                           },
@@ -332,7 +333,8 @@ export const marketingCasesSchema = {
                         {
                           type: "Box",
                           props: {
-                            className: "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800",
+                            className:
+                              "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800",
                           },
                           children: [
                             {
@@ -348,7 +350,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Active Users",
                                   },
                                 },
@@ -367,7 +369,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "App Store Rating",
                                   },
                                 },
@@ -385,7 +387,7 @@ export const marketingCasesSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-red-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-red-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -415,7 +417,7 @@ export const marketingCasesSchema = {
                           props: {
                             variant: "outline",
                             className:
-                              "absolute top-4 left-4 bg-zinc-900/80 backdrop-blur-sm border-red-500/50",
+                              "absolute top-4 left-4 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-sm border-red-500/50",
                             children: "FinTech",
                           },
                         },
@@ -438,7 +440,7 @@ export const marketingCasesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 mb-4",
+                            className: "text-zinc-700 dark:text-zinc-300 mb-4",
                             children:
                               "Redefining digital banking with a secure, innovative platform that simplified financial management for businesses.",
                           },
@@ -471,7 +473,8 @@ export const marketingCasesSchema = {
                         {
                           type: "Box",
                           props: {
-                            className: "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800",
+                            className:
+                              "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800",
                           },
                           children: [
                             {
@@ -487,7 +490,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Business Accounts",
                                   },
                                 },
@@ -506,7 +509,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Processed Daily",
                                   },
                                 },
@@ -524,7 +527,7 @@ export const marketingCasesSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-pink-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-pink-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -554,7 +557,7 @@ export const marketingCasesSchema = {
                           props: {
                             variant: "outline",
                             className:
-                              "absolute top-4 left-4 bg-zinc-900/80 backdrop-blur-sm border-pink-500/50",
+                              "absolute top-4 left-4 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-sm border-pink-500/50",
                             children: "EdTech",
                           },
                         },
@@ -577,7 +580,7 @@ export const marketingCasesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 mb-4",
+                            className: "text-zinc-700 dark:text-zinc-300 mb-4",
                             children:
                               "Empowering education with an interactive learning platform that connected millions of students worldwide.",
                           },
@@ -610,7 +613,8 @@ export const marketingCasesSchema = {
                         {
                           type: "Box",
                           props: {
-                            className: "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800",
+                            className:
+                              "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800",
                           },
                           children: [
                             {
@@ -626,7 +630,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Students",
                                   },
                                 },
@@ -645,7 +649,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Satisfaction Rate",
                                   },
                                 },
@@ -663,7 +667,7 @@ export const marketingCasesSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-green-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-green-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -693,7 +697,7 @@ export const marketingCasesSchema = {
                           props: {
                             variant: "outline",
                             className:
-                              "absolute top-4 left-4 bg-zinc-900/80 backdrop-blur-sm border-green-500/50",
+                              "absolute top-4 left-4 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-sm border-green-500/50",
                             children: "Sustainability",
                           },
                         },
@@ -716,7 +720,7 @@ export const marketingCasesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 mb-4",
+                            className: "text-zinc-700 dark:text-zinc-300 mb-4",
                             children:
                               "Leading the green revolution with a platform that connected eco-conscious consumers with sustainable brands.",
                           },
@@ -749,7 +753,8 @@ export const marketingCasesSchema = {
                         {
                           type: "Box",
                           props: {
-                            className: "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800",
+                            className:
+                              "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800",
                           },
                           children: [
                             {
@@ -765,7 +770,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Eco Brands",
                                   },
                                 },
@@ -784,7 +789,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Monthly Users",
                                   },
                                 },
@@ -802,7 +807,7 @@ export const marketingCasesSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-yellow-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-yellow-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -832,7 +837,7 @@ export const marketingCasesSchema = {
                           props: {
                             variant: "outline",
                             className:
-                              "absolute top-4 left-4 bg-zinc-900/80 backdrop-blur-sm border-yellow-500/50",
+                              "absolute top-4 left-4 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-sm border-yellow-500/50",
                             children: "Media",
                           },
                         },
@@ -855,7 +860,7 @@ export const marketingCasesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 mb-4",
+                            className: "text-zinc-700 dark:text-zinc-300 mb-4",
                             children:
                               "Revolutionizing content creation with AI-powered tools that streamlined video production for creators worldwide.",
                           },
@@ -888,7 +893,8 @@ export const marketingCasesSchema = {
                         {
                           type: "Box",
                           props: {
-                            className: "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800",
+                            className:
+                              "grid grid-cols-2 gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800",
                           },
                           children: [
                             {
@@ -904,7 +910,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Creators",
                                   },
                                 },
@@ -923,7 +929,7 @@ export const marketingCasesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-sm text-zinc-400",
+                                    className: "text-sm text-zinc-600 dark:text-zinc-400",
                                     children: "Videos Generated",
                                   },
                                 },
@@ -946,7 +952,7 @@ export const marketingCasesSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-black",
+        className: "py-24 bg-white dark:bg-black",
       },
       children: [
         {
@@ -1000,7 +1006,8 @@ export const marketingCasesSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-xl text-zinc-300 mb-8 max-w-2xl mx-auto",
+                        className:
+                          "text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto",
                         children:
                           "Join the ranks of businesses that have transformed their digital presence. Let's write your success story together.",
                       },

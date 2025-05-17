@@ -95,7 +95,7 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-xl md:text-2xl text-zinc-300 mb-8",
+                        className: "text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 mb-8",
                         children:
                           "We craft exceptional digital experiences that elevate brands and drive extraordinary results. Join industry leaders who trust us with their digital transformation.",
                       },
@@ -172,7 +172,7 @@ export const marketingHomeSchema = {
                             {
                               type: "Text",
                               props: {
-                                className: "text-sm text-zinc-400",
+                                className: "text-sm text-zinc-600 dark:text-zinc-400",
                                 children: "Trusted by 500+ companies",
                               },
                             },
@@ -238,7 +238,7 @@ export const marketingHomeSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-3xl font-bold text-white",
+                            className: "text-3xl font-bold text-zinc-900 dark:text-white",
                             children: "1,245+",
                           },
                         },
@@ -261,7 +261,7 @@ export const marketingHomeSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-3xl font-bold text-white",
+                            className: "text-3xl font-bold text-zinc-900 dark:text-white",
                             children: "99.8%",
                           },
                         },
@@ -312,7 +312,7 @@ export const marketingHomeSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl text-zinc-300 max-w-3xl mx-auto",
+                    className: "text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto",
                     children:
                       "We combine creativity, technology, and strategy to deliver solutions that exceed expectations.",
                   },
@@ -332,7 +332,7 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-800 hover:border-blue-500/50 transition-all duration-300 group relative overflow-hidden",
+                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 transition-all duration-300 group relative overflow-hidden",
                   },
                   children: [
                     {
@@ -376,7 +376,7 @@ export const marketingHomeSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 mb-6",
+                            className: "text-zinc-600 dark:text-zinc-400 mb-6",
                             children:
                               "Crafting intuitive, beautiful interfaces that users love. We focus on creating seamless experiences that convert visitors into customers.",
                           },
@@ -399,7 +399,7 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-800 hover:border-purple-500/50 transition-all duration-300 group relative overflow-hidden",
+                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-purple-500/50 transition-all duration-300 group relative overflow-hidden",
                   },
                   children: [
                     {
@@ -443,7 +443,7 @@ export const marketingHomeSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 mb-6",
+                            className: "text-zinc-600 dark:text-zinc-400 mb-6",
                             children:
                               "Building blazing-fast, scalable applications with the latest technologies. From web to mobile, we deliver exceptional performance.",
                           },
@@ -466,7 +466,7 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-800 hover:border-pink-500/50 transition-all duration-300 group relative overflow-hidden",
+                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-pink-500/50 transition-all duration-300 group relative overflow-hidden",
                   },
                   children: [
                     {
@@ -510,7 +510,7 @@ export const marketingHomeSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 mb-6",
+                            className: "text-zinc-600 dark:text-zinc-400 mb-6",
                             children:
                               "Strategic digital marketing that drives real results. SEO, SEM, social media, and content strategies that grow your business.",
                           },
@@ -538,7 +538,7 @@ export const marketingHomeSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-black relative overflow-hidden",
+        className: "py-24 bg-white dark:bg-black relative overflow-hidden",
       },
       children: [
         // Background decoration
@@ -579,7 +579,7 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Projects Completed",
                       },
                     },
@@ -602,7 +602,7 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Happy Clients",
                       },
                     },
@@ -625,7 +625,7 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Team Members",
                       },
                     },
@@ -648,7 +648,7 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Years Experience",
                       },
                     },
@@ -697,7 +697,7 @@ export const marketingHomeSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl text-zinc-300 max-w-3xl mx-auto",
+                    className: "text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto",
                     children:
                       "Don't just take our word for it. Here's what our clients have to say about working with us.",
                   },
@@ -716,7 +716,8 @@ export const marketingHomeSchema = {
                 {
                   type: "Card",
                   props: {
-                    className: "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-800 p-8",
+                    className:
+                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 p-8",
                   },
                   children: [
                     {
@@ -736,7 +737,7 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-300 mb-6 italic",
+                        className: "text-zinc-700 dark:text-zinc-300 mb-6 italic",
                         children:
                           '"Working with this team has been transformative for our business. They delivered beyond our expectations and continue to support our growth."',
                       },
@@ -783,7 +784,8 @@ export const marketingHomeSchema = {
                 {
                   type: "Card",
                   props: {
-                    className: "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-800 p-8",
+                    className:
+                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 p-8",
                   },
                   children: [
                     {
@@ -803,7 +805,7 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-300 mb-6 italic",
+                        className: "text-zinc-700 dark:text-zinc-300 mb-6 italic",
                         children:
                           '"The level of creativity and technical expertise is unmatched. They turned our vision into reality with stunning results."',
                       },
@@ -850,7 +852,8 @@ export const marketingHomeSchema = {
                 {
                   type: "Card",
                   props: {
-                    className: "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-800 p-8",
+                    className:
+                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 p-8",
                   },
                   children: [
                     {
@@ -870,7 +873,7 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-300 mb-6 italic",
+                        className: "text-zinc-700 dark:text-zinc-300 mb-6 italic",
                         children:
                           '"Professional, innovative, and results-driven. They\'ve been instrumental in our digital transformation journey."',
                       },
@@ -977,7 +980,8 @@ export const marketingHomeSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-xl text-zinc-300 mb-8 max-w-2xl mx-auto",
+                        className:
+                          "text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto",
                         children:
                           "Let's create something amazing together. Get in touch with our team and let's discuss your next digital masterpiece.",
                       },

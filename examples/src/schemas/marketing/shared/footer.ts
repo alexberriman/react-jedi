@@ -1,7 +1,7 @@
 export const footer = {
   type: "Box",
   props: {
-    className: "py-16 bg-zinc-950 border-t border-zinc-800",
+    className: "py-16 bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800",
   },
   children: [
     {
@@ -31,7 +31,7 @@ export const footer = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-zinc-400 mb-4",
+                    className: "text-zinc-600 dark:text-zinc-400 mb-4",
                     children:
                       "Transforming visions into digital realities. We create exceptional experiences that drive business growth.",
                   },
@@ -103,7 +103,7 @@ export const footer = {
                   type: "Heading",
                   props: {
                     level: 4,
-                    className: "text-lg font-semibold mb-4 text-white",
+                    className: "text-lg font-semibold mb-4 text-zinc-900 dark:text-white",
                     children: "Services",
                   },
                 },
@@ -117,7 +117,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-zinc-300 transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
                         children: "Web Design",
                       },
                     },
@@ -125,7 +125,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-zinc-300 transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
                         children: "Development",
                       },
                     },
@@ -133,7 +133,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-zinc-300 transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
                         children: "Marketing",
                       },
                     },
@@ -141,7 +141,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-zinc-300 transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
                         children: "Consulting",
                       },
                     },
@@ -158,7 +158,7 @@ export const footer = {
                   type: "Heading",
                   props: {
                     level: 4,
-                    className: "text-lg font-semibold mb-4 text-white",
+                    className: "text-lg font-semibold mb-4 text-zinc-900 dark:text-white",
                     children: "Company",
                   },
                 },
@@ -172,7 +172,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-zinc-300 transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
                         children: "About Us",
                       },
                     },
@@ -180,7 +180,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-zinc-300 transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
                         children: "Careers",
                       },
                     },
@@ -188,7 +188,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-zinc-300 transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
                         children: "Blog",
                       },
                     },
@@ -196,7 +196,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-zinc-300 transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
                         children: "Press",
                       },
                     },
@@ -213,7 +213,7 @@ export const footer = {
                   type: "Heading",
                   props: {
                     level: 4,
-                    className: "text-lg font-semibold mb-4 text-white",
+                    className: "text-lg font-semibold mb-4 text-zinc-900 dark:text-white",
                     children: "Contact",
                   },
                 },
@@ -226,28 +226,28 @@ export const footer = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "hello@nexusdigital.com",
                       },
                     },
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "+1 (555) 123-4567",
                       },
                     },
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "123 Innovation Ave",
                       },
                     },
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "San Francisco, CA 94110",
                       },
                     },
@@ -262,7 +262,7 @@ export const footer = {
         {
           type: "Box",
           props: {
-            className: "pt-8 border-t border-zinc-800",
+            className: "pt-8 border-t border-zinc-200 dark:border-zinc-800",
           },
           children: [
             {
@@ -288,7 +288,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-500 hover:text-zinc-400 transition-colors cursor-pointer text-sm",
+                          "text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 transition-colors cursor-pointer text-sm",
                         children: "Privacy Policy",
                       },
                     },
@@ -296,7 +296,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-500 hover:text-zinc-400 transition-colors cursor-pointer text-sm",
+                          "text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 transition-colors cursor-pointer text-sm",
                         children: "Terms of Service",
                       },
                     },
@@ -304,7 +304,7 @@ export const footer = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-500 hover:text-zinc-400 transition-colors cursor-pointer text-sm",
+                          "text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 transition-colors cursor-pointer text-sm",
                         children: "Cookie Policy",
                       },
                     },

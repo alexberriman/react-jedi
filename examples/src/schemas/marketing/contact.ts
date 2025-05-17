@@ -73,7 +73,7 @@ export const marketingContactSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl md:text-2xl text-zinc-300 mb-8",
+                    className: "text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 mb-8",
                     children:
                       "Have a project in mind? We'd love to hear about it. Reach out and let's build something extraordinary.",
                   },
@@ -109,7 +109,8 @@ export const marketingContactSchema = {
                     {
                       type: "Card",
                       props: {
-                        className: "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 p-8",
+                        className:
+                          "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 p-8",
                       },
                       children: [
                         {
@@ -151,7 +152,8 @@ export const marketingContactSchema = {
                                           props: {
                                             id: "firstName",
                                             placeholder: "John",
-                                            className: "bg-zinc-900/50 border-zinc-800",
+                                            className:
+                                              "bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800",
                                           },
                                         },
                                       ],
@@ -172,7 +174,8 @@ export const marketingContactSchema = {
                                           props: {
                                             id: "lastName",
                                             placeholder: "Doe",
-                                            className: "bg-zinc-900/50 border-zinc-800",
+                                            className:
+                                              "bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800",
                                           },
                                         },
                                       ],
@@ -196,7 +199,8 @@ export const marketingContactSchema = {
                                         id: "email",
                                         type: "email",
                                         placeholder: "john@example.com",
-                                        className: "bg-zinc-900/50 border-zinc-800",
+                                        className:
+                                          "bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800",
                                       },
                                     },
                                   ],
@@ -217,7 +221,8 @@ export const marketingContactSchema = {
                                       props: {
                                         id: "company",
                                         placeholder: "Your Company",
-                                        className: "bg-zinc-900/50 border-zinc-800",
+                                        className:
+                                          "bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800",
                                       },
                                     },
                                   ],
@@ -237,7 +242,8 @@ export const marketingContactSchema = {
                                       type: "Select",
                                       props: {
                                         id: "service",
-                                        className: "bg-zinc-900/50 border-zinc-800",
+                                        className:
+                                          "bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800",
                                       },
                                       children: [
                                         {
@@ -296,7 +302,8 @@ export const marketingContactSchema = {
                                         id: "message",
                                         placeholder: "Tell us about your project...",
                                         rows: 6,
-                                        className: "bg-zinc-900/50 border-zinc-800",
+                                        className:
+                                          "bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800",
                                       },
                                     },
                                   ],
@@ -344,7 +351,7 @@ export const marketingContactSchema = {
                             {
                               type: "Text",
                               props: {
-                                className: "text-zinc-300 mb-6",
+                                className: "text-zinc-700 dark:text-zinc-300 mb-6",
                                 children:
                                   "We're here to help bring your ideas to life. Reach out to us through any of the channels below.",
                               },
@@ -362,7 +369,8 @@ export const marketingContactSchema = {
                             {
                               type: "Card",
                               props: {
-                                className: "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 p-6",
+                                className:
+                                  "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 p-6",
                               },
                               children: [
                                 {
@@ -401,7 +409,7 @@ export const marketingContactSchema = {
                                         {
                                           type: "Text",
                                           props: {
-                                            className: "text-zinc-400",
+                                            className: "text-zinc-600 dark:text-zinc-400",
                                             children: "hello@nexusdigital.com",
                                           },
                                         },
@@ -415,7 +423,8 @@ export const marketingContactSchema = {
                             {
                               type: "Card",
                               props: {
-                                className: "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 p-6",
+                                className:
+                                  "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 p-6",
                               },
                               children: [
                                 {
@@ -454,7 +463,7 @@ export const marketingContactSchema = {
                                         {
                                           type: "Text",
                                           props: {
-                                            className: "text-zinc-400",
+                                            className: "text-zinc-600 dark:text-zinc-400",
                                             children: "+1 (555) 123-4567",
                                           },
                                         },
@@ -468,7 +477,8 @@ export const marketingContactSchema = {
                             {
                               type: "Card",
                               props: {
-                                className: "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 p-6",
+                                className:
+                                  "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 p-6",
                               },
                               children: [
                                 {
@@ -507,14 +517,14 @@ export const marketingContactSchema = {
                                         {
                                           type: "Text",
                                           props: {
-                                            className: "text-zinc-400",
+                                            className: "text-zinc-600 dark:text-zinc-400",
                                             children: "123 Innovation Avenue",
                                           },
                                         },
                                         {
                                           type: "Text",
                                           props: {
-                                            className: "text-zinc-400",
+                                            className: "text-zinc-600 dark:text-zinc-400",
                                             children: "San Francisco, CA 94110",
                                           },
                                         },
@@ -548,13 +558,14 @@ export const marketingContactSchema = {
                                   type: "Box",
                                   props: {
                                     className:
-                                      "w-12 h-12 rounded-full bg-zinc-900/50 border border-zinc-800 flex items-center justify-center cursor-pointer hover:border-purple-500/50 transition-colors",
+                                      "w-12 h-12 rounded-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center cursor-pointer hover:border-purple-500/50 transition-colors",
                                   },
                                   children: [
                                     {
                                       type: "Text",
                                       props: {
-                                        className: "text-zinc-400 hover:text-purple-400",
+                                        className:
+                                          "text-zinc-600 dark:text-zinc-400 hover:text-purple-400",
                                         children: "f",
                                       },
                                     },
@@ -564,13 +575,14 @@ export const marketingContactSchema = {
                                   type: "Box",
                                   props: {
                                     className:
-                                      "w-12 h-12 rounded-full bg-zinc-900/50 border border-zinc-800 flex items-center justify-center cursor-pointer hover:border-blue-500/50 transition-colors",
+                                      "w-12 h-12 rounded-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center cursor-pointer hover:border-blue-500/50 transition-colors",
                                   },
                                   children: [
                                     {
                                       type: "Text",
                                       props: {
-                                        className: "text-zinc-400 hover:text-blue-400",
+                                        className:
+                                          "text-zinc-600 dark:text-zinc-400 hover:text-blue-400",
                                         children: "t",
                                       },
                                     },
@@ -580,13 +592,14 @@ export const marketingContactSchema = {
                                   type: "Box",
                                   props: {
                                     className:
-                                      "w-12 h-12 rounded-full bg-zinc-900/50 border border-zinc-800 flex items-center justify-center cursor-pointer hover:border-pink-500/50 transition-colors",
+                                      "w-12 h-12 rounded-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center cursor-pointer hover:border-pink-500/50 transition-colors",
                                   },
                                   children: [
                                     {
                                       type: "Text",
                                       props: {
-                                        className: "text-zinc-400 hover:text-pink-400",
+                                        className:
+                                          "text-zinc-600 dark:text-zinc-400 hover:text-pink-400",
                                         children: "in",
                                       },
                                     },
@@ -596,13 +609,14 @@ export const marketingContactSchema = {
                                   type: "Box",
                                   props: {
                                     className:
-                                      "w-12 h-12 rounded-full bg-zinc-900/50 border border-zinc-800 flex items-center justify-center cursor-pointer hover:border-purple-500/50 transition-colors",
+                                      "w-12 h-12 rounded-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center cursor-pointer hover:border-purple-500/50 transition-colors",
                                   },
                                   children: [
                                     {
                                       type: "Text",
                                       props: {
-                                        className: "text-zinc-400 hover:text-purple-400",
+                                        className:
+                                          "text-zinc-600 dark:text-zinc-400 hover:text-purple-400",
                                         children: "d",
                                       },
                                     },
@@ -627,7 +641,7 @@ export const marketingContactSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-black",
+        className: "py-24 bg-white dark:bg-black",
       },
       children: [
         {
@@ -650,7 +664,7 @@ export const marketingContactSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-zinc-300",
+                    className: "text-zinc-700 dark:text-zinc-300",
                     children: "We're located in the heart of San Francisco's innovation district",
                   },
                 },
@@ -686,7 +700,8 @@ export const marketingContactSchema = {
                     {
                       type: "Box",
                       props: {
-                        className: "bg-zinc-900/90 backdrop-blur-sm rounded-2xl p-6 max-w-md",
+                        className:
+                          "bg-zinc-50 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl p-6 max-w-md",
                       },
                       children: [
                         {
@@ -700,14 +715,14 @@ export const marketingContactSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300",
+                            className: "text-zinc-700 dark:text-zinc-300",
                             children: "123 Innovation Avenue, San Francisco, CA 94110",
                           },
                         },
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 text-sm mt-2",
+                            className: "text-zinc-600 dark:text-zinc-400 text-sm mt-2",
                             children: "Monday - Friday: 9:00 AM - 6:00 PM PST",
                           },
                         },

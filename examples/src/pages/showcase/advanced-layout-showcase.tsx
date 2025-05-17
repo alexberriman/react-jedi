@@ -56,20 +56,20 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Box Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-sm sm:text-base text-muted-foreground">
+              <Text className="mb-4 text-sm sm:text-base text-muted-foreground transition-colors">
                 A Box is the most basic layout component. It renders a div with styling props.
               </Text>
 
               <div className="space-y-4">
-                <Box className="p-4 bg-primary text-primary-foreground rounded-lg">
+                <Box className="p-4 bg-primary text-primary-foreground rounded-lg transition-colors">
                   Box with custom styling
                 </Box>
 
-                <Box className="p-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl shadow-lg">
+                <Box className="p-6 bg-gradient-to-r from-purple-500 to-pink-500 text-zinc-900 dark:text-white rounded-xl shadow-lg transition-colors">
                   Box with gradient background
                 </Box>
 
-                <Box className="p-4 border-2 border-dashed border-gray-400 rounded">
+                <Box className="p-4 border-2 border-dashed border-gray-400 rounded transition-colors">
                   Box with dashed border
                 </Box>
               </div>
@@ -85,22 +85,22 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Container Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-sm sm:text-base text-muted-foreground">
+              <Text className="mb-4 text-sm sm:text-base text-muted-foreground transition-colors">
                 Container is a layout component that wraps content with responsive max-width and
                 padding.
               </Text>
 
-              <Container className="bg-muted rounded p-4">
+              <Container className="bg-muted rounded p-4 transition-colors">
                 <Text>
                   This content is wrapped in a Container with max-width and responsive padding.
                 </Text>
               </Container>
 
-              <Container size="sm" className="mt-4 bg-muted rounded p-4">
+              <Container size="sm" className="mt-4 bg-muted rounded p-4 transition-colors">
                 <Text>Small Container (max-width: 24rem)</Text>
               </Container>
 
-              <Container size="lg" className="mt-4 bg-muted rounded p-4">
+              <Container size="lg" className="mt-4 bg-muted rounded p-4 transition-colors">
                 <Text>Large Container (max-width: 64rem)</Text>
               </Container>
             </CardContent>
@@ -115,14 +115,20 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Grid Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 Grid component creates powerful CSS Grid layouts with responsive columns.
               </Text>
 
               <Grid columns="3" gap="4" className="mb-6">
-                <Box className="p-4 bg-blue-500 text-white rounded">Column 1</Box>
-                <Box className="p-4 bg-blue-500 text-white rounded">Column 2</Box>
-                <Box className="p-4 bg-blue-500 text-white rounded">Column 3</Box>
+                <Box className="p-4 bg-blue-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Column 1
+                </Box>
+                <Box className="p-4 bg-blue-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Column 2
+                </Box>
+                <Box className="p-4 bg-blue-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Column 3
+                </Box>
               </Grid>
 
               <Text className="mb-2">Responsive Grid:</Text>
@@ -130,7 +136,7 @@ export function AdvancedLayoutShowcase() {
                 {Array.from({ length: 6 }).map((_, i) => (
                   <Box
                     key={i}
-                    className="p-8 bg-gradient-to-br from-purple-500 to-indigo-500 text-white rounded-lg shadow-md"
+                    className="p-8 bg-gradient-to-br from-purple-500 to-indigo-500 text-zinc-900 dark:text-white rounded-lg shadow-md transition-colors"
                   >
                     Item {i + 1}
                   </Box>
@@ -148,22 +154,34 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Flex Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 Flex component provides flexbox layouts with alignment and direction controls.
               </Text>
 
               <Text className="mb-2">Horizontal Flex:</Text>
               <Flex gap="4" className="mb-6">
-                <Box className="p-4 bg-green-500 text-white rounded">Item 1</Box>
-                <Box className="p-4 bg-green-500 text-white rounded">Item 2</Box>
-                <Box className="p-4 bg-green-500 text-white rounded">Item 3</Box>
+                <Box className="p-4 bg-green-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Item 1
+                </Box>
+                <Box className="p-4 bg-green-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Item 2
+                </Box>
+                <Box className="p-4 bg-green-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Item 3
+                </Box>
               </Flex>
 
               <Text className="mb-2">Vertical Flex:</Text>
               <Flex direction="column" gap="2" className="mb-6">
-                <Box className="p-4 bg-purple-500 text-white rounded">Top</Box>
-                <Box className="p-4 bg-purple-500 text-white rounded">Middle</Box>
-                <Box className="p-4 bg-purple-500 text-white rounded">Bottom</Box>
+                <Box className="p-4 bg-purple-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Top
+                </Box>
+                <Box className="p-4 bg-purple-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Middle
+                </Box>
+                <Box className="p-4 bg-purple-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Bottom
+                </Box>
               </Flex>
 
               <Text className="mb-2">Justified Flex:</Text>
@@ -184,15 +202,15 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Stack Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 Stack arranges children vertically or horizontally with consistent spacing.
               </Text>
 
               <Text className="mb-2">Vertical Stack (default):</Text>
               <Stack spacing="md" className="mb-6">
-                <Box className="p-4 bg-yellow-500 text-black rounded">First</Box>
-                <Box className="p-4 bg-yellow-500 text-black rounded">Second</Box>
-                <Box className="p-4 bg-yellow-500 text-black rounded">Third</Box>
+                <Box className="p-4 bg-yellow-500 text-black rounded transition-colors">First</Box>
+                <Box className="p-4 bg-yellow-500 text-black rounded transition-colors">Second</Box>
+                <Box className="p-4 bg-yellow-500 text-black rounded transition-colors">Third</Box>
               </Stack>
 
               <Text className="mb-2">Horizontal Stack:</Text>
@@ -213,7 +231,7 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Group Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 Group arranges elements inline with consistent horizontal spacing.
               </Text>
 
@@ -245,18 +263,20 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Center Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 Center component centers its children both horizontally and vertically.
               </Text>
 
-              <Center className="h-40 bg-gray-100 rounded-lg">
-                <Box className="p-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg shadow-lg">
+              <Center className="h-40 bg-gray-100 rounded-lg transition-colors">
+                <Box className="p-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-zinc-900 dark:text-white rounded-lg shadow-lg transition-colors">
                   Perfectly Centered Content
                 </Box>
               </Center>
 
-              <Center className="mt-4 h-32 bg-gray-900 rounded-lg">
-                <Text className="text-white text-2xl font-bold">✨ Centered ✨</Text>
+              <Center className="mt-4 h-32 bg-gray-900 rounded-lg transition-colors">
+                <Text className="text-zinc-900 dark:text-white text-2xl font-bold transition-colors">
+                  ✨ Centered ✨
+                </Text>
               </Center>
             </CardContent>
           </Card>
@@ -270,7 +290,7 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Spacer Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 Spacer adds flexible or fixed spacing between elements.
               </Text>
 
@@ -281,9 +301,13 @@ export function AdvancedLayoutShowcase() {
               </Flex>
 
               <Stack>
-                <Box className="p-4 bg-indigo-500 text-white rounded">Top</Box>
+                <Box className="p-4 bg-indigo-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Top
+                </Box>
                 <Spacer size="lg" />
-                <Box className="p-4 bg-indigo-500 text-white rounded">Bottom with Large Spacer</Box>
+                <Box className="p-4 bg-indigo-500 text-zinc-900 dark:text-white rounded transition-colors">
+                  Bottom with Large Spacer
+                </Box>
               </Stack>
             </CardContent>
           </Card>
@@ -297,14 +321,14 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>SimpleGrid Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 SimpleGrid creates responsive grids with equal-sized columns.
               </Text>
 
               <SimpleGrid columns={{ default: 2, md: 3, lg: 4 }} gap="4">
                 {Array.from({ length: 8 }).map((_, i) => (
                   <AspectRatio key={i} ratio={1}>
-                    <Box className="h-full bg-gradient-to-br from-pink-500 to-purple-500 text-white rounded-lg flex items-center justify-center font-bold">
+                    <Box className="h-full bg-gradient-to-br from-pink-500 to-purple-500 text-zinc-900 dark:text-white rounded-lg flex items-center justify-center font-bold transition-colors">
                       {i + 1}
                     </Box>
                   </AspectRatio>
@@ -322,7 +346,7 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Masonry Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 Masonry creates Pinterest-style grid layouts where items flow vertically.
               </Text>
 
@@ -339,7 +363,7 @@ export function AdvancedLayoutShowcase() {
                 ].map((item, i) => (
                   <Box
                     key={i}
-                    className={`bg-gradient-to-br ${item.gradient} text-white rounded-lg flex items-center justify-center font-bold shadow-lg`}
+                    className={`bg-gradient-to-br ${item.gradient} text-zinc-900 dark:text-white rounded-lg flex items-center justify-center font-bold shadow-lg`}
                     style={{ height: `${item.h}px` }}
                   >
                     Item {i + 1}
@@ -358,33 +382,33 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>AspectRatio Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 AspectRatio maintains consistent width/height ratios for responsive content.
               </Text>
 
               <Grid columns="3" gap="4">
                 <div>
-                  <Text className="mb-2 text-sm">16:9</Text>
+                  <Text className="mb-2 text-sm transition-colors">16:9</Text>
                   <AspectRatio ratio={16 / 9}>
-                    <Box className="h-full bg-blue-500 rounded flex items-center justify-center text-white">
+                    <Box className="h-full bg-blue-500 rounded flex items-center justify-center text-zinc-900 dark:text-white transition-colors">
                       16:9
                     </Box>
                   </AspectRatio>
                 </div>
 
                 <div>
-                  <Text className="mb-2 text-sm">1:1</Text>
+                  <Text className="mb-2 text-sm transition-colors">1:1</Text>
                   <AspectRatio ratio={1}>
-                    <Box className="h-full bg-green-500 rounded flex items-center justify-center text-white">
+                    <Box className="h-full bg-green-500 rounded flex items-center justify-center text-zinc-900 dark:text-white transition-colors">
                       1:1
                     </Box>
                   </AspectRatio>
                 </div>
 
                 <div>
-                  <Text className="mb-2 text-sm">4:3</Text>
+                  <Text className="mb-2 text-sm transition-colors">4:3</Text>
                   <AspectRatio ratio={4 / 3}>
-                    <Box className="h-full bg-purple-500 rounded flex items-center justify-center text-white">
+                    <Box className="h-full bg-purple-500 rounded flex items-center justify-center text-zinc-900 dark:text-white transition-colors">
                       4:3
                     </Box>
                   </AspectRatio>
@@ -402,7 +426,7 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>ScrollArea Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 ScrollArea provides beautiful scrollbars for overflowing content.
               </Text>
 
@@ -411,7 +435,7 @@ export function AdvancedLayoutShowcase() {
                   {Array.from({ length: 20 }).map((_, i) => (
                     <Box
                       key={i}
-                      className="p-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded"
+                      className="p-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-zinc-900 dark:text-white rounded transition-colors"
                     >
                       Scrollable Item {i + 1}
                     </Box>
@@ -430,18 +454,22 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Resizable Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-muted-foreground transition-colors">
                 Resizable creates adjustable panels with drag handles.
               </Text>
 
               <div className="h-64">
                 <ResizablePanelGroup direction="horizontal">
                   <ResizablePanel defaultSize={50}>
-                    <Box className="h-full p-4 bg-blue-500 text-white rounded-l">Left Panel</Box>
+                    <Box className="h-full p-4 bg-blue-500 text-zinc-900 dark:text-white rounded-l transition-colors">
+                      Left Panel
+                    </Box>
                   </ResizablePanel>
                   <ResizableHandle />
                   <ResizablePanel defaultSize={50}>
-                    <Box className="h-full p-4 bg-purple-500 text-white rounded-r">Right Panel</Box>
+                    <Box className="h-full p-4 bg-purple-500 text-zinc-900 dark:text-white rounded-r transition-colors">
+                      Right Panel
+                    </Box>
                   </ResizablePanel>
                 </ResizablePanelGroup>
               </div>
@@ -458,10 +486,12 @@ export function AdvancedLayoutShowcase() {
 
   return (
     <div>
-      <Box className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-12 mb-8 rounded-2xl">
+      <Box className="bg-gradient-to-r from-blue-600 to-purple-600 text-zinc-900 dark:text-white p-12 mb-8 rounded-2xl transition-colors">
         <Container>
-          <Heading className="text-4xl font-bold mb-4">Advanced Layout Components</Heading>
-          <Text className="text-xl opacity-90">
+          <Heading className="text-4xl font-bold mb-4 transition-colors">
+            Advanced Layout Components
+          </Heading>
+          <Text className="text-xl opacity-90 transition-colors">
             Explore our comprehensive collection of layout components for building modern,
             responsive interfaces
           </Text>

@@ -73,7 +73,7 @@ export const marketingServicesSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl md:text-2xl text-zinc-300 mb-8",
+                    className: "text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 mb-8",
                     children:
                       "From strategy to execution, we offer comprehensive digital services that help your business thrive in the modern landscape.",
                   },
@@ -133,7 +133,7 @@ export const marketingServicesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 text-lg mb-8",
+                            className: "text-zinc-700 dark:text-zinc-300 text-lg mb-8",
                             children:
                               "We create stunning, user-centric designs that not only look beautiful but also drive engagement and conversions. Our design philosophy combines aesthetics with functionality.",
                           },
@@ -160,7 +160,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "User Research & Analysis",
                                   },
                                 },
@@ -182,7 +182,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Wireframing & Prototyping",
                                   },
                                 },
@@ -204,7 +204,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Visual Design & Branding",
                                   },
                                 },
@@ -226,7 +226,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Design Systems & Guidelines",
                                   },
                                 },
@@ -306,7 +306,7 @@ export const marketingServicesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 text-lg mb-8",
+                            className: "text-zinc-700 dark:text-zinc-300 text-lg mb-8",
                             children:
                               "We build robust, scalable digital solutions using the latest technologies. From responsive websites to complex applications, we deliver performance and reliability.",
                           },
@@ -333,7 +333,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Frontend Development (React, Vue, Angular)",
                                   },
                                 },
@@ -355,7 +355,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Backend Development (Node.js, Python, PHP)",
                                   },
                                 },
@@ -377,7 +377,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Mobile App Development (iOS, Android)",
                                   },
                                 },
@@ -399,7 +399,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "API Development & Integration",
                                   },
                                 },
@@ -477,7 +477,7 @@ export const marketingServicesSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 text-lg mb-8",
+                            className: "text-zinc-700 dark:text-zinc-300 text-lg mb-8",
                             children:
                               "We craft data-driven marketing strategies that amplify your brand reach and drive meaningful engagement. Our approach combines creativity with analytics for maximum impact.",
                           },
@@ -504,7 +504,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Search Engine Optimization (SEO)",
                                   },
                                 },
@@ -526,7 +526,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Pay-Per-Click Advertising (PPC)",
                                   },
                                 },
@@ -548,7 +548,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Social Media Marketing",
                                   },
                                 },
@@ -570,7 +570,7 @@ export const marketingServicesSchema = {
                                 {
                                   type: "Text",
                                   props: {
-                                    className: "text-zinc-300",
+                                    className: "text-zinc-700 dark:text-zinc-300",
                                     children: "Content Marketing & Strategy",
                                   },
                                 },
@@ -617,7 +617,7 @@ export const marketingServicesSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-black",
+        className: "py-24 bg-white dark:bg-black",
       },
       children: [
         {
@@ -649,7 +649,7 @@ export const marketingServicesSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl text-zinc-300 max-w-3xl mx-auto",
+                    className: "text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto",
                     children:
                       "Our proven process ensures successful project delivery and exceeds client expectations.",
                   },
@@ -698,7 +698,7 @@ export const marketingServicesSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Understanding your goals, audience, and requirements",
                       },
                     },
@@ -739,7 +739,7 @@ export const marketingServicesSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Developing a comprehensive plan and approach",
                       },
                     },
@@ -780,7 +780,7 @@ export const marketingServicesSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Bringing your vision to life with precision",
                       },
                     },
@@ -821,7 +821,7 @@ export const marketingServicesSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Continuous improvement and growth",
                       },
                     },
@@ -892,7 +892,8 @@ export const marketingServicesSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-xl text-zinc-300 mb-8 max-w-2xl mx-auto",
+                        className:
+                          "text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto",
                         children:
                           "Ready to transform your digital presence? Let's discuss how we can help your business reach new heights.",
                       },

@@ -9,6 +9,7 @@ import {
   navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
 import { MobileMenu } from "../ui/mobile-menu";
+import { DarkModeToggle } from "../ui/dark-mode-toggle";
 import { cn } from "@/lib/utils";
 
 export type LayoutProps = Readonly<{
@@ -17,13 +18,13 @@ export type LayoutProps = Readonly<{
 
 export function Layout({ className }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-zinc-900 to-slate-900 text-white">
-      <header className="border-b border-zinc-800 backdrop-blur-lg bg-black/50 sticky top-0 z-50">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-50 to-slate-100 text-zinc-900 dark:from-zinc-900 dark:to-slate-900 dark:text-white transition-colors duration-300">
+      <header className="border-b border-zinc-200 dark:border-zinc-800 backdrop-blur-lg bg-white/80 dark:bg-black/50 sticky top-0 z-50 transition-colors duration-300">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <MobileMenu />
             <Link to="/" className="flex items-center gap-2">
-              <div className="text-emerald-400 flex items-center font-bold text-xl md:text-2xl hover:text-emerald-300 transition-colors">
+              <div className="text-emerald-600 dark:text-emerald-400 flex items-center font-bold text-xl md:text-2xl hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -39,18 +40,18 @@ export function Layout({ className }: LayoutProps) {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-zinc-200 hover:text-emerald-400 hover:bg-zinc-800/50">
+                  <NavigationMenuTrigger className="bg-transparent text-zinc-700 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors">
                     Components
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 bg-zinc-800/95 backdrop-blur-sm border border-zinc-700 text-white">
+                    <ul className="grid w-[400px] gap-3 p-4 bg-white dark:bg-zinc-800/95 backdrop-blur-sm border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white transition-colors">
                       <NavigationMenuLink asChild>
                         <Link
                           to="/showcase"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">Component Gallery</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Browse all UI components with live previews
                           </p>
                         </Link>
@@ -58,12 +59,12 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/showcase/interactive"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">
                             Interactive Showcase
                           </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Form components, toggles, and state management
                           </p>
                         </Link>
@@ -71,10 +72,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/showcase/layout"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">Layout Components</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Advanced layout systems and responsive containers
                           </p>
                         </Link>
@@ -82,10 +83,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/showcase/overlay-interactive"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">Overlays & Dialogs</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Modals, sheets, popovers, and tooltips
                           </p>
                         </Link>
@@ -95,18 +96,18 @@ export function Layout({ className }: LayoutProps) {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-zinc-200 hover:text-emerald-400 hover:bg-zinc-800/50">
+                  <NavigationMenuTrigger className="bg-transparent text-zinc-700 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors">
                     Examples
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 bg-zinc-800/95 backdrop-blur-sm border border-zinc-700 text-white">
+                    <ul className="grid w-[400px] gap-3 p-4 bg-white dark:bg-zinc-800/95 backdrop-blur-sm border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white transition-colors">
                       <NavigationMenuLink asChild>
                         <Link
                           to="/examples"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">All Examples</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Browse all example implementations
                           </p>
                         </Link>
@@ -114,10 +115,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/examples/landing"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">Landing Page</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Hero section, features, and CTA components
                           </p>
                         </Link>
@@ -125,10 +126,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/examples/form-validation"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">Form Validation</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Complex forms with real-time validation
                           </p>
                         </Link>
@@ -136,12 +137,12 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/examples/navigation"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">
                             Navigation Patterns
                           </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Menus, sidebars, and breadcrumbs
                           </p>
                         </Link>
@@ -149,10 +150,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/templates/marketing"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">Marketing Template</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Full marketing website with multiple pages
                           </p>
                         </Link>
@@ -166,7 +167,7 @@ export function Layout({ className }: LayoutProps) {
                     <NavigationMenuLink
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "bg-transparent text-zinc-200 hover:text-emerald-400 hover:bg-zinc-800/50"
+                        "bg-transparent text-zinc-700 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
                       )}
                     >
                       Documentation
@@ -175,18 +176,18 @@ export function Layout({ className }: LayoutProps) {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-zinc-200 hover:text-emerald-400 hover:bg-zinc-800/50">
+                  <NavigationMenuTrigger className="bg-transparent text-zinc-700 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors">
                     Resources
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 bg-zinc-800/95 backdrop-blur-sm border border-zinc-700 text-white">
+                    <ul className="grid w-[400px] gap-3 p-4 bg-white dark:bg-zinc-800/95 backdrop-blur-sm border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white transition-colors">
                       <NavigationMenuLink asChild>
                         <Link
                           to="/theming"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">Theming System</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Theme configuration and customization options
                           </p>
                         </Link>
@@ -194,10 +195,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/brand-presets"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">Brand Presets</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Pre-built theme configurations for popular brands
                           </p>
                         </Link>
@@ -205,12 +206,12 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/performance"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">
                             Performance Metrics
                           </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             Benchmarks and optimization techniques
                           </p>
                         </Link>
@@ -218,10 +219,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/state"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700/50 hover:text-emerald-600 dark:hover:text-emerald-400 focus:bg-zinc-100 dark:focus:bg-zinc-700/50 focus:text-emerald-600 dark:focus:text-emerald-400"
                         >
                           <div className="text-sm font-medium leading-none">State Management</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
                             JSON-based state patterns and optimizations
                           </p>
                         </Link>
@@ -236,7 +237,7 @@ export function Layout({ className }: LayoutProps) {
               href="https://github.com/banja-au/react-jedi"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors hidden md:flex items-center gap-1"
+              className="text-zinc-700 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors hidden md:flex items-center gap-1"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -255,14 +256,16 @@ export function Layout({ className }: LayoutProps) {
               </svg>
               GitHub
             </a>
+
+            <DarkModeToggle />
           </div>
         </div>
       </header>
       <main className={className}>
         <Outlet />
       </main>
-      <footer className="bg-black/30 border-t border-zinc-800 py-8">
-        <div className="container mx-auto px-4 text-center text-zinc-400">
+      <footer className="bg-zinc-100/50 dark:bg-black/30 border-t border-zinc-200 dark:border-zinc-800 py-8 transition-colors duration-300">
+        <div className="container mx-auto px-4 text-center text-zinc-600 dark:text-zinc-400">
           <p>© {new Date().getFullYear()} React Jedi. All rights reserved.</p>
         </div>
       </footer>

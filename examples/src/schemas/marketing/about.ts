@@ -73,7 +73,7 @@ export const marketingAboutSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl md:text-2xl text-zinc-300 mb-8",
+                    className: "text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 mb-8",
                     children:
                       "We're not just another digital agency. We're innovators, creators, and dreamers pushing the boundaries of what's possible in the digital realm.",
                   },
@@ -132,7 +132,7 @@ export const marketingAboutSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 text-lg",
+                            className: "text-zinc-700 dark:text-zinc-300 text-lg",
                             children:
                               "We believe in the transformative power of digital technology. Our mission is to empower businesses of all sizes to reach their full potential through innovative digital solutions that drive growth, enhance customer experiences, and create lasting value.",
                           },
@@ -162,7 +162,7 @@ export const marketingAboutSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-300 text-lg",
+                            className: "text-zinc-700 dark:text-zinc-300 text-lg",
                             children:
                               "We envision a future where digital excellence is accessible to all. Our goal is to be the trusted partner that businesses turn to when they need to navigate the digital landscape, innovate, and stay ahead of the competition.",
                           },
@@ -205,7 +205,7 @@ export const marketingAboutSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-black",
+        className: "py-24 bg-white dark:bg-black",
       },
       children: [
         {
@@ -237,7 +237,7 @@ export const marketingAboutSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl text-zinc-300 max-w-3xl mx-auto",
+                    className: "text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto",
                     children:
                       "Our core values shape everything we do, from how we work with clients to how we innovate and grow.",
                   },
@@ -257,7 +257,7 @@ export const marketingAboutSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-sm border-zinc-800 p-8 text-center group hover:border-purple-500/50 transition-all duration-300",
+                      "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 p-8 text-center group hover:border-purple-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -287,7 +287,7 @@ export const marketingAboutSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Constantly pushing boundaries and exploring new possibilities",
                       },
                     },
@@ -299,7 +299,7 @@ export const marketingAboutSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-sm border-zinc-800 p-8 text-center group hover:border-blue-500/50 transition-all duration-300",
+                      "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 p-8 text-center group hover:border-blue-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -329,7 +329,7 @@ export const marketingAboutSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Delivering exceptional quality in everything we create",
                       },
                     },
@@ -341,7 +341,7 @@ export const marketingAboutSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-sm border-zinc-800 p-8 text-center group hover:border-indigo-500/50 transition-all duration-300",
+                      "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 p-8 text-center group hover:border-indigo-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -371,7 +371,7 @@ export const marketingAboutSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Working together to achieve shared success",
                       },
                     },
@@ -383,7 +383,7 @@ export const marketingAboutSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-sm border-zinc-800 p-8 text-center group hover:border-pink-500/50 transition-all duration-300",
+                      "bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 p-8 text-center group hover:border-pink-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -413,7 +413,7 @@ export const marketingAboutSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-400",
+                        className: "text-zinc-600 dark:text-zinc-400",
                         children: "Building trust through transparency and honesty",
                       },
                     },
@@ -462,7 +462,7 @@ export const marketingAboutSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl text-zinc-300 max-w-3xl mx-auto",
+                    className: "text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto",
                     children:
                       "Our diverse team of experts brings together creativity, technical expertise, and strategic thinking.",
                   },
@@ -482,7 +482,7 @@ export const marketingAboutSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-purple-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-purple-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -533,7 +533,7 @@ export const marketingAboutSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 text-sm",
+                            className: "text-zinc-600 dark:text-zinc-400 text-sm",
                             children: "Visionary leader with 15+ years in digital innovation",
                           },
                         },
@@ -547,7 +547,7 @@ export const marketingAboutSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-blue-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-blue-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -598,7 +598,7 @@ export const marketingAboutSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 text-sm",
+                            className: "text-zinc-600 dark:text-zinc-400 text-sm",
                             children: "Award-winning designer pushing creative boundaries",
                           },
                         },
@@ -612,7 +612,7 @@ export const marketingAboutSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-indigo-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-indigo-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -663,7 +663,7 @@ export const marketingAboutSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 text-sm",
+                            className: "text-zinc-600 dark:text-zinc-400 text-sm",
                             children: "Tech innovator with expertise in scalable systems",
                           },
                         },
@@ -677,7 +677,7 @@ export const marketingAboutSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 overflow-hidden group hover:border-pink-500/50 transition-all duration-300",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 overflow-hidden group hover:border-pink-500/50 transition-all duration-300",
                   },
                   children: [
                     {
@@ -728,7 +728,7 @@ export const marketingAboutSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400 text-sm",
+                            className: "text-zinc-600 dark:text-zinc-400 text-sm",
                             children: "Growth expert driving ROI-focused strategies",
                           },
                         },

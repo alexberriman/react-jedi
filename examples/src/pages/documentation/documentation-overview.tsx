@@ -70,15 +70,19 @@ export function DocumentationOverview() {
         <Link
           key={section.title}
           to={section.link}
-          className="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-emerald-500/30 transition-all duration-300"
+          className="group relative overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-6 hover:border-emerald-500/30 transition-all duration-300 transition-colors"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 transition-colors" />
           <div className="relative">
-            <div className="text-3xl mb-3">{section.icon}</div>
-            <h3 className="text-xl font-semibold text-white mb-2">{section.title}</h3>
-            <p className="text-zinc-400 text-sm">{section.description}</p>
+            <div className="text-3xl mb-3 transition-colors">{section.icon}</div>
+            <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2 transition-colors">
+              {section.title}
+            </h3>
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm transition-colors">
+              {section.description}
+            </p>
           </div>
-          <div className="absolute bottom-2 right-2 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute bottom-2 right-2 text-emerald-600 dark:text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transition-colors">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"

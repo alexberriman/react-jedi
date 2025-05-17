@@ -667,7 +667,7 @@ This milestone enhances the visual capabilities of the library with advanced lay
 - ✅ Break up long pages into smaller, focused pages for better UX
 - ✅ Ensure all components in component showcase are rendered (not just JSON)
 - ✅ Add loading states and error boundaries for robust experience
-- [ ] Implement dark mode support across entire app
+- ✅ Implement dark mode support across entire app
 - [ ] Polish hero sections and CTAs with modern, eye-catching animations
 - [ ] Ensure all interactive elements have proper hover/active states
 - [ ] Add proper page titles and meta descriptions for all routes

@@ -89,14 +89,16 @@ export function ExamplesPage() {
                       px-2 py-1 text-xs rounded-full
                       ${example.status === "new" ? "bg-green-500/20 text-green-400" : ""}
                       ${example.status === "updated" ? "bg-blue-500/20 text-blue-400" : ""}
-                      ${example.status === "stable" ? "bg-zinc-500/20 text-zinc-400" : ""}
+                      ${example.status === "stable" ? "bg-zinc-500/20 text-zinc-600 dark:text-zinc-400" : ""}
                     `}
                     >
                       {example.status}
                     </span>
                   )}
                 </div>
-                <p className="text-sm sm:text-base text-zinc-400 mb-4">{example.description}</p>
+                <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 mb-4">
+                  {example.description}
+                </p>
                 <div className="flex items-center text-purple-400 group-hover:text-purple-300">
                   <span className="text-sm">View Example</span>
                   <svg
@@ -120,10 +122,10 @@ export function ExamplesPage() {
 
         <div className="mt-8 sm:mt-12 p-4 sm:p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg">
           <h2 className="text-lg sm:text-xl font-semibold mb-3">Advanced Example Ideas</h2>
-          <p className="text-sm sm:text-base text-zinc-400 mb-4">
+          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 mb-4">
             Ready to build more complex applications? Try these advanced patterns:
           </p>
-          <ul className="list-disc list-inside text-sm sm:text-base text-zinc-400 space-y-2">
+          <ul className="list-disc list-inside text-sm sm:text-base text-zinc-600 dark:text-zinc-400 space-y-2">
             <li>Real-time dashboards with WebSocket-driven state updates</li>
             <li>E-commerce product catalog with filtering and search</li>
             <li>Content management system with drag-and-drop page builder</li>

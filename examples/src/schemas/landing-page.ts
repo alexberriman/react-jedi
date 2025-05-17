@@ -61,7 +61,8 @@ export const landingPageSchema = {
             {
               type: "Text",
               props: {
-                className: "text-xl md:text-2xl text-zinc-300 mb-8 max-w-3xl mx-auto",
+                className:
+                  "text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-3xl mx-auto",
                 children: "Creating immersive digital experiences that captivate and inspire.",
               },
             },
@@ -101,7 +102,7 @@ export const landingPageSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-zinc-900",
+        className: "py-24 bg-zinc-50 dark:bg-zinc-900",
       },
       children: [
         {
@@ -130,7 +131,7 @@ export const landingPageSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-300 mb-6",
+                        className: "text-zinc-700 dark:text-zinc-300 mb-6",
                         children:
                           "SkyScape Studios is a creative digital agency specializing in web design, 3D animation, and immersive experiences. We blend cutting-edge technology with artistic vision to create unforgettable digital journeys.",
                       },
@@ -138,7 +139,7 @@ export const landingPageSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-zinc-300 mb-8",
+                        className: "text-zinc-700 dark:text-zinc-300 mb-8",
                         children:
                           "Our team of designers, developers, and creative thinkers work together to push the boundaries of what's possible in the digital realm.",
                       },
@@ -211,7 +212,7 @@ export const landingPageSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-xl text-zinc-300 max-w-3xl mx-auto",
+                    className: "text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto",
                     children:
                       "From concept to completion, we provide end-to-end creative solutions.",
                   },
@@ -230,7 +231,7 @@ export const landingPageSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-indigo-500/50 transition-colors group overflow-hidden",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 hover:border-indigo-500/50 transition-colors group overflow-hidden",
                   },
                   children: [
                     {
@@ -266,7 +267,7 @@ export const landingPageSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400",
+                            className: "text-zinc-600 dark:text-zinc-400",
                             children:
                               "Beautiful, responsive websites that engage users and drive conversions. We use cutting-edge technologies to create seamless experiences.",
                           },
@@ -280,7 +281,7 @@ export const landingPageSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-purple-500/50 transition-colors group overflow-hidden",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 hover:border-purple-500/50 transition-colors group overflow-hidden",
                   },
                   children: [
                     {
@@ -316,7 +317,7 @@ export const landingPageSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400",
+                            className: "text-zinc-600 dark:text-zinc-400",
                             children:
                               "Stunning 3D models and animations that bring your ideas to life. Perfect for product showcases, architectural visualization, and more.",
                           },
@@ -330,7 +331,7 @@ export const landingPageSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-zinc-900/50 backdrop-blur-sm border-zinc-800 hover:border-pink-500/50 transition-colors group overflow-hidden",
+                      "bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-zinc-800 hover:border-pink-500/50 transition-colors group overflow-hidden",
                   },
                   children: [
                     {
@@ -366,7 +367,7 @@ export const landingPageSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-zinc-400",
+                            className: "text-zinc-600 dark:text-zinc-400",
                             children:
                               "Strategic digital marketing campaigns that connect with your audience and drive results. SEO, social media, content marketing, and more.",
                           },
@@ -440,9 +441,10 @@ export const landingPageSchema = {
                     {
                       type: "Text",
                       props: {
-                        className: "text-xl text-zinc-300 mb-8 max-w-2xl mx-auto",
+                        className:
+                          "text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto",
                         children:
-                          "Let's create something extraordinary together. Contact us today to start your journey.",
+                          "Let&apos;s create something extraordinary together. Contact us today to start your journey.",
                       },
                     },
                     {
@@ -483,7 +485,7 @@ export const landingPageSchema = {
                 {
                   type: "Text",
                   props: {
-                    className: "text-zinc-400 mb-4 md:mb-0",
+                    className: "text-zinc-600 dark:text-zinc-400 mb-4 md:mb-0",
                     children: "© 2025 SkyScape Studios. All rights reserved.",
                   },
                 },
@@ -497,7 +499,7 @@ export const landingPageSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "Twitter",
                       },
                     },
@@ -505,7 +507,7 @@ export const landingPageSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "Instagram",
                       },
                     },
@@ -513,7 +515,7 @@ export const landingPageSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "LinkedIn",
                       },
                     },
@@ -521,7 +523,7 @@ export const landingPageSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-zinc-400 hover:text-white transition-colors cursor-pointer",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
                         children: "Dribbble",
                       },
                     },

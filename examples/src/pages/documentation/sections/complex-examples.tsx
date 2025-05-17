@@ -2,27 +2,29 @@ export function ComplexExamplesPage() {
   return (
     <section id="complex-examples" className="mb-20">
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           Complex Examples
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50" />
+          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50 transition-colors" />
         </h2>
       </div>
 
       <div className="prose prose-invert prose-emerald max-w-none">
-        <p className="text-zinc-300 leading-relaxed mb-6">
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6 transition-colors">
           Here are some complex examples that combine multiple components to create real-world UI
           patterns.
         </p>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-400">Hero Section</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+          Hero Section
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           A complete hero section with gradient heading, description, and call-to-action buttons:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "container",
   "maxWidth": "7xl",
@@ -82,15 +84,17 @@ export function ComplexExamplesPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-400">Testimonial Component</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+          Testimonial Component
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           A testimonial component with multiple variants and rating:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "testimonial",
   "author": {
@@ -109,15 +113,17 @@ export function ComplexExamplesPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-400">Multiple Testimonials</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+          Multiple Testimonials
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           Create a grid of testimonials with different variants:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "grid",
   "columns": { "default": 1, "md": 3 },
@@ -163,15 +169,17 @@ export function ComplexExamplesPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-400">Pricing Table</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+          Pricing Table
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           A beautiful pricing table with tier comparison:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "pricing-table",
   "columns": 3,
@@ -226,15 +234,17 @@ export function ComplexExamplesPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-400">Dashboard Card</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+          Dashboard Card
+        </h3>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
           A dashboard card with metrics and status indicators:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
+          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
               {`{
   "type": "card",
   "children": [

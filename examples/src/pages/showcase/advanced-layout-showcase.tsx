@@ -1,28 +1,28 @@
-import { Container } from "@/components/layout";
 import {
+  AspectRatio,
+  Badge,
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
+  Center,
+  Container,
   Flex,
   Grid,
-  Center,
-  SimpleGrid,
-  Stack,
   Group,
-  Spacer,
-  Masonry,
-  AspectRatio,
-  Badge,
-  Button,
-  Text,
   Heading,
-  ScrollArea,
-  Resizable,
-  ResizablePanel,
+  Masonry,
+  ResizablePanelGroup,
   ResizableHandle,
-} from "@/components/ui";
+  ResizablePanel,
+  ScrollArea,
+  SimpleGrid,
+  Spacer,
+  Stack,
+  Text,
+} from "@banja/react-jedi";
 import { useState } from "react";
 
 export function AdvancedLayoutShowcase() {
@@ -435,7 +435,7 @@ export function AdvancedLayoutShowcase() {
               </Text>
 
               <div className="h-64">
-                <Resizable>
+                <ResizablePanelGroup direction="horizontal">
                   <ResizablePanel defaultSize={50}>
                     <Box className="h-full p-4 bg-blue-500 text-white rounded-l">Left Panel</Box>
                   </ResizablePanel>
@@ -443,7 +443,7 @@ export function AdvancedLayoutShowcase() {
                   <ResizablePanel defaultSize={50}>
                     <Box className="h-full p-4 bg-purple-500 text-white rounded-r">Right Panel</Box>
                   </ResizablePanel>
-                </Resizable>
+                </ResizablePanelGroup>
               </div>
             </CardContent>
           </Card>

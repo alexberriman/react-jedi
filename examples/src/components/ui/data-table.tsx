@@ -1,14 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
+import { Input } from "./input";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
 interface Column<T> {

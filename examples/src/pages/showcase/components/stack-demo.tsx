@@ -1,6 +1,5 @@
 import React from "react";
-import { render } from "@/lib/render";
-import { Card, CardContent } from "@/components/ui/card";
+import { render, Card, CardContent } from "@banja/react-jedi";
 
 const stackExamples = {
   basic: {

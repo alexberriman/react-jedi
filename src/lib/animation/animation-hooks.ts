@@ -535,3 +535,51 @@ export type ClickPreset = keyof typeof clickPresets;
 export const useClickPreset = (preset: ClickPreset) => {
   return useClickAnimation(clickPresets[preset]);
 };
+
+// Preset focus effects
+export const focusPresets = {
+  ring: {
+    scale: 1.02,
+    boxShadow: "0 0 0 2px var(--primary)",
+    outline: "none",
+  },
+  glow: {
+    scale: 1.01,
+    boxShadow: "0 0 0 4px rgba(124, 58, 237, 0.3)",
+    outline: "none",
+  },
+  highlight: {
+    scale: 1.02,
+    borderColor: "var(--primary)",
+    backgroundColor: "var(--primary-50)",
+  },
+  lift: {
+    scale: 1.05,
+    boxShadow: "0 0 0 3px var(--ring), 0 10px 20px rgba(0,0,0,0.15)",
+  },
+  underline: {
+    outline: "none",
+    boxShadow: "inset 0 -3px 0 0 var(--primary)",
+  },
+  border: {
+    outline: "none",
+    borderColor: "var(--primary)",
+    boxShadow: "0 0 0 2px var(--primary)",
+  },
+  subtle: {
+    scale: 1.01,
+    outline: "none",
+    boxShadow: "0 0 0 1px var(--primary-200)",
+  },
+  intense: {
+    scale: 1.03,
+    boxShadow: "0 0 0 3px var(--primary), 0 0 20px rgba(124, 58, 237, 0.4)",
+    outline: "none",
+  },
+} as const;
+
+export type FocusPreset = keyof typeof focusPresets;
+
+export const useFocusPreset = (preset: FocusPreset) => {
+  return useFocusAnimation(focusPresets[preset]);
+};

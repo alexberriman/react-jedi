@@ -1,5 +1,6 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react/pure";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { Click, ClickButton, ClickCard, ClickIcon } from "./click";
 import { AnimationProvider } from "./animation-provider";
@@ -161,15 +162,20 @@ describe("Click Components", () => {
     const TestIcon = () => <svg data-testid="test-icon" />;
 
     it("renders icon correctly", () => {
-      const { container } = render(<ClickIcon icon={<TestIcon />} />, { wrapper });
+      const { container } = render(<ClickIcon icon={<TestIcon />}>{null}</ClickIcon>, { wrapper });
 
       expect(container.querySelector('[data-testid="test-icon"]')).toBeInTheDocument();
     });
 
     it("renders with different sizes", () => {
-      const { container, rerender } = render(<ClickIcon icon={<TestIcon />} size="sm" />, {
-        wrapper,
-      });
+      const { container, rerender } = render(
+        <ClickIcon icon={<TestIcon />} size="sm">
+          {null}
+        </ClickIcon>,
+        {
+          wrapper,
+        }
+      );
 
       let icon = container.querySelector("div");
       expect(icon).toHaveClass("w-8");
@@ -177,7 +183,9 @@ describe("Click Components", () => {
 
       rerender(
         <AnimationProvider>
-          <ClickIcon icon={<TestIcon />} size="lg" />
+          <ClickIcon icon={<TestIcon />} size="lg">
+            {null}
+          </ClickIcon>
         </AnimationProvider>
       );
 
@@ -188,9 +196,14 @@ describe("Click Components", () => {
 
     it("handles onClick event", () => {
       const handleClick = vi.fn();
-      const { container } = render(<ClickIcon icon={<TestIcon />} onClick={handleClick} />, {
-        wrapper,
-      });
+      const { container } = render(
+        <ClickIcon icon={<TestIcon />} onClick={handleClick}>
+          {null}
+        </ClickIcon>,
+        {
+          wrapper,
+        }
+      );
 
       const element = container.querySelector("div");
       if (element) {

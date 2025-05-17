@@ -8,12 +8,16 @@ export {
   useFocusAnimation,
   useClickAnimation,
   useClickPreset,
+  useFocusPreset,
   clickPresets,
+  focusPresets,
 } from "./animation-hooks";
 export type {
   AnimationVariant,
   AnimationDirection,
   UseAnimationProps,
+  FocusAnimationConfig,
+  FocusPreset,
   ClickAnimationConfig,
   ClickPreset,
 } from "./animation-hooks";
@@ -26,6 +30,16 @@ export type { SlideProps } from "./slide";
 
 export { Click, ClickButton, ClickCard, ClickIcon } from "./click";
 export type { ClickProps, ClickButtonProps, ClickCardProps, ClickIconProps } from "./click";
+
+export { Focus, FocusButton, FocusInput, FocusTextarea, FocusCard, FocusLink } from "./focus";
+export type {
+  FocusProps,
+  FocusButtonProps,
+  FocusInputProps,
+  FocusTextareaProps,
+  FocusCardProps,
+  FocusLinkProps,
+} from "./focus";
 
 export { motion, AnimatePresence } from "framer-motion";
 export type { MotionProps, AnimationProps, Variants } from "framer-motion";

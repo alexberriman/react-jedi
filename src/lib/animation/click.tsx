@@ -14,7 +14,7 @@ export interface ClickProps {
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const Click: React.FC<ClickProps> = ({
@@ -128,9 +128,10 @@ export const ClickCard: React.FC<ClickCardProps> = ({
   );
 };
 
-export interface ClickIconProps extends ClickProps {
+export interface ClickIconProps extends Omit<ClickProps, "children"> {
   icon: React.ReactNode;
   size?: "sm" | "md" | "lg";
+  children?: React.ReactNode;
 }
 
 export const ClickIcon: React.FC<ClickIconProps> = ({

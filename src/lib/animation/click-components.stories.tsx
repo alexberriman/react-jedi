@@ -52,8 +52,8 @@ const StarIcon = () => (
 
 export const BasicClick: Story = {
   render: () => (
-    <Stack spacing={6} align="center">
-      <Heading level={3}>Basic Click Wrapper</Heading>
+    <Stack spacing="lg" align="center">
+      <Heading level="h3">Basic Click Wrapper</Heading>
       <Click preset="bounce">
         <Box className="px-6 py-4 bg-blue-100 dark:bg-blue-900 rounded-lg text-center">
           <Text>Click me! I&apos;ll bounce.</Text>
@@ -65,12 +65,12 @@ export const BasicClick: Story = {
 
 export const ClickButtons: Story = {
   render: () => (
-    <Stack spacing={6}>
-      <Heading level={3} className="text-center">
+    <Stack spacing="lg">
+      <Heading level="h3" className="text-center">
         Click Buttons
       </Heading>
 
-      <Stack spacing={4}>
+      <Stack spacing="md">
         <Box className="flex gap-4 justify-center">
           <ClickButton>Primary</ClickButton>
           <ClickButton variant="secondary">Secondary</ClickButton>
@@ -111,20 +111,20 @@ export const ClickButtons: Story = {
 
 export const ClickCards: Story = {
   render: () => (
-    <Stack spacing={6}>
-      <Heading level={3} className="text-center">
+    <Stack spacing="lg">
+      <Heading level="h3" className="text-center">
         Click Cards
       </Heading>
 
-      <SimpleGrid columns={2} spacing={4}>
+      <SimpleGrid columns={2} spacing="md">
         <ClickCard
-          header={<Heading level={4}>Default Card</Heading>}
+          header={<Heading level="h4">Default Card</Heading>}
           footer={<Text className="text-sm text-gray-500">With footer</Text>}
         >
           <Text>This card uses the default bounce preset.</Text>
         </ClickCard>
 
-        <ClickCard preset="press" header={<Heading level={4}>Press Card</Heading>}>
+        <ClickCard preset="press" header={<Heading level="h4">Press Card</Heading>}>
           <Text>This card uses the press preset for a tactile feel.</Text>
         </ClickCard>
 
@@ -132,7 +132,7 @@ export const ClickCards: Story = {
           preset="jelly"
           className="bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900"
         >
-          <Heading level={4}>Gradient Card</Heading>
+          <Heading level="h4">Gradient Card</Heading>
           <Text className="mt-2">Custom styled with jelly animation.</Text>
         </ClickCard>
 
@@ -144,7 +144,7 @@ export const ClickCards: Story = {
             shadow: "0 1px 3px rgba(0,0,0,0.2)",
           }}
         >
-          <Heading level={4}>Custom Animation</Heading>
+          <Heading level="h4">Custom Animation</Heading>
           <Text className="mt-2">This card has a custom animation config.</Text>
         </ClickCard>
       </SimpleGrid>
@@ -154,23 +154,37 @@ export const ClickCards: Story = {
 
 export const ClickIcons: Story = {
   render: () => (
-    <Stack spacing={6}>
-      <Heading level={3} className="text-center">
+    <Stack spacing="lg">
+      <Heading level="h3" className="text-center">
         Click Icons
       </Heading>
 
-      <Stack spacing={4}>
+      <Stack spacing="md">
         <Box className="flex gap-4 justify-center">
-          <ClickIcon icon={<HeartIcon />} size="sm" />
-          <ClickIcon icon={<HeartIcon />} size="md" />
-          <ClickIcon icon={<HeartIcon />} size="lg" />
+          <ClickIcon icon={<HeartIcon />} size="sm">
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
+          <ClickIcon icon={<HeartIcon />} size="md">
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
+          <ClickIcon icon={<HeartIcon />} size="lg">
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
         </Box>
 
         <Box className="flex gap-4 justify-center">
-          <ClickIcon icon={<StarIcon />} preset="bounce" className="text-yellow-500" />
-          <ClickIcon icon={<StarIcon />} preset="jelly" className="text-blue-500" />
-          <ClickIcon icon={<StarIcon />} preset="pulse" className="text-purple-500" />
-          <ClickIcon icon={<StarIcon />} preset="pop" className="text-green-500" />
+          <ClickIcon icon={<StarIcon />} preset="bounce" className="text-yellow-500">
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
+          <ClickIcon icon={<StarIcon />} preset="jelly" className="text-blue-500">
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
+          <ClickIcon icon={<StarIcon />} preset="pulse" className="text-purple-500">
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
+          <ClickIcon icon={<StarIcon />} preset="pop" className="text-green-500">
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
         </Box>
 
         <Box className="flex gap-4 justify-center">
@@ -182,7 +196,9 @@ export const ClickIcons: Story = {
               brightness: 0.9,
             }}
             className="text-red-500"
-          />
+          >
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
           <ClickIcon
             icon={<StarIcon />}
             animation={{
@@ -191,7 +207,9 @@ export const ClickIcons: Story = {
               shadow: "0 0 10px currentColor",
             }}
             className="text-orange-500"
-          />
+          >
+            {/* Empty children for type compatibility */}
+          </ClickIcon>
         </Box>
       </Stack>
     </Stack>
@@ -203,9 +221,9 @@ const InteractiveExampleComponent = () => {
   const [rating, setRating] = React.useState(0);
 
   return (
-    <Stack spacing={8}>
+    <Stack spacing="xl">
       <Box className="text-center">
-        <Heading level={3} className="mb-4">
+        <Heading level="h3" className="mb-4">
           Interactive Counter
         </Heading>
         <ClickButton preset="bounce" size="lg" onClick={() => setCount(count + 1)}>
@@ -214,7 +232,7 @@ const InteractiveExampleComponent = () => {
       </Box>
 
       <Box className="text-center">
-        <Heading level={3} className="mb-4">
+        <Heading level="h3" className="mb-4">
           Star Rating
         </Heading>
         <Box className="flex gap-2 justify-center">
@@ -226,7 +244,9 @@ const InteractiveExampleComponent = () => {
               size="lg"
               className={star <= rating ? "text-yellow-400" : "text-gray-300"}
               onClick={() => setRating(star)}
-            />
+            >
+              {/* Empty children for type compatibility */}
+            </ClickIcon>
           ))}
         </Box>
         <Text className="mt-2">Rating: {rating}/5</Text>
@@ -241,12 +261,12 @@ export const InteractiveExample: Story = {
 
 export const ComplexLayout: Story = {
   render: () => (
-    <Stack spacing={6}>
-      <Heading level={2} className="text-center">
+    <Stack spacing="lg">
+      <Heading level="h2" className="text-center">
         Product Cards
       </Heading>
 
-      <SimpleGrid columns={3} spacing={4}>
+      <SimpleGrid columns={3} spacing="md">
         {[
           { name: "Basic Plan", price: "$9", features: ["1 User", "10GB Storage"] },
           {
@@ -261,7 +281,7 @@ export const ComplexLayout: Story = {
           },
         ].map((plan) => (
           <ClickCard key={plan.name} preset="bounce" className="text-center">
-            <Heading level={4}>{plan.name}</Heading>
+            <Heading level="h4">{plan.name}</Heading>
             <Text className="text-3xl font-bold my-4">{plan.price}</Text>
             <ul className="text-sm space-y-2">
               {plan.features.map((feature, index) => (

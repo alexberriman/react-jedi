@@ -1,5 +1,5 @@
-import { renderHook } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+import { renderHook } from "@testing-library/react/pure";
 import {
   useClickAnimation,
   useClickPreset,
@@ -7,16 +7,16 @@ import {
   type ClickPreset,
 } from "./animation-hooks";
 import { AnimationProvider } from "./animation-provider";
-import React from "react";
+import React, { type ReactNode } from "react";
 
 // Mock framer-motion
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: { children: React.ReactNode }) =>
+    div: ({ children, ...props }: { children: ReactNode }) =>
       React.createElement("div", props, children),
   },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
-  MotionConfig: ({ children }: { children: React.ReactNode }) => children,
+  AnimatePresence: ({ children }: { children: ReactNode }) => children,
+  MotionConfig: ({ children }: { children: ReactNode }) => children,
   Transition: {},
   AnimationProps: {},
   Variants: {},
@@ -25,13 +25,15 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("useClickAnimation", () => {
-  const wrapper = ({ children }: { children: React.ReactNode }) => (
+  const wrapper = ({ children }: { children: ReactNode }) => (
     <AnimationProvider>{children}</AnimationProvider>
   );
 
   it("returns empty object when reducedMotion is enabled", () => {
     const { result } = renderHook(() => useClickAnimation(), {
-      wrapper: ({ children }) => <AnimationProvider reducedMotion>{children}</AnimationProvider>,
+      wrapper: ({ children }: { children: ReactNode }) => (
+        <AnimationProvider reducedMotion>{children}</AnimationProvider>
+      ),
     });
 
     expect(result.current).toEqual({});
@@ -103,7 +105,8 @@ describe("useClickAnimation", () => {
   it("supports legacy API with simple scale number", () => {
     const { result } = renderHook(() => useClickAnimation(0.85), { wrapper });
 
-    expect(result.current.whileTap.scale).toBe(0.85);
+    const animation = result.current as { whileTap?: { scale?: number } };
+    expect(animation.whileTap?.scale).toBe(0.85);
   });
 
   it("handles configuration without brightness filter", () => {
@@ -116,12 +119,13 @@ describe("useClickAnimation", () => {
       { wrapper }
     );
 
-    expect(result.current.whileTap.filter).toBe("brightness(0.9)");
+    const animation = result.current as { whileTap?: { filter?: string } };
+    expect(animation.whileTap?.filter).toBe("brightness(0.9)");
   });
 });
 
 describe("useClickPreset", () => {
-  const wrapper = ({ children }: { children: React.ReactNode }) => (
+  const wrapper = ({ children }: { children: ReactNode }) => (
     <AnimationProvider>{children}</AnimationProvider>
   );
 
@@ -130,30 +134,30 @@ describe("useClickPreset", () => {
       const { result } = renderHook(() => useClickPreset(preset as ClickPreset), { wrapper });
 
       const expectedConfig = clickPresets[preset as ClickPreset];
+      const animation = result.current as { whileTap?: Record<string, unknown> };
+      const whileTap = animation.whileTap;
 
       // Check that the preset values are applied
       if (expectedConfig.scale != null) {
-        expect(result.current.whileTap.scale).toBe(expectedConfig.scale);
+        expect(whileTap?.scale).toBe(expectedConfig.scale);
       }
-      if (Object.prototype.hasOwnProperty.call(expectedConfig, "translateY")) {
-        expect(result.current.whileTap.y).toBe(expectedConfig.translateY);
+      if ("translateY" in expectedConfig) {
+        expect(whileTap?.y).toBe(expectedConfig.translateY);
       }
-      if (expectedConfig.brightness != null) {
-        expect(result.current.whileTap.filter).toContain(
-          `brightness(${expectedConfig.brightness})`
-        );
+      if ("brightness" in expectedConfig && expectedConfig.brightness != null) {
+        expect(whileTap?.filter).toContain(`brightness(${expectedConfig.brightness})`);
       }
-      if (expectedConfig.shadow != null) {
-        expect(result.current.whileTap.boxShadow).toBe(expectedConfig.shadow);
+      if ("shadow" in expectedConfig && expectedConfig.shadow != null) {
+        expect(whileTap?.boxShadow).toBe(expectedConfig.shadow);
       }
-      if (expectedConfig.rotate != null) {
-        expect(result.current.whileTap.rotate).toBe(expectedConfig.rotate);
+      if ("rotate" in expectedConfig && expectedConfig.rotate != null) {
+        expect(whileTap?.rotate).toBe(expectedConfig.rotate);
       }
-      if (expectedConfig.opacity != null) {
-        expect(result.current.whileTap.opacity).toBe(expectedConfig.opacity);
+      if ("opacity" in expectedConfig && expectedConfig.opacity != null) {
+        expect(whileTap?.opacity).toBe(expectedConfig.opacity);
       }
-      if (expectedConfig.backgroundColor != null) {
-        expect(result.current.whileTap.backgroundColor).toBe(expectedConfig.backgroundColor);
+      if ("backgroundColor" in expectedConfig && expectedConfig.backgroundColor != null) {
+        expect(whileTap?.backgroundColor).toBe(expectedConfig.backgroundColor);
       }
     });
   }

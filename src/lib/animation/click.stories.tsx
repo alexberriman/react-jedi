@@ -47,7 +47,7 @@ const CustomClickDemo = () => {
 
   return (
     <Box className="p-8 text-center">
-      <Heading level={3} className="mb-4">
+      <Heading level="h3" className="mb-4">
         Custom Click Animation
       </Heading>
       <motion.button
@@ -65,11 +65,11 @@ const ClickPresetsDemo = () => {
   const presetKeys = Object.keys(clickPresets) as ClickPreset[];
 
   return (
-    <Stack spacing={6}>
-      <Heading level={2} className="text-center">
+    <Stack spacing="lg">
+      <Heading level="h2" className="text-center">
         Click Animation Presets
       </Heading>
-      <SimpleGrid columns={3} spacing={4}>
+      <SimpleGrid columns={3} spacing="md">
         {presetKeys.map((preset) => {
           const PresetButton = () => {
             const animation = useClickPreset(preset);
@@ -104,8 +104,8 @@ const ClickPlayground = () => {
   const animation = useClickAnimation(config);
 
   return (
-    <Stack spacing={6}>
-      <Heading level={2} className="text-center">
+    <Stack spacing="lg">
+      <Heading level="h2" className="text-center">
         Click Animation Playground
       </Heading>
 
@@ -191,12 +191,12 @@ const UIElementsDemo = () => {
   const pulseClick = useClickPreset("pulse");
 
   return (
-    <Stack spacing={6}>
-      <Heading level={2} className="text-center">
+    <Stack spacing="lg">
+      <Heading level="h2" className="text-center">
         Click Animations on UI Elements
       </Heading>
 
-      <SimpleGrid columns={2} spacing={6}>
+      <SimpleGrid columns={2} spacing="lg">
         <motion.div {...bounceClick}>
           <Button size="lg" variant="default" className="w-full">
             Bounce Button
@@ -213,7 +213,7 @@ const UIElementsDemo = () => {
           {...jellyClick}
           className="p-6 bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-lg shadow-md cursor-pointer"
         >
-          <Heading level={4}>Jelly Card</Heading>
+          <Heading level="h4">Jelly Card</Heading>
           <Text className="mt-2">Click me for a jelly effect!</Text>
         </motion.div>
 
@@ -221,7 +221,7 @@ const UIElementsDemo = () => {
           {...pulseClick}
           className="p-6 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 rounded-lg shadow-md cursor-pointer"
         >
-          <Heading level={4}>Pulse Card</Heading>
+          <Heading level="h4">Pulse Card</Heading>
           <Text className="mt-2">Click me for a pulse effect!</Text>
         </motion.div>
       </SimpleGrid>
@@ -267,7 +267,7 @@ export const CombinedEffects: Story = {
 
       return (
         <Box className="text-center p-8">
-          <Heading level={3} className="mb-6">
+          <Heading level="h3" className="mb-6">
             Combined Hover & Click
           </Heading>
           <motion.button
@@ -294,7 +294,7 @@ const DisabledStateComponent = () => {
 
   return (
     <Box className="text-center p-8">
-      <Heading level={3} className="mb-6">
+      <Heading level="h3" className="mb-6">
         Disabled Click Animation
       </Heading>
       <motion.button

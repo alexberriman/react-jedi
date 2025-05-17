@@ -153,6 +153,12 @@ const DataFetchingPage = lazy(() =>
   }))
 );
 
+const OptimisticUpdatesPage = lazy(() =>
+  import("../pages/examples/optimistic-updates").then((module) => ({ 
+    default: module.OptimisticUpdatesPage 
+  }))
+);
+
 // Other pages
 const BrandPresetsPage = lazy(() =>
   import("../pages/brand-presets").then((module) => ({ default: module.BrandPresetsPage }))
@@ -471,6 +477,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={DataFetchingPage}
                 loadingText="Loading data fetching example..."
+              />
+            ),
+          },
+          {
+            path: "optimistic-updates",
+            element: (
+              <AsyncRoute
+                component={OptimisticUpdatesPage}
+                loadingText="Loading optimistic updates example..."
               />
             ),
           },

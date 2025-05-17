@@ -8,3 +8,11 @@ export {
   type DataFetcherResponse,
   type DataTransformFunction,
 } from "./data-fetcher";
+
+export {
+  createOptimisticMutation,
+  createOptimisticUpdater,
+  optimisticMutate,
+  type OptimisticUpdateConfig,
+  type OptimisticMutationOptions,
+} from "./optimistic-updates";

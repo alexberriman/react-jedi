@@ -1,11 +1,15 @@
-import { ReactJediSpecification } from "./schema/specification";
+import { UISpecification, DataSourceSpecification as BaseDataSourceSpecification } from "./schema/specification";
 
 /**
- * Defines how data should be fetched from external sources
+ * Defines how data should be fetched from external sources (extended)
  */
-export interface DataSourceSpecification {
+export interface ExtendedDataSourceSpecification {
   /** Unique identifier for this data source */
   id: string;
+  /** Type of data source */
+  type: "rest" | "graphql" | "static" | "websocket" | "function";
+  /** Data source configuration */
+  config: Record<string, unknown>;
   /** URL or endpoint to fetch data from */
   url: string;
   /** HTTP method to use */
@@ -28,6 +32,35 @@ export interface DataSourceSpecification {
   };
   /** Request timeout in milliseconds */
   timeout?: number;
+}
+
+/**
+ * Mutation specification for data updates
+ */
+export interface MutationSpecification {
+  /** Unique identifier for this mutation */
+  id: string;
+  /** REST endpoint for the mutation */
+  endpoint: string;
+  /** HTTP method (POST, PUT, DELETE, PATCH) */
+  method?: "POST" | "PUT" | "DELETE" | "PATCH";
+  /** Request headers */
+  headers?: Record<string, string>;
+  /** Query keys to invalidate on success */
+  invalidates?: string[];
+  /** Optimistic update configuration */
+  optimistic?: {
+    /** Function to get optimistic data */
+    getOptimisticData: string;
+    /** State updates to apply */
+    stateUpdates?: Record<string, unknown>;
+    /** Rollback strategy */
+    rollback?: "snapshot" | "custom";
+  };
+  /** Success message to display */
+  successMessage?: string;
+  /** Error message template */
+  errorMessage?: string;
 }
 
 /**
@@ -145,7 +178,7 @@ export interface DataCache {
   /** Maximum number of items in cache */
   maxSize?: number;
   /** Cache key generator function */
-  keyGenerator?: (source: DataSourceSpecification) => string;
+  keyGenerator?: (source: ExtendedDataSourceSpecification) => string;
   /** Whether to cache error responses */
   cacheErrors?: boolean;
   /** Stale-while-revalidate duration */
@@ -155,18 +188,18 @@ export interface DataCache {
   /** Conditions when to bypass cache */
   bypass?: {
     /** Bypass cache on specific HTTP methods */
-    methods?: DataSourceSpecification["method"][];
+    methods?: ExtendedDataSourceSpecification["method"][];
     /** Custom bypass predicate */
-    predicate?: (source: DataSourceSpecification) => boolean;
+    predicate?: (source: ExtendedDataSourceSpecification) => boolean;
   };
 }
 
 /**
  * Component specification with data integration
  */
-export interface DataIntegratedSpecification extends ReactJediSpecification {
+export interface DataIntegratedSpecification extends UISpecification {
   /** Data sources to fetch */
-  dataSources?: DataSourceSpecification[];
+  dataSources?: BaseDataSourceSpecification[];
   /** Data binding configuration */
   dataBindings?: DataBindingConfiguration[];
   /** Whether to fetch data on mount */
@@ -175,7 +208,7 @@ export interface DataIntegratedSpecification extends ReactJediSpecification {
   refetchDependencies?: string[];
   /** Global error boundary for data errors */
   dataErrorBoundary?: {
-    fallback?: ReactJediSpecification;
+    fallback?: UISpecification;
     onError?: (error: DataFetchError) => void;
   };
 }
@@ -229,7 +262,7 @@ export interface BatchRequestConfig {
   /** Delay before executing batch */
   batchDelay?: number;
   /** Custom batch resolver */
-  resolver?: (requests: DataSourceSpecification[]) => Promise<unknown[]>;
+  resolver?: (requests: ExtendedDataSourceSpecification[]) => Promise<unknown[]>;
 }
 
 /**
@@ -237,11 +270,11 @@ export interface BatchRequestConfig {
  */
 export interface DataSourceLifecycle {
   /** Called before fetch */
-  onBeforeFetch?: (source: DataSourceSpecification) => void | Promise<void>;
+  onBeforeFetch?: (source: ExtendedDataSourceSpecification) => void | Promise<void>;
   /** Called after successful fetch */
-  onAfterFetch?: (data: unknown, source: DataSourceSpecification) => void;
+  onAfterFetch?: (data: unknown, source: ExtendedDataSourceSpecification) => void;
   /** Called on fetch error */
-  onFetchError?: (error: DataFetchError, source: DataSourceSpecification) => void;
+  onFetchError?: (error: DataFetchError, source: ExtendedDataSourceSpecification) => void;
   /** Called when data is cached */
   onCache?: (data: unknown, key: string) => void;
   /** Called when data is retrieved from cache */
@@ -251,7 +284,7 @@ export interface DataSourceLifecycle {
 /**
  * Type guards for data types
  */
-export const isDataSourceSpecification = (obj: unknown): obj is DataSourceSpecification => {
+export const isDataSourceSpecification = (obj: unknown): obj is ExtendedDataSourceSpecification => {
   return typeof obj === "object" && obj !== null && "id" in obj && "url" in obj;
 };
 

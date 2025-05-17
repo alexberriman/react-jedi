@@ -115,6 +115,14 @@ const examples: Example[] = [
     path: "/examples/data-fetching",
     status: "new",
   },
+  {
+    id: "optimistic-updates",
+    title: "Optimistic Updates",
+    description:
+      "Experience instant UI feedback with optimistic updates. Updates appear immediately while syncing with the server in the background, with automatic rollback on errors.",
+    path: "/examples/optimistic-updates",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

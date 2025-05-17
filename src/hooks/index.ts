@@ -10,5 +10,6 @@ export type {
   WebSocketConfig,
   FunctionConfig
 } from "./use-data-sources";
-export { useMobile } from "./use-mobile";
-export { useAsync } from "./use-async";
+export { useMutation } from "./use-mutation";
+export type { UseMutationConfig } from "./use-mutation";
+export { useIsMobile } from "./use-mobile";

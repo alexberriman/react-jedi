@@ -2,12 +2,23 @@ import { useMemo } from "react";
 import { AnimationProps, HTMLMotionProps, Variants } from "framer-motion";
 import { useAnimation } from "./animation-provider";
 
-export type AnimationVariant = "fadeIn" | "slideIn" | "scaleIn" | "rotateIn" | "custom";
+export type AnimationVariant =
+  | "fadeIn"
+  | "fadeOut"
+  | "slideIn"
+  | "slideOut"
+  | "scaleIn"
+  | "scaleOut"
+  | "rotateIn"
+  | "rotateOut"
+  | "custom";
 export type AnimationDirection = "up" | "down" | "left" | "right";
+export type ScaleDirection = "uniform" | "horizontal" | "vertical";
 
 export interface UseAnimationProps {
   variant?: AnimationVariant;
   direction?: AnimationDirection;
+  scaleDirection?: ScaleDirection;
   delay?: number;
   duration?: "fast" | "normal" | "slow" | number;
   custom?: Variants;
@@ -17,6 +28,7 @@ export interface UseAnimationProps {
 export const useAnimationVariants = ({
   variant = "fadeIn",
   direction = "up",
+  scaleDirection = "uniform",
   delay = 0,
   duration = "normal",
   custom,
@@ -51,6 +63,17 @@ export const useAnimationVariants = ({
         };
       }
 
+      case "fadeOut": {
+        return {
+          initial: { opacity: 1 },
+          animate: {
+            opacity: 0,
+            transition: { duration: durationValue, delay, ...config.transition },
+          },
+          exit: { opacity: 1 },
+        };
+      }
+
       case "slideIn": {
         const slideOffsets = {
           up: { y: 20 },
@@ -70,15 +93,65 @@ export const useAnimationVariants = ({
         };
       }
 
-      case "scaleIn": {
+      case "slideOut": {
+        const slideOffsets = {
+          up: { y: -20 },
+          down: { y: 20 },
+          left: { x: -20 },
+          right: { x: 20 },
+        };
         return {
-          initial: { opacity: 0, scale: 0.8 },
+          initial: { opacity: 1, x: 0, y: 0 },
           animate: {
-            opacity: 1,
-            scale: 1,
+            opacity: 0,
+            ...slideOffsets[direction],
             transition: { duration: durationValue, delay, ...config.transition },
           },
-          exit: { opacity: 0, scale: 0.8 },
+          exit: { opacity: 1, x: 0, y: 0 },
+        };
+      }
+
+      case "scaleIn": {
+        const scaleValues = {
+          uniform: { scale: 0.8 },
+          horizontal: { scaleX: 0.8, scaleY: 1 },
+          vertical: { scaleX: 1, scaleY: 0.8 },
+        };
+        const resetScale = {
+          uniform: { scale: 1 },
+          horizontal: { scaleX: 1 },
+          vertical: { scaleY: 1 },
+        };
+        return {
+          initial: { opacity: 0, ...scaleValues[scaleDirection] },
+          animate: {
+            opacity: 1,
+            ...resetScale[scaleDirection],
+            transition: { duration: durationValue, delay, ...config.transition },
+          },
+          exit: { opacity: 0, ...scaleValues[scaleDirection] },
+        };
+      }
+
+      case "scaleOut": {
+        const scaleValues = {
+          uniform: { scale: 1.2 },
+          horizontal: { scaleX: 1.2, scaleY: 1 },
+          vertical: { scaleX: 1, scaleY: 1.2 },
+        };
+        const resetScale = {
+          uniform: { scale: 1 },
+          horizontal: { scaleX: 1 },
+          vertical: { scaleY: 1 },
+        };
+        return {
+          initial: { opacity: 0, ...scaleValues[scaleDirection] },
+          animate: {
+            opacity: 1,
+            ...resetScale[scaleDirection],
+            transition: { duration: durationValue, delay, ...config.transition },
+          },
+          exit: { opacity: 0, ...scaleValues[scaleDirection] },
         };
       }
 
@@ -94,6 +167,18 @@ export const useAnimationVariants = ({
         };
       }
 
+      case "rotateOut": {
+        return {
+          initial: { opacity: 1, rotate: 0 },
+          animate: {
+            opacity: 0,
+            rotate: 10,
+            transition: { duration: durationValue, delay, ...config.transition },
+          },
+          exit: { opacity: 1, rotate: 0 },
+        };
+      }
+
       default: {
         return {
           initial: {},
@@ -102,7 +187,7 @@ export const useAnimationVariants = ({
         };
       }
     }
-  }, [variant, direction, delay, durationValue, config, disabled, custom]);
+  }, [variant, direction, scaleDirection, delay, durationValue, config, disabled, custom]);
 
   return {
     initial: "initial",

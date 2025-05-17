@@ -57,13 +57,75 @@ describe("useAnimationVariants", () => {
     });
   });
 
-  it("returns scaleIn animation", () => {
+  it("returns scaleIn animation with uniform direction", () => {
     const { result } = renderHook(() => useAnimationVariants({ variant: "scaleIn" }), { wrapper });
 
     expect(result.current.variants).toMatchObject({
       initial: { opacity: 0, scale: 0.8 },
       animate: { opacity: 1, scale: 1 },
       exit: { opacity: 0, scale: 0.8 },
+    });
+  });
+
+  it("returns scaleIn animation with horizontal direction", () => {
+    const { result } = renderHook(
+      () => useAnimationVariants({ variant: "scaleIn", scaleDirection: "horizontal" }),
+      { wrapper }
+    );
+
+    expect(result.current.variants).toMatchObject({
+      initial: { opacity: 0, scaleX: 0.8, scaleY: 1 },
+      animate: { opacity: 1, scaleX: 1 },
+      exit: { opacity: 0, scaleX: 0.8, scaleY: 1 },
+    });
+  });
+
+  it("returns scaleIn animation with vertical direction", () => {
+    const { result } = renderHook(
+      () => useAnimationVariants({ variant: "scaleIn", scaleDirection: "vertical" }),
+      { wrapper }
+    );
+
+    expect(result.current.variants).toMatchObject({
+      initial: { opacity: 0, scaleX: 1, scaleY: 0.8 },
+      animate: { opacity: 1, scaleY: 1 },
+      exit: { opacity: 0, scaleX: 1, scaleY: 0.8 },
+    });
+  });
+
+  it("returns scaleOut animation with uniform direction", () => {
+    const { result } = renderHook(() => useAnimationVariants({ variant: "scaleOut" }), { wrapper });
+
+    expect(result.current.variants).toMatchObject({
+      initial: { opacity: 0, scale: 1.2 },
+      animate: { opacity: 1, scale: 1 },
+      exit: { opacity: 0, scale: 1.2 },
+    });
+  });
+
+  it("returns scaleOut animation with horizontal direction", () => {
+    const { result } = renderHook(
+      () => useAnimationVariants({ variant: "scaleOut", scaleDirection: "horizontal" }),
+      { wrapper }
+    );
+
+    expect(result.current.variants).toMatchObject({
+      initial: { opacity: 0, scaleX: 1.2, scaleY: 1 },
+      animate: { opacity: 1, scaleX: 1 },
+      exit: { opacity: 0, scaleX: 1.2, scaleY: 1 },
+    });
+  });
+
+  it("returns scaleOut animation with vertical direction", () => {
+    const { result } = renderHook(
+      () => useAnimationVariants({ variant: "scaleOut", scaleDirection: "vertical" }),
+      { wrapper }
+    );
+
+    expect(result.current.variants).toMatchObject({
+      initial: { opacity: 0, scaleX: 1, scaleY: 1.2 },
+      animate: { opacity: 1, scaleY: 1 },
+      exit: { opacity: 0, scaleX: 1, scaleY: 1.2 },
     });
   });
 

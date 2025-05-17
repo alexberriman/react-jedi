@@ -1,11 +1,11 @@
 import React from "react";
 import { usePageMetadata, type PageMetadata } from "@/lib/utils/meta";
-import { type BaseComponentProps } from "@/types/schema/base";
 
-export interface HeadManagerProps extends BaseComponentProps {
+export interface HeadManagerProps {
   readonly metadata: PageMetadata;
   readonly titleSuffix?: string;
   readonly defaultTitle?: string;
+  readonly children?: React.ReactNode;
 }
 
 export function HeadManager({

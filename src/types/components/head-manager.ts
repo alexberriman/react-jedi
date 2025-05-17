@@ -1,6 +1,6 @@
-import type { ComponentType } from "../schema/components";
+import type { BaseComponentSpec } from "../schema/base";
 
-export interface HeadManagerSpec extends ComponentType {
+export interface HeadManagerSpec extends BaseComponentSpec {
   type: "head-manager" | "headManager";
   metadata: {
     title: string;

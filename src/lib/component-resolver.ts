@@ -411,8 +411,14 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Form: asComponent(UI.Form as React.ComponentType<Record<string, unknown>>),
 
   // Utility Components
-  HeadManager: asComponent(HeadManager),
-  headManager: asComponent(HeadManager),
+  HeadManager: asComponent(
+    HeadManager as unknown as React.ComponentType<Record<string, unknown>>,
+    { metadata: { title: "" } } // Provide default required props
+  ),
+  headManager: asComponent(
+    HeadManager as unknown as React.ComponentType<Record<string, unknown>>,
+    { metadata: { title: "" } } // Provide default required props
+  ),
 };
 
 /**

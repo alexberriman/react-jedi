@@ -165,6 +165,12 @@ const SEOMetadataPage = lazy(() =>
   }))
 );
 
+const StructuredDataDemo = lazy(() =>
+  import("../components/seo").then((module) => ({
+    default: module.StructuredDataDemo,
+  }))
+);
+
 // Other pages
 const BrandPresetsPage = lazy(() =>
   import("../pages/brand-presets").then((module) => ({ default: module.BrandPresetsPage }))
@@ -501,6 +507,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={SEOMetadataPage}
                 loadingText="Loading SEO metadata example..."
+              />
+            ),
+          },
+          {
+            path: "structured-data",
+            element: (
+              <AsyncRoute
+                component={StructuredDataDemo}
+                loadingText="Loading structured data demo..."
               />
             ),
           },

@@ -40,8 +40,8 @@ describe("setPageMetadata", () => {
     expect(document.title).toBe("Test Page - My App");
   });
 
-  it("should use default title when title is not provided", () => {
-    setPageMetadata({}, { defaultTitle: "Default App" });
+  it("should use default title when title is empty", () => {
+    setPageMetadata({ title: "" }, { defaultTitle: "Default App" });
     expect(document.title).toBe("Default App");
   });
 
@@ -130,8 +130,8 @@ describe("setPageMetadata", () => {
     expect(updatedMeta?.getAttribute("content")).toBe("Updated description");
   });
 
-  it("should handle empty metadata object", () => {
-    setPageMetadata({});
+  it("should handle minimal metadata object", () => {
+    setPageMetadata({ title: "" });
     expect(document.title).toBe("React Application");
   });
 

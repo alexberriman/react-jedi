@@ -123,3 +123,6 @@ export * from "./data";
 
 // Developer tools
 export * from "./dev-tools";
+
+// SEO and Structured Data
+export * from "./seo";

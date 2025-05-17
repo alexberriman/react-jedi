@@ -131,6 +131,14 @@ const examples: Example[] = [
     path: "/examples/seo-metadata",
     status: "new",
   },
+  {
+    id: "structured-data",
+    title: "Structured Data (JSON-LD)",
+    description:
+      "Implement schema.org markup for rich snippets in search results. Support for Organization, Article, Product, FAQ, and other schemas.",
+    path: "/examples/structured-data",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

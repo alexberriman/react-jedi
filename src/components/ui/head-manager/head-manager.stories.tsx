@@ -137,6 +137,7 @@ export const MinimalConfiguration: Story = {
 export const WithDefaultTitle: Story = {
   args: {
     metadata: {
+      title: "",
       description: "This page uses the default title",
     },
     defaultTitle: "My Default App Title",

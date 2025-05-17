@@ -29,6 +29,12 @@ export function Layout({ className }: LayoutProps) {
               Examples
             </Link>
             <Link
+              to="/templates/marketing"
+              className="text-zinc-200 hover:text-emerald-400 transition-colors"
+            >
+              Templates
+            </Link>
+            <Link
               to="/documentation"
               className="text-zinc-200 hover:text-emerald-400 transition-colors"
             >

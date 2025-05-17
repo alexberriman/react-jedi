@@ -22,6 +22,15 @@ import { BrandPresetsPage } from "../pages/brand-presets";
 import { ThemingPage, ThemePlaygroundPage } from "../pages/theming";
 import { PerformancePage } from "../pages/performance";
 import { StatePage } from "../pages/state";
+import {
+  MarketingTemplatePage,
+  MarketingHomePage,
+  MarketingAboutPage,
+  MarketingServicesPage,
+  MarketingCasesPage,
+  MarketingPricingPage,
+  MarketingContactPage,
+} from "../pages/templates";
 
 export const router = createBrowserRouter([
   {
@@ -103,6 +112,44 @@ export const router = createBrowserRouter([
           {
             path: "navigation",
             element: <NavigationPage />,
+          },
+        ],
+      },
+      {
+        path: "templates",
+        children: [
+          {
+            path: "marketing",
+            children: [
+              {
+                index: true,
+                element: <MarketingTemplatePage />,
+              },
+              {
+                path: "home",
+                element: <MarketingHomePage />,
+              },
+              {
+                path: "about",
+                element: <MarketingAboutPage />,
+              },
+              {
+                path: "services",
+                element: <MarketingServicesPage />,
+              },
+              {
+                path: "cases",
+                element: <MarketingCasesPage />,
+              },
+              {
+                path: "pricing",
+                element: <MarketingPricingPage />,
+              },
+              {
+                path: "contact",
+                element: <MarketingContactPage />,
+              },
+            ],
           },
         ],
       },

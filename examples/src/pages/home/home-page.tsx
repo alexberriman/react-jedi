@@ -124,7 +124,7 @@ export function HomePage() {
       {/* Latest Updates Section */}
       <section className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-12 text-center">What&apos;s New</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
           <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-purple-500/20 rounded-lg">
@@ -209,6 +209,52 @@ export function HomePage() {
               className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-2"
             >
               View Performance Metrics
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </Link>
+          </div>
+          <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-blue-500/20 rounded-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-blue-400"
+                >
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold">Marketing Template</h3>
+            </div>
+            <p className="text-zinc-300 mb-4">
+              New full marketing website template! A complete multi-page site showcasing modern
+              design and complex layouts, all driven by JSON.
+            </p>
+            <Link
+              to="/templates/marketing"
+              className="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2"
+            >
+              View Marketing Template
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

@@ -3,6 +3,40 @@ import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useAnimation } from "./animation-provider";
 import { scrollPresets, ScrollPreset } from "./scroll-hooks";
 
+// Helper function to extract the exit animation configuration
+function getExitAnimation(
+  animationConfig: StaggerConfig | Record<string, unknown>
+): Record<string, unknown> {
+  if (
+    "exit" in animationConfig &&
+    typeof animationConfig.exit === "object" &&
+    animationConfig.exit !== null
+  ) {
+    return animationConfig.exit as Record<string, unknown>;
+  }
+
+  if (typeof animationConfig.initial === "object" && animationConfig.initial !== null) {
+    return animationConfig.initial as Record<string, unknown>;
+  }
+
+  return {} as Record<string, unknown>;
+}
+
+// Custom type for animation handlers
+type AnimationHandler = (e?: React.UIEvent | Event) => void;
+
+type AnimationEventHandler<T = Element> = (e: React.AnimationEvent<T>) => void;
+
+// Type-safe handler function to convert to a simple callback
+function createAnimationHandler(
+  callback?: (() => void) | AnimationEventHandler<HTMLElement>
+): (() => void) | undefined {
+  if (!callback) return undefined;
+  return () => {
+    callback({} as React.AnimationEvent<HTMLElement>);
+  };
+}
+
 // Types for staggered animation configurations
 export interface StaggerConfig {
   initial: Record<string, unknown>;
@@ -24,8 +58,8 @@ export interface StaggerComponentProps {
   childStyle?: React.CSSProperties;
   childAs?: React.ElementType;
   autoStart?: boolean;
-  onAnimationComplete?: () => void;
-  onAnimationStart?: () => void;
+  onAnimationComplete?: (() => void) | AnimationEventHandler<HTMLElement>;
+  onAnimationStart?: (() => void) | AnimationEventHandler<HTMLElement>;
   orchestration?: "sequence" | "stagger" | "cascade";
   staggerVariants?: Variants;
 }
@@ -51,8 +85,12 @@ export const Stagger: React.FC<StaggerComponentProps> = ({
 }) => {
   const config = useAnimation();
   const [isAnimating] = useState(autoStart);
-  const MotionComponent = motion[as as keyof typeof motion] || motion.div;
-  const ChildMotionComponent = motion[childAs as keyof typeof motion] || motion.div;
+  // Get the appropriate motion component
+  const Component = as;
+  const MotionComponent = motion(Component);
+  // Get the appropriate child motion component
+  const ChildComponent = childAs;
+  const ChildMotionComponent = motion(ChildComponent);
 
   // Get animation config
   const animationConfig = typeof animation === "string" ? scrollPresets[animation] : animation;
@@ -62,16 +100,17 @@ export const Stagger: React.FC<StaggerComponentProps> = ({
 
   useEffect(() => {
     if (autoStart && onAnimationStart) {
-      onAnimationStart();
+      onAnimationStart({} as React.AnimationEvent<HTMLElement>);
     }
   }, [autoStart, onAnimationStart]);
 
   // Build stagger variants object
-  const variants: Variants = staggerVariants || {
+  // Convert to a proper framer-motion variants format
+  const variants = staggerVariants || {
     hidden: {
-      ...animationConfig.initial,
+      ...(typeof animationConfig.initial === "object" ? animationConfig.initial : {}),
     },
-    visible: (i) => {
+    visible: (i: number) => {
       let delay = delayStart;
 
       // Calculate item-specific delay based on orchestration
@@ -86,16 +125,21 @@ export const Stagger: React.FC<StaggerComponentProps> = ({
         delay += i * staggerDelay;
       }
 
+      const animateProps =
+        typeof animationConfig.animate === "object" ? { ...animationConfig.animate } : {};
+      const transitionProps =
+        typeof animationConfig.transition === "object" ? { ...animationConfig.transition } : {};
+
       return {
-        ...animationConfig.animate,
+        ...animateProps,
         transition: {
-          ...animationConfig.transition,
+          ...transitionProps,
           delay,
         },
       };
     },
     exit: {
-      ...(animationConfig.exit || animationConfig.initial),
+      ...getExitAnimation(animationConfig),
     },
   };
 
@@ -103,7 +147,7 @@ export const Stagger: React.FC<StaggerComponentProps> = ({
 
   // Handle animation completion
   const handleAnimationComplete = () => {
-    if (onAnimationComplete) onAnimationComplete();
+    if (onAnimationComplete) onAnimationComplete({} as React.AnimationEvent<HTMLElement>);
   };
 
   // Map children to apply custom indexes based on direction
@@ -169,7 +213,9 @@ export const StaggerItem: React.FC<StaggerItemProps> = ({
   as = "div",
   variants,
 }) => {
-  const MotionComponent = motion[as as keyof typeof motion] || motion.div;
+  // Get the appropriate motion component
+  const Component = as;
+  const MotionComponent = motion(Component);
 
   return (
     <MotionComponent custom={index} variants={variants} className={className} style={style}>
@@ -179,7 +225,7 @@ export const StaggerItem: React.FC<StaggerItemProps> = ({
 };
 
 // StaggerList component for common list patterns
-export interface StaggerListProps<T = unknown> extends StaggerComponentProps {
+export interface StaggerListProps<T = unknown> extends Omit<StaggerComponentProps, "children"> {
   readonly items: readonly T[];
   readonly renderItem: (item: T, index: number) => React.ReactNode;
   readonly keyExtractor?: (item: T, index: number) => string | number;
@@ -209,6 +255,8 @@ export function StaggerList<T>({
   orchestration = "stagger",
   staggerVariants,
 }: StaggerListProps<T>): React.ReactElement {
+  // Use our helper for animation handlers
+
   return (
     <Stagger
       staggerDelay={staggerDelay}
@@ -222,8 +270,16 @@ export function StaggerList<T>({
       childAs={listType === "ul" || listType === "ol" ? "li" : "div"}
       direction={direction}
       autoStart={autoStart}
-      onAnimationComplete={onAnimationComplete}
-      onAnimationStart={onAnimationStart}
+      onAnimationComplete={
+        onAnimationComplete
+          ? () => onAnimationComplete({} as React.AnimationEvent<HTMLElement>)
+          : undefined
+      }
+      onAnimationStart={
+        onAnimationStart
+          ? () => onAnimationStart({} as React.AnimationEvent<HTMLElement>)
+          : undefined
+      }
       orchestration={orchestration}
       staggerVariants={staggerVariants}
       {...listProps}
@@ -352,17 +408,19 @@ export const staggerPresets = {
 export type StaggerPreset = keyof typeof staggerPresets;
 
 // Function to create stagger container variants
-export const useStaggerContainerVariants = (staggerDelay = 0.1): Variants => ({
-  initial: {
-    transition: { staggerChildren: 0 },
-  },
-  animate: {
-    transition: { staggerChildren: staggerDelay, delayChildren: 0.3 },
-  },
-  exit: {
-    transition: { staggerChildren: staggerDelay / 2, staggerDirection: -1 },
-  },
-});
+export const useStaggerContainerVariants = (staggerDelay = 0.1): Variants => {
+  return {
+    initial: {
+      transition: { staggerChildren: 0 },
+    },
+    animate: {
+      transition: { staggerChildren: staggerDelay, delayChildren: 0.3 },
+    },
+    exit: {
+      transition: { staggerChildren: staggerDelay / 2, staggerDirection: -1 },
+    },
+  };
+};
 
 // Main container to wrap staggered items with coordinated staggering
 export interface StaggerContainerProps {
@@ -375,7 +433,7 @@ export interface StaggerContainerProps {
   as?: React.ElementType;
   autoPlay?: boolean;
   variants?: Variants;
-  onAnimationComplete?: () => void;
+  onAnimationComplete?: (() => void) | AnimationEventHandler<HTMLElement>;
 }
 
 export const StaggerContainer: React.FC<StaggerContainerProps> = ({
@@ -402,7 +460,9 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
       transition: { staggerChildren: staggerDelay / 2, staggerDirection: -1 },
     },
   };
-  const MotionComponent = motion[as as keyof typeof motion] || motion.div;
+  // Get the appropriate motion component
+  const Component = as;
+  const MotionComponent = motion(Component);
 
   return (
     <MotionComponent
@@ -412,7 +472,11 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
       variants={staggerVariantsConfig}
       className={className}
       style={style}
-      onAnimationComplete={onAnimationComplete}
+      onAnimationComplete={
+        onAnimationComplete
+          ? () => onAnimationComplete({} as React.AnimationEvent<HTMLElement>)
+          : undefined
+      }
     >
       {React.Children.toArray(children).map((child, index) => {
         // Apply custom index based on direction

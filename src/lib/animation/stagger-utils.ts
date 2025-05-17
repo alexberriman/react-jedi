@@ -139,15 +139,21 @@ export function createStaggerSequence(
     animate: (i) => {
       const delay = calculateDelay(i);
 
+      // Convert to properly typed object
+      const animateProps =
+        typeof baseVariants.animate === "object" ? { ...baseVariants.animate } : {};
+
+      // Create a valid framer-motion transition object
       return {
-        ...baseVariants.animate,
+        ...animateProps,
         transition: {
-          ...baseVariants.transition,
+          duration: 0.5,
+          ease: "easeOut",
           delay,
         },
       };
     },
-    exit: baseVariants.exit || baseVariants.initial,
+    exit: "exit" in baseVariants ? baseVariants.exit : baseVariants.initial,
   };
 }
 
@@ -546,8 +552,23 @@ export function createComplexStagger(
   } = options;
 
   // Build initial and animate states based on requested effects
-  const initial: Record<string, unknown> = {};
-  const animate: Record<string, unknown> = {};
+  const initial: {
+    opacity?: number;
+    y?: number;
+    x?: number;
+    scale?: number;
+    rotate?: number;
+    filter?: string;
+  } = {};
+
+  const animate: {
+    opacity?: number;
+    y?: number;
+    x?: number;
+    scale?: number;
+    rotate?: number;
+    filter?: string;
+  } = {};
 
   // Add effects
   if (effects.includes("fade")) {

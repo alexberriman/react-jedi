@@ -96,9 +96,71 @@ export {
   createPathStagger,
   createFilterStagger,
   createComplexStagger,
-  useStaggerContainerVariants,
 } from "./stagger-utils";
 export type { StaggerOptions } from "./stagger-utils";
 
+// State transitions
+export {
+  StateTransition,
+  InteractiveStateTransition,
+  TransitionSequence,
+} from "./state-transition";
+export type {
+  StateTransitionProps,
+  InteractiveStateTransitionProps,
+  TransitionSequenceProps,
+} from "./state-transition";
+
+export {
+  useStateTransition,
+  useComponentState,
+  createStateTransition,
+  useStatePreset,
+  statePresets,
+  createTransitionSequence,
+} from "./state-transitions";
+export type {
+  ComponentState,
+  StateConfig,
+  StateTransitionConfig,
+  StatePreset,
+} from "./state-transitions";
+
+// Transition patterns
+export {
+  createFlowPattern,
+  createElasticPattern,
+  createStaggeredPattern,
+  createLoopPattern,
+  createOrchestratedPattern,
+  createProgressivePattern,
+  createMicroPattern,
+  createDramaticPattern,
+  createStagedPattern,
+} from "./transition-patterns";
+
+// Transition timing
+export {
+  createTween,
+  createSpring,
+  createInertia,
+  createStaggerTransition,
+  createTransitionFromConfig,
+  createStateTransition as createTimedStateTransition,
+  createPropertyTransitions,
+  easingPresets,
+  durationPresets,
+  springPresets,
+  inertiaPresets,
+} from "./transition-timing";
+export type {
+  TransitionType,
+  DurationPreset,
+  SpringConfig,
+  SpringPreset,
+  InertiaConfig,
+  InertiaPreset,
+} from "./transition-timing";
+
 export { motion, AnimatePresence } from "framer-motion";
-export type { MotionProps, AnimationProps, Variants } from "framer-motion";
+export type { MotionProps, AnimationProps, Variants, Transition } from "framer-motion";

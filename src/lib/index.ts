@@ -8,17 +8,42 @@
 export * from "./utils";
 // Explicitly re-export from styles to avoid DEFAULT_BREAKPOINTS ambiguity
 export {
-  processResponsive, processMargin, processPadding, processWidth, 
-  processHeight, processTextColor, processBackgroundColor, processBorder,
-  processBorderRadius, processFlexDirection, processFlexWrap, processGap,
-  processTextAlign, processFontSize, processFontWeight, processShadow,
-  processZIndex, processDisplay, processOverflow, processPosition,
-  processOffset, processOpacity, processTransition, arbitrary,
-  extractStyles, conditionalClasses, stateClasses, styleProcessors,
+  processResponsive,
+  processMargin,
+  processPadding,
+  processWidth,
+  processHeight,
+  processTextColor,
+  processBackgroundColor,
+  processBorder,
+  processBorderRadius,
+  processFlexDirection,
+  processFlexWrap,
+  processGap,
+  processTextAlign,
+  processFontSize,
+  processFontWeight,
+  processShadow,
+  processZIndex,
+  processDisplay,
+  processOverflow,
+  processPosition,
+  processOffset,
+  processOpacity,
+  processTransition,
+  arbitrary,
+  extractStyles,
+  conditionalClasses,
+  stateClasses,
+  styleProcessors,
   processStyleProps,
   // Types
-  type ResponsiveValue, type StyleValue, type StyleObject, 
-  type StyleProcessor, type StylePropertyValue, type StyleProps
+  type ResponsiveValue,
+  type StyleValue,
+  type StyleObject,
+  type StyleProcessor,
+  type StylePropertyValue,
+  type StyleProps,
 } from "./styles";
 export * from "./type-safety";
 
@@ -49,3 +74,6 @@ export {
   type MemoizationOptions,
   type RenderMetrics,
 } from "./performance/memoization";
+
+// Animation system
+export * from "./animation";

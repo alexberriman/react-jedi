@@ -118,6 +118,9 @@ const NavigationPage = lazy(() =>
 const DataDisplayPage = lazy(() =>
   import("../pages/examples/data").then((module) => ({ default: module.DataDisplayPage }))
 );
+const TransitionsPage = lazy(() =>
+  import("../pages/examples/transitions").then((module) => ({ default: module.TransitionsPage }))
+);
 
 // Other pages
 const BrandPresetsPage = lazy(() =>
@@ -381,6 +384,12 @@ export const router = createBrowserRouter([
             path: "data-display",
             element: (
               <AsyncRoute component={DataDisplayPage} loadingText="Loading data display..." />
+            ),
+          },
+          {
+            path: "transitions",
+            element: (
+              <AsyncRoute component={TransitionsPage} loadingText="Loading transitions..." />
             ),
           },
         ],

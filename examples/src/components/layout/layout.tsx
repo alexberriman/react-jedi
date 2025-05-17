@@ -11,6 +11,11 @@ import {
 import { MobileMenu } from "../ui/mobile-menu";
 import { DarkModeToggle } from "../ui/dark-mode-toggle";
 import { cn } from "@/lib/utils";
+import { ScrollToTop } from "./scroll-to-top";
+import { ScrollProgress } from "./scroll-progress";
+import { BackToTop } from "./back-to-top";
+import { PageTransition } from "./page-transition";
+import { AnchorScroll } from "./anchor-scroll";
 
 export type LayoutProps = Readonly<{
   className?: string;
@@ -19,6 +24,10 @@ export type LayoutProps = Readonly<{
 export function Layout({ className }: LayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-50 to-slate-100 text-zinc-900 dark:from-zinc-900 dark:to-slate-900 dark:text-white transition-colors duration-300">
+      <ScrollToTop />
+      <ScrollProgress />
+      <BackToTop />
+      <AnchorScroll />
       <header className="border-b border-zinc-200 dark:border-zinc-800 backdrop-blur-lg bg-white/80 dark:bg-black/50 sticky top-0 z-50 transition-colors duration-300">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -262,7 +271,9 @@ export function Layout({ className }: LayoutProps) {
         </div>
       </header>
       <main className={className}>
-        <Outlet />
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </main>
       <footer className="bg-zinc-100/50 dark:bg-black/30 border-t border-zinc-200 dark:border-zinc-800 py-8 transition-colors duration-300">
         <div className="container mx-auto px-4 text-center text-zinc-600 dark:text-zinc-400">

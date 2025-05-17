@@ -58,6 +58,14 @@ const examples: Example[] = [
     path: "/examples/data-display",
     status: "new",
   },
+  {
+    id: "transitions",
+    title: "Page Transitions & Smooth Scroll",
+    description:
+      "Smooth page transitions with Framer Motion and animated scrolling. Features section navigation and scroll progress indicators.",
+    path: "/examples/transitions",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

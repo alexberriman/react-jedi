@@ -315,19 +315,19 @@ export function ShowcasePage() {
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-6xl mx-auto">
         {/* Hero Section */}
-        <div className="rounded-2xl mb-16 p-8 bg-gradient-to-br from-emerald-900/30 via-zinc-900/50 to-violet-900/30 border border-emerald-500/20 backdrop-blur-sm">
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
+        <div className="rounded-xl sm:rounded-2xl mb-8 sm:mb-16 p-6 sm:p-8 bg-gradient-to-br from-emerald-900/30 via-zinc-900/50 to-violet-900/30 border border-emerald-500/20 backdrop-blur-sm">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
             Component Showcase
           </h1>
-          <p className="text-xl text-zinc-300 max-w-3xl">
+          <p className="text-lg sm:text-xl text-zinc-300 max-w-3xl">
             Explore all the available components from Milestone 1. Each component can be defined and
             rendered via JSON specification using React Jedi&apos;s server-driven UI architecture.
           </p>
         </div>
 
         {/* Filter & Navigation Section */}
-        <div className="sticky top-20 z-10 bg-zinc-900/80 backdrop-blur-xl mb-12 py-4 px-6 rounded-xl border border-zinc-800 shadow-lg flex items-center justify-between">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2">
+        <div className="sticky top-20 z-10 bg-zinc-900/80 backdrop-blur-xl mb-8 sm:mb-12 py-3 sm:py-4 px-4 sm:px-6 rounded-xl border border-zinc-800 shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 w-full sm:w-auto">
             <a
               href="#all"
               className="px-4 py-2 bg-emerald-500/15 rounded-lg text-emerald-400 hover:bg-emerald-500/25 transition-all whitespace-nowrap"
@@ -344,41 +344,42 @@ export function ShowcasePage() {
               </a>
             ))}
           </div>
-          <div className="hidden md:block">
-            <Link
-              to="/documentation"
-              className="px-4 py-2 bg-zinc-800/50 rounded-lg hover:bg-zinc-700/50 transition-all flex items-center gap-2"
+          <Link
+            to="/documentation"
+            className="px-4 py-2 bg-zinc-800/50 rounded-lg hover:bg-zinc-700/50 transition-all flex items-center gap-2 whitespace-nowrap"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-              </svg>
-              View Documentation
-            </Link>
-          </div>
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <span className="hidden sm:inline">View Documentation</span>
+            <span className="sm:hidden">Docs</span>
+          </Link>
         </div>
 
         {/* Component Categories */}
         <div className="space-y-20">
           {categories.map((category) => (
             <section key={category.id} id={category.id} className="scroll-mt-32">
-              <div className="flex items-center gap-3 mb-6">
-                <h2 className="text-3xl font-bold">{category.title}</h2>
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold">{category.title}</h2>
                 <div className="h-px flex-grow bg-gradient-to-r from-emerald-500/30 to-transparent"></div>
               </div>
-              <p className="text-xl text-zinc-300 mb-8">{category.description}</p>
+              <p className="text-lg sm:text-xl text-zinc-300 mb-6 sm:mb-8">
+                {category.description}
+              </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {category.components.map((component) => (
                   <div
                     key={component.name}
@@ -413,11 +414,13 @@ export function ShowcasePage() {
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-semibold mb-2 flex items-center gap-2">
                       {component.name}
                     </h3>
 
-                    <p className="text-zinc-400 mb-4">{component.description}</p>
+                    <p className="text-sm sm:text-base text-zinc-400 mb-4">
+                      {component.description}
+                    </p>
 
                     <div className="flex items-center gap-3 mt-auto pt-2">
                       {component.name === "ScrollArea" ||
@@ -495,7 +498,7 @@ export function ShowcasePage() {
         </div>
 
         {/* Coming Soon Section */}
-        <div className="mt-20 bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-700/30 rounded-xl p-10 text-center">
+        <div className="mt-12 sm:mt-20 bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-700/30 rounded-xl p-6 sm:p-8 lg:p-10 text-center">
           <div className="inline-block mb-4 p-3 bg-purple-500/20 rounded-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -517,28 +520,28 @@ export function ShowcasePage() {
               <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
             </svg>
           </div>
-          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
             Interactive Components Now Available!
           </h2>
-          <p className="text-zinc-300 max-w-2xl mx-auto mb-6">
+          <p className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto mb-6">
             This showcase displays Milestone 1 components. Check out our new interactive components
             showcase featuring form elements, toggles, sliders, and more!
           </p>
-          <div className="flex flex-wrap gap-4 justify-center mt-6">
-            <div className="px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700">
+          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mt-6">
+            <div className="px-3 sm:px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700 text-sm sm:text-base">
               Milestone 2: Theming System
             </div>
-            <div className="px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700">
+            <div className="px-3 sm:px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700 text-sm sm:text-base">
               Milestone 3: Interactive Components
             </div>
-            <div className="px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700">
+            <div className="px-3 sm:px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700 text-sm sm:text-base">
               Milestone 4: Advanced Layouts
             </div>
-            <div className="px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700">
+            <div className="px-3 sm:px-4 py-2 bg-zinc-800/50 rounded-lg border border-zinc-700 text-sm sm:text-base">
               Milestone 5: Animations
             </div>
           </div>
-          <div className="mt-8 flex gap-4 justify-center">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/showcase/interactive"
               className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg text-white font-medium hover:from-purple-700 hover:to-indigo-700 transition-all"

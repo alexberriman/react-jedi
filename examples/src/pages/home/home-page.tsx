@@ -7,29 +7,29 @@ export function HomePage() {
       <section className="bg-gradient-to-b from-black to-transparent pt-20 pb-32">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-500">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-500">
               Server-Driven UI for React
             </h1>
-            <p className="text-xl md:text-2xl text-zinc-300 mb-10">
+            <p className="text-lg sm:text-xl md:text-2xl text-zinc-300 mb-10">
               Build beautiful, dynamic interfaces with JSON specifications. Leverage the power of
               React, TailwindCSS, and ShadCN components.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 to="/showcase"
-                className="px-8 py-3 bg-emerald-500 hover:bg-emerald-600 rounded-md font-medium text-white transition-colors"
+                className="px-6 sm:px-8 py-3 bg-emerald-500 hover:bg-emerald-600 rounded-md font-medium text-white transition-colors text-center"
               >
                 View Components
               </Link>
               <Link
                 to="/examples"
-                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-md font-medium text-white transition-colors"
+                className="px-6 sm:px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-md font-medium text-white transition-colors text-center"
               >
                 Browse Examples
               </Link>
               <Link
                 to="/documentation"
-                className="px-8 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-md font-medium text-white transition-colors"
+                className="px-6 sm:px-8 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-md font-medium text-white transition-colors text-center"
               >
                 Read Docs
               </Link>
@@ -40,8 +40,8 @@ export function HomePage() {
 
       {/* Features Section */}
       <section className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-12 text-center">Core Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center">Core Features</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {[
             {
               title: "JSON-Driven UI",
@@ -114,8 +114,8 @@ export function HomePage() {
               <div className="bg-zinc-900 rounded-lg p-3 w-12 h-12 flex items-center justify-center mb-4">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-              <p className="text-zinc-300">{feature.description}</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-3">{feature.title}</h3>
+              <p className="text-sm sm:text-base text-zinc-300">{feature.description}</p>
             </div>
           ))}
         </div>
@@ -123,8 +123,10 @@ export function HomePage() {
 
       {/* Latest Updates Section */}
       <section className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-12 text-center">What&apos;s New</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center">
+          What&apos;s New
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto mb-16">
           <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-purple-500/20 rounded-lg">
@@ -150,9 +152,9 @@ export function HomePage() {
                   <path d="m4.9 4.9 2.9 2.9"></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold">Interactive Components</h3>
+              <h3 className="text-lg sm:text-xl font-semibold">Interactive Components</h3>
             </div>
-            <p className="text-zinc-300 mb-4">
+            <p className="text-sm sm:text-base text-zinc-300 mb-4">
               Milestone 3 is complete! Explore our new showcase featuring form components, toggles,
               sliders, and collapsible sections with full state management.
             </p>
@@ -198,9 +200,9 @@ export function HomePage() {
                   <path d="m8 8-4 4 4 4"></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold">Performance Benchmarks</h3>
+              <h3 className="text-lg sm:text-xl font-semibold">Performance Benchmarks</h3>
             </div>
-            <p className="text-zinc-300 mb-4">
+            <p className="text-sm sm:text-base text-zinc-300 mb-4">
               Comprehensive performance benchmarks added for all components. Run benchmarks to
               measure rendering speed and optimize your applications.
             </p>
@@ -244,9 +246,9 @@ export function HomePage() {
                   <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold">Marketing Template</h3>
+              <h3 className="text-lg sm:text-xl font-semibold">Marketing Template</h3>
             </div>
-            <p className="text-zinc-300 mb-4">
+            <p className="text-sm sm:text-base text-zinc-300 mb-4">
               New full marketing website template! A complete multi-page site showcasing modern
               design and complex layouts, all driven by JSON.
             </p>
@@ -292,9 +294,9 @@ export function HomePage() {
                   <rect x="3" y="14" width="7" height="7" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold">Advanced Layouts</h3>
+              <h3 className="text-lg sm:text-xl font-semibold">Advanced Layouts</h3>
             </div>
-            <p className="text-zinc-300 mb-4">
+            <p className="text-sm sm:text-base text-zinc-300 mb-4">
               Milestone 4 advanced layouts now available! Explore our comprehensive showcase of
               layout components including Stack, Grid, Resizable panels, and more.
             </p>
@@ -324,14 +326,14 @@ export function HomePage() {
 
       {/* CTA Section */}
       <section className="container mx-auto px-4 mt-16">
-        <div className="bg-gradient-to-r from-emerald-900/50 to-blue-900/50 border border-emerald-700/30 rounded-2xl p-10 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Build with React Jedi?</h2>
-          <p className="text-xl text-zinc-300 mb-8 max-w-2xl mx-auto">
+        <div className="bg-gradient-to-r from-emerald-900/50 to-blue-900/50 border border-emerald-700/30 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Build with React Jedi?</h2>
+          <p className="text-lg sm:text-xl text-zinc-300 mb-6 sm:mb-8 max-w-2xl mx-auto">
             Start creating stunning interfaces with minimal code and maximum flexibility.
           </p>
           <Link
             to="/documentation"
-            className="px-8 py-3 bg-emerald-500 hover:bg-emerald-600 rounded-md font-medium text-white transition-colors"
+            className="px-6 sm:px-8 py-3 bg-emerald-500 hover:bg-emerald-600 rounded-md font-medium text-white transition-colors"
           >
             Get Started
           </Link>

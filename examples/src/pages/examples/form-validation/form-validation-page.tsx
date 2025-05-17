@@ -12,7 +12,7 @@ const formValidationExamples: Specification = {
       type: "Heading",
       props: {
         level: 1,
-        className: "text-4xl font-bold mb-8",
+        className: "text-3xl sm:text-4xl font-bold mb-6 sm:mb-8",
       },
       children: "Form Examples",
     },
@@ -20,7 +20,7 @@ const formValidationExamples: Specification = {
     {
       type: "Text",
       props: {
-        className: "text-lg text-gray-600 mb-8",
+        className: "text-base sm:text-lg text-gray-600 mb-6 sm:mb-8",
       },
       children: "Examples showcasing different input types, states, and layouts.",
     },

@@ -65,22 +65,22 @@ export function ExamplesPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Examples
           </h1>
-          <p className="text-xl text-zinc-300">
+          <p className="text-lg sm:text-xl text-zinc-300">
             Explore practical examples of React Jedi&apos;s server-driven UI in action. Each example
             demonstrates different features and patterns.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {examples.map((example) => (
             <Link key={example.id} to={example.path} className="group relative block">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative bg-black border border-zinc-800 rounded-lg p-6 hover:border-zinc-700 transition-all duration-300">
+              <div className="relative bg-black border border-zinc-800 rounded-lg p-4 sm:p-6 hover:border-zinc-700 transition-all duration-300">
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-xl font-semibold text-white group-hover:text-purple-300 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-purple-300 transition-colors">
                     {example.title}
                   </h3>
                   {example.status && (
@@ -96,7 +96,7 @@ export function ExamplesPage() {
                     </span>
                   )}
                 </div>
-                <p className="text-zinc-400 mb-4">{example.description}</p>
+                <p className="text-sm sm:text-base text-zinc-400 mb-4">{example.description}</p>
                 <div className="flex items-center text-purple-400 group-hover:text-purple-300">
                   <span className="text-sm">View Example</span>
                   <svg
@@ -118,9 +118,9 @@ export function ExamplesPage() {
           ))}
         </div>
 
-        <div className="mt-12 p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg">
-          <h2 className="text-xl font-semibold mb-3">More Examples Coming Soon</h2>
-          <p className="text-zinc-400">
+        <div className="mt-8 sm:mt-12 p-4 sm:p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg">
+          <h2 className="text-lg sm:text-xl font-semibold mb-3">More Examples Coming Soon</h2>
+          <p className="text-sm sm:text-base text-zinc-400">
             We&apos;re continuously adding new examples to showcase different features and use
             cases. Check back regularly or contribute your own examples!
           </p>

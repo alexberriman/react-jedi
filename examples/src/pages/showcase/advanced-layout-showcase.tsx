@@ -56,7 +56,7 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Box Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-sm sm:text-base text-muted-foreground">
                 A Box is the most basic layout component. It renders a div with styling props.
               </Text>
 
@@ -85,7 +85,7 @@ export function AdvancedLayoutShowcase() {
               <CardTitle>Container Component</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text className="mb-4 text-muted-foreground">
+              <Text className="mb-4 text-sm sm:text-base text-muted-foreground">
                 Container is a layout component that wraps content with responsive max-width and
                 padding.
               </Text>

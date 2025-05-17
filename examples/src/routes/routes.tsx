@@ -171,6 +171,12 @@ const StructuredDataDemo = lazy(() =>
   }))
 );
 
+const RichSnippetsPage = lazy(() =>
+  import("../pages/examples/rich-snippets").then((module) => ({
+    default: module.RichSnippetsPage,
+  }))
+);
+
 // Accessibility pages
 const FocusManagementPage = lazy(() =>
   import("../pages/accessibility/focus-management-page").then((module) => ({
@@ -523,6 +529,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={StructuredDataDemo}
                 loadingText="Loading structured data demo..."
+              />
+            ),
+          },
+          {
+            path: "rich-snippets",
+            element: (
+              <AsyncRoute
+                component={RichSnippetsPage}
+                loadingText="Loading rich snippets demo..."
               />
             ),
           },

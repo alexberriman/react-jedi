@@ -140,6 +140,14 @@ const examples: Example[] = [
     status: "new",
   },
   {
+    id: "rich-snippets",
+    title: "Rich Snippets",
+    description:
+      "Enhanced search results with structured data for products, articles, FAQs, events, and more using React Jedi's rich snippet utilities.",
+    path: "/examples/rich-snippets",
+    status: "new",
+  },
+  {
     id: "focus-management",
     title: "Focus Management & Accessibility",
     description:

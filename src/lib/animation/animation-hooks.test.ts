@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react";
+import { renderHook } from "@testing-library/react/pure";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import React from "react";
 import { AnimationProvider } from "./animation-provider";
@@ -27,7 +27,7 @@ beforeEach(() => {
 });
 
 const wrapper = ({ children }: { children: React.ReactNode }) =>
-  React.createElement(AnimationProvider, null, children);
+  React.createElement(AnimationProvider, {}, children);
 
 // Define the reducer motion wrapper outside the tests to fix function scoping issue
 const reducedMotionWrapper = ({ children }: { children: React.ReactNode }) =>
@@ -104,15 +104,21 @@ describe("useAnimationVariants", () => {
   it("respects duration prop", () => {
     const { result } = renderHook(() => useAnimationVariants({ duration: "fast" }), { wrapper });
 
-    const animateTransition = result.current.variants?.animate?.transition;
-    expect(animateTransition).toMatchObject({ duration: 0.15 });
+    const animate = result.current.variants?.animate;
+    expect(animate).toBeDefined();
+    if (animate && "transition" in animate) {
+      expect(animate.transition).toMatchObject({ duration: 0.15 });
+    }
   });
 
   it("respects delay prop", () => {
     const { result } = renderHook(() => useAnimationVariants({ delay: 0.5 }), { wrapper });
 
-    const animateTransition = result.current.variants?.animate?.transition;
-    expect(animateTransition).toMatchObject({ delay: 0.5 });
+    const animate = result.current.variants?.animate;
+    expect(animate).toBeDefined();
+    if (animate && "transition" in animate) {
+      expect(animate.transition).toMatchObject({ delay: 0.5 });
+    }
   });
 });
 

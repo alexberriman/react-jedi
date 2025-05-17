@@ -133,7 +133,7 @@ export const useStaggerAnimation = (
   };
 };
 
-export const useHoverAnimation = (scale: number = 1.05): HTMLMotionProps<"div"> => {
+export const useHoverAnimation = (scale: number = 1.05) => {
   const config = useAnimation();
 
   if (config.reducedMotion) {
@@ -147,7 +147,7 @@ export const useHoverAnimation = (scale: number = 1.05): HTMLMotionProps<"div"> 
   };
 };
 
-export const useFocusAnimation = (): HTMLMotionProps<"div"> => {
+export const useFocusAnimation = () => {
   const config = useAnimation();
 
   if (config.reducedMotion) {

@@ -46,7 +46,7 @@ const defaultConfig: AnimationConfig = {
 const AnimationContext = createContext<AnimationConfig | undefined>(undefined);
 
 export interface AnimationProviderProps {
-  children: ReactNode;
+  children?: ReactNode;
   config?: Partial<AnimationConfig>;
   reducedMotion?: boolean;
 }

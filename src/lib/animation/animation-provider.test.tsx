@@ -1,5 +1,5 @@
 import React from "react";
-import { renderHook } from "@testing-library/react";
+import { renderHook } from "@testing-library/react/pure";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { AnimationProvider, useAnimation } from "./animation-provider";
 
@@ -23,7 +23,9 @@ beforeEach(() => {
 describe("AnimationProvider", () => {
   it("provides default animation config", () => {
     const { result } = renderHook(() => useAnimation(), {
-      wrapper: ({ children }) => <AnimationProvider>{children}</AnimationProvider>,
+      wrapper: ({ children }: { children: React.ReactNode }) => (
+        <AnimationProvider>{children}</AnimationProvider>
+      ),
     });
 
     expect(result.current).toMatchObject({
@@ -58,7 +60,7 @@ describe("AnimationProvider", () => {
     };
 
     const { result } = renderHook(() => useAnimation(), {
-      wrapper: ({ children }) => (
+      wrapper: ({ children }: { children: React.ReactNode }) => (
         <AnimationProvider config={customConfig}>{children}</AnimationProvider>
       ),
     });
@@ -68,7 +70,7 @@ describe("AnimationProvider", () => {
 
   it("respects reducedMotion prop", () => {
     const { result } = renderHook(() => useAnimation(), {
-      wrapper: ({ children }) => (
+      wrapper: ({ children }: { children: React.ReactNode }) => (
         <AnimationProvider reducedMotion={true}>{children}</AnimationProvider>
       ),
     });
@@ -83,7 +85,9 @@ describe("AnimationProvider", () => {
     globalThis.matchMedia = matchMediaMock;
 
     const { result } = renderHook(() => useAnimation(), {
-      wrapper: ({ children }) => <AnimationProvider>{children}</AnimationProvider>,
+      wrapper: ({ children }: { children: React.ReactNode }) => (
+        <AnimationProvider>{children}</AnimationProvider>
+      ),
     });
 
     expect(result.current.reducedMotion).toBe(true);

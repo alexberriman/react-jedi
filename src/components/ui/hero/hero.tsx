@@ -293,6 +293,7 @@ export const Hero: React.FC<HeroProps> = ({
 
   return (
     <section
+      data-slot="hero"
       className={cn(
         "relative w-full py-24 md:py-32 lg:py-40 overflow-hidden",
         animated && "animate-fade-in",

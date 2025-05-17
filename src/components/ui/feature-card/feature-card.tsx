@@ -104,6 +104,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
           {/* Icon */}
           {Icon && (
             <div
+              data-slot="icon"
               className={cn(
                 "rounded-lg p-3 bg-primary/10",
                 iconSizeClasses[orientation],

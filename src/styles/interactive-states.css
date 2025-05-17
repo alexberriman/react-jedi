@@ -1,0 +1,377 @@
+/* Modern Interactive States for React Jedi Components */
+
+:root {
+  --hover-scale: 1.02;
+  --active-scale: 0.98;
+  --transition-duration: 200ms;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --hover-brightness: 1.1;
+  --hover-shadow-offset: 0 4px 20px -2px;
+}
+
+/* Universal Interactive States */
+[data-slot="button"],
+[data-slot="card"],
+[data-slot="badge"],
+[data-slot="toggle"],
+[data-slot="tabs-trigger"],
+[data-slot="select-trigger"],
+[data-slot="checkbox"],
+[data-slot="radio-group-item"],
+[data-slot="switch"],
+[data-slot="slider"],
+[data-slot="input"],
+[data-slot="textarea"],
+.interactive-element {
+  position: relative;
+  transition: 
+    transform var(--transition-duration) var(--transition-timing),
+    filter var(--transition-duration) var(--transition-timing),
+    box-shadow var(--transition-duration) var(--transition-timing),
+    background-color var(--transition-duration) var(--transition-timing),
+    border-color var(--transition-duration) var(--transition-timing);
+}
+
+/* Subtle hover effects for all interactive elements */
+[data-slot="button"]:not(:disabled):hover,
+[data-slot="badge"]:not(:disabled):hover,
+[data-slot="toggle"]:not(:disabled):hover,
+[data-slot="tabs-trigger"]:not(:disabled):hover {
+  transform: translateY(-1px);
+  filter: brightness(var(--hover-brightness));
+}
+
+/* Card hover with shadow elevation */
+[data-slot="card"]:not(.no-interaction):hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Active states with subtle press effect */
+[data-slot="button"]:not(:disabled):active,
+[data-slot="toggle"]:not(:disabled):active,
+[data-slot="tabs-trigger"]:not(:disabled):active {
+  transform: scale(var(--active-scale));
+  transition-duration: 100ms;
+}
+
+/* Enhanced focus indicators with modern glow */
+[data-slot="button"]:focus-visible,
+[data-slot="toggle"]:focus-visible,
+[data-slot="checkbox"]:focus-visible,
+[data-slot="radio-group-item"]:focus-visible,
+[data-slot="switch"]:focus-visible,
+[data-slot="tabs-trigger"]:focus-visible,
+[data-slot="select-trigger"]:focus-visible,
+[data-slot="input"]:focus-visible,
+[data-slot="textarea"]:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px hsl(var(--ring) / 0.2),
+    0 0 0 1px hsl(var(--ring) / 0.8);
+}
+
+/* Form input hover states */
+[data-slot="input"]:not(:disabled):hover,
+[data-slot="textarea"]:not(:disabled):hover,
+[data-slot="select-trigger"]:not(:disabled):hover {
+  border-color: hsl(var(--ring) / 0.5);
+  background-color: hsl(var(--muted) / 0.3);
+}
+
+/* Checkbox and radio hover with subtle grow */
+[data-slot="checkbox"]:not(:disabled):hover,
+[data-slot="radio-group-item"]:not(:disabled):hover {
+  transform: scale(1.05);
+  border-color: hsl(var(--primary) / 0.8);
+}
+
+/* Switch hover with color intensity */
+[data-slot="switch"]:not(:disabled):hover {
+  filter: brightness(1.05);
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.1);
+}
+
+/* Slider thumb hover */
+[role="slider"]:not(:disabled):hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 8px hsl(var(--ring) / 0.1);
+}
+
+/* Link hover with smooth underline */
+a[data-slot]:not(:disabled):hover {
+  opacity: 0.8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: currentColor;
+}
+
+/* Icon button specific hover */
+[data-slot="button"][data-icon="true"]:not(:disabled):hover {
+  transform: rotate(5deg) scale(1.05);
+}
+
+/* Dropdown menu item hover */
+[data-slot="select-item"]:hover,
+[role="menuitem"]:hover {
+  background-color: hsl(var(--accent));
+  padding-left: 12px;
+  transition: padding-left var(--transition-duration) var(--transition-timing);
+}
+
+/* Tab hover with smooth indicator */
+[data-slot="tabs-trigger"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: hsl(var(--primary));
+  transform: scaleX(0);
+  transition: transform var(--transition-duration) var(--transition-timing);
+}
+
+[data-slot="tabs-trigger"]:hover::after {
+  transform: scaleX(0.8);
+}
+
+[data-slot="tabs-trigger"][data-state="active"]::after {
+  transform: scaleX(1);
+}
+
+/* Badge hover with color shift */
+[data-slot="badge"]:hover {
+  filter: brightness(1.1) saturate(1.2);
+}
+
+/* Avatar hover with border glow */
+[data-slot="avatar"]:hover {
+  box-shadow: 0 0 0 3px hsl(var(--ring) / 0.2);
+  transform: scale(1.05);
+}
+
+/* Tooltip trigger hover */
+[data-state="delayed-open"],
+[data-state="instant-open"] {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+/* Accordion item hover */
+[data-slot="accordion-trigger"]:hover {
+  padding-left: 8px;
+  background-color: hsl(var(--muted) / 0.5);
+}
+
+/* Progress bar hover */
+[data-slot="progress"]:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced disabled states */
+:disabled,
+[data-disabled="true"] {
+  cursor: not-allowed !important;
+  filter: grayscale(0.3) !important;
+  transform: none !important;
+}
+
+/* Custom scrollbar styling */
+[data-slot="scroll-area"] {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+}
+
+[data-slot="scroll-area"]::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-slot="scroll-area"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-slot="scroll-area"]::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+  transition: background-color var(--transition-duration);
+}
+
+[data-slot="scroll-area"]::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Popover and dialog animation enhancements */
+[data-state="open"] {
+  animation: fadeIn var(--transition-duration) var(--transition-timing);
+}
+
+[data-state="closed"] {
+  animation: fadeOut var(--transition-duration) var(--transition-timing);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* Ripple effect for buttons */
+[data-slot="button"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+[data-slot="button"]:not(:disabled):active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Smooth color transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: var(--transition-timing);
+}
+
+/* Card content hover effects */
+[data-slot="card"] [data-slot="card-title"] {
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+[data-slot="card"]:hover [data-slot="card-title"] {
+  color: hsl(var(--primary));
+}
+
+/* Feature card icon bounce */
+[data-slot="feature-card"] [data-slot="icon"] {
+  transition: transform var(--transition-duration) var(--transition-timing);
+}
+
+[data-slot="feature-card"]:hover [data-slot="icon"] {
+  transform: translateY(-4px) scale(1.1);
+}
+
+/* Hero CTA button pulse */
+[data-slot="hero"] [data-slot="button"]:first-of-type {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px hsl(var(--primary) / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+  }
+}
+
+/* Navigation menu hover effects */
+[data-slot="navigation-menu-trigger"]:hover {
+  color: hsl(var(--primary));
+  transform: translateY(-1px);
+}
+
+[data-slot="navigation-menu-content"] {
+  transform-origin: top center;
+}
+
+/* Sidebar hover effects */
+[data-slot="sidebar-item"]:hover {
+  background-color: hsl(var(--muted) / 0.5);
+  padding-left: 20px;
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+/* Combobox hover states */
+[data-slot="combobox-item"]:hover {
+  background-color: hsl(var(--accent));
+  padding-left: 12px;
+}
+
+/* Date picker calendar hover */
+[role="gridcell"] button:hover {
+  background-color: hsl(var(--muted));
+  transform: scale(1.1);
+}
+
+/* Toggle group item hover */
+[data-slot="toggle-group-item"]:hover {
+  background-color: hsl(var(--muted));
+  transform: translateY(-1px);
+}
+
+/* Table row hover */
+[data-slot="table-row"]:hover {
+  background-color: hsl(var(--muted) / 0.5);
+  transition: background-color var(--transition-duration) var(--transition-timing);
+}
+
+/* Toast hover for dismissal */
+[data-slot="toast"]:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Modern loading states */
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

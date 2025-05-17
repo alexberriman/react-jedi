@@ -658,7 +658,23 @@ This milestone enhances the visual capabilities of the library with advanced lay
 - [ ] Add navigation components demo with menus, breadcrumbs, and sidebar
 - [ ] Implement data display page showing tables and visualizations
 - [ ] Create dialog/overlay component examples with interactive state
-- [ ] Add component performance comparison metrics
+
+**Example App Polish - Ship-Ready Requirements:**
+- [ ] Ensure app builds without any errors or warnings
+- [ ] Simplify navigation to 3-4 top-level menu items (implement dropdown submenu if needed)
+- [ ] Implement full mobile responsive design across all pages
+- [ ] Replace ALL placeholder content with real, meaningful examples
+- [ ] Break up long pages into smaller, focused pages for better UX
+- [ ] Ensure all components in component showcase are rendered (not just JSON)
+- [ ] Add loading states and error boundaries for robust experience
+- [ ] Implement dark mode support across entire app
+- [ ] Polish hero sections and CTAs with modern, eye-catching animations
+- [ ] Ensure all interactive elements have proper hover/active states
+- [ ] Add proper page titles and meta descriptions for all routes
+- [ ] Implement smooth page transitions and scroll behavior
+- [ ] Verify all forms have proper validation and submit feedback
+- [ ] Ensure proper spacing and typography consistency
+- [ ] Add proper 404 page with navigation back to home
 
 ---
 

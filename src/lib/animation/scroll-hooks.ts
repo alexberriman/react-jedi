@@ -12,13 +12,8 @@ export interface ScrollAnimationOptions {
 
 // Hook to track element's visibility on scroll
 export const useScrollAnimation = (options: ScrollAnimationOptions = {}) => {
-  const {
-    triggerOnce = false,
-    rootMargin = "0px",
-    threshold = 0.1,
-    disabled = false,
-  } = options;
-  
+  const { triggerOnce = false, rootMargin = "0px", threshold = 0.1, disabled = false } = options;
+
   const [isInView, setIsInView] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
   const ref = useRef<HTMLElement>(null);
@@ -30,7 +25,7 @@ export const useScrollAnimation = (options: ScrollAnimationOptions = {}) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         const inView = entry.isIntersecting;
-        
+
         if (inView) {
           if (!hasTriggered || !triggerOnce) {
             setIsInView(true);
@@ -71,7 +66,7 @@ export const useScrollProgress = (options: { offset?: { start?: number; end?: nu
       if (!element) return;
 
       const rect = element.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      const windowHeight = globalThis.innerHeight;
       const elementTop = rect.top;
       const elementHeight = rect.height;
 
@@ -86,12 +81,12 @@ export const useScrollProgress = (options: { offset?: { start?: number; end?: nu
     };
 
     updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
+    globalThis.addEventListener("scroll", updateProgress, { passive: true });
+    globalThis.addEventListener("resize", updateProgress);
 
     return () => {
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
+      globalThis.removeEventListener("scroll", updateProgress);
+      globalThis.removeEventListener("resize", updateProgress);
     };
   }, [config.reducedMotion, offset.start, offset.end, scrollYProgress]);
 
@@ -110,7 +105,7 @@ export const useParallax = (
   const yOffset = useTransform(
     scrollYProgress,
     [0, 1],
-    config.reducedMotion ? [0, 0] : [`${speed * 100}%`, `${-speed * 100}%`]
+    config.reducedMotion ? ["0%", "0%"] : [`${speed * 100}%`, `${-speed * 100}%`]
   );
 
   const xOffset = useTransform(scrollYProgress, [0, 1], [0, 0]);
@@ -135,18 +130,21 @@ export const useScrollReveal = (
     if (isInView && !config.reducedMotion) {
       // Reveal items with stagger
       const timeouts: number[] = [];
-      
+
       for (let i = 0; i < children; i++) {
-        const timeout = window.setTimeout(() => {
-          setVisibleItems((prev) => [...prev, i]);
-        }, delay + i * stagger * 1000);
-        
-        timeouts.push(timeout);
+        const timeout = globalThis.setTimeout(
+          () => {
+            setVisibleItems((prev) => [...prev, i]);
+          },
+          delay + i * stagger * 1000
+        );
+
+        timeouts.push(timeout as unknown as number);
       }
 
       return () => {
         for (const timeout of timeouts) {
-          window.clearTimeout(timeout);
+          globalThis.clearTimeout(timeout);
         }
       };
     } else if (!isInView && !scrollOptions.triggerOnce) {

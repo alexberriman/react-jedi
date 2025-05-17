@@ -1,7 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { screen } from "@testing-library/dom";
 import { Drag, DragCard, DragHandle, DragListItem } from "./drag";
 import { AnimationProvider } from "./animation-provider";
+import { describe, it, expect } from "vitest";
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   <AnimationProvider>{children}</AnimationProvider>

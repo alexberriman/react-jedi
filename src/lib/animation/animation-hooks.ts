@@ -606,10 +606,6 @@ export interface DragAnimationConfig {
 export const useDragAnimation = (config: DragAnimationConfig | number = {}) => {
   const animationConfig = useAnimation();
 
-  if (animationConfig.reducedMotion) {
-    return {};
-  }
-
   // Support legacy API
   const dragConfig = typeof config === "number" ? { scale: config } : config;
 

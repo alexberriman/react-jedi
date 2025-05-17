@@ -91,6 +91,14 @@ const examples: Example[] = [
     path: "/examples/scroll-animations",
     status: "new",
   },
+  {
+    id: "stagger-animations",
+    title: "Staggered Animations",
+    description:
+      "Complex staggered animations for lists and groups with customizable orchestration, timing, and paths. Create eye-catching UI elements.",
+    path: "/examples/stagger-animations",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

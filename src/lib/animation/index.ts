@@ -74,10 +74,31 @@ export {
   useScrollPreset,
   scrollPresets,
 } from "./scroll-hooks";
+export type { ScrollAnimationOptions, ScrollPreset } from "./scroll-hooks";
+
+// New stagger animation exports
+export { Stagger, StaggerItem, StaggerList, StaggerContainer, staggerPresets } from "./stagger";
 export type {
-  ScrollAnimationOptions,
-  ScrollPreset,
-} from "./scroll-hooks";
+  StaggerComponentProps,
+  StaggerItemProps,
+  StaggerListProps,
+  StaggerContainerProps,
+  StaggerConfig,
+  StaggerPreset,
+} from "./stagger";
+
+export {
+  createStaggerContainer,
+  createStaggerSequence,
+  createDirectionalStagger,
+  createScaleStagger,
+  createRotateStagger,
+  createPathStagger,
+  createFilterStagger,
+  createComplexStagger,
+  useStaggerContainerVariants,
+} from "./stagger-utils";
+export type { StaggerOptions } from "./stagger-utils";
 
 export { motion, AnimatePresence } from "framer-motion";
 export type { MotionProps, AnimationProps, Variants } from "framer-motion";

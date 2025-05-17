@@ -12,7 +12,7 @@ import {
 
 export interface ScrollRevealProps extends ScrollAnimationOptions {
   children: React.ReactNode;
-  animation?: ScrollPreset | typeof scrollPresets[ScrollPreset];
+  animation?: ScrollPreset | (typeof scrollPresets)[ScrollPreset];
   delay?: number;
   className?: string;
   style?: React.CSSProperties;
@@ -27,14 +27,12 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   ...scrollOptions
 }) => {
   const { ref, isInView } = useScrollAnimation(scrollOptions);
-  
-  const animationConfig = typeof animation === "string" 
-    ? scrollPresets[animation] 
-    : animation;
+
+  const animationConfig = typeof animation === "string" ? scrollPresets[animation] : animation;
 
   return (
     <motion.div
-      ref={ref}
+      ref={ref as React.RefObject<HTMLDivElement>}
       initial={animationConfig.initial}
       animate={isInView ? animationConfig.animate : animationConfig.initial}
       transition={{
@@ -70,7 +68,7 @@ export const ScrollParallax: React.FC<ScrollParallaxProps> = ({
 
   return (
     <motion.div
-      ref={ref}
+      ref={ref as React.RefObject<HTMLDivElement>}
       style={{
         [direction === "vertical" ? "y" : "x"]: direction === "vertical" ? yOffset : xOffset,
         ...style,
@@ -102,7 +100,7 @@ export const ScrollProgress: React.FC<ScrollProgressProps> = ({
   style,
 }) => {
   const { ref, scrollYProgress } = useScrollProgress();
-  
+
   const isHorizontal = position === "top" || position === "bottom";
   const positionStyles = {
     top: { top: 0, left: 0, right: 0 },
@@ -114,7 +112,7 @@ export const ScrollProgress: React.FC<ScrollProgressProps> = ({
   return (
     <>
       <div
-        ref={ref}
+        ref={ref as React.RefObject<HTMLDivElement>}
         style={{
           height,
           ...style,
@@ -175,15 +173,11 @@ export const ScrollContainer: React.FC<ScrollContainerProps> = ({
   const animationConfig = scrollPresets[animation];
 
   return (
-    <div ref={ref} className={className} style={style}>
+    <div ref={ref as React.RefObject<HTMLDivElement>} className={className} style={style}>
       {React.Children.map(children, (child, index) => (
         <motion.div
           initial={animationConfig.initial}
-          animate={
-            visibleItems.includes(index)
-              ? animationConfig.animate
-              : animationConfig.initial
-          }
+          animate={visibleItems.includes(index) ? animationConfig.animate : animationConfig.initial}
           transition={animationConfig.transition}
         >
           {child}
@@ -215,7 +209,7 @@ export const ScrollScale: React.FC<ScrollScaleProps> = ({
 
   return (
     <motion.div
-      ref={ref}
+      ref={ref as React.RefObject<HTMLDivElement>}
       style={{
         scale: scale,
         ...style,
@@ -250,16 +244,12 @@ export const ScrollTextReveal: React.FC<ScrollTextRevealProps> = ({
   });
 
   return (
-    <div ref={ref} className={className} style={style}>
+    <div ref={ref as React.RefObject<HTMLDivElement>} className={className} style={style}>
       {words.map((word, index) => (
         <motion.span
           key={index}
           initial={{ opacity: 0, y: 10 }}
-          animate={
-            visibleItems.includes(index)
-              ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: 10 }
-          }
+          animate={visibleItems.includes(index) ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           style={{ display: "inline-block", marginRight: "0.25em" }}
         >

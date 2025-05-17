@@ -179,10 +179,7 @@ export const NoMomentum: Story = {
 export const HighElasticity: Story = {
   render: () => (
     <div className="relative w-96 h-96 border-2 border-dashed border-gray-300 rounded-lg">
-      <Drag
-        dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
-        dragElastic={0.5}
-      >
+      <Drag dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }} dragElastic={0.5}>
         <div className="w-24 h-24 bg-purple-500 rounded-lg flex items-center justify-center text-white font-semibold text-sm">
           Elastic
         </div>
@@ -192,7 +189,7 @@ export const HighElasticity: Story = {
 };
 
 export const DragWithEvents: Story = {
-  render: () => {
+  render: function DragWithEventsComponent() {
     const [dragState, setDragState] = React.useState("idle");
     const [position, setPosition] = React.useState({ x: 0, y: 0 });
 

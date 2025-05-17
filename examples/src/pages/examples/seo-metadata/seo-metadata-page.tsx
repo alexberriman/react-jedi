@@ -1,9 +1,11 @@
 import React from "react";
-import { render } from "@banja/react-jedi";
+import { render, HeadManager } from "@banja/react-jedi";
 import { Navigation } from "@/components/layouts/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Code } from "@/components/ui/code";
+import { StructuredDataDemo } from "@/components/seo/structured-data-demo";
+import { MicrodataDemo } from "@/components/seo/microdata-demo";
 
 const SEOMetadataPage: React.FC = () => {
   // SEO Metadata Example 1: Basic metadata
@@ -12,8 +14,16 @@ const SEOMetadataPage: React.FC = () => {
     metadata: {
       title: "SEO and Metadata Management",
       description:
-        "Learn how to manage SEO metadata, Open Graph tags, and favicons with React Jedi",
-      keywords: ["SEO", "metadata", "React", "Open Graph", "Twitter Cards"],
+        "Learn how to manage SEO metadata, structured data, microdata, and social media tags with React Jedi",
+      keywords: [
+        "SEO",
+        "metadata",
+        "React",
+        "structured data",
+        "microdata",
+        "Open Graph",
+        "Twitter Cards",
+      ],
     },
     children: [
       {
@@ -28,7 +38,7 @@ const SEOMetadataPage: React.FC = () => {
           },
           {
             type: "text",
-            text: "React Jedi provides built-in SEO metadata management through the HeadManager component.",
+            text: "Complete SEO toolkit: meta tags, structured data, microdata, and social sharing optimization.",
             className: "text-lg text-center text-muted-foreground mb-12",
           },
         ],
@@ -270,22 +280,73 @@ const SEOMetadataPage: React.FC = () => {
   };
 
   // Code examples
-  const jsonExample = `{
-  "type": "head-manager",
-  "metadata": {
-    "title": "My Page Title",
-    "description": "Page description for SEO",
-    "keywords": ["keyword1", "keyword2"],
-    "ogTitle": "Open Graph Title",
-    "ogDescription": "Social media description",
-    "ogImage": "https://example.com/og-image.jpg",
-    "canonicalUrl": "https://example.com/my-page"
+  const jsonLdExample = `import { useStructuredData } from "@banja/react-jedi";
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "Executive Anvil",
+  image: "https://example.com/anvil.jpg",
+  description: "Sleek and durable anvil",
+  sku: "0446310786",
+  brand: {
+    "@type": "Brand",
+    name: "ACME"
   },
-  "titleSuffix": " - My Site",
-  "children": [/* your page content */]
+  offers: {
+    "@type": "Offer",
+    url: "https://example.com/anvil",
+    priceCurrency: "USD",
+    price: "119.99",
+    priceValidUntil: "2024-11-20",
+    availability: "https://schema.org/InStock"
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.4",
+    reviewCount: "89"
+  }
+};
+
+function ProductPage() {
+  useStructuredData(productSchema);
+  
+  return <div>Product content...</div>;
 }`;
 
-  const tsxExample = `import { HeadManager } from "@banja/react-jedi";
+  const microdataExample = `import { MicrodataElement, BreadcrumbMicrodata } from "@banja/react-jedi";
+
+function ArticlePage() {
+  return (
+    <>
+      <BreadcrumbMicrodata
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Blog", url: "/blog" },
+          { name: "Article Title" }
+        ]}
+      />
+      
+      <article
+        itemScope
+        itemType="https://schema.org/Article"
+      >
+        <h1 itemProp="headline">Article Title</h1>
+        <div itemProp="author" itemScope itemType="https://schema.org/Person">
+          <span itemProp="name">John Doe</span>
+        </div>
+        <time itemProp="datePublished" dateTime="2024-05-18">
+          May 18, 2024
+        </time>
+        <div itemProp="articleBody">
+          Article content...
+        </div>
+      </article>
+    </>
+  );
+}`;
+
+  const headManagerExample = `import { HeadManager } from "@banja/react-jedi";
 
 function MyPage() {
   return (
@@ -293,10 +354,20 @@ function MyPage() {
       metadata={{
         title: "My Page Title",
         description: "Page description for SEO",
+        keywords: ["keyword1", "keyword2"],
+        author: "John Doe",
         ogTitle: "Open Graph Title",
-        favicon: "/favicon.ico",
+        ogDescription: "Social media description",
+        ogImage: "https://example.com/og-image.jpg",
+        twitterCard: "summary_large_image",
+        canonicalUrl: "https://example.com/my-page",
+        favicon: {
+          default: "/favicon.ico",
+          apple: "/apple-touch-icon.png"
+        }
       }}
       titleSuffix=" - My Site"
+      defaultTitle="Welcome"
     >
       <div>Page content here</div>
     </HeadManager>
@@ -306,39 +377,163 @@ function MyPage() {
   return (
     <>
       <Navigation />
+      <HeadManager
+        metadata={{
+          title: "SEO & Metadata Examples",
+          description:
+            "Complete guide to SEO, structured data, and metadata management with React Jedi",
+          keywords: ["SEO", "structured data", "microdata", "JSON-LD", "React", "metadata"],
+          ogTitle: "React Jedi SEO & Metadata Guide",
+          ogDescription: "Learn to implement structured data, microdata, and meta tags",
+          canonicalUrl: "/examples/seo-metadata",
+        }}
+      />
       <main className="container mx-auto px-4 pb-12 pt-20">
         {render(basicMetadataSpec)}
 
-        <Tabs defaultValue="examples" className="mb-12">
-          <TabsList className="grid w-full grid-cols-2">
+        <Tabs defaultValue="structured-data" className="mb-12">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="structured-data">Structured Data</TabsTrigger>
+            <TabsTrigger value="metadata">Meta Tags</TabsTrigger>
             <TabsTrigger value="examples">Examples</TabsTrigger>
             <TabsTrigger value="code">Code Samples</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="examples">
+          <TabsContent value="structured-data">
+            <div className="space-y-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>JSON-LD Structured Data</CardTitle>
+                  <CardDescription>
+                    The recommended format for structured data. Clean, separate from HTML.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <StructuredDataDemo />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Microdata</CardTitle>
+                  <CardDescription>
+                    Embed structured data directly in HTML using special attributes.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <MicrodataDemo />
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="metadata">
             {render(completeMetadataSpec)}
             {render(faviconSpec)}
+          </TabsContent>
+
+          <TabsContent value="examples">
+            <div className="grid gap-8 md:grid-cols-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Rich Snippets</CardTitle>
+                  <CardDescription>Enable enhanced search results</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc pl-5 space-y-2 text-sm">
+                    <li>Product ratings and prices</li>
+                    <li>Recipe cards with images</li>
+                    <li>Event dates and locations</li>
+                    <li>Article author and publish date</li>
+                    <li>FAQ expandable results</li>
+                    <li>Video thumbnails and duration</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Schema Types</CardTitle>
+                  <CardDescription>Supported schema.org types</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc pl-5 space-y-2 text-sm">
+                    <li>Organization & Person</li>
+                    <li>Article & BlogPosting</li>
+                    <li>Product & Offer</li>
+                    <li>Event & Place</li>
+                    <li>Recipe & FAQPage</li>
+                    <li>Video & BreadcrumbList</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card className="mt-8">
+              <CardHeader>
+                <CardTitle>Testing Tools</CardTitle>
+                <CardDescription>Validate your structured data implementation</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-1">Google Rich Results Test</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Test how your pages might appear in Google Search results
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">Schema.org Validator</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Validate your structured data against schema.org specifications
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">Facebook Sharing Debugger</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Preview how your content appears when shared on Facebook
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">Twitter Card Validator</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Check how your Twitter Cards will display
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="code">
             <div className="space-y-8">
               <Card>
                 <CardHeader>
-                  <CardTitle>JSON Schema Example</CardTitle>
-                  <CardDescription>Using HeadManager with JSON specifications</CardDescription>
+                  <CardTitle>JSON-LD Example</CardTitle>
+                  <CardDescription>Using structured data with React hooks</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Code language="json" code={jsonExample} />
+                  <Code language="typescript" code={jsonLdExample} />
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>React Component Example</CardTitle>
-                  <CardDescription>Using HeadManager directly in React</CardDescription>
+                  <CardTitle>Microdata Example</CardTitle>
+                  <CardDescription>Embedding structured data in HTML</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Code language="typescript" code={tsxExample} />
+                  <Code language="typescript" code={microdataExample} />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Head Manager Example</CardTitle>
+                  <CardDescription>Complete metadata management</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Code language="typescript" code={headManagerExample} />
                 </CardContent>
               </Card>
             </div>
@@ -347,27 +542,45 @@ function MyPage() {
 
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>Additional Features</CardTitle>
-            <CardDescription>Advanced metadata management capabilities</CardDescription>
+            <CardTitle>SEO Best Practices</CardTitle>
+            <CardDescription>Guidelines for optimal search engine optimization</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold">🔍 SEO Best Practices</h4>
+                <h4 className="text-lg font-semibold">📊 Structured Data</h4>
                 <ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground">
-                  <li>Automatic title suffix management</li>
-                  <li>Default title fallback</li>
-                  <li>Metadata cleanup on unmount</li>
-                  <li>Previous values restoration</li>
+                  <li>Use JSON-LD for cleaner implementation</li>
+                  <li>Test with Google Rich Results Test</li>
+                  <li>Keep data accurate and up-to-date</li>
+                  <li>Include all required properties</li>
                 </ul>
               </div>
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold">🌐 Social Media Support</h4>
+                <h4 className="text-lg font-semibold">🏷️ Meta Tags</h4>
                 <ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground">
-                  <li>Open Graph protocol</li>
-                  <li>Twitter Cards (all types)</li>
-                  <li>Canonical URL handling</li>
-                  <li>Multiple favicon formats</li>
+                  <li>Unique title and description per page</li>
+                  <li>Optimal lengths (60/155 characters)</li>
+                  <li>Include target keywords naturally</li>
+                  <li>Use Open Graph for social sharing</li>
+                </ul>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-lg font-semibold">🔗 Technical SEO</h4>
+                <ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                  <li>Set canonical URLs correctly</li>
+                  <li>Implement proper redirects</li>
+                  <li>Create XML sitemaps</li>
+                  <li>Optimize page load speed</li>
+                </ul>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-lg font-semibold">📱 Mobile & Social</h4>
+                <ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                  <li>Mobile-first responsive design</li>
+                  <li>Twitter Card implementation</li>
+                  <li>Open Graph optimization</li>
+                  <li>High-quality preview images</li>
                 </ul>
               </div>
             </div>

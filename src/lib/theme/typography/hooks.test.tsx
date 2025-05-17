@@ -4,6 +4,7 @@
 
 import { describe, it, expect, vi, beforeAll, afterAll, beforeEach } from "vitest";
 import { render } from "@testing-library/react";
+import { renderHook } from "@testing-library/react/pure";
 import React from "react";
 import {
   useTypography,
@@ -130,7 +131,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -147,7 +148,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -162,7 +163,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -178,7 +179,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -193,7 +194,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -209,7 +210,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -224,7 +225,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -240,7 +241,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -255,7 +256,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -271,7 +272,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -286,7 +287,7 @@ describe("Typography Hooks", () => {
     };
 
     const { container } = render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -357,7 +358,7 @@ describe("useFluidTypography Hook", () => {
     currentTheme = fluidTheme;
 
     const { container } = render(
-      <ThemeProvider theme={fluidTheme}>
+      <ThemeProvider theme={fluidTheme} enableFluidTypography={false}>
         <TestComponent />
       </ThemeProvider>
     );
@@ -381,7 +382,7 @@ describe("useFluidTypography Hook", () => {
     currentTheme = { typography: baseTheme.typography };
 
     render(
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
         <EnableFluidComponent />
       </ThemeProvider>
     );
@@ -421,7 +422,7 @@ describe("useFluidTypography Hook", () => {
     currentTheme = fluidTheme;
 
     render(
-      <ThemeProvider theme={fluidTheme}>
+      <ThemeProvider theme={fluidTheme} enableFluidTypography={false}>
         <TestComponentWithFluidEnabled />
       </ThemeProvider>
     );
@@ -457,7 +458,7 @@ describe("useFluidTypography Hook", () => {
     currentTheme = fluidTheme;
 
     render(
-      <ThemeProvider theme={fluidTheme}>
+      <ThemeProvider theme={fluidTheme} enableFluidTypography={false}>
         <DisablingComponent />
       </ThemeProvider>
     );
@@ -468,5 +469,50 @@ describe("useFluidTypography Hook", () => {
     expect(mockUpdateTheme).toHaveBeenCalledWith({
       typography: expect.any(Object),
     });
+  });
+});
+
+// Define wrapper function at module level to avoid unicorn/consistent-function-scoping
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <ThemeProvider theme={baseTheme} enableFluidTypography={false}>
+    {children}
+  </ThemeProvider>
+);
+
+// Tests using renderHook pattern (following the pattern from other test files)
+describe("Typography Hooks with renderHook", () => {
+  beforeEach(() => {
+    // Reset the currentTheme before each test to prevent state pollution
+    currentTheme = { typography: baseTheme.typography };
+  });
+
+  it("should return typography settings using renderHook", () => {
+    const { result } = renderHook(() => useTypography(), { wrapper });
+    expect(result.current).toEqual(baseTheme.typography);
+  });
+
+  it("should return font size using renderHook", () => {
+    const { result } = renderHook(() => useFontSize("lg1"), { wrapper });
+    expect(result.current).toBe("1.125rem");
+  });
+
+  it("should return font family using renderHook", () => {
+    const { result } = renderHook(() => useFontFamily("serif"), { wrapper });
+    expect(result.current).toBe("Georgia, serif");
+  });
+
+  it("should return line height using renderHook", () => {
+    const { result } = renderHook(() => useLineHeight("tight"), { wrapper });
+    expect(result.current).toBe(1.25);
+  });
+
+  it("should return letter spacing using renderHook", () => {
+    const { result } = renderHook(() => useLetterSpacing("wide"), { wrapper });
+    expect(result.current).toBe("0.025em");
+  });
+
+  it("should return font weight using renderHook", () => {
+    const { result } = renderHook(() => useFontWeight("bold"), { wrapper });
+    expect(result.current).toBe(700);
   });
 });

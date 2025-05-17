@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from "vitest";
-import { renderHook } from "@testing-library/react";
+import { renderHook } from "@testing-library/react/pure";
 import { useStructuredData } from "./use-structured-data";
 import { removeJsonLdFromDocument } from "./structured-data";
 import type { OrganizationSchema, ArticleSchema } from "./structured-data";
@@ -88,9 +88,12 @@ describe("useStructuredData", () => {
       name: "Company 2",
     };
 
-    const { rerender } = renderHook(({ schema }) => useStructuredData(schema), {
-      initialProps: { schema: schema1 },
-    });
+    const { rerender } = renderHook(
+      ({ schema }: { schema: OrganizationSchema }) => useStructuredData(schema),
+      {
+        initialProps: { schema: schema1 },
+      }
+    );
 
     let scripts = document.querySelectorAll('script[data-structured-data="true"]');
     expect(scripts).toHaveLength(1);

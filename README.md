@@ -297,6 +297,7 @@ npm run dev
 
 The documentation covers:
 - ✅ Component API reference
+- ✅ Smooth page transitions and scroll behavior
 - ✅ Layout components (Container, Box, Grid, Flex)
 - ✅ Typography components (Heading, Text, BlockQuote)
 - ✅ UI components (Button, Card, Badge, Avatar)

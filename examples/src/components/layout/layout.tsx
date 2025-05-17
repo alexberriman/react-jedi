@@ -1,4 +1,14 @@
 import { Link, Outlet } from "react-router-dom";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "../ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 export type LayoutProps = Readonly<{
   className?: string;
@@ -21,43 +31,203 @@ export function Layout({ className }: LayoutProps) {
               React Jedi
             </div>
           </Link>
-          <nav className="flex items-center gap-6 font-medium">
-            <Link to="/showcase" className="text-zinc-200 hover:text-emerald-400 transition-colors">
-              Components
-            </Link>
-            <Link to="/examples" className="text-zinc-200 hover:text-emerald-400 transition-colors">
-              Examples
-            </Link>
-            <Link
-              to="/templates/marketing"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors"
-            >
-              Templates
-            </Link>
-            <Link
-              to="/documentation"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors"
-            >
-              Documentation
-            </Link>
-            <Link
-              to="/brand-presets"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors"
-            >
-              Brand Presets
-            </Link>
-            <Link to="/theming" className="text-zinc-200 hover:text-emerald-400 transition-colors">
-              Theming
-            </Link>
-            <Link
-              to="/performance"
-              className="text-zinc-200 hover:text-emerald-400 transition-colors"
-            >
-              Performance
-            </Link>
-            <Link to="/state" className="text-zinc-200 hover:text-emerald-400 transition-colors">
-              State
-            </Link>
+          <div className="flex items-center gap-6">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-zinc-200 hover:text-emerald-400 hover:bg-zinc-800/50">
+                    Components
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 bg-zinc-800/95 backdrop-blur-sm border border-zinc-700 text-white">
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/showcase"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">Component Gallery</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Browse all UI components with live previews
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/showcase/interactive"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">
+                            Interactive Showcase
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Form components, toggles, and state management
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/showcase/layout"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">Layout Components</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Advanced layout systems and responsive containers
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/showcase/overlay-interactive"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">Overlays & Dialogs</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Modals, sheets, popovers, and tooltips
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-zinc-200 hover:text-emerald-400 hover:bg-zinc-800/50">
+                    Examples
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 bg-zinc-800/95 backdrop-blur-sm border border-zinc-700 text-white">
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/examples"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">All Examples</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Browse all example implementations
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/examples/landing"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">Landing Page</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Hero section, features, and CTA components
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/examples/form-validation"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">Form Validation</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Complex forms with real-time validation
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/examples/navigation"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">
+                            Navigation Patterns
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Menus, sidebars, and breadcrumbs
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/templates/marketing"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">Marketing Template</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Full marketing website with multiple pages
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link to="/documentation">
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "bg-transparent text-zinc-200 hover:text-emerald-400 hover:bg-zinc-800/50"
+                      )}
+                    >
+                      Documentation
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-zinc-200 hover:text-emerald-400 hover:bg-zinc-800/50">
+                    Resources
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 bg-zinc-800/95 backdrop-blur-sm border border-zinc-700 text-white">
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/theming"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">Theming System</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Theme configuration and customization options
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/brand-presets"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">Brand Presets</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Pre-built theme configurations for popular brands
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/performance"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">
+                            Performance Metrics
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            Benchmarks and optimization techniques
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/state"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-700/50 hover:text-emerald-400 focus:bg-zinc-700/50 focus:text-emerald-400"
+                        >
+                          <div className="text-sm font-medium leading-none">State Management</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-zinc-300">
+                            JSON-based state patterns and optimizations
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
             <a
               href="https://github.com/banja-au/react-jedi"
               target="_blank"
@@ -81,7 +251,7 @@ export function Layout({ className }: LayoutProps) {
               </svg>
               GitHub
             </a>
-          </nav>
+          </div>
         </div>
       </header>
       <main className={className}>

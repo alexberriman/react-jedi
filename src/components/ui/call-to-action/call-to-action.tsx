@@ -4,7 +4,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../../lib/utils";
 import { Button } from "../button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Zap, Star } from "lucide-react";
 
 const callToActionVariants = cva(
   "relative overflow-hidden rounded-2xl transition-all duration-300",
@@ -14,9 +14,11 @@ const callToActionVariants = cva(
         default: "bg-gradient-to-br from-gray-900 to-gray-800 text-white",
         primary: "bg-gradient-to-br from-primary to-primary/80 text-primary-foreground",
         secondary: "bg-secondary text-secondary-foreground",
-        gradient: "bg-gradient-to-br from-purple-600 via-pink-600 to-orange-600 text-white",
+        gradient:
+          "bg-gradient-to-br from-purple-600 via-pink-600 to-orange-600 text-white animate-gradient-shift",
         dark: "bg-black text-white",
         light: "bg-white text-gray-900 border border-gray-200",
+        glass: "bg-white/10 backdrop-blur-lg text-white border border-white/20",
       },
       size: {
         sm: "px-6 py-8",
@@ -57,6 +59,8 @@ interface CallToActionProps
   icon?: React.ReactNode;
   showArrow?: boolean;
   decorative?: boolean;
+  animated?: boolean;
+  floatingShapes?: boolean;
 }
 
 // Helper components to reduce cognitive complexity
@@ -71,8 +75,22 @@ const Overlay = () => <div className="absolute inset-0 bg-black/50" />;
 
 const GradientDecorations = () => (
   <>
-    <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
-    <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
+    <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-white/10 blur-3xl animate-blob" />
+    <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-white/10 blur-3xl animate-blob animation-delay-400" />
+  </>
+);
+
+const AnimatedDecorations = () => (
+  <>
+    <div className="absolute top-10 left-10 animate-float">
+      <Star className="h-5 w-5 text-yellow-400" />
+    </div>
+    <div className="absolute bottom-10 right-10 animate-float animation-delay-300">
+      <Sparkles className="h-5 w-5 text-blue-400" />
+    </div>
+    <div className="absolute top-1/2 right-20 animate-float animation-delay-600">
+      <Zap className="h-4 w-4 text-purple-400" />
+    </div>
   </>
 );
 
@@ -80,12 +98,21 @@ const DefaultDecoration = () => (
   <Sparkles className="absolute top-6 right-6 h-5 w-5 text-yellow-400 animate-pulse" />
 );
 
-const CTAIcon = ({ icon, align }: { icon: React.ReactNode; align?: string | null }) => (
+const CTAIcon = ({
+  icon,
+  align,
+  animated,
+}: {
+  icon: React.ReactNode;
+  align?: string | null;
+  animated?: boolean;
+}) => (
   <div
     className={cn(
       "mb-4 inline-flex",
       align === "center" && "justify-center w-full",
-      align === "right" && "justify-end w-full"
+      align === "right" && "justify-end w-full",
+      animated && "animate-scale-in animation-delay-100"
     )}
   >
     {icon}
@@ -96,10 +123,12 @@ const CTATitle = ({
   title,
   size,
   align,
+  animated,
 }: {
   title: string;
   size?: string | null;
   align?: string | null;
+  animated?: boolean;
 }) => (
   <h2
     className={cn(
@@ -108,7 +137,8 @@ const CTATitle = ({
       size === "default" && "text-3xl md:text-4xl lg:text-5xl",
       size === "lg" && "text-4xl md:text-5xl lg:text-6xl",
       align === "center" && "mx-auto",
-      (align === "center" || align === "left") && "max-w-4xl"
+      (align === "center" || align === "left") && "max-w-4xl",
+      animated && "animate-fade-in-up animation-delay-200"
     )}
   >
     {title}
@@ -119,10 +149,12 @@ const CTADescription = ({
   description,
   size,
   align,
+  animated,
 }: {
   description: string;
   size?: string | null;
   align?: string | null;
+  animated?: boolean;
 }) => (
   <p
     className={cn(
@@ -130,7 +162,8 @@ const CTADescription = ({
       size === "sm" && "text-base",
       size === "lg" && "text-xl",
       align === "center" && "mx-auto",
-      (align === "center" || align === "left") && "max-w-2xl"
+      (align === "center" || align === "left") && "max-w-2xl",
+      animated && "animate-fade-in-up animation-delay-300"
     )}
   >
     {description}
@@ -147,9 +180,17 @@ interface ActionButtonProps {
   size?: string | null;
   showArrow?: boolean;
   isSecondary?: boolean;
+  animated?: boolean;
 }
 
-const ActionButton = ({ action, variant, size, showArrow, isSecondary }: ActionButtonProps) => {
+const ActionButton = ({
+  action,
+  variant,
+  size,
+  showArrow,
+  isSecondary,
+  animated,
+}: ActionButtonProps) => {
   let buttonVariant: "ghost" | "default" | "secondary";
   if (isSecondary) {
     buttonVariant = "ghost";
@@ -170,7 +211,12 @@ const ActionButton = ({ action, variant, size, showArrow, isSecondary }: ActionB
       variant={buttonVariant}
       onClick={action.onClick}
       asChild={!!action.href}
-      className={cn(isSecondary && buttonClass, !isSecondary && "group")}
+      className={cn(
+        isSecondary && buttonClass,
+        !isSecondary && "group",
+        animated && !isSecondary && "hover-scale hover-glow animate-pulse-ring",
+        animated && isSecondary && "hover-scale"
+      )}
     >
       {action.href ? (
         <a href={action.href}>
@@ -207,6 +253,8 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
       icon,
       showArrow = true,
       decorative = true,
+      animated = true,
+      floatingShapes = false,
       children,
       ...props
     },
@@ -215,7 +263,12 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
     return (
       <div
         ref={ref}
-        className={cn(callToActionVariants({ variant, size, align }), className)}
+        className={cn(
+          callToActionVariants({ variant, size, align }),
+          animated && variant === "gradient" && "animate-gradient-shift",
+          animated && "hover-lift",
+          className
+        )}
         {...props}
       >
         {/* Background Image */}
@@ -224,19 +277,36 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
         {/* Overlay */}
         {backgroundImage && overlay && <Overlay />}
 
+        {/* Animated Background Shapes */}
+        {floatingShapes && (
+          <>
+            <div className="floating-shape floating-shape-1 opacity-5" />
+            <div className="floating-shape floating-shape-2 opacity-5" />
+            <div className="floating-shape floating-shape-3 opacity-5" />
+          </>
+        )}
+
         {/* Decorative Elements */}
         {decorative && variant === "gradient" && <GradientDecorations />}
+        {decorative && animated && <AnimatedDecorations />}
 
         {/* Content */}
         <div className="relative z-10">
           {/* Icon */}
-          {icon && <CTAIcon icon={icon} align={align} />}
+          {icon && <CTAIcon icon={icon} align={align} animated={animated} />}
 
           {/* Title */}
-          <CTATitle title={title} size={size} align={align} />
+          <CTATitle title={title} size={size} align={align} animated={animated} />
 
           {/* Description */}
-          {description && <CTADescription description={description} size={size} align={align} />}
+          {description && (
+            <CTADescription
+              description={description}
+              size={size}
+              align={align}
+              animated={animated}
+            />
+          )}
 
           {/* Actions */}
           {(primaryAction || secondaryAction) && (
@@ -245,7 +315,8 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
                 "mt-8 flex flex-col sm:flex-row gap-4",
                 align === "center" && "justify-center",
                 align === "right" && "justify-end",
-                align === "left" && "justify-start"
+                align === "left" && "justify-start",
+                animated && "animate-fade-in-up animation-delay-400"
               )}
             >
               {primaryAction && (
@@ -255,6 +326,7 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
                   size={size}
                   showArrow={showArrow}
                   isSecondary={false}
+                  animated={animated}
                 />
               )}
               {secondaryAction && (
@@ -263,6 +335,7 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
                   variant={variant}
                   size={size}
                   isSecondary={true}
+                  animated={animated}
                 />
               )}
             </div>
@@ -273,7 +346,7 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
         </div>
 
         {/* Floating decoration */}
-        {decorative && variant === "default" && <DefaultDecoration />}
+        {decorative && variant === "default" && !animated && <DefaultDecoration />}
       </div>
     );
   }

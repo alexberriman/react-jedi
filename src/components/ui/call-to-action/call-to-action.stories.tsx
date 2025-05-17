@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CallToAction } from "./call-to-action";
-import { Rocket, Star, Zap } from "lucide-react";
+import { Rocket, Star, Zap, Code2, Sparkles, ChevronRight } from "lucide-react";
 
 const meta: Meta<typeof CallToAction> = {
   title: "Components/Marketing/CallToAction",
@@ -10,7 +10,7 @@ const meta: Meta<typeof CallToAction> = {
     docs: {
       description: {
         component:
-          "A call-to-action component for marketing sections with multiple style variants and background options.",
+          "A call-to-action component for marketing sections with multiple style variants, animations, and background options.",
       },
     },
   },
@@ -18,7 +18,7 @@ const meta: Meta<typeof CallToAction> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "primary", "secondary", "gradient", "dark", "light"],
+      options: ["default", "primary", "secondary", "gradient", "dark", "light", "glass"],
       description: "The visual style variant of the CTA",
     },
     size: {
@@ -47,6 +47,14 @@ const meta: Meta<typeof CallToAction> = {
       control: "boolean",
       description: "Whether to show decorative elements",
     },
+    animated: {
+      control: "boolean",
+      description: "Whether to enable animations",
+    },
+    floatingShapes: {
+      control: "boolean",
+      description: "Whether to show floating background shapes",
+    },
     overlay: {
       control: "boolean",
       description: "Whether to show overlay on background image",
@@ -56,6 +64,161 @@ const meta: Meta<typeof CallToAction> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const AnimatedDefault: Story = {
+  args: {
+    variant: "default",
+    animated: true,
+    decorative: true,
+    title: "Ready to Transform Your Business?",
+    description: "Start your journey today with our cutting-edge platform",
+    primaryAction: {
+      label: "Start Free Trial",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Learn More",
+      href: "#",
+    },
+  },
+};
+
+export const AnimatedGradient: Story = {
+  args: {
+    variant: "gradient",
+    animated: true,
+    floatingShapes: true,
+    title: "The Future is Now",
+    description: "Experience next-generation technology today",
+    icon: <Rocket className="h-10 w-10" />,
+    primaryAction: {
+      label: "Launch Your Project",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Watch Demo",
+      href: "#",
+    },
+  },
+};
+
+export const GlassMorphism: Story = {
+  args: {
+    variant: "glass",
+    animated: true,
+    floatingShapes: true,
+    title: "Modern Glass Design",
+    description: "Beautiful glassmorphism effects for premium experiences",
+    icon: <Sparkles className="h-10 w-10" />,
+    primaryAction: {
+      label: "Explore Features",
+      href: "#",
+    },
+  },
+};
+
+export const AnimatedWithBackground: Story = {
+  args: {
+    animated: true,
+    floatingShapes: true,
+    backgroundImage: "https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80",
+    overlay: true,
+    title: "Unlock Your Potential",
+    description: "Join the revolution and build something amazing",
+    primaryAction: {
+      label: "Get Started Now",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "View Pricing",
+      href: "#",
+    },
+  },
+};
+
+export const DarkAnimated: Story = {
+  args: {
+    variant: "dark",
+    animated: true,
+    floatingShapes: true,
+    title: "Premium Dark Experience",
+    description: "Elegant dark mode with stunning animations",
+    icon: <Code2 className="h-10 w-10" />,
+    primaryAction: {
+      label: "Start Building",
+      href: "#",
+    },
+  },
+};
+
+export const LightAnimated: Story = {
+  args: {
+    variant: "light",
+    animated: true,
+    title: "Clean and Minimal",
+    description: "Sometimes less is more - beautiful simplicity",
+    icon: <Star className="h-10 w-10 text-gray-800" />,
+    primaryAction: {
+      label: "Get Started",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Learn More",
+      href: "#",
+    },
+  },
+};
+
+export const LeftAlignedAnimated: Story = {
+  args: {
+    align: "left",
+    animated: true,
+    floatingShapes: true,
+    title: "Developer-First Platform",
+    description: "Built by developers, for developers. Experience the difference.",
+    icon: <Zap className="h-10 w-10 text-primary" />,
+    primaryAction: {
+      label: "Start Coding",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Documentation",
+      href: "#",
+    },
+  },
+};
+
+export const LargeAnimated: Story = {
+  args: {
+    size: "lg",
+    variant: "primary",
+    animated: true,
+    floatingShapes: true,
+    title: "Enterprise Solutions",
+    description: "Scale your business with confidence using our enterprise-grade platform",
+    primaryAction: {
+      label: "Request Demo",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Contact Sales",
+      href: "#",
+    },
+  },
+};
+
+export const SmallAnimated: Story = {
+  args: {
+    size: "sm",
+    animated: true,
+    title: "Quick Start Guide",
+    description: "Get up and running in minutes",
+    primaryAction: {
+      label: "View Guide",
+      href: "#",
+    },
+  },
+};
 
 export const Default: Story = {
   args: {
@@ -101,31 +264,6 @@ export const Gradient: Story = {
   },
 };
 
-export const Dark: Story = {
-  args: {
-    variant: "dark",
-    title: "Join the dark side",
-    description: "Embrace the power of modern UI design.",
-    primaryAction: {
-      label: "Join Now",
-      href: "#",
-    },
-    icon: <Star className="h-10 w-10 text-yellow-400" />,
-  },
-};
-
-export const Light: Story = {
-  args: {
-    variant: "light",
-    title: "Clean and minimal",
-    description: "Sometimes less is more. Experience simplicity at its finest.",
-    primaryAction: {
-      label: "Get Started",
-      href: "#",
-    },
-  },
-};
-
 export const WithBackgroundImage: Story = {
   args: {
     title: "Transform your workflow",
@@ -139,53 +277,24 @@ export const WithBackgroundImage: Story = {
   },
 };
 
-export const LeftAligned: Story = {
+export const MaximalistAnimated: Story = {
   args: {
-    align: "left",
-    title: "Build faster, ship sooner",
-    description: "Our tools help you create amazing products in record time.",
-    primaryAction: {
-      label: "View Features",
-      href: "#",
-    },
-    icon: <Zap className="h-10 w-10 text-yellow-500" />,
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: "sm",
-    title: "Quick and simple",
-    description: "Get started in minutes.",
-    primaryAction: {
-      label: "Sign Up",
-      href: "#",
-    },
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: "lg",
     variant: "gradient",
-    title: "The future is here",
-    description: "Join the revolution and transform your business with cutting-edge technology.",
+    size: "lg",
+    animated: true,
+    floatingShapes: true,
+    decorative: true,
+    title: "Experience the Future of Web Development",
+    description: "Revolutionary tools that transform how you build modern applications",
+    icon: <ChevronRight className="h-12 w-12" />,
     primaryAction: {
-      label: "Get Early Access",
+      label: "Start Your Journey",
       href: "#",
     },
     secondaryAction: {
-      label: "Schedule Demo",
+      label: "Explore Features",
       href: "#",
     },
-  },
-};
-
-export const NoActions: Story = {
-  args: {
-    title: "Coming Soon",
-    description: "Something amazing is on the way. Stay tuned!",
-    variant: "secondary",
   },
 };
 
@@ -194,6 +303,7 @@ export const CustomContent: Story = {
     title: "Newsletter Signup",
     description: "Stay updated with our latest news and updates.",
     variant: "primary",
+    animated: true,
     children: (
       <form className="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
         <input

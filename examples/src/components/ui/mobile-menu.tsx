@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@banja/react-jedi";
 
 export type NavItem = {
   title: string;

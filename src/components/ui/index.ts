@@ -78,3 +78,6 @@ export * from "./testimonial";
 export * from "./pricing-table";
 export * from "./call-to-action";
 export * from "./footer";
+export * from "./error-boundary";
+export * from "./loading";
+export * from "./skeleton-loader";

@@ -13,9 +13,134 @@ export interface MicrodataAttributes {
 
 export interface MicrodataSchema {
   type: string;
-  properties: Record<string, unknown>;
+  properties: MicrodataProperties;
   id?: string;
   ref?: string;
+}
+
+export interface MicrodataProperties {
+  [key: string]: unknown;
+}
+
+export interface NestedMicrodataSchema extends Omit<MicrodataSchema, "properties"> {
+  properties: MicrodataProperties & {
+    [key: string]:
+      | string
+      | number
+      | boolean
+      | NestedMicrodataSchema
+      | NestedMicrodataSchema[]
+      | undefined;
+  };
+}
+
+// Type definitions for specific schema structures
+export interface MicrodataBreadcrumbListSchema extends MicrodataSchema {
+  type: "BreadcrumbList";
+  properties: {
+    itemListElement: Array<{
+      type: "ListItem";
+      properties: {
+        position: number;
+        item: {
+          type: "Thing";
+          id?: string;
+          properties: {
+            name: string;
+          };
+        };
+      };
+    }>;
+  };
+}
+
+export interface MicrodataContactPointSchema {
+  type: "ContactPoint";
+  properties: {
+    telephone?: string;
+    contactType?: string;
+  };
+}
+
+export interface MicrodataPostalAddressSchema {
+  type: "PostalAddress";
+  properties: {
+    streetAddress?: string;
+    addressLocality?: string;
+    addressRegion?: string;
+    postalCode?: string;
+    addressCountry?: string;
+  };
+}
+
+export interface MicrodataOrganizationSchema extends MicrodataSchema {
+  type: "Organization";
+  properties: {
+    name: string;
+    url?: string;
+    logo?: string;
+    description?: string;
+    sameAs?: string[];
+    contactPoint?: MicrodataContactPointSchema;
+    address?: MicrodataPostalAddressSchema;
+  };
+}
+
+export interface MicrodataPersonSchema {
+  type: "Person";
+  properties: {
+    name: string;
+    url?: string;
+  };
+}
+
+export interface MicrodataArticleSchema extends MicrodataSchema {
+  type: "Article";
+  properties: {
+    headline: string;
+    datePublished: string;
+    author: string | MicrodataPersonSchema;
+    dateModified?: string;
+    description?: string;
+    image?: string | string[];
+    publisher?: {
+      type: "Organization";
+      properties: {
+        name: string;
+        logo?: string;
+      };
+    };
+  };
+}
+
+export interface MicrodataOfferSchema {
+  type: "Offer";
+  properties: {
+    price: string | number;
+    priceCurrency: string;
+    availability?: string;
+    url?: string;
+  };
+}
+
+export interface MicrodataAggregateRatingSchema {
+  type: "AggregateRating";
+  properties: {
+    ratingValue: number;
+    reviewCount: number;
+  };
+}
+
+export interface MicrodataProductSchema extends MicrodataSchema {
+  type: "Product";
+  properties: {
+    name: string;
+    description?: string;
+    image?: string | string[];
+    brand?: string | { type: "Organization"; properties: { name: string } };
+    offers?: MicrodataOfferSchema;
+    aggregateRating?: MicrodataAggregateRatingSchema;
+  };
 }
 
 // Common schema.org item types with their microdata representation
@@ -46,7 +171,14 @@ export const SCHEMA_TYPES = {
 /**
  * Generate microdata attributes for an HTML element
  */
-export function generateMicrodataAttributes(schema: MicrodataSchema): MicrodataAttributes {
+export function generateMicrodataAttributes(
+  schema:
+    | MicrodataSchema
+    | MicrodataBreadcrumbListSchema
+    | MicrodataOrganizationSchema
+    | MicrodataArticleSchema
+    | MicrodataProductSchema
+): MicrodataAttributes {
   const attributes: MicrodataAttributes = {};
 
   if (schema.type) {
@@ -108,7 +240,9 @@ export function generatePropertyAttributes(propName: string): MicrodataAttribute
 /**
  * Helper to create breadcrumb microdata structure
  */
-export function createBreadcrumbMicrodata(items: Array<{ name: string; url?: string }>) {
+export function createBreadcrumbMicrodata(
+  items: Array<{ name: string; url?: string }>
+): MicrodataBreadcrumbListSchema {
   return {
     type: "BreadcrumbList",
     properties: {
@@ -149,8 +283,8 @@ export function createOrganizationMicrodata(data: {
     postalCode?: string;
     addressCountry?: string;
   };
-}) {
-  const microdata: MicrodataSchema = {
+}): MicrodataOrganizationSchema {
+  const microdata: MicrodataOrganizationSchema = {
     type: "Organization",
     properties: {
       name: data.name,
@@ -202,12 +336,13 @@ export function createArticleMicrodata(data: {
     name: string;
     logo?: string;
   };
-}) {
-  const microdata: MicrodataSchema = {
+}): MicrodataArticleSchema {
+  const microdata: MicrodataArticleSchema = {
     type: "Article",
     properties: {
       headline: data.headline,
       datePublished: data.datePublished,
+      author: "", // This will be set below
     },
   };
 
@@ -257,8 +392,8 @@ export function createProductMicrodata(data: {
     ratingValue: number;
     reviewCount: number;
   };
-}) {
-  const microdata: MicrodataSchema = {
+}): MicrodataProductSchema {
+  const microdata: MicrodataProductSchema = {
     type: "Product",
     properties: {
       name: data.name,

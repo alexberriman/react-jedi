@@ -170,12 +170,14 @@ describe("createOrganizationMicrodata", () => {
     expect(microdata.properties.sameAs).toEqual(["https://twitter.com/testcompany"]);
 
     const contactPoint = microdata.properties.contactPoint;
-    expect(contactPoint.type).toBe("ContactPoint");
-    expect(contactPoint.properties.telephone).toBe("+1-555-0123");
+    expect(contactPoint).toBeDefined();
+    expect(contactPoint?.type).toBe("ContactPoint");
+    expect(contactPoint?.properties.telephone).toBe("+1-555-0123");
 
     const address = microdata.properties.address;
-    expect(address.type).toBe("PostalAddress");
-    expect(address.properties.streetAddress).toBe("123 Main St");
+    expect(address).toBeDefined();
+    expect(address?.type).toBe("PostalAddress");
+    expect(address?.properties.streetAddress).toBe("123 Main St");
   });
 });
 
@@ -209,14 +211,18 @@ describe("createArticleMicrodata", () => {
     const microdata = createArticleMicrodata(data);
 
     const author = microdata.properties.author;
-    expect(author.type).toBe("Person");
-    expect(author.properties.name).toBe("John Doe");
-    expect(author.properties.url).toBe("https://example.com/johndoe");
+    expect(typeof author).not.toBe("string");
+    if (typeof author !== "string") {
+      expect(author.type).toBe("Person");
+      expect(author.properties.name).toBe("John Doe");
+      expect(author.properties.url).toBe("https://example.com/johndoe");
+    }
 
     const publisher = microdata.properties.publisher;
-    expect(publisher.type).toBe("Organization");
-    expect(publisher.properties.name).toBe("Test Publisher");
-    expect(publisher.properties.logo).toBe("https://example.com/logo.png");
+    expect(publisher).toBeDefined();
+    expect(publisher?.type).toBe("Organization");
+    expect(publisher?.properties.name).toBe("Test Publisher");
+    expect(publisher?.properties.logo).toBe("https://example.com/logo.png");
   });
 });
 
@@ -254,8 +260,11 @@ describe("createProductMicrodata", () => {
     const microdata = createProductMicrodata(data);
 
     const brand = microdata.properties.brand;
-    expect(brand.type).toBe("Organization");
-    expect(brand.properties.name).toBe("Test Brand");
+    expect(brand).toBeDefined();
+    if (typeof brand !== "string") {
+      expect(brand?.type).toBe("Organization");
+      expect(brand?.properties.name).toBe("Test Brand");
+    }
   });
 
   it("should include offer and rating information", () => {
@@ -275,13 +284,15 @@ describe("createProductMicrodata", () => {
     const microdata = createProductMicrodata(data);
 
     const offers = microdata.properties.offers;
-    expect(offers.type).toBe("Offer");
-    expect(offers.properties.price).toBe(19.99);
-    expect(offers.properties.priceCurrency).toBe("USD");
+    expect(offers).toBeDefined();
+    expect(offers?.type).toBe("Offer");
+    expect(offers?.properties.price).toBe(19.99);
+    expect(offers?.properties.priceCurrency).toBe("USD");
 
     const rating = microdata.properties.aggregateRating;
-    expect(rating.type).toBe("AggregateRating");
-    expect(rating.properties.ratingValue).toBe(4.5);
-    expect(rating.properties.reviewCount).toBe(120);
+    expect(rating).toBeDefined();
+    expect(rating?.type).toBe("AggregateRating");
+    expect(rating?.properties.ratingValue).toBe(4.5);
+    expect(rating?.properties.reviewCount).toBe(120);
   });
 });

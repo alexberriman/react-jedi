@@ -118,6 +118,9 @@ export {
 // Animation system
 export * from "./animation";
 
+// Accessibility system
+export * from "./accessibility";
+
 // Data fetching system
 export * from "./data";
 

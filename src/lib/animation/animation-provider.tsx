@@ -57,9 +57,10 @@ export const AnimationProvider: React.FC<AnimationProviderProps> = ({
   reducedMotion,
 }) => {
   // Detect system preference for reduced motion
-  const systemPrefersReducedMotion = globalThis.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+  const systemPrefersReducedMotion =
+    typeof globalThis !== "undefined" && typeof globalThis.matchMedia === "function"
+      ? globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches
+      : false;
 
   const animationConfig: AnimationConfig = {
     ...defaultConfig,

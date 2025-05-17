@@ -13,16 +13,16 @@ function createAriaPropsObject(
   role: string | undefined,
   ...entries: Array<[string, unknown]>
 ): AriaProps {
-  const props: AriaProps = {};
+  const props: Record<string, unknown> = {};
   if (role) props.role = role;
 
   for (const [key, value] of entries) {
-    if (value !== undefined) {
-      props[key as keyof AriaProps] = value;
+    if (value !== undefined && value !== null) {
+      props[key] = value;
     }
   }
 
-  return props;
+  return props as AriaProps;
 }
 
 // Helper function to apply ARIA attributes to components
@@ -115,7 +115,7 @@ export function getNavigationAriaProps(
 
 export function getAlertAriaProps(
   options: {
-    live?: "polite" | "assertive";
+    live?: "polite" | "assertive" | "off";
     role?: "alert" | "alertdialog" | "status";
   } = {}
 ): AriaProps {
@@ -326,9 +326,9 @@ export function getFocusableElements(container: HTMLElement): HTMLElement[] {
   return [...container.querySelectorAll<HTMLElement>(focusableSelectors.join(","))];
 }
 
-export function trapFocus(container: HTMLElement) {
+export function trapFocus(container: HTMLElement): (() => void) | undefined {
   const focusableElements = getFocusableElements(container);
-  if (focusableElements.length === 0) return;
+  if (focusableElements.length === 0) return undefined;
 
   const firstElement = focusableElements[0];
   const lastElement = focusableElements.at(-1);
@@ -339,7 +339,7 @@ export function trapFocus(container: HTMLElement) {
     if (event.shiftKey) {
       if (document.activeElement === (firstElement as Element)) {
         event.preventDefault();
-        lastElement.focus();
+        lastElement?.focus();
       }
     } else {
       if (document.activeElement === (lastElement as Element)) {

@@ -171,6 +171,13 @@ const StructuredDataDemo = lazy(() =>
   }))
 );
 
+// Accessibility pages
+const FocusManagementPage = lazy(() =>
+  import("../pages/accessibility/focus-management-page").then((module) => ({
+    default: module.FocusManagementPage,
+  }))
+);
+
 // Other pages
 const BrandPresetsPage = lazy(() =>
   import("../pages/brand-presets").then((module) => ({ default: module.BrandPresetsPage }))
@@ -516,6 +523,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={StructuredDataDemo}
                 loadingText="Loading structured data demo..."
+              />
+            ),
+          },
+          {
+            path: "focus-management",
+            element: (
+              <AsyncRoute
+                component={FocusManagementPage}
+                loadingText="Loading focus management demo..."
               />
             ),
           },

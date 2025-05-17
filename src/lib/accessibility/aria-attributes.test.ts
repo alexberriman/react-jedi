@@ -435,7 +435,9 @@ describe("ARIA Attributes", () => {
       expect(lastButton.focus).toHaveBeenCalled();
       expect(shiftTabEvent.preventDefault).toHaveBeenCalled();
 
-      cleanup();
+      if (cleanup) {
+        cleanup();
+      }
       container.remove();
     });
   });

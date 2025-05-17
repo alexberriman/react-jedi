@@ -3,6 +3,16 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { getFormControlAriaProps } from "../../../lib/accessibility";
 
+// Convert string boolean values to boolean
+function convertToBoolean(
+  value: boolean | "true" | "false" | "grammar" | "spelling" | undefined
+): boolean | undefined {
+  if (value === "true") return true;
+  if (value === "false") return false;
+  if (typeof value === "boolean") return value;
+  return undefined;
+}
+
 function Input({
   className,
   type,
@@ -15,9 +25,9 @@ function Input({
   ...props
 }: React.ComponentProps<"input">) {
   const ariaProps = getFormControlAriaProps({
-    invalid: ariaInvalid,
-    required: ariaRequired,
-    readOnly: ariaReadOnly,
+    invalid: convertToBoolean(ariaInvalid),
+    required: convertToBoolean(ariaRequired),
+    readOnly: convertToBoolean(ariaReadOnly),
     describedBy: ariaDescribedBy,
     labelledBy: ariaLabelledBy,
     label: ariaLabel,

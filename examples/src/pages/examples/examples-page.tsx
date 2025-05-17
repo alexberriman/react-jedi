@@ -139,6 +139,14 @@ const examples: Example[] = [
     path: "/examples/structured-data",
     status: "new",
   },
+  {
+    id: "focus-management",
+    title: "Focus Management & Accessibility",
+    description:
+      "Advanced focus management patterns including focus trap, focus return, keyboard navigation, and skip links for accessible user interfaces.",
+    path: "/examples/focus-management",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

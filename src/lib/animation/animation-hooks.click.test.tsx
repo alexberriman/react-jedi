@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderHook } from "@testing-library/react/pure";
+import { renderHook } from "@testing-library/react";
 import {
   useClickAnimation,
   useClickPreset,

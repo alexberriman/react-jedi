@@ -78,11 +78,11 @@ function Button({
   const Comp = asChild ? Slot : "button";
 
   const ariaProps = getButtonAriaProps({
-    pressed,
-    expanded,
-    label: ariaLabel,
-    describedBy: ariaDescribedBy,
-    disabled,
+    ariaPressed: pressed,
+    ariaExpanded: expanded,
+    ariaLabel,
+    ariaDescribedby: ariaDescribedBy,
+    ariaDisabled: disabled,
   });
 
   return (

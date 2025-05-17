@@ -25,12 +25,12 @@ function Input({
   ...props
 }: React.ComponentProps<"input">) {
   const ariaProps = getFormControlAriaProps({
-    invalid: convertToBoolean(ariaInvalid),
-    required: convertToBoolean(ariaRequired),
-    readOnly: convertToBoolean(ariaReadOnly),
-    describedBy: ariaDescribedBy,
-    labelledBy: ariaLabelledBy,
-    label: ariaLabel,
+    ariaInvalid: convertToBoolean(ariaInvalid),
+    ariaRequired: convertToBoolean(ariaRequired),
+    ariaReadOnly: convertToBoolean(ariaReadOnly),
+    ariaDescribedBy,
+    ariaLabelledBy,
+    ariaLabel,
   });
 
   return (

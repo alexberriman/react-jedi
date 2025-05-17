@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Heading } from "@/components/ui/heading";
-import { announceToScreenReader, handleArrowKeyNavigation } from "@/lib/accessibility";
+import { announceToScreenReader, handleArrowKeyNavigation } from "@/lib/accessibility/aria-attributes";
 
 const meta: Meta = {
   title: "Accessibility/ARIA Examples",

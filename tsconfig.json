@@ -31,7 +31,8 @@
       "vite/client",
       "vitest",
       "node",
-      "@testing-library/jest-dom"
+      "@testing-library/jest-dom",
+      "@testing-library/react"
     ]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/testing-setup.ts", "src/types/*.d.ts", "vite.config.ts"],

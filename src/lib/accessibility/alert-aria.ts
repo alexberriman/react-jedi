@@ -2,7 +2,7 @@ export interface AlertAriaProps {
   role?: "alert" | "status";
   ariaLive?: "polite" | "assertive" | "off";
   ariaAtomic?: boolean;
-  ariaRelevant?: string;
+  ariaRelevant?: "additions" | "additions text" | "all" | "removals" | "removals additions" | "removals text" | "text" | "text additions" | "text removals";
 }
 
 export function getAlertAriaProps(props: AlertAriaProps) {

@@ -119,7 +119,7 @@ export const Vertical: Story = {
   args: {
     items: menuItems,
     orientation: "vertical",
-    onSelect: (item) => console.log("Selected:", item.label),
+    onSelect: (item: MenuItem) => console.log("Selected:", item.label),
   },
   parameters: {
     docs: {
@@ -135,7 +135,7 @@ export const Horizontal: Story = {
   args: {
     items: menuItems.slice(0, 5), // Fewer items for horizontal layout
     orientation: "horizontal",
-    onSelect: (item) => console.log("Selected:", item.label),
+    onSelect: (item: MenuItem) => console.log("Selected:", item.label),
   },
   parameters: {
     docs: {
@@ -150,7 +150,7 @@ export const WithoutShortcuts: Story = {
   args: {
     items: menuItems,
     showShortcuts: false,
-    onSelect: (item) => console.log("Selected:", item.label),
+    onSelect: (item: MenuItem) => console.log("Selected:", item.label),
   },
   parameters: {
     docs: {
@@ -204,7 +204,7 @@ export const NestedMenus: Story = {
         ],
       },
     ],
-    onSelect: (item) => console.log("Selected:", item.label),
+    onSelect: (item: MenuItem) => console.log("Selected:", item.label),
   },
   parameters: {
     docs: {
@@ -218,7 +218,7 @@ export const NestedMenus: Story = {
 export const AccessibilityDemo: Story = {
   args: {
     items: menuItems,
-    onSelect: (item) => console.log("Selected:", item.label),
+    onSelect: (item: MenuItem) => console.log("Selected:", item.label),
   },
   render: (args) => (
     <div className="space-y-4">
@@ -249,7 +249,7 @@ export const AccessibilityDemo: Story = {
           </li>
         </ul>
       </div>
-      <KeyboardNavigationMenu {...args} />
+      <KeyboardNavigationMenu items={args.items || menuItems} onSelect={args.onSelect} showShortcuts={args.showShortcuts} orientation={args.orientation} />
     </div>
   ),
   parameters: {

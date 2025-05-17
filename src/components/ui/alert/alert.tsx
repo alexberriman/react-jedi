@@ -29,10 +29,10 @@ function Alert({
 }: React.ComponentProps<"div"> &
   VariantProps<typeof alertVariants> & {
     "aria-live"?: "polite" | "assertive" | "off";
-    role?: "alert" | "alertdialog" | "status";
+    role?: "alert" | "status";
   }) {
   const ariaProps = getAlertAriaProps({
-    live: ariaLive,
+    ariaLive: ariaLive || "polite",
     role,
   });
 

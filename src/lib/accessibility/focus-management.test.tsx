@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { renderHook, act } from "@testing-library/react/pure";
+import { renderHook, act } from "@testing-library/react";
 import { fireEvent } from "@testing-library/dom";
 import React from "react";
 import {

@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react/pure";
+import { renderHook } from "@testing-library/react";
 import { useDragAnimation, useDragPreset } from "./animation-hooks";
 import { AnimationProvider } from "./animation-provider";
 import React from "react";

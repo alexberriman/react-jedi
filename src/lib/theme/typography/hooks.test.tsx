@@ -3,8 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeAll, afterAll, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
-import { renderHook } from "@testing-library/react/pure";
+import { render, renderHook } from "@testing-library/react";
 import React from "react";
 import {
   useTypography,

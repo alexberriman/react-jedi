@@ -206,8 +206,9 @@ function Heading({
   const Component = level;
   const headingLevel = Number.parseInt(level[1]);
 
-  const ariaProps = getHeadingAriaProps(headingLevel, {
-    label: ariaLabel,
+  const ariaProps = getHeadingAriaProps({
+    level: headingLevel as 1 | 2 | 3 | 4 | 5 | 6,
+    ariaLabel,
   });
 
   return (

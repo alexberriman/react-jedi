@@ -93,10 +93,10 @@ export function useFocusTrap(containerRef: RefObject<HTMLElement>, options: Focu
         const firstElement = focusableElements[0];
         const lastElement = focusableElements.at(-1);
 
-        if (event.shiftKey && document.activeElement === firstElement) {
+        if (event.shiftKey && document.activeElement === firstElement as Element) {
           event.preventDefault();
-          lastElement.focus({ preventScroll });
-        } else if (!event.shiftKey && document.activeElement === (lastElement as HTMLElement)) {
+          lastElement?.focus({ preventScroll });
+        } else if (!event.shiftKey && document.activeElement === lastElement as Element) {
           event.preventDefault();
           firstElement.focus({ preventScroll });
         }
@@ -127,14 +127,14 @@ export function useFocusTrap(containerRef: RefObject<HTMLElement>, options: Focu
     // Add event listeners
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside as EventListener);
 
     // Cleanup
     return () => {
       globalThis.clearTimeout(timeoutId);
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside as EventListener);
 
       if (returnFocusOnDeactivate && previousActiveElementRef.current && isActiveRef.current) {
         previousActiveElementRef.current.focus({ preventScroll });

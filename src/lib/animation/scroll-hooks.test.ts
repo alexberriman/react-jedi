@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react/pure";
+import { renderHook } from "@testing-library/react";
 import {
   useScrollAnimation,
   useScrollProgress,

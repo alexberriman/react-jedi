@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import React from "react";
-import { renderHook } from "./test-utils"; // We'll create a test utils file
+import { renderHook } from "@testing-library/react";
 import {
   shouldMemoizeComponent,
   createPropsComparator,

@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from "vitest";
-import { renderHook } from "@testing-library/react/pure";
+import { renderHook } from "@testing-library/react";
 import { useStructuredData } from "./use-structured-data";
 import { removeJsonLdFromDocument } from "./structured-data";
 import type { OrganizationSchema, ArticleSchema } from "./structured-data";

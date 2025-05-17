@@ -2,7 +2,7 @@ import { RefObject, useEffect, useRef } from "react";
 
 export interface KeyboardShortcut {
   key: string;
-  modifiers?: ("ctrl" | "alt" | "shift" | "meta")[];
+  modifiers?: readonly ("ctrl" | "alt" | "shift" | "meta")[];
   handler: (event: KeyboardEvent) => void;
   preventDefault?: boolean;
   stopPropagation?: boolean;
@@ -126,8 +126,8 @@ export function useKeyboardShortcuts(
     const element = scope === "global" ? document : target?.current;
     if (!element) return;
 
-    element.addEventListener("keydown", handleKeyDown);
-    return () => element.removeEventListener("keydown", handleKeyDown);
+    element.addEventListener("keydown", handleKeyDown as EventListener);
+    return () => element.removeEventListener("keydown", handleKeyDown as EventListener);
   }, [shortcuts, enabled, scope, target]);
 }
 

@@ -75,6 +75,22 @@ const examples: Example[] = [
     path: "/examples/click-animations",
     status: "new",
   },
+  {
+    id: "drag-animations",
+    title: "Drag Animations",
+    description:
+      "Interactive drag animations with physics-based motion, constraints, and multiple presets. Features draggable cards and list items.",
+    path: "/examples/drag-animations",
+    status: "new",
+  },
+  {
+    id: "scroll-animations",
+    title: "Scroll Animations",
+    description:
+      "Beautiful scroll-triggered animations with parallax effects, staggered reveals, and progress indicators. Perfect for modern websites.",
+    path: "/examples/scroll-animations",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

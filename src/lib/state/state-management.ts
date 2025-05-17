@@ -54,6 +54,7 @@ export interface StateDebugConfig {
   logActions?: boolean;
   logStateChanges?: boolean;
   logComputed?: boolean;
+  logErrors?: boolean;
 }
 
 /**
@@ -203,7 +204,9 @@ export function createStateManager(options: StateManagerOptions): StateManager {
           log(`Computed value: ${key}`, { dependencies: deps, result });
         }
       } catch (error) {
-        console.error(`Failed to compute ${key}:`, error);
+        if (debug?.logErrors) {
+          log(`Failed to compute ${key}:`, error);
+        }
       }
     }
 

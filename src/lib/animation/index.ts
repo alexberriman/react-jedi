@@ -9,8 +9,11 @@ export {
   useClickAnimation,
   useClickPreset,
   useFocusPreset,
+  useDragAnimation,
+  useDragPreset,
   clickPresets,
   focusPresets,
+  dragPresets,
 } from "./animation-hooks";
 export type {
   AnimationVariant,
@@ -20,6 +23,8 @@ export type {
   FocusPreset,
   ClickAnimationConfig,
   ClickPreset,
+  DragAnimationConfig,
+  DragPreset,
 } from "./animation-hooks";
 
 export { FadeIn, FadeOut, FadeTransition } from "./fade";
@@ -40,6 +45,39 @@ export type {
   FocusCardProps,
   FocusLinkProps,
 } from "./focus";
+
+export { Drag, DragCard, DragHandle, DragListItem } from "./drag";
+export type { DragProps, DragCardProps, DragHandleProps, DragListItemProps } from "./drag";
+
+export {
+  ScrollReveal,
+  ScrollParallax,
+  ScrollProgress,
+  ScrollContainer,
+  ScrollScale,
+  ScrollTextReveal,
+} from "./scroll";
+export type {
+  ScrollRevealProps,
+  ScrollParallaxProps,
+  ScrollProgressProps,
+  ScrollContainerProps,
+  ScrollScaleProps,
+  ScrollTextRevealProps,
+} from "./scroll";
+
+export {
+  useScrollAnimation,
+  useScrollProgress,
+  useParallax,
+  useScrollReveal,
+  useScrollPreset,
+  scrollPresets,
+} from "./scroll-hooks";
+export type {
+  ScrollAnimationOptions,
+  ScrollPreset,
+} from "./scroll-hooks";
 
 export { motion, AnimatePresence } from "framer-motion";
 export type { MotionProps, AnimationProps, Variants } from "framer-motion";

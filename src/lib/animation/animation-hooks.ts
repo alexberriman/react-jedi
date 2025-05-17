@@ -583,3 +583,175 @@ export type FocusPreset = keyof typeof focusPresets;
 export const useFocusPreset = (preset: FocusPreset) => {
   return useFocusAnimation(focusPresets[preset]);
 };
+
+// Drag animation hooks
+export interface DragAnimationConfig {
+  scale?: number;
+  rotate?: number;
+  opacity?: number;
+  shadow?: string;
+  backgroundColor?: string;
+  borderColor?: string;
+  cursor?: string;
+  brightness?: number;
+  blur?: number;
+  transition?: {
+    type?: "spring" | "tween" | "inertia";
+    stiffness?: number;
+    damping?: number;
+    mass?: number;
+  };
+}
+
+export const useDragAnimation = (config: DragAnimationConfig | number = {}) => {
+  const animationConfig = useAnimation();
+
+  if (animationConfig.reducedMotion) {
+    return {};
+  }
+
+  // Support legacy API
+  const dragConfig = typeof config === "number" ? { scale: config } : config;
+
+  const {
+    scale = 1.02,
+    rotate = 0,
+    opacity = 1,
+    shadow,
+    backgroundColor,
+    borderColor,
+    cursor = "grab",
+    brightness = 1,
+    blur = 0,
+    transition,
+  } = dragConfig;
+
+  const whileDrag: TargetAndTransition = {
+    scale,
+    rotate,
+    opacity,
+    cursor: "grabbing",
+  };
+
+  const whileHover: TargetAndTransition = {
+    cursor,
+  };
+
+  // Add filter effects if specified
+  const filters: string[] = [];
+  if (brightness !== 1) {
+    filters.push(`brightness(${brightness})`);
+  }
+  if (blur > 0) {
+    filters.push(`blur(${blur}px)`);
+  }
+  if (filters.length > 0) {
+    whileDrag.filter = filters.join(" ");
+  }
+
+  // Add other style effects
+  if (shadow) whileDrag.boxShadow = shadow;
+  if (backgroundColor) whileDrag.backgroundColor = backgroundColor;
+  if (borderColor) whileDrag.borderColor = borderColor;
+
+  const transitionConfig = transition || {
+    type: animationConfig.transition.type,
+    stiffness: animationConfig.transition.stiffness,
+    damping: animationConfig.transition.damping,
+    mass: animationConfig.transition.mass,
+  };
+
+  return {
+    whileDrag,
+    whileHover,
+    transition: {
+      duration: animationConfig.duration.fast,
+      ...transitionConfig,
+    },
+  };
+};
+
+// Preset drag effects
+export const dragPresets = {
+  smooth: {
+    scale: 1.02,
+    shadow: "0 10px 30px rgba(0,0,0,0.2)",
+    brightness: 1.05,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 25,
+    },
+  },
+  elastic: {
+    scale: 1.05,
+    rotate: 3,
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 10,
+    },
+  },
+  lift: {
+    scale: 1.08,
+    shadow: "0 20px 40px rgba(0,0,0,0.25)",
+    transition: {
+      type: "spring",
+      stiffness: 250,
+      damping: 20,
+    },
+  },
+  ghost: {
+    opacity: 0.7,
+    scale: 1.05,
+    blur: 2,
+    transition: {
+      type: "tween",
+      duration: 0.2,
+    },
+  },
+  magnetic: {
+    scale: 1.1,
+    brightness: 1.1,
+    transition: {
+      type: "spring",
+      stiffness: 600,
+      damping: 15,
+    },
+  },
+  swing: {
+    rotate: 5,
+    scale: 1.03,
+    transition: {
+      type: "spring",
+      stiffness: 200,
+      damping: 8,
+    },
+  },
+  subtle: {
+    scale: 1.01,
+    shadow: "0 5px 15px rgba(0,0,0,0.15)",
+    transition: {
+      type: "spring",
+      stiffness: 350,
+      damping: 30,
+    },
+  },
+  intense: {
+    scale: 1.15,
+    rotate: -2,
+    shadow: "0 25px 50px rgba(0,0,0,0.3)",
+    brightness: 1.2,
+    transition: {
+      type: "spring",
+      stiffness: 500,
+      damping: 12,
+    },
+  },
+} as const;
+
+export type DragPreset = keyof typeof dragPresets;
+
+export const useDragPreset = (preset: DragPreset) => {
+  return useDragAnimation(dragPresets[preset]);
+};

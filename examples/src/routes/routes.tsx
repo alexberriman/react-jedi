@@ -126,6 +126,16 @@ const ClickAnimationsPage = lazy(() =>
     default: module.ClickAnimationsPage,
   }))
 );
+const DragAnimationsPage = lazy(() =>
+  import("../pages/examples/drag-animations").then((module) => ({
+    default: module.DragAnimationsPage,
+  }))
+);
+const ScrollAnimationsPage = lazy(() =>
+  import("../pages/examples/scroll-animations").then((module) => ({
+    default: module.ScrollAnimationsPage,
+  }))
+);
 
 // Other pages
 const BrandPresetsPage = lazy(() =>
@@ -400,10 +410,19 @@ export const router = createBrowserRouter([
           {
             path: "click-animations",
             element: (
-              <AsyncRoute
-                component={ClickAnimationsPage}
-                loadingText="Loading click animations..."
-              />
+              <AsyncRoute component={ClickAnimationsPage} loadingText="Loading click animations..." />
+            ),
+          },
+          {
+            path: "drag-animations",
+            element: (
+              <AsyncRoute component={DragAnimationsPage} loadingText="Loading drag animations..." />
+            ),
+          },
+          {
+            path: "scroll-animations",
+            element: (
+              <AsyncRoute component={ScrollAnimationsPage} loadingText="Loading scroll animations..." />
             ),
           },
         ],

@@ -29,6 +29,9 @@ export const headingSchema = z.object({
   gradient: z.enum(["none", "primary", "rainbow", "sunset", "ocean", "neon", "golden"]).optional(),
   shadow: z.enum(["none", "sm", "md", "lg", "xl", "2xl"]).optional(),
   animation: z.enum(["none", "glow", "pulse", "bounce", "shimmer"]).optional(),
+  spacing: z
+    .enum(["none", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "section"])
+    .optional(),
   className: z.string().optional(),
   id: z.string().optional(),
   style: z.record(z.string(), z.string()).optional(),
@@ -55,7 +58,8 @@ export type HeadingSpecification = z.infer<typeof headingSchema>;
  *   "gradient": "rainbow",
  *   "align": "center",
  *   "weight": "extrabold",
- *   "className": "mb-6 tracking-tight"
+ *   "spacing": "xl",
+ *   "className": "tracking-tight"
  * }
  * ```
  *
@@ -80,6 +84,17 @@ export type HeadingSpecification = z.infer<typeof headingSchema>;
  *   "transform": "uppercase",
  *   "decoration": "underline",
  *   "variant": "accent"
+ * }
+ * ```
+ *
+ * ```json
+ * {
+ *   "type": "heading",
+ *   "level": "h2",
+ *   "text": "Documentation",
+ *   "spacing": "2xl",
+ *   "size": "3xl",
+ *   "weight": "bold"
  * }
  * ```
  */

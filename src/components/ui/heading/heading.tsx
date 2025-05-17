@@ -24,6 +24,18 @@ const headingVariants = cva("font-heading tracking-tight", {
       "5xl": "text-6xl lg:text-7xl",
       "6xl": "text-7xl lg:text-8xl",
     },
+    spacing: {
+      none: "",
+      xs: "mb-1",
+      sm: "mb-2",
+      md: "mb-3",
+      lg: "mb-4",
+      xl: "mb-6",
+      "2xl": "mb-8",
+      "3xl": "mb-10",
+      "4xl": "mb-12",
+      section: "mb-16",
+    },
     weight: {
       thin: "font-thin",
       extralight: "font-extralight",
@@ -97,6 +109,7 @@ const headingVariants = cva("font-heading tracking-tight", {
     gradient: "none",
     shadow: "none",
     animation: "none",
+    spacing: "lg",
   },
 });
 
@@ -152,6 +165,10 @@ export interface HeadingProps
    * Apply animation
    */
   readonly animation?: "none" | "glow" | "pulse" | "bounce" | "shimmer";
+  /**
+   * Bottom spacing/margin - matches common patterns from examples (e.g., mb-4, mb-6, mb-8)
+   */
+  readonly spacing?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "section";
 
   // React-specific props that should not be passed to DOM element
   readonly parentContext?: Record<string, unknown>;
@@ -176,6 +193,7 @@ function Heading({
   gradient,
   shadow,
   animation,
+  spacing,
   // Extract React-specific props that shouldn't be passed to DOM
   parentContext,
   spec,
@@ -200,6 +218,7 @@ function Heading({
           gradient,
           shadow,
           animation,
+          spacing,
           className,
         })
       )}

@@ -52,7 +52,8 @@ export function TypographyPage() {
   "size": "5xl",
   "weight": "extrabold",
   "gradient": "rainbow",
-  "animation": "glow"
+  "animation": "glow",
+  "spacing": "xl"
 }`}
                 </pre>
               </div>

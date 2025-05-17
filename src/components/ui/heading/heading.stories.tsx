@@ -69,6 +69,11 @@ const meta = {
       options: ["none", "glow", "pulse", "bounce", "shimmer"],
       description: "Text animation",
     },
+    spacing: {
+      control: "select",
+      options: ["none", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "section"],
+      description: "Bottom spacing/margin (mb-values)",
+    },
   },
 } satisfies Meta<typeof Heading>;
 
@@ -233,4 +238,139 @@ export const MarketingHeadline: Story = {
     align: "center",
     children: "Elevate Your Experience",
   },
+};
+
+export const SpacingVariants: Story = {
+  render: () => (
+    <div className="max-w-2xl">
+      <Heading level="h2" size="3xl" spacing="none">
+        No spacing (mb-0)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with no spacing.
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="xs">
+        Extra small spacing (mb-1)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with extra small spacing.
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="sm">
+        Small spacing (mb-2)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with small spacing.
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="md">
+        Medium spacing (mb-3)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with medium spacing.
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="lg">
+        Large spacing (mb-4) - Default
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with large spacing (the default).
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="xl">
+        Extra large spacing (mb-6)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with extra large spacing.
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="2xl">
+        2XL spacing (mb-8)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with 2XL spacing.
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="3xl">
+        3XL spacing (mb-10)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with 3XL spacing.
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="4xl">
+        4XL spacing (mb-12)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with 4XL spacing.
+      </p>
+
+      <Heading level="h2" size="3xl" spacing="section">
+        Section spacing (mb-16)
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400">
+        This paragraph follows a heading with section spacing - used for major section dividers.
+      </p>
+    </div>
+  ),
+};
+
+export const PracticalUsage: Story = {
+  render: () => (
+    <div className="max-w-4xl">
+      {/* Hero section example */}
+      <Heading level="h1" size="5xl" gradient="rainbow" spacing="xl" align="center">
+        Welcome to Our App
+      </Heading>
+      <p className="text-xl text-center text-gray-600 dark:text-gray-400 mb-12">
+        Discover the power of modern UI components with seamless spacing.
+      </p>
+
+      {/* Section with proper spacing */}
+      <Heading level="h2" size="3xl" spacing="2xl">
+        Core Features
+      </Heading>
+
+      <div className="grid grid-cols-2 gap-8 mb-16">
+        <div>
+          <Heading level="h3" size="xl" spacing="lg">
+            Fast Performance
+          </Heading>
+          <p className="text-gray-600 dark:text-gray-400">Optimized for speed and efficiency.</p>
+        </div>
+        <div>
+          <Heading level="h3" size="xl" spacing="lg">
+            Beautiful Design
+          </Heading>
+          <p className="text-gray-600 dark:text-gray-400">Stunning visuals that captivate users.</p>
+        </div>
+      </div>
+
+      {/* Documentation-style section */}
+      <Heading level="h2" size="3xl" spacing="2xl">
+        Getting Started
+      </Heading>
+
+      <Heading level="h3" size="lg" spacing="md">
+        Installation
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400 mb-4">Install the package via npm or yarn:</p>
+      <pre className="bg-gray-900 text-gray-100 p-4 rounded mb-8">
+        <code>npm install @your-package/name</code>
+      </pre>
+
+      <Heading level="h3" size="lg" spacing="md">
+        Basic Usage
+      </Heading>
+      <p className="text-gray-600 dark:text-gray-400 mb-4">Import and use the Heading component:</p>
+      <pre className="bg-gray-900 text-gray-100 p-4 rounded">
+        <code>{`import { Heading } from '@your-package/name'
+
+<Heading level="h1" spacing="xl">
+  Your Title Here
+</Heading>`}</code>
+      </pre>
+    </div>
+  ),
 };

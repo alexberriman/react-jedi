@@ -67,6 +67,14 @@ const examples: Example[] = [
     path: "/examples/transitions",
     status: "new",
   },
+  {
+    id: "click-animations",
+    title: "Click Animations",
+    description:
+      "Interactive click animations with multiple presets and customization options. Features bounce, press, jelly, and more effects.",
+    path: "/examples/click-animations",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

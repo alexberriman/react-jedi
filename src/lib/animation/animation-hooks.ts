@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { AnimationProps, HTMLMotionProps, Variants } from "framer-motion";
+import { AnimationProps, HTMLMotionProps, Variants, TargetAndTransition } from "framer-motion";
 import { useAnimation } from "./animation-provider";
 
 export type AnimationVariant =
@@ -281,14 +281,14 @@ export const useHoverAnimation = (config: HoverAnimationConfig | number = {}) =>
     borderColor,
   } = hoverConfig;
 
-  const whileHover: Record<string, unknown> = {
+  const whileHover: TargetAndTransition = {
     scale,
     rotate,
     y: translateY,
     x: translateX,
   };
 
-  const whileTap: Record<string, unknown> = {
+  const whileTap: TargetAndTransition = {
     scale: scale * 0.95,
     rotate: rotate === 0 ? 0 : rotate * -0.5,
     y: translateY === 0 ? 0 : translateY * 0.5,
@@ -403,7 +403,7 @@ export const useFocusAnimation = (config: FocusAnimationConfig = {}) => {
     backgroundColor,
   } = config;
 
-  const whileFocus: Record<string, unknown> = {
+  const whileFocus: TargetAndTransition = {
     scale,
     boxShadow,
   };
@@ -419,4 +419,119 @@ export const useFocusAnimation = (config: FocusAnimationConfig = {}) => {
       ...animationConfig.transition,
     },
   };
+};
+
+export interface ClickAnimationConfig {
+  scale?: number;
+  rotate?: number;
+  opacity?: number;
+  brightness?: number;
+  shadow?: string;
+  backgroundColor?: string;
+  translateY?: number;
+  translateX?: number;
+  borderColor?: string;
+  outline?: string;
+}
+
+export const useClickAnimation = (config: ClickAnimationConfig | number = {}) => {
+  const animationConfig = useAnimation();
+
+  if (animationConfig.reducedMotion) {
+    return {};
+  }
+
+  // Support legacy API
+  const clickConfig = typeof config === "number" ? { scale: config } : config;
+
+  const {
+    scale = 0.95,
+    rotate = 0,
+    opacity = 1,
+    brightness = 0.9,
+    shadow,
+    backgroundColor,
+    translateY = 1,
+    translateX = 0,
+    borderColor,
+    outline,
+  } = clickConfig;
+
+  const whileTap: TargetAndTransition = {
+    scale,
+    rotate,
+    opacity,
+    y: translateY,
+    x: translateX,
+  };
+
+  // Add filter effects if specified
+  const filters: string[] = [];
+  if (brightness) {
+    filters.push(`brightness(${brightness})`);
+  }
+  if (filters.length > 0) {
+    whileTap.filter = filters.join(" ");
+  }
+
+  // Add other style effects
+  if (shadow) whileTap.boxShadow = shadow;
+  if (backgroundColor) whileTap.backgroundColor = backgroundColor;
+  if (borderColor) whileTap.borderColor = borderColor;
+  if (outline) whileTap.outline = outline;
+
+  return {
+    whileTap,
+    transition: {
+      duration: animationConfig.duration.fast,
+      ...animationConfig.transition,
+    },
+  };
+};
+
+// Preset click effects
+export const clickPresets = {
+  bounce: {
+    scale: 0.9,
+    translateY: 3,
+  },
+  press: {
+    scale: 0.95,
+    brightness: 0.85,
+    shadow: "inset 0 2px 4px rgba(0,0,0,0.2)",
+  },
+  ripple: {
+    scale: 0.98,
+    opacity: 0.8,
+    backgroundColor: "rgba(0, 0, 0, 0.05)",
+  },
+  jelly: {
+    scale: 0.9,
+    rotate: -3,
+  },
+  shrink: {
+    scale: 0.85,
+    brightness: 0.95,
+  },
+  pop: {
+    scale: 1.05,
+    brightness: 1.1,
+    shadow: "0 4px 8px rgba(0,0,0,0.1)",
+  },
+  pulse: {
+    scale: 0.92,
+    opacity: 0.85,
+    shadow: "0 0 10px rgba(124, 58, 237, 0.3)",
+  },
+  squeeze: {
+    scale: 0.88,
+    translateY: 2,
+    brightness: 0.88,
+  },
+} as const;
+
+export type ClickPreset = keyof typeof clickPresets;
+
+export const useClickPreset = (preset: ClickPreset) => {
+  return useClickAnimation(clickPresets[preset]);
 };

@@ -121,6 +121,11 @@ const DataDisplayPage = lazy(() =>
 const TransitionsPage = lazy(() =>
   import("../pages/examples/transitions").then((module) => ({ default: module.TransitionsPage }))
 );
+const ClickAnimationsPage = lazy(() =>
+  import("../pages/examples/click-animations").then((module) => ({
+    default: module.ClickAnimationsPage,
+  }))
+);
 
 // Other pages
 const BrandPresetsPage = lazy(() =>
@@ -390,6 +395,15 @@ export const router = createBrowserRouter([
             path: "transitions",
             element: (
               <AsyncRoute component={TransitionsPage} loadingText="Loading transitions..." />
+            ),
+          },
+          {
+            path: "click-animations",
+            element: (
+              <AsyncRoute
+                component={ClickAnimationsPage}
+                loadingText="Loading click animations..."
+              />
             ),
           },
         ],

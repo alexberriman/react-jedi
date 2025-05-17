@@ -1,4 +1,11 @@
+import { usePageMetadata } from "../../../lib/meta";
+
 export function ComponentSystemPage() {
+  usePageMetadata({
+    title: "Component System",
+    description:
+      "React Jedi component system - Understanding JSON specifications and component mapping.",
+  });
   return (
     <section className="mb-20">
       <div className="relative">

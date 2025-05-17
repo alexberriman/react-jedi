@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function UIComponentsPage() {
+  usePageMetadata({
+    title: "UI Components",
+    description: "React Jedi UI components documentation - Buttons, cards, badges, and more.",
+  });
   return (
     <section id="ui-components" className="mb-20">
       <div className="relative">

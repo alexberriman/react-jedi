@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { render } from "@banja/react-jedi";
 import type { UISpecification } from "@banja/react-jedi";
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 
 // Interactive component demonstrations
 const interactiveDemos = {
@@ -600,6 +601,12 @@ const interactiveDemos = {
 };
 
 export function InteractiveShowcasePage() {
+  usePageMetadata({
+    title: "Interactive Components",
+    description:
+      "Interactive React Jedi components showcase featuring forms, toggles, sliders, and state management examples with live demos.",
+  });
+
   const [activeDemo, setActiveDemo] = useState<keyof typeof interactiveDemos>("form");
   const [showCode, setShowCode] = useState(false);
 

@@ -5,6 +5,7 @@
  */
 
 import React, { useState } from "react";
+import { usePageMetadata } from "../../lib/meta";
 import {
   brandPresets,
   generateBrandTheme,
@@ -465,6 +466,12 @@ const LivePreview: React.FC<LivePreviewProps> = ({ preset }) => {
 };
 
 export const BrandPresetsPage: React.FC = () => {
+  usePageMetadata({
+    title: "Brand Presets",
+    description:
+      "React Jedi brand presets - Pre-built themes for various industries and styles with one-click customization.",
+  });
+
   const [selectedPreset, setSelectedPreset] = useState<BrandPreset>(brandPresets["tech-startup"]);
   const [selectedCategory, setSelectedCategory] = useState<BrandCategory | "all">("all");
   const [viewMode, setViewMode] = useState<"preview" | "comparison">("preview");

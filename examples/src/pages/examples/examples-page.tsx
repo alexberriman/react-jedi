@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 
 interface Example {
   id: string;
@@ -61,6 +62,12 @@ const examples: Example[] = [
 ];
 
 export function ExamplesPage() {
+  usePageMetadata({
+    title: "Examples",
+    description:
+      "React Jedi examples - Explore real-world implementations including landing pages, forms, navigation, and interactive components.",
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-6xl mx-auto">

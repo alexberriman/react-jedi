@@ -1,7 +1,13 @@
 import type { UISpecification } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
+import { usePageMetadata } from "../../lib/meta";
 
 export function TabsDemo() {
+  usePageMetadata({
+    title: "Tabs Demo",
+    description:
+      "React Jedi Tabs component demo showcasing tab navigation with various configurations.",
+  });
   // Default tabs example
   const defaultTabsSpec: UISpecification = {
     type: "Tabs",

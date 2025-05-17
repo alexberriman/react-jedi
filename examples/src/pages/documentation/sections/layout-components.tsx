@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function LayoutComponentsPage() {
+  usePageMetadata({
+    title: "Layout Components",
+    description: "React Jedi layout components documentation - Grid, Flex, Container, and more.",
+  });
   return (
     <section id="layout-components" className="mb-20">
       <div className="relative">

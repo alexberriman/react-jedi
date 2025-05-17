@@ -1,7 +1,13 @@
 import { render } from "@banja/react-jedi";
 import { landingPageSchema } from "../../../schemas/landing-page";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function LandingExamplePage() {
+  usePageMetadata({
+    title: "Landing Page Example",
+    description:
+      "React Jedi landing page example - Professional marketing website built entirely from JSON specifications.",
+  });
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-6xl mx-auto">

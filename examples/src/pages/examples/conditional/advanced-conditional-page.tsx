@@ -1,8 +1,14 @@
 import type { ComponentSpec } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
 import { useState } from "react";
+import { usePageMetadata } from "../../../lib/meta";
 
 export const AdvancedConditionalPage = () => {
+  usePageMetadata({
+    title: "Advanced Conditional Rendering",
+    description:
+      "Advanced React Jedi conditional rendering examples with complex logic and multiple states.",
+  });
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState("guest");
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);

@@ -1,5 +1,6 @@
 import React from "react";
 import { render, ComponentSpec } from "../../../../src";
+import { usePageMetadata } from "../../lib/meta";
 
 const sheetDemo: ComponentSpec = {
   type: "Container",
@@ -429,5 +430,10 @@ const sheetDemo: ComponentSpec = {
 };
 
 export function SheetDemo() {
+  usePageMetadata({
+    title: "Sheet Demo",
+    description: "React Jedi Sheet component demo featuring slide-out panels and drawers.",
+  });
+
   return render(sheetDemo);
 }

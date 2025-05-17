@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 
 export function DocumentationOverview() {
+  usePageMetadata({
+    title: "Documentation Overview",
+    description:
+      "React Jedi documentation overview - Get started with server-driven UI development.",
+  });
   const sections = [
     {
       title: "Getting Started",

@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 
 export const NotFoundPage: React.FC = () => {
+  usePageMetadata({
+    title: "404 - Page Not Found",
+    description: "Page not found - The requested page does not exist.",
+  });
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

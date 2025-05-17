@@ -1,6 +1,7 @@
 import React from "react";
 import { UISpecification } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
+import { usePageMetadata } from "../../../lib/meta";
 
 const navigationSpec: UISpecification = {
   version: "1.0.0",
@@ -1291,5 +1292,11 @@ const navigationSpec: UISpecification = {
 };
 
 export function NavigationPage() {
+  usePageMetadata({
+    title: "Navigation Components",
+    description:
+      "React Jedi navigation components showcase featuring modern menus, breadcrumbs, and navigation patterns.",
+  });
+
   return render(navigationSpec);
 }

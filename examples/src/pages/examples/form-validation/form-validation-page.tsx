@@ -1,5 +1,6 @@
 import { render } from "@banja/react-jedi";
 import type { Specification } from "@banja/react-jedi";
+import { usePageMetadata } from "../../../lib/meta";
 
 // Simplified form examples that work with the JSON structure
 const formValidationExamples: Specification = {
@@ -716,5 +717,11 @@ const formValidationExamples: Specification = {
 };
 
 export const FormValidationPage = () => {
+  usePageMetadata({
+    title: "Form Validation",
+    description:
+      "React Jedi form validation examples showcasing various input types and validation patterns.",
+  });
+
   return <div className="max-w-6xl mx-auto py-12 px-4">{render(formValidationExamples)}</div>;
 };

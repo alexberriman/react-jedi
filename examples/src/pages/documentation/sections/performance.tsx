@@ -1,4 +1,10 @@
+import { usePageMetadata } from "../../../lib/meta";
+
 export function PerformancePage() {
+  usePageMetadata({
+    title: "Performance Analysis",
+    description: "React Jedi performance documentation - Optimization strategies and benchmarks.",
+  });
   return (
     <section id="performance" className="mb-20">
       <div className="relative">

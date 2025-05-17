@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "../../../components/ui/button";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function MarketingTemplatePage() {
+  usePageMetadata({
+    title: "Marketing Template",
+    description:
+      "Full marketing website template built with React Jedi - Modern, responsive multi-page site.",
+  });
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-6xl mx-auto">

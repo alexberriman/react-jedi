@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "@banja/react-jedi";
 import type { UISpecification } from "@banja/react-jedi";
+import { usePageMetadata } from "../../lib/meta";
 
 const scrollAreaDemo: UISpecification = {
   type: "Container",
@@ -168,5 +169,11 @@ const scrollAreaDemo: UISpecification = {
 };
 
 export function ScrollAreaDemo() {
+  usePageMetadata({
+    title: "Scroll Area Demo",
+    description:
+      "React Jedi ScrollArea component demo showcasing custom scrollbars and overflow handling.",
+  });
+
   return <div>{render(scrollAreaDemo)}</div>;
 }

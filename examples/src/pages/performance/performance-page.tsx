@@ -3,6 +3,7 @@ import { Container, Heading, Text, Flex, Box, Card, Badge } from "@banja/react-j
 import type { CSSProperties } from "react";
 import { runThemeBenchmark, LiveBenchmark, type BenchmarkResult } from "./theme-benchmark";
 import { JsonCodeComparison } from "./json-code-comparison";
+import { usePageMetadata } from "../../lib/meta";
 
 interface PerformanceMetrics {
   withTheme: {
@@ -18,6 +19,12 @@ interface PerformanceMetrics {
 }
 
 export const PerformancePage: React.FC = () => {
+  usePageMetadata({
+    title: "Performance",
+    description:
+      "React Jedi performance benchmarks and optimizations. Compare JSON-driven vs traditional React components.",
+  });
+
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
   const [isRunning, setIsRunning] = useState(false);
 

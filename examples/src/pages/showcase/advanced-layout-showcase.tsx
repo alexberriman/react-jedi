@@ -1,3 +1,4 @@
+import { usePageMetadata } from "../../lib/meta";
 import {
   AspectRatio,
   Badge,
@@ -26,6 +27,12 @@ import {
 import { useState } from "react";
 
 export function AdvancedLayoutShowcase() {
+  usePageMetadata({
+    title: "Advanced Layouts",
+    description:
+      "Advanced layout components in React Jedi. Explore Stack, Grid, Resizable panels, and more with interactive examples.",
+  });
+
   const [activeSection, setActiveSection] = useState("all");
 
   const sections = [

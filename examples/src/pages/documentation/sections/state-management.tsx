@@ -1,4 +1,11 @@
+import { usePageMetadata } from "../../../lib/meta";
+
 export function StateManagementPage() {
+  usePageMetadata({
+    title: "State Management",
+    description:
+      "React Jedi state management documentation - JSON-driven state with actions and handlers.",
+  });
   return (
     <section id="state-management" className="mb-20">
       <div className="relative">

@@ -1,5 +1,6 @@
 import React from "react";
 import { render, ComponentSpec } from "../../../../src";
+import { usePageMetadata } from "../../lib/meta";
 
 const resizableDemo: ComponentSpec = {
   type: "Container",
@@ -336,5 +337,11 @@ const resizableDemo: ComponentSpec = {
 };
 
 export function ResizableDemo() {
+  usePageMetadata({
+    title: "Resizable Demo",
+    description:
+      "React Jedi Resizable panels demo showcasing dynamic split layouts and resizable containers.",
+  });
+
   return render(resizableDemo);
 }

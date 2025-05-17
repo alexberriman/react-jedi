@@ -1,7 +1,13 @@
 import type { UISpecification } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
+import { usePageMetadata } from "../../lib/meta";
 
 export function AccordionDemo() {
+  usePageMetadata({
+    title: "Accordion Demo",
+    description:
+      "React Jedi Accordion component demo with expandable sections and collapsible panels.",
+  });
   // Single accordion example
   const singleAccordionSpec: UISpecification = {
     type: "Accordion",

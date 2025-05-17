@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function FormComponentsPage() {
+  usePageMetadata({
+    title: "Form Components",
+    description:
+      "React Jedi form components documentation - Inputs, selects, checkboxes, and validation.",
+  });
   return (
     <section id="form-components" className="mb-20">
       <div className="relative">

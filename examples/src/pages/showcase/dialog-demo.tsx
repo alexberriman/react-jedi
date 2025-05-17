@@ -1,7 +1,12 @@
 import type { UISpecification } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
+import { usePageMetadata } from "../../lib/meta";
 
 export function DialogDemo() {
+  usePageMetadata({
+    title: "Dialog Demo",
+    description: "React Jedi Dialog component demo with modal overlays and interactive dialogs.",
+  });
   // Basic dialog example
   const basicDialogSpec: UISpecification = {
     type: "Dialog",

@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 
 export function DocumentationPage() {
+  usePageMetadata({
+    title: "Documentation",
+    description:
+      "React Jedi documentation - Learn how to build server-driven UIs with JSON specifications, TypeScript, and modern React components.",
+  });
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-950 to-slate-900">
       <div className="container mx-auto px-4 py-12">

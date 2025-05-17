@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function TypographyPage() {
+  usePageMetadata({
+    title: "Typography",
+    description:
+      "React Jedi typography components - Headings, text, and font system documentation.",
+  });
   return (
     <section id="typography" className="mb-20">
       <div className="relative">

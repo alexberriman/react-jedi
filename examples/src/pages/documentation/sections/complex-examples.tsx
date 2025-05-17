@@ -1,4 +1,10 @@
+import { usePageMetadata } from "../../../lib/meta";
+
 export function ComplexExamplesPage() {
+  usePageMetadata({
+    title: "Complex Examples",
+    description: "React Jedi complex examples - Advanced patterns and real-world use cases.",
+  });
   return (
     <section id="complex-examples" className="mb-20">
       <div className="relative">

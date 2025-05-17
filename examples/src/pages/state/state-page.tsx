@@ -1,5 +1,6 @@
 import { render } from "@banja/react-jedi";
 import type { UISpecification, StateManager } from "@banja/react-jedi";
+import { usePageMetadata } from "../../lib/meta";
 
 const stateSpec: UISpecification = {
   version: "1.0",
@@ -132,6 +133,12 @@ const stateSpec: UISpecification = {
 };
 
 export function StatePage() {
+  usePageMetadata({
+    title: "State Management",
+    description:
+      "React Jedi state management examples - JSON-driven state with actions and event handlers.",
+  });
+
   return (
     <div>
       {render(stateSpec, {

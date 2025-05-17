@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 
 export function HomePage() {
+  usePageMetadata({
+    title: "Home",
+    description:
+      "React Jedi - Build beautiful, dynamic interfaces with JSON specifications. Server-driven UI library with modern components, TypeScript support, and comprehensive theming.",
+  });
   return (
     <div className="flex flex-col gap-16 pb-20">
       {/* Hero Section */}

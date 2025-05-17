@@ -1,4 +1,11 @@
+import { usePageMetadata } from "../../../lib/meta";
+
 export function ThemingPage() {
+  usePageMetadata({
+    title: "Theming System",
+    description:
+      "React Jedi theming documentation - Comprehensive theme system with colors, typography, and customization.",
+  });
   return (
     <section id="theming" className="mb-20">
       <div className="relative">

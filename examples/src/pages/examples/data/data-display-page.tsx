@@ -1,6 +1,7 @@
 import React from "react";
 import { UISpecification } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
+import { usePageMetadata } from "../../../lib/meta";
 
 const dataDisplaySpec: UISpecification = {
   version: "1.0.0",
@@ -1156,5 +1157,11 @@ const dataDisplaySpec: UISpecification = {
 };
 
 export function DataDisplayPage() {
+  usePageMetadata({
+    title: "Data Display",
+    description:
+      "React Jedi data display components including tables, charts, and data visualization examples.",
+  });
+
   return render(dataDisplaySpec);
 }

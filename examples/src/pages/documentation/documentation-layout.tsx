@@ -1,4 +1,5 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 
 const docSections = [
   { id: "getting-started", label: "Getting Started", path: "/documentation/getting-started" },
@@ -14,6 +15,12 @@ const docSections = [
 ];
 
 export function DocumentationLayout() {
+  usePageMetadata({
+    title: "Documentation",
+    description:
+      "React Jedi documentation - Learn how to build server-driven UIs with JSON specifications.",
+  });
+
   const location = useLocation();
 
   return (

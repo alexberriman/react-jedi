@@ -1,8 +1,14 @@
 import React from "react";
 import { render } from "@banja/react-jedi";
 import type { UISpecification } from "@banja/react-jedi";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function ConditionalPage() {
+  usePageMetadata({
+    title: "Conditional Rendering",
+    description:
+      "React Jedi conditional rendering examples showing dynamic UI updates based on state.",
+  });
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [theme, setTheme] = React.useState<"light" | "dark">("light");
   const [userRole, setUserRole] = React.useState<"guest" | "user" | "admin">("guest");

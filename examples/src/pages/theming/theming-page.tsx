@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 
 export const ThemingPage: React.FC = () => {
+  usePageMetadata({
+    title: "Theming",
+    description:
+      "React Jedi theming system - Customize colors, typography, spacing, and more with a comprehensive theme engine.",
+  });
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-950 to-slate-900">
       <div className="container mx-auto px-4 py-12">

@@ -1,4 +1,11 @@
+import { usePageMetadata } from "../../../lib/meta";
+
 export function GettingStartedPage() {
+  usePageMetadata({
+    title: "Getting Started",
+    description:
+      "Get started with React Jedi - Installation, basic concepts, and your first component.",
+  });
   return (
     <section className="mb-20">
       <div className="relative">

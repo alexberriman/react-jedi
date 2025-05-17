@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { usePageMetadata } from "../../lib/meta";
 import { ThemeProvider, useTheme } from "@banja/react-jedi";
 import type { Theme } from "@banja/react-jedi";
 import {
@@ -630,6 +631,12 @@ function ThemePlayground({ initialTheme }: Readonly<ThemePlaygroundProps>): Reac
 }
 
 export function ThemePlaygroundPage(): React.ReactElement {
+  usePageMetadata({
+    title: "Theme Playground",
+    description:
+      "Interactive React Jedi theme playground - Customize and preview themes in real-time.",
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50">
       <Container>

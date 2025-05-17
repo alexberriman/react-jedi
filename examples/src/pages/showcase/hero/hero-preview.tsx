@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { render } from "@banja/react-jedi";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function HeroPreview() {
+  usePageMetadata({
+    title: "Hero Component",
+    description:
+      "React Jedi Hero component showcase featuring modern hero sections with various layouts.",
+  });
   const [selectedExample, setSelectedExample] = useState("centered");
 
   const examples = {

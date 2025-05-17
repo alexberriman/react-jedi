@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { render } from "@banja/react-jedi";
 import type { UISpecification, ComponentSpec } from "@banja/react-jedi";
+import { usePageMetadata } from "../../lib/meta";
 
 type ComponentCategory = {
   id: string;
@@ -1209,6 +1210,12 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
 };
 
 export function ShowcasePage() {
+  usePageMetadata({
+    title: "Component Showcase",
+    description:
+      "Explore the complete React Jedi component library. Browse through layout components, UI elements, form controls, typography, and more with live examples.",
+  });
+
   const [showJson, setShowJson] = useState<string | null>(null);
   const [expandedComponent, setExpandedComponent] = useState<string | null>(null);
 

@@ -546,6 +546,12 @@ export function ShowcasePage() {
               View Interactive Components
             </Link>
             <Link
+              to="/showcase/layout"
+              className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg text-white font-medium hover:from-cyan-700 hover:to-blue-700 transition-all"
+            >
+              View Layout Showcase
+            </Link>
+            <Link
               to="/landing"
               className="px-6 py-3 bg-zinc-800/50 rounded-lg text-white font-medium hover:bg-zinc-700/50 transition-all border border-zinc-700"
             >

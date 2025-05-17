@@ -271,6 +271,54 @@ export function HomePage() {
               </svg>
             </Link>
           </div>
+          <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-cyan-500/20 rounded-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-cyan-400"
+                >
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold">Advanced Layouts</h3>
+            </div>
+            <p className="text-zinc-300 mb-4">
+              Milestone 4 advanced layouts now available! Explore our comprehensive showcase of
+              layout components including Stack, Grid, Resizable panels, and more.
+            </p>
+            <Link
+              to="/showcase/layout"
+              className="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-2"
+            >
+              View Layout Showcase
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
 

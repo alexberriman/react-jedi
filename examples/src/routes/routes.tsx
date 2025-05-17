@@ -4,6 +4,7 @@ import { HomePage } from "../pages/home";
 import {
   ShowcasePage,
   InteractiveShowcasePage,
+  AdvancedLayoutShowcase,
   ScrollAreaDemo,
   ResizableDemo,
   SheetDemo,
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
           {
             path: "interactive",
             element: <InteractiveShowcasePage />,
+          },
+          {
+            path: "layout",
+            element: <AdvancedLayoutShowcase />,
           },
           {
             path: "scroll-area",

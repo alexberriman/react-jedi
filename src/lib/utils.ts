@@ -49,3 +49,11 @@ export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Om
   }
   return result;
 }
+
+/**
+ * Re-export utility modules
+ */
+export { cn as classNames } from "./utils/cn";
+export * from "./utils/cn";
+export * from "./utils/result";
+export * from "./utils/merge";

@@ -107,6 +107,14 @@ const examples: Example[] = [
     path: "/examples/animation-sequence",
     status: "new",
   },
+  {
+    id: "data-fetching",
+    title: "Data Fetching & Binding",
+    description:
+      "Fetch data from REST APIs, GraphQL, and other sources with automatic binding to components. Features caching, polling, and loading states.",
+    path: "/examples/data-fetching",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

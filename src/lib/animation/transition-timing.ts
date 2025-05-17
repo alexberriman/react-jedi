@@ -243,7 +243,9 @@ export const createTween = (
   const durationValue = typeof duration === "string" ? durationPresets[duration] : duration;
 
   const easingValue =
-    typeof ease === "string" && ease in easingPresets ? easingPresets[ease] : ease;
+    typeof ease === "string" && ease in easingPresets 
+      ? easingPresets[ease as keyof typeof easingPresets] 
+      : ease;
 
   return {
     type: "tween",
@@ -321,7 +323,7 @@ export const createTransitionFromConfig = (
   let easingValue;
   easingValue =
     typeof ease === "string" && ease in easingPresets
-      ? easingPresets[ease]
+      ? easingPresets[ease as keyof typeof easingPresets]
       : ease || config.easing.easeOut;
 
   if (config.transition.type === "spring") {
@@ -376,13 +378,23 @@ export const createStateTransition = (
     typeof baseDuration === "string" ? durationPresets[baseDuration] : baseDuration;
 
   const easingValue =
-    typeof ease === "string" && ease in easingPresets ? easingPresets[ease] : ease;
+    typeof ease === "string" && ease in easingPresets 
+      ? easingPresets[ease as keyof typeof easingPresets] 
+      : ease;
 
+  if (presetTransition && 'duration' in presetTransition) {
+    return {
+      type: "tween",
+      duration: presetTransition.duration || durationValue,
+      ease: 'ease' in presetTransition ? presetTransition.ease : easingValue,
+      ...presetTransition,
+    };
+  }
+  
   return {
     type: "tween",
-    duration: presetTransition?.duration || durationValue,
-    ease: presetTransition?.ease || easingValue,
-    ...presetTransition,
+    duration: durationValue,
+    ease: easingValue,
   };
 };
 
@@ -407,7 +419,9 @@ export const createPropertyTransitions = (
     const durationValue = typeof duration === "string" ? durationPresets[duration] : duration;
 
     const easingValue =
-      typeof ease === "string" && ease in easingPresets ? easingPresets[ease] : ease;
+      typeof ease === "string" && ease in easingPresets 
+        ? easingPresets[ease as keyof typeof easingPresets] 
+        : ease;
 
     result[prop] = {
       type: "tween",

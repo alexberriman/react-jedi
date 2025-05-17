@@ -77,3 +77,6 @@ export {
 
 // Animation system
 export * from "./animation";
+
+// Data fetching system
+export * from "./data";

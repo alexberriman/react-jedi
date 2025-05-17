@@ -15,6 +15,7 @@ import {
   ValidationStageType,
 } from "./validation-pipeline";
 import { SpecificationErrorType, type SpecificationError } from "./shared-types";
+import { DataSourceParser } from "./data-source-parser";
 
 /**
  * Result type for specification parser operations
@@ -410,12 +411,25 @@ export class SpecificationParser {
       spec.state = input.state as UISpecification["state"];
     }
 
-    if (
-      input.dataSources &&
-      Array.isArray(input.dataSources) &&
-      input.dataSources.every((ds) => typeof ds === "object" && ds !== null)
-    ) {
-      spec.dataSources = input.dataSources as UISpecification["dataSources"];
+    if (input.dataSources && Array.isArray(input.dataSources)) {
+      // Parse and validate data sources
+      const dataSourceParser = new DataSourceParser({
+        validateConfigs: this.options.validateSchemas,
+        development: this.options.development,
+      });
+      
+      const dataSourcesResult = dataSourceParser.parseDataSources(input.dataSources);
+      if (dataSourcesResult.err) {
+        // Return with data source parsing error
+        return Err({
+          type: SpecificationErrorType.INVALID_FORMAT,
+          message: `Invalid data sources: ${dataSourcesResult.val.message}`,
+          path: ["dataSources", ...(dataSourcesResult.val.path || [])],
+          suggestions: dataSourcesResult.val.suggestions,
+        });
+      }
+      
+      spec.dataSources = dataSourcesResult.val;
     }
   }
 

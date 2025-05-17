@@ -1,0 +1,1 @@
+export { DataFetchingPage } from "./data-fetching-page";

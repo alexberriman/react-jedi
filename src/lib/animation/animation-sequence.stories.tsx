@@ -41,6 +41,7 @@ export const BasicSequence: Story = {
       ],
       autoPlay: true,
     },
+    children: null, // Children are provided in the render function
   },
   render: (args) => (
     <AnimationSequence {...args}>
@@ -56,6 +57,10 @@ export const BasicSequence: Story = {
  * Multi-step sequence with different animation properties
  */
 export const MultiStepSequence: Story = {
+  args: {
+    config: { steps: [], autoPlay: true },
+    children: null,
+  },
   render: () => {
     const config = createAnimationSequence(
       [
@@ -125,6 +130,10 @@ const ControlledSequenceWrapper = () => {
  * Controlled sequence with play/pause/reset controls
  */
 export const ControlledSequence: Story = {
+  args: {
+    config: { steps: [], autoPlay: true },
+    children: null,
+  },
   render: () => <ControlledSequenceWrapper />,
 };
 
@@ -132,6 +141,10 @@ export const ControlledSequence: Story = {
  * Looping sequence with yoyo effect
  */
 export const LoopingYoyoSequence: Story = {
+  args: {
+    config: { steps: [], autoPlay: true },
+    children: null,
+  },
   render: () => {
     const config = createAnimationSequence(
       [
@@ -209,6 +222,10 @@ const SequenceWithCallbacksWrapper = () => {
  * Sequence with callbacks and status tracking
  */
 export const SequenceWithCallbacks: Story = {
+  args: {
+    config: { steps: [], autoPlay: true },
+    children: null,
+  },
   render: () => <SequenceWithCallbacksWrapper />,
 };
 
@@ -216,6 +233,10 @@ export const SequenceWithCallbacks: Story = {
  * Complex parallel sequences
  */
 export const ParallelSequences: Story = {
+  args: {
+    config: { steps: [], autoPlay: true },
+    children: null,
+  },
   render: () => {
     const steps = createComplexSequence(
       [
@@ -299,6 +320,10 @@ const HookExampleWrapper = () => {
  * Using the useAnimationSequence hook
  */
 export const HookExample: Story = {
+  args: {
+    config: { steps: [], autoPlay: true },
+    children: null,
+  },
   render: () => <HookExampleWrapper />,
 };
 
@@ -383,5 +408,9 @@ const StepByStepShowcaseWrapper = () => {
  * Step-by-step animation showcase
  */
 export const StepByStepShowcase: Story = {
+  args: {
+    config: { steps: [], autoPlay: true },
+    children: null,
+  },
   render: () => <StepByStepShowcaseWrapper />,
 };

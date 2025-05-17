@@ -345,12 +345,19 @@ export const useStatePreset = (
   const mergedStates: Record<ComponentState, StateConfig> = { ...presetStates };
 
   for (const [state, config] of Object.entries(customStates)) {
-    mergedStates[state] = mergedStates[state]
-      ? {
-          ...mergedStates[state],
-          ...config,
-        }
-      : (config as StateConfig);
+    const stateKey = state as ComponentState;
+    if (mergedStates[stateKey]) {
+      // If state already exists, merge the configs
+      const existing = mergedStates[stateKey] as StateConfig;
+      const newConfig = config as StateConfig;
+      mergedStates[stateKey] = {
+        ...existing,
+        ...newConfig,
+      } as StateConfig;
+    } else {
+      // If new state, add it
+      mergedStates[stateKey] = config as StateConfig;
+    }
   }
 
   return {

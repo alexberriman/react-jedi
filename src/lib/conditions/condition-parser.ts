@@ -11,6 +11,7 @@ export interface ConditionContext {
   state?: Record<string, unknown>;
   props?: Record<string, unknown>;
   env?: Record<string, unknown>;
+  data?: Record<string, unknown>;
 }
 
 /**
@@ -139,6 +140,10 @@ function getValue(path: string, context: ConditionContext): unknown {
     }
     case "env": {
       value = context.env;
+      break;
+    }
+    case "data": {
+      value = context.data;
       break;
     }
     default: {

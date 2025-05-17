@@ -31,6 +31,7 @@ import {
   createOptimizedStateManager,
   OptimizedStateProvider,
 } from "./performance";
+import { useDataSources } from "@/hooks/use-data-sources";
 
 /**
  * ErrorBoundary component to catch rendering errors
@@ -429,11 +430,51 @@ function renderComponent(
 
   // Resolve state bindings in spec properties
   let resolvedSpec = spec;
-  if (stateManager) {
-    const currentState = stateManager.getState();
+  if (stateManager || options.dataSources) {
+    const currentState = stateManager?.getState() || {};
     // Resolve state bindings in all spec properties except children
     const { children, ...specPropsWithoutChildren } = spec;
-    const resolvedProps = resolveStateBindings(specPropsWithoutChildren, currentState);
+    let resolvedProps = resolveStateBindings(specPropsWithoutChildren, currentState);
+    
+    // Apply data bindings if data sources are available
+    if (options.dataSources) {
+      // Create a simple data binding resolver without hooks
+      const boundProps: Record<string, unknown> = {};
+      
+      Object.entries(resolvedProps).forEach(([key, value]) => {
+        // Check if the value is a data binding expression
+        if (typeof value === "string" && value.startsWith("$data.")) {
+          const path = value.substring(6); // Remove "$data." prefix
+          const [sourceId, ...propertyPath] = path.split(".");
+
+          if (options.dataSources.sources[sourceId]) {
+            const sourceData = options.dataSources.sources[sourceId].data;
+            if (sourceData) {
+              // Navigate through the property path
+              let resolvedValue = sourceData;
+              for (const prop of propertyPath) {
+                if (resolvedValue && typeof resolvedValue === "object" && prop in resolvedValue) {
+                  resolvedValue = (resolvedValue as Record<string, unknown>)[prop];
+                } else {
+                  resolvedValue = undefined;
+                  break;
+                }
+              }
+              boundProps[key] = resolvedValue;
+            } else {
+              boundProps[key] = undefined;
+            }
+          } else {
+            boundProps[key] = value;
+          }
+        } else {
+          boundProps[key] = value;
+        }
+      });
+      
+      resolvedProps = boundProps;
+    }
+    
     resolvedSpec = { ...resolvedProps, children } as ComponentSpec;
   }
 
@@ -442,6 +483,7 @@ function renderComponent(
     state: stateManager?.getState() || options.initialState || {},
     props: resolvedSpec,
     env: options.env,
+    data: options.dataSources?.sources,
   };
 
   // Process conditional rendering and props
@@ -597,6 +639,34 @@ function createConfiguredStateManager(
 }
 
 /**
+ * Component that handles data source fetching and provides data to children
+ */
+function DataSourceProvider({
+  children,
+  specification,
+  options,
+}: {
+  children: React.ReactElement | null;
+  specification: UISpecification;
+  options: RenderOptions;
+}): React.ReactElement | null {
+  const dataSources = useDataSources(specification.dataSources, options.dataSourceOptions);
+
+  // Clone children with enhanced options including data sources
+  if (children && React.isValidElement(children)) {
+    const enhancedOptions = { ...options, dataSources };
+    
+    // Re-render the root component with data sources available
+    const componentSpec = specification.root;
+    const reRendered = renderComponent(componentSpec, enhancedOptions);
+    
+    return reRendered;
+  }
+
+  return children;
+}
+
+/**
  * Wrap rendered content with providers as needed
  */
 function wrapWithProviders(
@@ -605,8 +675,19 @@ function wrapWithProviders(
   fullSpec: UISpecification | null,
   options: RenderOptions
 ): React.ReactElement | null {
+  let wrappedContent = content;
+
+  // Wrap with data source provider if data sources are specified
+  if (fullSpec?.dataSources && fullSpec.dataSources.length > 0 && content) {
+    wrappedContent = (
+      <DataSourceProvider specification={fullSpec} options={options}>
+        {content}
+      </DataSourceProvider>
+    );
+  }
+
   if (!stateManager) {
-    return content;
+    return wrappedContent;
   }
 
   const stateProviderContent = (

@@ -87,10 +87,10 @@ export const Stagger: React.FC<StaggerComponentProps> = ({
   const [isAnimating] = useState(autoStart);
   // Get the appropriate motion component
   const Component = as;
-  const MotionComponent = motion(Component);
+  const MotionComponent = motion.create(Component);
   // Get the appropriate child motion component
   const ChildComponent = childAs;
-  const ChildMotionComponent = motion(ChildComponent);
+  const ChildMotionComponent = motion.create(ChildComponent);
 
   // Get animation config
   const animationConfig = typeof animation === "string" ? scrollPresets[animation] : animation;
@@ -215,7 +215,7 @@ export const StaggerItem: React.FC<StaggerItemProps> = ({
 }) => {
   // Get the appropriate motion component
   const Component = as;
-  const MotionComponent = motion(Component);
+  const MotionComponent = motion.create(Component);
 
   return (
     <MotionComponent custom={index} variants={variants} className={className} style={style}>
@@ -462,7 +462,7 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   };
   // Get the appropriate motion component
   const Component = as;
-  const MotionComponent = motion(Component);
+  const MotionComponent = motion.create(Component);
 
   return (
     <MotionComponent

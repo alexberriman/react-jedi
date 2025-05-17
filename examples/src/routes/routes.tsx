@@ -147,6 +147,12 @@ const AnimationSequencePage = lazy(() =>
   }))
 );
 
+const DataFetchingPage = lazy(() =>
+  import("../pages/examples/data-fetching").then((module) => ({
+    default: module.DataFetchingPage,
+  }))
+);
+
 // Other pages
 const BrandPresetsPage = lazy(() =>
   import("../pages/brand-presets").then((module) => ({ default: module.BrandPresetsPage }))
@@ -456,6 +462,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={AnimationSequencePage}
                 loadingText="Loading animation sequences..."
+              />
+            ),
+          },
+          {
+            path: "data-fetching",
+            element: (
+              <AsyncRoute
+                component={DataFetchingPage}
+                loadingText="Loading data fetching example..."
               />
             ),
           },

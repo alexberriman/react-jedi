@@ -14,6 +14,7 @@ React Jedi is a powerful Server-Driven UI (SDUI) library that allows you to buil
 - [State Management](./state.md) - State management patterns and APIs
 - [Events](./events.md) - Event handling and action system
 - [Performance](./performance.md) - Performance optimization guidelines
+- [Data Fetching](./data-fetching.md) - Data fetching and caching system
 
 ## Quick Links
 

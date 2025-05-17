@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, act, cleanup } from "@testing-library/react";
-import React from "react";
+import { render, cleanup } from "@testing-library/react";
+import React, { act } from "react";
 import {
   AnimationSequence,
   createAnimationSequence,
@@ -11,11 +11,7 @@ import { AnimationSequenceConfig, AnimationSequenceControls } from "./animation-
 
 // Mock framer-motion
 vi.mock("framer-motion", () => {
-  const startMock = vi.fn().mockImplementation(async () => {
-    // Simulate the animation completing immediately in tests
-    return;
-  });
-
+  const startMock = vi.fn().mockResolvedValue(undefined);
   const stopMock = vi.fn();
   const setMock = vi.fn();
 
@@ -30,6 +26,7 @@ vi.mock("framer-motion", () => {
       stop: stopMock,
       set: setMock,
     }),
+    AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
   };
 });
 
@@ -49,11 +46,12 @@ describe("AnimationSequence", () => {
       steps: [{ animate: { opacity: 1 } }],
     };
 
-    const { getByText } = render(
+    const result = render(
       <AnimationSequence config={config}>
         <div>Test Content</div>
       </AnimationSequence>
     );
+    const getByText = result.getByText as (text: string) => HTMLElement;
 
     expect(getByText("Test Content")).toBeInTheDocument();
   });
@@ -438,7 +436,8 @@ describe("useAnimationSequence", () => {
       );
     };
 
-    const { getByTestId } = render(<TestComponent />);
+    const result = render(<TestComponent />);
+    const getByTestId = result.getByTestId as (id: string) => HTMLElement;
 
     expect(getByTestId("status")).toHaveTextContent("idle");
   });
@@ -460,7 +459,8 @@ describe("useAnimationSequence", () => {
       );
     };
 
-    const { getByTestId } = render(<TestComponent />);
+    const result = render(<TestComponent />);
+    const getByTestId = result.getByTestId as (id: string) => HTMLElement;
 
     // Should initially be idle when not autoplaying
     expect(getByTestId("lifecycle-status")).toHaveTextContent("idle");

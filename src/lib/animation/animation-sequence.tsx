@@ -1,5 +1,5 @@
 import React, { ReactNode, useRef, useState, useCallback, useEffect } from "react";
-import { motion, useAnimationControls, TargetAndTransition, Transition } from "framer-motion";
+import { motion, useAnimationControls, TargetAndTransition } from "framer-motion";
 
 /**
  * Defines a single step in an animation sequence
@@ -12,7 +12,7 @@ export interface AnimationStep {
   /** Delay before this step starts */
   delay?: number;
   /** Easing function for this step */
-  ease?: Transition["ease"];
+  ease?: string | number[];
   /** Callback when this step starts */
   onStart?: () => void;
   /** Callback when this step completes */
@@ -279,7 +279,7 @@ export function createAnimationSequence(
   options: {
     duration?: number | number[];
     delay?: number | number[];
-    ease?: Transition["ease"] | Transition["ease"][];
+    ease?: string | number[] | (string | number[])[];
     callbacks?: {
       onStart?: () => void;
       onComplete?: () => void;
@@ -292,7 +292,9 @@ export function createAnimationSequence(
     animate,
     duration: Array.isArray(duration) ? duration[index] || 0.5 : duration,
     delay: Array.isArray(delay) ? delay[index] || 0 : delay,
-    ease: Array.isArray(ease) ? ease[index] || "easeInOut" : ease,
+    ease: Array.isArray(ease) 
+      ? (ease[index] || "easeInOut") as string | number[]
+      : ease as string | number[],
     onStart: callbacks[index]?.onStart,
     onComplete: callbacks[index]?.onComplete,
   }));

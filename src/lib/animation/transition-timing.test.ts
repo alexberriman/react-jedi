@@ -20,7 +20,7 @@ describe("Transition Timing", () => {
       expect(result).toMatchObject({
         type: "tween",
         duration: 0.5,
-        ease: "easeOut",
+        ease: "ease-out",
         delay: 0,
       });
     });
@@ -31,7 +31,7 @@ describe("Transition Timing", () => {
       expect(result).toMatchObject({
         type: "tween",
         duration: durationPresets.fast,
-        ease: "easeOut",
+        ease: "ease-out",
         delay: 0,
       });
     });
@@ -63,7 +63,7 @@ describe("Transition Timing", () => {
       expect(result).toMatchObject({
         type: "tween",
         duration: 0.3,
-        ease: "easeOut",
+        ease: "ease-out",
         delay: 0.5,
       });
     });
@@ -192,7 +192,7 @@ describe("Transition Timing", () => {
       expect(result).toMatchObject({
         type: "tween",
         duration: 0.5,
-        ease: "easeInOut",
+        ease: "ease-in-out",
       });
     });
 
@@ -202,7 +202,7 @@ describe("Transition Timing", () => {
       expect(result).toMatchObject({
         type: "tween",
         duration: durationPresets.slow,
-        ease: "easeOut",
+        ease: "ease-out",
       });
     });
 
@@ -222,7 +222,7 @@ describe("Transition Timing", () => {
       const properties = {
         opacity: { duration: 0.2, ease: "easeOut" },
         scale: { duration: 0.5, ease: "easeInOut", delay: 0.1 },
-        x: { duration: "fast" },
+        x: { duration: "fast" as const },
       };
 
       const result = createPropertyTransitions(properties);
@@ -230,28 +230,28 @@ describe("Transition Timing", () => {
       expect(result.opacity).toMatchObject({
         type: "tween",
         duration: 0.2,
-        ease: "easeOut",
+        ease: "ease-out",
         delay: 0,
       });
 
       expect(result.scale).toMatchObject({
         type: "tween",
         duration: 0.5,
-        ease: "easeInOut",
+        ease: "ease-in-out",
         delay: 0.1,
       });
 
       expect(result.x).toMatchObject({
         type: "tween",
         duration: durationPresets.fast,
-        ease: "easeOut",
+        ease: "ease-out",
         delay: 0,
       });
     });
 
     it("resolves named durations and easings", () => {
       const properties = {
-        opacity: { duration: "slow", ease: "easeInOutCubic" },
+        opacity: { duration: "slow" as const, ease: "easeInOutCubic" },
       };
 
       const result = createPropertyTransitions(properties);

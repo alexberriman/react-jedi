@@ -15,19 +15,31 @@ import { describe, it, expect, vi } from "vitest";
 // Mock framer-motion
 vi.mock("framer-motion", async () => {
   const actual = await vi.importActual("framer-motion");
+  
+  // Create ref-forwarding mock components
+  const div = React.forwardRef<HTMLDivElement, Record<string, unknown>>(
+    ({ children, ...props }, ref) => (
+      <div data-testid="motion-div" ref={ref} {...props}>
+        {children as React.ReactNode}
+      </div>
+    )
+  );
+  div.displayName = "MockedMotionDiv";
+  
+  const span = React.forwardRef<HTMLSpanElement, Record<string, unknown>>(
+    ({ children, ...props }, ref) => (
+      <span data-testid="motion-span" ref={ref} {...props}>
+        {children as React.ReactNode}
+      </span>
+    )
+  );
+  span.displayName = "MockedMotionSpan";
+  
   return {
     ...actual,
     motion: {
-      div: ({ children, ...props }: Record<string, unknown>) => (
-        <div data-testid="motion-div" {...props}>
-          {children as React.ReactNode}
-        </div>
-      ),
-      span: ({ children, ...props }: Record<string, unknown>) => (
-        <span data-testid="motion-span" {...props}>
-          {children as React.ReactNode}
-        </span>
-      ),
+      div,
+      span,
     },
     useTransform: vi.fn().mockImplementation((value, from, to) => {
       return { value, from, to };

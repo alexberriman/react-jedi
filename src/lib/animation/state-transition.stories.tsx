@@ -139,9 +139,9 @@ export const InteractiveComponents: Story = {
             <InteractiveStateTransition
               config={inputPreset}
               className="px-4 py-2 border rounded-md w-full max-w-md"
-              as="input"
-              placeholder="Focus on me..."
-            />
+            >
+              <input placeholder="Focus on me..." className="w-full bg-transparent outline-none" />
+            </InteractiveStateTransition>
           </div>
 
           <div>
@@ -167,7 +167,7 @@ export const InteractiveComponents: Story = {
 // Transition patterns showcase
 export const TransitionPatterns: Story = {
   render: function TransitionPatternsStory() {
-    const [activePattern, setActivePattern] = React.useState("flow");
+    const [activePattern, setActivePattern] = React.useState<string>("flow");
 
     // Base states for a button
     const baseStates = {
@@ -223,7 +223,7 @@ export const TransitionPatterns: Story = {
 
         <div className="flex items-center justify-center h-40 bg-gray-100 rounded-lg">
           <InteractiveStateTransition
-            config={patterns[activePattern]}
+            config={patterns[activePattern as keyof typeof patterns]}
             className="px-6 py-3 rounded-md font-medium text-center cursor-pointer"
           >
             {activePattern.charAt(0).toUpperCase() + activePattern.slice(1)} Pattern
@@ -237,9 +237,9 @@ export const TransitionPatterns: Story = {
 // Timing functions showcase
 export const TimingFunctions: Story = {
   render: function TimingFunctionsStory() {
-    const [currentEasing, setCurrentEasing] = React.useState("easeOut");
-    const [currentDuration, setCurrentDuration] = React.useState("normal");
-    const [currentSpring, setCurrentSpring] = React.useState("default");
+    const [currentEasing, setCurrentEasing] = React.useState<keyof typeof easingPresets>("easeOut");
+    const [currentDuration, setCurrentDuration] = React.useState<keyof typeof durationPresets>("normal");
+    const [currentSpring, setCurrentSpring] = React.useState<keyof typeof springPresets>("default");
 
     const easingOptions = Object.keys(easingPresets);
     const durationOptions = Object.keys(durationPresets);
@@ -280,7 +280,7 @@ export const TimingFunctions: Story = {
               id="easing-select"
               className="w-full px-3 py-2 border rounded-md"
               value={currentEasing}
-              onChange={(e) => setCurrentEasing(e.target.value)}
+              onChange={(e) => setCurrentEasing(e.target.value as keyof typeof easingPresets)}
             >
               {easingOptions.map((option) => (
                 <option key={option} value={option}>
@@ -298,11 +298,11 @@ export const TimingFunctions: Story = {
               id="duration-select"
               className="w-full px-3 py-2 border rounded-md"
               value={currentDuration}
-              onChange={(e) => setCurrentDuration(e.target.value)}
+              onChange={(e) => setCurrentDuration(e.target.value as keyof typeof durationPresets)}
             >
               {durationOptions.map((option) => (
                 <option key={option} value={option}>
-                  {option} ({durationPresets[option]}s)
+                  {option} ({durationPresets[option as keyof typeof durationPresets]}s)
                 </option>
               ))}
             </select>
@@ -332,7 +332,7 @@ export const TimingFunctions: Story = {
             <button
               className="absolute px-4 py-2 rounded-md text-sm mb-2"
               onClick={() => {
-                const stateElement = document.querySelector("#tween-state");
+                const stateElement = document.querySelector("#tween-state") as HTMLElement;
                 if (stateElement) {
                   const newState =
                     stateElement.dataset.state === "initial" ? "animated" : "initial";
@@ -344,8 +344,6 @@ export const TimingFunctions: Story = {
             </button>
 
             <StateTransition
-              id="tween-state"
-              data-state="initial"
               state="initial"
               config={{ states: buttonState, initialState: "initial" }}
               className="absolute px-6 py-3 rounded-md font-medium text-center"
@@ -358,7 +356,7 @@ export const TimingFunctions: Story = {
             <button
               className="absolute px-4 py-2 rounded-md text-sm mb-2"
               onClick={() => {
-                const stateElement = document.querySelector("#spring-state");
+                const stateElement = document.querySelector("#spring-state") as HTMLElement;
                 if (stateElement) {
                   const newState = stateElement.dataset.state === "initial" ? "spring" : "initial";
                   stateElement.dataset.state = newState;
@@ -369,8 +367,6 @@ export const TimingFunctions: Story = {
             </button>
 
             <StateTransition
-              id="spring-state"
-              data-state="initial"
               state="initial"
               config={{ states: buttonState, initialState: "initial" }}
               className="absolute px-6 py-3 rounded-md font-medium text-center"

@@ -9,6 +9,7 @@ import {
   useStatePreset,
   statePresets,
   createTransitionSequence,
+  StateTransitionConfig,
 } from "./state-transitions";
 
 // Mock window.matchMedia for tests
@@ -54,7 +55,7 @@ describe("State Transitions", () => {
     });
 
     it("adds transition configurations to states", () => {
-      const config = {
+      const config: StateTransitionConfig = {
         states: {
           initial: { scale: 1 },
           hover: { scale: 1.1 },

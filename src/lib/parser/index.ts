@@ -24,3 +24,12 @@ export {
   createValidator,
   defaultValidator,
 } from './specification-validator';
+
+export {
+  DataSourceParser,
+  parseDataSource,
+  createDataSourceParser,
+  defaultDataSourceParser,
+  type DataSourceParserOptions,
+  type DataSourceParserResult
+} from './data-source-parser';

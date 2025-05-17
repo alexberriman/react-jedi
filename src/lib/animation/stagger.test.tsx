@@ -127,6 +127,7 @@ describe("Stagger Component", () => {
       </Stagger>
     );
 
+    // In the test environment without StrictMode, the effect runs once
     expect(onAnimationStart).toHaveBeenCalledTimes(1);
   });
 
@@ -187,6 +188,7 @@ describe("StaggerList Component", () => {
       />
     );
 
+    // In the test environment without StrictMode, render functions are called once
     expect(keyExtractor).toHaveBeenCalledTimes(testItems.length);
   });
 

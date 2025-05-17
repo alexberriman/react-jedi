@@ -387,6 +387,7 @@ describe("useFluidTypography Hook", () => {
     );
 
     // Verify updateTheme was called with the correct parameters
+    // In the test environment without StrictMode, the effect runs once
     expect(mockUpdateTheme).toHaveBeenCalledTimes(1);
     expect(mockUpdateTheme).toHaveBeenCalledWith({
       typography: expect.any(Object),
@@ -462,6 +463,7 @@ describe("useFluidTypography Hook", () => {
     );
 
     // Verify updateTheme was called with the correct parameters
+    // In the test environment without StrictMode, the effect runs once
     expect(mockUpdateTheme).toHaveBeenCalledTimes(1);
     expect(mockUpdateTheme).toHaveBeenCalledWith({
       typography: expect.any(Object),

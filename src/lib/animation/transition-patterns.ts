@@ -279,7 +279,8 @@ export const createDramaticPattern = (
       // Exaggerate existing values for dramatic effect
       for (const [prop, value] of Object.entries(enhancedStates[state])) {
         if (prop !== "transition" && typeof value === "number" && prop !== "opacity") {
-          enhancedStates[state][prop] = value * 1.5; // Exaggerate numeric values
+          const currentState = enhancedStates[state];
+          (currentState as Record<string, unknown>)[prop] = value * 1.5; // Exaggerate numeric values
         }
       }
 
@@ -315,6 +316,11 @@ export const createStagedPattern = (
   // Configure each stage with appropriate timing
   for (let index = 1; index < stages.length; index++) {
     const stage = stages[index];
+
+    // Initialize the state if it doesn't exist
+    if (!enhancedStates[stage]) {
+      enhancedStates[stage] = {};
+    }
 
     enhancedStates[stage] = {
       ...enhancedStates[stage],

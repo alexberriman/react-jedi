@@ -421,5 +421,5 @@ export {
   isComponentType,
 } from "./types/schema";
 
-// Export hooks if available
-// export * from "./hooks/index";
+// Export hooks
+export * from "./hooks/index";

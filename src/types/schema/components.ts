@@ -136,6 +136,17 @@ export interface RenderOptions {
    * State optimization configuration for performance.
    */
   stateOptimization?: import("@/lib/performance/state-optimizations").StateOptimizationConfig;
+
+  /**
+   * Data sources state for data binding.
+   * Populated when data sources are available.
+   */
+  dataSources?: import("@/hooks/use-data-sources").DataSourcesState;
+
+  /**
+   * Options for data source fetching.
+   */
+  dataSourceOptions?: import("@/hooks/use-data-sources").UseDataSourcesOptions;
 }
 
 /**

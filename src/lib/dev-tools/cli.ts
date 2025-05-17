@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { createLinter } from "./spec-linter";
 import { createFormatter } from "./spec-formatter";
-import type { SpecificationSchema } from "../../types/schema/specification";
+import type { UISpecification } from "../../types/schema/specification";
 
 /**
  * Command-line interface for React Jedi developer tools
@@ -65,7 +65,7 @@ function parseArgs(args: string[]): CLIOptions {
   return options;
 }
 
-function readSpecification(filePath: string): SpecificationSchema {
+function readSpecification(filePath: string): UISpecification {
   try {
     const content = readFileSync(filePath, "utf8");
     return JSON.parse(content);
@@ -75,7 +75,7 @@ function readSpecification(filePath: string): SpecificationSchema {
   }
 }
 
-function writeSpecification(filePath: string, spec: SpecificationSchema): void {
+function writeSpecification(filePath: string, spec: UISpecification): void {
   try {
     const content = JSON.stringify(spec, null, 2);
     writeFileSync(filePath, content, "utf8");

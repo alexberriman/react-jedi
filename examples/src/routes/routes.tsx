@@ -154,8 +154,14 @@ const DataFetchingPage = lazy(() =>
 );
 
 const OptimisticUpdatesPage = lazy(() =>
-  import("../pages/examples/optimistic-updates").then((module) => ({ 
-    default: module.OptimisticUpdatesPage 
+  import("../pages/examples/optimistic-updates").then((module) => ({
+    default: module.OptimisticUpdatesPage,
+  }))
+);
+
+const SEOMetadataPage = lazy(() =>
+  import("../pages/examples/seo-metadata").then((module) => ({
+    default: module.SEOMetadataPage,
   }))
 );
 
@@ -486,6 +492,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={OptimisticUpdatesPage}
                 loadingText="Loading optimistic updates example..."
+              />
+            ),
+          },
+          {
+            path: "seo-metadata",
+            element: (
+              <AsyncRoute
+                component={SEOMetadataPage}
+                loadingText="Loading SEO metadata example..."
               />
             ),
           },

@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "../render";
-import type { SpecificationSchema } from "../../types/schema/specification";
+import type { UISpecification } from "../../types/schema/specification";
 import {
   Debug,
   DebugLevel,
@@ -20,11 +20,13 @@ import {
  */
 
 // Example specification with intentional issues
-const exampleSpec: SpecificationSchema = {
+const exampleSpec: UISpecification = {
   version: "1.0",
   state: {
-    count: 0,
-    unusedVariable: "This will trigger a warning",
+    initial: {
+      count: 0,
+      unusedVariable: "This will trigger a warning",
+    },
   },
   root: {
     type: "Box",
@@ -175,7 +177,7 @@ export function DevToolsExample() {
   const renderWithErrors = () => {
     try {
       return render(exampleSpec, {
-        debug: debugEnabled,
+        development: debugEnabled,
         theme: {
           colors: {
             primary: "#3B82F6",

@@ -1,0 +1,138 @@
+{
+  "type": "head-manager",
+  "category": "utility",
+  "description": "Manages document head elements including title, meta tags, favicons, and more",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Page title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Meta description"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Meta keywords"
+        },
+        "author": {
+          "type": "string",
+          "description": "Page author"
+        },
+        "ogTitle": {
+          "type": "string",
+          "description": "Open Graph title"
+        },
+        "ogDescription": {
+          "type": "string",
+          "description": "Open Graph description"
+        },
+        "ogImage": {
+          "type": "string",
+          "description": "Open Graph image URL"
+        },
+        "twitterCard": {
+          "type": "string",
+          "enum": ["summary", "summary_large_image", "app", "player"],
+          "description": "Twitter card type"
+        },
+        "twitterTitle": {
+          "type": "string",
+          "description": "Twitter card title"
+        },
+        "twitterDescription": {
+          "type": "string",
+          "description": "Twitter card description"
+        },
+        "twitterImage": {
+          "type": "string",
+          "description": "Twitter card image URL"
+        },
+        "canonicalUrl": {
+          "type": "string",
+          "description": "Canonical URL for the page"
+        },
+        "favicon": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Simple favicon URL"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "default": {
+                  "type": "string",
+                  "description": "Default favicon URL"
+                },
+                "apple": {
+                  "type": "string",
+                  "description": "Apple touch icon URL"
+                },
+                "icon16": {
+                  "type": "string",
+                  "description": "16x16 favicon URL"
+                },
+                "icon32": {
+                  "type": "string",
+                  "description": "32x32 favicon URL"
+                },
+                "manifest": {
+                  "type": "string",
+                  "description": "Web app manifest URL"
+                }
+              }
+            }
+          ],
+          "description": "Favicon configuration"
+        }
+      }
+    },
+    "titleSuffix": {
+      "type": "string",
+      "description": "Suffix to append to page titles"
+    },
+    "defaultTitle": {
+      "type": "string",
+      "description": "Default title to use when no title is provided"
+    }
+  },
+  "examples": [
+    {
+      "metadata": {
+        "title": "My Page"
+      }
+    },
+    {
+      "metadata": {
+        "title": "About Us",
+        "description": "Learn more about our company and mission",
+        "keywords": ["about", "company", "mission"],
+        "ogTitle": "About Us - MyCompany",
+        "ogDescription": "Discover our story and values",
+        "ogImage": "https://example.com/about-og.jpg",
+        "canonicalUrl": "https://example.com/about"
+      },
+      "titleSuffix": " - MyCompany"
+    },
+    {
+      "metadata": {
+        "title": "Home",
+        "favicon": {
+          "default": "/favicon.ico",
+          "apple": "/apple-touch-icon.png",
+          "icon16": "/favicon-16x16.png",
+          "icon32": "/favicon-32x32.png",
+          "manifest": "/site.webmanifest"
+        }
+      }
+    }
+  ]
+}

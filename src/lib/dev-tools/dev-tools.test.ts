@@ -8,7 +8,7 @@ import {
 import { createLinter, SpecificationLinter, type LintResult } from "./spec-linter";
 import { createFormatter } from "./spec-formatter";
 import { Debug, DebugLevel, createDebugRender } from "./debug-utils";
-import type { SpecificationSchema } from "../../types/schema/specification";
+import type { UISpecification } from "../../types/schema/specification";
 
 describe("Developer Tools", () => {
   describe("Error Messages", () => {
@@ -54,7 +54,7 @@ describe("Developer Tools", () => {
 
   describe("Specification Linter", () => {
     let linter: SpecificationLinter;
-    let testSpec: SpecificationSchema;
+    let testSpec: UISpecification;
 
     beforeEach(() => {
       linter = createLinter();
@@ -79,7 +79,7 @@ describe("Developer Tools", () => {
     });
 
     it("should detect missing image alt text", () => {
-      const specWithImage: SpecificationSchema = {
+      const specWithImage: UISpecification = {
         version: "1.0",
         root: {
           type: "Image",
@@ -127,7 +127,7 @@ describe("Developer Tools", () => {
     });
 
     it("should format specifications with consistent ordering", () => {
-      const spec: SpecificationSchema = {
+      const spec: UISpecification = {
         root: {
           type: "Box",
           props: { className: "test" },
@@ -136,7 +136,7 @@ describe("Developer Tools", () => {
         version: "1.0",
         theme: {
           colors: {
-            primary: "#000",
+            primary: { "500": "#000" },
           },
         },
       };
@@ -152,7 +152,7 @@ describe("Developer Tools", () => {
     });
 
     it("should format component properties in correct order", () => {
-      const spec: SpecificationSchema = {
+      const spec: UISpecification = {
         version: "1.0",
         root: {
           children: [],
@@ -173,7 +173,7 @@ describe("Developer Tools", () => {
     });
 
     it("should format component tree for debugging", () => {
-      const spec: SpecificationSchema = {
+      const spec: UISpecification = {
         version: "1.0",
         root: {
           type: "Box",

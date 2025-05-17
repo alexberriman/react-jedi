@@ -193,3 +193,4 @@ export type {
 export type { CarouselDef } from "./carousel";
 export type { ChartComponentProps } from "./chart";
 export type { FooterProps } from "./footer";
+export type { HeadManagerSpec } from "./head-manager";

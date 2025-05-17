@@ -57,3 +57,4 @@ export { cn as classNames } from "./utils/cn";
 export * from "./utils/cn";
 export * from "./utils/result";
 export * from "./utils/merge";
+export * from "./utils/meta";

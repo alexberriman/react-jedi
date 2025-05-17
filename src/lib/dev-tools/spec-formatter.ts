@@ -1,4 +1,4 @@
-import type { SpecificationSchema } from "../../types/schema/specification";
+import type { UISpecification } from "../../types/schema/specification";
 import type { ComponentSpec } from "../../types/schema/components";
 
 /**
@@ -69,7 +69,7 @@ export class SpecificationFormatter {
   /**
    * Format a specification to a consistent structure
    */
-  format(spec: SpecificationSchema): string {
+  format(spec: UISpecification): string {
     const formatted = this.formatObject(spec, 0, this.options.topLevelOrder);
     return JSON.stringify(formatted, null, this.options.indent);
   }
@@ -77,8 +77,8 @@ export class SpecificationFormatter {
   /**
    * Format a specification in place (mutates the original)
    */
-  formatInPlace(spec: SpecificationSchema): SpecificationSchema {
-    return this.formatObject(spec, 0, this.options.topLevelOrder) as SpecificationSchema;
+  formatInPlace(spec: UISpecification): UISpecification {
+    return this.formatObject(spec, 0, this.options.topLevelOrder) as UISpecification;
   }
 
   /**
@@ -89,6 +89,7 @@ export class SpecificationFormatter {
     if (typeof obj !== "object") return obj;
     if (Array.isArray(obj)) return this.formatArray(obj, depth);
 
+    const typedObj = obj as Record<string, unknown>;
     const ordered: Record<string, unknown> = {};
     const keys = Object.keys(obj);
 
@@ -96,7 +97,7 @@ export class SpecificationFormatter {
     if (keyOrder) {
       for (const key of keyOrder) {
         if (key in obj) {
-          ordered[key] = this.formatValue(obj[key], depth + 1, this.getKeyOrder(key));
+          ordered[key] = this.formatValue(typedObj[key], depth + 1, this.getKeyOrder(key));
         }
       }
     }
@@ -108,7 +109,7 @@ export class SpecificationFormatter {
     }
 
     for (const key of remainingKeys) {
-      ordered[key] = this.formatValue(obj[key], depth + 1, this.getKeyOrder(key));
+      ordered[key] = this.formatValue(typedObj[key], depth + 1, this.getKeyOrder(key));
     }
 
     return ordered;
@@ -154,7 +155,7 @@ export class SpecificationFormatter {
   /**
    * Pretty print a specification with syntax highlighting (for terminal)
    */
-  prettyPrint(spec: SpecificationSchema, colorize = true): string {
+  prettyPrint(spec: UISpecification, colorize = true): string {
     const formatted = this.format(spec);
     if (!colorize) return formatted;
 
@@ -177,7 +178,7 @@ export class SpecificationFormatter {
   /**
    * Format component tree structure (for debugging)
    */
-  formatComponentTree(spec: SpecificationSchema, colorize = true): string {
+  formatComponentTree(spec: UISpecification, colorize = true): string {
     const lines: string[] = [];
 
     function traverse(component: ComponentSpec, depth = 0, isLast = true, prefix = ""): void {
@@ -215,7 +216,7 @@ export class SpecificationFormatter {
   /**
    * Format a specification diff (for debugging updates)
    */
-  formatDiff(before: SpecificationSchema, after: SpecificationSchema): string {
+  formatDiff(before: UISpecification, after: UISpecification): string {
     const beforeStr = this.format(before);
     const afterStr = this.format(after);
 
@@ -256,7 +257,7 @@ export function createFormatter(options?: FormatterOptions): SpecificationFormat
 /**
  * Format a specification with default options
  */
-export function formatSpecification(spec: SpecificationSchema, options?: FormatterOptions): string {
+export function formatSpecification(spec: UISpecification, options?: FormatterOptions): string {
   const formatter = new SpecificationFormatter(options);
   return formatter.format(spec);
 }
@@ -265,7 +266,7 @@ export function formatSpecification(spec: SpecificationSchema, options?: Formatt
  * Format and validate a specification
  */
 export function formatAndValidate(
-  spec: SpecificationSchema,
+  spec: UISpecification,
   options?: FormatterOptions
 ): {
   formatted: string;

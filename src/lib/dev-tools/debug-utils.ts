@@ -1,8 +1,9 @@
-import type { SpecificationSchema } from "../../types/schema/specification";
+import type { UISpecification } from "../../types/schema/specification";
 import type { ComponentSpec } from "../../types/schema/components";
-import type { StateValues } from "../../types/state";
+import type { ComponentState } from "../../types/state";
 import { formatSpecification } from "./spec-formatter";
 import { createLinter } from "./spec-linter";
+import React from "react";
 
 /**
  * Debug logging levels
@@ -24,7 +25,7 @@ export interface DebugContext {
   renderCount: number;
   renderTime: number;
   props: Record<string, unknown>;
-  state?: StateValues;
+  state?: ComponentState;
   errors: Error[];
 }
 
@@ -60,8 +61,11 @@ export class DebugUtils {
   private static config: DebugConfig = { ...defaultConfig };
   private static renderCounts = new Map<string, number>();
   private static renderTimes = new Map<string, number[]>();
-  private static stateHistory: Array<{ timestamp: number; state: StateValues; changes: string[] }> =
-    [];
+  private static stateHistory: Array<{
+    timestamp: number;
+    state: ComponentState;
+    changes: string[];
+  }> = [];
 
   /**
    * Configure debug settings
@@ -171,7 +175,11 @@ export class DebugUtils {
   /**
    * Log state change
    */
-  static logStateChange(oldState: StateValues, newState: StateValues, changes: string[]): void {
+  static logStateChange(
+    oldState: ComponentState,
+    newState: ComponentState,
+    changes: string[]
+  ): void {
     if (!DebugUtils.config.enabled || !DebugUtils.config.logStateChanges) return;
 
     const timestamp = Date.now();
@@ -287,7 +295,7 @@ export class DebugUtils {
   /**
    * Validate and debug a specification
    */
-  static debugSpecification(spec: SpecificationSchema): void {
+  static debugSpecification(spec: UISpecification): void {
     if (!DebugUtils.config.enabled) return;
 
     console.group("%c🔍 Specification Debug", "color: #9C27B0; font-weight: bold");
@@ -319,7 +327,7 @@ export class DebugUtils {
   /**
    * Create a visual component tree representation
    */
-  static visualizeComponentTree(spec: SpecificationSchema): void {
+  static visualizeComponentTree(spec: UISpecification): void {
     if (!DebugUtils.config.enabled) return;
 
     function traverse(component: ComponentSpec, depth = 0): string[] {

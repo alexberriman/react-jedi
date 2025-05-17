@@ -123,6 +123,14 @@ const examples: Example[] = [
     path: "/examples/optimistic-updates",
     status: "new",
   },
+  {
+    id: "seo-metadata",
+    title: "SEO & Metadata Management",
+    description:
+      "Manage page titles, meta descriptions, Open Graph tags, Twitter Cards, and favicons. Complete SEO solution for server-driven UI applications.",
+    path: "/examples/seo-metadata",
+    status: "new",
+  },
   // More examples will be added here
 ];
 

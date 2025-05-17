@@ -2,6 +2,7 @@ import * as React from "react";
 import type { ComponentResolver, ComponentProps } from "../types/schema/components";
 import * as UI from "../components/ui";
 import { BreadcrumbComponent } from "../components/ui/breadcrumb-component";
+import { HeadManager } from "../components/ui/head-manager";
 import { PaginationComponent } from "../components/ui/pagination";
 import {
   CommandComponent,
@@ -408,6 +409,10 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   FormMessage: asComponent(UI.FormMessage),
   // Form component requires special handling as it's a FormProvider
   Form: asComponent(UI.Form as React.ComponentType<Record<string, unknown>>),
+
+  // Utility Components
+  HeadManager: asComponent(HeadManager),
+  headManager: asComponent(HeadManager),
 };
 
 /**

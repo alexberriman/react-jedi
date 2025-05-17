@@ -1,5 +1,5 @@
-import type { SpecificationSchema } from "../../types/schema/specification";
-import type { ComponentSpec, UISpecification } from "../../types/schema/components";
+import type { UISpecification } from "../../types/schema/specification";
+import type { ComponentSpec } from "../../types/schema/components";
 import { validateUISpecification } from "../parser";
 import { formatLintResults } from "./simplified-linter";
 
@@ -11,7 +11,7 @@ export interface LintRule {
   name: string;
   description: string;
   severity: "error" | "warning" | "info";
-  check: (spec: SpecificationSchema) => LintResult[];
+  check: (spec: UISpecification) => LintResult[];
 }
 
 export interface LintResult {
@@ -72,7 +72,8 @@ export const builtInRules: LintRule[] = [
       const results: LintResult[] = [];
 
       function checkComponent(component: ComponentSpec, path: string[] = []): void {
-        if (component.props?.style && typeof component.props.style === "object") {
+        const props = component.props as Record<string, unknown>;
+        if (props?.style && typeof props.style === "object") {
           results.push({
             rule: "no-inline-styles",
             message: "Component uses inline styles",
@@ -104,10 +105,11 @@ export const builtInRules: LintRule[] = [
       const kebabCaseRegex = /^[a-z][a-z0-9-]*$/;
 
       function checkComponent(component: ComponentSpec, path: string[] = []): void {
-        if (component.id && !kebabCaseRegex.test(component.id)) {
+        const id = component.id as string | undefined;
+        if (id && !kebabCaseRegex.test(id)) {
           results.push({
             rule: "consistent-naming",
-            message: `Component ID '${component.id}' doesn't follow kebab-case convention`,
+            message: `Component ID '${id}' doesn't follow kebab-case convention`,
             path: [...path, "id"],
             severity: "info",
             suggestion: "Use kebab-case for component IDs (e.g., 'my-component')",
@@ -135,7 +137,8 @@ export const builtInRules: LintRule[] = [
       const results: LintResult[] = [];
 
       function checkComponent(component: ComponentSpec, path: string[] = []): void {
-        if (component.type === "Image" && !component.props?.alt) {
+        const props = component.props as Record<string, unknown>;
+        if (component.type === "Image" && !props?.alt) {
           results.push({
             rule: "accessibility-alt-text",
             message: "Image component missing alt text",
@@ -167,12 +170,9 @@ export const builtInRules: LintRule[] = [
 
       function checkComponent(component: ComponentSpec, path: string[] = []): void {
         const formInputTypes = ["Input", "Select", "Textarea", "Checkbox", "RadioGroup"];
+        const props = component.props as Record<string, unknown>;
 
-        if (
-          formInputTypes.includes(component.type) &&
-          !component.props?.label &&
-          !component.props?.["aria-label"]
-        ) {
+        if (formInputTypes.includes(component.type) && !props?.label && !props?.["aria-label"]) {
           results.push({
             rule: "form-labels",
             message: `${component.type} component missing label`,
@@ -223,11 +223,11 @@ export const builtInRules: LintRule[] = [
 
         // Check conditions for state references
         function checkConditionForState(
-          condition: string | undefined,
+          condition: unknown,
           stateKeys: string[],
           usedKeys: Set<string>
         ): void {
-          if (!condition) return;
+          if (!condition || typeof condition !== "string") return;
           for (const key of stateKeys) {
             if (condition.includes(`state.${key}`)) {
               usedKeys.add(key);
@@ -342,7 +342,7 @@ export class SpecificationLinter {
   /**
    * Lint a specification
    */
-  lint(spec: SpecificationSchema): LintResult[] {
+  lint(spec: UISpecification): LintResult[] {
     const results: LintResult[] = [];
 
     // First, validate the specification

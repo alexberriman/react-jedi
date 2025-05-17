@@ -2,7 +2,7 @@
  * Integration between the specification system and rich snippets
  */
 
-import { ComponentSpecification } from "../../specification-parser";
+import { ComponentSpec } from "../../../types/schema/components";
 import { RichSnippet } from "./types";
 import {
   generateProductSnippet,
@@ -15,6 +15,14 @@ import {
   createBreadcrumbItems,
   createFAQItems,
 } from "./generators";
+
+// Type for component specifications with specific properties
+interface ExtendedComponentSpec {
+  metadata?: {
+    richSnippet?: RichSnippet;
+  };
+  [key: string]: unknown;
+}
 
 // Type for FAQ items
 interface FAQItem {
@@ -46,13 +54,126 @@ interface OpeningHours {
   closeTime?: string;
 }
 
+// Interface for product spec properties
+interface ProductSpecProps extends ExtendedComponentSpec {
+  name?: string;
+  description?: string;
+  image?: string | string[];
+  brand?: string | { name: string };
+  price?: string | number;
+  currency?: string;
+  availability?: string;
+  url?: string;
+  rating?: number | { value: number; count: number };
+  sku?: string;
+}
+
+// Interface for article spec properties
+interface ArticleSpecProps extends ExtendedComponentSpec {
+  title?: string;
+  author?: string | { name: string };
+  publishDate?: string;
+  publisher?: {
+    name: string;
+    logo?: string;
+  };
+  siteName?: string;
+  description?: string;
+  modifiedDate?: string;
+  image?: string | string[];
+  url?: string;
+  articleType?: string;
+}
+
+// Interface for FAQ spec properties
+interface FAQSpecProps extends ExtendedComponentSpec {
+  items?: unknown[];
+}
+
+// Interface for breadcrumb spec properties
+interface BreadcrumbSpecProps extends ExtendedComponentSpec {
+  items?: unknown[];
+}
+
+// Interface for organization spec properties
+interface OrganizationSpecProps extends ExtendedComponentSpec {
+  name?: string;
+  url?: string;
+  logo?: string;
+  description?: string;
+  socialProfiles?: string[];
+  contactPoints?: ContactPoint[];
+  address?: {
+    street?: string;
+    streetAddress?: string;
+    city?: string;
+    addressLocality?: string;
+    state?: string;
+    addressRegion?: string;
+    zip?: string;
+    postalCode?: string;
+    country?: string;
+    addressCountry?: string;
+  };
+}
+
+// Interface for event spec properties
+interface EventSpecProps extends ExtendedComponentSpec {
+  name?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+  image?: string | string[];
+  location?: string | EventLocation;
+  organizer?: string | EventOrganizer;
+  performer?: string | { name: string };
+  offers?: {
+    url?: string;
+    price?: string | number;
+    currency?: string;
+    availability?: string;
+  };
+}
+
+// Interface for local business spec properties
+interface LocalBusinessSpecProps extends ExtendedComponentSpec {
+  name?: string;
+  address?: {
+    street?: string;
+    streetAddress?: string;
+    city?: string;
+    addressLocality?: string;
+    state?: string;
+    addressRegion?: string;
+    zip?: string;
+    postalCode?: string;
+    country?: string;
+    addressCountry?: string;
+  };
+  telephone?: string;
+  geo?: {
+    latitude?: number;
+    lat?: number;
+    longitude?: number;
+    lng?: number;
+  };
+  priceRange?: string;
+  image?: string | string[];
+  openingHours?: OpeningHours[];
+  rating?: number | { value: number; count: number };
+  url?: string;
+}
+
 /**
  * Extracts rich snippet data from a component specification
  */
-export function extractRichSnippetFromSpec(spec: ComponentSpecification): RichSnippet | null {
+export function extractRichSnippetFromSpec(spec: ComponentSpec): RichSnippet | null {
+  // Cast spec to ExtendedComponentSpec to access metadata properties
+  const extendedSpec = spec as ExtendedComponentSpec;
+
   // Check for explicit rich snippet data in metadata
-  if (spec.metadata?.richSnippet) {
-    return spec.metadata.richSnippet;
+  if (extendedSpec.metadata?.richSnippet) {
+    return extendedSpec.metadata.richSnippet;
   }
 
   // Auto-detect based on component type and properties
@@ -100,8 +221,8 @@ export function extractRichSnippetFromSpec(spec: ComponentSpecification): RichSn
 /**
  * Extract product snippet from specification
  */
-function extractProductSnippet(spec: ComponentSpecification): RichSnippet | null {
-  const props = spec.props;
+function extractProductSnippet(spec: ComponentSpec): RichSnippet | null {
+  const props = spec as ProductSpecProps;
   if (!props?.name) return null;
 
   return generateProductSnippet({
@@ -127,8 +248,8 @@ function extractProductSnippet(spec: ComponentSpecification): RichSnippet | null
     ...(props.rating && {
       aggregateRating: {
         "@type": "AggregateRating",
-        ratingValue: props.rating.value || props.rating,
-        ratingCount: props.rating.count || 1,
+        ratingValue: typeof props.rating === "object" ? props.rating.value : props.rating,
+        ratingCount: typeof props.rating === "object" ? props.rating.count : 1,
       },
     }),
     ...(props.sku && { sku: props.sku }),
@@ -138,8 +259,8 @@ function extractProductSnippet(spec: ComponentSpecification): RichSnippet | null
 /**
  * Extract article snippet from specification
  */
-function extractArticleSnippet(spec: ComponentSpecification): RichSnippet | null {
-  const props = spec.props;
+function extractArticleSnippet(spec: ComponentSpec): RichSnippet | null {
+  const props = spec as ArticleSpecProps;
   if (!props?.title || !props?.author || !props?.publishDate) return null;
 
   return generateArticleSnippet(
@@ -170,23 +291,23 @@ function extractArticleSnippet(spec: ComponentSpecification): RichSnippet | null
         },
       }),
     },
-    props.articleType || "Article"
+    (props.articleType as "Article" | "NewsArticle" | "BlogPosting") || "Article"
   );
 }
 
 /**
  * Extract FAQ snippet from specification
  */
-function extractFAQSnippet(spec: ComponentSpecification): RichSnippet | null {
-  const props = spec.props;
+function extractFAQSnippet(spec: ComponentSpec): RichSnippet | null {
+  const props = spec as FAQSpecProps;
   if (!props?.items || !Array.isArray(props.items)) return null;
 
   const faqs = props.items
     .filter(
-      (item): item is FAQItem =>
+      (item: unknown): item is FAQItem =>
         typeof item === "object" && item !== null && "question" in item && "answer" in item
     )
-    .map((item) => ({
+    .map((item: FAQItem) => ({
       question: item.question,
       answer: item.answer,
     }));
@@ -201,15 +322,16 @@ function extractFAQSnippet(spec: ComponentSpecification): RichSnippet | null {
 /**
  * Extract breadcrumb snippet from specification
  */
-function extractBreadcrumbSnippet(spec: ComponentSpecification): RichSnippet | null {
-  const props = spec.props;
+function extractBreadcrumbSnippet(spec: ComponentSpec): RichSnippet | null {
+  const props = spec as BreadcrumbSpecProps;
   if (!props?.items || !Array.isArray(props.items)) return null;
 
   const breadcrumbs = props.items
     .filter(
-      (item): item is BreadcrumbItem => typeof item === "object" && item !== null && "name" in item
+      (item: unknown): item is BreadcrumbItem =>
+        typeof item === "object" && item !== null && "name" in item
     )
-    .map((item) => ({
+    .map((item: BreadcrumbItem) => ({
       name: item.name,
       url: item.url || item.href,
     }));
@@ -224,8 +346,8 @@ function extractBreadcrumbSnippet(spec: ComponentSpecification): RichSnippet | n
 /**
  * Extract organization snippet from specification
  */
-function extractOrganizationSnippet(spec: ComponentSpecification): RichSnippet | null {
-  const props = spec.props;
+function extractOrganizationSnippet(spec: ComponentSpec): RichSnippet | null {
+  const props = spec as OrganizationSpecProps;
   if (!props?.name || !props?.url) return null;
 
   return generateOrganizationSnippet({
@@ -235,11 +357,13 @@ function extractOrganizationSnippet(spec: ComponentSpecification): RichSnippet |
     ...(props.description && { description: props.description }),
     ...(props.socialProfiles && { sameAs: props.socialProfiles }),
     ...(props.contactPoints && {
-      contactPoint: props.contactPoints.map((contact: ContactPoint) => ({
-        "@type": "ContactPoint",
-        telephone: contact.phone || contact.telephone,
-        contactType: contact.type || "customer service",
-      })),
+      contactPoint: props.contactPoints
+        .filter((contact: ContactPoint) => contact.phone || contact.telephone)
+        .map((contact: ContactPoint) => ({
+          "@type": "ContactPoint",
+          telephone: (contact.phone || contact.telephone) as string,
+          contactType: contact.type || "customer service",
+        })),
     }),
     ...(props.address && {
       address: {
@@ -276,10 +400,10 @@ interface EventOrganizer {
  * Extract event location from props
  */
 function extractEventLocation(location: string | EventLocation): {
-  "@type": string;
+  "@type": "Place";
   name: string;
   address?: {
-    "@type": string;
+    "@type": "PostalAddress";
     streetAddress: string;
     addressLocality: string;
     addressRegion: string;
@@ -288,7 +412,7 @@ function extractEventLocation(location: string | EventLocation): {
   };
 } {
   const baseLocation = {
-    "@type": "Place",
+    "@type": "Place" as const,
     name: typeof location === "string" ? location : location.name,
   };
 
@@ -296,7 +420,7 @@ function extractEventLocation(location: string | EventLocation): {
     return {
       ...baseLocation,
       address: {
-        "@type": "PostalAddress",
+        "@type": "PostalAddress" as const,
         streetAddress: location.address.street,
         addressLocality: location.address.city,
         addressRegion: location.address.state,
@@ -313,12 +437,12 @@ function extractEventLocation(location: string | EventLocation): {
  * Extract event organizer from props
  */
 function extractEventOrganizer(organizer: string | EventOrganizer): {
-  "@type": string;
+  "@type": "Organization";
   name: string;
   url?: string;
 } {
   const baseOrganizer = {
-    "@type": "Organization",
+    "@type": "Organization" as const,
     name: typeof organizer === "string" ? organizer : organizer.name,
   };
 
@@ -332,8 +456,8 @@ function extractEventOrganizer(organizer: string | EventOrganizer): {
 /**
  * Extract event snippet from specification
  */
-function extractEventSnippet(spec: ComponentSpecification): RichSnippet | null {
-  const props = spec.props;
+function extractEventSnippet(spec: ComponentSpec): RichSnippet | null {
+  const props = spec as EventSpecProps;
   if (!props?.name || !props?.startDate || !props?.location) return null;
 
   return generateEventSnippet({
@@ -354,7 +478,7 @@ function extractEventSnippet(spec: ComponentSpecification): RichSnippet | null {
       offers: {
         "@type": "Offer",
         ...(props.offers.url && { url: props.offers.url }),
-        ...(props.offers.price && { price: props.offers.price }),
+        ...(props.offers.price && { price: String(props.offers.price) }),
         ...(props.offers.currency && { priceCurrency: props.offers.currency }),
         ...(props.offers.availability && { availability: props.offers.availability }),
       },
@@ -365,8 +489,8 @@ function extractEventSnippet(spec: ComponentSpecification): RichSnippet | null {
 /**
  * Extract local business snippet from specification
  */
-function extractLocalBusinessSnippet(spec: ComponentSpecification): RichSnippet | null {
-  const props = spec.props;
+function extractLocalBusinessSnippet(spec: ComponentSpec): RichSnippet | null {
+  const props = spec as LocalBusinessSpecProps;
   if (!props?.name || !props?.address || !props?.telephone) return null;
 
   return generateLocalBusinessSnippet({
@@ -374,34 +498,43 @@ function extractLocalBusinessSnippet(spec: ComponentSpecification): RichSnippet 
     telephone: props.telephone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: props.address.street || props.address.streetAddress,
-      addressLocality: props.address.city || props.address.addressLocality,
-      addressRegion: props.address.state || props.address.addressRegion,
-      postalCode: props.address.zip || props.address.postalCode,
-      addressCountry: props.address.country || props.address.addressCountry,
+      streetAddress: props.address.street || props.address.streetAddress || "",
+      addressLocality: props.address.city || props.address.addressLocality || "",
+      addressRegion: props.address.state || props.address.addressRegion || "",
+      postalCode: props.address.zip || props.address.postalCode || "",
+      addressCountry: props.address.country || props.address.addressCountry || "",
     },
-    ...(props.geo && {
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: props.geo.latitude || props.geo.lat,
-        longitude: props.geo.longitude || props.geo.lng,
-      },
-    }),
+    ...(props.geo &&
+      (props.geo.latitude || props.geo.lat) &&
+      (props.geo.longitude || props.geo.lng) && {
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: (props.geo.latitude || props.geo.lat) as number,
+          longitude: (props.geo.longitude || props.geo.lng) as number,
+        },
+      }),
     ...(props.priceRange && { priceRange: props.priceRange }),
     ...(props.image && { image: Array.isArray(props.image) ? props.image : [props.image] }),
     ...(props.openingHours && {
-      openingHoursSpecification: props.openingHours.map((hours: OpeningHours) => ({
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: hours.days || hours.dayOfWeek,
-        opens: hours.opens || hours.openTime,
-        closes: hours.closes || hours.closeTime,
-      })),
+      openingHoursSpecification: props.openingHours
+        .filter(
+          (hours: OpeningHours) =>
+            (hours.days || hours.dayOfWeek) &&
+            (hours.opens || hours.openTime) &&
+            (hours.closes || hours.closeTime)
+        )
+        .map((hours: OpeningHours) => ({
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: (hours.days || hours.dayOfWeek) as string | string[],
+          opens: (hours.opens || hours.openTime) as string,
+          closes: (hours.closes || hours.closeTime) as string,
+        })),
     }),
     ...(props.rating && {
       aggregateRating: {
         "@type": "AggregateRating",
-        ratingValue: props.rating.value || props.rating,
-        reviewCount: props.rating.count || 1,
+        ratingValue: typeof props.rating === "object" ? props.rating.value : props.rating,
+        reviewCount: typeof props.rating === "object" ? props.rating.count : 1,
       },
     }),
     ...(props.url && { url: props.url }),
@@ -411,7 +544,7 @@ function extractLocalBusinessSnippet(spec: ComponentSpecification): RichSnippet 
 /**
  * Extract all rich snippets from a specification tree
  */
-export function extractAllRichSnippets(spec: ComponentSpecification): RichSnippet[] {
+export function extractAllRichSnippets(spec: ComponentSpec): RichSnippet[] {
   const snippets: RichSnippet[] = [];
 
   // Extract from current component
@@ -422,8 +555,14 @@ export function extractAllRichSnippets(spec: ComponentSpecification): RichSnippe
 
   // Extract from children recursively
   if (spec.children) {
-    for (const child of spec.children) {
-      snippets.push(...extractAllRichSnippets(child));
+    if (Array.isArray(spec.children)) {
+      for (const child of spec.children) {
+        if (typeof child === "object" && child !== null) {
+          snippets.push(...extractAllRichSnippets(child as ComponentSpec));
+        }
+      }
+    } else if (typeof spec.children === "object" && spec.children != null) {
+      snippets.push(...extractAllRichSnippets(spec.children as ComponentSpec));
     }
   }
 

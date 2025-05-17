@@ -6,7 +6,7 @@ import React from "react";
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import { RichSnippet, withRichSnippet, useRichSnippet } from "./rich-snippet";
-import { ProductSnippet } from "./types";
+import { ProductSnippet, RichSnippet as RichSnippetType } from "./types";
 
 describe("RichSnippet Component", () => {
   const mockProduct: ProductSnippet = {
@@ -30,12 +30,13 @@ describe("RichSnippet Component", () => {
   });
 
   it("should handle array of snippets", () => {
-    const snippets = [
+    const snippets: RichSnippetType[] = [
       mockProduct,
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": "Organization" as const,
         name: "Test Org",
+        url: "https://example.com",
       },
     ];
 
@@ -56,13 +57,15 @@ describe("RichSnippet Component", () => {
 });
 
 describe("useRichSnippet Hook", () => {
-  const TestComponent: React.FC<{ snippet: RichSnippet | RichSnippet[] }> = ({ snippet }) => {
+  const TestComponent: React.FC<{ snippet: RichSnippetType | RichSnippetType[] }> = ({
+    snippet,
+  }) => {
     const scriptContent = useRichSnippet(snippet);
     return <div data-testid="content">{scriptContent}</div>;
   };
 
   it("should generate JSON string from snippet", () => {
-    const { getByTestId } = render(
+    const { container } = render(
       <TestComponent
         snippet={{
           "@context": "https://schema.org",
@@ -72,19 +75,26 @@ describe("useRichSnippet Hook", () => {
       />
     );
 
-    const content = getByTestId("content").textContent;
+    const element = container.querySelector('[data-testid="content"]');
+    const content = element?.textContent;
     expect(content).toContain("Product");
     expect(content).toContain("Test Product");
   });
 
   it("should handle array of snippets", () => {
-    const snippets = [
-      { "@type": "Product", name: "Product1" },
-      { "@type": "Organization", name: "Org1" },
+    const snippets: RichSnippetType[] = [
+      { "@context": "https://schema.org", "@type": "Product", name: "Product1" },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Org1",
+        url: "https://example.com",
+      },
     ];
 
-    const { getByTestId } = render(<TestComponent snippet={snippets} />);
-    const content = getByTestId("content").textContent;
+    const { container } = render(<TestComponent snippet={snippets} />);
+    const element = container.querySelector('[data-testid="content"]');
+    const content = element?.textContent;
 
     expect(content).toContain("@graph");
     expect(content).toContain("Product1");

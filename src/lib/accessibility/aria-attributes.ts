@@ -1,4 +1,5 @@
 import { AriaAttributes } from "react";
+import { getFocusableElements } from "./focus-management";
 
 // Common ARIA attribute sets
 export type AriaProps = AriaAttributes & {
@@ -313,18 +314,6 @@ export function announceToScreenReader(
 }
 
 // Focus management utilities
-export function getFocusableElements(container: HTMLElement): HTMLElement[] {
-  const focusableSelectors = [
-    "a[href]:not([disabled])",
-    "button:not([disabled])",
-    "textarea:not([disabled])",
-    "input:not([disabled])",
-    "select:not([disabled])",
-    '[tabindex]:not([tabindex="-1"])',
-  ];
-
-  return [...container.querySelectorAll<HTMLElement>(focusableSelectors.join(","))];
-}
 
 export function trapFocus(container: HTMLElement): (() => void) | undefined {
   const focusableElements = getFocusableElements(container);

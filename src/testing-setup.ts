@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/vitest";
-import { afterEach } from "vitest";
+import { afterEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
 
 // Global test setup for Vitest
@@ -20,3 +20,26 @@ declare global {
 }
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+
+// Mock window.scrollTo for tests
+if (!globalThis.window.scrollTo) {
+  globalThis.window.scrollTo = vi.fn();
+}
+
+// Mock IntersectionObserver for tests
+if (!globalThis.IntersectionObserver) {
+  globalThis.IntersectionObserver = vi.fn().mockImplementation(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  }));
+}
+
+// Mock ResizeObserver for tests
+if (!globalThis.ResizeObserver) {
+  globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  }));
+}

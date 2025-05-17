@@ -13,9 +13,9 @@ import {
   getTabPanelAriaProps,
   handleArrowKeyNavigation,
   announceToScreenReader,
-  getFocusableElements,
   trapFocus,
 } from "./aria-attributes";
+import { getFocusableElements } from "./focus-management";
 
 describe("ARIA Attributes", () => {
   describe("getAriaProps", () => {

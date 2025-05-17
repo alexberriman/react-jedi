@@ -184,8 +184,47 @@ export {
   type BrandThemeOptions,
   type GeneratedBrandTheme,
 } from "./lib/theme";
-// Export type-safety
-export * from "./lib/type-safety";
+// Export type-safety with explicit imports to avoid conflicts with utils
+export {
+  // Export constructors
+  Ok,
+  Err,
+  // Export type guards and utilities
+  ok,
+  err,
+  isNotNullOrUndefined,
+  isOfType,
+  hasProperty,
+  hasPropertyOfType,
+  isString,
+  isNumber,
+  isBoolean,
+  isFunction,
+  isObject,
+  isArray,
+  isArrayOf,
+  prop,
+  tryExec,
+  tryExecAsync,
+  assert,
+  assertNotNull,
+  ensureArray,
+  mapArray,
+  getPath,
+  typedKeys,
+  typedEntries,
+  safeJsonParse,
+  safeJsonStringify,
+  // Export types
+  type Result,
+  type TypedRecord,
+  type DeepReadonly,
+  type DeepPartial,
+  type Discriminated,
+  type Awaited,
+  type ElementOf,
+  type ComponentPropsWithBase,
+} from "./lib/type-safety";
 
 // Export UI components
 export * from "./components/ui/index";

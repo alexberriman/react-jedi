@@ -5,7 +5,7 @@
  * It enables runtime validation and transformation of JSON specifications before rendering.
  */
 
-import { Result, Ok, Err } from "ts-results";
+import { Result } from "../type-safety";
 import { type ComponentSpec, type UISpecification } from "../../types/schema/components";
 import { isTextContent } from "../../types/schema/guards";
 import {
@@ -15,7 +15,8 @@ import {
   ValidationStageType,
 } from "./validation-pipeline";
 import { SpecificationErrorType, type SpecificationError } from "./shared-types";
-import { DataSourceParser } from "./data-source-parser";
+import { parseDataSource } from "./data-source-parser";
+import { ok, err, Ok, Err } from "../type-safety";
 
 /**
  * Result type for specification parser operations
@@ -135,7 +136,7 @@ export class SpecificationParser {
           const parsed = JSON.parse(input);
           return this.parseObject(parsed);
         } catch (error) {
-          return Err({
+          return err({
             type: SpecificationErrorType.INVALID_FORMAT,
             message: `Invalid JSON: ${
               error instanceof Error ? error.message : "Unknown parsing error"
@@ -152,7 +153,7 @@ export class SpecificationParser {
       // Handle object input
       return this.parseObject(input);
     } catch (error) {
-      return Err({
+      return err({
         type: SpecificationErrorType.INVALID_FORMAT,
         message: `Parsing error: ${error instanceof Error ? error.message : "Unknown error"}`,
         suggestions: [
@@ -263,18 +264,18 @@ export class SpecificationParser {
    */
   private handleValidationError(
     input: unknown,
-    validationResult: Result<ValidationStageError[], UISpecification | ComponentSpec>
+    validationErrors: ValidationStageError[]
   ): SpecificationParserResult<never> {
     // Handle special cases for certain error types for backward compatibility
     if (input && typeof input === "object") {
       if (!("version" in input) && "root" in input) {
-        return Err({
+        return err({
           type: SpecificationErrorType.INVALID_FORMAT,
           message: "Invalid specification format: version must be a string",
           suggestions: ["Add a version string to the specification"],
         });
       } else if ("version" in input && !("root" in input)) {
-        return Err({
+        return err({
           type: SpecificationErrorType.INVALID_FORMAT,
           message: "Invalid specification format: root must be an object",
           suggestions: ["Add a root component to the specification"],
@@ -282,17 +283,8 @@ export class SpecificationParser {
       }
     }
 
-    // Check if validationResult is an error result and contains ValidationStageError[]
-    if (validationResult.err && Array.isArray(validationResult.val)) {
-      return Err(this.convertValidationErrorsToParserError(validationResult.val));
-    }
-
-    // Fallback for other error cases
-    return Err({
-      type: SpecificationErrorType.INVALID_FORMAT,
-      message: "Invalid specification format: unknown validation error",
-      suggestions: ["Check the specification structure and properties"],
-    });
+    // Convert validation errors to parser error
+    return err(this.convertValidationErrorsToParserError(validationErrors));
   }
 
   /**
@@ -305,7 +297,7 @@ export class SpecificationParser {
     input: Record<string, unknown>
   ): SpecificationParserResult<never> | null {
     if ("version" in input && !("root" in input)) {
-      return Err({
+      return err({
         type: SpecificationErrorType.INVALID_FORMAT,
         message: "Invalid specification format: root must be an object",
         suggestions: ["Add a root component to the specification"],
@@ -313,7 +305,7 @@ export class SpecificationParser {
     }
 
     if ("root" in input && !("version" in input)) {
-      return Err({
+      return err({
         type: SpecificationErrorType.INVALID_FORMAT,
         message: "Invalid specification format: version must be a string",
         suggestions: ["Add a version string to the specification"],
@@ -332,20 +324,17 @@ export class SpecificationParser {
       });
 
       if (validationResult.err) {
-        return this.handleValidationError(
-          input,
-          validationResult as Result<ValidationStageError[], never>
-        );
+        return this.handleValidationError(input, validationResult.val);
       }
 
-      return Ok(validationResult.val as UISpecification | ComponentSpec);
+      return ok(validationResult.val as UISpecification | ComponentSpec);
     }
 
     // If schema validation is disabled, perform basic structure validation
 
     // Handle null or non-object input
     if (input === null || typeof input !== "object") {
-      return Err({
+      return err({
         type: SpecificationErrorType.INVALID_FORMAT,
         message: `Invalid specification format: Expected object, got ${
           input === null ? "null" : typeof input
@@ -373,7 +362,7 @@ export class SpecificationParser {
     }
 
     // Neither a UI specification nor a component specification
-    return Err({
+    return err({
       type: SpecificationErrorType.INVALID_FORMAT,
       message: "Invalid specification format: Missing required properties",
       suggestions: [
@@ -413,23 +402,19 @@ export class SpecificationParser {
 
     if (input.dataSources && Array.isArray(input.dataSources)) {
       // Parse and validate data sources
-      const dataSourceParser = new DataSourceParser({
-        validateConfigs: this.options.validateSchemas,
-        development: this.options.development,
-      });
-      
-      const dataSourcesResult = dataSourceParser.parseDataSources(input.dataSources);
-      if (dataSourcesResult.err) {
-        // Return with data source parsing error
-        return Err({
+      const dataSourcesResult = parseDataSource(input.dataSources);
+      if (dataSourcesResult.isErr) {
+        // Throw error to be caught by caller
+        const error = (dataSourcesResult as Err<Error>).error;
+        throw {
           type: SpecificationErrorType.INVALID_FORMAT,
-          message: `Invalid data sources: ${dataSourcesResult.val.message}`,
-          path: ["dataSources", ...(dataSourcesResult.val.path || [])],
-          suggestions: dataSourcesResult.val.suggestions,
-        });
+          message: `Invalid data sources: ${error.message}`,
+          path: ["dataSources"],
+          suggestions: undefined,
+        };
       }
-      
-      spec.dataSources = dataSourcesResult.val;
+
+      spec.dataSources = input.dataSources;
     }
   }
 
@@ -439,7 +424,7 @@ export class SpecificationParser {
     try {
       // Basic structure validation
       if (typeof input.version !== "string") {
-        return Err({
+        return err({
           type: SpecificationErrorType.INVALID_FORMAT,
           message: "Invalid specification: version must be a string",
           suggestions: ["Provide a string value for the version property"],
@@ -447,7 +432,7 @@ export class SpecificationParser {
       }
 
       if (!input.root || typeof input.root !== "object") {
-        return Err({
+        return err({
           type: SpecificationErrorType.INVALID_FORMAT,
           message: "Invalid specification: root must be an object",
           suggestions: ["Provide a valid component object for the root property"],
@@ -467,27 +452,28 @@ export class SpecificationParser {
       // First ensure we have a valid record type for parsing
       const rootObj = spec.root as unknown as Record<string, unknown>;
       const rootResult = this.parseComponentSpec(rootObj);
-      if (rootResult.err) {
-        return Err({
-          ...rootResult.val,
-          path: ["root", ...(rootResult.val.path || [])],
+      if (rootResult.isErr) {
+        const error = (rootResult as Err<SpecificationError>).error;
+        return err({
+          ...error,
+          path: ["root", ...(error.path || [])],
         });
       }
 
       // Replace the root with the parsed component spec
-      spec.root = rootResult.unwrap();
+      spec.root = (rootResult as Ok<ComponentSpec>).value;
 
       // If validateSchemas is enabled, validate the parsed specification
       if (this.options.validateSchemas) {
         const validationResult = this.validationPipeline.validateUISpecification(spec);
         if (validationResult.err) {
-          return Err(this.convertValidationErrorsToParserError(validationResult.val));
+          return err(this.convertValidationErrorsToParserError(validationResult.val));
         }
       }
 
-      return Ok(spec);
+      return ok(spec);
     } catch (error) {
-      return Err({
+      return err({
         type: SpecificationErrorType.INVALID_FORMAT,
         message: `Error parsing UI specification: ${
           error instanceof Error ? error.message : "Unknown error"
@@ -516,7 +502,7 @@ export class SpecificationParser {
         !("action" in handler) ||
         typeof handler.action !== "string"
       ) {
-        return Err({
+        return err({
           type: SpecificationErrorType.INVALID_FORMAT,
           message: `Invalid event handler for '${eventName}': Missing required 'action' property`,
           path: ["events", eventName],
@@ -527,7 +513,7 @@ export class SpecificationParser {
         });
       }
     }
-    return Ok(undefined);
+    return ok(undefined);
   }
 
   /**
@@ -546,7 +532,7 @@ export class SpecificationParser {
     input: Record<string, unknown>
   ): SpecificationParserResult<never> | null {
     if (typeof input.type !== "string") {
-      return Err({
+      return err({
         type: SpecificationErrorType.INVALID_FORMAT,
         message: "Invalid component: type must be a string",
         suggestions: [
@@ -569,13 +555,14 @@ export class SpecificationParser {
   ): SpecificationParserResult<never> | null {
     if ("children" in component) {
       const childrenResult = this.parseChildren(component.children);
-      if (childrenResult.err) {
-        return Err({
-          ...childrenResult.val,
-          path: ["children", ...(childrenResult.val.path || [])],
+      if (childrenResult.isErr) {
+        const error = (childrenResult as Err<SpecificationError>).error;
+        return err({
+          ...error,
+          path: ["children", ...(error.path || [])],
         });
       }
-      component.children = childrenResult.unwrap();
+      component.children = (childrenResult as Ok<string | ComponentSpec | ComponentSpec[]>).value;
     }
     return null;
   }
@@ -605,8 +592,8 @@ export class SpecificationParser {
         const eventsResult = this.validateComponentEvents(
           component.events as Record<string, unknown>
         );
-        if (eventsResult.err) {
-          return eventsResult;
+        if (eventsResult.isErr) {
+          return eventsResult as SpecificationParserResult<ComponentSpec>;
         }
       }
 
@@ -619,13 +606,13 @@ export class SpecificationParser {
       if (this.options.validateSchemas) {
         const validationResult = this.validationPipeline.validateComponentSpec(component);
         if (validationResult.err) {
-          return Err(this.convertValidationErrorsToParserError(validationResult.val));
+          return err(this.convertValidationErrorsToParserError(validationResult.val));
         }
       }
 
-      return Ok(component);
+      return ok(component);
     } catch (error) {
-      return Err({
+      return err({
         type: SpecificationErrorType.INVALID_FORMAT,
         message: `Error parsing component specification: ${
           error instanceof Error ? error.message : "Unknown error"
@@ -649,7 +636,7 @@ export class SpecificationParser {
   ): SpecificationParserResult<ComponentSpec | ComponentSpec[] | string> {
     // Handle string children (text content)
     if (isTextContent(children)) {
-      return Ok(children);
+      return ok(children);
     }
 
     // Handle single component child
@@ -668,7 +655,7 @@ export class SpecificationParser {
 
       for (const [index, child] of children.entries()) {
         if (child === null || typeof child !== "object" || !("type" in child)) {
-          return Err({
+          return err({
             type: SpecificationErrorType.INVALID_FORMAT,
             message: "Invalid child component: Missing required 'type' property",
             path: [index.toString()],
@@ -680,21 +667,22 @@ export class SpecificationParser {
         }
 
         const childResult = this.parseComponentSpec(child as Record<string, unknown>);
-        if (childResult.err) {
-          return Err({
-            ...childResult.val,
-            path: [index.toString(), ...(childResult.val.path || [])],
+        if (childResult.isErr) {
+          const error = (childResult as Err<SpecificationError>).error;
+          return err({
+            ...error,
+            path: [index.toString(), ...(error.path || [])],
           });
         }
 
-        parsedChildren.push(childResult.unwrap());
+        parsedChildren.push((childResult as Ok<ComponentSpec>).value);
       }
 
-      return Ok(parsedChildren);
+      return ok(parsedChildren);
     }
 
     // Invalid children format
-    return Err({
+    return err({
       type: SpecificationErrorType.INVALID_FORMAT,
       message: `Invalid children format: Expected string, component, or array of components, got ${typeof children}`,
       suggestions: [

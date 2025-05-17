@@ -1,15 +1,15 @@
-import { 
+import * as React from "react";
+import {
   useMutation as useQueryMutation,
   UseMutationOptions,
-  useQueryClient 
+  useQueryClient,
 } from "@tanstack/react-query";
-import { useContext } from "react";
 import { StateContext } from "../lib/state/state-context";
 import { DataFetcher, DataFetchError } from "../lib/data/data-fetcher";
-import { 
+import {
   createOptimisticMutation,
   OptimisticMutationOptions,
-  OptimisticUpdateConfig 
+  OptimisticUpdateConfig,
 } from "../lib/data/optimistic-updates";
 import type { MutationSpecification } from "../types/data";
 
@@ -21,17 +21,17 @@ export interface UseMutationConfig<TData = unknown, TVariables = unknown> {
    * Mutation specification from JSON
    */
   mutation: MutationSpecification;
-  
+
   /**
    * Optimistic update configuration
    */
   optimistic?: OptimisticUpdateConfig<TVariables, TData>;
-  
+
   /**
-   * Additional React Query options
+   * Additional React Query options including custom mutationFn
    */
-  options?: Omit<UseMutationOptions<TData, DataFetchError, TVariables>, 'mutationFn'>;
-  
+  options?: UseMutationOptions<TData, DataFetchError, TVariables>;
+
   /**
    * Data fetcher instance (optional)
    */
@@ -45,54 +45,60 @@ export function useMutation<TData = unknown, TVariables = unknown>(
   config: UseMutationConfig<TData, TVariables>
 ) {
   const queryClient = useQueryClient();
-  const stateManager = useContext(StateContext);
+
+  // Always call the hook, but check if context is available
+  const stateContext = React.useContext(StateContext);
+  const stateManager = stateContext || undefined;
+
   const fetcher = config.fetcher || new DataFetcher();
-  
-  // Create mutation function based on specification
-  const mutationFn = async (variables: TVariables): Promise<TData> => {
-    const { endpoint, method = 'POST', headers = {} } = config.mutation;
-    
-    // Replace variables in endpoint
-    let finalEndpoint = endpoint;
-    if (variables && typeof variables === 'object') {
-      for (const [key, value] of Object.entries(variables as Record<string, unknown>)) {
-        finalEndpoint = finalEndpoint.replace(`{${key}}`, String(value));
+
+  // Create mutation function based on specification or use the provided one
+  const mutationFn =
+    config.options?.mutationFn ||
+    (async (variables: TVariables): Promise<TData> => {
+      const { endpoint, method = "POST", headers = {} } = config.mutation;
+
+      // Replace variables in endpoint
+      let finalEndpoint = endpoint;
+      if (variables && typeof variables === "object") {
+        for (const [key, value] of Object.entries(variables as Record<string, unknown>)) {
+          finalEndpoint = finalEndpoint.replace(`{${key}}`, String(value));
+        }
       }
-    }
-    
-    const result = await fetcher.fetch({
-      id: config.mutation.id,
-      type: 'rest',
-      config: {
-        endpoint: finalEndpoint,
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          ...headers,
+
+      const result = await fetcher.fetch({
+        id: config.mutation.id,
+        type: "rest",
+        config: {
+          url: finalEndpoint,
+          method,
+          headers: {
+            "Content-Type": "application/json",
+            ...headers,
+          },
+          body: variables as unknown,
         },
-        body: variables as unknown,
-      },
+      });
+
+      if (!result.ok) {
+        throw result.val;
+      }
+
+      return result.val as TData;
     });
-    
-    if (result.isErr()) {
-      throw result.error;
-    }
-    
-    return result.value as TData;
-  };
-  
+
   // Create optimistic mutation options
   const optimisticOptions: OptimisticMutationOptions<TData, DataFetchError, TVariables> = {
     mutationFn,
     ...config.options,
     optimistic: config.optimistic,
   };
-  
+
   // Apply optimistic updates if configured
   const finalOptions = config.optimistic
     ? createOptimisticMutation(optimisticOptions, stateManager)
     : optimisticOptions;
-  
+
   // Use React Query mutation
   const mutation = useQueryMutation<TData, DataFetchError, TVariables>({
     ...finalOptions,
@@ -103,15 +109,15 @@ export function useMutation<TData = unknown, TVariables = unknown>(
           queryClient.invalidateQueries({ queryKey: [key] });
         }
       }
-      
+
       // Call original onSuccess
       finalOptions.onSuccess?.(data, variables, context);
     },
   });
-  
+
   return {
     ...mutation,
-    
+
     // Enhanced mutate with optimistic state
     mutateOptimistic: (variables: TVariables) => {
       // Apply optimistic update immediately
@@ -121,7 +127,7 @@ export function useMutation<TData = unknown, TVariables = unknown>(
           config.optimistic.updateLocalState(stateManager, optimisticData, variables);
         }
       }
-      
+
       // Execute mutation
       return mutation.mutate(variables);
     },

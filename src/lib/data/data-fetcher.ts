@@ -166,11 +166,7 @@ export class DataFetcher {
 
         return Ok(transformed);
       } catch (error) {
-        lastError = new DataFetchError(
-          `Failed to fetch data from ${spec.id}`,
-          spec.id,
-          error
-        );
+        lastError = new DataFetchError(`Failed to fetch data from ${spec.id}`, spec.id, error);
 
         if (attempt < this.retryConfig.maxRetries) {
           const delay = this.calculateRetryDelay(attempt);
@@ -293,6 +289,8 @@ export class DataFetcher {
    * Fetch static data
    */
   private async fetchStatic(config: StaticDataSourceConfig): Promise<unknown> {
+    // Add minimal async behavior to ensure consistency with other data sources
+    await Promise.resolve();
     return config.data;
   }
 
@@ -339,24 +337,42 @@ export class DataFetcher {
     return result;
   }
 
-  private applyTransform(data: unknown, transform: DataSourceSpecification["transforms"][0]): unknown {
-    if (!Array.isArray(data)) {
-      return data;
-    }
-
+  private applyTransform(
+    data: unknown,
+    transform: NonNullable<DataSourceSpecification["transforms"]>[number]
+  ): unknown {
     switch (transform.type) {
       case "map": {
-        return data.map((item) => this.evaluateExpression(item, transform.config));
+        return this.applyArrayTransformation(data, transform.config, (item) =>
+          this.evaluateExpression(item, transform.config)
+        );
       }
       case "filter": {
-        return data.filter((item) => this.evaluateCondition(item, transform.config));
+        return this.applyArrayTransformation(
+          data,
+          transform.config,
+          (item) => item,
+          (item) => this.evaluateCondition(item, transform.config)
+        );
       }
       case "sort": {
-        return this.sortArray(data, transform.config);
+        return this.applyArrayTransformation(
+          data,
+          transform.config,
+          (array) => this.sortArray(array as unknown[], transform.config),
+          undefined,
+          true
+        );
       }
       case "slice": {
         const { start = 0, end } = transform.config;
-        return data.slice(start as number, end as number);
+        return this.applyArrayTransformation(
+          data,
+          transform.config,
+          (array) => (array as unknown[]).slice(start as number, end as number),
+          undefined,
+          true
+        );
       }
       case "custom": {
         // Custom transformations would require a transformation registry
@@ -369,12 +385,70 @@ export class DataFetcher {
   }
 
   /**
+   * Apply a transformation to arrays, including nested arrays in objects
+   */
+  private applyArrayTransformation(
+    data: unknown,
+    config: Record<string, unknown>,
+    transformer: (item: unknown) => unknown,
+    filter?: (item: unknown) => boolean,
+    applyToWholeArray?: boolean
+  ): unknown {
+    if (Array.isArray(data)) {
+      return this.processArray(data, transformer, filter, applyToWholeArray);
+    }
+
+    if (typeof data === "object" && data !== null) {
+      return this.processObjectWithArrays(data, transformer, filter, applyToWholeArray);
+    }
+
+    return data;
+  }
+
+  /**
+   * Process an array with the given transformation
+   */
+  private processArray(
+    data: unknown[],
+    transformer: (item: unknown) => unknown,
+    filter?: (item: unknown) => boolean,
+    applyToWholeArray?: boolean
+  ): unknown {
+    if (applyToWholeArray) {
+      return transformer(data);
+    }
+
+    if (filter) {
+      return data.filter((item) => filter(item));
+    }
+
+    return data.map((item) => transformer(item));
+  }
+
+  /**
+   * Process an object that might contain arrays
+   */
+  private processObjectWithArrays(
+    data: object,
+    transformer: (item: unknown) => unknown,
+    filter?: (item: unknown) => boolean,
+    applyToWholeArray?: boolean
+  ): object {
+    const result: Record<string, unknown> = {};
+
+    for (const [key, value] of Object.entries(data)) {
+      result[key] = Array.isArray(value)
+        ? this.processArray(value, transformer, filter, applyToWholeArray)
+        : value;
+    }
+
+    return result;
+  }
+
+  /**
    * Cache management utilities
    */
-  private getCacheKey(
-    spec: DataSourceSpecification,
-    context?: Record<string, unknown>
-  ): string {
+  private getCacheKey(spec: DataSourceSpecification, context?: Record<string, unknown>): string {
     return JSON.stringify({ id: spec.id, config: spec.config, context });
   }
 
@@ -427,10 +501,7 @@ export class DataFetcher {
   /**
    * Helper utilities
    */
-  private interpolateString(
-    template: string,
-    context?: Record<string, unknown>
-  ): string {
+  private interpolateString(template: string, context?: Record<string, unknown>): string {
     if (!context) return template;
 
     return template.replaceAll(/\{([^{}]+)\}/g, (match, key) => {
@@ -451,10 +522,7 @@ export class DataFetcher {
       if (typeof value === "string") {
         result[key] = this.interpolateString(value, context);
       } else if (typeof value === "object" && value !== null) {
-        result[key] = this.interpolateObject(
-          value as Record<string, unknown>,
-          context
-        );
+        result[key] = this.interpolateObject(value as Record<string, unknown>, context);
       } else {
         result[key] = value;
       }
@@ -475,10 +543,7 @@ export class DataFetcher {
     return value;
   }
 
-  private evaluateExpression(
-    item: unknown,
-    config: Record<string, unknown>
-  ): unknown {
+  private evaluateExpression(item: unknown, config: Record<string, unknown>): unknown {
     // Simplified expression evaluation
     // In production, use a proper expression parser
     const expression = config.expression as string;
@@ -489,10 +554,7 @@ export class DataFetcher {
     return item;
   }
 
-  private evaluateCondition(
-    item: unknown,
-    config: Record<string, unknown>
-  ): boolean {
+  private evaluateCondition(item: unknown, config: Record<string, unknown>): boolean {
     // Simplified condition evaluation
     // In production, use a proper expression parser
     const condition = config.condition as string;
@@ -505,10 +567,7 @@ export class DataFetcher {
     return true;
   }
 
-  private sortArray(
-    array: unknown[],
-    config: Record<string, unknown>
-  ): unknown[] {
+  private sortArray(array: unknown[], config: Record<string, unknown>): unknown[] {
     const { field, order = "asc" } = config;
     const fieldPath = field as string;
 
@@ -546,12 +605,7 @@ export function useDataSource<T = unknown>(
     fetcherOptions?: DataFetcherOptions;
   }
 ): DataFetcherResponse<T> {
-  const {
-    stateManager,
-    dependencies = [],
-    enabled = true,
-    fetcherOptions,
-  } = options ?? {};
+  const { stateManager, dependencies = [], enabled = true, fetcherOptions } = options ?? {};
 
   const [state, setState] = useState<{
     data: T | null;
@@ -564,7 +618,7 @@ export function useDataSource<T = unknown>(
   });
 
   const fetcherRef = useRef<DataFetcher>();
-  const pollingIntervalRef = useRef<number>();
+  const pollingIntervalRef = useRef<ReturnType<typeof globalThis.setInterval>>();
 
   // Create fetcher instance
   const fetcher = useMemo(() => {

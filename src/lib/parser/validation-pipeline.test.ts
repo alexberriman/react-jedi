@@ -49,7 +49,7 @@ describe("ValidationPipeline", () => {
 
       expect(result.ok).toBe(false);
 
-      if (!result.ok) {
+      if (result.err) {
         expect(result.val[0].stage).toBe(ValidationStageType.PREPROCESSING);
         expect(result.val[0].message).toContain("cannot be null");
       }
@@ -60,7 +60,7 @@ describe("ValidationPipeline", () => {
 
       expect(result.ok).toBe(false);
 
-      if (!result.ok) {
+      if (result.err) {
         expect(result.val[0].stage).toBe(ValidationStageType.PREPROCESSING);
         expect(result.val[0].message).toContain("must be an object");
       }
@@ -90,7 +90,7 @@ describe("ValidationPipeline", () => {
       const result = pipeline.validateComponentSpec(spec as unknown as ComponentSpec);
       expect(result.ok).toBe(false);
 
-      if (!result.ok) {
+      if (result.err) {
         expect(result.val[0].stage).toBe(ValidationStageType.SCHEMA);
         expect(result.val[0].message).toContain("missing 'type' property");
       }
@@ -124,7 +124,7 @@ describe("ValidationPipeline", () => {
       const result = pipeline.validateUISpecification(spec as unknown as UISpecification);
       expect(result.ok).toBe(false);
 
-      if (!result.ok) {
+      if (result.err) {
         expect(result.val[0].stage).toBe(ValidationStageType.SCHEMA);
         expect(result.val[0].message).toContain("missing required properties");
       }
@@ -162,7 +162,7 @@ describe("ValidationPipeline", () => {
       const result = pipeline.validateComponentSpec(spec);
       expect(result.ok).toBe(false);
 
-      if (!result.ok) {
+      if (result.err) {
         const semanticErrors = result.val.filter((e) => e.stage === ValidationStageType.SEMANTIC);
         expect(semanticErrors.length).toBeGreaterThan(0);
         expect(semanticErrors[0].message).toContain("columns must be between 1 and 12");
@@ -229,7 +229,7 @@ describe("ValidationPipeline", () => {
       const result = pipeline.validateComponentSpec(spec);
       expect(result.ok).toBe(false);
 
-      if (!result.ok) {
+      if (result.err) {
         // Update the test to match our actual implementation
         const hasChildrenPath = result.val.some((e) => e.path.includes("children"));
         const hasIndexPath = result.val.some((e) => e.path.includes("1"));

@@ -6,7 +6,7 @@ import type { DataSourceSpecification } from "../../types/schema/specification";
 globalThis.fetch = vi.fn();
 
 // Helper to create delayed promises
-const timeout = (delay: number, response: unknown) => 
+const timeout = (delay: number, response: unknown) =>
   new Promise((resolve) => {
     globalThis.setTimeout(resolve, delay, response);
   });
@@ -15,7 +15,8 @@ describe("DataFetcher", () => {
   let fetcher: DataFetcher;
 
   beforeEach(() => {
-    fetcher = new DataFetcher();
+    // Create fetcher with no retries for most tests
+    fetcher = new DataFetcher({ maxRetries: 0 });
     cacheManager.clearCache();
     vi.clearAllMocks();
   });
@@ -57,6 +58,7 @@ describe("DataFetcher", () => {
       vi.mocked(fetch).mockResolvedValueOnce({
         ok: false,
         status: 404,
+        json: async () => ({ error: "Not found" }),
       } as Response);
 
       const spec: DataSourceSpecification = {
@@ -94,10 +96,7 @@ describe("DataFetcher", () => {
       const result = await fetcher.fetch(spec, context);
 
       expect(result.ok).toBe(true);
-      expect(fetch).toHaveBeenCalledWith(
-        "https://api.example.com/users/123",
-        expect.any(Object)
-      );
+      expect(fetch).toHaveBeenCalledWith("https://api.example.com/users/123", expect.any(Object));
     });
 
     it("should retry on failure", async () => {
@@ -442,11 +441,7 @@ describe("DataFetcher", () => {
       };
 
       // Start multiple concurrent requests
-      const promises = [
-        fetcher.fetch(spec),
-        fetcher.fetch(spec),
-        fetcher.fetch(spec),
-      ];
+      const promises = [fetcher.fetch(spec), fetcher.fetch(spec), fetcher.fetch(spec)];
 
       const results = await Promise.all(promises);
 
@@ -467,8 +462,8 @@ describe("Cache Manager", () => {
     cacheManager.clearCache();
   });
 
-  it("should clear the cache", () => {
-    const fetcher = new DataFetcher();
+  it("should clear the cache", async () => {
+    const fetcher = new DataFetcher({ maxRetries: 0 });
     const spec: DataSourceSpecification = {
       id: "test",
       type: "static",
@@ -476,7 +471,7 @@ describe("Cache Manager", () => {
       cache: { ttl: 60 },
     };
 
-    fetcher.fetch(spec);
+    await fetcher.fetch(spec);
     expect(cacheManager.getCacheSize()).toBeGreaterThan(0);
 
     cacheManager.clearCache();
@@ -484,7 +479,7 @@ describe("Cache Manager", () => {
   });
 
   it("should evict specific entries", async () => {
-    const fetcher = new DataFetcher();
+    const fetcher = new DataFetcher({ maxRetries: 0 });
     const spec1: DataSourceSpecification = {
       id: "test1",
       type: "static",
@@ -508,7 +503,7 @@ describe("Cache Manager", () => {
   });
 
   it("should purge expired entries", async () => {
-    const fetcher = new DataFetcher();
+    const fetcher = new DataFetcher({ maxRetries: 0 });
     const spec: DataSourceSpecification = {
       id: "test",
       type: "static",

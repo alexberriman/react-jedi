@@ -22,11 +22,11 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        expect(result.val.type).toBe("Button");
-        expect(result.val.children).toBe("Click Me");
+      if (result.isOk) {
+        expect(result.value.type).toBe("Button");
+        expect(result.value.children).toBe("Click Me");
       }
     });
 
@@ -36,14 +36,16 @@ describe("Schema Validation Tests", () => {
       } as unknown as Partial<ComponentSpec>;
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationErrorType.SCHEMA_VALIDATION);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationErrorType.SCHEMA_VALIDATION);
         // The message might vary depending on implementation
-        expect(result.val.suggestions).toBeDefined();
+        expect(result.error.suggestions).toBeDefined();
         // Should have suggestions about the missing type property
-        expect(result.val.suggestions!.some((s) => s.toLowerCase().includes("type"))).toBe(true);
+        expect(
+          result.error.suggestions!.some((s: string) => s.toLowerCase().includes("type"))
+        ).toBe(true);
       }
     });
 
@@ -61,10 +63,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsed = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsed = result.value as ComponentSpec;
         expect(parsed.className).toBe("bg-blue-500 text-white");
         expect((parsed.data as Record<string, string>)?.["test-id"]).toBe("test-button");
         expect((parsed.style as Record<string, string | number>)?.margin).toBe("10px");
@@ -79,12 +81,12 @@ describe("Schema Validation Tests", () => {
       } as unknown as ComponentSpec;
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationErrorType.SCHEMA_VALIDATION);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationErrorType.SCHEMA_VALIDATION);
         // The exact error message may vary, but it should mention type error
-        expect(result.val.message).toContain("string");
+        expect(result.error.message).toContain("string");
       }
     });
   });
@@ -124,10 +126,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsed = result.val as UISpecification;
+      if (result.isOk) {
+        const parsed = result.value as UISpecification;
         expect(parsed.version).toBe("1.0.0");
         expect(parsed.metadata?.title).toBe("Test UI");
         expect(parsed.root.type).toBe("Container");
@@ -144,11 +146,11 @@ describe("Schema Validation Tests", () => {
       } as unknown as Partial<UISpecification>;
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("version");
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("version");
       }
     });
 
@@ -162,14 +164,14 @@ describe("Schema Validation Tests", () => {
       } as unknown as UISpecification;
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
+      if (result.isErr) {
         // The path might contain 'root' depending on implementation
         // The message might mention missing or invalid 'type' property
         expect(
-          result.val.message.toLowerCase().includes("string") ||
-            result.val.message.toLowerCase().includes("type")
+          result.error.message.toLowerCase().includes("string") ||
+            result.error.message.toLowerCase().includes("type")
         ).toBe(true);
       }
     });
@@ -212,10 +214,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsed = result.val as UISpecification;
+      if (result.isOk) {
+        const parsed = result.value as UISpecification;
         expect(parsed.theme?.colors?.primary?.["500"]).toBe("#0ea5e9");
         expect(parsed.theme?.fonts?.sans).toEqual(["Inter", "sans-serif"]);
         expect(parsed.theme?.spacing?.md).toBe("1rem");
@@ -232,10 +234,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        expect(result.val.children).toBe("Hello World");
+      if (result.isOk) {
+        expect(result.value.children).toBe("Hello World");
       }
     });
 
@@ -249,10 +251,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsed = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsed = result.value as ComponentSpec;
         const childComponent = parsed.children as ComponentSpec;
         expect(childComponent.type).toBe("Text");
         expect(childComponent.children).toBe("Hello World");
@@ -275,10 +277,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsed = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsed = result.value as ComponentSpec;
         const children = parsed.children as ComponentSpec[];
         expect(Array.isArray(children)).toBe(true);
         expect(children.length).toBe(2);
@@ -302,13 +304,13 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("Invalid child component");
-        expect(result.val.path).toContain("children");
-        expect(result.val.path).toContain("1");
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("Invalid child component");
+        expect(result.error.path).toContain("children");
+        expect(result.error.path).toContain("1");
       }
     });
 
@@ -335,10 +337,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsed = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsed = result.value as ComponentSpec;
         const box = parsed.children as ComponentSpec;
         const grid = box.children as ComponentSpec;
         const gridItems = grid.children as ComponentSpec[];
@@ -371,10 +373,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsed = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsed = result.value as ComponentSpec;
         const events = parsed.events as Record<
           string,
           { action: string; params?: Record<string, unknown> }
@@ -400,15 +402,15 @@ describe("Schema Validation Tests", () => {
 
       // Note: The current implementation might not validate event handlers
       // at the schema level, so we make this test conditional
-      if (!result.ok) {
+      if (result.isErr) {
         // If it fails, it should be because of the event handler
         expect(
-          result.val.message.toLowerCase().includes("action") ||
-            result.val.message.toLowerCase().includes("event")
+          result.error.message.toLowerCase().includes("action") ||
+            result.error.message.toLowerCase().includes("event")
         ).toBe(true);
 
-        if (result.val.path) {
-          expect(result.val.path.some((p) => p === "events" || p === "click")).toBe(true);
+        if (result.error.path) {
+          expect(result.error.path.some((p: string) => p === "events" || p === "click")).toBe(true);
         }
       }
     });
@@ -428,7 +430,7 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
     });
 
     it("should reject a Grid component with invalid columns", () => {
@@ -442,11 +444,11 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationErrorType.SEMANTIC_VALIDATION);
-        expect(result.val.message).toContain("columns must be between 1 and 12");
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationErrorType.SEMANTIC_VALIDATION);
+        expect(result.error.message).toContain("columns must be between 1 and 12");
       }
     });
 
@@ -458,7 +460,7 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
     });
 
     it("should reject a Heading component with invalid level", () => {
@@ -469,10 +471,10 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.message).toContain("level");
+      if (result.isErr) {
+        expect(result.error.message).toContain("level");
       }
     });
   });
@@ -491,19 +493,19 @@ describe("Schema Validation Tests", () => {
       };
 
       const result = parseSpecification(component, { development: true });
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
+      if (result.isErr) {
         // Check for detailed error information
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.length).toBeGreaterThan(0);
+        expect(result.error.suggestions).toBeDefined();
+        expect(result.error.suggestions!.length).toBeGreaterThan(0);
 
         // Development mode should include context information
-        expect(result.val.context).toBeDefined();
+        expect(result.error.context).toBeDefined();
 
         // Check that we have the correct invalid value
-        if (result.val.context?.invalidValue !== undefined) {
-          expect(result.val.context.invalidValue).toBe(15);
+        if (result.error.context?.invalidValue !== undefined) {
+          expect(result.error.context.invalidValue).toBe(15);
         }
       }
     });
@@ -520,14 +522,14 @@ describe("Schema Validation Tests", () => {
       });
 
       // Note: Unknown component types might pass schema validation in the current implementation
-      if (result.ok) {
+      if (result.isOk) {
         // Handle the case when result is ok
-        expect(result.ok).toBe(true);
+        expect(result.isOk).toBe(true);
       } else {
         // If documentation URL is included, it should be a string
-        if (result.val.documentationUrl) {
-          expect(typeof result.val.documentationUrl).toBe("string");
-          expect(result.val.documentationUrl).toContain("react-jedi.org/docs/");
+        if (result.error.documentationUrl) {
+          expect(typeof result.error.documentationUrl).toBe("string");
+          expect(result.error.documentationUrl).toContain("react-jedi.org/docs/");
         }
       }
     });

@@ -1,11 +1,16 @@
 /**
  * Data source parser for React Jedi
- * 
+ *
  * Parses data source specifications into usable query configurations
  */
 
-import { Ok, Err, Result } from "ts-results-2";
+import { ok, err, Result, Ok, Err } from "../type-safety";
 import type { DataSourceSpecification } from "../../types/schema/specification";
+
+/**
+ * Type for data source config union
+ */
+export type DataSourceConfig = DataSourceSpecification["config"];
 
 /**
  * Interface for parsed data source query
@@ -13,7 +18,7 @@ import type { DataSourceSpecification } from "../../types/schema/specification";
 export interface ParsedDataSource {
   id: string;
   type: "rest" | "graphql" | "static" | "websocket" | "function";
-  config: Record<string, unknown>;
+  config: DataSourceConfig;
   cache?: {
     ttl?: number;
   };
@@ -26,22 +31,24 @@ export interface ParsedDataSource {
 /**
  * Parse a single data source specification
  */
-export function parseSingleDataSource(spec: DataSourceSpecification): Result<ParsedDataSource, Error> {
+export function parseSingleDataSource(
+  spec: DataSourceSpecification
+): Result<ParsedDataSource, Error> {
   if (!spec.id) {
-    return Err(new Error("Data source specification must have an id"));
+    return err(new Error("Data source specification must have an id"));
   }
 
   if (!spec.type) {
-    return Err(new Error("Data source specification must have a type"));
+    return err(new Error("Data source specification must have a type"));
   }
 
   const validTypes = ["rest", "graphql", "static", "websocket", "function"];
   if (!validTypes.includes(spec.type)) {
-    return Err(new Error(`Invalid data source type: ${spec.type}`));
+    return err(new Error(`Invalid data source type: ${spec.type}`));
   }
 
   if (!spec.config) {
-    return Err(new Error("Data source specification must have a config"));
+    return err(new Error("Data source specification must have a config"));
   }
 
   const parsed: ParsedDataSource = {
@@ -65,7 +72,7 @@ export function parseSingleDataSource(spec: DataSourceSpecification): Result<Par
     };
   }
 
-  return Ok(parsed);
+  return ok(parsed);
 }
 
 /**
@@ -76,16 +83,16 @@ export function parseDataSource(
 ): Result<ParsedDataSource | ParsedDataSource[], Error> {
   if (Array.isArray(specifications)) {
     const results: ParsedDataSource[] = [];
-    
+
     for (const spec of specifications) {
       const result = parseSingleDataSource(spec);
-      if (result.err) {
-        return Err(result.val);
+      if (result.isErr) {
+        return err((result as Err<Error>).error);
       }
-      results.push(result.val);
+      results.push((result as Ok<ParsedDataSource>).value);
     }
-    
-    return Ok(results);
+
+    return ok(results);
   } else {
     return parseSingleDataSource(specifications);
   }

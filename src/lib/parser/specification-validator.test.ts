@@ -67,7 +67,7 @@ describe("SpecificationValidator", () => {
       const result = validateUISpecification(invalidSpec as unknown as UISpecification);
       expect(result.ok).toBe(false);
 
-      if (!result.ok) {
+      if (result.err) {
         expect(result.val.type).toBe(SpecificationParserErrorType.SCHEMA_VALIDATION);
         expect(result.val.validationErrors).toBeDefined();
       }
@@ -129,7 +129,7 @@ describe("SpecificationValidator", () => {
       const result = validateComponentSpec(invalidComponent as unknown as ComponentSpec);
       expect(result.ok).toBe(false);
 
-      if (!result.ok) {
+      if (result.err) {
         expect(result.val.type).toBe(SpecificationParserErrorType.SCHEMA_VALIDATION);
         expect(result.val.message).toContain("Invalid child component");
         expect(result.val.path).toContain("children");

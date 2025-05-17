@@ -18,6 +18,7 @@ import {
   createChildStyleContext,
   type StyleContext,
 } from "./theme/style-extension";
+import type { DataSourcesState } from "../hooks/use-data-sources";
 import { createStateManager, type StateManager, StateProvider } from "./state";
 import {
   extractStateConfig,
@@ -403,6 +404,98 @@ function buildComponentProps(
 }
 
 /**
+ * Helper to resolve a single data binding
+ */
+function resolveSingleDataBinding(value: unknown, dataSources: DataSourcesState): unknown {
+  if (typeof value !== "string" || !value.startsWith("$data.")) {
+    return value;
+  }
+
+  const path = value.slice(6); // Remove "$data." prefix
+  const [sourceId, ...propertyPath] = path.split(".");
+
+  if (!dataSources.sources[sourceId]) {
+    return value;
+  }
+
+  const sourceData = dataSources.sources[sourceId].data;
+  if (!sourceData) {
+    return undefined;
+  }
+
+  return resolvePropertyPath(sourceData, propertyPath);
+}
+
+/**
+ * Helper to resolve a property path from an object
+ */
+function resolvePropertyPath(data: unknown, propertyPath: string[]): unknown {
+  let resolvedValue = data;
+
+  for (const prop of propertyPath) {
+    if (resolvedValue && typeof resolvedValue === "object" && prop in resolvedValue) {
+      resolvedValue = (resolvedValue as Record<string, unknown>)[prop];
+    } else {
+      return undefined;
+    }
+  }
+
+  return resolvedValue;
+}
+
+/**
+ * Helper to resolve data bindings for a set of props
+ */
+function resolveDataBindingsForProps(
+  props: Record<string, unknown>,
+  dataSources: DataSourcesState
+): Record<string, unknown> {
+  const boundProps: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(props)) {
+    boundProps[key] = resolveSingleDataBinding(value, dataSources);
+  }
+
+  return boundProps;
+}
+
+/**
+ * Initializes component state if configured
+ */
+function initializeStateIfNeeded(
+  spec: ComponentSpec,
+  stateManager: StateManager | undefined
+): void {
+  const stateConfig = extractStateConfig(spec);
+
+  if (stateConfig && stateManager && spec.id) {
+    initializeComponentState(spec.id as string, stateConfig, stateManager);
+  }
+}
+
+/**
+ * Resolves state and data bindings for a component spec
+ */
+function resolveBindings(spec: ComponentSpec, options: RenderOptions): ComponentSpec {
+  const { stateManager } = options;
+
+  if (!stateManager && !options.dataSources) {
+    return spec;
+  }
+
+  const currentState = stateManager?.getState() || {};
+  const { children, ...specPropsWithoutChildren } = spec;
+  let resolvedProps = resolveStateBindings(specPropsWithoutChildren, currentState);
+
+  // Apply data bindings if data sources are available
+  if (options.dataSources) {
+    resolvedProps = resolveDataBindingsForProps(resolvedProps, options.dataSources);
+  }
+
+  return { ...resolvedProps, children } as ComponentSpec;
+}
+
+/**
  * Renders a component spec into a React element
  */
 function renderComponent(
@@ -422,61 +515,10 @@ function renderComponent(
   } = options;
 
   // Extract and initialize component state
-  const stateConfig = extractStateConfig(spec);
+  initializeStateIfNeeded(spec, stateManager);
 
-  if (stateConfig && stateManager && spec.id) {
-    initializeComponentState(spec.id as string, stateConfig, stateManager);
-  }
-
-  // Resolve state bindings in spec properties
-  let resolvedSpec = spec;
-  if (stateManager || options.dataSources) {
-    const currentState = stateManager?.getState() || {};
-    // Resolve state bindings in all spec properties except children
-    const { children, ...specPropsWithoutChildren } = spec;
-    let resolvedProps = resolveStateBindings(specPropsWithoutChildren, currentState);
-    
-    // Apply data bindings if data sources are available
-    if (options.dataSources) {
-      // Create a simple data binding resolver without hooks
-      const boundProps: Record<string, unknown> = {};
-      
-      Object.entries(resolvedProps).forEach(([key, value]) => {
-        // Check if the value is a data binding expression
-        if (typeof value === "string" && value.startsWith("$data.")) {
-          const path = value.substring(6); // Remove "$data." prefix
-          const [sourceId, ...propertyPath] = path.split(".");
-
-          if (options.dataSources.sources[sourceId]) {
-            const sourceData = options.dataSources.sources[sourceId].data;
-            if (sourceData) {
-              // Navigate through the property path
-              let resolvedValue = sourceData;
-              for (const prop of propertyPath) {
-                if (resolvedValue && typeof resolvedValue === "object" && prop in resolvedValue) {
-                  resolvedValue = (resolvedValue as Record<string, unknown>)[prop];
-                } else {
-                  resolvedValue = undefined;
-                  break;
-                }
-              }
-              boundProps[key] = resolvedValue;
-            } else {
-              boundProps[key] = undefined;
-            }
-          } else {
-            boundProps[key] = value;
-          }
-        } else {
-          boundProps[key] = value;
-        }
-      });
-      
-      resolvedProps = boundProps;
-    }
-    
-    resolvedSpec = { ...resolvedProps, children } as ComponentSpec;
-  }
+  // Resolve state and data bindings
+  let resolvedSpec = resolveBindings(spec, options);
 
   // Create condition context for conditional rendering
   const conditionContext: ConditionContext = {
@@ -655,11 +697,11 @@ function DataSourceProvider({
   // Clone children with enhanced options including data sources
   if (children && React.isValidElement(children)) {
     const enhancedOptions = { ...options, dataSources };
-    
+
     // Re-render the root component with data sources available
     const componentSpec = specification.root;
     const reRendered = renderComponent(componentSpec, enhancedOptions);
-    
+
     return reRendered;
   }
 

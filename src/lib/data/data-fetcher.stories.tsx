@@ -48,9 +48,7 @@ const DataFetcherExample: React.FC<{
         </button>
       </div>
       {showRawData ? (
-        <pre className="bg-gray-100 p-4 rounded overflow-auto">
-          {JSON.stringify(data, null, 2)}
-        </pre>
+        <pre className="bg-gray-100 p-4 rounded overflow-auto">{JSON.stringify(data, null, 2)}</pre>
       ) : (
         <div>
           {Array.isArray(data) ? (
@@ -149,16 +147,33 @@ const StateIntegratedExample: React.FC = () => {
         </div>
       )}
 
-      {data && (
-        <div className="space-y-2">
-          {(data as unknown[]).map((post: unknown & { id: string; title: string; body: string }) => (
-            <div key={post.id} className="p-3 bg-white border rounded">
-              <h3 className="font-semibold">{post.title}</h3>
-              <p className="text-gray-600 text-sm">{post.body}</p>
+      {(() => {
+        if (data && Array.isArray(data) && data.length > 0) {
+          return (
+            <div className="space-y-2">
+              {data.map((post: unknown) => {
+                if (
+                  typeof post === "object" &&
+                  post !== null &&
+                  "id" in post &&
+                  "title" in post &&
+                  "body" in post
+                ) {
+                  const typedPost = post as { id: string; title: string; body: string };
+                  return (
+                    <div key={typedPost.id} className="p-3 bg-white border rounded">
+                      <h3 className="font-semibold">{typedPost.title}</h3>
+                      <p className="text-gray-600 text-sm">{typedPost.body}</p>
+                    </div>
+                  );
+                }
+                return null;
+              })}
             </div>
-          ))}
-        </div>
-      )}
+          );
+        }
+        return null;
+      })()}
     </div>
   );
 };
@@ -308,9 +323,7 @@ export const StateIntegration: Story = {
 export const Polling: Story = {
   render: () => (
     <div>
-      <p className="mb-4 text-gray-600">
-        This data source polls every 10 seconds for updates.
-      </p>
+      <p className="mb-4 text-gray-600">This data source polls every 10 seconds for updates.</p>
       <DataFetcherExample
         dataSource={{
           id: "polling-comments",
@@ -341,8 +354,8 @@ export const CacheWithStaleWhileRevalidate: Story = {
   render: () => (
     <div>
       <p className="mb-4 text-gray-600">
-        This example uses stale-while-revalidate caching. The cached data is
-        served immediately while fresh data is fetched in the background.
+        This example uses stale-while-revalidate caching. The cached data is served immediately
+        while fresh data is fetched in the background.
       </p>
       <DataFetcherExample
         dataSource={{

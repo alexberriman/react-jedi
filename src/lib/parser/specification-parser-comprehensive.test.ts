@@ -32,10 +32,10 @@ describe("Specification Parser - Comprehensive Tests", () => {
       }`;
 
       const result = parseSpecification(json);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const spec = result.val as UISpecification;
+      if (result.isOk) {
+        const spec = result.value as UISpecification;
         expect(spec.version).toBe("1.0.0");
         expect(spec.root.type).toBe("Container");
 
@@ -59,13 +59,13 @@ describe("Specification Parser - Comprehensive Tests", () => {
         `;
 
       const result = parseSpecification(malformedJson);
-      expect(result.ok).toBe(false);
+      expect(result.isErr).toBe(true);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("Invalid JSON");
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.some((s) => s.includes("syntax"))).toBe(true);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("Invalid JSON");
+        expect(result.error.suggestions).toBeDefined();
+        expect(result.error.suggestions!.some((s: string) => s.includes("syntax"))).toBe(true);
       }
     });
 
@@ -84,10 +84,10 @@ describe("Specification Parser - Comprehensive Tests", () => {
       `;
 
       const result = parseSpecification(jsonWithWhitespace);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const spec = result.val as UISpecification;
+      if (result.isOk) {
+        const spec = result.value as UISpecification;
         expect(spec.version).toBe("1.0.0");
         expect(spec.root.type).toBe("Container");
       }
@@ -116,7 +116,7 @@ describe("Specification Parser - Comprehensive Tests", () => {
       const result = customParser.parse(invalidComponent);
 
       // Without schema validation, this should pass the basic parsing
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
       // Create a new parser with schema validation
       const validatingParser = createParser({
@@ -129,8 +129,8 @@ describe("Specification Parser - Comprehensive Tests", () => {
       // Note: In the current implementation, unknown component types
       // might not be rejected at the schema validation level
       // So we make this check conditional to allow either outcome
-      if (!validatingResult.ok) {
-        expect(validatingResult.val.type).toBeDefined();
+      if (validatingResult.isErr) {
+        expect(validatingResult.error.type).toBeDefined();
       }
     });
 
@@ -152,7 +152,7 @@ describe("Specification Parser - Comprehensive Tests", () => {
       });
 
       const stopAtFirstResult = stopAtFirstParser.parse(multiErrorComponent);
-      expect(stopAtFirstResult.ok).toBe(false);
+      expect(stopAtFirstResult.isErr).toBe(true);
 
       // Test with stopAtFirstError: false (default)
       const collectAllParser = createParser({
@@ -160,19 +160,19 @@ describe("Specification Parser - Comprehensive Tests", () => {
       });
 
       const collectAllResult = collectAllParser.parse(multiErrorComponent);
-      expect(collectAllResult.ok).toBe(false);
+      expect(collectAllResult.isErr).toBe(true);
 
       // Note: We can't directly test the number of collected errors since they're
       // private within the ValidationPipeline, but we could check if the error message
       // mentions multiple errors when stopAtFirstError is false
 
-      if (!stopAtFirstResult.ok && !collectAllResult.ok) {
+      if (stopAtFirstResult.isErr && collectAllResult.isErr) {
         // When stopAtFirstError is true, there should be no mention of multiple errors
-        expect(stopAtFirstResult.val.message.includes("more validation errors")).toBe(false);
+        expect(stopAtFirstResult.error.message.includes("more validation errors")).toBe(false);
 
         // When stopAtFirstError is false, there might be mention of multiple errors
         // (This test might be fragile if the implementation doesn't explicitly mention multiple errors)
-        //expect(collectAllResult.val.message.includes("more validation")).toBe(true);
+        //expect(collectAllResult.error.message.includes("more validation")).toBe(true);
       }
     });
   });
@@ -247,10 +247,10 @@ describe("Specification Parser - Comprehensive Tests", () => {
       };
 
       const result = parseSpecification(deeplyNestedSpec);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsed = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsed = result.value as ComponentSpec;
         expect(parsed.type).toBe("Container");
 
         // Verify the main flex container
@@ -368,20 +368,20 @@ describe("Specification Parser - Comprehensive Tests", () => {
       };
 
       const result = parseSpecification(deeplyNestedWithErrorSpec);
-      expect(result.ok).toBe(false);
+      expect(result.isErr).toBe(true);
 
-      if (!result.ok) {
+      if (result.isErr) {
         // Check that the error path correctly points to the problematic component
-        expect(result.val.path).toBeDefined();
+        expect(result.error.path).toBeDefined();
 
         // The path should include 'children', the index of the Grid (1), 'children',
         // the index of the Card (1), 'children', and the index of the Heading (0)
-        if (result.val.path) {
-          expect(result.val.path.includes("children")).toBe(true);
-          expect(result.val.path.includes("1")).toBe(true);
+        if (result.error.path) {
+          expect(result.error.path.includes("children")).toBe(true);
+          expect(result.error.path.includes("1")).toBe(true);
 
           // The error should be about the heading level
-          expect(result.val.message.toLowerCase()).toContain("level");
+          expect(result.error.message.toLowerCase()).toContain("level");
         }
       }
     });
@@ -421,11 +421,11 @@ describe("Specification Parser - Comprehensive Tests", () => {
       };
 
       const result = parseSpecification(invalidSpec);
-      expect(result.ok).toBe(false);
+      expect(result.isErr).toBe(true);
 
-      if (!result.ok) {
+      if (result.isErr) {
         const parser = createParser();
-        const formattedError = parser.formatError(result.val);
+        const formattedError = parser.formatError(result.error);
 
         // Check that the formatted error is comprehensive and readable
         expect(formattedError).toContain("Error:");
@@ -441,51 +441,51 @@ describe("Specification Parser - Comprehensive Tests", () => {
   describe("Edge Cases", () => {
     it("should handle null input", () => {
       const result = parseSpecification(null);
-      expect(result.ok).toBe(false);
+      expect(result.isErr).toBe(true);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
         // The specific error message may vary by implementation
-        expect(result.val.message.toLowerCase()).toContain("null");
+        expect(result.error.message.toLowerCase()).toContain("null");
       }
     });
 
     it("should handle primitive values as input", () => {
       const stringResult = parseSpecification("not a valid spec");
-      expect(stringResult.ok).toBe(false);
+      expect(stringResult.isErr).toBe(true);
 
       const numberResult = parseSpecification(42);
-      expect(numberResult.ok).toBe(false);
+      expect(numberResult.isErr).toBe(true);
 
       const booleanResult = parseSpecification(true);
-      expect(booleanResult.ok).toBe(false);
+      expect(booleanResult.isErr).toBe(true);
 
-      if (!stringResult.ok && !numberResult.ok && !booleanResult.ok) {
+      if (stringResult.isErr && numberResult.isErr && booleanResult.isErr) {
         // Check the error types are what we expect
-        expect(stringResult.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(numberResult.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(booleanResult.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(stringResult.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(numberResult.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(booleanResult.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
 
         // The specific error messages may vary by implementation
         // For strings, it could be a JSON parsing error
         // For numbers and booleans, it should indicate invalid input
-        if (typeof stringResult.val.message === "string") {
-          expect(stringResult.val.message.length).toBeGreaterThan(0);
+        if (typeof stringResult.error.message === "string") {
+          expect(stringResult.error.message.length).toBeGreaterThan(0);
         }
-        if (typeof numberResult.val.message === "string") {
-          expect(numberResult.val.message.toLowerCase()).toContain("number");
+        if (typeof numberResult.error.message === "string") {
+          expect(numberResult.error.message.toLowerCase()).toContain("number");
         }
-        if (typeof booleanResult.val.message === "string") {
-          expect(booleanResult.val.message.toLowerCase()).toContain("boolean");
+        if (typeof booleanResult.error.message === "string") {
+          expect(booleanResult.error.message.toLowerCase()).toContain("boolean");
         }
       }
     });
 
     it("should handle empty objects", () => {
       const result = parseSpecification({});
-      expect(result.ok).toBe(false);
+      expect(result.isErr).toBe(true);
 
-      if (!result.ok) {
+      if (result.isErr) {
         // In some implementations this might be a schema validation error
         // rather than an invalid format error
         const validErrorTypes = [
@@ -493,12 +493,12 @@ describe("Specification Parser - Comprehensive Tests", () => {
           SpecificationParserErrorType.SCHEMA_VALIDATION,
         ];
 
-        expect(validErrorTypes.includes(result.val.type)).toBe(true);
+        expect(validErrorTypes.includes(result.error.type)).toBe(true);
 
         // The error should indicate missing properties
         expect(
-          result.val.message.toLowerCase().includes("missing") ||
-            result.val.message.toLowerCase().includes("required")
+          result.error.message.toLowerCase().includes("missing") ||
+            result.error.message.toLowerCase().includes("required")
         ).toBe(true);
       }
     });
@@ -506,17 +506,17 @@ describe("Specification Parser - Comprehensive Tests", () => {
     it("should handle objects with only some required properties", () => {
       // Missing root
       const missingRootResult = parseSpecification({ version: "1.0.0" });
-      expect(missingRootResult.ok).toBe(false);
+      expect(missingRootResult.isErr).toBe(true);
 
       // Missing version
       const missingVersionResult = parseSpecification({
         root: { type: "Container", children: [] },
       });
-      expect(missingVersionResult.ok).toBe(false);
+      expect(missingVersionResult.isErr).toBe(true);
 
-      if (!missingRootResult.ok && !missingVersionResult.ok) {
-        expect(missingRootResult.val.message).toContain("root");
-        expect(missingVersionResult.val.message).toContain("version");
+      if (missingRootResult.isErr && missingVersionResult.isErr) {
+        expect(missingRootResult.error.message).toContain("root");
+        expect(missingVersionResult.error.message).toContain("version");
       }
     });
 
@@ -538,10 +538,10 @@ describe("Specification Parser - Comprehensive Tests", () => {
       const result = parseSpecification(deepestComponent);
 
       // This should parse successfully despite the extreme nesting
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        let current = result.val as ComponentSpec;
+      if (result.isOk) {
+        let current = result.value as ComponentSpec;
         let depth = 0;
 
         // Traverse down to the deepest level and count depth

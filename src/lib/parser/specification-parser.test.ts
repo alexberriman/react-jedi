@@ -24,10 +24,10 @@ describe("SpecificationParser", () => {
       }`;
 
       const result = parseSpecification(json, { validateSchemas: false });
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const spec = result.val as ComponentSpec;
+      if (result.isOk) {
+        const spec = result.value as ComponentSpec;
         expect(spec.type).toBe("Button");
         expect(spec.children).toBe("Click Me");
       }
@@ -40,13 +40,13 @@ describe("SpecificationParser", () => {
       `;
 
       const result = parseSpecification(json);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("Invalid JSON");
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.length).toBeGreaterThan(0);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("Invalid JSON");
+        expect(result.error.suggestions).toBeDefined();
+        expect(result.error.suggestions!.length).toBeGreaterThan(0);
       }
     });
   });
@@ -66,10 +66,10 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec, { validateSchemas: false });
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsedSpec = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsedSpec = result.value as ComponentSpec;
         expect(parsedSpec.type).toBe("Button");
         expect(parsedSpec.children).toBe("Click Me");
         const events = parsedSpec.events as
@@ -86,13 +86,13 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec, { validateSchemas: false });
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("Missing required properties");
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.some((s) => s.includes("type"))).toBe(true);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("Missing required properties");
+        expect(result.error.suggestions).toBeDefined();
+        expect(result.error.suggestions!.some((s: string) => s.includes("type"))).toBe(true);
       }
     });
 
@@ -109,13 +109,13 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec, { validateSchemas: false });
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("Invalid event handler");
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.some((s) => s.includes("action"))).toBe(true);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("Invalid event handler");
+        expect(result.error.suggestions).toBeDefined();
+        expect(result.error.suggestions!.some((s: string) => s.includes("action"))).toBe(true);
       }
     });
   });
@@ -151,10 +151,10 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec, { validateSchemas: false });
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsedSpec = result.val as UISpecification;
+      if (result.isOk) {
+        const parsedSpec = result.value as UISpecification;
         expect(parsedSpec.version).toBe("1.0.0");
         expect(parsedSpec.metadata?.title).toBe("Test UI");
         expect(parsedSpec.root.type).toBe("Container");
@@ -177,13 +177,15 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec, { validateSchemas: false });
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("version must be a string");
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.some((s) => s.toLowerCase().includes("version"))).toBe(true);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("version must be a string");
+        expect(result.error.suggestions).toBeDefined();
+        expect(
+          result.error.suggestions!.some((s: string) => s.toLowerCase().includes("version"))
+        ).toBe(true);
       }
     });
 
@@ -193,13 +195,15 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("root must be an object");
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.some((s) => s.toLowerCase().includes("root"))).toBe(true);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("root must be an object");
+        expect(result.error.suggestions).toBeDefined();
+        expect(
+          result.error.suggestions!.some((s: string) => s.toLowerCase().includes("root"))
+        ).toBe(true);
       }
     });
   });
@@ -213,10 +217,10 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsedSpec = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsedSpec = result.value as ComponentSpec;
         expect(parsedSpec.children).toBe("Hello World");
       }
     });
@@ -231,10 +235,10 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsedSpec = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsedSpec = result.value as ComponentSpec;
         const childSpec = parsedSpec.children as ComponentSpec;
         expect(childSpec.type).toBe("Text");
         expect(childSpec.children).toBe("Hello World");
@@ -257,10 +261,10 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
 
-      if (result.ok) {
-        const parsedSpec = result.val as ComponentSpec;
+      if (result.isOk) {
+        const parsedSpec = result.value as ComponentSpec;
         const children = parsedSpec.children as ComponentSpec[];
         expect(Array.isArray(children)).toBe(true);
         expect(children.length).toBe(2);
@@ -287,14 +291,14 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
-        expect(result.val.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
-        expect(result.val.message).toContain("Invalid child component");
-        expect(result.val.path).toContain("1"); // Error in the second child (index 1)
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.some((s) => s.includes("type"))).toBe(true);
+      if (result.isErr) {
+        expect(result.error.type).toBe(SpecificationParserErrorType.INVALID_FORMAT);
+        expect(result.error.message).toContain("Invalid child component");
+        expect(result.error.path).toContain("1"); // Error in the second child (index 1)
+        expect(result.error.suggestions).toBeDefined();
+        expect(result.error.suggestions!.some((s: string) => s.includes("type"))).toBe(true);
       }
     });
   });
@@ -319,7 +323,7 @@ describe("SpecificationParser", () => {
         invalidProp: true,
       });
 
-      expect(result.ok).toBe(true);
+      expect(result.isOk).toBe(true);
     });
   });
 
@@ -338,14 +342,14 @@ describe("SpecificationParser", () => {
       });
 
       const result = parser.parse(spec);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
+      if (result.isErr) {
         // Verify semantic validation triggered (Grid columns validation)
-        expect(result.val.type).toBe(SpecificationParserErrorType.SEMANTIC_VALIDATION);
+        expect(result.error.type).toBe(SpecificationParserErrorType.SEMANTIC_VALIDATION);
 
         // Format error and check it contains suggestions
-        const formattedError = parser.formatError(result.val);
+        const formattedError = parser.formatError(result.error);
         expect(formattedError).toContain("Error:");
         expect(formattedError).toContain("columns");
         expect(formattedError).toContain("Suggestions:");
@@ -378,15 +382,17 @@ describe("SpecificationParser", () => {
       };
 
       const result = parseSpecification(spec);
-      expect(result.ok).toBe(false);
+      expect(result.isOk).toBe(false);
 
-      if (!result.ok) {
+      if (result.isErr) {
         // Should detect semantic error with heading level
-        expect(result.val.type).toBe(SpecificationParserErrorType.SEMANTIC_VALIDATION);
+        expect(result.error.type).toBe(SpecificationParserErrorType.SEMANTIC_VALIDATION);
         // Changed expectation to match actual error message
-        expect(result.val.message).toContain("Heading level must be between 1 and 6");
-        expect(result.val.suggestions).toBeDefined();
-        expect(result.val.suggestions!.some((s) => s.includes("between 1 and 6"))).toBe(true);
+        expect(result.error.message).toContain("Heading level must be between 1 and 6");
+        expect(result.error.suggestions).toBeDefined();
+        expect(result.error.suggestions!.some((s: string) => s.includes("between 1 and 6"))).toBe(
+          true
+        );
       }
     });
   });

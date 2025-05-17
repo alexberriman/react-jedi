@@ -13,7 +13,7 @@ export {
   parseSpecification,
   createParser,
   defaultParser,
-} from './specification-parser';
+} from "./specification-parser";
 
 export {
   SpecificationValidator,
@@ -23,13 +23,11 @@ export {
   validateComponentSpec,
   createValidator,
   defaultValidator,
-} from './specification-validator';
+} from "./specification-validator";
 
 export {
-  DataSourceParser,
   parseDataSource,
-  createDataSourceParser,
-  defaultDataSourceParser,
-  type DataSourceParserOptions,
-  type DataSourceParserResult
-} from './data-source-parser';
+  parseSingleDataSource,
+  type ParsedDataSource,
+  type DataSourceConfig,
+} from "./data-source-parser";

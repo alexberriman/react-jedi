@@ -4,41 +4,46 @@ import { Input } from "../../components/ui/input";
 import { Card } from "../../components/ui/card";
 import { Badge } from "../../components/ui/badge";
 import { useMutation } from "../../hooks/use-mutation";
-import { useDataSource } from "../../hooks/use-data-sources";
-import { StateManager } from "../state/state-management";
-import { StateContextProvider } from "../state/state-context";
+import { useDataSource } from "../../lib/data/data-fetcher";
+import { StateProvider } from "../state/state-context";
 import type { MutationSpecification } from "../../types/data";
 
 // Mock API delay for demonstration
-const delay = (ms: number) => new Promise(resolve => globalThis.setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => globalThis.setTimeout(resolve, ms));
+
+// Simulate random failure for demonstration purposes
+// In production, this would be replaced with actual API errors
+const simulateRandomFailure = (failureRate: number): boolean => {
+  // Generate a deterministic but variable failure simulation
+  // Using Date.now() modulo to create variability for demo purposes
+  const seed = Date.now() % 100;
+  return seed < failureRate * 100;
+};
 
 /**
  * Example component demonstrating optimistic updates
  */
 function TodoList() {
   const [newTodoText, setNewTodoText] = useState("");
-  
-  // Fetch todos using data source
-  const { data: todos = [], isLoading, refetch } = useDataSource({
+
+  // Use static data source instead as function source is not yet implemented
+  const { data, loading, refetch } = useDataSource<
+    { id: number; text: string; completed: boolean }[]
+  >({
     id: "todos",
-    sources: [{
-      id: "todos",
-      type: "function",
-      config: {
-        fn: async () => {
-          // Simulate API call
-          await delay(500);
-          return [
-            { id: 1, text: "Learn React Query", completed: false },
-            { id: 2, text: "Implement optimistic updates", completed: false },
-            { id: 3, text: "Build awesome apps", completed: true },
-          ];
-        },
-      },
-    }],
+    type: "static",
+    config: {
+      data: [
+        { id: 1, text: "Learn React Query", completed: false },
+        { id: 2, text: "Implement optimistic updates", completed: false },
+        { id: 3, text: "Build awesome apps", completed: true },
+      ],
+    },
   });
-  
-  // Create todo mutation with optimistic update
+
+  const todos = data || [];
+
+  // Create mutation for adding new todos with optimistic update behavior
   const createTodoMutation = useMutation<
     { id: number; text: string; completed: boolean },
     { text: string }
@@ -56,21 +61,22 @@ function TodoList() {
         completed: false,
       }),
       updateLocalState: (stateManager, data) => {
-        const currentTodos = stateManager.getState().todos || [];
-        stateManager.setState("todos", [...currentTodos, data]);
+        const currentTodos =
+          (stateManager.getState().todos as { id: number; text: string; completed: boolean }[]) ||
+          [];
+        stateManager.setState({ todos: [...currentTodos, data] });
       },
     },
     options: {
-      mutationFn: async (variables) => {
+      mutationFn: async (variables: { text: string }) => {
         // Simulate API call with delay
         await delay(2000);
-        
+
         // Simulate 20% chance of failure for demo purposes
-        // This is safe as it's only for demonstration purposes
-        if (Math.random() < 0.2) {
+        if (simulateRandomFailure(0.2)) {
           throw new Error("Failed to create todo");
         }
-        
+
         return {
           id: Date.now(),
           text: variables.text,
@@ -83,8 +89,8 @@ function TodoList() {
       },
     },
   });
-  
-  // Toggle todo mutation with optimistic update
+
+  // Create mutation for toggling task completion status with optimistic update behavior
   const toggleTodoMutation = useMutation<
     { id: number; completed: boolean },
     { id: number; completed: boolean }
@@ -101,23 +107,24 @@ function TodoList() {
         completed: variables.completed,
       }),
       updateLocalState: (stateManager, data, variables) => {
-        const todos = stateManager.getState().todos || [];
-        const updatedTodos = todos.map((todo: { id: number; completed: boolean }) =>
+        const todos =
+          (stateManager.getState().todos as { id: number; text: string; completed: boolean }[]) ||
+          [];
+        const updatedTodos = todos.map((todo) =>
           todo.id === variables.id ? { ...todo, completed: data.completed } : todo
         );
-        stateManager.setState("todos", updatedTodos);
+        stateManager.setState({ todos: updatedTodos });
       },
     },
     options: {
-      mutationFn: async (variables) => {
+      mutationFn: async (variables: { id: number; completed: boolean }) => {
         await delay(1500);
-        
+
         // Simulate 10% chance of failure for demo purposes
-        // This is safe as it's only for demonstration purposes
-        if (Math.random() < 0.1) {
+        if (simulateRandomFailure(0.1)) {
           throw new Error("Failed to toggle todo");
         }
-        
+
         return variables;
       },
       onSuccess: () => {
@@ -125,28 +132,28 @@ function TodoList() {
       },
     },
   });
-  
+
   const handleCreateTodo = () => {
     if (newTodoText.trim()) {
       createTodoMutation.mutateOptimistic({ text: newTodoText });
     }
   };
-  
+
   const handleToggleTodo = (id: number, currentCompleted: boolean) => {
-    toggleTodoMutation.mutateOptimistic({ 
-      id, 
-      completed: !currentCompleted 
+    toggleTodoMutation.mutateOptimistic({
+      id,
+      completed: !currentCompleted,
     });
   };
-  
-  if (isLoading) {
+
+  if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
-  
+
   return (
     <div className="space-y-4">
       <Card className="p-6">
@@ -155,7 +162,7 @@ function TodoList() {
           Try adding or toggling todos. Updates appear instantly and sync with the server.
           There&apos;s a small chance of failure to demonstrate rollback behavior.
         </p>
-        
+
         <div className="flex gap-2 mb-6">
           <Input
             value={newTodoText}
@@ -163,20 +170,17 @@ function TodoList() {
             placeholder="Add a new todo..."
             onKeyDown={(e) => e.key === "Enter" && handleCreateTodo()}
           />
-          <Button
-            onClick={handleCreateTodo}
-            disabled={createTodoMutation.isPending}
-          >
+          <Button onClick={handleCreateTodo} disabled={createTodoMutation.isPending}>
             {createTodoMutation.isPending ? "Adding..." : "Add Todo"}
           </Button>
         </div>
-        
+
         {createTodoMutation.isError && (
           <div className="mb-4 p-3 bg-destructive/10 text-destructive rounded-md">
             Failed to add todo. Please try again.
           </div>
         )}
-        
+
         <div className="space-y-2">
           {todos.map((todo: { id: number; text: string; completed: boolean }) => (
             <div
@@ -191,30 +195,27 @@ function TodoList() {
                 disabled={toggleTodoMutation.isPending}
               />
               <span
-                className={`flex-1 ${
-                  todo.completed ? "line-through text-muted-foreground" : ""
-                }`}
+                className={`flex-1 ${todo.completed ? "line-through text-muted-foreground" : ""}`}
               >
                 {todo.text}
               </span>
               {createTodoMutation.isPending && todo.id > 1_000_000_000_000 && (
                 <Badge variant="secondary">Saving...</Badge>
               )}
-              {toggleTodoMutation.isPending && 
-               toggleTodoMutation.variables?.id === todo.id && (
+              {toggleTodoMutation.isPending && toggleTodoMutation.variables?.id === todo.id && (
                 <Badge variant="secondary">Updating...</Badge>
               )}
             </div>
           ))}
         </div>
-        
+
         {toggleTodoMutation.isError && (
           <div className="mt-4 p-3 bg-destructive/10 text-destructive rounded-md">
             Failed to update todo. Please try again.
           </div>
         )}
       </Card>
-      
+
       <Card className="p-6">
         <h3 className="text-lg font-semibold mb-2">How it works:</h3>
         <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
@@ -222,7 +223,9 @@ function TodoList() {
           <li>The change is then synced with the server in the background</li>
           <li>If the server request fails, the UI automatically rolls back</li>
           <li>There&apos;s a simulated delay and random failure chance for demonstration</li>
-          <li>The &quot;Saving...&quot; and &quot;Updating...&quot; badges show background operations</li>
+          <li>
+            The &quot;Saving...&quot; and &quot;Updating...&quot; badges show background operations
+          </li>
         </ul>
       </Card>
     </div>
@@ -233,11 +236,9 @@ function TodoList() {
  * Example component with state management provider
  */
 export function OptimisticUpdateExample() {
-  const [stateManager] = useState(() => new StateManager());
-  
   return (
-    <StateContextProvider stateManager={stateManager}>
+    <StateProvider>
       <TodoList />
-    </StateContextProvider>
+    </StateProvider>
   );
 }

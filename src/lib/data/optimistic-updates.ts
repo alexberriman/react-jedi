@@ -11,22 +11,22 @@ export interface OptimisticUpdateConfig<TVariables = unknown, TData = unknown> {
    * Function to get the optimistic data
    */
   getOptimisticData: (variables: TVariables) => TData;
-  
+
   /**
    * Function to update local state optimistically
    */
   updateLocalState?: (stateManager: StateManager, data: TData, variables: TVariables) => void;
-  
+
   /**
    * Function to rollback on error
    */
   rollback?: (stateManager: StateManager, error: DataFetchError, variables: TVariables) => void;
-  
+
   /**
    * Cache keys to invalidate on success
    */
   invalidateKeys?: string[];
-  
+
   /**
    * Whether to retry on failure
    */
@@ -36,8 +36,11 @@ export interface OptimisticUpdateConfig<TVariables = unknown, TData = unknown> {
 /**
  * Optimistic mutation options
  */
-export interface OptimisticMutationOptions<TData = unknown, TError = DataFetchError, TVariables = unknown> 
-  extends Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'> {
+export interface OptimisticMutationOptions<
+  TData = unknown,
+  TError = DataFetchError,
+  TVariables = unknown,
+> extends Omit<UseMutationOptions<TData, TError, TVariables>, "mutationFn"> {
   optimistic?: OptimisticUpdateConfig<TVariables, TData>;
   mutationFn: (variables: TVariables) => Promise<TData>;
 }
@@ -58,22 +61,24 @@ export function createOptimisticMutation<TData = unknown, TVariables = unknown>(
   stateManager?: StateManager
 ): MutationOptions<TData, DataFetchError, TVariables> {
   const { optimistic, ...mutationOptions } = options;
-  
+
   // Store snapshot for rollback
   let snapshot: StateSnapshot | null = null;
-  
+
   return {
     ...mutationOptions,
-    
+
     // On mutation start, apply optimistic update
-    onMutate: async (variables: TVariables): Promise<{ optimisticData: TData; previousSnapshot: StateSnapshot | null }> => {
+    onMutate: async (
+      variables: TVariables
+    ): Promise<{ optimisticData: TData; previousSnapshot: StateSnapshot | null } | undefined> => {
       // Call original onMutate if provided
       if (mutationOptions.onMutate) {
         await mutationOptions.onMutate(variables);
       }
-      
-      if (!optimistic) return;
-      
+
+      if (!optimistic) return undefined;
+
       // Take snapshot for rollback
       if (stateManager) {
         snapshot = {
@@ -81,52 +86,56 @@ export function createOptimisticMutation<TData = unknown, TVariables = unknown>(
           cache: new Map(), // Cache is handled separately
         };
       }
-      
+
       // Apply optimistic update
       const optimisticData = optimistic.getOptimisticData(variables);
-      
+
       // Update local state if handler provided
       if (optimistic.updateLocalState && stateManager) {
         optimistic.updateLocalState(stateManager, optimisticData, variables);
       }
-      
+
       return { optimisticData, previousSnapshot: snapshot };
     },
-    
+
     // On error, rollback optimistic update
-    onError: (error: DataFetchError, variables: TVariables, context?: { optimisticData: TData; previousSnapshot: StateSnapshot | null }) => {
+    onError: (error: DataFetchError, variables: TVariables, context: unknown) => {
       // Call original onError if provided
       if (mutationOptions.onError) {
         mutationOptions.onError(error, variables, context);
       }
-      
+
       if (!optimistic) return;
-      
+
+      const typedContext = context as
+        | { optimisticData: TData; previousSnapshot: StateSnapshot | null }
+        | undefined;
+
       // Rollback using custom handler or snapshot
       if (optimistic.rollback && stateManager) {
         optimistic.rollback(stateManager, error, variables);
-      } else if (snapshot && stateManager) {
+      } else if (typedContext?.previousSnapshot && stateManager) {
         // Restore snapshot
-        stateManager.setState(snapshot.state);
+        stateManager.setState(typedContext.previousSnapshot.state);
       }
     },
-    
+
     // On success, invalidate cache keys
-    onSuccess: (data: TData, variables: TVariables, context?: { optimisticData: TData; previousSnapshot: StateSnapshot | null }) => {
+    onSuccess: (data: TData, variables: TVariables, context: unknown) => {
       // Call original onSuccess if provided
       if (mutationOptions.onSuccess) {
         mutationOptions.onSuccess(data, variables, context);
       }
-      
+
       if (!optimistic) return;
-      
+
       // Clear snapshot
       snapshot = null;
-      
+
       // Note: Cache invalidation should be handled by React Query
       // through the queryClient.invalidateQueries in the useMutation hook
     },
-    
+
     // Apply retry configuration
     retry: optimistic?.retry ?? mutationOptions.retry,
   };
@@ -158,10 +167,6 @@ export async function optimisticMutate<TData = unknown, TVariables = unknown>(
     const result = await mutationFn(variables);
     return Ok(result);
   } catch (error) {
-    return Err(new DataFetchError(
-      'Mutation failed',
-      'optimisticMutate',
-      error
-    ));
+    return Err(new DataFetchError("Mutation failed", "optimisticMutate", error));
   }
 }

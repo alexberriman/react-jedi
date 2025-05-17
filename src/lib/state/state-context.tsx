@@ -6,7 +6,7 @@ import type { StateSpecification } from "../../types/schema/specification";
 /**
  * State context for providing state management to components
  */
-const StateContext = React.createContext<StateManager | null>(null);
+export const StateContext = React.createContext<StateManager | null>(null);
 
 /**
  * State provider props

@@ -8,7 +8,8 @@
 import * as React from "react";
 import { useQuery, type QueryClient, type UseQueryResult } from "@tanstack/react-query";
 import type { DataSourceSpecification } from "../types/schema/specification";
-import { parseDataSource } from "../lib/parser/data-source-parser";
+import { parseDataSource, type ParsedDataSource } from "../lib/parser/data-source-parser";
+import { Ok, Err } from "../lib/type-safety";
 
 /**
  * Data source state for a single data source
@@ -147,7 +148,7 @@ export interface WebSocketConfig {
  */
 export interface FunctionConfig {
   name: string;
-  args?: unknown[];
+  args?: Record<string, unknown>;
   context?: Record<string, unknown>;
 }
 
@@ -298,120 +299,72 @@ function createFetchFunction(spec: DataSourceQuery, fetcher: DataFetcher) {
 }
 
 /**
+ * Helper function to create query options from a spec
+ */
+function createQueryOptions(
+  spec: DataSourceQuery | undefined,
+  index: number,
+  options: UseDataSourcesOptions
+): Parameters<typeof useQuery>[0] {
+  const { pollingInterval, enablePolling = false, retry = 3, fetcher = defaultFetcher } = options;
+
+  if (!spec) {
+    return {
+      queryKey: ["unused", index],
+      queryFn: async () => null,
+      enabled: false,
+      retry: false,
+    };
+  }
+
+  return {
+    queryKey: ["dataSource", spec.id, spec.config],
+    queryFn: createFetchFunction(spec, fetcher),
+    enabled: true,
+    retry,
+    staleTime: spec.cache?.ttl ? spec.cache.ttl * 1000 : undefined,
+    refetchInterval:
+      spec.polling?.interval && enablePolling ? spec.polling.interval * 1000 : pollingInterval,
+    refetchIntervalInBackground: !spec.polling?.pauseWhenHidden,
+  };
+}
+
+/**
  * Helper hook that creates a stable array of queries
  * This ensures the hooks are called in the same order every render
  */
 function useDataSourceQueries(
   parsedSpecs: DataSourceQuery[],
   options: UseDataSourcesOptions
-): UseQueryResult[] {
-  const { pollingInterval, enablePolling = false, retry = 3, fetcher = defaultFetcher } = options;
-  
-  // Call useQuery for each data source - hooks must be called in same order each render
-  const query0 = useQuery({
-    queryKey: parsedSpecs[0] ? ["dataSource", parsedSpecs[0].id, parsedSpecs[0].config] : ["unused", 0],
-    queryFn: parsedSpecs[0] ? createFetchFunction(parsedSpecs[0], fetcher) : async () => null,
-    enabled: !!parsedSpecs[0],
-    retry: parsedSpecs[0] ? retry : false,
-    staleTime: parsedSpecs[0]?.cache?.ttl ? parsedSpecs[0].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[0]?.polling?.interval && enablePolling ? parsedSpecs[0].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[0] ? !parsedSpecs[0].polling?.pauseWhenHidden : false,
-  });
-  
-  const query1 = useQuery({
-    queryKey: parsedSpecs[1] ? ["dataSource", parsedSpecs[1].id, parsedSpecs[1].config] : ["unused", 1],
-    queryFn: parsedSpecs[1] ? createFetchFunction(parsedSpecs[1], fetcher) : async () => null,
-    enabled: !!parsedSpecs[1],
-    retry: parsedSpecs[1] ? retry : false,
-    staleTime: parsedSpecs[1]?.cache?.ttl ? parsedSpecs[1].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[1]?.polling?.interval && enablePolling ? parsedSpecs[1].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[1] ? !parsedSpecs[1].polling?.pauseWhenHidden : false,
-  });
-  
-  const query2 = useQuery({
-    queryKey: parsedSpecs[2] ? ["dataSource", parsedSpecs[2].id, parsedSpecs[2].config] : ["unused", 2],
-    queryFn: parsedSpecs[2] ? createFetchFunction(parsedSpecs[2], fetcher) : async () => null,
-    enabled: !!parsedSpecs[2],
-    retry: parsedSpecs[2] ? retry : false,
-    staleTime: parsedSpecs[2]?.cache?.ttl ? parsedSpecs[2].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[2]?.polling?.interval && enablePolling ? parsedSpecs[2].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[2] ? !parsedSpecs[2].polling?.pauseWhenHidden : false,
-  });
-  
-  const query3 = useQuery({
-    queryKey: parsedSpecs[3] ? ["dataSource", parsedSpecs[3].id, parsedSpecs[3].config] : ["unused", 3],
-    queryFn: parsedSpecs[3] ? createFetchFunction(parsedSpecs[3], fetcher) : async () => null,
-    enabled: !!parsedSpecs[3],
-    retry: parsedSpecs[3] ? retry : false,
-    staleTime: parsedSpecs[3]?.cache?.ttl ? parsedSpecs[3].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[3]?.polling?.interval && enablePolling ? parsedSpecs[3].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[3] ? !parsedSpecs[3].polling?.pauseWhenHidden : false,
-  });
-  
-  const query4 = useQuery({
-    queryKey: parsedSpecs[4] ? ["dataSource", parsedSpecs[4].id, parsedSpecs[4].config] : ["unused", 4],
-    queryFn: parsedSpecs[4] ? createFetchFunction(parsedSpecs[4], fetcher) : async () => null,
-    enabled: !!parsedSpecs[4],
-    retry: parsedSpecs[4] ? retry : false,
-    staleTime: parsedSpecs[4]?.cache?.ttl ? parsedSpecs[4].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[4]?.polling?.interval && enablePolling ? parsedSpecs[4].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[4] ? !parsedSpecs[4].polling?.pauseWhenHidden : false,
-  });
-  
-  const query5 = useQuery({
-    queryKey: parsedSpecs[5] ? ["dataSource", parsedSpecs[5].id, parsedSpecs[5].config] : ["unused", 5],
-    queryFn: parsedSpecs[5] ? createFetchFunction(parsedSpecs[5], fetcher) : async () => null,
-    enabled: !!parsedSpecs[5],
-    retry: parsedSpecs[5] ? retry : false,
-    staleTime: parsedSpecs[5]?.cache?.ttl ? parsedSpecs[5].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[5]?.polling?.interval && enablePolling ? parsedSpecs[5].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[5] ? !parsedSpecs[5].polling?.pauseWhenHidden : false,
-  });
-  
-  const query6 = useQuery({
-    queryKey: parsedSpecs[6] ? ["dataSource", parsedSpecs[6].id, parsedSpecs[6].config] : ["unused", 6],
-    queryFn: parsedSpecs[6] ? createFetchFunction(parsedSpecs[6], fetcher) : async () => null,
-    enabled: !!parsedSpecs[6],
-    retry: parsedSpecs[6] ? retry : false,
-    staleTime: parsedSpecs[6]?.cache?.ttl ? parsedSpecs[6].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[6]?.polling?.interval && enablePolling ? parsedSpecs[6].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[6] ? !parsedSpecs[6].polling?.pauseWhenHidden : false,
-  });
-  
-  const query7 = useQuery({
-    queryKey: parsedSpecs[7] ? ["dataSource", parsedSpecs[7].id, parsedSpecs[7].config] : ["unused", 7],
-    queryFn: parsedSpecs[7] ? createFetchFunction(parsedSpecs[7], fetcher) : async () => null,
-    enabled: !!parsedSpecs[7],
-    retry: parsedSpecs[7] ? retry : false,
-    staleTime: parsedSpecs[7]?.cache?.ttl ? parsedSpecs[7].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[7]?.polling?.interval && enablePolling ? parsedSpecs[7].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[7] ? !parsedSpecs[7].polling?.pauseWhenHidden : false,
-  });
-  
-  const query8 = useQuery({
-    queryKey: parsedSpecs[8] ? ["dataSource", parsedSpecs[8].id, parsedSpecs[8].config] : ["unused", 8],
-    queryFn: parsedSpecs[8] ? createFetchFunction(parsedSpecs[8], fetcher) : async () => null,
-    enabled: !!parsedSpecs[8],
-    retry: parsedSpecs[8] ? retry : false,
-    staleTime: parsedSpecs[8]?.cache?.ttl ? parsedSpecs[8].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[8]?.polling?.interval && enablePolling ? parsedSpecs[8].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[8] ? !parsedSpecs[8].polling?.pauseWhenHidden : false,
-  });
-  
-  const query9 = useQuery({
-    queryKey: parsedSpecs[9] ? ["dataSource", parsedSpecs[9].id, parsedSpecs[9].config] : ["unused", 9],
-    queryFn: parsedSpecs[9] ? createFetchFunction(parsedSpecs[9], fetcher) : async () => null,
-    enabled: !!parsedSpecs[9],
-    retry: parsedSpecs[9] ? retry : false,
-    staleTime: parsedSpecs[9]?.cache?.ttl ? parsedSpecs[9].cache.ttl * 1000 : undefined,
-    refetchInterval: parsedSpecs[9]?.polling?.interval && enablePolling ? parsedSpecs[9].polling.interval * 1000 : pollingInterval,
-    refetchIntervalInBackground: parsedSpecs[9] ? !parsedSpecs[9].polling?.pauseWhenHidden : false,
-  });
-  
-  const allQueries = [query0, query1, query2, query3, query4, query5, query6, query7, query8, query9];
-  
+): UseQueryResult<unknown, Error>[] {
+  // React hooks must be called in the same order every render
+  // We have a fixed maximum of 10 queries to ensure this
+  const query0 = useQuery(createQueryOptions(parsedSpecs[0], 0, options));
+  const query1 = useQuery(createQueryOptions(parsedSpecs[1], 1, options));
+  const query2 = useQuery(createQueryOptions(parsedSpecs[2], 2, options));
+  const query3 = useQuery(createQueryOptions(parsedSpecs[3], 3, options));
+  const query4 = useQuery(createQueryOptions(parsedSpecs[4], 4, options));
+  const query5 = useQuery(createQueryOptions(parsedSpecs[5], 5, options));
+  const query6 = useQuery(createQueryOptions(parsedSpecs[6], 6, options));
+  const query7 = useQuery(createQueryOptions(parsedSpecs[7], 7, options));
+  const query8 = useQuery(createQueryOptions(parsedSpecs[8], 8, options));
+  const query9 = useQuery(createQueryOptions(parsedSpecs[9], 9, options));
+
+  const allQueries = [
+    query0,
+    query1,
+    query2,
+    query3,
+    query4,
+    query5,
+    query6,
+    query7,
+    query8,
+    query9,
+  ];
+
   // Return only the queries that correspond to actual specs
-  return allQueries.slice(0, parsedSpecs.length);
+  return allQueries.slice(0, parsedSpecs.length) as UseQueryResult<unknown, Error>[];
 }
 
 /**
@@ -426,12 +379,13 @@ export function useDataSources(
     if (!specifications) return [];
 
     const result = parseDataSource(specifications);
-    if (result.err) {
-      console.error("Error parsing data sources:", result.val);
+    if (result.isErr) {
+      console.error("Error parsing data sources:", (result as Err<Error>).error);
       return [];
     }
 
-    return Array.isArray(result.val) ? result.val : [result.val];
+    const successResult = result as Ok<ParsedDataSource | ParsedDataSource[]>;
+    return Array.isArray(successResult.value) ? successResult.value : [successResult.value];
   }, [specifications]);
 
   // Use fixed hook calls
@@ -440,11 +394,10 @@ export function useDataSources(
   // Compute state from queries
   const state = React.useMemo(() => {
     const sources: Record<string, DataSourceState> = {};
-    
-    for (let i = 0; i < parsedSpecs.length; i++) {
-      const spec = parsedSpecs[i];
-      const query = queries[i];
-      
+
+    for (const [index, spec] of parsedSpecs.entries()) {
+      const query = queries[index];
+
       sources[spec.id] = {
         data: query.data,
         loading: query.isLoading,
@@ -453,18 +406,20 @@ export function useDataSources(
         refetch: query.refetch,
       };
     }
-    
-    const isLoading = queries.some(q => q.isLoading);
-    const hasLoaded = queries.every(q => !q.isLoading);
-    const hasError = queries.some(q => q.error !== null);
-    
+
+    const isLoading = queries.some((q) => q.isLoading);
+    const hasLoaded = queries.every((q) => !q.isLoading);
+    const hasError = queries.some((q) => q.error !== null);
+
     return {
       sources,
       isLoading,
       hasLoaded,
       hasError,
       refetchAll: () => {
-        queries.forEach(q => q.refetch());
+        for (const query of queries) {
+          query.refetch();
+        }
       },
     };
   }, [parsedSpecs, queries]);
@@ -485,6 +440,47 @@ export function useDataSource(
 }
 
 /**
+ * Helper to resolve a property path from an object
+ */
+function resolvePropertyPath(data: unknown, propertyPath: string[]): unknown {
+  let resolvedValue = data;
+
+  for (const prop of propertyPath) {
+    if (resolvedValue && typeof resolvedValue === "object" && prop in resolvedValue) {
+      resolvedValue = (resolvedValue as Record<string, unknown>)[prop];
+    } else {
+      return undefined;
+    }
+  }
+
+  return resolvedValue;
+}
+
+/**
+ * Helper to resolve a single data binding
+ */
+function resolveDataBinding(value: unknown, dataSources: DataSourcesState): unknown {
+  if (typeof value !== "string" || !value.startsWith("$data.")) {
+    return value;
+  }
+
+  const path = value.slice(6); // Remove "$data." prefix
+  const [sourceId, ...propertyPath] = path.split(".");
+
+  const source = dataSources.sources[sourceId];
+  if (!source) {
+    return value;
+  }
+
+  const sourceData = source.data;
+  if (!sourceData) {
+    return undefined;
+  }
+
+  return resolvePropertyPath(sourceData, propertyPath);
+}
+
+/**
  * Hook to bind data from data sources to component props
  */
 export function useDataBinding(
@@ -495,34 +491,7 @@ export function useDataBinding(
     const boundProps: Record<string, unknown> = {};
 
     for (const [key, value] of Object.entries(props)) {
-      // Check if the value is a data binding expression
-      if (typeof value === "string" && value.startsWith("$data.")) {
-        const path = value.slice(6); // Remove "$data." prefix
-        const [sourceId, ...propertyPath] = path.split(".");
-
-        if (dataSources.sources[sourceId]) {
-          const sourceData = dataSources.sources[sourceId].data;
-          if (sourceData) {
-            // Navigate through the property path
-            let resolvedValue = sourceData;
-            for (const prop of propertyPath) {
-              if (resolvedValue && typeof resolvedValue === "object" && prop in resolvedValue) {
-                resolvedValue = (resolvedValue as Record<string, unknown>)[prop];
-              } else {
-                resolvedValue = undefined;
-                break;
-              }
-            }
-            boundProps[key] = resolvedValue;
-          } else {
-            boundProps[key] = undefined;
-          }
-        } else {
-          boundProps[key] = value;
-        }
-      } else {
-        boundProps[key] = value;
-      }
+      boundProps[key] = resolveDataBinding(value, dataSources);
     }
 
     return boundProps;

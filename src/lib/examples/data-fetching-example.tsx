@@ -29,9 +29,14 @@ export function BasicDataFetchingExample() {
       <h2>Users</h2>
       <button onClick={refetch}>Refresh</button>
       <ul>
-        {(data as unknown[])?.map((user: unknown & { id: string; name: string }) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
+        {Array.isArray(data) &&
+          data.map((user: unknown) => {
+            if (typeof user === "object" && user !== null && "id" in user && "name" in user) {
+              const typedUser = user as { id: string; name: string };
+              return <li key={typedUser.id}>{typedUser.name}</li>;
+            }
+            return null;
+          })}
       </ul>
     </div>
   );
@@ -103,12 +108,25 @@ export function StateIntegratedDataFetchingExample() {
         </label>
       </div>
       <ul>
-        {(data as unknown[])?.map((post: unknown & { id: string; title: string; body: string }) => (
-          <li key={post.id}>
-            <strong>{post.title}</strong>
-            <p>{post.body}</p>
-          </li>
-        ))}
+        {Array.isArray(data) &&
+          data.map((post: unknown) => {
+            if (
+              typeof post === "object" &&
+              post !== null &&
+              "id" in post &&
+              "title" in post &&
+              "body" in post
+            ) {
+              const typedPost = post as { id: string; title: string; body: string };
+              return (
+                <li key={typedPost.id}>
+                  <strong>{typedPost.title}</strong>
+                  <p>{typedPost.body}</p>
+                </li>
+              );
+            }
+            return null;
+          })}
       </ul>
     </div>
   );
@@ -157,9 +175,7 @@ export function DataTransformationExample() {
     <div>
       <h2>New York Users (Sorted)</h2>
       <ul>
-        {(data as string[])?.map((name: string, index: number) => (
-          <li key={index}>{name}</li>
-        ))}
+        {(data as string[])?.map((name: string, index: number) => <li key={index}>{name}</li>)}
       </ul>
     </div>
   );
@@ -190,13 +206,30 @@ export function PollingDataExample() {
   return (
     <div>
       <h2>Live Comments (Updates every 30s)</h2>
-      {loading && data && <div>Refreshing...</div>}
+      {loading && data !== null && <div>Refreshing...</div>}
       <ul>
-        {(data as unknown[])?.map((comment: unknown & { id: string; email: string; body: string }) => (
-          <li key={comment.id}>
-            <strong>{comment.email}</strong>: {comment.body}
-          </li>
-        ))}
+        {(() => {
+          if (Array.isArray(data)) {
+            return data.map((comment: unknown) => {
+              if (
+                typeof comment === "object" &&
+                comment !== null &&
+                "id" in comment &&
+                "email" in comment &&
+                "body" in comment
+              ) {
+                const typedComment = comment as { id: string; email: string; body: string };
+                return (
+                  <li key={typedComment.id}>
+                    <strong>{typedComment.email}</strong>: {typedComment.body}
+                  </li>
+                );
+              }
+              return null;
+            });
+          }
+          return null;
+        })()}
       </ul>
     </div>
   );

@@ -45,7 +45,47 @@ export {
   type StylePropertyValue,
   type StyleProps,
 } from "./styles";
-export * from "./type-safety";
+// Export type-safety with explicit imports to avoid conflicts with utils
+export {
+  // Export Result and related constructors
+  Result,
+  Ok,
+  Err,
+  // Export type guards and utilities
+  ok,
+  err,
+  isNotNullOrUndefined,
+  isOfType,
+  hasProperty,
+  hasPropertyOfType,
+  isString,
+  isNumber,
+  isBoolean,
+  isFunction,
+  isObject,
+  isArray,
+  isArrayOf,
+  prop,
+  tryExec,
+  tryExecAsync,
+  assert,
+  assertNotNull,
+  ensureArray,
+  mapArray,
+  getPath,
+  typedKeys,
+  typedEntries,
+  safeJsonParse,
+  safeJsonStringify,
+  // Export types
+  type TypedRecord,
+  type DeepReadonly,
+  type DeepPartial,
+  type Discriminated,
+  type Awaited,
+  type ElementOf,
+  type ComponentPropsWithBase,
+} from "./type-safety";
 
 // Schemas and validation
 export * from "./schemas";
@@ -80,3 +120,6 @@ export * from "./animation";
 
 // Data fetching system
 export * from "./data";
+
+// Developer tools
+export * from "./dev-tools";

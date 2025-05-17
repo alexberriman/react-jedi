@@ -14,7 +14,19 @@ import {
   OverlayInteractivePage,
 } from "../pages/showcase";
 import { HeroPreview } from "../pages/showcase/hero";
-import { DocumentationPage } from "../pages/documentation";
+import { DocumentationLayout, DocumentationOverview } from "../pages/documentation";
+import {
+  GettingStartedPage,
+  ComponentSystemPage,
+  LayoutComponentsPage,
+  TypographyPage,
+  UIComponentsPage,
+  FormComponentsPage,
+  ThemingPage as DocThemingPage,
+  StateManagementPage,
+  ComplexExamplesPage,
+  PerformancePage as DocPerformancePage,
+} from "../pages/documentation/sections";
 import { ExamplesPage } from "../pages/examples";
 import { LandingExamplePage } from "../pages/examples/landing";
 import { ConditionalPage, AdvancedConditionalPage } from "../pages/examples/conditional";
@@ -95,7 +107,53 @@ export const router = createBrowserRouter([
       },
       {
         path: "documentation",
-        element: <DocumentationPage />,
+        element: <DocumentationLayout />,
+        children: [
+          {
+            index: true,
+            element: <DocumentationOverview />,
+          },
+          {
+            path: "getting-started",
+            element: <GettingStartedPage />,
+          },
+          {
+            path: "component-system",
+            element: <ComponentSystemPage />,
+          },
+          {
+            path: "layout-components",
+            element: <LayoutComponentsPage />,
+          },
+          {
+            path: "typography",
+            element: <TypographyPage />,
+          },
+          {
+            path: "ui-components",
+            element: <UIComponentsPage />,
+          },
+          {
+            path: "form-components",
+            element: <FormComponentsPage />,
+          },
+          {
+            path: "theming",
+            element: <DocThemingPage />,
+          },
+          {
+            path: "state-management",
+            element: <StateManagementPage />,
+          },
+          {
+            path: "complex-examples",
+            element: <ComplexExamplesPage />,
+          },
+          {
+            path: "performance",
+            element: <DocPerformancePage />,
+          },
+        ],
       },
       {
         path: "examples",

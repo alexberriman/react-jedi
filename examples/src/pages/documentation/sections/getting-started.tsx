@@ -1,0 +1,121 @@
+export function GettingStartedPage() {
+  return (
+    <section className="mb-20">
+      <div className="relative">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+          Getting Started
+          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50" />
+        </h2>
+      </div>
+      <div className="prose prose-invert prose-emerald max-w-none">
+        <h3 className="text-xl font-semibold mb-3 text-emerald-400">Installation</h3>
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono mb-6 overflow-x-auto">
+            <code className="text-sm">npm install @banja/react-jedi</code>
+          </div>
+        </div>
+
+        <h3 className="text-xl font-semibold mb-3 text-emerald-400">Basic Usage</h3>
+        <p className="text-zinc-300 leading-relaxed mb-4">
+          React Jedi uses JSON specifications to define UI components and their properties. The
+          library&apos;s core function is{" "}
+          <code className="bg-zinc-800/70 px-1.5 py-0.5 rounded text-sm">render()</code>, which
+          takes a specification object and renders it to React components.
+        </p>
+
+        <div className="relative group mb-8">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+              {`import { render } from "@banja/react-jedi";
+
+// JSON specification for a simple UI
+const spec = {
+  type: "container",
+  children: [
+    {
+      type: "heading",
+      level: "h1",
+      content: "Hello, React Jedi!"
+    },
+    {
+      type: "text",
+      text: "Building UIs with JSON specifications."
+    }
+  ]
+};
+
+// Render the UI
+function MyComponent() {
+  return render(spec);
+}`}
+            </pre>
+          </div>
+        </div>
+
+        <h3 className="text-xl font-semibold mb-3 text-emerald-400">TypeScript Support</h3>
+        <p className="text-zinc-300 leading-relaxed mb-4">
+          React Jedi includes comprehensive TypeScript definitions for all component specifications,
+          ensuring type safety when building your UIs.
+        </p>
+
+        <div className="relative group mb-8">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+              {`import { render, ComponentSpec } from "@banja/react-jedi";
+
+// Type-safe component specification
+const spec: ComponentSpec = {
+  type: "container",
+  maxWidth: "xl",
+  padding: "md",
+  children: [
+    {
+      type: "heading",
+      level: "h1",
+      content: "Type-Safe UI",
+      gradient: "rainbow"
+    }
+  ]
+};
+
+function MyApp() {
+  return (
+    <div className="app">
+      {render(spec)}
+    </div>
+  );
+}`}
+            </pre>
+          </div>
+        </div>
+
+        <h3 className="text-xl font-semibold mb-3 text-emerald-400">Project Structure</h3>
+        <p className="text-zinc-300 leading-relaxed mb-4">
+          React Jedi is designed to be integrated with any React project. Here&apos;s a recommended
+          project structure for using React Jedi:
+        </p>
+
+        <div className="relative group mb-8">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+              {`src/
+  components/         # Your custom React components
+  schemas/            # JSON UI specifications
+    pages/            # Page-level schemas
+    sections/         # Reusable section schemas
+    elements/         # Small element schemas
+  theme/              # Theme configuration files
+  utils/              # Utility functions
+  App.tsx             # Main application file
+  main.tsx            # Entry point`}
+            </pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

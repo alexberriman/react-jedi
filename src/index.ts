@@ -337,5 +337,3 @@ export {
   type UseMutationConfig,
 } from "./hooks";
 
-// Import safelist to ensure classes are included in build
-export { TailwindSafelist } from "./lib/tailwind-safelist";

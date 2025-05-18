@@ -266,7 +266,7 @@ export const ClickAnimationsPage: React.FC = () => {
       <DocumentationPageTemplate
         title="Click Animations"
         description="Add interactive click animations to your components with React Jedi's click animation system."
-        examples={[
+        sections={[
           {
             title: "Click Animation Presets",
             description: "Pre-built click animation presets for common interaction patterns.",

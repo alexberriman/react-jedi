@@ -86,58 +86,58 @@ const ExamplesPage = lazy(() =>
   import("../pages/examples").then((module) => ({ default: module.ExamplesPage }))
 );
 const LandingExamplePage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.LandingExamplePage }))
+  import("../pages/examples/landing").then((module) => ({ default: module.LandingExamplePage }))
 );
 const ConditionalPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.ConditionalPage }))
+  import("../pages/examples/conditional").then((module) => ({ default: module.ConditionalPage }))
 );
 const AdvancedConditionalPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.AdvancedConditionalPage }))
+  import("../pages/examples/conditional").then((module) => ({ default: module.AdvancedConditionalPage }))
 );
 const FormValidationPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.FormValidationPage }))
+  import("../pages/examples/form-validation").then((module) => ({ default: module.FormValidationPage }))
 );
 const NavigationPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.NavigationPage }))
+  import("../pages/examples/navigation").then((module) => ({ default: module.NavigationPage }))
 );
 const DataDisplayPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.DataDisplayPage }))
+  import("../pages/examples/data").then((module) => ({ default: module.DataDisplayPage }))
 );
 const TransitionsPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.TransitionsPage }))
+  import("../pages/examples/transitions").then((module) => ({ default: module.TransitionsPage }))
 );
 const ClickAnimationsPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.ClickAnimationsPage }))
+  import("../pages/examples/click-animations").then((module) => ({ default: module.ClickAnimationsPage }))
 );
 const DragAnimationsPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.DragAnimationsPage }))
+  import("../pages/examples/drag-animations").then((module) => ({ default: module.DragAnimationsPage }))
 );
 const ScrollAnimationsPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.ScrollAnimationsPage }))
+  import("../pages/examples/scroll-animations").then((module) => ({ default: module.ScrollAnimationsPage }))
 );
 const StaggerAnimationsPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.StaggerAnimationsPage }))
+  import("../pages/examples/stagger-animations").then((module) => ({ default: module.StaggerAnimationsPage }))
 );
 const AnimationSequencePage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.AnimationSequencePage }))
+  import("../pages/examples/animation-sequence").then((module) => ({ default: module.AnimationSequencePage }))
 );
 const DataFetchingPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.DataFetchingPage }))
+  import("../pages/examples/data-fetching").then((module) => ({ default: module.DataFetchingPage }))
 );
 const OptimisticUpdatesPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.OptimisticUpdatesPage }))
+  import("../pages/examples/optimistic-updates").then((module) => ({ default: module.OptimisticUpdatesPage }))
 );
 const SEOMetadataPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.SEOMetadataPage }))
+  import("../pages/examples/seo-metadata").then((module) => ({ default: module.SEOMetadataPage }))
 );
 const StructuredDataDemo = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.StructuredDataDemo }))
+  import("../components/seo/structured-data-demo").then((module) => ({ default: module.StructuredDataDemo }))
 );
 const RichSnippetsPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.RichSnippetsPage }))
+  import("../pages/examples/rich-snippets").then((module) => ({ default: module.RichSnippetsPage }))
 );
 const FocusManagementPage = lazy(() =>
-  import("../pages/examples").then((module) => ({ default: module.FocusManagementPage }))
+  import("../pages/accessibility/focus-management-page").then((module) => ({ default: module.FocusManagementPage }))
 );
 
 // Feature pages

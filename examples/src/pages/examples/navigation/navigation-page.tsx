@@ -455,17 +455,17 @@ const navigationSpec: UISpecification = {
                   {
                     heading: "Suggestions",
                     items: [
-                      { value: "calendar", label: "📅 Calendar" },
-                      { value: "search-emoji", label: "😀 Search Emoji" },
-                      { value: "calculator", label: "🧮 Calculator" },
+                      { id: "calendar", value: "calendar", label: "📅 Calendar" },
+                      { id: "search-emoji", value: "search-emoji", label: "😀 Search Emoji" },
+                      { id: "calculator", value: "calculator", label: "🧮 Calculator" },
                     ],
                   },
                   {
                     heading: "Settings",
                     items: [
-                      { value: "profile", label: "👤 Profile" },
-                      { value: "billing", label: "💳 Billing" },
-                      { value: "settings", label: "⚙️ Settings" },
+                      { id: "profile", value: "profile", label: "👤 Profile" },
+                      { id: "billing", value: "billing", label: "💳 Billing" },
+                      { id: "settings", value: "settings", label: "⚙️ Settings" },
                     ],
                   },
                 ],

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Sidebar,
+  SidebarProvider,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
@@ -57,7 +58,7 @@ export function SidebarComponent({
     ) : null;
   };
 
-  const renderMenuItem = (item: SidebarMenuItemType, index: number) => {
+  const renderMenuItem = (item: SidebarMenuItemType, index: number, groupIndex?: number) => {
     const MenuButton = item.href ? (
       <SidebarMenuButton asChild tooltip={item.tooltip} isActive={item.isActive}>
         <a href={item.href}>
@@ -77,8 +78,11 @@ export function SidebarComponent({
       </SidebarMenuButton>
     );
 
+    // Generate a unique key using label, href, or fallback to indices
+    const itemKey = item.href ? `${item.label}-${item.href}` : `${groupIndex ?? 'ungrouped'}-${index}-${item.label}`;
+    
     return (
-      <SidebarMenuItem key={index}>
+      <SidebarMenuItem key={itemKey}>
         {MenuButton}
         {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
         {item.action && (
@@ -120,7 +124,7 @@ export function SidebarComponent({
         return (
           <SidebarMenu key={index}>
             {menu.items.map((item: SidebarMenuItemType, itemIndex: number) =>
-              renderMenuItem(item, itemIndex)
+              renderMenuItem(item, itemIndex, index)
             )}
           </SidebarMenu>
         );
@@ -164,7 +168,7 @@ export function SidebarComponent({
           )}
           <SidebarGroupContent>
             <SidebarMenu>
-              {group.items.map((item, index) => renderMenuItem(item, index))}
+              {group.items.map((item, index) => renderMenuItem(item, index, groupIndex))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -176,17 +180,19 @@ export function SidebarComponent({
   const cleanProps = cleanDOMProps(sidebarProps);
 
   return (
-    <Sidebar
-      side={side}
-      variant={variant}
-      collapsible={collapsible}
-      style={style}
-      className={className}
-      {...cleanProps}
-    >
-      {header && <SidebarHeader>{renderSection(header)}</SidebarHeader>}
-      {content && <SidebarContent>{renderContent()}</SidebarContent>}
-      {footer && <SidebarFooter>{renderSection(footer)}</SidebarFooter>}
-    </Sidebar>
+    <SidebarProvider defaultOpen={defaultOpen} open={open} onOpenChange={onOpenChange}>
+      <Sidebar
+        side={side}
+        variant={variant}
+        collapsible={collapsible}
+        style={style}
+        className={className}
+        {...cleanProps}
+      >
+        {header && <SidebarHeader>{renderSection(header)}</SidebarHeader>}
+        {content && <SidebarContent>{renderContent()}</SidebarContent>}
+        {footer && <SidebarFooter>{renderSection(footer)}</SidebarFooter>}
+      </Sidebar>
+    </SidebarProvider>
   );
 }

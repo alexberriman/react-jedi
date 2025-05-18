@@ -12,6 +12,7 @@ import {
 import type { TableSpec, TableCellAlign } from "../../../types/components/table";
 import type { ComponentProps } from "../../../types/schema/components";
 import { cn } from "../../../lib/utils";
+import { render } from "../../../lib/render";
 
 function getAlignmentClass(align?: TableCellAlign): string {
   if (!align || align === "left") return "";
@@ -20,10 +21,21 @@ function getAlignmentClass(align?: TableCellAlign): string {
   return "";
 }
 
-export function TableComponent(props: Readonly<ComponentProps>) {
-  // Extract the table spec from ComponentProps
-  const tableSpec = props.spec as TableSpec;
-  const { caption, head, body, footer, className } = tableSpec;
+function renderCellContent(content: any): React.ReactNode {
+  if (typeof content === "string") {
+    return content;
+  }
+  // If it's an object with a type property, it's a component spec
+  if (content && typeof content === "object" && content.type) {
+    return render(content);
+  }
+  return content;
+}
+
+export function TableComponent(props: Readonly<Record<string, unknown>>) {
+  // Extract table props directly
+  const tableProps = props as TableSpec;
+  const { caption, head, body, footer, className } = tableProps;
 
   return (
     <Table className={className}>
@@ -39,7 +51,7 @@ export function TableComponent(props: Readonly<ComponentProps>) {
                   className={cn(getAlignmentClass(cell.align), cell.className)}
                   colSpan={cell.colSpan}
                 >
-                  {cell.content}
+                  {renderCellContent(cell.content)}
                 </TableHead>
               ))}
             </TableRow>
@@ -60,7 +72,7 @@ export function TableComponent(props: Readonly<ComponentProps>) {
                 className={cn(getAlignmentClass(cell.align), cell.className)}
                 colSpan={cell.colSpan}
               >
-                {cell.content}
+                {renderCellContent(cell.content)}
               </TableCell>
             ))}
           </TableRow>
@@ -77,7 +89,7 @@ export function TableComponent(props: Readonly<ComponentProps>) {
                   className={cn(getAlignmentClass(cell.align), cell.className)}
                   colSpan={cell.colSpan}
                 >
-                  {cell.content}
+                  {renderCellContent(cell.content)}
                 </TableCell>
               ))}
             </TableRow>

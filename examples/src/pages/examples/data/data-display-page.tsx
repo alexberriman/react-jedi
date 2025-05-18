@@ -390,33 +390,54 @@ const dataDisplaySpec: UISpecification = {
                           },
                           {
                             type: "Table",
-                            headers: ["Name", "Email", "Role", "Status"],
-                            rows: [
-                              [
-                                "John Doe",
-                                "john@example.com",
-                                "Admin",
-                                { type: "Badge", children: ["Active"], variant: "default" },
+                            head: {
+                              rows: [
+                                {
+                                  cells: [
+                                    { content: "Name" },
+                                    { content: "Email" },
+                                    { content: "Role" },
+                                    { content: "Status" },
+                                  ],
+                                },
                               ],
-                              [
-                                "Jane Smith",
-                                "jane@example.com",
-                                "User",
-                                { type: "Badge", children: ["Active"], variant: "default" },
+                            },
+                            body: {
+                              rows: [
+                                {
+                                  cells: [
+                                    { content: "John Doe" },
+                                    { content: "john@example.com" },
+                                    { content: "Admin" },
+                                    { content: { type: "Badge", children: ["Active"], variant: "default" } },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "Jane Smith" },
+                                    { content: "jane@example.com" },
+                                    { content: "User" },
+                                    { content: { type: "Badge", children: ["Active"], variant: "default" } },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "Bob Johnson" },
+                                    { content: "bob@example.com" },
+                                    { content: "Editor" },
+                                    { content: { type: "Badge", children: ["Inactive"], variant: "secondary" } },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "Alice Brown" },
+                                    { content: "alice@example.com" },
+                                    { content: "User" },
+                                    { content: { type: "Badge", children: ["Active"], variant: "default" } },
+                                  ],
+                                },
                               ],
-                              [
-                                "Bob Johnson",
-                                "bob@example.com",
-                                "Editor",
-                                { type: "Badge", children: ["Inactive"], variant: "secondary" },
-                              ],
-                              [
-                                "Alice Brown",
-                                "alice@example.com",
-                                "User",
-                                { type: "Badge", children: ["Active"], variant: "default" },
-                              ],
-                            ],
+                            },
                           },
                         ],
                       },
@@ -454,44 +475,68 @@ const dataDisplaySpec: UISpecification = {
                             type: "Table",
                             className:
                               "[&>tbody>tr:nth-child(odd)]:bg-gray-50 dark:[&>tbody>tr:nth-child(odd)]:bg-gray-800/50",
-                            headers: ["Invoice", "Client", "Amount", "Due Date", "Status"],
-                            rows: [
-                              [
-                                "INV-001",
-                                "Acme Corp",
-                                "$5,000",
-                                "2024-03-15",
-                                { type: "Badge", children: ["Paid"], variant: "success" },
+                            head: {
+                              rows: [
+                                {
+                                  cells: [
+                                    { content: "Invoice" },
+                                    { content: "Client" },
+                                    { content: "Amount" },
+                                    { content: "Due Date" },
+                                    { content: "Status" },
+                                  ],
+                                },
                               ],
-                              [
-                                "INV-002",
-                                "Globex Ltd",
-                                "$3,500",
-                                "2024-03-20",
-                                { type: "Badge", children: ["Pending"], variant: "warning" },
+                            },
+                            body: {
+                              rows: [
+                                {
+                                  cells: [
+                                    { content: "INV-001" },
+                                    { content: "Acme Corp" },
+                                    { content: "$5,000" },
+                                    { content: "2024-03-15" },
+                                    { content: { type: "Badge", children: ["Paid"], variant: "success" } },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "INV-002" },
+                                    { content: "Globex Ltd" },
+                                    { content: "$3,500" },
+                                    { content: "2024-03-20" },
+                                    { content: { type: "Badge", children: ["Pending"], variant: "warning" } },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "INV-003" },
+                                    { content: "Wayne Ent" },
+                                    { content: "$12,000" },
+                                    { content: "2024-03-10" },
+                                    { content: { type: "Badge", children: ["Overdue"], variant: "destructive" } },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "INV-004" },
+                                    { content: "Stark Ind" },
+                                    { content: "$8,750" },
+                                    { content: "2024-03-25" },
+                                    { content: { type: "Badge", children: ["Draft"], variant: "secondary" } },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "INV-005" },
+                                    { content: "Daily Planet" },
+                                    { content: "$2,250" },
+                                    { content: "2024-03-18" },
+                                    { content: { type: "Badge", children: ["Paid"], variant: "success" } },
+                                  ],
+                                },
                               ],
-                              [
-                                "INV-003",
-                                "Wayne Ent",
-                                "$12,000",
-                                "2024-03-10",
-                                { type: "Badge", children: ["Overdue"], variant: "destructive" },
-                              ],
-                              [
-                                "INV-004",
-                                "Stark Ind",
-                                "$8,750",
-                                "2024-03-25",
-                                { type: "Badge", children: ["Draft"], variant: "secondary" },
-                              ],
-                              [
-                                "INV-005",
-                                "Daily Planet",
-                                "$2,250",
-                                "2024-03-18",
-                                { type: "Badge", children: ["Paid"], variant: "success" },
-                              ],
-                            ],
+                            },
                           },
                         ],
                       },
@@ -527,81 +572,107 @@ const dataDisplaySpec: UISpecification = {
                           },
                           {
                             type: "Table",
-                            headers: ["Product", "Category", "Price", "Stock", "Actions"],
-                            rows: [
-                              [
-                                "MacBook Pro",
-                                "Electronics",
-                                "$2,499",
-                                "15",
+                            head: {
+                              rows: [
                                 {
-                                  type: "Flex",
-                                  gap: 2,
-                                  children: [
+                                  cells: [
+                                    { content: "Product" },
+                                    { content: "Category" },
+                                    { content: "Price" },
+                                    { content: "Stock" },
+                                    { content: "Actions" },
+                                  ],
+                                },
+                              ],
+                            },
+                            body: {
+                              rows: [
+                                {
+                                  cells: [
+                                    { content: "MacBook Pro" },
+                                    { content: "Electronics" },
+                                    { content: "$2,499" },
+                                    { content: "15" },
                                     {
-                                      type: "Button",
-                                      size: "sm",
-                                      variant: "outline",
-                                      children: ["Edit"],
+                                      content: {
+                                        type: "Flex",
+                                        gap: 2,
+                                        children: [
+                                          {
+                                            type: "Button",
+                                            size: "sm",
+                                            variant: "outline",
+                                            children: ["Edit"],
+                                          },
+                                          {
+                                            type: "Button",
+                                            size: "sm",
+                                            variant: "destructive",
+                                            children: ["Delete"],
+                                          },
+                                        ],
+                                      },
                                     },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "iPhone 15" },
+                                    { content: "Electronics" },
+                                    { content: "$999" },
+                                    { content: "45" },
                                     {
-                                      type: "Button",
-                                      size: "sm",
-                                      variant: "destructive",
-                                      children: ["Delete"],
+                                      content: {
+                                        type: "Flex",
+                                        gap: 2,
+                                        children: [
+                                          {
+                                            type: "Button",
+                                            size: "sm",
+                                            variant: "outline",
+                                            children: ["Edit"],
+                                          },
+                                          {
+                                            type: "Button",
+                                            size: "sm",
+                                            variant: "destructive",
+                                            children: ["Delete"],
+                                          },
+                                        ],
+                                      },
+                                    },
+                                  ],
+                                },
+                                {
+                                  cells: [
+                                    { content: "AirPods Pro" },
+                                    { content: "Accessories" },
+                                    { content: "$249" },
+                                    { content: "120" },
+                                    {
+                                      content: {
+                                        type: "Flex",
+                                        gap: 2,
+                                        children: [
+                                          {
+                                            type: "Button",
+                                            size: "sm",
+                                            variant: "outline",
+                                            children: ["Edit"],
+                                          },
+                                          {
+                                            type: "Button",
+                                            size: "sm",
+                                            variant: "destructive",
+                                            children: ["Delete"],
+                                          },
+                                        ],
+                                      },
                                     },
                                   ],
                                 },
                               ],
-                              [
-                                "iPhone 15",
-                                "Electronics",
-                                "$999",
-                                "45",
-                                {
-                                  type: "Flex",
-                                  gap: 2,
-                                  children: [
-                                    {
-                                      type: "Button",
-                                      size: "sm",
-                                      variant: "outline",
-                                      children: ["Edit"],
-                                    },
-                                    {
-                                      type: "Button",
-                                      size: "sm",
-                                      variant: "destructive",
-                                      children: ["Delete"],
-                                    },
-                                  ],
-                                },
-                              ],
-                              [
-                                "AirPods Pro",
-                                "Accessories",
-                                "$249",
-                                "120",
-                                {
-                                  type: "Flex",
-                                  gap: 2,
-                                  children: [
-                                    {
-                                      type: "Button",
-                                      size: "sm",
-                                      variant: "outline",
-                                      children: ["Edit"],
-                                    },
-                                    {
-                                      type: "Button",
-                                      size: "sm",
-                                      variant: "destructive",
-                                      children: ["Delete"],
-                                    },
-                                  ],
-                                },
-                              ],
-                            ],
+                            },
                           },
                         ],
                       },

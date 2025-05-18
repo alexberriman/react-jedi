@@ -47,8 +47,7 @@ export {
 } from "./styles";
 // Export type-safety with explicit imports to avoid conflicts with utils
 export {
-  // Export Result and related constructors
-  Result,
+  // Export constructors
   Ok,
   Err,
   // Export type guards and utilities
@@ -78,6 +77,7 @@ export {
   safeJsonParse,
   safeJsonStringify,
   // Export types
+  type Result,
   type TypedRecord,
   type DeepReadonly,
   type DeepPartial,

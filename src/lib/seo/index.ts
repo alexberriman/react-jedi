@@ -9,3 +9,6 @@ export * from "./use-microdata";
 
 // Head management
 export * from "./head-manager-extended";
+
+// Rich snippets generation and components
+export * from "./rich-snippets";

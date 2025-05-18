@@ -1,4 +1,4 @@
-import { render } from "@react-jedi/core";
+import { render } from "@banja/react-jedi";
 import { Card } from "@/components/ui/card";
 import dataFetchingSpecification from "@/schemas/data-fetching-example.json";
 
@@ -8,17 +8,15 @@ export function DataFetchingPage() {
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-4">Data Fetching Example</h1>
         <p className="text-muted-foreground">
-          This example demonstrates how to fetch and bind data using React Jedi&apos;s
-          data source integration. Data is fetched from JSONPlaceholder API and bound
-          to components using the $data syntax.
+          This example demonstrates how to fetch and bind data using React Jedi&apos;s data source
+          integration. Data is fetched from JSONPlaceholder API and bound to components using the
+          $data syntax.
         </p>
       </div>
 
       <Card className="p-6">
         <h2 className="text-2xl font-semibold mb-4">Live Example</h2>
-        <div className="border rounded-lg p-4">
-          {render(dataFetchingSpecification)}
-        </div>
+        <div className="border rounded-lg p-4">{render(dataFetchingSpecification)}</div>
       </Card>
 
       <Card className="mt-8 p-6">

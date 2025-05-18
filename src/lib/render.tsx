@@ -32,7 +32,7 @@ import {
   createOptimizedStateManager,
   OptimizedStateProvider,
 } from "./performance";
-import { useDataSources } from "@/hooks/use-data-sources";
+import { useDataSources } from "../hooks/use-data-sources";
 
 /**
  * ErrorBoundary component to catch rendering errors

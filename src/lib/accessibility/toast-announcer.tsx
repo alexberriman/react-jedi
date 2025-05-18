@@ -3,6 +3,8 @@ import { toast as sonnerToast, type ExternalToast } from "sonner";
 import { useScreenReaderAnnouncement } from "./screen-reader-announcements";
 
 type ToastId = string | number;
+type ToastFunction = (message: string | React.ReactNode, options?: ExternalToast) => ToastId;
+type PromiseResult = ReturnType<typeof sonnerToast.promise>;
 
 interface ToastOptions {
   loading: React.ReactNode;
@@ -10,7 +12,18 @@ interface ToastOptions {
   error: React.ReactNode | ((error: unknown) => React.ReactNode);
 }
 
-type ToastFunction = (message: string | React.ReactNode, options?: ExternalToast) => ToastId;
+/**
+ * @returns {React.ReactNode}
+ */
+function getNodeFromOption(
+  option: React.ReactNode | ((data: unknown) => React.ReactNode),
+  data: unknown
+): React.ReactNode {
+  if (typeof option === "function") {
+    return option(data);
+  }
+  return option;
+}
 
 export const useToastWithAnnouncements = () => {
   const { announcePolite, announceAssertive } = useScreenReaderAnnouncement();
@@ -30,51 +43,51 @@ export const useToastWithAnnouncements = () => {
   );
 
   const createToast = React.useCallback(
-    (
-      toastFn: ToastFunction,
-      prefix: string,
-      assertive: boolean
-    ): ToastFunction => {
-      // eslint-disable-next-line sonarjs/function-return-type
-      const wrappedToast: ToastFunction = (message, options) => {
+    (toastFn: ToastFunction, prefix: string, assertive: boolean): ToastFunction => {
+      /**
+       * @returns {ToastId}
+       */
+      function wrappedToast(message: string | React.ReactNode, options?: ExternalToast): ToastId {
         announceIfString(message, prefix, assertive);
         return toastFn(message, options);
-      };
+      }
       return wrappedToast;
     },
     [announceIfString]
   );
 
   const promiseHandler = React.useCallback(
-    <T = unknown>(
+    /**
+     * @returns {PromiseResult}
+     */
+    function handlePromise<T = unknown>(
       promise: Promise<T>,
       options: ToastOptions & ExternalToast
-    // eslint-disable-next-line sonarjs/function-return-type
-    ): ToastId => {
+    ): PromiseResult {
       announceIfString(options.loading, "Loading", false);
 
-      // eslint-disable-next-line sonarjs/function-return-type
-      const successHandler = (data: T): React.ReactNode => {
-        const result = typeof options.success === "function"
-          ? options.success(data)
-          : options.success;
+      /**
+       * @returns {React.ReactNode}
+       */
+      function successHandler(data: T): React.ReactNode {
+        const result = getNodeFromOption(options.success, data);
         announceIfString(result, "Success", false);
         return result;
-      };
+      }
 
-      // eslint-disable-next-line sonarjs/function-return-type
-      const errorHandler = (error: unknown): React.ReactNode => {
-        const result = typeof options.error === "function"
-          ? options.error(error)
-          : options.error;
+      /**
+       * @returns {React.ReactNode}
+       */
+      function errorHandler(error: unknown): React.ReactNode {
+        const result = getNodeFromOption(options.error, error);
         announceIfString(result, "Error", true);
         return result;
-      };
+      }
 
       const wrappedOptions = {
         ...options,
         success: successHandler,
-        error: errorHandler
+        error: errorHandler,
       };
 
       return sonnerToast.promise(promise, wrappedOptions);
@@ -83,17 +96,17 @@ export const useToastWithAnnouncements = () => {
   );
 
   const toast = React.useMemo(() => {
-    const base = createToast(sonnerToast, "", false);
-    
+    const base = createToast(sonnerToast as ToastFunction, "", false);
+
     return Object.assign(base, {
-      success: createToast(sonnerToast.success, "Success", false),
-      error: createToast(sonnerToast.error, "Error", true),
-      warning: createToast(sonnerToast.warning, "Warning", true),
-      info: createToast(sonnerToast.info, "Info", false),
-      loading: createToast(sonnerToast.loading, "Loading", false),
+      success: createToast(sonnerToast.success as ToastFunction, "Success", false),
+      error: createToast(sonnerToast.error as ToastFunction, "Error", true),
+      warning: createToast(sonnerToast.warning as ToastFunction, "Warning", true),
+      info: createToast(sonnerToast.info as ToastFunction, "Info", false),
+      loading: createToast(sonnerToast.loading as ToastFunction, "Loading", false),
       promise: promiseHandler,
       dismiss: sonnerToast.dismiss,
-      custom: sonnerToast.custom
+      custom: sonnerToast.custom,
     });
   }, [createToast, promiseHandler]);
 

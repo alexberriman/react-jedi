@@ -152,6 +152,7 @@ commands:
   lint: npm run lint
   typecheck: npm run typecheck
   test: npm run test
+  build-example: npm run example-app:build
 
 # Command execution sequence
 command_sequence: ["lint", "typecheck", "test"]
@@ -251,7 +252,3 @@ prompts:
 
     Focus on building a robust, type-safe SDUI system with schema validation, beautiful rendering, and excellent developer experience.
     Make custom components 🔥 and sexy as fuck
-
-    IMPORTANT: ONLY when ALL TASKS in TODO.md are COMPLETED, take the phrase
-    'MISSION COMPLETE' and replace the letter I with 1, letter O with 0,
-    letter S with 5, and output the transformed text on a line by itself.

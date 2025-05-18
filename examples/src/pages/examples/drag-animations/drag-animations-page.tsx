@@ -1,12 +1,15 @@
 import React from "react";
-import {
-  AnimationProvider,
-  Drag,
-  DragCard,
-  DragListItem,
-  dragPresets,
-} from "../../../../lib/animation";
-// import { Page } from "../../../components/layout/page";
+import { AnimationProvider, Drag, DragCard, DragListItem, dragPresets } from "@banja/react-jedi";
+
+const getPriorityClassName = (priority: string) => {
+  if (priority === "high") {
+    return "bg-red-100 text-red-800";
+  }
+  if (priority === "medium") {
+    return "bg-yellow-100 text-yellow-800";
+  }
+  return "bg-green-100 text-green-800";
+};
 
 export const DragAnimationsPage: React.FC = () => {
   const [draggingState, setDraggingState] = React.useState<{
@@ -154,36 +157,28 @@ export const DragAnimationsPage: React.FC = () => {
               <DragCard variant="elevated" preset="smooth">
                 <div className="p-2">
                   <h4 className="font-semibold text-gray-900">Elevated Card</h4>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Smooth drag with shadow effects
-                  </p>
+                  <p className="text-sm text-gray-600 mt-1">Smooth drag with shadow effects</p>
                 </div>
               </DragCard>
 
               <DragCard variant="outlined" preset="elastic">
                 <div className="p-2">
                   <h4 className="font-semibold text-gray-900">Outlined Card</h4>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Elastic spring animation
-                  </p>
+                  <p className="text-sm text-gray-600 mt-1">Elastic spring animation</p>
                 </div>
               </DragCard>
 
               <DragCard variant="flat" preset="ghost">
                 <div className="p-2">
                   <h4 className="font-semibold text-gray-900">Flat Card</h4>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Ghost effect on drag
-                  </p>
+                  <p className="text-sm text-gray-600 mt-1">Ghost effect on drag</p>
                 </div>
               </DragCard>
 
               <DragCard variant="interactive" preset="magnetic">
                 <div className="p-2">
                   <h4 className="font-semibold text-gray-900">Interactive</h4>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Magnetic snap animation
-                  </p>
+                  <p className="text-sm text-gray-600 mt-1">Magnetic snap animation</p>
                 </div>
               </DragCard>
             </div>
@@ -216,13 +211,7 @@ export const DragAnimationsPage: React.FC = () => {
                         <span
                           className={`
                             px-2 py-1 text-xs font-medium rounded-full
-                            ${
-                              item.priority === "high"
-                                ? "bg-red-100 text-red-800"
-                                : item.priority === "medium"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-green-100 text-green-800"
-                            }
+                            ${getPriorityClassName(item.priority)}
                           `}
                         >
                           {item.priority}

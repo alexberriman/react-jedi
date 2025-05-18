@@ -13,91 +13,131 @@ import {
 } from "../../../components/ui/card";
 import {
   RichSnippet,
-  createBlogPostSnippet,
-  createEcommerceProductSnippet,
-  createFAQPageSnippet,
-  createWebsiteBreadcrumbs,
-  createLocalBusinessSnippet,
-} from "../../../../../src/lib/seo/rich-snippets";
+  generateArticleSnippet,
+  generateProductSnippet,
+  generateFAQSnippet,
+  generateBreadcrumbSnippet,
+  generateLocalBusinessSnippet,
+} from "@banja/react-jedi";
 
 export const RichSnippetsPage: React.FC = () => {
   // Blog post snippet
-  const blogSnippet = createBlogPostSnippet({
-    title: "Getting Started with Rich Snippets",
-    description: "Learn how to implement structured data for better search results",
-    author: "Jane Developer",
-    publishedDate: new Date("2024-01-15"),
-    modifiedDate: new Date("2024-01-18"),
-    imageUrl: "https://example.com/blog-image.jpg",
-    organizationName: "Tech Blog Inc.",
-    organizationLogo: "https://example.com/logo.png",
-    url: "https://example.com/blog/rich-snippets",
-  });
+  const blogSnippet = generateArticleSnippet(
+    {
+      headline: "Getting Started with Rich Snippets",
+      datePublished: "2024-01-15",
+      dateModified: "2024-01-18",
+      author: {
+        "@type": "Person",
+        name: "Jane Developer",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Tech Blog Inc.",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://example.com/logo.png",
+        },
+      },
+      image: "https://example.com/blog-image.jpg",
+    },
+    "BlogPosting"
+  );
 
   // Product snippet
-  const productSnippet = createEcommerceProductSnippet({
+  const productSnippet = generateProductSnippet({
     name: "Premium React Component Library",
     description: "A comprehensive set of React components for building modern UIs",
-    price: 149,
-    currency: "USD",
-    availability: "InStock",
-    brand: "React Jedi",
-    images: ["https://example.com/product1.jpg", "https://example.com/product2.jpg"],
-    rating: { value: 4.8, count: 256 },
+    brand: {
+      "@type": "Brand",
+      name: "React Jedi",
+    },
+    offers: {
+      "@type": "Offer",
+      price: 149,
+      priceCurrency: "USD",
+      availability: "InStock",
+      url: "https://example.com/products/react-jedi",
+    },
+    image: ["https://example.com/product1.jpg", "https://example.com/product2.jpg"],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 4.8,
+      ratingCount: 256,
+    },
     sku: "RJ-001",
-    url: "https://example.com/products/react-jedi",
   });
 
   // FAQ snippet
-  const faqSnippet = createFAQPageSnippet([
-    {
-      question: "What are rich snippets?",
-      answer:
-        "Rich snippets are structured data markup that helps search engines understand your content better, resulting in enhanced search results.",
-    },
-    {
-      question: "How do I implement rich snippets?",
-      answer:
-        "You can implement rich snippets using JSON-LD structured data. React Jedi provides utilities to generate this data automatically.",
-    },
-    {
-      question: "Which rich snippet types are supported?",
-      answer:
-        "React Jedi supports Product, Article, FAQ, Organization, Event, Local Business, and many other schema.org types.",
-    },
-  ]);
+  const faqSnippet = generateFAQSnippet({
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What are rich snippets?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Rich snippets are structured data markup that helps search engines understand your content better, resulting in enhanced search results.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I implement rich snippets?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "You can implement rich snippets using JSON-LD structured data. React Jedi provides utilities to generate this data automatically.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Which rich snippet types are supported?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "React Jedi supports Product, Article, FAQ, Organization, Event, Local Business, and many other schema.org types.",
+        },
+      },
+    ],
+  });
 
   // Breadcrumb snippet
-  const breadcrumbSnippet = createWebsiteBreadcrumbs([
-    { name: "Home", url: "/" },
-    { name: "Examples", url: "/examples" },
-    { name: "Rich Snippets" },
-  ]);
+  const breadcrumbSnippet = generateBreadcrumbSnippet({
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+      { "@type": "ListItem", position: 2, name: "Examples", item: "/examples" },
+      { "@type": "ListItem", position: 3, name: "Rich Snippets", item: "/examples/rich-snippets" },
+    ],
+  });
 
   // Local business snippet
-  const businessSnippet = createLocalBusinessSnippet({
+  const businessSnippet = generateLocalBusinessSnippet({
     name: "React Jedi Development Studio",
     telephone: "+1-555-0123",
     address: {
-      street: "123 Developer Lane",
-      city: "San Francisco",
-      state: "CA",
+      "@type": "PostalAddress",
+      streetAddress: "123 Developer Lane",
+      addressLocality: "San Francisco",
+      addressRegion: "CA",
       postalCode: "94101",
-      country: "US",
+      addressCountry: "US",
     },
-    coordinates: {
+    geo: {
+      "@type": "GeoCoordinates",
       latitude: 37.7749,
       longitude: -122.4194,
     },
     priceRange: "$$",
-    openingHours: [
+    openingHoursSpecification: [
       {
-        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         opens: "09:00",
         closes: "18:00",
       },
     ],
-    rating: { value: 4.9, count: 150 },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 4.9,
+      ratingCount: 150,
+    },
     url: "https://example.com",
   });
 
@@ -200,9 +240,7 @@ export const RichSnippetsPage: React.FC = () => {
                   <h3 className="font-semibold mb-2">1. Import the utilities</h3>
                   <pre className="bg-gray-100 p-3 rounded">
                     <code>
-                      {
-                        "import { RichSnippet, createBlogPostSnippet } from '@banja/react-jedi/lib/seo/rich-snippets';"
-                      }
+                      {"import { RichSnippet, createBlogPostSnippet } from '@banja/react-jedi';"}
                     </code>
                   </pre>
                 </div>

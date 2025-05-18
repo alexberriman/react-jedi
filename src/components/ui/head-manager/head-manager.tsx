@@ -1,5 +1,5 @@
 import React from "react";
-import { usePageMetadata, type PageMetadata } from "@/lib/utils/meta";
+import { usePageMetadata, type PageMetadata } from "../../../lib/utils/meta";
 
 export interface HeadManagerProps {
   readonly metadata: PageMetadata;

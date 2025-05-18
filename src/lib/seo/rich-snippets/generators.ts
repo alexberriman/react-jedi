@@ -265,7 +265,7 @@ export function formatDuration(minutes: number): string {
 /**
  * Generates a date in ISO 8601 format
  */
-export function formatDate(date: Date): string {
+export function formatISODate(date: Date): string {
   return date.toISOString();
 }
 

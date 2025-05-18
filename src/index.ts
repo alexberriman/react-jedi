@@ -115,125 +115,10 @@ export function createJedi(options: JediOptions = {}): Jedi {
 // Export all components through the barrel file
 export * from "./components/index";
 
-// Export utilities, but exclude types that would conflict with types/index exports
-export * from "./lib/utils";
-export * from "./lib/styles";
-export * from "./lib/validation";
-export * from "./lib/parser";
-export * from "./lib/render";
-export * from "./lib/component-resolver";
-export * from "./lib/component-tree";
-export * from "./lib/error-handling";
+// Export everything from lib barrel file
+export * from "./lib/index";
 
-// Export theme system without re-exporting duplicate breakpoints
-export {
-  ThemeProvider,
-  ThemeContext,
-  useThemeContext,
-  useTheme,
-  extractTokensFromTheme,
-  createTokenCollection,
-  convertThemeTokens,
-  generateCssVariables,
-  applyCssVariables,
-  generateCssRules,
-  createTokenResolver,
-  resolveThemeValue,
-  cssVar,
-  generateColorPalette,
-  generateColorScale,
-  hexToRgb,
-  rgbToHex,
-  hexToHsl,
-  hslToHex,
-  rgbToHsl,
-  hslToRgb,
-  isLightColor,
-  getContrastRatio,
-  spacing,
-  DEFAULT_SPACING_SCALE,
-  RELATIVE_SPACING,
-  DEFAULT_CONTAINER_PRESETS,
-  ContainerPresetType,
-  defaultTheme,
-  themePresets,
-  createDarkTheme,
-  generateCustomTheme,
-  ColorModeProvider,
-  ColorModeContext,
-  useColorMode,
-  ColorModeToggle,
-  AdvancedModeToggle,
-  brandPresets,
-  getPreset,
-  getPresetsByCategory,
-  getCategories,
-  generateBrandTheme,
-  createThemeFromPreset,
-  describePersonality,
-  analyzeThemePersonality,
-  findMatchingPreset,
-  mergePresets,
-  getComplementaryPresets,
-  // Import types for brand presets
-  type BrandPreset,
-  type BrandCategory,
-  type BrandColors,
-  type BrandTypography,
-  type BrandPersonality,
-  type BrandThemeOptions,
-  type GeneratedBrandTheme,
-} from "./lib/theme";
-// Export type-safety with explicit imports to avoid conflicts with utils
-export {
-  // Export constructors
-  Ok,
-  Err,
-  // Export type guards and utilities
-  ok,
-  err,
-  isNotNullOrUndefined,
-  isOfType,
-  hasProperty,
-  hasPropertyOfType,
-  isString,
-  isNumber,
-  isBoolean,
-  isFunction,
-  isObject,
-  isArray,
-  isArrayOf,
-  prop,
-  tryExec,
-  tryExecAsync,
-  assert,
-  assertNotNull,
-  ensureArray,
-  mapArray,
-  getPath,
-  typedKeys,
-  typedEntries,
-  safeJsonParse,
-  safeJsonStringify,
-  // Export types
-  type Result,
-  type TypedRecord,
-  type DeepReadonly,
-  type DeepPartial,
-  type Discriminated,
-  type Awaited,
-  type ElementOf,
-  type ComponentPropsWithBase,
-} from "./lib/type-safety";
-
-// Export UI components
-export * from "./components/ui/index";
-
-// Export schemas
-export * from "./lib/schemas/index";
-
-// Export state management
-export * from "./lib/state";
+// Export schemas guards separately to avoid conflicts
 
 // Export types with explicit re-exports to avoid conflicts
 export type {
@@ -435,30 +320,19 @@ export type {
   EnhancedThemeSpecification,
 } from "./types/schema";
 
+// Re-export specific hooks that are not in lib barrel
 export {
-  // Guards
-  isBox,
-  isContainer,
-  isGrid,
-  isFlex,
-  isAspectRatio,
-  isSeparator,
-  isText,
-  isHeading,
-  isBlockQuote,
-  isButton,
-  isCard,
-  isBadge,
-  isAvatar,
-  isImage,
-  isSkeleton,
-  isLabel,
-  isInput,
-  isComponentSpec,
-  isTextContent,
-  isComponentSpecArray,
-  isComponentType,
-} from "./types/schema";
-
-// Export hooks
-export * from "./hooks/index";
+  useDataSources,
+  useDataBinding,
+  useMutation,
+  useIsMobile,
+  type DataSourcesState,
+  type DataSourceState,
+  type UseDataSourcesOptions,
+  type RestConfig,
+  type GraphQLConfig,
+  type StaticConfig,
+  type WebSocketConfig,
+  type FunctionConfig,
+  type UseMutationConfig,
+} from "./hooks";

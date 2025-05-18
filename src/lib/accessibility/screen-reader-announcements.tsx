@@ -31,16 +31,16 @@ export const useScreenReaderAnnouncement = () => {
 };
 
 // Helper function to create an announcement filter
-const createAnnouncementFilter = (announcementId: string) => (prev: Announcement[]) => 
-  prev.filter(a => a.id !== announcementId);
+const createAnnouncementFilter = (announcementId: string) => (prev: Announcement[]) =>
+  prev.filter((a) => a.id !== announcementId);
 
 export const ScreenReaderProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [politeAnnouncements, setPoliteAnnouncements] = React.useState<Announcement[]>([]);
   const [assertiveAnnouncements, setAssertiveAnnouncements] = React.useState<Announcement[]>([]);
-  
+
   const announce = React.useCallback((message: string, options: AnnouncementOptions = {}) => {
     const { priority = "polite", delay = 0 } = options;
-    
+
     const announcement: Announcement = {
       id: Date.now().toString(),
       message,
@@ -50,15 +50,15 @@ export const ScreenReaderProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     const performAnnouncement = () => {
       if (priority === "assertive") {
-        setAssertiveAnnouncements(prev => [...prev, announcement]);
+        setAssertiveAnnouncements((prev) => [...prev, announcement]);
       } else {
-        setPoliteAnnouncements(prev => [...prev, announcement]);
+        setPoliteAnnouncements((prev) => [...prev, announcement]);
       }
 
       // Clear announcement after 1 second to allow re-announcement of same message
       globalThis.setTimeout(() => {
         const clearAnnouncement = createAnnouncementFilter(announcement.id);
-          
+
         if (priority === "assertive") {
           setAssertiveAnnouncements(clearAnnouncement);
         } else {
@@ -74,13 +74,19 @@ export const ScreenReaderProvider: React.FC<{ children: React.ReactNode }> = ({ 
     }
   }, []);
 
-  const announcePolite = React.useCallback((message: string) => {
-    announce(message, { priority: "polite" });
-  }, [announce]);
+  const announcePolite = React.useCallback(
+    (message: string) => {
+      announce(message, { priority: "polite" });
+    },
+    [announce]
+  );
 
-  const announceAssertive = React.useCallback((message: string) => {
-    announce(message, { priority: "assertive" });
-  }, [announce]);
+  const announceAssertive = React.useCallback(
+    (message: string) => {
+      announce(message, { priority: "assertive" });
+    },
+    [announce]
+  );
 
   const clear = React.useCallback(() => {
     setPoliteAnnouncements([]);
@@ -98,23 +104,13 @@ export const ScreenReaderProvider: React.FC<{ children: React.ReactNode }> = ({ 
     <ScreenReaderContext.Provider value={value}>
       {children}
       {/* ARIA Live Regions */}
-      <div
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
-        {politeAnnouncements.map(announcement => (
+      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {politeAnnouncements.map((announcement) => (
           <div key={announcement.id}>{announcement.message}</div>
         ))}
       </div>
-      <div
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-        className="sr-only"
-      >
-        {assertiveAnnouncements.map(announcement => (
+      <div role="alert" aria-live="assertive" aria-atomic="true" className="sr-only">
+        {assertiveAnnouncements.map((announcement) => (
           <div key={announcement.id}>{announcement.message}</div>
         ))}
       </div>
@@ -168,8 +164,12 @@ export const withScreenReaderAnnouncements = <P extends object>(
 ) => {
   const WithAnnouncements = React.forwardRef<unknown, P>((props, ref) => {
     const { announcePolite } = useScreenReaderAnnouncement();
-    return <Component {...props} ref={ref} announce={announcePolite} />;
+    const componentProps = {
+      ...props,
+      announce: announcePolite,
+    } as P & { announce: (message: string) => void };
+    return <Component {...componentProps} ref={ref} />;
   });
-  WithAnnouncements.displayName = `withScreenReaderAnnouncements(${Component.displayName || Component.name || 'Component'})`;
+  WithAnnouncements.displayName = `withScreenReaderAnnouncements(${Component.displayName || Component.name || "Component"})`;
   return WithAnnouncements;
 };

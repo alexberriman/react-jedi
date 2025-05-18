@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import type { UISpecification } from "@banja/react-jedi";
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
+import { PageHeader } from "../../components/ui/page-header";
 
 // Interactive component demonstrations
 const interactiveDemos = {
@@ -613,83 +614,78 @@ export function InteractiveShowcasePage() {
   const currentDemo = interactiveDemos[activeDemo];
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Interactive Component Showcase
-          </h1>
-          <p className="text-xl text-zinc-300 max-w-3xl">
-            Explore the interactive components from Milestone 3. These components demonstrate state
-            management, event handling, and dynamic behavior through JSON specifications.
-          </p>
-        </div>
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Interactive Component Showcase"
+        description="Explore the interactive components from Milestone 3. These components demonstrate state management, event handling, and dynamic behavior through JSON specifications."
+      />
+      
+      <div className="container mx-auto px-4 py-8">
 
-        {/* Navigation Tabs */}
-        <div className="mb-8 border-b border-zinc-800">
-          <nav className="flex space-x-8 overflow-x-auto">
-            {Object.entries(interactiveDemos).map(([key, demo]) => (
-              <button
-                key={key}
-                onClick={() => setActiveDemo(key as keyof typeof interactiveDemos)}
-                className={`pb-4 px-1 border-b-2 transition-colors whitespace-nowrap ${
-                  activeDemo === key
-                    ? "border-purple-500 text-purple-400"
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
-                }`}
-              >
-                {demo.name}
-              </button>
-            ))}
-          </nav>
-        </div>
+          {/* Navigation Tabs */}
+          <div className="mb-8 border-b border-gray-200 dark:border-gray-800">
+            <nav className="flex space-x-8 overflow-x-auto">
+              {Object.entries(interactiveDemos).map(([key, demo]) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveDemo(key as keyof typeof interactiveDemos)}
+                  className={`pb-4 px-1 border-b-2 transition-colors whitespace-nowrap ${
+                    activeDemo === key
+                      ? "border-purple-500 text-purple-400"
+                      : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                  }`}
+                >
+                  {demo.name}
+                </button>
+              ))}
+            </nav>
+          </div>
 
-        {/* Demo Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Live Demo */}
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">Live Demo</h2>
-              <span className="text-sm text-zinc-600 dark:text-zinc-400">
-                {currentDemo.description}
-              </span>
+          {/* Demo Container */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Live Demo */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold">Live Demo</h2>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {currentDemo.description}
+                </span>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
+                {render(currentDemo.specification)}
+              </div>
             </div>
-            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
-              {render(currentDemo.specification)}
+
+            {/* Code View */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold">JSON Specification</h2>
+                <button
+                  onClick={() => setShowCode(!showCode)}
+                  className="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                >
+                  {showCode ? "Hide" : "Show"} Code
+                </button>
+              </div>
+              {showCode ? (
+                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-800 overflow-hidden">
+                  <pre className="text-sm text-gray-700 dark:text-gray-300 overflow-x-auto">
+                    {JSON.stringify(currentDemo.specification, null, 2)}
+                  </pre>
+                </div>
+              ) : (
+                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
+                  <p className="text-gray-600 dark:text-gray-400 text-center">
+                    Click &quot;Show Code&quot; to see the JSON specification for this demo
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Code View */}
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">JSON Specification</h2>
-              <button
-                onClick={() => setShowCode(!showCode)}
-                className="px-4 py-2 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
-              >
-                {showCode ? "Hide" : "Show"} Code
-              </button>
-            </div>
-            {showCode ? (
-              <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800 overflow-hidden">
-                <pre className="text-sm text-zinc-300 overflow-x-auto">
-                  {JSON.stringify(currentDemo.specification, null, 2)}
-                </pre>
-              </div>
-            ) : (
-              <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
-                <p className="text-zinc-600 dark:text-zinc-400 text-center">
-                  Click &quot;Show Code&quot; to see the JSON specification for this demo
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Features Section */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
+          {/* Features Section */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
             <div className="w-12 h-12 mb-4 rounded-lg bg-purple-500/20 flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -708,15 +704,15 @@ export function InteractiveShowcasePage() {
                 <path d="M8 12h8"></path>
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-white transition-colors">
+            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white transition-colors">
               State Management
             </h3>
-            <p className="text-zinc-600 dark:text-zinc-400">
+            <p className="text-gray-600 dark:text-gray-400">
               Local and global state defined declaratively in JSON specifications with automatic
               reactivity.
             </p>
           </div>
-          <div className="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
+          <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
             <div className="w-12 h-12 mb-4 rounded-lg bg-purple-500/20 flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -740,14 +736,14 @@ export function InteractiveShowcasePage() {
                 <path d="m4.9 4.9 2.9 2.9"></path>
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-white transition-colors">
+            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white transition-colors">
               Event Handling
             </h3>
-            <p className="text-zinc-600 dark:text-zinc-400">
+            <p className="text-gray-600 dark:text-gray-400">
               JSON-defined event handlers mapped to component callbacks with action dispatch system.
             </p>
           </div>
-          <div className="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
+          <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
             <div className="w-12 h-12 mb-4 rounded-lg bg-purple-500/20 flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -766,36 +762,36 @@ export function InteractiveShowcasePage() {
                 <path d="M12 8h.01"></path>
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-white transition-colors">
+            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white transition-colors">
               Conditional Rendering
             </h3>
-            <p className="text-zinc-600 dark:text-zinc-400">
+            <p className="text-gray-600 dark:text-gray-400">
               Show or hide components dynamically based on state values with expression evaluation.
             </p>
+            </div>
           </div>
-        </div>
 
-        {/* Links */}
-        <div className="mt-16 flex gap-4 justify-center">
-          <Link
-            to="/showcase"
-            className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
-          >
-            View All Components
-          </Link>
-          <Link
-            to="/state"
-            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors"
-          >
-            State Examples
-          </Link>
-          <Link
-            to="/documentation"
-            className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
-          >
-            Documentation
-          </Link>
-        </div>
+          {/* Links */}
+          <div className="mt-16 flex gap-4 justify-center">
+            <Link
+              to="/showcase"
+              className="px-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            >
+              View All Components
+            </Link>
+            <Link
+              to="/state"
+              className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors"
+            >
+              State Examples
+            </Link>
+            <Link
+              to="/documentation"
+              className="px-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            >
+              Documentation
+            </Link>
+          </div>
       </div>
     </div>
   );

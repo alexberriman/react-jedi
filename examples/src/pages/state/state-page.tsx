@@ -1,6 +1,7 @@
 import { render } from "@banja/react-jedi";
 import type { UISpecification, StateManager } from "@banja/react-jedi";
 import { usePageMetadata } from "../../lib/meta";
+import { PageHeader } from "../../components/ui/page-header";
 
 const stateSpec: UISpecification = {
   version: "1.0",
@@ -140,22 +141,29 @@ export function StatePage() {
   });
 
   return (
-    <div>
-      {render(stateSpec, {
-        handlers: {
-          incrementCount: (manager: StateManager) => {
-            const currentCount = manager.getState().count || 0;
-            manager.setState({ count: currentCount + 1 });
+    <div className="flex flex-col">
+      <PageHeader 
+        title="State Management"
+        description="React Jedi state management examples - JSON-driven state with actions and event handlers."
+      />
+      
+      <div className="container mx-auto px-4 py-8">
+        {render(stateSpec, {
+          handlers: {
+            incrementCount: (manager: StateManager) => {
+              const currentCount = manager.getState().count || 0;
+              manager.setState({ count: currentCount + 1 });
+            },
+            resetCount: (manager: StateManager) => {
+              manager.setState({ count: 0 });
+            },
+            toggleVisibility: (manager: StateManager) => {
+              const currentVisibility = manager.getState().isVisible;
+              manager.setState({ isVisible: !currentVisibility });
+            },
           },
-          resetCount: (manager: StateManager) => {
-            manager.setState({ count: 0 });
-          },
-          toggleVisibility: (manager: StateManager) => {
-            const currentVisibility = manager.getState().isVisible;
-            manager.setState({ isVisible: !currentVisibility });
-          },
-        },
-      })}
+        })}
+      </div>
     </div>
   );
 }

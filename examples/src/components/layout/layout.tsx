@@ -47,21 +47,21 @@ export function Layout({ className }: LayoutProps) {
             </Link>
           </div>
           <div className="hidden md:flex items-center gap-6">
-            <NavigationMenu>
+            <NavigationMenu viewport={false}>
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-transparent text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                     Components
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+                  <NavigationMenuContent className="border-0">
+                    <ul className="grid gap-0 p-1 w-[280px] bg-white dark:bg-gray-900 rounded-lg border-0">
                       <NavigationMenuLink asChild>
                         <Link
                           to="/showcase"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">Component Gallery</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Component Gallery</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Browse all UI components with live previews
                           </p>
                         </Link>
@@ -69,35 +69,35 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/showcase/interactive"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                             Interactive Showcase
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Form components, toggles, and state management
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            Play with component props and states
                           </p>
                         </Link>
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
                           to="/showcase/layout"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">Layout Components</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Advanced layout systems and responsive containers
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Advanced Layouts</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            Complex layout patterns and grids
                           </p>
                         </Link>
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
                           to="/showcase/overlay-interactive"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">Overlays & Dialogs</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Modals, sheets, popovers, and tooltips
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Overlay Components</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            Modals, popovers, and tooltips
                           </p>
                         </Link>
                       </NavigationMenuLink>
@@ -109,15 +109,15 @@ export function Layout({ className }: LayoutProps) {
                   <NavigationMenuTrigger className="bg-transparent text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                     Examples
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+                  <NavigationMenuContent className="border-0">
+                    <ul className="grid gap-0 p-1 w-[280px] bg-white dark:bg-gray-900 rounded-lg border-0">
                       <NavigationMenuLink asChild>
                         <Link
                           to="/examples"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">All Examples</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">All Examples</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Browse all example implementations
                           </p>
                         </Link>
@@ -125,10 +125,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/examples/landing"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">Landing Page</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Landing Page</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Hero section, features, and CTA components
                           </p>
                         </Link>
@@ -136,10 +136,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/examples/form-validation"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">Form Validation</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Form Validation</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Complex forms with real-time validation
                           </p>
                         </Link>
@@ -147,12 +147,12 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/examples/navigation"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                             Navigation Patterns
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Menus, sidebars, and breadcrumbs
                           </p>
                         </Link>
@@ -160,10 +160,10 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/templates/marketing"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">Marketing Template</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Marketing Template</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Full marketing website with multiple pages
                           </p>
                         </Link>
@@ -190,26 +190,15 @@ export function Layout({ className }: LayoutProps) {
                   <NavigationMenuTrigger className="bg-transparent text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                     Resources
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/test-responsive"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
-                        >
-                          <div className="text-sm font-medium leading-none">Test Responsive</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Debug responsive breakpoints
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
+                  <NavigationMenuContent className="border-0">
+                    <ul className="grid gap-0 p-1 w-[280px] bg-white dark:bg-gray-900 rounded-lg border-0">
                       <NavigationMenuLink asChild>
                         <Link
                           to="/theming"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">Theming System</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Theming System</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Theme configuration and customization options
                           </p>
                         </Link>
@@ -217,35 +206,33 @@ export function Layout({ className }: LayoutProps) {
                       <NavigationMenuLink asChild>
                         <Link
                           to="/brand-presets"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">Brand Presets</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Pre-built theme configurations for popular brands
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Brand Presets</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            Pre-made themes for popular brands
                           </p>
                         </Link>
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
                           to="/performance"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">
-                            Performance Metrics
-                          </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Benchmarks and optimization techniques
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Performance</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            Benchmarks and optimization tips
                           </p>
                         </Link>
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
                           to="/state"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium leading-none">State Management</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            JSON-based state patterns and optimizations
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">State Management</div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            Server-driven state patterns
                           </p>
                         </Link>
                       </NavigationMenuLink>
@@ -254,125 +241,132 @@ export function Layout({ className }: LayoutProps) {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-
-            <a
-              href="https://github.com/banja-au/react-jedi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                <path d="M9 18c-4.51 2-5-2-7-2" />
-              </svg>
-              GitHub
-            </a>
-
             <DarkModeToggle />
           </div>
         </div>
       </header>
-      <main className={className}>
+      <main className={cn("", className)}>
         <PageTransition>
           <Outlet />
         </PageTransition>
       </main>
-      <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Product</h3>
+      <footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-16">
+        <div className="container mx-auto px-4 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="space-y-4">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">Components</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/showcase" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Components
+                  <Link
+                    to="/showcase"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Component Gallery
                   </Link>
                 </li>
                 <li>
-                  <Link to="/examples" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Examples
+                  <Link
+                    to="/showcase/interactive"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Interactive Showcase
                   </Link>
                 </li>
                 <li>
-                  <Link to="/templates" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Templates
+                  <Link
+                    to="/showcase/layout"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Advanced Layouts
                   </Link>
                 </li>
               </ul>
             </div>
-            <div>
-              <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Documentation</h3>
+            <div className="space-y-4">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">Examples</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/documentation" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Getting Started
+                  <Link
+                    to="/examples"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    All Examples
                   </Link>
                 </li>
                 <li>
-                  <Link to="/theming" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Theming
+                  <Link
+                    to="/examples/landing"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Landing Page
                   </Link>
                 </li>
                 <li>
-                  <Link to="/state" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    State Management
+                  <Link
+                    to="/examples/form-validation"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Form Validation
                   </Link>
                 </li>
               </ul>
             </div>
-            <div>
-              <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Resources</h3>
+            <div className="space-y-4">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">Resources</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/performance" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  <Link
+                    to="/documentation"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Documentation
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/theming"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Theming System
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/performance"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
                     Performance
                   </Link>
                 </li>
-                <li>
-                  <Link to="/brand-presets" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Brand Presets
-                  </Link>
-                </li>
-                <li>
-                  <a href="https://github.com/banja-au/react-jedi" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    GitHub
-                  </a>
-                </li>
               </ul>
             </div>
-            <div>
-              <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Legal</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Terms of Service
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    License
-                  </a>
-                </li>
-              </ul>
+            <div className="space-y-4">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">React Jedi</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                A modern React UI library focused on performance and developer experience.
+              </p>
+              <div className="flex gap-4">
+                <a
+                  href="https://github.com/react-jedi"
+                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
-          <div className="pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-600 dark:text-gray-400">
-            <p>© {new Date().getFullYear()} React Jedi. All rights reserved.</p>
+          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
+            <p className="text-sm text-center text-gray-500 dark:text-gray-400">
+              © 2024 React Jedi. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>

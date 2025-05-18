@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
 import { Heading, Text, spacing, padding } from "../../components/ui";
+import { PageHeader } from "../../components/ui/page-header";
 
 export function DocumentationPage() {
   usePageMetadata({
@@ -9,45 +10,32 @@ export function DocumentationPage() {
       "React Jedi documentation - Learn how to build server-driven UIs with JSON specifications, TypeScript, and modern React components.",
   });
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-950 to-slate-900">
-      <div className={`container mx-auto ${padding.container} ${padding.page}`}>
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Documentation"
+        description="Learn how to build beautiful, server-driven interfaces with React Jedi's JSON-based approach."
+      />
+      
+      <div className={`container mx-auto ${padding.container} py-8`}>
         <div className="max-w-6xl mx-auto">
-          <div className={`space-y-2 ${spacing.section}`}>
-            <div className="relative w-fit">
-              <Heading
-                as="h1"
-                size="page"
-                weight="bold"
-                className={`text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 ${spacing.xs}`}
-              >
-                Documentation
-              </Heading>
-              <div className="absolute -bottom-4 left-0 w-1/2 h-1 bg-gradient-to-r from-emerald-400 to-transparent rounded-full blur-sm" />
-              <div className="absolute -bottom-4 left-0 w-1/3 h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-full" />
-            </div>
-            <Text size="lg" variant="description" className="sm:text-xl max-w-3xl">
-              Learn how to build beautiful, server-driven interfaces with React Jedi&apos;s
-              JSON-based approach.
-            </Text>
-          </div>
 
           {/* Navigation Tabs */}
-          <div className="flex flex-wrap gap-2 mb-8 sm:mb-12 sticky top-[61px] bg-black/30 backdrop-blur-md p-2 sm:p-3 -mx-3 rounded-xl border border-zinc-800 z-20 overflow-x-auto">
+          <div className="flex flex-wrap gap-2 mb-8 sm:mb-12 sticky top-[61px] bg-white/80 dark:bg-gray-900/80 backdrop-blur-md p-2 sm:p-3 -mx-3 rounded-xl border border-gray-200 dark:border-gray-800 z-20 overflow-x-auto">
             <a
               href="#getting-started"
-              className="px-4 py-2 rounded-full bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 hover:text-white transition-all text-sm"
+              className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
             >
               Getting Started
             </a>
             <a
               href="#component-system"
-              className="px-4 py-2 rounded-full bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 hover:text-white transition-all text-sm"
+              className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
             >
               Component System
             </a>
             <a
               href="#layout-components"
-              className="px-4 py-2 rounded-full bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 hover:text-white transition-all text-sm"
+              className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
             >
               Layout Components
             </a>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "../../../components/ui/button";
 import { usePageMetadata } from "../../../lib/meta";
+import { PageHeader } from "../../../components/ui/page-header";
 
 export function MarketingTemplatePage() {
   usePageMetadata({
@@ -9,45 +10,41 @@ export function MarketingTemplatePage() {
       "Full marketing website template built with React Jedi - Modern, responsive multi-page site.",
   });
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-6xl mx-auto">
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Full Marketing Website Template"
+        description="A complete marketing website template built with React Jedi's JSON-driven architecture. This template demonstrates how to create a professional marketing site with multiple pages, modern design, and seamless navigation—all driven by JSON specifications."
+      />
+      
+      <div className="container mx-auto px-4 py-8">
         <div className="mb-16">
-          <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Full Marketing Website Template
-          </h1>
-          <p className="text-xl text-zinc-700 dark:text-zinc-300 mb-8">
-            A complete marketing website template built with React Jedi&apos;s JSON-driven
-            architecture. This template demonstrates how to create a professional marketing site
-            with multiple pages, modern design, and seamless navigation—all driven by JSON
-            specifications.
-          </p>
 
           <div className="bg-gradient-to-br from-purple-900/10 to-blue-900/10 border border-purple-500/20 rounded-2xl p-8 mb-10">
             <h3 className="text-2xl font-semibold mb-6 text-purple-300">Template Features</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                <span className="text-zinc-700 dark:text-zinc-300">Multi-page structure</span>
+                <span className="text-gray-700 dark:text-gray-300">Multi-page structure</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                <span className="text-zinc-700 dark:text-zinc-300">Modern, sexy design</span>
+                <span className="text-gray-700 dark:text-gray-300">Modern, sexy design</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                <span className="text-zinc-700 dark:text-zinc-300">JSON-driven architecture</span>
+                <span className="text-gray-700 dark:text-gray-300">JSON-driven architecture</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                <span className="text-zinc-700 dark:text-zinc-300">Responsive layouts</span>
+                <span className="text-gray-700 dark:text-gray-300">Responsive layouts</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                <span className="text-zinc-700 dark:text-zinc-300">Dark theme optimized</span>
+                <span className="text-gray-700 dark:text-gray-300">Dark theme optimized</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                <span className="text-zinc-700 dark:text-zinc-300">Reusable components</span>
+                <span className="text-gray-700 dark:text-gray-300">Reusable components</span>
               </div>
             </div>
           </div>
@@ -121,12 +118,12 @@ export function MarketingTemplatePage() {
 
           <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-xl p-8">
             <h3 className="text-2xl font-semibold mb-4">Implementation Details</h3>
-            <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
               This marketing template showcases how to build a complete website using JSON
               specifications. Each page is rendered from a JSON schema that defines the structure,
               content, and styling.
             </p>
-            <p className="text-zinc-700 dark:text-zinc-300 mb-6">
+            <p className="text-gray-700 dark:text-gray-300 mb-6">
               The template includes reusable component patterns, consistent theming, and responsive
               layouts—all configured through declarative JSON schemas that make it easy to customize
               and extend.

@@ -1,6 +1,7 @@
 import type { UISpecification } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
 import { useState } from "react";
+import { PageHeader } from "../../components/ui/page-header";
 
 export function OverlayInteractivePage() {
   const [dialogState, setDialogState] = useState<{
@@ -644,7 +645,7 @@ export function OverlayInteractivePage() {
           },
           {
             type: "Text",
-            className: "text-sm text-zinc-600 dark:text-zinc-400",
+            className: "text-sm text-gray-600 dark:text-gray-400",
             children:
               "This is a popover with some useful information. It can contain any content you need.",
           },
@@ -730,64 +731,59 @@ export function OverlayInteractivePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <header className="mb-12">
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-            Interactive Overlay Components
-          </h1>
-          <p className="text-xl text-zinc-700 dark:text-zinc-300">
-            Explore our comprehensive collection of overlay components with interactive states.
-            Click on any component to see it in action!
-          </p>
-        </header>
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Interactive Overlay Components"
+        description="Explore our comprehensive collection of overlay components with interactive states. Click on any component to see it in action!"
+      />
+      
+      <div className="container mx-auto px-4 py-8">
 
-        {/* Dialogs Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-zinc-100">Dialogs</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-8">
-            Modal dialogs for important interactions that require user attention.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
-              <h3 className="text-lg font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
-                Confirmation Dialog
-              </h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-                A simple dialog for confirming user actions.
-              </p>
-              {render(confirmDialog)}
+          {/* Dialogs Section */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Dialogs</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
+              Modal dialogs for important interactions that require user attention.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
+                <h3 className="text-lg font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                  Confirmation Dialog
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  A simple dialog for confirming user actions.
+                </p>
+                {render(confirmDialog)}
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
+                <h3 className="text-lg font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
+                  Profile Edit Dialog
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  Complex dialog with form elements and validation.
+                </p>
+                {render(profileDialog)}
+              </div>
             </div>
-            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
-              <h3 className="text-lg font-semibold mb-3 text-emerald-600 dark:text-emerald-400">
-                Profile Edit Dialog
-              </h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-                Complex dialog with form elements and validation.
-              </p>
-              {render(profileDialog)}
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Sheets Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-zinc-100">Sheets</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-8">
+          {/* Sheets Section */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Sheets</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
             Slide-out panels that overlay the main content from different directions.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
               <h3 className="text-lg font-semibold mb-3 text-purple-400">Settings Sheet (Left)</h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 A settings panel that slides in from the left side.
               </p>
               {render(leftSheet)}
             </div>
-            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
               <h3 className="text-lg font-semibold mb-3 text-cyan-400">Share Sheet (Bottom)</h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 A share panel that slides up from the bottom.
               </p>
               {render(bottomSheet)}
@@ -795,53 +791,53 @@ export function OverlayInteractivePage() {
           </div>
         </section>
 
-        {/* Alert Dialogs Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-zinc-100">Alert Dialogs</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-8">
+          {/* Alert Dialogs Section */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Alert Dialogs</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
             Critical confirmations that require explicit user acknowledgment.
           </p>
-          <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
             <h3 className="text-lg font-semibold mb-3 text-red-400">Destructive Alert</h3>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
               A dangerous action confirmation with destructive styling.
             </p>
             {render(deleteAlertDialog)}
           </div>
         </section>
 
-        {/* Drawer Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-zinc-100">Drawer</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-8">
+          {/* Drawer Section */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Drawer</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
             Mobile-friendly navigation drawer that slides in from the side.
           </p>
-          <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
             <h3 className="text-lg font-semibold mb-3 text-indigo-400">Navigation Drawer</h3>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
               A mobile navigation drawer with menu items.
             </p>
             {render(mobileDrawer)}
           </div>
         </section>
 
-        {/* Popovers and HoverCards Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-zinc-100">Popovers & HoverCards</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-8">
+          {/* Popovers and HoverCards Section */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Popovers & HoverCards</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
             Contextual overlays that appear on interaction with triggers.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
               <h3 className="text-lg font-semibold mb-3 text-violet-400">Popover</h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Click-triggered overlay with custom content.
               </p>
               {render(basicPopover)}
             </div>
-            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
               <h3 className="text-lg font-semibold mb-3 text-amber-400">HoverCard</h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Hover-triggered overlay with rich content.
               </p>
               {render(hoverCard)}
@@ -849,40 +845,40 @@ export function OverlayInteractivePage() {
           </div>
         </section>
 
-        {/* State Management Info */}
-        <section className="bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-700/30 rounded-xl p-8">
-          <h2 className="text-2xl font-bold mb-4 text-purple-300">Interactive State Management</h2>
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+          {/* State Management Info */}
+          <section className="bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-700/30 rounded-xl p-8">
+            <h2 className="text-2xl font-bold mb-4 text-purple-300">Interactive State Management</h2>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
             All overlay components in this showcase are fully interactive with controlled state
             management. Each component responds to user interactions and maintains its own state.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-lg p-4">
-              <h3 className="font-semibold text-purple-400 mb-2">Features</h3>
-              <ul className="text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                <h3 className="font-semibold text-purple-400 mb-2">Features</h3>
+                <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
                 <li>✓ Controlled open/close states</li>
                 <li>✓ Form interactions within overlays</li>
                 <li>✓ Keyboard navigation support</li>
                 <li>✓ Focus management</li>
               </ul>
             </div>
-            <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-lg p-4">
-              <h3 className="font-semibold text-purple-400 mb-2">Accessibility</h3>
-              <ul className="text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
+              <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                <h3 className="font-semibold text-purple-400 mb-2">Accessibility</h3>
+                <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
                 <li>✓ ARIA attributes</li>
                 <li>✓ Escape key to close</li>
                 <li>✓ Focus trapping</li>
                 <li>✓ Screen reader support</li>
               </ul>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Navigation */}
-        <nav className="flex items-center justify-between mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800">
-          <a
-            href="/showcase"
-            className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:text-emerald-400 transition-colors"
+          {/* Navigation */}
+          <nav className="flex items-center justify-between mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+            <a
+              href="/showcase"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -918,7 +914,7 @@ export function OverlayInteractivePage() {
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </a>
-        </nav>
+          </nav>
       </div>
     </div>
   );

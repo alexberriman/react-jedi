@@ -69,6 +69,22 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Override navigation menu borders and styling */
+[data-slot="navigation-menu-viewport"],
+[data-slot="navigation-menu-content"] {
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+}
+
+/* Prevent underlines on navigation menu links */
+[data-slot="navigation-menu-link"],
+[data-slot="navigation-menu-link"]:hover,
+nav a,
+nav a:hover {
+  text-decoration: none !important;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: hsl(var(--background));

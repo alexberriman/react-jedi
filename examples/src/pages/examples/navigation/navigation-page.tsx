@@ -2,6 +2,7 @@ import React from "react";
 import { UISpecification } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
+import { PageHeader } from "../../../components/ui/page-header";
 
 const navigationSpec: UISpecification = {
   version: "1.0.0",
@@ -33,86 +34,8 @@ const navigationSpec: UISpecification = {
   root: {
     type: "Container",
     className:
-      "bg-gradient-to-b from-gray-50 to-white dark:from-zinc-900 dark:to-black min-h-screen",
+      "bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black",
     children: [
-      // Hero Section with floating elements
-      {
-        type: "Box",
-        className: "relative mb-16 pt-12",
-        children: [
-          // Animated gradient background
-          {
-            type: "Box",
-            className:
-              "absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 blur-3xl animate-pulse",
-          },
-          {
-            type: "Box",
-            className: "relative z-10",
-            children: [
-              {
-                type: "Heading",
-                level: 1,
-                children: ["✨ Navigation Components"],
-                className:
-                  "text-6xl md:text-7xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-6 animate-gradient",
-              },
-              {
-                type: "Text",
-                children: [
-                  "Ultra-modern navigation patterns for cutting-edge 2025 web applications",
-                ],
-                className: "text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 font-light",
-              },
-              // Floating navigation stats
-              {
-                type: "Flex",
-                justify: "center",
-                gap: 6,
-                wrap: true,
-                children: [
-                  {
-                    type: "Box",
-                    className:
-                      "bg-white/10 dark:bg-gray-900/30 backdrop-blur-xl rounded-2xl p-4 px-6 border border-white/20 dark:border-gray-700/50 shadow-2xl",
-                    children: [
-                      {
-                        type: "Text",
-                        children: ["15+ Components"],
-                        className: "text-lg font-semibold text-purple-600 dark:text-purple-400",
-                      },
-                    ],
-                  },
-                  {
-                    type: "Box",
-                    className:
-                      "bg-white/10 dark:bg-gray-900/30 backdrop-blur-xl rounded-2xl p-4 px-6 border border-white/20 dark:border-gray-700/50 shadow-2xl",
-                    children: [
-                      {
-                        type: "Text",
-                        children: ["Fully Responsive"],
-                        className: "text-lg font-semibold text-pink-600 dark:text-pink-400",
-                      },
-                    ],
-                  },
-                  {
-                    type: "Box",
-                    className:
-                      "bg-white/10 dark:bg-gray-900/30 backdrop-blur-xl rounded-2xl p-4 px-6 border border-white/20 dark:border-gray-700/50 shadow-2xl",
-                    children: [
-                      {
-                        type: "Text",
-                        children: ["Dark Mode Ready"],
-                        className: "text-lg font-semibold text-blue-600 dark:text-blue-400",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
 
       // Navigation Menu Section - Ultra-modern
       {
@@ -1298,5 +1221,16 @@ export function NavigationPage() {
       "React Jedi navigation components showcase featuring modern menus, breadcrumbs, and navigation patterns.",
   });
 
-  return render(navigationSpec);
+  return (
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Navigation Components Showcase"
+        description="Modern navigation components with 2025 design aesthetics"
+      />
+      
+      <div className="container mx-auto px-4 py-8">
+        {render(navigationSpec)}
+      </div>
+    </div>
+  );
 }

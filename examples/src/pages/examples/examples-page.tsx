@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
 import { Text, spacing } from "../../components/ui";
+import { PageHeader } from "../../components/ui/page-header";
 
 interface Example {
   id: string;
@@ -166,25 +167,20 @@ export function ExamplesPage() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Examples
-          </h1>
-          <p className="text-lg sm:text-xl text-zinc-300">
-            Explore practical examples of React Jedi&apos;s server-driven UI in action. Each example
-            demonstrates different features and patterns.
-          </p>
-        </div>
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Examples"
+        description="Explore practical examples of React Jedi's server-driven UI in action. Each example demonstrates different features and patterns."
+      />
+      
+      <div className="container mx-auto px-4 py-8">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {examples.map((example) => (
             <Link key={example.id} to={example.path} className="group relative block">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative bg-black border border-zinc-800 rounded-lg p-4 sm:p-6 hover:border-zinc-700 transition-all duration-300">
+              <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 sm:p-6 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-lg dark:hover:shadow-lg/10 transition-all duration-300">
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-purple-300 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                     {example.title}
                   </h3>
                   {example.status && (
@@ -193,7 +189,7 @@ export function ExamplesPage() {
                       px-2 py-1 text-xs rounded-full
                       ${example.status === "new" ? "bg-green-500/20 text-green-400" : ""}
                       ${example.status === "updated" ? "bg-blue-500/20 text-blue-400" : ""}
-                      ${example.status === "stable" ? "bg-zinc-500/20 text-zinc-600 dark:text-zinc-400" : ""}
+                      ${example.status === "stable" ? "bg-gray-500/20 text-gray-600 dark:text-gray-400" : ""}
                     `}
                     >
                       {example.status}
@@ -222,20 +218,6 @@ export function ExamplesPage() {
               </div>
             </Link>
           ))}
-        </div>
-
-        <div className="mt-8 sm:mt-12 p-4 sm:p-6 bg-zinc-900/50 border border-zinc-800 rounded-lg">
-          <h2 className="text-lg sm:text-xl font-semibold mb-3">Advanced Example Ideas</h2>
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 mb-4">
-            Ready to build more complex applications? Try these advanced patterns:
-          </p>
-          <ul className="list-disc list-inside text-sm sm:text-base text-zinc-600 dark:text-zinc-400 space-y-2">
-            <li>Real-time dashboards with WebSocket-driven state updates</li>
-            <li>E-commerce product catalog with filtering and search</li>
-            <li>Content management system with drag-and-drop page builder</li>
-            <li>Multi-step wizards with progress tracking and validation</li>
-            <li>Dynamic forms with conditional fields and branching logic</li>
-          </ul>
         </div>
       </div>
     </div>

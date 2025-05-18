@@ -11,9 +11,6 @@ const HomePage = lazy(() =>
 const ShowcasePage = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.ShowcasePage }))
 );
-const TestResponsivePage = lazy(() =>
-  import("../pages/test-responsive").then((module) => ({ default: module.TestResponsivePage }))
-);
 const InteractiveShowcasePage = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.InteractiveShowcasePage }))
 );
@@ -244,10 +241,6 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <AsyncRoute component={HomePage} loadingText="Loading home..." />,
-      },
-      {
-        path: "test-responsive",
-        element: <AsyncRoute component={TestResponsivePage} loadingText="Testing responsive..." />,
       },
       {
         path: "showcase",

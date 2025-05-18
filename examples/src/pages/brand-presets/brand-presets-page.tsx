@@ -6,6 +6,7 @@
 
 import React, { useState } from "react";
 import { usePageMetadata } from "../../lib/meta";
+import { PageHeader } from "../../components/ui/page-header";
 import {
   brandPresets,
   generateBrandTheme,
@@ -494,20 +495,13 @@ export const BrandPresetsPage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900">
-      <div className="container mx-auto px-4 py-12">
-        <header className="text-center mb-12 relative">
-          <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20" />
-          <div className="relative">
-            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent inline-block">
-              Brand Preset Themes
-            </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Professionally designed themes for every industry and style. Choose from our curated
-              collection of brand presets or customize them to match your unique vision.
-            </p>
-          </div>
-        </header>
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Brand Preset Themes"
+        description="Professionally designed themes for every industry and style. Choose from our curated collection of brand presets or customize them to match your unique vision."
+      />
+      
+      <div className="container mx-auto px-4 py-8">
 
         {/* View mode toggle */}
         <div className="flex justify-center mb-8">

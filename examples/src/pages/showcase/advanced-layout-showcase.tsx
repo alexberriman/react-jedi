@@ -1,4 +1,5 @@
 import { usePageMetadata } from "../../lib/meta";
+import { PageHeader } from "../../components/ui/page-header";
 import {
   AspectRatio,
   Badge,
@@ -76,7 +77,7 @@ export function AdvancedLayoutShowcase() {
                   Box with gradient background
                 </Box>
 
-                <Box className="p-4 border-2 border-dashed border-gray-400 rounded transition-colors">
+                <Box className="p-4 border-2 border-dashed border-gray-400 dark:border-gray-600 rounded transition-colors">
                   Box with dashed border
                 </Box>
               </div>
@@ -492,20 +493,13 @@ export function AdvancedLayoutShowcase() {
   };
 
   return (
-    <div>
-      <Box className="bg-gradient-to-r from-blue-600 to-purple-600 text-zinc-900 dark:text-white p-12 mb-8 rounded-2xl transition-colors">
-        <Container>
-          <Heading className="text-4xl font-bold mb-4 transition-colors">
-            Advanced Layout Components
-          </Heading>
-          <Text className="text-xl opacity-90 transition-colors">
-            Explore our comprehensive collection of layout components for building modern,
-            responsive interfaces
-          </Text>
-        </Container>
-      </Box>
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Advanced Layout Components"
+        description="Explore our comprehensive collection of layout components for building modern, responsive interfaces"
+      />
 
-      <Container size="full">
+      <div className="container mx-auto px-4 py-8">
         <Group spacing="sm" className="mb-8 flex-wrap justify-center">
           {sections.map((section) => (
             <Button
@@ -525,7 +519,7 @@ export function AdvancedLayoutShowcase() {
             <div key={section.id}>{renderSection(section.id)}</div>
           ))}
         </Stack>
-      </Container>
+      </div>
     </div>
   );
 }

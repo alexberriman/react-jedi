@@ -9,8 +9,8 @@ export function HomePage() {
       "React Jedi - Build beautiful, dynamic interfaces with JSON specifications. Server-driven UI library with modern components, TypeScript support, and comprehensive theming.",
   });
   return (
-    <div className="flex flex-col gap-20 pb-20">
-      {/* Hero Section */}
+    <div className="flex flex-col">
+      {/* Hero Section - Full Width */}
       <section className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-black pt-32 pb-20">
         <div className="absolute inset-0">
           <div className="absolute -top-96 -left-96 w-[40rem] h-[40rem] rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-950 dark:to-purple-950 opacity-40 blur-3xl"></div>
@@ -53,231 +53,26 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-            Core Features
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Everything you need to build modern, responsive applications with ease.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {[
-            {
-              title: "JSON-Driven UI",
-              description:
-                "Define your entire UI with clean, typed JSON specifications that are easy to validate and store.",
-              icon: (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-8 h-8 text-blue-600 dark:text-blue-400"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1" />
-                  <path d="M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1" />
-                </svg>
-              ),
-              gradient: "from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950",
-              iconBg: "bg-blue-100 dark:bg-blue-900",
-            },
-            {
-              title: "Type Safety",
-              description:
-                "Built from the ground up with TypeScript for complete type safety and developer confidence.",
-              icon: (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-8 h-8 text-purple-600 dark:text-purple-400"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                  <path d="M2 17l10 5 10-5" />
-                  <path d="M2 12l10 5 10-5" />
-                </svg>
-              ),
-              gradient: "from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950",
-              iconBg: "bg-purple-100 dark:bg-purple-900",
-            },
-            {
-              title: "Modern Components",
-              description:
-                "Beautiful UI components with 2025 design aesthetic that's clean, modern, and sophisticated.",
-              icon: (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-8 h-8 text-green-600 dark:text-green-400"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <path d="M12 8v8" />
-                  <path d="M8 12h8" />
-                </svg>
-              ),
-              gradient: "from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950",
-              iconBg: "bg-green-100 dark:bg-green-900",
-            },
-          ].map((feature, index) => (
-            <div
-              key={index}
-              className={`relative p-8 rounded-2xl bg-gradient-to-br ${feature.gradient} border border-gray-200 dark:border-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105`}
-            >
-              <div className={`${feature.iconBg} rounded-xl p-3 w-14 h-14 flex items-center justify-center mb-6`}>
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Latest Updates Section */}
-      <section className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-            What's New
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Stay up to date with the latest features and improvements.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-xl">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-purple-600 dark:text-purple-400"
-                >
-                  <path d="M12 2v4"></path>
-                  <path d="m16.2 7.8 2.9-2.9"></path>
-                  <path d="M18 12h4"></path>
-                  <path d="m16.2 16.2 2.9 2.9"></path>
-                  <path d="M12 18v4"></path>
-                  <path d="m4.9 19.1 2.9-2.9"></path>
-                  <path d="M2 12h4"></path>
-                  <path d="m4.9 4.9 2.9 2.9"></path>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Interactive Components
-              </h3>
-            </div>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Milestone 3 is complete! Explore our new showcase featuring form components, toggles,
-              sliders, and collapsible sections with full state management.
+      {/* Content Container */}
+      <div className="container mx-auto px-4 flex flex-col gap-20 pb-20">
+        
+        {/* Features Section */}
+        <section>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+              Core Features
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Everything you need to build modern, scalable React applications.
             </p>
-            <Link
-              to="/showcase/interactive"
-              className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium transition-colors flex items-center gap-2"
-            >
-              View Interactive Showcase
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </Link>
           </div>
-
-          <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-green-100 dark:bg-green-900 rounded-xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
+              <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-green-600 dark:text-green-400"
-                >
-                  <path d="M12 12h8"></path>
-                  <path d="M12 6h8"></path>
-                  <path d="M12 18h8"></path>
-                  <path d="m8 8-4 4 4 4"></path>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Performance Benchmarks
-              </h3>
-            </div>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Comprehensive performance benchmarks added for all components. Run benchmarks to
-              measure rendering speed and optimize your applications.
-            </p>
-            <Link
-              to="/performance"
-              className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium transition-colors flex items-center gap-2"
-            >
-              View Performance Metrics
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </Link>
-          </div>
-
-          <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-xl">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="28"
+                  height="28"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -286,79 +81,274 @@ export function HomePage() {
                   strokeLinejoin="round"
                   className="text-blue-600 dark:text-blue-400"
                 >
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+                Server-Driven UI
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Define your UI with JSON specifications. Create dynamic layouts that can be updated
+                without code changes.
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
+              <div className="bg-purple-100 dark:bg-purple-900 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-purple-600 dark:text-purple-400"
+                >
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Marketing Template
+              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+                Component System
               </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Pre-built, customizable components that follow best practices and accessibility
+                standards.
+              </p>
             </div>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              New full marketing website template! A complete multi-page site showcasing modern
-              design and complex layouts, all driven by JSON.
-            </p>
-            <Link
-              to="/templates/marketing"
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors flex items-center gap-2"
-            >
-              View Marketing Template
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="container mx-auto px-4">
-        <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute -top-48 -left-48 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-48 -right-48 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl"></div>
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
+              <div className="bg-green-100 dark:bg-green-900 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-green-600 dark:text-green-400"
+                >
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                  <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                  <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+                Modern Architecture
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Built with TypeScript, React 19, and TailwindCSS. Fully typed and tree-shakeable.
+              </p>
+            </div>
           </div>
-          <div className="relative text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
-              Ready to Build with React Jedi?
+        </section>
+
+        {/* Latest Updates Section */}
+        <section>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+              What's New
             </h2>
-            <p className="text-lg sm:text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-              Start creating stunning interfaces with minimal code and maximum flexibility.
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Stay up to date with the latest features and improvements.
             </p>
-            <Link
-              to="/documentation"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-medium rounded-xl hover:bg-gray-50 transition-all transform hover:scale-105 shadow-lg"
-            >
-              Get Started
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </Link>
           </div>
-        </div>
-      </section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-xl">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-purple-600 dark:text-purple-400"
+                  >
+                    <path d="M12 2v4"></path>
+                    <path d="m16.2 7.8 2.9-2.9"></path>
+                    <path d="M18 12h4"></path>
+                    <path d="m16.2 16.2 2.9 2.9"></path>
+                    <path d="M12 18v4"></path>
+                    <path d="m7.8 16.2-2.9 2.9"></path>
+                    <path d="M6 12H2"></path>
+                    <path d="m7.8 7.8-2.9-2.9"></path>
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Animations</h3>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400">
+                New animation system with scroll-triggered effects, staggered animations, and smooth
+                transitions.
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-xl">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-blue-600 dark:text-blue-400"
+                  >
+                    <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                    <path d="m3.3 7 8.7 5 8.7-5"></path>
+                    <path d="M12 22V12"></path>
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Brand Presets
+                </h3>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400">
+                Pre-configured theme presets for popular brands. Get started quickly with familiar
+                design systems.
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-green-100 dark:bg-green-900 rounded-xl">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-green-600 dark:text-green-400"
+                  >
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <path d="m9 11 3 3L22 4"></path>
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Optimistic UI
+                </h3>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400">
+                Built-in support for optimistic updates with automatic rollback on errors for better
+                UX.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Getting Started Section */}
+        <section>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+              Getting Started
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Start building in minutes with our comprehensive documentation and examples.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-10 border border-gray-200 dark:border-gray-800">
+              <div className="space-y-6">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold">
+                    1
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                      Install the Package
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-3">
+                      Get started by installing React Jedi in your project.
+                    </p>
+                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 font-mono text-sm">
+                      npm install @react-jedi/core
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white font-bold">
+                    2
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                      Create Your Schema
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-3">
+                      Define your UI structure using JSON specifications.
+                    </p>
+                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 font-mono text-sm overflow-x-auto">
+                      {`{
+  "type": "Box",
+  "props": { 
+    "padding": 4,
+    "className": "bg-white dark:bg-gray-900"
+  },
+  "children": [...]
+}`}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white font-bold">
+                    3
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                      Render Your UI
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-3">
+                      Use the render function to create your interface.
+                    </p>
+                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 font-mono text-sm overflow-x-auto">
+                      {`import { render } from '@react-jedi/core';
+
+const MyComponent = render(specification);`}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  to="/documentation/getting-started"
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-2xl text-center"
+                >
+                  View Documentation
+                </Link>
+                <Link
+                  to="/examples"
+                  className="px-8 py-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-medium rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all transform hover:scale-105 shadow-md hover:shadow-lg text-center"
+                >
+                  Explore Examples
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

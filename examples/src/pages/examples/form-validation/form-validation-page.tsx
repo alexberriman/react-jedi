@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import type { Specification } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { useToast } from "../../../lib/use-toast";
+import { PageHeader } from "../../../components/ui/page-header";
 
 // Helper functions for validation
 const validateEmail = (email: string) => {
@@ -167,22 +168,6 @@ export const FormValidationPage = () => {
       className: "space-y-8",
     },
     children: [
-      {
-        type: "Heading",
-        props: {
-          level: 1,
-          className: "text-3xl sm:text-4xl font-bold mb-6 sm:mb-8",
-        },
-        children: "Form Examples with Validation",
-      },
-      {
-        type: "Text",
-        props: {
-          className: "text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-6 sm:mb-8",
-        },
-        children:
-          "Interactive forms with real-time validation, error messages, and submit feedback.",
-      },
 
       // Contact form with validation
       {
@@ -842,5 +827,16 @@ export const FormValidationPage = () => {
     ],
   };
 
-  return <div className="max-w-6xl mx-auto py-12 px-4">{render(formValidationExamples)}</div>;
+  return (
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Form Examples with Validation"
+        description="Interactive forms with real-time validation, error messages, and submit feedback."
+      />
+      
+      <div className="container mx-auto px-4 py-8">
+        {render(formValidationExamples)}
+      </div>
+    </div>
+  );
 };

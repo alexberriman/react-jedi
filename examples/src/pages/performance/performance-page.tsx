@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { runThemeBenchmark, LiveBenchmark, type BenchmarkResult } from "./theme-benchmark";
 import { JsonCodeComparison } from "./json-code-comparison";
 import { usePageMetadata } from "../../lib/meta";
+import { PageHeader } from "../../components/ui/page-header";
 
 interface PerformanceMetrics {
   withTheme: {
@@ -97,16 +98,14 @@ export const PerformancePage: React.FC = () => {
   }, [metrics]);
 
   return (
-    <Container className="py-12">
-      <Flex direction="column" gap={8}>
-        <Box>
-          <Heading asChild className="text-4xl font-bold mb-4">
-            <h1>Theme System Performance</h1>
-          </Heading>
-          <Text className="text-lg text-gray-600 mb-8">
-            Measuring the performance impact of the theme system on component rendering
-          </Text>
-        </Box>
+    <div className="flex flex-col">
+      <PageHeader 
+        title="Theme System Performance"
+        description="Measuring the performance impact of the theme system on component rendering"
+      />
+      
+      <Container className="py-8">
+        <Flex direction="column" gap={8}>
 
         <Card className="p-8">
           <Flex direction="column" gap={6}>
@@ -247,11 +246,12 @@ export const PerformancePage: React.FC = () => {
           </Flex>
         </Card>
 
-        {/* JSON vs Code Benchmark Section */}
-        <Card className="p-8">
-          <JsonCodeComparison />
-        </Card>
-      </Flex>
-    </Container>
+          {/* JSON vs Code Benchmark Section */}
+          <Card className="p-8">
+            <JsonCodeComparison />
+          </Card>
+        </Flex>
+      </Container>
+    </div>
   );
 };

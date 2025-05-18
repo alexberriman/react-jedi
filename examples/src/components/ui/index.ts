@@ -6,6 +6,7 @@ export * from "./data-table";
 export * from "./input";
 export * from "./label";
 export * from "./navigation-menu";
+export * from "./page-header";
 export * from "./progress";
 export * from "./select";
 export * from "./switch";

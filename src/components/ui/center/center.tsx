@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 export interface CenterProps extends React.HTMLAttributes<HTMLDivElement> {
   as?: React.ElementType;
@@ -34,7 +34,7 @@ const Center = React.forwardRef<HTMLDivElement, CenterProps>(
           },
           className
         )}
-        {...props}
+        {...cleanDOMProps(props)}
       >
         {children}
       </Component>

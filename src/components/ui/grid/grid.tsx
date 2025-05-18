@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, omit } from "../../../lib/utils";
 
 export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -85,6 +85,7 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
     },
     ref
   ) => {
+    const cleanProps = omit(props, ["parentContext", "spec", "theme", "state"]);
     // Generate column classes
     const getColumnsClass = () => {
       if (autoFit) {
@@ -130,7 +131,7 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
           stretch && "h-full",
           className
         )}
-        {...props}
+        {...cleanProps}
       >
         {children}
       </div>

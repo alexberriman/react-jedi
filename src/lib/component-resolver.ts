@@ -31,17 +31,59 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
 ): ComponentType => {
   // Wrap the component to accept ComponentProps and extract the relevant props
   return ((componentProps: ComponentProps) => {
-    const { spec, children, theme, state } = componentProps;
-    // Extract component-specific props from spec, excluding common properties
-    const { type, id, ...restSpec } = spec;
-    const props = {
+    const { spec, children, theme, state, parentContext, ...restProps } = componentProps;
+    
+    // Some components expect the full spec object (like CarouselComponent)
+    // Check if the component expects a spec prop
+    const componentName = component.displayName || component.name || '';
+    const expectsSpec = componentName.includes('Component');
+    
+    if (expectsSpec) {
+      // Pass the full ComponentProps to components that expect it
+      return React.createElement(component, {
+        ...defaultProps,
+        spec,
+        children,
+        theme,
+        state,
+        parentContext,
+        ...restProps
+      });
+    }
+    
+    // For all other components, we need to extract the real props
+    // The spec has the actual props we want to pass to the component
+    const actualProps = spec.props || {};
+    
+    // Special handling for Heading component's level prop
+    let transformedProps = actualProps;
+    if (spec.type === 'Heading' && typeof actualProps.level === 'number') {
+      transformedProps = {
+        ...actualProps,
+        level: `h${actualProps.level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+      };
+    }
+    
+    // Merge with any additional props passed through render
+    const mergedProps = {
       ...defaultProps,
-      ...restSpec,
+      ...transformedProps,
       children,
-      theme,
-      state,
+      // Include className and style from the spec if present
+      className: spec.className,
+      style: spec.style,
+      // Important: preserve the asChild prop from the spec for Radix UI components
+      asChild: spec.asChild,
     };
-    return React.createElement(component, props);
+    
+    // Clean up undefined values
+    Object.keys(mergedProps).forEach(key => {
+      if (mergedProps[key] === undefined) {
+        delete mergedProps[key];
+      }
+    });
+    
+    return React.createElement(component, mergedProps);
   }) as ComponentType;
 };
 
@@ -52,10 +94,18 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
  * It provides a centralized place to register all available components.
  * All components are adapted to accept our standard ComponentProps interface.
  */
-export const defaultComponentRegistry: Record<string, ComponentType> = {
-  // Layout Components
-  Box: asComponent(UI.Box),
-  Container: asComponent(UI.Container),
+let _defaultComponentRegistry: Record<string, ComponentType> | null = null;
+
+// Lazy initialization to avoid circular dependency issues
+const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
+  if (_defaultComponentRegistry) {
+    return _defaultComponentRegistry;
+  }
+
+  _defaultComponentRegistry = {
+    // Layout Components
+    Box: asComponent(UI.Box),
+    Container: asComponent(UI.Container),
   Grid: asComponent(UI.Grid),
   Flex: asComponent(UI.Flex),
   AspectRatio: asComponent(UI.AspectRatio),
@@ -100,7 +150,7 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   Select: asComponent(UI.Select),
   SelectContent: asComponent(UI.SelectContent),
   SelectGroup: asComponent(UI.SelectGroup),
-  SelectItem: asComponent(UI.SelectItem as unknown as React.ComponentType<Record<string, unknown>>),
+  SelectItem: asComponent(UI.SelectItem),
   SelectLabel: asComponent(UI.SelectLabel),
   SelectScrollDownButton: asComponent(UI.SelectScrollDownButton),
   SelectScrollUpButton: asComponent(UI.SelectScrollUpButton),
@@ -410,16 +460,46 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
   // Form component requires special handling as it's a FormProvider
   Form: asComponent(UI.Form as React.ComponentType<Record<string, unknown>>),
 
-  // Utility Components
-  HeadManager: asComponent(
-    HeadManager as unknown as React.ComponentType<Record<string, unknown>>,
-    { metadata: { title: "" } } // Provide default required props
-  ),
-  headManager: asComponent(
-    HeadManager as unknown as React.ComponentType<Record<string, unknown>>,
-    { metadata: { title: "" } } // Provide default required props
-  ),
+    // Utility Components
+    HeadManager: asComponent(
+      HeadManager as unknown as React.ComponentType<Record<string, unknown>>,
+      { metadata: { title: "" } } // Provide default required props
+    ),
+    headManager: asComponent(
+      HeadManager as unknown as React.ComponentType<Record<string, unknown>>,
+      { metadata: { title: "" } } // Provide default required props
+    ),
+  };
+
+  return _defaultComponentRegistry;
 };
+
+// Export as a getter for lazy initialization
+export const defaultComponentRegistry = new Proxy({} as Record<string, ComponentType>, {
+  get: (target, prop) => {
+    const registry = getDefaultComponentRegistry();
+    return registry[prop as string];
+  },
+  has: (target, prop) => {
+    const registry = getDefaultComponentRegistry();
+    return prop in registry;
+  },
+  ownKeys: () => {
+    const registry = getDefaultComponentRegistry();
+    return Object.keys(registry);
+  },
+  getOwnPropertyDescriptor: (target, prop) => {
+    const registry = getDefaultComponentRegistry();
+    if (prop in registry) {
+      return {
+        enumerable: true,
+        configurable: true,
+        value: registry[prop as string]
+      };
+    }
+    return undefined;
+  }
+});
 
 /**
  * Default component resolver that uses the default registry
@@ -431,13 +511,15 @@ export const defaultComponentRegistry: Record<string, ComponentType> = {
  * @returns React component implementation or null if not found
  */
 export const defaultComponentResolver: ComponentResolver = (type: string) => {
+  const registry = getDefaultComponentRegistry();
+  
   // Try the exact type first
-  let component = defaultComponentRegistry[type];
+  let component = registry[type];
 
   // If not found, try PascalCase (e.g., "box" -> "Box")
   if (!component) {
     const pascalCaseType = type.charAt(0).toUpperCase() + type.slice(1);
-    component = defaultComponentRegistry[pascalCaseType];
+    component = registry[pascalCaseType];
   }
 
   return component || null;
@@ -457,18 +539,20 @@ export function createCustomResolver(
   customComponents: Record<string, ComponentType>
 ): ComponentResolver {
   return (type: string) => {
+    const registry = getDefaultComponentRegistry();
+    
     // Try the exact type first in custom components
     let component = customComponents[type];
 
     // Try the exact type in default registry
     if (!component) {
-      component = defaultComponentRegistry[type];
+      component = registry[type];
     }
 
     // If not found, try PascalCase (e.g., "box" -> "Box")
     if (!component) {
       const pascalCaseType = type.charAt(0).toUpperCase() + type.slice(1);
-      component = customComponents[pascalCaseType] || defaultComponentRegistry[pascalCaseType];
+      component = customComponents[pascalCaseType] || registry[pascalCaseType];
     }
 
     return component || null;

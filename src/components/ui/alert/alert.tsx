@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import { getAlertAriaProps } from "../../../lib/accessibility";
 
 const alertVariants = cva(
@@ -36,27 +36,31 @@ function Alert({
     role,
   });
 
+  const cleanProps = cleanDOMProps(props);
+
   return (
     <div
       data-slot="alert"
       className={cn(alertVariants({ variant }), className)}
       {...ariaProps}
-      {...props}
+      {...cleanProps}
     />
   );
 }
 
 function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
+  const cleanProps = cleanDOMProps(props);
   return (
     <div
       data-slot="alert-title"
       className={cn("col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight", className)}
-      {...props}
+      {...cleanProps}
     />
   );
 }
 
 function AlertDescription({ className, ...props }: React.ComponentProps<"div">) {
+  const cleanProps = cleanDOMProps(props);
   return (
     <div
       data-slot="alert-description"
@@ -64,7 +68,7 @@ function AlertDescription({ className, ...props }: React.ComponentProps<"div">) 
         "text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed",
         className
       )}
-      {...props}
+      {...cleanProps}
     />
   );
 }

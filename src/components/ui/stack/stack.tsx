@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 const stackVariants = cva("flex", {
   variants: {
@@ -124,7 +124,7 @@ const Stack = React.forwardRef<HTMLDivElement, StackProps>(
       <Comp
         ref={ref}
         className={cn(stackVariants({ orientation, spacing, align, justify, wrap }), className)}
-        {...props}
+        {...cleanDOMProps(props)}
       >
         {divider
           ? childrenArray.map((child, index) => (

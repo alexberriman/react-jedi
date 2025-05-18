@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 // Define Menubar components from Radix UI
 const Menubar = MenubarPrimitive.Root;
@@ -63,7 +63,7 @@ const MenubarRadioGroup = MenubarPrimitive.RadioGroup;
 const MenubarRadioItem = MenubarPrimitive.RadioItem;
 const MenubarShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
   return (
-    <span className={cn("ml-auto text-xs tracking-widest opacity-60", className)} {...props} />
+    <span className={cn("ml-auto text-xs tracking-widest opacity-60", className)} {...cleanDOMProps(props)} />
   );
 };
 import type { MenubarComponent } from "../../../types/components/menubar";

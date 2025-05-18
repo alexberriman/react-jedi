@@ -69,7 +69,7 @@ export const WithMixedComponents: Story = {
       <Separator orientation="vertical" className="h-6" />
       <Badge>Draft</Badge>
       <Avatar className="h-8 w-8">
-        <img src="https://via.placeholder.com/32" alt="Avatar" />
+        <img src="https://placehold.co/32x32/EEE/31343C" alt="Avatar" />
       </Avatar>
     </Group>
   ),

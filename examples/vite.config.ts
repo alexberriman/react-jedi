@@ -20,12 +20,12 @@ export default defineConfig({
       // Library CSS import
       {
         find: "@banja/react-jedi/dist/index.css",
-        replacement: path.resolve(__dirname, "../dist/index.css"),
+        replacement: path.resolve(__dirname, "../src/styles/global.css"),
       },
-      // Library JS imports
+      // Library JS imports - use source directly for development
       {
         find: "@banja/react-jedi",
-        replacement: path.resolve(__dirname, "../dist/index.js"),
+        replacement: path.resolve(__dirname, "../src/index.ts"),
       },
     ],
   },

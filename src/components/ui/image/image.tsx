@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 const imageVariants = cva("transition-all duration-300 max-w-full", {
   variants: {
@@ -153,7 +153,7 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
             loading={loading === "lazy" ? "lazy" : "eager"}
             onError={handleError}
             onLoad={handleLoad}
-            {...props}
+            {...cleanDOMProps(props)}
           />
         )}
       </div>

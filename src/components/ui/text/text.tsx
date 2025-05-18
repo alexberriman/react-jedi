@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, omit } from "../../../lib/utils";
 
 const textVariants = cva("text-base max-w-prose", {
   variants: {
@@ -239,14 +239,11 @@ function Text({
   wrap,
   lineHeight,
   tracking,
-  // Extract React-specific props that shouldn't be passed to DOM
-  parentContext,
-  spec,
-  theme,
-  state,
   ...props
 }: TextProps) {
   const Component = element;
+  
+  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state"]);
 
   return (
     <Component
@@ -271,7 +268,7 @@ function Text({
           className,
         })
       )}
-      {...props}
+      {...cleanProps}
     >
       {children}
     </Component>

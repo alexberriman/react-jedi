@@ -18,6 +18,7 @@ import {
   createChildStyleContext,
   type StyleContext,
 } from "./theme/style-extension";
+import { defaultComponentResolver } from "./component-resolver";
 import type { DataSourcesState } from "../hooks/use-data-sources";
 import { createStateManager, type StateManager, StateProvider } from "./state";
 import {
@@ -98,110 +99,14 @@ class ErrorBoundary extends React.Component<
   }
 }
 
-// Import components directly
-import * as UI from "../components/ui";
-
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
-
-// Helper function to safely cast components to accept our standard ComponentProps
-// Special handling for certain components that have required props
-const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
-  component: T,
-  defaultProps?: Partial<Record<string, unknown>>
-): ComponentType => {
-  if (defaultProps) {
-    return ((props: ComponentProps) => {
-      const componentElement = React.createElement(component, { ...defaultProps, ...props });
-      return componentElement;
-    }) as ComponentType;
-  }
-  return component as unknown as ComponentType;
-};
-
-/**
- * Component registry for default components
- * All components are adapted to accept our standard ComponentProps interface.
- */
-const componentRegistry: Record<string, ComponentType> = {
-  // Layout Components
-  Box: asComponent(UI.Box),
-  Container: asComponent(UI.Container),
-  Grid: asComponent(UI.Grid),
-  Flex: asComponent(UI.Flex),
-  AspectRatio: asComponent(UI.AspectRatio),
-  Separator: asComponent(UI.Separator),
-
-  // Typography Components
-  Text: asComponent(UI.Text),
-  Heading: asComponent(UI.Heading),
-  BlockQuote: asComponent(UI.BlockQuote),
-
-  // UI Components
-  Button: asComponent(UI.Button),
-  Card: asComponent(UI.Card),
-  Badge: asComponent(UI.Badge),
-  Avatar: asComponent(UI.Avatar),
-  Image: asComponent(UI.Image),
-  Skeleton: asComponent(UI.Skeleton),
-  Label: asComponent(UI.Label),
-  Input: asComponent(UI.Input),
-
-  // Form Components
-  FormItem: asComponent(UI.FormItem),
-  FormLabel: asComponent(UI.FormLabel),
-  FormControl: asComponent(UI.FormControl),
-  FormDescription: asComponent(UI.FormDescription),
-  FormMessage: asComponent(UI.FormMessage),
-  // Form component requires special handling as it's a FormProvider
-  Form: asComponent(UI.Form as React.ComponentType<Record<string, unknown>>),
-
-  // Other Components
-  RadioGroup: asComponent(UI.RadioGroup),
-  RadioGroupItem: ((props: ComponentProps) => {
-    const { spec, theme, state, parentContext, ...restProps } = props;
-    const value = (restProps as { value?: string }).value || "";
-    return React.createElement(UI.RadioGroupItem, { ...restProps, value });
-  }) as ComponentType,
-  Select: asComponent(UI.Select),
-  SelectContent: asComponent(UI.SelectContent),
-  SelectItem: ((props: ComponentProps) => {
-    const { spec, theme, state, parentContext, ...restProps } = props;
-    const value = (restProps as { value?: string }).value || "";
-    return React.createElement(UI.SelectItem, { ...restProps, value });
-  }) as ComponentType,
-  SelectTrigger: asComponent(UI.SelectTrigger),
-  SelectValue: asComponent(UI.SelectValue),
-  Checkbox: asComponent(UI.Checkbox),
-  Textarea: asComponent(UI.TextareaComponent),
-};
 
 /**
  * Memoized component registry
  * Components are memoized based on their type and memoization options
  */
 const memoizedComponentRegistry: Record<string, ComponentType> = {};
-
-/**
- * Default component resolver function
- * Maps component type strings to their React implementations
- */
-const defaultComponentResolver: ComponentResolver = (type: string) => {
-  // Try the exact type first
-  let component = componentRegistry[type];
-
-  // If not found, try PascalCase (e.g., "box" -> "Box")
-  if (!component) {
-    const pascalCaseType = type.charAt(0).toUpperCase() + type.slice(1);
-    component = componentRegistry[pascalCaseType];
-  }
-
-  if (!component) {
-    console.warn(`Component type "${type}" not found`);
-  }
-
-  return component || null;
-};
 
 /**
  * Extended ComponentProps type that includes html attributes

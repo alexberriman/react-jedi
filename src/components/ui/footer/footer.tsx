@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Container } from "../container";
 import { Text } from "../text";
 import { Button } from "../button";
@@ -397,7 +397,7 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
     };
 
     return (
-      <footer ref={ref} className={cn(footerVariants({ variant, size }), className)} {...props}>
+      <footer ref={ref} className={cn(footerVariants({ variant, size }), className)} {...cleanDOMProps(props)}>
         <Container>
           {layoutRenderers[layout]()}
           {children}

@@ -51,6 +51,35 @@ export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Om
 }
 
 /**
+ * Custom props that should be filtered out before being passed to DOM elements
+ */
+export const CUSTOM_PROPS_TO_FILTER = [
+  "parentContext",
+  "spec",
+  "theme",
+  "state",
+  "conditionalProps",
+  "isPrimary",
+  "computedProps",
+  "when",
+  "actions",
+] as const;
+
+/**
+ * Type for filtered props
+ */
+export type CustomFilterProps = (typeof CUSTOM_PROPS_TO_FILTER)[number];
+
+/**
+ * Helper to clean props for DOM elements
+ */
+export function cleanDOMProps<T extends Record<string, unknown>>(
+  props: T
+): Omit<T, CustomFilterProps> {
+  return omit(props, CUSTOM_PROPS_TO_FILTER as unknown as (keyof T)[]);
+}
+
+/**
  * Re-export utility modules
  */
 export { cn as classNames } from "./utils/cn";

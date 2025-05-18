@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, omit } from "../../../lib/utils";
 
 const containerVariants = cva("mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col", {
   variants: {
@@ -51,18 +51,15 @@ function Container({
   padding,
   align,
   as: Component = "div",
-  // Extract React-specific props that shouldn't be passed to DOM
-  parentContext,
-  spec,
-  theme,
-  state,
   ...props
 }: ContainerProps) {
+  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state", "maxWidth"]);
+  
   return (
     <Component
       data-slot="container"
       className={cn(containerVariants({ size, padding, align, className }))}
-      {...props}
+      {...cleanProps}
     />
   );
 }

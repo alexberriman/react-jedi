@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from "lucide-react";
 
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Button, buttonVariants } from "../button";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
@@ -11,7 +11,7 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
       aria-label="pagination"
       data-slot="pagination"
       className={cn("mx-auto flex w-full justify-center", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -21,13 +21,13 @@ function PaginationContent({ className, ...props }: React.ComponentProps<"ul">) 
     <ul
       data-slot="pagination-content"
       className={cn("flex flex-row items-center gap-1", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
-  return <li data-slot="pagination-item" {...props} />;
+  return <li data-slot="pagination-item" {...cleanDOMProps(props)} />;
 }
 
 type PaginationLinkProps = {
@@ -54,7 +54,7 @@ function PaginationLink({
         }),
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       {children}
     </a>
@@ -67,7 +67,7 @@ function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof
       aria-label="Go to previous page"
       size="default"
       className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       <ChevronLeftIcon />
       <span className="hidden sm:block">Previous</span>
@@ -81,7 +81,7 @@ function PaginationNext({ className, ...props }: React.ComponentProps<typeof Pag
       aria-label="Go to next page"
       size="default"
       className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       <span className="hidden sm:block">Next</span>
       <ChevronRightIcon />
@@ -95,7 +95,7 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<"span"
       aria-hidden
       data-slot="pagination-ellipsis"
       className={cn("flex size-9 items-center justify-center", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       <MoreHorizontalIcon className="size-4" />
       <span className="sr-only">More pages</span>

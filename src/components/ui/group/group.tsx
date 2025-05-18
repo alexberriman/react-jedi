@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 const groupVariants = cva("inline-flex flex-wrap", {
   variants: {
@@ -90,7 +90,7 @@ const Group = React.forwardRef<HTMLDivElement, GroupProps>(
           fullWidth && "w-full",
           className
         )}
-        {...props}
+        {...cleanDOMProps(props)}
       >
         {children}
       </Comp>

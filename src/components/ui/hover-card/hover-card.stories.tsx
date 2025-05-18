@@ -133,7 +133,7 @@ export const ProductPreview: Story = {
         <HoverCardContent className="w-80">
           <div className="space-y-3">
             <img
-              src="https://via.placeholder.com/320x180"
+              src="https://placehold.co/320x180/EEE/31343C"
               alt="Product"
               className="w-full h-32 object-cover rounded-md"
             />

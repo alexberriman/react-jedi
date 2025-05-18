@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react";
 import type { ReactNode } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 export interface SimpleGridProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Number of columns for the grid */
@@ -97,7 +97,7 @@ const SimpleGrid = forwardRef<HTMLDivElement, SimpleGridProps>(
     );
 
     return (
-      <div ref={ref} className={gridClasses} style={getResponsiveStyles()} {...props}>
+      <div ref={ref} className={gridClasses} style={getResponsiveStyles()} {...cleanDOMProps(props)}>
         {children}
       </div>
     );

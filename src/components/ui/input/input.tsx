@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { cn } from "../../../lib/utils";
+import { cn, omit } from "../../../lib/utils";
 import { getFormControlAriaProps } from "../../../lib/accessibility";
 
 // Convert string boolean values to boolean
@@ -24,6 +24,8 @@ function Input({
   "aria-label": ariaLabel,
   ...props
 }: React.ComponentProps<"input">) {
+  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state", "inputType"]);
+  
   const ariaProps = getFormControlAriaProps({
     ariaInvalid: convertToBoolean(ariaInvalid),
     ariaRequired: convertToBoolean(ariaRequired),
@@ -44,7 +46,7 @@ function Input({
         className
       )}
       {...ariaProps}
-      {...props}
+      {...cleanProps}
     />
   );
 }

@@ -520,7 +520,11 @@ export function AdvancedLayoutShowcase() {
           ))}
         </Group>
 
-        <Stack spacing="xl">{sections.slice(1).map((section) => renderSection(section.id))}</Stack>
+        <Stack spacing="xl">
+          {sections.slice(1).map((section) => (
+            <div key={section.id}>{renderSection(section.id)}</div>
+          ))}
+        </Stack>
       </Container>
     </div>
   );

@@ -21,7 +21,7 @@ import {
   PolarRadiusAxis,
 } from "recharts";
 // Chart utility components will be defined below
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import type { ComponentProps } from "../../../types/schema/components";
 import { Tooltip, Legend } from "recharts";
 
@@ -46,7 +46,7 @@ export function ChartContainer({
   className?: string;
 }>) {
   return (
-    <div className={cn("w-full", className)} {...props}>
+    <div className={cn("w-full", className)} {...cleanDOMProps(props)}>
       {children}
     </div>
   );

@@ -1,20 +1,20 @@
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
 
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 function Drawer({ ...props }: Readonly<React.ComponentProps<typeof DrawerPrimitive.Root>>) {
-  return <DrawerPrimitive.Root data-slot="drawer" {...props} />;
+  return <DrawerPrimitive.Root data-slot="drawer" {...cleanDOMProps(props)} />;
 }
 
 function DrawerTrigger({
   ...props
 }: Readonly<React.ComponentProps<typeof DrawerPrimitive.Trigger>>) {
-  return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...props} />;
+  return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...cleanDOMProps(props)} />;
 }
 
 function DrawerPortal({ ...props }: Readonly<React.ComponentProps<typeof DrawerPrimitive.Portal>>) {
-  return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />;
+  return <DrawerPrimitive.Portal data-slot="drawer-portal" {...cleanDOMProps(props)} />;
 }
 
 function DrawerClose({
@@ -32,7 +32,7 @@ function DrawerClose({
         "hover:scale-105 hover:shadow-lg hover:shadow-primary/10",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -52,7 +52,7 @@ function DrawerOverlay({
         "data-[state=closed]:duration-300 data-[state=open]:duration-300",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -90,7 +90,7 @@ function DrawerContent({
           "data-[vaul-drawer-direction=left]:data-[state=closed]:slide-out-to-left data-[vaul-drawer-direction=left]:data-[state=open]:slide-in-from-left",
           className
         )}
-        {...props}
+        {...cleanDOMProps(props)}
       >
         <div className="bg-muted/50 mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block hover:scale-x-125 transition-transform duration-200" />
         {children}
@@ -109,7 +109,7 @@ function DrawerHeader({ className, ...props }: Readonly<React.ComponentProps<"di
         "bg-gradient-to-b from-background/5 to-transparent",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -124,7 +124,7 @@ function DrawerFooter({ className, ...props }: Readonly<React.ComponentProps<"di
         "bg-gradient-to-t from-background/5 to-transparent",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -141,7 +141,7 @@ function DrawerTitle({
         "bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -154,7 +154,7 @@ function DrawerDescription({
     <DrawerPrimitive.Description
       data-slot="drawer-description"
       className={cn("text-muted-foreground text-sm leading-relaxed", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -174,7 +174,7 @@ function DrawerSection({ className, sticky, ...props }: Readonly<DrawerSectionPr
         sticky && "sticky top-0 bg-background/80 backdrop-blur-md z-10",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -198,7 +198,7 @@ function DrawerHandle({
         orientation === "horizontal" ? "h-2 w-[100px] mx-auto my-2" : "w-2 h-[100px] my-auto mx-2",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }

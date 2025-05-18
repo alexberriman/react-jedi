@@ -2,7 +2,7 @@ import * as React from "react";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Button } from "../button";
 
 type CarouselApi = UseEmblaCarouselType[1];
@@ -119,7 +119,7 @@ function Carousel({
         role="region"
         aria-roledescription="carousel"
         data-slot="carousel"
-        {...props}
+        {...cleanDOMProps(props)}
       >
         {children}
       </div>
@@ -134,7 +134,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
     <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
       <div
         className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
-        {...props}
+        {...cleanDOMProps(props)}
       />
     </div>
   );
@@ -153,7 +153,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
         orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -180,7 +180,7 @@ function CarouselPrevious({
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       <ArrowLeft />
       <span className="sr-only">Previous slide</span>
@@ -210,7 +210,7 @@ function CarouselNext({
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       <ArrowRight />
       <span className="sr-only">Next slide</span>

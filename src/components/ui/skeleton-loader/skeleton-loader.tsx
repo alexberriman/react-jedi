@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 interface SkeletonLoaderProps {
   className?: string;
@@ -49,7 +49,7 @@ const SkeletonLoader = React.forwardRef<HTMLDivElement, SkeletonLoaderProps>(
             ref={index === 0 ? ref : undefined}
             className={cn(baseClasses, animationClasses[animation])}
             style={{ width, height }}
-            {...props}
+            {...cleanDOMProps(props)}
           />
         ))}
       </>

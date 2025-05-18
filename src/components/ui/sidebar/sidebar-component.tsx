@@ -31,6 +31,7 @@ import type { ComponentSpec } from "../../../types/schema/components";
 import { createSimpleEventHandler } from "../../../lib/events/simple-handlers";
 import { render } from "../../../lib";
 import * as Icons from "lucide-react";
+import { cleanDOMProps } from "../../../lib/utils";
 
 export function SidebarComponent({
   side = "left",
@@ -172,6 +173,7 @@ export function SidebarComponent({
   };
 
   const { type, id, dataAttributes, visible, events, ...sidebarProps } = props;
+  const cleanProps = cleanDOMProps(sidebarProps);
 
   return (
     <Sidebar
@@ -180,7 +182,7 @@ export function SidebarComponent({
       collapsible={collapsible}
       style={style}
       className={className}
-      {...sidebarProps}
+      {...cleanProps}
     >
       {header && <SidebarHeader>{renderSection(header)}</SidebarHeader>}
       {content && <SidebarContent>{renderContent()}</SidebarContent>}

@@ -92,6 +92,43 @@ yarn-error.log*
 **/lint_fix_*
 **/format_fix_*
 
+# General pattern for all fix-* scripts
+**/fix-*.sh
+**/fix-*.js
+**/fix-*.ts
+**/fix-*.py
+fix-*.sh
+fix-*.js
+fix-*.ts
+fix-*.py
+
+# Other fix-related scripts
+**/*-fixes.sh
+**/*-fixes.js
+**/*-fixes.ts
+**/*-fixes.py
+**/*_fix*.sh
+**/*_fix*.js
+**/*_fix*.ts
+**/*_fix*.py
+**/fix_*.sh
+**/fix_*.js
+**/fix_*.ts
+**/fix_*.py
+
+# Temporary component-related scripts
+**/extract-component-*.js
+**/extract-cva-*.js
+**/extract-tailwind-*.js
+**/verify-components*.mjs
+**/update-radix-*.py
+**/fix-all-*.mjs
+**/fix-component-*.mjs
+**/fix-component-*.js
+
+# Root directory images (likely temporary)
+/*.png
+
 # Temporary files with numeric suffixes (often used by editors or scripts)
 **/*_[0-9].ts
 **/*_[0-9][0-9].ts

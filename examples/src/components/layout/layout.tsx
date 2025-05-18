@@ -172,16 +172,17 @@ export function Layout({ className }: LayoutProps) {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link to="/documentation">
-                    <NavigationMenuLink
+                  <NavigationMenuLink asChild>
+                    <Link
+                      to="/documentation"
                       className={cn(
                         navigationMenuTriggerStyle(),
                         "bg-transparent text-zinc-700 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
                       )}
                     >
                       Documentation
-                    </NavigationMenuLink>
-                  </Link>
+                    </Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>

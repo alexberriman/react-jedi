@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, omit } from "../../../lib/utils";
 import { getHeadingAriaProps } from "../../../lib/accessibility";
 
 const headingVariants = cva("font-heading tracking-tight", {
@@ -196,15 +196,12 @@ function Heading({
   animation,
   spacing,
   "aria-label": ariaLabel,
-  // Extract React-specific props that shouldn't be passed to DOM
-  parentContext,
-  spec,
-  theme,
-  state,
   ...props
 }: HeadingProps) {
   const Component = level;
   const headingLevel = Number.parseInt(level[1]);
+  
+  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state"]);
 
   const ariaProps = getHeadingAriaProps({
     level: headingLevel as 1 | 2 | 3 | 4 | 5 | 6,
@@ -231,7 +228,7 @@ function Heading({
         })
       )}
       {...ariaProps}
-      {...props}
+      {...cleanProps}
     >
       {children}
     </Component>

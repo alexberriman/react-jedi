@@ -97,7 +97,7 @@ export const WithMultipleElements: Story = {
     children: (
       <div className="flex flex-col items-center gap-6">
         <img
-          src="https://via.placeholder.com/100"
+          src="https://placehold.co/100x100/EEE/31343C"
           alt="Placeholder"
           className="w-24 h-24 rounded-full"
         />

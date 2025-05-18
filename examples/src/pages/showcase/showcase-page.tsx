@@ -424,9 +424,9 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     type: "Box",
     className: "space-y-2",
     children: [
-      { type: "Heading", level: 1, children: "Heading H1" },
-      { type: "Heading", level: 2, children: "Heading H2" },
-      { type: "Heading", level: 3, children: "Heading H3" },
+      { type: "Heading", level: "h1", children: "Heading H1" },
+      { type: "Heading", level: "h2", children: "Heading H2" },
+      { type: "Heading", level: "h3", children: "Heading H3" },
     ],
   },
   Text: {
@@ -527,7 +527,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
   },
   Image: {
     type: "Image",
-    src: "https://via.placeholder.com/300x200",
+    src: "https://placehold.co/300x200/EEE/31343C",
     alt: "Placeholder image",
     className: "rounded-lg",
   },
@@ -740,7 +740,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
     children: [
       {
         type: "Heading",
-        level: 3,
+        level: "h3",
         className: "mb-4 text-white",
         children: "Ready to Get Started?",
       },
@@ -784,7 +784,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
       },
       {
         type: "Heading",
-        level: 4,
+        level: "h4",
         className: "mb-2",
         children: "Feature Title",
       },
@@ -810,7 +810,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
             children: [
               {
                 type: "Heading",
-                level: 5,
+                level: "h5",
                 className: "mb-4",
                 children: "Company",
               },
@@ -842,7 +842,7 @@ const componentPreviews: Record<string, UISpecification | ComponentSpec> = {
             children: [
               {
                 type: "Heading",
-                level: 5,
+                level: "h5",
                 className: "mb-4",
                 children: "Product",
               },

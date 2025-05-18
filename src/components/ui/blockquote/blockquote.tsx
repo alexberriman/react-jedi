@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 const blockquoteVariants = cva(
   "relative my-6 max-w-prose border-l-4 pl-4 py-2 text-lg italic font-medium",
@@ -125,6 +125,8 @@ function BlockQuote({
 }: BlockquoteProps) {
   const hasCite = Boolean(cite || author);
 
+  const cleanProps = cleanDOMProps(props);
+  
   return (
     <blockquote
       data-slot="blockquote"
@@ -140,7 +142,7 @@ function BlockQuote({
           className,
         })
       )}
-      {...props}
+      {...cleanProps}
     >
       <div className="relative z-10">{children}</div>
 

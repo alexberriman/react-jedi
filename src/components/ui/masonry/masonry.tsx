@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 export interface MasonryProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -155,7 +155,7 @@ const Masonry = React.forwardRef<HTMLDivElement, MasonryProps>(
           className
         )}
         style={getColumnStyle()}
-        {...props}
+        {...cleanDOMProps(props)}
       >
         {columnsContent.map((column, colIndex) => (
           <div key={colIndex} className="flex flex-col gap-[inherit]">
@@ -168,7 +168,7 @@ const Masonry = React.forwardRef<HTMLDivElement, MasonryProps>(
                   key={itemIndex}
                   className={cn(
                     "transition-all",
-                    mounted && "animate-fadeIn",
+                    mounted && "animate-in fade-in duration-300",
                     glassmorphic && [
                       "backdrop-blur-md",
                       "bg-white/10",

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Button } from "../button";
 import { ArrowRight, Sparkles, Zap, Star } from "lucide-react";
 
@@ -269,7 +269,7 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
           animated && "hover-lift",
           className
         )}
-        {...props}
+        {...cleanDOMProps(props)}
       >
         {/* Background Image */}
         {backgroundImage && <BackgroundImage src={backgroundImage} />}

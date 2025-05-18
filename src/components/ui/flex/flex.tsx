@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../../../lib/utils";
+import { cn, omit } from "../../../lib/utils";
 
 const flexVariants = cva("flex", {
   variants: {
@@ -55,6 +55,8 @@ export interface FlexProps
 
 const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
   ({ className, direction, wrap, justify, align, gap, ...props }, ref) => {
+    const cleanProps = omit(props, ["parentContext", "spec", "theme", "state"]);
+    
     return (
       <div
         ref={ref}
@@ -68,7 +70,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
             className,
           })
         )}
-        {...props}
+        {...cleanProps}
       />
     );
   }

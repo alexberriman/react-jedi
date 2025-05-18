@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 export interface SpacerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -78,7 +78,7 @@ const SpacerComponent = React.forwardRef<HTMLDivElement, SpacerProps>(
         )}
         style={spacerStyles}
         aria-hidden="true"
-        {...props}
+        {...cleanDOMProps(props)}
       />
     );
   }

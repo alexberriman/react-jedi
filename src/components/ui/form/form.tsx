@@ -10,7 +10,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Label } from "../label";
 
 const Form = FormProvider;
@@ -32,7 +32,7 @@ const FormField = <
 }: ControllerProps<TFieldValues, TName>) => {
   return (
     <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} />
+      <Controller {...cleanDOMProps(props)} />
     </FormFieldContext.Provider>
   );
 };
@@ -72,7 +72,7 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 
     return (
       <FormItemContext.Provider value={{ id }}>
-        <div ref={ref} className={cn("space-y-2", className)} {...props} />
+        <div ref={ref} className={cn("space-y-2", className)} {...cleanDOMProps(props)} />
       </FormItemContext.Provider>
     );
   }
@@ -90,7 +90,7 @@ const FormLabel = React.forwardRef<
       ref={ref}
       className={cn(error && "text-destructive", className)}
       htmlFor={formItemId}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 });
@@ -108,7 +108,7 @@ const FormControl = React.forwardRef<
       id={formItemId}
       aria-describedby={error ? `${formDescriptionId} ${formMessageId}` : `${formDescriptionId}`}
       aria-invalid={!!error}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 });
@@ -125,7 +125,7 @@ const FormDescription = React.forwardRef<
       ref={ref}
       id={formDescriptionId}
       className={cn("text-[0.8rem] text-muted-foreground", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 });
@@ -147,7 +147,7 @@ const FormMessage = React.forwardRef<
       ref={ref}
       id={formMessageId}
       className={cn("text-[0.8rem] font-medium text-destructive", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       {body}
     </p>

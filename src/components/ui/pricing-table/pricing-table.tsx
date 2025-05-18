@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../card";
 import { Button } from "../button";
 import { Badge } from "../badge";
@@ -52,7 +52,7 @@ export const PricingTable = React.forwardRef<HTMLDivElement, PricingTableProps>(
     };
 
     return (
-      <div ref={ref} className={cn("grid gap-6", getGridCols(), className)} {...props}>
+      <div ref={ref} className={cn("grid gap-6", getGridCols(), className)} {...cleanDOMProps(props)}>
         {tiers.map((tier, index) => (
           <Card
             key={index}

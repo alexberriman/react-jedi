@@ -45,7 +45,7 @@ export const HorizontalScroll: Story = {
           <figure key={tag} className="shrink-0">
             <div className="overflow-hidden rounded-md">
               <img
-                src="https://via.placeholder.com/150"
+                src="https://placehold.co/150x150/EEE/31343C"
                 alt={`Version ${tag}`}
                 className="aspect-[3/4] h-fit w-fit object-cover"
                 width={150}

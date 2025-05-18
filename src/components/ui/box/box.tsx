@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn, omit } from "../../../lib/utils";
 
 const boxVariants = cva("", {
   variants: {
@@ -283,13 +283,10 @@ function Box({
   backdropBlur,
   glassmorphism,
   neumorphism,
-  // Extract React-specific props that shouldn't be passed to DOM
-  parentContext,
-  spec,
-  theme,
-  state,
   ...props
 }: BoxProps) {
+  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state"]);
+  
   return (
     <Component
       data-slot="box"
@@ -322,7 +319,7 @@ function Box({
           className,
         })
       )}
-      {...props}
+      {...cleanProps}
     />
   );
 }

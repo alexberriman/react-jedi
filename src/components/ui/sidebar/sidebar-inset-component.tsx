@@ -1,6 +1,7 @@
 import React from "react";
 import { SidebarInset } from "./sidebar";
 import type { BaseComponentSpec } from "../../../types/components/base";
+import { cleanDOMProps } from "../../../lib/utils";
 
 export interface SidebarInsetComponentProps extends BaseComponentSpec {
   type: "sidebar-inset";
@@ -16,7 +17,7 @@ export function SidebarInsetComponent({
   ...props
 }: SidebarInsetComponentProps & { style?: React.CSSProperties; className?: string }) {
   return (
-    <SidebarInset style={style} className={className} {...props}>
+    <SidebarInset style={style} className={className} {...cleanDOMProps(props)}>
       {header && (
         <header className="flex items-center gap-2 p-4 border-b">
           {typeof header === "string" ? <h1 className="font-semibold">{header}</h1> : header}

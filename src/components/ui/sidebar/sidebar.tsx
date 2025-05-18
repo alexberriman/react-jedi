@@ -4,7 +4,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import { PanelLeftIcon } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
-import { cn } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Button } from "../button";
 import { Input } from "../input";
 import { Separator } from "../separator";
@@ -131,7 +131,7 @@ function SidebarProvider({
             "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
             className
           )}
-          {...props}
+          {...cleanDOMProps(props)}
         >
           {children}
         </div>
@@ -162,7 +162,7 @@ function Sidebar({
           "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col",
           className
         )}
-        {...props}
+        {...cleanDOMProps(props)}
       >
         {children}
       </div>
@@ -171,7 +171,7 @@ function Sidebar({
 
   if (isMobile) {
     return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...cleanDOMProps(props)}>
         <SheetContent
           data-sidebar="sidebar"
           data-slot="sidebar"
@@ -228,7 +228,7 @@ function Sidebar({
             : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
           className
         )}
-        {...props}
+        {...cleanDOMProps(props)}
       >
         <div
           data-sidebar="sidebar"
@@ -260,7 +260,7 @@ function SidebarTrigger({
         onClick?.(event);
         toggleSidebar();
       }}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       <PanelLeftIcon />
       <span className="sr-only">Toggle Sidebar</span>
@@ -288,7 +288,7 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
         "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -302,7 +302,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
         "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -313,7 +313,7 @@ function SidebarInput({ className, ...props }: React.ComponentProps<typeof Input
       data-slot="sidebar-input"
       data-sidebar="input"
       className={cn("bg-background h-8 w-full shadow-none", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -324,7 +324,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="sidebar-header"
       data-sidebar="header"
       className={cn("flex flex-col gap-2 p-2", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -335,7 +335,7 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="sidebar-footer"
       data-sidebar="footer"
       className={cn("flex flex-col gap-2 p-2", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -346,7 +346,7 @@ function SidebarSeparator({ className, ...props }: React.ComponentProps<typeof S
       data-slot="sidebar-separator"
       data-sidebar="separator"
       className={cn("bg-sidebar-border mx-2 w-auto", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -360,7 +360,7 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
         "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -371,7 +371,7 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="sidebar-group"
       data-sidebar="group"
       className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -392,7 +392,7 @@ function SidebarGroupLabel({
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -415,7 +415,7 @@ function SidebarGroupAction({
         "group-data-[collapsible=icon]:hidden",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -426,7 +426,7 @@ function SidebarGroupContent({ className, ...props }: React.ComponentProps<"div"
       data-slot="sidebar-group-content"
       data-sidebar="group-content"
       className={cn("w-full text-sm", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -437,7 +437,7 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
       data-slot="sidebar-menu"
       data-sidebar="menu"
       className={cn("flex w-full min-w-0 flex-col gap-1", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -448,7 +448,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
       data-slot="sidebar-menu-item"
       data-sidebar="menu-item"
       className={cn("group/menu-item relative", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -498,7 +498,7 @@ function SidebarMenuButton({
       data-size={size}
       data-active={isActive}
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 
@@ -552,7 +552,7 @@ function SidebarMenuAction({
           "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -571,7 +571,7 @@ function SidebarMenuBadge({ className, ...props }: React.ComponentProps<"div">) 
         "group-data-[collapsible=icon]:hidden",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -598,7 +598,7 @@ function SidebarMenuSkeleton({
       data-slot="sidebar-menu-skeleton"
       data-sidebar="menu-skeleton"
       className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     >
       {showIcon && <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />}
       <Skeleton
@@ -624,7 +624,7 @@ function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
         "group-data-[collapsible=icon]:hidden",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -635,7 +635,7 @@ function SidebarMenuSubItem({ className, ...props }: React.ComponentProps<"li">)
       data-slot="sidebar-menu-sub-item"
       data-sidebar="menu-sub-item"
       className={cn("group/menu-sub-item relative", className)}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }
@@ -667,7 +667,7 @@ function SidebarMenuSubButton({
         "group-data-[collapsible=icon]:hidden",
         className
       )}
-      {...props}
+      {...cleanDOMProps(props)}
     />
   );
 }

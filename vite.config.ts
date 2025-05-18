@@ -5,6 +5,17 @@ import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  css: {
+    // Ensure all CSS is processed correctly
+    modules: false,
+    postcss: './postcss.config.js',
+    preprocessorOptions: {
+      // This helps with @import processing
+      css: {
+        charset: false,
+      },
+    },
+  },
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),

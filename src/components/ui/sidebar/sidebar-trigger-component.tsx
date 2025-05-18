@@ -2,6 +2,7 @@ import React from "react";
 import { SidebarTrigger } from "./sidebar";
 import type { BaseComponentSpec } from "../../../types/components/base";
 import { createSimpleEventHandler } from "../../../lib/events/simple-handlers";
+import { cleanDOMProps } from "../../../lib/utils";
 
 export interface SidebarTriggerComponentProps extends BaseComponentSpec {
   type: "sidebar-trigger";
@@ -19,6 +20,7 @@ export function SidebarTriggerComponent({
   ...props
 }: SidebarTriggerComponentProps & { style?: React.CSSProperties; className?: string }) {
   const { type, ...restProps } = props;
+  const cleanProps = cleanDOMProps(restProps);
 
   return (
     <SidebarTrigger
@@ -27,7 +29,7 @@ export function SidebarTriggerComponent({
       size={size}
       style={style}
       className={className}
-      {...restProps}
+      {...cleanProps}
     />
   );
 }

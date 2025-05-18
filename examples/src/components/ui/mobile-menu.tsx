@@ -4,6 +4,8 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
+  SheetTitle,
+  SheetDescription,
   Button,
   Collapsible,
   CollapsibleContent,
@@ -79,6 +81,8 @@ export function MobileMenu() {
         side="left"
         className="w-[300px] sm:w-[400px] bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800"
       >
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+        <SheetDescription className="sr-only">Mobile navigation menu</SheetDescription>
         <div className="flex flex-col gap-4 py-4">
           <Link to="/" className="flex items-center gap-2 px-2" onClick={() => setOpen(false)}>
             <div className="text-emerald-600 dark:text-emerald-400 flex items-center font-bold text-xl">

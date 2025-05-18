@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AsyncRoute } from "../components/async-route";
 import { Layout } from "../components/layout";
 import { LoadingLayout } from "../components/layouts/loading-layout";
+import { TemplateLayout } from "../components/layouts/template-layout";
 
 // Lazy load all pages
 const HomePage = lazy(() =>
@@ -49,47 +50,35 @@ const DocumentationPage = lazy(() =>
 const DocumentationOverview = lazy(() =>
   import("../pages/documentation").then((module) => ({ default: module.DocumentationOverview }))
 );
-const GettingStartedPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({
-    default: module.GettingStartedPage,
-  }))
+const ComponentSystem = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.ComponentSystem }))
 );
-const ComponentSystemPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({
-    default: module.ComponentSystemPage,
-  }))
+const GettingStarted = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.GettingStarted }))
 );
-const LayoutComponentsPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({
-    default: module.LayoutComponentsPage,
-  }))
+const Theming = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.Theming }))
 );
-const TypographyPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({ default: module.TypographyPage }))
+const StateManagement = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.StateManagement }))
 );
-const UIComponentsPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({ default: module.UIComponentsPage }))
+const Performance = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.Performance }))
 );
-const FormComponentsPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({
-    default: module.FormComponentsPage,
-  }))
+const UIComponents = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.UIComponents }))
 );
-const DocThemingPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({ default: module.ThemingPage }))
+const FormComponents = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.FormComponents }))
 );
-const StateManagementPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({
-    default: module.StateManagementPage,
-  }))
+const LayoutComponents = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.LayoutComponents }))
 );
-const ComplexExamplesPage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({
-    default: module.ComplexExamplesPage,
-  }))
+const Typography = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.Typography }))
 );
-const DocPerformancePage = lazy(() =>
-  import("../pages/documentation/sections").then((module) => ({ default: module.PerformancePage }))
+const ComplexExamples = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.ComplexExamples }))
 );
 
 // Example pages
@@ -97,102 +86,69 @@ const ExamplesPage = lazy(() =>
   import("../pages/examples").then((module) => ({ default: module.ExamplesPage }))
 );
 const LandingExamplePage = lazy(() =>
-  import("../pages/examples/landing").then((module) => ({ default: module.LandingExamplePage }))
+  import("../pages/examples").then((module) => ({ default: module.LandingExamplePage }))
 );
 const ConditionalPage = lazy(() =>
-  import("../pages/examples/conditional").then((module) => ({ default: module.ConditionalPage }))
+  import("../pages/examples").then((module) => ({ default: module.ConditionalPage }))
 );
 const AdvancedConditionalPage = lazy(() =>
-  import("../pages/examples/conditional").then((module) => ({
-    default: module.AdvancedConditionalPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.AdvancedConditionalPage }))
 );
 const FormValidationPage = lazy(() =>
-  import("../pages/examples/form-validation").then((module) => ({
-    default: module.FormValidationPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.FormValidationPage }))
 );
 const NavigationPage = lazy(() =>
-  import("../pages/examples/navigation").then((module) => ({ default: module.NavigationPage }))
+  import("../pages/examples").then((module) => ({ default: module.NavigationPage }))
 );
 const DataDisplayPage = lazy(() =>
-  import("../pages/examples/data").then((module) => ({ default: module.DataDisplayPage }))
+  import("../pages/examples").then((module) => ({ default: module.DataDisplayPage }))
 );
 const TransitionsPage = lazy(() =>
-  import("../pages/examples/transitions").then((module) => ({ default: module.TransitionsPage }))
+  import("../pages/examples").then((module) => ({ default: module.TransitionsPage }))
 );
 const ClickAnimationsPage = lazy(() =>
-  import("../pages/examples/click-animations").then((module) => ({
-    default: module.ClickAnimationsPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.ClickAnimationsPage }))
 );
 const DragAnimationsPage = lazy(() =>
-  import("../pages/examples/drag-animations").then((module) => ({
-    default: module.DragAnimationsPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.DragAnimationsPage }))
 );
 const ScrollAnimationsPage = lazy(() =>
-  import("../pages/examples/scroll-animations").then((module) => ({
-    default: module.ScrollAnimationsPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.ScrollAnimationsPage }))
 );
 const StaggerAnimationsPage = lazy(() =>
-  import("../pages/examples/stagger-animations").then((module) => ({
-    default: module.default,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.StaggerAnimationsPage }))
 );
 const AnimationSequencePage = lazy(() =>
-  import("../pages/examples/animation-sequence").then((module) => ({
-    default: module.default,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.AnimationSequencePage }))
 );
-
 const DataFetchingPage = lazy(() =>
-  import("../pages/examples/data-fetching").then((module) => ({
-    default: module.DataFetchingPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.DataFetchingPage }))
 );
-
 const OptimisticUpdatesPage = lazy(() =>
-  import("../pages/examples/optimistic-updates").then((module) => ({
-    default: module.OptimisticUpdatesPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.OptimisticUpdatesPage }))
 );
-
 const SEOMetadataPage = lazy(() =>
-  import("../pages/examples/seo-metadata").then((module) => ({
-    default: module.SEOMetadataPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.SEOMetadataPage }))
 );
-
 const StructuredDataDemo = lazy(() =>
-  import("../components/seo").then((module) => ({
-    default: module.StructuredDataDemo,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.StructuredDataDemo }))
 );
-
 const RichSnippetsPage = lazy(() =>
-  import("../pages/examples/rich-snippets").then((module) => ({
-    default: module.RichSnippetsPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.RichSnippetsPage }))
 );
-
-// Accessibility pages
 const FocusManagementPage = lazy(() =>
-  import("../pages/accessibility/focus-management-page").then((module) => ({
-    default: module.FocusManagementPage,
-  }))
+  import("../pages/examples").then((module) => ({ default: module.FocusManagementPage }))
 );
 
-// Other pages
-const BrandPresetsPage = lazy(() =>
-  import("../pages/brand-presets").then((module) => ({ default: module.BrandPresetsPage }))
-);
+// Feature pages
 const ThemingPage = lazy(() =>
   import("../pages/theming").then((module) => ({ default: module.ThemingPage }))
 );
 const ThemePlaygroundPage = lazy(() =>
   import("../pages/theming").then((module) => ({ default: module.ThemePlaygroundPage }))
+);
+const BrandPresetsPage = lazy(() =>
+  import("../pages/brand-presets").then((module) => ({ default: module.BrandPresetsPage }))
 );
 const PerformancePage = lazy(() =>
   import("../pages/performance").then((module) => ({ default: module.PerformancePage }))
@@ -298,103 +254,92 @@ export const router = createBrowserRouter([
             element: <AsyncRoute component={DialogDemo} loadingText="Loading dialog demo..." />,
           },
           {
-            path: "hero",
-            element: <AsyncRoute component={HeroPreview} loadingText="Loading hero preview..." />,
-          },
-          {
             path: "overlay-interactive",
             element: (
               <AsyncRoute
                 component={OverlayInteractivePage}
-                loadingText="Loading overlay demo..."
+                loadingText="Loading overlay interactive..."
               />
             ),
+          },
+          {
+            path: "center",
+            element: <AsyncRoute component={HeroPreview} loadingText="Loading center showcase..." />,
+          },
+          {
+            path: "flex",
+            element: <AsyncRoute component={HeroPreview} loadingText="Loading flex demo..." />,
           },
         ],
       },
       {
         path: "documentation",
-        element: (
-          <AsyncRoute component={DocumentationPage} loadingText="Loading documentation..." />
-        ),
         children: [
           {
             index: true,
             element: (
-              <AsyncRoute component={DocumentationOverview} loadingText="Loading overview..." />
+              <AsyncRoute component={DocumentationPage} loadingText="Loading documentation..." />
+            ),
+          },
+          {
+            path: "overview",
+            element: (
+              <AsyncRoute
+                component={DocumentationOverview}
+                loadingText="Loading documentation overview..."
+              />
             ),
           },
           {
             path: "getting-started",
             element: (
-              <AsyncRoute component={GettingStartedPage} loadingText="Loading getting started..." />
+              <AsyncRoute component={GettingStarted} loadingText="Loading getting started..." />
             ),
           },
           {
             path: "component-system",
             element: (
-              <AsyncRoute
-                component={ComponentSystemPage}
-                loadingText="Loading component system..."
-              />
+              <AsyncRoute component={ComponentSystem} loadingText="Loading component system..." />
+            ),
+          },
+          {
+            path: "theming",
+            element: <AsyncRoute component={Theming} loadingText="Loading theming..." />,
+          },
+          {
+            path: "state-management",
+            element: (
+              <AsyncRoute component={StateManagement} loadingText="Loading state management..." />
+            ),
+          },
+          {
+            path: "performance",
+            element: <AsyncRoute component={Performance} loadingText="Loading performance..." />,
+          },
+          {
+            path: "ui-components",
+            element: <AsyncRoute component={UIComponents} loadingText="Loading UI components..." />,
+          },
+          {
+            path: "form-components",
+            element: (
+              <AsyncRoute component={FormComponents} loadingText="Loading form components..." />
             ),
           },
           {
             path: "layout-components",
             element: (
-              <AsyncRoute
-                component={LayoutComponentsPage}
-                loadingText="Loading layout components..."
-              />
+              <AsyncRoute component={LayoutComponents} loadingText="Loading layout components..." />
             ),
           },
           {
             path: "typography",
-            element: <AsyncRoute component={TypographyPage} loadingText="Loading typography..." />,
-          },
-          {
-            path: "ui-components",
-            element: (
-              <AsyncRoute component={UIComponentsPage} loadingText="Loading UI components..." />
-            ),
-          },
-          {
-            path: "form-components",
-            element: (
-              <AsyncRoute component={FormComponentsPage} loadingText="Loading form components..." />
-            ),
-          },
-          {
-            path: "theming",
-            element: (
-              <AsyncRoute component={DocThemingPage} loadingText="Loading theming docs..." />
-            ),
-          },
-          {
-            path: "state-management",
-            element: (
-              <AsyncRoute
-                component={StateManagementPage}
-                loadingText="Loading state management..."
-              />
-            ),
+            element: <AsyncRoute component={Typography} loadingText="Loading typography..." />,
           },
           {
             path: "complex-examples",
             element: (
-              <AsyncRoute
-                component={ComplexExamplesPage}
-                loadingText="Loading complex examples..."
-              />
-            ),
-          },
-          {
-            path: "performance",
-            element: (
-              <AsyncRoute
-                component={DocPerformancePage}
-                loadingText="Loading performance docs..."
-              />
+              <AsyncRoute component={ComplexExamples} loadingText="Loading complex examples..." />
             ),
           },
         ],
@@ -557,68 +502,12 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "marketing",
-            children: [
-              {
-                index: true,
-                element: (
-                  <AsyncRoute
-                    component={MarketingTemplatePage}
-                    loadingText="Loading marketing template..."
-                  />
-                ),
-              },
-              {
-                path: "home",
-                element: (
-                  <AsyncRoute
-                    component={MarketingHomePage}
-                    loadingText="Loading marketing home..."
-                  />
-                ),
-              },
-              {
-                path: "about",
-                element: (
-                  <AsyncRoute component={MarketingAboutPage} loadingText="Loading about page..." />
-                ),
-              },
-              {
-                path: "services",
-                element: (
-                  <AsyncRoute
-                    component={MarketingServicesPage}
-                    loadingText="Loading services page..."
-                  />
-                ),
-              },
-              {
-                path: "cases",
-                element: (
-                  <AsyncRoute
-                    component={MarketingCasesPage}
-                    loadingText="Loading case studies..."
-                  />
-                ),
-              },
-              {
-                path: "pricing",
-                element: (
-                  <AsyncRoute
-                    component={MarketingPricingPage}
-                    loadingText="Loading pricing page..."
-                  />
-                ),
-              },
-              {
-                path: "contact",
-                element: (
-                  <AsyncRoute
-                    component={MarketingContactPage}
-                    loadingText="Loading contact page..."
-                  />
-                ),
-              },
-            ],
+            element: (
+              <AsyncRoute
+                component={MarketingTemplatePage}
+                loadingText="Loading marketing template..."
+              />
+            ),
           },
         ],
       },
@@ -655,6 +544,68 @@ export const router = createBrowserRouter([
       {
         path: "*",
         element: <AsyncRoute component={NotFoundPage} loadingText="Loading..." />,
+      },
+    ],
+  },
+  {
+    // Separate route tree for template pages with minimal layout
+    path: "/templates/marketing",
+    element: (
+      <LoadingLayout>
+        <TemplateLayout />
+      </LoadingLayout>
+    ),
+    children: [
+      {
+        path: "home",
+        element: (
+          <AsyncRoute
+            component={MarketingHomePage}
+            loadingText="Loading marketing home..."
+          />
+        ),
+      },
+      {
+        path: "about",
+        element: (
+          <AsyncRoute component={MarketingAboutPage} loadingText="Loading about page..." />
+        ),
+      },
+      {
+        path: "services",
+        element: (
+          <AsyncRoute
+            component={MarketingServicesPage}
+            loadingText="Loading services page..."
+          />
+        ),
+      },
+      {
+        path: "cases",
+        element: (
+          <AsyncRoute
+            component={MarketingCasesPage}
+            loadingText="Loading case studies..."
+          />
+        ),
+      },
+      {
+        path: "pricing",
+        element: (
+          <AsyncRoute
+            component={MarketingPricingPage}
+            loadingText="Loading pricing page..."
+          />
+        ),
+      },
+      {
+        path: "contact",
+        element: (
+          <AsyncRoute
+            component={MarketingContactPage}
+            loadingText="Loading contact page..."
+          />
+        ),
       },
     ],
   },

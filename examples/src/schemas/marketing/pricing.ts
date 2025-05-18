@@ -729,169 +729,107 @@ export const marketingPricingSchema = {
                   children: [
                     {
                       type: "Table",
-                      props: {
-                        className: "w-full",
+                      className: "w-full",
+                      head: {
+                        rows: [
+                          {
+                            cells: [
+                              {
+                                content: "Features",
+                                className: "text-left p-4 border-b border-zinc-200 dark:border-zinc-800",
+                              },
+                              {
+                                content: "Starter",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
+                                align: "center",
+                              },
+                              {
+                                content: "Professional",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
+                                align: "center",
+                              },
+                              {
+                                content: "Enterprise",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
+                                align: "center",
+                              },
+                            ],
+                          },
+                        ],
                       },
-                      children: [
-                        {
-                          type: "thead",
-                          children: [
-                            {
-                              type: "tr",
-                              children: [
-                                {
-                                  type: "th",
-                                  props: {
-                                    className:
-                                      "text-left p-4 border-b border-zinc-200 dark:border-zinc-800",
-                                    children: "Features",
-                                  },
-                                },
-                                {
-                                  type: "th",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
-                                    children: "Starter",
-                                  },
-                                },
-                                {
-                                  type: "th",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
-                                    children: "Professional",
-                                  },
-                                },
-                                {
-                                  type: "th",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800",
-                                    children: "Enterprise",
-                                  },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: "tbody",
-                          children: [
-                            {
-                              type: "tr",
-                              children: [
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "Projects",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "5",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "Unlimited",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "Unlimited",
-                                  },
-                                },
-                              ],
-                            },
-                            {
-                              type: "tr",
-                              children: [
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "Team Members",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "1",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "10",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "Unlimited",
-                                  },
-                                },
-                              ],
-                            },
-                            {
-                              type: "tr",
-                              children: [
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "Storage",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "10GB",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "100GB",
-                                  },
-                                },
-                                {
-                                  type: "td",
-                                  props: {
-                                    className:
-                                      "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
-                                    children: "Custom",
-                                  },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      ],
+                      body: {
+                        rows: [
+                          {
+                            cells: [
+                              {
+                                content: "Projects",
+                                className: "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                              },
+                              {
+                                content: "5",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                              {
+                                content: "Unlimited",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                              {
+                                content: "Unlimited",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                            ],
+                          },
+                          {
+                            cells: [
+                              {
+                                content: "Team Members",
+                                className: "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                              },
+                              {
+                                content: "1",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                              {
+                                content: "10",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                              {
+                                content: "Unlimited",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                            ],
+                          },
+                          {
+                            cells: [
+                              {
+                                content: "Storage",
+                                className: "p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                              },
+                              {
+                                content: "10GB",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                              {
+                                content: "100GB",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                              {
+                                content: "Custom",
+                                className: "text-center p-4 border-b border-zinc-200 dark:border-zinc-800/50",
+                                align: "center",
+                              },
+                            ],
+                          },
+                        ],
+                      },
                     },
                   ],
                 },

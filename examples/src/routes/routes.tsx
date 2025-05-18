@@ -179,6 +179,9 @@ const MarketingPricingPage = lazy(() =>
 const MarketingContactPage = lazy(() =>
   import("../pages/templates").then((module) => ({ default: module.MarketingContactPage }))
 );
+const MarketingDebugPage = lazy(() =>
+  import("../pages/debug/marketing-home").then((module) => ({ default: module.MarketingDebugPage }))
+);
 
 // Error pages
 const NotFoundPage = lazy(() =>
@@ -604,6 +607,15 @@ export const router = createBrowserRouter([
           <AsyncRoute
             component={MarketingContactPage}
             loadingText="Loading contact page..."
+          />
+        ),
+      },
+      {
+        path: "debug",
+        element: (
+          <AsyncRoute
+            component={MarketingDebugPage}
+            loadingText="Loading debug page..."
           />
         ),
       },

@@ -4,7 +4,7 @@ import { footer } from "./shared/footer";
 export const marketingHomeSchema = {
   type: "Box",
   props: {
-    className: "w-full min-h-screen",
+    className: "w-full min-h-screen bg-white dark:bg-zinc-950",
   },
   children: [
     header,
@@ -14,7 +14,7 @@ export const marketingHomeSchema = {
       type: "Box",
       props: {
         className:
-          "relative py-32 px-6 overflow-hidden bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950",
+          "relative pt-32 pb-24 px-6 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950",
       },
       children: [
         // Background patterns
@@ -28,21 +28,21 @@ export const marketingHomeSchema = {
               type: "Box",
               props: {
                 className:
-                  "absolute top-0 left-0 w-[800px] h-[800px] bg-blue-500/20 rounded-full filter blur-[150px]",
+                  "absolute top-0 left-0 w-[800px] h-[800px] bg-blue-500/10 dark:bg-blue-500/20 rounded-full filter blur-[150px]",
               },
             },
             {
               type: "Box",
               props: {
                 className:
-                  "absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-500/20 rounded-full filter blur-[150px]",
+                  "absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-500/10 dark:bg-purple-500/20 rounded-full filter blur-[150px]",
               },
             },
             {
               type: "Box",
               props: {
                 className:
-                  "absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 bg-pink-500/10 rounded-full filter blur-[150px]",
+                  "absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 bg-pink-500/5 dark:bg-pink-500/10 rounded-full filter blur-[150px]",
               },
             },
             // Grid pattern overlay
@@ -50,7 +50,7 @@ export const marketingHomeSchema = {
               type: "Box",
               props: {
                 className:
-                  "absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:64px_64px]",
+                  "absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:64px_64px]",
               },
             },
           ],
@@ -79,7 +79,7 @@ export const marketingHomeSchema = {
                       type: "Badge",
                       props: {
                         variant: "outline",
-                        className: "mb-6 backdrop-blur-sm bg-white/5 border-white/20",
+                        className: "mb-6 backdrop-blur-sm bg-white/70 dark:bg-white/5 border-zinc-200 dark:border-white/20",
                         children: "🔥 2025's Most Innovative Agency",
                       },
                     },
@@ -88,7 +88,7 @@ export const marketingHomeSchema = {
                       props: {
                         level: 1,
                         className:
-                          "text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400",
+                          "text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400",
                         children: "Transform Your Digital Future Today",
                       },
                     },
@@ -112,7 +112,7 @@ export const marketingHomeSchema = {
                             variant: "default",
                             size: "lg",
                             className:
-                              "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 shadow-lg shadow-purple-500/25",
+                              "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 shadow-lg shadow-purple-500/25 text-white",
                             children: "Start Your Project",
                           },
                         },
@@ -121,7 +121,7 @@ export const marketingHomeSchema = {
                           props: {
                             variant: "outline",
                             size: "lg",
-                            className: "backdrop-blur-sm bg-white/5",
+                            className: "backdrop-blur-sm bg-white/70 dark:bg-white/5 border-zinc-200 dark:border-white/20",
                             children: "View Our Work",
                           },
                         },
@@ -144,7 +144,7 @@ export const marketingHomeSchema = {
                               type: "Avatar",
                               props: {
                                 className:
-                                  "border-2 border-zinc-900 bg-gradient-to-br from-blue-500 to-purple-600",
+                                  "border-2 border-white dark:border-zinc-900 bg-gradient-to-br from-blue-500 to-purple-600",
                                 children: "A",
                               },
                             },
@@ -152,7 +152,7 @@ export const marketingHomeSchema = {
                               type: "Avatar",
                               props: {
                                 className:
-                                  "border-2 border-zinc-900 bg-gradient-to-br from-purple-500 to-pink-600",
+                                  "border-2 border-white dark:border-zinc-900 bg-gradient-to-br from-purple-500 to-pink-600",
                                 children: "B",
                               },
                             },
@@ -160,7 +160,7 @@ export const marketingHomeSchema = {
                               type: "Avatar",
                               props: {
                                 className:
-                                  "border-2 border-zinc-900 bg-gradient-to-br from-pink-500 to-yellow-600",
+                                  "border-2 border-white dark:border-zinc-900 bg-gradient-to-br from-pink-500 to-yellow-600",
                                 children: "C",
                               },
                             },
@@ -215,7 +215,7 @@ export const marketingHomeSchema = {
                           type: "Box",
                           props: {
                             className:
-                              "absolute inset-0 bg-gradient-to-br from-blue-900/40 via-purple-900/40 to-pink-900/40",
+                              "absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 dark:from-blue-900/40 dark:via-purple-900/40 dark:to-pink-900/40",
                           },
                         },
                       ],
@@ -225,7 +225,7 @@ export const marketingHomeSchema = {
                       type: "Box",
                       props: {
                         className:
-                          "absolute -top-4 -right-4 w-48 h-32 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl shadow-xl shadow-purple-500/25 p-4",
+                          "absolute -top-4 -right-4 w-48 h-32 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl shadow-xl shadow-purple-500/25 p-4 text-white",
                       },
                       children: [
                         {
@@ -238,7 +238,7 @@ export const marketingHomeSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-3xl font-bold text-zinc-900 dark:text-white",
+                            className: "text-3xl font-bold text-white",
                             children: "1,245+",
                           },
                         },
@@ -248,7 +248,7 @@ export const marketingHomeSchema = {
                       type: "Box",
                       props: {
                         className:
-                          "absolute bottom-8 -left-4 w-48 h-32 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl shadow-xl shadow-pink-500/25 p-4",
+                          "absolute bottom-8 -left-4 w-48 h-32 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl shadow-xl shadow-pink-500/25 p-4 text-white",
                       },
                       children: [
                         {
@@ -261,7 +261,7 @@ export const marketingHomeSchema = {
                         {
                           type: "Text",
                           props: {
-                            className: "text-3xl font-bold text-zinc-900 dark:text-white",
+                            className: "text-3xl font-bold text-white",
                             children: "99.8%",
                           },
                         },
@@ -280,7 +280,7 @@ export const marketingHomeSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-gradient-to-b from-zinc-950 to-black",
+        className: "py-24 bg-zinc-50 dark:bg-zinc-950",
       },
       children: [
         {
@@ -297,7 +297,7 @@ export const marketingHomeSchema = {
                   props: {
                     variant: "outline",
                     className:
-                      "mb-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-purple-500/20",
+                      "mb-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-500/10 dark:to-purple-500/10 border-purple-200 dark:border-purple-500/20",
                     children: "What We Do",
                   },
                 },
@@ -332,14 +332,14 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 transition-all duration-300 group relative overflow-hidden",
+                      "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 transition-all duration-300 group relative overflow-hidden",
                   },
                   children: [
                     {
                       type: "Box",
                       props: {
                         className:
-                          "absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+                          "absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
                       },
                     },
                     {
@@ -352,7 +352,7 @@ export const marketingHomeSchema = {
                           type: "Box",
                           props: {
                             className:
-                              "w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300",
+                              "w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-500/20 dark:to-blue-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300",
                           },
                           children: [
                             {
@@ -369,7 +369,7 @@ export const marketingHomeSchema = {
                           props: {
                             level: 3,
                             className:
-                              "text-2xl font-semibold mb-4 group-hover:text-blue-400 transition-colors",
+                              "text-2xl font-semibold mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors",
                             children: "UI/UX Design",
                           },
                         },
@@ -385,7 +385,7 @@ export const marketingHomeSchema = {
                           type: "Badge",
                           props: {
                             variant: "secondary",
-                            className: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+                            className: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 border-blue-200 dark:border-blue-500/20",
                             children: "Learn More →",
                           },
                         },
@@ -399,14 +399,14 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-purple-500/50 transition-all duration-300 group relative overflow-hidden",
+                      "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 hover:border-purple-500/50 transition-all duration-300 group relative overflow-hidden",
                   },
                   children: [
                     {
                       type: "Box",
                       props: {
                         className:
-                          "absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+                          "absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
                       },
                     },
                     {
@@ -419,7 +419,7 @@ export const marketingHomeSchema = {
                           type: "Box",
                           props: {
                             className:
-                              "w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300",
+                              "w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-500/20 dark:to-purple-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300",
                           },
                           children: [
                             {
@@ -436,7 +436,7 @@ export const marketingHomeSchema = {
                           props: {
                             level: 3,
                             className:
-                              "text-2xl font-semibold mb-4 group-hover:text-purple-400 transition-colors",
+                              "text-2xl font-semibold mb-4 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors",
                             children: "Development",
                           },
                         },
@@ -452,7 +452,7 @@ export const marketingHomeSchema = {
                           type: "Badge",
                           props: {
                             variant: "secondary",
-                            className: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+                            className: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400 border-purple-200 dark:border-purple-500/20",
                             children: "Learn More →",
                           },
                         },
@@ -466,14 +466,14 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-pink-500/50 transition-all duration-300 group relative overflow-hidden",
+                      "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 hover:border-pink-500/50 transition-all duration-300 group relative overflow-hidden",
                   },
                   children: [
                     {
                       type: "Box",
                       props: {
                         className:
-                          "absolute inset-0 bg-gradient-to-br from-pink-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+                          "absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
                       },
                     },
                     {
@@ -486,7 +486,7 @@ export const marketingHomeSchema = {
                           type: "Box",
                           props: {
                             className:
-                              "w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500/20 to-pink-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300",
+                              "w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-500/20 dark:to-pink-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300",
                           },
                           children: [
                             {
@@ -503,7 +503,7 @@ export const marketingHomeSchema = {
                           props: {
                             level: 3,
                             className:
-                              "text-2xl font-semibold mb-4 group-hover:text-pink-400 transition-colors",
+                              "text-2xl font-semibold mb-4 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors",
                             children: "Marketing",
                           },
                         },
@@ -519,7 +519,7 @@ export const marketingHomeSchema = {
                           type: "Badge",
                           props: {
                             variant: "secondary",
-                            className: "bg-pink-500/10 text-pink-400 border-pink-500/20",
+                            className: "bg-pink-100 text-pink-700 dark:bg-pink-500/10 dark:text-pink-400 border-pink-200 dark:border-pink-500/20",
                             children: "Learn More →",
                           },
                         },
@@ -546,7 +546,7 @@ export const marketingHomeSchema = {
           type: "Box",
           props: {
             className:
-              "absolute inset-0 bg-[linear-gradient(45deg,rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(-45deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:32px_32px]",
+              "absolute inset-0 bg-[linear-gradient(45deg,rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(-45deg,rgba(168,85,247,0.05)_1px,transparent_1px)] dark:bg-[linear-gradient(45deg,rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(-45deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:32px_32px]",
           },
         },
         {
@@ -572,7 +572,7 @@ export const marketingHomeSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-5xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent",
+                          "text-5xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent",
                         children: "150+",
                       },
                     },
@@ -595,7 +595,7 @@ export const marketingHomeSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-5xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent",
+                          "text-5xl font-bold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent",
                         children: "50+",
                       },
                     },
@@ -618,7 +618,7 @@ export const marketingHomeSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-5xl font-bold mb-2 bg-gradient-to-r from-pink-400 to-yellow-400 bg-clip-text text-transparent",
+                          "text-5xl font-bold mb-2 bg-gradient-to-r from-pink-600 to-yellow-600 dark:from-pink-400 dark:to-yellow-400 bg-clip-text text-transparent",
                         children: "12+",
                       },
                     },
@@ -641,7 +641,7 @@ export const marketingHomeSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-5xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent",
+                          "text-5xl font-bold mb-2 bg-gradient-to-r from-yellow-600 to-green-600 dark:from-yellow-400 dark:to-green-400 bg-clip-text text-transparent",
                         children: "5+",
                       },
                     },
@@ -665,7 +665,7 @@ export const marketingHomeSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-gradient-to-b from-black to-zinc-950",
+        className: "py-24 bg-zinc-50 dark:bg-zinc-950",
       },
       children: [
         {
@@ -682,7 +682,7 @@ export const marketingHomeSchema = {
                   props: {
                     variant: "outline",
                     className:
-                      "mb-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-pink-500/20",
+                      "mb-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-500/10 dark:to-pink-500/10 border-pink-200 dark:border-pink-500/20",
                     children: "Testimonials",
                   },
                 },
@@ -717,7 +717,7 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 p-8",
+                      "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 p-8",
                   },
                   children: [
                     {
@@ -785,7 +785,7 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 p-8",
+                      "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 p-8",
                   },
                   children: [
                     {
@@ -853,7 +853,7 @@ export const marketingHomeSchema = {
                   type: "Card",
                   props: {
                     className:
-                      "bg-gradient-to-br from-zinc-900 to-zinc-950 border-zinc-200 dark:border-zinc-800 p-8",
+                      "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 p-8",
                   },
                   children: [
                     {
@@ -926,7 +926,7 @@ export const marketingHomeSchema = {
     {
       type: "Box",
       props: {
-        className: "py-24 bg-zinc-950",
+        className: "py-24 bg-white dark:bg-zinc-950",
       },
       children: [
         {
@@ -936,7 +936,7 @@ export const marketingHomeSchema = {
               type: "Box",
               props: {
                 className:
-                  "relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950 border border-purple-500/20 p-16 text-center",
+                  "relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-16 text-center",
               },
               children: [
                 // Background decoration
@@ -950,14 +950,14 @@ export const marketingHomeSchema = {
                       type: "Box",
                       props: {
                         className:
-                          "absolute top-0 left-0 w-[600px] h-[600px] bg-blue-500/20 rounded-full filter blur-[150px]",
+                          "absolute top-0 left-0 w-[600px] h-[600px] bg-white/10 rounded-full filter blur-[150px]",
                       },
                     },
                     {
                       type: "Box",
                       props: {
                         className:
-                          "absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-500/20 rounded-full filter blur-[150px]",
+                          "absolute bottom-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full filter blur-[150px]",
                       },
                     },
                   ],
@@ -973,7 +973,7 @@ export const marketingHomeSchema = {
                       type: "Heading",
                       props: {
                         level: 2,
-                        className: "text-4xl md:text-5xl font-bold mb-6",
+                        className: "text-4xl md:text-5xl font-bold mb-6 text-white",
                         children: "Ready to Start Your Project?",
                       },
                     },
@@ -981,7 +981,7 @@ export const marketingHomeSchema = {
                       type: "Text",
                       props: {
                         className:
-                          "text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto",
+                          "text-xl text-white/90 mb-8 max-w-2xl mx-auto",
                         children:
                           "Let's create something amazing together. Get in touch with our team and let's discuss your next digital masterpiece.",
                       },
@@ -998,7 +998,7 @@ export const marketingHomeSchema = {
                             variant: "default",
                             size: "lg",
                             className:
-                              "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 shadow-lg shadow-purple-500/25",
+                              "bg-white text-purple-600 hover:bg-white/90 border-0 shadow-lg shadow-black/20",
                             children: "Get Started Now",
                           },
                         },
@@ -1007,7 +1007,7 @@ export const marketingHomeSchema = {
                           props: {
                             variant: "outline",
                             size: "lg",
-                            className: "backdrop-blur-sm bg-white/5",
+                            className: "backdrop-blur-sm bg-white/10 border-white/30 text-white hover:bg-white/20",
                             children: "Schedule a Call",
                           },
                         },

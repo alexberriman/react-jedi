@@ -129,6 +129,9 @@ fix-*.py
 # Root directory images (likely temporary)
 /*.png
 
+# Screenshots directory
+/screenshots/
+
 # Temporary files with numeric suffixes (often used by editors or scripts)
 **/*_[0-9].ts
 **/*_[0-9][0-9].ts

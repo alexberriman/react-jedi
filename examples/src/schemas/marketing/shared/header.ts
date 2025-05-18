@@ -1,107 +1,183 @@
 export const header = {
   type: "Box",
   props: {
+    as: "header",
     className:
-      "fixed top-0 w-full z-50 backdrop-blur-md bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800",
+      "fixed top-0 w-full z-50 backdrop-blur-md bg-white/80 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800",
   },
   children: [
     {
       type: "Container",
+      props: {
+        className: "max-w-7xl mx-auto px-4",
+      },
       children: [
         {
-          type: "Flex",
+          type: "Box",
           props: {
-            className: "h-20 items-center justify-between",
+            className: "relative h-16 flex items-center",
           },
           children: [
-            // Logo
-            {
-              type: "Heading",
-              props: {
-                level: 2,
-                className:
-                  "text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent",
-                children: "Nexus Digital",
-              },
-            },
-
-            // Navigation
+            // Logo (Left) - positioned absolutely
             {
               type: "Box",
               props: {
-                className: "hidden lg:block",
+                as: "a",
+                href: "/templates/marketing/home",
+                className: "absolute left-0 no-underline",
+              },
+              children: [
+                {
+                  type: "Heading",
+                  props: {
+                    level: 2,
+                    className:
+                      "text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent",
+                    children: "Nexus Digital",
+                  },
+                },
+              ],
+            },
+
+            // Navigation (Center) - centered with margin auto
+            {
+              type: "Box",
+              props: {
+                className: "hidden lg:flex mx-auto",
               },
               children: [
                 {
                   type: "Flex",
                   props: {
-                    gap: 8,
+                    gap: 8, // Space between nav items
                     className: "items-center",
                   },
                   children: [
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "/templates/marketing/home",
                         className:
-                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
-                        children: "Home",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors no-underline px-3 py-2",
                       },
+                      children: [
+                        {
+                          type: "Text",
+                          props: {
+                            children: "Home",
+                          },
+                        },
+                      ],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "/templates/marketing/about",
                         className:
-                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
-                        children: "About",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors no-underline px-3 py-2",
                       },
+                      children: [
+                        {
+                          type: "Text",
+                          props: {
+                            children: "About",
+                          },
+                        },
+                      ],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "/templates/marketing/services",
                         className:
-                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
-                        children: "Services",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors no-underline px-3 py-2",
                       },
+                      children: [
+                        {
+                          type: "Text",
+                          props: {
+                            children: "Services",
+                          },
+                        },
+                      ],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "/templates/marketing/cases",
                         className:
-                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
-                        children: "Portfolio",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors no-underline px-3 py-2",
                       },
+                      children: [
+                        {
+                          type: "Text",
+                          props: {
+                            children: "Portfolio",
+                          },
+                        },
+                      ],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "/templates/marketing/pricing",
                         className:
-                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
-                        children: "Pricing",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors no-underline px-3 py-2",
                       },
+                      children: [
+                        {
+                          type: "Text",
+                          props: {
+                            children: "Pricing",
+                          },
+                        },
+                      ],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "/templates/marketing/contact",
                         className:
-                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white transition-colors cursor-pointer",
-                        children: "Contact",
+                          "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors no-underline px-3 py-2",
                       },
+                      children: [
+                        {
+                          type: "Text",
+                          props: {
+                            children: "Contact",
+                          },
+                        },
+                      ],
                     },
                   ],
                 },
               ],
             },
 
-            // CTA Button
+            // CTA Button (Right) - positioned absolutely
             {
-              type: "Button",
+              type: "Box",
               props: {
-                variant: "default",
-                size: "sm",
-                className:
-                  "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0",
-                children: "Get Started",
+                className: "absolute right-0",
               },
+              children: [
+                {
+                  type: "Button",
+                  props: {
+                    variant: "default",
+                    size: "md",
+                    className:
+                      "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white",
+                    children: "Get Started",
+                  },
+                },
+              ],
             },
           ],
         },

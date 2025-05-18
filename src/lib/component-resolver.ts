@@ -64,14 +64,18 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
       };
     }
     
+    // Handle children from spec.props.children for components like Text, Badge, Button, etc.
+    const specPropsChildren = actualProps.children;
+    const finalChildren = specPropsChildren !== undefined ? specPropsChildren : children;
+    
     // Merge with any additional props passed through render
     const mergedProps = {
       ...defaultProps,
       ...transformedProps,
-      children,
+      children: finalChildren,
       // Include className and style from the spec if present
-      className: spec.className,
-      style: spec.style,
+      className: spec.className || transformedProps.className,
+      style: spec.style || transformedProps.style,
       // Important: preserve the asChild prop from the spec for Radix UI components
       asChild: spec.asChild,
     };

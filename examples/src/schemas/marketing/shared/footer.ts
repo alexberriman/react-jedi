@@ -1,7 +1,7 @@
 export const footer = {
   type: "Box",
   props: {
-    className: "py-16 bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800",
+    className: "py-16 bg-zinc-100 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800",
   },
   children: [
     {
@@ -24,7 +24,7 @@ export const footer = {
                   props: {
                     level: 3,
                     className:
-                      "text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent",
+                      "text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent",
                     children: "Nexus Digital",
                   },
                 },
@@ -46,13 +46,13 @@ export const footer = {
                       type: "Box",
                       props: {
                         className:
-                          "w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center cursor-pointer hover:bg-blue-500/20 transition-colors",
+                          "w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-500/20 transition-colors",
                       },
                       children: [
                         {
                           type: "Text",
                           props: {
-                            className: "text-blue-400",
+                            className: "text-blue-600 dark:text-blue-400",
                             children: "f",
                           },
                         },
@@ -62,13 +62,13 @@ export const footer = {
                       type: "Box",
                       props: {
                         className:
-                          "w-10 h-10 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center cursor-pointer hover:bg-purple-500/20 transition-colors",
+                          "w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center cursor-pointer hover:bg-purple-200 dark:hover:bg-purple-500/20 transition-colors",
                       },
                       children: [
                         {
                           type: "Text",
                           props: {
-                            className: "text-purple-400",
+                            className: "text-purple-600 dark:text-purple-400",
                             children: "t",
                           },
                         },
@@ -78,13 +78,13 @@ export const footer = {
                       type: "Box",
                       props: {
                         className:
-                          "w-10 h-10 rounded-full bg-pink-500/10 border border-pink-500/20 flex items-center justify-center cursor-pointer hover:bg-pink-500/20 transition-colors",
+                          "w-10 h-10 rounded-full bg-pink-100 dark:bg-pink-500/10 border border-pink-200 dark:border-pink-500/20 flex items-center justify-center cursor-pointer hover:bg-pink-200 dark:hover:bg-pink-500/20 transition-colors",
                       },
                       children: [
                         {
                           type: "Text",
                           props: {
-                            className: "text-pink-400",
+                            className: "text-pink-600 dark:text-pink-400",
                             children: "in",
                           },
                         },
@@ -114,36 +114,64 @@ export const footer = {
                   },
                   children: [
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
-                        children: "Web Design",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors no-underline",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Web Design",
+                        },
+                      }],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
-                        children: "Development",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors no-underline",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Development",
+                        },
+                      }],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
-                        children: "Marketing",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors no-underline",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Marketing",
+                        },
+                      }],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
-                        children: "Consulting",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors no-underline",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Consulting",
+                        },
+                      }],
                     },
                   ],
                 },
@@ -169,36 +197,64 @@ export const footer = {
                   },
                   children: [
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "/templates/marketing/about",
                         className:
-                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
-                        children: "About Us",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors no-underline",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "About Us",
+                        },
+                      }],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
-                        children: "Careers",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors no-underline",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Careers",
+                        },
+                      }],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
-                        children: "Blog",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors no-underline",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Blog",
+                        },
+                      }],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
-                        children: "Press",
+                          "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors no-underline",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Press",
+                        },
+                      }],
                     },
                   ],
                 },
@@ -285,28 +341,49 @@ export const footer = {
                   },
                   children: [
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 transition-colors cursor-pointer text-sm",
-                        children: "Privacy Policy",
+                          "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-400 transition-colors no-underline text-sm",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Privacy Policy",
+                        },
+                      }],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 transition-colors cursor-pointer text-sm",
-                        children: "Terms of Service",
+                          "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-400 transition-colors no-underline text-sm",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Terms of Service",
+                        },
+                      }],
                     },
                     {
-                      type: "Text",
+                      type: "Box",
                       props: {
+                        as: "a",
+                        href: "#",
                         className:
-                          "text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 transition-colors cursor-pointer text-sm",
-                        children: "Cookie Policy",
+                          "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-400 transition-colors no-underline text-sm",
                       },
+                      children: [{
+                        type: "Text",
+                        props: {
+                          children: "Cookie Policy",
+                        },
+                      }],
                     },
                   ],
                 },

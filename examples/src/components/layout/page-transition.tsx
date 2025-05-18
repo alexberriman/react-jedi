@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
 const pageVariants = {
@@ -47,8 +47,8 @@ const pageVariants = {
 
 const pageTransition = {
   type: "tween",
-  ease: "anticipate",
-  duration: 0.4,
+  ease: "easeInOut",
+  duration: 0.2,
 };
 
 interface PageTransitionProps {
@@ -65,18 +65,15 @@ export function PageTransition({
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        initial="initial"
-        animate="in"
-        exit="out"
-        variants={pageVariants[variant]}
-        transition={pageTransition}
-        className={className}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <motion.div
+      key={location.pathname}
+      initial="initial"
+      animate="in"
+      variants={pageVariants[variant]}
+      transition={pageTransition}
+      className={className}
+    >
+      {children}
+    </motion.div>
   );
 }

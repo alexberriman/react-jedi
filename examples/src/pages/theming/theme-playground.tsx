@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
+import { PageHeader } from "../../components/ui/page-header";
 import { ThemeProvider, useTheme } from "@banja/react-jedi";
 import type { Theme } from "@banja/react-jedi";
 import {
@@ -18,7 +18,6 @@ import {
   Flex,
   Box,
   Grid,
-  Container,
   Input,
   Label,
   Skeleton,
@@ -39,9 +38,9 @@ function ComponentShowcase(): React.ReactElement {
       <section>
         <h3 className="text-lg font-semibold mb-4">Typography</h3>
         <div className="space-y-4">
-          <Heading level={1}>Heading Level 1</Heading>
-          <Heading level={2}>Heading Level 2</Heading>
-          <Heading level={3}>Heading Level 3</Heading>
+          <Heading level="h1">Heading Level 1</Heading>
+          <Heading level="h2">Heading Level 2</Heading>
+          <Heading level="h3">Heading Level 3</Heading>
           <Text size="lg">Large text example with the current font family</Text>
           <Text>Regular text showing the base font size and line height</Text>
           <Text size="sm" className="text-muted-foreground">
@@ -593,38 +592,30 @@ function ThemePlayground({ initialTheme }: Readonly<ThemePlaygroundProps>): Reac
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="bg-background text-foreground min-h-screen">
-        <Container>
-          <div className="py-8">
-            <Grid columns={1} xl={2} gap={8}>
-              {/* Controls Panel */}
-              <div className="order-2 xl:order-1">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Theme Controls</CardTitle>
-                    <CardDescription>Customize your theme in real-time</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ThemeControls theme={theme} onThemeChange={setTheme} />
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Preview Panel */}
-              <div className="order-1 xl:order-2">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Live Preview</CardTitle>
-                    <CardDescription>See your theme changes applied instantly</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ComponentShowcase />
-                  </CardContent>
-                </Card>
-              </div>
-            </Grid>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Controls Panel */}
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm">
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              Theme Controls
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Customize your theme in real-time
+            </p>
+            <ThemeControls theme={theme} onThemeChange={setTheme} />
           </div>
-        </Container>
+        </div>
+
+        {/* Preview Panel */}
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm">
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Live Preview</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              See your theme changes applied instantly
+            </p>
+            <ComponentShowcase />
+          </div>
+        </div>
       </div>
     </ThemeProvider>
   );
@@ -638,28 +629,15 @@ export function ThemePlaygroundPage(): React.ReactElement {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50">
-      <Container>
-        <div className="py-8">
-          <nav className="mb-8">
-            <Link to="/theming" className="text-cyan-600 hover:text-cyan-700 transition-colors">
-              ← Back to Theming
-            </Link>
-          </nav>
+    <div className="flex flex-col">
+      <PageHeader
+        title="Theme Playground"
+        description="Interactive theme customization tool - preview and adjust all theme variables in real-time."
+      />
 
-          <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-cyan-600 to-purple-600 bg-clip-text text-transparent">
-              Theme Playground
-            </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Create stunning custom themes with our interactive playground. Adjust colors,
-              typography, spacing, and more to match your brand perfectly.
-            </p>
-          </div>
-        </div>
-      </Container>
-
-      <ThemePlayground />
+      <div className="container mx-auto px-4 py-8">
+        <ThemePlayground />
+      </div>
     </div>
   );
 }

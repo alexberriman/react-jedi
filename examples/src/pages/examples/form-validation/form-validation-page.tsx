@@ -163,12 +163,11 @@ export const FormValidationPage = () => {
   };
 
   const formValidationExamples: Specification = {
-    type: "Container",
+    type: "Box",
     props: {
       className: "space-y-8",
     },
     children: [
-
       // Contact form with validation
       {
         type: "Card",
@@ -829,14 +828,12 @@ export const FormValidationPage = () => {
 
   return (
     <div className="flex flex-col">
-      <PageHeader 
+      <PageHeader
         title="Form Examples with Validation"
         description="Interactive forms with real-time validation, error messages, and submit feedback."
       />
-      
-      <div className="container mx-auto px-4 py-8">
-        {render(formValidationExamples)}
-      </div>
+
+      <div className="container mx-auto px-4 py-8">{render(formValidationExamples)}</div>
     </div>
   );
 };

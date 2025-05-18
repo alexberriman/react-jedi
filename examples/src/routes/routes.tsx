@@ -43,8 +43,8 @@ const HeroPreview = lazy(() =>
 );
 
 // Documentation pages
-const DocumentationLayout = lazy(() =>
-  import("../pages/documentation").then((module) => ({ default: module.DocumentationLayout }))
+const DocumentationPage = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.DocumentationPage }))
 );
 const DocumentationOverview = lazy(() =>
   import("../pages/documentation").then((module) => ({ default: module.DocumentationOverview }))
@@ -315,7 +315,7 @@ export const router = createBrowserRouter([
       {
         path: "documentation",
         element: (
-          <AsyncRoute component={DocumentationLayout} loadingText="Loading documentation..." />
+          <AsyncRoute component={DocumentationPage} loadingText="Loading documentation..." />
         ),
         children: [
           {

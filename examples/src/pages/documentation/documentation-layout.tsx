@@ -24,7 +24,7 @@ export function DocumentationLayout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-950 to-slate-900 transition-colors">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
           <div className="space-y-2 mb-16">
@@ -50,7 +50,7 @@ export function DocumentationLayout() {
                 className={`px-4 py-2 rounded-full text-sm transition-all ${
                   location.pathname === section.path
                     ? "bg-emerald-600/30 text-emerald-600 dark:text-emerald-400 border border-emerald-600/50"
-                    : "bg-zinc-100 dark:bg-zinc-800/50 hover:bg-zinc-200 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:text-white"
+                    : "bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                 }`}
               >
                 {section.label}

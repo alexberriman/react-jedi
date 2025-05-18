@@ -156,14 +156,14 @@ const CodeBasedDashboard: React.FC<{ itemCount: number }> = ({ itemCount }) => {
   return (
     <Container>
       <Box className="p-8">
-        <Heading level={2} className="text-3xl font-bold mb-4">
+        <Heading level="h2" className="text-3xl font-bold mb-4">
           Dashboard Overview
         </Heading>
         <Grid columns={3} gap={6} className="mb-8">
           <Card>
             <CardContent className="p-6">
               <Text className="text-gray-600 mb-2">Total Users</Text>
-              <Heading level={3} className="text-2xl font-bold">
+              <Heading level="h3" className="text-2xl font-bold">
                 1,234
               </Heading>
             </CardContent>
@@ -171,7 +171,7 @@ const CodeBasedDashboard: React.FC<{ itemCount: number }> = ({ itemCount }) => {
           <Card>
             <CardContent className="p-6">
               <Text className="text-gray-600 mb-2">Revenue</Text>
-              <Heading level={3} className="text-2xl font-bold">
+              <Heading level="h3" className="text-2xl font-bold">
                 $45,678
               </Heading>
             </CardContent>
@@ -179,7 +179,7 @@ const CodeBasedDashboard: React.FC<{ itemCount: number }> = ({ itemCount }) => {
           <Card>
             <CardContent className="p-6">
               <Text className="text-gray-600 mb-2">Growth</Text>
-              <Heading level={3} className="text-2xl font-bold">
+              <Heading level="h3" className="text-2xl font-bold">
                 +23%
               </Heading>
             </CardContent>
@@ -188,7 +188,7 @@ const CodeBasedDashboard: React.FC<{ itemCount: number }> = ({ itemCount }) => {
         <Flex direction="column" gap={4}>
           {Array.from({ length: itemCount }).map((_, i) => (
             <Box key={i} className="p-4 bg-gray-100 rounded-lg">
-              <Heading level={3} className="text-lg font-semibold mb-2">
+              <Heading level="h3" className="text-lg font-semibold mb-2">
                 Item {i + 1}
               </Heading>
               <Text className="text-gray-600">
@@ -284,7 +284,7 @@ export const JsonCodeComparison: React.FC = () => {
     <Box className="space-y-6">
       <Flex justify="between" align="center">
         <Box>
-          <Heading level={3} className="text-xl font-semibold">
+          <Heading level="h3" className="text-xl font-semibold">
             JSON vs Code Performance
           </Heading>
           <Text className="text-gray-600">
@@ -320,7 +320,7 @@ export const JsonCodeComparison: React.FC = () => {
       {results && (
         <Box className="space-y-6">
           <Box className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6">
-            <Heading level={4} className="text-lg font-semibold mb-4">
+            <Heading level="h4" className="text-lg font-semibold mb-4">
               Results ({itemCount} items, {iterations} iterations)
             </Heading>
 
@@ -365,7 +365,7 @@ export const JsonCodeComparison: React.FC = () => {
 
           <Card>
             <CardContent className="p-6">
-              <Heading level={4} className="text-lg font-semibold mb-4">
+              <Heading level="h4" className="text-lg font-semibold mb-4">
                 Performance Insights
               </Heading>
               <Box className="space-y-3">

@@ -23,12 +23,12 @@ export type LayoutProps = Readonly<{
 
 export function Layout({ className }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white transition-colors">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
       <ScrollToTop />
       <ScrollProgress />
       <BackToTop />
       <AnchorScroll />
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+      <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <MobileMenu />
@@ -60,7 +60,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/showcase"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Component Gallery</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Component Gallery
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Browse all UI components with live previews
                           </p>
@@ -84,7 +86,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/showcase/layout"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Advanced Layouts</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Advanced Layouts
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Complex layout patterns and grids
                           </p>
@@ -95,7 +99,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/showcase/overlay-interactive"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Overlay Components</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Overlay Components
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Modals, popovers, and tooltips
                           </p>
@@ -116,7 +122,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/examples"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">All Examples</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            All Examples
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Browse all example implementations
                           </p>
@@ -127,7 +135,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/examples/landing"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Landing Page</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Landing Page
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Hero section, features, and CTA components
                           </p>
@@ -138,7 +148,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/examples/form-validation"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Form Validation</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Form Validation
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Complex forms with real-time validation
                           </p>
@@ -162,7 +174,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/templates/marketing"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Marketing Template</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Marketing Template
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Full marketing website with multiple pages
                           </p>
@@ -197,7 +211,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/theming"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Theming System</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Theming System
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Theme configuration and customization options
                           </p>
@@ -208,7 +224,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/brand-presets"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Brand Presets</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Brand Presets
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Pre-made themes for popular brands
                           </p>
@@ -219,7 +237,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/performance"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Performance</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            Performance
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Benchmarks and optimization tips
                           </p>
@@ -230,7 +250,9 @@ export function Layout({ className }: LayoutProps) {
                           to="/state"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">State Management</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            State Management
+                          </div>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                             Server-driven state patterns
                           </p>

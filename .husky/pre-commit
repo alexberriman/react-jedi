@@ -17,7 +17,6 @@ if git rev-parse --abbrev-ref HEAD 2>/dev/null; then
   fi
 else
   echo "📝 This appears to be the initial commit - proceeding with checks."
-  # Assume we're on main for the first commit
   BRANCH="main"
 fi
 
@@ -33,6 +32,7 @@ else
   echo "📝 Skipping unstaged changes check for initial commit."
 fi
 
+# Early commit message check
 echo "🔍 Checking commit message early..."
 
 COMMIT_MSG_FILE="$(git rev-parse --git-path COMMIT_EDITMSG)"
@@ -48,139 +48,107 @@ if [ -f "$COMMIT_MSG_FILE" ]; then
   fi
 fi
 
-# Check for changes to ESLint configuration files
+# Check for ESLint config changes
 echo "Checking for ESLint configuration changes"
 ESLINT_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.eslintrc\.|eslintrc\.js|eslintrc\.cjs|bypass-lint|eslint-disable|\.eslintignore' || true)
 
 if [ -n "$ESLINT_FILES" ]; then
   echo "⛔ ERROR: Attempting to commit changes to ESLint configuration files."
   echo "❌ Modifications to ESLint configuration files are not permitted except for eslint.config.js."
-  echo "❌ You should NEVER bypass ESLint rules or create files to disable linting."
-  echo "✅ Instead, please investigate and fix underlying linting and TypeScript issues systematically."
   echo ""
   echo "Affected files:"
   echo "$ESLINT_FILES"
-  echo ""
-  echo "RECOMMENDATION: Address code quality issues at their source rather than modifying the linting rules."
-  echo "Focus on resolving one issue at a time to maintain high code quality standards."
   exit 1
 fi
 
-# Check for eslint-disable comments in changed files - works for initial commit too
+# Check for eslint-disable comments
 ESLINT_DISABLED_FILES=$(git diff --cached -U0 | grep -E '\+.*eslint-disable' || true)
 if [ -n "$ESLINT_DISABLED_FILES" ]; then
-  echo "⛔ ERROR: Attempting to commit code with eslint-disable comments."
-  echo "❌ Adding eslint-disable comments is not permitted in this repository."
-  echo "❌ You should NEVER bypass ESLint rules with disable comments."
-  echo "✅ Instead, please fix the underlying linting issues in your code."
+  echo "⛔ ERROR: eslint-disable comments are not allowed."
   echo ""
-  echo "Detected eslint-disable comments:"
+  echo "Detected lines:"
   echo "$ESLINT_DISABLED_FILES"
-  echo ""
-  echo "RECOMMENDATION: Fix the linting issues directly rather than disabling rules."
   exit 1
 fi
 
-# Check for eslint configuration in package.json
+# Check for eslintConfig in package.json
 ESLINT_PKG_CONFIG=$(git diff --cached -U0 package.json | grep -E '\+.*"eslintConfig":' || true)
 if [ -n "$ESLINT_PKG_CONFIG" ]; then
-  echo "⛔ ERROR: Attempting to add ESLint configuration to package.json."
-  echo "❌ ESLint configuration in package.json is not permitted."
-  echo "❌ Only eslint.config.js should be used for ESLint configuration."
-  echo "✅ Please modify only the eslint.config.js file for linting configuration."
+  echo "⛔ ERROR: ESLint config in package.json is not permitted."
   exit 1
 fi
 
-# Check for changes to Husky files
+# Check for changes to .husky/
 echo "Checking for Husky configuration changes"
 HUSKY_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.husky/' || true)
 
 if [ -n "$HUSKY_FILES" ]; then
-  echo "⛔ ERROR: Attempting to commit changes to Husky configuration files."
-  echo "❌ Modifications to Husky hooks are not permitted."
-  echo "❌ Git hooks are critical for maintaining code quality standards."
-  echo "✅ If you need to modify hooks, please discuss with the repository maintainers."
+  echo "⛔ ERROR: You are trying to modify Husky hooks."
   echo ""
   echo "Affected files:"
   echo "$HUSKY_FILES"
-  echo ""
-  echo "RECOMMENDATION: Leave the pre-commit hooks intact to maintain code quality."
   exit 1
 fi
 
-# Check for TypeScript bypassing attempts
+# Check for TypeScript bypass
 TS_BYPASS_FILES=$(git diff --cached -U0 | grep -E '\+.*(@ts-ignore|@ts-nocheck|\/\/ @ts-expect-error)' || true)
 if [ -n "$TS_BYPASS_FILES" ]; then
-  echo "⛔ ERROR: Attempting to commit code that bypasses TypeScript type checking."
-  echo "❌ Adding @ts-ignore, @ts-nocheck, or @ts-expect-error comments is not permitted."
-  echo "❌ You should NEVER bypass TypeScript type checking with these comments."
-  echo "✅ Instead, please fix the underlying type issues in your code."
+  echo "⛔ ERROR: TypeScript bypass directives detected."
   echo ""
-  echo "Detected TypeScript bypassing comments:"
+  echo "Detected lines:"
   echo "$TS_BYPASS_FILES"
-  echo ""
-  echo "RECOMMENDATION: Fix the type issues directly rather than bypassing them."
   exit 1
 fi
 
-# Check for modifications to tsconfig files that might weaken type checking
+# Check for weakened tsconfig
 TS_CONFIG_WEAKENING=$(git diff --cached -U0 tsconfig*.json | grep -E '\+.*(noImplicitAny|strict|skipLibCheck|allowJs|checkJs).*false' || true)
 if [ -n "$TS_CONFIG_WEAKENING" ]; then
-  echo "⛔ ERROR: Attempting to weaken TypeScript configuration."
-  echo "❌ Disabling strict type checking features is not permitted."
-  echo "❌ You should NEVER weaken TypeScript configuration to avoid fixing type issues."
-  echo "✅ Instead, please fix the underlying type issues in your code."
+  echo "⛔ ERROR: Weakening TypeScript config is not allowed."
   echo ""
-  echo "Detected TypeScript config weakening:"
+  echo "Detected lines:"
   echo "$TS_CONFIG_WEAKENING"
-  echo ""
-  echo "RECOMMENDATION: Maintain strict TypeScript checks and fix type issues properly."
   exit 1
 fi
 
-# Large file check has been removed
-
 # Run lint-staged, build, and test in parallel
-
 echo "🏃 Running quality checks in parallel..."
 
-# Run lint-staged
 (
   echo "🔍 Running lint-staged..."
   if ! npx lint-staged; then
-    echo "❌ lint-staged checks failed. Please fix the issues above and try again."
+    echo "❌ lint-staged checks failed."
     exit 1
   fi
 ) &
 LINT_PID=$!
 
-# Run build
 (
-  echo "🏗️  Running build to verify your changes compile correctly..."
+  echo "🏗️  Running build..."
   if ! npm run build; then
-    echo "❌ Build failed. Please fix the build errors and try again."
+    echo "❌ Build failed."
     exit 2
   fi
 ) &
 BUILD_PID=$!
 
-# Run tests (optional)
 (
   if [ -f "package.json" ] && grep -q '"test"' package.json; then
     echo "🧪 Running tests..."
-    npm test -- --run || echo "⚠️  Tests failed but continuing..."
+    npm test -- --run || echo "⚠️  Tests failed (non-blocking)."
   else
-    echo "📝 No tests found, skipping test check."
+    echo "📝 No tests found, skipping."
   fi
 ) &
 TEST_PID=$!
 
-# Wait for lint-staged and build (tests don't block commit)
+# Wait for lint and build (tests are non-blocking but must be cleaned up)
 wait $LINT_PID
 LINT_EXIT=$?
 
 wait $BUILD_PID
 BUILD_EXIT=$?
+
+wait $TEST_PID || true
 
 if [ $LINT_EXIT -ne 0 ]; then
   exit $LINT_EXIT
@@ -191,5 +159,4 @@ if [ $BUILD_EXIT -ne 0 ]; then
 fi
 
 echo "✅ All parallel checks passed!"
-
 echo "✅ All pre-commit checks passed!"

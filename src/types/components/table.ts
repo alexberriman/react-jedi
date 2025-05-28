@@ -3,7 +3,7 @@ import type { BaseComponentSpec } from "@/types/schema/base";
 export type TableCellAlign = "left" | "center" | "right";
 
 export interface TableCellSpec {
-  content: string | any; // Can be string or component spec
+  content: string | BaseComponentSpec | React.ReactNode; // Can be string or component spec
   className?: string;
   align?: TableCellAlign;
   colSpan?: number;

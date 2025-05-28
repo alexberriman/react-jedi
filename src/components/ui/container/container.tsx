@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn, omit } from "../../../lib/utils";
+import { cn, cleanDOMProps } from "../../../lib/utils";
 
 const containerVariants = cva("mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col", {
   variants: {
@@ -53,8 +53,8 @@ function Container({
   as: Component = "div",
   ...props
 }: ContainerProps) {
-  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state", "maxWidth"]);
-  
+  const cleanProps = cleanDOMProps(props);
+
   return (
     <Component
       data-slot="container"

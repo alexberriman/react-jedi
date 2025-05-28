@@ -10,7 +10,8 @@ import {
   TableRow,
 } from "./table";
 import type { TableSpec, TableCellAlign } from "../../../types/components/table";
-import type { ComponentProps } from "../../../types/schema/components";
+import type { BaseComponentSpec } from "../../../types/schema/base";
+import { isComponentSpec } from "../../../types/schema/guards";
 import { cn } from "../../../lib/utils";
 import { render } from "../../../lib/render";
 
@@ -21,18 +22,19 @@ function getAlignmentClass(align?: TableCellAlign): string {
   return "";
 }
 
-function renderCellContent(content: any): React.ReactNode {
-  if (typeof content === "string") {
-    return content;
+function renderCellContent(
+  content: string | BaseComponentSpec | React.ReactNode
+): React.ReactElement {
+  // Use type guard to check if it's a component spec
+  if (isComponentSpec(content)) {
+    return <>{render(content)}</>;
   }
-  // If it's an object with a type property, it's a component spec
-  if (content && typeof content === "object" && content.type) {
-    return render(content);
-  }
-  return content;
+
+  // Wrap all content in a fragment to ensure consistent return type
+  return <>{content}</>;
 }
 
-export function TableComponent(props: Readonly<Record<string, unknown>>) {
+export function TableComponent(props: Readonly<Record<string, unknown>>): React.ReactElement {
   // Extract table props directly
   const tableProps = props as TableSpec;
   const { caption, head, body, footer, className } = tableProps;

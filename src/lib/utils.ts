@@ -63,6 +63,8 @@ export const CUSTOM_PROPS_TO_FILTER = [
   "computedProps",
   "when",
   "actions",
+  "inputType",
+  "maxWidth",
 ] as const;
 
 /**
@@ -73,10 +75,12 @@ export type CustomFilterProps = (typeof CUSTOM_PROPS_TO_FILTER)[number];
 /**
  * Helper to clean props for DOM elements
  */
-export function cleanDOMProps<T extends Record<string, unknown>>(
-  props: T
-): Omit<T, CustomFilterProps> {
-  return omit(props, CUSTOM_PROPS_TO_FILTER as unknown as (keyof T)[]);
+export function cleanDOMProps<T extends object>(props: T): Omit<T, CustomFilterProps> {
+  const filtered = { ...props };
+  for (const key of CUSTOM_PROPS_TO_FILTER) {
+    delete filtered[key as keyof T];
+  }
+  return filtered as Omit<T, CustomFilterProps>;
 }
 
 /**

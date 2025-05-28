@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
+import { render } from "@/lib/render";
 
 const meta = {
   title: "Components/UI/Accordion",
@@ -193,4 +194,83 @@ export const Unstyled: Story = {
       </AccordionItem>
     </Accordion>
   ),
+};
+
+export const ServerDriven: Story = {
+  name: "Server-Driven (JSON)",
+  args: {
+    type: "single",
+    defaultValue: "item-1",
+    collapsible: true,
+  },
+  render: () => {
+    const spec = {
+      type: "accordion",
+      accordionType: "single",
+      defaultValue: "item-1",
+      collapsible: true,
+      items: [
+        {
+          value: "item-1",
+          trigger: "What is React Jedi?",
+          content:
+            "React Jedi is a server-driven UI library that enables you to build React interfaces using JSON specifications.",
+        },
+        {
+          value: "item-2",
+          trigger: "How does it work?",
+          content:
+            "It uses a single render() function to transform JSON schemas into fully functional React components.",
+        },
+        {
+          value: "item-3",
+          trigger: "What are the benefits?",
+          content:
+            "Zero lock-in architecture, theme inheritance, reactive state management, and more - all through JSON!",
+        },
+      ],
+    };
+
+    return render(spec) || <></>;
+  },
+};
+
+export const ServerDrivenMultiple: Story = {
+  name: "Server-Driven Multiple (JSON)",
+  args: {
+    type: "multiple",
+    defaultValue: ["item-1", "item-3"],
+  },
+  render: () => {
+    const spec = {
+      type: "accordion",
+      accordionType: "multiple",
+      defaultValue: ["item-1", "item-3"],
+      items: [
+        {
+          value: "item-1",
+          trigger: "Frontend Technologies",
+          content: "React, TypeScript, TailwindCSS, and Vite for modern development.",
+        },
+        {
+          value: "item-2",
+          trigger: "Component Library",
+          content: "Built on top of Radix UI and ShadCN for accessible, composable components.",
+        },
+        {
+          value: "item-3",
+          trigger: "State Management",
+          content: "Reactive state management with computed properties and persistence.",
+        },
+        {
+          value: "item-4",
+          trigger: "Animation Support",
+          content: "Framer Motion integration for smooth, performant animations.",
+          disabled: true,
+        },
+      ],
+    };
+
+    return render(spec) || <></>;
+  },
 };

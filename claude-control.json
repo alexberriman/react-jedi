@@ -44,23 +44,12 @@
   },
   "loop": [
     {
-      "cmd": "npm run lint",
-      "description": "Run ESLint code quality checks",
-      "timeout": 120,
+      "cmd": "npm run check",
+      "description": "Runs typecheck, test and linting",
+      "timeout": 240,
       "clear": true,
       "onError": {
-        "prompt": { "$ref": "prompts.lint-fix" }
-      },
-      "restartLoopOnError": true,
-      "onlyInState": "IDLE"
-    },
-    {
-      "cmd": "npm run typecheck",
-      "description": "Run TypeScript type checking",
-      "timeout": 120,
-      "clear": true,
-      "onError": {
-        "prompt": { "$ref": "prompts.typecheck-fix" }
+        "prompt": { "$ref": "prompts.check" }
       },
       "restartLoopOnError": true,
       "onlyInState": "IDLE"
@@ -72,17 +61,6 @@
       "clear": true,
       "onError": {
         "prompt": { "$ref": "prompts.storybook-components-fix" }
-      },
-      "restartLoopOnError": true,
-      "onlyInState": "IDLE"
-    },
-    {
-      "cmd": "npm run test",
-      "description": "Run Vitest unit tests",
-      "timeout": 120,
-      "clear": true,
-      "onError": {
-        "prompt": { "$ref": "prompts.test-fix" }
       },
       "restartLoopOnError": true,
       "onlyInState": "IDLE"
@@ -158,6 +136,9 @@
     },
     "storybook-components-fix": {
       "$ref": ".claude/prompts/storybook-fix.prompt"
+    },
+    "check": {
+      "$ref": ".claude/prompts/check.prompt"
     }
   }
 }

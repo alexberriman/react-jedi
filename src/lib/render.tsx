@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   type ComponentProps,
-  type ComponentResolver,
   type ComponentSpec,
   type RenderOptions,
   type UISpecification,

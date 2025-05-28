@@ -8,7 +8,7 @@ echo "Starting pre-commit hook"
 # Get the current branch (handle case where HEAD doesn't exist yet)
 if git rev-parse --abbrev-ref HEAD 2>/dev/null; then
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  
+
   if [ "$BRANCH" != "main" ]; then
     echo "⛔ ERROR: This repository uses mainline development."
     echo "❌ Branches are not permitted in this repository."
@@ -31,6 +31,21 @@ if git rev-parse --verify HEAD >/dev/null 2>&1; then
   fi
 else
   echo "📝 Skipping unstaged changes check for initial commit."
+fi
+
+echo "🔍 Checking commit message early..."
+
+COMMIT_MSG_FILE="$(git rev-parse --git-path COMMIT_EDITMSG)"
+
+if [ -f "$COMMIT_MSG_FILE" ]; then
+  COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+  if echo "$COMMIT_MSG" | grep -Ei "claude|Co-Authored-By:.*claude|Generated with \[Claude Code\]" >/dev/null; then
+    echo "🚫 Commit rejected: Please avoid mentioning Claude in commit messages."
+    echo "❌ Remove AI co-author tags or generated comments from commit messages."
+    echo "✅ Use messages that describe WHAT changed and WHY."
+    exit 1
+  fi
 fi
 
 # Check for changes to ESLint configuration files
@@ -125,27 +140,56 @@ fi
 
 # Large file check has been removed
 
-# Run lint-staged for code quality checks
-echo "🤖 Running lint-staged for code quality checks..."
-if ! npx lint-staged; then
-  echo "❌ lint-staged checks failed. Please fix the issues above and try again."
-  exit 1
+# Run lint-staged, build, and test in parallel
+
+echo "🏃 Running quality checks in parallel..."
+
+# Run lint-staged
+(
+  echo "🔍 Running lint-staged..."
+  if ! npx lint-staged; then
+    echo "❌ lint-staged checks failed. Please fix the issues above and try again."
+    exit 1
+  fi
+) &
+LINT_PID=$!
+
+# Run build
+(
+  echo "🏗️  Running build to verify your changes compile correctly..."
+  if ! npm run build; then
+    echo "❌ Build failed. Please fix the build errors and try again."
+    exit 2
+  fi
+) &
+BUILD_PID=$!
+
+# Run tests (optional)
+(
+  if [ -f "package.json" ] && grep -q '"test"' package.json; then
+    echo "🧪 Running tests..."
+    npm test -- --run || echo "⚠️  Tests failed but continuing..."
+  else
+    echo "📝 No tests found, skipping test check."
+  fi
+) &
+TEST_PID=$!
+
+# Wait for lint-staged and build (tests don't block commit)
+wait $LINT_PID
+LINT_EXIT=$?
+
+wait $BUILD_PID
+BUILD_EXIT=$?
+
+if [ $LINT_EXIT -ne 0 ]; then
+  exit $LINT_EXIT
 fi
 
-# Run the build before committing
-echo "🏗️  Running build to verify your changes compile correctly..."
-if ! npm run build; then
-  echo "❌ Build failed. Please fix the build errors and try again."
-  exit 1
+if [ $BUILD_EXIT -ne 0 ]; then
+  exit $BUILD_EXIT
 fi
 
-# If we have tests, run them
-if [ -f "package.json" ] && grep -q '"test"' package.json; then
-  echo "🧪 Running tests..."
-  # Skip test check failure for initial setup
-  npm test -- --run || echo "⚠️  Tests failed but continuing..."
-else
-  echo "📝 No tests found, skipping test check."
-fi
+echo "✅ All parallel checks passed!"
 
 echo "✅ All pre-commit checks passed!"

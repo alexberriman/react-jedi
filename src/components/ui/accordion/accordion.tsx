@@ -4,10 +4,24 @@ import { ChevronDownIcon } from "lucide-react";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 
-function Accordion({ ...props }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
-  const cleanProps = cleanDOMProps(props);
-  return <AccordionPrimitive.Root data-slot="accordion" {...cleanProps} />;
-}
+type AccordionSingleProps = React.ComponentProps<typeof AccordionPrimitive.Root> & {
+  type: "single";
+};
+
+type AccordionMultipleProps = React.ComponentProps<typeof AccordionPrimitive.Root> & {
+  type: "multiple";
+};
+
+type AccordionProps = AccordionSingleProps | AccordionMultipleProps;
+
+const Accordion = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Root>,
+  AccordionProps
+>((props, ref) => {
+  const cleanProps = cleanDOMProps(props) as AccordionProps;
+  return <AccordionPrimitive.Root ref={ref} data-slot="accordion" {...cleanProps} />;
+});
+Accordion.displayName = "Accordion";
 
 function AccordionItem({
   className,

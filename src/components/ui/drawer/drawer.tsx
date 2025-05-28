@@ -3,8 +3,11 @@ import { Drawer as DrawerPrimitive } from "vaul";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 
-function Drawer({ ...props }: Readonly<React.ComponentProps<typeof DrawerPrimitive.Root>>) {
-  return <DrawerPrimitive.Root data-slot="drawer" {...cleanDOMProps(props)} />;
+type DrawerProps = React.ComponentProps<typeof DrawerPrimitive.Root>;
+
+function Drawer(props: Readonly<DrawerProps>) {
+  const cleanedProps = cleanDOMProps(props);
+  return <DrawerPrimitive.Root data-slot="drawer" {...(cleanedProps as DrawerProps)} />;
 }
 
 function DrawerTrigger({

@@ -4,26 +4,29 @@ import { MinusIcon } from "lucide-react";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 
-function InputOTP({
-  className,
-  containerClassName,
-  ...props
-}: React.ComponentProps<typeof OTPInput> & {
+type InputOTPProps = React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string;
-}) {
+};
+
+function InputOTP({ className, containerClassName, ...props }: InputOTPProps) {
+  const cleanedProps = cleanDOMProps(props);
   return (
     <OTPInput
       data-slot="input-otp"
       containerClassName={cn("flex items-center gap-2 has-disabled:opacity-50", containerClassName)}
       className={cn("disabled:cursor-not-allowed", className)}
-      {...cleanDOMProps(props)}
+      {...(cleanedProps as React.ComponentProps<typeof OTPInput>)}
     />
   );
 }
 
 function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div data-slot="input-otp-group" className={cn("flex items-center", className)} {...cleanDOMProps(props)} />
+    <div
+      data-slot="input-otp-group"
+      className={cn("flex items-center", className)}
+      {...cleanDOMProps(props)}
+    />
   );
 }
 

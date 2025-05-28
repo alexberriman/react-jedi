@@ -79,8 +79,10 @@ export function SidebarComponent({
     );
 
     // Generate a unique key using label, href, or fallback to indices
-    const itemKey = item.href ? `${item.label}-${item.href}` : `${groupIndex ?? 'ungrouped'}-${index}-${item.label}`;
-    
+    const itemKey = item.href
+      ? `${item.label}-${item.href}`
+      : `${groupIndex ?? "ungrouped"}-${index}-${item.label}`;
+
     return (
       <SidebarMenuItem key={itemKey}>
         {MenuButton}
@@ -179,8 +181,29 @@ export function SidebarComponent({
   const { type, id, dataAttributes, visible, events, ...sidebarProps } = props;
   const cleanProps = cleanDOMProps(sidebarProps);
 
+  const handleOpenChange = React.useCallback(
+    (open: boolean) => {
+      if (onOpenChange) {
+        // If the onOpenChange is a string handler spec, find and call the function
+        const globalFunc = (globalThis as Record<string, unknown>)[onOpenChange] as
+          | ((open: boolean) => void)
+          | undefined;
+        if (typeof globalFunc === "function") {
+          globalFunc(open);
+        } else {
+          console.warn(`Event handler "${onOpenChange}" not found`);
+        }
+      }
+    },
+    [onOpenChange]
+  );
+
   return (
-    <SidebarProvider defaultOpen={defaultOpen} open={open} onOpenChange={onOpenChange}>
+    <SidebarProvider
+      defaultOpen={defaultOpen}
+      open={open}
+      onOpenChange={onOpenChange ? handleOpenChange : undefined}
+    >
       <Sidebar
         side={side}
         variant={variant}

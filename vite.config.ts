@@ -8,13 +8,7 @@ export default defineConfig({
   css: {
     // Ensure all CSS is processed correctly
     modules: false,
-    postcss: './postcss.config.js',
-    preprocessorOptions: {
-      // This helps with @import processing
-      css: {
-        charset: false,
-      },
-    },
+    postcss: "./postcss.config.js",
   },
   build: {
     lib: {

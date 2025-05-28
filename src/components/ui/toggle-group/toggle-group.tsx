@@ -10,13 +10,10 @@ const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariant
   variant: "default",
 });
 
-function ToggleGroup({
-  className,
-  variant,
-  size,
-  children,
-  ...props
-}: React.ComponentProps<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants>) {
+type ToggleGroupProps = React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
+  VariantProps<typeof toggleVariants>;
+
+function ToggleGroup({ className, variant, size, children, ...props }: ToggleGroupProps) {
   const cleanProps = cleanDOMProps(props);
   return (
     <ToggleGroupPrimitive.Root
@@ -27,7 +24,7 @@ function ToggleGroup({
         "group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs",
         className
       )}
-      {...cleanProps}
+      {...(cleanProps as React.ComponentProps<typeof ToggleGroupPrimitive.Root>)}
     >
       <ToggleGroupContext.Provider value={{ variant, size }}>
         {children}

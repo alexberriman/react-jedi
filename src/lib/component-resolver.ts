@@ -66,7 +66,7 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
     
     // Handle children from spec.props.children for components like Text, Badge, Button, etc.
     const specPropsChildren = actualProps.children;
-    const finalChildren = specPropsChildren !== undefined ? specPropsChildren : children;
+    const finalChildren = specPropsChildren === undefined ? children : specPropsChildren;
     
     // Merge with any additional props passed through render
     const mergedProps = {
@@ -81,11 +81,11 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
     };
     
     // Clean up undefined values
-    Object.keys(mergedProps).forEach(key => {
+    for (const key of Object.keys(mergedProps)) {
       if (mergedProps[key] === undefined) {
         delete mergedProps[key];
       }
-    });
+    }
     
     return React.createElement(component, mergedProps);
   }) as ComponentType;

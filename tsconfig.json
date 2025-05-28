@@ -9,6 +9,8 @@
     "noEmit": true,
     "composite": false,
     "strict": true,
+    "incremental": true,
+    "tsBuildInfoFile": "node_modules/.cache/typescript/tsconfig.tsbuildinfo",
     "downlevelIteration": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",

@@ -19,6 +19,16 @@
 
 # TypeScript
 tsconfig.tsbuildinfo
+node_modules/.cache/typescript/
+
+# ESLint cache
+node_modules/.cache/eslint/
+
+# Prettier cache
+node_modules/.cache/prettier/
+
+# Vitest cache
+node_modules/.cache/vitest/
 
 # misc
 .DS_Store

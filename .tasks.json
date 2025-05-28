@@ -22,7 +22,7 @@
       {
         "id": "add-play-functions-04",
         "description": "Create play functions for the following Storybook files: `src/components/ui/hero/hero.stories.tsx`, `src/components/ui/hover-card/hover-card.stories.tsx`, `src/components/ui/image/image.stories.tsx`, `src/components/ui/input-otp/input-otp.stories.tsx`, `src/components/ui/input/input.stories.tsx`. Use the Storybook test addon format (`@storybook/test`) and ensure the play function interacts meaningfully with the rendered component. Validate functionality with `npm run test-storybook`.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-05",

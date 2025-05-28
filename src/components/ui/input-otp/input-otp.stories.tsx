@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./input-otp";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
 
 const meta = {
   title: "Components/Form/InputOTP",
@@ -61,6 +62,16 @@ export const Default: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("maxlength", "6");
+
+    await userEvent.type(input, "123456");
+    expect(input).toHaveValue("123456");
+  },
 };
 
 /**
@@ -78,6 +89,16 @@ export const FourDigitPIN: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("maxlength", "4");
+
+    await userEvent.type(input, "1234");
+    expect(input).toHaveValue("1234");
+  },
 };
 
 /**
@@ -100,6 +121,15 @@ export const SMSCode: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+
+    await userEvent.type(input, "987654");
+    expect(input).toHaveValue("987654");
+  },
 };
 
 /**
@@ -122,6 +152,15 @@ export const AlphanumericCode: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+
+    await userEvent.type(input, "ABC123");
+    expect(input).toHaveValue("ABC123");
+  },
 };
 
 /**
@@ -152,6 +191,16 @@ export const CustomSeparator: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("maxlength", "8");
+
+    await userEvent.type(input, "12345678");
+    expect(input).toHaveValue("12345678");
+  },
 };
 
 /**
@@ -174,6 +223,13 @@ export const WithDefaultValue: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveValue("123456");
+  },
 };
 
 /**
@@ -196,6 +252,14 @@ export const Disabled: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+    expect(input).toBeDisabled();
+    expect(input).toHaveValue("123456");
+  },
 };
 
 /**
@@ -224,6 +288,22 @@ export const Controlled: Story = {
         <p className="text-sm text-muted-foreground">Current value: {value || "(empty)"}</p>
       </div>
     );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+    
+    await waitFor(() => {
+      expect(canvas.getByText("Current value: (empty)")).toBeInTheDocument();
+    });
+
+    await userEvent.type(input, "999");
+    
+    await waitFor(() => {
+      expect(canvas.getByText("Current value: 999")).toBeInTheDocument();
+    });
   },
 };
 
@@ -263,6 +343,21 @@ export const WithOnComplete: Story = {
       </div>
     );
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+
+    await userEvent.type(input, "111222");
+    
+    await waitFor(
+      () => {
+        expect(canvas.getByText("✓ Code complete! Value: 111222")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 /**
@@ -280,4 +375,15 @@ export const Password: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("maxlength", "4");
+    expect(input.parentElement).toHaveClass("password");
+
+    await userEvent.type(input, "9876");
+    expect(input).toHaveValue("9876");
+  },
 };

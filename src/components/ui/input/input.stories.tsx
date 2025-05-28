@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Input } from "./input";
 import { Label } from "../label/label";
+import { within, userEvent, expect } from "@storybook/test";
 
 const meta = {
   title: "Components/Form/Input",
@@ -18,6 +19,19 @@ export const Default: Story = {
   args: {
     placeholder: "Enter text here...",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByPlaceholderText("Enter text here...");
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("type", "text");
+
+    await userEvent.click(input);
+    expect(input).toHaveFocus();
+
+    await userEvent.type(input, "Hello, World!");
+    expect(input).toHaveValue("Hello, World!");
+  },
 };
 
 export const WithLabel: Story = {
@@ -27,12 +41,37 @@ export const WithLabel: Story = {
       <Input type="email" id="email" placeholder="Enter your email" />
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const label = canvas.getByText("Email");
+    expect(label).toBeInTheDocument();
+    expect(label).toHaveAttribute("for", "email");
+
+    const input = canvas.getByPlaceholderText("Enter your email");
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("type", "email");
+    expect(input).toHaveAttribute("id", "email");
+
+    await userEvent.type(input, "test@example.com");
+    expect(input).toHaveValue("test@example.com");
+  },
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
     placeholder: "Disabled input",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByPlaceholderText("Disabled input");
+    expect(input).toBeInTheDocument();
+    expect(input).toBeDisabled();
+
+    await userEvent.click(input);
+    expect(input).not.toHaveFocus();
   },
 };
 
@@ -56,4 +95,17 @@ export const WithIcon: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByPlaceholderText("Search...");
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveClass("pl-8");
+
+    const svg = canvas.getByRole("img", { hidden: true });
+    expect(svg).toBeInTheDocument();
+
+    await userEvent.type(input, "search query");
+    expect(input).toHaveValue("search query");
+  },
 };

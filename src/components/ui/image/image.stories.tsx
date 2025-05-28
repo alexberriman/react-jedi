@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Image } from "./image";
+import { within, waitFor, expect } from "@storybook/test";
 
 const meta = {
   title: "Components/Media/Image",
@@ -81,12 +82,28 @@ export const Default: Story = {
     rounded: "md",
     shadow: "none",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute("src", expect.stringContaining("unsplash.com"));
+    expect(image).toHaveClass("rounded-md");
+  },
 };
 
 export const Rounded: Story = {
   args: {
     rounded: "xl",
     shadow: "md",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("rounded-xl");
+    expect(image).toHaveClass("shadow-md");
   },
 };
 
@@ -97,6 +114,14 @@ export const Circle: Story = {
     width: "200px",
     objectFit: "cover",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("rounded-full");
+    expect(image).toHaveClass("object-cover");
+  },
 };
 
 export const WithShadow: Story = {
@@ -104,17 +129,39 @@ export const WithShadow: Story = {
     shadow: "xl",
     rounded: "lg",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("shadow-xl");
+    expect(image).toHaveClass("rounded-lg");
+  },
 };
 
 export const Grayscale: Story = {
   args: {
     filter: "grayscale",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("grayscale");
+  },
 };
 
 export const Sepia: Story = {
   args: {
     filter: "sepia",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("sepia");
   },
 };
 
@@ -123,12 +170,28 @@ export const HoverGrow: Story = {
     hover: "grow",
     shadow: "md",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("transition-all");
+    expect(image).toHaveClass("hover:scale-105");
+  },
 };
 
 export const HoverGlow: Story = {
   args: {
     hover: "glow",
     rounded: "xl",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("transition-all");
+    expect(image).toHaveClass("hover:glow-md");
   },
 };
 
@@ -138,6 +201,16 @@ export const FullWidth: Story = {
     height: "300px",
     objectFit: "cover",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("object-cover");
+    
+    const container = image.parentElement;
+    expect(container).toHaveStyle({ width: "100%" });
+  },
 };
 
 export const Landscape: Story = {
@@ -145,6 +218,15 @@ export const Landscape: Story = {
     aspectRatio: "21/9",
     width: "600px",
     objectFit: "cover",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    
+    const container = image.parentElement;
+    expect(container).toHaveStyle({ width: "600px" });
   },
 };
 
@@ -154,6 +236,15 @@ export const Portrait: Story = {
     width: "300px",
     height: "400px",
     objectFit: "cover",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const image = canvas.getByAltText("Sample image");
+    expect(image).toBeInTheDocument();
+    
+    const container = image.parentElement;
+    expect(container).toHaveStyle({ width: "300px", height: "400px" });
   },
 };
 
@@ -189,6 +280,17 @@ export const Gallery: Story = {
       />
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const images = canvas.getAllByAltText("Sample image");
+    expect(images).toHaveLength(3);
+    
+    for (const image of images) {
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveClass("rounded-lg", "shadow-md");
+    }
+  },
 };
 
 export const WithFallback: Story = {
@@ -197,5 +299,17 @@ export const WithFallback: Story = {
     fallback: "https://placehold.co/400x225/EFEFEF/AAAAAA?text=Image+Not+Found",
     rounded: "md",
     shadow: "sm",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        const image = canvas.getByAltText("Sample image");
+        expect(image).toBeInTheDocument();
+        expect(image).toHaveAttribute("src", expect.stringContaining("placehold.co"));
+      },
+      { timeout: 10_000 }
+    );
   },
 };

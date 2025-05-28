@@ -3,6 +3,7 @@ import { HoverCard, HoverCardTrigger, HoverCardContent } from "./hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { CalendarDays } from "lucide-react";
+import { within, userEvent, waitFor, expect, screen } from "@storybook/test";
 
 const meta = {
   title: "Components/Overlay/HoverCard",
@@ -49,6 +50,23 @@ export const Default: Story = {
       </HoverCard>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "@shadcn" });
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        const content = screen.getByText("Creator of shadcn/ui - modern component library for React.");
+        expect(content).toBeInTheDocument();
+        expect(screen.getByText("Joined December 2021")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const UserProfile: Story = {
@@ -93,6 +111,23 @@ export const UserProfile: Story = {
       </HoverCard>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByText("@vercel");
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Develop. Preview. Ship. Creators of Next.js and the Edge Platform.")).toBeInTheDocument();
+        expect(screen.getByText("256")).toBeInTheDocument();
+        expect(screen.getByText("44.5k")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const TextWithTooltip: Story = {
@@ -120,6 +155,22 @@ export const TextWithTooltip: Story = {
       </p>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByText("Meta");
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Meta Platforms, Inc.")).toBeInTheDocument();
+        expect(screen.getByText(/Previously known as Facebook/)).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const ProductPreview: Story = {
@@ -152,6 +203,23 @@ export const ProductPreview: Story = {
       </HoverCard>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "View Product" });
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Premium Headphones")).toBeInTheDocument();
+        expect(screen.getByText("$299.99")).toBeInTheDocument();
+        expect(screen.getByText("In Stock")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const CodePreview: Story = {
@@ -183,6 +251,22 @@ export const CodePreview: Story = {
       </HoverCard>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByText("useHoverCard");
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("A React hook for creating accessible hover card interactions.")).toBeInTheDocument();
+        expect(screen.getByText(/Provides keyboard navigation/)).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const CustomStyling: Story = {
@@ -220,6 +304,24 @@ export const CustomStyling: Story = {
       </HoverCard>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "Hover for Magic ✨" });
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Welcome to the Future")).toBeInTheDocument();
+        expect(screen.getByText("Modern")).toBeInTheDocument();
+        expect(screen.getByText("Beautiful")).toBeInTheDocument();
+        expect(screen.getByText("Accessible")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const DelayedOpen: Story = {
@@ -243,4 +345,20 @@ export const DelayedOpen: Story = {
       </HoverCard>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "Hover (500ms delay)" });
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Delayed Opening")).toBeInTheDocument();
+        expect(screen.getByText("Close delay: 300ms")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };

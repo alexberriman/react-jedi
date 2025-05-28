@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Hero } from "./hero";
 import { Rocket, Star, Code2, Zap } from "lucide-react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
 
 const meta: Meta<typeof Hero> = {
   title: "Components/Marketing/Hero",
@@ -49,6 +50,26 @@ export const AnimatedCentered: Story = {
       variant: "outline",
     },
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Welcome to the Future 2025")).toBeInTheDocument();
+        expect(canvas.getByText("Next Generation Platform")).toBeInTheDocument();
+        expect(canvas.getByText(/Experience the power of modern web development/)).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+
+    const primaryButton = canvas.getByRole("link", { name: "Get Started" });
+    const secondaryButton = canvas.getByRole("link", { name: "Learn More" });
+
+    expect(primaryButton).toBeInTheDocument();
+    expect(secondaryButton).toBeInTheDocument();
+    expect(primaryButton).toHaveAttribute("href", "#");
+    expect(secondaryButton).toHaveAttribute("href", "#");
+  },
 };
 
 export const LeftAlignedAnimated: Story = {
@@ -67,6 +88,29 @@ export const LeftAlignedAnimated: Story = {
       text: "View Documentation",
       variant: "ghost",
     },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Build Something Amazing")).toBeInTheDocument();
+        expect(canvas.getByText("Developer First")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+
+    const primaryButton = canvas.getByRole("button", { name: "Start Building" });
+    expect(primaryButton).toBeInTheDocument();
+
+    const originalAlert = globalThis.alert;
+    let alertMessage = "";
+    globalThis.alert = (msg: string) => { alertMessage = msg; };
+    
+    await userEvent.click(primaryButton);
+    expect(alertMessage).toBe("Start building clicked!");
+    
+    globalThis.alert = originalAlert;
   },
 };
 
@@ -96,6 +140,23 @@ export const SplitWithParallax: Story = {
       </div>
     ),
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("The Modern Way to Build")).toBeInTheDocument();
+        expect(canvas.getByAltText("Team collaboration")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+
+    const primaryButton = canvas.getByRole("button", { name: "Try It Now" });
+    const secondaryButton = canvas.getByRole("button", { name: "Watch Demo" });
+
+    expect(primaryButton).toBeInTheDocument();
+    expect(secondaryButton).toBeInTheDocument();
+  },
 };
 
 export const WithAnimatedBackground: Story = {
@@ -110,6 +171,18 @@ export const WithAnimatedBackground: Story = {
     primaryAction: {
       text: "Request Demo",
     },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Innovate Without Limits")).toBeInTheDocument();
+        expect(canvas.getByText("Enterprise Ready")).toBeInTheDocument();
+        expect(canvas.getByRole("button", { name: "Request Demo" })).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
   },
 };
 
@@ -131,6 +204,23 @@ export const AnimatedGradient: Story = {
       variant: "outline",
     },
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Design Beautiful Interfaces")).toBeInTheDocument();
+        expect(canvas.getByText("UI/UX Excellence")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+
+    const primaryButton = canvas.getByRole("button", { name: "Explore Components" });
+    const secondaryButton = canvas.getByRole("button", { name: "View Examples" });
+
+    expect(primaryButton).toBeInTheDocument();
+    expect(secondaryButton).toBeInTheDocument();
+  },
 };
 
 export const MinimalAnimated: Story = {
@@ -142,6 +232,18 @@ export const MinimalAnimated: Story = {
     primaryAction: {
       text: "Get Started",
     },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Simple. Powerful. Beautiful.")).toBeInTheDocument();
+        expect(canvas.getByText("Everything you need to build modern web applications.")).toBeInTheDocument();
+        expect(canvas.getByRole("button", { name: "Get Started" })).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
   },
 };
 
@@ -175,6 +277,20 @@ export const FloatingElements: Story = {
       </div>
     ),
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Trusted by Industry Leaders")).toBeInTheDocument();
+        expect(canvas.getByText("Google")).toBeInTheDocument();
+        expect(canvas.getByText("Microsoft")).toBeInTheDocument();
+        expect(canvas.getByText("Amazon")).toBeInTheDocument();
+        expect(canvas.getByText("Apple")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const VideoBackgroundAnimated: Story = {
@@ -189,6 +305,17 @@ export const VideoBackgroundAnimated: Story = {
     primaryAction: {
       text: "Discover More",
     },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Experience the Future")).toBeInTheDocument();
+        expect(canvas.getByText("Immersive Technology")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
   },
 };
 
@@ -210,5 +337,16 @@ export const GlassMorphism: Story = {
       text: "Learn More",
       variant: "outline",
     },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Next-Gen Interface Design")).toBeInTheDocument();
+        expect(canvas.getByText("Glassmorphism Example")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
   },
 };

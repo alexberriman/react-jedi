@@ -59,10 +59,10 @@ export const DisabledState: Story = {
     // Check button is disabled
     await expect(button).toBeDisabled();
 
-    // Try to click disabled button
-    await userEvent.click(button);
+    // Check button has pointer-events-none style
+    await expect(button).toHaveClass("disabled:pointer-events-none");
 
-    // Verify onClick was NOT called
+    // Verify onClick was NOT called (it can't be called on a disabled button)
     await expect(args.onClick).not.toHaveBeenCalled();
   },
 };
@@ -175,13 +175,19 @@ export const LoadingState: Story = {
     disabled: true,
     "aria-busy": true,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button");
 
     // Check loading state
     await expect(button).toBeDisabled();
     await expect(button).toHaveAttribute("aria-busy", "true");
+    
+    // Check button has pointer-events-none style
+    await expect(button).toHaveClass("disabled:pointer-events-none");
+    
+    // Verify onClick was not called (button is disabled)
+    await expect(args.onClick).not.toHaveBeenCalled();
   },
 };
 

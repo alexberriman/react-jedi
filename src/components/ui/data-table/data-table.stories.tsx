@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import { DataTable, createSortableHeader, type DataTableColumn } from "./data-table";
 import { Copy, Edit, Trash } from "lucide-react";
 import type { Column, Row } from "@tanstack/react-table";
@@ -125,6 +126,9 @@ providing a flexible foundation for data display and manipulation.
     },
   },
   tags: ["autodocs"],
+  args: {
+    onRowSelect: fn(),
+  },
 } satisfies Meta<typeof DataTable>;
 
 export default meta;
@@ -238,21 +242,20 @@ export const WithActions: Story = {
     actions: [
       {
         label: "Copy ID",
-        onClick: (row: unknown) => {
+        onClick: fn((row: unknown) => {
           const payment = row as Payment;
-          console.log("Copy ID:", payment.id);
           navigator.clipboard.writeText(payment.id);
-        },
+        }),
         icon: Copy,
       },
       {
         label: "Edit",
-        onClick: (row: unknown) => console.log("Edit:", row),
+        onClick: fn(),
         icon: Edit,
       },
       {
         label: "Delete",
-        onClick: (row: unknown) => console.log("Delete:", row),
+        onClick: fn(),
         icon: Trash,
       },
     ],
@@ -355,9 +358,9 @@ export const WithRowSelection: Story = {
     data: payments as unknown[],
     filterColumn: "email",
     selectable: true,
-    onRowSelect: (selectedRows: unknown[]) => {
+    onRowSelect: fn((selectedRows: unknown[]) => {
       console.log("Selected rows:", selectedRows as Payment[]);
-    },
+    }),
   },
 };
 

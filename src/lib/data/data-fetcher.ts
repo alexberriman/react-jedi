@@ -628,19 +628,25 @@ export function useDataSource<T = unknown>(
     return fetcherRef.current;
   }, [fetcherOptions]);
 
+  // Store context in a ref to avoid dependency issues
+  const contextRef = useRef<Record<string, unknown> | undefined>();
+  
   // Get context from state manager if available
-  const context = useMemo(() => {
-    if (!stateManager) return undefined;
-
+  const getContext = useCallback(() => {
+    if (!stateManager || dependencies.length === 0) return undefined;
+    
     const state = stateManager.getState();
     const contextData: Record<string, unknown> = {};
-
+    
     for (const dep of dependencies) {
       contextData[dep] = state[dep];
     }
-
+    
     return contextData;
   }, [stateManager, dependencies]);
+  
+  // Update context ref
+  contextRef.current = getContext();
 
   // Fetch function
   const fetchData = useCallback(async () => {
@@ -649,7 +655,7 @@ export function useDataSource<T = unknown>(
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
-      const result = await fetcher.fetch(spec, context);
+      const result = await fetcher.fetch(spec, contextRef.current);
 
       if (result.ok) {
         setState({
@@ -671,7 +677,7 @@ export function useDataSource<T = unknown>(
         error: new DataFetchError("Unexpected error", spec.id, error),
       });
     }
-  }, [fetcher, spec, context, enabled]);
+  }, [fetcher, spec, enabled]);
 
   // Set up polling if configured
   useEffect(() => {
@@ -708,10 +714,39 @@ export function useDataSource<T = unknown>(
     };
   }, [spec.polling, fetchData, enabled]);
 
-  // Initial fetch and refetch on dependency changes
+  // Initial fetch 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+  
+  // Create stable dependency string for useEffect
+  const dependencyString = dependencies.join(',');
+  
+  // Watch for dependency changes
+  useEffect(() => {
+    if (!stateManager || dependencies.length === 0) return;
+    
+    // Store initial values
+    const depValues = dependencies.map(dep => stateManager.getState()[dep]);
+    
+    const checkAndFetch = () => {
+      const state = stateManager.getState();
+      const newValues = dependencies.map(dep => state[dep]);
+      const changed = newValues.some((val, idx) => val !== depValues[idx]);
+      
+      if (changed) {
+        // Update stored values
+        for (const [idx, val] of newValues.entries()) { depValues[idx] = val; }
+        // Update context and fetch
+        contextRef.current = getContext();
+        fetchData();
+      }
+    };
+    
+    // Subscribe to state changes
+    const unsubscribe = stateManager.subscribe(checkAndFetch);
+    return unsubscribe;
+  }, [stateManager, dependencies, dependencyString, fetchData, getContext]);
 
   return {
     data: state.data,

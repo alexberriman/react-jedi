@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { useDataSource } from "./data-fetcher";
 import { createStateManager, useStateValue } from "../state/state-management";
-import type { DataSourceSpecification } from "../../types/schema/specification";
+import type { DataSourceSpecification, RestDataSourceConfig } from "../../types/schema/specification";
 
 // Example component that uses data fetching
 const DataFetcherExample: React.FC<{
@@ -84,22 +84,39 @@ const StateIntegratedExample: React.FC = () => {
   const [userId, setUserId] = useStateValue(stateManager, "userId");
   const [limit, setLimit] = useStateValue(stateManager, "limit");
 
-  const dataSource: DataSourceSpecification = {
-    id: "user-posts",
-    type: "rest",
-    config: {
-      url: "https://jsonplaceholder.typicode.com/posts?userId={userId}&_limit={limit}",
-      method: "GET",
-    },
-    cache: {
-      ttl: 60,
-    },
-  };
+  // Create stable data source with current values
+  const stableDataSource = React.useMemo(() => {
+    const dataSource: DataSourceSpecification = {
+      id: "user-posts",
+      type: "rest",
+      config: {
+        url: "https://jsonplaceholder.typicode.com/posts?userId={userId}&_limit={limit}",
+        method: "GET",
+      },
+      cache: {
+        ttl: 60,
+      },
+    };
 
-  const { data, loading, error } = useDataSource(dataSource, {
-    stateManager,
-    dependencies: ["userId", "limit"],
-  });
+    // Type narrowing - only REST data sources have URL
+    if (dataSource.type !== 'rest') {
+      return dataSource;
+    }
+    
+    const restConfig = dataSource.config as RestDataSourceConfig;
+    
+    return {
+      ...dataSource,
+      config: {
+        ...restConfig,
+        url: restConfig.url
+          .replace('{userId}', String(userId))
+          .replace('{limit}', String(limit))
+      }
+    };
+  }, [userId, limit]);
+  
+  const { data, loading, error } = useDataSource(stableDataSource);
 
   return (
     <div className="space-y-4">

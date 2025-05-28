@@ -130,8 +130,21 @@ describe("Screen Reader Announcements", () => {
   });
 
   it("should throw error when used outside provider", () => {
-    expect(() => {
+    // Suppress console errors for this test since we expect an error
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    
+    try {
       renderHook(() => useScreenReaderAnnouncement());
-    }).toThrow("useScreenReaderAnnouncement must be used within a ScreenReaderProvider");
+      // If we get here, the test should fail
+      expect(true).toBe(false);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+      expect((error as Error).message).toBe(
+        "useScreenReaderAnnouncement must be used within a ScreenReaderProvider"
+      );
+    } finally {
+      // Restore console.error
+      consoleSpy.mockRestore();
+    }
   });
 });

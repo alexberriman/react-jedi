@@ -34,6 +34,9 @@ export const useScreenReaderAnnouncement = () => {
 const createAnnouncementFilter = (announcementId: string) => (prev: Announcement[]) =>
   prev.filter((a) => a.id !== announcementId);
 
+// Counter for generating unique IDs
+let announcementCounter = 0;
+
 export const ScreenReaderProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [politeAnnouncements, setPoliteAnnouncements] = React.useState<Announcement[]>([]);
   const [assertiveAnnouncements, setAssertiveAnnouncements] = React.useState<Announcement[]>([]);
@@ -42,7 +45,7 @@ export const ScreenReaderProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const { priority = "polite", delay = 0 } = options;
 
     const announcement: Announcement = {
-      id: Date.now().toString(),
+      id: `${Date.now()}-${++announcementCounter}`,
       message,
       priority,
       timestamp: Date.now(),

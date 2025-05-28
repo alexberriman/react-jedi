@@ -110,53 +110,17 @@ if [ -n "$TS_CONFIG_WEAKENING" ]; then
   exit 1
 fi
 
-# Run lint-staged, build, and test in parallel
-echo "🏃 Running quality checks in parallel..."
+# Run unified check (lint, typecheck, test)
+echo "🏁 Running unified checks via 'npm run check'..."
 
-(
-  echo "🔍 Running lint-staged..."
-  if ! npx lint-staged; then
-    echo "❌ lint-staged checks failed."
-    exit 1
-  fi
-) &
-LINT_PID=$!
-
-(
-  echo "🏗️  Running build..."
-  if ! npm run build; then
-    echo "❌ Build failed."
-    exit 2
-  fi
-) &
-BUILD_PID=$!
-
-(
-  if [ -f "package.json" ] && grep -q '"test"' package.json; then
-    echo "🧪 Running tests..."
-    npm test -- --run || echo "⚠️  Tests failed (non-blocking)."
-  else
-    echo "📝 No tests found, skipping."
-  fi
-) &
-TEST_PID=$!
-
-# Wait for lint and build (tests are non-blocking but must be cleaned up)
-wait $LINT_PID
-LINT_EXIT=$?
-
-wait $BUILD_PID
-BUILD_EXIT=$?
-
-wait $TEST_PID || true
-
-if [ $LINT_EXIT -ne 0 ]; then
-  exit $LINT_EXIT
+if ! npm run check; then
+  echo ""
+  echo "❌ Pre-commit checks failed (via 'npm run check')."
+  echo ""
+  echo "💡 Tip: Claude-generated code often includes non-compliant patterns or bypass comments."
+  echo "➡️  Review any test, type, or lint issues carefully — and avoid suppressing them with '@ts-ignore' or 'eslint-disable'."
+  echo "💬 Feel free to ask for help if you're unsure how to resolve them cleanly."
+  exit 1
 fi
 
-if [ $BUILD_EXIT -ne 0 ]; then
-  exit $BUILD_EXIT
-fi
-
-echo "✅ All parallel checks passed!"
 echo "✅ All pre-commit checks passed!"

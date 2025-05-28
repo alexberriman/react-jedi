@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 import { Heading } from "./heading";
 
 const meta = {
@@ -84,6 +85,16 @@ export const Default: Story = {
   args: {
     children: "This is a heading",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify heading text
+    const heading = canvas.getByText('This is a heading');
+    expect(heading).toBeInTheDocument();
+    
+    // Default should render as h2
+    expect(heading.tagName).toBe('H2');
+  },
 };
 
 export const HeadingLevels: Story = {
@@ -97,6 +108,34 @@ export const HeadingLevels: Story = {
       <Heading level="h6">Heading 6</Heading>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all heading levels render with correct tags
+    const h1 = canvas.getByText('Heading 1');
+    expect(h1).toBeInTheDocument();
+    expect(h1.tagName).toBe('H1');
+    
+    const h2 = canvas.getByText('Heading 2');
+    expect(h2).toBeInTheDocument();
+    expect(h2.tagName).toBe('H2');
+    
+    const h3 = canvas.getByText('Heading 3');
+    expect(h3).toBeInTheDocument();
+    expect(h3.tagName).toBe('H3');
+    
+    const h4 = canvas.getByText('Heading 4');
+    expect(h4).toBeInTheDocument();
+    expect(h4.tagName).toBe('H4');
+    
+    const h5 = canvas.getByText('Heading 5');
+    expect(h5).toBeInTheDocument();
+    expect(h5.tagName).toBe('H5');
+    
+    const h6 = canvas.getByText('Heading 6');
+    expect(h6).toBeInTheDocument();
+    expect(h6.tagName).toBe('H6');
+  },
 };
 
 export const SizeVariants: Story = {
@@ -153,6 +192,21 @@ export const ColorVariants: Story = {
       <Heading variant="destructive">Destructive Color</Heading>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all color variants are rendered
+    expect(canvas.getByText('Default Color')).toBeInTheDocument();
+    expect(canvas.getByText('Primary Color')).toBeInTheDocument();
+    expect(canvas.getByText('Secondary Color')).toBeInTheDocument();
+    expect(canvas.getByText('Accent Color')).toBeInTheDocument();
+    expect(canvas.getByText('Muted Color')).toBeInTheDocument();
+    expect(canvas.getByText('Destructive Color')).toBeInTheDocument();
+    
+    // Verify primary variant has appropriate classes
+    const primaryHeading = canvas.getByText('Primary Color');
+    expect(primaryHeading).toHaveClass('text-primary');
+  },
 };
 
 export const TextTransformVariants: Story = {
@@ -189,6 +243,23 @@ export const GradientVariants: Story = {
       </Heading>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all gradient variants are rendered
+    const gradients = ['Primary', 'Rainbow', 'Sunset', 'Ocean', 'Neon', 'Golden'];
+    for (const gradient of gradients) {
+      const heading = canvas.getByText(`${gradient} Gradient`);
+      expect(heading).toBeInTheDocument();
+      expect(heading.tagName).toBe('H2');
+    }
+    
+    // Verify gradient styles are applied (they should have gradient classes)
+    const rainbowHeading = canvas.getByText('Rainbow Gradient');
+    expect(rainbowHeading).toHaveClass('bg-clip-text');
+    expect(rainbowHeading).toHaveClass('text-transparent');
+    expect(rainbowHeading).toHaveClass('bg-gradient-to-r');
+  },
 };
 
 export const TextWithShadow: Story = {

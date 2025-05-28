@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect, userEvent } from "@storybook/test";
 import { Group } from "./group";
 import { Button } from "../button";
 import { Badge } from "../badge";
@@ -53,6 +54,22 @@ export const Default: Story = {
       <Button variant="outline">Button 3</Button>
     </Group>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all buttons are rendered
+    expect(canvas.getByRole('button', { name: 'Button 1' })).toBeInTheDocument();
+    expect(canvas.getByRole('button', { name: 'Button 2' })).toBeInTheDocument();
+    expect(canvas.getByRole('button', { name: 'Button 3' })).toBeInTheDocument();
+    
+    // Verify group container
+    const groupContainer = canvas.getByRole('button', { name: 'Button 1' }).parentElement;
+    expect(groupContainer).toBeInTheDocument();
+    
+    // Verify flex layout is applied
+    expect(groupContainer).toHaveClass('flex');
+    expect(groupContainer).toHaveClass('items-center'); // align="center"
+  },
 };
 
 export const WithMixedComponents: Story = {
@@ -73,6 +90,27 @@ export const WithMixedComponents: Story = {
       </Avatar>
     </Group>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify buttons are rendered
+    expect(canvas.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    expect(canvas.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    
+    // Verify badge is rendered
+    expect(canvas.getByText('Draft')).toBeInTheDocument();
+    
+    // Verify avatar is rendered
+    expect(canvas.getByAltText('Avatar')).toBeInTheDocument();
+    
+    // Verify separator exists
+    const separators = canvasElement.querySelectorAll('[data-orientation="vertical"]');
+    expect(separators.length).toBeGreaterThan(0);
+    
+    // Verify group container maintains alignment
+    const groupContainer = canvas.getByRole('button', { name: 'Save' }).parentElement;
+    expect(groupContainer).toHaveClass('items-center');
+  },
 };
 
 export const SpacingVariants: Story = {
@@ -298,6 +336,31 @@ export const FormActions: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify dialog content
+    expect(canvas.getByText('Save Changes?')).toBeInTheDocument();
+    expect(canvas.getByText(/You have unsaved changes/)).toBeInTheDocument();
+    
+    // Verify all action buttons
+    const cancelButton = canvas.getByRole('button', { name: 'Cancel' });
+    const discardButton = canvas.getByRole('button', { name: 'Discard' });
+    const saveButton = canvas.getByRole('button', { name: 'Save Changes' });
+    
+    expect(cancelButton).toBeInTheDocument();
+    expect(discardButton).toBeInTheDocument();
+    expect(saveButton).toBeInTheDocument();
+    
+    // Verify group container has justify-end
+    const groupContainer = cancelButton.parentElement;
+    expect(groupContainer).toHaveClass('justify-end');
+    
+    // Test button interaction
+    await userEvent.click(saveButton);
+    // Button should still be there (no actual action in this story)
+    expect(saveButton).toBeInTheDocument();
+  },
 };
 
 export const ToolbarExample: Story = {
@@ -338,6 +401,31 @@ export const ToolbarExample: Story = {
       </Group>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify formatting buttons
+    expect(canvas.getByRole('button', { name: 'Bold' })).toBeInTheDocument();
+    expect(canvas.getByRole('button', { name: 'Italic' })).toBeInTheDocument();
+    expect(canvas.getByRole('button', { name: 'Underline' })).toBeInTheDocument();
+    
+    // Verify alignment buttons
+    expect(canvas.getByRole('button', { name: 'Align Left' })).toBeInTheDocument();
+    expect(canvas.getByRole('button', { name: 'Align Center' })).toBeInTheDocument();
+    expect(canvas.getByRole('button', { name: 'Align Right' })).toBeInTheDocument();
+    
+    // Verify additional buttons
+    expect(canvas.getByRole('button', { name: 'Link' })).toBeInTheDocument();
+    expect(canvas.getByRole('button', { name: 'Image' })).toBeInTheDocument();
+    
+    // Verify separators (should be 2)
+    const separators = canvasElement.querySelectorAll('[data-orientation="vertical"]');
+    expect(separators).toHaveLength(2);
+    
+    // Verify nested groups structure
+    const allButtons = canvas.getAllByRole('button');
+    expect(allButtons).toHaveLength(8);
+  },
 };
 
 export const TagList: Story = {

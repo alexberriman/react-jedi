@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect, waitFor } from "@storybook/test";
 import { HeadManager } from "./head-manager";
 
 const meta = {
@@ -57,6 +58,22 @@ export const BasicUsage: Story = {
     },
     children: <div>Page content goes here</div>,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify content is rendered
+    expect(canvas.getByText('Page content goes here')).toBeInTheDocument();
+    
+    // Wait for head updates
+    await waitFor(() => {
+      expect(document.title).toContain('My Page');
+    });
+    
+    // Verify meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    expect(metaDescription).toBeInTheDocument();
+    expect(metaDescription?.getAttribute('content')).toBe('This is a simple page with basic metadata');
+  },
 };
 
 export const CompleteMetadata: Story = {
@@ -78,6 +95,48 @@ export const CompleteMetadata: Story = {
     titleSuffix: " | MyCompany",
     children: <div>Product page content</div>,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify content
+    expect(canvas.getByText('Product page content')).toBeInTheDocument();
+    
+    // Wait for head updates
+    await waitFor(() => {
+      expect(document.title).toBe('Product Page | MyCompany');
+    });
+    
+    // Verify meta tags
+    const metaDescription = document.querySelector('meta[name="description"]');
+    expect(metaDescription?.getAttribute('content')).toBe('Discover our amazing product that will change your life');
+    
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    expect(metaKeywords?.getAttribute('content')).toBe('product,amazing,innovative');
+    
+    const metaAuthor = document.querySelector('meta[name="author"]');
+    expect(metaAuthor?.getAttribute('content')).toBe('John Doe');
+    
+    // Verify Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    expect(ogTitle?.getAttribute('content')).toBe('Amazing Product - Transform Your Life');
+    
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    expect(ogDescription?.getAttribute('content')).toBe('Our revolutionary product helps you achieve more');
+    
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    expect(ogImage?.getAttribute('content')).toBe('https://example.com/product-og.jpg');
+    
+    // Verify Twitter tags
+    const twitterCard = document.querySelector('meta[name="twitter:card"]');
+    expect(twitterCard?.getAttribute('content')).toBe('summary_large_image');
+    
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    expect(twitterTitle?.getAttribute('content')).toBe('Check out this amazing product!');
+    
+    // Verify canonical URL
+    const canonical = document.querySelector('link[rel="canonical"]');
+    expect(canonical?.getAttribute('href')).toBe('https://example.com/products/amazing');
+  },
 };
 
 export const WithFavicon: Story = {
@@ -88,6 +147,22 @@ export const WithFavicon: Story = {
       favicon: "/favicon.ico",
     },
     children: <div>Home page content</div>,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify content
+    expect(canvas.getByText('Home page content')).toBeInTheDocument();
+    
+    // Wait for head updates
+    await waitFor(() => {
+      expect(document.title).toContain('Home');
+    });
+    
+    // Verify favicon link
+    const faviconLink = document.querySelector('link[rel="icon"]');
+    expect(faviconLink).toBeInTheDocument();
+    expect(faviconLink?.getAttribute('href')).toBe('/favicon.ico');
   },
 };
 

@@ -17,7 +17,7 @@
       {
         "id": "add-play-functions-03",
         "description": "Create Storybook `play` functions for: `src/components/ui/grid/grid.stories.tsx`, `src/components/ui/group/group.stories.tsx`, `src/components/ui/head-manager/extended-head-manager.stories.tsx`, `src/components/ui/head-manager/head-manager.stories.tsx`, `src/components/ui/heading/heading.stories.tsx`. Use the `@storybook/test` approach to simulate user interaction or DOM inspection using `within` and `userEvent`. After writing the play functions, run `npm run test-storybook` to verify all pass.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-04",

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 import { Grid } from "./grid";
 
 const meta: Meta<typeof Grid> = {
@@ -84,6 +85,25 @@ export const Default: Story = {
       ))}
     </Grid>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify grid container exists
+    const gridContainer = canvas.getByText('Item 1').parentElement;
+    expect(gridContainer).toBeInTheDocument();
+    
+    // Verify grid has correct CSS classes
+    expect(gridContainer).toHaveClass('grid');
+    
+    // Verify all 6 items are rendered
+    for (let i = 1; i <= 6; i++) {
+      expect(canvas.getByText(`Item ${i}`)).toBeInTheDocument();
+    }
+    
+    // Verify grid has appropriate columns (grid-cols-3 is applied)
+    const computedStyle = globalThis.getComputedStyle(gridContainer!);
+    expect(computedStyle.display).toBe('grid');
+  },
 };
 
 export const AutoFit: Story = {
@@ -100,6 +120,23 @@ export const AutoFit: Story = {
       ))}
     </Grid>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify grid container exists
+    const gridContainer = canvas.getByText('Item 1').parentElement;
+    expect(gridContainer).toBeInTheDocument();
+    
+    // Verify all 8 items are rendered
+    for (let i = 1; i <= 8; i++) {
+      expect(canvas.getByText(`Item ${i}`)).toBeInTheDocument();
+    }
+    
+    // Verify grid uses auto-fit CSS
+    const computedStyle = globalThis.getComputedStyle(gridContainer!);
+    expect(computedStyle.display).toBe('grid');
+    // AutoFit applies a dynamic grid-template-columns
+  },
 };
 
 export const DifferentColumnSizes: Story = {
@@ -145,6 +182,32 @@ export const NamedAreas: Story = {
       </div>
     </Grid>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all grid areas are rendered
+    expect(canvas.getByText('Header')).toBeInTheDocument();
+    expect(canvas.getByText('Sidebar')).toBeInTheDocument();
+    expect(canvas.getByText('Main Content')).toBeInTheDocument();
+    expect(canvas.getByText('Footer')).toBeInTheDocument();
+    
+    // Verify grid container
+    const gridContainer = canvas.getByText('Header').parentElement;
+    expect(gridContainer).toBeInTheDocument();
+    expect(gridContainer).toHaveClass('grid');
+    
+    // Verify grid areas are properly assigned (they have grid-area CSS)
+    const headerElement = canvas.getByText('Header').parentElement;
+    const sidebarElement = canvas.getByText('Sidebar').parentElement;
+    const contentElement = canvas.getByText('Main Content').parentElement;
+    const footerElement = canvas.getByText('Footer').parentElement;
+    
+    // Check that elements have appropriate grid-area classes
+    expect(headerElement).toHaveClass('[grid-area:header]');
+    expect(sidebarElement).toHaveClass('[grid-area:sidebar]');
+    expect(contentElement).toHaveClass('[grid-area:content]');
+    expect(footerElement).toHaveClass('[grid-area:footer]');
+  },
 };
 
 export const ResponsiveGrid: Story = {

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect, waitFor } from "@storybook/test";
 import { ExtendedHeadManager } from "@/lib/seo";
 import {
   type OrganizationSchema,
@@ -84,6 +85,43 @@ export const Organization: Story = {
       <JsonLdDisplay schema={args.structuredData} />
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify component rendered correctly
+    expect(canvas.getByText('This component modifies the document head')).toBeInTheDocument();
+    expect(canvas.getByText('Generated JSON-LD:')).toBeInTheDocument();
+    
+    // Wait for head manager to update document
+    await waitFor(() => {
+      // Verify title is set
+      expect(document.title).toContain('ACME Corporation');
+    });
+    
+    // Verify meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    expect(metaDescription).toBeInTheDocument();
+    expect(metaDescription?.getAttribute('content')).toBe('Leading provider of innovative solutions');
+    
+    // Verify Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    expect(ogTitle).toBeInTheDocument();
+    expect(ogTitle?.getAttribute('content')).toBe('ACME Corporation - Innovation Leaders');
+    
+    // Verify JSON-LD script tag exists
+    const jsonLdScripts = document.querySelectorAll('script[type="application/ld+json"]');
+    expect(jsonLdScripts.length).toBeGreaterThan(0);
+    
+    // Verify the JSON-LD content includes our organization data
+    let foundOrgSchema = false;
+    for (const script of jsonLdScripts) {
+      const content = script.textContent || '';
+      if (content.includes('"@type":"Organization"') && content.includes('ACME Corporation')) {
+        foundOrgSchema = true;
+      }
+    }
+    expect(foundOrgSchema).toBe(true);
+  },
 };
 
 export const Article: Story = {
@@ -123,6 +161,34 @@ export const Article: Story = {
       <JsonLdDisplay schema={args.structuredData} />
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify component content
+    expect(canvas.getByText('Article Page')).toBeInTheDocument();
+    expect(canvas.getByText('With Article structured data')).toBeInTheDocument();
+    
+    // Wait for head updates
+    await waitFor(() => {
+      expect(document.title).toContain('Understanding Server-Driven UI');
+    });
+    
+    // Verify author meta tag
+    const authorMeta = document.querySelector('meta[name="author"]');
+    expect(authorMeta).toBeInTheDocument();
+    expect(authorMeta?.getAttribute('content')).toBe('Jane Doe');
+    
+    // Verify Article JSON-LD
+    const jsonLdScripts = document.querySelectorAll('script[type="application/ld+json"]');
+    let foundArticleSchema = false;
+    for (const script of jsonLdScripts) {
+      const content = script.textContent || '';
+      if (content.includes('"@type":"Article"') && content.includes('Understanding Server-Driven UI')) {
+        foundArticleSchema = true;
+      }
+    }
+    expect(foundArticleSchema).toBe(true);
+  },
 };
 
 export const Product: Story = {
@@ -167,6 +233,30 @@ export const Product: Story = {
       <JsonLdDisplay schema={args.structuredData} />
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify component content
+    expect(canvas.getByText('Product Page')).toBeInTheDocument();
+    
+    // Wait for head updates
+    await waitFor(() => {
+      expect(document.title).toContain('Premium Widget Pro');
+    });
+    
+    // Verify Product JSON-LD
+    const jsonLdScripts = document.querySelectorAll('script[type="application/ld+json"]');
+    let foundProductSchema = false;
+    for (const script of jsonLdScripts) {
+      const content = script.textContent || '';
+      if (content.includes('"@type":"Product"') && 
+          content.includes('Premium Widget Pro') &&
+          content.includes('"price":"99.99"')) {
+        foundProductSchema = true;
+      }
+    }
+    expect(foundProductSchema).toBe(true);
+  },
 };
 
 export const Breadcrumb: Story = {

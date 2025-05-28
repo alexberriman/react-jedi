@@ -15,6 +15,7 @@ describe("DataFetcher", () => {
   let fetcher: DataFetcher;
 
   beforeEach(() => {
+    vi.useFakeTimers();
     // Create fetcher with no retries for most tests
     fetcher = new DataFetcher({ maxRetries: 0 });
     cacheManager.clearCache();
@@ -23,6 +24,7 @@ describe("DataFetcher", () => {
 
   afterEach(() => {
     vi.clearAllTimers();
+    vi.useRealTimers();
   });
 
   describe("REST data source", () => {
@@ -119,7 +121,15 @@ describe("DataFetcher", () => {
         },
       };
 
-      const result = await fetcher.fetch(spec);
+      const fetchPromise = fetcher.fetch(spec);
+      
+      // Advance timers for retries with exponential backoff
+      // First retry: 10ms × 2^0 = 10ms
+      await vi.advanceTimersByTimeAsync(10);
+      // Second retry: 10ms × 2^1 = 20ms
+      await vi.advanceTimersByTimeAsync(20);
+      
+      const result = await fetchPromise;
 
       expect(result.ok).toBe(true);
       expect(fetch).toHaveBeenCalledTimes(3);
@@ -268,13 +278,13 @@ describe("DataFetcher", () => {
       expect(result1.val).toEqual(mockData1);
 
       // Second fetch should return stale data and trigger revalidation
-      await new Promise((resolve) => globalThis.setTimeout(resolve, 10));
+      await vi.advanceTimersByTimeAsync(10);
       const result2 = await fetcher.fetch(spec);
       expect(result2.ok).toBe(true);
       expect(result2.val).toEqual(mockData1); // Still returns stale data
 
       // Wait for background revalidation
-      await new Promise((resolve) => globalThis.setTimeout(resolve, 50));
+      await vi.advanceTimersByTimeAsync(50);
       expect(fetch).toHaveBeenCalledTimes(2);
     });
   });
@@ -442,6 +452,9 @@ describe("DataFetcher", () => {
 
       // Start multiple concurrent requests
       const promises = [fetcher.fetch(spec), fetcher.fetch(spec), fetcher.fetch(spec)];
+      
+      // Advance timers to resolve the fetch promise
+      await vi.advanceTimersByTimeAsync(50);
 
       const results = await Promise.all(promises);
 
@@ -514,8 +527,8 @@ describe("Cache Manager", () => {
     await fetcher.fetch(spec);
     expect(cacheManager.getCacheSize()).toBe(1);
 
-    // Wait a bit
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 10));
+    // Advance time to expire the cache
+    vi.advanceTimersByTime(10);
 
     const purged = cacheManager.purgeExpired();
     expect(purged).toBe(1);

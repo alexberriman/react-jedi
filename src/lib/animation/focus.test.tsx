@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { screen } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { Focus, FocusButton, FocusInput, FocusTextarea, FocusCard, FocusLink } from "./focus";
 import { AnimationProvider } from "./animation-provider";
 import "@testing-library/jest-dom/vitest";
@@ -16,6 +16,11 @@ describe("Focus Components", () => {
   beforeEach(() => {
     // Clear any leftover DOM elements between tests
     document.body.innerHTML = "";
+    vi.useFakeTimers();
+  });
+  
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   describe("Focus", () => {
@@ -110,12 +115,14 @@ describe("Focus Components", () => {
     });
 
     it("handles onChange events", async () => {
+      vi.useRealTimers(); // userEvent needs real timers
+      const user = userEvent.setup();
       const onChange = vi.fn();
       renderWithAnimation(<FocusInput onChange={onChange} />);
       const input = screen.getByRole("textbox");
-      await userEvent.type(input, "test");
+      await user.type(input, "test");
       expect(onChange).toHaveBeenCalled();
-    });
+    }, 10_000); // Increase timeout
 
     it("supports different input types", () => {
       renderWithAnimation(<FocusInput type="email" />);
@@ -141,12 +148,14 @@ describe("Focus Components", () => {
     });
 
     it("handles onChange events", async () => {
+      vi.useRealTimers(); // userEvent needs real timers
+      const user = userEvent.setup();
       const onChange = vi.fn();
       renderWithAnimation(<FocusTextarea onChange={onChange} />);
       const textarea = screen.getByRole("textbox");
-      await userEvent.type(textarea, "test");
+      await user.type(textarea, "test");
       expect(onChange).toHaveBeenCalled();
-    });
+    }, 10_000); // Increase timeout
 
     it("supports custom rows and resize", () => {
       renderWithAnimation(<FocusTextarea rows={6} resize="none" />);

@@ -273,6 +273,7 @@ export function DataTable<TData, TValue>({
               size="sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
+              data-testid="pagination-previous"
             >
               Previous
             </Button>
@@ -281,6 +282,7 @@ export function DataTable<TData, TValue>({
               size="sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
+              data-testid="pagination-next"
             >
               Next
             </Button>

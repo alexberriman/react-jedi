@@ -115,16 +115,15 @@ export const VariantTesting: Story = {
 
     // Check all variants are rendered
     const buttons = canvas.getAllByRole("button");
-    await expect(buttons).toHaveLength(5); // link variant is rendered as anchor
-
-    // Check link variant is rendered as anchor
-    const link = canvas.getByRole("link");
-    await expect(link).toBeInTheDocument();
+    await expect(buttons).toHaveLength(6); // All variants are buttons
 
     // Verify variant classes
     await expect(buttons[0]).toHaveClass("bg-primary");
     await expect(buttons[1]).toHaveClass("bg-destructive");
     await expect(buttons[2]).toHaveClass("border");
+    await expect(buttons[3]).toHaveClass("bg-secondary");
+    await expect(buttons[4]).toHaveClass("hover:bg-accent");
+    await expect(buttons[5]).toHaveClass("text-primary");
   },
 };
 
@@ -163,7 +162,7 @@ export const SizeTesting: Story = {
     await expect(buttons[0]).toHaveClass("h-8");
     await expect(buttons[1]).toHaveClass("h-9");
     await expect(buttons[2]).toHaveClass("h-10");
-    await expect(buttons[3]).toHaveClass("h-9", "w-9");
+    await expect(buttons[3]).toHaveClass("size-9");
   },
 };
 

@@ -267,7 +267,13 @@ export function ThemeProvider({
     }
     
     // Check for system preference
-    const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = globalThis.matchMedia?.("(prefers-color-scheme: dark)");
+    
+    if (!mediaQuery) {
+      // Fallback to light mode if matchMedia is not available
+      setEffectiveColorMode("light");
+      return;
+    }
     
     const handleChange = (event: MediaQueryListEvent | MediaQueryList): void => {
       setEffectiveColorMode(event.matches ? "dark" : "light");

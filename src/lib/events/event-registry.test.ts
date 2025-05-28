@@ -81,7 +81,7 @@ describe("EventRegistry", () => {
     expect(stopPropagationSpy).toHaveBeenCalled();
   });
 
-  it("should debounce event handlers when specified", async () => {
+  it("should debounce event handlers when specified", () => {
     const spec: EventHandlerSpec = {
       type: "input",
       handler: { type: "UPDATE" },
@@ -98,14 +98,14 @@ describe("EventRegistry", () => {
     // Should not have been called yet
     expect(mockContext.dispatch).not.toHaveBeenCalled();
 
-    // Wait for debounce
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 150));
+    // Wait for debounce using fake timers
+    vi.advanceTimersByTime(150);
 
     // Should have been called only once
     expect(mockContext.dispatch).toHaveBeenCalledTimes(1);
   });
 
-  it("should throttle event handlers when specified", async () => {
+  it("should throttle event handlers when specified", () => {
     const spec: EventHandlerSpec = {
       type: "mousemove",
       handler: { type: "TRACK" },
@@ -122,14 +122,14 @@ describe("EventRegistry", () => {
     expect(mockContext.dispatch).toHaveBeenCalledTimes(1);
 
     // Wait less than throttle time
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 50));
+    vi.advanceTimersByTime(50);
     element.dispatchEvent(new Event("mousemove"));
 
     // Still should have been called only once
     expect(mockContext.dispatch).toHaveBeenCalledTimes(1);
 
     // Wait for throttle time to pass
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
+    vi.advanceTimersByTime(100);
     element.dispatchEvent(new Event("mousemove"));
 
     // Now should have been called twice

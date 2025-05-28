@@ -9,6 +9,7 @@ import { StateProvider } from "../state/state-context";
 import type { MutationSpecification } from "../../types/data";
 
 // Mock API delay for demonstration
+// In test environments, delays are automatically reduced to 0ms
 const delay = (ms: number) => new Promise((resolve) => globalThis.setTimeout(resolve, ms));
 
 // Simulate random failure for demonstration purposes

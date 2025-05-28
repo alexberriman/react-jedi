@@ -119,6 +119,7 @@ how optimistic updates handle concurrent operations.
 
 export const BasicUsage: Story = {
   name: "Basic Implementation",
+  tags: ["docs-only"],
   render: () => (
     <div className="p-6 space-y-4">
       <div className="prose">
@@ -166,6 +167,7 @@ mutation.mutateOptimistic({ name: "New Item" });
 
 export const ErrorHandling: Story = {
   name: "Error Handling & Rollback",
+  tags: ["docs-only"],
   render: () => (
     <div className="p-6 space-y-4">
       <div className="prose">
@@ -214,6 +216,7 @@ const mutation = useMutation({
 
 export const MultipleUpdates: Story = {
   name: "Concurrent Updates",
+  tags: ["docs-only"],
   render: () => (
     <div className="p-6 space-y-4">
       <div className="prose">

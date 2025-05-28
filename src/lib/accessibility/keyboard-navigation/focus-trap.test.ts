@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { renderHook } from "@testing-library/react/pure";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { renderHook, act } from "@testing-library/react/pure";
 import {
   useFocusTrap,
   getFocusableElements,
@@ -104,7 +104,7 @@ describe("Focus Trap Utilities", () => {
       document.body.innerHTML = "";
     });
 
-    it("should trap focus within container", async () => {
+    it("should trap focus within container", () => {
       const container = document.createElement("div");
       container.innerHTML = `
         <button>Button 1</button>
@@ -118,7 +118,9 @@ describe("Focus Trap Utilities", () => {
       renderHook(() => useFocusTrap(containerRef));
 
       // Wait for the focus to be set (uses setTimeout)
-      await new Promise((resolve) => globalThis.setTimeout(resolve, 10));
+      act(() => {
+        vi.runAllTimers();
+      });
 
       // Focus should be trapped within the container
       const buttons = container.querySelectorAll("button");

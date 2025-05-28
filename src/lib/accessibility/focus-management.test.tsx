@@ -21,6 +21,12 @@ import {
 describe("Focus Management Utilities", () => {
   beforeEach(() => {
     document.body.innerHTML = "";
+    // Mock window.scrollTo to avoid jsdom warnings
+    globalThis.scrollTo = vi.fn();
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
   describe("getFocusableElements", () => {

@@ -344,7 +344,7 @@ describe("ARIA Attributes", () => {
       document.body = originalBody;
     });
 
-    it("should create and remove announcement element", async () => {
+    it("should create and remove announcement element", () => {
       announceToScreenReader("Test announcement", "polite");
 
       const announcement = document.querySelector('[role="status"]');
@@ -352,8 +352,8 @@ describe("ARIA Attributes", () => {
       expect(announcement?.getAttribute("aria-live")).toBe("polite");
       expect(announcement?.textContent).toBe("Test announcement");
 
-      // Wait for removal
-      await new Promise((resolve) => globalThis.setTimeout(resolve, 1100));
+      // Wait for removal using fake timers
+      vi.advanceTimersByTime(1100);
       expect(document.querySelector('[role="status"]')).toBeFalsy();
     });
   });

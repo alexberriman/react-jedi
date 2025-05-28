@@ -1,6 +1,55 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { screen } from "@testing-library/dom";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+
+// Define component props interface
+interface MockComponentProps {
+  children?: React.ReactNode;
+  [key: string]: unknown;
+}
+
+// Mock framer-motion before importing components
+vi.mock("framer-motion", () => {
+  // Create motion value factory inside the mock
+  const mockMotionValue = (initial: number | string) => ({
+    get: vi.fn(() => initial),
+    set: vi.fn(),
+    onChange: vi.fn(),
+    isAnimating: vi.fn(() => false),
+    stop: vi.fn(),
+    destroy: vi.fn(),
+  });
+  
+  // Create ref-forwarding mock components
+  const div = React.forwardRef(
+    ({ children, ...props }: MockComponentProps, ref: React.Ref<HTMLDivElement>) => 
+      React.createElement("div", { "data-testid": "motion-div", ref, ...props }, children)
+  );
+  div.displayName = "MockedMotionDiv";
+  
+  const span = React.forwardRef(
+    ({ children, ...props }: MockComponentProps, ref: React.Ref<HTMLSpanElement>) => 
+      React.createElement("span", { "data-testid": "motion-span", ref, ...props }, children)
+  );
+  span.displayName = "MockedMotionSpan";
+  
+  return {
+    motion: {
+      div,
+      span,
+    },
+    useTransform: vi.fn((value, from, to) => {
+      const initial = typeof from[0] === 'string' ? "0%" : 0;
+      return mockMotionValue(initial);
+    }),
+    useMotionValue: vi.fn((initial) => mockMotionValue(initial)),
+    MotionValue: Object,
+    MotionConfig: ({ children }: { children: React.ReactNode }) => children,
+  };
+});
+
+// Import components after mocking
 import {
   ScrollReveal,
   ScrollParallax,
@@ -10,49 +59,6 @@ import {
   ScrollTextReveal,
 } from "./scroll";
 import { AnimationProvider } from "./animation-provider";
-import { describe, it, expect, vi } from "vitest";
-
-// Mock framer-motion
-vi.mock("framer-motion", async () => {
-  const actual = await vi.importActual("framer-motion");
-  
-  // Create ref-forwarding mock components
-  const div = React.forwardRef<HTMLDivElement, Record<string, unknown>>(
-    ({ children, ...props }, ref) => (
-      <div data-testid="motion-div" ref={ref} {...props}>
-        {children as React.ReactNode}
-      </div>
-    )
-  );
-  div.displayName = "MockedMotionDiv";
-  
-  const span = React.forwardRef<HTMLSpanElement, Record<string, unknown>>(
-    ({ children, ...props }, ref) => (
-      <span data-testid="motion-span" ref={ref} {...props}>
-        {children as React.ReactNode}
-      </span>
-    )
-  );
-  span.displayName = "MockedMotionSpan";
-  
-  return {
-    ...actual,
-    motion: {
-      div,
-      span,
-    },
-    useTransform: vi.fn().mockImplementation((value, from, to) => {
-      return { value, from, to };
-    }),
-    useMotionValue: vi.fn().mockImplementation((initial) => ({
-      get: () => initial,
-      set: vi.fn(),
-      onChange: vi.fn(),
-    })),
-    MotionValue: Object,
-    MotionConfig: ({ children }: { children: React.ReactNode }) => children,
-  };
-});
 
 // Mock IntersectionObserver
 class MockIntersectionObserver {
@@ -82,48 +88,68 @@ class MockIntersectionObserver {
 globalThis.IntersectionObserver =
   MockIntersectionObserver as unknown as typeof IntersectionObserver;
 
-// Test cases
+// Mock matchMedia
+beforeEach(() => {
+  vi.clearAllMocks();
+  Object.defineProperty(globalThis, "matchMedia", {
+    writable: true,
+    value: vi.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  });
+});
+
+afterEach(() => {
+  vi.clearAllMocks();
+});
+
+// Helper to render components within AnimationProvider
+const renderWithAnimation = (ui: React.ReactElement) => {
+  return render(<AnimationProvider>{ui}</AnimationProvider>);
+};
+
 describe("Scroll", () => {
-  // Helper component wrapper with proper typing
-  const renderWithProvider = (ui: React.ReactElement) => {
-    return render(<AnimationProvider>{ui}</AnimationProvider>);
-  };
-
-  // Import screen implicitly via render result destructuring
-
   describe("ScrollReveal", () => {
     it("renders children", () => {
-      renderWithProvider(
+      renderWithAnimation(
         <ScrollReveal>
-          <div>Test Content</div>
+          <div>Reveal Content</div>
         </ScrollReveal>
       );
-      expect(screen.getByText("Test Content")).toBeInTheDocument();
+      expect(screen.getByText("Reveal Content")).toBeInTheDocument();
     });
 
     it("applies className and style props", () => {
-      const { container } = renderWithProvider(
-        <ScrollReveal className="test-class" style={{ color: "red" }}>
-          <div>Test Content</div>
+      renderWithAnimation(
+        <ScrollReveal className="custom-class" style={{ color: "red" }}>
+          <div>Reveal Content</div>
         </ScrollReveal>
       );
-      const motionDiv = container.querySelector('[data-testid="motion-div"]');
-      expect(motionDiv).toHaveClass("test-class");
+      const element = screen.getByTestId("motion-div");
+      expect(element).toHaveClass("custom-class");
+      expect(element).toHaveStyle({ color: "rgb(255, 0, 0)" });
     });
 
     it("accepts animation preset as string", () => {
-      const { container } = renderWithProvider(
-        <ScrollReveal animation="fadeIn">
-          <div>Test Content</div>
+      renderWithAnimation(
+        <ScrollReveal animation="slideUp">
+          <div>Reveal Content</div>
         </ScrollReveal>
       );
-      expect(container).toContainHTML("Test Content");
+      expect(screen.getByText("Reveal Content")).toBeInTheDocument();
     });
   });
 
   describe("ScrollParallax", () => {
     it("renders children", () => {
-      renderWithProvider(
+      renderWithAnimation(
         <ScrollParallax>
           <div>Parallax Content</div>
         </ScrollParallax>
@@ -132,41 +158,47 @@ describe("Scroll", () => {
     });
 
     it("accepts speed prop", () => {
-      const { container } = renderWithProvider(
+      renderWithAnimation(
         <ScrollParallax speed={0.8}>
           <div>Parallax Content</div>
         </ScrollParallax>
       );
-      expect(container).toContainHTML("Parallax Content");
+      expect(screen.getByText("Parallax Content")).toBeInTheDocument();
     });
 
     it("accepts direction prop", () => {
-      const { container } = renderWithProvider(
+      renderWithAnimation(
         <ScrollParallax direction="horizontal">
           <div>Parallax Content</div>
         </ScrollParallax>
       );
-      expect(container).toContainHTML("Parallax Content");
+      expect(screen.getByText("Parallax Content")).toBeInTheDocument();
     });
   });
 
   describe("ScrollProgress", () => {
     it("renders correctly", () => {
-      const { container } = renderWithProvider(
-        <ScrollProgress height="100vh" color="#7c3aed" position="top" />
-      );
-      expect(container.firstChild).toBeTruthy();
+      renderWithAnimation(<ScrollProgress />);
+      // Get all motion-divs and select the parent one (with position: fixed)
+      const progressBars = screen.getAllByTestId("motion-div");
+      const progressBar = progressBars.find(el => el.style.position === "fixed");
+      expect(progressBar).toBeInTheDocument();
+      expect(progressBar).toHaveStyle({ position: "fixed", top: "0px", left: "0px" });
     });
 
     it("accepts custom thickness", () => {
-      const { container } = renderWithProvider(<ScrollProgress thickness={8} />);
-      expect(container.firstChild).toBeTruthy();
+      renderWithAnimation(<ScrollProgress thickness={8} />);
+      // Get all motion-divs and select the parent one (with position: fixed)
+      const progressBars = screen.getAllByTestId("motion-div");
+      const progressBar = progressBars.find(el => el.style.position === "fixed");
+      expect(progressBar).toBeInTheDocument();
+      expect(progressBar).toHaveStyle({ height: "8px" });
     });
   });
 
   describe("ScrollContainer", () => {
     it("renders children", () => {
-      renderWithProvider(
+      renderWithAnimation(
         <ScrollContainer>
           <div>Item 1</div>
           <div>Item 2</div>
@@ -177,20 +209,20 @@ describe("Scroll", () => {
     });
 
     it("accepts stagger prop", () => {
-      const { container } = renderWithProvider(
+      renderWithAnimation(
         <ScrollContainer stagger={0.2}>
           <div>Item 1</div>
           <div>Item 2</div>
         </ScrollContainer>
       );
-      expect(container).toContainHTML("Item 1");
-      expect(container).toContainHTML("Item 2");
+      expect(screen.getByText("Item 1")).toBeInTheDocument();
+      expect(screen.getByText("Item 2")).toBeInTheDocument();
     });
   });
 
   describe("ScrollScale", () => {
     it("renders children", () => {
-      renderWithProvider(
+      renderWithAnimation(
         <ScrollScale>
           <div>Scale Content</div>
         </ScrollScale>
@@ -199,28 +231,32 @@ describe("Scroll", () => {
     });
 
     it("accepts startScale and endScale props", () => {
-      const { container } = renderWithProvider(
-        <ScrollScale startScale={0.5} endScale={1.5}>
+      renderWithAnimation(
+        <ScrollScale startScale={0.5} endScale={2}>
           <div>Scale Content</div>
         </ScrollScale>
       );
-      expect(container).toContainHTML("Scale Content");
+      expect(screen.getByText("Scale Content")).toBeInTheDocument();
     });
   });
 
   describe("ScrollTextReveal", () => {
     it("renders text content", () => {
-      const { container } = renderWithProvider(<ScrollTextReveal text="Hello World" />);
-      expect(container).toContainHTML("Hello");
-      expect(container).toContainHTML("World");
+      renderWithAnimation(
+        <ScrollTextReveal text="Revealing text" />
+      );
+      // Text is split into words, so check for individual words
+      expect(screen.getByText("Revealing")).toBeInTheDocument();
+      expect(screen.getByText("text")).toBeInTheDocument();
     });
 
     it("accepts stagger prop", () => {
-      const { container } = renderWithProvider(
-        <ScrollTextReveal text="Hello World" stagger={0.03} />
+      renderWithAnimation(
+        <ScrollTextReveal text="Revealing text" stagger={0.1} />
       );
-      expect(container).toContainHTML("Hello");
-      expect(container).toContainHTML("World");
+      // Text is split into words, so check for individual words
+      expect(screen.getByText("Revealing")).toBeInTheDocument();
+      expect(screen.getByText("text")).toBeInTheDocument();
     });
   });
 });

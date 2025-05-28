@@ -140,10 +140,7 @@ The test runner is configured to work with popular CI services:
 ## Troubleshooting
 
 ### Tests timing out
-Increase the timeout in `.storybook/test-runner-jest.config.js`:
-```javascript
-testTimeout: 30000, // 30 seconds
-```
+Increase the timeout in your test configuration if needed.
 
 ### Cannot find element
 Ensure elements are rendered before querying:

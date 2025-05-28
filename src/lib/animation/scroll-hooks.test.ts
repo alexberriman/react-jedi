@@ -6,26 +6,32 @@ import {
   useScrollReveal,
   scrollPresets,
 } from "./scroll-hooks";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { AnimationProvider } from "./animation-provider";
 import React from "react";
 
 // Mock framer-motion
-vi.mock("framer-motion", async () => {
-  const actual = await vi.importActual("framer-motion");
-  return {
-    ...actual,
-    useMotionValue: vi.fn().mockImplementation((initial) => ({
-      get: () => initial,
-      set: vi.fn(),
-      onChange: vi.fn(),
-    })),
-    useTransform: vi.fn().mockImplementation((value, from, to) => {
-      return { value, from, to };
-    }),
-    MotionConfig: ({ children }: { children: React.ReactNode }) => children,
-  };
-});
+vi.mock("framer-motion", () => ({
+  useMotionValue: vi.fn((initial) => ({
+    get: () => initial,
+    set: vi.fn(),
+    onChange: vi.fn(),
+    isAnimating: () => false,
+    stop: vi.fn(),
+    destroy: vi.fn(),
+    current: initial,
+  })),
+  useTransform: vi.fn((value, from, to) => ({
+    get: () => to[0],
+    set: vi.fn(),
+    onChange: vi.fn(),
+    isAnimating: () => false,
+    stop: vi.fn(),
+    destroy: vi.fn(),
+    current: to[0],
+  })),
+  MotionConfig: ({ children }: { children: React.ReactNode }) => children,
+}));
 
 // Mock IntersectionObserver
 class MockIntersectionObserver {
@@ -57,6 +63,7 @@ globalThis.IntersectionObserver =
 
 // Mock matchMedia
 beforeEach(() => {
+  vi.clearAllMocks();
   Object.defineProperty(globalThis, "matchMedia", {
     writable: true,
     value: vi.fn().mockImplementation((query) => ({
@@ -70,6 +77,10 @@ beforeEach(() => {
       dispatchEvent: vi.fn(),
     })),
   });
+});
+
+afterEach(() => {
+  vi.clearAllMocks();
 });
 
 // Provider wrapper for hooks
@@ -117,6 +128,10 @@ describe("scroll-hooks", () => {
 
     it("defaults to 0.5 speed if not provided", () => {
       const { result } = renderHook(() => useParallax(), { wrapper });
+      // Check that all properties exist
+      expect(result.current.ref).toBeDefined();
+      expect(result.current.scrollYProgress).toBeDefined();
+      expect(result.current.xOffset).toBeDefined();
       expect(result.current.yOffset).toBeDefined();
     });
 

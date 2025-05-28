@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, cleanup } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { render } from "@testing-library/react";
 import React, { act } from "react";
 import {
   AnimationSequence,
@@ -31,15 +31,6 @@ vi.mock("framer-motion", () => {
 });
 
 describe("AnimationSequence", () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
-
-  afterEach(() => {
-    cleanup();
-    vi.clearAllTimers();
-    vi.useRealTimers();
-  });
 
   it("renders children correctly", () => {
     const config: AnimationSequenceConfig = {
@@ -141,8 +132,8 @@ describe("AnimationSequence", () => {
     );
 
     // Complete first iteration
-    await act(async () => {
-      await vi.runOnlyPendingTimersAsync();
+    act(() => {
+      vi.runOnlyPendingTimers();
     });
 
     // Animation should be reversed on second iteration
@@ -151,15 +142,6 @@ describe("AnimationSequence", () => {
 });
 
 describe("AnimationSequence Controls", () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
-
-  afterEach(() => {
-    cleanup();
-    vi.clearAllTimers();
-    vi.useRealTimers();
-  });
 
   it("exposes control methods", () => {
     const controlRef = React.createRef<AnimationSequenceControls>();
@@ -224,8 +206,8 @@ describe("AnimationSequence Controls", () => {
     );
 
     // Start the animation
-    await act(async () => {
-      await vi.runOnlyPendingTimersAsync();
+    act(() => {
+      vi.runOnlyPendingTimers();
     });
 
     // Pause
@@ -410,15 +392,6 @@ describe("createComplexSequence", () => {
 });
 
 describe("useAnimationSequence", () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
-
-  afterEach(() => {
-    cleanup();
-    vi.clearAllTimers();
-    vi.useRealTimers();
-  });
 
   it("provides enhanced config and controls", () => {
     const TestComponent = () => {

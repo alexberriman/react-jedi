@@ -126,7 +126,7 @@ const FooterSectionComponent = ({ section }: { section: FooterSection }) => (
 );
 
 const SocialLinks = ({ links, variant }: { links: SocialLink[]; variant?: string | null }) => (
-  <div className="flex gap-4">
+  <nav className="flex gap-4" aria-label="Social media links">
     {links.map((link) => {
       const Icon = socialIcons[link.platform];
       return (
@@ -147,7 +147,7 @@ const SocialLinks = ({ links, variant }: { links: SocialLink[]; variant?: string
         </a>
       );
     })}
-  </div>
+  </nav>
 );
 
 const ContactInfoComponent = ({ info }: { info: ContactInfo }) => (
@@ -163,7 +163,7 @@ const ContactInfoComponent = ({ info }: { info: ContactInfo }) => (
     )}
     {info.phone && (
       <a
-        href={`tel:${info.phone}`}
+        href={`tel:${info.phone.replaceAll(/[^\d+]/g, '')}`}
         className="flex items-center gap-3 text-sm hover:opacity-100 opacity-80 transition-opacity"
       >
         <Phone className="h-4 w-4" />

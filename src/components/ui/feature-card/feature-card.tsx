@@ -81,6 +81,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
 
   return (
     <Card
+      role="article"
       className={cn(
         variantClasses[variant],
         isClickable && "cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02]",
@@ -112,7 +113,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
               )}
               style={{ color: iconColor }}
             >
-              <Icon className="w-full h-full" />
+              <Icon className="w-full h-full" role="img" aria-hidden="true" />
             </div>
           )}
 

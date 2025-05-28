@@ -82,7 +82,7 @@ export const WithBadge: Story = {
     // Verify the badge is rendered
     const badge = canvas.getByText('Popular');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('badge');
+    expect(badge).toHaveAttribute('data-slot', 'badge');
     
     // Verify title and description
     expect(canvas.getByText('Enterprise Security')).toBeInTheDocument();
@@ -106,7 +106,7 @@ export const Highlighted: Story = {
     
     // Verify highlighted variant styling
     const card = canvas.getByRole('article');
-    expect(card).toHaveClass('highlighted');
+    expect(card).toHaveClass('border-2', 'bg-gradient-to-br', 'shadow-lg');
     
     // Verify badge
     expect(canvas.getByText('Beta')).toBeInTheDocument();
@@ -129,7 +129,7 @@ export const Minimal: Story = {
     
     // Verify minimal variant styling
     const card = canvas.getByRole('article');
-    expect(card).toHaveClass('minimal');
+    expect(card).toHaveClass('border-0', 'bg-transparent', 'shadow-none');
     
     // Verify content
     expect(canvas.getByText('Clean Design')).toBeInTheDocument();
@@ -150,7 +150,7 @@ export const Bordered: Story = {
     
     // Verify bordered variant styling
     const card = canvas.getByRole('article');
-    expect(card).toHaveClass('bordered');
+    expect(card).toHaveClass('border-2');
     
     // Verify content
     expect(canvas.getByText('Global Scale')).toBeInTheDocument();
@@ -168,9 +168,9 @@ export const HorizontalLayout: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify horizontal orientation
-    const card = canvas.getByRole('article');
-    expect(card).toHaveClass('horizontal');
+    // Verify horizontal orientation - check the header has horizontal layout
+    const cardHeader = canvas.getByRole('article').querySelector('[class*="flex-row"]');
+    expect(cardHeader).toBeInTheDocument();
     
     // Verify content layout
     expect(canvas.getByText('Real-time Collaboration')).toBeInTheDocument();
@@ -188,9 +188,10 @@ export const CenteredAlignment: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify centered alignment
-    const contentWrapper = canvas.getByText('Developer Friendly').parentElement;
-    expect(contentWrapper).toHaveClass('center');
+    // Verify centered alignment - check the alignment wrapper (grandparent of title)
+    const titleElement = canvas.getByText('Developer Friendly');
+    const contentWrapper = titleElement.parentElement?.parentElement;
+    expect(contentWrapper).toHaveClass('text-center', 'items-center');
     
     // Verify content
     expect(canvas.getByText('Built by developers, for developers. Clean APIs and comprehensive documentation.')).toBeInTheDocument();
@@ -368,13 +369,13 @@ export const HighlightedSet: Story = {
     
     // Verify the middle card is highlighted
     const betterCard = cards[1];
-    expect(betterCard).toHaveClass('highlighted');
+    expect(betterCard).toHaveClass('border-2', 'bg-gradient-to-br', 'shadow-lg');
     
     // Verify the "Recommended" badge on highlighted card
     expect(within(betterCard).getByText('Recommended')).toBeInTheDocument();
     
     // Verify other cards are not highlighted
-    expect(cards[0]).not.toHaveClass('highlighted');
-    expect(cards[2]).not.toHaveClass('highlighted');
+    expect(cards[0]).not.toHaveClass('bg-gradient-to-br');
+    expect(cards[2]).not.toHaveClass('bg-gradient-to-br');
   },
 };

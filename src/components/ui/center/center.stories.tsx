@@ -57,12 +57,10 @@ export const Default: Story = {
     expect(canvas.getByText("Centered Content")).toBeInTheDocument();
     expect(canvas.getByText("This content is perfectly centered in its container")).toBeInTheDocument();
     
-    // Test default centering (both directions)
-    expect(center).toHaveStyle({
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    });
+    // Test default centering (both directions) - check for classes instead of styles
+    expect(center).toHaveClass("flex");
+    expect(center).toHaveClass("items-center");
+    expect(center).toHaveClass("justify-center");
   },
 };
 

@@ -171,7 +171,7 @@ export const AlignStretch: Story = {
 
 export const ResponsiveLayout: Story = {
   args: {
-    className: "flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-4 sm:items-center",
+    className: "w-full flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-4 sm:items-center",
     children: (
       <>
         <BoxItem className="w-full sm:w-auto">Responsive</BoxItem>
@@ -190,6 +190,8 @@ export const ResponsiveLayout: Story = {
     
     // Verify responsive classes are applied
     const flexContainer = canvas.getByTestId('flex-container');
+    expect(flexContainer).toHaveClass('flex');
+    expect(flexContainer).toHaveClass('w-full');
     expect(flexContainer).toHaveClass('flex-col');
     expect(flexContainer).toHaveClass('sm:flex-row');
     expect(flexContainer).toHaveClass('sm:items-center');
@@ -197,10 +199,13 @@ export const ResponsiveLayout: Story = {
     // Verify responsive box items
     const boxes = canvas.getAllByText(/Responsive|Layout|Example/);
     expect(boxes).toHaveLength(3);
-    for (const box of boxes) {
-      const parent = box.parentElement;
-      expect(parent).toHaveClass('w-full');
-      expect(parent).toHaveClass('sm:w-auto');
+    
+    // Check that each box item has responsive classes
+    const boxItems = canvasElement.querySelectorAll('.size-16');
+    expect(boxItems).toHaveLength(3);
+    for (const boxItem of boxItems) {
+      expect(boxItem).toHaveClass('w-full');
+      expect(boxItem).toHaveClass('sm:w-auto');
     }
   },
 };
@@ -230,11 +235,11 @@ export const ComplexAlignment: Story = {
     const canvas = within(canvasElement);
     
     // Verify the outer container
-    const container = canvas.getByRole('region').firstElementChild;
-    expect(container).toHaveClass('space-y-8');
+    const container = canvasElement.querySelector('.space-y-8');
+    expect(container).toBeInTheDocument();
     
     // Verify first flex layout (justify-between)
-    const firstFlex = container?.querySelector('.justify-between');
+    const firstFlex = canvasElement.querySelector('.justify-between');
     expect(firstFlex).toHaveClass('bg-muted/50');
     expect(firstFlex).toHaveClass('p-4');
     
@@ -243,7 +248,7 @@ export const ComplexAlignment: Story = {
     expect(nestedFlex).toBeInTheDocument();
     
     // Verify second flex layout (column direction)
-    const columnFlex = container?.querySelector('.flex-col');
+    const columnFlex = canvasElement.querySelector('.flex-col');
     expect(columnFlex).toHaveClass('bg-muted/50');
     
     // Verify complex layout has all expected text

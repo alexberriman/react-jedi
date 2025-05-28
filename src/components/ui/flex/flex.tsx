@@ -60,6 +60,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
     return (
       <div
         ref={ref}
+        data-testid="flex-container"
         className={cn(
           flexVariants({
             direction,

@@ -54,7 +54,9 @@ export const Default: Story = {
     // Check default properties - container uses containerVariants classes
     expect(container).toHaveClass("mx-auto");
     expect(container).toHaveClass("w-full");
-    expect(container).toHaveClass("px-4");
+    expect(container).toHaveClass("px-4"); // base padding
+    expect(container).toHaveClass("sm:px-6"); // responsive padding
+    expect(container).toHaveClass("lg:px-8"); // responsive padding
     expect(container).toHaveClass("max-w-7xl"); // default size
     expect(container).toHaveClass("flex");
     expect(container).toHaveClass("flex-col");

@@ -209,7 +209,9 @@ export const FullWidth: Story = {
     expect(image).toHaveClass("object-cover");
     
     const container = image.parentElement;
-    expect(container).toHaveStyle({ width: "100%" });
+    expect(container).toBeInTheDocument();
+    // Check that the container has the width style applied
+    expect(container?.style.width).toBe("100%");
   },
 };
 

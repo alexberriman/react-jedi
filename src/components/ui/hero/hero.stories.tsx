@@ -62,11 +62,15 @@ export const AnimatedCentered: Story = {
       { timeout: 10_000 }
     );
 
-    const primaryButton = canvas.getByRole("link", { name: "Get Started" });
-    const secondaryButton = canvas.getByRole("link", { name: "Learn More" });
+    // When Button uses asChild with an <a> tag, the button role is applied to the anchor
+    const primaryButton = canvas.getByRole("button", { name: "Get Started" });
+    const secondaryButton = canvas.getByRole("button", { name: "Learn More" });
 
     expect(primaryButton).toBeInTheDocument();
     expect(secondaryButton).toBeInTheDocument();
+    // Check the actual anchor element has the href
+    expect(primaryButton.tagName).toBe("A");
+    expect(secondaryButton.tagName).toBe("A");
     expect(primaryButton).toHaveAttribute("href", "#");
     expect(secondaryButton).toHaveAttribute("href", "#");
   },

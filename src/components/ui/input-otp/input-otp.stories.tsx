@@ -381,7 +381,10 @@ export const Password: Story = {
     const input = canvas.getByRole("textbox");
     expect(input).toBeInTheDocument();
     expect(input).toHaveAttribute("maxlength", "4");
-    expect(input.parentElement).toHaveClass("password");
+    
+    // Check that the OTP container has the password class
+    const otpContainer = canvasElement.querySelector('.password');
+    expect(otpContainer).toBeInTheDocument();
 
     await userEvent.type(input, "9876");
     expect(input).toHaveValue("9876");

@@ -40,7 +40,7 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
 
     return (
       <input
-        type={type}
+        type={type || "text"}
         ref={ref}
         data-slot="input"
         className={cn(

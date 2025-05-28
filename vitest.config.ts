@@ -11,6 +11,12 @@ export default defineConfig({
       include: ["src/**/*.{ts,tsx}"],
       exclude: ["src/**/*.test.{ts,tsx}", "src/**/*.stories.{ts,tsx}"],
     },
+    poolOptions: {
+      threads: {
+        maxThreads: 6,
+        minThreads: 2,
+      },
+    },
   },
   resolve: {
     alias: {

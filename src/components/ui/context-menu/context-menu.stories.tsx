@@ -1,5 +1,6 @@
 import type { Meta, StoryFn } from "@storybook/react";
 import * as React from "react";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -89,6 +90,39 @@ export const Default: StoryFn = () => {
   );
 };
 
+Default.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+  const canvas = within(canvasElement);
+  
+  // Find the trigger area
+  const trigger = canvas.getByText('Right-click me to open the context menu');
+  
+  // Right-click to open context menu
+  await userEvent.pointer({
+    keys: '[MouseRight]',
+    target: trigger,
+  });
+  
+  // Wait for menu to appear
+  await waitFor(() => {
+    expect(canvas.getByText('Profile')).toBeInTheDocument();
+  });
+  
+  // Verify all menu items are visible
+  expect(canvas.getByText('Settings')).toBeInTheDocument();
+  expect(canvas.getByText('Copy')).toBeInTheDocument();
+  expect(canvas.getByText('Cut')).toBeInTheDocument();
+  expect(canvas.getByText('Paste')).toBeInTheDocument();
+  expect(canvas.getByText('Delete')).toBeInTheDocument();
+  
+  // Click on Copy menu item
+  await userEvent.click(canvas.getByText('Copy'));
+  
+  // Verify menu closes after clicking
+  await waitFor(() => {
+    expect(canvas.queryByText('Profile')).not.toBeInTheDocument();
+  });
+};
+
 export const WithCheckboxAndRadio: StoryFn = () => {
   const [isChecked, setIsChecked] = React.useState(true);
   const [radioValue, setRadioValue] = React.useState("medium");
@@ -122,6 +156,38 @@ export const WithCheckboxAndRadio: StoryFn = () => {
       </ContextMenu>
     </div>
   );
+};
+
+WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+  const canvas = within(canvasElement);
+  
+  // Find and right-click the trigger
+  const trigger = canvas.getByText('Right-click for advanced options');
+  await userEvent.pointer({
+    keys: '[MouseRight]',
+    target: trigger,
+  });
+  
+  // Wait for menu to appear
+  await waitFor(() => {
+    expect(canvas.getByText('Preferences')).toBeInTheDocument();
+  });
+  
+  // Find and click the checkbox
+  const checkbox = canvas.getByText('Show notifications');
+  await userEvent.click(checkbox);
+  
+  // Click on a radio option
+  const highPriority = canvas.getByText('High');
+  await userEvent.click(highPriority);
+  
+  // Click outside to close menu
+  await userEvent.click(document.body);
+  
+  // Verify menu is closed
+  await waitFor(() => {
+    expect(canvas.queryByText('Preferences')).not.toBeInTheDocument();
+  });
 };
 
 export const WithSubMenu: StoryFn = () => {
@@ -169,6 +235,48 @@ export const WithSubMenu: StoryFn = () => {
       </ContextMenu>
     </div>
   );
+};
+
+WithSubMenu.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+  const canvas = within(canvasElement);
+  
+  // Right-click to open context menu
+  const trigger = canvas.getByText('Right-click for nested menus');
+  await userEvent.pointer({
+    keys: '[MouseRight]',
+    target: trigger,
+  });
+  
+  // Wait for menu to appear
+  await waitFor(() => {
+    expect(canvas.getByText('Add to favorites')).toBeInTheDocument();
+  });
+  
+  // Hover over Share to open submenu
+  const shareItem = canvas.getByText('Share');
+  await userEvent.hover(shareItem);
+  
+  // Wait for submenu to appear
+  await waitFor(() => {
+    expect(canvas.getByText('Copy link')).toBeInTheDocument();
+  });
+  
+  // Hover over "More options" to open nested submenu
+  const moreOptions = canvas.getByText('More options');
+  await userEvent.hover(moreOptions);
+  
+  // Wait for nested submenu
+  await waitFor(() => {
+    expect(canvas.getByText('Twitter')).toBeInTheDocument();
+  });
+  
+  // Click on Twitter option
+  await userEvent.click(canvas.getByText('Twitter'));
+  
+  // Verify menu closes
+  await waitFor(() => {
+    expect(canvas.queryByText('Add to favorites')).not.toBeInTheDocument();
+  });
 };
 
 export const Modern2025: StoryFn = () => {
@@ -309,4 +417,45 @@ export const Modern2025: StoryFn = () => {
       `}</style>
     </div>
   );
+};
+
+Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+  const canvas = within(canvasElement);
+  
+  // Right-click the trigger
+  const trigger = canvas.getByText('Advanced Context Menu');
+  await userEvent.pointer({
+    keys: '[MouseRight]',
+    target: trigger,
+  });
+  
+  // Wait for menu to appear
+  await waitFor(() => {
+    expect(canvas.getByText('Theme Options')).toBeInTheDocument();
+  });
+  
+  // Click on Glass Mode radio option
+  const glassMode = canvas.getByText('Glass Mode');
+  await userEvent.click(glassMode);
+  
+  // Toggle the auto-save checkbox
+  const autoSave = canvas.getByText('Auto-save enabled');
+  await userEvent.click(autoSave);
+  
+  // Open the Advanced submenu
+  const advanced = canvas.getByText('Advanced');
+  await userEvent.hover(advanced);
+  
+  // Wait for submenu
+  await waitFor(() => {
+    expect(canvas.getByText('Export settings')).toBeInTheDocument();
+  });
+  
+  // Click Export settings
+  await userEvent.click(canvas.getByText('Export settings'));
+  
+  // Verify menu is closed
+  await waitFor(() => {
+    expect(canvas.queryByText('Theme Options')).not.toBeInTheDocument();
+  });
 };

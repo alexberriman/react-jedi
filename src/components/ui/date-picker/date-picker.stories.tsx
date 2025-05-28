@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { DatePicker } from "./date-picker";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta = {
   title: "Components/UI/DatePicker",
@@ -38,6 +39,28 @@ export const Default: Story = {
   args: {
     placeholder: "Pick a date",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find and click the date picker button
+    const dateButton = canvas.getByRole('button', { name: /pick a date/i });
+    await userEvent.click(dateButton);
+    
+    // Wait for calendar to appear
+    await waitFor(() => {
+      expect(canvas.getByRole('grid')).toBeInTheDocument();
+    });
+    
+    // Find today's date and click it
+    const today = new Date().getDate().toString();
+    const todayButton = canvas.getByRole('gridcell', { name: new RegExp(today) });
+    await userEvent.click(todayButton);
+    
+    // Verify calendar closes and date is selected
+    await waitFor(() => {
+      expect(canvas.queryByRole('grid')).not.toBeInTheDocument();
+    });
+  },
 };
 
 /**
@@ -48,6 +71,35 @@ export const WithSelectedDate: Story = {
     date: new Date(),
     placeholder: "Pick a date",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify selected date is displayed
+    const dateButton = canvas.getByRole('button');
+    const dateText = dateButton.textContent || '';
+    expect(dateText).not.toBe('Pick a date');
+    
+    // Click to open calendar
+    await userEvent.click(dateButton);
+    
+    // Wait for calendar
+    await waitFor(() => {
+      expect(canvas.getByRole('grid')).toBeInTheDocument();
+    });
+    
+    // Click a different date (tomorrow)
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowDate = tomorrow.getDate().toString();
+    
+    try {
+      const tomorrowButton = canvas.getByRole('gridcell', { name: new RegExp(`^${tomorrowDate}$`) });
+      await userEvent.click(tomorrowButton);
+    } catch {
+      // If tomorrow is in next month, just close the calendar
+      await userEvent.click(document.body);
+    }
+  },
 };
 
 /**
@@ -56,6 +108,24 @@ export const WithSelectedDate: Story = {
 export const CustomPlaceholder: Story = {
   args: {
     placeholder: "Select your birthday",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify custom placeholder is displayed
+    const dateButton = canvas.getByRole('button', { name: /select your birthday/i });
+    expect(dateButton).toBeInTheDocument();
+    
+    // Click to open calendar
+    await userEvent.click(dateButton);
+    
+    // Verify calendar opens
+    await waitFor(() => {
+      expect(canvas.getByRole('grid')).toBeInTheDocument();
+    });
+    
+    // Close calendar by clicking outside
+    await userEvent.click(document.body);
   },
 };
 
@@ -67,6 +137,21 @@ export const Disabled: Story = {
     placeholder: "Pick a date",
     disabled: true,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the disabled button
+    const dateButton = canvas.getByRole('button', { name: /pick a date/i });
+    
+    // Verify it's disabled
+    expect(dateButton).toBeDisabled();
+    
+    // Try to click it (should not open calendar)
+    await userEvent.click(dateButton);
+    
+    // Verify calendar doesn't open
+    expect(canvas.queryByRole('grid')).not.toBeInTheDocument();
+  },
 };
 
 /**
@@ -77,6 +162,23 @@ export const DisabledWithDate: Story = {
     date: new Date(),
     placeholder: "Pick a date",
     disabled: true,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the disabled button
+    const dateButton = canvas.getByRole('button');
+    
+    // Verify it's disabled
+    expect(dateButton).toBeDisabled();
+    
+    // Verify date is still displayed
+    const dateText = dateButton.textContent || '';
+    expect(dateText).not.toBe('Pick a date');
+    
+    // Try to click (should not open)
+    await userEvent.click(dateButton);
+    expect(canvas.queryByRole('grid')).not.toBeInTheDocument();
   },
 };
 
@@ -95,6 +197,31 @@ export const Controlled: Story = {
         </div>
       </div>
     );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify initial state
+    expect(canvas.getByText('Selected date: None')).toBeInTheDocument();
+    
+    // Open date picker
+    const dateButton = canvas.getByRole('button', { name: /select a date/i });
+    await userEvent.click(dateButton);
+    
+    // Wait for calendar
+    await waitFor(() => {
+      expect(canvas.getByRole('grid')).toBeInTheDocument();
+    });
+    
+    // Select today
+    const today = new Date().getDate().toString();
+    const todayButton = canvas.getByRole('gridcell', { name: new RegExp(today) });
+    await userEvent.click(todayButton);
+    
+    // Verify date is displayed
+    await waitFor(() => {
+      expect(canvas.getByText(/Selected date:.*\d{4}/)).toBeInTheDocument();
+    });
   },
 };
 
@@ -135,6 +262,33 @@ export const Multiple: Story = {
         </div>
       </div>
     );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find all date pickers
+    const dateButtons = canvas.getAllByRole('button');
+    
+    // Test Start Date picker
+    await userEvent.click(dateButtons[0]);
+    await waitFor(() => {
+      expect(canvas.getByRole('grid')).toBeInTheDocument();
+    });
+    await userEvent.click(document.body); // Close calendar
+    
+    // Test End Date picker (should have a pre-selected date)
+    const endDateText = dateButtons[1].textContent || '';
+    expect(endDateText).not.toBe('Select end date');
+    
+    await userEvent.click(dateButtons[1]);
+    await waitFor(() => {
+      expect(canvas.getByRole('grid')).toBeInTheDocument();
+    });
+    await userEvent.click(document.body); // Close calendar
+    
+    // Test Disabled Date picker
+    expect(dateButtons[2]).toBeDisabled();
+    expect(dateButtons[2]).toHaveTextContent('Cannot select');
   },
 };
 

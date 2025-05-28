@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 import {
   Dialog,
   DialogContent,
@@ -52,6 +53,31 @@ export const Basic: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Click the trigger button to open dialog
+    const triggerButton = canvas.getByRole('button', { name: /open dialog/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for dialog to appear
+    await waitFor(() => {
+      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    });
+    
+    // Verify dialog content
+    expect(canvas.getByText('Are you absolutely sure?')).toBeInTheDocument();
+    expect(canvas.getByText(/This action cannot be undone/)).toBeInTheDocument();
+    
+    // Close dialog by clicking the X button
+    const closeButton = canvas.getByRole('button', { name: /close/i });
+    await userEvent.click(closeButton);
+    
+    // Verify dialog is closed
+    await waitFor(() => {
+      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const WithFooter: Story = {
@@ -98,6 +124,36 @@ export const WithFooter: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dialog
+    const triggerButton = canvas.getByRole('button', { name: /edit profile/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for dialog
+    await waitFor(() => {
+      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    });
+    
+    // Interact with form fields
+    const nameInput = canvas.getByLabelText(/name/i);
+    await userEvent.clear(nameInput);
+    await userEvent.type(nameInput, 'John Doe');
+    
+    const usernameInput = canvas.getByLabelText(/username/i);
+    await userEvent.clear(usernameInput);
+    await userEvent.type(usernameInput, '@johndoe');
+    
+    // Click save button
+    const saveButton = canvas.getByRole('button', { name: /save changes/i });
+    await userEvent.click(saveButton);
+    
+    // Dialog should close after save
+    await waitFor(() => {
+      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const CustomClose: Story = {
@@ -130,6 +186,27 @@ export const CustomClose: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dialog
+    const triggerButton = canvas.getByRole('button', { name: /custom close button/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for dialog
+    await waitFor(() => {
+      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    });
+    
+    // Test custom close button in footer
+    const closeButton = canvas.getByRole('button', { name: /^close$/i });
+    await userEvent.click(closeButton);
+    
+    // Verify dialog closes
+    await waitFor(() => {
+      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const ScrollableContent: Story = {
@@ -169,6 +246,31 @@ export const ScrollableContent: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dialog
+    const triggerButton = canvas.getByRole('button', { name: /terms of service/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for dialog
+    await waitFor(() => {
+      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    });
+    
+    // Test scrolling by checking multiple sections are visible
+    expect(canvas.getByText('Section 1')).toBeInTheDocument();
+    expect(canvas.getByText('Section 10')).toBeInTheDocument();
+    
+    // Click Accept button
+    const acceptButton = canvas.getByRole('button', { name: /accept/i });
+    await userEvent.click(acceptButton);
+    
+    // Dialog should close
+    await waitFor(() => {
+      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const NonModal: Story = {
@@ -195,6 +297,33 @@ export const NonModal: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dialog
+    const triggerButton = canvas.getByRole('button', { name: /non-modal dialog/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for dialog
+    await waitFor(() => {
+      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    });
+    
+    // Verify it's non-modal by checking we can click outside
+    // In a non-modal dialog, clicking outside shouldn't close it
+    await userEvent.click(document.body);
+    
+    // Dialog should still be open
+    expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    
+    // Close by clicking X button
+    const closeButton = canvas.getByRole('button', { name: /close/i });
+    await userEvent.click(closeButton);
+    
+    await waitFor(() => {
+      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const InitiallyOpen: Story = {
@@ -216,4 +345,29 @@ export const InitiallyOpen: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Dialog should already be open
+    expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    expect(canvas.getByText('Initially Open')).toBeInTheDocument();
+    
+    // Close the dialog
+    const closeButton = canvas.getByRole('button', { name: /close/i });
+    await userEvent.click(closeButton);
+    
+    // Wait for dialog to close
+    await waitFor(() => {
+      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+    
+    // Reopen using trigger button
+    const reopenButton = canvas.getByRole('button', { name: /reopen dialog/i });
+    await userEvent.click(reopenButton);
+    
+    // Verify dialog opens again
+    await waitFor(() => {
+      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    });
+  },
 };

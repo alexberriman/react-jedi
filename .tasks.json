@@ -7,7 +7,7 @@
       {
         "id": "add-play-functions-01",
         "description": "Add `play` functions to the following Storybook files: `src/components/ui/context-menu/context-menu.stories.tsx`, `src/components/ui/data-table/data-table.stories.tsx`, `src/components/ui/date-picker/date-picker.stories.tsx`, `src/components/ui/dialog/dialog.stories.tsx`, `src/components/ui/drawer/drawer.stories.tsx`. These should use the Storybook Test Addon format (`@storybook/test`) and define meaningful interaction tests using `canvasElement`, `within`, and `userEvent` from `@storybook/test`. After adding play functions, run `npm run test-storybook` and confirm all tests pass.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-02",

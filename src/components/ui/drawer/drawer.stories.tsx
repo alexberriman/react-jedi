@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 import {
   Drawer,
   DrawerContent,
@@ -68,6 +69,35 @@ export const Default: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open drawer
+    const triggerButton = canvas.getByRole('button', { name: /open drawer/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for drawer to appear
+    await waitFor(() => {
+      expect(canvas.getByText('Edit Profile')).toBeInTheDocument();
+    });
+    
+    // Interact with form fields
+    const nameInput = canvas.getByLabelText(/name/i);
+    await userEvent.clear(nameInput);
+    await userEvent.type(nameInput, 'John Doe');
+    
+    const bioTextarea = canvas.getByLabelText(/bio/i);
+    await userEvent.type(bioTextarea, 'This is my bio');
+    
+    // Click Cancel button
+    const cancelButton = canvas.getByRole('button', { name: /cancel/i });
+    await userEvent.click(cancelButton);
+    
+    // Verify drawer closes
+    await waitFor(() => {
+      expect(canvas.queryByText('Edit Profile')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const RightSide: Story = {
@@ -111,6 +141,33 @@ export const RightSide: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open right side drawer
+    const triggerButton = canvas.getByRole('button', { name: /right side drawer/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for drawer
+    await waitFor(() => {
+      expect(canvas.getByText('Navigation Menu')).toBeInTheDocument();
+    });
+    
+    // Verify drawer is on the right (has data attribute)
+    const drawerContent = canvas.getByText('Navigation Menu').closest('[data-vaul-drawer-direction]');
+    expect(drawerContent).toHaveAttribute('data-vaul-drawer-direction', 'right');
+    
+    // Click a navigation button
+    await userEvent.click(canvas.getByRole('button', { name: /dashboard/i }));
+    
+    // Close drawer
+    const closeButton = canvas.getByRole('button', { name: /^close$/i });
+    await userEvent.click(closeButton);
+    
+    await waitFor(() => {
+      expect(canvas.queryByText('Navigation Menu')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const LeftSide: Story = {
@@ -150,6 +207,33 @@ export const LeftSide: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open left side drawer
+    const triggerButton = canvas.getByRole('button', { name: /left side drawer/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for drawer
+    await waitFor(() => {
+      expect(canvas.getByText('Settings')).toBeInTheDocument();
+    });
+    
+    // Verify drawer is on the left
+    const drawerContent = canvas.getByText('Settings').closest('[data-vaul-drawer-direction]');
+    expect(drawerContent).toHaveAttribute('data-vaul-drawer-direction', 'left');
+    
+    // Toggle a checkbox
+    const darkModeCheckbox = canvas.getByLabelText(/dark mode/i);
+    await userEvent.click(darkModeCheckbox);
+    
+    // Save preferences
+    await userEvent.click(canvas.getByRole('button', { name: /save preferences/i }));
+    
+    await waitFor(() => {
+      expect(canvas.queryByText('Settings')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const TopDrawer: Story = {
@@ -182,6 +266,33 @@ export const TopDrawer: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open top drawer
+    const triggerButton = canvas.getByRole('button', { name: /top drawer/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for drawer
+    await waitFor(() => {
+      expect(canvas.getByText('Search Everything')).toBeInTheDocument();
+    });
+    
+    // Verify drawer is on top
+    const drawerContent = canvas.getByText('Search Everything').closest('[data-vaul-drawer-direction]');
+    expect(drawerContent).toHaveAttribute('data-vaul-drawer-direction', 'top');
+    
+    // Type in search
+    const searchInput = canvas.getByPlaceholderText(/type to search/i);
+    await userEvent.type(searchInput, 'test search');
+    
+    // Click a recent search
+    await userEvent.click(canvas.getByRole('button', { name: /dashboard metrics/i }));
+    
+    await waitFor(() => {
+      expect(canvas.queryByText('Search Everything')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const NestedDrawers: Story = {
@@ -228,6 +339,40 @@ export const NestedDrawers: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open main drawer
+    const mainTrigger = canvas.getByRole('button', { name: /open main drawer/i });
+    await userEvent.click(mainTrigger);
+    
+    // Wait for main drawer
+    await waitFor(() => {
+      expect(canvas.getByText('Main Drawer')).toBeInTheDocument();
+    });
+    
+    // Open nested drawer
+    const nestedTrigger = canvas.getByRole('button', { name: /open nested drawer/i });
+    await userEvent.click(nestedTrigger);
+    
+    // Wait for nested drawer
+    await waitFor(() => {
+      expect(canvas.getByText('Nested Drawer')).toBeInTheDocument();
+    });
+    
+    // Close nested drawer
+    await userEvent.click(canvas.getByRole('button', { name: /close nested/i }));
+    
+    await waitFor(() => {
+      expect(canvas.queryByText('Nested Drawer')).not.toBeInTheDocument();
+    });
+    
+    // Main drawer should still be open
+    expect(canvas.getByText('Main Drawer')).toBeInTheDocument();
+    
+    // Close main drawer
+    await userEvent.click(canvas.getByRole('button', { name: /close main/i }));
+  },
 };
 
 export const StickyHeaderFooter: Story = {
@@ -265,6 +410,33 @@ export const StickyHeaderFooter: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open drawer with long content
+    const triggerButton = canvas.getByRole('button', { name: /long content drawer/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for drawer
+    await waitFor(() => {
+      expect(canvas.getByText('Long Content')).toBeInTheDocument();
+    });
+    
+    // Verify multiple items are rendered
+    expect(canvas.getByText('Item 1')).toBeInTheDocument();
+    expect(canvas.getByText('Item 20')).toBeInTheDocument();
+    
+    // Verify sticky header and footer
+    const header = canvas.getByText('Long Content').parentElement?.parentElement;
+    expect(header).toHaveClass('sticky');
+    
+    // Click confirm action
+    await userEvent.click(canvas.getByRole('button', { name: /confirm action/i }));
+    
+    await waitFor(() => {
+      expect(canvas.queryByText('Long Content')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const CustomStyling: Story = {
@@ -302,6 +474,37 @@ export const CustomStyling: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open danger drawer
+    const triggerButton = canvas.getByRole('button', { name: /danger zone/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for drawer
+    await waitFor(() => {
+      expect(canvas.getByText('Delete Account')).toBeInTheDocument();
+    });
+    
+    // Verify custom styling is applied
+    const drawerContent = canvas.getByText('Delete Account').closest('[role="dialog"]');
+    expect(drawerContent).toHaveClass('bg-gradient-to-b');
+    
+    // Type in confirmation field
+    const confirmInput = canvas.getByPlaceholderText(/type DELETE to confirm/i);
+    await userEvent.type(confirmInput, 'DEL');
+    
+    // Delete button should still be disabled (wrong text)
+    const deleteButton = canvas.getByRole('button', { name: /delete account forever/i });
+    expect(deleteButton).toBeDisabled();
+    
+    // Click cancel
+    await userEvent.click(canvas.getByRole('button', { name: /i changed my mind/i }));
+    
+    await waitFor(() => {
+      expect(canvas.queryByText('Delete Account')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const MobileOptimized: Story = {
@@ -346,4 +549,34 @@ export const MobileOptimized: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open mobile drawer
+    const triggerButton = canvas.getByRole('button', { name: /mobile drawer/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for drawer
+    await waitFor(() => {
+      expect(canvas.getByText('Mobile Optimized')).toBeInTheDocument();
+    });
+    
+    // Click primary action
+    await userEvent.click(canvas.getByRole('button', { name: /primary action/i }));
+    
+    // Drawer should close
+    await waitFor(() => {
+      expect(canvas.queryByText('Mobile Optimized')).not.toBeInTheDocument();
+    });
+    
+    // Open again to test close button
+    await userEvent.click(triggerButton);
+    
+    await waitFor(() => {
+      expect(canvas.getByText('Mobile Optimized')).toBeInTheDocument();
+    });
+    
+    // Close with close button
+    await userEvent.click(canvas.getByRole('button', { name: /^close$/i }));
+  },
 };

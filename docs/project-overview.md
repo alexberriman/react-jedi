@@ -1,0 +1,3 @@
+## Project Overview
+
+React Jedi is a server-driven UI (SDUI) library that enables developers to build modern React interfaces using JSON specifications. It provides a single `render()` function that transforms JSON schemas into fully functional React components, leveraging TailwindCSS for styling and ShadCN components for a polished UI. The library focuses on zero lock-in architecture, allowing developers to import only what they need while supporting advanced features like reactive state management, conditional rendering, animations, and theme inheritance directly within JSON specifications.

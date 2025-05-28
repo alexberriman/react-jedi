@@ -1,0 +1,149 @@
+{
+  "name": "@banja/react-jedi",
+  "description": "Rapidly build beautiful, modern websites using structured configurations, React, TailwindCSS, and ShadCN components.",
+  "md": {
+    "generate": true,
+    "sections": [
+      { "$ref": "./docs/project-overview.md" },
+      { "$ref": "./docs/npm-scripts.md" },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/functional-programming.md"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/typescript-best-practices.md"
+      },
+      { "$ref": "./docs/directory-structure.md" },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/naming-conventions.md"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/function-arguments.md"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/error-handling.md"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/testing-guidelines.md"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/react-component-design.md"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/git-workflow.md"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/task-approach.md"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/md/dos-donts.md"
+      }
+    ]
+  },
+  "domains": {
+    "whitelist": ["github.com", "raw.githubusercontent.com"]
+  },
+  "loop": [
+    {
+      "cmd": "npm run lint",
+      "description": "Run ESLint code quality checks",
+      "timeout": 120,
+      "clear": true,
+      "onError": {
+        "prompt": { "$ref": "prompts.lint-fix" }
+      },
+      "restartLoopOnError": true,
+      "onlyInState": "IDLE"
+    },
+    {
+      "cmd": "npm run typecheck",
+      "description": "Run TypeScript type checking",
+      "timeout": 120,
+      "clear": true,
+      "onError": {
+        "prompt": { "$ref": "prompts.typecheck-fix" }
+      },
+      "restartLoopOnError": true,
+      "onlyInState": "IDLE"
+    },
+    {
+      "cmd": "npm run test",
+      "description": "Run Vitest unit tests",
+      "timeout": 120,
+      "clear": true,
+      "onError": {
+        "prompt": { "$ref": "prompts.test-fix" }
+      },
+      "restartLoopOnError": true,
+      "onlyInState": "IDLE"
+    },
+    {
+      "cmd": "npm run build",
+      "description": "Build the project",
+      "timeout": 120,
+      "clear": true,
+      "onError": {
+        "prompt": { "$ref": "prompts.build-fix" }
+      },
+      "restartLoopOnError": true,
+      "onlyInState": "IDLE"
+    },
+    {
+      "clear": true,
+      "cmd": { "$internal": "check-unstaged-git-files" },
+      "description": "If we have local changes that aren't committed, figure out what they are and commit them",
+      "ifUnstagedFiles": {
+        "clear": true,
+        "cmd": "send-prompt",
+        "prompt": { "$ref": "prompts.git-local-changes" }
+      }
+    },
+    {
+      "clear": true,
+      "cmd": { "$internal": "check-if-git-ahead-remote" },
+      "description": "Check if local git status is ahead of remote and",
+      "ifAhead": {
+        "cmd": {
+          "$internal": "git-push",
+          "description": "push local branch to remote (git push)"
+        }
+      }
+    },
+    {
+      "cmd": { "$internal": "task-execution" },
+      "description": "Smart component library task management",
+      "onHasTasks": {
+        "clear": true,
+        "cmd": "send-prompt",
+        "prompt": { "$ref": "prompts.next-component-task" }
+      },
+      "onAllTasksCompleted": {
+        "cmd": { "$internal": "kill-process" },
+        "description": "Terminate automation - all tasks completed"
+      }
+    }
+  ],
+  "text": {},
+  "prompts": {
+    "lint-fix": {
+      "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/prompts/lint-fix.prompt"
+    },
+    "typecheck-fix": {
+      "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/prompts/typecheck-fix.prompt"
+    },
+    "test-fix": {
+      "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/prompts/test-fix.prompt"
+    },
+    "build-fix": {
+      "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/prompts/build-fix.prompt"
+    },
+    "next-component-task": {
+      "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/prompts/next-component-task.prompt"
+    },
+    "library-complete": {
+      "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/prompts/complete.prompt"
+    },
+    "git-local-changes": {
+      "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/prompts/git-local-changes.prompt"
+    }
+  }
+}

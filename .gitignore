@@ -173,3 +173,7 @@ prompt_enhancement_cache/
 .claude.json
 examples/node_modules
 examples/dist
+
+# Playwright
+test-results/
+playwright-report/

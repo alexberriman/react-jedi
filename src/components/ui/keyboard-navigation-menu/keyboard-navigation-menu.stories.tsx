@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { KeyboardNavigationMenu, MenuItem } from "./keyboard-navigation-menu";
 import { Home, User, Settings, Mail, Calendar, Bell, HelpCircle, LogOut } from "lucide-react";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta: Meta<typeof KeyboardNavigationMenu> = {
   title: "Components/UI/KeyboardNavigationMenu",
@@ -129,6 +130,26 @@ export const Vertical: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the navigation menu
+    const menu = await canvas.findByRole("navigation");
+    expect(menu).toBeInTheDocument();
+    
+    // Test keyboard navigation with arrow down
+    await userEvent.click(menu);
+    await userEvent.keyboard("{arrowdown}");
+    
+    // Test selecting an item with Enter
+    await userEvent.keyboard("{enter}");
+    
+    // Test type-ahead search
+    await userEvent.keyboard("m");
+    
+    // Test escape to clear
+    await userEvent.keyboard("{escape}");
+  },
 };
 
 export const Horizontal: Story = {
@@ -144,6 +165,21 @@ export const Horizontal: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the navigation menu
+    const menu = await canvas.findByRole("navigation");
+    expect(menu).toBeInTheDocument();
+    
+    // Test horizontal navigation with arrow keys
+    await userEvent.click(menu);
+    await userEvent.keyboard("{arrowright}");
+    await userEvent.keyboard("{arrowleft}");
+    
+    // Test selection
+    await userEvent.keyboard("{space}");
+  },
 };
 
 export const WithoutShortcuts: Story = {
@@ -158,6 +194,17 @@ export const WithoutShortcuts: Story = {
         story: "Menu without showing keyboard shortcuts.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify menu renders without shortcuts
+    const menu = await canvas.findByRole("navigation");
+    expect(menu).toBeInTheDocument();
+    
+    // Verify shortcuts are not displayed
+    const shortcuts = canvas.queryAllByText(/Ctrl\+/);
+    expect(shortcuts).toHaveLength(0);
   },
 };
 
@@ -213,6 +260,28 @@ export const NestedMenus: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the navigation menu
+    const menu = await canvas.findByRole("navigation");
+    expect(menu).toBeInTheDocument();
+    
+    // Test navigating through nested menus
+    await userEvent.click(menu);
+    await userEvent.keyboard("{arrowdown}"); // Navigate to File
+    await userEvent.keyboard("{arrowright}"); // Expand File submenu
+    await userEvent.keyboard("{arrowdown}"); // Navigate to New
+    await userEvent.keyboard("{arrowright}"); // Expand New submenu
+    
+    // Test collapsing with left arrow
+    await userEvent.keyboard("{arrowleft}");
+    await userEvent.keyboard("{arrowleft}");
+    
+    // Test Home and End keys
+    await userEvent.keyboard("{home}");
+    await userEvent.keyboard("{end}");
+  },
 };
 
 export const AccessibilityDemo: Story = {
@@ -258,5 +327,41 @@ export const AccessibilityDemo: Story = {
         story: "Full demonstration of keyboard navigation features with instructions.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify instructions are displayed
+    const instructions = await canvas.findByText("Keyboard Navigation Tips:");
+    expect(instructions).toBeInTheDocument();
+    
+    // Find the navigation menu
+    const menu = await canvas.findByRole("navigation");
+    expect(menu).toBeInTheDocument();
+    
+    // Test comprehensive keyboard navigation
+    await userEvent.click(menu);
+    
+    // Test arrow navigation
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{arrowup}");
+    
+    // Test expand/collapse submenu
+    await userEvent.keyboard("{arrowdown}"); // Navigate to Profile
+    await userEvent.keyboard("{arrowright}"); // Expand submenu
+    await waitFor(() => {
+      const submenuItem = canvas.queryByText("View Profile");
+      expect(submenuItem).toBeInTheDocument();
+    });
+    
+    // Test typeahead search
+    await userEvent.keyboard("h"); // Should jump to Help
+    
+    // Test Home and End keys
+    await userEvent.keyboard("{home}");
+    await userEvent.keyboard("{end}");
+    
+    // Test escape
+    await userEvent.keyboard("{escape}");
   },
 };

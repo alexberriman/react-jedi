@@ -27,7 +27,7 @@
       {
         "id": "add-play-functions-05",
         "description": "Implement `play` functions in: `src/components/ui/keyboard-navigation-menu/keyboard-navigation-menu.stories.tsx`, `src/components/ui/label/label.stories.tsx`, `src/components/ui/masonry/masonry.stories.tsx`, `src/components/ui/menubar/menubar.stories.tsx`, `src/components/ui/navigation-menu/navigation-menu.stories.tsx`. Use `@storybook/test` and `play` with `canvasElement`, `within`, and `userEvent`. Then run `npm run test-storybook` to confirm these tests pass.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-06",

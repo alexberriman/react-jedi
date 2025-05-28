@@ -5,6 +5,7 @@ import { Image } from "../image";
 import { Text } from "../text";
 import { Badge } from "../badge";
 import { Heading } from "../heading";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 /**
  * Masonry creates a Pinterest-style grid layout with beautiful animations and glassmorphic effects.
@@ -152,6 +153,24 @@ export const Default: Story = {
       })}
     </Masonry>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify masonry grid is rendered
+    await waitFor(() => {
+      const cards = canvas.getAllByText(/Card \d/);
+      expect(cards).toHaveLength(9);
+    });
+    
+    // Verify different card heights
+    const card3 = await canvas.findByText("Card 3");
+    const card3Container = card3.closest('.h-64');
+    expect(card3Container).toBeInTheDocument();
+    
+    const card2 = await canvas.findByText("Card 2");
+    const card2Container = card2.closest('.h-48');
+    expect(card2Container).toBeInTheDocument();
+  },
 };
 
 /**
@@ -197,6 +216,29 @@ export const PinterestGallery: Story = {
       </Masonry>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify Pinterest items are rendered
+    await waitFor(() => {
+      const items = pinterestItems.map(item => canvas.getByAltText(item.title));
+      expect(items).toHaveLength(pinterestItems.length);
+    });
+    
+    // Test hover interaction on first item
+    const firstImage = await canvas.findByAltText(pinterestItems[0].title);
+    const firstItem = firstImage.closest('.group');
+    
+    if (firstItem) {
+      await userEvent.hover(firstItem);
+      
+      // Verify hover reveals the overlay content
+      await waitFor(() => {
+        const category = canvas.getByText(pinterestItems[0].category);
+        expect(category).toBeInTheDocument();
+      });
+    }
+  },
 };
 
 /**
@@ -225,6 +267,15 @@ export const ResponsiveColumns: Story = {
       ))}
     </Masonry>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all 18 items are rendered
+    await waitFor(() => {
+      const items = canvas.getAllByText(/^\d+$/);
+      expect(items).toHaveLength(18);
+    });
+  },
 };
 
 /**
@@ -277,6 +328,27 @@ export const AutoFitColumns: Story = {
       ))}
     </Masonry>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify project cards are rendered
+    const projectAlpha = await canvas.findByText("Project Alpha");
+    expect(projectAlpha).toBeInTheDocument();
+    
+    // Verify status badges
+    const activeStatus = canvas.getAllByText("Active");
+    expect(activeStatus).toHaveLength(2);
+    
+    const completedStatus = canvas.getAllByText("Completed");
+    expect(completedStatus).toHaveLength(2);
+    
+    // Verify progress bars are rendered
+    // Look for specific percentage values we know are in the data
+    const percent75 = canvas.getByText("75%");
+    const percent100 = canvas.getAllByText("100%");
+    expect(percent75).toBeInTheDocument();
+    expect(percent100).toHaveLength(2);
+  },
 };
 
 /**
@@ -304,6 +376,20 @@ export const CustomWrapper: Story = {
       )}
     </Masonry>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify content items are rendered
+    const newsArticle = await canvas.findByText("News Article 1");
+    expect(newsArticle).toBeInTheDocument();
+    
+    const tutorial = await canvas.findByText("Tutorial");
+    expect(tutorial).toBeInTheDocument();
+    
+    // Verify all 6 items are present
+    const headings = canvas.getAllByRole("heading", { level: 5 });
+    expect(headings).toHaveLength(6);
+  },
 };
 
 /**
@@ -329,4 +415,15 @@ export const NoAnimation: Story = {
       ))}
     </Masonry>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify static items are rendered immediately
+    const items = canvas.getAllByText(/Static Item \d+/);
+    expect(items).toHaveLength(9);
+    
+    // Verify first and last items
+    expect(canvas.getByText("Static Item 1")).toBeInTheDocument();
+    expect(canvas.getByText("Static Item 9")).toBeInTheDocument();
+  },
 };

@@ -1,12 +1,194 @@
 [
   {
+    "id": "missing-play-functions",
+    "description": "a whole lot of storybook files have missing play functions, which are required for storybook testing.",
+    "status": "pending",
+    "subtasks": [
+      {
+        "id": "add-play-functions-01",
+        "description": "Add `play` functions to the following Storybook files: `src/components/ui/context-menu/context-menu.stories.tsx`, `src/components/ui/data-table/data-table.stories.tsx`, `src/components/ui/date-picker/date-picker.stories.tsx`, `src/components/ui/dialog/dialog.stories.tsx`, `src/components/ui/drawer/drawer.stories.tsx`. These should use the Storybook Test Addon format (`@storybook/test`) and define meaningful interaction tests using `canvasElement`, `within`, and `userEvent` from `@storybook/test`. After adding play functions, run `npm run test-storybook` and confirm all tests pass.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-02",
+        "description": "Add `play` functions to the following Storybook files: `src/components/ui/dropdown-menu/dropdown-menu.stories.tsx`, `src/components/ui/feature-card/feature-card.stories.tsx`, `src/components/ui/flex/flex.stories.tsx`, `src/components/ui/footer/footer.stories.tsx`, `src/components/ui/form/form.stories.tsx`. These should use the Storybook Test Addon format (`@storybook/test`) and define meaningful interaction tests using `canvasElement`, `within`, and `userEvent`. After implementing the play functions, run `npm run test-storybook` to confirm everything passes.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-03",
+        "description": "Create Storybook `play` functions for: `src/components/ui/grid/grid.stories.tsx`, `src/components/ui/group/group.stories.tsx`, `src/components/ui/head-manager/extended-head-manager.stories.tsx`, `src/components/ui/head-manager/head-manager.stories.tsx`, `src/components/ui/heading/heading.stories.tsx`. Use the `@storybook/test` approach to simulate user interaction or DOM inspection using `within` and `userEvent`. After writing the play functions, run `npm run test-storybook` to verify all pass.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-04",
+        "description": "Create play functions for the following Storybook files: `src/components/ui/hero/hero.stories.tsx`, `src/components/ui/hover-card/hover-card.stories.tsx`, `src/components/ui/image/image.stories.tsx`, `src/components/ui/input-otp/input-otp.stories.tsx`, `src/components/ui/input/input.stories.tsx`. Use the Storybook test addon format (`@storybook/test`) and ensure the play function interacts meaningfully with the rendered component. Validate functionality with `npm run test-storybook`.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-05",
+        "description": "Implement `play` functions in: `src/components/ui/keyboard-navigation-menu/keyboard-navigation-menu.stories.tsx`, `src/components/ui/label/label.stories.tsx`, `src/components/ui/masonry/masonry.stories.tsx`, `src/components/ui/menubar/menubar.stories.tsx`, `src/components/ui/navigation-menu/navigation-menu.stories.tsx`. Use `@storybook/test` and `play` with `canvasElement`, `within`, and `userEvent`. Then run `npm run test-storybook` to confirm these tests pass.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-06",
+        "description": "Add `play` functions for: `src/components/ui/pagination/pagination.stories.tsx`, `src/components/ui/popover/popover.stories.tsx`, `src/components/ui/pricing-table/pricing-table.stories.tsx`, `src/components/ui/progress/progress.stories.tsx`, `src/components/ui/radio-group/radio-group.stories.tsx`. Follow `@storybook/test` guidelines for defining realistic interaction tests. After implementing, run `npm run test-storybook` to verify all tests pass.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-07",
+        "description": "Add `play` functions for: `src/components/ui/resizable/resizable.stories.tsx`, `src/components/ui/scroll-area/scroll-area.stories.tsx`, `src/components/ui/select/select.stories.tsx`, `src/components/ui/separator/separator.stories.tsx`, `src/components/ui/sheet/sheet.stories.tsx`. Use the Storybook Test Addon (`@storybook/test`) and ensure interaction tests are working. Then run `npm run test-storybook` to verify success.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-08",
+        "description": "Create `play` functions for: `src/components/ui/sidebar/sidebar.stories.tsx`, `src/components/ui/simple-grid/simple-grid.stories.tsx`, `src/components/ui/skeleton/skeleton.stories.tsx`, `src/components/ui/slider/slider.stories.tsx`, `src/components/ui/spacer/spacer.stories.tsx`. Define interaction logic with `@storybook/test`. Run `npm run test-storybook` after adding the play functions.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-09",
+        "description": "Create play functions using `@storybook/test` in the following: `src/components/ui/stack/stack.stories.tsx`, `src/components/ui/switch/switch.stories.tsx`, `src/components/ui/table/table.stories.tsx`, `src/components/ui/tabs/tabs.stories.tsx`, `src/components/ui/testimonial/testimonial.stories.tsx`. Verify all interaction tests pass by running `npm run test-storybook`.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-10",
+        "description": "Add `play` functions to the following Storybook files: `src/components/ui/text/text.stories.tsx`, `src/components/ui/textarea/textarea.stories.tsx`, `src/components/ui/toast/toast.stories.tsx`, `src/components/ui/toggle-group/toggle-group.stories.tsx`, `src/components/ui/toggle/toggle.stories.tsx`. Use the Storybook Test Addon and run `npm run test-storybook` to confirm.",
+        "status": "pending"
+      },
+      {
+        "id": "add-play-functions-11",
+        "description": "Add `play` functions to: `src/components/ui/tooltip/tooltip.stories.tsx`. Follow the pattern for `@storybook/test`, ensuring the play function tests interaction or rendering. Then run `npm run test-storybook` to verify the story passes the test. This is the final remaining story file missing a play function.",
+        "status": "pending"
+      }
+    ]
+  },
+  {
     "id": "example-app-component-pages",
-    "description": "there is a /showcase page in the example app that showcases all of the react-jedi components (remember, react jedi is a SDUI library that renders components from json). I want to create a nested page for EVERY component that gives: table of contents, basic usage/description, different variations and examples, description of props/options. I then want to make a change to the /showcase page to link these components to their nested page as well. Remember - they should render the SDUI component (from JSON) on the nested page.",
+    "description": "There is a /showcase page in the example app that showcases all of the react-jedi components (remember, react jedi is a SDUI library that renders components from JSON). I want to create a nested page for EVERY component that gives: table of contents, basic usage/description, different variations and examples, description of props/options. I then want to make a change to the /showcase page to link these components to their nested page as well. Remember - they should render the SDUI component (from JSON) on the nested page.",
     "status": "pending",
     "subtasks": [
       {
         "id": "button-showcase",
-        "description": "Create a nested page in the example app to showcase the button component - it should render from SDUI (i.e. the json), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update to /showcase page to make sure that the button component example has a link to the nested page as well.",
+        "description": "Create a nested page in the example app to showcase the button component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the button component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "call-to-action-showcase",
+        "description": "Create a nested page in the example app to showcase the CallToAction component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the CallToAction component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "card-showcase",
+        "description": "Create a nested page in the example app to showcase the Card component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Card component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "carousel-showcase",
+        "description": "Create a nested page in the example app to showcase the Carousel component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Carousel component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "feature-card-showcase",
+        "description": "Create a nested page in the example app to showcase the FeatureCard component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the FeatureCard component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "footer-showcase",
+        "description": "Create a nested page in the example app to showcase the Footer component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Footer component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "hero-showcase",
+        "description": "Create a nested page in the example app to showcase the Hero component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Hero component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "image-showcase",
+        "description": "Create a nested page in the example app to showcase the Image component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Image component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "input-showcase",
+        "description": "Create a nested page in the example app to showcase the Input component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Input component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "label-showcase",
+        "description": "Create a nested page in the example app to showcase the Label component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Label component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "list-showcase",
+        "description": "Create a nested page in the example app to showcase the List component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the List component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "modal-showcase",
+        "description": "Create a nested page in the example app to showcase the Modal component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Modal component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "navigation-menu-showcase",
+        "description": "Create a nested page in the example app to showcase the NavigationMenu component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the NavigationMenu component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "pagination-showcase",
+        "description": "Create a nested page in the example app to showcase the Pagination component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Pagination component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "pricing-table-showcase",
+        "description": "Create a nested page in the example app to showcase the PricingTable component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the PricingTable component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "progress-showcase",
+        "description": "Create a nested page in the example app to showcase the Progress component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Progress component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "radio-group-showcase",
+        "description": "Create a nested page in the example app to showcase the RadioGroup component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the RadioGroup component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "select-showcase",
+        "description": "Create a nested page in the example app to showcase the Select component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Select component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "slider-showcase",
+        "description": "Create a nested page in the example app to showcase the Slider component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Slider component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "switch-showcase",
+        "description": "Create a nested page in the example app to showcase the Switch component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Switch component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "tabs-showcase",
+        "description": "Create a nested page in the example app to showcase the Tabs component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Tabs component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "testimonial-showcase",
+        "description": "Create a nested page in the example app to showcase the Testimonial component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Testimonial component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "text-showcase",
+        "description": "Create a nested page in the example app to showcase the Text component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Text component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "toast-showcase",
+        "description": "Create a nested page in the example app to showcase the Toast component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Toast component example has a link to the nested page as well.",
+        "status": "pending"
+      },
+      {
+        "id": "tooltip-showcase",
+        "description": "Create a nested page in the example app to showcase the Tooltip component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Tooltip component example has a link to the nested page as well.",
         "status": "pending"
       }
     ]

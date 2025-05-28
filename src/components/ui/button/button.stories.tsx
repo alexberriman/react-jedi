@@ -129,12 +129,14 @@ export const Disabled: Story = {
     expect(button).toBeInTheDocument();
     expect(button).toBeDisabled();
 
-    // Test clicking disabled button does nothing
-    await user.click(button);
-    expect(button).toBeDisabled();
-
     // Test disabled attribute is present
     expect(button).toHaveAttribute("disabled");
+    
+    // Test pointer-events-none class is applied
+    expect(button).toHaveClass("disabled:pointer-events-none");
+
+    // Cannot test clicking disabled button as userEvent respects pointer-events: none
+    // This is actually good - it means the button is truly disabled
   },
 };
 

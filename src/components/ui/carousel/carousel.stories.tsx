@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import type { ComponentProps } from "react";
+import { expect, userEvent, within, waitFor } from "@storybook/test";
 import {
   Carousel,
   CarouselContent,
@@ -54,6 +55,54 @@ export const Basic: Story = {
       </Carousel>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    
+    // Test carousel structure
+    const carousel = canvasElement.querySelector('[data-slot="carousel"]');
+    expect(carousel).toBeInTheDocument();
+    
+    // Test carousel content
+    const carouselContent = canvasElement.querySelector('[data-slot="carousel-content"]');
+    expect(carouselContent).toBeInTheDocument();
+    
+    // Test initial slide is visible
+    expect(canvas.getByText("1")).toBeVisible();
+    
+    // Test navigation buttons - they might not have text, look for aria-label
+    const buttons = canvasElement.querySelectorAll('button');
+    expect(buttons.length).toBeGreaterThanOrEqual(2);
+    
+    // Find prev and next buttons by their position or class
+    const prevButton = buttons[0];
+    const nextButton = buttons[1];
+    expect(prevButton).toBeInTheDocument();
+    expect(nextButton).toBeInTheDocument();
+    
+    // Test navigation forward
+    await user.click(nextButton);
+    await waitFor(() => {
+      expect(canvas.getByText("2")).toBeVisible();
+    });
+    
+    // Test navigation backward
+    await user.click(prevButton);
+    await waitFor(() => {
+      expect(canvas.getByText("1")).toBeVisible();
+    });
+    
+    // Test keyboard navigation
+    await user.keyboard("{ArrowRight}");
+    await waitFor(() => {
+      expect(canvas.getByText("2")).toBeVisible();
+    });
+    
+    await user.keyboard("{ArrowLeft}");
+    await waitFor(() => {
+      expect(canvas.getByText("1")).toBeVisible();
+    });
+  },
 };
 
 // Carousel with loop enabled

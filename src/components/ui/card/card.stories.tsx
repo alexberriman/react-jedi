@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
 
 const meta = {
@@ -28,6 +29,40 @@ export const Default: Story = {
       </CardFooter>
     </Card>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test card structure
+    const card = canvasElement.querySelector('[data-slot="card"]');
+    expect(card).toBeInTheDocument();
+    expect(card).toHaveClass("w-[350px]");
+    
+    // Test header section
+    const header = canvasElement.querySelector('[data-slot="card-header"]');
+    expect(header).toBeInTheDocument();
+    
+    // Test title
+    const title = canvas.getByText("Card Title");
+    expect(title).toBeInTheDocument();
+    const titleElement = canvasElement.querySelector('[data-slot="card-title"]');
+    expect(titleElement).toBeInTheDocument();
+    
+    // Test description
+    const description = canvas.getByText("Card description goes here");
+    expect(description).toBeInTheDocument();
+    const descriptionElement = canvasElement.querySelector('[data-slot="card-description"]');
+    expect(descriptionElement).toBeInTheDocument();
+    
+    // Test content section
+    const content = canvasElement.querySelector('[data-slot="card-content"]');
+    expect(content).toBeInTheDocument();
+    expect(canvas.getByText("Card content goes here.")).toBeInTheDocument();
+    
+    // Test footer section
+    const footer = canvasElement.querySelector('[data-slot="card-footer"]');
+    expect(footer).toBeInTheDocument();
+    expect(canvas.getByText("Card footer goes here")).toBeInTheDocument();
+  },
 };
 
 export const NoFooter: Story = {

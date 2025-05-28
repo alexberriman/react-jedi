@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import { CallToAction } from "./call-to-action";
 import { Rocket, Star, Zap, Code2, Sparkles, ChevronRight } from "lucide-react";
 
@@ -80,6 +81,32 @@ export const AnimatedDefault: Story = {
       label: "Learn More",
       href: "#",
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that the CTA renders correctly
+    const cta = canvasElement.querySelector('[class*="call-to-action"]') || 
+                canvasElement.querySelector('.p-8') || 
+                canvasElement.querySelector('[class*="rounded-"]');
+    expect(cta).toBeTruthy();
+    
+    // Test title and description
+    expect(canvas.getByText("Ready to Transform Your Business?")).toBeInTheDocument();
+    expect(canvas.getByText("Start your journey today with our cutting-edge platform")).toBeInTheDocument();
+    
+    // Test primary action button - it might be rendered as a button or link
+    const primaryButton = canvas.getByRole("button", { name: "Start Free Trial" });
+    expect(primaryButton).toBeInTheDocument();
+    
+    // Test secondary action button
+    const secondaryButton = canvas.getByRole("button", { name: "Learn More" });
+    expect(secondaryButton).toBeInTheDocument();
+    
+    // Test hover interactions
+    const user = userEvent.setup();
+    await user.hover(primaryButton);
+    await user.hover(secondaryButton);
   },
 };
 
@@ -319,5 +346,33 @@ export const CustomContent: Story = {
         </button>
       </form>
     ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    
+    // Test title and description
+    expect(canvas.getByText("Newsletter Signup")).toBeInTheDocument();
+    expect(canvas.getByText("Stay updated with our latest news and updates.")).toBeInTheDocument();
+    
+    // Test custom form content
+    const emailInput = canvas.getByPlaceholderText("Enter your email");
+    expect(emailInput).toBeInTheDocument();
+    expect(emailInput).toHaveAttribute("type", "email");
+    
+    const subscribeButton = canvas.getByRole("button", { name: "Subscribe" });
+    expect(subscribeButton).toBeInTheDocument();
+    expect(subscribeButton).toHaveAttribute("type", "submit");
+    
+    // Test form interaction
+    await user.type(emailInput, "test@example.com");
+    expect(emailInput).toHaveValue("test@example.com");
+    
+    // Test hover states
+    await user.hover(subscribeButton);
+    
+    // Test focus state
+    await user.click(emailInput);
+    expect(emailInput).toHaveFocus();
   },
 };

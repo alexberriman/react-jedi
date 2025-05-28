@@ -143,3 +143,73 @@ export const WithContent: Story = {
     expect(aspectRatioElement).toHaveClass("bg-gradient-to-r", "from-purple-500", "to-indigo-600", "rounded-xl");
   },
 };
+
+export const WithImage: Story = {
+  args: {
+    ratio: 16 / 9,
+  },
+  render: (args) => (
+    <div className="w-[600px]">
+      <AspectRatio {...args}>
+        <img
+          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80"
+          alt="Modern workspace with laptop and coffee"
+          className="object-cover w-full h-full rounded-lg"
+        />
+      </AspectRatio>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test image presence
+    const image = canvas.getByRole("img", { name: "Modern workspace with laptop and coffee" });
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute("src", expect.stringContaining("images.unsplash.com"));
+    expect(image).toHaveClass("object-cover", "w-full", "h-full", "rounded-lg");
+
+    // Verify aspect ratio container
+    const aspectRatioWrapper = image.parentElement;
+    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+  },
+};
+
+export const WithVideo: Story = {
+  args: {
+    ratio: 16 / 9,
+  },
+  render: (args) => (
+    <div className="w-[600px]">
+      <AspectRatio {...args}>
+        <video
+          className="object-cover w-full h-full rounded-lg"
+          poster="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&auto=format&fit=crop&q=80"
+          controls
+        >
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </AspectRatio>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test video element presence
+    const video = canvasElement.querySelector("video");
+    expect(video).toBeInTheDocument();
+    expect(video).toHaveAttribute("controls");
+    expect(video).toHaveAttribute("poster", expect.stringContaining("images.unsplash.com"));
+    expect(video).toHaveClass("object-cover", "w-full", "h-full", "rounded-lg");
+
+    // Test video source
+    const source = video?.querySelector("source");
+    expect(source).toBeInTheDocument();
+    expect(source).toHaveAttribute("src", "https://www.w3schools.com/html/mov_bbb.mp4");
+    expect(source).toHaveAttribute("type", "video/mp4");
+
+    // Verify aspect ratio container
+    const aspectRatioWrapper = video?.parentElement;
+    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+  },
+};

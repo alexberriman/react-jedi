@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Container } from "./container";
+import { within, expect } from "@storybook/test";
 
 const meta = {
   title: "Components/Layout/Container",
@@ -43,6 +44,24 @@ export const Default: Story = {
       </div>
     </Container>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify container is rendered
+    const container = canvas.getByText("Default Container").parentElement?.parentElement;
+    expect(container).toBeInTheDocument();
+    
+    // Check default properties - container uses containerVariants classes
+    expect(container).toHaveClass("mx-auto");
+    expect(container).toHaveClass("w-full");
+    expect(container).toHaveClass("px-4");
+    expect(container).toHaveClass("max-w-7xl"); // default size
+    expect(container).toHaveClass("flex");
+    expect(container).toHaveClass("flex-col");
+    
+    // Verify it's rendered as a div by default
+    expect(container?.tagName).toBe("DIV");
+  },
 };
 
 export const Small: Story = {
@@ -110,4 +129,20 @@ export const AsSection: Story = {
       </div>
     </Container>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the container element
+    const container = canvas.getByText(/Rendered as/).parentElement?.parentElement;
+    expect(container).toBeInTheDocument();
+    
+    // Verify it's rendered as a section element
+    expect(container?.tagName).toBe("SECTION");
+    
+    // Should still have container variant classes
+    expect(container).toHaveClass("mx-auto");
+    expect(container).toHaveClass("w-full");
+    expect(container).toHaveClass("flex");
+    expect(container).toHaveClass("flex-col");
+  },
 };

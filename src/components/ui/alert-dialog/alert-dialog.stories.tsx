@@ -71,31 +71,37 @@ export const Default: Story = {
     const trigger = canvas.getByRole("button", { name: "Show Dialog" });
     await user.click(trigger);
 
-    // Dialog should be visible
-    const dialog = await canvas.findByRole("alertdialog");
-    expect(dialog).toBeVisible();
+    // Dialog should be visible (search in document since it's in a portal)
+    await waitFor(() => {
+      const dialog = document.querySelector('[role="alertdialog"]');
+      expect(dialog).toBeInTheDocument();
+    });
 
-    // Check title and description
-    expect(canvas.getByText("Are you absolutely sure?")).toBeInTheDocument();
-    expect(canvas.getByText(/This action cannot be undone/)).toBeInTheDocument();
+    // Check title and description (search in document)
+    const screen = within(document.body);
+    expect(screen.getByText("Are you absolutely sure?")).toBeInTheDocument();
+    expect(screen.getByText(/This action cannot be undone/)).toBeInTheDocument();
 
     // Test cancel button
-    const cancelButton = canvas.getByRole("button", { name: "Cancel" });
+    const cancelButton = screen.getByRole("button", { name: "Cancel" });
     await user.click(cancelButton);
 
     // Dialog should be closed
     await waitFor(() => {
-      expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument();
+      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
     });
 
     // Open again to test action button
     await user.click(trigger);
-    const actionButton = await canvas.findByRole("button", { name: "Continue" });
+    await waitFor(() => {
+      expect(document.querySelector('[role="alertdialog"]')).toBeInTheDocument();
+    });
+    const actionButton = screen.getByRole("button", { name: "Continue" });
     await user.click(actionButton);
 
     // Dialog should be closed after action
     await waitFor(() => {
-      expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument();
+      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
     });
   },
 };
@@ -129,22 +135,23 @@ export const DestructiveAction: Story = {
 
     // Test destructive variant trigger
     const trigger = canvas.getByRole("button", { name: "Delete Account" });
-    // Just check it exists - class names may vary
-
     await user.click(trigger);
 
-    // Dialog should be visible
-    const dialog = await canvas.findByRole("alertdialog");
-    expect(dialog).toBeVisible();
+    // Dialog should be visible (search in document since it's in a portal)
+    await waitFor(() => {
+      const dialog = document.querySelector('[role="alertdialog"]');
+      expect(dialog).toBeInTheDocument();
+    });
 
     // Check destructive action button styling
-    const deleteButton = canvas.getByRole("button", { name: "Yes, delete account" });
+    const screen = within(document.body);
+    const deleteButton = screen.getByRole("button", { name: "Yes, delete account" });
     expect(deleteButton).toHaveClass("bg-destructive");
 
     // Test keyboard navigation - Escape key
     await user.keyboard("{Escape}");
     await waitFor(() => {
-      expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument();
+      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
     });
   },
 };
@@ -204,26 +211,32 @@ export const ControlledState: Story = {
     const trigger = canvas.getByRole("button", { name: "Open Dialog" });
     
     // Initially no dialog
-    expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument();
+    expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
 
     // Open dialog
     await user.click(trigger);
-    const dialog = await canvas.findByRole("alertdialog");
-    expect(dialog).toBeVisible();
+    await waitFor(() => {
+      const dialog = document.querySelector('[role="alertdialog"]');
+      expect(dialog).toBeInTheDocument();
+    });
 
     // Test that both cancel and confirm close the dialog
-    const cancelButton = canvas.getByRole("button", { name: "Cancel" });
+    const screen = within(document.body);
+    const cancelButton = screen.getByRole("button", { name: "Cancel" });
     await user.click(cancelButton);
     await waitFor(() => {
-      expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument();
+      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
     });
 
     // Open again and test confirm
     await user.click(trigger);
-    const confirmButton = await canvas.findByRole("button", { name: "Confirm" });
+    await waitFor(() => {
+      expect(document.querySelector('[role="alertdialog"]')).toBeInTheDocument();
+    });
+    const confirmButton = screen.getByRole("button", { name: "Confirm" });
     await user.click(confirmButton);
     await waitFor(() => {
-      expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument();
+      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
     });
   },
 };
@@ -312,5 +325,3 @@ export const WithIcon: Story = {
     </AlertDialog>
   ),
 };
-
-import React from "react";

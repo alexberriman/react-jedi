@@ -23,6 +23,7 @@ import {
   FileText,
   Hash,
 } from "lucide-react";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta = {
   title: "Components/Overlay/Command",
@@ -82,6 +83,43 @@ export const Default: Story = {
       </Command>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find search input
+    const searchInput = canvas.getByPlaceholderText("Type a command or search...");
+    expect(searchInput).toBeInTheDocument();
+    
+    // Click to focus the input (since it might not auto-focus)
+    await userEvent.click(searchInput);
+    
+    // Verify all items are visible initially
+    expect(canvas.getByText("Calendar")).toBeInTheDocument();
+    expect(canvas.getByText("Calculator")).toBeInTheDocument();
+    expect(canvas.getByText("Profile")).toBeInTheDocument();
+    
+    // Search for an item
+    await userEvent.type(searchInput, "cal");
+    await waitFor(() => {
+      expect(canvas.getByText("Calendar")).toBeInTheDocument();
+      expect(canvas.getByText("Calculator")).toBeInTheDocument();
+      expect(canvas.queryByText("Profile")).not.toBeInTheDocument();
+    });
+    
+    // Clear search
+    await userEvent.clear(searchInput);
+    await userEvent.type(searchInput, "settings");
+    await waitFor(() => {
+      // Use a more specific selector since "Settings" appears in both group heading and item
+      const settingsItem = canvas.getByRole("option", { name: /settings/i });
+      expect(settingsItem).toBeInTheDocument();
+      expect(canvas.queryByText("Calendar")).not.toBeInTheDocument();
+    });
+    
+    // Test keyboard navigation - just verify we can clear the search
+    await userEvent.clear(searchInput);
+    expect(searchInput).toHaveValue("");
+  },
 };
 
 // JSON Specification Examples

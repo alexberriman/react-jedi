@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Combobox, type ComboboxOption } from "./combobox";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta = {
   title: "Components/Form/Combobox",
@@ -82,6 +83,60 @@ export const Default: Story = {
     searchPlaceholder: "Search framework...",
     emptyText: "No framework found.",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the combobox trigger button
+    const trigger = canvas.getByRole("combobox");
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    expect(trigger).toHaveTextContent("Select framework...");
+    
+    // Open the combobox
+    await userEvent.click(trigger);
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("aria-expanded", "true");
+    });
+    
+    // Wait a bit for the popover animation
+    await new Promise(resolve => setTimeout(resolve, 200));
+    
+    // Verify search input is visible (might be in a portal)
+    const searchInput = await waitFor(() => {
+      const input = document.querySelector('input[placeholder="Search framework..."]');
+      expect(input).toBeInTheDocument();
+      return input;
+    });
+    
+    // The command items might not have role="option", so we'll look for them by their data attributes
+    const commandItems = document.querySelectorAll('[data-slot="command-item"]');
+    expect(commandItems.length).toBeGreaterThan(0);
+    
+    // Verify specific options are visible by text content
+    const nextOption = Array.from(commandItems).find(el => el.textContent?.includes("Next.js"));
+    const viteOption = Array.from(commandItems).find(el => el.textContent?.includes("Vite"));
+    expect(nextOption).toBeInTheDocument();
+    expect(viteOption).toBeInTheDocument();
+    
+    // Search for a framework
+    await userEvent.type(searchInput, "next");
+    await waitFor(() => {
+      const visibleItems = document.querySelectorAll('[data-slot="command-item"]:not([data-disabled="true"])');
+      const visibleNext = Array.from(visibleItems).find(el => el.textContent?.includes("Next.js"));
+      const visibleVite = Array.from(visibleItems).find(el => el.textContent?.includes("Vite"));
+      expect(visibleNext).toBeInTheDocument();
+      expect(visibleVite).toBeUndefined();
+    });
+    
+    // Select an option
+    const nextOptionFiltered = Array.from(document.querySelectorAll('[data-slot="command-item"]')).find(el => el.textContent?.includes("Next.js"));
+    if (nextOptionFiltered) {
+      await userEvent.click(nextOptionFiltered);
+    }
+    await waitFor(() => {
+      expect(trigger).toHaveTextContent("Next.js");
+      expect(trigger).toHaveAttribute("aria-expanded", "false");
+    });
+  },
 };
 
 export const WithValue: Story = {
@@ -97,6 +152,49 @@ export const Fruits: Story = {
     placeholder: "Select a fruit...",
     searchPlaceholder: "Search fruits...",
     emptyText: "No fruit found.",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("combobox");
+    
+    // Open combobox
+    await userEvent.click(trigger);
+    
+    // Wait for popover to open and search input to be available
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("aria-expanded", "true");
+    });
+    
+    // Wait a bit for the popover animation
+    await new Promise(resolve => setTimeout(resolve, 200));
+    
+    // Find the search input inside the popover (might be in a portal)
+    const searchInput = await waitFor(() => {
+      const input = document.querySelector('input[placeholder="Search fruits..."]');
+      expect(input).toBeInTheDocument();
+      return input;
+    });
+    
+    // Type to filter options
+    await userEvent.type(searchInput, "orange");
+    await waitFor(() => {
+      const commandItems = document.querySelectorAll('[data-slot="command-item"]:not([data-disabled="true"])');
+      const orangeOption = Array.from(commandItems).find(el => el.textContent?.includes("Orange"));
+      expect(orangeOption).toBeInTheDocument();
+      
+      const appleOption = Array.from(commandItems).find(el => el.textContent?.includes("Apple"));
+      expect(appleOption).toBeUndefined();
+    });
+    
+    // Select the filtered option
+    const orangeOption = Array.from(document.querySelectorAll('[data-slot="command-item"]')).find(el => el.textContent?.includes("Orange"));
+    if (orangeOption) {
+      await userEvent.click(orangeOption);
+    }
+    await waitFor(() => {
+      expect(trigger).toHaveTextContent("Orange");
+      expect(trigger).toHaveAttribute("aria-expanded", "false");
+    });
   },
 };
 

@@ -3,6 +3,7 @@ import * as React from "react";
 import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 import { Button } from "../button";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta: Meta<typeof Collapsible> = {
   title: "Components/UI/Collapsible",
@@ -61,6 +62,31 @@ export const Basic: Story = {
       </CollapsibleContent>
     </Collapsible>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByRole("button", { name: /toggle content/i });
+    
+    // Check the button exists and has correct attributes
+    expect(toggleButton).toBeInTheDocument();
+    expect(toggleButton).toHaveAttribute("data-state", "closed");
+    
+    // Click to expand
+    await userEvent.click(toggleButton);
+    await waitFor(() => {
+      expect(toggleButton).toHaveAttribute("data-state", "open");
+      expect(canvas.getByText(/this is the collapsible content/i)).toBeVisible();
+    });
+    
+    // Verify content is displayed
+    const content = canvas.getByText(/this is the collapsible content/i);
+    expect(content).toBeInTheDocument();
+    
+    // Click to collapse
+    await userEvent.click(toggleButton);
+    await waitFor(() => {
+      expect(toggleButton).toHaveAttribute("data-state", "closed");
+    });
+  },
 };
 
 export const DefaultOpen: Story = {
@@ -107,6 +133,38 @@ const ControlledExample = () => {
 
 export const Controlled: Story = {
   render: () => <ControlledExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByRole("button", { name: /show content/i });
+    const openButton = canvas.getByRole("button", { name: /^open$/i });
+    const closeButton = canvas.getByRole("button", { name: /^close$/i });
+    
+    // Initially content should be hidden
+    const controlledContent = canvas.queryByText(/this is controlled content/i);
+    expect(controlledContent).not.toBeInTheDocument();
+    
+    // Click open button
+    await userEvent.click(openButton);
+    await waitFor(() => {
+      expect(canvas.getByText(/this is controlled content/i)).toBeInTheDocument();
+      expect(canvas.getByText(/state: open/i)).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: /hide content/i })).toBeInTheDocument();
+    });
+    
+    // Click close button
+    await userEvent.click(closeButton);
+    await waitFor(() => {
+      const hiddenContent = canvas.queryByText(/this is controlled content/i);
+      expect(hiddenContent).not.toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: /show content/i })).toBeInTheDocument();
+    });
+    
+    // Toggle via main button
+    await userEvent.click(canvas.getByRole("button", { name: /show content/i }));
+    await waitFor(() => {
+      expect(canvas.getByText(/this is controlled content/i)).toBeInTheDocument();
+    });
+  },
 };
 
 const WithIconExample = () => {

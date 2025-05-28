@@ -66,6 +66,17 @@
       "onlyInState": "IDLE"
     },
     {
+      "cmd": "npm run test-storybook",
+      "description": "Test storybook components",
+      "timeout": 180,
+      "clear": true,
+      "onError": {
+        "prompt": { "$ref": "prompts.storybook-components-fix" }
+      },
+      "restartLoopOnError": true,
+      "onlyInState": "IDLE"
+    },
+    {
       "cmd": "npm run test",
       "description": "Run Vitest unit tests",
       "timeout": 120,
@@ -144,6 +155,9 @@
     },
     "git-local-changes": {
       "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/prompts/git-local-changes.prompt"
+    },
+    "storybook-components-fix": {
+      "$ref": ".claude/prompts/storybook-fix.prompt"
     }
   }
 }

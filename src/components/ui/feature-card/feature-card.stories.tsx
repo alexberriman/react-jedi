@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import { FeatureCard } from "./feature-card";
 import {
   Zap,
@@ -50,6 +51,20 @@ export const Default: Story = {
     icon: Zap,
     iconColor: "#facc15",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify the title is rendered
+    expect(canvas.getByText('Lightning Fast')).toBeInTheDocument();
+    
+    // Verify the description is rendered
+    expect(canvas.getByText('Experience blazing fast performance with our optimized architecture.')).toBeInTheDocument();
+    
+    // Verify the icon is rendered (by checking for svg element)
+    const svgIcon = canvas.getByRole('img', { hidden: true });
+    expect(svgIcon).toBeInTheDocument();
+    expect(svgIcon).toHaveClass('lucide');
+  },
 };
 
 export const WithBadge: Story = {
@@ -60,6 +75,18 @@ export const WithBadge: Story = {
     iconColor: "#10b981",
     badge: "Popular",
     badgeVariant: "secondary",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify the badge is rendered
+    const badge = canvas.getByText('Popular');
+    expect(badge).toBeInTheDocument();
+    expect(badge).toHaveClass('badge');
+    
+    // Verify title and description
+    expect(canvas.getByText('Enterprise Security')).toBeInTheDocument();
+    expect(canvas.getByText('Bank-level encryption and security measures to protect your data.')).toBeInTheDocument();
   },
 };
 
@@ -74,6 +101,19 @@ export const Highlighted: Story = {
     highlightColor: "#8b5cf6",
     badge: "Beta",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify highlighted variant styling
+    const card = canvas.getByRole('article');
+    expect(card).toHaveClass('highlighted');
+    
+    // Verify badge
+    expect(canvas.getByText('Beta')).toBeInTheDocument();
+    
+    // Verify content
+    expect(canvas.getByText('AI-Powered Features')).toBeInTheDocument();
+  },
 };
 
 export const Minimal: Story = {
@@ -83,6 +123,17 @@ export const Minimal: Story = {
     icon: Palette,
     iconColor: "#3b82f6",
     variant: "minimal",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify minimal variant styling
+    const card = canvas.getByRole('article');
+    expect(card).toHaveClass('minimal');
+    
+    // Verify content
+    expect(canvas.getByText('Clean Design')).toBeInTheDocument();
+    expect(canvas.getByText('Beautiful, minimalist interface that puts content first.')).toBeInTheDocument();
   },
 };
 
@@ -94,6 +145,16 @@ export const Bordered: Story = {
     iconColor: "#06b6d4",
     variant: "bordered",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify bordered variant styling
+    const card = canvas.getByRole('article');
+    expect(card).toHaveClass('bordered');
+    
+    // Verify content
+    expect(canvas.getByText('Global Scale')).toBeInTheDocument();
+  },
 };
 
 export const HorizontalLayout: Story = {
@@ -103,6 +164,16 @@ export const HorizontalLayout: Story = {
     icon: Users,
     iconColor: "#f59e0b",
     orientation: "horizontal",
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify horizontal orientation
+    const card = canvas.getByRole('article');
+    expect(card).toHaveClass('horizontal');
+    
+    // Verify content layout
+    expect(canvas.getByText('Real-time Collaboration')).toBeInTheDocument();
   },
 };
 
@@ -114,6 +185,16 @@ export const CenteredAlignment: Story = {
     iconColor: "#22c55e",
     align: "center",
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify centered alignment
+    const contentWrapper = canvas.getByText('Developer Friendly').parentElement;
+    expect(contentWrapper).toHaveClass('center');
+    
+    // Verify content
+    expect(canvas.getByText('Built by developers, for developers. Clean APIs and comprehensive documentation.')).toBeInTheDocument();
+  },
 };
 
 export const Clickable: Story = {
@@ -123,6 +204,28 @@ export const Clickable: Story = {
     icon: Rocket,
     iconColor: "#dc2626",
     onClick: () => alert("Feature card clicked!"),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Mock window.alert
+    const originalAlert = globalThis.alert;
+    let alertMessage = '';
+    globalThis.alert = (message: string) => {
+      alertMessage = message;
+    };
+    
+    // Find and click the card
+    const card = canvas.getByRole('article');
+    expect(card).toHaveStyle({ cursor: 'pointer' });
+    
+    await userEvent.click(card);
+    
+    // Verify alert was called
+    expect(alertMessage).toBe('Feature card clicked!');
+    
+    // Clean up
+    globalThis.alert = originalAlert;
   },
 };
 
@@ -144,6 +247,22 @@ export const WithCustomContent: Story = {
         </button>
       </div>
     ),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify custom content is rendered
+    expect(canvas.getByText('• Unlimited projects')).toBeInTheDocument();
+    expect(canvas.getByText('• Advanced analytics')).toBeInTheDocument();
+    expect(canvas.getByText('• Priority support')).toBeInTheDocument();
+    
+    // Verify custom button
+    const upgradeButton = canvas.getByRole('button', { name: /upgrade now/i });
+    expect(upgradeButton).toBeInTheDocument();
+    
+    // Test button hover state
+    await userEvent.hover(upgradeButton);
+    expect(upgradeButton).toHaveClass('hover:bg-primary/90');
   },
 };
 
@@ -190,6 +309,25 @@ export const GridExample: Story = {
       />
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all 6 cards are rendered
+    const cards = canvas.getAllByRole('article');
+    expect(cards).toHaveLength(6);
+    
+    // Verify specific cards
+    expect(canvas.getByText('Lightning Fast')).toBeInTheDocument();
+    expect(canvas.getByText('Secure by Default')).toBeInTheDocument();
+    expect(canvas.getByText('Scale Infinitely')).toBeInTheDocument();
+    expect(canvas.getByText('24/7 Support')).toBeInTheDocument();
+    expect(canvas.getByText('Developer First')).toBeInTheDocument();
+    expect(canvas.getByText('Global Reach')).toBeInTheDocument();
+    
+    // Verify badges
+    expect(canvas.getByText('Popular')).toBeInTheDocument();
+    expect(canvas.getByText('New')).toBeInTheDocument();
+  },
 };
 
 export const HighlightedSet: Story = {
@@ -221,4 +359,22 @@ export const HighlightedSet: Story = {
       />
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify 3 cards are rendered
+    const cards = canvas.getAllByRole('article');
+    expect(cards).toHaveLength(3);
+    
+    // Verify the middle card is highlighted
+    const betterCard = cards[1];
+    expect(betterCard).toHaveClass('highlighted');
+    
+    // Verify the "Recommended" badge on highlighted card
+    expect(within(betterCard).getByText('Recommended')).toBeInTheDocument();
+    
+    // Verify other cards are not highlighted
+    expect(cards[0]).not.toHaveClass('highlighted');
+    expect(cards[2]).not.toHaveClass('highlighted');
+  },
 };

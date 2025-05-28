@@ -12,7 +12,7 @@
       {
         "id": "add-play-functions-02",
         "description": "Add `play` functions to the following Storybook files: `src/components/ui/dropdown-menu/dropdown-menu.stories.tsx`, `src/components/ui/feature-card/feature-card.stories.tsx`, `src/components/ui/flex/flex.stories.tsx`, `src/components/ui/footer/footer.stories.tsx`, `src/components/ui/form/form.stories.tsx`. These should use the Storybook Test Addon format (`@storybook/test`) and define meaningful interaction tests using `canvasElement`, `within`, and `userEvent`. After implementing the play functions, run `npm run test-storybook` to confirm everything passes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-03",

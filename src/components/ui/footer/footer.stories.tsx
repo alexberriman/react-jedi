@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import { Footer } from "./footer";
 import { Container } from "../container/container";
 
@@ -73,6 +74,35 @@ export const Default: Story = {
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
     legalLinks,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify logo is rendered
+    expect(canvas.getByText('Acme Inc')).toBeInTheDocument();
+    
+    // Verify description
+    expect(canvas.getByText('Building the future of web development with cutting-edge tools and technologies.')).toBeInTheDocument();
+    
+    // Verify all sections are rendered
+    expect(canvas.getByText('Product')).toBeInTheDocument();
+    expect(canvas.getByText('Company')).toBeInTheDocument();
+    expect(canvas.getByText('Support')).toBeInTheDocument();
+    
+    // Verify some links
+    expect(canvas.getByRole('link', { name: 'Features' })).toBeInTheDocument();
+    expect(canvas.getByRole('link', { name: 'About' })).toBeInTheDocument();
+    expect(canvas.getByRole('link', { name: 'Documentation' })).toBeInTheDocument();
+    
+    // Verify social links
+    const socialSection = canvas.getByRole('navigation', { name: /social/i });
+    expect(within(socialSection).getAllByRole('link')).toHaveLength(4);
+    
+    // Verify copyright
+    expect(canvas.getByText(`© ${new Date().getFullYear()} Acme Inc. All rights reserved.`)).toBeInTheDocument();
+    
+    // Verify legal links
+    expect(canvas.getByRole('link', { name: 'Privacy Policy' })).toBeInTheDocument();
+  },
 };
 
 export const WithNewsletter: Story = {
@@ -90,6 +120,27 @@ export const WithNewsletter: Story = {
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
     legalLinks,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify newsletter section
+    expect(canvas.getByText('Stay updated')).toBeInTheDocument();
+    expect(canvas.getByText('Get the latest news and updates delivered to your inbox.')).toBeInTheDocument();
+    
+    // Find newsletter form
+    const emailInput = canvas.getByPlaceholderText('your@email.com');
+    const subscribeButton = canvas.getByRole('button', { name: 'Subscribe' });
+    
+    expect(emailInput).toBeInTheDocument();
+    expect(subscribeButton).toBeInTheDocument();
+    
+    // Test newsletter submission
+    const testEmail = 'test@example.com';
+    await userEvent.type(emailInput, testEmail);
+    await userEvent.click(subscribeButton);
+    
+    // Note: We can't verify console.log directly, but we've tested the interaction
+  },
 };
 
 export const WithContactInfo: Story = {
@@ -104,6 +155,20 @@ export const WithContactInfo: Story = {
     socialLinks,
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify contact info is rendered
+    const emailLink = canvas.getByRole('link', { name: 'hello@acme.com' });
+    expect(emailLink).toBeInTheDocument();
+    expect(emailLink).toHaveAttribute('href', 'mailto:hello@acme.com');
+    
+    const phoneLink = canvas.getByRole('link', { name: '+1 (555) 123-4567' });
+    expect(phoneLink).toBeInTheDocument();
+    expect(phoneLink).toHaveAttribute('href', 'tel:+15551234567');
+    
+    expect(canvas.getByText('123 Main St, San Francisco, CA 94105')).toBeInTheDocument();
+  },
 };
 
 export const LightVariant: Story = {
@@ -115,6 +180,16 @@ export const LightVariant: Story = {
     socialLinks,
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
     legalLinks,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify footer has light variant class
+    const footer = canvas.getByRole('contentinfo');
+    expect(footer).toHaveClass('bg-gray-50');
+    
+    // Verify content is rendered
+    expect(canvas.getByText('Acme Inc')).toBeInTheDocument();
   },
 };
 
@@ -132,6 +207,17 @@ export const DarkVariant: Story = {
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
     legalLinks,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify footer has dark variant class
+    const footer = canvas.getByRole('contentinfo');
+    expect(footer).toHaveClass('bg-gray-900');
+    expect(footer).toHaveClass('text-gray-300');
+    
+    // Verify newsletter section is included
+    expect(canvas.getByText('Stay updated')).toBeInTheDocument();
+  },
 };
 
 export const GradientVariant: Story = {
@@ -143,6 +229,16 @@ export const GradientVariant: Story = {
     socialLinks,
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
     legalLinks,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify footer has gradient variant class
+    const footer = canvas.getByRole('contentinfo');
+    expect(footer).toHaveClass('bg-gradient-to-br');
+    
+    // Verify content appears correctly on gradient
+    expect(canvas.getByText('Acme Inc')).toBeInTheDocument();
   },
 };
 
@@ -170,6 +266,20 @@ export const CenteredLayout: Story = {
     copyright: `© ${new Date().getFullYear()} Acme Inc.`,
     legalLinks,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify centered layout - check for text alignment
+    const footer = canvas.getByRole('contentinfo');
+    const mainContent = footer.querySelector('.text-center');
+    expect(mainContent).toBeInTheDocument();
+    
+    // Verify navigation section
+    expect(canvas.getByText('Navigation')).toBeInTheDocument();
+    
+    // Verify newsletter is centered
+    expect(canvas.getByText('Newsletter')).toBeInTheDocument();
+  },
 };
 
 export const MinimalLayout: Story = {
@@ -191,6 +301,20 @@ export const MinimalLayout: Story = {
     socialLinks: socialLinks.slice(0, 3),
     copyright: `© ${new Date().getFullYear()} Acme Inc.`,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify minimal styling
+    const footer = canvas.getByRole('contentinfo');
+    expect(footer).toHaveClass('bg-transparent');
+    
+    // Verify only 3 social links
+    const socialSection = canvas.getByRole('navigation', { name: /social/i });
+    expect(within(socialSection).getAllByRole('link')).toHaveLength(3);
+    
+    // Verify minimal content
+    expect(canvas.getByText('Links')).toBeInTheDocument();
+  },
 };
 
 export const SmallSize: Story = {
@@ -200,6 +324,18 @@ export const SmallSize: Story = {
     sections: defaultSections.slice(0, 2),
     socialLinks,
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify small size padding
+    const footer = canvas.getByRole('contentinfo');
+    expect(footer).toHaveClass('py-8');
+    
+    // Verify only 2 sections are shown
+    expect(canvas.getByText('Product')).toBeInTheDocument();
+    expect(canvas.getByText('Company')).toBeInTheDocument();
+    expect(canvas.queryByText('Support')).not.toBeInTheDocument();
   },
 };
 
@@ -217,6 +353,17 @@ export const LargeSize: Story = {
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
     legalLinks,
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify large size padding
+    const footer = canvas.getByRole('contentinfo');
+    expect(footer).toHaveClass('py-16');
+    
+    // Verify newsletter content
+    expect(canvas.getByText('Join our newsletter')).toBeInTheDocument();
+    expect(canvas.getByText('Get weekly insights and updates from our team.')).toBeInTheDocument();
+  },
 };
 
 export const WithoutDivider: Story = {
@@ -227,6 +374,17 @@ export const WithoutDivider: Story = {
     socialLinks,
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
     legalLinks,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify no divider is present
+    const footer = canvas.getByRole('contentinfo');
+    const divider = footer.querySelector('hr');
+    expect(divider).not.toBeInTheDocument();
+    
+    // Verify content is still rendered
+    expect(canvas.getByText('Acme Inc')).toBeInTheDocument();
   },
 };
 
@@ -243,6 +401,18 @@ export const CustomChildren: Story = {
         </p>
       </div>
     ),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify custom children are rendered
+    const announcement = canvas.getByText(/Special announcement/);
+    expect(announcement).toBeInTheDocument();
+    
+    // Verify custom styling
+    const announcementContainer = announcement.parentElement;
+    expect(announcementContainer).toHaveClass('bg-purple-600/10');
+    expect(announcementContainer).toHaveClass('rounded-lg');
   },
 };
 
@@ -278,5 +448,28 @@ export const CompleteExample: Story = {
     },
     copyright: `© ${new Date().getFullYear()} Acme Inc. All rights reserved.`,
     legalLinks,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify page content is rendered
+    expect(canvas.getByText('Page Content')).toBeInTheDocument();
+    expect(canvas.getByText('This example shows how the footer looks at the bottom of a page with content.')).toBeInTheDocument();
+    
+    // Verify footer with all features
+    const footer = canvas.getByRole('contentinfo');
+    expect(footer).toHaveClass('bg-gradient-to-br');
+    
+    // Verify all sections are present
+    expect(within(footer).getByText('Stay in the loop')).toBeInTheDocument();
+    expect(within(footer).getByText('hello@acme.com')).toBeInTheDocument();
+    expect(within(footer).getByText('+1 (555) 123-4567')).toBeInTheDocument();
+    
+    // Test newsletter interaction
+    const emailInput = within(footer).getByPlaceholderText('Enter your email');
+    await userEvent.type(emailInput, 'complete@example.com');
+    
+    // Verify gradient variant with full content
+    expect(within(footer).getAllByRole('link').length).toBeGreaterThan(10);
   },
 };

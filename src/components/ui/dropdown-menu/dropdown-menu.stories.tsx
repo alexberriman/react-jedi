@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -96,6 +97,36 @@ export const Basic: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dropdown menu
+    const triggerButton = canvas.getByRole('button', { name: /open menu/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for menu to appear in the document
+    await waitFor(() => {
+      expect(within(document.body).getByText('My Account')).toBeInTheDocument();
+    });
+    
+    // Verify menu items are visible
+    expect(within(document.body).getByText('Profile')).toBeInTheDocument();
+    expect(within(document.body).getByText('Billing')).toBeInTheDocument();
+    expect(within(document.body).getByText('Settings')).toBeInTheDocument();
+    
+    // Verify disabled item
+    const apiItem = within(document.body).getByText('API').closest('[role="menuitem"]');
+    expect(apiItem).toHaveAttribute('aria-disabled', 'true');
+    
+    // Click on a menu item
+    const profileItem = within(document.body).getByText('Profile').closest('[role="menuitem"]');
+    await userEvent.click(profileItem!);
+    
+    // Menu should close after clicking an item
+    await waitFor(() => {
+      expect(within(document.body).queryByText('My Account')).not.toBeInTheDocument();
+    });
+  },
 };
 
 function WithCheckboxesExample() {
@@ -131,6 +162,54 @@ function WithCheckboxesExample() {
 
 export const WithCheckboxes: Story = {
   render: () => <WithCheckboxesExample />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dropdown
+    const triggerButton = canvas.getByRole('button', { name: /open menu/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for menu to appear
+    await waitFor(() => {
+      expect(within(document.body).getByText('Appearance')).toBeInTheDocument();
+    });
+    
+    // Verify initial checkbox states
+    const statusBarCheckbox = within(document.body).getByRole('menuitemcheckbox', { name: /status bar/i });
+    const activityBarCheckbox = within(document.body).getByRole('menuitemcheckbox', { name: /activity bar/i });
+    const panelCheckbox = within(document.body).getByRole('menuitemcheckbox', { name: /panel/i });
+    
+    expect(statusBarCheckbox).toHaveAttribute('aria-checked', 'true');
+    expect(activityBarCheckbox).toHaveAttribute('aria-checked', 'false');
+    expect(activityBarCheckbox).toHaveAttribute('aria-disabled', 'true');
+    expect(panelCheckbox).toHaveAttribute('aria-checked', 'false');
+    
+    // Click on Status Bar checkbox to uncheck it
+    await userEvent.click(statusBarCheckbox);
+    
+    // Verify it toggled
+    expect(statusBarCheckbox).toHaveAttribute('aria-checked', 'false');
+    
+    // Click on Panel checkbox to check it
+    await userEvent.click(panelCheckbox);
+    
+    // Verify it toggled
+    expect(panelCheckbox).toHaveAttribute('aria-checked', 'true');
+    
+    // Try to click disabled Activity Bar checkbox
+    await userEvent.click(activityBarCheckbox);
+    
+    // It should remain unchanged
+    expect(activityBarCheckbox).toHaveAttribute('aria-checked', 'false');
+    
+    // Close menu by clicking outside
+    await userEvent.click(document.body);
+    
+    // Menu should close
+    await waitFor(() => {
+      expect(within(document.body).queryByText('Appearance')).not.toBeInTheDocument();
+    });
+  },
 };
 
 function WithRadioGroupExample() {
@@ -156,6 +235,51 @@ function WithRadioGroupExample() {
 
 export const WithRadioGroup: Story = {
   render: () => <WithRadioGroupExample />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dropdown
+    const triggerButton = canvas.getByRole('button', { name: /open menu/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for menu to appear
+    await waitFor(() => {
+      expect(within(document.body).getByText('Panel Position')).toBeInTheDocument();
+    });
+    
+    // Verify initial radio selection (bottom is selected by default)
+    const topRadio = within(document.body).getByRole('menuitemradio', { name: /top/i });
+    const bottomRadio = within(document.body).getByRole('menuitemradio', { name: /bottom/i });
+    const rightRadio = within(document.body).getByRole('menuitemradio', { name: /right/i });
+    
+    expect(topRadio).toHaveAttribute('aria-checked', 'false');
+    expect(bottomRadio).toHaveAttribute('aria-checked', 'true');
+    expect(rightRadio).toHaveAttribute('aria-checked', 'false');
+    
+    // Click on Top radio
+    await userEvent.click(topRadio);
+    
+    // Verify selection changed
+    expect(topRadio).toHaveAttribute('aria-checked', 'true');
+    expect(bottomRadio).toHaveAttribute('aria-checked', 'false');
+    expect(rightRadio).toHaveAttribute('aria-checked', 'false');
+    
+    // Click on Right radio
+    await userEvent.click(rightRadio);
+    
+    // Verify selection changed again
+    expect(topRadio).toHaveAttribute('aria-checked', 'false');
+    expect(bottomRadio).toHaveAttribute('aria-checked', 'false');
+    expect(rightRadio).toHaveAttribute('aria-checked', 'true');
+    
+    // Close menu
+    await userEvent.keyboard('{Escape}');
+    
+    // Menu should close
+    await waitFor(() => {
+      expect(within(document.body).queryByText('Panel Position')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const WithSubMenu: Story = {
@@ -236,6 +360,37 @@ export const WithSubMenu: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dropdown
+    const triggerButton = canvas.getByRole('button', { name: /open menu/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for menu to appear
+    await waitFor(() => {
+      expect(within(document.body).getByText('My Account')).toBeInTheDocument();
+    });
+    
+    // Hover over "Invite users" to open submenu
+    const inviteUsersItem = within(document.body).getByText('Invite users');
+    await userEvent.hover(inviteUsersItem);
+    
+    // Wait for submenu to appear
+    await waitFor(() => {
+      expect(within(document.body).getByText('Email')).toBeInTheDocument();
+      expect(within(document.body).getByText('Message')).toBeInTheDocument();
+    });
+    
+    // Click on Email in submenu
+    const emailItem = within(document.body).getByText('Email');
+    await userEvent.click(emailItem);
+    
+    // Menu should close after clicking
+    await waitFor(() => {
+      expect(within(document.body).queryByText('My Account')).not.toBeInTheDocument();
+    });
+  },
 };
 
 function ComplexExampleComponent() {
@@ -323,6 +478,57 @@ function ComplexExampleComponent() {
 
 export const ComplexExample: Story = {
   render: () => <ComplexExampleComponent />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open dropdown
+    const triggerButton = canvas.getByRole('button', { name: /open complex menu/i });
+    await userEvent.click(triggerButton);
+    
+    // Wait for menu to appear
+    await waitFor(() => {
+      expect(within(document.body).getByText('Preferences')).toBeInTheDocument();
+    });
+    
+    // Test checkbox interaction - toggle bookmarks
+    const bookmarksCheckbox = within(document.body).getByRole('menuitemcheckbox', { name: /show bookmarks/i });
+    expect(bookmarksCheckbox).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(bookmarksCheckbox);
+    expect(bookmarksCheckbox).toHaveAttribute('aria-checked', 'false');
+    
+    // Test radio group - select Colm Tuite
+    const colmRadio = within(document.body).getByRole('menuitemradio', { name: /colm tuite/i });
+    expect(colmRadio).toHaveAttribute('aria-checked', 'false');
+    await userEvent.click(colmRadio);
+    expect(colmRadio).toHaveAttribute('aria-checked', 'true');
+    
+    // Test nested submenu - hover over Teams
+    const teamsItem = within(document.body).getByText('Teams');
+    await userEvent.hover(teamsItem);
+    
+    // Wait for Teams submenu
+    await waitFor(() => {
+      expect(within(document.body).getByText('Design Team')).toBeInTheDocument();
+    });
+    
+    // Hover over More Teams to open nested submenu
+    const moreTeamsItem = within(document.body).getByText('More Teams');
+    await userEvent.hover(moreTeamsItem);
+    
+    // Wait for nested submenu
+    await waitFor(() => {
+      expect(within(document.body).getByText('Marketing')).toBeInTheDocument();
+    });
+    
+    // Click Marketing
+    const marketingItem = within(document.body).getByText('Marketing');
+    await userEvent.click(marketingItem);
+    
+    // Menu should close
+    await waitFor(() => {
+      expect(within(document.body).queryByText('Preferences')).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const WithCustomTrigger: Story = {
@@ -353,4 +559,30 @@ export const WithCustomTrigger: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find custom trigger button (avatar button with JD initials)
+    const triggerButton = canvas.getByText('JD');
+    await userEvent.click(triggerButton);
+    
+    // Wait for menu to appear
+    await waitFor(() => {
+      expect(within(document.body).getByText('John Doe')).toBeInTheDocument();
+    });
+    
+    // Verify menu items
+    expect(within(document.body).getByText('Profile')).toBeInTheDocument();
+    expect(within(document.body).getByText('Settings')).toBeInTheDocument();
+    expect(within(document.body).getByText('Log out')).toBeInTheDocument();
+    
+    // Click Settings
+    const settingsItem = within(document.body).getByText('Settings').closest('[role="menuitem"]');
+    await userEvent.click(settingsItem!);
+    
+    // Menu should close
+    await waitFor(() => {
+      expect(within(document.body).queryByText('John Doe')).not.toBeInTheDocument();
+    });
+  },
 };

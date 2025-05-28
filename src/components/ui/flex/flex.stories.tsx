@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 import { Flex } from "./flex";
 
 const BoxItem = ({ className, children }: { className?: string; children?: React.ReactNode }) => (
@@ -116,6 +117,20 @@ export const WrapExample: Story = {
       </>
     ),
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify wrap is enabled
+    const flexContainer = canvas.getByTestId('flex-container');
+    expect(flexContainer).toHaveClass('flex-wrap');
+    
+    // Verify 6 items are rendered
+    const boxes = canvas.getAllByText(/^[1-6]$/);
+    expect(boxes).toHaveLength(6);
+    
+    // Verify constrained width
+    expect(flexContainer).toHaveClass('w-[300px]');
+  },
 };
 
 export const RowReverse: Story = {
@@ -138,6 +153,20 @@ export const AlignStretch: Story = {
       </>
     ),
   },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify stretch alignment
+    const flexContainer = canvas.getByTestId('flex-container');
+    expect(flexContainer).toHaveClass('items-stretch');
+    
+    // Verify container has height
+    expect(flexContainer).toHaveClass('h-32');
+    
+    // Verify children
+    const boxes = flexContainer.querySelectorAll('.h-full');
+    expect(boxes).toHaveLength(3);
+  },
 };
 
 export const ResponsiveLayout: Story = {
@@ -155,6 +184,24 @@ export const ResponsiveLayout: Story = {
     viewport: {
       defaultViewport: "responsive",
     },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify responsive classes are applied
+    const flexContainer = canvas.getByTestId('flex-container');
+    expect(flexContainer).toHaveClass('flex-col');
+    expect(flexContainer).toHaveClass('sm:flex-row');
+    expect(flexContainer).toHaveClass('sm:items-center');
+    
+    // Verify responsive box items
+    const boxes = canvas.getAllByText(/Responsive|Layout|Example/);
+    expect(boxes).toHaveLength(3);
+    for (const box of boxes) {
+      const parent = box.parentElement;
+      expect(parent).toHaveClass('w-full');
+      expect(parent).toHaveClass('sm:w-auto');
+    }
   },
 };
 
@@ -179,4 +226,33 @@ export const ComplexAlignment: Story = {
       </Flex>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify the outer container
+    const container = canvas.getByRole('region').firstElementChild;
+    expect(container).toHaveClass('space-y-8');
+    
+    // Verify first flex layout (justify-between)
+    const firstFlex = container?.querySelector('.justify-between');
+    expect(firstFlex).toHaveClass('bg-muted/50');
+    expect(firstFlex).toHaveClass('p-4');
+    
+    // Verify nested flex in first section
+    const nestedFlex = firstFlex?.querySelector('.gap-2');
+    expect(nestedFlex).toBeInTheDocument();
+    
+    // Verify second flex layout (column direction)
+    const columnFlex = container?.querySelector('.flex-col');
+    expect(columnFlex).toHaveClass('bg-muted/50');
+    
+    // Verify complex layout has all expected text
+    expect(canvas.getByText('Left')).toBeInTheDocument();
+    expect(canvas.getByText('Right 1')).toBeInTheDocument();
+    expect(canvas.getByText('Right 2')).toBeInTheDocument();
+    expect(canvas.getByText('Header')).toBeInTheDocument();
+    expect(canvas.getByText('Content 1')).toBeInTheDocument();
+    expect(canvas.getByText('Content 2')).toBeInTheDocument();
+    expect(canvas.getByText('Footer')).toBeInTheDocument();
+  },
 };

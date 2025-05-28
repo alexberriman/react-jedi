@@ -177,3 +177,6 @@ examples/dist
 # Playwright
 test-results/
 playwright-report/
+
+# Generated analysis files
+missing-play-functions.txt

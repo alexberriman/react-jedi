@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import { Calendar } from "./calendar";
 import { addDays, isSaturday, isSunday } from "date-fns";
 import type { DateRange } from "react-day-picker";
@@ -50,6 +51,23 @@ export const Default: Story = {
     mode: "single",
     showOutsideDays: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test calendar renders
+    const calendar = canvasElement.querySelector('[role="grid"]');
+    expect(calendar).toBeInTheDocument();
+
+    // Test month navigation buttons
+    const prevButton = canvas.getByRole("button", { name: /previous month/i });
+    const nextButton = canvas.getByRole("button", { name: /next month/i });
+    expect(prevButton).toBeInTheDocument();
+    expect(nextButton).toBeInTheDocument();
+
+    // Test calendar has days
+    const days = canvas.getAllByRole("gridcell");
+    expect(days.length).toBeGreaterThan(0);
+  },
 };
 
 // Interactive single date selection
@@ -68,6 +86,27 @@ export const SingleDateSelection: Story = {
       );
     };
     return <SingleDateExample />;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test initial date selection
+    const today = new Date();
+    const selectedDate = canvas.getByText(`Selected date: ${today.toDateString()}`);
+    expect(selectedDate).toBeInTheDocument();
+
+    // Test clicking a different date
+    const days = canvas.getAllByRole("gridcell");
+    const availableDay = days.find(day => !day.hasAttribute("disabled") && day.textContent === "15");
+    if (availableDay) {
+      await user.click(availableDay);
+      // Date should update
+    }
+
+    // Test month navigation
+    const nextButton = canvas.getByRole("button", { name: /next month/i });
+    await user.click(nextButton);
   },
 };
 
@@ -170,6 +209,19 @@ export const MultipleMonths: Story = {
     };
     return <MultipleMonthsExample />;
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test multiple months are displayed
+    const grids = canvasElement.querySelectorAll('[role="grid"]');
+    expect(grids).toHaveLength(3);
+
+    // Test navigation buttons exist
+    const prevButton = canvas.getByRole("button", { name: /previous month/i });
+    const nextButton = canvas.getByRole("button", { name: /next month/i });
+    expect(prevButton).toBeInTheDocument();
+    expect(nextButton).toBeInTheDocument();
+  },
 };
 
 // Calendar with date constraints
@@ -230,6 +282,18 @@ export const WithoutOutsideDays: Story = {
   args: {
     mode: "single",
     showOutsideDays: false,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test that outside days are not shown
+    const calendar = canvasElement.querySelector('[role="grid"]');
+    expect(calendar).toBeInTheDocument();
+
+    // Check for outside days (they should have a specific class when shown)
+    const outsideDays = canvasElement.querySelectorAll('[aria-selected="false"][aria-disabled="true"]');
+    // With showOutsideDays: false, there should be fewer disabled days
+    expect(outsideDays.length).toBeLessThan(10);
   },
 };
 

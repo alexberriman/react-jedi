@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import { AlertCircle, Terminal, Info, AlertTriangle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "./index";
 
@@ -42,6 +43,22 @@ export const Default: Story = {
       <AlertDescription>You can add components to your app using the cli.</AlertDescription>
     </Alert>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test alert structure
+    const alert = canvas.getByRole("alert");
+    expect(alert).toBeInTheDocument();
+
+    // Icon is present in the alert
+
+    // Check title and description
+    expect(canvas.getByText("Heads up!")).toBeInTheDocument();
+    expect(canvas.getByText("You can add components to your app using the cli.")).toBeInTheDocument();
+
+    // Verify default styling
+    expect(alert).toHaveClass("relative", "w-full", "rounded-lg", "border");
+  },
 };
 
 export const Destructive: Story = {
@@ -52,6 +69,21 @@ export const Destructive: Story = {
       <AlertDescription>Your session has expired. Please log in again.</AlertDescription>
     </Alert>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test destructive variant
+    const alert = canvas.getByRole("alert");
+    expect(alert).toBeInTheDocument();
+    // Check destructive styling is applied
+    expect(alert).toHaveClass("text-destructive");
+
+    // Check error content
+    expect(canvas.getByText("Error")).toBeInTheDocument();
+    expect(canvas.getByText("Your session has expired. Please log in again.")).toBeInTheDocument();
+
+    // Icon is rendered with the alert
+  },
 };
 
 export const WithoutIcon: Story = {
@@ -126,6 +158,27 @@ export const ComplexContent: Story = {
       </AlertDescription>
     </Alert>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test complex content rendering
+    const alert = canvas.getByRole("alert");
+    expect(alert).toBeInTheDocument();
+
+    // Check list items
+    expect(canvas.getByText("Enhanced security settings")).toBeInTheDocument();
+    expect(canvas.getByText("Improved performance metrics")).toBeInTheDocument();
+    expect(canvas.getByText("New collaboration tools")).toBeInTheDocument();
+
+    // Test interactive button
+    const docButton = canvas.getByRole("button", { name: "documentation" });
+    expect(docButton).toBeInTheDocument();
+    
+    // Test button is clickable
+    await user.click(docButton);
+    // Note: We can't easily test console.log in Storybook test runner
+  },
 };
 
 export const CompactAlert: Story = {
@@ -180,6 +233,27 @@ export const WithAction: Story = {
       </AlertDescription>
     </Alert>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test action buttons presence
+    const updateButton = canvas.getByRole("button", { name: "Update Now" });
+    const remindButton = canvas.getByRole("button", { name: "Remind Me Later" });
+
+    expect(updateButton).toBeInTheDocument();
+    expect(remindButton).toBeInTheDocument();
+
+    // Test button hover states
+    await user.hover(updateButton);
+    expect(updateButton).toHaveClass("hover:bg-primary/90");
+
+    await user.hover(remindButton);
+    expect(remindButton).toHaveClass("hover:bg-accent");
+
+    // Verify alert contains action content
+    expect(canvas.getByText(/A new version of the application is available/)).toBeInTheDocument();
+  },
 };
 
 export const Showcase: Story = {

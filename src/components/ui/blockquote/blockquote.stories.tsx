@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import { BlockQuote } from "./blockquote";
 
 const meta = {
@@ -58,6 +59,20 @@ export const Default: Story = {
     children: "The future belongs to those who believe in the beauty of their dreams.",
     author: "Eleanor Roosevelt",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test blockquote content
+    const quote = canvas.getByText("The future belongs to those who believe in the beauty of their dreams.");
+    expect(quote).toBeInTheDocument();
+
+    // Test author is rendered
+    expect(canvas.getByText("Eleanor Roosevelt")).toBeInTheDocument();
+
+    // Test blockquote element exists
+    const blockquote = canvasElement.querySelector('blockquote');
+    expect(blockquote).toBeInTheDocument();
+  },
 };
 
 export const Variants: Story = {
@@ -107,6 +122,22 @@ export const Variants: Story = {
       </BlockQuote>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all variants are rendered
+    const blockquotes = canvasElement.querySelectorAll('blockquote');
+    expect(blockquotes).toHaveLength(6);
+
+    // Test specific quotes
+    expect(canvas.getByText("Design is not just what it looks like and feels like. Design is how it works.")).toBeInTheDocument();
+    expect(canvas.getByText("Innovation distinguishes between a leader and a follower.")).toBeInTheDocument();
+    expect(canvas.getByText("Stay hungry, stay foolish.")).toBeInTheDocument();
+
+    // Test all have Steve Jobs attribution
+    const steveJobs = canvas.getAllByText("Steve Jobs");
+    expect(steveJobs).toHaveLength(6);
+  },
 };
 
 export const Sizes: Story = {
@@ -224,6 +255,22 @@ export const WithAuthorAndCite: Story = {
       </BlockQuote>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test authors are displayed
+    expect(canvas.getByText("Leonardo da Vinci")).toBeInTheDocument();
+    expect(canvas.getByText("Martin Luther King Jr.")).toBeInTheDocument();
+    expect(canvas.getByText("Maya Angelou")).toBeInTheDocument();
+
+    // Test citations are displayed
+    expect(canvas.getByText("Notebooks, 1519")).toBeInTheDocument();
+    expect(canvas.getByText("Letter from Birmingham Jail, 1963")).toBeInTheDocument();
+    expect(canvas.getByText("I Know Why the Caged Bird Sings")).toBeInTheDocument();
+
+    // Test quote content
+    expect(canvas.getByText("Simplicity is the ultimate sophistication.")).toBeInTheDocument();
+  },
 };
 
 export const WithAnimation: Story = {

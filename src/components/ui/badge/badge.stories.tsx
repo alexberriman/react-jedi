@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import { Badge } from "./badge";
 
 const meta = {
@@ -39,6 +40,17 @@ export const Default: Story = {
   args: {
     variant: "default",
     children: "Default",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test badge renders with correct text
+    const badge = canvas.getByText("Default");
+    expect(badge).toBeInTheDocument();
+
+    // Test badge structure
+    const badgeElement = canvasElement.querySelector('[data-slot="badge"]');
+    expect(badgeElement).toBeInTheDocument();
   },
 };
 
@@ -96,6 +108,20 @@ export const BadgeGroup: Story = {
       <Badge variant="outline">Outline</Badge>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all badge variants are rendered
+    expect(canvas.getByText("Default")).toBeInTheDocument();
+    expect(canvas.getByText("Secondary")).toBeInTheDocument();
+    expect(canvas.getByText("Destructive")).toBeInTheDocument();
+    expect(canvas.getByText("Outline")).toBeInTheDocument();
+
+    // Test badges are in a flex container
+    const container = canvasElement.querySelector(".flex.flex-wrap.gap-2");
+    expect(container).toBeInTheDocument();
+    expect(container?.children).toHaveLength(4);
+  },
 };
 
 export const InteractiveBadge: Story = {
@@ -104,6 +130,22 @@ export const InteractiveBadge: Story = {
       <Badge variant="default">Interactive Badge</Badge>
     </a>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test badge is wrapped in a link
+    const link = canvasElement.querySelector('a[href="/example-page"]');
+    expect(link).toBeInTheDocument();
+
+    // Test badge text
+    const badge = canvas.getByText("Interactive Badge");
+    expect(badge).toBeInTheDocument();
+
+    // Test hover interaction
+    await user.hover(badge);
+    // Badge should be interactive when wrapped in link
+  },
 };
 
 export const CounterBadge: Story = {
@@ -131,6 +173,22 @@ export const StatusBadge: Story = {
       </Badge>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all status badges are rendered
+    expect(canvas.getByText("Online")).toBeInTheDocument();
+    expect(canvas.getByText("Away")).toBeInTheDocument();
+    expect(canvas.getByText("Offline")).toBeInTheDocument();
+
+    // Test status indicators (dots) exist
+    const statusDots = canvasElement.querySelectorAll(".h-2.w-2.rounded-full.bg-white");
+    expect(statusDots).toHaveLength(3);
+
+    // Test custom colors are applied
+    const onlineBadge = canvas.getByText("Online").closest('[data-slot="badge"]');
+    expect(onlineBadge).toHaveClass("bg-green-500");
+  },
 };
 
 export const CustomColoredBadge: Story = {

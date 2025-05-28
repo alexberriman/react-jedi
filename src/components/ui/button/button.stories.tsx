@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import { Button } from "./button";
 
 const meta = {
@@ -48,6 +49,20 @@ export const Default: Story = {
   args: {
     variant: "default",
     size: "default",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test button renders
+    const button = canvas.getByRole("button", { name: "Button" });
+    expect(button).toBeInTheDocument();
+
+    // Test button can be clicked
+    await user.click(button);
+
+    // Test default styling
+    expect(button).toHaveAttribute("data-slot", "button");
   },
 };
 
@@ -105,6 +120,22 @@ export const Disabled: Story = {
     children: "Disabled",
     disabled: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test disabled button
+    const button = canvas.getByRole("button", { name: "Disabled" });
+    expect(button).toBeInTheDocument();
+    expect(button).toBeDisabled();
+
+    // Test clicking disabled button does nothing
+    await user.click(button);
+    expect(button).toBeDisabled();
+
+    // Test disabled attribute is present
+    expect(button).toHaveAttribute("disabled");
+  },
 };
 
 export const WithIcon: Story = {
@@ -152,6 +183,24 @@ export const IconOnly: Story = {
       </svg>
     ),
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test icon button
+    const button = canvas.getByRole("button", { name: "Settings" });
+    expect(button).toBeInTheDocument();
+
+    // Test icon size class
+    expect(button).toHaveClass("size-9");
+
+    // Test hover interaction
+    await user.hover(button);
+
+    // Test keyboard interaction
+    button.focus();
+    await user.keyboard("{Enter}");
+  },
 };
 
 export const ButtonGroup: Story = {
@@ -161,6 +210,24 @@ export const ButtonGroup: Story = {
       <Button>Submit</Button>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test both buttons exist
+    const cancelButton = canvas.getByRole("button", { name: "Cancel" });
+    const submitButton = canvas.getByRole("button", { name: "Submit" });
+
+    expect(cancelButton).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+
+    // Test button variants
+    expect(cancelButton).toHaveClass("border", "border-input");
+    expect(submitButton).toHaveClass("bg-primary");
+
+    // Test button group layout
+    const container = canvasElement.querySelector(".inline-flex.gap-2");
+    expect(container).toBeInTheDocument();
+  },
 };
 
 export const Loading: Story = {

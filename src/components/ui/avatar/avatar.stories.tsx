@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within, waitFor } from "@storybook/test";
 import { Avatar, AvatarImage, AvatarFallback } from "./avatar";
 
 const meta = {
@@ -26,6 +27,17 @@ export const Default: Story = {
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test avatar renders
+    const avatarContainer = canvasElement.querySelector('[data-slot="avatar"]');
+    expect(avatarContainer).toBeInTheDocument();
+
+    // Check fallback text exists
+    const fallback = canvas.getByText("CN");
+    expect(fallback).toBeInTheDocument();
+  },
 };
 
 export const WithFallback: Story = {
@@ -35,6 +47,20 @@ export const WithFallback: Story = {
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Wait for fallback to appear (image should fail to load)
+    await waitFor(() => {
+      const fallback = canvas.getByText("CN");
+      expect(fallback).toBeVisible();
+    });
+
+    // Verify broken image exists but may be hidden
+    const img = canvasElement.querySelector("img");
+    expect(img).toBeTruthy();
+    expect(img).toBeInTheDocument();
+  },
 };
 
 export const CustomSizes: Story = {
@@ -62,6 +88,23 @@ export const CustomSizes: Story = {
       </Avatar>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test multiple avatar sizes are rendered
+    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    expect(avatars).toHaveLength(5);
+
+    // Check each avatar has the correct size class
+    const container = canvasElement.querySelector(".flex");
+    const avatarElements = container?.querySelectorAll("[class*='size-']");
+    
+    expect(avatarElements?.[0]).toHaveClass("size-6");
+    expect(avatarElements?.[1]).toHaveClass("size-8");
+    expect(avatarElements?.[2]).toHaveClass("size-10");
+    expect(avatarElements?.[3]).toHaveClass("size-12");
+    expect(avatarElements?.[4]).toHaveClass("size-16");
+  },
 };
 
 export const CustomFallbackColors: Story = {
@@ -134,6 +177,27 @@ export const AvatarGroup: Story = {
       </Avatar>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test avatar group layout
+    const container = canvasElement.querySelector(".flex.-space-x-2");
+    expect(container).toBeInTheDocument();
+
+    // Check overlapping avatars
+    expect(canvas.getByText("JD")).toBeInTheDocument();
+    expect(canvas.getByText("WK")).toBeInTheDocument();
+    expect(canvas.getByText("AB")).toBeInTheDocument();
+
+    // Check count indicator
+    const countIndicator = canvas.getByText("+3");
+    expect(countIndicator).toBeInTheDocument();
+    expect(countIndicator).toHaveClass("text-xs", "font-medium");
+
+    // Verify borders
+    const avatarsWithBorders = canvasElement.querySelectorAll(".border-2.border-background");
+    expect(avatarsWithBorders.length).toBeGreaterThanOrEqual(4);
+  },
 };
 
 export const WithBorder: Story = {
@@ -178,4 +242,19 @@ export const WithImageHoverEffect: Story = {
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test hover effect
+    const avatar = canvasElement.querySelector(".group");
+    expect(avatar).toBeInTheDocument();
+
+    // Verify the avatar has group class for hover effects
+    expect(avatar).toHaveClass("group");
+
+    // Simulate hover
+    await user.hover(avatar!);
+    // Note: CSS hover effects can't be fully tested in jsdom
+  },
 };

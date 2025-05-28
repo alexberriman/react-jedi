@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import { AspectRatio } from "./aspect-ratio";
 
 const meta: Meta<typeof AspectRatio> = {
@@ -34,6 +35,22 @@ export const Default: Story = {
       </AspectRatio>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test aspect ratio container
+    const container = canvas.getByRole("img").parentElement;
+    expect(container).toBeInTheDocument();
+
+    // Test image presence and attributes
+    const image = canvas.getByRole("img", { name: "A futuristic cityscape with neon lights" });
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveClass("object-cover", "w-full", "h-full", "rounded-md");
+
+    // Verify aspect ratio is applied
+    const aspectRatioWrapper = container;
+    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+  },
 };
 
 export const Square: Story = {
@@ -51,6 +68,17 @@ export const Square: Story = {
       </AspectRatio>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test square aspect ratio
+    const image = canvas.getByRole("img", { name: "Abstract geometric art with vibrant colors" });
+    expect(image).toBeInTheDocument();
+
+    // Verify aspect ratio container exists
+    const aspectRatioWrapper = image.parentElement;
+    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+  },
 };
 
 export const Portrait: Story = {
@@ -68,6 +96,17 @@ export const Portrait: Story = {
       </AspectRatio>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test portrait aspect ratio
+    const image = canvas.getByRole("img", { name: "A portrait photograph" });
+    expect(image).toBeInTheDocument();
+
+    // Verify aspect ratio container exists
+    const aspectRatioWrapper = image.parentElement;
+    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+  },
 };
 
 export const WithContent: Story = {
@@ -86,4 +125,21 @@ export const WithContent: Story = {
       </AspectRatio>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test content rendering
+    const heading = canvas.getByText("Stunning UI Components");
+    const description = canvas.getByText("Create beautiful, responsive interfaces with precise aspect ratios");
+
+    expect(heading).toBeInTheDocument();
+    expect(heading).toHaveClass("text-2xl", "font-bold");
+
+    expect(description).toBeInTheDocument();
+    expect(description).toHaveClass("text-center");
+
+    // Test gradient background
+    const aspectRatioElement = heading.closest('[class*="bg-gradient"]');
+    expect(aspectRatioElement).toHaveClass("bg-gradient-to-r", "from-purple-500", "to-indigo-600", "rounded-xl");
+  },
 };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -47,6 +48,24 @@ export const Default: Story = {
       </BreadcrumbList>
     </Breadcrumb>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test breadcrumb navigation structure
+    const nav = canvasElement.querySelector('nav[aria-label="breadcrumb"]');
+    expect(nav).toBeInTheDocument();
+
+    // Test links
+    const homeLink = canvas.getByRole("link", { name: "Home" });
+    const dashboardLink = canvas.getByRole("link", { name: "Dashboard" });
+    expect(homeLink).toHaveAttribute("href", "/");
+    expect(dashboardLink).toHaveAttribute("href", "/dashboard");
+
+    // Test current page
+    const currentPage = canvas.getByText("Settings");
+    expect(currentPage).toBeInTheDocument();
+    expect(currentPage).toHaveAttribute("aria-current", "page");
+  },
 };
 
 export const WithHomeIcon: Story = {
@@ -96,6 +115,20 @@ export const WithEllipsis: Story = {
       </BreadcrumbList>
     </Breadcrumb>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test ellipsis exists
+    const ellipsis = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"]');
+    expect(ellipsis).toBeInTheDocument();
+    expect(ellipsis).toHaveAttribute("aria-hidden", "true");
+
+    // Test other elements
+    const parentLink = canvas.getByRole("link", { name: "Parent" });
+    expect(parentLink).toHaveAttribute("href", "/parent");
+    expect(canvas.getByText("Current Page")).toBeInTheDocument();
+  },
 };
 
 export const CustomSeparator: Story = {
@@ -151,6 +184,30 @@ export const ComplexExample: Story = {
       </BreadcrumbList>
     </Breadcrumb>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all links
+    const dashboardLink = canvas.getByRole("link", { name: "Dashboard" });
+    const projectsLink = canvas.getByRole("link", { name: "Projects" });
+    const reactJediLink = canvas.getByRole("link", { name: "React Jedi" });
+
+    expect(dashboardLink).toHaveAttribute("href", "/");
+    expect(projectsLink).toHaveAttribute("href", "/projects");
+    expect(reactJediLink).toHaveAttribute("href", "/projects/react-jedi");
+
+    // Test ellipsis exists
+    const ellipsis = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"]');
+    expect(ellipsis).toBeInTheDocument();
+
+    // Test current page
+    expect(canvas.getByText("Settings")).toHaveAttribute("aria-current", "page");
+
+    // Test home icon is visible
+    const homeIcon = canvasElement.querySelector("svg");
+    expect(homeIcon).toBeTruthy();
+    expect(homeIcon).toBeInTheDocument();
+  },
 };
 
 export const ResponsiveBreadcrumb: Story = {

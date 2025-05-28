@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { render } from "@/lib/render";
 
@@ -62,6 +63,44 @@ export const Single: Story = {
       </AccordionItem>
     </Accordion>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test single accordion behavior
+    const trigger1 = canvas.getByText("Is it accessible?");
+    const trigger2 = canvas.getByText("Is it styled?");
+    const trigger3 = canvas.getByText("Is it animated?");
+
+    // Initially all items should be collapsed
+    expect(trigger1).toHaveAttribute("data-state", "closed");
+    expect(trigger2).toHaveAttribute("data-state", "closed");
+    expect(trigger3).toHaveAttribute("data-state", "closed");
+
+    // Click first item - should expand
+    await user.click(trigger1);
+    expect(trigger1).toHaveAttribute("data-state", "open");
+    // Check content is present (may not be immediately visible due to animation)
+    expect(canvas.getByText("Yes. It adheres to the WAI-ARIA design pattern.")).toBeInTheDocument();
+
+    // Click second item - first should collapse, second should expand
+    await user.click(trigger2);
+    expect(trigger1).toHaveAttribute("data-state", "closed");
+    expect(trigger2).toHaveAttribute("data-state", "open");
+
+    // Click second item again - should collapse (collapsible is true)
+    await user.click(trigger2);
+    expect(trigger2).toHaveAttribute("data-state", "closed");
+
+    // Test keyboard navigation
+    await user.click(trigger1);
+    await user.keyboard("{ArrowDown}");
+    expect(trigger2).toHaveFocus();
+    
+    await user.keyboard("{Enter}");
+    expect(trigger2).toHaveAttribute("data-state", "open");
+    expect(trigger1).toHaveAttribute("data-state", "closed");
+  },
 };
 
 export const Multiple: Story = {
@@ -90,6 +129,38 @@ export const Multiple: Story = {
       </AccordionItem>
     </Accordion>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test multiple accordion behavior
+    const trigger1 = canvas.getByText("Section 1");
+    const trigger2 = canvas.getByText("Section 2");
+    const trigger3 = canvas.getByText("Section 3");
+
+    // Check default expanded items
+    expect(trigger1).toHaveAttribute("data-state", "open");
+    expect(trigger2).toHaveAttribute("data-state", "closed");
+    expect(trigger3).toHaveAttribute("data-state", "open");
+
+    // Click second item - should expand without closing others
+    await user.click(trigger2);
+    expect(trigger1).toHaveAttribute("data-state", "open");
+    expect(trigger2).toHaveAttribute("data-state", "open");
+    expect(trigger3).toHaveAttribute("data-state", "open");
+
+    // Click first item - should collapse
+    await user.click(trigger1);
+    expect(trigger1).toHaveAttribute("data-state", "closed");
+    expect(trigger2).toHaveAttribute("data-state", "open");
+    expect(trigger3).toHaveAttribute("data-state", "open");
+
+    // Verify multiple items can be expanded simultaneously
+    await user.click(trigger1);
+    expect(trigger1).toHaveAttribute("data-state", "open");
+    expect(trigger2).toHaveAttribute("data-state", "open");
+    expect(trigger3).toHaveAttribute("data-state", "open");
+  },
 };
 
 export const NonCollapsible: Story = {
@@ -141,6 +212,28 @@ export const WithDisabledItems: Story = {
       </AccordionItem>
     </Accordion>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    const enabledTrigger1 = canvas.getByText("Enabled Item");
+    const disabledTrigger = canvas.getByText("Disabled Item");
+    const enabledTrigger2 = canvas.getByText("Another Enabled Item");
+
+    // Test disabled item behavior
+    expect(disabledTrigger).toHaveAttribute("data-disabled");
+    
+    // Disabled items cannot be clicked - just verify they stay closed
+    expect(disabledTrigger).toHaveAttribute("data-state", "closed");
+
+    // Enabled items should work normally
+    await user.click(enabledTrigger1);
+    expect(enabledTrigger1).toHaveAttribute("data-state", "open");
+
+    await user.click(enabledTrigger2);
+    expect(enabledTrigger2).toHaveAttribute("data-state", "open");
+    expect(enabledTrigger1).toHaveAttribute("data-state", "closed");
+  },
 };
 
 export const LongContent: Story = {

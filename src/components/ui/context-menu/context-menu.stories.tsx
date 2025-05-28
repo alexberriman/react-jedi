@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from "@storybook/react";
 import * as React from "react";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor, screen } from "@storybook/test";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -97,29 +97,29 @@ Default.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   const trigger = canvas.getByText('Right-click me to open the context menu');
   
   // Right-click to open context menu
-  await userEvent.pointer({
-    keys: '[MouseRight]',
-    target: trigger,
-  });
+  await userEvent.pointer([
+    { target: trigger, keys: '[MouseRight]' }
+  ]);
   
-  // Wait for menu to appear
+  // Wait for menu to appear - use screen since menus are often portaled
   await waitFor(() => {
-    expect(canvas.getByText('Profile')).toBeInTheDocument();
-  });
+    const profileItem = screen.queryByText('Profile');
+    expect(profileItem).toBeInTheDocument();
+  }, { timeout: 10_000 });
   
   // Verify all menu items are visible
-  expect(canvas.getByText('Settings')).toBeInTheDocument();
-  expect(canvas.getByText('Copy')).toBeInTheDocument();
-  expect(canvas.getByText('Cut')).toBeInTheDocument();
-  expect(canvas.getByText('Paste')).toBeInTheDocument();
-  expect(canvas.getByText('Delete')).toBeInTheDocument();
+  expect(screen.getByText('Settings')).toBeInTheDocument();
+  expect(screen.getByText('Copy')).toBeInTheDocument();
+  expect(screen.getByText('Cut')).toBeInTheDocument();
+  expect(screen.getByText('Paste')).toBeInTheDocument();
+  expect(screen.getByText('Delete')).toBeInTheDocument();
   
   // Click on Copy menu item
-  await userEvent.click(canvas.getByText('Copy'));
+  await userEvent.click(screen.getByText('Copy'));
   
   // Verify menu closes after clicking
   await waitFor(() => {
-    expect(canvas.queryByText('Profile')).not.toBeInTheDocument();
+    expect(screen.queryByText('Profile')).not.toBeInTheDocument();
   });
 };
 
@@ -163,22 +163,26 @@ WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLEleme
   
   // Find and right-click the trigger
   const trigger = canvas.getByText('Right-click for advanced options');
-  await userEvent.pointer({
-    keys: '[MouseRight]',
-    target: trigger,
-  });
+  await userEvent.pointer([
+    { target: trigger, keys: '[MouseRight]' }
+  ]);
   
   // Wait for menu to appear
   await waitFor(() => {
-    expect(canvas.getByText('Preferences')).toBeInTheDocument();
-  });
+    const preferencesLabel = screen.queryByText('Preferences');
+    expect(preferencesLabel).toBeInTheDocument();
+  }, { timeout: 10_000 });
   
-  // Find and click the checkbox
-  const checkbox = canvas.getByText('Show notifications');
+  // Find and click the checkbox - add timeout
+  await waitFor(() => {
+    const checkbox = screen.getByText('Show notifications');
+    expect(checkbox).toBeInTheDocument();
+  }, { timeout: 10_000 });
+  const checkbox = screen.getByText('Show notifications');
   await userEvent.click(checkbox);
   
   // Click on a radio option
-  const highPriority = canvas.getByText('High');
+  const highPriority = screen.getByText('High');
   await userEvent.click(highPriority);
   
   // Click outside to close menu
@@ -186,7 +190,7 @@ WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLEleme
   
   // Verify menu is closed
   await waitFor(() => {
-    expect(canvas.queryByText('Preferences')).not.toBeInTheDocument();
+    expect(screen.queryByText('Preferences')).not.toBeInTheDocument();
   });
 };
 
@@ -242,40 +246,40 @@ WithSubMenu.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => 
   
   // Right-click to open context menu
   const trigger = canvas.getByText('Right-click for nested menus');
-  await userEvent.pointer({
-    keys: '[MouseRight]',
-    target: trigger,
-  });
+  await userEvent.pointer([
+    { target: trigger, keys: '[MouseRight]' }
+  ]);
   
   // Wait for menu to appear
   await waitFor(() => {
-    expect(canvas.getByText('Add to favorites')).toBeInTheDocument();
-  });
+    const favoritesItem = screen.queryByText('Add to favorites');
+    expect(favoritesItem).toBeInTheDocument();
+  }, { timeout: 10_000 });
   
   // Hover over Share to open submenu
-  const shareItem = canvas.getByText('Share');
+  const shareItem = screen.getByText('Share');
   await userEvent.hover(shareItem);
   
   // Wait for submenu to appear
   await waitFor(() => {
-    expect(canvas.getByText('Copy link')).toBeInTheDocument();
+    expect(screen.getByText('Copy link')).toBeInTheDocument();
   });
   
   // Hover over "More options" to open nested submenu
-  const moreOptions = canvas.getByText('More options');
+  const moreOptions = screen.getByText('More options');
   await userEvent.hover(moreOptions);
   
   // Wait for nested submenu
   await waitFor(() => {
-    expect(canvas.getByText('Twitter')).toBeInTheDocument();
+    expect(screen.getByText('Twitter')).toBeInTheDocument();
   });
   
   // Click on Twitter option
-  await userEvent.click(canvas.getByText('Twitter'));
+  await userEvent.click(screen.getByText('Twitter'));
   
   // Verify menu closes
   await waitFor(() => {
-    expect(canvas.queryByText('Add to favorites')).not.toBeInTheDocument();
+    expect(screen.queryByText('Add to favorites')).not.toBeInTheDocument();
   });
 };
 
@@ -422,40 +426,41 @@ export const Modern2025: StoryFn = () => {
 Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   const canvas = within(canvasElement);
   
-  // Right-click the trigger
-  const trigger = canvas.getByText('Advanced Context Menu');
-  await userEvent.pointer({
-    keys: '[MouseRight]',
-    target: trigger,
-  });
+  // Right-click the trigger - use the parent element instead of the text
+  const triggerText = canvas.getByText('Advanced Context Menu');
+  const trigger = triggerText.closest('[class*="cursor-context-menu"]') || triggerText;
+  await userEvent.pointer([
+    { target: trigger, keys: '[MouseRight]' }
+  ]);
   
   // Wait for menu to appear
   await waitFor(() => {
-    expect(canvas.getByText('Theme Options')).toBeInTheDocument();
-  });
+    const themeOptions = screen.queryByText('Theme Options');
+    expect(themeOptions).toBeInTheDocument();
+  }, { timeout: 10_000 });
   
   // Click on Glass Mode radio option
-  const glassMode = canvas.getByText('Glass Mode');
+  const glassMode = screen.getByText('Glass Mode');
   await userEvent.click(glassMode);
   
   // Toggle the auto-save checkbox
-  const autoSave = canvas.getByText('Auto-save enabled');
+  const autoSave = screen.getByText('Auto-save enabled');
   await userEvent.click(autoSave);
   
   // Open the Advanced submenu
-  const advanced = canvas.getByText('Advanced');
+  const advanced = screen.getByText('Advanced');
   await userEvent.hover(advanced);
   
   // Wait for submenu
   await waitFor(() => {
-    expect(canvas.getByText('Export settings')).toBeInTheDocument();
+    expect(screen.getByText('Export settings')).toBeInTheDocument();
   });
   
   // Click Export settings
-  await userEvent.click(canvas.getByText('Export settings'));
+  await userEvent.click(screen.getByText('Export settings'));
   
   // Verify menu is closed
   await waitFor(() => {
-    expect(canvas.queryByText('Theme Options')).not.toBeInTheDocument();
+    expect(screen.queryByText('Theme Options')).not.toBeInTheDocument();
   });
 };

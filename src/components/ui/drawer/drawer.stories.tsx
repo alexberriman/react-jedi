@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor, screen } from "@storybook/test";
 import {
   Drawer,
   DrawerContent,
@@ -76,27 +76,27 @@ export const Default: Story = {
     const triggerButton = canvas.getByRole('button', { name: /open drawer/i });
     await userEvent.click(triggerButton);
     
-    // Wait for drawer to appear
+    // Wait for drawer to appear (drawer renders in a portal)
     await waitFor(() => {
-      expect(canvas.getByText('Edit Profile')).toBeInTheDocument();
+      expect(screen.getByText('Edit Profile')).toBeInTheDocument();
     });
     
-    // Interact with form fields
-    const nameInput = canvas.getByLabelText(/name/i);
+    // Interact with form fields - be more specific with the selector
+    const nameInput = screen.getByRole('textbox', { name: /^name$/i });
     await userEvent.clear(nameInput);
     await userEvent.type(nameInput, 'John Doe');
     
-    const bioTextarea = canvas.getByLabelText(/bio/i);
+    const bioTextarea = screen.getByLabelText(/bio/i);
     await userEvent.type(bioTextarea, 'This is my bio');
     
     // Click Cancel button
-    const cancelButton = canvas.getByRole('button', { name: /cancel/i });
+    const cancelButton = screen.getByRole('button', { name: /cancel/i });
     await userEvent.click(cancelButton);
     
-    // Verify drawer closes
+    // Verify drawer closes - wait a bit longer for animation
     await waitFor(() => {
-      expect(canvas.queryByText('Edit Profile')).not.toBeInTheDocument();
-    });
+      expect(screen.queryByText('Edit Profile')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -150,23 +150,23 @@ export const RightSide: Story = {
     
     // Wait for drawer
     await waitFor(() => {
-      expect(canvas.getByText('Navigation Menu')).toBeInTheDocument();
+      expect(screen.getByText('Navigation Menu')).toBeInTheDocument();
     });
     
     // Verify drawer is on the right (has data attribute)
-    const drawerContent = canvas.getByText('Navigation Menu').closest('[data-vaul-drawer-direction]');
+    const drawerContent = screen.getByText('Navigation Menu').closest('[data-vaul-drawer-direction]');
     expect(drawerContent).toHaveAttribute('data-vaul-drawer-direction', 'right');
     
     // Click a navigation button
-    await userEvent.click(canvas.getByRole('button', { name: /dashboard/i }));
+    await userEvent.click(screen.getByRole('button', { name: /dashboard/i }));
     
     // Close drawer
-    const closeButton = canvas.getByRole('button', { name: /^close$/i });
+    const closeButton = screen.getByRole('button', { name: /^close$/i });
     await userEvent.click(closeButton);
     
     await waitFor(() => {
-      expect(canvas.queryByText('Navigation Menu')).not.toBeInTheDocument();
-    });
+      expect(screen.queryByText('Navigation Menu')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -199,7 +199,9 @@ export const LeftSide: Story = {
           </div>
         </DrawerSection>
         <DrawerFooter>
-          <Button variant="default">Save Preferences</Button>
+          <DrawerClose asChild>
+            <Button variant="default">Save Preferences</Button>
+          </DrawerClose>
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
           </DrawerClose>
@@ -216,23 +218,23 @@ export const LeftSide: Story = {
     
     // Wait for drawer
     await waitFor(() => {
-      expect(canvas.getByText('Settings')).toBeInTheDocument();
+      expect(screen.getByText('Settings')).toBeInTheDocument();
     });
     
     // Verify drawer is on the left
-    const drawerContent = canvas.getByText('Settings').closest('[data-vaul-drawer-direction]');
+    const drawerContent = screen.getByText('Settings').closest('[data-vaul-drawer-direction]');
     expect(drawerContent).toHaveAttribute('data-vaul-drawer-direction', 'left');
     
     // Toggle a checkbox
-    const darkModeCheckbox = canvas.getByLabelText(/dark mode/i);
+    const darkModeCheckbox = screen.getByLabelText(/dark mode/i);
     await userEvent.click(darkModeCheckbox);
     
     // Save preferences
-    await userEvent.click(canvas.getByRole('button', { name: /save preferences/i }));
+    await userEvent.click(screen.getByRole('button', { name: /save preferences/i }));
     
     await waitFor(() => {
-      expect(canvas.queryByText('Settings')).not.toBeInTheDocument();
-    });
+      expect(screen.queryByText('Settings')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -252,15 +254,21 @@ export const TopDrawer: Story = {
           <Input placeholder="Type to search..." className="text-lg" />
           <div className="mt-4 space-y-2">
             <div className="text-sm text-muted-foreground">Recent searches</div>
-            <Button variant="ghost" className="w-full justify-start">
-              Dashboard metrics
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              User settings
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              API documentation
-            </Button>
+            <DrawerClose asChild>
+              <Button variant="ghost" className="w-full justify-start">
+                Dashboard metrics
+              </Button>
+            </DrawerClose>
+            <DrawerClose asChild>
+              <Button variant="ghost" className="w-full justify-start">
+                User settings
+              </Button>
+            </DrawerClose>
+            <DrawerClose asChild>
+              <Button variant="ghost" className="w-full justify-start">
+                API documentation
+              </Button>
+            </DrawerClose>
           </div>
         </DrawerSection>
       </DrawerContent>
@@ -275,23 +283,23 @@ export const TopDrawer: Story = {
     
     // Wait for drawer
     await waitFor(() => {
-      expect(canvas.getByText('Search Everything')).toBeInTheDocument();
+      expect(screen.getByText('Search Everything')).toBeInTheDocument();
     });
     
     // Verify drawer is on top
-    const drawerContent = canvas.getByText('Search Everything').closest('[data-vaul-drawer-direction]');
+    const drawerContent = screen.getByText('Search Everything').closest('[data-vaul-drawer-direction]');
     expect(drawerContent).toHaveAttribute('data-vaul-drawer-direction', 'top');
     
     // Type in search
-    const searchInput = canvas.getByPlaceholderText(/type to search/i);
+    const searchInput = screen.getByPlaceholderText(/type to search/i);
     await userEvent.type(searchInput, 'test search');
     
     // Click a recent search
-    await userEvent.click(canvas.getByRole('button', { name: /dashboard metrics/i }));
+    await userEvent.click(screen.getByRole('button', { name: /dashboard metrics/i }));
     
     await waitFor(() => {
-      expect(canvas.queryByText('Search Everything')).not.toBeInTheDocument();
-    });
+      expect(screen.queryByText('Search Everything')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -348,30 +356,30 @@ export const NestedDrawers: Story = {
     
     // Wait for main drawer
     await waitFor(() => {
-      expect(canvas.getByText('Main Drawer')).toBeInTheDocument();
+      expect(screen.getByText('Main Drawer')).toBeInTheDocument();
     });
     
     // Open nested drawer
-    const nestedTrigger = canvas.getByRole('button', { name: /open nested drawer/i });
+    const nestedTrigger = screen.getByRole('button', { name: /open nested drawer/i });
     await userEvent.click(nestedTrigger);
     
     // Wait for nested drawer
     await waitFor(() => {
-      expect(canvas.getByText('Nested Drawer')).toBeInTheDocument();
+      expect(screen.getByText('Nested Drawer')).toBeInTheDocument();
     });
     
     // Close nested drawer
-    await userEvent.click(canvas.getByRole('button', { name: /close nested/i }));
+    await userEvent.click(screen.getByRole('button', { name: /close nested/i }));
     
     await waitFor(() => {
-      expect(canvas.queryByText('Nested Drawer')).not.toBeInTheDocument();
-    });
+      expect(screen.queryByText('Nested Drawer')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
     
     // Main drawer should still be open
-    expect(canvas.getByText('Main Drawer')).toBeInTheDocument();
+    expect(screen.getByText('Main Drawer')).toBeInTheDocument();
     
     // Close main drawer
-    await userEvent.click(canvas.getByRole('button', { name: /close main/i }));
+    await userEvent.click(screen.getByRole('button', { name: /close main/i }));
   },
 };
 
@@ -402,7 +410,9 @@ export const StickyHeaderFooter: Story = {
           </div>
         </DrawerSection>
         <DrawerFooter className="sticky bottom-0 bg-background/95 backdrop-blur-sm z-10">
-          <Button variant="default">Confirm Action</Button>
+          <DrawerClose asChild>
+            <Button variant="default">Confirm Action</Button>
+          </DrawerClose>
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
           </DrawerClose>
@@ -419,23 +429,24 @@ export const StickyHeaderFooter: Story = {
     
     // Wait for drawer
     await waitFor(() => {
-      expect(canvas.getByText('Long Content')).toBeInTheDocument();
-    });
+      expect(screen.getByText('Long Content')).toBeInTheDocument();
+    }, { timeout: 5000 });
     
     // Verify multiple items are rendered
-    expect(canvas.getByText('Item 1')).toBeInTheDocument();
-    expect(canvas.getByText('Item 20')).toBeInTheDocument();
+    expect(screen.getByText('Item 1')).toBeInTheDocument();
+    expect(screen.getByText('Item 20')).toBeInTheDocument();
     
     // Verify sticky header and footer
-    const header = canvas.getByText('Long Content').parentElement?.parentElement;
+    const header = screen.getByText('Long Content').closest('[class*="sticky"]');
+    expect(header).toBeInTheDocument();
     expect(header).toHaveClass('sticky');
     
     // Click confirm action
-    await userEvent.click(canvas.getByRole('button', { name: /confirm action/i }));
+    await userEvent.click(screen.getByRole('button', { name: /confirm action/i }));
     
     await waitFor(() => {
-      expect(canvas.queryByText('Long Content')).not.toBeInTheDocument();
-    });
+      expect(screen.queryByText('Long Content')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -481,29 +492,29 @@ export const CustomStyling: Story = {
     const triggerButton = canvas.getByRole('button', { name: /danger zone/i });
     await userEvent.click(triggerButton);
     
-    // Wait for drawer
+    // Wait for drawer (might be in a portal)
     await waitFor(() => {
-      expect(canvas.getByText('Delete Account')).toBeInTheDocument();
-    });
+      expect(screen.getByText('Delete Account')).toBeInTheDocument();
+    }, { timeout: 5000 });
     
     // Verify custom styling is applied
-    const drawerContent = canvas.getByText('Delete Account').closest('[role="dialog"]');
+    const drawerContent = screen.getByText('Delete Account').closest('[role="dialog"]');
     expect(drawerContent).toHaveClass('bg-gradient-to-b');
     
     // Type in confirmation field
-    const confirmInput = canvas.getByPlaceholderText(/type DELETE to confirm/i);
+    const confirmInput = screen.getByPlaceholderText(/type DELETE to confirm/i);
     await userEvent.type(confirmInput, 'DEL');
     
     // Delete button should still be disabled (wrong text)
-    const deleteButton = canvas.getByRole('button', { name: /delete account forever/i });
+    const deleteButton = screen.getByRole('button', { name: /delete account forever/i });
     expect(deleteButton).toBeDisabled();
     
     // Click cancel
-    await userEvent.click(canvas.getByRole('button', { name: /i changed my mind/i }));
+    await userEvent.click(screen.getByRole('button', { name: /i changed my mind/i }));
     
     await waitFor(() => {
-      expect(canvas.queryByText('Delete Account')).not.toBeInTheDocument();
-    });
+      expect(screen.queryByText('Delete Account')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -558,25 +569,31 @@ export const MobileOptimized: Story = {
     
     // Wait for drawer
     await waitFor(() => {
-      expect(canvas.getByText('Mobile Optimized')).toBeInTheDocument();
-    });
+      expect(screen.getByText('Mobile Optimized')).toBeInTheDocument();
+    }, { timeout: 5000 });
     
     // Click primary action
-    await userEvent.click(canvas.getByRole('button', { name: /primary action/i }));
+    await userEvent.click(screen.getByRole('button', { name: /primary action/i }));
+    
+    // Drawer should stay open since Primary Action doesn't close it
+    expect(screen.getByText('Mobile Optimized')).toBeInTheDocument();
+    
+    // Click close button to close drawer
+    await userEvent.click(screen.getByRole('button', { name: /close/i }));
     
     // Drawer should close
     await waitFor(() => {
-      expect(canvas.queryByText('Mobile Optimized')).not.toBeInTheDocument();
-    });
+      expect(screen.queryByText('Mobile Optimized')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
     
     // Open again to test close button
     await userEvent.click(triggerButton);
     
     await waitFor(() => {
-      expect(canvas.getByText('Mobile Optimized')).toBeInTheDocument();
+      expect(screen.getByText('Mobile Optimized')).toBeInTheDocument();
     });
     
     // Close with close button
-    await userEvent.click(canvas.getByRole('button', { name: /^close$/i }));
+    await userEvent.click(screen.getByRole('button', { name: /^close$/i }));
   },
 };

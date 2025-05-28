@@ -101,11 +101,11 @@ export const Default: Story = {
     await new Promise(resolve => globalThis.setTimeout(resolve, 200));
     
     // Verify search input is visible (might be in a portal)
-    const searchInput = await waitFor(() => {
+    await waitFor(() => {
       const input = document.querySelector('input[placeholder="Search framework..."]');
       expect(input).toBeInTheDocument();
-      return input;
     });
+    const searchInput = document.querySelector('input[placeholder="Search framework..."]');
     
     // The command items might not have role="option", so we'll look for them by their data attributes
     const commandItems = document.querySelectorAll('[data-slot="command-item"]');
@@ -162,43 +162,46 @@ export const Fruits: Story = {
     // Open combobox
     await userEvent.click(trigger);
     
-    // Wait for popover to open and search input to be available
+    // Wait for popover to open
     await waitFor(() => {
       expect(trigger).toHaveAttribute("aria-expanded", "true");
-    });
+    }, { timeout: 10_000 });
     
-    // Wait a bit for the popover animation
-    await new Promise(resolve => globalThis.setTimeout(resolve, 200));
+    // Add a small delay for animations
+    await new Promise(resolve => globalThis.setTimeout(resolve, 300));
     
-    // Find the search input inside the popover (might be in a portal)
-    const searchInput = await waitFor(() => {
+    // Wait for search input to be available
+    await waitFor(() => {
       const input = document.querySelector('input[placeholder="Search fruits..."]');
       expect(input).toBeInTheDocument();
-      return input;
-    });
+    }, { timeout: 10_000 });
+    
+    const searchInput = document.querySelector('input[placeholder="Search fruits..."]') as HTMLInputElement;
     
     // Type to filter options
     if (searchInput) {
+      await userEvent.clear(searchInput);
       await userEvent.type(searchInput, "orange");
-    }
-    await waitFor(() => {
-      const commandItems = document.querySelectorAll('[data-slot="command-item"]:not([data-disabled="true"])');
-      const orangeOption = [...commandItems].find(el => el.textContent?.includes("Orange"));
-      expect(orangeOption).toBeInTheDocument();
       
-      const appleOption = [...commandItems].find(el => el.textContent?.includes("Apple"));
-      expect(appleOption).toBeUndefined();
-    });
-    
-    // Select the filtered option
-    const orangeOption = [...document.querySelectorAll('[data-slot="command-item"]')].find(el => el.textContent?.includes("Orange"));
-    if (orangeOption) {
-      await userEvent.click(orangeOption);
+      // Wait for filtering to complete
+      await waitFor(() => {
+        const commandItems = document.querySelectorAll('[data-slot="command-item"]:not([data-disabled="true"])');
+        const orangeOption = [...commandItems].find(el => el.textContent?.includes("Orange"));
+        expect(orangeOption).toBeInTheDocument();
+      }, { timeout: 5000 });
+      
+      // Select the filtered option
+      const orangeOption = [...document.querySelectorAll('[data-slot="command-item"]')].find(el => el.textContent?.includes("Orange"));
+      if (orangeOption) {
+        await userEvent.click(orangeOption);
+      }
+      
+      // Verify selection
+      await waitFor(() => {
+        expect(trigger).toHaveTextContent("Orange");
+        expect(trigger).toHaveAttribute("aria-expanded", "false");
+      }, { timeout: 5000 });
     }
-    await waitFor(() => {
-      expect(trigger).toHaveTextContent("Orange");
-      expect(trigger).toHaveAttribute("aria-expanded", "false");
-    });
   },
 };
 

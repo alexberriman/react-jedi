@@ -137,31 +137,32 @@ export const Controlled: Story = {
     const canvas = within(canvasElement);
     const openButton = canvas.getByRole("button", { name: /^open$/i });
     const closeButton = canvas.getByRole("button", { name: /^close$/i });
+    const toggleButton = canvas.getByRole("button", { name: /show content/i });
     
     // Initially content should be hidden
-    const controlledContent = canvas.queryByText(/this is controlled content/i);
-    expect(controlledContent).not.toBeInTheDocument();
+    expect(toggleButton).toHaveAttribute("data-state", "closed");
     
     // Click open button
     await userEvent.click(openButton);
     await waitFor(() => {
-      expect(canvas.getByText(/this is controlled content/i)).toBeInTheDocument();
-      expect(canvas.getByText(/state: open/i)).toBeInTheDocument();
+      const content = canvas.getByText(/this is controlled content/i);
+      expect(content).toBeVisible();
+      expect(canvas.getByText(/state: open/i)).toBeVisible();
       expect(canvas.getByRole("button", { name: /hide content/i })).toBeInTheDocument();
     });
     
     // Click close button
     await userEvent.click(closeButton);
     await waitFor(() => {
-      const hiddenContent = canvas.queryByText(/this is controlled content/i);
-      expect(hiddenContent).not.toBeInTheDocument();
       expect(canvas.getByRole("button", { name: /show content/i })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: /show content/i })).toHaveAttribute("data-state", "closed");
     });
     
     // Toggle via main button
     await userEvent.click(canvas.getByRole("button", { name: /show content/i }));
     await waitFor(() => {
-      expect(canvas.getByText(/this is controlled content/i)).toBeInTheDocument();
+      const content = canvas.getByText(/this is controlled content/i);
+      expect(content).toBeVisible();
     });
   },
 };

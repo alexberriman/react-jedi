@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { render } from "@/lib/render";
 
@@ -79,27 +79,51 @@ export const Single: Story = {
 
     // Click first item - should expand
     await user.click(trigger1);
-    expect(trigger1).toHaveAttribute("data-state", "open");
-    // Check content is present (may not be immediately visible due to animation)
-    expect(canvas.getByText("Yes. It adheres to the WAI-ARIA design pattern.")).toBeInTheDocument();
+    
+    // Wait for the state change and content to appear
+    await waitFor(() => {
+      expect(trigger1).toHaveAttribute("data-state", "open");
+    });
+    
+    // Check content is present after animation
+    await waitFor(() => {
+      expect(canvas.getByText("Yes. It adheres to the WAI-ARIA design pattern.")).toBeInTheDocument();
+    });
 
     // Click second item - first should collapse, second should expand
     await user.click(trigger2);
-    expect(trigger1).toHaveAttribute("data-state", "closed");
-    expect(trigger2).toHaveAttribute("data-state", "open");
+    
+    await waitFor(() => {
+      expect(trigger1).toHaveAttribute("data-state", "closed");
+      expect(trigger2).toHaveAttribute("data-state", "open");
+    });
 
     // Click second item again - should collapse (collapsible is true)
     await user.click(trigger2);
-    expect(trigger2).toHaveAttribute("data-state", "closed");
+    
+    await waitFor(() => {
+      expect(trigger2).toHaveAttribute("data-state", "closed");
+    });
 
     // Test keyboard navigation
     await user.click(trigger1);
+    
+    await waitFor(() => {
+      expect(trigger1).toHaveAttribute("data-state", "open");
+    });
+    
     await user.keyboard("{ArrowDown}");
-    expect(trigger2).toHaveFocus();
+    
+    await waitFor(() => {
+      expect(trigger2).toHaveFocus();
+    });
     
     await user.keyboard("{Enter}");
-    expect(trigger2).toHaveAttribute("data-state", "open");
-    expect(trigger1).toHaveAttribute("data-state", "closed");
+    
+    await waitFor(() => {
+      expect(trigger2).toHaveAttribute("data-state", "open");
+      expect(trigger1).toHaveAttribute("data-state", "closed");
+    });
   },
 };
 

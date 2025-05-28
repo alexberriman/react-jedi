@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
-  ChevronRightIcon,
-  HomeIcon,
-  FolderIcon,
-  FileIcon,
-  SettingsIcon,
-  ShareIcon,
-  UserIcon,
-  BellIcon,
-  BookmarkIcon,
+  ChevronRight as ChevronRightIcon,
+  Home as HomeIcon,
+  Folder as FolderIcon,
+  File as FileIcon,
+  Settings as SettingsIcon,
+  Share as ShareIcon,
+  User as UserIcon,
+  Bell as BellIcon,
+  Bookmark as BookmarkIcon,
 } from "lucide-react";
 import {
   Sidebar,

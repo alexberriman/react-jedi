@@ -60,22 +60,30 @@ export const Basic: Story = {
     const triggerButton = canvas.getByRole('button', { name: /open dialog/i });
     await userEvent.click(triggerButton);
     
-    // Wait for dialog to appear
+    // Wait for dialog to appear - look for the dialog in the document, not just canvas
     await waitFor(() => {
-      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+      expect(document.querySelector('[data-slot="dialog-title"]')).toBeInTheDocument();
+      expect(document.querySelector('[data-slot="dialog-title"]')?.textContent).toBe('Are you absolutely sure?');
     });
     
     // Verify dialog content
-    expect(canvas.getByText('Are you absolutely sure?')).toBeInTheDocument();
-    expect(canvas.getByText(/This action cannot be undone/)).toBeInTheDocument();
+    const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+    expect(dialogContent).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="dialog-description"]')?.textContent).toContain('This action cannot be undone');
     
     // Close dialog by clicking the X button
-    const closeButton = canvas.getByRole('button', { name: /close/i });
+    const closeButton = within(document.body).getByRole('button', { name: /close/i });
     await userEvent.click(closeButton);
     
-    // Verify dialog is closed
+    // Verify dialog is closed - check for closed state instead of removal
     await waitFor(() => {
-      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
+      if (dialogContent) {
+        expect(dialogContent.dataset.state).toBe('closed');
+      } else {
+        // Dialog has been removed from DOM after animation
+        expect(dialogContent).not.toBeInTheDocument();
+      }
     });
   },
 };
@@ -119,7 +127,9 @@ export const WithFooter: Story = {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <DialogClose asChild>
+            <Button type="button">Save changes</Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -133,25 +143,30 @@ export const WithFooter: Story = {
     
     // Wait for dialog
     await waitFor(() => {
-      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+      expect(document.querySelector('[data-slot="dialog-title"]')?.textContent).toBe('Edit profile');
     });
     
-    // Interact with form fields
-    const nameInput = canvas.getByLabelText(/name/i);
+    // Interact with form fields - use specific selectors to avoid ambiguity
+    const nameInput = document.querySelector('#name') as HTMLInputElement;
     await userEvent.clear(nameInput);
     await userEvent.type(nameInput, 'John Doe');
     
-    const usernameInput = canvas.getByLabelText(/username/i);
+    const usernameInput = document.querySelector('#username') as HTMLInputElement;
     await userEvent.clear(usernameInput);
     await userEvent.type(usernameInput, '@johndoe');
     
     // Click save button
-    const saveButton = canvas.getByRole('button', { name: /save changes/i });
+    const saveButton = within(document.body).getByRole('button', { name: /save changes/i });
     await userEvent.click(saveButton);
     
     // Dialog should close after save
     await waitFor(() => {
-      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
+      if (dialogContent) {
+        expect(dialogContent.dataset.state).toBe('closed');
+      } else {
+        expect(dialogContent).not.toBeInTheDocument();
+      }
     });
   },
 };
@@ -195,16 +210,21 @@ export const CustomClose: Story = {
     
     // Wait for dialog
     await waitFor(() => {
-      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+      expect(document.querySelector('[data-slot="dialog-title"]')?.textContent).toBe('Custom Close Example');
     });
     
-    // Test custom close button in footer
-    const closeButton = canvas.getByRole('button', { name: /^close$/i });
+    // Test custom close button in footer - get the one with data-slot="dialog-close"
+    const closeButton = document.querySelector('[data-slot="dialog-close"]') as HTMLButtonElement;
     await userEvent.click(closeButton);
     
     // Verify dialog closes
     await waitFor(() => {
-      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
+      if (dialogContent) {
+        expect(dialogContent.dataset.state).toBe('closed');
+      } else {
+        expect(dialogContent).not.toBeInTheDocument();
+      }
     });
   },
 };
@@ -241,7 +261,9 @@ export const ScrollableContent: Story = {
               Decline
             </Button>
           </DialogClose>
-          <Button type="submit">Accept</Button>
+          <DialogClose asChild>
+            <Button type="button">Accept</Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -255,20 +277,25 @@ export const ScrollableContent: Story = {
     
     // Wait for dialog
     await waitFor(() => {
-      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+      expect(document.querySelector('[data-slot="dialog-title"]')?.textContent).toBe('Terms of Service');
     });
     
     // Test scrolling by checking multiple sections are visible
-    expect(canvas.getByText('Section 1')).toBeInTheDocument();
-    expect(canvas.getByText('Section 10')).toBeInTheDocument();
+    expect(within(document.body).getByText('Section 1')).toBeInTheDocument();
+    expect(within(document.body).getByText('Section 10')).toBeInTheDocument();
     
     // Click Accept button
-    const acceptButton = canvas.getByRole('button', { name: /accept/i });
+    const acceptButton = within(document.body).getByRole('button', { name: /accept/i });
     await userEvent.click(acceptButton);
     
     // Dialog should close
     await waitFor(() => {
-      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
+      if (dialogContent) {
+        expect(dialogContent.dataset.state).toBe('closed');
+      } else {
+        expect(dialogContent).not.toBeInTheDocument();
+      }
     });
   },
 };
@@ -306,7 +333,7 @@ export const NonModal: Story = {
     
     // Wait for dialog
     await waitFor(() => {
-      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+      expect(document.querySelector('[data-slot="dialog-title"]')?.textContent).toBe('Non-Modal Dialog');
     });
     
     // Verify it's non-modal by checking we can click outside
@@ -314,14 +341,19 @@ export const NonModal: Story = {
     await userEvent.click(document.body);
     
     // Dialog should still be open
-    expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="dialog-content"]')).toBeInTheDocument();
     
     // Close by clicking X button
-    const closeButton = canvas.getByRole('button', { name: /close/i });
+    const closeButton = within(document.body).getByRole('button', { name: /close/i });
     await userEvent.click(closeButton);
     
     await waitFor(() => {
-      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
+      if (dialogContent) {
+        expect(dialogContent.dataset.state).toBe('closed');
+      } else {
+        expect(dialogContent).not.toBeInTheDocument();
+      }
     });
   },
 };
@@ -349,25 +381,36 @@ export const InitiallyOpen: Story = {
     const canvas = within(canvasElement);
     
     // Dialog should already be open
-    expect(canvas.getByRole('dialog')).toBeInTheDocument();
-    expect(canvas.getByText('Initially Open')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(document.querySelector('[data-slot="dialog-title"]')?.textContent).toBe('Initially Open');
+    });
+    expect(document.querySelector('[data-slot="dialog-content"]')).toBeInTheDocument();
     
     // Close the dialog
-    const closeButton = canvas.getByRole('button', { name: /close/i });
+    const closeButton = within(document.body).getByRole('button', { name: /close/i });
     await userEvent.click(closeButton);
     
     // Wait for dialog to close
     await waitFor(() => {
-      expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
+      if (dialogContent) {
+        expect(dialogContent.dataset.state).toBe('closed');
+      } else {
+        expect(dialogContent).not.toBeInTheDocument();
+      }
     });
     
-    // Reopen using trigger button
+    // Reopen using trigger button - wait for it to be accessible after dialog closes
+    await waitFor(() => {
+      const reopenButton = canvas.getByRole('button', { name: /reopen dialog/i });
+      expect(reopenButton).toBeInTheDocument();
+    });
     const reopenButton = canvas.getByRole('button', { name: /reopen dialog/i });
     await userEvent.click(reopenButton);
     
     // Verify dialog opens again
     await waitFor(() => {
-      expect(canvas.getByRole('dialog')).toBeInTheDocument();
+      expect(document.querySelector('[data-slot="dialog-content"]')).toBeInTheDocument();
     });
   },
 };

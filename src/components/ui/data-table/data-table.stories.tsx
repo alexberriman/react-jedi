@@ -259,11 +259,16 @@ export const Default: Story = {
     const nextButton = canvas.getByRole('button', { name: /next/i });
     if (!nextButton.hasAttribute('disabled')) {
       await userEvent.click(nextButton);
+      
+      // Only go back if we actually went forward
+      await waitFor(() => {
+        const prevButton = canvas.getByRole('button', { name: /previous/i });
+        expect(prevButton).not.toBeDisabled();
+      });
+      
+      const prevButton = canvas.getByRole('button', { name: /previous/i });
+      await userEvent.click(prevButton);
     }
-    
-    // Go back to previous page
-    const prevButton = canvas.getByRole('button', { name: /previous/i });
-    await userEvent.click(prevButton);
   },
 };
 
@@ -279,7 +284,8 @@ export const WithActions: Story = {
         label: "Copy ID",
         onClick: fn((row: unknown) => {
           const payment = row as Payment;
-          navigator.clipboard.writeText(payment.id);
+          // Mock clipboard write for testing
+          console.log('Copying ID:', payment.id);
         }),
         icon: Copy,
       },
@@ -298,27 +304,32 @@ export const WithActions: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
-    // Find the first actions button (three dots menu)
-    const actionsButtons = canvas.getAllByRole('button', { name: /toggle menu/i });
+    // Wait for table to be fully rendered
+    await waitFor(() => {
+      expect(canvas.getByRole('table')).toBeInTheDocument();
+    }, { timeout: 10_000 });
+    
+    // Find the first actions button (three dots menu) - use aria-label from the component
+    const actionsButtons = canvas.getAllByRole('button', { name: /open menu/i });
     await userEvent.click(actionsButtons[0]);
     
-    // Wait for dropdown menu to appear
+    // Wait for dropdown menu to appear - check in document since it might be in a portal
     await waitFor(() => {
-      expect(canvas.getByText('Copy ID')).toBeInTheDocument();
-    });
+      expect(within(document.body).getByText('Copy ID')).toBeInTheDocument();
+    }, { timeout: 10_000 });
     
     // Click on Edit action
-    await userEvent.click(canvas.getByText('Edit'));
+    await userEvent.click(within(document.body).getByText('Edit'));
     
     // Click actions button again to open menu
     await userEvent.click(actionsButtons[0]);
     
     // Wait for menu and click Copy ID
     await waitFor(() => {
-      expect(canvas.getByText('Copy ID')).toBeInTheDocument();
-    });
+      expect(within(document.body).getByText('Copy ID')).toBeInTheDocument();
+    }, { timeout: 10_000 });
     
-    await userEvent.click(canvas.getByText('Copy ID'));
+    await userEvent.click(within(document.body).getByText('Copy ID'));
   },
 };
 
@@ -425,16 +436,19 @@ export const CustomStyling: Story = {
     columns: paymentColumns as DataTableColumn<unknown>[],
     data: payments as unknown[],
     filterColumn: "email",
+    filterPlaceholder: "Filter emails...",
     className: "shadow-lg rounded-lg",
     pageSize: 3,
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify custom styling is applied
-    const table = canvas.getByRole('table').parentElement?.parentElement;
-    expect(table).toHaveClass('shadow-lg');
-    expect(table).toHaveClass('rounded-lg');
+    // Verify custom styling is applied to the outer wrapper
+    // The className is applied to the outermost div that contains the table
+    const wrapper = canvas.getByRole('table').closest('.shadow-lg');
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper).toHaveClass('shadow-lg');
+    expect(wrapper).toHaveClass('rounded-lg');
     
     // Basic interaction test
     const filterInput = canvas.getByPlaceholderText('Filter emails...');

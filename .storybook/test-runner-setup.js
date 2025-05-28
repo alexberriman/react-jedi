@@ -111,8 +111,9 @@ module.exports = {
       const originalSetInterval = window.setInterval;
       
       window.setTimeout = (fn, delay, ...args) => {
-        // Make all delays instant (0ms) in tests
-        return originalSetTimeout(fn, 0, ...args);
+        // Reduce delays but don't make them instant to allow for animations
+        // Maximum delay of 100ms for tests
+        return originalSetTimeout(fn, Math.min(delay, 100), ...args);
       };
       
       globalThis.setTimeout = window.setTimeout;

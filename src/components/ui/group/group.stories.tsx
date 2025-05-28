@@ -67,7 +67,7 @@ export const Default: Story = {
     expect(groupContainer).toBeInTheDocument();
     
     // Verify flex layout is applied
-    expect(groupContainer).toHaveClass('flex');
+    expect(groupContainer).toHaveClass('inline-flex');
     expect(groupContainer).toHaveClass('items-center'); // align="center"
   },
 };

@@ -111,11 +111,13 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
       return `grid-flow-${flow}`;
     };
 
-    // Generate areas classes
-    const getAreasClass = () => {
-      if (!areas || areas.length === 0) return "";
+    // Generate areas style
+    const getAreasStyle = () => {
+      if (!areas || areas.length === 0) return {};
       const areasTemplate = areas.map((area) => `"${area}"`).join(" ");
-      return `grid-areas-[${areasTemplate}]`;
+      return {
+        gridTemplateAreas: areasTemplate,
+      };
     };
 
     return (
@@ -127,10 +129,10 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
           getRowsClass(),
           getGapClass(),
           getFlowClass(),
-          getAreasClass(),
           stretch && "h-full",
           className
         )}
+        style={getAreasStyle()}
         {...cleanProps}
       >
         {children}

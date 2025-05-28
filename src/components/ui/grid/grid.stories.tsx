@@ -88,20 +88,30 @@ export const Default: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify grid container exists
-    const gridContainer = canvas.getByText('Item 1').parentElement;
-    expect(gridContainer).toBeInTheDocument();
-    
-    // Verify grid has correct CSS classes
-    expect(gridContainer).toHaveClass('grid');
-    
-    // Verify all 6 items are rendered
+    // Verify all 6 items are rendered first
     for (let i = 1; i <= 6; i++) {
       expect(canvas.getByText(`Item ${i}`)).toBeInTheDocument();
     }
     
-    // Verify grid has appropriate columns (grid-cols-3 is applied)
-    const computedStyle = globalThis.getComputedStyle(gridContainer!);
+    // Find the grid container - it should have the 'grid' class
+    const gridContainers = canvasElement.querySelectorAll('.grid');
+    expect(gridContainers.length).toBeGreaterThan(0);
+    
+    // The grid container should contain our items
+    let gridContainer: Element | null = null;
+    for (const container of gridContainers) {
+      if (container.textContent?.includes('Item 1')) {
+        gridContainer = container;
+        break;
+      }
+    }
+    
+    expect(gridContainer).toBeInTheDocument();
+    expect(gridContainer).toHaveClass('grid');
+    expect(gridContainer).toHaveClass('grid-cols-3'); // Verify columns
+    
+    // Verify grid has appropriate CSS
+    const computedStyle = globalThis.getComputedStyle(gridContainer as Element);
     expect(computedStyle.display).toBe('grid');
   },
 };
@@ -123,17 +133,28 @@ export const AutoFit: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify grid container exists
-    const gridContainer = canvas.getByText('Item 1').parentElement;
-    expect(gridContainer).toBeInTheDocument();
-    
     // Verify all 8 items are rendered
     for (let i = 1; i <= 8; i++) {
       expect(canvas.getByText(`Item ${i}`)).toBeInTheDocument();
     }
     
+    // Find the grid container
+    const gridContainers = canvasElement.querySelectorAll('.grid');
+    expect(gridContainers.length).toBeGreaterThan(0);
+    
+    let gridContainer: Element | null = null;
+    for (const container of gridContainers) {
+      if (container.textContent?.includes('Item 1')) {
+        gridContainer = container;
+        break;
+      }
+    }
+    
+    expect(gridContainer).toBeInTheDocument();
+    expect(gridContainer).toHaveClass('grid');
+    
     // Verify grid uses auto-fit CSS
-    const computedStyle = globalThis.getComputedStyle(gridContainer!);
+    const computedStyle = globalThis.getComputedStyle(gridContainer as Element);
     expect(computedStyle.display).toBe('grid');
     // AutoFit applies a dynamic grid-template-columns
   },
@@ -191,22 +212,41 @@ export const NamedAreas: Story = {
     expect(canvas.getByText('Main Content')).toBeInTheDocument();
     expect(canvas.getByText('Footer')).toBeInTheDocument();
     
-    // Verify grid container
-    const gridContainer = canvas.getByText('Header').parentElement;
+    // Find the grid container - it should have the 'grid' class
+    const gridContainers = canvasElement.querySelectorAll('.grid');
+    expect(gridContainers.length).toBeGreaterThan(0);
+    
+    // Get the actual grid container that contains our items
+    let gridContainer: Element | null = null;
+    for (const container of gridContainers) {
+      if (container.querySelector('[class*="grid-area:header"]') || 
+          container.textContent?.includes('Header')) {
+        gridContainer = container;
+        break;
+      }
+    }
+    
     expect(gridContainer).toBeInTheDocument();
     expect(gridContainer).toHaveClass('grid');
     
-    // Verify grid areas are properly assigned (they have grid-area CSS)
-    const headerElement = canvas.getByText('Header').parentElement;
-    const sidebarElement = canvas.getByText('Sidebar').parentElement;
-    const contentElement = canvas.getByText('Main Content').parentElement;
-    const footerElement = canvas.getByText('Footer').parentElement;
+    // The text elements are inside divs that have the grid-area classes
+    // Find the divs with grid-area classes
+    const headerDiv = canvasElement.querySelector(String.raw`.\[grid-area\:header\]`);
+    const sidebarDiv = canvasElement.querySelector(String.raw`.\[grid-area\:sidebar\]`);
+    const contentDiv = canvasElement.querySelector(String.raw`.\[grid-area\:content\]`);
+    const footerDiv = canvasElement.querySelector(String.raw`.\[grid-area\:footer\]`);
     
-    // Check that elements have appropriate grid-area classes
-    expect(headerElement).toHaveClass('[grid-area:header]');
-    expect(sidebarElement).toHaveClass('[grid-area:sidebar]');
-    expect(contentElement).toHaveClass('[grid-area:content]');
-    expect(footerElement).toHaveClass('[grid-area:footer]');
+    // Verify all grid area divs exist
+    expect(headerDiv).toBeInTheDocument();
+    expect(sidebarDiv).toBeInTheDocument();
+    expect(contentDiv).toBeInTheDocument();
+    expect(footerDiv).toBeInTheDocument();
+    
+    // Verify they contain the correct text
+    expect(headerDiv?.textContent).toContain('Header');
+    expect(sidebarDiv?.textContent).toContain('Sidebar');
+    expect(contentDiv?.textContent).toContain('Main Content');
+    expect(footerDiv?.textContent).toContain('Footer');
   },
 };
 

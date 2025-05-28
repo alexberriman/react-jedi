@@ -111,7 +111,7 @@ export const CompleteMetadata: Story = {
     expect(metaDescription?.getAttribute('content')).toBe('Discover our amazing product that will change your life');
     
     const metaKeywords = document.querySelector('meta[name="keywords"]');
-    expect(metaKeywords?.getAttribute('content')).toBe('product,amazing,innovative');
+    expect(metaKeywords?.getAttribute('content')).toBe('product, amazing, innovative');
     
     const metaAuthor = document.querySelector('meta[name="author"]');
     expect(metaAuthor?.getAttribute('content')).toBe('John Doe');

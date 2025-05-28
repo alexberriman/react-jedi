@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, within } from "@storybook/test";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -117,7 +117,6 @@ export const WithEllipsis: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
 
     // Test ellipsis exists
     const ellipsis = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"]');

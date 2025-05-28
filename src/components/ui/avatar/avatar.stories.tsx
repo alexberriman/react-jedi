@@ -91,7 +91,7 @@ export const CustomSizes: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    within(canvasElement);
 
     // Test multiple avatar sizes are rendered
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
@@ -250,7 +250,7 @@ export const WithImageHoverEffect: Story = {
     </Avatar>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    within(canvasElement);
     const user = userEvent.setup();
 
     // Test hover effect

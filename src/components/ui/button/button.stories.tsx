@@ -122,7 +122,6 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
 
     // Test disabled button
     const button = canvas.getByRole("button", { name: "Disabled" });

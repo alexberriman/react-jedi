@@ -284,7 +284,7 @@ export const WithoutOutsideDays: Story = {
     showOutsideDays: false,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    within(canvasElement);
 
     // Test that outside days are not shown
     const calendar = canvasElement.querySelector('[role="grid"]');

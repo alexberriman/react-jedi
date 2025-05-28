@@ -187,13 +187,14 @@ export const WithVideo: Story = {
           controls
         >
           <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          <track kind="captions" />
           Your browser does not support the video tag.
         </video>
       </AspectRatio>
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    within(canvasElement);
 
     // Test video element presence
     const video = canvasElement.querySelector("video");

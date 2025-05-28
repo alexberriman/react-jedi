@@ -49,7 +49,7 @@ export const Default: Story = {
     
     // Test center container - look for the component by its classes
     const center = canvasElement.querySelector('.flex.items-center.justify-center') || 
-                   canvasElement.querySelector('.min-h-\\[400px\\]');
+                   canvasElement.querySelector(String.raw`.min-h-\[400px\]`);
     expect(center).toBeTruthy();
     expect(center).toHaveClass("min-h-[400px]", "bg-gray-50", "rounded-lg");
     

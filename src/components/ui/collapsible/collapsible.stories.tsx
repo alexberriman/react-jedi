@@ -135,7 +135,6 @@ export const Controlled: Story = {
   render: () => <ControlledExample />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", { name: /show content/i });
     const openButton = canvas.getByRole("button", { name: /^open$/i });
     const closeButton = canvas.getByRole("button", { name: /^close$/i });
     

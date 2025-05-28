@@ -98,7 +98,7 @@ export const Default: Story = {
     });
     
     // Wait a bit for the popover animation
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 200));
     
     // Verify search input is visible (might be in a portal)
     const searchInput = await waitFor(() => {
@@ -112,23 +112,25 @@ export const Default: Story = {
     expect(commandItems.length).toBeGreaterThan(0);
     
     // Verify specific options are visible by text content
-    const nextOption = Array.from(commandItems).find(el => el.textContent?.includes("Next.js"));
-    const viteOption = Array.from(commandItems).find(el => el.textContent?.includes("Vite"));
+    const nextOption = [...commandItems].find(el => el.textContent?.includes("Next.js"));
+    const viteOption = [...commandItems].find(el => el.textContent?.includes("Vite"));
     expect(nextOption).toBeInTheDocument();
     expect(viteOption).toBeInTheDocument();
     
     // Search for a framework
-    await userEvent.type(searchInput, "next");
+    if (searchInput) {
+      await userEvent.type(searchInput, "next");
+    }
     await waitFor(() => {
       const visibleItems = document.querySelectorAll('[data-slot="command-item"]:not([data-disabled="true"])');
-      const visibleNext = Array.from(visibleItems).find(el => el.textContent?.includes("Next.js"));
-      const visibleVite = Array.from(visibleItems).find(el => el.textContent?.includes("Vite"));
+      const visibleNext = [...visibleItems].find(el => el.textContent?.includes("Next.js"));
+      const visibleVite = [...visibleItems].find(el => el.textContent?.includes("Vite"));
       expect(visibleNext).toBeInTheDocument();
       expect(visibleVite).toBeUndefined();
     });
     
     // Select an option
-    const nextOptionFiltered = Array.from(document.querySelectorAll('[data-slot="command-item"]')).find(el => el.textContent?.includes("Next.js"));
+    const nextOptionFiltered = [...document.querySelectorAll('[data-slot="command-item"]')].find(el => el.textContent?.includes("Next.js"));
     if (nextOptionFiltered) {
       await userEvent.click(nextOptionFiltered);
     }
@@ -166,7 +168,7 @@ export const Fruits: Story = {
     });
     
     // Wait a bit for the popover animation
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 200));
     
     // Find the search input inside the popover (might be in a portal)
     const searchInput = await waitFor(() => {
@@ -176,18 +178,20 @@ export const Fruits: Story = {
     });
     
     // Type to filter options
-    await userEvent.type(searchInput, "orange");
+    if (searchInput) {
+      await userEvent.type(searchInput, "orange");
+    }
     await waitFor(() => {
       const commandItems = document.querySelectorAll('[data-slot="command-item"]:not([data-disabled="true"])');
-      const orangeOption = Array.from(commandItems).find(el => el.textContent?.includes("Orange"));
+      const orangeOption = [...commandItems].find(el => el.textContent?.includes("Orange"));
       expect(orangeOption).toBeInTheDocument();
       
-      const appleOption = Array.from(commandItems).find(el => el.textContent?.includes("Apple"));
+      const appleOption = [...commandItems].find(el => el.textContent?.includes("Apple"));
       expect(appleOption).toBeUndefined();
     });
     
     // Select the filtered option
-    const orangeOption = Array.from(document.querySelectorAll('[data-slot="command-item"]')).find(el => el.textContent?.includes("Orange"));
+    const orangeOption = [...document.querySelectorAll('[data-slot="command-item"]')].find(el => el.textContent?.includes("Orange"));
     if (orangeOption) {
       await userEvent.click(orangeOption);
     }

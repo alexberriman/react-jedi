@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within, waitFor } from "@storybook/test";
+import { expect, within, waitFor } from "@storybook/test";
 import { Chart } from "./chart";
 
 const meta = {
@@ -83,7 +83,7 @@ export const LineChartExample: Story = {
     height: 400,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    within(canvasElement);
     
     // Wait for the chart component container to exist
     await waitFor(() => {
@@ -96,7 +96,7 @@ export const LineChartExample: Story = {
     }, { timeout: 5000 });
     
     // The chart itself might take time to render, so let's wait a bit
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
     
     // Instead of checking for specific chart elements, verify the component rendered
     // The chart component uses recharts which renders asynchronously

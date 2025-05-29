@@ -69,6 +69,9 @@ const ImagePreview = lazy(() =>
 const InputShowcase = lazy(() =>
   import("../pages/showcase/input").then((module) => ({ default: module.InputShowcase }))
 );
+const LabelShowcase = lazy(() =>
+  import("../pages/showcase/label").then((module) => ({ default: module.LabelShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -335,6 +338,10 @@ export const router = createBrowserRouter([
           {
             path: "input",
             element: <AsyncRoute component={InputShowcase} loadingText="Loading input showcase..." />,
+          },
+          {
+            path: "label",
+            element: <AsyncRoute component={LabelShowcase} loadingText="Loading label showcase..." />,
           },
         ],
       },

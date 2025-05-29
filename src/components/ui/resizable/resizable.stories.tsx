@@ -1,5 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./resizable";
 
 const meta = {
@@ -33,6 +34,20 @@ export const Default: Story = {
       </ResizablePanelGroup>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the resizable handle
+    const handle = canvas.getByRole('separator');
+    expect(handle).toBeInTheDocument();
+    
+    // Check that panels are rendered
+    expect(canvas.getByText('Left Panel')).toBeInTheDocument();
+    expect(canvas.getByText('Right Panel')).toBeInTheDocument();
+    
+    // Test that the handle has proper ARIA attributes
+    expect(handle).toHaveAttribute('aria-orientation', 'vertical');
+  },
 };
 
 export const VerticalSplit: Story = {
@@ -54,6 +69,20 @@ export const VerticalSplit: Story = {
       </ResizablePanelGroup>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the resizable handle
+    const handle = canvas.getByRole('separator');
+    expect(handle).toBeInTheDocument();
+    
+    // Check that panels are rendered
+    expect(canvas.getByText('Top Panel')).toBeInTheDocument();
+    expect(canvas.getByText('Bottom Panel')).toBeInTheDocument();
+    
+    // Test that the handle has proper ARIA attributes for vertical split
+    expect(handle).toHaveAttribute('aria-orientation', 'horizontal');
+  },
 };
 
 export const ThreePanels: Story = {
@@ -106,6 +135,21 @@ export const CollapsiblePanels: Story = {
       </ResizablePanelGroup>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the resizable handle
+    const handle = canvas.getByRole('separator');
+    expect(handle).toBeInTheDocument();
+    
+    // Check that panels are rendered
+    expect(canvas.getByText('Collapsible')).toBeInTheDocument();
+    expect(canvas.getByText('Main Content')).toBeInTheDocument();
+    
+    // Test that the handle has the visual handle indicator
+    const handleIndicator = handle.querySelector('[data-panel-resize-handle-enabled]');
+    expect(handleIndicator).toBeInTheDocument();
+  },
 };
 
 export const NestedPanels: Story = {
@@ -207,6 +251,20 @@ export const DisabledHandle: Story = {
       </ResizablePanelGroup>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Find the resizable handle
+    const handle = canvas.getByRole('separator');
+    expect(handle).toBeInTheDocument();
+    
+    // Check that panels are rendered
+    expect(canvas.getByText('Fixed Left Panel')).toBeInTheDocument();
+    expect(canvas.getByText('Fixed Right Panel')).toBeInTheDocument();
+    
+    // Test that the handle is disabled
+    expect(handle).toHaveAttribute('aria-disabled', 'true');
+  },
 };
 
 export const PersistentLayout: Story = {

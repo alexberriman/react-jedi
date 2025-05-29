@@ -1,5 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import {
   Sheet,
   SheetContent,
@@ -46,6 +47,31 @@ export const Default: Story = {
       </SheetContent>
     </Sheet>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check that the trigger button is rendered
+    const trigger = canvas.getByRole('button', { name: 'Open Sheet' });
+    expect(trigger).toBeInTheDocument();
+    
+    // Click to open the sheet
+    await userEvent.click(trigger);
+    
+    // Check that the sheet content is visible
+    expect(canvas.getByText('Sheet Title')).toBeInTheDocument();
+    expect(canvas.getByText(/This is a sheet description/)).toBeInTheDocument();
+    expect(canvas.getByText('Sheet content goes here.')).toBeInTheDocument();
+    
+    // Check that close button is present
+    const closeButton = canvas.getByRole('button', { name: 'Close' });
+    expect(closeButton).toBeInTheDocument();
+    
+    // Close the sheet
+    await userEvent.click(closeButton);
+    
+    // Verify sheet is closed (content no longer visible)
+    expect(canvas.queryByText('Sheet Title')).not.toBeInTheDocument();
+  },
 };
 
 export const WithForm: Story = {
@@ -83,6 +109,28 @@ export const WithForm: Story = {
       </SheetContent>
     </Sheet>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Click to open the sheet
+    const trigger = canvas.getByRole('button', { name: 'Edit Profile' });
+    await userEvent.click(trigger);
+    
+    // Check that the form is rendered
+    expect(canvas.getByText('Edit profile')).toBeInTheDocument();
+    expect(canvas.getByLabelText('Name')).toBeInTheDocument();
+    expect(canvas.getByLabelText('Username')).toBeInTheDocument();
+    
+    // Check that inputs have default values
+    const nameInput = canvas.getByLabelText('Name') as HTMLInputElement;
+    const usernameInput = canvas.getByLabelText('Username') as HTMLInputElement;
+    expect(nameInput.value).toBe('Pedro Duarte');
+    expect(usernameInput.value).toBe('@peduarte');
+    
+    // Check save button is present
+    const saveButton = canvas.getByRole('button', { name: 'Save changes' });
+    expect(saveButton).toBeInTheDocument();
+  },
 };
 
 export const Positions: Story = {
@@ -168,6 +216,29 @@ export const NestedSheets: Story = {
       </SheetContent>
     </Sheet>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Open the first sheet
+    const firstTrigger = canvas.getByRole('button', { name: 'Open First Sheet' });
+    await userEvent.click(firstTrigger);
+    
+    // Check that first sheet is open
+    expect(canvas.getByText('First Sheet')).toBeInTheDocument();
+    expect(canvas.getByText('This is the first sheet. You can open another one.')).toBeInTheDocument();
+    
+    // Check that nested sheet trigger is available
+    const nestedTrigger = canvas.getByRole('button', { name: 'Open Nested Sheet' });
+    expect(nestedTrigger).toBeInTheDocument();
+    
+    // Open the nested sheet
+    await userEvent.click(nestedTrigger);
+    
+    // Check that both sheets are open
+    expect(canvas.getByText('First Sheet')).toBeInTheDocument();
+    expect(canvas.getByText('Nested Sheet')).toBeInTheDocument();
+    expect(canvas.getByText('This is a nested sheet that appears from the opposite side.')).toBeInTheDocument();
+  },
 };
 
 export const LongContent: Story = {

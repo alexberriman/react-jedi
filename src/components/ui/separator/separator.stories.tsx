@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 import { Separator } from "./separator";
 
 const meta: Meta<typeof Separator> = {
@@ -40,6 +41,20 @@ export const Default: Story = {
       <div className="text-lg font-medium">Content Below</div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check that the separator is rendered
+    const separator = canvas.getByRole('separator');
+    expect(separator).toBeInTheDocument();
+    
+    // Check that it has horizontal orientation
+    expect(separator).toHaveAttribute('aria-orientation', 'horizontal');
+    
+    // Check that surrounding content is rendered
+    expect(canvas.getByText('Content Above')).toBeInTheDocument();
+    expect(canvas.getByText('Content Below')).toBeInTheDocument();
+  },
 };
 
 export const Vertical: Story = {
@@ -54,6 +69,20 @@ export const Vertical: Story = {
       <div className="text-lg font-medium">Right</div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check that the separator is rendered
+    const separator = canvas.getByRole('separator');
+    expect(separator).toBeInTheDocument();
+    
+    // Check that it has vertical orientation
+    expect(separator).toHaveAttribute('aria-orientation', 'vertical');
+    
+    // Check that surrounding content is rendered
+    expect(canvas.getByText('Left')).toBeInTheDocument();
+    expect(canvas.getByText('Right')).toBeInTheDocument();
+  },
 };
 
 export const CustomStyle: Story = {

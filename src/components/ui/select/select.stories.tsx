@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import * as React from "react";
 import {
   Select,
@@ -58,6 +59,34 @@ export const Default: Story = {
       </SelectContent>
     </Select>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check that the select trigger is rendered
+    const trigger = canvas.getByRole('combobox');
+    expect(trigger).toBeInTheDocument();
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    
+    // Check placeholder is visible
+    expect(canvas.getByText('Select a fruit')).toBeInTheDocument();
+    
+    // Click to open the select
+    await userEvent.click(trigger);
+    
+    // Check that the select is now open
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    
+    // Check that options are visible
+    expect(canvas.getByRole('option', { name: 'Apple' })).toBeInTheDocument();
+    expect(canvas.getByRole('option', { name: 'Banana' })).toBeInTheDocument();
+    
+    // Select an option
+    await userEvent.click(canvas.getByRole('option', { name: 'Banana' }));
+    
+    // Check that the select is closed and value is updated
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(canvas.getByText('Banana')).toBeInTheDocument();
+  },
 };
 
 export const WithDefaultValue: Story = {
@@ -75,6 +104,19 @@ export const WithDefaultValue: Story = {
       </SelectContent>
     </Select>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check that the select trigger is rendered
+    const trigger = canvas.getByRole('combobox');
+    expect(trigger).toBeInTheDocument();
+    
+    // Check that default value is displayed
+    expect(canvas.getByText('Banana')).toBeInTheDocument();
+    
+    // Verify the trigger has the correct value
+    expect(trigger).toHaveTextContent('Banana');
+  },
 };
 
 export const Disabled: Story = {
@@ -92,6 +134,25 @@ export const Disabled: Story = {
       </SelectContent>
     </Select>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check that the select trigger is rendered
+    const trigger = canvas.getByRole('combobox');
+    expect(trigger).toBeInTheDocument();
+    
+    // Check that it's disabled
+    expect(trigger).toBeDisabled();
+    
+    // Check that default value is still displayed
+    expect(canvas.getByText('Banana')).toBeInTheDocument();
+    
+    // Try to click (should not open)
+    await userEvent.click(trigger);
+    
+    // Verify it remains closed
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  },
 };
 
 export const WithDisabledItem: Story = {
@@ -169,6 +230,32 @@ export const WithGroups: Story = {
       </SelectContent>
     </Select>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check that the select trigger is rendered
+    const trigger = canvas.getByRole('combobox');
+    expect(trigger).toBeInTheDocument();
+    
+    // Open the select
+    await userEvent.click(trigger);
+    
+    // Check that groups are rendered
+    expect(canvas.getByText('Fruits')).toBeInTheDocument();
+    expect(canvas.getByText('Vegetables')).toBeInTheDocument();
+    expect(canvas.getByText('Meats')).toBeInTheDocument();
+    
+    // Check that items from different groups are present
+    expect(canvas.getByRole('option', { name: 'Apple' })).toBeInTheDocument();
+    expect(canvas.getByRole('option', { name: 'Carrot' })).toBeInTheDocument();
+    expect(canvas.getByRole('option', { name: 'Chicken' })).toBeInTheDocument();
+    
+    // Select an item from a group
+    await userEvent.click(canvas.getByRole('option', { name: 'Broccoli' }));
+    
+    // Check that the value is updated
+    expect(canvas.getByText('Broccoli')).toBeInTheDocument();
+  },
 };
 
 export const WithLongContent: Story = {

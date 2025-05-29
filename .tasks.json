@@ -37,7 +37,7 @@
       {
         "id": "add-play-functions-07",
         "description": "Add `play` functions for: `src/components/ui/resizable/resizable.stories.tsx`, `src/components/ui/scroll-area/scroll-area.stories.tsx`, `src/components/ui/select/select.stories.tsx`, `src/components/ui/separator/separator.stories.tsx`, `src/components/ui/sheet/sheet.stories.tsx`. Use the Storybook Test Addon (`@storybook/test`) and ensure interaction tests are working. Then run `npm run test-storybook` to verify success.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-08",

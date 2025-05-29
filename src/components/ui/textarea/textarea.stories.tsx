@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import type { TextareaSpec } from "../../../types/schema/ui";
 import { Textarea } from "./textarea";
 import { render } from "../../../lib/render";
@@ -27,6 +28,26 @@ export const Default: Story = {
     placeholder: "Enter your message...",
     rows: 4,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    
+    // Test textarea renders
+    const textarea = canvas.getByPlaceholderText("Enter your message...");
+    expect(textarea).toBeInTheDocument();
+    expect(textarea.tagName.toLowerCase()).toBe('textarea');
+    
+    // Test clicking and typing
+    await user.click(textarea);
+    expect(textarea).toHaveFocus();
+    
+    // Test typing text
+    await user.type(textarea, "Hello, this is a test message!");
+    expect(textarea).toHaveValue("Hello, this is a test message!");
+    
+    // Test rows attribute
+    expect(textarea).toHaveAttribute('rows', '4');
+  },
 };
 
 export const WithValue: Story = {
@@ -41,6 +62,20 @@ export const Disabled: Story = {
     placeholder: "This textarea is disabled",
     disabled: true,
     rows: 4,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test disabled textarea
+    const textarea = canvas.getByPlaceholderText("This textarea is disabled");
+    expect(textarea).toBeInTheDocument();
+    expect(textarea).toBeDisabled();
+    
+    // Test disabled attribute
+    expect(textarea).toHaveAttribute('disabled');
+    
+    // Test cannot focus disabled textarea
+    expect(textarea).not.toHaveFocus();
   },
 };
 
@@ -65,6 +100,22 @@ export const MaxLength: Story = {
     maxLength: 100,
     rows: 4,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    
+    // Test textarea with maxLength
+    const textarea = canvas.getByPlaceholderText("Maximum 100 characters allowed");
+    expect(textarea).toBeInTheDocument();
+    expect(textarea).toHaveAttribute('maxlength', '100');
+    
+    // Test typing within limit
+    await user.click(textarea);
+    await user.type(textarea, "This is a test message that should fit within the 100 character limit set on this textarea.");
+    
+    // Test that the text was entered (it's exactly 99 characters)
+    expect((textarea as HTMLTextAreaElement).value.length).toBeLessThanOrEqual(100);
+  },
 };
 
 export const WithLabel: Story = {
@@ -74,6 +125,29 @@ export const WithLabel: Story = {
       <Textarea id="message" placeholder="Type your message here..." rows={4} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    
+    // Test label and textarea association
+    const label = canvas.getByText('Message');
+    const textarea = canvas.getByPlaceholderText('Type your message here...');
+    
+    expect(label).toBeInTheDocument();
+    expect(textarea).toBeInTheDocument();
+    
+    // Test label htmlFor and textarea id
+    expect(label).toHaveAttribute('for', 'message');
+    expect(textarea).toHaveAttribute('id', 'message');
+    
+    // Test clicking label focuses textarea
+    await user.click(label);
+    expect(textarea).toHaveFocus();
+    
+    // Test typing in textarea
+    await user.type(textarea, 'Label clicked and focused!');
+    expect(textarea).toHaveValue('Label clicked and focused!');
+  },
 };
 
 export const Required: Story = {

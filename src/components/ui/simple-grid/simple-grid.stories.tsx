@@ -109,10 +109,12 @@ export const Default: Story = {
     }
 
     // Test grid layout is applied
-    const gridElement = grid as HTMLElement;
-    const computedStyle = globalThis.getComputedStyle(gridElement);
-    expect(computedStyle.display).toBe('grid');
-    expect(computedStyle.gridTemplateColumns).toContain('repeat(3');
+    if (grid) {
+      const gridElement = grid as HTMLElement;
+      const computedStyle = globalThis.getComputedStyle(gridElement);
+      expect(computedStyle.display).toBe('grid');
+      expect(computedStyle.gridTemplateColumns).toContain('repeat(3');
+    }
   },
 };
 

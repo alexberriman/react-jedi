@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 import {
   Sheet,
   SheetContent,
@@ -57,8 +57,10 @@ export const Default: Story = {
     // Click to open the sheet
     await userEvent.click(trigger);
     
-    // Check that the sheet content is visible
-    expect(canvas.getByText('Sheet Title')).toBeInTheDocument();
+    // Wait for sheet to open and check that the sheet content is visible
+    await waitFor(() => {
+      expect(canvas.getByText('Sheet Title')).toBeInTheDocument();
+    });
     expect(canvas.getByText(/This is a sheet description/)).toBeInTheDocument();
     expect(canvas.getByText('Sheet content goes here.')).toBeInTheDocument();
     
@@ -116,8 +118,10 @@ export const WithForm: Story = {
     const trigger = canvas.getByRole('button', { name: 'Edit Profile' });
     await userEvent.click(trigger);
     
-    // Check that the form is rendered
-    expect(canvas.getByText('Edit profile')).toBeInTheDocument();
+    // Wait for sheet to open and check that the form is rendered
+    await waitFor(() => {
+      expect(canvas.getByText('Edit profile')).toBeInTheDocument();
+    });
     expect(canvas.getByLabelText('Name')).toBeInTheDocument();
     expect(canvas.getByLabelText('Username')).toBeInTheDocument();
     

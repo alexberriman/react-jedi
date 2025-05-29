@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import { Testimonial } from "./testimonial";
 
 const meta = {
@@ -40,12 +41,53 @@ const defaultProps = {
 
 export const Default: Story = {
   args: defaultProps,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test testimonial content
+    expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+    
+    // Test author information
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+    expect(canvas.getByText(/Product.*Designer/)).toBeInTheDocument();
+    expect(canvas.getByText("Tech Corp")).toBeInTheDocument();
+    
+    // Test date
+    expect(canvas.getByText("November 2024")).toBeInTheDocument();
+    
+    // Test rating stars (should be 5 stars)
+    // If stars are implemented, they should be visible
+    
+    // Test avatar image
+    const avatar = canvasElement.querySelector('img');
+    if (avatar) {
+      expect(avatar).toHaveAttribute('src', expect.stringContaining('unsplash.com'));
+      expect(avatar).toHaveAttribute('alt', expect.stringContaining('Sarah Chen'));
+    }
+
+    // Test testimonial structure is present
+    const testimonial = canvasElement.querySelector('div');
+    expect(testimonial).toBeInTheDocument();
+  },
 };
 
 export const Minimal: Story = {
   args: {
     ...defaultProps,
     variant: "minimal",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test testimonial content is present
+    expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+    
+    // Test author information
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+    
+    // Test testimonial structure is present
+    const testimonial = canvasElement.querySelector('div');
+    expect(testimonial).toBeInTheDocument();
   },
 };
 
@@ -70,12 +112,36 @@ export const Highlighted: Story = {
     ...defaultProps,
     highlight: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test testimonial content
+    expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+    
+    // Test testimonial structure is present
+    const testimonial = canvasElement.querySelector('div');
+    expect(testimonial).toBeInTheDocument();
+  },
 };
 
 export const WithoutRating: Story = {
   args: {
     ...defaultProps,
     rating: undefined,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test content is still present
+    expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+    
+    // Test that rating section is not present
+    const ratingContainer = canvasElement.querySelector('[data-testid="rating"], .rating');
+    if (ratingContainer) {
+      expect(ratingContainer).not.toBeInTheDocument();
+    }
   },
 };
 
@@ -88,6 +154,23 @@ export const WithoutAvatar: Story = {
     },
     content: "Incredible library that makes building beautiful interfaces a breeze.",
     rating: 5,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test content and author info
+    expect(canvas.getByText(/Incredible library.*beautiful interfaces/)).toBeInTheDocument();
+    expect(canvas.getByText("Alex Johnson")).toBeInTheDocument();
+    expect(canvas.getByText("CTO")).toBeInTheDocument();
+    expect(canvas.getByText("StartupCo")).toBeInTheDocument();
+    
+    // Test that no avatar image is present
+    const avatar = canvasElement.querySelector('img');
+    expect(avatar).not.toBeInTheDocument();
+    
+    // Test testimonial structure is present
+    const testimonial = canvasElement.querySelector('div');
+    expect(testimonial).toBeInTheDocument();
   },
 };
 

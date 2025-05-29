@@ -47,17 +47,17 @@
       {
         "id": "add-play-functions-09",
         "description": "Create play functions using `@storybook/test` in the following: `src/components/ui/stack/stack.stories.tsx`, `src/components/ui/switch/switch.stories.tsx`, `src/components/ui/table/table.stories.tsx`, `src/components/ui/tabs/tabs.stories.tsx`, `src/components/ui/testimonial/testimonial.stories.tsx`. Verify all interaction tests pass by running `npm run test-storybook`.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-10",
         "description": "Add `play` functions to the following Storybook files: `src/components/ui/text/text.stories.tsx`, `src/components/ui/textarea/textarea.stories.tsx`, `src/components/ui/toast/toast.stories.tsx`, `src/components/ui/toggle-group/toggle-group.stories.tsx`, `src/components/ui/toggle/toggle.stories.tsx`. Use the Storybook Test Addon and run `npm run test-storybook` to confirm.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-11",
         "description": "Add `play` functions to: `src/components/ui/tooltip/tooltip.stories.tsx`. Follow the pattern for `@storybook/test`, ensuring the play function tests interaction or rendering. Then run `npm run test-storybook` to verify the story passes the test. This is the final remaining story file missing a play function.",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   },

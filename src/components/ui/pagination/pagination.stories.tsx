@@ -82,7 +82,7 @@ export const Default: Story = {
     expect(nextButton).toBeInTheDocument();
 
     // Test active state
-    expect(page2.parentElement).toHaveAttribute("aria-current", "page");
+    expect(page2).toHaveAttribute("aria-current", "page");
 
     // Test clicking on a page
     await user.click(page3);
@@ -126,7 +126,7 @@ export const JsonSimple: Story = {
 
     // Test current page is active
     const page3 = canvas.getByText("3");
-    expect(page3.parentElement).toHaveAttribute("aria-current", "page");
+    expect(page3).toHaveAttribute("aria-current", "page");
 
     // Test prev/next buttons
     const prevButton = canvas.getByLabelText("Go to previous page");

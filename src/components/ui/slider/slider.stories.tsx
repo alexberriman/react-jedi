@@ -73,7 +73,7 @@ export const Basic: Story = {
     // Test slider renders
     const slider = canvas.getByRole("slider");
     expect(slider).toBeInTheDocument();
-    expect(slider).toHaveValue("50");
+    expect(slider).toHaveValue(50);
 
     // Test slider interaction
     await user.click(slider);
@@ -92,17 +92,17 @@ export const SingleValue: Story = {
     const user = userEvent.setup();
 
     const slider = canvas.getByRole("slider");
-    expect(slider).toHaveValue("33");
+    expect(slider).toHaveValue(33);
     expect(slider).toHaveAttribute("aria-valuemin", "0");
     expect(slider).toHaveAttribute("aria-valuemax", "100");
 
     // Test keyboard navigation
     slider.focus();
     await user.keyboard("{Home}");
-    expect(slider).toHaveValue("0");
+    expect(slider).toHaveValue(0);
 
     await user.keyboard("{End}");
-    expect(slider).toHaveValue("100");
+    expect(slider).toHaveValue(100);
   },
 };
 
@@ -117,12 +117,12 @@ export const Range: Story = {
     expect(sliders).toHaveLength(2);
 
     // Test first thumb
-    expect(sliders[0]).toHaveValue("25");
+    expect(sliders[0]).toHaveValue(25);
     sliders[0].focus();
     await user.keyboard("{ArrowRight}");
 
     // Test second thumb
-    expect(sliders[1]).toHaveValue("75");
+    expect(sliders[1]).toHaveValue(75);
     sliders[1].focus();
     await user.keyboard("{ArrowLeft}");
   },
@@ -140,15 +140,15 @@ export const SteppedSlider: Story = {
     const user = userEvent.setup();
 
     const slider = canvas.getByRole("slider");
-    expect(slider).toHaveValue("50");
+    expect(slider).toHaveValue(50);
     
     // Test step behavior
     slider.focus();
     await user.keyboard("{ArrowRight}");
-    expect(slider).toHaveValue("60"); // Should increase by step size
+    expect(slider).toHaveValue(60); // Should increase by step size
 
     await user.keyboard("{ArrowLeft}");
-    expect(slider).toHaveValue("50"); // Should decrease by step size
+    expect(slider).toHaveValue(50); // Should decrease by step size
   },
 };
 
@@ -159,12 +159,12 @@ export const Disabled: Story = {
     const user = userEvent.setup();
 
     const slider = canvas.getByRole("slider");
-    expect(slider).toBeDisabled();
-    expect(slider).toHaveValue("50");
+    expect(slider).toHaveAttribute("data-disabled");
+    expect(slider).toHaveValue(50);
 
     // Test disabled state prevents interaction
     await user.click(slider);
-    expect(slider).toHaveValue("50"); // Value should not change
+    expect(slider).toHaveValue(50); // Value should not change
   },
 };
 

@@ -39,7 +39,7 @@ export const VerticalScroll: Story = {
     const canvas = within(canvasElement);
     
     // Check that the scroll area is rendered
-    const scrollArea = canvas.getByRole('region');
+    const scrollArea = canvasElement.querySelector('[data-slot="scroll-area"]');
     expect(scrollArea).toBeInTheDocument();
     
     // Check that content is rendered
@@ -47,7 +47,7 @@ export const VerticalScroll: Story = {
     expect(canvas.getByText('v1.2.0-beta.50')).toBeInTheDocument();
     
     // Test scrollbar visibility
-    const scrollbar = scrollArea.querySelector('[data-radix-scroll-area-scrollbar]');
+    const scrollbar = scrollArea?.querySelector('[data-radix-scroll-area-scrollbar]');
     expect(scrollbar).toBeInTheDocument();
   },
 };
@@ -80,7 +80,7 @@ export const HorizontalScroll: Story = {
     const canvas = within(canvasElement);
     
     // Check that the scroll area is rendered
-    const scrollArea = canvas.getByRole('region');
+    const scrollArea = canvasElement.querySelector('[data-slot="scroll-area"]');
     expect(scrollArea).toBeInTheDocument();
     
     // Check that content is rendered
@@ -88,7 +88,7 @@ export const HorizontalScroll: Story = {
     expect(firstImage).toBeInTheDocument();
     
     // Test horizontal scrollbar
-    const horizontalScrollbar = scrollArea.querySelector('[data-orientation="horizontal"]');
+    const horizontalScrollbar = scrollArea?.querySelector('[data-orientation="horizontal"]');
     expect(horizontalScrollbar).toBeInTheDocument();
   },
 };
@@ -182,7 +182,7 @@ export const NestedScrollAreas: Story = {
     const canvas = within(canvasElement);
     
     // Check that both scroll areas are rendered
-    const scrollAreas = canvas.getAllByRole('region');
+    const scrollAreas = canvasElement.querySelectorAll('[data-slot="scroll-area"]');
     expect(scrollAreas).toHaveLength(3); // Parent + 2 nested
     
     // Check that both headings are present
@@ -252,7 +252,7 @@ export const LongContent: Story = {
     const canvas = within(canvasElement);
     
     // Check that the scroll area is rendered
-    const scrollArea = canvas.getByRole('region');
+    const scrollArea = canvasElement.querySelector('[data-slot="scroll-area"]');
     expect(scrollArea).toBeInTheDocument();
     
     // Check that the title is rendered
@@ -263,7 +263,7 @@ export const LongContent: Story = {
     expect(canvas.getByText('Accessibility')).toBeInTheDocument();
     
     // Test scrollbar presence for long content
-    const verticalScrollbar = scrollArea.querySelector('[data-orientation="vertical"]');
+    const verticalScrollbar = scrollArea?.querySelector('[data-orientation="vertical"]');
     expect(verticalScrollbar).toBeInTheDocument();
   },
 };

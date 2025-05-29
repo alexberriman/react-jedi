@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import * as React from "react";
 import { Switch } from "./switch";
 
@@ -46,10 +47,47 @@ type Story = StoryObj<typeof Switch>;
 
 export const Basic: Story = {
   render: () => <Switch />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test switch renders
+    const switchButton = canvas.getByRole("switch");
+    expect(switchButton).toBeInTheDocument();
+
+    // Test initial unchecked state
+    expect(switchButton).not.toBeChecked();
+    expect(switchButton).toHaveAttribute("data-state", "unchecked");
+
+    // Test clicking to toggle
+    await user.click(switchButton);
+    expect(switchButton).toBeChecked();
+    expect(switchButton).toHaveAttribute("data-state", "checked");
+
+    // Test clicking again to toggle back
+    await user.click(switchButton);
+    expect(switchButton).not.toBeChecked();
+    expect(switchButton).toHaveAttribute("data-state", "unchecked");
+  },
 };
 
 export const DefaultChecked: Story = {
   render: () => <Switch defaultChecked />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test switch renders with default checked state
+    const switchButton = canvas.getByRole("switch");
+    expect(switchButton).toBeInTheDocument();
+    expect(switchButton).toBeChecked();
+    expect(switchButton).toHaveAttribute("data-state", "checked");
+
+    // Test clicking to uncheck
+    await user.click(switchButton);
+    expect(switchButton).not.toBeChecked();
+    expect(switchButton).toHaveAttribute("data-state", "unchecked");
+  },
 };
 
 export const Disabled: Story = {
@@ -65,6 +103,32 @@ export const Disabled: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test both disabled switches
+    const switches = canvas.getAllByRole("switch");
+    expect(switches).toHaveLength(2);
+
+    const disabledUnchecked = switches[0];
+    const disabledChecked = switches[1];
+
+    // Test disabled states
+    expect(disabledUnchecked).toBeDisabled();
+    expect(disabledChecked).toBeDisabled();
+
+    // Test initial checked states
+    expect(disabledUnchecked).not.toBeChecked();
+    expect(disabledChecked).toBeChecked();
+
+    // Test disabled attribute
+    expect(disabledUnchecked).toHaveAttribute("disabled");
+    expect(disabledChecked).toHaveAttribute("disabled");
+
+    // Test labels
+    expect(canvas.getByText("Disabled (unchecked)")).toBeInTheDocument();
+    expect(canvas.getByText("Disabled (checked)")).toBeInTheDocument();
+  },
 };
 
 const ControlledExample = () => {
@@ -88,6 +152,37 @@ const ControlledExample = () => {
 
 export const Controlled: Story = {
   render: () => <ControlledExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test controlled switch and status text
+    const switchButton = canvas.getByRole("switch");
+    const statusText = canvas.getByText("Status: Off");
+    const toggleButton = canvas.getByRole("button", { name: "Toggle programmatically" });
+
+    expect(switchButton).toBeInTheDocument();
+    expect(statusText).toBeInTheDocument();
+    expect(toggleButton).toBeInTheDocument();
+
+    // Test initial state
+    expect(switchButton).not.toBeChecked();
+
+    // Test clicking switch directly
+    await user.click(switchButton);
+    expect(switchButton).toBeChecked();
+    expect(canvas.getByText("Status: On")).toBeInTheDocument();
+
+    // Test programmatic toggle button
+    await user.click(toggleButton);
+    expect(switchButton).not.toBeChecked();
+    expect(canvas.getByText("Status: Off")).toBeInTheDocument();
+
+    // Test programmatic toggle again
+    await user.click(toggleButton);
+    expect(switchButton).toBeChecked();
+    expect(canvas.getByText("Status: On")).toBeInTheDocument();
+  },
 };
 
 export const WithLabels: Story = {

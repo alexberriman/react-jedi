@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import {
   Table,
   TableBody,
@@ -104,6 +105,42 @@ export const Default: Story = {
       </TableFooter>
     </Table>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test table structure
+    const table = canvas.getByRole("table");
+    expect(table).toBeInTheDocument();
+
+    // Test caption
+    const caption = canvas.getByText("A list of your recent invoices.");
+    expect(caption).toBeInTheDocument();
+
+    // Test headers
+    const headers = canvas.getAllByRole("columnheader");
+    expect(headers).toHaveLength(4);
+    expect(headers[0]).toHaveTextContent("Invoice");
+    expect(headers[1]).toHaveTextContent("Status");
+    expect(headers[2]).toHaveTextContent("Method");
+    expect(headers[3]).toHaveTextContent("Amount");
+
+    // Test data rows (7 invoice rows + 1 footer row)
+    const rows = canvas.getAllByRole("row");
+    expect(rows).toHaveLength(9); // 1 header + 7 data + 1 footer
+
+    // Test specific invoice data
+    expect(canvas.getByText("INV001")).toBeInTheDocument();
+    expect(canvas.getAllByText("Paid")).toHaveLength(3); // There are 3 "Paid" invoices
+    expect(canvas.getAllByText("Credit Card")).toHaveLength(3); // 3 Credit Card payments
+    expect(canvas.getByText("$250.00")).toBeInTheDocument();
+
+    // Test footer
+    expect(canvas.getByText("Total")).toBeInTheDocument();
+    expect(canvas.getByText("$2,250.00")).toBeInTheDocument();
+
+    // Test table accessibility
+    expect(table).toHaveClass("w-full", "caption-bottom");
+  },
 };
 
 export const WithoutCaption: Story = {
@@ -139,6 +176,39 @@ export const WithoutCaption: Story = {
       </TableBody>
     </Table>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test table structure without caption
+    const table = canvas.getByRole("table");
+    expect(table).toBeInTheDocument();
+
+    // Test headers
+    const headers = canvas.getAllByRole("columnheader");
+    expect(headers).toHaveLength(4);
+    expect(headers[0]).toHaveTextContent("Name");
+    expect(headers[1]).toHaveTextContent("Email");
+    expect(headers[2]).toHaveTextContent("Role");
+    expect(headers[3]).toHaveTextContent("Status");
+
+    // Test data rows (3 user rows + 1 header row)
+    const rows = canvas.getAllByRole("row");
+    expect(rows).toHaveLength(4); // 1 header + 3 data
+
+    // Test user data
+    expect(canvas.getByText("John Doe")).toBeInTheDocument();
+    expect(canvas.getByText("john.doe@example.com")).toBeInTheDocument();
+    expect(canvas.getByText("Developer")).toBeInTheDocument();
+    expect(canvas.getByText("Jane Smith")).toBeInTheDocument();
+    expect(canvas.getByText("Designer")).toBeInTheDocument();
+    expect(canvas.getByText("Bob Johnson")).toBeInTheDocument();
+    expect(canvas.getByText("Manager")).toBeInTheDocument();
+    expect(canvas.getByText("Inactive")).toBeInTheDocument();
+
+    // Test no caption exists
+    const caption = table.querySelector("caption");
+    expect(caption).not.toBeInTheDocument();
+  },
 };
 
 export const ComplexData: Story = {

@@ -3,6 +3,7 @@ import * as React from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 import { Button } from "../button";
 import { InfoIcon, Plus, Settings, TrendingUp } from "lucide-react";
+import { within, userEvent, waitFor, expect, screen } from "@storybook/test";
 
 const meta = {
   title: "Components/Overlay/Tooltip",
@@ -39,6 +40,21 @@ export const Default: Story = {
       </TooltipContent>
     </Tooltip>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "Hover me" });
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("This is a helpful tooltip")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const WithIcon: Story = {
@@ -54,6 +70,21 @@ export const WithIcon: Story = {
       </TooltipContent>
     </Tooltip>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button");
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Learn more about this feature")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const MultiplePlacement: Story = {
@@ -96,6 +127,21 @@ export const MultiplePlacement: Story = {
       </Tooltip>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const topButton = canvas.getByRole("button", { name: "Top" });
+    expect(topButton).toBeInTheDocument();
+
+    await userEvent.hover(topButton);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Tooltip on top")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const LongContent: Story = {
@@ -115,6 +161,22 @@ export const LongContent: Story = {
       </TooltipContent>
     </Tooltip>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "Detailed Info" });
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Pro Tip")).toBeInTheDocument();
+        expect(screen.getByText(/multiple lines of content/)).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const CustomStyling: Story = {
@@ -128,6 +190,21 @@ export const CustomStyling: Story = {
       </TooltipContent>
     </Tooltip>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "Custom Styled" });
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Custom colored tooltip")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const WithAlignment: Story = {
@@ -161,6 +238,21 @@ export const WithAlignment: Story = {
       </Tooltip>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const startButton = canvas.getByRole("button", { name: "Align Start" });
+    expect(startButton).toBeInTheDocument();
+
+    await userEvent.hover(startButton);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Aligned to start")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const WithDelay: Story = {
@@ -176,6 +268,21 @@ export const WithDelay: Story = {
       </Tooltip>
     </TooltipProvider>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "Wait for it..." });
+    expect(trigger).toBeInTheDocument();
+
+    await userEvent.hover(trigger);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("This tooltip has a custom delay")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const Complex: Story = {
@@ -218,6 +325,22 @@ export const Complex: Story = {
       </Tooltip>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const buttons = canvas.getAllByRole("button");
+    expect(buttons).toHaveLength(3);
+
+    // Test the first button (Plus icon)
+    await userEvent.hover(buttons[0]);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("Add new item")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };
 
 export const Accessible: Story = {
@@ -236,4 +359,20 @@ export const Accessible: Story = {
       </Tooltip>
     </div>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: "Tab to focus me" });
+    expect(trigger).toBeInTheDocument();
+
+    // Test focus accessibility
+    trigger.focus();
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("This tooltip appears on focus too!")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+  },
 };

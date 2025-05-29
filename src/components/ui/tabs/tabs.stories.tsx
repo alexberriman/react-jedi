@@ -1,5 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
 
 /**
@@ -52,6 +53,39 @@ export const Default: Story = {
       </TabsContent>
     </Tabs>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test tabs structure
+    const tablist = canvas.getByRole("tablist");
+    expect(tablist).toBeInTheDocument();
+
+    // Test tab triggers
+    const accountTab = canvas.getByRole("tab", { name: "Account" });
+    const passwordTab = canvas.getByRole("tab", { name: "Password" });
+    expect(accountTab).toBeInTheDocument();
+    expect(passwordTab).toBeInTheDocument();
+
+    // Test initial state (Account tab should be selected)
+    expect(accountTab).toHaveAttribute("data-state", "active");
+    expect(passwordTab).toHaveAttribute("data-state", "inactive");
+
+    // Test initial content
+    expect(canvas.getByText("Make changes to your account here")).toBeInTheDocument();
+
+    // Test clicking Password tab
+    await user.click(passwordTab);
+    expect(passwordTab).toHaveAttribute("data-state", "active");
+    expect(accountTab).toHaveAttribute("data-state", "inactive");
+    expect(canvas.getByText("Change your password here")).toBeInTheDocument();
+
+    // Test clicking back to Account tab
+    await user.click(accountTab);
+    expect(accountTab).toHaveAttribute("data-state", "active");
+    expect(passwordTab).toHaveAttribute("data-state", "inactive");
+    expect(canvas.getByText("Make changes to your account here")).toBeInTheDocument();
+  },
 };
 
 function ControlledTabsComponent() {
@@ -95,6 +129,35 @@ function ControlledTabsComponent() {
 export const Controlled: Story = {
   name: "Controlled Tabs",
   render: () => <ControlledTabsComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test controlled tabs
+    const overviewTab = canvas.getByRole("tab", { name: "Overview" });
+    const analyticsTab = canvas.getByRole("tab", { name: "Analytics" });
+    const reportsTab = canvas.getByRole("tab", { name: "Reports" });
+
+    expect(overviewTab).toBeInTheDocument();
+    expect(analyticsTab).toBeInTheDocument();
+    expect(reportsTab).toBeInTheDocument();
+
+    // Test initial state (Overview should be active)
+    expect(overviewTab).toHaveAttribute("data-state", "active");
+    expect(canvas.getByText("Welcome to the overview tab")).toBeInTheDocument();
+
+    // Test switching to Analytics
+    await user.click(analyticsTab);
+    expect(analyticsTab).toHaveAttribute("data-state", "active");
+    expect(overviewTab).toHaveAttribute("data-state", "inactive");
+    expect(canvas.getByText("Dive deep into your analytics")).toBeInTheDocument();
+
+    // Test switching to Reports
+    await user.click(reportsTab);
+    expect(reportsTab).toHaveAttribute("data-state", "active");
+    expect(analyticsTab).toHaveAttribute("data-state", "inactive");
+    expect(canvas.getByText("Access detailed reports")).toBeInTheDocument();
+  },
 };
 
 export const VerticalOrientation: Story = {
@@ -185,6 +248,39 @@ export const WithDisabledTab: Story = {
       </TabsContent>
     </Tabs>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test tab structure with disabled tab
+    const activeTab = canvas.getByRole("tab", { name: "Active" });
+    const disabledTab = canvas.getByRole("tab", { name: "Disabled" });
+    const pendingTab = canvas.getByRole("tab", { name: "Pending" });
+
+    expect(activeTab).toBeInTheDocument();
+    expect(disabledTab).toBeInTheDocument();
+    expect(pendingTab).toBeInTheDocument();
+
+    // Test initial state
+    expect(activeTab).toHaveAttribute("data-state", "active");
+    expect(canvas.getByText("This tab is active and accessible")).toBeInTheDocument();
+
+    // Test disabled tab
+    expect(disabledTab).toHaveAttribute("disabled");
+    expect(disabledTab).toHaveAttribute("data-disabled");
+
+    // Test switching to pending tab
+    await user.click(pendingTab);
+    expect(pendingTab).toHaveAttribute("data-state", "active");
+    expect(activeTab).toHaveAttribute("data-state", "inactive");
+    expect(canvas.getByText("This tab is pending approval")).toBeInTheDocument();
+
+    // Test that disabled tab cannot be activated
+    // Note: userEvent respects disabled state, so this should not change active tab
+    await user.click(disabledTab);
+    expect(pendingTab).toHaveAttribute("data-state", "active");
+    expect(disabledTab).toHaveAttribute("data-state", "inactive");
+  },
 };
 
 export const WithIcons: Story = {

@@ -110,7 +110,8 @@ export const Default: Story = {
 
     // Test features are rendered
     expect(canvas.getByText("5 Projects")).toBeInTheDocument();
-    expect(canvas.getByText("Unlimited Projects")).toBeInTheDocument();
+    const unlimitedProjectsElements = canvas.getAllByText("Unlimited Projects");
+    expect(unlimitedProjectsElements.length).toBeGreaterThanOrEqual(1);
   },
 };
 

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import { Text } from "./text";
 
 const meta = {
@@ -104,6 +105,19 @@ export const Default: Story = {
     children:
       "This is a paragraph of text that demonstrates the default styling of the Text component. It should have a reasonable width for comfortable reading and proper spacing.",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test text content renders
+    const textElement = canvas.getByText(/This is a paragraph of text/i);
+    expect(textElement).toBeInTheDocument();
+    
+    // Test default element is paragraph
+    expect(textElement.tagName.toLowerCase()).toBe('p');
+    
+    // Test has text slot attribute
+    expect(textElement).toHaveAttribute('data-slot', 'text');
+  },
 };
 
 export const ElementTypes: Story = {
@@ -127,6 +141,34 @@ export const ElementTypes: Story = {
       <Text element="div">Div: Block-level container for text content.</Text>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test different element types render correctly
+    const paragraph = canvas.getByText(/Paragraph: Default text element/);
+    expect(paragraph.tagName.toLowerCase()).toBe('p');
+    
+    const span = canvas.getByText('Span: Inline text element.');
+    expect(span.tagName.toLowerCase()).toBe('span');
+    
+    const strong = canvas.getByText('Strong: Bold emphasis');
+    expect(strong.tagName.toLowerCase()).toBe('strong');
+    
+    const em = canvas.getByText('Em: Italic emphasis');
+    expect(em.tagName.toLowerCase()).toBe('em');
+    
+    const small = canvas.getByText(/Small: Smaller text/);
+    expect(small.tagName.toLowerCase()).toBe('small');
+    
+    const blockquote = canvas.getByText(/Blockquote: Used for quotations/);
+    expect(blockquote.tagName.toLowerCase()).toBe('blockquote');
+    
+    const code = canvas.getByText(/Code: for inline code/);
+    expect(code.tagName.toLowerCase()).toBe('code');
+    
+    const div = canvas.getByText('Div: Block-level container for text content.');
+    expect(div.tagName.toLowerCase()).toBe('div');
+  },
 };
 
 export const SizeVariants: Story = {
@@ -194,6 +236,28 @@ export const ColorVariants: Story = {
       <Text variant="destructive">Destructive Color: For warnings or errors.</Text>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test color variants render with correct content
+    const defaultText = canvas.getByText('Default Color: The standard text color.');
+    expect(defaultText).toBeInTheDocument();
+    
+    const primaryText = canvas.getByText('Primary Color: Uses the primary brand color.');
+    expect(primaryText).toBeInTheDocument();
+    
+    const secondaryText = canvas.getByText('Secondary Color: Uses the secondary brand color.');
+    expect(secondaryText).toBeInTheDocument();
+    
+    const accentText = canvas.getByText('Accent Color: Uses the accent color for emphasis.');
+    expect(accentText).toBeInTheDocument();
+    
+    const mutedText = canvas.getByText('Muted Color: Subdued color for less important text.');
+    expect(mutedText).toBeInTheDocument();
+    
+    const destructiveText = canvas.getByText('Destructive Color: For warnings or errors.');
+    expect(destructiveText).toBeInTheDocument();
+  },
 };
 
 export const TextTransformVariants: Story = {

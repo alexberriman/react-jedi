@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import { Stack } from "./stack";
 import { Card, CardContent } from "../card";
 import { Button } from "../button";
@@ -62,6 +63,23 @@ export const Default: Story = {
       </>
     ),
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test stack container exists
+    const stack = canvasElement.querySelector('.flex');
+    expect(stack).toBeInTheDocument();
+
+    // Test all three cards are rendered
+    const cards = canvas.getAllByText(/Item/);
+    expect(cards).toHaveLength(3);
+    expect(cards[0]).toHaveTextContent("First Item");
+    expect(cards[1]).toHaveTextContent("Second Item");
+    expect(cards[2]).toHaveTextContent("Third Item");
+
+    // Test default vertical orientation (flex-col class)
+    expect(stack).toHaveClass("flex-col");
+  },
 };
 
 export const Horizontal: Story = {
@@ -75,6 +93,37 @@ export const Horizontal: Story = {
         <Button variant="outline">Button 3</Button>
       </>
     ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test stack container has horizontal orientation
+    const stack = canvasElement.querySelector('.flex');
+    expect(stack).toBeInTheDocument();
+    expect(stack).toHaveClass("flex-row");
+
+    // Test all buttons are rendered and clickable
+    const button1 = canvas.getByRole("button", { name: "Button 1" });
+    const button2 = canvas.getByRole("button", { name: "Button 2" });
+    const button3 = canvas.getByRole("button", { name: "Button 3" });
+
+    expect(button1).toBeInTheDocument();
+    expect(button2).toBeInTheDocument();
+    expect(button3).toBeInTheDocument();
+
+    // Test button variants
+    expect(button1).toHaveClass("bg-primary");
+    expect(button2).toHaveClass("bg-secondary");
+    expect(button3).toHaveClass("border", "border-input");
+
+    // Test button interactions
+    await user.click(button1);
+    await user.click(button2);
+    await user.click(button3);
+
+    // Test spacing is applied
+    expect(stack).toHaveClass("gap-4"); // md spacing
   },
 };
 
@@ -92,6 +141,33 @@ export const VerticalCentered: Story = {
         <Button>Get Started</Button>
       </>
     ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test stack container alignment
+    const stack = canvasElement.querySelector('.flex');
+    expect(stack).toBeInTheDocument();
+    expect(stack).toHaveClass("flex-col", "items-center");
+
+    // Test content is rendered
+    const title = canvas.getByText("Centered Title");
+    const subtitle = canvas.getByText(/This is a subtitle/);
+    const button = canvas.getByRole("button", { name: "Get Started" });
+
+    expect(title).toBeInTheDocument();
+    expect(subtitle).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
+
+    // Test large spacing
+    expect(stack).toHaveClass("gap-6"); // lg spacing
+
+    // Test button interaction
+    await user.click(button);
+
+    // Test title styling
+    expect(title).toHaveClass("text-2xl", "font-bold");
   },
 };
 

@@ -87,6 +87,9 @@ const ProgressShowcase = lazy(() =>
 const RadioGroupDemo = lazy(() =>
   import("../pages/showcase/radio-group-demo").then((module) => ({ default: module.RadioGroupDemo }))
 );
+const SelectShowcase = lazy(() =>
+  import("../pages/showcase/select").then((module) => ({ default: module.SelectShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -377,6 +380,10 @@ export const router = createBrowserRouter([
           {
             path: "radio-group",
             element: <AsyncRoute component={RadioGroupDemo} loadingText="Loading radio group demo..." />,
+          },
+          {
+            path: "select",
+            element: <AsyncRoute component={SelectShowcase} loadingText="Loading select showcase..." />,
           },
         ],
       },

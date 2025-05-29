@@ -377,5 +377,3 @@ We welcome contributions! Please see our [contributing guide](CONTRIBUTING.md) f
 ## 📄 License
 
 React Jedi is [ISC licensed](LICENSE).
-
-Compatible on Mac OSX and Ubuntu

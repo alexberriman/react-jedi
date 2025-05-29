@@ -93,6 +93,9 @@ const SelectShowcase = lazy(() =>
 const SliderShowcase = lazy(() =>
   import("../pages/showcase/slider").then((module) => ({ default: module.SliderShowcase }))
 );
+const SwitchShowcase = lazy(() =>
+  import("../pages/showcase/switch").then((module) => ({ default: module.SwitchShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -391,6 +394,10 @@ export const router = createBrowserRouter([
           {
             path: "slider",
             element: <AsyncRoute component={SliderShowcase} loadingText="Loading slider showcase..." />,
+          },
+          {
+            path: "switch",
+            element: <AsyncRoute component={SwitchShowcase} loadingText="Loading switch showcase..." />,
           },
         ],
       },

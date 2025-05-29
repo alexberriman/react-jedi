@@ -23,7 +23,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof Toaster>;
+
+  tags: ['ui-toast'],} satisfies Meta<typeof Toaster>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -59,7 +59,8 @@ const meta: Meta<typeof Slider> = {
       description: "Called when the value changes",
     },
   },
-};
+
+  tags: ['ui-slider']};
 
 export default meta;
 type Story = StoryObj<typeof Slider>;

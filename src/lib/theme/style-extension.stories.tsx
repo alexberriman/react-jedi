@@ -398,7 +398,8 @@ const meta: Meta = {
       },
     },
   },
-};
+
+  tags: ['theme-style-extension']};
 
 export default meta;
 

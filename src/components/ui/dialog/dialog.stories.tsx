@@ -28,7 +28,8 @@ const meta = {
       description: "Whether the dialog should be modal",
     },
   },
-} satisfies Meta<typeof Dialog>;
+
+  tags: ['ui-dialog'],} satisfies Meta<typeof Dialog>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

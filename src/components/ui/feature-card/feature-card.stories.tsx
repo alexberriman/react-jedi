@@ -39,7 +39,8 @@ const meta: Meta<typeof FeatureCard> = {
       },
     },
   },
-};
+
+  tags: ['ui-feature-card']};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -26,7 +26,8 @@ const meta: Meta<typeof Hero> = {
       control: { type: "boolean" },
     },
   },
-};
+
+  tags: ['ui-hero']};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

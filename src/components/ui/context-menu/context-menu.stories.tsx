@@ -40,7 +40,8 @@ const meta: Meta = {
       },
     },
   },
-};
+
+  tags: ['ui-context-menu']};
 
 export default meta;
 

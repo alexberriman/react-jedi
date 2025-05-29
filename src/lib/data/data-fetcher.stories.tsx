@@ -205,7 +205,8 @@ const meta: Meta = {
       },
     },
   },
-};
+
+  tags: ['data-data-fetcher']};
 
 export default meta;
 

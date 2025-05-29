@@ -12,7 +12,8 @@ const meta: Meta<typeof SlideIn> = {
       </AnimationProvider>
     ),
   ],
-};
+
+  tags: ['animation-slide']};
 
 export default meta;
 

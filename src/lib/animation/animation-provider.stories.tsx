@@ -30,7 +30,8 @@ const meta: Meta<typeof AnimationProvider> = {
       </div>
     ),
   ],
-};
+
+  tags: ['animation-animation-provider']};
 
 export default meta;
 type Story = StoryObj<typeof AnimationProvider>;

@@ -32,7 +32,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "kill-storybook": "kill-port 6006",
-    "test-storybook": "bash -c 'lsof -i:6006 >/dev/null && echo \"🧪 Reusing existing Storybook on port 6006\" || (echo \"🚀 Starting Storybook\" && npm run storybook &) && npx wait-on http://localhost:6006/iframe.html && test-storybook --testTimeout=60000'",
+  "test-storybook": "./scripts/test-storybook.sh",
     "test-storybook:only": "test-storybook",
     "test-storybook:ci": "npm run kill-storybook && npm run build-storybook && (npx http-server storybook-static -p 6006 -s & npx wait-on http://localhost:6006) && test-storybook --ci --url http://localhost:6006",
     "test-storybook:watch": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npm run storybook\" \"wait-on tcp:6006 && test-storybook --watch\"",

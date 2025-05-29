@@ -26,7 +26,8 @@ const meta: Meta<typeof ScrollReveal> = {
       </AnimationProvider>
     ),
   ],
-};
+
+  tags: ['animation-scroll']};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

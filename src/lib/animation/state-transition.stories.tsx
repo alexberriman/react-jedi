@@ -38,7 +38,8 @@ const meta: Meta<typeof StateTransition> = {
       </AnimationProvider>
     ),
   ],
-};
+
+  tags: ['animation-state-transition']};
 
 export default meta;
 type Story = StoryObj<typeof StateTransition>;

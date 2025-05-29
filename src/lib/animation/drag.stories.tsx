@@ -24,7 +24,8 @@ const meta: Meta<typeof Drag> = {
       </div>
     ),
   },
-};
+
+  tags: ['animation-drag']};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

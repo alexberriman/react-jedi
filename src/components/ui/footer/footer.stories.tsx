@@ -9,7 +9,8 @@ const meta = {
   parameters: {
     layout: "fullscreen",
   },
-} satisfies Meta<typeof Footer>;
+
+  tags: ['ui-footer'],} satisfies Meta<typeof Footer>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

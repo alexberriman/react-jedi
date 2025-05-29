@@ -30,7 +30,8 @@ const meta = {
       description: "Alert content",
     },
   },
-} satisfies Meta<typeof Alert>;
+
+  tags: ['ui-alert'],} satisfies Meta<typeof Alert>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -40,7 +40,8 @@ const meta: Meta<typeof Switch> = {
       description: "Called when the state changes",
     },
   },
-};
+
+  tags: ['ui-switch']};
 
 export default meta;
 type Story = StoryObj<typeof Switch>;

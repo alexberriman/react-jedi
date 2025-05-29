@@ -41,7 +41,8 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof DropdownMenu>;
+
+  tags: ['ui-dropdown-menu'],} satisfies Meta<typeof DropdownMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

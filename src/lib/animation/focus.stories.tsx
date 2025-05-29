@@ -16,7 +16,8 @@ const meta: Meta<typeof Focus> = {
   parameters: {
     layout: "centered",
   },
-};
+
+  tags: ['animation-focus']};
 
 export default meta;
 type Story = StoryObj<typeof Focus>;

@@ -59,7 +59,8 @@ const meta = {
   parameters: {
     layout: "fullscreen",
   },
-} satisfies Meta<typeof Sidebar>;
+
+  tags: ['ui-sidebar'],} satisfies Meta<typeof Sidebar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

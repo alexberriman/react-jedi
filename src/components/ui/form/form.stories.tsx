@@ -33,7 +33,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof FormStory>;
+
+  tags: ['ui-form'],} satisfies Meta<typeof FormStory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

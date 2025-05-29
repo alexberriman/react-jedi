@@ -12,7 +12,8 @@ const meta: Meta<typeof FadeIn> = {
       </AnimationProvider>
     ),
   ],
-};
+
+  tags: ['animation-fade']};
 
 export default meta;
 

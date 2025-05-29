@@ -26,7 +26,8 @@ const meta = {
   args: {
     orientation: "horizontal",
   },
-} satisfies Meta<typeof NavigationMenu>;
+
+  tags: ['ui-navigation-menu'],} satisfies Meta<typeof NavigationMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

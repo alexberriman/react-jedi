@@ -29,7 +29,8 @@ const meta = {
       </AnimationProvider>
     ),
   ],
-} satisfies Meta;
+
+  tags: ['animation-click'],} satisfies Meta;
 
 export default meta;
 

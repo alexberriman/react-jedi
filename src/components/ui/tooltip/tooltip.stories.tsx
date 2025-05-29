@@ -24,7 +24,8 @@ const meta = {
       </TooltipProvider>
     ),
   ],
-} satisfies Meta<typeof Tooltip>;
+
+  tags: ['ui-tooltip'],} satisfies Meta<typeof Tooltip>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

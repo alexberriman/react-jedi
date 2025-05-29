@@ -44,7 +44,8 @@ const meta: Meta<typeof Collapsible> = {
       description: "Called when the open state changes",
     },
   },
-};
+
+  tags: ['ui-collapsible']};
 
 export default meta;
 type Story = StoryObj<typeof Collapsible>;

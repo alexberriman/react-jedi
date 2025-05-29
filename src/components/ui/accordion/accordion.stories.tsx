@@ -32,7 +32,8 @@ const meta = {
       description: "Additional CSS classes",
     },
   },
-} satisfies Meta<typeof Accordion>;
+
+  tags: ['ui-accordion'],} satisfies Meta<typeof Accordion>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

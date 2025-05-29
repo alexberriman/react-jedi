@@ -13,7 +13,8 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta;
+
+  tags: ['theme-style-overrides'],} satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

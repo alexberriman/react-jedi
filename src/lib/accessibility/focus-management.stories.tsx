@@ -39,7 +39,8 @@ The Focus Management system provides a comprehensive set of utilities and hooks 
       },
     },
   },
-} satisfies Meta;
+
+  tags: ['accessibility-focus-management'],} satisfies Meta;
 
 export default meta;
 

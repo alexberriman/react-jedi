@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import {
   ChevronRight as ChevronRightIcon,
   Home as HomeIcon,
@@ -147,6 +148,39 @@ export const Default: Story = {
       </SidebarInset>
     </>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test sidebar elements render
+    expect(canvas.getByText("Dashboard")).toBeInTheDocument();
+    expect(canvas.getByText("Main Menu")).toBeInTheDocument();
+    expect(canvas.getByText("Projects")).toBeInTheDocument();
+    expect(canvas.getByText("Documents")).toBeInTheDocument();
+    expect(canvas.getByText("Settings")).toBeInTheDocument();
+
+    // Test sidebar trigger
+    const trigger = canvas.getByRole("button", { name: "Toggle Sidebar" });
+    expect(trigger).toBeInTheDocument();
+
+    // Click trigger to toggle sidebar
+    await user.click(trigger);
+
+    // Click trigger again to open
+    await user.click(trigger);
+
+    // Test navigation links
+    const projectsLink = canvas.getByRole("link", { name: /Projects/i });
+    expect(projectsLink).toHaveAttribute("href", "/#");
+
+    // Test dropdown menu
+    const userMenuButton = canvas.getByRole("button", { name: /User Name/i });
+    await user.click(userMenuButton);
+
+    // Check dropdown items are visible
+    expect(canvas.getByText("Profile")).toBeInTheDocument();
+    expect(canvas.getByText("Logout")).toBeInTheDocument();
+  },
 };
 
 // Collapsible icon sidebar
@@ -212,6 +246,31 @@ export const CollapsibleIcon: Story = {
       </SidebarInset>
     </>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test sidebar trigger to collapse
+    const trigger = canvas.getByRole("button", { name: "Toggle Sidebar" });
+    await user.click(trigger);
+
+    // Test hover for tooltips in collapsed state - wait for collapse animation
+    await new Promise(resolve => {
+      const timeoutId = globalThis.setTimeout(resolve, 300);
+      return timeoutId;
+    });
+    
+    // Hover over a menu item to see tooltip
+    const projectsIcon = canvas.getAllByRole("link")[1]; // Skip dashboard link
+    await user.hover(projectsIcon);
+    
+    // Click trigger to expand again
+    await user.click(trigger);
+
+    // Test rail is present
+    const rail = canvasElement.querySelector('[data-sidebar-rail]');
+    expect(rail).toBeInTheDocument();
+  },
 };
 
 // Sidebar with nested menu
@@ -284,6 +343,29 @@ export const NestedMenu: Story = {
       </SidebarInset>
     </>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test expandable menu
+    const projectsButton = canvas.getByRole("button", { name: /Projects/i });
+    expect(projectsButton).toBeInTheDocument();
+
+    // Click to expand nested menu
+    await user.click(projectsButton);
+
+    // Check nested items are visible
+    expect(canvas.getByText("Project Alpha")).toBeInTheDocument();
+    expect(canvas.getByText("Project Beta")).toBeInTheDocument();
+    expect(canvas.getByText("Project Gamma")).toBeInTheDocument();
+
+    // Test clicking a nested item
+    const alphaLink = canvas.getByRole("link", { name: "Project Alpha" });
+    expect(alphaLink).toHaveAttribute("href", "/#");
+
+    // Click to collapse
+    await user.click(projectsButton);
+  },
 };
 
 // Sidebar with badges and actions
@@ -365,6 +447,29 @@ export const WithBadgesAndActions: Story = {
       </SidebarInset>
     </>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test badges are rendered
+    expect(canvas.getByText("12")).toBeInTheDocument();
+    expect(canvas.getByText("3")).toBeInTheDocument();
+
+    // Test group action button
+    const groupActionButtons = canvas.getAllByRole("button");
+    const shareButton = groupActionButtons.find(btn => 
+      btn.querySelector('svg[class*="h-3"]')
+    );
+    expect(shareButton).toBeInTheDocument();
+
+    // Hover over notifications to reveal action
+    const notificationsItem = canvas.getByText("Notifications").closest('li');
+    await user.hover(notificationsItem!);
+
+    // Test action buttons are visible
+    const actionButtons = canvasElement.querySelectorAll('[data-sidebar-menu-action]');
+    expect(actionButtons.length).toBeGreaterThan(0);
+  },
 };
 
 // Floating variant
@@ -421,6 +526,18 @@ export const FloatingVariant: Story = {
       </SidebarInset>
     </>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test floating variant styling
+    const sidebar = canvasElement.querySelector('[data-sidebar="sidebar"]');
+    expect(sidebar).toBeInTheDocument();
+    expect(sidebar).toHaveAttribute('data-variant', 'floating');
+
+    // Test content renders
+    expect(canvas.getByText("Dashboard")).toBeInTheDocument();
+    expect(canvas.getByText("Main content area with floating sidebar")).toBeInTheDocument();
+  },
 };
 
 // Inset variant
@@ -477,6 +594,18 @@ export const InsetVariant: Story = {
       </SidebarInset>
     </>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test inset variant styling
+    const sidebar = canvasElement.querySelector('[data-sidebar="sidebar"]');
+    expect(sidebar).toBeInTheDocument();
+    expect(sidebar).toHaveAttribute('data-variant', 'inset');
+
+    // Test content renders
+    expect(canvas.getByText("Dashboard")).toBeInTheDocument();
+    expect(canvas.getByText("Main content area with inset sidebar")).toBeInTheDocument();
+  },
 };
 
 // Right-aligned sidebar
@@ -535,6 +664,27 @@ export const RightSidebar: Story = {
       </Sidebar>
     </>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test right-aligned sidebar
+    const sidebar = canvasElement.querySelector('[data-sidebar="sidebar"]');
+    expect(sidebar).toBeInTheDocument();
+    expect(sidebar).toHaveAttribute('data-side', 'right');
+
+    // Test trigger is on the right
+    const trigger = canvas.getByRole("button", { name: "Toggle Sidebar" });
+    const triggerContainer = trigger.closest('.ml-auto');
+    expect(triggerContainer).toBeInTheDocument();
+
+    // Toggle sidebar
+    await user.click(trigger);
+    await user.click(trigger);
+
+    // Test content
+    expect(canvas.getByText("Main content area with right-aligned sidebar")).toBeInTheDocument();
+  },
 };
 
 // With search input
@@ -606,4 +756,24 @@ export const WithSearch: Story = {
       </SidebarInset>
     </>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test search input
+    const searchInput = canvas.getByPlaceholderText("Search...");
+    expect(searchInput).toBeInTheDocument();
+
+    // Type in search
+    await user.type(searchInput, "test search");
+    expect(searchInput).toHaveValue("test search");
+
+    // Test separator is rendered
+    const separator = canvasElement.querySelector('[data-sidebar-separator]');
+    expect(separator).toBeInTheDocument();
+
+    // Test multiple groups
+    expect(canvas.getByText("Main Menu")).toBeInTheDocument();
+    expect(canvas.getByText("Settings", { selector: '[data-sidebar-group-label]' })).toBeInTheDocument();
+  },
 };

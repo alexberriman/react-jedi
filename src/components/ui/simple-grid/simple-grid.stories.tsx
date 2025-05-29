@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import { SimpleGrid } from "./simple-grid";
 import { Box } from "../box";
 
@@ -95,6 +96,24 @@ export const Default: Story = {
       </>
     ),
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test grid renders
+    const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
+    expect(grid).toBeInTheDocument();
+
+    // Test all 6 items are rendered
+    for (let i = 1; i <= 6; i++) {
+      expect(canvas.getByText(i.toString())).toBeInTheDocument();
+    }
+
+    // Test grid layout is applied
+    const gridElement = grid as HTMLElement;
+    const computedStyle = globalThis.getComputedStyle(gridElement);
+    expect(computedStyle.display).toBe('grid');
+    expect(computedStyle.gridTemplateColumns).toContain('repeat(3');
+  },
 };
 
 export const ResponsiveColumns: Story = {
@@ -114,6 +133,26 @@ export const ResponsiveColumns: Story = {
         ))}
       </>
     ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all 10 items render
+    for (let i = 1; i <= 10; i++) {
+      expect(canvas.getByText(i.toString())).toBeInTheDocument();
+    }
+
+    // Test responsive classes are applied
+    const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
+    expect(grid).toBeInTheDocument();
+    
+    // Check for responsive column classes
+    const classList = grid?.className || '';
+    expect(classList).toMatch(/grid-cols-1/); // base
+    expect(classList).toMatch(/sm:grid-cols-2/);
+    expect(classList).toMatch(/md:grid-cols-3/);
+    expect(classList).toMatch(/lg:grid-cols-4/);
+    expect(classList).toMatch(/xl:grid-cols-5/);
   },
 };
 
@@ -135,6 +174,23 @@ export const AutoFitMinWidth: Story = {
         story: "Grid automatically adjusts columns based on minimum child width",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test auto-fit grid
+    const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
+    expect(grid).toBeInTheDocument();
+
+    // Test all items render
+    for (let i = 1; i <= 12; i++) {
+      expect(canvas.getByText(i.toString())).toBeInTheDocument();
+    }
+
+    // Test auto-fit CSS is applied
+    const gridElement = grid as HTMLElement;
+    const computedStyle = globalThis.getComputedStyle(gridElement);
+    expect(computedStyle.gridTemplateColumns).toContain('minmax(200px');
   },
 };
 
@@ -162,6 +218,18 @@ export const ResponsiveSpacing: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    // Test responsive spacing classes
+    const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
+    expect(grid).toBeInTheDocument();
+
+    // Check for responsive gap classes
+    const classList = grid?.className || '';
+    expect(classList).toMatch(/gap-2/); // base
+    expect(classList).toMatch(/sm:gap-4/);
+    expect(classList).toMatch(/md:gap-6/);
+    expect(classList).toMatch(/lg:gap-8/);
+  },
 };
 
 export const LargeGrid: Story = {
@@ -186,6 +254,18 @@ export const LargeGrid: Story = {
         ))}
       </>
     ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test large number of items render correctly
+    expect(canvas.getByText("Item 1")).toBeInTheDocument();
+    expect(canvas.getByText("Item 12")).toBeInTheDocument();
+    expect(canvas.getByText("Item 24")).toBeInTheDocument();
+
+    // Count all items
+    const items = canvas.getAllByText(/^Item \d+$/);
+    expect(items).toHaveLength(24);
   },
 };
 
@@ -221,6 +301,22 @@ export const ContentCards: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all cards render
+    for (let i = 1; i <= 6; i++) {
+      expect(canvas.getByText(`Card Title ${i}`)).toBeInTheDocument();
+    }
+
+    // Test card content
+    const cards = canvas.getAllByText(/This is a content card/);
+    expect(cards).toHaveLength(6);
+
+    // Test grid has proper shadow styling
+    const cardElements = canvasElement.querySelectorAll('.shadow-lg');
+    expect(cardElements.length).toBeGreaterThanOrEqual(6);
+  },
 };
 
 export const MixedContent: Story = {
@@ -246,5 +342,19 @@ export const MixedContent: Story = {
         story: "SimpleGrid with mixed height content. Note how rows adjust to the tallest item.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all color boxes render
+    const colors = ['Red', 'Blue (Taller)', 'Green', 'Yellow', 'Purple', 'Pink (Tallest)', 'Orange', 'Teal'];
+    for (const color of colors) {
+      expect(canvas.getByText(color)).toBeInTheDocument();
+    }
+
+    // Test different height classes
+    expect(canvasElement.querySelector('.h-32')).toBeInTheDocument();
+    expect(canvasElement.querySelector('.h-48')).toBeInTheDocument();
+    expect(canvasElement.querySelector('.h-56')).toBeInTheDocument();
   },
 };

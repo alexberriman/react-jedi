@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import * as React from "react";
 import { Slider } from "./slider";
 
@@ -65,14 +66,66 @@ type Story = StoryObj<typeof Slider>;
 
 export const Basic: Story = {
   render: () => <Slider defaultValue={[50]} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test slider renders
+    const slider = canvas.getByRole("slider");
+    expect(slider).toBeInTheDocument();
+    expect(slider).toHaveValue("50");
+
+    // Test slider interaction
+    await user.click(slider);
+
+    // Test keyboard navigation
+    slider.focus();
+    await user.keyboard("{ArrowRight}");
+    expect(Number.parseInt(slider.getAttribute("aria-valuenow") || "0")).toBeGreaterThan(50);
+  },
 };
 
 export const SingleValue: Story = {
   render: () => <Slider defaultValue={[33]} min={0} max={100} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    const slider = canvas.getByRole("slider");
+    expect(slider).toHaveValue("33");
+    expect(slider).toHaveAttribute("aria-valuemin", "0");
+    expect(slider).toHaveAttribute("aria-valuemax", "100");
+
+    // Test keyboard navigation
+    slider.focus();
+    await user.keyboard("{Home}");
+    expect(slider).toHaveValue("0");
+
+    await user.keyboard("{End}");
+    expect(slider).toHaveValue("100");
+  },
 };
 
 export const Range: Story = {
   render: () => <Slider defaultValue={[25, 75]} min={0} max={100} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test range slider has two thumbs
+    const sliders = canvas.getAllByRole("slider");
+    expect(sliders).toHaveLength(2);
+
+    // Test first thumb
+    expect(sliders[0]).toHaveValue("25");
+    sliders[0].focus();
+    await user.keyboard("{ArrowRight}");
+
+    // Test second thumb
+    expect(sliders[1]).toHaveValue("75");
+    sliders[1].focus();
+    await user.keyboard("{ArrowLeft}");
+  },
 };
 
 export const SteppedSlider: Story = {
@@ -82,10 +135,37 @@ export const SteppedSlider: Story = {
       <p className="text-sm text-muted-foreground">Step: 10</p>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    const slider = canvas.getByRole("slider");
+    expect(slider).toHaveValue("50");
+    
+    // Test step behavior
+    slider.focus();
+    await user.keyboard("{ArrowRight}");
+    expect(slider).toHaveValue("60"); // Should increase by step size
+
+    await user.keyboard("{ArrowLeft}");
+    expect(slider).toHaveValue("50"); // Should decrease by step size
+  },
 };
 
 export const Disabled: Story = {
   render: () => <Slider defaultValue={[50]} disabled />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    const slider = canvas.getByRole("slider");
+    expect(slider).toBeDisabled();
+    expect(slider).toHaveValue("50");
+
+    // Test disabled state prevents interaction
+    await user.click(slider);
+    expect(slider).toHaveValue("50"); // Value should not change
+  },
 };
 
 const ControlledExample = () => {
@@ -101,6 +181,20 @@ const ControlledExample = () => {
 
 export const Controlled: Story = {
   render: () => <ControlledExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test controlled component displays value
+    expect(canvas.getByText("Value: 50")).toBeInTheDocument();
+
+    const slider = canvas.getByRole("slider");
+    slider.focus();
+    await user.keyboard("{ArrowRight}");
+
+    // Value display should update
+    expect(canvas.getByText(/Value: 5[1-9]/)).toBeInTheDocument();
+  },
 };
 
 const RangeControlledExample = () => {
@@ -158,6 +252,25 @@ const PriceRangeExample = () => {
 
 export const PriceRange: Story = {
   render: () => <PriceRangeExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test price display
+    expect(canvas.getByText("$100")).toBeInTheDocument();
+    expect(canvas.getByText("$500")).toBeInTheDocument();
+
+    // Test range sliders
+    const sliders = canvas.getAllByRole("slider");
+    expect(sliders).toHaveLength(2);
+
+    // Adjust first slider
+    sliders[0].focus();
+    await user.keyboard("{ArrowRight}");
+
+    // Price should update
+    expect(canvas.getByText(/\$11\d/)).toBeInTheDocument();
+  },
 };
 
 const ColorPickerExample = () => {
@@ -284,4 +397,20 @@ const FormExample = () => {
 
 export const WithForm: Story = {
   render: () => <FormExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test form labels
+    expect(canvas.getByText("Brightness: 75%")).toBeInTheDocument();
+    expect(canvas.getByText("Contrast: 100%")).toBeInTheDocument();
+    expect(canvas.getByText("Opacity: 100%")).toBeInTheDocument();
+
+    // Test sliders in form context
+    const sliders = canvas.getAllByRole("slider");
+    expect(sliders).toHaveLength(3);
+
+    // Test form submission
+    const submitButton = canvas.getByText("Apply Settings");
+    expect(submitButton).toBeInTheDocument();
+  },
 };

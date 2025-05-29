@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import { Spacer } from "./spacer";
 
 const meta = {
@@ -61,6 +62,20 @@ export const Default: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test spacer renders
+    const spacer = canvasElement.querySelector('[data-slot="spacer"]');
+    expect(spacer).toBeInTheDocument();
+
+    // Test guide is visible when showGuide is true
+    expect(spacer).toHaveClass('bg-purple-100');
+
+    // Test sections are rendered
+    expect(canvas.getByText("Top Section")).toBeInTheDocument();
+    expect(canvas.getByText("Bottom Section")).toBeInTheDocument();
+  },
 };
 
 export const AllSizes: Story = {
@@ -76,6 +91,24 @@ export const AllSizes: Story = {
       ))}
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all size variants are rendered
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+    for (const size of sizes) {
+      expect(canvas.getByText(`Size: ${size}`)).toBeInTheDocument();
+    }
+
+    // Test spacers are rendered
+    const spacers = canvasElement.querySelectorAll('[data-slot="spacer"]');
+    expect(spacers).toHaveLength(8);
+
+    // Test all spacers have guide visible
+    for (const spacer of spacers) {
+      expect(spacer).toHaveClass('bg-purple-100');
+    }
+  },
 };
 
 export const HorizontalSpacing: Story = {
@@ -101,6 +134,23 @@ export const HorizontalSpacing: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test buttons are rendered
+    expect(canvas.getByText("Button 1")).toBeInTheDocument();
+    expect(canvas.getByText("Button 2")).toBeInTheDocument();
+    expect(canvas.getByText("Button 3")).toBeInTheDocument();
+
+    // Test horizontal spacers
+    const spacers = canvasElement.querySelectorAll('[data-slot="spacer"]');
+    expect(spacers).toHaveLength(2);
+
+    // Test horizontal orientation - spacers should have width, not height
+    for (const spacer of spacers) {
+      expect(spacer).toHaveClass('w-8'); // lg size horizontal
+    }
+  },
 };
 
 export const VerticalLayout: Story = {
@@ -164,6 +214,24 @@ export const ResponsiveExample: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test components render
+    expect(canvas.getByText("Component A")).toBeInTheDocument();
+    expect(canvas.getByText("Component B")).toBeInTheDocument();
+    expect(canvas.getByText("Responsive Spacing")).toBeInTheDocument();
+
+    // Test responsive spacers are rendered
+    const spacers = canvasElement.querySelectorAll('[data-slot="spacer"]');
+    expect(spacers).toHaveLength(4);
+
+    // Test responsive classes
+    expect(spacers[0]).toHaveClass('sm:hidden');
+    expect(spacers[1]).toHaveClass('hidden', 'sm:block', 'md:hidden');
+    expect(spacers[2]).toHaveClass('hidden', 'md:block', 'lg:hidden');
+    expect(spacers[3]).toHaveClass('hidden', 'lg:block');
+  },
 };
 
 export const FormExample: Story = {
@@ -222,6 +290,26 @@ export const FormExample: Story = {
       </button>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test form elements
+    expect(canvas.getByText("Contact Form")).toBeInTheDocument();
+    expect(canvas.getByLabelText("Name")).toBeInTheDocument();
+    expect(canvas.getByLabelText("Email")).toBeInTheDocument();
+    expect(canvas.getByLabelText("Message")).toBeInTheDocument();
+    expect(canvas.getByText("Send Message")).toBeInTheDocument();
+
+    // Test spacers are used for consistent spacing
+    const spacers = canvasElement.querySelectorAll('[data-slot="spacer"]');
+    expect(spacers.length).toBeGreaterThan(0);
+
+    // Test different spacer sizes
+    const mdSpacers = canvasElement.querySelectorAll('.h-6'); // md size
+    const xsSpacers = canvasElement.querySelectorAll('.h-1'); // xs size
+    expect(mdSpacers.length).toBeGreaterThan(0);
+    expect(xsSpacers.length).toBeGreaterThan(0);
+  },
 };
 
 export const NavigationExample: Story = {
@@ -276,4 +364,21 @@ export const WithoutGuide: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test content renders
+    expect(canvas.getByText("Clean Spacing")).toBeInTheDocument();
+    expect(canvas.getByText("Primary Action")).toBeInTheDocument();
+    expect(canvas.getByText("Secondary Action")).toBeInTheDocument();
+
+    // Test spacers are rendered without guide
+    const spacers = canvasElement.querySelectorAll('[data-slot="spacer"]');
+    expect(spacers).toHaveLength(2);
+
+    // Test guide is NOT visible (no purple background)
+    for (const spacer of spacers) {
+      expect(spacer).not.toHaveClass('bg-purple-100');
+    }
+  },
 };

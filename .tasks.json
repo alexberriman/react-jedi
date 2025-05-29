@@ -42,7 +42,7 @@
       {
         "id": "add-play-functions-08",
         "description": "Create `play` functions for: `src/components/ui/sidebar/sidebar.stories.tsx`, `src/components/ui/simple-grid/simple-grid.stories.tsx`, `src/components/ui/skeleton/skeleton.stories.tsx`, `src/components/ui/slider/slider.stories.tsx`, `src/components/ui/spacer/spacer.stories.tsx`. Define interaction logic with `@storybook/test`. Run `npm run test-storybook` after adding the play functions.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-play-functions-09",

@@ -1765,4 +1765,20 @@ const componentPreviews: Record<string, ComponentSpec> = {
       children: "Masonry - Pinterest-style grid layout",
     },
   },
+  Hero: {
+    type: "Hero",
+    variant: "centered",
+    title: "Welcome to React Jedi",
+    subtitle: "Server-Driven UI",
+    description: "Build modern applications with JSON-powered components",
+    primaryAction: {
+      text: "Get Started",
+      variant: "default",
+    },
+    secondaryAction: {
+      text: "Learn More",
+      variant: "outline",
+    },
+    className: "min-h-[300px]",
+  },
 };

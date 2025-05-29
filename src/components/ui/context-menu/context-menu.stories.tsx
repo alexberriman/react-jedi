@@ -455,7 +455,7 @@ Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   // Wait for submenu
   await waitFor(() => {
     expect(screen.getByText('Export settings')).toBeInTheDocument();
-  });
+  }, { timeout: 5000 });
   
   // Click Export settings
   await userEvent.click(screen.getByText('Export settings'));

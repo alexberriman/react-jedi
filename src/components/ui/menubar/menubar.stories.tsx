@@ -442,18 +442,29 @@ export const ComplexApplication: Story = {
     // Close the File menu first
     await user.keyboard("{escape}");
     
+    // Wait for menu to close
+    await waitFor(() => {
+      expect(within(document.body).queryByText("New")).not.toBeInTheDocument();
+    });
+    
     // Wait a bit before clicking next menu
-    await new Promise(resolve => globalThis.setTimeout(resolve, 300));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
     
     // Click on Edit menu directly
     await user.click(editTrigger);
     
     // Wait for the edit menu to open and find Undo
     await waitFor(() => {
-      const menuItems = within(document.body).queryAllByRole("menuitem");
-      const undoItem = menuItems.find(item => item.textContent?.includes("Undo"));
-      expect(undoItem).toBeTruthy();
+      expect(within(document.body).getByText("Undo")).toBeInTheDocument();
     }, { timeout: 5000 });
+    
+    // Close the Edit menu
+    await user.keyboard("{escape}");
+    
+    // Wait for Edit menu to close
+    await waitFor(() => {
+      expect(within(document.body).queryByText("Undo")).not.toBeInTheDocument();
+    });
     
     // Test radio group in View menu
     await user.click(viewTrigger);

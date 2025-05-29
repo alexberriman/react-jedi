@@ -351,6 +351,12 @@ const categories: ComponentCategory[] = [
         type: "shadcn",
       },
       {
+        name: "Testimonial",
+        description: "Display customer testimonials with multiple style variants.",
+        status: "completed",
+        type: "custom",
+      },
+      {
         name: "TimelineComponent",
         description: "Timeline display for chronological events.",
         status: "completed",
@@ -758,7 +764,8 @@ export function ShowcasePage() {
                         component.name === "RadioGroup" ||
                         component.name === "Select" ||
                         component.name === "Slider" ||
-                        component.name === "Switch" ? (
+                        component.name === "Switch" ||
+                        component.name === "Testimonial" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1621,6 +1628,18 @@ const componentPreviews: Record<string, ComponentSpec> = {
       className: "text-center text-gray-600 dark:text-gray-400",
       children: "Table - Data table component",
     },
+  },
+  Testimonial: {
+    type: "Testimonial",
+    variant: "card",
+    content: "React Jedi has transformed how we build our UI. The server-driven approach gives us incredible flexibility.",
+    author: {
+      name: "Sarah Chen",
+      role: "Frontend Lead",
+      company: "TechCorp",
+      avatar: "https://i.pravatar.cc/150?img=1"
+    },
+    rating: 5
   },
   DataTable: {
     type: "Box",

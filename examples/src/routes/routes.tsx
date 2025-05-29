@@ -48,6 +48,9 @@ const ButtonShowcase = lazy(() =>
 const CallToActionShowcase = lazy(() =>
   import("../pages/showcase/call-to-action").then((module) => ({ default: module.CallToActionShowcase }))
 );
+const CardShowcase = lazy(() =>
+  import("../pages/showcase/card").then((module) => ({ default: module.CardShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -286,6 +289,10 @@ export const router = createBrowserRouter([
           {
             path: "call-to-action",
             element: <AsyncRoute component={CallToActionShowcase} loadingText="Loading call-to-action showcase..." />,
+          },
+          {
+            path: "card",
+            element: <AsyncRoute component={CardShowcase} loadingText="Loading card showcase..." />,
           },
         ],
       },

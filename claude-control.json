@@ -39,6 +39,48 @@
       }
     ]
   },
+
+  "husky": {
+    "pre-commit": [
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/mainline-development.sh"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/precommit-claude-commit-message.sh"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/eslint-config-violation.sh"
+      },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/eslint-config-violation.sh"
+      },
+      { "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/husky-changes.sh" },
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/typescript-violation.sh"
+      },
+      { "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/check.sh" }
+    ],
+    "pre-checkout": [
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/pre-checkout-mainline.sh"
+      }
+    ],
+    "prepare-commit-msg": [
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/prepare-commit-claude.sh"
+      }
+    ],
+    "post-commit": [
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/post-commit-push.sh"
+      }
+    ],
+    "commit-msg": [
+      {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/commit-msg-claude.sh"
+      }
+    ]
+  },
   "domains": {
     "whitelist": ["github.com", "raw.githubusercontent.com"]
   },

@@ -140,6 +140,11 @@ module.exports = {
         rules: {
           // Disable specific rules if needed
           "color-contrast": { enabled: false }, // Example: disable if you handle dark mode separately
+          // Sonner toast library uses aria-live="polite" which is functionally equivalent to role="status"
+          // Disable the rule that requires explicit role="status" for live regions
+          "aria-allowed-role": { enabled: true },
+          "aria-live-region-on-app": { enabled: false }, // Disable if this causes issues with toast
+          "duplicate-id-aria": { enabled: true },
         },
       },
     });

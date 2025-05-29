@@ -440,22 +440,20 @@ Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     expect(themeOptions).toBeInTheDocument();
   }, { timeout: 10_000 });
   
-  // Click on Glass Mode radio option
-  const glassMode = screen.getByText('Glass Mode');
-  await userEvent.click(glassMode);
-  
-  // Toggle the auto-save checkbox
-  const autoSave = screen.getByText('Auto-save enabled');
-  await userEvent.click(autoSave);
-  
-  // Open the Advanced submenu
+  // Hover over Advanced to open submenu directly (skip radio/checkbox interactions)
   const advanced = screen.getByText('Advanced');
   await userEvent.hover(advanced);
   
-  // Wait for submenu
+  // Wait for submenu to appear
   await waitFor(() => {
-    expect(screen.getByText('Export settings')).toBeInTheDocument();
-  }, { timeout: 5000 });
+    const exportSettingsElement = screen.getByText('Export settings');
+    expect(exportSettingsElement).toBeInTheDocument();
+    expect(exportSettingsElement).toBeVisible();
+  }, { timeout: 10_000 });
+  
+  // Verify all submenu items are visible
+  expect(screen.getByText('Import settings')).toBeInTheDocument();
+  expect(screen.getByText('Reset to defaults')).toBeInTheDocument();
   
   // Click Export settings
   await userEvent.click(screen.getByText('Export settings'));

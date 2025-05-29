@@ -8,7 +8,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "test"],
   argTypes: {
     columns: {
       control: { type: "select" },
@@ -93,9 +93,11 @@ export const Default: Story = {
     expect(canvas.getByText("Professional")).toBeInTheDocument();
     expect(canvas.getByText("Enterprise")).toBeInTheDocument();
 
-    // Test pricing display
-    expect(canvas.getByText("$9")).toBeInTheDocument();
-    expect(canvas.getByText("$29")).toBeInTheDocument();
+    // Test pricing display - currency and price are in separate elements
+    const currencySymbols = canvas.getAllByText("$");
+    expect(currencySymbols.length).toBeGreaterThanOrEqual(2); // At least 2 tiers have $ symbol
+    expect(canvas.getByText("9")).toBeInTheDocument();
+    expect(canvas.getByText("29")).toBeInTheDocument();
     expect(canvas.getByText("Custom")).toBeInTheDocument();
 
     // Test CTA buttons
@@ -126,8 +128,8 @@ export const TwoColumns: Story = {
     expect(canvas.queryByText("Enterprise")).not.toBeInTheDocument();
 
     // Test layout has correct columns
-    const container = canvas.getByText("Starter").closest("div.grid");
-    expect(container).toHaveClass("grid-cols-2");
+    const container = canvasElement.querySelector(".grid");
+    expect(container).toHaveClass("md:grid-cols-2");
   },
 };
 
@@ -169,9 +171,9 @@ export const AnnualPricing: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test annual pricing
-    expect(canvas.getByText("$90")).toBeInTheDocument();
-    expect(canvas.getByText("$290")).toBeInTheDocument();
+    // Test annual pricing - currency and price are in separate elements
+    expect(canvas.getByText("90")).toBeInTheDocument();
+    expect(canvas.getByText("290")).toBeInTheDocument();
 
     // Test period is updated to year
     const yearText = canvas.getAllByText(/year/i);
@@ -217,17 +219,11 @@ export const SingleColumn: Story = {
     expect(canvas.queryByText("Enterprise")).not.toBeInTheDocument();
 
     // Test all features are visible
-    const features = [
-      "Unlimited Projects",
-      "Up to 50 users",
-      "50GB Storage",
-      "Priority Support",
-      "Advanced Analytics",
-      "Custom Domain"
-    ];
-
-    for (const feature of features) {
-      expect(canvas.getByText(feature)).toBeInTheDocument();
-    }
+    expect(canvas.getByText("Unlimited Projects")).toBeInTheDocument();
+    expect(canvas.getByText("Up to 50 users")).toBeInTheDocument();
+    expect(canvas.getByText("50GB Storage")).toBeInTheDocument();
+    expect(canvas.getByText("Priority Support")).toBeInTheDocument();
+    expect(canvas.getByText("Advanced Analytics")).toBeInTheDocument();
+    expect(canvas.getByText("Custom Domain")).toBeInTheDocument();
   },
 };

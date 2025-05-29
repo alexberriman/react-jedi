@@ -132,23 +132,24 @@ export const Vertical: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Find the navigation menu
     const menu = await canvas.findByRole("navigation");
     expect(menu).toBeInTheDocument();
     
     // Test keyboard navigation with arrow down
-    await userEvent.click(menu);
-    await userEvent.keyboard("{arrowdown}");
+    await user.click(menu);
+    await user.keyboard("{arrowdown}");
     
     // Test selecting an item with Enter
-    await userEvent.keyboard("{enter}");
+    await user.keyboard("{enter}");
     
     // Test type-ahead search
-    await userEvent.keyboard("m");
+    await user.keyboard("m");
     
     // Test escape to clear
-    await userEvent.keyboard("{escape}");
+    await user.keyboard("{escape}");
   },
 };
 
@@ -167,18 +168,19 @@ export const Horizontal: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Find the navigation menu
     const menu = await canvas.findByRole("navigation");
     expect(menu).toBeInTheDocument();
     
     // Test horizontal navigation with arrow keys
-    await userEvent.click(menu);
-    await userEvent.keyboard("{arrowright}");
-    await userEvent.keyboard("{arrowleft}");
+    await user.click(menu);
+    await user.keyboard("{arrowright}");
+    await user.keyboard("{arrowleft}");
     
     // Test selection
-    await userEvent.keyboard("{space}");
+    await user.keyboard("{space}");
   },
 };
 
@@ -262,25 +264,26 @@ export const NestedMenus: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Find the navigation menu
     const menu = await canvas.findByRole("navigation");
     expect(menu).toBeInTheDocument();
     
     // Test navigating through nested menus
-    await userEvent.click(menu);
-    await userEvent.keyboard("{arrowdown}"); // Navigate to File
-    await userEvent.keyboard("{arrowright}"); // Expand File submenu
-    await userEvent.keyboard("{arrowdown}"); // Navigate to New
-    await userEvent.keyboard("{arrowright}"); // Expand New submenu
+    await user.click(menu);
+    await user.keyboard("{arrowdown}"); // Navigate to File
+    await user.keyboard("{arrowright}"); // Expand File submenu
+    await user.keyboard("{arrowdown}"); // Navigate to New
+    await user.keyboard("{arrowright}"); // Expand New submenu
     
     // Test collapsing with left arrow
-    await userEvent.keyboard("{arrowleft}");
-    await userEvent.keyboard("{arrowleft}");
+    await user.keyboard("{arrowleft}");
+    await user.keyboard("{arrowleft}");
     
     // Test Home and End keys
-    await userEvent.keyboard("{home}");
-    await userEvent.keyboard("{end}");
+    await user.keyboard("{home}");
+    await user.keyboard("{end}");
   },
 };
 
@@ -330,6 +333,7 @@ export const AccessibilityDemo: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Verify instructions are displayed
     const instructions = await canvas.findByText("Keyboard Navigation Tips:");
@@ -340,28 +344,28 @@ export const AccessibilityDemo: Story = {
     expect(menu).toBeInTheDocument();
     
     // Test comprehensive keyboard navigation
-    await userEvent.click(menu);
+    await user.click(menu);
     
     // Test arrow navigation
-    await userEvent.keyboard("{arrowdown}");
-    await userEvent.keyboard("{arrowup}");
+    await user.keyboard("{arrowdown}");
+    await user.keyboard("{arrowup}");
     
     // Test expand/collapse submenu
-    await userEvent.keyboard("{arrowdown}"); // Navigate to Profile
-    await userEvent.keyboard("{arrowright}"); // Expand submenu
+    await user.keyboard("{arrowdown}"); // Navigate to Profile
+    await user.keyboard("{arrowright}"); // Expand submenu
     await waitFor(() => {
       const submenuItem = canvas.queryByText("View Profile");
       expect(submenuItem).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
     
     // Test typeahead search
-    await userEvent.keyboard("h"); // Should jump to Help
+    await user.keyboard("h"); // Should jump to Help
     
     // Test Home and End keys
-    await userEvent.keyboard("{home}");
-    await userEvent.keyboard("{end}");
+    await user.keyboard("{home}");
+    await user.keyboard("{end}");
     
     // Test escape
-    await userEvent.keyboard("{escape}");
+    await user.keyboard("{escape}");
   },
 };

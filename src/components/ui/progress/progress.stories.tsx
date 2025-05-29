@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, waitFor, within } from "@storybook/test";
 import { Progress } from "./progress";
 
 const meta = {
@@ -27,11 +28,37 @@ export const Default: Story = {
   args: {
     value: 60,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test progress bar is rendered
+    const progressBar = canvas.getByRole("progressbar");
+    expect(progressBar).toBeInTheDocument();
+
+    // Test value is set correctly
+    expect(progressBar).toHaveAttribute("aria-valuenow", "60");
+    expect(progressBar).toHaveAttribute("aria-valuemax", "100");
+
+    // Test visual indicator width
+    const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
+    expect(indicator).toBeInTheDocument();
+    expect(indicator).toHaveStyle({ transform: "translateX(-40%)" });
+  },
 };
 
 export const Empty: Story = {
   args: {
     value: 0,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const progressBar = canvas.getByRole("progressbar");
+    expect(progressBar).toHaveAttribute("aria-valuenow", "0");
+
+    // Test visual indicator at 0%
+    const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
+    expect(indicator).toHaveStyle({ transform: "translateX(-100%)" });
   },
 };
 
@@ -56,6 +83,16 @@ export const ThreeQuarters: Story = {
 export const Complete: Story = {
   args: {
     value: 100,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const progressBar = canvas.getByRole("progressbar");
+    expect(progressBar).toHaveAttribute("aria-valuenow", "100");
+
+    // Test visual indicator at 100%
+    const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
+    expect(indicator).toHaveStyle({ transform: "translateX(-0%)" });
   },
 };
 
@@ -106,6 +143,32 @@ export const Interactive: Story = {
       </div>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test initial state
+    expect(canvas.getByText("0% Complete")).toBeInTheDocument();
+    const progressBar = canvas.getByRole("progressbar");
+    expect(progressBar).toHaveAttribute("aria-valuenow", "0");
+
+    // Wait for progress to update
+    await waitFor(
+      () => {
+        expect(canvas.getByText("10% Complete")).toBeInTheDocument();
+        expect(progressBar).toHaveAttribute("aria-valuenow", "10");
+      },
+      { timeout: 2000 }
+    );
+
+    // Wait for more progress
+    await waitFor(
+      () => {
+        expect(canvas.getByText("20% Complete")).toBeInTheDocument();
+        expect(progressBar).toHaveAttribute("aria-valuenow", "20");
+      },
+      { timeout: 3000 }
+    );
+  },
 };
 
 export const IndeterminateProgress: Story = {
@@ -135,6 +198,17 @@ export const WithLabel: Story = {
         <Progress value={value} />
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test label is rendered
+    expect(canvas.getByText("Progress")).toBeInTheDocument();
+    expect(canvas.getByText("65%")).toBeInTheDocument();
+
+    // Test progress bar value
+    const progressBar = canvas.getByRole("progressbar");
+    expect(progressBar).toHaveAttribute("aria-valuenow", "65");
   },
 };
 

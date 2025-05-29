@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
 import { PricingTable } from "./pricing-table";
 
 const meta = {
@@ -84,12 +85,49 @@ export const Default: Story = {
     tiers: defaultTiers,
     columns: 3,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all tiers are rendered
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+
+    // Test pricing display
+    expect(canvas.getByText("$9")).toBeInTheDocument();
+    expect(canvas.getByText("$29")).toBeInTheDocument();
+    expect(canvas.getByText("Custom")).toBeInTheDocument();
+
+    // Test CTA buttons
+    expect(canvas.getByRole("button", { name: "Get Started" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Start Free Trial" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Contact Sales" })).toBeInTheDocument();
+
+    // Test badge on highlighted tier
+    expect(canvas.getByText("Most Popular")).toBeInTheDocument();
+
+    // Test features are rendered
+    expect(canvas.getByText("5 Projects")).toBeInTheDocument();
+    expect(canvas.getByText("Unlimited Projects")).toBeInTheDocument();
+  },
 };
 
 export const TwoColumns: Story = {
   args: {
     tiers: defaultTiers.slice(0, 2),
     columns: 2,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test only two tiers are rendered
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.queryByText("Enterprise")).not.toBeInTheDocument();
+
+    // Test layout has correct columns
+    const container = canvas.getByText("Starter").closest("div.grid");
+    expect(container).toHaveClass("grid-cols-2");
   },
 };
 
@@ -128,6 +166,20 @@ export const AnnualPricing: Story = {
     })),
     columns: 3,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test annual pricing
+    expect(canvas.getByText("$90")).toBeInTheDocument();
+    expect(canvas.getByText("$290")).toBeInTheDocument();
+
+    // Test period is updated to year
+    const yearText = canvas.getAllByText(/year/i);
+    expect(yearText.length).toBeGreaterThan(0);
+
+    // Test updated badge
+    expect(canvas.getByText("Save 20%")).toBeInTheDocument();
+  },
 };
 
 export const MinimalFeatures: Story = {
@@ -155,5 +207,27 @@ export const SingleColumn: Story = {
   args: {
     tiers: [defaultTiers[1]],
     columns: 1,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test only one tier is rendered
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.queryByText("Starter")).not.toBeInTheDocument();
+    expect(canvas.queryByText("Enterprise")).not.toBeInTheDocument();
+
+    // Test all features are visible
+    const features = [
+      "Unlimited Projects",
+      "Up to 50 users",
+      "50GB Storage",
+      "Priority Support",
+      "Advanced Analytics",
+      "Custom Domain"
+    ];
+
+    features.forEach(feature => {
+      expect(canvas.getByText(feature)).toBeInTheDocument();
+    });
   },
 };

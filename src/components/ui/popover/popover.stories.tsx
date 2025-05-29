@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import * as React from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Button } from "../button";
@@ -45,6 +46,31 @@ export const Basic: Story = {
       </PopoverContent>
     </Popover>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test trigger button is rendered
+    const triggerButton = canvas.getByRole("button", { name: "Open Popover" });
+    expect(triggerButton).toBeInTheDocument();
+
+    // Test clicking opens popover
+    await user.click(triggerButton);
+    
+    // Wait for popover content to appear (it might be in a portal)
+    await waitFor(() => {
+      const popoverContent = document.body.querySelector('[role="dialog"]');
+      expect(popoverContent).toBeInTheDocument();
+      expect(popoverContent).toHaveTextContent("This is a basic popover with some content.");
+    });
+
+    // Test Escape key closes popover
+    await user.keyboard('{Escape}');
+    await waitFor(() => {
+      const popoverContent = document.body.querySelector('[role="dialog"]');
+      expect(popoverContent).not.toBeInTheDocument();
+    });
+  },
 };
 
 export const WithFormElements: Story = {
@@ -81,6 +107,48 @@ export const WithFormElements: Story = {
       </PopoverContent>
     </Popover>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test trigger button
+    const triggerButton = canvas.getByRole("button", { name: "Update dimensions" });
+    expect(triggerButton).toBeInTheDocument();
+
+    // Open popover
+    await user.click(triggerButton);
+
+    // Wait for popover to appear
+    await waitFor(() => {
+      const popoverContent = document.body.querySelector('[role="dialog"]');
+      expect(popoverContent).toBeInTheDocument();
+    });
+
+    // Find form elements in the popover
+    const popoverContent = document.body.querySelector('[role="dialog"]');
+    const popoverWithin = within(popoverContent as HTMLElement);
+    
+    const widthInput = popoverWithin.getByLabelText("Width");
+    const maxWidthInput = popoverWithin.getByLabelText("Max. width");
+    const heightInput = popoverWithin.getByLabelText("Height");
+    const maxHeightInput = popoverWithin.getByLabelText("Max. height");
+
+    expect(widthInput).toBeInTheDocument();
+    expect(maxWidthInput).toBeInTheDocument();
+    expect(heightInput).toBeInTheDocument();
+    expect(maxHeightInput).toBeInTheDocument();
+
+    // Test default values
+    expect(widthInput).toHaveValue("100%");
+    expect(maxWidthInput).toHaveValue("300px");
+    expect(heightInput).toHaveValue("25px");
+    expect(maxHeightInput).toHaveValue("none");
+
+    // Test typing in input
+    await user.clear(widthInput);
+    await user.type(widthInput, "200px");
+    expect(widthInput).toHaveValue("200px");
+  },
 };
 
 export const Placement: Story = {
@@ -265,4 +333,40 @@ function ControlledStateDemo() {
 
 export const ControlledState: Story = {
   render: () => <ControlledStateDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test control buttons
+    const openButton = canvas.getByRole("button", { name: "Open Popover" });
+    const closeButton = canvas.getByRole("button", { name: "Close Popover" });
+    const triggerButton = canvas.getByRole("button", { name: "Controlled Popover" });
+
+    expect(openButton).toBeInTheDocument();
+    expect(closeButton).toBeInTheDocument();
+    expect(triggerButton).toBeInTheDocument();
+
+    // Test opening via control button
+    await user.click(openButton);
+    await waitFor(() => {
+      const popoverContent = document.body.querySelector('[role="dialog"]');
+      expect(popoverContent).toBeInTheDocument();
+      expect(popoverContent).toHaveTextContent("Open: Yes");
+    });
+
+    // Test closing via control button
+    await user.click(closeButton);
+    await waitFor(() => {
+      const popoverContent = document.body.querySelector('[role="dialog"]');
+      expect(popoverContent).not.toBeInTheDocument();
+    });
+
+    // Test opening via trigger
+    await user.click(triggerButton);
+    await waitFor(() => {
+      const popoverContent = document.body.querySelector('[role="dialog"]');
+      expect(popoverContent).toBeInTheDocument();
+      expect(popoverContent).toHaveTextContent("Open: Yes");
+    });
+  },
 };

@@ -121,43 +121,49 @@ export const Basic: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Test opening and closing menus
     const fileTrigger = await canvas.findByText("File");
-    await userEvent.click(fileTrigger);
+    await user.click(fileTrigger);
     
-    // Verify menu opens
+    // Verify menu opens - check in document body for portal content
     await waitFor(() => {
-      const newTab = canvas.getByText("New Tab");
+      const newTab = within(document.body).getByText("New Tab");
       expect(newTab).toBeInTheDocument();
     });
     
     // Test submenu
-    const shareTrigger = canvas.getByText("Share");
-    await userEvent.hover(shareTrigger);
+    const shareTrigger = within(document.body).getByText("Share");
+    await user.hover(shareTrigger);
     
     await waitFor(() => {
-      const emailLink = canvas.getByText("Email link");
+      const emailLink = within(document.body).getByText("Email link");
       expect(emailLink).toBeInTheDocument();
     });
     
     // Close menu by clicking outside
-    await userEvent.click(document.body);
+    await user.click(document.body);
     
     // Test checkbox item
     const viewTrigger = await canvas.findByText("View");
-    await userEvent.click(viewTrigger);
+    await user.click(viewTrigger);
     
-    const bookmarksCheckbox = canvas.getByText("Always Show Bookmarks Bar");
-    await userEvent.click(bookmarksCheckbox);
+    await waitFor(() => {
+      const bookmarksCheckbox = within(document.body).getByText("Always Show Bookmarks Bar");
+      expect(bookmarksCheckbox).toBeInTheDocument();
+    });
+    
+    const bookmarksCheckbox = within(document.body).getByText("Always Show Bookmarks Bar");
+    await user.click(bookmarksCheckbox);
     
     // Test radio group
-    await userEvent.click(document.body); // Close view menu
+    await user.click(document.body); // Close view menu
     const profilesTrigger = await canvas.findByText("Profiles");
-    await userEvent.click(profilesTrigger);
+    await user.click(profilesTrigger);
     
-    const alexRadio = canvas.getByText("Alex");
-    await userEvent.click(alexRadio);
+    const alexRadio = within(document.body).getByText("Alex");
+    await user.click(alexRadio);
   },
 };
 
@@ -177,21 +183,22 @@ export const Simple: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Test simple menu interaction
     const optionsTrigger = await canvas.findByText("Options");
-    await userEvent.click(optionsTrigger);
+    await user.click(optionsTrigger);
     
     // Verify menu items are displayed
     await waitFor(() => {
-      expect(canvas.getByText("Settings")).toBeInTheDocument();
-      expect(canvas.getByText("Preferences")).toBeInTheDocument();
-      expect(canvas.getByText("Logout")).toBeInTheDocument();
+      expect(within(document.body).getByText("Settings")).toBeInTheDocument();
+      expect(within(document.body).getByText("Preferences")).toBeInTheDocument();
+      expect(within(document.body).getByText("Logout")).toBeInTheDocument();
     });
     
     // Click a menu item
-    const settings = canvas.getByText("Settings");
-    await userEvent.click(settings);
+    const settings = within(document.body).getByText("Settings");
+    await user.click(settings);
   },
 };
 
@@ -250,20 +257,21 @@ export const WithIcons: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Open menu with icons
     const menuTrigger = await canvas.findByText("Menu");
-    await userEvent.click(menuTrigger);
+    await user.click(menuTrigger);
     
     // Verify menu items with icons are displayed
     await waitFor(() => {
-      expect(canvas.getByText("New")).toBeInTheDocument();
-      expect(canvas.getByText("Open")).toBeInTheDocument();
-      expect(canvas.getByText("Save")).toBeInTheDocument();
+      expect(within(document.body).getByText("New")).toBeInTheDocument();
+      expect(within(document.body).getByText("Open")).toBeInTheDocument();
+      expect(within(document.body).getByText("Save")).toBeInTheDocument();
     });
     
     // Verify SVG icons are present
-    const svgIcons = canvas.getAllByRole("img", { hidden: true });
+    const svgIcons = within(document.body).getAllByRole("img", { hidden: true });
     expect(svgIcons.length).toBeGreaterThanOrEqual(3);
   },
 };
@@ -377,6 +385,7 @@ export const ComplexApplication: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Test multiple menu triggers
     const applicationTrigger = await canvas.findByText("Application");
@@ -395,23 +404,23 @@ export const ComplexApplication: Story = {
     expect(helpTrigger).toBeInTheDocument();
     
     // Test keyboard navigation between menus
-    await userEvent.click(fileTrigger);
+    await user.click(fileTrigger);
     await waitFor(() => {
-      expect(canvas.getByText("New")).toBeInTheDocument();
+      expect(within(document.body).getByText("New")).toBeInTheDocument();
     });
     
     // Navigate to next menu with arrow key
-    await userEvent.keyboard("{arrowright}");
+    await user.keyboard("{arrowright}");
     await waitFor(() => {
-      expect(canvas.getByText("Undo")).toBeInTheDocument();
+      expect(within(document.body).getByText("Undo")).toBeInTheDocument();
     });
     
     // Test radio group in View menu
-    await userEvent.click(viewTrigger);
-    const gridView = await canvas.findByText("Grid View");
-    await userEvent.click(gridView);
+    await user.click(viewTrigger);
+    const gridView = await within(document.body).findByText("Grid View");
+    await user.click(gridView);
     
     // Close menu
-    await userEvent.keyboard("{escape}");
+    await user.keyboard("{escape}");
   },
 };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import {
   Pagination,
   PaginationContent,
@@ -61,6 +62,31 @@ export const Default: Story = {
       </PaginationContent>
     </Pagination>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test pagination links are rendered
+    const page1 = canvas.getByText("1");
+    const page2 = canvas.getByText("2");
+    const page3 = canvas.getByText("3");
+    const page10 = canvas.getByText("10");
+    const prevButton = canvas.getByRole("link", { name: /previous/i });
+    const nextButton = canvas.getByRole("link", { name: /next/i });
+
+    expect(page1).toBeInTheDocument();
+    expect(page2).toBeInTheDocument();
+    expect(page3).toBeInTheDocument();
+    expect(page10).toBeInTheDocument();
+    expect(prevButton).toBeInTheDocument();
+    expect(nextButton).toBeInTheDocument();
+
+    // Test active state
+    expect(page2.parentElement).toHaveAttribute("aria-current", "page");
+
+    // Test clicking on a page
+    await user.click(page3);
+  },
 };
 
 // JSON Specification Examples
@@ -88,6 +114,25 @@ export const JsonSimple: Story = {
         language: "json",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test all pages are rendered
+    for (let i = 1; i <= 5; i++) {
+      const page = canvas.getByText(i.toString());
+      expect(page).toBeInTheDocument();
+    }
+
+    // Test current page is active
+    const page3 = canvas.getByText("3");
+    expect(page3.parentElement).toHaveAttribute("aria-current", "page");
+
+    // Test prev/next buttons
+    const prevButton = canvas.getByRole("link", { name: /previous/i });
+    const nextButton = canvas.getByRole("link", { name: /next/i });
+    expect(prevButton).toBeInTheDocument();
+    expect(nextButton).toBeInTheDocument();
   },
 };
 
@@ -329,5 +374,28 @@ export const InteractiveExample: Story = {
         story: "An interactive example showing pagination with state management.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test initial state
+    const currentPageText = canvas.getByText("Current page: 1 of 10");
+    expect(currentPageText).toBeInTheDocument();
+
+    // Test clicking next
+    const nextButton = canvas.getByRole("link", { name: /next/i });
+    await user.click(nextButton);
+    await expect(canvas.getByText("Current page: 2 of 10")).toBeInTheDocument();
+
+    // Test clicking specific page
+    const page5 = canvas.getByText("5");
+    await user.click(page5);
+    await expect(canvas.getByText("Current page: 5 of 10")).toBeInTheDocument();
+
+    // Test clicking previous
+    const prevButton = canvas.getByRole("link", { name: /previous/i });
+    await user.click(prevButton);
+    await expect(canvas.getByText("Current page: 4 of 10")).toBeInTheDocument();
   },
 };

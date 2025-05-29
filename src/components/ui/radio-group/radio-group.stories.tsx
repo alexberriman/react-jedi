@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
 import * as React from "react";
 import { RadioGroup, RadioGroupItem } from "./radio-group";
 import { Label } from "../label";
@@ -55,6 +56,36 @@ export const Default: Story = {
       </div>
     </RadioGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test all radio items are rendered
+    const option1 = canvas.getByRole("radio", { name: "Option 1" });
+    const option2 = canvas.getByRole("radio", { name: "Option 2" });
+    const option3 = canvas.getByRole("radio", { name: "Option 3" });
+
+    expect(option1).toBeInTheDocument();
+    expect(option2).toBeInTheDocument();
+    expect(option3).toBeInTheDocument();
+
+    // Test default value
+    expect(option1).toBeChecked();
+    expect(option2).not.toBeChecked();
+    expect(option3).not.toBeChecked();
+
+    // Test clicking changes selection
+    await user.click(option2);
+    expect(option1).not.toBeChecked();
+    expect(option2).toBeChecked();
+    expect(option3).not.toBeChecked();
+
+    // Test clicking another option
+    await user.click(option3);
+    expect(option1).not.toBeChecked();
+    expect(option2).not.toBeChecked();
+    expect(option3).toBeChecked();
+  },
 };
 
 export const WithoutDefault: Story = {
@@ -74,6 +105,25 @@ export const WithoutDefault: Story = {
       </div>
     </RadioGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test no default selection
+    const defaultOption = canvas.getByRole("radio", { name: "Default" });
+    const comfortableOption = canvas.getByRole("radio", { name: "Comfortable" });
+    const compactOption = canvas.getByRole("radio", { name: "Compact" });
+
+    expect(defaultOption).not.toBeChecked();
+    expect(comfortableOption).not.toBeChecked();
+    expect(compactOption).not.toBeChecked();
+
+    // Test selection works
+    await user.click(comfortableOption);
+    expect(comfortableOption).toBeChecked();
+    expect(defaultOption).not.toBeChecked();
+    expect(compactOption).not.toBeChecked();
+  },
 };
 
 export const Disabled: Story = {
@@ -93,6 +143,27 @@ export const Disabled: Story = {
       </div>
     </RadioGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test all items are disabled
+    const option1 = canvas.getByRole("radio", { name: "Option 1" });
+    const option2 = canvas.getByRole("radio", { name: "Option 2 (Selected)" });
+    const option3 = canvas.getByRole("radio", { name: "Option 3" });
+
+    expect(option1).toBeDisabled();
+    expect(option2).toBeDisabled();
+    expect(option3).toBeDisabled();
+
+    // Test default value is still selected
+    expect(option2).toBeChecked();
+
+    // Test clicking doesn't change selection
+    await user.click(option1);
+    expect(option2).toBeChecked();
+    expect(option1).not.toBeChecked();
+  },
 };
 
 export const WithIndividualDisabled: Story = {
@@ -112,6 +183,30 @@ export const WithIndividualDisabled: Story = {
       </div>
     </RadioGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test individual disabled state
+    const option1 = canvas.getByRole("radio", { name: "Option 1" });
+    const option2 = canvas.getByRole("radio", { name: "Option 2 (Disabled)" });
+    const option3 = canvas.getByRole("radio", { name: "Option 3" });
+
+    expect(option1).not.toBeDisabled();
+    expect(option2).toBeDisabled();
+    expect(option3).not.toBeDisabled();
+
+    // Test clicking disabled option doesn't change selection
+    expect(option1).toBeChecked();
+    await user.click(option2);
+    expect(option1).toBeChecked();
+    expect(option2).not.toBeChecked();
+
+    // Test other options still work
+    await user.click(option3);
+    expect(option3).toBeChecked();
+    expect(option1).not.toBeChecked();
+  },
 };
 
 const ControlledRadioGroup = () => {
@@ -140,6 +235,27 @@ const ControlledRadioGroup = () => {
 
 export const Controlled: Story = {
   render: () => <ControlledRadioGroup />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test initial state
+    const option1 = canvas.getByRole("radio", { name: "Option 1" });
+    const option2 = canvas.getByRole("radio", { name: "Option 2" });
+    const option3 = canvas.getByRole("radio", { name: "Option 3" });
+
+    expect(option2).toBeChecked();
+    expect(canvas.getByText("Selected value: option2")).toBeInTheDocument();
+
+    // Test changing selection updates display
+    await user.click(option1);
+    expect(option1).toBeChecked();
+    expect(canvas.getByText("Selected value: option1")).toBeInTheDocument();
+
+    await user.click(option3);
+    expect(option3).toBeChecked();
+    expect(canvas.getByText("Selected value: option3")).toBeInTheDocument();
+  },
 };
 
 export const WithDirection: Story = {

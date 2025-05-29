@@ -218,6 +218,7 @@ export const PinterestGallery: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Verify Pinterest items are rendered
     await waitFor(() => {
@@ -230,12 +231,12 @@ export const PinterestGallery: Story = {
     const firstItem = firstImage.closest('.group');
     
     if (firstItem) {
-      await userEvent.hover(firstItem);
+      await user.hover(firstItem);
       
-      // Verify hover reveals the overlay content
+      // Verify hover reveals the overlay content - look within the hovered item
       await waitFor(() => {
-        const category = canvas.getByText(pinterestItems[0].category);
-        expect(category).toBeInTheDocument();
+        const categoryBadges = within(firstItem as HTMLElement).getAllByText(pinterestItems[0].category);
+        expect(categoryBadges.length).toBeGreaterThan(0);
       });
     }
   },

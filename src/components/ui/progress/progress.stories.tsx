@@ -42,7 +42,8 @@ export const Default: Story = {
     // Test visual indicator width
     const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
     expect(indicator).toBeInTheDocument();
-    expect(indicator).toHaveStyle({ transform: "translateX(-40%)" });
+    // Check the style attribute directly instead of computed style
+    expect(indicator).toHaveAttribute('style', expect.stringContaining('transform: translateX(-40%)'));
   },
 };
 
@@ -58,7 +59,8 @@ export const Empty: Story = {
 
     // Test visual indicator at 0%
     const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
-    expect(indicator).toHaveStyle({ transform: "translateX(-100%)" });
+    // Check the style attribute directly instead of computed style
+    expect(indicator).toHaveAttribute('style', expect.stringContaining('transform: translateX(-100%)'));
   },
 };
 
@@ -92,7 +94,8 @@ export const Complete: Story = {
 
     // Test visual indicator at 100%
     const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
-    expect(indicator).toHaveStyle({ transform: "translateX(-0%)" });
+    // Check the style attribute directly instead of computed style
+    expect(indicator).toHaveAttribute('style', expect.stringContaining('transform: translateX(0%)'));
   },
 };
 

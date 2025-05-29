@@ -291,6 +291,7 @@ export const AccessibilityDemo: Story = {
   args: {
     items: menuItems,
     onSelect: (item: MenuItem) => console.log("Selected:", item.label),
+    role: "navigation" as const,
   },
   render: (args) => (
     <div className="space-y-4">

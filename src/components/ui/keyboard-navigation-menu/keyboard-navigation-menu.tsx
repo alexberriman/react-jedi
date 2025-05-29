@@ -25,6 +25,7 @@ interface KeyboardNavigationMenuProps {
   className?: string;
   showShortcuts?: boolean;
   orientation?: "horizontal" | "vertical";
+  role?: "menu" | "navigation";
 }
 
 export function KeyboardNavigationMenu({
@@ -33,6 +34,7 @@ export function KeyboardNavigationMenu({
   className,
   showShortcuts = true,
   orientation = "vertical",
+  role = "menu",
 }: Readonly<KeyboardNavigationMenuProps>) {
   const menuRef = useRef<HTMLDivElement>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -182,7 +184,7 @@ export function KeyboardNavigationMenu({
   return (
     <div
       ref={menuRef}
-      role="menu"
+      role={role}
       className={cn(
         "w-full max-w-sm",
         orientation === "horizontal" && "flex flex-row gap-2",

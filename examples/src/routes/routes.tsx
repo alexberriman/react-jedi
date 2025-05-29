@@ -45,6 +45,9 @@ const HeroPreview = lazy(() =>
 const ButtonShowcase = lazy(() =>
   import("../pages/showcase/button").then((module) => ({ default: module.ButtonShowcase }))
 );
+const CallToActionShowcase = lazy(() =>
+  import("../pages/showcase/call-to-action").then((module) => ({ default: module.CallToActionShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -279,6 +282,10 @@ export const router = createBrowserRouter([
           {
             path: "button",
             element: <AsyncRoute component={ButtonShowcase} loadingText="Loading button showcase..." />,
+          },
+          {
+            path: "call-to-action",
+            element: <AsyncRoute component={CallToActionShowcase} loadingText="Loading call-to-action showcase..." />,
           },
         ],
       },

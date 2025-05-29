@@ -736,9 +736,10 @@ export function ShowcasePage() {
                         component.name === "Accordion" ||
                         component.name === "Dialog" ||
                         component.name === "Hero" ||
-                        component.name === "Button" ? (
+                        component.name === "Button" ||
+                        component.name === "CallToAction" ? (
                           <Link
-                            to={`/showcase/${component.name.toLowerCase()}`}
+                            to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
                           >
                             <svg

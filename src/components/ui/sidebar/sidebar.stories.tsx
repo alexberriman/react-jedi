@@ -255,8 +255,9 @@ export const CollapsibleIcon: Story = {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
 
-    // Test sidebar trigger to collapse
-    const trigger = canvas.getByRole("button", { name: "Toggle Sidebar" });
+    // Test sidebar trigger to collapse - get all and use the visible one
+    const triggers = canvas.getAllByRole("button", { name: "Toggle Sidebar" });
+    const trigger = triggers.find(t => t.offsetParent !== null) || triggers[0];
     await user.click(trigger);
 
     // Test hover for tooltips in collapsed state - wait for collapse animation
@@ -273,7 +274,7 @@ export const CollapsibleIcon: Story = {
     await user.click(trigger);
 
     // Test rail is present
-    const rail = canvasElement.querySelector('[data-sidebar-rail]');
+    const rail = canvasElement.querySelector('[data-sidebar="rail"]');
     expect(rail).toBeInTheDocument();
   },
 };
@@ -393,7 +394,7 @@ export const WithBadgesAndActions: Story = {
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
-            <SidebarGroupAction>
+            <SidebarGroupAction asChild>
               <Button variant="ghost" size="icon" className="h-5 w-5">
                 <ShareIcon className="h-3 w-3" />
               </Button>
@@ -417,7 +418,7 @@ export const WithBadgesAndActions: Story = {
                     </a>
                   </SidebarMenuButton>
                   <SidebarMenuBadge>3</SidebarMenuBadge>
-                  <SidebarMenuAction showOnHover>
+                  <SidebarMenuAction showOnHover asChild>
                     <Button variant="ghost" size="icon" className="h-4 w-4">
                       <SettingsIcon className="h-3 w-3" />
                     </Button>
@@ -430,7 +431,7 @@ export const WithBadgesAndActions: Story = {
                       <span>Bookmarks</span>
                     </a>
                   </SidebarMenuButton>
-                  <SidebarMenuAction>
+                  <SidebarMenuAction asChild>
                     <Button variant="ghost" size="icon" className="h-4 w-4">
                       <ShareIcon className="h-3 w-3" />
                     </Button>
@@ -472,7 +473,7 @@ export const WithBadgesAndActions: Story = {
     await user.hover(notificationsItem!);
 
     // Test action buttons are visible
-    const actionButtons = canvasElement.querySelectorAll('[data-sidebar-menu-action]');
+    const actionButtons = canvasElement.querySelectorAll('[data-sidebar="menu-action"]');
     expect(actionButtons.length).toBeGreaterThan(0);
   },
 };
@@ -782,11 +783,20 @@ export const WithSearch: Story = {
     expect(searchInput).toHaveValue("test search");
 
     // Test separator is rendered
-    const separator = canvasElement.querySelector('[data-sidebar-separator]');
+    const separator = canvasElement.querySelector('[data-sidebar="separator"]');
     expect(separator).toBeTruthy();
 
     // Test multiple groups
     expect(canvas.getByText("Main Menu")).toBeInTheDocument();
-    expect(canvas.getByText("Settings", { selector: '[data-sidebar-group-label]' })).toBeInTheDocument();
+    
+    // Find Settings label within the data attribute
+    await waitFor(() => {
+      const settingsLabels = canvas.getAllByText("Settings");
+      // Should have at least one Settings label
+      expect(settingsLabels.length).toBeGreaterThan(0);
+      // Find the one that's a group label
+      const groupLabel = settingsLabels.find(el => el.closest('[data-sidebar="group-label"]'));
+      expect(groupLabel).toBeTruthy();
+    });
   },
 };

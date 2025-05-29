@@ -90,6 +90,9 @@ const RadioGroupDemo = lazy(() =>
 const SelectShowcase = lazy(() =>
   import("../pages/showcase/select").then((module) => ({ default: module.SelectShowcase }))
 );
+const SliderShowcase = lazy(() =>
+  import("../pages/showcase/slider").then((module) => ({ default: module.SliderShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -384,6 +387,10 @@ export const router = createBrowserRouter([
           {
             path: "select",
             element: <AsyncRoute component={SelectShowcase} loadingText="Loading select showcase..." />,
+          },
+          {
+            path: "slider",
+            element: <AsyncRoute component={SliderShowcase} loadingText="Loading slider showcase..." />,
           },
         ],
       },

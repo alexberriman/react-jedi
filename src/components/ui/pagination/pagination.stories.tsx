@@ -71,8 +71,8 @@ export const Default: Story = {
     const page2 = canvas.getByText("2");
     const page3 = canvas.getByText("3");
     const page10 = canvas.getByText("10");
-    const prevButton = canvas.getByRole("link", { name: /previous/i });
-    const nextButton = canvas.getByRole("link", { name: /next/i });
+    const prevButton = canvas.getByLabelText("Go to previous page");
+    const nextButton = canvas.getByLabelText("Go to next page");
 
     expect(page1).toBeInTheDocument();
     expect(page2).toBeInTheDocument();
@@ -129,8 +129,8 @@ export const JsonSimple: Story = {
     expect(page3.parentElement).toHaveAttribute("aria-current", "page");
 
     // Test prev/next buttons
-    const prevButton = canvas.getByRole("link", { name: /previous/i });
-    const nextButton = canvas.getByRole("link", { name: /next/i });
+    const prevButton = canvas.getByLabelText("Go to previous page");
+    const nextButton = canvas.getByLabelText("Go to next page");
     expect(prevButton).toBeInTheDocument();
     expect(nextButton).toBeInTheDocument();
   },
@@ -384,7 +384,7 @@ export const InteractiveExample: Story = {
     expect(currentPageText).toBeInTheDocument();
 
     // Test clicking next
-    const nextButton = canvas.getByRole("link", { name: /next/i });
+    const nextButton = canvas.getByLabelText("Go to next page");
     await user.click(nextButton);
     await expect(canvas.getByText("Current page: 2 of 10")).toBeInTheDocument();
 
@@ -394,7 +394,7 @@ export const InteractiveExample: Story = {
     await expect(canvas.getByText("Current page: 5 of 10")).toBeInTheDocument();
 
     // Test clicking previous
-    const prevButton = canvas.getByRole("link", { name: /previous/i });
+    const prevButton = canvas.getByLabelText("Go to previous page");
     await user.click(prevButton);
     await expect(canvas.getByText("Current page: 4 of 10")).toBeInTheDocument();
   },

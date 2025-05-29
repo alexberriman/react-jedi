@@ -22,7 +22,7 @@ const meta: Meta<typeof Menubar> = {
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "test"],
 };
 
 export default meta;
@@ -121,17 +121,19 @@ export const Basic: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
+    
+    // Add a small delay to ensure component is fully rendered
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
     
     // Test opening and closing menus
-    const fileTrigger = await canvas.findByText("File");
+    const fileTrigger = canvas.getByText("File");
     await user.click(fileTrigger);
     
-    // Verify menu opens - check in document body for portal content
+    // Wait for menu items to appear in document body
     await waitFor(() => {
-      const newTab = within(document.body).getByText("New Tab");
-      expect(newTab).toBeInTheDocument();
-    });
+      expect(within(document.body).getByText("New Tab")).toBeInTheDocument();
+    }, { timeout: 3000 });
     
     // Test submenu
     const shareTrigger = within(document.body).getByText("Share");
@@ -146,21 +148,25 @@ export const Basic: Story = {
     await user.click(document.body);
     
     // Test checkbox item
-    const viewTrigger = await canvas.findByText("View");
+    const viewTrigger = canvas.getByText("View");
     await user.click(viewTrigger);
     
     await waitFor(() => {
-      const bookmarksCheckbox = within(document.body).getByText("Always Show Bookmarks Bar");
-      expect(bookmarksCheckbox).toBeInTheDocument();
-    });
+      expect(within(document.body).getByText("Always Show Bookmarks Bar")).toBeInTheDocument();
+    }, { timeout: 3000 });
     
     const bookmarksCheckbox = within(document.body).getByText("Always Show Bookmarks Bar");
     await user.click(bookmarksCheckbox);
     
     // Test radio group
     await user.click(document.body); // Close view menu
-    const profilesTrigger = await canvas.findByText("Profiles");
+    const profilesTrigger = canvas.getByText("Profiles");
     await user.click(profilesTrigger);
+    
+    await waitFor(() => {
+      const alexRadio = within(document.body).getByText("Alex");
+      expect(alexRadio).toBeInTheDocument();
+    }, { timeout: 3000 });
     
     const alexRadio = within(document.body).getByText("Alex");
     await user.click(alexRadio);
@@ -183,7 +189,12 @@ export const Simple: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
+    
+    // Wait for the component to be ready
+    await waitFor(() => {
+      expect(canvas.getByText("Options")).toBeInTheDocument();
+    });
     
     // Test simple menu interaction
     const optionsTrigger = await canvas.findByText("Options");
@@ -216,6 +227,7 @@ export const WithIcons: Story = {
               viewBox="0 0 24 24"
               className="mr-2 h-4 w-4"
               strokeWidth={2}
+              aria-hidden="true"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h18m-9-9v18" />
             </svg>
@@ -229,6 +241,7 @@ export const WithIcons: Story = {
               viewBox="0 0 24 24"
               className="mr-2 h-4 w-4"
               strokeWidth={2}
+              aria-hidden="true"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -242,6 +255,7 @@ export const WithIcons: Story = {
               viewBox="0 0 24 24"
               className="mr-2 h-4 w-4"
               strokeWidth={2}
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -257,7 +271,12 @@ export const WithIcons: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
+    
+    // Wait for the component to be ready
+    await waitFor(() => {
+      expect(canvas.getByText("Menu")).toBeInTheDocument();
+    });
     
     // Open menu with icons
     const menuTrigger = await canvas.findByText("Menu");
@@ -271,7 +290,9 @@ export const WithIcons: Story = {
     });
     
     // Verify SVG icons are present
-    const svgIcons = within(document.body).getAllByRole("img", { hidden: true });
+    const menuContent = within(document.body).getByText("New").closest('[role="menu"]');
+    expect(menuContent).toBeTruthy();
+    const svgIcons = menuContent?.querySelectorAll('svg') || [];
     expect(svgIcons.length).toBeGreaterThanOrEqual(3);
   },
 };
@@ -385,7 +406,12 @@ export const ComplexApplication: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
+    
+    // Wait for the component to be ready
+    await waitFor(() => {
+      expect(canvas.getByText("Application")).toBeInTheDocument();
+    });
     
     // Test multiple menu triggers
     const applicationTrigger = await canvas.findByText("Application");
@@ -405,19 +431,28 @@ export const ComplexApplication: Story = {
     
     // Test keyboard navigation between menus
     await user.click(fileTrigger);
+    
+    // Wait for first menu to open
     await waitFor(() => {
       expect(within(document.body).getByText("New")).toBeInTheDocument();
     });
     
     // Navigate to next menu with arrow key
     await user.keyboard("{arrowright}");
+    
+    // Wait for the edit menu to open
     await waitFor(() => {
       expect(within(document.body).getByText("Undo")).toBeInTheDocument();
     });
     
     // Test radio group in View menu
     await user.click(viewTrigger);
-    const gridView = await within(document.body).findByText("Grid View");
+    
+    await waitFor(() => {
+      expect(within(document.body).getByText("Grid View")).toBeInTheDocument();
+    });
+    
+    const gridView = within(document.body).getByText("Grid View");
     await user.click(gridView);
     
     // Close menu

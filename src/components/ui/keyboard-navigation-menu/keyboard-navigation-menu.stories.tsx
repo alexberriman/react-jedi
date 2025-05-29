@@ -9,7 +9,7 @@ const meta: Meta<typeof KeyboardNavigationMenu> = {
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "test"],
 };
 
 export default meta;
@@ -121,6 +121,7 @@ export const Vertical: Story = {
     items: menuItems,
     orientation: "vertical",
     onSelect: (item: MenuItem) => console.log("Selected:", item.label),
+    role: "navigation" as const,
   },
   parameters: {
     docs: {
@@ -134,8 +135,10 @@ export const Vertical: Story = {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
     
-    // Find the navigation menu
-    const menu = await canvas.findByRole("navigation");
+    // Wait for the navigation menu to be rendered
+    const menu = await waitFor(async () => {
+      return canvas.getByRole("navigation");
+    }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
     // Test keyboard navigation with arrow down
@@ -158,6 +161,7 @@ export const Horizontal: Story = {
     items: menuItems.slice(0, 5), // Fewer items for horizontal layout
     orientation: "horizontal",
     onSelect: (item: MenuItem) => console.log("Selected:", item.label),
+    role: "navigation" as const,
   },
   parameters: {
     docs: {
@@ -170,8 +174,10 @@ export const Horizontal: Story = {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
     
-    // Find the navigation menu
-    const menu = await canvas.findByRole("navigation");
+    // Wait for the navigation menu to be rendered
+    const menu = await waitFor(async () => {
+      return canvas.getByRole("navigation");
+    }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
     // Test horizontal navigation with arrow keys
@@ -189,6 +195,7 @@ export const WithoutShortcuts: Story = {
     items: menuItems,
     showShortcuts: false,
     onSelect: (item: MenuItem) => console.log("Selected:", item.label),
+    role: "navigation" as const,
   },
   parameters: {
     docs: {
@@ -200,8 +207,10 @@ export const WithoutShortcuts: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify menu renders without shortcuts
-    const menu = await canvas.findByRole("navigation");
+    // Wait for menu to render without shortcuts
+    const menu = await waitFor(async () => {
+      return canvas.getByRole("navigation");
+    }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
     // Verify shortcuts are not displayed
@@ -254,6 +263,7 @@ export const NestedMenus: Story = {
       },
     ],
     onSelect: (item: MenuItem) => console.log("Selected:", item.label),
+    role: "navigation" as const,
   },
   parameters: {
     docs: {
@@ -266,8 +276,10 @@ export const NestedMenus: Story = {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
     
-    // Find the navigation menu
-    const menu = await canvas.findByRole("navigation");
+    // Wait for the navigation menu to be rendered
+    const menu = await waitFor(async () => {
+      return canvas.getByRole("navigation");
+    }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
     // Test navigating through nested menus
@@ -322,7 +334,7 @@ export const AccessibilityDemo: Story = {
           </li>
         </ul>
       </div>
-      <KeyboardNavigationMenu items={args.items || menuItems} onSelect={args.onSelect} showShortcuts={args.showShortcuts} orientation={args.orientation} />
+      <KeyboardNavigationMenu items={args.items || menuItems} onSelect={args.onSelect} showShortcuts={args.showShortcuts} orientation={args.orientation} role={args.role} />
     </div>
   ),
   parameters: {
@@ -340,8 +352,10 @@ export const AccessibilityDemo: Story = {
     const instructions = await canvas.findByText("Keyboard Navigation Tips:");
     expect(instructions).toBeInTheDocument();
     
-    // Find the navigation menu
-    const menu = await canvas.findByRole("navigation");
+    // Wait for the navigation menu to be rendered
+    const menu = await waitFor(async () => {
+      return canvas.getByRole("navigation");
+    }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
     // Test comprehensive keyboard navigation

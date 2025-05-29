@@ -226,8 +226,8 @@ export const SingleColumn: Story = {
       "Custom Domain"
     ];
 
-    features.forEach(feature => {
+    for (const feature of features) {
       expect(canvas.getByText(feature)).toBeInTheDocument();
-    });
+    }
   },
 };

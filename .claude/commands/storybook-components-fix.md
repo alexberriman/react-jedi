@@ -8,6 +8,15 @@ Start by running:
 
 This will execute all component tests defined in `.test.tsx` or similar test files associated with Storybook stories.
 
+Note: The full test suite can take a while to run. To speed up testing when making changes to individual components or stories, use the optional `--includeTags` flag:
+
+`npm run test-storybook -- --includeTags=your-tag`
+
+To find available tags:
+- Open the relevant `.stories.tsx` file
+- Look for `parameters: { tags: [...] }` inside the default export
+- If no tags exist, you can add them (e.g., `tags: ['ui-accordion']`) to enable filtered runs
+
 For each failing test:
 - Analyze the error message and stack trace to determine the root cause
 - Open the corresponding component and test file
@@ -28,7 +37,9 @@ Consistency:
 
 After fixes are applied, re-run:
 
-`npm run test-storybook`
+`npm run test-storybook` or with tags as needed:
+
+`npm run test-storybook -- --includeTags=your-tag`
 
 Ensure the test suite passes without errors or warnings.
 

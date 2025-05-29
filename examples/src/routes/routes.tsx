@@ -102,6 +102,9 @@ const TestimonialShowcase = lazy(() =>
 const TextShowcase = lazy(() =>
   import("../pages/showcase/text-showcase").then((module) => ({ default: module.default }))
 );
+const ToastShowcasePage = lazy(() =>
+  import("../pages/showcase/toast").then((module) => ({ default: module.ToastShowcasePage }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -412,6 +415,10 @@ export const router = createBrowserRouter([
           {
             path: "text",
             element: <AsyncRoute component={TextShowcase} loadingText="Loading text showcase..." />,
+          },
+          {
+            path: "toast",
+            element: <AsyncRoute component={ToastShowcasePage} loadingText="Loading toast showcase..." />,
           },
         ],
       },

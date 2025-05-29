@@ -1,9 +1,9 @@
 import React from 'react';
-import { render } from 'react-jedi';
+import { render } from '@banja/react-jedi';
 import { Button } from '../../../components/ui/button';
 import { usePageMetadata } from '../../../hooks/use-page-metadata';
 import { Link } from 'react-router-dom';
-import type { ToastSpecification } from 'react-jedi';
+import type { ToastSpecification } from '@banja/react-jedi';
 
 function ToastShowcasePage() {
   usePageMetadata({

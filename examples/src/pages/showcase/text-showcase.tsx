@@ -3,7 +3,7 @@ import { usePageMetadata } from '../../hooks/use-page-metadata'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Code } from '../../components/ui/code'
-import { render } from 'react-jedi'
+import { render } from '@banja/react-jedi'
 
 export default function TextShowcase() {
   usePageMetadata({

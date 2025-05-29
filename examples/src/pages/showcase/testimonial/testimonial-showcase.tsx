@@ -1,4 +1,4 @@
-import { render } from 'react-jedi';
+import { render } from '@banja/react-jedi';
 import { useState } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 

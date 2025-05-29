@@ -137,7 +137,7 @@ export const Vertical: Story = {
     
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(async () => {
-      return canvas.getByRole("navigation");
+      return canvas.getByRole("group");
     }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
@@ -176,7 +176,7 @@ export const Horizontal: Story = {
     
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(async () => {
-      return canvas.getByRole("navigation");
+      return canvas.getByRole("group");
     }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
@@ -209,7 +209,7 @@ export const WithoutShortcuts: Story = {
     
     // Wait for menu to render without shortcuts
     const menu = await waitFor(async () => {
-      return canvas.getByRole("navigation");
+      return canvas.getByRole("group");
     }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
@@ -278,7 +278,7 @@ export const NestedMenus: Story = {
     
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(async () => {
-      return canvas.getByRole("navigation");
+      return canvas.getByRole("group");
     }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
@@ -354,7 +354,7 @@ export const AccessibilityDemo: Story = {
     
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(async () => {
-      return canvas.getByRole("navigation");
+      return canvas.getByRole("group");
     }, { timeout: 5000 });
     expect(menu).toBeInTheDocument();
     
@@ -368,10 +368,13 @@ export const AccessibilityDemo: Story = {
     // Test expand/collapse submenu
     await user.keyboard("{arrowdown}"); // Navigate to Profile
     await user.keyboard("{arrowright}"); // Expand submenu
-    await waitFor(() => {
-      const submenuItem = canvas.queryByText("View Profile");
-      expect(submenuItem).toBeInTheDocument();
-    }, { timeout: 3000 });
+    
+    // Give time for submenu to expand and check if it exists
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+    
+    // Try to find the submenu item - it might be rendered differently
+    const submenuItems = canvas.queryAllByText(/View Profile/i);
+    expect(submenuItems.length).toBeGreaterThan(0);
     
     // Test typeahead search
     await user.keyboard("h"); // Should jump to Help

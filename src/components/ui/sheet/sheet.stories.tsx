@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor, screen } from "@storybook/test";
 import {
   Sheet,
   SheetContent,
@@ -49,30 +49,34 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Check that the trigger button is rendered
     const trigger = canvas.getByRole('button', { name: 'Open Sheet' });
     expect(trigger).toBeInTheDocument();
     
     // Click to open the sheet
-    await userEvent.click(trigger);
+    await user.click(trigger);
     
     // Wait for sheet to open and check that the sheet content is visible
+    // Use screen instead of canvas since sheet renders in a portal
     await waitFor(() => {
-      expect(canvas.getByText('Sheet Title')).toBeInTheDocument();
+      expect(screen.getByText('Sheet Title')).toBeInTheDocument();
     });
-    expect(canvas.getByText(/This is a sheet description/)).toBeInTheDocument();
-    expect(canvas.getByText('Sheet content goes here.')).toBeInTheDocument();
+    expect(screen.getByText(/This is a sheet description/)).toBeInTheDocument();
+    expect(screen.getByText('Sheet content goes here.')).toBeInTheDocument();
     
     // Check that close button is present
-    const closeButton = canvas.getByRole('button', { name: 'Close' });
+    const closeButton = screen.getByRole('button', { name: 'Close' });
     expect(closeButton).toBeInTheDocument();
     
     // Close the sheet
-    await userEvent.click(closeButton);
+    await user.click(closeButton);
     
     // Verify sheet is closed (content no longer visible)
-    expect(canvas.queryByText('Sheet Title')).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText('Sheet Title')).not.toBeInTheDocument();
+    });
   },
 };
 
@@ -113,26 +117,28 @@ export const WithForm: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Click to open the sheet
     const trigger = canvas.getByRole('button', { name: 'Edit Profile' });
-    await userEvent.click(trigger);
+    await user.click(trigger);
     
     // Wait for sheet to open and check that the form is rendered
+    // Use screen since sheet renders in a portal
     await waitFor(() => {
-      expect(canvas.getByText('Edit profile')).toBeInTheDocument();
+      expect(screen.getByText('Edit profile')).toBeInTheDocument();
     });
-    expect(canvas.getByLabelText('Name')).toBeInTheDocument();
-    expect(canvas.getByLabelText('Username')).toBeInTheDocument();
+    expect(screen.getByLabelText('Name')).toBeInTheDocument();
+    expect(screen.getByLabelText('Username')).toBeInTheDocument();
     
     // Check that inputs have default values
-    const nameInput = canvas.getByLabelText('Name') as HTMLInputElement;
-    const usernameInput = canvas.getByLabelText('Username') as HTMLInputElement;
+    const nameInput = screen.getByLabelText('Name') as HTMLInputElement;
+    const usernameInput = screen.getByLabelText('Username') as HTMLInputElement;
     expect(nameInput.value).toBe('Pedro Duarte');
     expect(usernameInput.value).toBe('@peduarte');
     
     // Check save button is present
-    const saveButton = canvas.getByRole('button', { name: 'Save changes' });
+    const saveButton = screen.getByRole('button', { name: 'Save changes' });
     expect(saveButton).toBeInTheDocument();
   },
 };
@@ -222,26 +228,31 @@ export const NestedSheets: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
     // Open the first sheet
     const firstTrigger = canvas.getByRole('button', { name: 'Open First Sheet' });
-    await userEvent.click(firstTrigger);
+    await user.click(firstTrigger);
     
     // Check that first sheet is open
-    expect(canvas.getByText('First Sheet')).toBeInTheDocument();
-    expect(canvas.getByText('This is the first sheet. You can open another one.')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('First Sheet')).toBeInTheDocument();
+    });
+    expect(screen.getByText('This is the first sheet. You can open another one.')).toBeInTheDocument();
     
     // Check that nested sheet trigger is available
-    const nestedTrigger = canvas.getByRole('button', { name: 'Open Nested Sheet' });
+    const nestedTrigger = screen.getByRole('button', { name: 'Open Nested Sheet' });
     expect(nestedTrigger).toBeInTheDocument();
     
     // Open the nested sheet
-    await userEvent.click(nestedTrigger);
+    await user.click(nestedTrigger);
     
     // Check that both sheets are open
-    expect(canvas.getByText('First Sheet')).toBeInTheDocument();
-    expect(canvas.getByText('Nested Sheet')).toBeInTheDocument();
-    expect(canvas.getByText('This is a nested sheet that appears from the opposite side.')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Nested Sheet')).toBeInTheDocument();
+    });
+    expect(screen.getByText('First Sheet')).toBeInTheDocument();
+    expect(screen.getByText('This is a nested sheet that appears from the opposite side.')).toBeInTheDocument();
   },
 };
 

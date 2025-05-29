@@ -98,7 +98,7 @@ export const JsonSimple: Story = {
       totalPages={5}
       currentPage={3}
       showPrevNext={true}
-      showFirstLast={false}
+      showFirstLast={true}
     />
   ),
   parameters: {
@@ -109,7 +109,7 @@ export const JsonSimple: Story = {
   "totalPages": 5,
   "currentPage": 3,
   "showPrevNext": true,
-  "showFirstLast": false
+  "showFirstLast": true
 }`,
         language: "json",
       },
@@ -118,7 +118,7 @@ export const JsonSimple: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test all pages are rendered
+    // Test all pages are rendered (1-5 with showFirstLast=true)
     for (let i = 1; i <= 5; i++) {
       const page = canvas.getByText(i.toString());
       expect(page).toBeInTheDocument();

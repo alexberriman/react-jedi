@@ -97,7 +97,7 @@ const SimpleGrid = forwardRef<HTMLDivElement, SimpleGridProps>(
     );
 
     return (
-      <div ref={ref} className={gridClasses} style={getResponsiveStyles()} {...cleanDOMProps(props)}>
+      <div ref={ref} className={gridClasses} style={getResponsiveStyles()} data-slot="simple-grid" {...cleanDOMProps(props)}>
         {children}
       </div>
     );

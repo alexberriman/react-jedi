@@ -10,6 +10,24 @@ import {
 } from "./pagination";
 import type { PaginationProps } from "../../../types/components/pagination";
 
+// Helper function to add boundary pages
+const addBoundaryPages = (pageNumbers: (number | string)[], start: number, end: number) => {
+  for (let i = start; i <= end; i++) {
+    if (!pageNumbers.includes(i)) {
+      pageNumbers.push(i);
+    }
+  }
+};
+
+// Helper function to add ellipsis or single page gap
+const addEllipsisOrPage = (pageNumbers: (number | string)[], gapStart: number, gapEnd: number) => {
+  if (gapStart > gapEnd + 1) {
+    pageNumbers.push("...");
+  } else if (gapStart === gapEnd + 1 && !pageNumbers.includes(gapEnd)) {
+    pageNumbers.push(gapEnd);
+  }
+};
+
 /**
  * Pagination component for JSON specification rendering
  * Maps the JSON specification to the actual shadcn pagination component
@@ -31,35 +49,34 @@ export function PaginationComponent(props: Readonly<Record<string, unknown>>) {
     const pageNumbers: (number | string)[] = [];
     const firstPage = 1;
     const lastPage = totalPages;
+    const rangeStart = Math.max(firstPage, currentPage - siblingCount);
+    const rangeEnd = Math.min(lastPage, currentPage + siblingCount);
 
-    // Always show first page
-    if (showFirstLast) {
-      pageNumbers.push(firstPage);
+    if (!showFirstLast || boundaryCount === 0) {
+      // Simple case: just show the range around current page
+      for (let i = rangeStart; i <= rangeEnd; i++) {
+        pageNumbers.push(i);
+      }
+      return pageNumbers;
     }
 
-    // Calculate range around current page
-    const rangeStart = Math.max(firstPage + boundaryCount + 1, currentPage - siblingCount);
-    const rangeEnd = Math.min(lastPage - boundaryCount - 1, currentPage + siblingCount);
+    // Add first boundary pages
+    addBoundaryPages(pageNumbers, firstPage, Math.min(firstPage + boundaryCount - 1, lastPage));
 
-    // Add ellipsis before range if needed
-    if (rangeStart > firstPage + boundaryCount + 1) {
-      pageNumbers.push("...");
-    }
+    // Add ellipsis before range if there's a gap
+    addEllipsisOrPage(pageNumbers, rangeStart, firstPage + boundaryCount);
 
-    // Add pages in range
-    for (let i = rangeStart; i <= rangeEnd; i++) {
-      pageNumbers.push(i);
-    }
+    // Add range pages (avoiding duplicates with boundary)
+    const rangeStartBounded = Math.max(rangeStart, firstPage + boundaryCount);
+    const rangeEndBounded = Math.min(rangeEnd, lastPage - boundaryCount);
+    addBoundaryPages(pageNumbers, rangeStartBounded, rangeEndBounded);
 
-    // Add ellipsis after range if needed
-    if (rangeEnd < lastPage - boundaryCount - 1) {
-      pageNumbers.push("...");
-    }
+    // Add ellipsis after range if there's a gap
+    addEllipsisOrPage(pageNumbers, lastPage - boundaryCount, rangeEnd);
 
-    // Always show last page
-    if (showFirstLast && lastPage > 1) {
-      pageNumbers.push(lastPage);
-    }
+    // Add last boundary pages
+    const lastBoundaryStart = Math.max(lastPage - boundaryCount + 1, firstPage + 1);
+    addBoundaryPages(pageNumbers, lastBoundaryStart, lastPage);
 
     return pageNumbers;
   };

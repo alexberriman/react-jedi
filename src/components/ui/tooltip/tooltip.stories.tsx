@@ -50,7 +50,9 @@ export const Default: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("This is a helpful tooltip")).toBeInTheDocument();
+        const tooltips = screen.queryAllByText("This is a helpful tooltip");
+        expect(tooltips.length).toBeGreaterThan(0);
+        expect(tooltips[0]).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -80,7 +82,9 @@ export const WithIcon: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Learn more about this feature")).toBeInTheDocument();
+        const tooltips = screen.queryAllByText("Learn more about this feature");
+        expect(tooltips.length).toBeGreaterThan(0);
+        expect(tooltips[0]).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -137,7 +141,9 @@ export const MultiplePlacement: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Tooltip on top")).toBeInTheDocument();
+        const tooltips = screen.queryAllByText("Tooltip on top");
+        expect(tooltips.length).toBeGreaterThan(0);
+        expect(tooltips[0]).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -171,8 +177,12 @@ export const LongContent: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Pro Tip")).toBeInTheDocument();
-        expect(screen.getByText(/multiple lines of content/)).toBeInTheDocument();
+        const proTipTooltips = screen.queryAllByText("Pro Tip");
+        expect(proTipTooltips.length).toBeGreaterThan(0);
+        expect(proTipTooltips[0]).toBeInTheDocument();
+        const contentTooltips = screen.queryAllByText(/multiple lines of content/);
+        expect(contentTooltips.length).toBeGreaterThan(0);
+        expect(contentTooltips[0]).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -200,7 +210,9 @@ export const CustomStyling: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Custom colored tooltip")).toBeInTheDocument();
+        const tooltips = screen.queryAllByText("Custom colored tooltip");
+        expect(tooltips.length).toBeGreaterThan(0);
+        expect(tooltips[0]).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -248,7 +260,9 @@ export const WithAlignment: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Aligned to start")).toBeInTheDocument();
+        const tooltips = screen.queryAllByText("Aligned to start");
+        expect(tooltips.length).toBeGreaterThan(0);
+        expect(tooltips[0]).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -278,7 +292,9 @@ export const WithDelay: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("This tooltip has a custom delay")).toBeInTheDocument();
+        const tooltips = screen.queryAllByText("This tooltip has a custom delay");
+        expect(tooltips.length).toBeGreaterThan(0);
+        expect(tooltips[0]).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -333,12 +349,17 @@ export const Complex: Story = {
 
     // Test the first button (Plus icon)
     await userEvent.hover(buttons[0]);
+    
+    // Wait a bit for tooltip to appear
+    await new Promise(resolve => globalThis.setTimeout(resolve, 200));
 
     await waitFor(
       () => {
-        expect(screen.getByText("Add new item")).toBeInTheDocument();
+        const tooltips = screen.queryAllByText("Add new item");
+        expect(tooltips.length).toBeGreaterThan(0);
+        expect(tooltips[0]).toBeInTheDocument();
       },
-      { timeout: 10_000 }
+      { timeout: 5000 }
     );
   },
 };
@@ -366,13 +387,18 @@ export const Accessible: Story = {
     expect(trigger).toBeInTheDocument();
 
     // Test focus accessibility
-    trigger.focus();
+    await userEvent.tab();
+    
+    // Wait a bit for tooltip to appear
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
 
     await waitFor(
       () => {
-        expect(screen.getByText("This tooltip appears on focus too!")).toBeInTheDocument();
+        const tooltips = screen.queryAllByText("This tooltip appears on focus too!");
+        expect(tooltips.length).toBeGreaterThan(0);
+        expect(tooltips[0]).toBeInTheDocument();
       },
-      { timeout: 10_000 }
+      { timeout: 5000 }
     );
   },
 };

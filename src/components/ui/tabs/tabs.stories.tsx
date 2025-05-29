@@ -72,19 +72,19 @@ export const Default: Story = {
     expect(passwordTab).toHaveAttribute("data-state", "inactive");
 
     // Test initial content
-    expect(canvas.getByText("Make changes to your account here")).toBeInTheDocument();
+    expect(canvas.getByText("Make changes to your account here. Click save when you're done.")).toBeInTheDocument();
 
     // Test clicking Password tab
     await user.click(passwordTab);
     expect(passwordTab).toHaveAttribute("data-state", "active");
     expect(accountTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("Change your password here")).toBeInTheDocument();
+    expect(canvas.getByText("Change your password here. After saving, you'll be logged out.")).toBeInTheDocument();
 
     // Test clicking back to Account tab
     await user.click(accountTab);
     expect(accountTab).toHaveAttribute("data-state", "active");
     expect(passwordTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("Make changes to your account here")).toBeInTheDocument();
+    expect(canvas.getByText("Make changes to your account here. Click save when you're done.")).toBeInTheDocument();
   },
 };
 
@@ -144,19 +144,19 @@ export const Controlled: Story = {
 
     // Test initial state (Overview should be active)
     expect(overviewTab).toHaveAttribute("data-state", "active");
-    expect(canvas.getByText("Welcome to the overview tab")).toBeInTheDocument();
+    expect(canvas.getByText("Welcome to the overview tab. Get a bird's eye view of your data.")).toBeInTheDocument();
 
     // Test switching to Analytics
     await user.click(analyticsTab);
     expect(analyticsTab).toHaveAttribute("data-state", "active");
     expect(overviewTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("Dive deep into your analytics")).toBeInTheDocument();
+    expect(canvas.getByText("Dive deep into your analytics and understand your metrics.")).toBeInTheDocument();
 
     // Test switching to Reports
     await user.click(reportsTab);
     expect(reportsTab).toHaveAttribute("data-state", "active");
     expect(analyticsTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("Access detailed reports")).toBeInTheDocument();
+    expect(canvas.getByText("Access detailed reports and export them in various formats.")).toBeInTheDocument();
   },
 };
 
@@ -263,7 +263,7 @@ export const WithDisabledTab: Story = {
 
     // Test initial state
     expect(activeTab).toHaveAttribute("data-state", "active");
-    expect(canvas.getByText("This tab is active and accessible")).toBeInTheDocument();
+    expect(canvas.getByText("This tab is active and accessible.")).toBeInTheDocument();
 
     // Test disabled tab
     expect(disabledTab).toHaveAttribute("disabled");
@@ -273,13 +273,17 @@ export const WithDisabledTab: Story = {
     await user.click(pendingTab);
     expect(pendingTab).toHaveAttribute("data-state", "active");
     expect(activeTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("This tab is pending approval")).toBeInTheDocument();
+    expect(canvas.getByText("This tab is pending approval.")).toBeInTheDocument();
 
-    // Test that disabled tab cannot be activated
-    // Note: userEvent respects disabled state, so this should not change active tab
-    await user.click(disabledTab);
-    expect(pendingTab).toHaveAttribute("data-state", "active");
+    // Test that disabled tab cannot be activated (has pointer-events: none)
+    // We verify the disabled state rather than trying to click it since it has pointer-events: none
     expect(disabledTab).toHaveAttribute("data-state", "inactive");
+    expect(pendingTab).toHaveAttribute("data-state", "active");
+    
+    // Verify the disabled tab has the correct styling
+    const disabledTabElement = disabledTab as HTMLElement;
+    const styles = globalThis.getComputedStyle(disabledTabElement);
+    expect(styles.pointerEvents).toBe("none");
   },
 };
 

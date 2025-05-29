@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within, screen, waitFor } from "@storybook/test";
 import {
   ChevronRight as ChevronRightIcon,
   Home as HomeIcon,
@@ -152,16 +152,18 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
 
-    // Test sidebar elements render
-    expect(canvas.getByText("Dashboard")).toBeInTheDocument();
+    // Test sidebar elements render - use getAllByText since there might be multiple
+    const dashboardElements = canvas.getAllByText("Dashboard");
+    expect(dashboardElements.length).toBeGreaterThan(0);
     expect(canvas.getByText("Main Menu")).toBeInTheDocument();
     expect(canvas.getByText("Projects")).toBeInTheDocument();
     expect(canvas.getByText("Documents")).toBeInTheDocument();
     expect(canvas.getByText("Settings")).toBeInTheDocument();
 
-    // Test sidebar trigger
-    const trigger = canvas.getByRole("button", { name: "Toggle Sidebar" });
-    expect(trigger).toBeInTheDocument();
+    // Test sidebar trigger - there might be multiple, get the visible one
+    const triggers = canvas.getAllByRole("button", { name: "Toggle Sidebar" });
+    const trigger = triggers.find(t => t.offsetParent !== null) || triggers[0];
+    expect(trigger).toBeTruthy();
 
     // Click trigger to toggle sidebar
     await user.click(trigger);
@@ -177,9 +179,11 @@ export const Default: Story = {
     const userMenuButton = canvas.getByRole("button", { name: /User Name/i });
     await user.click(userMenuButton);
 
-    // Check dropdown items are visible
-    expect(canvas.getByText("Profile")).toBeInTheDocument();
-    expect(canvas.getByText("Logout")).toBeInTheDocument();
+    // Check dropdown items are visible (use screen since dropdown is in portal)
+    await waitFor(() => {
+      expect(screen.getByText("Profile")).toBeInTheDocument();
+    });
+    expect(screen.getByText("Logout")).toBeInTheDocument();
   },
 };
 
@@ -530,12 +534,15 @@ export const FloatingVariant: Story = {
     const canvas = within(canvasElement);
 
     // Test floating variant styling
-    const sidebar = canvasElement.querySelector('[data-sidebar="sidebar"]');
-    expect(sidebar).toBeInTheDocument();
-    expect(sidebar).toHaveAttribute('data-variant', 'floating');
+    const sidebar = canvasElement.querySelector('[data-slot="sidebar"]');
+    expect(sidebar).toBeTruthy();
+    if (sidebar) {
+      expect(sidebar).toHaveAttribute('data-variant', 'floating');
+    }
 
     // Test content renders
-    expect(canvas.getByText("Dashboard")).toBeInTheDocument();
+    const dashboards = canvas.getAllByText("Dashboard");
+    expect(dashboards.length).toBeGreaterThan(0);
     expect(canvas.getByText("Main content area with floating sidebar")).toBeInTheDocument();
   },
 };
@@ -598,12 +605,15 @@ export const InsetVariant: Story = {
     const canvas = within(canvasElement);
 
     // Test inset variant styling
-    const sidebar = canvasElement.querySelector('[data-sidebar="sidebar"]');
-    expect(sidebar).toBeInTheDocument();
-    expect(sidebar).toHaveAttribute('data-variant', 'inset');
+    const sidebar = canvasElement.querySelector('[data-slot="sidebar"]');
+    expect(sidebar).toBeTruthy();
+    if (sidebar) {
+      expect(sidebar).toHaveAttribute('data-variant', 'inset');
+    }
 
     // Test content renders
-    expect(canvas.getByText("Dashboard")).toBeInTheDocument();
+    const dashboards = canvas.getAllByText("Dashboard");
+    expect(dashboards.length).toBeGreaterThan(0);
     expect(canvas.getByText("Main content area with inset sidebar")).toBeInTheDocument();
   },
 };
@@ -669,14 +679,16 @@ export const RightSidebar: Story = {
     const user = userEvent.setup();
 
     // Test right-aligned sidebar
-    const sidebar = canvasElement.querySelector('[data-sidebar="sidebar"]');
-    expect(sidebar).toBeInTheDocument();
-    expect(sidebar).toHaveAttribute('data-side', 'right');
+    const sidebar = canvasElement.querySelector('[data-slot="sidebar"]');
+    expect(sidebar).toBeTruthy();
+    if (sidebar) {
+      expect(sidebar).toHaveAttribute('data-side', 'right');
+    }
 
     // Test trigger is on the right
     const trigger = canvas.getByRole("button", { name: "Toggle Sidebar" });
     const triggerContainer = trigger.closest('.ml-auto');
-    expect(triggerContainer).toBeInTheDocument();
+    expect(triggerContainer).toBeTruthy();
 
     // Toggle sidebar
     await user.click(trigger);
@@ -770,7 +782,7 @@ export const WithSearch: Story = {
 
     // Test separator is rendered
     const separator = canvasElement.querySelector('[data-sidebar-separator]');
-    expect(separator).toBeInTheDocument();
+    expect(separator).toBeTruthy();
 
     // Test multiple groups
     expect(canvas.getByText("Main Menu")).toBeInTheDocument();

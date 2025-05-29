@@ -67,10 +67,12 @@ export const Default: Story = {
 
     // Test spacer renders
     const spacer = canvasElement.querySelector('[data-slot="spacer"]');
-    expect(spacer).toBeInTheDocument();
+    expect(spacer).toBeTruthy();
 
     // Test guide is visible when showGuide is true
-    expect(spacer).toHaveClass('bg-purple-100');
+    if (spacer) {
+      expect(spacer).toHaveClass('bg-purple-100');
+    }
 
     // Test sections are rendered
     expect(canvas.getByText("Top Section")).toBeInTheDocument();
@@ -148,7 +150,11 @@ export const HorizontalSpacing: Story = {
 
     // Test horizontal orientation - spacers should have width, not height
     for (const spacer of spacers) {
-      expect(spacer).toHaveClass('w-8'); // lg size horizontal
+      const spacerElement = spacer as HTMLElement;
+      const styles = spacerElement.style;
+      // lg size is 1.5rem = 24px
+      expect(styles.width).toBe('1.5rem');
+      expect(styles.height).toBe('1.5rem');
     }
   },
 };
@@ -304,11 +310,17 @@ export const FormExample: Story = {
     const spacers = canvasElement.querySelectorAll('[data-slot="spacer"]');
     expect(spacers.length).toBeGreaterThan(0);
 
-    // Test different spacer sizes
-    const mdSpacers = canvasElement.querySelectorAll('.h-6'); // md size
-    const xsSpacers = canvasElement.querySelectorAll('.h-1'); // xs size
-    expect(mdSpacers.length).toBeGreaterThan(0);
-    expect(xsSpacers.length).toBeGreaterThan(0);
+    // Test different spacer sizes by checking their styles
+    let mdCount = 0;
+    let xsCount = 0;
+    for (const spacer of spacers) {
+      const spacerElement = spacer as HTMLElement;
+      const height = spacerElement.style.height;
+      if (height === '1rem') mdCount++; // md size
+      if (height === '0.25rem') xsCount++; // xs size
+    }
+    expect(mdCount).toBeGreaterThan(0);
+    expect(xsCount).toBeGreaterThan(0);
   },
 };
 

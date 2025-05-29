@@ -74,10 +74,12 @@ const SpacerComponent = React.forwardRef<HTMLDivElement, SpacerProps>(
           "block",
           isVertical && "min-h-0",
           !isVertical && "min-w-0 inline-block",
+          showGuide && "bg-purple-100 border border-dashed border-purple-300",
           className
         )}
         style={spacerStyles}
         aria-hidden="true"
+        data-slot="spacer"
         {...cleanDOMProps(props)}
       />
     );

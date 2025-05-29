@@ -49,8 +49,7 @@ export const Default: Story = {
     
     // Test author information
     expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
-    expect(canvas.getByText(/Product.*Designer/)).toBeInTheDocument();
-    expect(canvas.getByText("Tech Corp")).toBeInTheDocument();
+    expect(canvas.getByText(/Product Designer at Tech Corp/)).toBeInTheDocument();
     
     // Test date
     expect(canvas.getByText("November 2024")).toBeInTheDocument();
@@ -161,8 +160,7 @@ export const WithoutAvatar: Story = {
     // Test content and author info
     expect(canvas.getByText(/Incredible library.*beautiful interfaces/)).toBeInTheDocument();
     expect(canvas.getByText("Alex Johnson")).toBeInTheDocument();
-    expect(canvas.getByText("CTO")).toBeInTheDocument();
-    expect(canvas.getByText("StartupCo")).toBeInTheDocument();
+    expect(canvas.getByText(/CTO at StartupCo/)).toBeInTheDocument();
     
     // Test that no avatar image is present
     const avatar = canvasElement.querySelector('img');

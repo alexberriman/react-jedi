@@ -101,7 +101,7 @@ export const Default: Story = {
 
     // Test grid renders
     const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
-    expect(grid).toBeInTheDocument();
+    expect(grid).toBeTruthy();
 
     // Test all 6 items are rendered
     for (let i = 1; i <= 6; i++) {
@@ -113,7 +113,11 @@ export const Default: Story = {
       const gridElement = grid as HTMLElement;
       const computedStyle = globalThis.getComputedStyle(gridElement);
       expect(computedStyle.display).toBe('grid');
-      expect(computedStyle.gridTemplateColumns).toContain('repeat(3');
+      // Check that it has 3 columns by checking the computed style
+      // The exact format might vary, so just check it has 3 columns worth of space
+      const templateColumns = computedStyle.gridTemplateColumns;
+      const columnCount = templateColumns.split(' ').length;
+      expect(columnCount).toBe(3);
     }
   },
 };
@@ -146,15 +150,18 @@ export const ResponsiveColumns: Story = {
 
     // Test responsive classes are applied
     const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
-    expect(grid).toBeInTheDocument();
+    expect(grid).toBeTruthy();
     
-    // Check for responsive column classes
-    const classList = grid?.className || '';
-    expect(classList).toMatch(/grid-cols-1/); // base
-    expect(classList).toMatch(/sm:grid-cols-2/);
-    expect(classList).toMatch(/md:grid-cols-3/);
-    expect(classList).toMatch(/lg:grid-cols-4/);
-    expect(classList).toMatch(/xl:grid-cols-5/);
+    // Check that grid has the proper CSS variables set
+    if (grid) {
+      const gridElement = grid as HTMLElement;
+      const styles = gridElement.style;
+      expect(styles.getPropertyValue('--grid-columns')).toBe('1');
+      expect(styles.getPropertyValue('--grid-columns-sm')).toBe('2');
+      expect(styles.getPropertyValue('--grid-columns-md')).toBe('3');
+      expect(styles.getPropertyValue('--grid-columns-lg')).toBe('4');
+      expect(styles.getPropertyValue('--grid-columns-xl')).toBe('5');
+    }
   },
 };
 
@@ -182,7 +189,7 @@ export const AutoFitMinWidth: Story = {
 
     // Test auto-fit grid
     const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
-    expect(grid).toBeInTheDocument();
+    expect(grid).toBeTruthy();
 
     // Test all items render
     for (let i = 1; i <= 12; i++) {
@@ -190,9 +197,11 @@ export const AutoFitMinWidth: Story = {
     }
 
     // Test auto-fit CSS is applied
-    const gridElement = grid as HTMLElement;
-    const computedStyle = globalThis.getComputedStyle(gridElement);
-    expect(computedStyle.gridTemplateColumns).toContain('minmax(200px');
+    if (grid) {
+      const gridElement = grid as HTMLElement;
+      const styles = gridElement.style;
+      expect(styles.getPropertyValue('--grid-min-child-width')).toBe('200px');
+    }
   },
 };
 
@@ -223,14 +232,17 @@ export const ResponsiveSpacing: Story = {
   play: async ({ canvasElement }) => {
     // Test responsive spacing classes
     const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
-    expect(grid).toBeInTheDocument();
+    expect(grid).toBeTruthy();
 
-    // Check for responsive gap classes
-    const classList = grid?.className || '';
-    expect(classList).toMatch(/gap-2/); // base
-    expect(classList).toMatch(/sm:gap-4/);
-    expect(classList).toMatch(/md:gap-6/);
-    expect(classList).toMatch(/lg:gap-8/);
+    // Check that grid has the proper spacing CSS variables set
+    if (grid) {
+      const gridElement = grid as HTMLElement;
+      const styles = gridElement.style;
+      expect(styles.getPropertyValue('--grid-spacing')).toBe('2');
+      expect(styles.getPropertyValue('--grid-spacing-sm')).toBe('4');
+      expect(styles.getPropertyValue('--grid-spacing-md')).toBe('6');
+      expect(styles.getPropertyValue('--grid-spacing-lg')).toBe('8');
+    }
   },
 };
 
@@ -355,8 +367,8 @@ export const MixedContent: Story = {
     }
 
     // Test different height classes
-    expect(canvasElement.querySelector('.h-32')).toBeInTheDocument();
-    expect(canvasElement.querySelector('.h-48')).toBeInTheDocument();
-    expect(canvasElement.querySelector('.h-56')).toBeInTheDocument();
+    expect(canvasElement.querySelector('.h-32')).toBeTruthy();
+    expect(canvasElement.querySelector('.h-48')).toBeTruthy();
+    expect(canvasElement.querySelector('.h-56')).toBeTruthy();
   },
 };

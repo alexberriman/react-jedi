@@ -165,11 +165,11 @@ export const Default: Story = {
     // Verify different card heights
     const card3 = await canvas.findByText("Card 3");
     const card3Container = card3.closest('.h-64');
-    expect(card3Container).toBeInTheDocument();
+    expect(card3Container).toBeTruthy();
     
     const card2 = await canvas.findByText("Card 2");
     const card2Container = card2.closest('.h-48');
-    expect(card2Container).toBeInTheDocument();
+    expect(card2Container).toBeTruthy();
   },
 };
 

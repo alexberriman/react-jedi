@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# Enable debugging
-set -x
+# Ensure commit is on main branch or it's the initial commit
 
-echo "Starting pre-commit hook"
-
-# Get the current branch (handle case where HEAD doesn't exist yet)
 if git rev-parse --abbrev-ref HEAD 2>/dev/null; then
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
   if [ "$BRANCH" != "main" ]; then
     echo "⛔ ERROR: This repository uses mainline development."
     echo "❌ Branches are not permitted in this repository."
@@ -17,10 +12,10 @@ if git rev-parse --abbrev-ref HEAD 2>/dev/null; then
   fi
 else
   echo "📝 This appears to be the initial commit - proceeding with checks."
-  BRANCH="main"
 fi
 
-# Check for unstaged changes - only if we have a HEAD reference
+# Ensure all changes are staged
+
 if git rev-parse --verify HEAD >/dev/null 2>&1; then
   if git diff --name-only | grep -q .; then
     echo "⛔ ERROR: You have unstaged changes."
@@ -32,25 +27,26 @@ else
   echo "📝 Skipping unstaged changes check for initial commit."
 fi
 
-# Early commit message check
-echo "🔍 Checking commit message early..."
+# attempt to detect claude in commit message
 
-COMMIT_MSG_FILE="$(git rev-parse --git-path COMMIT_EDITMSG)"
+# Only try to access commit message if GIT_INDEX_FILE exists
+# (avoids false reads from previous commits)
+GIT_DIR=$(git rev-parse --git-dir)
+COMMIT_EDITMSG="$GIT_DIR/COMMIT_EDITMSG"
 
-if [ -f "$COMMIT_MSG_FILE" ]; then
-  COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
-
-  if echo "$COMMIT_MSG" | grep -Ei "claude|Co-Authored-By:.*claude|Generated with \[Claude Code\]" >/dev/null; then
-    echo "🚫 Commit rejected: Please avoid mentioning Claude in commit messages."
-    echo "❌ Remove AI co-author tags or generated comments from commit messages."
-    echo "✅ Use messages that describe WHAT changed and WHY."
+if [ -f "$COMMIT_EDITMSG" ]; then
+  if grep -i "claude" "$COMMIT_EDITMSG" >/dev/null; then
+    echo "🚫 Pre-commit warning: Potential Claude mention detected in early commit message."
+    echo "🛑 Re-issue the commit without mentioning Claude."
     exit 1
   fi
+else
+  echo "ℹ️ Skipping early commit message check — no COMMIT_EDITMSG available yet."
 fi
 
-# Check for ESLint config changes
-echo "Checking for ESLint configuration changes"
-ESLINT_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.eslintrc\.|eslintrc\.js|eslintrc\.cjs|bypass-lint|eslint-disable|\.eslintignore' || true)
+# Prevent modification of ESLint config files (except eslint.config.js)
+
+ESLINT_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.eslintrc\.|eslintrc\.(js|cjs)|bypass-lint|eslint-disable|\.eslintignore' || true)
 
 if [ -n "$ESLINT_FILES" ]; then
   echo "⛔ ERROR: Attempting to commit changes to ESLint configuration files."
@@ -61,8 +57,8 @@ if [ -n "$ESLINT_FILES" ]; then
   exit 1
 fi
 
-# Check for eslint-disable comments
 ESLINT_DISABLED_FILES=$(git diff --cached -U0 | grep -E '\+.*eslint-disable' || true)
+
 if [ -n "$ESLINT_DISABLED_FILES" ]; then
   echo "⛔ ERROR: eslint-disable comments are not allowed."
   echo ""
@@ -71,15 +67,49 @@ if [ -n "$ESLINT_DISABLED_FILES" ]; then
   exit 1
 fi
 
-# Check for eslintConfig in package.json
+# Block eslintConfig in package.json
+
 ESLINT_PKG_CONFIG=$(git diff --cached -U0 package.json | grep -E '\+.*"eslintConfig":' || true)
+
 if [ -n "$ESLINT_PKG_CONFIG" ]; then
   echo "⛔ ERROR: ESLint config in package.json is not permitted."
   exit 1
 fi
 
-# Check for changes to .husky/
-echo "Checking for Husky configuration changes"
+# Prevent modification of ESLint config files (except eslint.config.js)
+
+ESLINT_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.eslintrc\.|eslintrc\.(js|cjs)|bypass-lint|eslint-disable|\.eslintignore' || true)
+
+if [ -n "$ESLINT_FILES" ]; then
+  echo "⛔ ERROR: Attempting to commit changes to ESLint configuration files."
+  echo "❌ Modifications to ESLint configuration files are not permitted except for eslint.config.js."
+  echo ""
+  echo "Affected files:"
+  echo "$ESLINT_FILES"
+  exit 1
+fi
+
+ESLINT_DISABLED_FILES=$(git diff --cached -U0 | grep -E '\+.*eslint-disable' || true)
+
+if [ -n "$ESLINT_DISABLED_FILES" ]; then
+  echo "⛔ ERROR: eslint-disable comments are not allowed."
+  echo ""
+  echo "Detected lines:"
+  echo "$ESLINT_DISABLED_FILES"
+  exit 1
+fi
+
+# Block eslintConfig in package.json
+
+ESLINT_PKG_CONFIG=$(git diff --cached -U0 package.json | grep -E '\+.*"eslintConfig":' || true)
+
+if [ -n "$ESLINT_PKG_CONFIG" ]; then
+  echo "⛔ ERROR: ESLint config in package.json is not permitted."
+  exit 1
+fi
+
+# Block direct modification of Husky hooks
+
 HUSKY_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.husky/' || true)
 
 if [ -n "$HUSKY_FILES" ]; then
@@ -90,8 +120,10 @@ if [ -n "$HUSKY_FILES" ]; then
   exit 1
 fi
 
-# Check for TypeScript bypass
+# Prevent usage of TypeScript suppression comments
+
 TS_BYPASS_FILES=$(git diff --cached -U0 | grep -E '\+.*(@ts-ignore|@ts-nocheck|\/\/ @ts-expect-error)' || true)
+
 if [ -n "$TS_BYPASS_FILES" ]; then
   echo "⛔ ERROR: TypeScript bypass directives detected."
   echo ""
@@ -100,8 +132,10 @@ if [ -n "$TS_BYPASS_FILES" ]; then
   exit 1
 fi
 
-# Check for weakened tsconfig
+# Block weakening of TypeScript config
+
 TS_CONFIG_WEAKENING=$(git diff --cached -U0 tsconfig*.json | grep -E '\+.*(noImplicitAny|strict|skipLibCheck|allowJs|checkJs).*false' || true)
+
 if [ -n "$TS_CONFIG_WEAKENING" ]; then
   echo "⛔ ERROR: Weakening TypeScript config is not allowed."
   echo ""
@@ -110,7 +144,8 @@ if [ -n "$TS_CONFIG_WEAKENING" ]; then
   exit 1
 fi
 
-# Run unified check (lint, typecheck, test)
+# Run test/lint/typecheck suite
+
 echo "🏁 Running unified checks via 'npm run check'..."
 
 if ! npm run check; then
@@ -122,5 +157,3 @@ if ! npm run check; then
   echo "💬 Feel free to ask for help if you're unsure how to resolve them cleanly."
   exit 1
 fi
-
-echo "✅ All pre-commit checks passed!"

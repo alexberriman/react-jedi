@@ -46,6 +46,9 @@
         "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/mainline-development.sh"
       },
       {
+        "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/check-unstaged-files.sh"
+      },
+      {
         "$ref": "https://github.com/alexberriman/vibe/blob/main/claude/husky/precommit-claude-commit-message.sh"
       },
       {

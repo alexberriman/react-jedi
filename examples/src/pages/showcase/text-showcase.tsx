@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { usePageMetadata } from '../../hooks/use-page-metadata'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import CodeBlock from '../../components/ui/code'
+import { Code } from '../../components/ui/code'
 import { render } from 'react-jedi'
 
 export default function TextShowcase() {
@@ -447,7 +447,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(basicUsageSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(basicUsageSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -466,7 +466,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(variantsSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(variantsSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -485,7 +485,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(sizesSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(sizesSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -504,7 +504,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(weightsSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(weightsSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -523,7 +523,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(alignmentSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(alignmentSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -542,7 +542,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(transformationsSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(transformationsSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -561,7 +561,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(decorationsSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(decorationsSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -580,7 +580,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(gradientsSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(gradientsSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -599,7 +599,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(shadowsSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(shadowsSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -618,7 +618,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(animationsSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(animationsSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -637,7 +637,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(truncationSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(truncationSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -656,7 +656,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(lineHeightSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(lineHeightSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -675,7 +675,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(letterSpacingSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(letterSpacingSpec, null, 2)} />
               </div>
             </details>
           </section>
@@ -724,7 +724,7 @@ export default function TextShowcase() {
                 View JSON Specification
               </summary>
               <div className="mt-2">
-                <CodeBlock language="json" code={JSON.stringify(realWorldExamplesSpec, null, 2)} />
+                <Code language="json" code={JSON.stringify(realWorldExamplesSpec, null, 2)} />
               </div>
             </details>
           </section>

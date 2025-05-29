@@ -767,7 +767,8 @@ export function ShowcasePage() {
                         component.name === "Switch" ||
                         component.name === "Testimonial" ||
                         component.name === "Text" ||
-                        component.name === "Toast" ? (
+                        component.name === "Toast" ||
+                        component.name === "Tooltip" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1257,14 +1258,28 @@ const componentPreviews: Record<string, ComponentSpec> = {
     ],
   },
   Tooltip: {
-    type: "Box",
-    className: "inline-flex",
-    children: {
-      type: "Button",
-      variant: "outline",
-      children: "Hover me",
-      highlighted: true,
-    },
+    type: "Tooltip",
+    children: [
+      {
+        type: "TooltipTrigger",
+        children: [
+          {
+            type: "Button",
+            variant: "outline",
+            children: "Hover me",
+          },
+        ],
+      },
+      {
+        type: "TooltipContent",
+        children: [
+          {
+            type: "Text",
+            children: "This is a tooltip!",
+          },
+        ],
+      },
+    ],
   },
   Popover: {
     type: "Popover",

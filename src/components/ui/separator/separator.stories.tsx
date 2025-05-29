@@ -44,12 +44,15 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Check that the separator is rendered
-    const separator = canvas.getByRole('separator');
+    // Check that the separator is rendered (decorative separators have role="none")
+    const separator = canvas.getByRole('none');
     expect(separator).toBeInTheDocument();
     
+    // Check that it has data-slot attribute
+    expect(separator).toHaveAttribute('data-slot', 'separator-root');
+    
     // Check that it has horizontal orientation
-    expect(separator).toHaveAttribute('aria-orientation', 'horizontal');
+    expect(separator).toHaveAttribute('data-orientation', 'horizontal');
     
     // Check that surrounding content is rendered
     expect(canvas.getByText('Content Above')).toBeInTheDocument();
@@ -72,12 +75,15 @@ export const Vertical: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Check that the separator is rendered
-    const separator = canvas.getByRole('separator');
+    // Check that the separator is rendered (decorative separators have role="none")
+    const separator = canvas.getByRole('none');
     expect(separator).toBeInTheDocument();
     
+    // Check that it has data-slot attribute
+    expect(separator).toHaveAttribute('data-slot', 'separator-root');
+    
     // Check that it has vertical orientation
-    expect(separator).toHaveAttribute('aria-orientation', 'vertical');
+    expect(separator).toHaveAttribute('data-orientation', 'vertical');
     
     // Check that surrounding content is rendered
     expect(canvas.getByText('Left')).toBeInTheDocument();
@@ -133,4 +139,35 @@ export const WithLabel: Story = {
       </div>
     </div>
   ),
+};
+
+export const NonDecorative: Story = {
+  args: {
+    orientation: "horizontal",
+    decorative: false,
+  },
+  render: (args) => (
+    <div className="w-[300px]">
+      <div className="text-lg font-medium">Section 1</div>
+      <Separator {...args} className="my-4" />
+      <div className="text-lg font-medium">Section 2</div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check that the separator is rendered with role="separator" for non-decorative
+    const separator = canvas.getByRole('separator');
+    expect(separator).toBeInTheDocument();
+    
+    // Check that it has data-slot attribute
+    expect(separator).toHaveAttribute('data-slot', 'separator-root');
+    
+    // Check that it has horizontal orientation via data attribute
+    expect(separator).toHaveAttribute('data-orientation', 'horizontal');
+    
+    // Check that surrounding content is rendered
+    expect(canvas.getByText('Section 1')).toBeInTheDocument();
+    expect(canvas.getByText('Section 2')).toBeInTheDocument();
+  },
 };

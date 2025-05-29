@@ -1,1 +1,1 @@
-export * from "../tabs-demo";
+export { TabsShowcase } from "./tabs-showcase";

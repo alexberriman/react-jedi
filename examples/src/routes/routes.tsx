@@ -27,8 +27,8 @@ const ResizableDemo = lazy(() =>
 const SheetDemo = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.SheetDemo }))
 );
-const TabsDemo = lazy(() =>
-  import("../pages/showcase").then((module) => ({ default: module.TabsDemo }))
+const TabsShowcase = lazy(() =>
+  import("../pages/showcase/tabs-demo").then((module) => ({ default: module.TabsShowcase }))
 );
 const AccordionDemo = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.AccordionDemo }))
@@ -298,7 +298,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "tabs",
-            element: <AsyncRoute component={TabsDemo} loadingText="Loading tabs demo..." />,
+            element: <AsyncRoute component={TabsShowcase} loadingText="Loading tabs showcase..." />,
           },
           {
             path: "accordion",

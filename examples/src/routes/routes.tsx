@@ -66,6 +66,9 @@ const FooterShowcase = lazy(() =>
 const ImagePreview = lazy(() =>
   import("../pages/showcase/image").then((module) => ({ default: module.ImagePreview }))
 );
+const InputShowcase = lazy(() =>
+  import("../pages/showcase/input").then((module) => ({ default: module.InputShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -328,6 +331,10 @@ export const router = createBrowserRouter([
           {
             path: "image",
             element: <AsyncRoute component={ImagePreview} loadingText="Loading image showcase..." />,
+          },
+          {
+            path: "input",
+            element: <AsyncRoute component={InputShowcase} loadingText="Loading input showcase..." />,
           },
         ],
       },

@@ -742,7 +742,8 @@ export function ShowcasePage() {
                         component.name === "Carousel" ||
                         component.name === "FeatureCard" ||
                         component.name === "Footer" ||
-                        component.name === "Image" ? (
+                        component.name === "Image" ||
+                        component.name === "Input" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"

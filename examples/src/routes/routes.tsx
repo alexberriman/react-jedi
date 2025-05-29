@@ -75,6 +75,9 @@ const LabelShowcase = lazy(() =>
 const NavigationMenuShowcase = lazy(() =>
   import("../pages/showcase/navigation-menu").then((module) => ({ default: module.NavigationMenuShowcase }))
 );
+const PaginationShowcase = lazy(() =>
+  import("../pages/showcase/pagination").then((module) => ({ default: module.PaginationShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -349,6 +352,10 @@ export const router = createBrowserRouter([
           {
             path: "navigation-menu",
             element: <AsyncRoute component={NavigationMenuShowcase} loadingText="Loading navigation menu showcase..." />,
+          },
+          {
+            path: "pagination",
+            element: <AsyncRoute component={PaginationShowcase} loadingText="Loading pagination showcase..." />,
           },
         ],
       },

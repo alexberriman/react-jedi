@@ -745,7 +745,8 @@ export function ShowcasePage() {
                         component.name === "Image" ||
                         component.name === "Input" ||
                         component.name === "Label" ||
-                        component.name === "NavigationMenu" ? (
+                        component.name === "NavigationMenu" ||
+                        component.name === "Pagination" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1728,12 +1729,13 @@ const componentPreviews: Record<string, ComponentSpec> = {
     },
   },
   Pagination: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Pagination - Page navigation",
-    },
+    type: "pagination",
+    totalPages: 10,
+    currentPage: 5,
+    showPrevNext: true,
+    showFirstLast: true,
+    siblingCount: 1,
+    boundaryCount: 1,
   },
   Command: {
     type: "Box",

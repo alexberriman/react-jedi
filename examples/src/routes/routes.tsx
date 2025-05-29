@@ -42,6 +42,9 @@ const OverlayInteractivePage = lazy(() =>
 const HeroPreview = lazy(() =>
   import("../pages/showcase/hero").then((module) => ({ default: module.HeroPreview }))
 );
+const ButtonShowcase = lazy(() =>
+  import("../pages/showcase/button").then((module) => ({ default: module.ButtonShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -272,6 +275,10 @@ export const router = createBrowserRouter([
           {
             path: "flex",
             element: <AsyncRoute component={HeroPreview} loadingText="Loading flex demo..." />,
+          },
+          {
+            path: "button",
+            element: <AsyncRoute component={ButtonShowcase} loadingText="Loading button showcase..." />,
           },
         ],
       },

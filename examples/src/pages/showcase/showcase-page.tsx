@@ -735,7 +735,8 @@ export function ShowcasePage() {
                         component.name === "Tabs" ||
                         component.name === "Accordion" ||
                         component.name === "Dialog" ||
-                        component.name === "Hero" ? (
+                        component.name === "Hero" ||
+                        component.name === "Button" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase()}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"

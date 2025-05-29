@@ -374,6 +374,12 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "custom",
       },
+      {
+        name: "PricingTable",
+        description: "Pricing tables with multiple tiers and feature comparisons.",
+        status: "completed",
+        type: "custom",
+      },
     ],
   },
   {
@@ -746,7 +752,8 @@ export function ShowcasePage() {
                         component.name === "Input" ||
                         component.name === "Label" ||
                         component.name === "NavigationMenu" ||
-                        component.name === "Pagination" ? (
+                        component.name === "Pagination" ||
+                        component.name === "PricingTable" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1786,5 +1793,45 @@ const componentPreviews: Record<string, ComponentSpec> = {
       variant: "outline",
     },
     className: "min-h-[300px]",
+  },
+  PricingTable: {
+    type: "PricingTable",
+    columns: 2,
+    tiers: [
+      {
+        name: "Basic",
+        price: 9,
+        currency: "$",
+        period: "month",
+        features: [
+          { text: "Up to 10 projects", included: true },
+          { text: "5GB storage", included: true },
+          { text: "Basic support", included: true },
+          { text: "Advanced features", included: false },
+        ],
+        cta: {
+          text: "Get Started",
+          variant: "outline",
+        },
+      },
+      {
+        name: "Pro",
+        price: 29,
+        currency: "$",
+        period: "month",
+        badge: "Popular",
+        highlighted: true,
+        features: [
+          { text: "Unlimited projects", included: true },
+          { text: "50GB storage", included: true },
+          { text: "Priority support", included: true },
+          { text: "Advanced features", included: true },
+        ],
+        cta: {
+          text: "Start Free Trial",
+          variant: "default",
+        },
+      },
+    ],
   },
 };

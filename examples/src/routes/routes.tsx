@@ -78,6 +78,9 @@ const NavigationMenuShowcase = lazy(() =>
 const PaginationShowcase = lazy(() =>
   import("../pages/showcase/pagination").then((module) => ({ default: module.PaginationShowcase }))
 );
+const PricingTableShowcase = lazy(() =>
+  import("../pages/showcase/pricing-table").then((module) => ({ default: module.PricingTableShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -356,6 +359,10 @@ export const router = createBrowserRouter([
           {
             path: "pagination",
             element: <AsyncRoute component={PaginationShowcase} loadingText="Loading pagination showcase..." />,
+          },
+          {
+            path: "pricing-table",
+            element: <AsyncRoute component={PricingTableShowcase} loadingText="Loading pricing table showcase..." />,
           },
         ],
       },

@@ -57,6 +57,9 @@ const CarouselShowcase = lazy(() =>
 const FeatureCardShowcase = lazy(() =>
   import("../pages/showcase/feature-card").then((module) => ({ default: module.FeatureCardShowcase }))
 );
+const FooterShowcase = lazy(() =>
+  import("../pages/showcase/footer").then((module) => ({ default: module.FooterShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -307,6 +310,10 @@ export const router = createBrowserRouter([
           {
             path: "feature-card",
             element: <AsyncRoute component={FeatureCardShowcase} loadingText="Loading feature card showcase..." />,
+          },
+          {
+            path: "footer",
+            element: <AsyncRoute component={FooterShowcase} loadingText="Loading footer showcase..." />,
           },
         ],
       },

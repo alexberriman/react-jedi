@@ -84,6 +84,9 @@ const PricingTableShowcase = lazy(() =>
 const ProgressShowcase = lazy(() =>
   import("../pages/showcase/progress").then((module) => ({ default: module.ProgressShowcase }))
 );
+const RadioGroupDemo = lazy(() =>
+  import("../pages/showcase/radio-group-demo").then((module) => ({ default: module.RadioGroupDemo }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -370,6 +373,10 @@ export const router = createBrowserRouter([
           {
             path: "progress",
             element: <AsyncRoute component={ProgressShowcase} loadingText="Loading progress showcase..." />,
+          },
+          {
+            path: "radio-group",
+            element: <AsyncRoute component={RadioGroupDemo} loadingText="Loading radio group demo..." />,
           },
         ],
       },

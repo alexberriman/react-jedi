@@ -754,7 +754,8 @@ export function ShowcasePage() {
                         component.name === "NavigationMenu" ||
                         component.name === "Pagination" ||
                         component.name === "PricingTable" ||
-                        component.name === "Progress" ? (
+                        component.name === "Progress" ||
+                        component.name === "RadioGroup" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"

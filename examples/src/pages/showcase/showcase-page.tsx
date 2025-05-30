@@ -817,7 +817,8 @@ export function ShowcasePage() {
                         component.name === "Menubar" ||
                         component.name === "Command" ||
                         component.name === "Calendar" ||
-                        component.name === "DatePicker" ? (
+                        component.name === "DatePicker" ||
+                        component.name === "InputOTP" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1640,12 +1641,23 @@ const componentPreviews: Record<string, ComponentSpec> = {
     ],
   },
   InputOTP: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Input OTP - One-time password input",
-    },
+    type: "Stack",
+    spacing: "3",
+    align: "center",
+    children: [
+      {
+        type: "Text",
+        size: "small",
+        className: "font-medium",
+        children: "Enter code:",
+      },
+      {
+        type: "InputOTP",
+        maxLength: 6,
+        pattern: "^[0-9]+$",
+        placeholder: "○",
+      },
+    ],
   },
   Table: {
     type: "Table",

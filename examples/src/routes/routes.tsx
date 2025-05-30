@@ -78,6 +78,9 @@ const ImagePreview = lazy(() =>
 const InputShowcase = lazy(() =>
   import("../pages/showcase/input").then((module) => ({ default: module.InputShowcase }))
 );
+const InputOTPShowcase = lazy(() =>
+  import("../pages/showcase/input-otp").then((module) => ({ default: module.InputOTPShowcase }))
+);
 const LabelShowcase = lazy(() =>
   import("../pages/showcase/label").then((module) => ({ default: module.LabelShowcase }))
 );
@@ -502,6 +505,10 @@ export const router = createBrowserRouter([
           {
             path: "input",
             element: <AsyncRoute component={InputShowcase} loadingText="Loading input showcase..." />,
+          },
+          {
+            path: "input-otp",
+            element: <AsyncRoute component={InputOTPShowcase} loadingText="Loading input OTP showcase..." />,
           },
           {
             path: "label",

@@ -117,6 +117,9 @@ const StackShowcase = lazy(() =>
 const GroupShowcase = lazy(() =>
   import("../pages/showcase/group").then((module) => ({ default: module.GroupShowcase }))
 );
+const CenterShowcase = lazy(() =>
+  import("../pages/showcase/center").then((module) => ({ default: module.CenterShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -306,7 +309,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "center",
-            element: <AsyncRoute component={HeroPreview} loadingText="Loading center showcase..." />,
+            element: <AsyncRoute component={CenterShowcase} loadingText="Loading center showcase..." />,
           },
           {
             path: "flex",

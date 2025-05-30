@@ -171,6 +171,9 @@ const AlertShowcase = lazy(() =>
 const AlertDialogShowcase = lazy(() =>
   import("../pages/showcase/alert-dialog").then((module) => ({ default: module.AlertDialogShowcase }))
 );
+const CollapsibleShowcase = lazy(() =>
+  import("../pages/showcase/collapsible").then((module) => ({ default: module.CollapsibleShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -409,6 +412,10 @@ export const router = createBrowserRouter([
           {
             path: "checkbox",
             element: <AsyncRoute component={CheckboxShowcase} loadingText="Loading checkbox showcase..." />,
+          },
+          {
+            path: "collapsible",
+            element: <AsyncRoute component={CollapsibleShowcase} loadingText="Loading collapsible showcase..." />,
           },
           {
             path: "feature-card",

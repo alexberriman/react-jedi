@@ -816,7 +816,7 @@ export function DatePickerShowcase() {
                       type
                     </td>
                     <td className="border border-gray-200 dark:border-gray-800 px-4 py-2 font-mono text-sm">
-                      "DatePicker"
+                      &quot;DatePicker&quot;
                     </td>
                     <td className="border border-gray-200 dark:border-gray-800 px-4 py-2 text-gray-500">
                       required
@@ -847,7 +847,7 @@ export function DatePickerShowcase() {
                       string
                     </td>
                     <td className="border border-gray-200 dark:border-gray-800 px-4 py-2 text-gray-500">
-                      "Pick a date"
+                      &quot;Pick a date&quot;
                     </td>
                     <td className="border border-gray-200 dark:border-gray-800 px-4 py-2 text-sm">
                       Placeholder text when no date is selected
@@ -889,7 +889,7 @@ export function DatePickerShowcase() {
                       string
                     </td>
                     <td className="border border-gray-200 dark:border-gray-800 px-4 py-2 text-gray-500">
-                      "PPP"
+                      &quot;PPP&quot;
                     </td>
                     <td className="border border-gray-200 dark:border-gray-800 px-4 py-2 text-sm">
                       Date format pattern for display

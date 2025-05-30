@@ -818,7 +818,8 @@ export function ShowcasePage() {
                         component.name === "Command" ||
                         component.name === "Calendar" ||
                         component.name === "DatePicker" ||
-                        component.name === "InputOTP" ? (
+                        component.name === "InputOTP" ||
+                        component.name === "Combobox" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1334,52 +1335,123 @@ const componentPreviews: Record<string, ComponentSpec> = {
     },
   },
   Sheet: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Sheet component - View full demo →",
-    },
+    type: "Button",
+    variant: "outline",
+    children: [
+      {
+        type: "Text",
+        children: "Open Sheet Example",
+      },
+    ],
+    className: "mx-auto block",
   },
   Tabs: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Tabs component - View full demo →",
-    },
+    type: "Tabs",
+    defaultValue: "tab1",
+    children: [
+      {
+        type: "TabsList",
+        children: [
+          { type: "TabsTrigger", value: "tab1", children: "Tab 1" },
+          { type: "TabsTrigger", value: "tab2", children: "Tab 2" },
+          { type: "TabsTrigger", value: "tab3", children: "Tab 3" },
+        ],
+      },
+      {
+        type: "TabsContent",
+        value: "tab1",
+        children: {
+          type: "Text",
+          className: "text-sm text-gray-600 dark:text-gray-400",
+          children: "Content for tab 1",
+        },
+      },
+      {
+        type: "TabsContent",
+        value: "tab2",
+        children: {
+          type: "Text",
+          className: "text-sm text-gray-600 dark:text-gray-400",
+          children: "Content for tab 2",
+        },
+      },
+      {
+        type: "TabsContent",
+        value: "tab3",
+        children: {
+          type: "Text",
+          className: "text-sm text-gray-600 dark:text-gray-400",
+          children: "Content for tab 3",
+        },
+      },
+    ],
   },
   Accordion: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Accordion component - View full demo →",
-    },
+    type: "Accordion",
+    accordionType: "single",
+    collapsible: true,
+    children: [
+      {
+        type: "AccordionItem",
+        value: "item-1",
+        children: [
+          {
+            type: "AccordionTrigger",
+            children: "Is it accessible?",
+          },
+          {
+            type: "AccordionContent",
+            children: "Yes. It adheres to the WAI-ARIA design pattern.",
+          },
+        ],
+      },
+      {
+        type: "AccordionItem",
+        value: "item-2",
+        children: [
+          {
+            type: "AccordionTrigger",
+            children: "Is it styled?",
+          },
+          {
+            type: "AccordionContent",
+            children: "Yes. It comes with default styles that match the theme.",
+          },
+        ],
+      },
+    ],
   },
   Dialog: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Dialog component - View full demo →",
-    },
+    type: "Button",
+    variant: "outline",
+    children: "Open Dialog Example",
+    className: "mx-auto block",
   },
   ScrollArea: {
-    type: "Box",
+    type: "ScrollArea",
+    className: "h-32 w-full rounded-md border",
     children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "ScrollArea component - View full demo →",
+      type: "Box",
+      className: "p-4",
+      children: [
+        {
+          type: "Text",
+          className: "text-sm font-medium mb-2",
+          children: "Scrollable Content",
+        },
+        ...Array.from({ length: 10 }).map((_, i) => ({
+          type: "Text",
+          className: "text-sm text-gray-600 dark:text-gray-400",
+          children: `Line ${i + 1} of scrollable content`,
+        })),
+      ],
     },
   },
   Resizable: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Resizable component - View full demo →",
-    },
+    type: "Button",
+    variant: "outline",
+    children: "View Resizable Demo",
+    className: "mx-auto block",
   },
   CallToAction: {
     type: "Box",
@@ -1591,20 +1663,46 @@ const componentPreviews: Record<string, ComponentSpec> = {
     ],
   },
   Collapsible: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Collapsible component - Expandable content area",
-    },
+    type: "Collapsible",
+    defaultOpen: false,
+    children: [
+      {
+        type: "CollapsibleTrigger",
+        asChild: true,
+        children: {
+          type: "Button",
+          variant: "ghost",
+          size: "sm",
+          className: "w-full justify-between",
+          children: [
+            "Can I use this in production?",
+            {
+              type: "Text",
+              className: "ml-2",
+              children: "[+]",
+            },
+          ],
+        },
+      },
+      {
+        type: "CollapsibleContent",
+        children: {
+          type: "Box",
+          className: "pt-2",
+          children: {
+            type: "Text",
+            className: "text-sm text-gray-600 dark:text-gray-400",
+            children: "Yes, this component is production-ready and fully tested.",
+          },
+        },
+      },
+    ],
   },
   Toast: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Toast notifications - View demo",
-    },
+    type: "Button",
+    variant: "outline",
+    children: "Show Toast Demo",
+    className: "mx-auto block",
   },
   Calendar: {
     type: "calendar",
@@ -1612,12 +1710,9 @@ const componentPreviews: Record<string, ComponentSpec> = {
     mode: "single",
   },
   DatePicker: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Date Picker - Select date with calendar",
-    },
+    type: "DatePicker",
+    placeholder: "Pick a date",
+    className: "w-[240px] mx-auto",
   },
   Combobox: {
     type: "Box",
@@ -1711,20 +1806,36 @@ const componentPreviews: Record<string, ComponentSpec> = {
     rating: 5
   },
   DataTable: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Data Table - Advanced sortable table",
-    },
+    type: "DataTable",
+    columns: [
+      { key: "name", header: "Name", sortable: true },
+      { key: "status", header: "Status" },
+      { key: "role", header: "Role", sortable: true },
+    ],
+    data: [
+      { name: "John Doe", status: "Active", role: "Admin" },
+      { name: "Jane Smith", status: "Active", role: "User" },
+      { name: "Bob Johnson", status: "Inactive", role: "User" },
+    ],
+    className: "w-full",
   },
   Chart: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Chart - Data visualization component",
+    type: "Chart",
+    chartType: "bar",
+    data: [
+      { name: "Mon", value: 12 },
+      { name: "Tue", value: 19 },
+      { name: "Wed", value: 15 },
+      { name: "Thu", value: 22 },
+      { name: "Fri", value: 18 },
+    ],
+    config: {
+      value: { label: "Sales", color: "#8884d8" },
     },
+    dataKey: "value",
+    height: 150,
+    showGrid: true,
+    showTooltip: true,
   },
   Progress: {
     type: "Box",
@@ -1739,12 +1850,34 @@ const componentPreviews: Record<string, ComponentSpec> = {
     ],
   },
   HoverCard: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Hover Card - Content on hover",
-    },
+    type: "HoverCard",
+    children: [
+      {
+        type: "HoverCardTrigger",
+        asChild: true,
+        children: {
+          type: "Button",
+          variant: "link",
+          children: "Hover over me",
+        },
+      },
+      {
+        type: "HoverCardContent",
+        className: "w-80",
+        children: [
+          {
+            type: "Text",
+            className: "font-semibold",
+            children: "React Jedi",
+          },
+          {
+            type: "Text",
+            className: "text-sm text-gray-600 dark:text-gray-400",
+            children: "The server-driven UI library for building modern React applications.",
+          },
+        ],
+      },
+    ],
   },
   Alert: {
     type: "Alert",
@@ -1763,12 +1896,49 @@ const componentPreviews: Record<string, ComponentSpec> = {
     ],
   },
   AlertDialog: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Alert Dialog - Confirmation dialog",
-    },
+    type: "AlertDialog",
+    children: [
+      {
+        type: "AlertDialogTrigger",
+        asChild: true,
+        children: {
+          type: "Button",
+          variant: "outline",
+          children: "Show Alert",
+        },
+      },
+      {
+        type: "AlertDialogContent",
+        children: [
+          {
+            type: "AlertDialogHeader",
+            children: [
+              {
+                type: "AlertDialogTitle",
+                children: "Are you absolutely sure?",
+              },
+              {
+                type: "AlertDialogDescription",
+                children: "This action cannot be undone. This will permanently delete your account.",
+              },
+            ],
+          },
+          {
+            type: "AlertDialogFooter",
+            children: [
+              {
+                type: "AlertDialogCancel",
+                children: "Cancel",
+              },
+              {
+                type: "AlertDialogAction",
+                children: "Continue",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   Form: {
     type: "Form",
@@ -1828,36 +1998,129 @@ const componentPreviews: Record<string, ComponentSpec> = {
     ],
   },
   DropdownMenu: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Dropdown Menu - Navigation menu",
-    },
+    type: "DropdownMenu",
+    children: [
+      {
+        type: "DropdownMenuTrigger",
+        asChild: true,
+        children: {
+          type: "Button",
+          variant: "outline",
+          children: "Open Menu",
+        },
+      },
+      {
+        type: "DropdownMenuContent",
+        className: "w-56",
+        children: [
+          { type: "DropdownMenuLabel", children: "My Account" },
+          { type: "DropdownMenuSeparator" },
+          { type: "DropdownMenuItem", children: "Profile" },
+          { type: "DropdownMenuItem", children: "Settings" },
+          { type: "DropdownMenuItem", children: "Support" },
+          { type: "DropdownMenuSeparator" },
+          { type: "DropdownMenuItem", children: "Log out" },
+        ],
+      },
+    ],
   },
   ContextMenu: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Context Menu - Right-click menu",
-    },
+    type: "ContextMenu",
+    children: [
+      {
+        type: "ContextMenuTrigger",
+        className: "flex h-32 w-full items-center justify-center rounded-md border border-dashed text-sm",
+        children: "Right click here",
+      },
+      {
+        type: "ContextMenuContent",
+        className: "w-64",
+        children: [
+          { type: "ContextMenuItem", children: "Copy" },
+          { type: "ContextMenuItem", children: "Paste" },
+          { type: "ContextMenuSeparator" },
+          { type: "ContextMenuItem", children: "Delete" },
+        ],
+      },
+    ],
   },
   Menubar: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Menubar - Application menu bar",
-    },
+    type: "Menubar",
+    children: [
+      {
+        type: "MenubarMenu",
+        children: [
+          { type: "MenubarTrigger", children: "File" },
+          {
+            type: "MenubarContent",
+            children: [
+              { type: "MenubarItem", children: "New" },
+              { type: "MenubarItem", children: "Open" },
+              { type: "MenubarSeparator" },
+              { type: "MenubarItem", children: "Exit" },
+            ],
+          },
+        ],
+      },
+      {
+        type: "MenubarMenu",
+        children: [
+          { type: "MenubarTrigger", children: "Edit" },
+          {
+            type: "MenubarContent",
+            children: [
+              { type: "MenubarItem", children: "Undo" },
+              { type: "MenubarItem", children: "Redo" },
+            ],
+          },
+        ],
+      },
+    ],
   },
   NavigationMenu: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Navigation Menu - Horizontal navigation",
-    },
+    type: "NavigationMenu",
+    children: [
+      {
+        type: "NavigationMenuList",
+        children: [
+          {
+            type: "NavigationMenuItem",
+            children: [
+              {
+                type: "NavigationMenuTrigger",
+                children: "Products",
+              },
+              {
+                type: "NavigationMenuContent",
+                children: {
+                  type: "Box",
+                  className: "p-4 w-[400px]",
+                  children: [
+                    {
+                      type: "Text",
+                      className: "font-medium mb-2",
+                      children: "Our Products",
+                    },
+                    {
+                      type: "Text",
+                      className: "text-sm text-gray-600 dark:text-gray-400",
+                      children: "Explore our suite of developer tools.",
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+          {
+            type: "NavigationMenuItem",
+            children: {
+              type: "NavigationMenuLink",
+              children: "Documentation",
+            },
+          },
+        ],
+      },
+    ],
   },
   Breadcrumb: {
     type: "breadcrumb",
@@ -1877,12 +2140,41 @@ const componentPreviews: Record<string, ComponentSpec> = {
     boundaryCount: 1,
   },
   Command: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Command - Command palette",
-    },
+    type: "Command",
+    className: "rounded-lg border shadow-md",
+    children: [
+      {
+        type: "CommandInput",
+        placeholder: "Type a command or search...",
+      },
+      {
+        type: "CommandList",
+        children: [
+          {
+            type: "CommandEmpty",
+            children: "No results found.",
+          },
+          {
+            type: "CommandGroup",
+            heading: "Suggestions",
+            children: [
+              {
+                type: "CommandItem",
+                children: "Calendar",
+              },
+              {
+                type: "CommandItem",
+                children: "Search Emoji",
+              },
+              {
+                type: "CommandItem",
+                children: "Calculator",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   ToggleGroup: {
     type: "ToggleGroup",
@@ -1903,12 +2195,36 @@ const componentPreviews: Record<string, ComponentSpec> = {
     ],
   },
   Masonry: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Masonry - Pinterest-style grid layout",
-    },
+    type: "Masonry",
+    columns: { base: 2, md: 3 },
+    spacing: "4",
+    children: [
+      {
+        type: "Box",
+        className: "bg-blue-100 dark:bg-blue-900 p-4 rounded h-20",
+        children: "Item 1",
+      },
+      {
+        type: "Box",
+        className: "bg-purple-100 dark:bg-purple-900 p-4 rounded h-32",
+        children: "Item 2",
+      },
+      {
+        type: "Box",
+        className: "bg-green-100 dark:bg-green-900 p-4 rounded h-24",
+        children: "Item 3",
+      },
+      {
+        type: "Box",
+        className: "bg-yellow-100 dark:bg-yellow-900 p-4 rounded h-36",
+        children: "Item 4",
+      },
+      {
+        type: "Box",
+        className: "bg-red-100 dark:bg-red-900 p-4 rounded h-28",
+        children: "Item 5",
+      },
+    ],
   },
   Hero: {
     type: "Hero",

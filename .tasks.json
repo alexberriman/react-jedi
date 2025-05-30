@@ -359,7 +359,7 @@
       {
         "id": "fix-showcase-text-only-cards",
         "description": "On the /showcase page in the example app (./examples), some cards only have text like 'Data Table - Advanced sortable table' without actual component examples. Find all such text-only cards and either add proper SDUI component examples to them or create links to their respective showcase pages if they exist. Ensure all cards on /showcase have consistent presentation.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-documentation-page-header",

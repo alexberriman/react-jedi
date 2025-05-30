@@ -138,6 +138,9 @@ const MasonryShowcase = lazy(() =>
 const SpacerShowcase = lazy(() =>
   import("../pages/showcase/spacer").then((module) => ({ default: module.SpacerShowcase }))
 );
+const SeparatorShowcase = lazy(() =>
+  import("../pages/showcase/separator").then((module) => ({ default: module.SeparatorShowcase }))
+);
 const TextareaShowcase = lazy(() =>
   import("../pages/showcase/textarea").then((module) => ({ default: module.TextareaShowcase }))
 );
@@ -426,6 +429,10 @@ export const router = createBrowserRouter([
           {
             path: "spacer",
             element: <AsyncRoute component={SpacerShowcase} loadingText="Loading spacer showcase..." />,
+          },
+          {
+            path: "separator",
+            element: <AsyncRoute component={SeparatorShowcase} loadingText="Loading separator showcase..." />,
           },
           {
             path: "switch",

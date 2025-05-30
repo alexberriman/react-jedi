@@ -108,6 +108,9 @@ const ContainerShowcase = lazy(() =>
 const GridShowcase = lazy(() =>
   import("../pages/showcase/grid").then((module) => ({ default: module.GridShowcase }))
 );
+const FlexShowcase = lazy(() =>
+  import("../pages/showcase/flex").then((module) => ({ default: module.FlexShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -301,7 +304,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "flex",
-            element: <AsyncRoute component={HeroPreview} loadingText="Loading flex demo..." />,
+            element: <AsyncRoute component={FlexShowcase} loadingText="Loading flex demo..." />,
           },
           {
             path: "button",

@@ -177,6 +177,9 @@ const CollapsibleShowcase = lazy(() =>
 const TableShowcase = lazy(() =>
   import("../pages/showcase/table").then((module) => ({ default: module.TableShowcase }))
 );
+const DataTableShowcase = lazy(() =>
+  import("../pages/showcase/data-table").then((module) => ({ default: module.DataTableShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -491,6 +494,10 @@ export const router = createBrowserRouter([
           {
             path: "table",
             element: <AsyncRoute component={TableShowcase} loadingText="Loading table showcase..." />,
+          },
+          {
+            path: "data-table",
+            element: <AsyncRoute component={DataTableShowcase} loadingText="Loading data table showcase..." />,
           },
           {
             path: "toggle",

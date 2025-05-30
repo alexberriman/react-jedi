@@ -794,7 +794,8 @@ export function ShowcasePage() {
                         component.name === "Alert" ||
                         component.name === "AlertDialog" ||
                         component.name === "Collapsible" ||
-                        component.name === "Table" ? (
+                        component.name === "Table" ||
+                        component.name === "DataTable" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"

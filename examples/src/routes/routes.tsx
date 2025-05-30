@@ -126,6 +126,9 @@ const SimpleGridShowcase = lazy(() =>
 const MasonryShowcase = lazy(() =>
   import("../pages/showcase/masonry").then((module) => ({ default: module.MasonryShowcase }))
 );
+const SpacerShowcase = lazy(() =>
+  import("../pages/showcase/spacer").then((module) => ({ default: module.SpacerShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -396,6 +399,10 @@ export const router = createBrowserRouter([
           {
             path: "slider",
             element: <AsyncRoute component={SliderShowcase} loadingText="Loading slider showcase..." />,
+          },
+          {
+            path: "spacer",
+            element: <AsyncRoute component={SpacerShowcase} loadingText="Loading spacer showcase..." />,
           },
           {
             path: "switch",

@@ -777,6 +777,7 @@ export function ShowcasePage() {
                         component.name === "Group" ||
                         component.name === "Center" ||
                         component.name === "SimpleGrid" ||
+                        component.name === "Spacer" ||
                         component.name === "Masonry" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}

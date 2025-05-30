@@ -344,8 +344,9 @@ describe("createComplexSequence", () => {
     const steps = createComplexSequence(sequences);
 
     expect(steps).toHaveLength(3);
-    expect(steps[0].animate).toHaveProperty('[data-sequence="element1"]');
-    expect(steps[2].animate).toHaveProperty('[data-sequence="element2"]');
+    expect(steps[0].animate).toEqual({ opacity: 1 });
+    expect(steps[1].animate).toEqual({ x: 100 });
+    expect(steps[2].animate).toEqual({ scale: 1.2 });
   });
 
   it("applies stagger to sequences", () => {

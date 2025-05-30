@@ -24,6 +24,7 @@
     "postinstall": "playwright install chromium",
     "lint": "eslint src/ --fix --cache --cache-location node_modules/.cache/eslint/",
     "lint:fix": "eslint src/ --fix --cache --cache-location node_modules/.cache/eslint/",
+    "lint:example-app": "eslint examples/ --fix --cache --cache-location node_modules/.cache/eslint/",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" --cache --cache-location node_modules/.cache/prettier/",
     "format:check": "prettier --check src/ --cache --cache-location node_modules/.cache/prettier/",
     "typecheck": "tsc --noEmit",

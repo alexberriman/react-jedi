@@ -225,7 +225,7 @@ export function DrawerShowcase() {
           {
             content: {
               type: "Stack",
-              children: Array(20).fill(null).map((_, i) => ({
+              children: Array.from({length: 20}).fill(null).map((_, i) => ({
                 type: "Card",
                 children: [
                   {

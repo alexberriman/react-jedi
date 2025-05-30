@@ -462,7 +462,7 @@ export const CustomStyling: Story = {
 
 export const WithRowSelection: Story = {
   args: {
-    columns: paymentColumns as DataTableColumn<unknown>[],
+    columns: paymentColumns.filter((col) => col.id !== "select") as DataTableColumn<unknown>[],
     data: payments as unknown[],
     filterColumn: "email",
     selectable: true,

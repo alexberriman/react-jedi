@@ -40,12 +40,13 @@ function DrawerClose({
   );
 }
 
-function DrawerOverlay({
-  className,
-  ...props
-}: Readonly<React.ComponentProps<typeof DrawerPrimitive.Overlay>>) {
+const DrawerOverlay = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
+>(({ className, ...props }, ref) => {
   return (
     <DrawerPrimitive.Overlay
+      ref={ref}
       data-slot="drawer-overlay"
       className={cn(
         "fixed inset-0 z-50",
@@ -58,7 +59,8 @@ function DrawerOverlay({
       {...cleanDOMProps(props)}
     />
   );
-}
+});
+DrawerOverlay.displayName = "DrawerOverlay";
 
 function DrawerContent({
   className,

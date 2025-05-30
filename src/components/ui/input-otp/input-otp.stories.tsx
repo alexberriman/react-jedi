@@ -209,7 +209,7 @@ export const CustomSeparator: Story = {
 export const WithDefaultValue: Story = {
   args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
-    <InputOTP maxLength={6} defaultValue="123456">
+    <InputOTP maxLength={6} value="123456">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -238,7 +238,7 @@ export const WithDefaultValue: Story = {
 export const Disabled: Story = {
   args: {} as React.ComponentProps<typeof InputOTP>,
   render: () => (
-    <InputOTP maxLength={6} disabled defaultValue="123456">
+    <InputOTP maxLength={6} disabled value="123456">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />

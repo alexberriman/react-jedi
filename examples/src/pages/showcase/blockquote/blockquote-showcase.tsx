@@ -24,7 +24,7 @@ export function BlockQuoteShowcasePage() {
   };
 
   const renderExample = (title: string, json: any, description?: string) => {
-    const sectionKey = title.toLowerCase().replace(/\s+/g, '-');
+    const sectionKey = title.toLowerCase().replaceAll(/\s+/g, '-');
     
     return (
       <div className="mb-8">

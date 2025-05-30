@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect, waitFor, screen } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "@storybook/test";
 import {
   Sheet,
   SheetContent,
@@ -61,13 +61,13 @@ export const Default: Story = {
     // Wait for sheet to open and check that the sheet content is visible
     // Use screen instead of canvas since sheet renders in a portal
     await waitFor(() => {
-      expect(screen.getByText('Sheet Title')).toBeInTheDocument();
+      expect(within(document.body).getByText('Sheet Title')).toBeInTheDocument();
     });
-    expect(screen.getByText(/This is a sheet description/)).toBeInTheDocument();
-    expect(screen.getByText('Sheet content goes here.')).toBeInTheDocument();
+    expect(within(document.body).getByText(/This is a sheet description/)).toBeInTheDocument();
+    expect(within(document.body).getByText('Sheet content goes here.')).toBeInTheDocument();
     
     // Check that close button is present
-    const closeButton = screen.getByRole('button', { name: 'Close' });
+    const closeButton = within(document.body).getByRole('button', { name: 'Close' });
     expect(closeButton).toBeInTheDocument();
     
     // Close the sheet
@@ -75,7 +75,7 @@ export const Default: Story = {
     
     // Verify sheet is closed (content no longer visible)
     await waitFor(() => {
-      expect(screen.queryByText('Sheet Title')).not.toBeInTheDocument();
+      expect(within(document.body).queryByText('Sheet Title')).not.toBeInTheDocument();
     });
   },
 };
@@ -98,13 +98,13 @@ export const WithForm: Story = {
             <Label htmlFor="name" className="text-right">
               Name
             </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
+            <Input id="name" defaultValue="Pedro Duarte" className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
               Username
             </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
+            <Input id="username" defaultValue="@peduarte" className="col-span-3" />
           </div>
         </div>
         <SheetFooter>
@@ -126,19 +126,19 @@ export const WithForm: Story = {
     // Wait for sheet to open and check that the form is rendered
     // Use screen since sheet renders in a portal
     await waitFor(() => {
-      expect(screen.getByText('Edit profile')).toBeInTheDocument();
+      expect(within(document.body).getByText('Edit profile')).toBeInTheDocument();
     });
-    expect(screen.getByLabelText('Name')).toBeInTheDocument();
-    expect(screen.getByLabelText('Username')).toBeInTheDocument();
+    expect(within(document.body).getByLabelText('Name')).toBeInTheDocument();
+    expect(within(document.body).getByLabelText('Username')).toBeInTheDocument();
     
     // Check that inputs have default values
-    const nameInput = screen.getByLabelText('Name') as HTMLInputElement;
-    const usernameInput = screen.getByLabelText('Username') as HTMLInputElement;
+    const nameInput = within(document.body).getByLabelText('Name') as HTMLInputElement;
+    const usernameInput = within(document.body).getByLabelText('Username') as HTMLInputElement;
     expect(nameInput.value).toBe('Pedro Duarte');
     expect(usernameInput.value).toBe('@peduarte');
     
     // Check save button is present
-    const saveButton = screen.getByRole('button', { name: 'Save changes' });
+    const saveButton = within(document.body).getByRole('button', { name: 'Save changes' });
     expect(saveButton).toBeInTheDocument();
   },
 };
@@ -236,12 +236,12 @@ export const NestedSheets: Story = {
     
     // Check that first sheet is open
     await waitFor(() => {
-      expect(screen.getByText('First Sheet')).toBeInTheDocument();
+      expect(within(document.body).getByText('First Sheet')).toBeInTheDocument();
     });
-    expect(screen.getByText('This is the first sheet. You can open another one.')).toBeInTheDocument();
+    expect(within(document.body).getByText('This is the first sheet. You can open another one.')).toBeInTheDocument();
     
     // Check that nested sheet trigger is available
-    const nestedTrigger = screen.getByRole('button', { name: 'Open Nested Sheet' });
+    const nestedTrigger = within(document.body).getByRole('button', { name: 'Open Nested Sheet' });
     expect(nestedTrigger).toBeInTheDocument();
     
     // Open the nested sheet
@@ -249,10 +249,10 @@ export const NestedSheets: Story = {
     
     // Check that both sheets are open
     await waitFor(() => {
-      expect(screen.getByText('Nested Sheet')).toBeInTheDocument();
+      expect(within(document.body).getByText('Nested Sheet')).toBeInTheDocument();
     });
-    expect(screen.getByText('First Sheet')).toBeInTheDocument();
-    expect(screen.getByText('This is a nested sheet that appears from the opposite side.')).toBeInTheDocument();
+    expect(within(document.body).getByText('First Sheet')).toBeInTheDocument();
+    expect(within(document.body).getByText('This is a nested sheet that appears from the opposite side.')).toBeInTheDocument();
   },
 };
 

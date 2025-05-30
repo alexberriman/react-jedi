@@ -340,11 +340,7 @@ export function createComplexSequence(
       complexSteps.push({
         ...step,
         delay: currentTime,
-        animate: {
-          ...step.animate,
-          // Add target selector for parallel animations
-          [`[data-sequence="${sequence.target}"]`]: step.animate,
-        },
+        animate: step.animate,
       });
 
       currentTime += (step.duration || 0.5) + (step.delay || 0);

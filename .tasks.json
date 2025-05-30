@@ -1,77 +1,5 @@
 [
   {
-    "id": "showcase-app-polish",
-    "description": "Polish and improve the example app (./examples) user experience, navigation, and overall design quality. Remove redundant pages, fix UI issues, and enhance the documentation and performance pages.",
-    "status": "pending",
-    "subtasks": [
-      {
-        "id": "fix-header-dropdown-menu",
-        "description": "Fix the header dropdown menu in the example app (./examples) - it's glitchy when you click on parent items with children. Clicking on parent items should have no effect (only hover should trigger show/hide). Also add cursor-pointer styling to interactive elements.",
-        "status": "completed"
-      },
-      {
-        "id": "remove-interactive-components-banner",
-        "description": "Remove the 'Interactive Components Now Available!' container at the bottom of the /showcase page in the example app (./examples).",
-        "status": "completed"
-      },
-      {
-        "id": "remove-advanced-layout-page",
-        "description": "Remove the 'Advanced Layout Components' page (/showcase/layout) from the example app (./examples) since we've added detailed pages for every component. Also remove this link from the header navigation.",
-        "status": "completed"
-      },
-      {
-        "id": "remove-overlay-interactive-page",
-        "description": "Remove the '/showcase/overlay-interactive' page ('Interactive Overlay Components') from the example app (./examples) as we've created detailed pages for each component. Also remove this link from the header navigation.",
-        "status": "completed"
-      },
-      {
-        "id": "remove-interactive-showcase-page",
-        "description": "Remove the '/showcase/interactive' page ('Interactive Component Showcase') from the example app (./examples). Also remove this link from the header navigation.",
-        "status": "completed"
-      },
-      {
-        "id": "redesign-examples-page",
-        "description": "Redesign the /examples page in the example app (./examples) to look nicer. The current box/card layout doesn't work well with many items. Create a cleaner, more organized layout.",
-        "status": "completed"
-      },
-      {
-        "id": "remove-form-validation-example",
-        "description": "Remove the '/examples/form-validation' page from the example app (./examples) and also remove it from the header navigation.",
-        "status": "completed"
-      },
-      {
-        "id": "remove-landing-example",
-        "description": "Remove the '/examples/landing' page from the example app (./examples) and also remove it from the header navigation.",
-        "status": "completed"
-      },
-      {
-        "id": "remove-navigation-example",
-        "description": "Remove the '/examples/navigation' page from the example app (./examples) and also remove it from the header navigation.",
-        "status": "completed"
-      },
-      {
-        "id": "enhance-documentation-page",
-        "description": "Move the Documentation page to the first link in the header menu (before components) in the example app (./examples). Redesign it to look way nicer and more like a traditional documentation page. Add syntax highlighting for JSON/TypeScript code using a 3rd party plugin. Break content into logical sections (Introduction, Getting Started, etc.). Avoid content duplication by linking to existing pages. Make the documentation look professional and sexy.",
-        "status": "completed"
-      },
-      {
-        "id": "fix-navigation-page-fonts",
-        "description": "Fix the font family issues on the '/examples/navigation' page in the example app (./examples). The fonts are inconsistent with other pages - header nav, titles, etc. all look different. There's a font conflict that needs to be resolved.",
-        "status": "cancelled"
-      },
-      {
-        "id": "redesign-performance-page",
-        "description": "Redesign the /performance page in the example app (./examples) to look way nicer with clean, simple, flat, and sexy UI design.",
-        "status": "completed"
-      },
-      {
-        "id": "update-footer-menu",
-        "description": "Update the footer menu in the example app (./examples) to be current and reflective of the updated site structure after removing and reorganizing pages.",
-        "status": "completed"
-      }
-    ]
-  },
-  {
     "id": "example-app-component-pages",
     "description": "There is a /showcase page in the example app that showcases all of the react-jedi components (remember, react jedi is a SDUI library that renders components from JSON). I want to create a nested page for EVERY component that gives: table of contents, basic usage/description, different variations and examples, description of props/options. I then want to make a change to the /showcase page to link these components to their nested page as well. Remember - they should render the SDUI component (from JSON) on the nested page.",
     "status": "pending",
@@ -409,6 +337,68 @@
       {
         "id": "input-otp-showcase",
         "description": "Create a nested page in the example app to showcase the InputOTP component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the InputOTP component example has a link to the nested page as well.",
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "id": "example-app-ui-fixes",
+    "description": "Fix various UI issues and enhance the example app with better styling, placeholder images, syntax highlighting, search functionality, and other improvements.",
+    "status": "pending",
+    "subtasks": [
+      {
+        "id": "remove-shadcn-ui-from-cards",
+        "description": "Remove @shadcn/ui text from all cards on the /showcase page in the example app (./examples). Check all component cards and remove any references to @shadcn/ui since React Jedi is its own SDUI library. Update card titles and descriptions to only reference React Jedi components.",
+        "status": "pending"
+      },
+      {
+        "id": "update-images-to-placeholders",
+        "description": "Update all images in the example app (./examples) to use placeholder images from https://placehold.co service. Replace broken or missing images with URLs like https://placehold.co/600x400/EEE/31343C where 600 is width and 400 is height. Check all pages including showcase pages, component examples, and any other pages with images. Ensure consistent placeholder image sizes appropriate for each context.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-showcase-text-only-cards",
+        "description": "On the /showcase page in the example app (./examples), some cards only have text like 'Data Table - Advanced sortable table' without actual component examples. Find all such text-only cards and either add proper SDUI component examples to them or create links to their respective showcase pages if they exist. Ensure all cards on /showcase have consistent presentation.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-documentation-page-header",
+        "description": "Fix the /documentation page header in the example app (./examples) to remove excessive purple and other colors. Make the header consistent with other pages in the app - use the same color scheme, styling, and layout as pages like /showcase or /examples. Ensure clean, professional appearance without random color variations.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-nested-documentation-pages",
+        "description": "Fix all nested documentation pages (e.g., /documentation/getting-started) in the example app (./examples). Issues to fix: 1) Remove 100% width that makes content stretch edge-to-edge, 2) Remove random colors like green that don't match the app's design system, 3) Add a proper documentation layout with sidebar navigation, 4) Add previous/next navigation buttons, 5) Ensure consistent styling with main documentation page. Make it look like standard documentation sites.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-examples-page-floating-menu",
+        "description": "Fix the floating side menu on the /examples page in the example app (./examples). The menu gets cut off by the fixed header. Add proper offset/margin-top to account for the header height so the floating menu is fully visible and doesn't overlap with or get hidden behind the header.",
+        "status": "pending"
+      },
+      {
+        "id": "add-syntax-highlighting-plugin",
+        "description": "Add a syntax highlighting plugin (like Prism.js or highlight.js) to the example app (./examples) for code and JSON examples. Apply syntax highlighting to: 1) Code blocks on the /documentation page, 2) All JSON examples on the /showcase page, 3) All JSON code on individual showcase pages (e.g., /showcase/button, /showcase/group), 4) Any other code snippets throughout the app. Ensure consistent and attractive code formatting.",
+        "status": "pending"
+      },
+      {
+        "id": "verify-library-styles-loaded",
+        "description": "Investigate and confirm that the main @banja/react-jedi library styles are being properly loaded in the example app (./examples). Check: 1) Import statements for library styles, 2) Build configuration, 3) Console for any style loading errors, 4) Verify components are rendering with proper styles from the SDUI library. Fix any issues preventing library styles from loading correctly.",
+        "status": "pending"
+      },
+      {
+        "id": "verify-no-index-seo",
+        "description": "Confirm the example app (./examples) is set up to not be indexable by search engines. Check for: 1) robots.txt file with proper disallow rules, 2) Meta tags with noindex/nofollow in HTML head, 3) Any other SEO prevention measures. Add any missing configurations to ensure the example app is not indexed by search engines.",
+        "status": "pending"
+      },
+      {
+        "id": "add-header-search-functionality",
+        "description": "Add a search component to the header in the example app (./examples) with real-time search results. Requirements: 1) Search input that looks sexy and matches the app design, 2) Real-time filtering as user types, 3) Search through all pages/routes in the app, 4) Show results in a dropdown (e.g., typing 'bo' shows 'Box' page), 5) Clicking a result navigates to that page, 6) Include keyboard navigation support, 7) Style it to look modern and professional.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-footer-year-dynamic",
+        "description": "Change the hardcoded '2024' year in the footer of the example app (./examples) to dynamically show the current year using JavaScript's new Date().getFullYear(). Find all instances of hardcoded 2024 in the footer and replace with dynamic year generation.",
         "status": "pending"
       }
     ]

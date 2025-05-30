@@ -22,7 +22,7 @@ fi
 npx wait-on "http://localhost:$PORT/iframe.html"
 
 # Build command
-CMD="npx test-storybook --testTimeout=60000"
+CMD="npx test-storybook --testTimeout=60000 --failOnConsole"
 if [[ -n "$INCLUDE_TAGS" ]]; then
   CMD+=" --includeTags $INCLUDE_TAGS"
 fi

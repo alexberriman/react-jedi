@@ -213,6 +213,9 @@ const CalendarShowcase = lazy(() =>
 const DatePickerShowcase = lazy(() =>
   import("../pages/showcase/date-picker").then((module) => ({ default: module.DatePickerShowcase }))
 );
+const ComboboxShowcase = lazy(() =>
+  import("../pages/showcase/combobox").then((module) => ({ default: module.ComboboxShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -451,6 +454,10 @@ export const router = createBrowserRouter([
           {
             path: "date-picker",
             element: <AsyncRoute component={DatePickerShowcase} loadingText="Loading date picker showcase..." />,
+          },
+          {
+            path: "combobox",
+            element: <AsyncRoute component={ComboboxShowcase} loadingText="Loading combobox showcase..." />,
           },
           {
             path: "call-to-action",

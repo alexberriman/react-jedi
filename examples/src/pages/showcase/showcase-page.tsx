@@ -1620,11 +1620,24 @@ const componentPreviews: Record<string, ComponentSpec> = {
   },
   Combobox: {
     type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Combobox - Searchable select input",
-    },
+    className: "space-y-3",
+    children: [
+      {
+        type: "Combobox",
+        placeholder: "Select framework...",
+        options: [
+          { value: "react", label: "React" },
+          { value: "vue", label: "Vue" },
+          { value: "angular", label: "Angular" },
+          { value: "svelte", label: "Svelte" },
+        ],
+      },
+      {
+        type: "Text",
+        className: "text-sm text-gray-600 dark:text-gray-400 text-center",
+        children: "Searchable select with autocomplete",
+      },
+    ],
   },
   InputOTP: {
     type: "Box",

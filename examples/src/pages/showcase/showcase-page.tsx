@@ -785,6 +785,7 @@ export function ShowcasePage() {
                         component.name === "Spacer" ||
                         component.name === "Separator" ||
                         component.name === "Badge" ||
+                        component.name === "Blockquote" ||
                         component.name === "Heading" ||
                         component.name === "Masonry" ? (
                           <Link

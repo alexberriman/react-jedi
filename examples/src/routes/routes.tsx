@@ -45,6 +45,9 @@ const ButtonShowcase = lazy(() =>
 const BoxShowcase = lazy(() =>
   import("../pages/showcase/box").then((module) => ({ default: module.BoxShowcase }))
 );
+const BlockQuoteShowcase = lazy(() =>
+  import("../pages/showcase/blockquote").then((module) => ({ default: module.BlockQuoteShowcasePage }))
+);
 const CallToActionShowcase = lazy(() =>
   import("../pages/showcase/call-to-action").then((module) => ({ default: module.CallToActionShowcase }))
 );
@@ -355,6 +358,10 @@ export const router = createBrowserRouter([
           {
             path: "badge",
             element: <AsyncRoute component={BadgeShowcase} loadingText="Loading badge showcase..." />,
+          },
+          {
+            path: "blockquote",
+            element: <AsyncRoute component={BlockQuoteShowcase} loadingText="Loading blockquote showcase..." />,
           },
           {
             path: "button",

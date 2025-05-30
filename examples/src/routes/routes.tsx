@@ -168,6 +168,9 @@ const SkeletonShowcase = lazy(() =>
 const AlertShowcase = lazy(() =>
   import("../pages/showcase/alert").then((module) => ({ default: module.AlertShowcasePage }))
 );
+const AlertDialogShowcase = lazy(() =>
+  import("../pages/showcase/alert-dialog").then((module) => ({ default: module.AlertDialogShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -534,6 +537,10 @@ export const router = createBrowserRouter([
           {
             path: "alert",
             element: <AsyncRoute component={AlertShowcase} loadingText="Loading alert showcase..." />,
+          },
+          {
+            path: "alert-dialog",
+            element: <AsyncRoute component={AlertDialogShowcase} loadingText="Loading alert dialog showcase..." />,
           },
         ],
       },

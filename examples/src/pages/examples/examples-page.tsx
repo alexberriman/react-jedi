@@ -226,7 +226,7 @@ export function ExamplesPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Navigation */}
           <aside className="lg:w-64 flex-shrink-0">
-            <div className="sticky top-4">
+            <div className="sticky top-24">
               <h2 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-4">
                 Categories
               </h2>

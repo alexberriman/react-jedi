@@ -39,6 +39,9 @@ const HeroShowcase = lazy(() =>
 const ButtonShowcase = lazy(() =>
   import("../pages/showcase/button").then((module) => ({ default: module.ButtonShowcase }))
 );
+const BoxShowcase = lazy(() =>
+  import("../pages/showcase/box").then((module) => ({ default: module.BoxShowcase }))
+);
 const CallToActionShowcase = lazy(() =>
   import("../pages/showcase/call-to-action").then((module) => ({ default: module.CallToActionShowcase }))
 );
@@ -300,6 +303,10 @@ export const router = createBrowserRouter([
           {
             path: "button",
             element: <AsyncRoute component={ButtonShowcase} loadingText="Loading button showcase..." />,
+          },
+          {
+            path: "box",
+            element: <AsyncRoute component={BoxShowcase} loadingText="Loading box showcase..." />,
           },
           {
             path: "call-to-action",

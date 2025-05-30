@@ -369,7 +369,7 @@
       {
         "id": "fix-nested-documentation-pages",
         "description": "Fix all nested documentation pages (e.g., /documentation/getting-started) in the example app (./examples). Issues to fix: 1) Remove 100% width that makes content stretch edge-to-edge, 2) Remove random colors like green that don't match the app's design system, 3) Add a proper documentation layout with sidebar navigation, 4) Add previous/next navigation buttons, 5) Ensure consistent styling with main documentation page. Make it look like standard documentation sites.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-examples-page-floating-menu",

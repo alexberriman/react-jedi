@@ -1,0 +1,1 @@
+export { HeadingShowcase } from './heading-showcase';

@@ -254,7 +254,7 @@ function ToastShowcasePage() {
         <section id="toast-types" className="mb-16">
           <h2 className="text-2xl font-semibold mb-4 text-zinc-100">Toast Types</h2>
           <p className="text-zinc-400 mb-8">
-            React Jedi's Toast component supports multiple types for different scenarios.
+            React Jedi&apos;s Toast component supports multiple types for different scenarios.
           </p>
           <div className="bg-zinc-900 rounded-lg border border-zinc-800 p-8 mb-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">

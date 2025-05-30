@@ -304,7 +304,7 @@ export function DocumentationOverview() {
               React Jedi Documentation
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              Everything you need to build beautiful, server-driven interfaces with React Jedi's
+              Everything you need to build beautiful, server-driven interfaces with React Jedi&apos;s
               JSON-based approach. From getting started to advanced patterns.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -448,7 +448,7 @@ function App() {
               Need Help?
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Can't find what you're looking for? Here are some ways to get help:
+              Can&apos;t find what you&apos;re looking for? Here are some ways to get help:
             </p>
             <div className="flex flex-wrap gap-4">
               <a

@@ -485,7 +485,7 @@ export function PricingTableShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -682,7 +682,7 @@ export function PricingTableShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"PricingTable"</td>
+                    <td className="py-3 px-4 font-mono">&quot;PricingTable&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -731,7 +731,7 @@ export function PricingTableShowcase() {
                       <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">price</td>
                       <td className="py-3 px-4 font-mono">number | string</td>
                       <td className="py-3 px-4">✓</td>
-                      <td className="py-3 px-4">Price amount or custom text (e.g., "Custom")</td>
+                      <td className="py-3 px-4">Price amount or custom text (e.g., &quot;Custom&quot;)</td>
                     </tr>
                     <tr className="border-b border-gray-200 dark:border-gray-800">
                       <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">features</td>
@@ -755,13 +755,13 @@ export function PricingTableShowcase() {
                       <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">currency</td>
                       <td className="py-3 px-4 font-mono">string</td>
                       <td className="py-3 px-4">-</td>
-                      <td className="py-3 px-4">Currency symbol (e.g., "$", "€")</td>
+                      <td className="py-3 px-4">Currency symbol (e.g., "$", &quot;€&quot;)</td>
                     </tr>
                     <tr className="border-b border-gray-200 dark:border-gray-800">
                       <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">period</td>
                       <td className="py-3 px-4 font-mono">string</td>
                       <td className="py-3 px-4">-</td>
-                      <td className="py-3 px-4">Billing period (e.g., "month", "year")</td>
+                      <td className="py-3 px-4">Billing period (e.g., "month", &quot;year&quot;)</td>
                     </tr>
                     <tr className="border-b border-gray-200 dark:border-gray-800">
                       <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">badge</td>

@@ -626,7 +626,7 @@ export function DrawerShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -881,7 +881,7 @@ export function DrawerShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"drawer"</td>
+                    <td className="py-3 px-4 font-mono">&quot;drawer&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -899,8 +899,8 @@ export function DrawerShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">props.direction</td>
-                    <td className="py-3 px-4 font-mono">"top" | "right" | "bottom" | "left"</td>
-                    <td className="py-3 px-4">"bottom"</td>
+                    <td className="py-3 px-4 font-mono">"top" | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;</td>
+                    <td className="py-3 px-4">&quot;bottom&quot;</td>
                     <td className="py-3 px-4">Direction from which drawer opens</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

@@ -364,7 +364,7 @@ export function PaginationShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -416,7 +416,7 @@ export function PaginationShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Pagination component provides an accessible and intuitive way for users to navigate through multiple pages of content. It's designed to work seamlessly with large datasets while maintaining good performance and user experience.
+                The Pagination component provides an accessible and intuitive way for users to navigate through multiple pages of content. It&apos;s designed to work seamlessly with large datasets while maintaining good performance and user experience.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -653,7 +653,7 @@ export function PaginationShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"pagination"</td>
+                    <td className="py-3 px-4 font-mono">&quot;pagination&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>

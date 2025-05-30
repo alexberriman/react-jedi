@@ -559,7 +559,7 @@ export function NavigationMenuShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -611,7 +611,7 @@ export function NavigationMenuShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The NavigationMenu component is built on top of Radix UI's Navigation Menu primitive, providing a robust foundation for creating complex navigation structures. It supports both simple links and dropdown menus with rich content.
+                The NavigationMenu component is built on top of Radix UI&apos;s Navigation Menu primitive, providing a robust foundation for creating complex navigation structures. It supports both simple links and dropdown menus with rich content.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -761,7 +761,7 @@ export function NavigationMenuShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"NavigationMenu"</td>
+                    <td className="py-3 px-4 font-mono">&quot;NavigationMenu&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -773,8 +773,8 @@ export function NavigationMenuShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">orientation</td>
-                    <td className="py-3 px-4 font-mono">"horizontal" | "vertical"</td>
-                    <td className="py-3 px-4">"horizontal"</td>
+                    <td className="py-3 px-4 font-mono">"horizontal" | &quot;vertical&quot;</td>
+                    <td className="py-3 px-4">&quot;horizontal&quot;</td>
                     <td className="py-3 px-4">Menu orientation</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

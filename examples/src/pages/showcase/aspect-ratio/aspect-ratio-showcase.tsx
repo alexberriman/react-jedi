@@ -490,7 +490,7 @@ export function AspectRatioShowcase() {
                   onClick={(e) => {
                     e.preventDefault();
                     setActiveSection(item.id);
-                    document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                    document.querySelector(`#${item.id}`)?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className={`block py-1 px-2 text-sm rounded transition-colors ${
                     activeSection === item.id
@@ -534,7 +534,7 @@ export function AspectRatioShowcase() {
             A container that maintains a specific aspect ratio for its content, perfect for images, videos, and responsive layouts.
           </p>
           <p className="text-gray-600 dark:text-gray-400 mb-8">
-            The AspectRatio component ensures consistent dimensions across different screen sizes and content types. It's essential for maintaining visual harmony in responsive designs, preventing layout shifts, and creating predictable spaces for media content.
+            The AspectRatio component ensures consistent dimensions across different screen sizes and content types. It&apos;s essential for maintaining visual harmony in responsive designs, preventing layout shifts, and creating predictable spaces for media content.
           </p>
         </section>
 

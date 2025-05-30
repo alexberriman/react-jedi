@@ -310,7 +310,7 @@ export function LabelShowcase() {
         type: "CardHeader",
         children: [
           { type: "CardTitle", children: "Contact Us" },
-          { type: "CardDescription", children: "We'd love to hear from you" },
+          { type: "CardDescription", children: "We&apos;d love to hear from you" },
         ],
       },
       {
@@ -345,7 +345,7 @@ export function LabelShowcase() {
                 { type: "Input", id: "contact-email", inputType: "email", placeholder: "your@email.com" },
                 {
                   type: "Text",
-                  children: "We'll never share your email with anyone else",
+                  children: "We&apos;ll never share your email with anyone else",
                   size: "small",
                   variant: "muted",
                   className: "text-xs"
@@ -362,7 +362,7 @@ export function LabelShowcase() {
                   children: "Subject",
                   className: "text-sm font-medium"
                 },
-                { type: "Input", id: "subject", placeholder: "What's this about?" },
+                { type: "Input", id: "subject", placeholder: "What&apos;s this about?" },
               ],
             },
             {
@@ -401,7 +401,7 @@ export function LabelShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -578,7 +578,7 @@ export function LabelShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Label"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Label&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>

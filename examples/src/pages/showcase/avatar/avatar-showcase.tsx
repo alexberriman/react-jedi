@@ -802,7 +802,7 @@ export function AvatarShowcase() {
                   {
                     type: "Text",
                     className: "text-sm",
-                    children: "Thanks! I'm glad you like it. The color variations add a nice touch too.",
+                    children: "Thanks! I&apos;m glad you like it. The color variations add a nice touch too.",
                   },
                 ],
               },
@@ -815,7 +815,7 @@ export function AvatarShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -1035,7 +1035,7 @@ export function AvatarShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"Avatar"</td>
+                        <td className="py-3 px-4 font-mono">&quot;Avatar&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>
@@ -1084,7 +1084,7 @@ export function AvatarShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"AvatarImage"</td>
+                        <td className="py-3 px-4 font-mono">&quot;AvatarImage&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>
@@ -1127,7 +1127,7 @@ export function AvatarShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"AvatarFallback"</td>
+                        <td className="py-3 px-4 font-mono">&quot;AvatarFallback&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>

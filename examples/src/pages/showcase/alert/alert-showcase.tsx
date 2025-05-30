@@ -204,7 +204,7 @@ export function AlertShowcasePage() {
                 children: [
                   {
                     component: "Text",
-                    children: "Please verify your email address to unlock all features. We've sent a verification link to your registered email.",
+                    children: "Please verify your email address to unlock all features. We&apos;ve sent a verification link to your registered email.",
                   },
                   {
                     component: "Group",
@@ -272,7 +272,7 @@ export function AlertShowcasePage() {
                         onClick={(e) => {
                           e.preventDefault();
                           setActiveSection(item.id);
-                          document.getElementById(item.id)?.scrollIntoView({
+                          document.querySelector(`#${item.id}`)?.scrollIntoView({
                             behavior: "smooth",
                             block: "start",
                           });
@@ -304,7 +304,7 @@ export function AlertShowcasePage() {
                   The Alert component is used to display important messages and
                   notifications to users. It supports different variants for various
                   message types, can include titles and descriptions, and can be
-                  styled to match your application's design system.
+                  styled to match your application&apos;s design system.
                 </p>
                 <h3 className="mt-6 text-lg font-medium">Key Features</h3>
                 <ul className="mt-4 space-y-2 text-gray-600 dark:text-gray-400">
@@ -499,10 +499,10 @@ export function AlertShowcasePage() {
                         </code>
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
-                        "default" | "destructive"
+                        "default" | &quot;destructive&quot;
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
-                        "default"
+                        &quot;default&quot;
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                         The visual style variant of the alert
@@ -550,7 +550,7 @@ export function AlertShowcasePage() {
                         string
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
-                        "alert"
+                        &quot;alert&quot;
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                         ARIA role for accessibility
@@ -563,7 +563,7 @@ export function AlertShowcasePage() {
                         </code>
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
-                        "polite" | "assertive" | "off"
+                        &quot;polite&quot; | &quot;assertive&quot; | &quot;off&quot;
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                         -
@@ -584,7 +584,7 @@ export function AlertShowcasePage() {
                       AlertTitle
                     </h4>
                     <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                      Used for the alert's title text. Automatically styled with appropriate font weight and spacing.
+                      Used for the alert&apos;s title text. Automatically styled with appropriate font weight and spacing.
                     </p>
                   </div>
                   <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-900">
@@ -592,7 +592,7 @@ export function AlertShowcasePage() {
                       AlertDescription
                     </h4>
                     <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                      Used for the alert's description text. Provides appropriate spacing and text styling.
+                      Used for the alert&apos;s description text. Provides appropriate spacing and text styling.
                     </p>
                   </div>
                 </div>

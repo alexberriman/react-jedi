@@ -547,7 +547,7 @@ export function BlockQuoteShowcasePage() {
                           styleVariant: "modern",
                           shadow: "md",
                           rounded: "lg",
-                          children: "The best investment we've made this year. ROI was visible within weeks.",
+                          children: "The best investment we&apos;ve made this year. ROI was visible within weeks.",
                           author: "Michael Torres",
                           cite: "VP of Operations, FinanceFlow"
                         }
@@ -623,38 +623,38 @@ export function BlockQuoteShowcasePage() {
               <tbody>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">variant</td>
-                  <td className="p-4 font-mono text-sm">"default" | "primary" | "secondary" | "accent" | "muted" | "destructive"</td>
-                  <td className="p-4 font-mono text-sm">"default"</td>
+                  <td className="p-4 font-mono text-sm">&quot;default&quot; | &quot;primary&quot; | &quot;secondary&quot; | &quot;accent&quot; | &quot;muted&quot; | &quot;destructive&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;default&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Color variant of the blockquote</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">size</td>
-                  <td className="p-4 font-mono text-sm">"sm" | "base" | "lg" | "xl"</td>
-                  <td className="p-4 font-mono text-sm">"base"</td>
+                  <td className="p-4 font-mono text-sm">"sm" | &quot;base&quot; | &quot;lg&quot; | &quot;xl&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;base&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Size of the text and padding</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">styleVariant</td>
-                  <td className="p-4 font-mono text-sm">"classic" | "modern" | "elegant" | "minimal" | "decorative" | "glossy"</td>
-                  <td className="p-4 font-mono text-sm">"classic"</td>
+                  <td className="p-4 font-mono text-sm">&quot;classic&quot; | &quot;modern&quot; | &quot;elegant&quot; | &quot;minimal&quot; | &quot;decorative&quot; | &quot;glossy&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;classic&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Visual style of the blockquote</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">animated</td>
-                  <td className="p-4 font-mono text-sm">"none" | "fadeIn" | "slideIn" | "pulse" | "shimmer"</td>
-                  <td className="p-4 font-mono text-sm">"none"</td>
+                  <td className="p-4 font-mono text-sm">"none" | "fadeIn" | &quot;slideIn&quot; | &quot;pulse&quot; | &quot;shimmer&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Animation effect</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">shadow</td>
-                  <td className="p-4 font-mono text-sm">"none" | "sm" | "md" | "lg"</td>
-                  <td className="p-4 font-mono text-sm">"none"</td>
+                  <td className="p-4 font-mono text-sm">"none" | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Shadow depth</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">rounded</td>
-                  <td className="p-4 font-mono text-sm">"none" | "sm" | "md" | "lg" | "full"</td>
-                  <td className="p-4 font-mono text-sm">"none"</td>
+                  <td className="p-4 font-mono text-sm">"none" | "sm" | &quot;md&quot; | &quot;lg&quot; | &quot;full&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Border radius</td>
                 </tr>
                 <tr className="border-b">

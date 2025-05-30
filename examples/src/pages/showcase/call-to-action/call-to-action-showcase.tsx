@@ -438,7 +438,7 @@ export function CallToActionShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -636,7 +636,7 @@ export function CallToActionShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"CallToAction"</td>
+                    <td className="py-3 px-4 font-mono">&quot;CallToAction&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -654,20 +654,20 @@ export function CallToActionShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                    <td className="py-3 px-4 font-mono">"default" | "primary" | "secondary" | "gradient" | "dark" | "light"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">&quot;default&quot; | &quot;primary&quot; | &quot;secondary&quot; | &quot;gradient&quot; | &quot;dark&quot; | &quot;light&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Visual style variant</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
-                    <td className="py-3 px-4 font-mono">"sm" | "default" | "lg"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">&quot;sm&quot; | &quot;default&quot; | &quot;lg&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Component size</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                    <td className="py-3 px-4 font-mono">"left" | "center" | "right"</td>
-                    <td className="py-3 px-4">"center"</td>
+                    <td className="py-3 px-4 font-mono">&quot;left&quot; | &quot;center&quot; | &quot;right&quot;</td>
+                    <td className="py-3 px-4">&quot;center&quot;</td>
                     <td className="py-3 px-4">Text alignment</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

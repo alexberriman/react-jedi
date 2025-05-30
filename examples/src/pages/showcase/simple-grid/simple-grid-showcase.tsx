@@ -647,7 +647,7 @@ export function SimpleGridShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -862,7 +862,7 @@ export function SimpleGridShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"SimpleGrid"</td>
+                    <td className="py-3 px-4 font-mono">&quot;SimpleGrid&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -875,7 +875,7 @@ export function SimpleGridShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">spacing</td>
                     <td className="py-3 px-4 font-mono">string | ResponsiveValue</td>
-                    <td className="py-3 px-4">"4"</td>
+                    <td className="py-3 px-4">&quot;4&quot;</td>
                     <td className="py-3 px-4">Spacing between grid items (Tailwind spacing scale)</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

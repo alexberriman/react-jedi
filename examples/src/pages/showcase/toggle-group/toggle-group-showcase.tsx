@@ -491,7 +491,7 @@ export function ToggleGroupShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -797,26 +797,26 @@ export function ToggleGroupShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"ToggleGroup"</td>
+                        <td className="py-3 px-4 font-mono">&quot;ToggleGroup&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">selectionType</td>
-                        <td className="py-3 px-4 font-mono">"single" | "multiple"</td>
-                        <td className="py-3 px-4">"single"</td>
+                        <td className="py-3 px-4 font-mono">"single" | &quot;multiple&quot;</td>
+                        <td className="py-3 px-4">&quot;single&quot;</td>
                         <td className="py-3 px-4">Selection behavior mode</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                        <td className="py-3 px-4 font-mono">"default" | "outline"</td>
-                        <td className="py-3 px-4">"default"</td>
+                        <td className="py-3 px-4 font-mono">"default" | &quot;outline&quot;</td>
+                        <td className="py-3 px-4">&quot;default&quot;</td>
                         <td className="py-3 px-4">Visual style variant</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
-                        <td className="py-3 px-4 font-mono">"default" | "sm" | "lg"</td>
-                        <td className="py-3 px-4">"default"</td>
+                        <td className="py-3 px-4 font-mono">&quot;default&quot; | &quot;sm&quot; | &quot;lg&quot;</td>
+                        <td className="py-3 px-4">&quot;default&quot;</td>
                         <td className="py-3 px-4">Size of all toggle items</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -869,7 +869,7 @@ export function ToggleGroupShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"ToggleGroupItem"</td>
+                        <td className="py-3 px-4 font-mono">&quot;ToggleGroupItem&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>

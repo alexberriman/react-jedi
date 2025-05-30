@@ -781,7 +781,7 @@ export function MasonryShowcase() {
                 type: "Text",
                 size: "small",
                 variant: "muted",
-                children: "Great progress! You're almost done with this week's goals.",
+                children: "Great progress! You&apos;re almost done with this week&apos;s goals.",
               },
             ],
           },
@@ -946,7 +946,7 @@ export function MasonryShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -1162,7 +1162,7 @@ export function MasonryShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Masonry"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Masonry&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -1187,13 +1187,13 @@ export function MasonryShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">minColWidth</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"250px"</td>
+                    <td className="py-3 px-4">&quot;250px&quot;</td>
                     <td className="py-3 px-4">Minimum column width when using autoFit</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">animation</td>
                     <td className="py-3 px-4 font-mono">AnimationConfig</td>
-                    <td className="py-3 px-4">{"{ duration: 0.3, stagger: 0.05 }"}</td>
+                    <td className="py-3 px-4">{&quot;{ duration: 0.3, stagger: 0.05 }&quot;}</td>
                     <td className="py-3 px-4">Animation settings for item entry</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -1205,7 +1205,7 @@ export function MasonryShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">itemComponent</td>
                     <td className="py-3 px-4 font-mono">ElementType</td>
-                    <td className="py-3 px-4">"div"</td>
+                    <td className="py-3 px-4">&quot;div&quot;</td>
                     <td className="py-3 px-4">Custom wrapper component for items</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

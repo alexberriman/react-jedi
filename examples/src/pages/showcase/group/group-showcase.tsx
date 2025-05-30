@@ -678,7 +678,7 @@ export function GroupShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -901,32 +901,32 @@ export function GroupShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Group"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Group&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">spacing</td>
-                    <td className="py-3 px-4 font-mono">"none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl"</td>
-                    <td className="py-3 px-4">"md"</td>
+                    <td className="py-3 px-4 font-mono">"none" | &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot;</td>
+                    <td className="py-3 px-4">&quot;md&quot;</td>
                     <td className="py-3 px-4">The spacing between child elements</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                    <td className="py-3 px-4 font-mono">"start" | "center" | "end" | "baseline" | "stretch"</td>
-                    <td className="py-3 px-4">"center"</td>
+                    <td className="py-3 px-4 font-mono">"start" | "center" | &quot;end&quot; | &quot;baseline&quot; | &quot;stretch&quot;</td>
+                    <td className="py-3 px-4">&quot;center&quot;</td>
                     <td className="py-3 px-4">How children align vertically</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">justify</td>
-                    <td className="py-3 px-4 font-mono">"start" | "center" | "end" | "between" | "around" | "evenly"</td>
-                    <td className="py-3 px-4">"start"</td>
+                    <td className="py-3 px-4 font-mono">&quot;start&quot; | &quot;center&quot; | &quot;end&quot; | &quot;between&quot; | &quot;around&quot; | &quot;evenly&quot;</td>
+                    <td className="py-3 px-4">&quot;start&quot;</td>
                     <td className="py-3 px-4">How children are distributed horizontally</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">wrap</td>
-                    <td className="py-3 px-4 font-mono">"wrap" | "nowrap" | "wrap-reverse"</td>
-                    <td className="py-3 px-4">"wrap"</td>
+                    <td className="py-3 px-4 font-mono">&quot;wrap&quot; | &quot;nowrap&quot; | &quot;wrap-reverse&quot;</td>
+                    <td className="py-3 px-4">&quot;wrap&quot;</td>
                     <td className="py-3 px-4">Whether child elements can wrap to the next line</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -950,7 +950,7 @@ export function GroupShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">as</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"div"</td>
+                    <td className="py-3 px-4">&quot;div&quot;</td>
                     <td className="py-3 px-4">The HTML element to render as</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

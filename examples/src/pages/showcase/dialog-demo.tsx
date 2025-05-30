@@ -142,7 +142,7 @@ export function DialogDemo() {
               },
               {
                 type: "DialogDescription",
-                children: "Make changes to your profile here. Click save when you're done.",
+                children: "Make changes to your profile here. Click save when you&apos;re done.",
               },
             ],
           },
@@ -356,7 +356,7 @@ export function DialogDemo() {
             },
             {
               "type": "DialogDescription",
-              "children": "Make changes to your profile here. Click save when you're done."
+              "children": "Make changes to your profile here. Click save when you&apos;re done."
             }
           ]
         },

@@ -329,7 +329,7 @@ export function HeroShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -507,14 +507,14 @@ export function HeroShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Hero"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Hero&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">title</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"Hero Title"</td>
+                    <td className="py-3 px-4">&quot;Hero Title&quot;</td>
                     <td className="py-3 px-4">Main heading text</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -531,8 +531,8 @@ export function HeroShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                    <td className="py-3 px-4 font-mono">"centered" | "left-aligned" | "split"</td>
-                    <td className="py-3 px-4">"centered"</td>
+                    <td className="py-3 px-4 font-mono">&quot;centered&quot; | &quot;left-aligned&quot; | &quot;split&quot;</td>
+                    <td className="py-3 px-4">&quot;centered&quot;</td>
                     <td className="py-3 px-4">Layout variant</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

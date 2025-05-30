@@ -612,7 +612,7 @@ export function CarouselShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -868,7 +868,7 @@ export function CarouselShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Carousel"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Carousel&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -880,8 +880,8 @@ export function CarouselShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">orientation</td>
-                    <td className="py-3 px-4 font-mono">"horizontal" | "vertical"</td>
-                    <td className="py-3 px-4">"horizontal"</td>
+                    <td className="py-3 px-4 font-mono">"horizontal" | &quot;vertical&quot;</td>
+                    <td className="py-3 px-4">&quot;horizontal&quot;</td>
                     <td className="py-3 px-4">Carousel scroll direction</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -934,8 +934,8 @@ export function CarouselShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">options.align</td>
-                    <td className="py-3 px-4 font-mono">"start" | "center" | "end"</td>
-                    <td className="py-3 px-4">"center"</td>
+                    <td className="py-3 px-4 font-mono">&quot;start&quot; | &quot;center&quot; | &quot;end&quot;</td>
+                    <td className="py-3 px-4">&quot;center&quot;</td>
                     <td className="py-3 px-4">Slide alignment</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

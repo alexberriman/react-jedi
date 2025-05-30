@@ -210,7 +210,7 @@ export function SwitchShowcase() {
                       type: "Text", 
                       size: "small", 
                       variant: "muted", 
-                      children: "Show when you're active" 
+                      children: "Show when you&apos;re active" 
                     },
                   ],
                 },
@@ -230,7 +230,7 @@ export function SwitchShowcase() {
                       type: "Text", 
                       size: "small", 
                       variant: "muted", 
-                      children: "Let others know when you've read messages" 
+                      children: "Let others know when you&apos;ve read messages" 
                     },
                   ],
                 },
@@ -420,7 +420,7 @@ export function SwitchShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -472,7 +472,7 @@ export function SwitchShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Switch component provides a toggleable control that represents a boolean choice. It's commonly used in settings panels, forms, and anywhere users need to turn features on or off.
+                The Switch component provides a toggleable control that represents a boolean choice. It&apos;s commonly used in settings panels, forms, and anywhere users need to turn features on or off.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -631,7 +631,7 @@ export function SwitchShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Switch"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Switch&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>

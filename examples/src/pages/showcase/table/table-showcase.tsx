@@ -631,7 +631,7 @@ export function TableShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -867,7 +867,7 @@ export function TableShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Table"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Table&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -959,8 +959,8 @@ export function TableShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                    <td className="py-3 px-4 font-mono">"left" | "center" | "right"</td>
-                    <td className="py-3 px-4">"left"</td>
+                    <td className="py-3 px-4 font-mono">&quot;left&quot; | &quot;center&quot; | &quot;right&quot;</td>
+                    <td className="py-3 px-4">&quot;left&quot;</td>
                     <td className="py-3 px-4">Text alignment within the cell</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

@@ -27,7 +27,7 @@ export function SelectShowcase() {
 
   const handleSectionClick = (sectionId: string) => {
     setActiveSection(sectionId);
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(`#${sectionId}`)?.scrollIntoView({ behavior: "smooth" });
   };
 
   // Basic Select
@@ -691,7 +691,7 @@ export function SelectShowcase() {
                 <tr>
                   <td className="p-4 font-mono text-sm" rowSpan={2}>SelectTrigger</td>
                   <td className="p-4 font-mono text-sm">size</td>
-                  <td className="p-4 font-mono text-sm">"sm" | "default"</td>
+                  <td className="p-4 font-mono text-sm">"sm" | &quot;default&quot;</td>
                   <td className="p-4 text-sm text-gray-600 dark:text-gray-400">Size variant of the trigger</td>
                 </tr>
                 <tr>
@@ -708,7 +708,7 @@ export function SelectShowcase() {
                 <tr>
                   <td className="p-4 font-mono text-sm" rowSpan={2}>SelectContent</td>
                   <td className="p-4 font-mono text-sm">position</td>
-                  <td className="p-4 font-mono text-sm">"item-aligned" | "popper"</td>
+                  <td className="p-4 font-mono text-sm">"item-aligned" | &quot;popper&quot;</td>
                   <td className="p-4 text-sm text-gray-600 dark:text-gray-400">Positioning mode</td>
                 </tr>
                 <tr>

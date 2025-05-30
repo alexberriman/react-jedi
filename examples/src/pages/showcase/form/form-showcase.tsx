@@ -169,7 +169,7 @@ export function FormShowcase() {
                       type: "FormControl",
                       children: [{ type: "Input", inputType: "email", placeholder: "Enter your email" }],
                     },
-                    { type: "FormDescription", children: "We'll never share your email" },
+                    { type: "FormDescription", children: "We&apos;ll never share your email" },
                     { type: "FormMessage" },
                   ],
                 },
@@ -959,7 +959,7 @@ export function FormShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">{`"Form"`}</td>
+                    <td className="py-3 px-4 font-mono">{`&quot;Form&quot;`}</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>

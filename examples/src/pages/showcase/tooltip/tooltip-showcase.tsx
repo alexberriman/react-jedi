@@ -395,7 +395,7 @@ export function TooltipShowcase() {
                   onClick={(e) => {
                     e.preventDefault();
                     setActiveSection(item.id);
-                    document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                    document.querySelector(`#${item.id}`)?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className={`block py-1 px-2 text-sm rounded transition-colors ${
                     activeSection === item.id
@@ -598,8 +598,8 @@ export function TooltipShowcase() {
                 </tr>
                 <tr>
                   <td className="p-3 font-mono text-sm">side</td>
-                  <td className="p-3 text-sm">"top" | "right" | "bottom" | "left"</td>
-                  <td className="p-3 text-sm">"top"</td>
+                  <td className="p-3 text-sm">"top" | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;</td>
+                  <td className="p-3 text-sm">&quot;top&quot;</td>
                   <td className="p-3 text-sm">Preferred side to render against trigger</td>
                 </tr>
                 <tr>
@@ -610,8 +610,8 @@ export function TooltipShowcase() {
                 </tr>
                 <tr>
                   <td className="p-3 font-mono text-sm">align</td>
-                  <td className="p-3 text-sm">"start" | "center" | "end"</td>
-                  <td className="p-3 text-sm">"center"</td>
+                  <td className="p-3 text-sm">&quot;start&quot; | &quot;center&quot; | &quot;end&quot;</td>
+                  <td className="p-3 text-sm">&quot;center&quot;</td>
                   <td className="p-3 text-sm">Preferred alignment against the trigger</td>
                 </tr>
                 <tr>
@@ -629,7 +629,7 @@ export function TooltipShowcase() {
         <section id="examples" className="scroll-mt-20 mb-12">
           <h2 className="text-2xl font-semibold mb-4">Real-world Examples</h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Here's how tooltips can enhance user interfaces in practical applications.
+            Here&apos;s how tooltips can enhance user interfaces in practical applications.
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
             {render(examplesSpec)}

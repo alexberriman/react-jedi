@@ -30,7 +30,7 @@ export function HeadingShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector(`#${sectionId}`)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -398,68 +398,68 @@ export function HeadingShowcase() {
               <tbody>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">level</td>
-                  <td className="p-4 font-mono text-sm">"h1" | "h2" | "h3" | "h4" | "h5" | "h6"</td>
-                  <td className="p-4 font-mono text-sm">"h2"</td>
+                  <td className="p-4 font-mono text-sm">&quot;h1&quot; | &quot;h2&quot; | &quot;h3&quot; | &quot;h4&quot; | &quot;h5&quot; | &quot;h6&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;h2&quot;</td>
                   <td className="p-4">Semantic heading level</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">size</td>
-                  <td className="p-4 font-mono text-sm">"xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl"</td>
+                  <td className="p-4 font-mono text-sm">"xs" | "sm" | "md" | "lg" | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | &quot;4xl&quot; | &quot;5xl&quot; | &quot;6xl&quot;</td>
                   <td className="p-4 font-mono text-sm">varies by level</td>
                   <td className="p-4">Visual size of the heading</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">variant</td>
-                  <td className="p-4 font-mono text-sm">"default" | "primary" | "secondary" | "accent" | "muted" | "destructive"</td>
-                  <td className="p-4 font-mono text-sm">"default"</td>
+                  <td className="p-4 font-mono text-sm">&quot;default&quot; | &quot;primary&quot; | &quot;secondary&quot; | &quot;accent&quot; | &quot;muted&quot; | &quot;destructive&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;default&quot;</td>
                   <td className="p-4">Color variant</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">weight</td>
-                  <td className="p-4 font-mono text-sm">"thin" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black"</td>
-                  <td className="p-4 font-mono text-sm">"bold"</td>
+                  <td className="p-4 font-mono text-sm">"thin" | "light" | &quot;normal&quot; | &quot;medium&quot; | &quot;semibold&quot; | &quot;bold&quot; | &quot;extrabold&quot; | &quot;black&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;bold&quot;</td>
                   <td className="p-4">Font weight</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">align</td>
-                  <td className="p-4 font-mono text-sm">"left" | "center" | "right"</td>
-                  <td className="p-4 font-mono text-sm">"left"</td>
+                  <td className="p-4 font-mono text-sm">&quot;left&quot; | &quot;center&quot; | &quot;right&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;left&quot;</td>
                   <td className="p-4">Text alignment</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">transform</td>
-                  <td className="p-4 font-mono text-sm">"uppercase" | "lowercase" | "capitalize" | "normal"</td>
-                  <td className="p-4 font-mono text-sm">"normal"</td>
+                  <td className="p-4 font-mono text-sm">"uppercase" | &quot;lowercase&quot; | &quot;capitalize&quot; | &quot;normal&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;normal&quot;</td>
                   <td className="p-4">Text transformation</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">decoration</td>
-                  <td className="p-4 font-mono text-sm">"none" | "underline" | "line-through"</td>
-                  <td className="p-4 font-mono text-sm">"none"</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot; | &quot;underline&quot; | &quot;line-through&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot;</td>
                   <td className="p-4">Text decoration</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">gradient</td>
-                  <td className="p-4 font-mono text-sm">"primary" | "rainbow" | "sunset" | "ocean" | "neon" | "golden"</td>
+                  <td className="p-4 font-mono text-sm">&quot;primary&quot; | &quot;rainbow&quot; | &quot;sunset&quot; | &quot;ocean&quot; | &quot;neon&quot; | &quot;golden&quot;</td>
                   <td className="p-4 font-mono text-sm">undefined</td>
                   <td className="p-4">Gradient effect</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">shadow</td>
-                  <td className="p-4 font-mono text-sm">"sm" | "md" | "lg" | "xl" | "2xl"</td>
+                  <td className="p-4 font-mono text-sm">"sm" | "md" | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot;</td>
                   <td className="p-4 font-mono text-sm">undefined</td>
                   <td className="p-4">Text shadow size</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">animation</td>
-                  <td className="p-4 font-mono text-sm">"glow" | "pulse" | "bounce" | "shimmer"</td>
+                  <td className="p-4 font-mono text-sm">"glow" | &quot;pulse&quot; | &quot;bounce&quot; | &quot;shimmer&quot;</td>
                   <td className="p-4 font-mono text-sm">undefined</td>
                   <td className="p-4">Animation effect</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">spacing</td>
-                  <td className="p-4 font-mono text-sm">"none" | "tight" | "normal" | "relaxed" | "loose" | "section"</td>
-                  <td className="p-4 font-mono text-sm">"normal"</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot; | &quot;tight&quot; | &quot;normal&quot; | &quot;relaxed&quot; | &quot;loose&quot; | &quot;section&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;normal&quot;</td>
                   <td className="p-4">Bottom margin spacing</td>
                 </tr>
                 <tr className="border-b">

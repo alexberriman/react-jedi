@@ -489,7 +489,7 @@ export function CollapsibleShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -541,7 +541,7 @@ export function CollapsibleShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Collapsible component provides an accessible way to toggle the visibility of content. It's built on top of Radix UI primitives and follows accessibility best practices for disclosure widgets.
+                The Collapsible component provides an accessible way to toggle the visibility of content. It&apos;s built on top of Radix UI primitives and follows accessibility best practices for disclosure widgets.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -723,7 +723,7 @@ export function CollapsibleShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Collapsible"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Collapsible&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -780,12 +780,12 @@ export function CollapsibleShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">CollapsibleTrigger</td>
-                    <td className="py-3 px-4 font-mono">"CollapsibleTrigger"</td>
+                    <td className="py-3 px-4 font-mono">&quot;CollapsibleTrigger&quot;</td>
                     <td className="py-3 px-4">The trigger element that toggles the collapsible</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">CollapsibleContent</td>
-                    <td className="py-3 px-4 font-mono">"CollapsibleContent"</td>
+                    <td className="py-3 px-4 font-mono">&quot;CollapsibleContent&quot;</td>
                     <td className="py-3 px-4">The content that expands and collapses</td>
                   </tr>
                 </tbody>

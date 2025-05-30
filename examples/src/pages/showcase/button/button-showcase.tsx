@@ -242,7 +242,7 @@ export function ButtonShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -457,7 +457,7 @@ export function ButtonShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Button"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Button&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -469,14 +469,14 @@ export function ButtonShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                    <td className="py-3 px-4 font-mono">"default" | "primary" | "secondary" | "outline" | "ghost" | "link" | "destructive"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">"default" | &quot;primary&quot; | &quot;secondary&quot; | &quot;outline&quot; | &quot;ghost&quot; | &quot;link&quot; | &quot;destructive&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Visual style variant</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
-                    <td className="py-3 px-4 font-mono">"sm" | "default" | "lg" | "icon"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">"sm" | &quot;default&quot; | &quot;lg&quot; | &quot;icon&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Button size</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -493,8 +493,8 @@ export function ButtonShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">buttonType</td>
-                    <td className="py-3 px-4 font-mono">"button" | "submit" | "reset"</td>
-                    <td className="py-3 px-4">"button"</td>
+                    <td className="py-3 px-4 font-mono">&quot;button&quot; | &quot;submit&quot; | &quot;reset&quot;</td>
+                    <td className="py-3 px-4">&quot;button&quot;</td>
                     <td className="py-3 px-4">HTML button type attribute</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

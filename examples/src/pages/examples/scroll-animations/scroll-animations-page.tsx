@@ -27,7 +27,7 @@ export const ScrollAnimationsPage: React.FC = () => {
     },
     {
       id: 2,
-      quote: "The best investment we've made for our team's productivity.",
+      quote: "The best investment we&apos;ve made for our team&apos;s productivity.",
       author: "Michael Chen",
       role: "CTO at StartupXYZ",
     },

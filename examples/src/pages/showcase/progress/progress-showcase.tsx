@@ -449,7 +449,7 @@ export function ProgressShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -557,7 +557,7 @@ export function ProgressShowcase() {
           <section id="custom-styling" className="scroll-mt-20">
             <h2 className="text-2xl font-semibold mb-4">Custom Styling</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Customize the progress bar's appearance using the className prop to modify width, height, and shape.
+              Customize the progress bar&apos;s appearance using the className prop to modify width, height, and shape.
             </p>
             <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
               {render(customStylingSpec)}
@@ -664,7 +664,7 @@ export function ProgressShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Progress"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Progress&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>

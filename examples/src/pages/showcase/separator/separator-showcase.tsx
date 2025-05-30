@@ -14,7 +14,7 @@ export function SeparatorShowcase(): JSX.Element {
 
   const scrollToSection = (sectionId: string): void => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -319,7 +319,7 @@ export function SeparatorShowcase(): JSX.Element {
               <p className="text-gray-600 dark:text-gray-400 mb-6">
                 The Separator component creates visual or semantic breaks between content sections. 
                 It supports both horizontal and vertical orientations and can be used as a purely 
-                decorative element or as a semantic divider that's announced by screen readers.
+                decorative element or as a semantic divider that&apos;s announced by screen readers.
               </p>
               <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                 <p className="text-blue-800 dark:text-blue-200 text-sm">
@@ -578,7 +578,7 @@ export function SeparatorShowcase(): JSX.Element {
                   <li>Vertical separators require an explicit height to be visible (e.g., <code>className="h-8"</code>).</li>
                   <li>Use decorative separators for purely visual divisions.</li>
                   <li>Use non-decorative separators for thematic breaks that should be announced to screen readers.</li>
-                  <li>The default styling uses the border color from your theme's color scheme.</li>
+                  <li>The default styling uses the border color from your theme&apos;s color scheme.</li>
                 </ul>
               </div>
 

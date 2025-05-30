@@ -467,7 +467,7 @@ export function PopoverShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -519,7 +519,7 @@ export function PopoverShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Popover component provides a floating container that can display rich content relative to a trigger element. It's built on top of Radix UI's Popover primitive and offers precise positioning control.
+                The Popover component provides a floating container that can display rich content relative to a trigger element. It&apos;s built on top of Radix UI&apos;s Popover primitive and offers precise positioning control.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -650,7 +650,7 @@ export function PopoverShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"Popover"</td>
+                        <td className="py-3 px-4 font-mono">&quot;Popover&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>
@@ -699,14 +699,14 @@ export function PopoverShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"PopoverContent"</td>
+                        <td className="py-3 px-4 font-mono">&quot;PopoverContent&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">side</td>
-                        <td className="py-3 px-4 font-mono">"top" | "right" | "bottom" | "left"</td>
-                        <td className="py-3 px-4">"bottom"</td>
+                        <td className="py-3 px-4 font-mono">"top" | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;</td>
+                        <td className="py-3 px-4">&quot;bottom&quot;</td>
                         <td className="py-3 px-4">Preferred side to render against</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -717,8 +717,8 @@ export function PopoverShowcase() {
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                        <td className="py-3 px-4 font-mono">"start" | "center" | "end"</td>
-                        <td className="py-3 px-4">"center"</td>
+                        <td className="py-3 px-4 font-mono">&quot;start&quot; | &quot;center&quot; | &quot;end&quot;</td>
+                        <td className="py-3 px-4">&quot;center&quot;</td>
                         <td className="py-3 px-4">Alignment against the anchor</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -735,8 +735,8 @@ export function PopoverShowcase() {
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">sticky</td>
-                        <td className="py-3 px-4 font-mono">"partial" | "always"</td>
-                        <td className="py-3 px-4">"partial"</td>
+                        <td className="py-3 px-4 font-mono">"partial" | &quot;always&quot;</td>
+                        <td className="py-3 px-4">&quot;partial&quot;</td>
                         <td className="py-3 px-4">Keep popover in view when positioning</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">

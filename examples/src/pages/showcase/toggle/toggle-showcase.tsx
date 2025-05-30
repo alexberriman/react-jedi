@@ -351,7 +351,7 @@ export function ToggleShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -403,7 +403,7 @@ export function ToggleShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Toggle component provides a pressable button that maintains an on/off state. Unlike regular buttons, toggles stay pressed when activated and can be pressed again to deactivate. They're commonly used in toolbars for formatting options, view toggles, and feature controls.
+                The Toggle component provides a pressable button that maintains an on/off state. Unlike regular buttons, toggles stay pressed when activated and can be pressed again to deactivate. They&apos;re commonly used in toolbars for formatting options, view toggles, and feature controls.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -586,7 +586,7 @@ export function ToggleShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Toggle"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Toggle&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -598,14 +598,14 @@ export function ToggleShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                    <td className="py-3 px-4 font-mono">"default" | "outline"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">"default" | &quot;outline&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Visual style variant</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
-                    <td className="py-3 px-4 font-mono">"sm" | "default" | "lg"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">&quot;sm&quot; | &quot;default&quot; | &quot;lg&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Toggle size</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

@@ -292,7 +292,7 @@ export function BadgeShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -344,7 +344,7 @@ export function BadgeShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Badge component is a compact visual element used to display short pieces of information, status indicators, or counts. It's commonly used to show tags, categories, notification counts, or status labels.
+                The Badge component is a compact visual element used to display short pieces of information, status indicators, or counts. It&apos;s commonly used to show tags, categories, notification counts, or status labels.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -431,7 +431,7 @@ export function BadgeShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Badge"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Badge&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -443,8 +443,8 @@ export function BadgeShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                    <td className="py-3 px-4 font-mono">"default" | "secondary" | "outline" | "destructive"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">"default" | &quot;secondary&quot; | &quot;outline&quot; | &quot;destructive&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Visual style variant</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

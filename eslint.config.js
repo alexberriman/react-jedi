@@ -166,6 +166,22 @@ export default [
       "unicorn/prevent-abbreviations": "off",
     },
   },
+  // Configuration for Node.js scripts
+  {
+    files: ["**/*.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        console: "readonly",
+        process: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        Buffer: "readonly",
+        global: "readonly",
+      },
+    },
+  },
   // This disables rules that conflict with prettier
   prettierConfig,
 ];

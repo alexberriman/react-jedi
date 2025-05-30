@@ -435,7 +435,7 @@ export function CenterShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -689,7 +689,7 @@ export function CenterShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Center"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Center&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -701,14 +701,14 @@ export function CenterShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">as</td>
-                    <td className="py-3 px-4 font-mono">"div" | "section" | "main" | "article"</td>
-                    <td className="py-3 px-4">"div"</td>
+                    <td className="py-3 px-4 font-mono">"div" | &quot;section&quot; | &quot;main&quot; | &quot;article&quot;</td>
+                    <td className="py-3 px-4">&quot;div&quot;</td>
                     <td className="py-3 px-4">HTML element to render</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">centerDirection</td>
-                    <td className="py-3 px-4 font-mono">"horizontal" | "vertical" | "both"</td>
-                    <td className="py-3 px-4">"both"</td>
+                    <td className="py-3 px-4 font-mono">&quot;horizontal&quot; | &quot;vertical&quot; | &quot;both&quot;</td>
+                    <td className="py-3 px-4">&quot;both&quot;</td>
                     <td className="py-3 px-4">Direction to center content</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

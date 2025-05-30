@@ -42,5 +42,5 @@ export function usePageMetadata(metadata: PageMetadata): void {
         metaDescription.content = previousDescription;
       }
     };
-  }, [metadata.title, metadata.description]);
+  }, [metadata]);
 }

@@ -753,7 +753,7 @@ export function HoverCardShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -936,7 +936,7 @@ export function HoverCardShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"HoverCard"</td>
+                        <td className="py-3 px-4 font-mono">&quot;HoverCard&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>
@@ -991,14 +991,14 @@ export function HoverCardShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"HoverCardContent"</td>
+                        <td className="py-3 px-4 font-mono">&quot;HoverCardContent&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">side</td>
-                        <td className="py-3 px-4 font-mono">"top" | "right" | "bottom" | "left"</td>
-                        <td className="py-3 px-4">"bottom"</td>
+                        <td className="py-3 px-4 font-mono">"top" | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;</td>
+                        <td className="py-3 px-4">&quot;bottom&quot;</td>
                         <td className="py-3 px-4">Preferred side to render against</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -1009,8 +1009,8 @@ export function HoverCardShowcase() {
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                        <td className="py-3 px-4 font-mono">"start" | "center" | "end"</td>
-                        <td className="py-3 px-4">"center"</td>
+                        <td className="py-3 px-4 font-mono">&quot;start&quot; | &quot;center&quot; | &quot;end&quot;</td>
+                        <td className="py-3 px-4">&quot;center&quot;</td>
                         <td className="py-3 px-4">Alignment against the trigger</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">

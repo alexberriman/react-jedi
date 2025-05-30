@@ -347,7 +347,7 @@ export function ChartShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -399,7 +399,7 @@ export function ChartShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Chart component is a comprehensive data visualization solution that leverages the power of Recharts to create beautiful, interactive charts. It's designed to work seamlessly with React Jedi's JSON-driven approach.
+                The Chart component is a comprehensive data visualization solution that leverages the power of Recharts to create beautiful, interactive charts. It&apos;s designed to work seamlessly with React Jedi&apos;s JSON-driven approach.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -699,13 +699,13 @@ export function ChartShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Chart"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Chart&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">chartType</td>
-                    <td className="py-3 px-4 font-mono">"line" | "bar" | "area" | "pie" | "radar" | "radialBar"</td>
+                    <td className="py-3 px-4 font-mono">&quot;line&quot; | &quot;bar&quot; | &quot;area&quot; | &quot;pie&quot; | &quot;radar&quot; | &quot;radialBar&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Type of chart to render</td>
                   </tr>
@@ -742,7 +742,7 @@ export function ChartShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">width</td>
                     <td className="py-3 px-4 font-mono">number | string</td>
-                    <td className="py-3 px-4">"100%"</td>
+                    <td className="py-3 px-4">&quot;100%&quot;</td>
                     <td className="py-3 px-4">Width of the chart</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -766,7 +766,7 @@ export function ChartShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">colors</td>
                     <td className="py-3 px-4 font-mono">string[]</td>
-                    <td className="py-3 px-4">["#8884d8", "#82ca9d", ...]</td>
+                    <td className="py-3 px-4">["#8884d8", &quot;#82ca9d&quot;, ...]</td>
                     <td className="py-3 px-4">Array of colors for the chart</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

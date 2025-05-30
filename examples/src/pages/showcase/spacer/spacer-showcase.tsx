@@ -14,7 +14,7 @@ export function SpacerShowcase(): JSX.Element {
 
   const scrollToSection = (sectionId: string): void => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }

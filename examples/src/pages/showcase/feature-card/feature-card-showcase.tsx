@@ -456,7 +456,7 @@ export function FeatureCardShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -673,7 +673,7 @@ export function FeatureCardShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"FeatureCard"</td>
+                    <td className="py-3 px-4 font-mono">&quot;FeatureCard&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -691,20 +691,20 @@ export function FeatureCardShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                    <td className="py-3 px-4 font-mono">"default" | "highlighted" | "minimal" | "bordered"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">"default" | &quot;highlighted&quot; | &quot;minimal&quot; | &quot;bordered&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Visual style variant</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">orientation</td>
-                    <td className="py-3 px-4 font-mono">"vertical" | "horizontal"</td>
-                    <td className="py-3 px-4">"vertical"</td>
+                    <td className="py-3 px-4 font-mono">"vertical" | &quot;horizontal&quot;</td>
+                    <td className="py-3 px-4">&quot;vertical&quot;</td>
                     <td className="py-3 px-4">Layout orientation</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                    <td className="py-3 px-4 font-mono">"left" | "center" | "right"</td>
-                    <td className="py-3 px-4">"left"</td>
+                    <td className="py-3 px-4 font-mono">&quot;left&quot; | &quot;center&quot; | &quot;right&quot;</td>
+                    <td className="py-3 px-4">&quot;left&quot;</td>
                     <td className="py-3 px-4">Content alignment</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -715,8 +715,8 @@ export function FeatureCardShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">badgeVariant</td>
-                    <td className="py-3 px-4 font-mono">"default" | "secondary" | "destructive" | "outline"</td>
-                    <td className="py-3 px-4">"secondary"</td>
+                    <td className="py-3 px-4 font-mono">"default" | &quot;secondary&quot; | &quot;destructive&quot; | &quot;outline&quot;</td>
+                    <td className="py-3 px-4">&quot;secondary&quot;</td>
                     <td className="py-3 px-4">Badge style variant</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -728,7 +728,7 @@ export function FeatureCardShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">highlightColor</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"hsl(var(--primary))"</td>
+                    <td className="py-3 px-4">&quot;hsl(var(--primary))&quot;</td>
                     <td className="py-3 px-4">Custom highlight color</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -740,7 +740,7 @@ export function FeatureCardShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">iconColor</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"currentColor"</td>
+                    <td className="py-3 px-4">&quot;currentColor&quot;</td>
                     <td className="py-3 px-4">Color for the icon</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

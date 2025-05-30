@@ -445,7 +445,7 @@ export function FooterShowcase() {
       className: "text-2xl font-bold text-white",
       children: "🚀 StartupCo",
     },
-    description: "We're revolutionizing the way teams collaborate and build products together.",
+    description: "We&apos;re revolutionizing the way teams collaborate and build products together.",
     layout: "centered",
     sections: [
       {
@@ -475,7 +475,7 @@ export function FooterShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -552,7 +552,7 @@ export function FooterShowcase() {
           <section id="variants" className="scroll-mt-20">
             <h2 className="text-2xl font-semibold mb-4">Footer Variants</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Choose from different visual styles to match your application's design.
+              Choose from different visual styles to match your application&apos;s design.
             </p>
             <div className="space-y-6">
               {render(variantsSpec)}
@@ -730,26 +730,26 @@ export function FooterShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                        <td className="py-3 px-4 font-mono">"Footer"</td>
+                        <td className="py-3 px-4 font-mono">&quot;Footer&quot;</td>
                         <td className="py-3 px-4">required</td>
                         <td className="py-3 px-4">Component type identifier</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                        <td className="py-3 px-4 font-mono">"default" | "light" | "dark" | "gradient" | "minimal"</td>
-                        <td className="py-3 px-4">"default"</td>
+                        <td className="py-3 px-4 font-mono">"default" | "light" | &quot;dark&quot; | &quot;gradient&quot; | &quot;minimal&quot;</td>
+                        <td className="py-3 px-4">&quot;default&quot;</td>
                         <td className="py-3 px-4">Visual style variant</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
-                        <td className="py-3 px-4 font-mono">"sm" | "default" | "lg"</td>
-                        <td className="py-3 px-4">"default"</td>
+                        <td className="py-3 px-4 font-mono">&quot;sm&quot; | &quot;default&quot; | &quot;lg&quot;</td>
+                        <td className="py-3 px-4">&quot;default&quot;</td>
                         <td className="py-3 px-4">Padding and spacing size</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">layout</td>
-                        <td className="py-3 px-4 font-mono">"default" | "centered" | "minimal"</td>
-                        <td className="py-3 px-4">"default"</td>
+                        <td className="py-3 px-4 font-mono">&quot;default&quot; | &quot;centered&quot; | &quot;minimal&quot;</td>
+                        <td className="py-3 px-4">&quot;default&quot;</td>
                         <td className="py-3 px-4">Layout pattern</td>
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">

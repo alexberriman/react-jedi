@@ -38,7 +38,7 @@ export function GridShowcase() {
   ];
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -892,9 +892,9 @@ export function GridShowcase() {
                     <tr className="border-b">
                       <td className="p-4 font-mono text-sm">gap</td>
                       <td className="p-4 text-sm text-muted-foreground">
-                        "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl"
+                        "xs" | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot;
                       </td>
-                      <td className="p-4 text-sm">"md"</td>
+                      <td className="p-4 text-sm">&quot;md&quot;</td>
                       <td className="p-4 text-sm">
                         Gap between grid items
                       </td>
@@ -932,9 +932,9 @@ export function GridShowcase() {
                     <tr className="border-b">
                       <td className="p-4 font-mono text-sm">flow</td>
                       <td className="p-4 text-sm text-muted-foreground">
-                        "row" | "column" | "dense" | "row-dense" | "column-dense"
+                        "row" | "column" | &quot;dense&quot; | &quot;row-dense&quot; | &quot;column-dense&quot;
                       </td>
-                      <td className="p-4 text-sm">"row"</td>
+                      <td className="p-4 text-sm">&quot;row&quot;</td>
                       <td className="p-4 text-sm">
                         Grid auto-flow direction
                       </td>

@@ -156,7 +156,7 @@ export function HomePage() {
         <section>
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-              What's New
+              What&apos;s New
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Stay up to date with the latest features and improvements.

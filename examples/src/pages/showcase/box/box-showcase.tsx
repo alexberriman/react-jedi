@@ -561,7 +561,7 @@ export function BoxShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -613,7 +613,7 @@ export function BoxShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Box component is the most fundamental layout primitive in React Jedi. It's a versatile container that can be styled in numerous ways to create everything from simple wrappers to complex card layouts.
+                The Box component is the most fundamental layout primitive in React Jedi. It&apos;s a versatile container that can be styled in numerous ways to create everything from simple wrappers to complex card layouts.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -817,86 +817,86 @@ export function BoxShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Box"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Box&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">display</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"flex" | "block" | "inline" | "grid" | "none"</td>
+                    <td className="py-3 px-4">"flex" | "block" | &quot;inline&quot; | &quot;grid&quot; | &quot;none&quot;</td>
                     <td className="py-3 px-4">Display type</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">position</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"static" | "relative" | "absolute" | "fixed" | "sticky"</td>
+                    <td className="py-3 px-4">"static" | "relative" | &quot;absolute&quot; | &quot;fixed&quot; | &quot;sticky&quot;</td>
                     <td className="py-3 px-4">Position type</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">padding</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl"</td>
+                    <td className="py-3 px-4">"none" | &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot;</td>
                     <td className="py-3 px-4">Internal spacing</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">margin</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "auto"</td>
+                    <td className="py-3 px-4">"none" | "xs" | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;auto&quot;</td>
                     <td className="py-3 px-4">External spacing</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">width</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"auto" | "full" | "screen" | "fit" | "half" | "third" | "quarter"</td>
+                    <td className="py-3 px-4">"auto" | &quot;full&quot; | &quot;screen&quot; | &quot;fit&quot; | &quot;half&quot; | &quot;third&quot; | &quot;quarter&quot;</td>
                     <td className="py-3 px-4">Width sizing</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">height</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"auto" | "full" | "screen" | "fit" | "half" | "third" | "quarter"</td>
+                    <td className="py-3 px-4">"auto" | &quot;full&quot; | &quot;screen&quot; | &quot;fit&quot; | &quot;half&quot; | &quot;third&quot; | &quot;quarter&quot;</td>
                     <td className="py-3 px-4">Height sizing</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">backgroundColor</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"transparent" | "primary" | "secondary" | "accent" | "muted" | "card" | "destructive"</td>
+                    <td className="py-3 px-4">"transparent" | &quot;primary&quot; | &quot;secondary&quot; | &quot;accent&quot; | &quot;muted&quot; | &quot;card&quot; | &quot;destructive&quot;</td>
                     <td className="py-3 px-4">Background color</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">textColor</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"primary" | "secondary" | "accent" | "muted" | "foreground" | "destructive"</td>
+                    <td className="py-3 px-4">&quot;primary&quot; | &quot;secondary&quot; | &quot;accent&quot; | &quot;muted&quot; | &quot;foreground&quot; | &quot;destructive&quot;</td>
                     <td className="py-3 px-4">Text color</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">borderWidth</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"none" | "thin" | "thick" | "thicker" | "thickest"</td>
+                    <td className="py-3 px-4">"none" | "thin" | &quot;thick&quot; | &quot;thicker&quot; | &quot;thickest&quot;</td>
                     <td className="py-3 px-4">Border thickness</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">rounded</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"</td>
+                    <td className="py-3 px-4">"none" | "xs" | "sm" | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | &quot;full&quot;</td>
                     <td className="py-3 px-4">Border radius</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">shadow</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner"</td>
+                    <td className="py-3 px-4">"none" | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;inner&quot;</td>
                     <td className="py-3 px-4">Box shadow</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">glassmorphism</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"none" | "light" | "medium" | "strong" | "dark" | "dark-medium" | "dark-strong"</td>
+                    <td className="py-3 px-4">"none" | &quot;light&quot; | &quot;medium&quot; | &quot;strong&quot; | &quot;dark&quot; | &quot;dark-medium&quot; | &quot;dark-strong&quot;</td>
                     <td className="py-3 px-4">Glass effect</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">neumorphism</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"none" | "light" | "medium" | "strong" | "dark" | "dark-medium" | "dark-strong"</td>
+                    <td className="py-3 px-4">"none" | &quot;light&quot; | &quot;medium&quot; | &quot;strong&quot; | &quot;dark&quot; | &quot;dark-medium&quot; | &quot;dark-strong&quot;</td>
                     <td className="py-3 px-4">Neumorphic effect</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

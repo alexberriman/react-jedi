@@ -124,7 +124,7 @@ export const PerformancePage: React.FC = () => {
                     props: {
                       className: "text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed"
                     },
-                    children: ["Measure and analyze React Jedi's performance with real-time benchmarks"]
+                    children: ["Measure and analyze React Jedi&apos;s performance with real-time benchmarks"]
                   }
                 ]
               }

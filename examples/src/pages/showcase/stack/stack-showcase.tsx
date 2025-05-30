@@ -491,7 +491,7 @@ export function StackShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -707,7 +707,7 @@ export function StackShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Stack"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Stack&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -719,32 +719,32 @@ export function StackShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">orientation</td>
-                    <td className="py-3 px-4 font-mono">"horizontal" | "vertical"</td>
-                    <td className="py-3 px-4">"vertical"</td>
+                    <td className="py-3 px-4 font-mono">"horizontal" | &quot;vertical&quot;</td>
+                    <td className="py-3 px-4">&quot;vertical&quot;</td>
                     <td className="py-3 px-4">Stack direction</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">spacing</td>
-                    <td className="py-3 px-4 font-mono">"none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | string</td>
-                    <td className="py-3 px-4">"md"</td>
+                    <td className="py-3 px-4 font-mono">"none" | "xs" | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | string</td>
+                    <td className="py-3 px-4">&quot;md&quot;</td>
                     <td className="py-3 px-4">Gap between items</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                    <td className="py-3 px-4 font-mono">"start" | "center" | "end" | "stretch" | "baseline"</td>
-                    <td className="py-3 px-4">"stretch"</td>
+                    <td className="py-3 px-4 font-mono">"start" | "center" | &quot;end&quot; | &quot;stretch&quot; | &quot;baseline&quot;</td>
+                    <td className="py-3 px-4">&quot;stretch&quot;</td>
                     <td className="py-3 px-4">Cross axis alignment</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">justify</td>
-                    <td className="py-3 px-4 font-mono">"start" | "center" | "end" | "between" | "around" | "evenly"</td>
-                    <td className="py-3 px-4">"start"</td>
+                    <td className="py-3 px-4 font-mono">&quot;start&quot; | &quot;center&quot; | &quot;end&quot; | &quot;between&quot; | &quot;around&quot; | &quot;evenly&quot;</td>
+                    <td className="py-3 px-4">&quot;start&quot;</td>
                     <td className="py-3 px-4">Main axis distribution</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">wrap</td>
-                    <td className="py-3 px-4 font-mono">"wrap" | "nowrap" | "wrap-reverse"</td>
-                    <td className="py-3 px-4">"nowrap"</td>
+                    <td className="py-3 px-4 font-mono">&quot;wrap&quot; | &quot;nowrap&quot; | &quot;wrap-reverse&quot;</td>
+                    <td className="py-3 px-4">&quot;nowrap&quot;</td>
                     <td className="py-3 px-4">Whether items can wrap</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -756,7 +756,7 @@ export function StackShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">as</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"div"</td>
+                    <td className="py-3 px-4">&quot;div&quot;</td>
                     <td className="py-3 px-4">HTML element to render</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

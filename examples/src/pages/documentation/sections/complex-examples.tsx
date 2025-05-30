@@ -109,7 +109,7 @@ export function ComplexExamplesPage() {
     "company": "TechCorp Inc.",
     "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
   },
-  "content": "React Jedi has transformed how we build UIs. The JSON specification approach is intuitive and incredibly powerful. We've cut our development time in half!",
+  "content": "React Jedi has transformed how we build UIs. The JSON specification approach is intuitive and incredibly powerful. We&apos;ve cut our development time in half!",
   "rating": 5,
   "date": "December 2024",
   "variant": "card",

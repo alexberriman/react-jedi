@@ -549,7 +549,7 @@ export function DataTableShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -806,7 +806,7 @@ export function DataTableShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"DataTable"</td>
+                    <td className="py-3 px-4 font-mono">&quot;DataTable&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -831,7 +831,7 @@ export function DataTableShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">filterPlaceholder</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"Filter..."</td>
+                    <td className="py-3 px-4">&quot;Filter...&quot;</td>
                     <td className="py-3 px-4">Placeholder text for filter input</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -906,8 +906,8 @@ export function DataTableShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"text" | "number" | "date" | "currency" | "badge" | "custom"</td>
-                    <td className="py-3 px-4">"text"</td>
+                    <td className="py-3 px-4 font-mono">&quot;text&quot; | &quot;number&quot; | &quot;date&quot; | &quot;currency&quot; | &quot;badge&quot; | &quot;custom&quot;</td>
+                    <td className="py-3 px-4">&quot;text&quot;</td>
                     <td className="py-3 px-4">Column data type for formatting</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

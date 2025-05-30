@@ -1,9 +1,6 @@
 import { render } from "@banja/react-jedi";
-import { useEffect, useState } from "react";
-import { Box, Text, Container } from "@banja/react-jedi";
 
 export function MarketingDebugPage() {
-  const [error, setError] = useState<string | null>(null);
   
   const schema = {
     type: "Box",

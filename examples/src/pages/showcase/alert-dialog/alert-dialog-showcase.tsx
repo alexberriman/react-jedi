@@ -357,7 +357,7 @@ export function AlertDialogShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -569,7 +569,7 @@ export function AlertDialogShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"AlertDialog"</td>
+                    <td className="py-3 px-4 font-mono">&quot;AlertDialog&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -605,14 +605,14 @@ export function AlertDialogShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">action.variant</td>
-                    <td className="py-3 px-4 font-mono">"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4 font-mono">&quot;default&quot; | &quot;destructive&quot; | &quot;outline&quot; | &quot;secondary&quot; | &quot;ghost&quot; | &quot;link&quot;</td>
+                    <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Visual style for action buttons</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">action.action</td>
-                    <td className="py-3 px-4 font-mono">"close" | "confirm"</td>
-                    <td className="py-3 px-4">"close"</td>
+                    <td className="py-3 px-4 font-mono">"close" | &quot;confirm&quot;</td>
+                    <td className="py-3 px-4">&quot;close&quot;</td>
                     <td className="py-3 px-4">Action type when button is clicked</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

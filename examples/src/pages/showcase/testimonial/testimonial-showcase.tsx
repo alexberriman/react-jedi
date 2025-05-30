@@ -76,7 +76,7 @@ export function TestimonialShowcase() {
         <section id="basic-usage" className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Basic Usage</h2>
           <p className="text-gray-600 mb-4">
-            Here's a simple testimonial with minimal configuration:
+            Here&apos;s a simple testimonial with minimal configuration:
           </p>
           <div className="mb-4">
             {render({
@@ -396,7 +396,7 @@ export function TestimonialShowcase() {
               component: 'Testimonial',
               props: {
                 variant: 'card',
-                content: "The best UI library we've ever used.",
+                content: "The best UI library we&apos;ve ever used.",
                 author: {
                   name: "Pat Murphy",
                   role: "Team Lead",
@@ -506,7 +506,7 @@ export function TestimonialShowcase() {
                   component: 'Testimonial',
                   props: {
                     variant: 'large',
-                    content: "Implementing React Jedi reduced our development time by 40% and improved our team's productivity significantly. The server-driven approach allowed us to iterate faster and deliver features our users love.",
+                    content: "Implementing React Jedi reduced our development time by 40% and improved our team&apos;s productivity significantly. The server-driven approach allowed us to iterate faster and deliver features our users love.",
                     author: {
                       name: "Dr. Alex Kumar",
                       role: "VP of Engineering",
@@ -569,25 +569,25 @@ export function TestimonialShowcase() {
                   <td className="py-2 pr-4"><code>author.name</code></td>
                   <td className="py-2 pr-4"><code>string</code></td>
                   <td className="py-2 pr-4">-</td>
-                  <td className="py-2">Author's name (required)</td>
+                  <td className="py-2">Author&apos;s name (required)</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 pr-4"><code>author.role</code></td>
                   <td className="py-2 pr-4"><code>string</code></td>
                   <td className="py-2 pr-4">-</td>
-                  <td className="py-2">Author's role or title</td>
+                  <td className="py-2">Author&apos;s role or title</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 pr-4"><code>author.company</code></td>
                   <td className="py-2 pr-4"><code>string</code></td>
                   <td className="py-2 pr-4">-</td>
-                  <td className="py-2">Author's company or organization</td>
+                  <td className="py-2">Author&apos;s company or organization</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 pr-4"><code>author.avatar</code></td>
                   <td className="py-2 pr-4"><code>string</code></td>
                   <td className="py-2 pr-4">-</td>
-                  <td className="py-2">URL to author's avatar image</td>
+                  <td className="py-2">URL to author&apos;s avatar image</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 pr-4"><code>variant</code></td>

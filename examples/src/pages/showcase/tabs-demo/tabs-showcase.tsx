@@ -52,7 +52,7 @@ export function TabsShowcase() {
               type: "CardHeader",
               children: [
                 { type: "CardTitle", children: "Account" },
-                { type: "CardDescription", children: "Make changes to your account here. Click save when you're done." },
+                { type: "CardDescription", children: "Make changes to your account here. Click save when you&apos;re done." },
               ],
             },
             {
@@ -95,7 +95,7 @@ export function TabsShowcase() {
               type: "CardHeader",
               children: [
                 { type: "CardTitle", children: "Password" },
-                { type: "CardDescription", children: "Change your password here. After saving, you'll be logged out." },
+                { type: "CardDescription", children: "Change your password here. After saving, you&apos;ll be logged out." },
               ],
             },
             {
@@ -941,7 +941,7 @@ export function TabsShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -1160,7 +1160,7 @@ export function TabsShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Tabs"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Tabs&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -1184,20 +1184,20 @@ export function TabsShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">orientation</td>
-                    <td className="py-3 px-4 font-mono">"horizontal" | "vertical"</td>
-                    <td className="py-3 px-4">"horizontal"</td>
+                    <td className="py-3 px-4 font-mono">"horizontal" | &quot;vertical&quot;</td>
+                    <td className="py-3 px-4">&quot;horizontal&quot;</td>
                     <td className="py-3 px-4">The orientation of the tabs</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">dir</td>
-                    <td className="py-3 px-4 font-mono">"ltr" | "rtl"</td>
-                    <td className="py-3 px-4">"ltr"</td>
+                    <td className="py-3 px-4 font-mono">"ltr" | &quot;rtl&quot;</td>
+                    <td className="py-3 px-4">&quot;ltr&quot;</td>
                     <td className="py-3 px-4">Reading direction</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">activationMode</td>
-                    <td className="py-3 px-4 font-mono">"automatic" | "manual"</td>
-                    <td className="py-3 px-4">"automatic"</td>
+                    <td className="py-3 px-4 font-mono">"automatic" | &quot;manual&quot;</td>
+                    <td className="py-3 px-4">&quot;automatic&quot;</td>
                     <td className="py-3 px-4">How tabs are activated with keyboard</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -1224,7 +1224,7 @@ export function TabsShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"TabsList"</td>
+                    <td className="py-3 px-4 font-mono">&quot;TabsList&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -1258,7 +1258,7 @@ export function TabsShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"TabsTrigger"</td>
+                    <td className="py-3 px-4 font-mono">&quot;TabsTrigger&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -1298,7 +1298,7 @@ export function TabsShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"TabsContent"</td>
+                    <td className="py-3 px-4 font-mono">&quot;TabsContent&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>

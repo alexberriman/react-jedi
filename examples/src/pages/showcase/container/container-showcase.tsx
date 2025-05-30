@@ -28,7 +28,7 @@ function ContainerShowcase() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
+    const section = document.querySelector(`#${sectionId}`);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -609,26 +609,26 @@ function ContainerShowcase() {
               <tbody>
                 <tr className="border-b border-gray-100 dark:border-gray-900">
                   <td className="py-3 px-4 font-mono text-sm text-blue-600 dark:text-blue-400">size</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default" | "sm" | "md" | "lg" | "xl" | "full"</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default"</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;default&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;full&quot;</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;default&quot;</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">Controls the max-width of the container</td>
                 </tr>
                 <tr className="border-b border-gray-100 dark:border-gray-900">
                   <td className="py-3 px-4 font-mono text-sm text-blue-600 dark:text-blue-400">padding</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default" | "none" | "sm" | "lg" | "xl"</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default"</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default" | "none" | &quot;sm&quot; | &quot;lg&quot; | &quot;xl&quot;</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;default&quot;</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">Controls the vertical padding</td>
                 </tr>
                 <tr className="border-b border-gray-100 dark:border-gray-900">
                   <td className="py-3 px-4 font-mono text-sm text-blue-600 dark:text-blue-400">align</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default" | "center" | "end" | "stretch"</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default"</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default" | &quot;center&quot; | &quot;end&quot; | &quot;stretch&quot;</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;default&quot;</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">Controls content alignment within the container</td>
                 </tr>
                 <tr className="border-b border-gray-100 dark:border-gray-900">
                   <td className="py-3 px-4 font-mono text-sm text-blue-600 dark:text-blue-400">as</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">string</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"div"</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;div&quot;</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">The HTML element to render as</td>
                 </tr>
                 <tr className="border-b border-gray-100 dark:border-gray-900">

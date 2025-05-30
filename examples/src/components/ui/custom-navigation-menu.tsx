@@ -7,7 +7,7 @@ type NavigationMenuProps = {
   className?: string;
 };
 
-export function NavigationMenu({ children, className }: NavigationMenuProps) {
+export function NavigationMenu({ children, className }: Readonly<NavigationMenuProps>) {
   return (
     <nav className={cn("relative", className)}>
       <ul className="flex items-center gap-1">
@@ -26,7 +26,7 @@ type NavigationMenuItemProps = {
   className?: string;
 };
 
-export function NavigationMenuItem({ children, className }: NavigationMenuItemProps) {
+export function NavigationMenuItem({ children, className }: Readonly<NavigationMenuItemProps>) {
   return <li className={cn("relative", className)}>{children}</li>;
 }
 
@@ -36,7 +36,7 @@ type NavigationMenuTriggerProps = {
   onClick?: () => void;
 };
 
-export function NavigationMenuTrigger({ children, className, onClick }: NavigationMenuTriggerProps) {
+export function NavigationMenuTrigger({ children, className, onClick }: Readonly<NavigationMenuTriggerProps>) {
   return (
     <button
       className={cn(
@@ -61,7 +61,7 @@ type NavigationMenuContentProps = {
   show?: boolean;
 };
 
-export function NavigationMenuContent({ children, className, show = false }: NavigationMenuContentProps) {
+export function NavigationMenuContent({ children, className, show = false }: Readonly<NavigationMenuContentProps>) {
   if (!show) return null;
   
   return (
@@ -79,7 +79,7 @@ export function NavigationMenuContent({ children, className, show = false }: Nav
   );
 }
 
-export function NavigationMenuLink({ className, ...props }: React.ComponentProps<"a">) {
+export function NavigationMenuLink({ className, children, ...props }: Readonly<React.ComponentProps<"a">>) {
   return (
     <a
       className={cn(
@@ -88,7 +88,9 @@ export function NavigationMenuLink({ className, ...props }: React.ComponentProps
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </a>
   );
 }
 

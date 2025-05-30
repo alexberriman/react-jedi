@@ -53,7 +53,7 @@ const ComponentWithTheme: React.FC = () => {
   );
 };
 
-// Container that's not from our component library
+// Container that&apos;s not from our component library
 const Container: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="container mx-auto p-4">{children}</div>
 );

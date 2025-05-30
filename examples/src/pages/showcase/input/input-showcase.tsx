@@ -226,7 +226,7 @@ export function InputShowcase() {
         type: "CardHeader",
         children: [
           { type: "CardTitle", children: "Contact Us" },
-          { type: "CardDescription", children: "Send us a message and we'll get back to you." },
+          { type: "CardDescription", children: "Send us a message and we&apos;ll get back to you." },
         ],
       },
       {
@@ -339,7 +339,7 @@ export function InputShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -517,14 +517,14 @@ export function InputShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Input"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Input&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">inputType</td>
-                    <td className="py-3 px-4 font-mono">"text" | "email" | "password" | "number" | "tel" | "url" | "search" | etc.</td>
-                    <td className="py-3 px-4">"text"</td>
+                    <td className="py-3 px-4 font-mono">"text" | &quot;email&quot; | &quot;password&quot; | &quot;number&quot; | &quot;tel&quot; | &quot;url&quot; | &quot;search&quot; | etc.</td>
+                    <td className="py-3 px-4">&quot;text&quot;</td>
                     <td className="py-3 px-4">HTML input type</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

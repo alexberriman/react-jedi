@@ -582,7 +582,7 @@ export default function TextareaShowcase() {
                       <tbody className="bg-white divide-y divide-gray-200">
                         <tr>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">type</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">"Textarea"</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">&quot;Textarea&quot;</td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
                           <td className="px-6 py-4 text-sm text-gray-500">Component type identifier</td>
                         </tr>
@@ -642,8 +642,8 @@ export default function TextareaShowcase() {
                         </tr>
                         <tr>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">resize</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">"none" | "both" | "horizontal" | "vertical" | "auto"</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">"auto"</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">"none" | "both" | &quot;horizontal&quot; | &quot;vertical&quot; | &quot;auto&quot;</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">&quot;auto&quot;</td>
                           <td className="px-6 py-4 text-sm text-gray-500">Resize behavior</td>
                         </tr>
                         <tr>
@@ -660,7 +660,7 @@ export default function TextareaShowcase() {
                         </tr>
                         <tr>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">wrap</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">"hard" | "soft" | "off"</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">&quot;hard&quot; | &quot;soft&quot; | &quot;off&quot;</td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
                           <td className="px-6 py-4 text-sm text-gray-500">Text wrapping behavior</td>
                         </tr>

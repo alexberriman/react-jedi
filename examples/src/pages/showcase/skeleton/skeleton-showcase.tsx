@@ -637,7 +637,7 @@ export function SkeletonShowcase() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -745,7 +745,7 @@ export function SkeletonShowcase() {
           <section id="animation" className="scroll-mt-20">
             <h2 className="text-2xl font-semibold mb-4">Animation Controls</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Control the skeleton's animation behavior with the animate prop.
+              Control the skeleton&apos;s animation behavior with the animate prop.
             </p>
             <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
               {render(animationSpec)}
@@ -852,7 +852,7 @@ export function SkeletonShowcase() {
                 <tbody className="text-sm">
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
-                    <td className="py-3 px-4 font-mono">"Skeleton"</td>
+                    <td className="py-3 px-4 font-mono">&quot;Skeleton&quot;</td>
                     <td className="py-3 px-4">required</td>
                     <td className="py-3 px-4">Component type identifier</td>
                   </tr>
@@ -866,13 +866,13 @@ export function SkeletonShowcase() {
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">width</td>
                     <td className="py-3 px-4 font-mono">string</td>
                     <td className="py-3 px-4">-</td>
-                    <td className="py-3 px-4">Width of the skeleton (e.g., "100px", "50%", "full")</td>
+                    <td className="py-3 px-4">Width of the skeleton (e.g., "100px", "50%", &quot;full&quot;)</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">height</td>
                     <td className="py-3 px-4 font-mono">string</td>
                     <td className="py-3 px-4">-</td>
-                    <td className="py-3 px-4">Height of the skeleton (e.g., "20px", "h-4")</td>
+                    <td className="py-3 px-4">Height of the skeleton (e.g., "20px", &quot;h-4&quot;)</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">rounded</td>
@@ -882,8 +882,8 @@ export function SkeletonShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">radius</td>
-                    <td className="py-3 px-4 font-mono">"none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"</td>
-                    <td className="py-3 px-4">"md"</td>
+                    <td className="py-3 px-4 font-mono">"none" | "sm" | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | &quot;full&quot;</td>
+                    <td className="py-3 px-4">&quot;md&quot;</td>
                     <td className="py-3 px-4">Border radius of the skeleton</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

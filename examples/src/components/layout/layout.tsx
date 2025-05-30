@@ -83,19 +83,6 @@ export function Layout({ className }: LayoutProps) {
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
-                          to="/showcase/layout"
-                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
-                        >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            Advanced Layouts
-                          </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                            Complex layout patterns and grids
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
                           to="/showcase/overlay-interactive"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
@@ -292,14 +279,6 @@ export function Layout({ className }: LayoutProps) {
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     Interactive Showcase
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/showcase/layout"
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    Advanced Layouts
                   </Link>
                 </li>
               </ul>

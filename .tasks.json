@@ -17,7 +17,7 @@
       {
         "id": "remove-advanced-layout-page",
         "description": "Remove the 'Advanced Layout Components' page (/showcase/layout) from the example app (./examples) since we've added detailed pages for every component. Also remove this link from the header navigation.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "remove-overlay-interactive-page",

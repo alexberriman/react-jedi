@@ -24,7 +24,6 @@ const navItems: NavItem[] = [
     children: [
       { title: "Component Gallery", href: "/showcase" },
       { title: "Interactive Showcase", href: "/showcase/interactive" },
-      { title: "Layout Components", href: "/showcase/layout" },
       { title: "Overlays & Dialogs", href: "/showcase/overlay-interactive" },
     ],
   },

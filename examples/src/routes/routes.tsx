@@ -144,6 +144,9 @@ const GroupShowcase = lazy(() =>
 const HeadingShowcase = lazy(() =>
   import("../pages/showcase/heading").then((module) => ({ default: module.HeadingShowcase }))
 );
+const HoverCardShowcase = lazy(() =>
+  import("../pages/showcase/hover-card").then((module) => ({ default: module.HoverCardShowcase }))
+);
 const CenterShowcase = lazy(() =>
   import("../pages/showcase/center").then((module) => ({ default: module.CenterShowcase }))
 );
@@ -560,6 +563,10 @@ export const router = createBrowserRouter([
           {
             path: "heading",
             element: <AsyncRoute component={HeadingShowcase} loadingText="Loading heading showcase..." />,
+          },
+          {
+            path: "hover-card",
+            element: <AsyncRoute component={HoverCardShowcase} loadingText="Loading hover card showcase..." />,
           },
           {
             path: "simple-grid",

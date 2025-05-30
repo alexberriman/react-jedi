@@ -782,6 +782,7 @@ export function ShowcasePage() {
                         component.name === "Stack" ||
                         component.name === "Group" ||
                         component.name === "Center" ||
+                        component.name === "HoverCard" ||
                         component.name === "SimpleGrid" ||
                         component.name === "Spacer" ||
                         component.name === "Separator" ||

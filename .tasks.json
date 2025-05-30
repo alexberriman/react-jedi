@@ -62,7 +62,7 @@
       {
         "id": "redesign-performance-page",
         "description": "Redesign the /performance page in the example app (./examples) to look way nicer with clean, simple, flat, and sexy UI design.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "update-footer-menu",

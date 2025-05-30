@@ -473,7 +473,7 @@ export function MenubarShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Menubar component provides a traditional desktop-style menu interface with multiple menu triggers and comprehensive dropdown functionality. It's ideal for applications that need to offer many actions in an organized, accessible way.
+                The Menubar component provides a traditional desktop-style menu interface with multiple menu triggers and comprehensive dropdown functionality. It&apos;s ideal for applications that need to offer many actions in an organized, accessible way.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">

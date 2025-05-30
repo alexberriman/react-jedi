@@ -192,6 +192,9 @@ const ChartShowcase = lazy(() =>
 const DrawerShowcase = lazy(() =>
   import("../pages/showcase/drawer").then((module) => ({ default: module.DrawerShowcase }))
 );
+const DropdownMenuShowcase = lazy(() =>
+  import("../pages/showcase/dropdown-menu").then((module) => ({ default: module.DropdownMenuShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -590,6 +593,10 @@ export const router = createBrowserRouter([
           {
             path: "drawer",
             element: <AsyncRoute component={DrawerShowcase} loadingText="Loading drawer showcase..." />,
+          },
+          {
+            path: "dropdown-menu",
+            element: <AsyncRoute component={DropdownMenuShowcase} loadingText="Loading dropdown menu showcase..." />,
           },
         ],
       },

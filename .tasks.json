@@ -27,7 +27,7 @@
       {
         "id": "remove-interactive-showcase-page",
         "description": "Remove the '/showcase/interactive' page ('Interactive Component Showcase') from the example app (./examples). Also remove this link from the header navigation.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "redesign-examples-page",

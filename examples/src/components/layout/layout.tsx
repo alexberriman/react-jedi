@@ -68,19 +68,6 @@ export function Layout({ className }: LayoutProps) {
                           </p>
                         </Link>
                       </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/showcase/interactive"
-                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
-                        >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            Interactive Showcase
-                          </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                            Play with component props and states
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -258,14 +245,6 @@ export function Layout({ className }: LayoutProps) {
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     Component Gallery
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/showcase/interactive"
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    Interactive Showcase
                   </Link>
                 </li>
               </ul>

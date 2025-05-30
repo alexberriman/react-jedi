@@ -12,9 +12,6 @@ const HomePage = lazy(() =>
 const ShowcasePage = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.ShowcasePage }))
 );
-const InteractiveShowcasePage = lazy(() =>
-  import("../pages/showcase").then((module) => ({ default: module.InteractiveShowcasePage }))
-);
 const ScrollAreaDemo = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.ScrollAreaDemo }))
 );
@@ -267,15 +264,6 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <AsyncRoute component={ShowcasePage} loadingText="Loading showcase..." />,
-          },
-          {
-            path: "interactive",
-            element: (
-              <AsyncRoute
-                component={InteractiveShowcasePage}
-                loadingText="Loading interactive showcase..."
-              />
-            ),
           },
           {
             path: "scroll-area",

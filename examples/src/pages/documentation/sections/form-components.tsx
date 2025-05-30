@@ -8,7 +8,7 @@ export function FormComponentsPage() {
       "React Jedi form components documentation - Inputs, selects, checkboxes, and validation.",
   });
   return (
-    <section id="form-components" className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           Form Components
@@ -158,6 +158,6 @@ export function FormComponentsPage() {
           </svg>
         </Link>
       </div>
-    </section>
+    </div>
   );
 }

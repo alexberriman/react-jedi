@@ -224,6 +224,9 @@ const ComboboxShowcase = lazy(() =>
 const DocumentationPage = lazy(() =>
   import("../pages/documentation").then((module) => ({ default: module.DocumentationPage }))
 );
+const DocumentationLayout = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.DocumentationLayout }))
+);
 const DocumentationOverview = lazy(() =>
   import("../pages/documentation").then((module) => ({ default: module.DocumentationOverview }))
 );
@@ -658,6 +661,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "documentation",
+        element: <AsyncRoute component={DocumentationLayout} loadingText="Loading documentation..." />,
         children: [
           {
             index: true,

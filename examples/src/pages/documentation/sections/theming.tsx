@@ -7,7 +7,7 @@ export function ThemingPage() {
       "React Jedi theming documentation - Comprehensive theme system with colors, typography, and customization.",
   });
   return (
-    <section id="theming" className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
           Theming System
@@ -15,7 +15,7 @@ export function ThemingPage() {
         </h2>
       </div>
 
-      <div className="prose prose-invert prose-purple max-w-none">
+      <div className="prose prose-purple dark:prose-invert max-w-none">
         <p className="text-xl text-zinc-300 mb-6">
           React Jedi&apos;s theming system provides a powerful, flexible way to customize the
           appearance of your applications. Build beautifully themed interfaces that match any brand
@@ -558,6 +558,6 @@ const customTheme = {
           </ul>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -7,7 +7,7 @@ export function LayoutComponentsPage() {
     description: "React Jedi layout components documentation - Grid, Flex, Container, and more.",
   });
   return (
-    <section id="layout-components" className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           Layout Components
@@ -268,6 +268,6 @@ export function LayoutComponentsPage() {
           </svg>
         </Link>
       </div>
-    </section>
+    </div>
   );
 }

@@ -8,14 +8,14 @@ export function GettingStartedPage() {
       "Get started with React Jedi - Installation, basic concepts, and your first component.",
   });
   return (
-    <section className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           Getting Started
           <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50 transition-colors" />
         </h2>
       </div>
-      <div className="prose prose-invert prose-emerald max-w-none">
+      <div className="prose prose-emerald dark:prose-invert max-w-none">
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
           Installation
         </h3>
@@ -122,6 +122,6 @@ function MyApp() {
           </CodeBlock>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

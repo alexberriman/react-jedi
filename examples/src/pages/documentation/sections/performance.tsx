@@ -6,7 +6,7 @@ export function PerformancePage() {
     description: "React Jedi performance documentation - Optimization strategies and benchmarks.",
   });
   return (
-    <section id="performance" className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           Performance Analysis
@@ -14,7 +14,7 @@ export function PerformancePage() {
         </h2>
       </div>
 
-      <div className="prose prose-invert prose-blue max-w-none">
+      <div className="prose prose-blue dark:prose-invert max-w-none">
         <p className="text-xl text-zinc-700 dark:text-zinc-300 mb-6 transition-colors">
           Understanding the performance characteristics of React Jedi&apos;s server-driven approach
           compared to traditional React development.
@@ -267,6 +267,6 @@ export function PerformancePage() {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -42,14 +42,14 @@ export function DocumentationLayout() {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex flex-wrap gap-2 mb-8 sm:mb-12 sticky top-[61px] bg-white dark:bg-black/30 backdrop-blur-md p-2 sm:p-3 -mx-3 rounded-xl border border-zinc-200 dark:border-zinc-800 z-20 overflow-x-auto transition-colors">
+          <div className="flex flex-wrap gap-2 mb-8 sm:mb-12 sticky top-16 bg-white dark:bg-gray-900 backdrop-blur-md p-2 sm:p-3 -mx-3 rounded-xl border border-zinc-200 dark:border-zinc-800 z-20 overflow-x-auto transition-colors shadow-sm">
             {docSections.map((section) => (
               <Link
                 key={section.id}
                 to={section.path}
                 className={`px-4 py-2 rounded-full text-sm transition-all ${
                   location.pathname === section.path
-                    ? "bg-emerald-600/30 text-emerald-600 dark:text-emerald-400 border border-emerald-600/50"
+                    ? "bg-emerald-600/20 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-600/50 dark:border-emerald-500/50"
                     : "bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                 }`}
               >

@@ -7,7 +7,7 @@ export function UIComponentsPage() {
     description: "React Jedi UI components documentation - Buttons, cards, badges, and more.",
   });
   return (
-    <section id="ui-components" className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           UI Components
@@ -224,6 +224,6 @@ export function UIComponentsPage() {
           </svg>
         </Link>
       </div>
-    </section>
+    </div>
   );
 }

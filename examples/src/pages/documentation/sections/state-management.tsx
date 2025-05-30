@@ -7,7 +7,7 @@ export function StateManagementPage() {
       "React Jedi state management documentation - JSON-driven state with actions and handlers.",
   });
   return (
-    <section id="state-management" className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           State Management
@@ -15,7 +15,7 @@ export function StateManagementPage() {
         </h2>
       </div>
 
-      <div className="prose prose-invert prose-purple max-w-none">
+      <div className="prose prose-purple dark:prose-invert max-w-none">
         <p className="text-xl text-zinc-700 dark:text-zinc-300 mb-6 transition-colors">
           React Jedi provides a powerful, declarative state management system that works seamlessly
           with JSON specifications. Manage complex application state with ease.
@@ -296,6 +296,6 @@ export function StateManagementPage() {
           </ul>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -6,7 +6,7 @@ export function ComplexExamplesPage() {
     description: "React Jedi complex examples - Advanced patterns and real-world use cases.",
   });
   return (
-    <section id="complex-examples" className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           Complex Examples
@@ -14,7 +14,7 @@ export function ComplexExamplesPage() {
         </h2>
       </div>
 
-      <div className="prose prose-invert prose-emerald max-w-none">
+      <div className="prose prose-emerald dark:prose-invert max-w-none">
         <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6 transition-colors">
           Here are some complex examples that combine multiple components to create real-world UI
           patterns.
@@ -297,6 +297,6 @@ export function ComplexExamplesPage() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -289,7 +289,7 @@ export function DocumentationOverview() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950">
+    <div>
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -298,7 +298,7 @@ export function DocumentationOverview() {
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-purple-500/20 to-transparent rounded-full blur-3xl" />
         </div>
 
-        <div className="relative container mx-auto px-4 py-20">
+        <div className="relative py-20">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
               React Jedi Documentation
@@ -340,8 +340,8 @@ export function DocumentationOverview() {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-7xl mx-auto">
+      <div className="py-16">
+        <div>
           {/* Quick Start Example */}
           <div className="mb-20 bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
             <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">

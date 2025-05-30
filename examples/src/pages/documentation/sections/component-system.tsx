@@ -7,14 +7,14 @@ export function ComponentSystemPage() {
       "React Jedi component system - Understanding JSON specifications and component mapping.",
   });
   return (
-    <section className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           Component System
           <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50 transition-colors" />
         </h2>
       </div>
-      <div className="prose prose-invert prose-emerald max-w-none">
+      <div className="prose prose-emerald dark:prose-invert max-w-none">
         <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6 transition-colors">
           React Jedi&apos;s component system is built around a simple, consistent pattern. Each
           component in a JSON specification has a{" "}
@@ -186,6 +186,6 @@ export function ComponentSystemPage() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

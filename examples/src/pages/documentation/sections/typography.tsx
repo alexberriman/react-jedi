@@ -8,7 +8,7 @@ export function TypographyPage() {
       "React Jedi typography components - Headings, text, and font system documentation.",
   });
   return (
-    <section id="typography" className="mb-20">
+    <div>
       <div className="relative">
         <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
           Typography
@@ -208,6 +208,6 @@ export function TypographyPage() {
           </svg>
         </Link>
       </div>
-    </section>
+    </div>
   );
 }

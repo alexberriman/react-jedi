@@ -162,6 +162,9 @@ const TextareaShowcase = lazy(() =>
 const CheckboxShowcase = lazy(() =>
   import("../pages/showcase/checkbox").then((module) => ({ default: module.CheckboxShowcase }))
 );
+const SkeletonShowcase = lazy(() =>
+  import("../pages/showcase/skeleton").then((module) => ({ default: module.SkeletonShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -496,6 +499,10 @@ export const router = createBrowserRouter([
           {
             path: "tooltip",
             element: <AsyncRoute component={TooltipShowcase} loadingText="Loading tooltip showcase..." />,
+          },
+          {
+            path: "skeleton",
+            element: <AsyncRoute component={SkeletonShowcase} loadingText="Loading skeleton showcase..." />,
           },
           {
             path: "container",

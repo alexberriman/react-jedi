@@ -309,7 +309,7 @@
       {
         "id": "skeleton-showcase",
         "description": "Create a nested page in the example app to showcase the Skeleton component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Skeleton component example has a link to the nested page as well.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "alert-showcase",

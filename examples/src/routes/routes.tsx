@@ -36,6 +36,9 @@ const HeroPreview = lazy(() =>
 const HeroShowcase = lazy(() =>
   import("../pages/showcase/hero").then((module) => ({ default: module.HeroShowcase }))
 );
+const AspectRatioShowcase = lazy(() =>
+  import("../pages/showcase/aspect-ratio").then((module) => ({ default: module.AspectRatioShowcase }))
+);
 const BadgeShowcase = lazy(() =>
   import("../pages/showcase/badge").then((module) => ({ default: module.BadgeShowcase }))
 );
@@ -354,6 +357,10 @@ export const router = createBrowserRouter([
           {
             path: "stack",
             element: <AsyncRoute component={StackShowcase} loadingText="Loading stack showcase..." />,
+          },
+          {
+            path: "aspect-ratio",
+            element: <AsyncRoute component={AspectRatioShowcase} loadingText="Loading aspect ratio showcase..." />,
           },
           {
             path: "badge",

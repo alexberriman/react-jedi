@@ -210,6 +210,9 @@ const CommandShowcase = lazy(() =>
 const CalendarShowcase = lazy(() =>
   import("../pages/showcase/calendar").then((module) => ({ default: module.CalendarShowcase }))
 );
+const DatePickerShowcase = lazy(() =>
+  import("../pages/showcase/date-picker").then((module) => ({ default: module.DatePickerShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -444,6 +447,10 @@ export const router = createBrowserRouter([
           {
             path: "calendar",
             element: <AsyncRoute component={CalendarShowcase} loadingText="Loading calendar showcase..." />,
+          },
+          {
+            path: "date-picker",
+            element: <AsyncRoute component={DatePickerShowcase} loadingText="Loading date picker showcase..." />,
           },
           {
             path: "call-to-action",

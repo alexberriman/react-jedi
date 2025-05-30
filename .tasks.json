@@ -32,7 +32,7 @@
       {
         "id": "redesign-examples-page",
         "description": "Redesign the /examples page in the example app (./examples) to look nicer. The current box/card layout doesn't work well with many items. Create a cleaner, more organized layout.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "remove-form-validation-example",

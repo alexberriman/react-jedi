@@ -767,6 +767,7 @@ export function ShowcasePage() {
                         component.name === "Switch" ||
                         component.name === "Testimonial" ||
                         component.name === "Text" ||
+                        component.name === "Textarea" ||
                         component.name === "Toast" ||
                         component.name === "Tooltip" ||
                         component.name === "Container" ||

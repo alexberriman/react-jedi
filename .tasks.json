@@ -12,7 +12,7 @@
       {
         "id": "remove-interactive-components-banner",
         "description": "Remove the 'Interactive Components Now Available!' container at the bottom of the /showcase page in the example app (./examples).",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "remove-advanced-layout-page",

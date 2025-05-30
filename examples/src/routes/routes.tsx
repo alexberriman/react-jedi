@@ -180,6 +180,9 @@ const TableShowcase = lazy(() =>
 const DataTableShowcase = lazy(() =>
   import("../pages/showcase/data-table").then((module) => ({ default: module.DataTableShowcase }))
 );
+const ChartShowcase = lazy(() =>
+  import("../pages/showcase/chart").then((module) => ({ default: module.ChartShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -498,6 +501,10 @@ export const router = createBrowserRouter([
           {
             path: "data-table",
             element: <AsyncRoute component={DataTableShowcase} loadingText="Loading data table showcase..." />,
+          },
+          {
+            path: "chart",
+            element: <AsyncRoute component={ChartShowcase} loadingText="Loading chart showcase..." />,
           },
           {
             path: "toggle",

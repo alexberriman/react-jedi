@@ -795,7 +795,8 @@ export function ShowcasePage() {
                         component.name === "AlertDialog" ||
                         component.name === "Collapsible" ||
                         component.name === "Table" ||
-                        component.name === "DataTable" ? (
+                        component.name === "DataTable" ||
+                        component.name === "Chart" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1933,5 +1934,24 @@ const componentPreviews: Record<string, ComponentSpec> = {
         console.log("Toast triggered");
       },
     },
+  },
+  Chart: {
+    type: "Chart",
+    chartType: "line",
+    data: [
+      { name: "Jan", value: 400 },
+      { name: "Feb", value: 300 },
+      { name: "Mar", value: 600 },
+      { name: "Apr", value: 800 },
+      { name: "May", value: 500 },
+    ],
+    config: {
+      value: { label: "Value", color: "#8884d8" },
+    },
+    dataKey: "value",
+    height: 200,
+    showGrid: true,
+    showTooltip: true,
+    colors: ["#8884d8"],
   },
 };

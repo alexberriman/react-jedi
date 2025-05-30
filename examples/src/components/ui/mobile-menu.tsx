@@ -20,10 +20,13 @@ export type NavItem = {
 
 const navItems: NavItem[] = [
   {
+    title: "Documentation",
+    href: "/documentation",
+  },
+  {
     title: "Components",
     children: [
       { title: "Component Gallery", href: "/showcase" },
-      { title: "Interactive Showcase", href: "/showcase/interactive" },
     ],
   },
   {
@@ -32,10 +35,6 @@ const navItems: NavItem[] = [
       { title: "All Examples", href: "/examples" },
       { title: "Marketing Template", href: "/templates/marketing" },
     ],
-  },
-  {
-    title: "Documentation",
-    href: "/documentation",
   },
   {
     title: "Resources",

@@ -50,6 +50,20 @@ export function Layout({ className }: LayoutProps) {
             <NavigationMenu viewport={false}>
               <NavigationMenuList>
                 <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <Link
+                      to="/documentation"
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "bg-transparent text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      )}
+                    >
+                      Documentation
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-transparent text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                     Components
                   </NavigationMenuTrigger>
@@ -106,20 +120,6 @@ export function Layout({ className }: LayoutProps) {
                       </NavigationMenuLink>
                     </ul>
                   </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      to="/documentation"
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        "bg-transparent text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                      )}
-                    >
-                      Documentation
-                    </Link>
-                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
@@ -223,10 +223,10 @@ export function Layout({ className }: LayoutProps) {
                 </li>
                 <li>
                   <Link
-                    to="/examples/landing"
+                    to="/templates/marketing"
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
-                    Landing Page
+                    Marketing Template
                   </Link>
                 </li>
               </ul>

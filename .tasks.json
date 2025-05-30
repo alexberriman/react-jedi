@@ -52,7 +52,7 @@
       {
         "id": "enhance-documentation-page",
         "description": "Move the Documentation page to the first link in the header menu (before components) in the example app (./examples). Redesign it to look way nicer and more like a traditional documentation page. Add syntax highlighting for JSON/TypeScript code using a 3rd party plugin. Break content into logical sections (Introduction, Getting Started, etc.). Avoid content duplication by linking to existing pages. Make the documentation look professional and sexy.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-navigation-page-fonts",

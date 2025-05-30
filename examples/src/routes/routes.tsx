@@ -390,16 +390,7 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <AsyncRoute component={DocumentationPage} loadingText="Loading documentation..." />
-            ),
-          },
-          {
-            path: "overview",
-            element: (
-              <AsyncRoute
-                component={DocumentationOverview}
-                loadingText="Loading documentation overview..."
-              />
+              <AsyncRoute component={DocumentationOverview} loadingText="Loading documentation..." />
             ),
           },
           {

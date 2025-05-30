@@ -1,4 +1,5 @@
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function GettingStartedPage() {
   usePageMetadata({
@@ -18,12 +19,9 @@ export function GettingStartedPage() {
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
           Installation
         </h3>
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono mb-6 overflow-x-auto transition-colors">
-            <code className="text-sm transition-colors">npm install @banja/react-jedi</code>
-          </div>
-        </div>
+        <CodeBlock language="bash">
+          {`npm install @banja/react-jedi`}
+        </CodeBlock>
 
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
           Basic Usage
@@ -37,11 +35,9 @@ export function GettingStartedPage() {
           , which takes a specification object and renders it to React components.
         </p>
 
-        <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`import { render } from "@banja/react-jedi";
+        <div className="mb-8">
+          <CodeBlock language="typescript">
+            {`import { render } from "@banja/react-jedi";
 
 // JSON specification for a simple UI
 const spec = {
@@ -63,8 +59,7 @@ const spec = {
 function MyComponent() {
   return render(spec);
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
@@ -75,11 +70,9 @@ function MyComponent() {
           ensuring type safety when building your UIs.
         </p>
 
-        <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`import { render, ComponentSpec } from "@banja/react-jedi";
+        <div className="mb-8">
+          <CodeBlock language="typescript">
+            {`import { render, ComponentSpec } from "@banja/react-jedi";
 
 // Type-safe component specification
 const spec: ComponentSpec = {
@@ -103,8 +96,7 @@ function MyApp() {
     </div>
   );
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
@@ -115,11 +107,9 @@ function MyApp() {
           project structure for using React Jedi:
         </p>
 
-        <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`src/
+        <div className="mb-8">
+          <CodeBlock language="bash">
+            {`src/
   components/         # Your custom React components
   schemas/            # JSON UI specifications
     pages/            # Page-level schemas
@@ -129,8 +119,7 @@ function MyApp() {
   utils/              # Utility functions
   App.tsx             # Main application file
   main.tsx            # Entry point`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
       </div>
     </section>

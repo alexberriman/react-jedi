@@ -349,7 +349,7 @@
       {
         "id": "remove-shadcn-ui-from-cards",
         "description": "Remove @shadcn/ui text from all cards on the /showcase page in the example app (./examples). Check all component cards and remove any references to @shadcn/ui since React Jedi is its own SDUI library. Update card titles and descriptions to only reference React Jedi components.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "update-images-to-placeholders",

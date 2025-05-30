@@ -624,7 +624,7 @@ export function ShowcasePage() {
   const typeOptions = [
     { label: "All Types", value: "all" },
     { label: "Custom", value: "custom" },
-    { label: "@shadcn/ui", value: "shadcn" },
+    { label: "Built-in", value: "shadcn" },
   ];
 
   return (
@@ -719,7 +719,7 @@ export function ShowcasePage() {
                               : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
                           }`}
                         >
-                          {component.type === "custom" ? "Custom" : "@shadcn/ui"}
+                          {component.type === "custom" ? "Custom" : "Built-in"}
                         </span>
                       </div>
 

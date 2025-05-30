@@ -72,7 +72,7 @@ export function NavigationMenuShowcase() {
             },
             {
               title: "UI Components",
-              description: "Beautiful components built on top of shadcn/ui",
+              description: "Beautiful built-in components for React Jedi",
               href: "/products/components",
               icon: "🎨"
             },

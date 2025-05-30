@@ -416,7 +416,7 @@ export function BreadcrumbShowcase() {
           <div>
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Breadcrumb Component</h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              A navigation component that provides context about the user's current location within the application hierarchy. Essential for complex navigation structures and improved user experience.
+              A navigation component that provides context about the user&apos;s current location within the application hierarchy. Essential for complex navigation structures and improved user experience.
             </p>
           </div>
 
@@ -425,7 +425,7 @@ export function BreadcrumbShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Breadcrumb component displays a navigation trail that shows the user's current location within the application's hierarchy. It provides an easy way for users to understand where they are and navigate back to previous levels.
+                The Breadcrumb component displays a navigation trail that shows the user&apos;s current location within the application&apos;s hierarchy. It provides an easy way for users to understand where they are and navigate back to previous levels.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">

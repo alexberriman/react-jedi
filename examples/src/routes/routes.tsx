@@ -189,6 +189,9 @@ const DataTableShowcase = lazy(() =>
 const ChartShowcase = lazy(() =>
   import("../pages/showcase/chart").then((module) => ({ default: module.ChartShowcase }))
 );
+const DrawerShowcase = lazy(() =>
+  import("../pages/showcase/drawer").then((module) => ({ default: module.DrawerShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -583,6 +586,10 @@ export const router = createBrowserRouter([
           {
             path: "alert-dialog",
             element: <AsyncRoute component={AlertDialogShowcase} loadingText="Loading alert dialog showcase..." />,
+          },
+          {
+            path: "drawer",
+            element: <AsyncRoute component={DrawerShowcase} loadingText="Loading drawer showcase..." />,
           },
         ],
       },

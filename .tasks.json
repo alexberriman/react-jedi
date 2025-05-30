@@ -47,7 +47,7 @@
       {
         "id": "remove-navigation-example",
         "description": "Remove the '/examples/navigation' page from the example app (./examples) and also remove it from the header navigation.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "enhance-documentation-page",

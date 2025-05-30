@@ -148,9 +148,6 @@ const ConditionalPage = lazy(() =>
 const AdvancedConditionalPage = lazy(() =>
   import("../pages/examples/conditional").then((module) => ({ default: module.AdvancedConditionalPage }))
 );
-const NavigationPage = lazy(() =>
-  import("../pages/examples/navigation").then((module) => ({ default: module.NavigationPage }))
-);
 const DataDisplayPage = lazy(() =>
   import("../pages/examples/data").then((module) => ({ default: module.DataDisplayPage }))
 );
@@ -482,12 +479,6 @@ export const router = createBrowserRouter([
                 component={AdvancedConditionalPage}
                 loadingText="Loading advanced conditional..."
               />
-            ),
-          },
-          {
-            path: "navigation",
-            element: (
-              <AsyncRoute component={NavigationPage} loadingText="Loading navigation example..." />
             ),
           },
           {

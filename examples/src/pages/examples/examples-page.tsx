@@ -79,15 +79,6 @@ const examples: Example[] = [
     category: "ui-patterns",
   },
   {
-    id: "navigation",
-    title: "Navigation Components",
-    description:
-      "Navigation components including breadcrumbs with different styles, separators, and configurations.",
-    path: "/examples/navigation",
-    status: "new",
-    category: "ui-patterns",
-  },
-  {
     id: "data-display",
     title: "Data Display & Visualization",
     description:

@@ -90,6 +90,9 @@ const SliderShowcase = lazy(() =>
 const SwitchShowcase = lazy(() =>
   import("../pages/showcase/switch").then((module) => ({ default: module.SwitchShowcase }))
 );
+const ToggleShowcase = lazy(() =>
+  import("../pages/showcase/toggle").then((module) => ({ default: module.ToggleShowcase }))
+);
 const TestimonialShowcase = lazy(() =>
   import("../pages/showcase/testimonial").then((module) => ({ default: module.TestimonialShowcase }))
 );
@@ -417,6 +420,10 @@ export const router = createBrowserRouter([
           {
             path: "switch",
             element: <AsyncRoute component={SwitchShowcase} loadingText="Loading switch showcase..." />,
+          },
+          {
+            path: "toggle",
+            element: <AsyncRoute component={ToggleShowcase} loadingText="Loading toggle showcase..." />,
           },
           {
             path: "testimonial",

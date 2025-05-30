@@ -299,8 +299,8 @@ export function CalendarShowcase() {
                   mode: "single",
                   fromDate: new Date().toISOString().split('T')[0],
                   disabled: [
-                    new Date(Date.now() + 86400000).toISOString().split('T')[0], // Tomorrow
-                    new Date(Date.now() + 172800000).toISOString().split('T')[0], // Day after tomorrow
+                    new Date(Date.now() + 86_400_000).toISOString().split('T')[0], // Tomorrow
+                    new Date(Date.now() + 172_800_000).toISOString().split('T')[0], // Day after tomorrow
                   ],
                 },
               ],
@@ -452,7 +452,7 @@ export function CalendarShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The Calendar component provides an intuitive interface for date selection with support for various selection modes, date restrictions, and customization options. It's built with accessibility in mind and supports keyboard navigation.
+                The Calendar component provides an intuitive interface for date selection with support for various selection modes, date restrictions, and customization options. It&apos;s built with accessibility in mind and supports keyboard navigation.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">

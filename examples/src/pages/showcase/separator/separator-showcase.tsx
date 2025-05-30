@@ -575,7 +575,7 @@ export function SeparatorShowcase() {
               <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                 <h3 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Usage Notes</h3>
                 <ul className="list-disc list-inside space-y-2 text-sm text-yellow-700 dark:text-yellow-300">
-                  <li>Vertical separators require an explicit height to be visible (e.g., <code>className="h-8"</code>).</li>
+                  <li>Vertical separators require an explicit height to be visible (e.g., <code>className=&quot;h-8&quot;</code>).</li>
                   <li>Use decorative separators for purely visual divisions.</li>
                   <li>Use non-decorative separators for thematic breaks that should be announced to screen readers.</li>
                   <li>The default styling uses the border color from your theme&apos;s color scheme.</li>

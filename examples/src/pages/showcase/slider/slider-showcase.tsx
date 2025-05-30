@@ -661,10 +661,10 @@ export function SliderShowcase() {
                 The slider component exposes data-slot attributes for styling specific parts:
               </p>
               <ul className="text-sm space-y-1">
-                <li><code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">data-slot="slider"</code> - The root element</li>
-                <li><code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">data-slot="slider-track"</code> - The track container</li>
-                <li><code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">data-slot="slider-range"</code> - The filled range</li>
-                <li><code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">data-slot="slider-thumb"</code> - The draggable handle(s)</li>
+                <li><code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">data-slot=&quot;slider&quot;</code> - The root element</li>
+                <li><code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">data-slot=&quot;slider-track&quot;</code> - The track container</li>
+                <li><code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">data-slot=&quot;slider-range&quot;</code> - The filled range</li>
+                <li><code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">data-slot=&quot;slider-thumb&quot;</code> - The draggable handle(s)</li>
               </ul>
             </div>
           </section>

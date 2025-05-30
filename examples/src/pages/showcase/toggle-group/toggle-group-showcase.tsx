@@ -766,7 +766,7 @@ export function ToggleGroupShowcase() {
                 The ToggleGroup component is built with accessibility in mind:
               </p>
               <ul className="list-disc pl-6 space-y-1">
-                <li>Proper ARIA attributes including <code>role="group"</code> and <code>aria-pressed</code></li>
+                <li>Proper ARIA attributes including <code>role=&quot;group&quot;</code> and <code>aria-pressed</code></li>
                 <li>Full keyboard support (Arrow keys for navigation, Space/Enter to toggle)</li>
                 <li>Focus management within the group</li>
                 <li>Screen reader announcements for selection changes</li>

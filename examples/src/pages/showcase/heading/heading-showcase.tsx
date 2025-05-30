@@ -489,7 +489,7 @@ export function HeadingShowcase() {
   );
 }
 
-function DemoSection({ title, specs }: { title: string; specs: UISpecification[] }) {
+function DemoSection({ title, specs }: { readonly title: string; readonly specs: readonly UISpecification[] }) {
   const [showJson, setShowJson] = React.useState(false);
   
   return (

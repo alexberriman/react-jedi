@@ -36,18 +36,6 @@ export function SpacerShowcase() {
     ]
   };
 
-  const verticalLayoutSpec: UISpecification = {
-    type: "Stack",
-    direction: "column",
-    className: "max-w-md",
-    children: [
-      { type: "Text", children: "Header Content", className: "font-semibold text-lg" },
-      { type: "Spacer", size: "md" },
-      { type: "Text", children: "This is some body content that comes after the header with proper spacing." },
-      { type: "Spacer", size: "lg" },
-      { type: "Button", children: "Action Button", variant: "default" }
-    ]
-  };
 
   const sizeVariationsSpec: UISpecification = {
     type: "Grid",
@@ -360,7 +348,7 @@ export function SpacerShowcase() {
             <section id="horizontal-spacing" className="mb-12">
               <h2 className="text-3xl font-bold mb-4">Horizontal Spacing</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Set the orientation to "horizontal" to create spacing between elements in a row layout. 
+                Set the orientation to &quot;horizontal&quot; to create spacing between elements in a row layout. 
                 This is useful for navigation bars, button groups, and inline content.
               </p>
               
@@ -478,11 +466,11 @@ export function SpacerShowcase() {
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3 font-mono text-sm">size</td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
                         <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">
-                          "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl"
+                          &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | &quot;4xl&quot; | &quot;5xl&quot; | &quot;6xl&quot; | &quot;7xl&quot; | &quot;8xl&quot; | &quot;9xl&quot;
                         </code>
                       </td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
-                        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">"md"</code>
+                        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">&quot;md&quot;</code>
                       </td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
                         Controls the amount of space. Ranges from 0.25rem (xs) to 16rem (9xl).
@@ -491,10 +479,10 @@ export function SpacerShowcase() {
                     <tr>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3 font-mono text-sm">orientation</td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
-                        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">"horizontal" | "vertical"</code>
+                        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">&quot;horizontal&quot; | &quot;vertical&quot;</code>
                       </td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
-                        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">"vertical"</code>
+                        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">&quot;vertical&quot;</code>
                       </td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
                         Direction of spacing. Vertical creates height, horizontal creates width.

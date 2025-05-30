@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { usePageMetadata } from '../../lib/meta'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Code } from '../../components/ui/code'
 import { render } from '@banja/react-jedi'
+
+const scrollToSection = (sectionId: string) => {
+  const element = document.querySelector(`[data-section="${sectionId}"]`)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
 export default function TextShowcase() {
   usePageMetadata({
@@ -11,7 +18,6 @@ export default function TextShowcase() {
     description: 'Comprehensive showcase of the Text component with variations and props'
   })
 
-  const location = useLocation()
   const [activeSection, setActiveSection] = useState('basic-usage')
 
   useEffect(() => {
@@ -35,13 +41,6 @@ export default function TextShowcase() {
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.querySelector(`[data-section="${sectionId}"]`)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
   const tableOfContents = [
     { id: 'basic-usage', label: 'Basic Usage' },

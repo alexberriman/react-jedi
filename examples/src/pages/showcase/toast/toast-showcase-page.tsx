@@ -455,13 +455,13 @@ toastComponent.promise(promise, {
                   <tr className="border-b border-zinc-800">
                     <td className="py-3 font-mono text-sm">position</td>
                     <td className="py-3">string</td>
-                    <td className="py-3">'bottom-right&apos;</td>
+                    <td className="py-3">&apos;bottom-right&apos;</td>
                     <td className="py-3">Toast position on screen</td>
                   </tr>
                   <tr className="border-b border-zinc-800">
                     <td className="py-3 font-mono text-sm">theme</td>
                     <td className="py-3">string</td>
-                    <td className="py-3">'system&apos;</td>
+                    <td className="py-3">&apos;system&apos;</td>
                     <td className="py-3">Color theme (light/dark/system)</td>
                   </tr>
                   <tr className="border-b border-zinc-800">
@@ -509,7 +509,7 @@ toastComponent.promise(promise, {
                   <tr className="border-b border-zinc-800">
                     <td className="py-3 font-mono text-sm">direction</td>
                     <td className="py-3">string</td>
-                    <td className="py-3">'auto&apos;</td>
+                    <td className="py-3">&apos;auto&apos;</td>
                     <td className="py-3">Text direction (ltr/rtl/auto)</td>
                   </tr>
                 </tbody>

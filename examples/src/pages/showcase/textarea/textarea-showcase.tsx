@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ChevronDown, ChevronRight } from 'lucide-react';
 import { render } from '@banja/react-jedi';
 
-function CollapsibleCode({ title, children }: { title: string; children: React.ReactNode }) {
+function CollapsibleCode({ title, children }: { readonly title: string; readonly children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -31,11 +31,11 @@ function ShowcaseSection({
   jsonSpec, 
   children 
 }: { 
-  id: string; 
-  title: string; 
-  description?: string; 
-  jsonSpec: string;
-  children?: React.ReactNode;
+  readonly id: string; 
+  readonly title: string; 
+  readonly description?: string; 
+  readonly jsonSpec: string;
+  readonly children?: React.ReactNode;
 }) {
   const spec = JSON.parse(jsonSpec);
   
@@ -73,7 +73,7 @@ export default function TextareaShowcase() {
     { id: 'form-integration', title: 'Form Integration' },
     { id: 'advanced-usage', title: 'Advanced Usage' },
     { id: 'props', title: 'Props & Options' },
-    { id: 'examples', title: 'Complete Examples&apos; }
+    { id: 'examples', title: 'Complete Examples' }
   ];
 
   return (

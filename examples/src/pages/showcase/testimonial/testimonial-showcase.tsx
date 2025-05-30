@@ -2,7 +2,7 @@ import { render } from '@banja/react-jedi';
 import { useState } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 
-function CollapsibleCode({ title, code }: { title: string; code: string }) {
+function CollapsibleCode({ title, code }: { readonly title: string; readonly code: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -32,7 +32,7 @@ export function TestimonialShowcase() {
     { id: 'highlighted', title: 'Highlighted' },
     { id: 'grid-layout', title: 'Grid Layout' },
     { id: 'real-world', title: 'Real World Examples' },
-    { id: 'props', title: 'Props Reference&apos; },
+    { id: 'props', title: 'Props Reference' },
   ];
 
   return (
@@ -80,7 +80,7 @@ export function TestimonialShowcase() {
           </p>
           <div className="mb-4">
             {render({
-              component: 'Testimonial&apos;,
+              component: 'Testimonial',
               props: {
                 content: "React Jedi has transformed how we build our UI. The server-driven approach gives us incredible flexibility.",
                 author: {
@@ -122,7 +122,7 @@ export function TestimonialShowcase() {
                 {render({
                   component: 'Testimonial',
                   props: {
-                    variant: 'card&apos;,
+                    variant: 'card',
                     content: "The card variant provides a clean, contained look perfect for grid layouts.",
                     author: {
                       name: "Alex Rivera",
@@ -160,7 +160,7 @@ export function TestimonialShowcase() {
                 {render({
                   component: 'Testimonial',
                   props: {
-                    variant: 'minimal&apos;,
+                    variant: 'minimal',
                     content: "Clean and simple. The minimal variant focuses on the content without distractions.",
                     author: {
                       name: "Jordan Park",
@@ -194,7 +194,7 @@ export function TestimonialShowcase() {
                 {render({
                   component: 'Testimonial',
                   props: {
-                    variant: 'large&apos;,
+                    variant: 'large',
                     content: "When you need to make an impact, the large variant commands attention with bigger typography and prominent author details.",
                     author: {
                       name: "Morgan Lee",
@@ -234,7 +234,7 @@ export function TestimonialShowcase() {
                 {render({
                   component: 'Testimonial',
                   props: {
-                    variant: 'quote&apos;,
+                    variant: 'quote',
                     content: "Perfect for highlighting key testimonials with a distinctive quote style that draws the eye.",
                     author: {
                       name: "Casey Kim",
@@ -286,7 +286,7 @@ export function TestimonialShowcase() {
             {render({
               component: 'Testimonial',
               props: {
-                variant: 'card&apos;,
+                variant: 'card',
                 content: "Great product with room for minor improvements.",
                 author: {
                   name: "Sam Wilson",
@@ -338,7 +338,7 @@ export function TestimonialShowcase() {
             {render({
               component: 'Testimonial',
               props: {
-                variant: 'large&apos;,
+                variant: 'large',
                 content: "This is a game-changer! React Jedi has revolutionized our development workflow.",
                 author: {
                   name: "Taylor Martinez",
@@ -484,7 +484,7 @@ export function TestimonialShowcase() {
                 {render({
                   component: 'Testimonial',
                   props: {
-                    variant: 'card&apos;,
+                    variant: 'card',
                     content: "The product quality is amazing and shipping was super fast. Will definitely order again!",
                     author: {
                       name: "Jamie Chen",
@@ -526,7 +526,7 @@ export function TestimonialShowcase() {
                 {render({
                   component: 'Testimonial',
                   props: {
-                    variant: 'quote&apos;,
+                    variant: 'quote',
                     content: "React Jedi represents a paradigm shift in how we think about building user interfaces.",
                     author: {
                       name: "Tech Weekly",
@@ -591,8 +591,8 @@ export function TestimonialShowcase() {
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 pr-4"><code>variant</code></td>
-                  <td className="py-2 pr-4"><code>'card' | 'minimal' | 'large' | 'quote&apos;</code></td>
-                  <td className="py-2 pr-4"><code>'card&apos;</code></td>
+                  <td className="py-2 pr-4"><code>&apos;card&apos; | &apos;minimal&apos; | &apos;large&apos; | &apos;quote&apos;</code></td>
+                  <td className="py-2 pr-4"><code>&apos;card&apos;</code></td>
                   <td className="py-2">Visual style variant</td>
                 </tr>
                 <tr className="border-b">

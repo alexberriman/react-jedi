@@ -93,19 +93,6 @@ export function Layout({ className }: LayoutProps) {
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
-                          to="/examples/landing"
-                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
-                        >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            Landing Page
-                          </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                            Hero section, features, and CTA components
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
                           to="/examples/navigation"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >

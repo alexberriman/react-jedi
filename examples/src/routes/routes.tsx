@@ -142,9 +142,6 @@ const ComplexExamples = lazy(() =>
 const ExamplesPage = lazy(() =>
   import("../pages/examples").then((module) => ({ default: module.ExamplesPage }))
 );
-const LandingExamplePage = lazy(() =>
-  import("../pages/examples/landing").then((module) => ({ default: module.LandingExamplePage }))
-);
 const ConditionalPage = lazy(() =>
   import("../pages/examples/conditional").then((module) => ({ default: module.ConditionalPage }))
 );
@@ -468,12 +465,6 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <AsyncRoute component={ExamplesPage} loadingText="Loading examples..." />,
-          },
-          {
-            path: "landing",
-            element: (
-              <AsyncRoute component={LandingExamplePage} loadingText="Loading landing example..." />
-            ),
           },
           {
             path: "conditional",

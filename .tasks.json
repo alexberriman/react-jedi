@@ -42,7 +42,7 @@
       {
         "id": "remove-landing-example",
         "description": "Remove the '/examples/landing' page from the example app (./examples) and also remove it from the header navigation.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "remove-navigation-example",

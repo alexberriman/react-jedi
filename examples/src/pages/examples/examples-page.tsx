@@ -61,15 +61,6 @@ const categories: Category[] = [
 
 const examples: Example[] = [
   {
-    id: "landing",
-    title: "Landing Page",
-    description:
-      "A modern landing page built with JSON specifications showcasing hero sections, feature grids, and testimonials.",
-    path: "/examples/landing",
-    status: "stable",
-    category: "ui-patterns",
-  },
-  {
     id: "conditional-rendering",
     title: "Conditional Rendering",
     description:

@@ -30,7 +30,6 @@ const navItems: NavItem[] = [
     title: "Examples",
     children: [
       { title: "All Examples", href: "/examples" },
-      { title: "Landing Page", href: "/examples/landing" },
       { title: "Navigation Patterns", href: "/examples/navigation" },
       { title: "Marketing Template", href: "/templates/marketing" },
     ],

@@ -120,6 +120,9 @@ const GroupShowcase = lazy(() =>
 const CenterShowcase = lazy(() =>
   import("../pages/showcase/center").then((module) => ({ default: module.CenterShowcase }))
 );
+const SimpleGridShowcase = lazy(() =>
+  import("../pages/showcase/simple-grid").then((module) => ({ default: module.SimpleGridShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -422,6 +425,10 @@ export const router = createBrowserRouter([
           {
             path: "group",
             element: <AsyncRoute component={GroupShowcase} loadingText="Loading group showcase..." />,
+          },
+          {
+            path: "simple-grid",
+            element: <AsyncRoute component={SimpleGridShowcase} loadingText="Loading simple grid showcase..." />,
           },
         ],
       },

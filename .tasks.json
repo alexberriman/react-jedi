@@ -7,7 +7,7 @@
       {
         "id": "fix-header-dropdown-menu",
         "description": "Fix the header dropdown menu in the example app (./examples) - it's glitchy when you click on parent items with children. Clicking on parent items should have no effect (only hover should trigger show/hide). Also add cursor-pointer styling to interactive elements.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "remove-interactive-components-banner",

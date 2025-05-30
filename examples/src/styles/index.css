@@ -77,12 +77,45 @@ html {
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
 }
 
+/* Navigation menu improvements */
+[data-slot="navigation-menu-trigger"] {
+  cursor: pointer !important;
+  user-select: none;
+}
+
+/* Prevent navigation menu trigger from toggling on click - hover only */
+[data-slot="navigation-menu-item"]:hover > [data-slot="navigation-menu-trigger"] {
+  background-color: hsl(var(--accent) / 0.1);
+}
+
+/* Ensure navigation links have pointer cursor */
+[data-slot="navigation-menu-link"] {
+  cursor: pointer !important;
+}
+
 /* Prevent underlines on navigation menu links */
 [data-slot="navigation-menu-link"],
 [data-slot="navigation-menu-link"]:hover,
 nav a,
 nav a:hover {
   text-decoration: none !important;
+}
+
+/* Ensure all interactive elements have cursor pointer */
+a,
+button,
+[role="button"],
+[type="button"],
+[type="submit"],
+[type="reset"],
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+/* Mobile menu button cursor */
+button[aria-label*="menu"],
+button[aria-label*="Menu"] {
+  cursor: pointer !important;
 }
 
 body {

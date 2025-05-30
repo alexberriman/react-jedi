@@ -77,7 +77,8 @@ export function DarkModeToggle() {
           "bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-800",
           "transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2",
-          "dark:focus:ring-offset-zinc-900"
+          "dark:focus:ring-offset-zinc-900",
+          "cursor-pointer"
         )}
         title={`Current theme: ${theme}`}
       >

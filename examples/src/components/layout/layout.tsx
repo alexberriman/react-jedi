@@ -196,7 +196,28 @@ export function Layout({ className }: LayoutProps) {
       </main>
       <footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-16">
         <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div className="space-y-4">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">Getting Started</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    to="/documentation"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Documentation
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Introduction
+                  </Link>
+                </li>
+              </ul>
+            </div>
             <div className="space-y-4">
               <h4 className="font-semibold text-gray-900 dark:text-gray-100">Components</h4>
               <ul className="space-y-2">
@@ -206,6 +227,30 @@ export function Layout({ className }: LayoutProps) {
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     Component Gallery
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/showcase/button"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Button
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/showcase/card"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Card
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/showcase/hero"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Hero
                   </Link>
                 </li>
               </ul>
@@ -229,19 +274,27 @@ export function Layout({ className }: LayoutProps) {
                     Marketing Template
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/examples/click-animations"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Click Animations
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/examples/data-fetching"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Data Fetching
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="space-y-4">
               <h4 className="font-semibold text-gray-900 dark:text-gray-100">Resources</h4>
               <ul className="space-y-2">
-                <li>
-                  <Link
-                    to="/documentation"
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    Documentation
-                  </Link>
-                </li>
                 <li>
                   <Link
                     to="/theming"
@@ -252,10 +305,26 @@ export function Layout({ className }: LayoutProps) {
                 </li>
                 <li>
                   <Link
+                    to="/brand-presets"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Brand Presets
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     to="/performance"
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     Performance
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/state"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    State Management
                   </Link>
                 </li>
               </ul>
@@ -263,7 +332,7 @@ export function Layout({ className }: LayoutProps) {
             <div className="space-y-4">
               <h4 className="font-semibold text-gray-900 dark:text-gray-100">React Jedi</h4>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                A modern React UI library focused on performance and developer experience.
+                Server-driven UI library for building modern React applications with JSON.
               </p>
               <div className="flex gap-4">
                 <a
@@ -271,6 +340,7 @@ export function Layout({ className }: LayoutProps) {
                   className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="GitHub"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path

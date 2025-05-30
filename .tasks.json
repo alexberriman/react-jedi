@@ -67,7 +67,7 @@
       {
         "id": "update-footer-menu",
         "description": "Update the footer menu in the example app (./examples) to be current and reflective of the updated site structure after removing and reorganizing pages.",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   },

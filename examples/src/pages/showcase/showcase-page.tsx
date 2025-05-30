@@ -771,6 +771,7 @@ export function ShowcasePage() {
                         component.name === "Input" ||
                         component.name === "Label" ||
                         component.name === "NavigationMenu" ||
+                        component.name === "Breadcrumb" ||
                         component.name === "Pagination" ||
                         component.name === "Popover" ||
                         component.name === "PricingTable" ||
@@ -1834,12 +1835,12 @@ const componentPreviews: Record<string, ComponentSpec> = {
     },
   },
   Breadcrumb: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Breadcrumb - Navigation hierarchy",
-    },
+    type: "breadcrumb",
+    items: [
+      { label: "Home", href: "/" },
+      { label: "Components", href: "/showcase" },
+      { label: "Breadcrumb", isCurrentPage: true },
+    ],
   },
   Pagination: {
     type: "pagination",

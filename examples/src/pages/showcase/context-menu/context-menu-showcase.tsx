@@ -26,7 +26,7 @@ export function ContextMenuShowcase() {
   ];
 
   const handleScroll = (id: string) => {
-    const element = document.getElementById(id);
+    const element = document.querySelector(`#${id}`);
     if (element) {
       const offset = 80; // Account for fixed header
       const elementTop = element.getBoundingClientRect().top;

@@ -790,7 +790,8 @@ export function ShowcasePage() {
                         component.name === "Masonry" ||
                         component.name === "AspectRatio" ||
                         component.name === "Avatar" ||
-                        component.name === "Skeleton" ? (
+                        component.name === "Skeleton" ||
+                        component.name === "Alert" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"

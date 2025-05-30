@@ -165,6 +165,9 @@ const CheckboxShowcase = lazy(() =>
 const SkeletonShowcase = lazy(() =>
   import("../pages/showcase/skeleton").then((module) => ({ default: module.SkeletonShowcase }))
 );
+const AlertShowcase = lazy(() =>
+  import("../pages/showcase/alert").then((module) => ({ default: module.AlertShowcasePage }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -527,6 +530,10 @@ export const router = createBrowserRouter([
           {
             path: "masonry",
             element: <AsyncRoute component={MasonryShowcase} loadingText="Loading masonry showcase..." />,
+          },
+          {
+            path: "alert",
+            element: <AsyncRoute component={AlertShowcase} loadingText="Loading alert showcase..." />,
           },
         ],
       },

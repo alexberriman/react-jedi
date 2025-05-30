@@ -57,7 +57,7 @@
       {
         "id": "fix-navigation-page-fonts",
         "description": "Fix the font family issues on the '/examples/navigation' page in the example app (./examples). The fonts are inconsistent with other pages - header nav, titles, etc. all look different. There's a font conflict that needs to be resolved.",
-        "status": "pending"
+        "status": "cancelled"
       },
       {
         "id": "redesign-performance-page",

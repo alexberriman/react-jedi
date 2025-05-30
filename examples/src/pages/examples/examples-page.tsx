@@ -88,15 +88,6 @@ const examples: Example[] = [
     category: "ui-patterns",
   },
   {
-    id: "form-validation",
-    title: "Form Validation",
-    description:
-      "Comprehensive form validation examples with error states, different field types, and complex validation rules.",
-    path: "/examples/form-validation",
-    status: "new",
-    category: "ui-patterns",
-  },
-  {
     id: "navigation",
     title: "Navigation Components",
     description:

@@ -151,9 +151,6 @@ const ConditionalPage = lazy(() =>
 const AdvancedConditionalPage = lazy(() =>
   import("../pages/examples/conditional").then((module) => ({ default: module.AdvancedConditionalPage }))
 );
-const FormValidationPage = lazy(() =>
-  import("../pages/examples/form-validation").then((module) => ({ default: module.FormValidationPage }))
-);
 const NavigationPage = lazy(() =>
   import("../pages/examples/navigation").then((module) => ({ default: module.NavigationPage }))
 );
@@ -494,12 +491,6 @@ export const router = createBrowserRouter([
                 component={AdvancedConditionalPage}
                 loadingText="Loading advanced conditional..."
               />
-            ),
-          },
-          {
-            path: "form-validation",
-            element: (
-              <AsyncRoute component={FormValidationPage} loadingText="Loading form validation..." />
             ),
           },
           {

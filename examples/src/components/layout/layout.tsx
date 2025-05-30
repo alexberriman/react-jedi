@@ -106,19 +106,6 @@ export function Layout({ className }: LayoutProps) {
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
-                          to="/examples/form-validation"
-                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
-                        >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            Form Validation
-                          </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                            Complex forms with real-time validation
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
                           to="/examples/navigation"
                           className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
@@ -266,14 +253,6 @@ export function Layout({ className }: LayoutProps) {
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     Landing Page
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/examples/form-validation"
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    Form Validation
                   </Link>
                 </li>
               </ul>

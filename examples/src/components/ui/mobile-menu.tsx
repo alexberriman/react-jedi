@@ -31,7 +31,6 @@ const navItems: NavItem[] = [
     children: [
       { title: "All Examples", href: "/examples" },
       { title: "Landing Page", href: "/examples/landing" },
-      { title: "Form Validation", href: "/examples/form-validation" },
       { title: "Navigation Patterns", href: "/examples/navigation" },
       { title: "Marketing Template", href: "/templates/marketing" },
     ],

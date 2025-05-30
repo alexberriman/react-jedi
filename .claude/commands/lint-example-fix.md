@@ -4,7 +4,7 @@ You are an autonomous programming agent responsible for fixing all linting error
 
 Start by running:
 
-`npm run lint:example`
+`npm run lint:example-app`
 
 This will run ESLint on the example app codebase located in the `/examples` directory.
 
@@ -29,7 +29,7 @@ Instead, DO:
 
 After fixing issues, re-run:
 
-`npm run lint:example`
+`npm run lint:example-app`
 
 Repeat until there are no errors.
 

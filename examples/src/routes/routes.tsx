@@ -132,6 +132,9 @@ const SpacerShowcase = lazy(() =>
 const TextareaShowcase = lazy(() =>
   import("../pages/showcase/textarea").then((module) => ({ default: module.TextareaShowcase }))
 );
+const CheckboxShowcase = lazy(() =>
+  import("../pages/showcase/checkbox").then((module) => ({ default: module.CheckboxShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -350,6 +353,10 @@ export const router = createBrowserRouter([
           {
             path: "carousel",
             element: <AsyncRoute component={CarouselShowcase} loadingText="Loading carousel showcase..." />,
+          },
+          {
+            path: "checkbox",
+            element: <AsyncRoute component={CheckboxShowcase} loadingText="Loading checkbox showcase..." />,
           },
           {
             path: "feature-card",

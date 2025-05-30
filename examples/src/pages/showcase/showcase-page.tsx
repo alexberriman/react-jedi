@@ -752,6 +752,7 @@ export function ShowcasePage() {
                         component.name === "CallToAction" ||
                         component.name === "Card" ||
                         component.name === "Carousel" ||
+                        component.name === "Checkbox" ||
                         component.name === "FeatureCard" ||
                         component.name === "Footer" ||
                         component.name === "Image" ||

@@ -111,6 +111,9 @@ const GridShowcase = lazy(() =>
 const FlexShowcase = lazy(() =>
   import("../pages/showcase/flex").then((module) => ({ default: module.FlexShowcase }))
 );
+const StackShowcase = lazy(() =>
+  import("../pages/showcase/stack").then((module) => ({ default: module.StackShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -305,6 +308,10 @@ export const router = createBrowserRouter([
           {
             path: "flex",
             element: <AsyncRoute component={FlexShowcase} loadingText="Loading flex demo..." />,
+          },
+          {
+            path: "stack",
+            element: <AsyncRoute component={StackShowcase} loadingText="Loading stack showcase..." />,
           },
           {
             path: "button",

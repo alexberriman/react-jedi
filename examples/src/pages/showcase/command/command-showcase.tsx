@@ -389,7 +389,7 @@ export function CommandShowcase() {
           <section id="empty-states" className="scroll-mt-20">
             <h2 className="text-2xl font-semibold mb-4">Custom Empty States</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Customize the message shown when no search results are found. Try searching for "xyz" in the command below.
+              Customize the message shown when no search results are found. Try searching for &quot;xyz&quot; in the command below.
             </p>
             <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
               <div className="max-w-md mx-auto">

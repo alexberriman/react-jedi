@@ -22,7 +22,7 @@
       {
         "id": "remove-overlay-interactive-page",
         "description": "Remove the '/showcase/overlay-interactive' page ('Interactive Overlay Components') from the example app (./examples) as we've created detailed pages for each component. Also remove this link from the header navigation.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "remove-interactive-showcase-page",

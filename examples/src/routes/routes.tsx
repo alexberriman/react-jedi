@@ -33,9 +33,6 @@ const AccordionDemo = lazy(() =>
 const DialogDemo = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.DialogDemo }))
 );
-const OverlayInteractivePage = lazy(() =>
-  import("../pages/showcase").then((module) => ({ default: module.OverlayInteractivePage }))
-);
 const HeroPreview = lazy(() =>
   import("../pages/showcase/hero").then((module) => ({ default: module.HeroPreview }))
 );
@@ -309,15 +306,6 @@ export const router = createBrowserRouter([
           {
             path: "dialog",
             element: <AsyncRoute component={DialogDemo} loadingText="Loading dialog demo..." />,
-          },
-          {
-            path: "overlay-interactive",
-            element: (
-              <AsyncRoute
-                component={OverlayInteractivePage}
-                loadingText="Loading overlay interactive..."
-              />
-            ),
           },
           {
             path: "center",

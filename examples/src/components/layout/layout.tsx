@@ -81,19 +81,6 @@ export function Layout({ className }: LayoutProps) {
                           </p>
                         </Link>
                       </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/showcase/overlay-interactive"
-                          className="block select-none rounded px-3 py-2.5 leading-none no-underline outline-none transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
-                        >
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            Overlay Components
-                          </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                            Modals, popovers, and tooltips
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>

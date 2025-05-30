@@ -6,4 +6,3 @@ export * from "./sheet-demo";
 export * from "./tabs-demo";
 export * from "./accordion-demo";
 export * from "./dialog-demo";
-export * from "./overlay-interactive";

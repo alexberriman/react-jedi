@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render } from '@banja/react-jedi';
+import { render, type ComponentSpec } from '@banja/react-jedi';
 import { ChevronRight, ChevronDown, Package, Palette, Sparkles, Type, Layers, MousePointer, Square, SquareStack } from 'lucide-react';
 
 const sectionIds = {
@@ -23,7 +23,7 @@ export function BlockQuoteShowcasePage() {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const renderExample = (title: string, json: any, description?: string) => {
+  const renderExample = (title: string, json: ComponentSpec, description?: string) => {
     const sectionKey = title.toLowerCase().replaceAll(/\s+/g, '-');
     
     return (
@@ -629,7 +629,7 @@ export function BlockQuoteShowcasePage() {
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">size</td>
-                  <td className="p-4 font-mono text-sm">"sm" | &quot;base&quot; | &quot;lg&quot; | &quot;xl&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;sm&quot; | &quot;base&quot; | &quot;lg&quot; | &quot;xl&quot;</td>
                   <td className="p-4 font-mono text-sm">&quot;base&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Size of the text and padding</td>
                 </tr>
@@ -641,19 +641,19 @@ export function BlockQuoteShowcasePage() {
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">animated</td>
-                  <td className="p-4 font-mono text-sm">"none" | "fadeIn" | &quot;slideIn&quot; | &quot;pulse&quot; | &quot;shimmer&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot; | &quot;fadeIn&quot; | &quot;slideIn&quot; | &quot;pulse&quot; | &quot;shimmer&quot;</td>
                   <td className="p-4 font-mono text-sm">&quot;none&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Animation effect</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">shadow</td>
-                  <td className="p-4 font-mono text-sm">"none" | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot;</td>
                   <td className="p-4 font-mono text-sm">&quot;none&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Shadow depth</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">rounded</td>
-                  <td className="p-4 font-mono text-sm">"none" | "sm" | &quot;md&quot; | &quot;lg&quot; | &quot;full&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;none&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;full&quot;</td>
                   <td className="p-4 font-mono text-sm">&quot;none&quot;</td>
                   <td className="p-4 text-sm text-muted-foreground">Border radius</td>
                 </tr>

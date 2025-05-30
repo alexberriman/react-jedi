@@ -1193,7 +1193,7 @@ export function MasonryShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">animation</td>
                     <td className="py-3 px-4 font-mono">AnimationConfig</td>
-                    <td className="py-3 px-4">{&quot;{ duration: 0.3, stagger: 0.05 }&quot;}</td>
+                    <td className="py-3 px-4">{"{ duration: 0.3, stagger: 0.05 }"}</td>
                     <td className="py-3 px-4">Animation settings for item entry</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

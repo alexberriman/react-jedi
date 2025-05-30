@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { render } from '@banja/react-jedi';
 
+// Move scrollToSection outside component to avoid unicorn/consistent-function-scoping
+const scrollToSection = (sectionId: string) => {
+  const section = document.querySelector(`#${sectionId}`);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
 function ContainerShowcase() {
   const [activeSection, setActiveSection] = useState('introduction');
 
@@ -26,13 +34,6 @@ function ContainerShowcase() {
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    const section = document.querySelector(`#${sectionId}`);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
 
   const tableOfContents = [
     { id: 'introduction', label: 'Introduction' },
@@ -557,7 +558,7 @@ function ContainerShowcase() {
         <section id="semantic-elements" className="mb-16">
           <h2 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-gray-100">Semantic Elements</h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Use the "as" prop to render the container as different HTML elements for better semantic structure.
+            Use the &quot;as&quot; prop to render the container as different HTML elements for better semantic structure.
           </p>
 
           <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6 mb-4">
@@ -615,13 +616,13 @@ function ContainerShowcase() {
                 </tr>
                 <tr className="border-b border-gray-100 dark:border-gray-900">
                   <td className="py-3 px-4 font-mono text-sm text-blue-600 dark:text-blue-400">padding</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default" | "none" | &quot;sm&quot; | &quot;lg&quot; | &quot;xl&quot;</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;default&quot; | &quot;none&quot; | &quot;sm&quot; | &quot;lg&quot; | &quot;xl&quot;</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;default&quot;</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">Controls the vertical padding</td>
                 </tr>
                 <tr className="border-b border-gray-100 dark:border-gray-900">
                   <td className="py-3 px-4 font-mono text-sm text-blue-600 dark:text-blue-400">align</td>
-                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">"default" | &quot;center&quot; | &quot;end&quot; | &quot;stretch&quot;</td>
+                  <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;default&quot; | &quot;center&quot; | &quot;end&quot; | &quot;stretch&quot;</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">&quot;default&quot;</td>
                   <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">Controls content alignment within the container</td>
                 </tr>

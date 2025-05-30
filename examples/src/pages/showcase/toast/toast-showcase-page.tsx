@@ -133,7 +133,7 @@ function ToastShowcasePage() {
     const toastComponent = render(basicToastSpec);
     if (toastComponent && 'promise' in toastComponent) {
       const promise = new Promise((resolve) => {
-        setTimeout(() => resolve('Data loaded successfully!'), 3000);
+        globalThis.setTimeout(() => resolve('Data loaded successfully!'), 3000);
       });
 
       toastComponent.promise(promise, {
@@ -157,9 +157,9 @@ function ToastShowcasePage() {
     const toastComponent = render(basicToastSpec);
     if (toastComponent && 'show' in toastComponent) {
       toastComponent.show('First toast message');
-      setTimeout(() => toastComponent.show('Second toast message'), 500);
-      setTimeout(() => toastComponent.show('Third toast message'), 1000);
-      setTimeout(() => toastComponent.show('Fourth toast message'), 1500);
+      globalThis.setTimeout(() => toastComponent.show('Second toast message'), 500);
+      globalThis.setTimeout(() => toastComponent.show('Third toast message'), 1000);
+      globalThis.setTimeout(() => toastComponent.show('Fourth toast message'), 1500);
     }
   };
 
@@ -286,7 +286,7 @@ toastComponent.show('Operation completed!', {
 // Error Toast
 toastComponent.show('Something went wrong!', {
   type: 'error',
-  description: 'Please try again later.'
+  description: 'Please try again later.&apos;
 });`}
             </code>
           </pre>
@@ -313,7 +313,7 @@ toastComponent.show('Something went wrong!', {
   },
   cancel: {
     label: 'Dismiss',
-    onClick: () => console.log('Dismissed')
+    onClick: () => console.log('Dismissed&apos;)
   }
 });`}
             </code>
@@ -334,13 +334,13 @@ toastComponent.show('Something went wrong!', {
           <pre className="bg-zinc-950 border border-zinc-800 rounded-lg p-4 overflow-x-auto">
             <code className="text-sm font-mono text-zinc-300">
 {`const promise = new Promise((resolve) => {
-  setTimeout(() => resolve('Data loaded!'), 3000);
+  window.setTimeout(() => resolve('Data loaded!'), 3000);
 });
 
 toastComponent.promise(promise, {
   loading: 'Loading data...',
   success: 'Data loaded successfully!',
-  error: 'Failed to load data'
+  error: 'Failed to load data&apos;
 });`}
             </code>
           </pre>
@@ -455,13 +455,13 @@ toastComponent.promise(promise, {
                   <tr className="border-b border-zinc-800">
                     <td className="py-3 font-mono text-sm">position</td>
                     <td className="py-3">string</td>
-                    <td className="py-3">'bottom-right'</td>
+                    <td className="py-3">'bottom-right&apos;</td>
                     <td className="py-3">Toast position on screen</td>
                   </tr>
                   <tr className="border-b border-zinc-800">
                     <td className="py-3 font-mono text-sm">theme</td>
                     <td className="py-3">string</td>
-                    <td className="py-3">'system'</td>
+                    <td className="py-3">'system&apos;</td>
                     <td className="py-3">Color theme (light/dark/system)</td>
                   </tr>
                   <tr className="border-b border-zinc-800">
@@ -509,7 +509,7 @@ toastComponent.promise(promise, {
                   <tr className="border-b border-zinc-800">
                     <td className="py-3 font-mono text-sm">direction</td>
                     <td className="py-3">string</td>
-                    <td className="py-3">'auto'</td>
+                    <td className="py-3">'auto&apos;</td>
                     <td className="py-3">Text direction (ltr/rtl/auto)</td>
                   </tr>
                 </tbody>

@@ -736,7 +736,7 @@ export function FooterShowcase() {
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                        <td className="py-3 px-4 font-mono">"default" | "light" | &quot;dark&quot; | &quot;gradient&quot; | &quot;minimal&quot;</td>
+                        <td className="py-3 px-4 font-mono">&quot;default&quot; | &quot;light&quot; | &quot;dark&quot; | &quot;gradient&quot; | &quot;minimal&quot;</td>
                         <td className="py-3 px-4">&quot;default&quot;</td>
                         <td className="py-3 px-4">Visual style variant</td>
                       </tr>

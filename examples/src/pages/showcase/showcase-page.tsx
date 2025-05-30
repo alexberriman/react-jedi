@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { render } from "@banja/react-jedi";
-import type { UISpecification, ComponentSpec } from "@banja/react-jedi";
+import type { ComponentSpec } from "@banja/react-jedi";
 import { usePageMetadata } from "../../lib/meta";
-import { Heading, Text, spacing, padding } from "../../components/ui";
+import { Heading, Text, spacing } from "../../components/ui";
 import { PageHeader } from "../../components/ui/page-header";
 import { ChevronDown } from "lucide-react";
 
@@ -520,17 +520,19 @@ const categories: ComponentCategory[] = [
 ];
 
 // Dropdown component for filters
+interface FilterDropdownProps {
+  readonly label: string;
+  readonly value: string;
+  readonly options: readonly { readonly label: string; readonly value: string }[];
+  readonly onChange: (value: string) => void;
+}
+
 function FilterDropdown({
   label,
   value,
   options,
   onChange,
-}: {
-  label: string;
-  value: string;
-  options: { label: string; value: string }[];
-  onChange: (value: string) => void;
-}) {
+}: FilterDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const selectedOption = options.find((opt) => opt.value === value);
 
@@ -547,7 +549,16 @@ function FilterDropdown({
       
       {isOpen && (
         <>
-          <div className="fixed inset-0 z-30" onClick={() => setIsOpen(false)} />
+          <div 
+            className="fixed inset-0 z-30" 
+            onClick={() => setIsOpen(false)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') setIsOpen(false);
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Close dropdown"
+          />
           <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-40">
             <div className="p-2">
               {options.map((option) => (
@@ -650,7 +661,7 @@ export function ShowcasePage() {
                 label="Status"
                 value={activeFilter}
                 options={statusOptions}
-                onChange={(value) => setActiveFilter(value as any)}
+                onChange={(value) => setActiveFilter(value as 'all' | 'stable' | 'beta' | 'experimental')}
               />
               <FilterDropdown
                 label="Category"
@@ -662,7 +673,7 @@ export function ShowcasePage() {
                 label="Type"
                 value={activeType}
                 options={typeOptions}
-                onChange={(value) => setActiveType(value as any)}
+                onChange={(value) => setActiveType(value as 'all' | 'layout' | 'content' | 'interactive' | 'data')}
               />
             </div>
           </div>
@@ -1939,7 +1950,7 @@ const componentPreviews: Record<string, ComponentSpec> = {
       },
     },
   },
-  Chart: {
+  ChartLine: {
     type: "Chart",
     chartType: "line",
     data: [

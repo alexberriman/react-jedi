@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { render } from "@banja/react-jedi";
 import { runThemeBenchmark, LiveBenchmark, type BenchmarkResult } from "./theme-benchmark";
 import { JsonCodeComparison } from "./json-code-comparison";
@@ -73,14 +73,6 @@ export const PerformancePage: React.FC = () => {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -20 }
-  };
-
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
   };
 
   const overheadPercentage = useMemo(() => {
@@ -671,7 +663,12 @@ export const PerformancePage: React.FC = () => {
                   {
                     type: "Text",
                     props: { className: "text-zinc-700 dark:text-zinc-300 leading-relaxed" },
-                    children: [`The theme system adds approximately ${overheadPercentage}% overhead to render times, which is ${Number(overheadPercentage) < 30 ? "minimal" : Number(overheadPercentage) < 60 ? "moderate" : "significant"} for production use.`]
+                    children: [`The theme system adds approximately ${overheadPercentage}% overhead to render times, which is ${(() => {
+                      const overhead = Number(overheadPercentage);
+                      if (overhead < 30) return "minimal";
+                      if (overhead < 60) return "moderate";
+                      return "significant";
+                    })()} for production use.`]
                   }
                 ]
               },

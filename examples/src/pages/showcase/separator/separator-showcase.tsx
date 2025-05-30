@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { usePageMetadata } from "../../../lib/meta";
 
-export function SeparatorShowcase(): JSX.Element {
+export function SeparatorShowcase() {
   usePageMetadata({
     title: "Separator Component - React Jedi",
     description: "Visually separate content with the Separator component. Create thematic breaks with horizontal or vertical dividers.",
@@ -526,11 +526,11 @@ export function SeparatorShowcase(): JSX.Element {
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3 font-mono text-sm">orientation</td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
                         <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">
-                          "horizontal" | "vertical"
+                          &quot;horizontal&quot; | &quot;vertical&quot;
                         </code>
                       </td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
-                        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">"horizontal"</code>
+                        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">&quot;horizontal&quot;</code>
                       </td>
                       <td className="border border-gray-300 dark:border-gray-700 px-4 py-3">
                         The orientation of the separator. Horizontal creates a line across, vertical creates a line up/down.

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
-import { Text, spacing } from "../../components/ui";
 import { PageHeader } from "../../components/ui/page-header";
 import { useState } from "react";
 
@@ -335,12 +334,15 @@ export function ExamplesPage() {
                           {example.status && (
                             <span className={`
                               px-2.5 py-1 text-xs font-medium rounded-full
-                              ${example.status === "new" 
-                                ? "bg-gradient-to-r from-green-400 to-emerald-400 text-white shadow-sm" 
-                                : example.status === "updated" 
-                                ? "bg-gradient-to-r from-blue-400 to-cyan-400 text-white shadow-sm" 
-                                : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
-                              }
+                              ${(() => {
+                                if (example.status === "new") {
+                                  return "bg-gradient-to-r from-green-400 to-emerald-400 text-white shadow-sm";
+                                }
+                                if (example.status === "updated") {
+                                  return "bg-gradient-to-r from-blue-400 to-cyan-400 text-white shadow-sm";
+                                }
+                                return "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400";
+                              })()}
                             `}>
                               {example.status}
                             </span>

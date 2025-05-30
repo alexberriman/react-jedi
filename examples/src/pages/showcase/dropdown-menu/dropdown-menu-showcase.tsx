@@ -1132,7 +1132,7 @@ export function DropdownMenuShowcase() {
                       </tr>
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">side</td>
-                        <td className="py-3 px-4 font-mono">"top" | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;</td>
+                        <td className="py-3 px-4 font-mono">&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;</td>
                         <td className="py-3 px-4">&quot;bottom&quot;</td>
                         <td className="py-3 px-4">Side of trigger to render</td>
                       </tr>
@@ -1175,7 +1175,7 @@ export function DropdownMenuShowcase() {
                     <tbody className="text-sm">
                       <tr className="border-b border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                        <td className="py-3 px-4 font-mono">"default" | &quot;destructive&quot;</td>
+                        <td className="py-3 px-4 font-mono">&quot;default&quot; | &quot;destructive&quot;</td>
                         <td className="py-3 px-4">&quot;default&quot;</td>
                         <td className="py-3 px-4">Visual variant of the item</td>
                       </tr>

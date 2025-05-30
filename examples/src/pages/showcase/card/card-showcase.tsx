@@ -1212,7 +1212,7 @@ export function CardShowcase() {
                 </p>
                 <ul className="list-disc pl-6 space-y-1 text-sm">
                   <li>
-                    <code className="font-mono text-blue-600 dark:text-blue-400">type</code>: Component identifier (e.g., "CardTitle", "CardContent")
+                    <code className="font-mono text-blue-600 dark:text-blue-400">type</code>: Component identifier (e.g., &quot;CardTitle&quot;, &quot;CardContent&quot;)
                   </li>
                   <li>
                     <code className="font-mono text-blue-600 dark:text-blue-400">children</code>: Content to display (string or components)

@@ -766,7 +766,7 @@ export function ChartShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">colors</td>
                     <td className="py-3 px-4 font-mono">string[]</td>
-                    <td className="py-3 px-4">["#8884d8", &quot;#82ca9d&quot;, ...]</td>
+                    <td className="py-3 px-4">[&quot;#8884d8&quot;, &quot;#82ca9d&quot;, ...]</td>
                     <td className="py-3 px-4">Array of colors for the chart</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">

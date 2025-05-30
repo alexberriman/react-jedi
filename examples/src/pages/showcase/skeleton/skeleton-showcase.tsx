@@ -866,13 +866,13 @@ export function SkeletonShowcase() {
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">width</td>
                     <td className="py-3 px-4 font-mono">string</td>
                     <td className="py-3 px-4">-</td>
-                    <td className="py-3 px-4">Width of the skeleton (e.g., "100px", "50%", &quot;full&quot;)</td>
+                    <td className="py-3 px-4">Width of the skeleton (e.g., &quot;100px&quot;, &quot;50%&quot;, &quot;full&quot;)</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">height</td>
                     <td className="py-3 px-4 font-mono">string</td>
                     <td className="py-3 px-4">-</td>
-                    <td className="py-3 px-4">Height of the skeleton (e.g., "20px", &quot;h-4&quot;)</td>
+                    <td className="py-3 px-4">Height of the skeleton (e.g., &quot;20px&quot;, &quot;h-4&quot;)</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">rounded</td>
@@ -882,7 +882,7 @@ export function SkeletonShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">radius</td>
-                    <td className="py-3 px-4 font-mono">"none" | "sm" | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | &quot;full&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;none&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | &quot;full&quot;</td>
                     <td className="py-3 px-4">&quot;md&quot;</td>
                     <td className="py-3 px-4">Border radius of the skeleton</td>
                   </tr>

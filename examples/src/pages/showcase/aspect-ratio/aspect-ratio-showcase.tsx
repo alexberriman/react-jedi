@@ -580,7 +580,7 @@ export function AspectRatioShowcase() {
         <section id="images" className="scroll-mt-20 mb-12">
           <h2 className="text-2xl font-semibold mb-4">With Images</h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            AspectRatio is perfect for ensuring images maintain their dimensions regardless of their natural size. Use with <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm">objectFit: "cover"</code> for best results.
+            AspectRatio is perfect for ensuring images maintain their dimensions regardless of their natural size. Use with <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm">objectFit: &quot;cover&quot;</code> for best results.
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
             {render(imagesSpec)}

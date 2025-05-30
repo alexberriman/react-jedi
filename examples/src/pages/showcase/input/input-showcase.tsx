@@ -523,7 +523,7 @@ export function InputShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">inputType</td>
-                    <td className="py-3 px-4 font-mono">"text" | &quot;email&quot; | &quot;password&quot; | &quot;number&quot; | &quot;tel&quot; | &quot;url&quot; | &quot;search&quot; | etc.</td>
+                    <td className="py-3 px-4 font-mono">&quot;text&quot; | &quot;email&quot; | &quot;password&quot; | &quot;number&quot; | &quot;tel&quot; | &quot;url&quot; | &quot;search&quot; | etc.</td>
                     <td className="py-3 px-4">&quot;text&quot;</td>
                     <td className="py-3 px-4">HTML input type</td>
                   </tr>

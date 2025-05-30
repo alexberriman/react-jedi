@@ -499,7 +499,7 @@ export function AlertShowcasePage() {
                         </code>
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
-                        "default" | &quot;destructive&quot;
+                        &quot;default&quot; | &quot;destructive&quot;
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                         &quot;default&quot;

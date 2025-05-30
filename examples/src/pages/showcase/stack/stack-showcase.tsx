@@ -719,19 +719,19 @@ export function StackShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">orientation</td>
-                    <td className="py-3 px-4 font-mono">"horizontal" | &quot;vertical&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;horizontal&quot; | &quot;vertical&quot;</td>
                     <td className="py-3 px-4">&quot;vertical&quot;</td>
                     <td className="py-3 px-4">Stack direction</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">spacing</td>
-                    <td className="py-3 px-4 font-mono">"none" | "xs" | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | string</td>
+                    <td className="py-3 px-4 font-mono">&quot;none&quot; | &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | string</td>
                     <td className="py-3 px-4">&quot;md&quot;</td>
                     <td className="py-3 px-4">Gap between items</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                    <td className="py-3 px-4 font-mono">"start" | "center" | &quot;end&quot; | &quot;stretch&quot; | &quot;baseline&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;start&quot; | &quot;center&quot; | &quot;end&quot; | &quot;stretch&quot; | &quot;baseline&quot;</td>
                     <td className="py-3 px-4">&quot;stretch&quot;</td>
                     <td className="py-3 px-4">Cross axis alignment</td>
                   </tr>

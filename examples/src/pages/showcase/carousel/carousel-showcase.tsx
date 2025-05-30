@@ -880,7 +880,7 @@ export function CarouselShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">orientation</td>
-                    <td className="py-3 px-4 font-mono">"horizontal" | &quot;vertical&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;horizontal&quot; | &quot;vertical&quot;</td>
                     <td className="py-3 px-4">&quot;horizontal&quot;</td>
                     <td className="py-3 px-4">Carousel scroll direction</td>
                   </tr>

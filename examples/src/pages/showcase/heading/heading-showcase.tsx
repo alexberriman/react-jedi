@@ -404,7 +404,7 @@ export function HeadingShowcase() {
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">size</td>
-                  <td className="p-4 font-mono text-sm">"xs" | "sm" | "md" | "lg" | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | &quot;4xl&quot; | &quot;5xl&quot; | &quot;6xl&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot; | &quot;4xl&quot; | &quot;5xl&quot; | &quot;6xl&quot;</td>
                   <td className="p-4 font-mono text-sm">varies by level</td>
                   <td className="p-4">Visual size of the heading</td>
                 </tr>
@@ -416,7 +416,7 @@ export function HeadingShowcase() {
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">weight</td>
-                  <td className="p-4 font-mono text-sm">"thin" | "light" | &quot;normal&quot; | &quot;medium&quot; | &quot;semibold&quot; | &quot;bold&quot; | &quot;extrabold&quot; | &quot;black&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;thin&quot; | &quot;light&quot; | &quot;normal&quot; | &quot;medium&quot; | &quot;semibold&quot; | &quot;bold&quot; | &quot;extrabold&quot; | &quot;black&quot;</td>
                   <td className="p-4 font-mono text-sm">&quot;bold&quot;</td>
                   <td className="p-4">Font weight</td>
                 </tr>
@@ -428,7 +428,7 @@ export function HeadingShowcase() {
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">transform</td>
-                  <td className="p-4 font-mono text-sm">"uppercase" | &quot;lowercase&quot; | &quot;capitalize&quot; | &quot;normal&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;uppercase&quot; | &quot;lowercase&quot; | &quot;capitalize&quot; | &quot;normal&quot;</td>
                   <td className="p-4 font-mono text-sm">&quot;normal&quot;</td>
                   <td className="p-4">Text transformation</td>
                 </tr>
@@ -446,13 +446,13 @@ export function HeadingShowcase() {
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">shadow</td>
-                  <td className="p-4 font-mono text-sm">"sm" | "md" | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot;</td>
                   <td className="p-4 font-mono text-sm">undefined</td>
                   <td className="p-4">Text shadow size</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-mono text-sm">animation</td>
-                  <td className="p-4 font-mono text-sm">"glow" | &quot;pulse&quot; | &quot;bounce&quot; | &quot;shimmer&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;glow&quot; | &quot;pulse&quot; | &quot;bounce&quot; | &quot;shimmer&quot;</td>
                   <td className="p-4 font-mono text-sm">undefined</td>
                   <td className="p-4">Animation effect</td>
                 </tr>

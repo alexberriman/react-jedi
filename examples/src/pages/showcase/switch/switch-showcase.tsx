@@ -605,7 +605,7 @@ export function SwitchShowcase() {
                 The Switch component is built with accessibility in mind:
               </p>
               <ul className="list-disc pl-6 space-y-1">
-                <li>Proper ARIA attributes including <code>role="switch"</code> and <code>aria-checked</code></li>
+                <li>Proper ARIA attributes including <code>role=&quot;switch&quot;</code> and <code>aria-checked</code></li>
                 <li>Full keyboard support (Space key to toggle)</li>
                 <li>Focus indicators for keyboard navigation</li>
                 <li>Screen reader announcements for state changes</li>

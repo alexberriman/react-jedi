@@ -469,13 +469,13 @@ export function ButtonShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                    <td className="py-3 px-4 font-mono">"default" | &quot;primary&quot; | &quot;secondary&quot; | &quot;outline&quot; | &quot;ghost&quot; | &quot;link&quot; | &quot;destructive&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;default&quot; | &quot;primary&quot; | &quot;secondary&quot; | &quot;outline&quot; | &quot;ghost&quot; | &quot;link&quot; | &quot;destructive&quot;</td>
                     <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Visual style variant</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
-                    <td className="py-3 px-4 font-mono">"sm" | &quot;default&quot; | &quot;lg&quot; | &quot;icon&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;sm&quot; | &quot;default&quot; | &quot;lg&quot; | &quot;icon&quot;</td>
                     <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Button size</td>
                   </tr>

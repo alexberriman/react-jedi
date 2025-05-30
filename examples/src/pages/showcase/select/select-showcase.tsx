@@ -246,7 +246,7 @@ export function SelectShowcase() {
       {
         type: "Text",
         className: "text-sm text-gray-600 dark:text-gray-400",
-        children: "Selected: ${state.selectedValue || 'None'}"
+        children: "Selected: ${state.selectedValue || 'None&apos;}"
       }
     ],
     state: {
@@ -691,7 +691,7 @@ export function SelectShowcase() {
                 <tr>
                   <td className="p-4 font-mono text-sm" rowSpan={2}>SelectTrigger</td>
                   <td className="p-4 font-mono text-sm">size</td>
-                  <td className="p-4 font-mono text-sm">"sm" | &quot;default&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;sm&quot; | &quot;default&quot;</td>
                   <td className="p-4 text-sm text-gray-600 dark:text-gray-400">Size variant of the trigger</td>
                 </tr>
                 <tr>
@@ -708,7 +708,7 @@ export function SelectShowcase() {
                 <tr>
                   <td className="p-4 font-mono text-sm" rowSpan={2}>SelectContent</td>
                   <td className="p-4 font-mono text-sm">position</td>
-                  <td className="p-4 font-mono text-sm">"item-aligned" | &quot;popper&quot;</td>
+                  <td className="p-4 font-mono text-sm">&quot;item-aligned&quot; | &quot;popper&quot;</td>
                   <td className="p-4 text-sm text-gray-600 dark:text-gray-400">Positioning mode</td>
                 </tr>
                 <tr>

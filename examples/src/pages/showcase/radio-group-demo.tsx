@@ -490,7 +490,7 @@ export function RadioGroupDemo() {
                 <div>
                   <dt className="font-mono text-sm font-medium">type</dt>
                   <dd className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">"RadioGroup"</code> - Component type identifier
+                    <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">&quot;RadioGroup&quot;</code> - Component type identifier
                   </dd>
                 </div>
                 <div>
@@ -526,7 +526,7 @@ export function RadioGroupDemo() {
                 <div>
                   <dt className="font-mono text-sm font-medium">orientation</dt>
                   <dd className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">"horizontal" | "vertical"</code> - Layout orientation (default: "vertical")
+                    <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">&quot;horizontal&quot; | &quot;vertical&quot;</code> - Layout orientation (default: &quot;vertical&quot;)
                   </dd>
                 </div>
                 <div>
@@ -546,7 +546,7 @@ export function RadioGroupDemo() {
                 <div>
                   <dt className="font-mono text-sm font-medium">type</dt>
                   <dd className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">"RadioGroupItem"</code> - Component type identifier
+                    <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">&quot;RadioGroupItem&quot;</code> - Component type identifier
                   </dd>
                 </div>
                 <div>

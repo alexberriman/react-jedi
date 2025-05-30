@@ -443,7 +443,7 @@ export function BadgeShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                    <td className="py-3 px-4 font-mono">"default" | &quot;secondary&quot; | &quot;outline&quot; | &quot;destructive&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;default&quot; | &quot;secondary&quot; | &quot;outline&quot; | &quot;destructive&quot;</td>
                     <td className="py-3 px-4">&quot;default&quot;</td>
                     <td className="py-3 px-4">Visual style variant</td>
                   </tr>

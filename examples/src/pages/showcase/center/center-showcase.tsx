@@ -496,7 +496,7 @@ export function CenterShowcase() {
                 <li>Nestable for complex centered layouts</li>
                 <li>Responsive and works with any content type</li>
                 <li>Lightweight with minimal CSS overhead</li>
-                <li>Semantic HTML element selection with the 'as' prop</li>
+                <li>Semantic HTML element selection with the &apos;as&apos; prop</li>
               </ul>
             </div>
           </section>
@@ -701,7 +701,7 @@ export function CenterShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">as</td>
-                    <td className="py-3 px-4 font-mono">"div" | &quot;section&quot; | &quot;main&quot; | &quot;article&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;div&quot; | &quot;section&quot; | &quot;main&quot; | &quot;article&quot;</td>
                     <td className="py-3 px-4">&quot;div&quot;</td>
                     <td className="py-3 px-4">HTML element to render</td>
                   </tr>

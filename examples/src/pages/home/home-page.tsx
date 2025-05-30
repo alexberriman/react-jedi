@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
-import { Heading, Text, spacing } from "../../components/ui";
 
 export function HomePage() {
   usePageMetadata({

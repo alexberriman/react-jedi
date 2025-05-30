@@ -598,7 +598,7 @@ export function TooltipShowcase() {
                 </tr>
                 <tr>
                   <td className="p-3 font-mono text-sm">side</td>
-                  <td className="p-3 text-sm">"top" | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;</td>
+                  <td className="p-3 text-sm">&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;</td>
                   <td className="p-3 text-sm">&quot;top&quot;</td>
                   <td className="p-3 text-sm">Preferred side to render against trigger</td>
                 </tr>

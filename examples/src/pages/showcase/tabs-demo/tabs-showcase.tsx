@@ -1184,19 +1184,19 @@ export function TabsShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">orientation</td>
-                    <td className="py-3 px-4 font-mono">"horizontal" | &quot;vertical&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;horizontal&quot; | &quot;vertical&quot;</td>
                     <td className="py-3 px-4">&quot;horizontal&quot;</td>
                     <td className="py-3 px-4">The orientation of the tabs</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">dir</td>
-                    <td className="py-3 px-4 font-mono">"ltr" | &quot;rtl&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;ltr&quot; | &quot;rtl&quot;</td>
                     <td className="py-3 px-4">&quot;ltr&quot;</td>
                     <td className="py-3 px-4">Reading direction</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">activationMode</td>
-                    <td className="py-3 px-4 font-mono">"automatic" | &quot;manual&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;automatic&quot; | &quot;manual&quot;</td>
                     <td className="py-3 px-4">&quot;automatic&quot;</td>
                     <td className="py-3 px-4">How tabs are activated with keyboard</td>
                   </tr>

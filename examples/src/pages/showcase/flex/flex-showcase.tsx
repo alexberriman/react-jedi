@@ -939,7 +939,7 @@ export function FlexShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">direction</td>
-                    <td className="py-3 px-4 font-mono">"row" | &quot;rowReverse&quot; | &quot;column&quot; | &quot;columnReverse&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;row&quot; | &quot;rowReverse&quot; | &quot;column&quot; | &quot;columnReverse&quot;</td>
                     <td className="py-3 px-4">&quot;row&quot;</td>
                     <td className="py-3 px-4">The direction of the flex container</td>
                   </tr>
@@ -951,7 +951,7 @@ export function FlexShowcase() {
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">align</td>
-                    <td className="py-3 px-4 font-mono">"start" | "end" | &quot;center&quot; | &quot;baseline&quot; | &quot;stretch&quot;</td>
+                    <td className="py-3 px-4 font-mono">&quot;start&quot; | &quot;end&quot; | &quot;center&quot; | &quot;baseline&quot; | &quot;stretch&quot;</td>
                     <td className="py-3 px-4">&quot;start&quot;</td>
                     <td className="py-3 px-4">Alignment along the cross axis</td>
                   </tr>

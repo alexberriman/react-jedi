@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { render } from "@banja/react-jedi";
 import { Card } from "../../../components/ui/card";
 import { Button } from "../../../components/ui/button";
-import { ChevronDown, ChevronUp, Grid, Menu, Code } from "lucide-react";
+import { ChevronDown, ChevronUp, Grid, Menu } from "lucide-react";
 import { usePageMetadata } from "../../../lib/meta";
 
 export function GridShowcase() {
@@ -892,7 +892,7 @@ export function GridShowcase() {
                     <tr className="border-b">
                       <td className="p-4 font-mono text-sm">gap</td>
                       <td className="p-4 text-sm text-muted-foreground">
-                        "xs" | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot;
+                        &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot; | &quot;3xl&quot;
                       </td>
                       <td className="p-4 text-sm">&quot;md&quot;</td>
                       <td className="p-4 text-sm">
@@ -932,7 +932,7 @@ export function GridShowcase() {
                     <tr className="border-b">
                       <td className="p-4 font-mono text-sm">flow</td>
                       <td className="p-4 text-sm text-muted-foreground">
-                        "row" | "column" | &quot;dense&quot; | &quot;row-dense&quot; | &quot;column-dense&quot;
+                        &quot;row&quot; | &quot;column&quot; | &quot;dense&quot; | &quot;row-dense&quot; | &quot;column-dense&quot;
                       </td>
                       <td className="p-4 text-sm">&quot;row&quot;</td>
                       <td className="p-4 text-sm">

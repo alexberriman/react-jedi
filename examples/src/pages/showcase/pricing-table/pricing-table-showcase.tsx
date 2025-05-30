@@ -755,13 +755,13 @@ export function PricingTableShowcase() {
                       <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">currency</td>
                       <td className="py-3 px-4 font-mono">string</td>
                       <td className="py-3 px-4">-</td>
-                      <td className="py-3 px-4">Currency symbol (e.g., "$", &quot;€&quot;)</td>
+                      <td className="py-3 px-4">Currency symbol (e.g., &quot;$&quot;, &quot;€&quot;)</td>
                     </tr>
                     <tr className="border-b border-gray-200 dark:border-gray-800">
                       <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">period</td>
                       <td className="py-3 px-4 font-mono">string</td>
                       <td className="py-3 px-4">-</td>
-                      <td className="py-3 px-4">Billing period (e.g., "month", &quot;year&quot;)</td>
+                      <td className="py-3 px-4">Billing period (e.g., &quot;month&quot;, &quot;year&quot;)</td>
                     </tr>
                     <tr className="border-b border-gray-200 dark:border-gray-800">
                       <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">badge</td>

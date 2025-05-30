@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { usePageMetadata } from "../../../lib/meta";
 
-export function SpacerShowcase(): JSX.Element {
+export function SpacerShowcase() {
   usePageMetadata({
     title: "Spacer Component - React Jedi",
     description: "Create flexible spacing in your layouts with the Spacer component. Control spacing with precise sizes and orientation options.",

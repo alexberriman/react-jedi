@@ -73,7 +73,7 @@ export default function TextareaShowcase() {
     { id: 'form-integration', title: 'Form Integration' },
     { id: 'advanced-usage', title: 'Advanced Usage' },
     { id: 'props', title: 'Props & Options' },
-    { id: 'examples', title: 'Complete Examples' }
+    { id: 'examples', title: 'Complete Examples&apos; }
   ];
 
   return (
@@ -642,7 +642,7 @@ export default function TextareaShowcase() {
                         </tr>
                         <tr>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">resize</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">"none" | "both" | &quot;horizontal&quot; | &quot;vertical&quot; | &quot;auto&quot;</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">&quot;none&quot; | &quot;both&quot; | &quot;horizontal&quot; | &quot;vertical&quot; | &quot;auto&quot;</td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">&quot;auto&quot;</td>
                           <td className="px-6 py-4 text-sm text-gray-500">Resize behavior</td>
                         </tr>

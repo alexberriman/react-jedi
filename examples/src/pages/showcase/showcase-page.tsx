@@ -1826,7 +1826,7 @@ const componentPreviews: Record<string, ComponentSpec> = {
       },
     ],
   },
-  Toast: {
+  ToastDemo: {
     type: "Box",
     children: {
       type: "Button",

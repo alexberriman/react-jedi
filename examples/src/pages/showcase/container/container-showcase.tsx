@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { render } from 'react-jedi';
+import { render } from '@banja/react-jedi';
 
 function ContainerShowcase() {
   const [activeSection, setActiveSection] = useState('introduction');

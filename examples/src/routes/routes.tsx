@@ -57,6 +57,9 @@ const FeatureCardShowcase = lazy(() =>
 const FooterShowcase = lazy(() =>
   import("../pages/showcase/footer").then((module) => ({ default: module.FooterShowcase }))
 );
+const FormShowcase = lazy(() =>
+  import("../pages/showcase/form").then((module) => ({ default: module.FormShowcase }))
+);
 const ImagePreview = lazy(() =>
   import("../pages/showcase/image").then((module) => ({ default: module.ImagePreview }))
 );
@@ -371,6 +374,10 @@ export const router = createBrowserRouter([
           {
             path: "footer",
             element: <AsyncRoute component={FooterShowcase} loadingText="Loading footer showcase..." />,
+          },
+          {
+            path: "form",
+            element: <AsyncRoute component={FormShowcase} loadingText="Loading form showcase..." />,
           },
           {
             path: "hero",

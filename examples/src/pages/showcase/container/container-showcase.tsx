@@ -10,7 +10,7 @@ function ContainerShowcase() {
       const sections = document.querySelectorAll('section[id]');
       const scrollPosition = window.scrollY + 100;
 
-      sections.forEach((section) => {
+      for (const section of sections) {
         const top = (section as HTMLElement).offsetTop;
         const height = (section as HTMLElement).offsetHeight;
         const id = section.getAttribute('id');
@@ -18,7 +18,7 @@ function ContainerShowcase() {
         if (scrollPosition >= top && scrollPosition < top + height && id) {
           setActiveSection(id);
         }
-      });
+      }
     };
 
     window.addEventListener('scroll', handleScroll);

@@ -19,15 +19,15 @@ export default function TextShowcase() {
       const sections = document.querySelectorAll('[data-section]')
       const scrollPosition = window.scrollY + 100
 
-      sections.forEach(section => {
+      for (const section of sections) {
         const rect = section.getBoundingClientRect()
         const top = rect.top + window.scrollY
         const bottom = top + rect.height
 
         if (scrollPosition >= top && scrollPosition < bottom) {
-          setActiveSection(section.getAttribute('data-section') || '')
+          setActiveSection(section.dataset.section || '')
         }
-      })
+      }
     }
 
     window.addEventListener('scroll', handleScroll)

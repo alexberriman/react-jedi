@@ -755,6 +755,7 @@ export function ShowcasePage() {
                         component.name === "Checkbox" ||
                         component.name === "FeatureCard" ||
                         component.name === "Footer" ||
+                        component.name === "Form" ||
                         component.name === "Image" ||
                         component.name === "Input" ||
                         component.name === "Label" ||
@@ -784,7 +785,7 @@ export function ShowcasePage() {
                         component.name === "Spacer" ||
                         component.name === "Masonry" ? (
                           <Link
-                            to={`/showcase/${component.name.toLowerCase().replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
+                            to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
                           >
                             <svg
@@ -1683,20 +1684,59 @@ const componentPreviews: Record<string, ComponentSpec> = {
     },
   },
   Form: {
-    type: "Box",
-    className: "space-y-4",
+    type: "Form",
+    defaultValues: {
+      name: "",
+      email: "",
+    },
+    validation: {
+      name: {
+        required: "Name is required",
+      },
+      email: {
+        required: "Email is required",
+        email: "Please enter a valid email",
+      },
+    },
     children: [
       {
-        type: "Box",
+        type: "FormField",
+        name: "name",
         children: [
-          { type: "Label", htmlFor: "email", children: "Email" },
-          { type: "Input", id: "email", inputType: "email", placeholder: "Enter email" },
+          {
+            type: "FormItem",
+            children: [
+              { type: "FormLabel", children: "Name" },
+              {
+                type: "FormControl",
+                children: [{ type: "Input", placeholder: "Your name" }],
+              },
+              { type: "FormMessage" },
+            ],
+          },
         ],
       },
       {
-        type: "Button",
-        buttonType: "submit",
-        children: "Submit Form",
+        type: "FormField",
+        name: "email",
+        children: [
+          {
+            type: "FormItem",
+            children: [
+              { type: "FormLabel", children: "Email" },
+              {
+                type: "FormControl",
+                children: [{ type: "Input", inputType: "email", placeholder: "your@email.com" }],
+              },
+              { type: "FormMessage" },
+            ],
+          },
+        ],
+      },
+      {
+        type: "Box",
+        className: "pt-2",
+        children: [{ type: "Button", children: "Submit", variant: "primary" }],
       },
     ],
   },

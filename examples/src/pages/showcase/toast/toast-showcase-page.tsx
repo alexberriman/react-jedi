@@ -107,7 +107,7 @@ function ToastShowcasePage() {
     if (toastComponent && 'show' in toastComponent) {
       toastComponent.show('Processing your request...', {
         type: 'loading',
-        duration: 10000
+        duration: 10_000
       });
     }
   };

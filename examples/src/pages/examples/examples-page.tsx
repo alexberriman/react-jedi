@@ -295,7 +295,7 @@ export function ExamplesPage() {
                 {categories.find(c => c.id === selectedCategory)?.name}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                {filteredExamples.length} example{filteredExamples.length !== 1 ? 's' : ''} available
+                {filteredExamples.length} example{filteredExamples.length === 1 ? '' : 's'} available
               </p>
             </div>
 

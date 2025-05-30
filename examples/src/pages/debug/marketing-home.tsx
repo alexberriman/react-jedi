@@ -51,8 +51,8 @@ export function MarketingDebugPage() {
   
   try {
     return render(schema);
-  } catch (e) {
-    console.error("Render error:", e);
-    return <div className="p-8 text-red-500">Error: {e instanceof Error ? e.message : "Unknown error"}</div>;
+  } catch (error_) {
+    console.error("Render error:", error_);
+    return <div className="p-8 text-red-500">Error: {error_ instanceof Error ? error_.message : "Unknown error"}</div>;
   }
 }

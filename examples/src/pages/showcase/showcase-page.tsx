@@ -815,7 +815,8 @@ export function ShowcasePage() {
                         component.name === "Drawer" ||
                         component.name === "DropdownMenu" ||
                         component.name === "Menubar" ||
-                        component.name === "Command" ? (
+                        component.name === "Command" ||
+                        component.name === "Calendar" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1604,12 +1605,9 @@ const componentPreviews: Record<string, ComponentSpec> = {
     },
   },
   Calendar: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Calendar component - Date selection",
-    },
+    type: "calendar",
+    defaultMonth: new Date().toISOString().split('T')[0],
+    mode: "single",
   },
   DatePicker: {
     type: "Box",

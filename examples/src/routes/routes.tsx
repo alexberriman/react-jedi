@@ -207,6 +207,9 @@ const BreadcrumbShowcase = lazy(() =>
 const CommandShowcase = lazy(() =>
   import("../pages/showcase/command").then((module) => ({ default: module.CommandShowcase }))
 );
+const CalendarShowcase = lazy(() =>
+  import("../pages/showcase/calendar").then((module) => ({ default: module.CalendarShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -437,6 +440,10 @@ export const router = createBrowserRouter([
           {
             path: "command",
             element: <AsyncRoute component={CommandShowcase} loadingText="Loading command showcase..." />,
+          },
+          {
+            path: "calendar",
+            element: <AsyncRoute component={CalendarShowcase} loadingText="Loading calendar showcase..." />,
           },
           {
             path: "call-to-action",

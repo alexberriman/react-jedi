@@ -793,7 +793,8 @@ export function ShowcasePage() {
                         component.name === "Skeleton" ||
                         component.name === "Alert" ||
                         component.name === "AlertDialog" ||
-                        component.name === "Collapsible" ? (
+                        component.name === "Collapsible" ||
+                        component.name === "Table" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}
                             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 font-medium"
@@ -1614,11 +1615,42 @@ const componentPreviews: Record<string, ComponentSpec> = {
     },
   },
   Table: {
-    type: "Box",
-    children: {
-      type: "Text",
-      className: "text-center text-gray-600 dark:text-gray-400",
-      children: "Table - Data table component",
+    type: "Table",
+    head: {
+      rows: [
+        {
+          cells: [
+            { content: "Name" },
+            { content: "Role", align: "center" },
+            { content: "Status", align: "right" },
+          ],
+        },
+      ],
+    },
+    body: {
+      rows: [
+        {
+          cells: [
+            { content: "John Doe" },
+            { content: "Developer", align: "center" },
+            { content: "Active", align: "right" },
+          ],
+        },
+        {
+          cells: [
+            { content: "Jane Smith" },
+            { content: "Designer", align: "center" },
+            { content: "Active", align: "right" },
+          ],
+        },
+        {
+          cells: [
+            { content: "Bob Wilson" },
+            { content: "Manager", align: "center" },
+            { content: "Inactive", align: "right" },
+          ],
+        },
+      ],
     },
   },
   Testimonial: {

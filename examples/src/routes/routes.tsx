@@ -174,6 +174,9 @@ const AlertDialogShowcase = lazy(() =>
 const CollapsibleShowcase = lazy(() =>
   import("../pages/showcase/collapsible").then((module) => ({ default: module.CollapsibleShowcase }))
 );
+const TableShowcase = lazy(() =>
+  import("../pages/showcase/table").then((module) => ({ default: module.TableShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -484,6 +487,10 @@ export const router = createBrowserRouter([
           {
             path: "switch",
             element: <AsyncRoute component={SwitchShowcase} loadingText="Loading switch showcase..." />,
+          },
+          {
+            path: "table",
+            element: <AsyncRoute component={TableShowcase} loadingText="Loading table showcase..." />,
           },
           {
             path: "toggle",

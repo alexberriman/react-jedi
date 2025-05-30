@@ -354,7 +354,7 @@
       {
         "id": "update-images-to-placeholders",
         "description": "Update all images in the example app (./examples) to use placeholder images from https://placehold.co service. Replace broken or missing images with URLs like https://placehold.co/600x400/EEE/31343C where 600 is width and 400 is height. Check all pages including showcase pages, component examples, and any other pages with images. Ensure consistent placeholder image sizes appropriate for each context.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-showcase-text-only-cards",

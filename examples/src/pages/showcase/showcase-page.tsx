@@ -767,6 +767,7 @@ export function ShowcasePage() {
                         component.name === "Slider" ||
                         component.name === "Switch" ||
                         component.name === "Toggle" ||
+                        component.name === "ToggleGroup" ||
                         component.name === "Testimonial" ||
                         component.name === "Text" ||
                         component.name === "Textarea" ||

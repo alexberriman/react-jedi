@@ -93,6 +93,9 @@ const SwitchShowcase = lazy(() =>
 const ToggleShowcase = lazy(() =>
   import("../pages/showcase/toggle").then((module) => ({ default: module.ToggleShowcase }))
 );
+const ToggleGroupShowcase = lazy(() =>
+  import("../pages/showcase/toggle-group").then((module) => ({ default: module.ToggleGroupShowcase }))
+);
 const TestimonialShowcase = lazy(() =>
   import("../pages/showcase/testimonial").then((module) => ({ default: module.TestimonialShowcase }))
 );
@@ -424,6 +427,10 @@ export const router = createBrowserRouter([
           {
             path: "toggle",
             element: <AsyncRoute component={ToggleShowcase} loadingText="Loading toggle showcase..." />,
+          },
+          {
+            path: "toggle-group",
+            element: <AsyncRoute component={ToggleGroupShowcase} loadingText="Loading toggle group showcase..." />,
           },
           {
             path: "testimonial",

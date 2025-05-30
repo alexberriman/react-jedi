@@ -195,6 +195,9 @@ const DrawerShowcase = lazy(() =>
 const DropdownMenuShowcase = lazy(() =>
   import("../pages/showcase/dropdown-menu").then((module) => ({ default: module.DropdownMenuShowcase }))
 );
+const ContextMenuShowcase = lazy(() =>
+  import("../pages/showcase/context-menu").then((module) => ({ default: module.ContextMenuShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -597,6 +600,10 @@ export const router = createBrowserRouter([
           {
             path: "dropdown-menu",
             element: <AsyncRoute component={DropdownMenuShowcase} loadingText="Loading dropdown menu showcase..." />,
+          },
+          {
+            path: "context-menu",
+            element: <AsyncRoute component={ContextMenuShowcase} loadingText="Loading context menu showcase..." />,
           },
         ],
       },

@@ -807,6 +807,7 @@ export function ShowcasePage() {
                         component.name === "Alert" ||
                         component.name === "AlertDialog" ||
                         component.name === "Collapsible" ||
+                        component.name === "ContextMenu" ||
                         component.name === "Table" ||
                         component.name === "DataTable" ||
                         component.name === "Chart" ||

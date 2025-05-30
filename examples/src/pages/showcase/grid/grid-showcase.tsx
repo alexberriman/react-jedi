@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { render } from "@banja/react-jedi";
-import { Card } from "../../../../components/ui/card";
-import { Button } from "../../../../components/ui/button";
+import { Card } from "../../../components/ui/card";
+import { Button } from "../../../components/ui/button";
 import { ChevronDown, ChevronUp, Grid, Menu, Code } from "lucide-react";
-import { useMeta } from "../../../../lib/meta";
+import { usePageMetadata } from "../../../lib/meta";
 
 export function GridShowcase() {
-  useMeta({
+  usePageMetadata({
     title: "Grid Component - React Jedi Showcase",
     description:
       "Explore the Grid component with responsive layouts, gap spacing, auto-fit mode, and more.",

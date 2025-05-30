@@ -784,6 +784,7 @@ export function ShowcasePage() {
                         component.name === "SimpleGrid" ||
                         component.name === "Spacer" ||
                         component.name === "Separator" ||
+                        component.name === "Badge" ||
                         component.name === "Masonry" ? (
                           <Link
                             to={`/showcase/${component.name.toLowerCase().replaceAll(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`}

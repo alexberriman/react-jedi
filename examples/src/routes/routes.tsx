@@ -36,6 +36,9 @@ const HeroPreview = lazy(() =>
 const HeroShowcase = lazy(() =>
   import("../pages/showcase/hero").then((module) => ({ default: module.HeroShowcase }))
 );
+const BadgeShowcase = lazy(() =>
+  import("../pages/showcase/badge").then((module) => ({ default: module.BadgeShowcase }))
+);
 const ButtonShowcase = lazy(() =>
   import("../pages/showcase/button").then((module) => ({ default: module.ButtonShowcase }))
 );
@@ -345,6 +348,10 @@ export const router = createBrowserRouter([
           {
             path: "stack",
             element: <AsyncRoute component={StackShowcase} loadingText="Loading stack showcase..." />,
+          },
+          {
+            path: "badge",
+            element: <AsyncRoute component={BadgeShowcase} loadingText="Loading badge showcase..." />,
           },
           {
             path: "button",

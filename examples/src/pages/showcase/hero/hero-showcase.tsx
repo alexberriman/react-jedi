@@ -114,7 +114,7 @@ export function HeroShowcase() {
         title: "Image Background",
         subtitle: "Professional Look",
         description: "High-quality background images with overlay support for readability.",
-        backgroundImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
+        backgroundImage: "https://placehold.co/1920x1080/EEE/31343C",
         backgroundOverlay: true,
         primaryAction: {
           text: "Learn More",

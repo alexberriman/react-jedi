@@ -1183,7 +1183,7 @@ const componentPreviews: Record<string, ComponentSpec> = {
   },
   Image: {
     type: "Image",
-    src: "https://via.placeholder.com/300x200",
+    src: "https://placehold.co/300x200/EEE/31343C",
     alt: "Placeholder image",
     className: "rounded-lg",
   },
@@ -1192,7 +1192,7 @@ const componentPreviews: Record<string, ComponentSpec> = {
     ratio: 16 / 9,
     children: {
       type: "Image",
-      src: "https://via.placeholder.com/800x450",
+      src: "https://placehold.co/800x450/EEE/31343C",
       alt: "16:9 aspect ratio",
       className: "rounded-lg object-cover w-full h-full",
     },
@@ -1206,7 +1206,7 @@ const componentPreviews: Record<string, ComponentSpec> = {
         children: [
           {
             type: "AvatarImage",
-            src: "https://github.com/shadcn.png",
+            src: "https://placehold.co/100x100/EEE/31343C",
             alt: "@shadcn",
           },
           { type: "AvatarFallback", children: "CN" },
@@ -1706,7 +1706,7 @@ const componentPreviews: Record<string, ComponentSpec> = {
       name: "Sarah Chen",
       role: "Frontend Lead",
       company: "TechCorp",
-      avatar: "https://i.pravatar.cc/150?img=1"
+      avatar: "https://placehold.co/150x150/EEE/31343C"
     },
     rating: 5
   },

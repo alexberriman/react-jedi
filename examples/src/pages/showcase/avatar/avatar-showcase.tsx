@@ -37,7 +37,7 @@ export function AvatarShowcase() {
         children: [
           {
             type: "AvatarImage",
-            src: "https://github.com/shadcn.png",
+            src: "https://placehold.co/100x100/EEE/31343C",
             alt: "User avatar",
           },
           {
@@ -71,7 +71,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://github.com/shadcn.png",
+                src: "https://placehold.co/100x100/EEE/31343C",
                 alt: "Extra small avatar",
               },
               {
@@ -97,7 +97,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://github.com/shadcn.png",
+                src: "https://placehold.co/100x100/EEE/31343C",
                 alt: "Small avatar",
               },
               {
@@ -124,7 +124,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://github.com/shadcn.png",
+                src: "https://placehold.co/100x100/EEE/31343C",
                 alt: "Medium avatar",
               },
               {
@@ -151,7 +151,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://github.com/shadcn.png",
+                src: "https://placehold.co/100x100/EEE/31343C",
                 alt: "Large avatar",
               },
               {
@@ -178,7 +178,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://github.com/shadcn.png",
+                src: "https://placehold.co/100x100/EEE/31343C",
                 alt: "Extra large avatar",
               },
               {
@@ -393,7 +393,7 @@ export function AvatarShowcase() {
                 children: [
                   {
                     type: "AvatarImage",
-                    src: "https://i.pravatar.cc/150?img=1",
+                    src: "https://placehold.co/150x150/EEE/31343C",
                     alt: "User 1",
                   },
                   {
@@ -408,7 +408,7 @@ export function AvatarShowcase() {
                 children: [
                   {
                     type: "AvatarImage",
-                    src: "https://i.pravatar.cc/150?img=2",
+                    src: "https://placehold.co/150x150/EEE/31343C",
                     alt: "User 2",
                   },
                   {
@@ -423,7 +423,7 @@ export function AvatarShowcase() {
                 children: [
                   {
                     type: "AvatarImage",
-                    src: "https://i.pravatar.cc/150?img=3",
+                    src: "https://placehold.co/150x150/EEE/31343C",
                     alt: "User 3",
                   },
                   {
@@ -464,7 +464,7 @@ export function AvatarShowcase() {
                 children: [
                   {
                     type: "AvatarImage",
-                    src: "https://i.pravatar.cc/150?img=4",
+                    src: "https://placehold.co/150x150/EEE/31343C",
                     alt: "User 4",
                   },
                   {
@@ -478,7 +478,7 @@ export function AvatarShowcase() {
                 children: [
                   {
                     type: "AvatarImage",
-                    src: "https://i.pravatar.cc/150?img=5",
+                    src: "https://placehold.co/150x150/EEE/31343C",
                     alt: "User 5",
                   },
                   {
@@ -492,7 +492,7 @@ export function AvatarShowcase() {
                 children: [
                   {
                     type: "AvatarImage",
-                    src: "https://i.pravatar.cc/150?img=6",
+                    src: "https://placehold.co/150x150/EEE/31343C",
                     alt: "User 6",
                   },
                   {
@@ -522,7 +522,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://i.pravatar.cc/150?img=7",
+                src: "https://placehold.co/150x150/EEE/31343C",
                 alt: "Online user",
               },
               {
@@ -547,7 +547,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://i.pravatar.cc/150?img=8",
+                src: "https://placehold.co/150x150/EEE/31343C",
                 alt: "Away user",
               },
               {
@@ -572,7 +572,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://i.pravatar.cc/150?img=9",
+                src: "https://placehold.co/150x150/EEE/31343C",
                 alt: "Busy user",
               },
               {
@@ -597,7 +597,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://i.pravatar.cc/150?img=10",
+                src: "https://placehold.co/150x150/EEE/31343C",
                 alt: "Offline user",
               },
               {
@@ -635,7 +635,7 @@ export function AvatarShowcase() {
               children: [
                 {
                   type: "AvatarImage",
-                  src: "https://i.pravatar.cc/150?img=11",
+                  src: "https://placehold.co/150x150/EEE/31343C",
                   alt: "Sarah Johnson",
                 },
                 {
@@ -706,7 +706,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://i.pravatar.cc/150?img=12",
+                src: "https://placehold.co/150x150/EEE/31343C",
                 alt: "Alex Chen",
               },
               {
@@ -763,7 +763,7 @@ export function AvatarShowcase() {
             children: [
               {
                 type: "AvatarImage",
-                src: "https://i.pravatar.cc/150?img=13",
+                src: "https://placehold.co/150x150/EEE/31343C",
                 alt: "Emma Wilson",
               },
               {

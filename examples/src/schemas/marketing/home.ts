@@ -206,7 +206,7 @@ export const marketingHomeSchema = {
                         {
                           type: "Image",
                           props: {
-                            src: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=2000",
+                            src: "https://placehold.co/1200x800/EEE/31343C",
                             alt: "Digital transformation",
                             className: "object-cover w-full h-full",
                           },

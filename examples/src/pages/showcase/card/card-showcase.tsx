@@ -1243,7 +1243,7 @@ export function CardShowcase() {
                     children: [
                       {
                         type: "Image",
-                        src: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800",
+                        src: "https://placehold.co/800x400/EEE/31343C",
                         alt: "Blog post cover",
                         className: "w-full h-48 object-cover rounded-t-lg",
                       },

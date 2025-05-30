@@ -76,7 +76,7 @@ export function HeroPreview() {
             children: [
               {
                 type: "image",
-                src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+                src: "https://placehold.co/800x600/EEE/31343C",
                 alt: "Team collaboration",
                 className: "w-full h-full object-cover",
               },
@@ -94,7 +94,7 @@ export function HeroPreview() {
         subtitle: "Enterprise Ready",
         description:
           "Scale your business with confidence using our enterprise-grade infrastructure.",
-        backgroundImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
+        backgroundImage: "https://placehold.co/1920x1080/EEE/31343C",
         backgroundOverlay: true,
         primaryAction: {
           text: "Request Demo",

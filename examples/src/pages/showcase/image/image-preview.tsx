@@ -20,7 +20,7 @@ export function ImagePreview() {
         children: [
           {
             type: "Image",
-            src: "https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=800&q=80",
+            src: "https://placehold.co/800x600/EEE/31343C",
             alt: "Beautiful landscape with mountains and lake",
             width: "100%",
             aspectRatio: "16/9",
@@ -54,7 +54,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Mountain landscape",
                 width: "100%",
                 height: "200px",
@@ -75,7 +75,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Mountain landscape",
                 width: "100%",
                 height: "200px",
@@ -96,7 +96,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Mountain landscape",
                 width: "100%",
                 height: "200px",
@@ -128,7 +128,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Starry night landscape",
                 width: "100%",
                 aspectRatio: "1/1",
@@ -149,7 +149,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Starry night landscape",
                 width: "100%",
                 aspectRatio: "1/1",
@@ -170,7 +170,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Starry night landscape",
                 width: "100%",
                 aspectRatio: "1/1",
@@ -191,7 +191,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Starry night landscape",
                 width: "100%",
                 aspectRatio: "1/1",
@@ -232,7 +232,7 @@ export function ImagePreview() {
                   },
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&q=80",
+                    src: "https://placehold.co/600x400/EEE/31343C",
                     alt: "Sunset over lake",
                     width: "100%",
                     aspectRatio: "4/3",
@@ -254,7 +254,7 @@ export function ImagePreview() {
                   },
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&q=80",
+                    src: "https://placehold.co/600x400/EEE/31343C",
                     alt: "Mountain range",
                     width: "100%",
                     aspectRatio: "4/3",
@@ -276,7 +276,7 @@ export function ImagePreview() {
                   },
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80",
+                    src: "https://placehold.co/600x400/EEE/31343C",
                     alt: "Forest path",
                     width: "100%",
                     aspectRatio: "4/3",
@@ -311,7 +311,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200&q=80",
+                src: "https://placehold.co/200x200/EEE/31343C",
                 alt: "Landscape",
                 width: "120px",
                 height: "120px",
@@ -331,7 +331,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200&q=80",
+                src: "https://placehold.co/200x200/EEE/31343C",
                 alt: "Landscape",
                 width: "120px",
                 height: "120px",
@@ -351,7 +351,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200&q=80",
+                src: "https://placehold.co/200x200/EEE/31343C",
                 alt: "Landscape",
                 width: "120px",
                 height: "120px",
@@ -371,7 +371,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200&q=80",
+                src: "https://placehold.co/200x200/EEE/31343C",
                 alt: "Landscape",
                 width: "120px",
                 height: "120px",
@@ -391,7 +391,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200&q=80",
+                src: "https://placehold.co/200x200/EEE/31343C",
                 alt: "Landscape",
                 width: "120px",
                 height: "120px",
@@ -411,7 +411,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200&q=80",
+                src: "https://placehold.co/200x200/EEE/31343C",
                 alt: "Landscape",
                 width: "120px",
                 height: "120px",
@@ -442,7 +442,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Forest landscape",
                 width: "100%",
                 aspectRatio: "4/3",
@@ -463,7 +463,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Forest landscape",
                 width: "100%",
                 aspectRatio: "4/3",
@@ -484,7 +484,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Forest landscape",
                 width: "100%",
                 aspectRatio: "4/3",
@@ -523,7 +523,7 @@ export function ImagePreview() {
                 children: [
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
+                    src: "https://placehold.co/200x200/EEE/31343C",
                     alt: "Sarah Wilson",
                     width: "80px",
                     height: "80px",
@@ -545,7 +545,7 @@ export function ImagePreview() {
                 children: [
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
+                    src: "https://placehold.co/200x200/EEE/31343C",
                     alt: "John Doe",
                     width: "80px",
                     height: "80px",
@@ -567,7 +567,7 @@ export function ImagePreview() {
                 children: [
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&q=80",
+                    src: "https://placehold.co/200x200/EEE/31343C",
                     alt: "Emily Chen",
                     width: "80px",
                     height: "80px",
@@ -589,7 +589,7 @@ export function ImagePreview() {
                 children: [
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+                    src: "https://placehold.co/200x200/EEE/31343C",
                     alt: "Michael Brown",
                     width: "80px",
                     height: "80px",
@@ -628,7 +628,7 @@ export function ImagePreview() {
             children: [
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Mountain peak at sunrise",
                 width: "100%",
                 aspectRatio: "3/4",
@@ -639,7 +639,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1501436513145-30f24e19fcc4?w=600&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Serene lake reflection",
                 width: "100%",
                 aspectRatio: "16/9",
@@ -650,7 +650,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Dense forest canopy",
                 width: "100%",
                 aspectRatio: "1/1",
@@ -661,7 +661,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1418065460487-3956c3da9da9?w=600&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Rocky coastline waves",
                 width: "100%",
                 aspectRatio: "16/9",
@@ -672,7 +672,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=600&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Desert sand dunes",
                 width: "100%",
                 aspectRatio: "4/3",
@@ -683,7 +683,7 @@ export function ImagePreview() {
               },
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80",
+                src: "https://placehold.co/600x400/EEE/31343C",
                 alt: "Misty valley landscape",
                 width: "100%",
                 aspectRatio: "3/4",

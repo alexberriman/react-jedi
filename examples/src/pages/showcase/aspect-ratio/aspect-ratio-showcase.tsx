@@ -187,7 +187,7 @@ export function AspectRatioShowcase() {
             children: [
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&dpr=2&q=80",
+                src: "https://placehold.co/800x450/EEE/31343C",
                 alt: "Mountain landscape",
                 objectFit: "cover",
                 className: "w-full h-full"
@@ -208,7 +208,7 @@ export function AspectRatioShowcase() {
             children: [
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=800&dpr=2&q=80",
+                src: "https://placehold.co/800x800/EEE/31343C",
                 alt: "Cute dog portrait",
                 objectFit: "cover",
                 className: "w-full h-full"
@@ -386,7 +386,7 @@ export function AspectRatioShowcase() {
             children: [
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&dpr=2&q=80",
+                src: "https://placehold.co/800x600/EEE/31343C",
                 alt: "Premium watch",
                 objectFit: "cover",
                 className: "w-full h-full"
@@ -432,7 +432,7 @@ export function AspectRatioShowcase() {
                 children: [
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&dpr=2&q=80",
+                    src: "https://placehold.co/400x400/EEE/31343C",
                     alt: "Nature photo 1",
                     objectFit: "cover",
                     className: "w-full h-full"
@@ -446,7 +446,7 @@ export function AspectRatioShowcase() {
                 children: [
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=400&dpr=2&q=80",
+                    src: "https://placehold.co/400x400/EEE/31343C",
                     alt: "Nature photo 2",
                     objectFit: "cover",
                     className: "w-full h-full"
@@ -460,7 +460,7 @@ export function AspectRatioShowcase() {
                 children: [
                   {
                     type: "Image",
-                    src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&dpr=2&q=80",
+                    src: "https://placehold.co/400x400/EEE/31343C",
                     alt: "Nature photo 3",
                     objectFit: "cover",
                     className: "w-full h-full"

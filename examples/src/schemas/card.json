@@ -101,7 +101,7 @@
           "children": [
             {
               "type": "avatar",
-              "src": "https://github.com/shadcn.png",
+              "src": "https://placehold.co/64x64/EEE/31343C",
               "alt": "User",
               "fallback": "CN"
             },

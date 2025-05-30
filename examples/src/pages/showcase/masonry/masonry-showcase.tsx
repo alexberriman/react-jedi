@@ -643,7 +643,7 @@ export function MasonryShowcase() {
         children: [
           {
             type: "Image",
-            src: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&h=300",
+            src: "https://placehold.co/400x300/EEE/31343C",
             alt: "Architecture",
             className: "w-full h-32 object-cover",
           },
@@ -803,7 +803,7 @@ export function MasonryShowcase() {
         children: [
           {
             type: "Image",
-            src: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=600&h=400",
+            src: "https://placehold.co/600x400/EEE/31343C",
             alt: "Modern Architecture",
             className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-300",
           },
@@ -839,7 +839,7 @@ export function MasonryShowcase() {
         children: [
           {
             type: "Image",
-            src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600",
+            src: "https://placehold.co/600x600/EEE/31343C",
             alt: "Portrait",
             className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-300",
           },
@@ -875,7 +875,7 @@ export function MasonryShowcase() {
         children: [
           {
             type: "Image",
-            src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400",
+            src: "https://placehold.co/600x400/EEE/31343C",
             alt: "Nature",
             className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-300",
           },
@@ -911,7 +911,7 @@ export function MasonryShowcase() {
         children: [
           {
             type: "Image",
-            src: "https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=600&h=500",
+            src: "https://placehold.co/600x500/EEE/31343C",
             alt: "Urban",
             className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-300",
           },

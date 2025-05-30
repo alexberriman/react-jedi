@@ -128,7 +128,7 @@ export function TestimonialShowcase() {
                       name: "Alex Rivera",
                       role: "Product Designer",
                       company: "DesignHub",
-                      avatar: "https://i.pravatar.cc/150?img=1"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     rating: 5
                   }
@@ -145,7 +145,7 @@ export function TestimonialShowcase() {
                       name: "Alex Rivera",
                       role: "Product Designer",
                       company: "DesignHub",
-                      avatar: "https://i.pravatar.cc/150?img=1"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     rating: 5
                   }
@@ -200,7 +200,7 @@ export function TestimonialShowcase() {
                       name: "Morgan Lee",
                       role: "Director of Engineering",
                       company: "Enterprise Corp",
-                      avatar: "https://i.pravatar.cc/150?img=2"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     rating: 5,
                     date: "2024-01-15"
@@ -218,7 +218,7 @@ export function TestimonialShowcase() {
                       name: "Morgan Lee",
                       role: "Director of Engineering",
                       company: "Enterprise Corp",
-                      avatar: "https://i.pravatar.cc/150?img=2"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     rating: 5,
                     date: "2024-01-15"
@@ -344,7 +344,7 @@ export function TestimonialShowcase() {
                   name: "Taylor Martinez",
                   role: "CTO",
                   company: "Innovation Labs",
-                  avatar: "https://i.pravatar.cc/150?img=3"
+                  avatar: "https://placehold.co/150x150/EEE/31343C"
                 },
                 rating: 5,
                 highlight: true
@@ -362,7 +362,7 @@ export function TestimonialShowcase() {
                   name: "Taylor Martinez",
                   role: "CTO",
                   company: "Innovation Labs",
-                  avatar: "https://i.pravatar.cc/150?img=3"
+                  avatar: "https://placehold.co/150x150/EEE/31343C"
                 },
                 rating: 5,
                 highlight: true
@@ -387,7 +387,7 @@ export function TestimonialShowcase() {
                 author: {
                   name: "Chris Anderson",
                   role: "Developer",
-                  avatar: "https://i.pravatar.cc/150?img=4"
+                  avatar: "https://placehold.co/150x150/EEE/31343C"
                 },
                 rating: 5
               }
@@ -400,7 +400,7 @@ export function TestimonialShowcase() {
                 author: {
                   name: "Pat Murphy",
                   role: "Team Lead",
-                  avatar: "https://i.pravatar.cc/150?img=5"
+                  avatar: "https://placehold.co/150x150/EEE/31343C"
                 },
                 rating: 5
               }
@@ -413,7 +413,7 @@ export function TestimonialShowcase() {
                 author: {
                   name: "Drew Taylor",
                   role: "Freelancer",
-                  avatar: "https://i.pravatar.cc/150?img=6"
+                  avatar: "https://placehold.co/150x150/EEE/31343C"
                 },
                 rating: 5
               }
@@ -433,7 +433,7 @@ export function TestimonialShowcase() {
                     author: {
                       name: "Chris Anderson",
                       role: "Developer",
-                      avatar: "https://i.pravatar.cc/150?img=4"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     rating: 5
                   }
@@ -446,7 +446,7 @@ export function TestimonialShowcase() {
                     author: {
                       name: "Pat Murphy",
                       role: "Team Lead",
-                      avatar: "https://i.pravatar.cc/150?img=5"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     rating: 5
                   }
@@ -459,7 +459,7 @@ export function TestimonialShowcase() {
                     author: {
                       name: "Drew Taylor",
                       role: "Freelancer",
-                      avatar: "https://i.pravatar.cc/150?img=6"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     rating: 5
                   }
@@ -489,7 +489,7 @@ export function TestimonialShowcase() {
                     author: {
                       name: "Jamie Chen",
                       role: "Verified Buyer",
-                      avatar: "https://i.pravatar.cc/150?img=7"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     rating: 5,
                     date: "2024-01-20"
@@ -511,7 +511,7 @@ export function TestimonialShowcase() {
                       name: "Dr. Alex Kumar",
                       role: "VP of Engineering",
                       company: "TechGiant Inc.",
-                      avatar: "https://i.pravatar.cc/150?img=8"
+                      avatar: "https://placehold.co/150x150/EEE/31343C"
                     },
                     highlight: true
                   }

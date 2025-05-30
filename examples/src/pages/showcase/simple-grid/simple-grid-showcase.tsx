@@ -470,7 +470,7 @@ export function SimpleGridShowcase() {
             children: [
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=250&fit=crop&crop=center",
+                src: "https://placehold.co/400x250/EEE/31343C",
                 alt: "Wireless Headphones",
                 className: "w-full h-48 object-cover",
               },
@@ -539,7 +539,7 @@ export function SimpleGridShowcase() {
             children: [
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=250&fit=crop&crop=center",
+                src: "https://placehold.co/400x250/EEE/31343C",
                 alt: "Smart Watch",
                 className: "w-full h-48 object-cover",
               },
@@ -598,7 +598,7 @@ export function SimpleGridShowcase() {
             children: [
               {
                 type: "Image",
-                src: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=250&fit=crop&crop=center",
+                src: "https://placehold.co/400x250/EEE/31343C",
                 alt: "Laptop Stand",
                 className: "w-full h-48 object-cover",
               },

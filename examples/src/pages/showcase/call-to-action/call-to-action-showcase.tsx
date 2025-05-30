@@ -223,7 +223,7 @@ export function CallToActionShowcase() {
         title: "Transform Your Business Today",
         description: "Join thousands of companies already using our platform.",
         variant: "dark",
-        backgroundImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200",
+        backgroundImage: "https://placehold.co/1200x800/EEE/31343C",
         overlay: true,
         primaryAction: {
           label: "Start Free Trial",
@@ -237,7 +237,7 @@ export function CallToActionShowcase() {
         title: "Build Something Amazing",
         description: "Everything you need to create your next big project.",
         variant: "light",
-        backgroundImage: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200",
+        backgroundImage: "https://placehold.co/1200x800/EEE/31343C",
         overlay: false,
         primaryAction: {
           label: "Get Started",

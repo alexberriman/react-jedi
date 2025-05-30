@@ -105,6 +105,9 @@ const TooltipShowcase = lazy(() =>
 const ContainerShowcase = lazy(() =>
   import("../pages/showcase/container").then((module) => ({ default: module.ContainerShowcase }))
 );
+const GridShowcase = lazy(() =>
+  import("../pages/showcase/grid").then((module) => ({ default: module.GridShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -395,6 +398,10 @@ export const router = createBrowserRouter([
           {
             path: "container",
             element: <AsyncRoute component={ContainerShowcase} loadingText="Loading container showcase..." />,
+          },
+          {
+            path: "grid",
+            element: <AsyncRoute component={GridShowcase} loadingText="Loading grid showcase..." />,
           },
         ],
       },

@@ -761,6 +761,7 @@ export function ShowcasePage() {
                         component.name === "Label" ||
                         component.name === "NavigationMenu" ||
                         component.name === "Pagination" ||
+                        component.name === "Popover" ||
                         component.name === "PricingTable" ||
                         component.name === "Progress" ||
                         component.name === "RadioGroup" ||

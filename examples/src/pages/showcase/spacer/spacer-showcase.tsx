@@ -182,9 +182,9 @@ export function SpacerShowcase(): JSX.Element {
       { type: "Spacer", size: "md" },
       { type: "Label", children: "Email", htmlFor: "email" },
       { type: "Spacer", size: "xs" },
-      { type: "Input", placeholder: "Enter your email", type: "email", id: "email" },
+      { type: "Input", placeholder: "Enter your email", inputType: "email", id: "email" },
       { type: "Spacer", size: "lg" },
-      { type: "Button", children: "Submit", type: "submit", className: "w-full" }
+      { type: "Button", children: "Submit", buttonType: "submit", className: "w-full" }
     ]
   };
 

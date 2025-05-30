@@ -1,11 +1,9 @@
-import { render } from "@/lib/render";
-import { useTheme } from "@/lib/theme/use-theme";
-import type { BaseComponentSpec } from "@/types/schema/base";
+import { render, useTheme, type UISpecification } from "@banja/react-jedi";
 
 export const CenterShowcase = () => {
   const { theme } = useTheme();
 
-  const showcaseSpec: BaseComponentSpec = {
+  const showcaseSpec: UISpecification = {
     type: "Container",
     maxWidth: "xl",
     children: [

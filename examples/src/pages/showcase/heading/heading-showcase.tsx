@@ -1,7 +1,7 @@
 import React from 'react';
 import { UISpecification } from '../../../../../src/types';
 import { render } from '../../../../../src/lib/render';
-import { usePageMetadata } from '../../../hooks/use-page-metadata';
+import { usePageMetadata } from '../../../lib/meta';
 
 const sections = [
   { id: 'overview', label: 'Overview' },

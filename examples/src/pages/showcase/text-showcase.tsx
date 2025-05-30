@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { usePageMetadata } from '../../hooks/use-page-metadata'
+import { usePageMetadata } from '../../lib/meta'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Code } from '../../components/ui/code'

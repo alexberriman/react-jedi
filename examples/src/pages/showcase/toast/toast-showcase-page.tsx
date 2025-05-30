@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@banja/react-jedi';
 import { Button } from '../../../components/ui/button';
-import { usePageMetadata } from '../../../hooks/use-page-metadata';
+import { usePageMetadata } from '../../../lib/meta';
 import { Link } from 'react-router-dom';
 import type { ToastSpecification } from '@banja/react-jedi';
 

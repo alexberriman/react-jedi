@@ -123,6 +123,9 @@ const CenterShowcase = lazy(() =>
 const SimpleGridShowcase = lazy(() =>
   import("../pages/showcase/simple-grid").then((module) => ({ default: module.SimpleGridShowcase }))
 );
+const MasonryShowcase = lazy(() =>
+  import("../pages/showcase/masonry").then((module) => ({ default: module.MasonryShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -429,6 +432,10 @@ export const router = createBrowserRouter([
           {
             path: "simple-grid",
             element: <AsyncRoute component={SimpleGridShowcase} loadingText="Loading simple grid showcase..." />,
+          },
+          {
+            path: "masonry",
+            element: <AsyncRoute component={MasonryShowcase} loadingText="Loading masonry showcase..." />,
           },
         ],
       },

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within, screen, waitFor } from "@storybook/test";
+import { expect, userEvent, within, waitFor } from "@storybook/test";
 import {
   ChevronRight as ChevronRightIcon,
   Home as HomeIcon,
@@ -180,11 +180,13 @@ export const Default: Story = {
     const userMenuButton = canvas.getByRole("button", { name: /User Name/i });
     await user.click(userMenuButton);
 
-    // Check dropdown items are visible (use screen since dropdown is in portal)
+    // Check dropdown items are visible (use within document since dropdown is in portal)
     await waitFor(() => {
-      expect(screen.getByText("Profile")).toBeInTheDocument();
+      const profileItem = within(canvasElement.ownerDocument.body).getByText("Profile");
+      expect(profileItem).toBeInTheDocument();
     });
-    expect(screen.getByText("Logout")).toBeInTheDocument();
+    const logoutItem = within(canvasElement.ownerDocument.body).getByText("Logout");
+    expect(logoutItem).toBeInTheDocument();
   },
 };
 

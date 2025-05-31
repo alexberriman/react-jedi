@@ -8,7 +8,6 @@ interface Example {
   title: string;
   description: string;
   path: string;
-  status?: "new" | "updated" | "stable";
   category: string;
 }
 
@@ -65,7 +64,6 @@ const examples: Example[] = [
     description:
       "Interactive demo showing conditional visibility and dynamic properties based on state, user roles, and themes.",
     path: "/examples/conditional",
-    status: "stable",
     category: "ui-patterns",
   },
   {
@@ -74,7 +72,6 @@ const examples: Example[] = [
     description:
       "Comprehensive demo with multiple states, complex conditions, nested logic, and real-world UI patterns.",
     path: "/examples/conditional-advanced",
-    status: "new",
     category: "ui-patterns",
   },
   {
@@ -83,7 +80,6 @@ const examples: Example[] = [
     description:
       "Modern data tables and charts with stunning 2025 design. Features sorting, filtering, and beautiful visualizations.",
     path: "/examples/data-display",
-    status: "new",
     category: "data",
   },
   {
@@ -92,7 +88,6 @@ const examples: Example[] = [
     description:
       "Smooth page transitions with Framer Motion and animated scrolling. Features section navigation and scroll progress indicators.",
     path: "/examples/transitions",
-    status: "new",
     category: "animations",
   },
   {
@@ -101,7 +96,6 @@ const examples: Example[] = [
     description:
       "Interactive click animations with multiple presets and customization options. Features bounce, press, jelly, and more effects.",
     path: "/examples/click-animations",
-    status: "new",
     category: "animations",
   },
   {
@@ -110,7 +104,6 @@ const examples: Example[] = [
     description:
       "Interactive drag animations with physics-based motion, constraints, and multiple presets. Features draggable cards and list items.",
     path: "/examples/drag-animations",
-    status: "new",
     category: "animations",
   },
   {
@@ -119,7 +112,6 @@ const examples: Example[] = [
     description:
       "Beautiful scroll-triggered animations with parallax effects, staggered reveals, and progress indicators. Perfect for modern websites.",
     path: "/examples/scroll-animations",
-    status: "new",
     category: "animations",
   },
   {
@@ -128,7 +120,6 @@ const examples: Example[] = [
     description:
       "Complex staggered animations for lists and groups with customizable orchestration, timing, and paths. Create eye-catching UI elements.",
     path: "/examples/stagger-animations",
-    status: "new",
     category: "animations",
   },
   {
@@ -137,7 +128,6 @@ const examples: Example[] = [
     description:
       "Chain multiple animations together with precise timing control. Create complex multi-step animations with loops, callbacks, and dynamic sequencing.",
     path: "/examples/animation-sequence",
-    status: "new",
     category: "animations",
   },
   {
@@ -146,7 +136,6 @@ const examples: Example[] = [
     description:
       "Fetch data from REST APIs, GraphQL, and other sources with automatic binding to components. Features caching, polling, and loading states.",
     path: "/examples/data-fetching",
-    status: "new",
     category: "data",
   },
   {
@@ -155,7 +144,6 @@ const examples: Example[] = [
     description:
       "Experience instant UI feedback with optimistic updates. Updates appear immediately while syncing with the server in the background, with automatic rollback on errors.",
     path: "/examples/optimistic-updates",
-    status: "new",
     category: "data",
   },
   {
@@ -164,7 +152,6 @@ const examples: Example[] = [
     description:
       "Manage page titles, meta descriptions, Open Graph tags, Twitter Cards, and favicons. Complete SEO solution for server-driven UI applications.",
     path: "/examples/seo-metadata",
-    status: "new",
     category: "seo",
   },
   {
@@ -173,7 +160,6 @@ const examples: Example[] = [
     description:
       "Implement schema.org markup for rich snippets in search results. Support for Organization, Article, Product, FAQ, and other schemas.",
     path: "/examples/structured-data",
-    status: "new",
     category: "seo",
   },
   {
@@ -182,7 +168,6 @@ const examples: Example[] = [
     description:
       "Enhanced search results with structured data for products, articles, FAQs, events, and more using React Jedi's rich snippet utilities.",
     path: "/examples/rich-snippets",
-    status: "new",
     category: "seo",
   },
   {
@@ -191,7 +176,6 @@ const examples: Example[] = [
     description:
       "Advanced focus management patterns including focus trap, focus return, keyboard navigation, and skip links for accessible user interfaces.",
     path: "/examples/focus-management",
-    status: "new",
     category: "accessibility",
   },
   // More examples will be added here
@@ -330,37 +314,19 @@ export function ExamplesPage() {
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                           {example.title}
                         </h3>
-                        <div className="flex items-center gap-2">
-                          {example.status && (
-                            <span className={`
-                              px-2.5 py-1 text-xs font-medium rounded-full
-                              ${(() => {
-                                if (example.status === "new") {
-                                  return "bg-gradient-to-r from-green-400 to-emerald-400 text-white shadow-sm";
-                                }
-                                if (example.status === "updated") {
-                                  return "bg-gradient-to-r from-blue-400 to-cyan-400 text-white shadow-sm";
-                                }
-                                return "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400";
-                              })()}
-                            `}>
-                              {example.status}
-                            </span>
-                          )}
-                          <svg
-                            className="w-5 h-5 text-gray-400 group-hover:text-purple-400 transform group-hover:translate-x-1 transition-all"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </div>
+                        <svg
+                          className="w-5 h-5 text-gray-400 group-hover:text-purple-400 transform group-hover:translate-x-1 transition-all"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
                       </div>
                       <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                         {example.description}

@@ -441,7 +441,7 @@
       {
         "id": "examples-remove-badges",
         "description": "On the /examples page, remove all 'new' and 'stable' badges from components. Everything will be in the initial release",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   }

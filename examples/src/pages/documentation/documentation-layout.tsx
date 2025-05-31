@@ -65,9 +65,16 @@ export function DocumentationLayout() {
             `}>
               {/* Mobile overlay */}
               {sidebarOpen && (
-                <div
-                  className="fixed inset-0 bg-black/50 lg:hidden z-30"
+                <button
+                  className="fixed inset-0 bg-black/50 lg:hidden z-30 cursor-default"
                   onClick={() => setSidebarOpen(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      setSidebarOpen(false);
+                    }
+                  }}
+                  aria-label="Close navigation menu"
+                  tabIndex={0}
                 />
               )}
               

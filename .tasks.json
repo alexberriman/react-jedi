@@ -389,12 +389,12 @@
       {
         "id": "verify-no-index-seo",
         "description": "Confirm the example app (./examples) is set up to not be indexable by search engines. Check for: 1) robots.txt file with proper disallow rules, 2) Meta tags with noindex/nofollow in HTML head, 3) Any other SEO prevention measures. Add any missing configurations to ensure the example app is not indexed by search engines.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-header-search-functionality",
         "description": "Add a search component to the header in the example app (./examples) with real-time search results. Requirements: 1) Search input that looks sexy and matches the app design, 2) Real-time filtering as user types, 3) Search through all pages/routes in the app, 4) Show results in a dropdown (e.g., typing 'bo' shows 'Box' page), 5) Clicking a result navigates to that page, 6) Include keyboard navigation support, 7) Style it to look modern and professional.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-footer-year-dynamic",

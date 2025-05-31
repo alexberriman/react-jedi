@@ -655,7 +655,7 @@ export function ShowcasePage() {
       <div className="container mx-auto px-4 py-8">
         <div className={`${spacing.default}`}>
           {/* Filters - Compact Dropdown Design */}
-          <div className="sticky top-0 z-40 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-4 mb-8">
+          <div className="sticky top-24 z-40 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-4 mb-8">
             <div className="flex flex-wrap items-center gap-4">
               <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Filters:</span>
               <FilterDropdown

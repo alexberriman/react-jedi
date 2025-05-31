@@ -463,7 +463,7 @@
       {
         "id": "fix-showcase-floating-nav-offset",
         "description": "Fix the floating navigation bar on the /showcase page in the example app (./examples). The floating nav is hidden behind the fixed header. Add proper top offset/margin to account for the fixed header height so the floating navigation is fully visible and accessible.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-library-styles-not-loading",

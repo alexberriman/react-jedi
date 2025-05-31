@@ -453,7 +453,7 @@
       {
         "id": "remove-documentation-hero",
         "description": "Remove the 'React Jedi Documentation' hero section on the /documentation page in the example app (./examples). This includes the purple/gradient background section with 'Get Started' and 'View Components' buttons. Keep only the clean documentation content below.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-documentation-prev-next-navigation",

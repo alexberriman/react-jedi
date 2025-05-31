@@ -290,57 +290,8 @@ export function DocumentationOverview() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 dark:from-blue-400/10 dark:via-purple-400/10 dark:to-pink-400/10" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-500/20 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-purple-500/20 to-transparent rounded-full blur-3xl" />
-        </div>
-
-        <div className="relative py-20">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              React Jedi Documentation
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              Everything you need to build beautiful, server-driven interfaces with React Jedi&apos;s
-              JSON-based approach. From getting started to advanced patterns.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/documentation/getting-started"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
-              >
-                Get Started
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </Link>
-              <Link
-                to="/showcase"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-semibold rounded-lg transition-all"
-              >
-                View Components
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Content */}
-      <div className="py-16">
+      <div>
         <div>
           {/* Quick Start Example */}
           <div className="mb-20 bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">

@@ -431,7 +431,7 @@
       {
         "id": "showcase-json-syntax-highlighting",
         "description": "On the /showcase page, apply syntax highlighting to the show/hide JSON feature for each component using our syntax highlighting component",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "examples-floating-menu-color",

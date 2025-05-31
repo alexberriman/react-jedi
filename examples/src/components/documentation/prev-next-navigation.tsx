@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface NavigationLink {
-  path: string;
-  label: string;
+  readonly path: string;
+  readonly label: string;
 }
 
 interface PrevNextNavigationProps {
-  prev?: NavigationLink;
-  next?: NavigationLink;
+  readonly prev?: NavigationLink;
+  readonly next?: NavigationLink;
 }
 
 export function PrevNextNavigation({ prev, next }: PrevNextNavigationProps) {

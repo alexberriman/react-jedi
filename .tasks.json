@@ -421,7 +421,7 @@
       {
         "id": "documentation-vertical-navigation",
         "description": "Replace the horizontal navigation bar on /documentation with a vertical sidebar navigation (standard for doc sites like https://magicui.design/docs)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "documentation-pages-consistent-styling",

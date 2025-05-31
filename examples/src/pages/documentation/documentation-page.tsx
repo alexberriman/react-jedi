@@ -1,7 +1,91 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
 import { Heading, spacing } from "../../components/ui";
-import { PageHeader } from "../../components/ui/page-header";
+import { 
+  BookOpen, 
+  Package, 
+  Layout, 
+  Type, 
+  Component, 
+  FileInput, 
+  Palette, 
+  Database, 
+  Layers, 
+  Zap 
+} from "lucide-react";
+
+const docSections = [
+  { 
+    id: "getting-started", 
+    label: "Getting Started", 
+    path: "/documentation/getting-started",
+    icon: BookOpen,
+    description: "Learn the basics of React Jedi and get up and running quickly"
+  },
+  { 
+    id: "component-system", 
+    label: "Component System", 
+    path: "/documentation/component-system",
+    icon: Package,
+    description: "Understand how components work in React Jedi's SDUI architecture"
+  },
+  { 
+    id: "layout-components", 
+    label: "Layout Components", 
+    path: "/documentation/layout-components",
+    icon: Layout,
+    description: "Master responsive layouts with Grid, Flex, Stack, and more"
+  },
+  { 
+    id: "typography", 
+    label: "Typography", 
+    path: "/documentation/typography",
+    icon: Type,
+    description: "Create beautiful, consistent text with our typography system"
+  },
+  { 
+    id: "ui-components", 
+    label: "UI Components", 
+    path: "/documentation/ui-components",
+    icon: Component,
+    description: "Explore buttons, cards, modals, and other UI elements"
+  },
+  { 
+    id: "form-components", 
+    label: "Form Components", 
+    path: "/documentation/form-components",
+    icon: FileInput,
+    description: "Build powerful forms with inputs, selects, and validation"
+  },
+  { 
+    id: "theming", 
+    label: "Theming", 
+    path: "/documentation/theming",
+    icon: Palette,
+    description: "Customize colors, spacing, and create your own themes"
+  },
+  { 
+    id: "state-management", 
+    label: "State Management", 
+    path: "/documentation/state-management",
+    icon: Database,
+    description: "Handle reactive state and data flow in your applications"
+  },
+  { 
+    id: "complex-examples", 
+    label: "Complex Examples", 
+    path: "/documentation/complex-examples",
+    icon: Layers,
+    description: "See real-world examples and advanced use cases"
+  },
+  { 
+    id: "performance", 
+    label: "Performance", 
+    path: "/documentation/performance",
+    icon: Zap,
+    description: "Optimize your applications for maximum performance"
+  },
+];
 
 export function DocumentationPage() {
   usePageMetadata({
@@ -9,77 +93,72 @@ export function DocumentationPage() {
     description:
       "React Jedi documentation - Learn how to build server-driven UIs with JSON specifications, TypeScript, and modern React components.",
   });
+  
   return (
-    <div className="flex flex-col">
-      <PageHeader
-        title="Documentation"
-        description="Learn how to build beautiful, server-driven interfaces with React Jedi's JSON-based approach."
-      />
+    <div className="space-y-8">
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          Welcome to React Jedi Documentation
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+          React Jedi is a powerful server-driven UI (SDUI) library that enables you to build 
+          modern React interfaces using JSON specifications. With a single render() function, 
+          you can transform JSON schemas into fully functional React components.
+        </p>
+      </div>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 mb-8 sm:mb-12 sticky top-[73px] bg-white/95 dark:bg-gray-900/80 backdrop-blur-md p-2 sm:p-3 rounded-xl border border-gray-200 dark:border-gray-700 z-20 overflow-x-auto">
-          <a
-            href="#getting-started"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
+      <div className="grid gap-4 md:grid-cols-2">{/* <-- removed fixed lg:grid-cols-3 to make it work with sidebar */}
+        {docSections.map((section) => {
+          const Icon = section.icon;
+          return (
+            <Link
+              key={section.id}
+              to={section.path}
+              className="group p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 bg-white dark:bg-gray-900 transition-all hover:shadow-lg"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors">
+                  <Icon size={20} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {section.label}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {section.description}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      <div className="mt-12 p-6 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+        <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">
+          Quick Start
+        </h3>
+        <p className="text-blue-800 dark:text-blue-200 mb-4">
+          Get started with React Jedi in just a few minutes. Install the package and start 
+          building your first SDUI application.
+        </p>
+        <div className="flex gap-4">
+          <Link 
+            to="/documentation/getting-started" 
+            className="inline-flex items-center px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
           >
-            Getting Started
-          </a>
-          <a
-            href="#component-system"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
+            Get Started →
+          </Link>
+          <Link 
+            to="/showcase" 
+            className="inline-flex items-center px-4 py-2 rounded-md bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-medium transition-colors"
           >
-            Component System
-          </a>
-          <a
-            href="#layout-components"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
-          >
-            Layout Components
-          </a>
-          <a
-            href="#typography"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
-          >
-            Typography
-          </a>
-          <a
-            href="#ui-components"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
-          >
-            UI Components
-          </a>
-          <a
-            href="#form-components"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
-          >
-            Form Components
-          </a>
-          <a
-            href="#theming"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
-          >
-            Theming
-          </a>
-          <a
-            href="#state-management"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
-          >
-            State Management
-          </a>
-          <a
-            href="#complex-examples"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
-          >
-            Complex Examples
-          </a>
-          <a
-            href="#performance"
-            className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all text-sm"
-          >
-            Performance
-          </a>
+            View Components
+          </Link>
         </div>
+      </div>
+
+      <div className="container mx-auto px-0 py-0 hidden">{/* Hide old content for now - can be removed later */}
 
         {/* Getting Started Section */}
         <section id="getting-started" className={`${spacing.section} scroll-mt-32`}>

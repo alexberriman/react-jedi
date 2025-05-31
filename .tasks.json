@@ -374,7 +374,7 @@
       {
         "id": "fix-examples-page-floating-menu",
         "description": "Fix the floating side menu on the /examples page in the example app (./examples). The menu gets cut off by the fixed header. Add proper offset/margin-top to account for the header height so the floating menu is fully visible and doesn't overlap with or get hidden behind the header.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "add-syntax-highlighting-plugin",

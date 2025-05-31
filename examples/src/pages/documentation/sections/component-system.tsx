@@ -10,32 +10,30 @@ export function ComponentSystemPage() {
   return (
     <div>
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
           Component System
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50 transition-colors" />
         </h2>
       </div>
-      <div className="prose prose-emerald dark:prose-invert max-w-none">
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6 transition-colors">
+      <div className="prose prose-gray dark:prose-invert max-w-none">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
           React Jedi&apos;s component system is built around a simple, consistent pattern. Each
           component in a JSON specification has a{" "}
-          <code className="bg-zinc-100 dark:bg-zinc-800/70 px-1.5 py-0.5 rounded text-sm transition-colors">
+          <code className="bg-gray-100 dark:bg-gray-800/70 px-1.5 py-0.5 rounded text-sm">
             type
           </code>{" "}
           property that identifies the component, and additional properties specific to that
           component.
         </p>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Specification Structure
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Every component specification follows this general structure:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <CodeBlock language="json" className="relative mb-6 transition-colors">
+          <CodeBlock language="json" className="relative mb-6">
 {`{
   "type": "componentType",    // Required: The type of component to render
   
@@ -59,55 +57,54 @@ export function ComponentSystemPage() {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Component Properties
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           React Jedi components support several common properties in addition to their specific
           properties:
         </p>
 
         <ul className="space-y-2 mb-6 list-none pl-0">
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500 transition-colors"></span>
-            <span className="font-semibold text-zinc-900 dark:text-white transition-colors">
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="font-semibold text-zinc-900 dark:text-white">
               className
             </span>{" "}
             - Additional CSS classes to apply to the component
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500 transition-colors"></span>
-            <span className="font-semibold text-zinc-900 dark:text-white transition-colors">
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="font-semibold text-zinc-900 dark:text-white">
               id
             </span>{" "}
             - HTML id attribute for the component
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500 transition-colors"></span>
-            <span className="font-semibold text-zinc-900 dark:text-white transition-colors">
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="font-semibold text-zinc-900 dark:text-white">
               data-*
             </span>{" "}
             - Custom data attributes
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500 transition-colors"></span>
-            <span className="font-semibold text-zinc-900 dark:text-white transition-colors">
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="font-semibold text-zinc-900 dark:text-white">
               style
             </span>{" "}
             - Inline styles (object format)
           </li>
         </ul>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Complete Example
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Here&apos;s a more comprehensive example using multiple components together:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <CodeBlock language="json" className="relative mb-6 transition-colors">
+          <CodeBlock language="json" className="relative mb-6">
 {`{
   "type": "container",
   "maxWidth": "lg",
@@ -133,7 +130,7 @@ export function ComponentSystemPage() {
       "children": [
         {
           "type": "card",
-          "className": "hover:border-emerald-500/50 transition-all",
+          "className": "hover:border-gray-500/50 transition-all",
           "children": [
             {
               "type": "heading",
@@ -148,7 +145,7 @@ export function ComponentSystemPage() {
         },
         {
           "type": "card",
-          "className": "hover:border-emerald-500/50 transition-all",
+          "className": "hover:border-gray-500/50 transition-all",
           "children": [
             {
               "type": "heading",
@@ -163,7 +160,7 @@ export function ComponentSystemPage() {
         },
         {
           "type": "card",
-          "className": "hover:border-emerald-500/50 transition-all",
+          "className": "hover:border-gray-500/50 transition-all",
           "children": [
             {
               "type": "heading",

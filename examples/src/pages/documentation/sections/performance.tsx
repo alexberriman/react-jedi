@@ -9,87 +9,87 @@ export function PerformancePage() {
   return (
     <div>
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
           Performance Analysis
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-blue-500/50 transition-colors" />
+          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-gray-500/50" />
         </h2>
       </div>
 
-      <div className="prose prose-blue dark:prose-invert max-w-none">
-        <p className="text-xl text-zinc-700 dark:text-zinc-300 mb-6 transition-colors">
+      <div className="prose prose-gray dark:prose-invert max-w-none">
+        <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
           Understanding the performance characteristics of React Jedi&apos;s server-driven approach
           compared to traditional React development.
         </p>
 
-        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 mb-8 transition-colors">
-          <h3 className="text-xl font-semibold mb-4 text-blue-400 transition-colors">
+        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6 mb-8">
+          <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
             JSON vs Code Performance Comparison
           </h3>
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4 transition-colors">
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
             Our benchmarks show that React Jedi&apos;s JSON-based approach adds minimal overhead
             while providing significant benefits:
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 transition-colors">
-              <h4 className="text-lg font-semibold mb-2 text-green-400 transition-colors">
+            <div className="bg-white dark:bg-black/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <h4 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">
                 Traditional React
               </h4>
-              <ul className="space-y-2 text-zinc-700 dark:text-zinc-300 transition-colors">
+              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                 <li className="flex items-start">
-                  <span className="text-green-400 mr-2 transition-colors">✓</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">✓</span>
                   <span>Direct component rendering</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-400 mr-2 transition-colors">✓</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">✓</span>
                   <span>No parsing overhead</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2 transition-colors">✗</span>
+                  <span className="text-red-400 mr-2">✗</span>
                   <span>Larger bundle sizes</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2 transition-colors">✗</span>
+                  <span className="text-red-400 mr-2">✗</span>
                   <span>Fixed at build time</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 transition-colors">
-              <h4 className="text-lg font-semibold mb-2 text-purple-400 transition-colors">
+            <div className="bg-white dark:bg-black/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <h4 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">
                 React Jedi (JSON)
               </h4>
-              <ul className="space-y-2 text-zinc-700 dark:text-zinc-300 transition-colors">
+              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 transition-colors">✓</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">✓</span>
                   <span>Smaller bundle sizes</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 transition-colors">✓</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">✓</span>
                   <span>Server-driven updates</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 transition-colors">✓</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">✓</span>
                   <span>Dynamic theming</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-yellow-400 mr-2 transition-colors">±</span>
+                  <span className="text-yellow-400 mr-2">±</span>
                   <span>Small parsing overhead</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 border border-blue-800/30 rounded-lg p-4 transition-colors">
-            <h5 className="font-semibold mb-2 text-blue-300 transition-colors">
+          <div className="bg-gradient-to-r from-gray-900/20 to-gray-900/20 border border-gray-800/30 rounded-lg p-4">
+            <h5 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">
               Benchmark Results
             </h5>
-            <p className="text-zinc-700 dark:text-zinc-300 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400">
               In typical use cases, React Jedi adds <strong>15-30% render time overhead</strong>{" "}
               compared to traditional React components, which is negligible for most applications
               and outweighed by the benefits of:
             </p>
-            <ul className="mt-2 space-y-1 text-zinc-700 dark:text-zinc-300 transition-colors">
+            <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
               <li>• Reduced bundle sizes (30-50% smaller)</li>
               <li>• Dynamic content updates without deployment</li>
               <li>• Consistent theming across all components</li>
@@ -98,19 +98,19 @@ export function PerformancePage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-blue-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Performance Best Practices
         </h3>
 
         <div className="space-y-4">
-          <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">
-            <h4 className="text-lg font-semibold mb-3 text-blue-400 transition-colors">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+            <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               1. Optimize JSON Specifications
             </h4>
-            <p className="text-zinc-700 dark:text-zinc-300 mb-3 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400 mb-3">
               Keep your JSON specifications lean and focused:
             </p>
-            <CodeBlock language="json" className="relative transition-colors">
+            <CodeBlock language="json" className="relative">
 {`// ❌ Avoid deeply nested structures
 {
   "type": "Container",
@@ -134,37 +134,37 @@ export function PerformancePage() {
             </CodeBlock>
           </div>
 
-          <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">
-            <h4 className="text-lg font-semibold mb-3 text-blue-400 transition-colors">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+            <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               2. Component Memoization
             </h4>
-            <p className="text-zinc-700 dark:text-zinc-300 mb-3 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400 mb-3">
               React Jedi automatically memoizes component rendering for optimal performance:
             </p>
-            <ul className="space-y-2 text-zinc-700 dark:text-zinc-300 transition-colors">
+            <ul className="space-y-2 text-gray-600 dark:text-gray-400">
               <li className="flex items-start">
-                <span className="text-blue-400 mr-2 transition-colors">•</span>
+                <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                 <span>Components are only re-rendered when their JSON spec changes</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-400 mr-2 transition-colors">•</span>
+                <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                 <span>Theme changes trigger minimal re-renders</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-400 mr-2 transition-colors">•</span>
+                <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                 <span>State updates are localized to affected components</span>
               </li>
             </ul>
           </div>
 
-          <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">
-            <h4 className="text-lg font-semibold mb-3 text-blue-400 transition-colors">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+            <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               3. Lazy Loading
             </h4>
-            <p className="text-zinc-700 dark:text-zinc-300 mb-3 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400 mb-3">
               Load complex components only when needed:
             </p>
-            <CodeBlock language="json" className="relative transition-colors">
+            <CodeBlock language="json" className="relative">
 {`{
   "type": "Conditional",
   "if": "state.showDetails",
@@ -180,47 +180,47 @@ export function PerformancePage() {
             </CodeBlock>
           </div>
 
-          <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">
-            <h4 className="text-lg font-semibold mb-3 text-blue-400 transition-colors">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+            <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               4. Bundle Size Optimization
             </h4>
-            <p className="text-zinc-700 dark:text-zinc-300 mb-3 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400 mb-3">
               React Jedi significantly reduces bundle sizes:
             </p>
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 transition-colors">
-                <h5 className="font-semibold mb-2 text-green-400 transition-colors">
+              <div className="bg-white dark:bg-black/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h5 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">
                   Traditional React App
                 </h5>
-                <p className="text-zinc-600 dark:text-zinc-400 text-sm transition-colors">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
                   Bundle includes all component code
                 </p>
-                <p className="text-xl font-bold text-green-400 mt-2 transition-colors">~250KB</p>
+                <p className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-2">~250KB</p>
               </div>
-              <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 transition-colors">
-                <h5 className="font-semibold mb-2 text-purple-400 transition-colors">
+              <div className="bg-white dark:bg-black/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h5 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">
                   React Jedi App
                 </h5>
-                <p className="text-zinc-600 dark:text-zinc-400 text-sm transition-colors">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
                   Bundle includes only core renderer
                 </p>
-                <p className="text-xl font-bold text-purple-400 mt-2 transition-colors">~80KB</p>
+                <p className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-2">~80KB</p>
               </div>
             </div>
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 mt-8 text-blue-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 mt-8 text-gray-900 dark:text-gray-100">
           When to Use React Jedi
         </h3>
 
-        <div className="bg-gradient-to-r from-emerald-900/20 to-blue-900/20 border border-emerald-800/30 rounded-lg p-6 transition-colors">
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4 transition-colors">
+        <div className="bg-gradient-to-r from-gray-900/20 to-gray-900/20 border border-gray-800/30 rounded-lg p-6">
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
             React Jedi is ideal for applications that prioritize:
           </p>
-          <ul className="space-y-2 text-zinc-700 dark:text-zinc-300 transition-colors">
+          <ul className="space-y-2 text-gray-600 dark:text-gray-400">
             <li className="flex items-start">
-              <span className="text-emerald-600 dark:text-emerald-400 mr-2 transition-colors">
+              <span className="text-gray-900 dark:text-gray-100 mr-2">
                 ✓
               </span>
               <span>
@@ -229,7 +229,7 @@ export function PerformancePage() {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-emerald-600 dark:text-emerald-400 mr-2 transition-colors">
+              <span className="text-gray-900 dark:text-gray-100 mr-2">
                 ✓
               </span>
               <span>
@@ -237,7 +237,7 @@ export function PerformancePage() {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-emerald-600 dark:text-emerald-400 mr-2 transition-colors">
+              <span className="text-gray-900 dark:text-gray-100 mr-2">
                 ✓
               </span>
               <span>
@@ -245,7 +245,7 @@ export function PerformancePage() {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-emerald-600 dark:text-emerald-400 mr-2 transition-colors">
+              <span className="text-gray-900 dark:text-gray-100 mr-2">
                 ✓
               </span>
               <span>
@@ -255,9 +255,9 @@ export function PerformancePage() {
           </ul>
         </div>
 
-        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 mt-6 transition-colors">
-          <p className="text-zinc-700 dark:text-zinc-300 transition-colors">
-            <strong className="text-blue-400 transition-colors">Bottom Line:</strong> The small
+        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6 mt-6">
+          <p className="text-gray-600 dark:text-gray-400">
+            <strong className="text-gray-900 dark:text-gray-100">Bottom Line:</strong> The small
             performance trade-off of React Jedi is more than compensated by its flexibility, smaller
             bundle sizes, and development speed benefits. For most web applications, the ~20ms
             difference in render time is imperceptible to users.

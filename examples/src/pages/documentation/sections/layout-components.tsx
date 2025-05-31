@@ -10,19 +10,18 @@ export function LayoutComponentsPage() {
   return (
     <div>
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
           Layout Components
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50 transition-colors" />
         </h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group transition-colors">
+        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 transition duration-300 group">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3 transition-colors">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                 <svg
-                  className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors"
+                  className="w-4 h-4 text-gray-900 dark:text-gray-100"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -36,14 +35,13 @@ export function LayoutComponentsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold transition-colors">Container</h3>
+              <h3 className="text-xl font-semibold">Container</h3>
             </div>
-            <p className="text-zinc-600 dark:text-zinc-400 mb-4 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               A centered, responsive container with configurable max-width and padding.
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <CodeBlock language="json" className="relative transition-colors">
+              <CodeBlock language="json" className="relative">
 {`{
   "type": "container",
   "maxWidth": "xl",
@@ -58,12 +56,12 @@ export function LayoutComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group transition-colors">
+        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 transition duration-300 group">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3 transition-colors">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                 <svg
-                  className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors"
+                  className="w-4 h-4 text-gray-900 dark:text-gray-100"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -77,14 +75,13 @@ export function LayoutComponentsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold transition-colors">Box</h3>
+              <h3 className="text-xl font-semibold">Box</h3>
             </div>
-            <p className="text-zinc-600 dark:text-zinc-400 mb-4 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               A flexible, all-purpose container for building layouts.
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <CodeBlock language="json" className="relative transition-colors">
+              <CodeBlock language="json" className="relative">
 {`{
   "type": "box",
   "padding": "md",
@@ -112,12 +109,12 @@ export function LayoutComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group transition-colors">
+        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 transition duration-300 group">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3 transition-colors">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                 <svg
-                  className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors"
+                  className="w-4 h-4 text-gray-900 dark:text-gray-100"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -131,14 +128,13 @@ export function LayoutComponentsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold transition-colors">Grid</h3>
+              <h3 className="text-xl font-semibold">Grid</h3>
             </div>
-            <p className="text-zinc-600 dark:text-zinc-400 mb-4 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               A powerful grid layout system with responsive columns and gaps.
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <CodeBlock language="json" className="relative transition-colors">
+              <CodeBlock language="json" className="relative">
 {`{
   "type": "grid",
   "columns": {
@@ -157,12 +153,12 @@ export function LayoutComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-emerald-900/50 transition duration-300 group transition-colors">
+        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 transition duration-300 group">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3 transition-colors">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
                 <svg
-                  className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors"
+                  className="w-4 h-4 text-gray-900 dark:text-gray-100"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -176,14 +172,13 @@ export function LayoutComponentsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold transition-colors">Flex</h3>
+              <h3 className="text-xl font-semibold">Flex</h3>
             </div>
-            <p className="text-zinc-600 dark:text-zinc-400 mb-4 transition-colors">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               A flexbox layout component for arranging items in a row or column.
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <CodeBlock language="json" className="relative transition-colors">
+              <CodeBlock language="json" className="relative">
 {`{
   "type": "flex",
   "direction": "row",
@@ -201,37 +196,37 @@ export function LayoutComponentsPage() {
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-emerald-900/30 to-blue-900/30 border border-emerald-800/30 rounded-xl p-6 mb-8 transition-colors">
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+      <div className="bg-gradient-to-br from-gray-900/30 to-gray-900/30 border border-gray-800/30 rounded-xl p-6 mb-8">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Layout Tips
         </h3>
         <ul className="space-y-2 list-none pl-0">
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500 transition-colors"></span>
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
             Use{" "}
-            <span className="font-semibold text-zinc-900 dark:text-white transition-colors">
+            <span className="font-semibold text-zinc-900 dark:text-white">
               Container
             </span>{" "}
             for page-level content organization
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500 transition-colors"></span>
-            <span className="font-semibold text-zinc-900 dark:text-white transition-colors">
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="font-semibold text-zinc-900 dark:text-white">
               Grid
             </span>{" "}
             works best for structured, multi-column layouts
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500 transition-colors"></span>
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
             Use{" "}
-            <span className="font-semibold text-zinc-900 dark:text-white transition-colors">
+            <span className="font-semibold text-zinc-900 dark:text-white">
               Flex
             </span>{" "}
             for aligning items along a single axis
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500 transition-colors"></span>
-            <span className="font-semibold text-zinc-900 dark:text-white transition-colors">
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="font-semibold text-zinc-900 dark:text-white">
               Box
             </span>{" "}
             is perfect for creating card-like UI elements
@@ -239,10 +234,10 @@ export function LayoutComponentsPage() {
         </ul>
       </div>
 
-      <div className="text-center transition-colors">
+      <div className="text-center">
         <Link
           to="/showcase"
-          className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full text-zinc-900 dark:text-white font-medium hover:from-emerald-600 hover:to-blue-600 transition-all shadow-lg hover:shadow-emerald-500/20 group transition-colors"
+          className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-full text-zinc-900 dark:text-white font-medium hover:from-gray-600 hover:to-gray-700 transition-all shadow-lg hover:shadow-gray-500/20 group"
         >
           <span>View Layout Components Showcase</span>
           <svg

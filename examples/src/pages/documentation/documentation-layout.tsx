@@ -28,14 +28,10 @@ export function DocumentationLayout() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
           <div className="space-y-2 mb-16">
-            <div className="relative w-fit">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 mb-2 transition-colors">
-                Documentation
-              </h1>
-              <div className="absolute -bottom-4 left-0 w-1/2 h-1 bg-gradient-to-r from-emerald-400 to-transparent rounded-full blur-sm transition-colors" />
-              <div className="absolute -bottom-4 left-0 w-1/3 h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-full transition-colors" />
-            </div>
-            <p className="text-lg sm:text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl transition-colors">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-4">
+              Documentation
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
               Learn how to build beautiful, server-driven interfaces with React Jedi&apos;s
               JSON-based approach.
             </p>
@@ -49,7 +45,7 @@ export function DocumentationLayout() {
                 to={section.path}
                 className={`px-4 py-2 rounded-full text-sm transition-all ${
                   location.pathname === section.path
-                    ? "bg-emerald-600/20 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-600/50 dark:border-emerald-500/50"
+                    ? "bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900"
                     : "bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                 }`}
               >

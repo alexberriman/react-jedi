@@ -9,28 +9,26 @@ export function ComplexExamplesPage() {
   return (
     <div>
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-200 dark:border-zinc-800 inline-block pr-8 transition-colors">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
           Complex Examples
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-emerald-500/50 transition-colors" />
         </h2>
       </div>
 
-      <div className="prose prose-emerald dark:prose-invert max-w-none">
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6 transition-colors">
+      <div className="prose prose-gray dark:prose-invert max-w-none">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
           Here are some complex examples that combine multiple components to create real-world UI
           patterns.
         </p>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Hero Section
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           A complete hero section with gradient heading, description, and call-to-action buttons:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <CodeBlock language="json" className="relative mb-6 transition-colors">
+          <CodeBlock language="json" className="relative mb-6">
 {`{
   "type": "container",
   "maxWidth": "7xl",
@@ -89,16 +87,15 @@ export function ComplexExamplesPage() {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Testimonial Component
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           A testimonial component with multiple variants and rating:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <CodeBlock language="json" className="relative mb-6 transition-colors">
+          <CodeBlock language="json" className="relative mb-6">
 {`{
   "type": "testimonial",
   "author": {
@@ -116,16 +113,15 @@ export function ComplexExamplesPage() {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Multiple Testimonials
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Create a grid of testimonials with different variants:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <CodeBlock language="json" className="relative mb-6 transition-colors">
+          <CodeBlock language="json" className="relative mb-6">
 {`{
   "type": "grid",
   "columns": { "default": 1, "md": 3 },
@@ -170,16 +166,15 @@ export function ComplexExamplesPage() {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Pricing Table
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           A beautiful pricing table with tier comparison:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <CodeBlock language="json" className="relative mb-6 transition-colors">
+          <CodeBlock language="json" className="relative mb-6">
 {`{
   "type": "pricing-table",
   "columns": 3,
@@ -233,16 +228,15 @@ export function ComplexExamplesPage() {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Dashboard Card
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4 transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           A dashboard card with metrics and status indicators:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <CodeBlock language="json" className="relative mb-6 transition-colors">
+          <CodeBlock language="json" className="relative mb-6">
 {`{
   "type": "card",
   "children": [

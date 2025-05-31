@@ -10,70 +10,70 @@ export function ThemingPage() {
   return (
     <div>
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-zinc-800 inline-block pr-8">
+        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
           Theming System
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-purple-500/50" />
+          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-gray-500/50" />
         </h2>
       </div>
 
-      <div className="prose prose-purple dark:prose-invert max-w-none">
-        <p className="text-xl text-zinc-300 mb-6">
+      <div className="prose prose-gray dark:prose-invert max-w-none">
+        <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
           React Jedi&apos;s theming system provides a powerful, flexible way to customize the
           appearance of your applications. Build beautifully themed interfaces that match any brand
           identity with our comprehensive design token system.
         </p>
 
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-purple-400">Theme Architecture</h3>
-              <p className="text-zinc-400 mb-4">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Theme Architecture</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Our theming system is built on design tokens, CSS variables, and a cascading
                 hierarchy that ensures consistency across your application.
               </p>
-              <ul className="space-y-2 text-zinc-300">
+              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                   <span>Design tokens for colors, typography, spacing, and more</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                   <span>CSS variable generation for runtime theming</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                   <span>Theme inheritance and composition</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                   <span>Responsive design systems</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-purple-400">Key Features</h3>
-              <p className="text-zinc-400 mb-4">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Key Features</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 The theming system provides powerful features for creating consistent, beautiful
                 interfaces.
               </p>
-              <ul className="space-y-2 text-zinc-300">
+              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                   <span>Light/dark mode with automatic detection</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                   <span>Brand preset system for quick styling</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                   <span>Component-level style overrides</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-2">•</span>
+                  <span className="text-gray-900 dark:text-gray-100 mr-2">•</span>
                   <span>Fluid typography and responsive spacing</span>
                 </li>
               </ul>
@@ -81,13 +81,13 @@ export function ThemingPage() {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Theme Provider</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Theme Provider</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Wrap your application with the ThemeProvider to enable theming:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
           <CodeBlock language="typescript" className="relative mb-6">
 {`import { ThemeProvider } from "@banja/react-jedi";
 
@@ -101,13 +101,13 @@ function App() {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Theme Structure</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Theme Structure</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Themes are structured JSON objects with comprehensive design tokens:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
           <CodeBlock language="javascript" className="relative mb-6">
 {`const customTheme = {
   colors: {
@@ -190,20 +190,20 @@ function App() {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Color System</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Color System</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           The color system supports comprehensive palettes with automatic shade generation:
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h4 className="text-lg font-semibold mb-3 text-purple-400">Primary Colors</h4>
-              <p className="text-zinc-400 mb-4">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Primary Colors</h4>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Define your brand&apos;s primary color palette with automatic shade generation.
               </p>
-              <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="relative group-hover:scale-[1.02]">
+                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
                 <CodeBlock language="javascript" className="relative">
 {`primary: {
   50: "#f0f9ff",
@@ -218,14 +218,14 @@ function App() {
             </div>
           </div>
 
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h4 className="text-lg font-semibold mb-3 text-purple-400">Semantic Colors</h4>
-              <p className="text-zinc-400 mb-4">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Semantic Colors</h4>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Use semantic colors for consistent messaging across your app.
               </p>
-              <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="relative group-hover:scale-[1.02]">
+                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
                 <CodeBlock language="javascript" className="relative">
 {`success: {
   DEFAULT: "#22c55e",
@@ -240,14 +240,14 @@ error: {
             </div>
           </div>
 
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h4 className="text-lg font-semibold mb-3 text-purple-400">Color Modes</h4>
-              <p className="text-zinc-400 mb-4">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Color Modes</h4>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Support for light and dark modes with automatic system detection.
               </p>
-              <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="relative group-hover:scale-[1.02]">
+                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
                 <CodeBlock language="javascript" className="relative">
 {`modes: {
   light: {
@@ -265,19 +265,19 @@ error: {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Typography System</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Typography System</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Create beautiful, readable text with our comprehensive typography system:
         </p>
 
-        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group mb-8">
+        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group mb-8">
           <div className="p-6">
-            <h4 className="text-lg font-semibold mb-3 text-purple-400">Fluid Typography</h4>
-            <p className="text-zinc-400 mb-4">
+            <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Fluid Typography</h4>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               Typography scales smoothly between breakpoints for optimal readability.
             </p>
-            <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+            <div className="relative group-hover:scale-[1.02]">
+              <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
               <CodeBlock language="javascript" className="relative">
 {`typography: {
   fluid: {
@@ -300,20 +300,20 @@ error: {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Spacing System</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Spacing System</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           A harmonious spacing system ensures consistent layouts:
         </p>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h4 className="text-lg font-semibold mb-3 text-purple-400">Spacing Scale</h4>
-              <p className="text-zinc-400 mb-4">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Spacing Scale</h4>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Use consistent spacing values throughout your application.
               </p>
-              <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="relative group-hover:scale-[1.02]">
+                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
                 <CodeBlock language="javascript" className="relative">
 {`spacing: {
   base: 8, // Base unit in pixels
@@ -331,14 +331,14 @@ error: {
             </div>
           </div>
 
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h4 className="text-lg font-semibold mb-3 text-purple-400">Responsive Spacing</h4>
-              <p className="text-zinc-400 mb-4">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Responsive Spacing</h4>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Spacing adapts to different screen sizes automatically.
               </p>
-              <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="relative group-hover:scale-[1.02]">
+                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
                 <CodeBlock language="javascript" className="relative">
 {`responsive: {
   spacing: {
@@ -354,13 +354,13 @@ error: {
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Component Style Overrides</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Component Style Overrides</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Override component styles at the theme level for global consistency:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
           <CodeBlock language="javascript" className="relative mb-6">
 {`const theme = {
   components: {
@@ -399,13 +399,13 @@ error: {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Using the Theme Hook</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Using the Theme Hook</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Access theme values in your components with the useTheme hook:
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
           <CodeBlock language="typescript" className="relative mb-6">
 {`import { useTheme } from "@banja/react-jedi";
 
@@ -435,37 +435,37 @@ function MyComponent() {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Brand Presets</h3>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Brand Presets</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Quickly apply beautiful themes with our pre-built brand presets:
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h4 className="text-lg font-semibold mb-3 text-purple-400">Modern Tech</h4>
+              <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Modern Tech</h4>
               <div className="h-32 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 mb-4"></div>
-              <p className="text-zinc-400">
+              <p className="text-gray-600 dark:text-gray-400">
                 A sleek, modern theme perfect for tech startups and SaaS products.
               </p>
             </div>
           </div>
 
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h4 className="text-lg font-semibold mb-3 text-purple-400">Elegant Business</h4>
+              <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Elegant Business</h4>
               <div className="h-32 rounded-lg bg-gradient-to-br from-slate-600 to-zinc-600 mb-4"></div>
-              <p className="text-zinc-400">
+              <p className="text-gray-600 dark:text-gray-400">
                 Professional and sophisticated for corporate websites.
               </p>
             </div>
           </div>
 
-          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden hover:border-purple-900/50 transition duration-300 group">
+          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
-              <h4 className="text-lg font-semibold mb-3 text-purple-400">Creative Agency</h4>
+              <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Creative Agency</h4>
               <div className="h-32 rounded-lg bg-gradient-to-br from-pink-600 to-orange-600 mb-4"></div>
-              <p className="text-zinc-400">
+              <p className="text-gray-600 dark:text-gray-400">
                 Bold and vibrant for creative agencies and portfolios.
               </p>
             </div>
@@ -473,7 +473,7 @@ function MyComponent() {
         </div>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
           <CodeBlock language="javascript" className="relative mb-6">
 {`import { brandPresets } from "@banja/react-jedi";
 
@@ -496,39 +496,39 @@ const customTheme = {
           </CodeBlock>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-purple-400">Best Practices</h3>
-        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden p-6">
-          <ul className="space-y-3 text-zinc-300">
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Best Practices</h3>
+        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+          <ul className="space-y-3 text-gray-600 dark:text-gray-400">
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">1.</span>
+              <span className="text-gray-900 dark:text-gray-100 mr-2">1.</span>
               <span>
                 <strong>Use semantic color names</strong> - Name colors by their purpose (primary,
                 secondary, success) rather than their appearance (blue, green).
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">2.</span>
+              <span className="text-gray-900 dark:text-gray-100 mr-2">2.</span>
               <span>
                 <strong>Maintain consistency</strong> - Use your spacing scale and typography system
                 consistently throughout your application.
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">3.</span>
+              <span className="text-gray-900 dark:text-gray-100 mr-2">3.</span>
               <span>
                 <strong>Design for accessibility</strong> - Ensure color contrast ratios meet WCAG
                 guidelines, especially in dark mode.
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">4.</span>
+              <span className="text-gray-900 dark:text-gray-100 mr-2">4.</span>
               <span>
                 <strong>Test across modes</strong> - Always test your themes in both light and dark
                 modes.
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-400 mr-2">5.</span>
+              <span className="text-gray-900 dark:text-gray-100 mr-2">5.</span>
               <span>
                 <strong>Use theme tokens</strong> - Reference theme values instead of hard-coding
                 colors and spacing.

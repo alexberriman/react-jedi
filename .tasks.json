@@ -416,7 +416,7 @@
       {
         "id": "documentation-header-styling",
         "description": "Remove the gradient/weird style effect on the /documentation page header. Use standard header styling consistent with other pages like /examples. Apply this to all documentation/* pages",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "documentation-vertical-navigation",

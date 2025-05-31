@@ -1,20 +1,21 @@
 <div align="center">
   
-# React Jedi 🪄
+# React Jedi 🚀
   
 <p align="center">
-  <strong>Build stunning modern UIs with JSON specifications</strong>
+  <strong>Build React UIs with JSON • Server-Driven UI Made Simple</strong>
 </p>
 
 <p align="center">
   <a href="#installation"><strong>Install</strong></a> •
-  <a href="#getting-started"><strong>Quick Start</strong></a> •
+  <a href="#quick-start"><strong>Quick Start</strong></a> •
   <a href="#features"><strong>Features</strong></a> •
   <a href="#documentation"><strong>Docs</strong></a> •
-  <a href="./examples"><strong>Examples</strong></a>
+  <a href="./examples"><strong>Demo</strong></a>
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/npm/v/@banja/react-jedi?style=flat&colorA=000000&colorB=000000" alt="NPM Version" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" alt="React" />
   <img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
@@ -23,30 +24,17 @@
 
 </div>
 
-## 🔥 Server-Driven UI on Steroids
+## What is React Jedi?
 
-React Jedi is a next-generation **npm library** for building visually stunning interfaces through pure JSON specifications. It combines the power of React, TailwindCSS, and ShadCN components to create a streamlined development experience.
+React Jedi is a **Server-Driven UI (SDUI) library** that transforms JSON specifications into fully functional React components. With just a single `render()` function, you can build complete user interfaces without writing traditional React code.
 
-> **Note:** This project is in active development. Milestone 1 (Static Components) is complete with all basic UI components ready for use.
-
-## 📸 Screenshots
-
-<div align="center">
-  <p><em>Screenshots coming soon! Visit our <a href="./examples">Examples App</a> to see the components in action.</em></p>
-</div>
-
-## ✨ Features
-
-- **Zero Lock-in**: Import what you need, integrate with any React app
-- **Dynamic JSON-Driven Rendering**: Define entire UIs with pure JSON
-- **Single Function API**: Simple `render()` function for all UI needs
-- **Real-Time UI Generation**: Create interfaces on-the-fly
-- **Nested Components**: Build complex UIs with JSON composition
-- **Reactive State**: Manage component state directly in specifications
-- **Conditional Rendering**: Implement logic in your JSON schema
-- **Event Handling**: Define handlers within your specifications
-- **Animation Framework**: Declarative animations for all interactions
-- **Theme Inheritance**: Cascading styles through component hierarchy
+**Why React Jedi?**
+- 🎯 **One Function, Infinite Possibilities** - Just `render({ spec })` 
+- 🔥 **Beautiful by Default** - Powered by TailwindCSS and ShadCN components
+- 🚀 **Zero Lock-in** - Import only what you need, works with any React app
+- 📱 **Server-Driven** - Update UIs without app deployments
+- 🎨 **Theme Inheritance** - Cascading styles through component hierarchy
+- ⚡ **Production Ready** - TypeScript, comprehensive testing, performance optimized
 
 ## 🚀 Installation
 
@@ -54,326 +42,324 @@ React Jedi is a next-generation **npm library** for building visually stunning i
 npm install @banja/react-jedi
 ```
 
-## 🏄‍♂️ Getting Started
+## Quick Start
 
-React Jedi makes it incredibly easy to build UI components with JSON. Here's how to get started:
-
-### Basic Example
+Transform JSON into beautiful React components with a single function:
 
 ```jsx
 import { render } from "@banja/react-jedi";
 
-// JSON specification for a simple UI
 const spec = {
-  type: "container",
+  type: "flex",
+  direction: "column",
+  gap: "lg",
   children: [
     {
       type: "heading",
       level: "h1",
-      content: "Hello, React Jedi!"
-    },
-    {
-      type: "text",
-      text: "Building UIs with JSON specifications."
-    }
-  ]
-};
-
-// Render the UI
-function MyComponent() {
-  return render({ spec });
-}
-```
-
-### TypeScript Support
-
-```typescript
-import { render, ComponentSpec } from "@banja/react-jedi";
-
-// Type-safe component specification
-const spec: ComponentSpec = {
-  type: "container",
-  maxWidth: "xl",
-  padding: "md",
-  children: [
-    {
-      type: "heading",
-      level: "h1",
-      content: "Type-Safe UI",
+      content: "Welcome to React Jedi",
       gradient: "rainbow"
+    },
+    {
+      type: "button",
+      text: "Get Started",
+      variant: "primary",
+      size: "lg"
     }
   ]
 };
 
-function MyApp() {
-  return (
-    <div className="app">
-      {render({ spec })}
-    </div>
-  );
+function App() {
+  return <>{render({ spec })}</>;
 }
 ```
 
-### Complex Example
+That's it! No component imports, no styling setup - just JSON and `render()`.
 
-Create stunning layouts by combining multiple components:
+## How It Works
 
-```json
-{
-  "type": "container",
-  "maxWidth": "lg",
-  "padding": "lg",
-  "children": [
+React Jedi uses a powerful schema-based approach:
+
+```javascript
+// 1. Define your UI as JSON
+const loginForm = {
+  type: "card",
+  className: "max-w-md mx-auto",
+  children: [
     {
-      "type": "heading",
-      "level": "h1",
-      "content": "Welcome to React Jedi",
-      "gradient": "rainbow",
-      "size": "5xl",
-      "align": "center"
+      type: "heading",
+      level: "h2",
+      content: "Sign In"
     },
     {
-      "type": "separator",
-      "orientation": "horizontal",
-      "className": "my-8"
-    },
-    {
-      "type": "grid",
-      "columns": { "default": 1, "md": 2, "lg": 3 },
-      "gap": "lg",
-      "children": [
+      type: "form",
+      children: [
         {
-          "type": "card",
-          "className": "hover:border-emerald-500/50 transition-all",
-          "children": [
+          type: "input",
+          placeholder: "Email",
+          type: "email"
+        },
+        {
+          type: "input",
+          placeholder: "Password",
+          type: "password"
+        },
+        {
+          type: "button",
+          text: "Login",
+          variant: "primary",
+          className: "w-full"
+        }
+      ]
+    }
+  ]
+};
+
+// 2. Render it
+function LoginPage() {
+  return render({ spec: loginForm });
+}
+```
+
+## Features
+
+### 🎯 Core Features
+
+- **Single Function API** - Just `render({ spec })` to create any UI
+- **50+ Beautiful Components** - Buttons, cards, forms, layouts, and more
+- **TypeScript First** - Full type safety and intellisense
+- **Zero Configuration** - Works out of the box with any React app
+- **Performance Optimized** - Automatic memoization and lazy loading
+- **Accessibility Built-in** - ARIA attributes and keyboard navigation
+
+### 🎨 Advanced Features
+
+- **Conditional Rendering** - Show/hide components based on state
+- **Event Handling** - Click, hover, and form events in JSON
+- **Animations** - Smooth transitions and effects
+- **Responsive Design** - Mobile-first with breakpoint support
+- **Theme System** - Dark mode and custom themes
+- **State Management** - Reactive state directly in JSON
+
+## Component Library
+
+React Jedi includes 50+ production-ready components:
+
+### Layout Components
+`Container` `Box` `Flex` `Grid` `Stack` `Group` `Center` `SimpleGrid` `Spacer`
+
+### Typography
+`Heading` `Text` `BlockQuote` 
+
+### Form Components
+`Form` `Input` `Textarea` `Select` `Checkbox` `RadioGroup` `Switch` `Toggle` `Slider` `DatePicker`
+
+### UI Components  
+`Button` `Card` `Badge` `Alert` `Avatar` `Image` `Separator` `Skeleton` `Progress` `Tooltip`
+
+### Interactive Components
+`AlertDialog` `Collapsible` `Popover` `HoverCard` `Drawer` `DropdownMenu` `ContextMenu` `Command`
+
+### Data Display
+`Table` `DataTable` `Chart` `Tabs` `Carousel` `PricingTable` `Testimonial`
+
+### Navigation
+`NavigationMenu` `Breadcrumb` `Pagination` `Menubar`
+
+View all components with live examples in our [interactive showcase](./examples).
+
+## Real-World Examples
+
+### Hero Section
+```javascript
+const heroSection = {
+  type: "container",
+  className: "py-24",
+  children: [
+    {
+      type: "flex",
+      direction: "column",
+      align: "center",
+      gap: "lg",
+      children: [
+        {
+          type: "badge",
+          text: "New Release",
+          variant: "outline"
+        },
+        {
+          type: "heading",
+          level: "h1",
+          content: "Build Faster with React Jedi",
+          size: "6xl",
+          gradient: "rainbow"
+        },
+        {
+          type: "text",
+          text: "Create beautiful, responsive UIs with just JSON",
+          size: "xl",
+          className: "text-muted-foreground max-w-2xl text-center"
+        },
+        {
+          type: "group",
+          children: [
             {
-              "type": "heading",
-              "level": "h3",
-              "content": "Feature One"
+              type: "button",
+              text: "Get Started",
+              variant: "primary",
+              size: "lg"
             },
             {
-              "type": "text",
-              "text": "Build beautiful UIs with JSON specifications"
+              type: "button",
+              text: "View Demo",
+              variant: "outline",
+              size: "lg"
             }
           ]
         }
       ]
     }
   ]
-}
+};
 ```
 
-## 🌈 Component Examples
-
-### Layout Components
-
-**Container** - A centered wrapper with max-width and padding:
-```json
-{
-  "type": "container",
-  "maxWidth": "xl",
-  "padding": "md",
-  "align": "center",
-  "children": []
-}
-```
-
-**Grid** - Responsive grid layout:
-```json
-{
-  "type": "grid",
-  "columns": {
-    "default": 1,
-    "sm": 2,
-    "md": 3,
-    "lg": 4
-  },
-  "gap": "lg",
-  "children": []
-}
-```
-
-**Flex** - Flexible box layout:
-```json
-{
-  "type": "flex",
-  "direction": "row",
-  "wrap": "wrap",
-  "justify": "between",
-  "align": "center",
-  "gap": "md",
-  "children": []
-}
-```
-
-### Typography Components
-
-**Heading** - Semantic headings with styling:
-```json
-{
-  "type": "heading",
-  "level": "h1",
-  "content": "Page Title",
-  "size": "5xl",
-  "weight": "extrabold",
-  "gradient": "rainbow",
-  "align": "center"
-}
-```
-
-**Text** - Rich text with multiple styles:
-```json
-{
-  "type": "text",
-  "text": "This is styled paragraph text with advanced features.",
-  "size": "lg",
-  "weight": "medium",
-  "variant": "primary",
-  "gradient": "ocean"
-}
-```
-
-### UI Components
-
-**Button** - Interactive buttons:
-```json
-{
-  "type": "button",
-  "text": "Click Me",
-  "variant": "primary",
-  "size": "lg",
-  "loading": false,
-  "disabled": false
-}
-```
-
-**Card** - Content containers:
-```json
-{
-  "type": "card",
-  "children": [
+### Feature Grid
+```javascript
+const featureGrid = {
+  type: "grid",
+  columns: { default: 1, md: 3 },
+  gap: "lg",
+  children: [
     {
-      "type": "heading",
-      "level": "h3",
-      "content": "Card Title"
+      type: "card",
+      children: [
+        {
+          type: "heading",
+          level: "h3",
+          content: "Lightning Fast"
+        },
+        {
+          type: "text",
+          text: "Optimized performance with automatic memoization"
+        }
+      ]
     },
+    // ... more feature cards
+  ]
+};
+```
+
+## TypeScript Support
+
+Full TypeScript support with type inference and IntelliSense:
+
+```typescript
+import { render, ComponentSpec } from "@banja/react-jedi";
+
+// Type-safe specifications
+const spec: ComponentSpec = {
+  type: "container",
+  children: [
     {
-      "type": "text",
-      "text": "Card content goes here."
+      type: "heading",
+      level: "h1", // TypeScript knows valid levels
+      content: "Type-Safe UI"
     }
   ]
-}
+};
+
+// Auto-completion for all component properties
+const button: ButtonSpec = {
+  type: "button",
+  variant: "primary", // IntelliSense shows all variants
+  size: "lg"
+};
 ```
 
-**Badge** - Status indicators:
-```json
-{
-  "type": "badge",
-  "text": "New",
-  "variant": "default",
-  "size": "default"
-}
-```
+## Documentation
 
-## 📚 Documentation
+### 📚 [Live Documentation](./examples)
 
-For comprehensive documentation with live examples and interactive code snippets, check out our [Examples App](./examples).
+Interactive documentation with:
+- Component playground
+- Live code examples  
+- API reference
+- Best practices
+- TypeScript guides
 
-### Run the Examples Locally
+### 🚀 Run Examples Locally
 
 ```bash
-# Clone the repository
+# Clone and install
 git clone https://github.com/banja-au/react-jedi.git
-cd react-jedi
+cd react-jedi && npm install
 
+# Run example app
+npm run example-app
+```
+
+Visit [http://localhost:5173](http://localhost:5173) to explore all components.
+
+## Server-Driven UI
+
+React Jedi excels at server-driven UI scenarios:
+
+```javascript
+// Fetch UI specification from server
+const response = await fetch('/api/ui/dashboard');
+const spec = await response.json();
+
+// Render the UI
+function Dashboard() {
+  return render({ spec });
+}
+```
+
+Update your UI without app deployments - just change the JSON on your server!
+
+## Contributing
+
+We love contributions! Check out our [Contributing Guide](CONTRIBUTING.md) to get started.
+
+### Development Setup
+
+```bash
 # Install dependencies
 npm install
 
-# Run the examples app
-cd examples
-npm install
-npm run dev
+# Run tests
+npm test
+
+# Run linting
+npm run lint
+
+# Build library
+npm run build
 ```
 
-The documentation covers:
-- ✅ Component API reference
-- ✅ Smooth page transitions and scroll behavior
-- ✅ Layout components (Container, Box, Grid, Flex)
-- ✅ Typography components (Heading, Text, BlockQuote)
-- ✅ UI components (Button, Card, Badge, Avatar)
-- ✅ Form components (Input, Label)
-- ✅ Complete code examples for all components
-- ✅ Complex real-world examples
-- ✅ TypeScript support documentation
-- ✅ Best practices and patterns
+### Key Commands
 
-## 🔧 TypeScript Support
+- `npm run dev` - Start development server
+- `npm run storybook` - Launch Storybook for component development
+- `npm run benchmark` - Run performance benchmarks
+- `npm run check` - Run all checks (lint, types, tests)
 
-React Jedi is built with TypeScript and provides comprehensive type definitions for all components:
+## Community
 
-```typescript
-import { ComponentSpec, ContainerSpec, HeadingSpec } from "@banja/react-jedi";
+- 🐛 [Report Issues](https://github.com/banja-au/react-jedi/issues)
+- 💬 [Discussions](https://github.com/banja-au/react-jedi/discussions)
+- 📧 [Contact](mailto:support@banja.au)
 
-// Type-safe component specifications
-const container: ContainerSpec = {
-  type: "container",
-  maxWidth: "xl",
-  padding: "md"
-};
+## License
 
-const heading: HeadingSpec = {
-  type: "heading",
-  level: "h1",
-  content: "Welcome",
-  gradient: "rainbow"
-};
-```
+ISC © [Banja](https://github.com/banja-au)
 
-## 🧩 Component Library
+---
 
-React Jedi includes a comprehensive set of beautiful components based on ShadCN and custom implementations.
-
-### ✅ Milestone 1: Static Components (Complete)
-- **Layout**: Container, Box, Grid, Flex, AspectRatio, Separator
-- **Typography**: Heading, Text, BlockQuote
-- **UI**: Button, Card, Badge, Avatar, Skeleton, Image
-- **Form**: Input, Label
-
-### 🚧 Upcoming Milestones
-- **Milestone 2**: Theming System & Advanced Styling
-- **Milestone 3**: Interactive Components (Forms, Modals, Dropdowns)
-- **Milestone 4**: Advanced Layouts & Navigation
-- **Milestone 5**: Animations & Transitions
-- **Milestone 6**: Data Integration & State Management
-
-## ⚡ Performance Benchmarking
-
-React Jedi includes a built-in performance benchmarking system to ensure components meet strict performance standards:
-
-```bash
-# Run all component benchmarks
-npm run benchmark
-
-# Run benchmarks with UI for interactive analysis
-npm run benchmark:ui
-
-# Generate benchmark report
-npm run benchmark:report
-```
-
-Performance benchmarks help maintain a fast user experience by:
-
-- Measuring render, update, and unmount times for all components
-- Analyzing memory usage and operations per second
-- Detecting performance regressions
-- Enforcing performance budgets for components
-
-See the [benchmark documentation](src/benchmark/README.md) for more details on creating and running benchmarks.
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [contributing guide](CONTRIBUTING.md) for details.
-
-## 📄 License
-
-React Jedi is [ISC licensed](LICENSE).
+<div align="center">
+  <p>Built with ❤️ by the Banja team</p>
+  <p>
+    <a href="https://github.com/banja-au/react-jedi">Star us on GitHub</a> •
+    <a href="https://twitter.com/banja_au">Follow on Twitter</a>
+  </p>
+</div>

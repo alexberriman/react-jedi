@@ -402,5 +402,47 @@
         "status": "completed"
       }
     ]
+  },
+  {
+    "id": "example-app-styling-fixes",
+    "description": "Fix various styling issues in the example app to improve consistency and user experience",
+    "status": "pending",
+    "subtasks": [
+      {
+        "id": "homepage-syntax-highlighting",
+        "description": "On the Homepage in the Getting Started section, ensure all code examples use our syntax highlighting component for consistent code presentation",
+        "status": "pending"
+      },
+      {
+        "id": "documentation-header-styling",
+        "description": "Remove the gradient/weird style effect on the /documentation page header. Use standard header styling consistent with other pages like /examples. Apply this to all documentation/* pages",
+        "status": "pending"
+      },
+      {
+        "id": "documentation-vertical-navigation",
+        "description": "Replace the horizontal navigation bar on /documentation with a vertical sidebar navigation (standard for doc sites like https://magicui.design/docs)",
+        "status": "pending"
+      },
+      {
+        "id": "documentation-pages-consistent-styling",
+        "description": "Fix weird styling on nested documentation pages (documentation/*): remove green headers (use dark theme), remove weird underlines/overlines, fix button gradients (see /documentation/layout-components), fix container styling. Ensure clean, consistent UI matching our home page styles",
+        "status": "pending"
+      },
+      {
+        "id": "showcase-json-syntax-highlighting",
+        "description": "On the /showcase page, apply syntax highlighting to the show/hide JSON feature for each component using our syntax highlighting component",
+        "status": "pending"
+      },
+      {
+        "id": "examples-floating-menu-color",
+        "description": "On the /examples page, change the floating menu color from purple to violet/blue to maintain consistency (we don't use blue elsewhere)",
+        "status": "pending"
+      },
+      {
+        "id": "examples-remove-badges",
+        "description": "On the /examples page, remove all 'new' and 'stable' badges from components. Everything will be in the initial release",
+        "status": "pending"
+      }
+    ]
   }
 ]

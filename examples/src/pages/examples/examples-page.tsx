@@ -243,7 +243,7 @@ export function ExamplesPage() {
                         w-full group flex items-center justify-between px-4 py-3 rounded-lg
                         transition-all duration-200
                         ${isActive 
-                          ? "bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 shadow-sm" 
+                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 shadow-sm" 
                           : "hover:bg-gray-50 dark:hover:bg-gray-800/50 text-gray-700 dark:text-gray-300"
                         }
                       `}
@@ -251,7 +251,7 @@ export function ExamplesPage() {
                       <div className="flex items-center gap-3">
                         <svg
                           className={`w-5 h-5 transition-colors ${
-                            isActive ? "text-purple-600 dark:text-purple-400" : "text-gray-400"
+                            isActive ? "text-blue-600 dark:text-blue-400" : "text-gray-400"
                           }`}
                           fill="none"
                           stroke="currentColor"
@@ -274,7 +274,7 @@ export function ExamplesPage() {
                       <span className={`
                         text-xs font-medium px-2 py-1 rounded-full
                         ${isActive 
-                          ? "bg-purple-200 dark:bg-purple-800 text-purple-700 dark:text-purple-200" 
+                          ? "bg-blue-200 dark:bg-blue-800 text-blue-700 dark:text-blue-200" 
                           : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
                         }
                       `}>

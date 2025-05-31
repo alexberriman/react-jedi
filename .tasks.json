@@ -436,7 +436,7 @@
       {
         "id": "examples-floating-menu-color",
         "description": "On the /examples page, change the floating menu color from purple to violet/blue to maintain consistency (we don't use blue elsewhere)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "examples-remove-badges",

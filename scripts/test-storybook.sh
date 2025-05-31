@@ -2,6 +2,7 @@
 
 PORT=6006
 INCLUDE_TAGS=""
+EXCLUDE_TAGS=""
 FAIL_ON_CONSOLE=true
 
 # Parse CLI args
@@ -9,8 +10,15 @@ for arg in "$@"; do
   if [[ "$arg" == --includeTags=* ]]; then
     INCLUDE_TAGS="${arg#--includeTags=}"
   fi
+  if [[ "$arg" == --excludeTags=* ]]; then
+    EXCLUDE_TAGS="${arg#--excludeTags=}"
+  fi
   # Check if we're testing error-boundary
   if [[ "$arg" == "error-boundary" ]]; then
+    FAIL_ON_CONSOLE=false
+  fi
+  # Check for --no-fail-on-console flag
+  if [[ "$arg" == "--no-fail-on-console" ]]; then
     FAIL_ON_CONSOLE=false
   fi
 done
@@ -33,6 +41,9 @@ if [[ "$FAIL_ON_CONSOLE" == true ]]; then
 fi
 if [[ -n "$INCLUDE_TAGS" ]]; then
   CMD+=" --includeTags $INCLUDE_TAGS"
+fi
+if [[ -n "$EXCLUDE_TAGS" ]]; then
+  CMD+=" --excludeTags $EXCLUDE_TAGS"
 fi
 
 # Run tests

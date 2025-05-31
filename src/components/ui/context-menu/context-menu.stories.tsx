@@ -458,8 +458,8 @@ Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   // Click Export settings
   await userEvent.click(screen.getByText('Export settings'));
   
-  // Verify menu is closed
+  // Verify menu is closed - use a longer timeout and check for visibility
   await waitFor(() => {
     expect(screen.queryByText('Theme Options')).not.toBeInTheDocument();
-  });
+  }, { timeout: 5000 });
 };

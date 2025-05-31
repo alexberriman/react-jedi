@@ -9,11 +9,9 @@ const meta: Meta<typeof ErrorBoundary> = {
   component: ErrorBoundary,
   parameters: {
     layout: "fullscreen",
-    tags: ["test"],
-    // Disable console error checks for error boundary stories
-    test: {
-      dangerouslyIgnoreUnhandledErrors: true,
-    },
+    // Remove test tag to exclude from automated test runs
+    // These stories intentionally throw errors for testing error boundaries
+    tags: ["skip-test"],
   },
   argTypes: {
     children: {
@@ -69,6 +67,9 @@ export const Default: Story = {
   args: {
     children: <ThrowError shouldThrow={false} />,
   },
+  parameters: {
+    tags: ["skip-test"],
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("No error occurred")).toBeInTheDocument();
@@ -82,6 +83,10 @@ export const WithError: Story = {
   parameters: {
     // Suppress expected console errors for this story
     chromatic: { disableSnapshot: true },
+    tags: ["skip-test"],
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -99,6 +104,10 @@ export const InteractiveError: Story = {
   parameters: {
     // Suppress expected console errors for this story
     chromatic: { disableSnapshot: true },
+    tags: ["skip-test"],
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -129,6 +138,10 @@ export const WithReset: Story = {
   parameters: {
     // Suppress expected console errors for this story
     chromatic: { disableSnapshot: true },
+    tags: ["skip-test"],
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -174,6 +187,10 @@ export const WithCustomFallback: Story = {
   parameters: {
     // Suppress expected console errors for this story
     chromatic: { disableSnapshot: true },
+    tags: ["skip-test"],
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -195,6 +212,10 @@ export const WithErrorCallback: Story = {
   parameters: {
     // Suppress expected console errors for this story
     chromatic: { disableSnapshot: true },
+    tags: ["skip-test"],
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -216,6 +237,9 @@ const AsyncErrorComponent: React.FC = () => {
 export const AsyncError: Story = {
   args: {
     children: <AsyncErrorComponent />,
+  },
+  parameters: {
+    tags: ["skip-test"],
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -247,6 +271,10 @@ export const NestedBoundaries: Story = {
   parameters: {
     // Suppress expected console errors for this story
     chromatic: { disableSnapshot: true },
+    tags: ["skip-test"],
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

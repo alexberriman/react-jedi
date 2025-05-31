@@ -9,18 +9,15 @@ export function UIComponentsPage() {
   });
   return (
     <div>
-      <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
-          UI Components
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-gray-500/50" />
-        </h2>
-      </div>
+      <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        UI Components
+      </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-lg transition-all group">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+              <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3">
                 <svg
                   className="w-4 h-4 text-gray-900 dark:text-gray-100"
                   xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +38,7 @@ export function UIComponentsPage() {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               Versatile button component with multiple variants and sizes.
             </p>
-            <div className="relative group-hover:scale-[1.02]">
-              <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+            <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <CodeBlock language="json" className="relative">
 {`{
   "type": "button",
@@ -58,10 +54,10 @@ export function UIComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-lg transition-all group">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+              <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3">
                 <svg
                   className="w-4 h-4 text-gray-900 dark:text-gray-100"
                   xmlns="http://www.w3.org/2000/svg"
@@ -82,8 +78,7 @@ export function UIComponentsPage() {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               Container for grouping related content with optional header and footer.
             </p>
-            <div className="relative group-hover:scale-[1.02]">
-              <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+            <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <CodeBlock language="json" className="relative">
 {`{
   "type": "card",
@@ -104,10 +99,10 @@ export function UIComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-lg transition-all group">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+              <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3">
                 <svg
                   className="w-4 h-4 text-gray-900 dark:text-gray-100"
                   xmlns="http://www.w3.org/2000/svg"
@@ -128,8 +123,7 @@ export function UIComponentsPage() {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               Small status indicators with various styling options.
             </p>
-            <div className="relative group-hover:scale-[1.02]">
-              <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+            <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <CodeBlock language="json" className="relative">
 {`{
   "type": "badge",
@@ -155,10 +149,10 @@ export function UIComponentsPage() {
           </div>
         </div>
 
-        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-lg transition-all group">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+              <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3">
                 <svg
                   className="w-4 h-4 text-gray-900 dark:text-gray-100"
                   xmlns="http://www.w3.org/2000/svg"
@@ -179,8 +173,7 @@ export function UIComponentsPage() {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               Display user profile images with fallback initials.
             </p>
-            <div className="relative group-hover:scale-[1.02]">
-              <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+            <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <CodeBlock language="json" className="relative">
 {`{
   "type": "avatar",
@@ -198,7 +191,7 @@ export function UIComponentsPage() {
       <div className="text-center">
         <Link
           to="/showcase"
-          className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-full text-zinc-900 dark:text-white font-medium hover:from-gray-600 hover:to-gray-700 shadow-lg hover:shadow-gray-500/20 group"
+          className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-2xl group"
         >
           <span>View UI Components Showcase</span>
           <svg

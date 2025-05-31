@@ -8,11 +8,9 @@ export function ComplexExamplesPage() {
   });
   return (
     <div>
-      <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
-          Complex Examples
-        </h2>
-      </div>
+      <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        Complex Examples
+      </h2>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">

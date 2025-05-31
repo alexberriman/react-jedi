@@ -426,7 +426,7 @@
       {
         "id": "documentation-pages-consistent-styling",
         "description": "Fix weird styling on nested documentation pages (documentation/*): remove green headers (use dark theme), remove weird underlines/overlines, fix button gradients (see /documentation/layout-components), fix container styling. Ensure clean, consistent UI matching our home page styles",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "showcase-json-syntax-highlighting",

@@ -9,11 +9,9 @@ export function GettingStartedPage() {
   });
   return (
     <div>
-      <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
-          Getting Started
-        </h2>
-      </div>
+      <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        Getting Started
+      </h2>
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
           Installation

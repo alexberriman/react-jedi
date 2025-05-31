@@ -9,11 +9,9 @@ export function ComponentSystemPage() {
   });
   return (
     <div>
-      <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
-          Component System
-        </h2>
-      </div>
+      <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        Component System
+      </h2>
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
           React Jedi&apos;s component system is built around a simple, consistent pattern. Each
@@ -67,28 +65,28 @@ export function ComponentSystemPage() {
 
         <ul className="space-y-2 mb-6 list-none pl-0">
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400"></span>
             <span className="font-semibold text-zinc-900 dark:text-white">
               className
             </span>{" "}
             - Additional CSS classes to apply to the component
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400"></span>
             <span className="font-semibold text-zinc-900 dark:text-white">
               id
             </span>{" "}
             - HTML id attribute for the component
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400"></span>
             <span className="font-semibold text-zinc-900 dark:text-white">
               data-*
             </span>{" "}
             - Custom data attributes
           </li>
           <li className="pl-6 relative">
-            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400"></span>
             <span className="font-semibold text-zinc-900 dark:text-white">
               style
             </span>{" "}
@@ -130,7 +128,7 @@ export function ComponentSystemPage() {
       "children": [
         {
           "type": "card",
-          "className": "hover:border-gray-500/50 transition-all",
+          "className": "hover:shadow-lg transition-all",
           "children": [
             {
               "type": "heading",
@@ -145,7 +143,7 @@ export function ComponentSystemPage() {
         },
         {
           "type": "card",
-          "className": "hover:border-gray-500/50 transition-all",
+          "className": "hover:shadow-lg transition-all",
           "children": [
             {
               "type": "heading",
@@ -160,7 +158,7 @@ export function ComponentSystemPage() {
         },
         {
           "type": "card",
-          "className": "hover:border-gray-500/50 transition-all",
+          "className": "hover:shadow-lg transition-all",
           "children": [
             {
               "type": "heading",

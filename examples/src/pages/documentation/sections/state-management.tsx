@@ -9,12 +9,9 @@ export function StateManagementPage() {
   });
   return (
     <div>
-      <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
-          State Management
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-gray-500/50" />
-        </h2>
-      </div>
+      <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        State Management
+      </h2>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
@@ -23,7 +20,7 @@ export function StateManagementPage() {
         </p>
 
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50">
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
                 State Features
@@ -49,7 +46,7 @@ export function StateManagementPage() {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50">
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
                 Update Patterns
@@ -84,7 +81,7 @@ export function StateManagementPage() {
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="json" className="relative">
 {`{
   "type": "Container",
@@ -124,7 +121,7 @@ export function StateManagementPage() {
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="json" className="relative">
 {`{
   "type": "Container",
@@ -156,7 +153,7 @@ export function StateManagementPage() {
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="json" className="relative">
 {`{
   "type": "Container",
@@ -193,7 +190,7 @@ export function StateManagementPage() {
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="json" className="relative">
 {`{
   "type": "Container",
@@ -217,7 +214,7 @@ export function StateManagementPage() {
           State Patterns
         </h3>
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6">
             <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               Form State
             </h4>
@@ -240,7 +237,7 @@ export function StateManagementPage() {
             </CodeBlock>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6">
             <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               List State
             </h4>
@@ -261,7 +258,7 @@ export function StateManagementPage() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-gray-900/20 to-gray-900/20 border border-gray-800/30 rounded-lg p-6">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
           <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
             Best Practices
           </h4>

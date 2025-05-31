@@ -9,12 +9,9 @@ export function ThemingPage() {
   });
   return (
     <div>
-      <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
-          Theming System
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-gray-500/50" />
-        </h2>
-      </div>
+      <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        Theming System
+      </h2>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
@@ -24,7 +21,7 @@ export function ThemingPage() {
         </p>
 
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Theme Architecture</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -52,7 +49,7 @@ export function ThemingPage() {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Key Features</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -87,7 +84,7 @@ export function ThemingPage() {
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="typescript" className="relative mb-6">
 {`import { ThemeProvider } from "@banja/react-jedi";
 
@@ -107,7 +104,7 @@ function App() {
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="javascript" className="relative mb-6">
 {`const customTheme = {
   colors: {
@@ -196,14 +193,14 @@ function App() {
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Primary Colors</h4>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Define your brand&apos;s primary color palette with automatic shade generation.
               </p>
               <div className="relative group-hover:scale-[1.02]">
-                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+                <div className="absolute -inset-1 hidden"></div>
                 <CodeBlock language="javascript" className="relative">
 {`primary: {
   50: "#f0f9ff",
@@ -218,14 +215,14 @@ function App() {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Semantic Colors</h4>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Use semantic colors for consistent messaging across your app.
               </p>
               <div className="relative group-hover:scale-[1.02]">
-                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+                <div className="absolute -inset-1 hidden"></div>
                 <CodeBlock language="javascript" className="relative">
 {`success: {
   DEFAULT: "#22c55e",
@@ -240,14 +237,14 @@ error: {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Color Modes</h4>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Support for light and dark modes with automatic system detection.
               </p>
               <div className="relative group-hover:scale-[1.02]">
-                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+                <div className="absolute -inset-1 hidden"></div>
                 <CodeBlock language="javascript" className="relative">
 {`modes: {
   light: {
@@ -270,14 +267,14 @@ error: {
           Create beautiful, readable text with our comprehensive typography system:
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group mb-8">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group mb-8">
           <div className="p-6">
             <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Fluid Typography</h4>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               Typography scales smoothly between breakpoints for optimal readability.
             </p>
             <div className="relative group-hover:scale-[1.02]">
-              <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+              <div className="absolute -inset-1 hidden"></div>
               <CodeBlock language="javascript" className="relative">
 {`typography: {
   fluid: {
@@ -306,14 +303,14 @@ error: {
         </p>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Spacing Scale</h4>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Use consistent spacing values throughout your application.
               </p>
               <div className="relative group-hover:scale-[1.02]">
-                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+                <div className="absolute -inset-1 hidden"></div>
                 <CodeBlock language="javascript" className="relative">
 {`spacing: {
   base: 8, // Base unit in pixels
@@ -331,14 +328,14 @@ error: {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Responsive Spacing</h4>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Spacing adapts to different screen sizes automatically.
               </p>
               <div className="relative group-hover:scale-[1.02]">
-                <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+                <div className="absolute -inset-1 hidden"></div>
                 <CodeBlock language="javascript" className="relative">
 {`responsive: {
   spacing: {
@@ -360,7 +357,7 @@ error: {
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="javascript" className="relative mb-6">
 {`const theme = {
   components: {
@@ -405,7 +402,7 @@ error: {
         </p>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="typescript" className="relative mb-6">
 {`import { useTheme } from "@banja/react-jedi";
 
@@ -441,7 +438,7 @@ function MyComponent() {
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Modern Tech</h4>
               <div className="h-32 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 mb-4"></div>
@@ -451,7 +448,7 @@ function MyComponent() {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Elegant Business</h4>
               <div className="h-32 rounded-lg bg-gradient-to-br from-slate-600 to-zinc-600 mb-4"></div>
@@ -461,7 +458,7 @@ function MyComponent() {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-900/50 group">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:border-gray-900/50 group">
             <div className="p-6">
               <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Creative Agency</h4>
               <div className="h-32 rounded-lg bg-gradient-to-br from-pink-600 to-orange-600 mb-4"></div>
@@ -473,7 +470,7 @@ function MyComponent() {
         </div>
 
         <div className="relative group mb-8">
-          <div className="absolute -inset-1 bg-gradient-to-r from-gray-500/20 to-gray-500/20 rounded-lg blur opacity-0 group-hover:opacity-100"></div>
+          <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="javascript" className="relative mb-6">
 {`import { brandPresets } from "@banja/react-jedi";
 
@@ -497,7 +494,7 @@ const customTheme = {
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Best Practices</h3>
-        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6">
           <ul className="space-y-3 text-gray-600 dark:text-gray-400">
             <li className="flex items-start">
               <span className="text-gray-900 dark:text-gray-100 mr-2">1.</span>

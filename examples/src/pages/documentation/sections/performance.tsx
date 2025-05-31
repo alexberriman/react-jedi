@@ -8,12 +8,9 @@ export function PerformancePage() {
   });
   return (
     <div>
-      <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 dark:border-gray-700 inline-block pr-8">
-          Performance Analysis
-          <div className="absolute -bottom-1 left-0 w-24 h-[2px] bg-gray-500/50" />
-        </h2>
-      </div>
+      <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        Performance Analysis
+      </h2>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
@@ -21,7 +18,7 @@ export function PerformancePage() {
           compared to traditional React development.
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6 mb-8">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6 mb-8">
           <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
             JSON vs Code Performance Comparison
           </h3>
@@ -80,7 +77,7 @@ export function PerformancePage() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-gray-900/20 to-gray-900/20 border border-gray-800/30 rounded-lg p-4">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
             <h5 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">
               Benchmark Results
             </h5>
@@ -103,7 +100,7 @@ export function PerformancePage() {
         </h3>
 
         <div className="space-y-4">
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6">
             <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               1. Optimize JSON Specifications
             </h4>
@@ -134,7 +131,7 @@ export function PerformancePage() {
             </CodeBlock>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6">
             <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               2. Component Memoization
             </h4>
@@ -157,7 +154,7 @@ export function PerformancePage() {
             </ul>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6">
             <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               3. Lazy Loading
             </h4>
@@ -180,7 +177,7 @@ export function PerformancePage() {
             </CodeBlock>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6">
             <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
               4. Bundle Size Optimization
             </h4>
@@ -214,7 +211,7 @@ export function PerformancePage() {
           When to Use React Jedi
         </h3>
 
-        <div className="bg-gradient-to-r from-gray-900/20 to-gray-900/20 border border-gray-800/30 rounded-lg p-6">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
           <p className="text-gray-600 dark:text-gray-400 mb-4">
             React Jedi is ideal for applications that prioritize:
           </p>
@@ -255,7 +252,7 @@ export function PerformancePage() {
           </ul>
         </div>
 
-        <div className="bg-gray-50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden p-6 mt-6">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden p-6 mt-6">
           <p className="text-gray-600 dark:text-gray-400">
             <strong className="text-gray-900 dark:text-gray-100">Bottom Line:</strong> The small
             performance trade-off of React Jedi is more than compensated by its flexibility, smaller

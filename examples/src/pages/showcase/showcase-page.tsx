@@ -6,6 +6,7 @@ import { usePageMetadata } from "../../lib/meta";
 import { Heading, Text, spacing } from "../../components/ui";
 import { PageHeader } from "../../components/ui/page-header";
 import { ChevronDown } from "lucide-react";
+import { CodeBlock } from "@/components/ui/code-block";
 
 type ComponentCategory = {
   id: string;
@@ -896,10 +897,10 @@ export function ShowcasePage() {
 
                       {/* JSON Display */}
                       {showJson === component.name && componentPreviews[component.name] && (
-                        <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                          <pre className="text-sm text-gray-700 dark:text-gray-300 overflow-x-auto">
+                        <div className="mt-4">
+                          <CodeBlock language="json">
                             {JSON.stringify(componentPreviews[component.name], null, 2)}
-                          </pre>
+                          </CodeBlock>
                         </div>
                       )}
                     </div>

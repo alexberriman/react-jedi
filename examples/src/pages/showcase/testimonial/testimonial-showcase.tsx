@@ -1,7 +1,6 @@
 import { render } from '@banja/react-jedi';
 import { useState } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import { CodeBlock } from "@/components/ui/code-block";
 import { CodeBlock } from "../../../components/ui/code-block";
 
 function CollapsibleCode({ title, code }: { readonly title: string; readonly code: string }) {

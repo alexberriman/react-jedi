@@ -2,7 +2,6 @@ import React from 'react';
 import { UISpecification } from '../../../../../src/types';
 import { render } from '../../../../../src/lib/render';
 import { usePageMetadata } from '../../../lib/meta';
-import { CodeBlock } from "../../../components/ui/code-block";
 
 const sections = [
   { id: 'overview', label: 'Overview' },

@@ -3,7 +3,6 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { CodeBlock } from "@/components/ui/code-block";
 import { CodeBlock } from "../../../components/ui/code-block";
 
 export function SimpleGridShowcase() {

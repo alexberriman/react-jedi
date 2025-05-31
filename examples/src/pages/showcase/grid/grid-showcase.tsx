@@ -5,7 +5,6 @@ import { Card } from "../../../components/ui/card";
 import { Button } from "../../../components/ui/button";
 import { ChevronDown, ChevronUp, Grid, Menu } from "lucide-react";
 import { usePageMetadata } from "../../../lib/meta";
-import { CodeBlock } from "../../../components/ui/code-block";
 
 export function GridShowcase() {
   usePageMetadata({

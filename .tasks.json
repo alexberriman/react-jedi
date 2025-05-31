@@ -411,7 +411,7 @@
       {
         "id": "homepage-syntax-highlighting",
         "description": "On the Homepage in the Getting Started section, ensure all code examples use our syntax highlighting component for consistent code presentation",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "documentation-header-styling",

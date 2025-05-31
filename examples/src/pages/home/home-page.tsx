@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../lib/meta";
+import { CodeBlock } from "../../components/ui/code-block";
 
 export function HomePage() {
   usePageMetadata({
@@ -280,9 +281,9 @@ export function HomePage() {
                     <p className="text-gray-600 dark:text-gray-400 mb-3">
                       Get started by installing React Jedi in your project.
                     </p>
-                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 font-mono text-sm">
+                    <CodeBlock language="bash">
                       npm install @react-jedi/core
-                    </div>
+                    </CodeBlock>
                   </div>
                 </div>
 
@@ -297,16 +298,14 @@ export function HomePage() {
                     <p className="text-gray-600 dark:text-gray-400 mb-3">
                       Define your UI structure using JSON specifications.
                     </p>
-                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 font-mono text-sm overflow-x-auto">
-                      {`{
+                    <CodeBlock language="json">{`{
   "type": "Box",
   "props": { 
     "padding": 4,
     "className": "bg-white dark:bg-gray-900"
   },
   "children": [...]
-}`}
-                    </div>
+}`}</CodeBlock>
                   </div>
                 </div>
 
@@ -321,11 +320,9 @@ export function HomePage() {
                     <p className="text-gray-600 dark:text-gray-400 mb-3">
                       Use the render function to create your interface.
                     </p>
-                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 font-mono text-sm overflow-x-auto">
-                      {`import { render } from '@react-jedi/core';
+                    <CodeBlock language="typescript">{`import { render } from '@react-jedi/core';
 
-const MyComponent = render(specification);`}
-                    </div>
+const MyComponent = render(specification);`}</CodeBlock>
                   </div>
                 </div>
               </div>

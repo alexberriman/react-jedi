@@ -359,6 +359,13 @@
   }
 }
 
+/* Shimmer Animation for Skeleton Loader */
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
 /* ========== Animation Classes ========== */
 
 .animate-fadeIn {

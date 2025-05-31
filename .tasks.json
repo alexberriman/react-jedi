@@ -399,7 +399,7 @@
       {
         "id": "fix-footer-year-dynamic",
         "description": "Change the hardcoded '2024' year in the footer of the example app (./examples) to dynamically show the current year using JavaScript's new Date().getFullYear(). Find all instances of hardcoded 2024 in the footer and replace with dynamic year generation.",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   }

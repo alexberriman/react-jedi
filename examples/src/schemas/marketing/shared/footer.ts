@@ -1,4 +1,6 @@
-export const footer = {
+export const footer = (() => {
+  const currentYear = new Date().getFullYear();
+  return {
   type: "Box",
   props: {
     className: "py-16 bg-zinc-100 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800",
@@ -331,7 +333,7 @@ export const footer = {
                   type: "Text",
                   props: {
                     className: "text-zinc-500 text-sm",
-                    children: "© 2025 Nexus Digital. All rights reserved.",
+                    children: `© ${currentYear} Nexus Digital. All rights reserved.`,
                   },
                 },
                 {
@@ -395,3 +397,4 @@ export const footer = {
     },
   ],
 };
+})();

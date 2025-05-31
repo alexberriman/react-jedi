@@ -13,6 +13,7 @@ export function FooterShowcase() {
   });
 
   const [activeSection, setActiveSection] = useState<string>("overview");
+  const currentYear = new Date().getFullYear();
 
   // Table of contents items
   const tocItems = [
@@ -50,8 +51,8 @@ export function FooterShowcase() {
               className: "text-xl font-bold text-blue-600",
               children: "React Jedi",
             },
-            description: "Building the future of web development with server-driven UI.",
-            copyright: "© 2024 React Jedi. All rights reserved.",
+            description: "Building the future of web development with server-driven UI",
+            copyright: `© ${currentYear} React Jedi. All rights reserved`,
           },
         ],
       },
@@ -72,8 +73,8 @@ export function FooterShowcase() {
               className: "text-xl font-bold text-blue-600",
               children: "React Jedi",
             },
-            description: "Perfect for light-themed websites.",
-            copyright: "© 2024 React Jedi. All rights reserved.",
+            description: "Perfect for light-themed websites",
+            copyright: `© ${currentYear} React Jedi. All rights reserved`,
           },
         ],
       },
@@ -94,8 +95,8 @@ export function FooterShowcase() {
               className: "text-xl font-bold text-white",
               children: "React Jedi",
             },
-            description: "Eye-catching gradient background.",
-            copyright: "© 2024 React Jedi. All rights reserved.",
+            description: "Eye-catching gradient background",
+            copyright: `© ${currentYear} React Jedi. All rights reserved`,
           },
         ],
       },
@@ -124,7 +125,7 @@ export function FooterShowcase() {
               className: "text-xl font-bold text-blue-600",
               children: "React Jedi",
             },
-            description: "Multi-column layout with brand, links, and contact sections.",
+            description: "Multi-column layout with brand, links, and contact sections",
             sections: [
               {
                 title: "Product",
@@ -147,7 +148,7 @@ export function FooterShowcase() {
               { platform: "github", href: "https://github.com" },
               { platform: "twitter", href: "https://twitter.com" },
             ],
-            copyright: "© 2024 React Jedi. All rights reserved.",
+            copyright: `© ${currentYear} React Jedi. All rights reserved`,
           },
         ],
       },
@@ -168,7 +169,7 @@ export function FooterShowcase() {
               className: "text-xl font-bold text-blue-600",
               children: "React Jedi",
             },
-            description: "Everything centered for a clean, focused design.",
+            description: "Everything centered for a clean, focused design",
             sections: [
               {
                 title: "Navigation",
@@ -185,7 +186,7 @@ export function FooterShowcase() {
               { platform: "instagram", href: "https://instagram.com" },
               { platform: "linkedin", href: "https://linkedin.com" },
             ],
-            copyright: "© 2024 React Jedi. All rights reserved.",
+            copyright: `© ${currentYear} React Jedi. All rights reserved`,
           },
         ],
       },
@@ -221,7 +222,7 @@ export function FooterShowcase() {
               { platform: "github", href: "https://github.com" },
               { platform: "twitter", href: "https://twitter.com" },
             ],
-            copyright: "© 2024 React Jedi",
+            copyright: `© ${currentYear} React Jedi`,
           },
         ],
       },
@@ -237,7 +238,7 @@ export function FooterShowcase() {
       className: "text-xl font-bold text-blue-600",
       children: "React Jedi",
     },
-    description: "The most powerful server-driven UI library for React.",
+    description: "The most powerful server-driven UI library for React",
     sections: [
       {
         title: "Product",
@@ -279,7 +280,7 @@ export function FooterShowcase() {
         ],
       },
     ],
-    copyright: "© 2024 React Jedi. All rights reserved.",
+    copyright: `© ${currentYear} React Jedi. All rights reserved`,
   };
 
   // Social links example
@@ -296,7 +297,7 @@ export function FooterShowcase() {
           className: "text-xl font-bold text-white",
           children: "Social Media Footer",
         },
-        description: "Connect with us on all platforms.",
+        description: "Connect with us on all platforms",
         socialLinks: [
           { platform: "facebook", href: "https://facebook.com", label: "Follow on Facebook" },
           { platform: "twitter", href: "https://twitter.com", label: "Follow on Twitter" },
@@ -305,7 +306,7 @@ export function FooterShowcase() {
           { platform: "youtube", href: "https://youtube.com", label: "Subscribe on YouTube" },
           { platform: "github", href: "https://github.com", label: "Star on GitHub" },
         ],
-        copyright: "© 2024 Follow us everywhere.",
+        copyright: `© ${currentYear} Follow us everywhere`,
       },
     ],
   };
@@ -319,7 +320,7 @@ export function FooterShowcase() {
       className: "text-xl font-bold text-blue-600",
       children: "Contact Us",
     },
-    description: "Get in touch with our team.",
+    description: "Get in touch with our team",
     contactInfo: {
       email: "hello@reactjedi.com",
       phone: "+1 (555) 123-4567",
@@ -335,7 +336,7 @@ export function FooterShowcase() {
         ],
       },
     ],
-    copyright: "© 2024 React Jedi. All rights reserved.",
+    copyright: `© ${currentYear} React Jedi. All rights reserved`,
   };
 
   // Newsletter signup example
@@ -347,10 +348,10 @@ export function FooterShowcase() {
       className: "text-xl font-bold text-blue-600",
       children: "Stay Updated",
     },
-    description: "Subscribe to our newsletter for the latest updates.",
+    description: "Subscribe to our newsletter for the latest updates",
     newsletter: {
       title: "Newsletter",
-      description: "Get weekly updates about new features and improvements.",
+      description: "Get weekly updates about new features and improvements",
       placeholder: "Enter your email address",
       buttonText: "Subscribe",
     },
@@ -368,7 +369,7 @@ export function FooterShowcase() {
       { platform: "twitter", href: "https://twitter.com" },
       { platform: "github", href: "https://github.com" },
     ],
-    copyright: "© 2024 React Jedi. All rights reserved.",
+    copyright: `© ${currentYear} React Jedi. All rights reserved`,
   };
 
   // Complete corporate footer
@@ -379,7 +380,7 @@ export function FooterShowcase() {
       className: "text-2xl font-bold text-blue-600",
       children: "React Jedi",
     },
-    description: "The most powerful server-driven UI library for React. Build dynamic interfaces with JSON specifications.",
+    description: "The most powerful server-driven UI library for React. Build dynamic interfaces with JSON specifications",
     sections: [
       {
         title: "Product",
@@ -425,11 +426,11 @@ export function FooterShowcase() {
     ],
     newsletter: {
       title: "Stay in the loop",
-      description: "Get the latest updates, tips, and announcements delivered to your inbox.",
+      description: "Get the latest updates, tips, and announcements delivered to your inbox",
       placeholder: "your@email.com",
       buttonText: "Subscribe",
     },
-    copyright: "© 2024 React Jedi Inc. All rights reserved.",
+    copyright: `© ${currentYear} React Jedi Inc. All rights reserved`,
     legalLinks: [
       { label: "Privacy Policy", href: "#privacy" },
       { label: "Terms of Service", href: "#terms" },
@@ -446,7 +447,7 @@ export function FooterShowcase() {
       className: "text-2xl font-bold text-white",
       children: "🚀 StartupCo",
     },
-    description: "We&apos;re revolutionizing the way teams collaborate and build products together.",
+    description: "We&apos;re revolutionizing the way teams collaborate and build products together",
     layout: "centered",
     sections: [
       {
@@ -467,11 +468,11 @@ export function FooterShowcase() {
     ],
     newsletter: {
       title: "Join our journey",
-      description: "Be the first to know about our product updates and milestones.",
+      description: "Be the first to know about our product updates and milestones",
       placeholder: "Enter your email",
       buttonText: "Join",
     },
-    copyright: "© 2024 StartupCo. Built with ❤️ in San Francisco.",
+    copyright: `© ${currentYear} StartupCo. Built with ❤️ in San Francisco`,
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -887,7 +888,7 @@ export function FooterShowcase() {
                       className: "text-2xl font-bold text-purple-600",
                       children: "🛍️ ShopNow",
                     },
-                    description: "Your one-stop shop for everything you need. Fast shipping, great prices, excellent service.",
+                    description: "Your one-stop shop for everything you need. Fast shipping, great prices, excellent service",
                     sections: [
                       {
                         title: "Shop",
@@ -924,11 +925,11 @@ export function FooterShowcase() {
                     ],
                     newsletter: {
                       title: "Get exclusive deals",
-                      description: "Subscribe to our newsletter and be the first to know about sales and new products.",
+                      description: "Subscribe to our newsletter and be the first to know about sales and new products",
                       placeholder: "Enter your email",
                       buttonText: "Subscribe",
                     },
-                    copyright: "© 2024 ShopNow Inc. All rights reserved.",
+                    copyright: `© ${currentYear} ShopNow Inc. All rights reserved`,
                     legalLinks: [
                       { label: "Privacy Policy", href: "#privacy" },
                       { label: "Terms of Service", href: "#terms" },
@@ -950,7 +951,7 @@ export function FooterShowcase() {
                       className: "text-2xl font-bold text-blue-600",
                       children: "⚡ ProductivityPro",
                     },
-                    description: "The all-in-one workspace for teams to collaborate, plan, and get work done.",
+                    description: "The all-in-one workspace for teams to collaborate, plan, and get work done",
                     sections: [
                       {
                         title: "Product",
@@ -989,7 +990,7 @@ export function FooterShowcase() {
                       email: "support@productivitypro.com",
                       phone: "+1 (555) 987-6543",
                     },
-                    copyright: "© 2024 ProductivityPro. All rights reserved.",
+                    copyright: `© ${currentYear} ProductivityPro. All rights reserved`,
                     legalLinks: [
                       { label: "Privacy", href: "#privacy" },
                       { label: "Terms", href: "#terms" },

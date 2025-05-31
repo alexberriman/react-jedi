@@ -355,7 +355,7 @@ export function Layout({ className }: LayoutProps) {
           </div>
           <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
             <p className="text-sm text-center text-gray-500 dark:text-gray-400">
-              © 2024 React Jedi. All rights reserved.
+              © {new Date().getFullYear()} React Jedi. All rights reserved.
             </p>
           </div>
         </div>

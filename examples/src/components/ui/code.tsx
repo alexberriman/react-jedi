@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/lib/utils";
+import { CodeBlock } from "./code-block";
 
 interface CodeProps {
   code: string;
@@ -8,11 +8,5 @@ interface CodeProps {
 }
 
 export const Code: React.FC<CodeProps> = ({ code, language = "typescript", className }) => {
-  return (
-    <div className={cn("relative", className)}>
-      <pre className="overflow-x-auto rounded-lg bg-muted p-4">
-        <code className={`language-${language} text-sm`}>{code}</code>
-      </pre>
-    </div>
-  );
+  return <CodeBlock language={language} className={className}>{code}</CodeBlock>;
 };

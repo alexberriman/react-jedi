@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function BoxShowcase() {
   usePageMetadata({
@@ -643,9 +644,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(basicUsageSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -662,9 +663,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(displayModesSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -681,9 +682,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(spacingSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -700,9 +701,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(dimensionsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -719,9 +720,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(colorsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -738,9 +739,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(bordersSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -757,9 +758,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(flexboxSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -776,9 +777,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(effectsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -795,9 +796,9 @@ export function BoxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(positioningSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -928,9 +929,9 @@ export function BoxShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(cardExampleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(cardExampleSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -944,9 +945,9 @@ export function BoxShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(dashboardSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(dashboardSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>

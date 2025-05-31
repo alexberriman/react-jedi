@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function TooltipShowcase() {
   usePageMetadata({
@@ -457,9 +458,9 @@ export function TooltipShowcase() {
             <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
               View JSON Specification
             </summary>
-            <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-              {JSON.stringify(basicTooltipSpec, null, 2)}
-            </pre>
+            <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(basicTooltipSpec, null, 2)}
+              </CodeBlock>
           </details>
         </section>
 
@@ -476,9 +477,9 @@ export function TooltipShowcase() {
             <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
               View JSON Specification
             </summary>
-            <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-              {JSON.stringify(positioningSpec, null, 2)}
-            </pre>
+            <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(positioningSpec, null, 2)}
+              </CodeBlock>
           </details>
         </section>
 
@@ -495,9 +496,9 @@ export function TooltipShowcase() {
             <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
               View JSON Specification
             </summary>
-            <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-              {JSON.stringify(triggersSpec, null, 2)}
-            </pre>
+            <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(triggersSpec, null, 2)}
+              </CodeBlock>
           </details>
         </section>
 
@@ -514,9 +515,9 @@ export function TooltipShowcase() {
             <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
               View JSON Specification
             </summary>
-            <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-              {JSON.stringify(delaysSpec, null, 2)}
-            </pre>
+            <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(delaysSpec, null, 2)}
+              </CodeBlock>
           </details>
         </section>
 
@@ -533,9 +534,9 @@ export function TooltipShowcase() {
             <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
               View JSON Specification
             </summary>
-            <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-              {JSON.stringify(stylingSpec, null, 2)}
-            </pre>
+            <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(stylingSpec, null, 2)}
+              </CodeBlock>
           </details>
         </section>
 
@@ -638,9 +639,9 @@ export function TooltipShowcase() {
             <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
               View JSON Specification
             </summary>
-            <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-              {JSON.stringify(examplesSpec, null, 2)}
-            </pre>
+            <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(examplesSpec, null, 2)}
+              </CodeBlock>
           </details>
         </section>
 

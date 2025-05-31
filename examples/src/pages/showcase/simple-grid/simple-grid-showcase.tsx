@@ -3,6 +3,8 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function SimpleGridShowcase() {
   usePageMetadata({
@@ -726,9 +728,9 @@ export function SimpleGridShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(basicUsageSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(basicUsageSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -745,9 +747,9 @@ export function SimpleGridShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(responsiveColumnsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(responsiveColumnsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -764,9 +766,9 @@ export function SimpleGridShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(spacingOptionsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(spacingOptionsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -783,9 +785,9 @@ export function SimpleGridShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(autoFitSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(autoFitSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -802,9 +804,9 @@ export function SimpleGridShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(contentCardsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(contentCardsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -821,9 +823,9 @@ export function SimpleGridShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(mixedHeightsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(mixedHeightsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -840,9 +842,9 @@ export function SimpleGridShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(largeGridSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(largeGridSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -925,9 +927,9 @@ export function SimpleGridShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(productShowcaseSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+{JSON.stringify(productShowcaseSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
             </div>

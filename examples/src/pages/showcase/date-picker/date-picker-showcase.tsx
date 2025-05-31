@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function DatePickerShowcase() {
   usePageMetadata({
@@ -656,9 +657,9 @@ export function DatePickerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                   View JSON Specification
                 </summary>
-                <pre className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-md overflow-x-auto text-sm">
-                  <code>{JSON.stringify(basicSpec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json" className="mt-4">
+{JSON.stringify(basicSpec, null, 2)}
+                </CodeBlock>
               </details>
             </div>
           </section>
@@ -677,9 +678,9 @@ export function DatePickerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                   View JSON Specification
                 </summary>
-                <pre className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-md overflow-x-auto text-sm">
-                  <code>{JSON.stringify(controlledSpec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json" className="mt-4">
+{JSON.stringify(controlledSpec, null, 2)}
+                </CodeBlock>
               </details>
             </div>
           </section>
@@ -698,9 +699,9 @@ export function DatePickerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                   View JSON Specification
                 </summary>
-                <pre className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-md overflow-x-auto text-sm">
-                  <code>{JSON.stringify(formatsSpec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json" className="mt-4">
+{JSON.stringify(formatsSpec, null, 2)}
+                </CodeBlock>
               </details>
             </div>
           </section>
@@ -719,9 +720,9 @@ export function DatePickerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                   View JSON Specification
                 </summary>
-                <pre className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-md overflow-x-auto text-sm">
-                  <code>{JSON.stringify(constraintsSpec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json" className="mt-4">
+{JSON.stringify(constraintsSpec, null, 2)}
+                </CodeBlock>
               </details>
             </div>
           </section>
@@ -740,9 +741,9 @@ export function DatePickerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                   View JSON Specification
                 </summary>
-                <pre className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-md overflow-x-auto text-sm">
-                  <code>{JSON.stringify(statesSpec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json" className="mt-4">
+{JSON.stringify(statesSpec, null, 2)}
+                </CodeBlock>
               </details>
             </div>
           </section>
@@ -761,9 +762,9 @@ export function DatePickerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                   View JSON Specification
                 </summary>
-                <pre className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-md overflow-x-auto text-sm">
-                  <code>{JSON.stringify(stylingSpec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json" className="mt-4">
+{JSON.stringify(stylingSpec, null, 2)}
+                </CodeBlock>
               </details>
             </div>
           </section>
@@ -782,9 +783,9 @@ export function DatePickerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                   View JSON Specification
                 </summary>
-                <pre className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-md overflow-x-auto text-sm">
-                  <code>{JSON.stringify(advancedSpec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json" className="mt-4">
+{JSON.stringify(advancedSpec, null, 2)}
+                </CodeBlock>
               </details>
             </div>
           </section>
@@ -970,9 +971,9 @@ export function DatePickerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                   View JSON Specification
                 </summary>
-                <pre className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-md overflow-x-auto text-sm">
-                  <code>{JSON.stringify(completeExampleSpec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json" className="mt-4">
+{JSON.stringify(completeExampleSpec, null, 2)}
+                </CodeBlock>
               </details>
             </div>
           </section>

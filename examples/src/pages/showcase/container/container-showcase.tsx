@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { render } from '@banja/react-jedi';
+import { CodeBlock } from "../../../components/ui/code-block";
 
 // Move scrollToSection outside component to avoid unicorn/consistent-function-scoping
 const scrollToSection = (sectionId: string) => {

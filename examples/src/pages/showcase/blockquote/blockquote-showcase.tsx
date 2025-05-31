@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { render, type ComponentSpec } from '@banja/react-jedi';
 import { ChevronRight, ChevronDown, Package, Palette, Sparkles, Type, Layers, MousePointer, Square, SquareStack } from 'lucide-react';
+import { CodeBlock } from '../../../components/ui/code-block';
 
 const sectionIds = {
   overview: 'overview',
@@ -42,9 +43,9 @@ export function BlockQuoteShowcasePage() {
             {expandedSections[sectionKey] ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
           {expandedSections[sectionKey] && (
-            <pre className="p-4 bg-muted/30 overflow-x-auto text-xs">
+            <CodeBlock language="json" className="text-xs">
               {JSON.stringify(json, null, 2)}
-            </pre>
+            </CodeBlock>
           )}
         </div>
       </div>

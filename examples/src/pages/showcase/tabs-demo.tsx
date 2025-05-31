@@ -1,6 +1,7 @@
 import type { UISpecification } from "@banja/react-jedi";
 import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../lib/meta";
+import { CodeBlock } from "../../components/ui/code-block";
 
 export function TabsDemo() {
   usePageMetadata({
@@ -507,9 +508,9 @@ export function TabsDemo() {
       {/* JSON Specification Example */}
       <div className="space-y-4 mt-12">
         <h3 className="text-xl font-semibold">JSON Specification Example</h3>
-        <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto text-sm">
-          {JSON.stringify(defaultTabsSpec, null, 2)}
-        </pre>
+        <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(defaultTabsSpec, null, 2)}
+              </CodeBlock>
       </div>
     </div>
   );

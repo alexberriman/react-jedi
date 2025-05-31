@@ -1,4 +1,5 @@
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function ComplexExamplesPage() {
   usePageMetadata({
@@ -29,9 +30,8 @@ export function ComplexExamplesPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative mb-6 transition-colors">
+{`{
   "type": "container",
   "maxWidth": "7xl",
   "padding": "lg",
@@ -86,8 +86,7 @@ export function ComplexExamplesPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
@@ -99,9 +98,8 @@ export function ComplexExamplesPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative mb-6 transition-colors">
+{`{
   "type": "testimonial",
   "author": {
     "name": "Sarah Johnson",
@@ -109,14 +107,13 @@ export function ComplexExamplesPage() {
     "company": "TechCorp Inc.",
     "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
   },
-  "content": "React Jedi has transformed how we build UIs. The JSON specification approach is intuitive and incredibly powerful. We&apos;ve cut our development time in half!",
+  "content": "React Jedi has transformed how we build UIs. The JSON specification approach is intuitive and incredibly powerful. We've cut our development time in half!",
   "rating": 5,
   "date": "December 2024",
   "variant": "card",
   "highlight": true
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
@@ -128,9 +125,8 @@ export function ComplexExamplesPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative mb-6 transition-colors">
+{`{
   "type": "grid",
   "columns": { "default": 1, "md": 3 },
   "gap": "lg",
@@ -171,8 +167,7 @@ export function ComplexExamplesPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
@@ -184,9 +179,8 @@ export function ComplexExamplesPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative mb-6 transition-colors">
+{`{
   "type": "pricing-table",
   "columns": 3,
   "tiers": [
@@ -236,8 +230,7 @@ export function ComplexExamplesPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
@@ -249,9 +242,8 @@ export function ComplexExamplesPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative mb-6 transition-colors">
+{`{
   "type": "card",
   "children": [
     {
@@ -293,8 +285,7 @@ export function ComplexExamplesPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
       </div>
     </div>

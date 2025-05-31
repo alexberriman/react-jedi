@@ -1,4 +1,5 @@
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function ComponentSystemPage() {
   usePageMetadata({
@@ -34,9 +35,8 @@ export function ComponentSystemPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative mb-6 transition-colors">
+{`{
   "type": "componentType",    // Required: The type of component to render
   
   // Component-specific properties
@@ -56,8 +56,7 @@ export function ComponentSystemPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-emerald-600 dark:text-emerald-400 transition-colors">
@@ -108,9 +107,8 @@ export function ComponentSystemPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6 transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative mb-6 transition-colors">
+{`{
   "type": "container",
   "maxWidth": "lg",
   "padding": "lg",
@@ -182,8 +180,7 @@ export function ComponentSystemPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Code } from '../../components/ui/code'
 import { render } from '@banja/react-jedi'
+import { CodeBlock } from "../../../components/ui/code-block";
 
 const scrollToSection = (sectionId: string) => {
   const element = document.querySelector(`[data-section="${sectionId}"]`)

@@ -1,4 +1,5 @@
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function ThemingPage() {
   usePageMetadata({
@@ -87,9 +88,8 @@ export function ThemingPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-              {`import { ThemeProvider } from "@banja/react-jedi";
+          <CodeBlock language="typescript" className="relative mb-6">
+{`import { ThemeProvider } from "@banja/react-jedi";
 
 function App() {
   return (
@@ -98,8 +98,7 @@ function App() {
     </ThemeProvider>
   );
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400">Theme Structure</h3>
@@ -109,9 +108,8 @@ function App() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-              {`const customTheme = {
+          <CodeBlock language="javascript" className="relative mb-6">
+{`const customTheme = {
   colors: {
     primary: {
       50: "#f0f9ff",
@@ -189,8 +187,7 @@ function App() {
     "2xl": "1536px"
   }
 };`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400">Color System</h3>
@@ -207,9 +204,8 @@ function App() {
               </p>
               <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                  <pre className="whitespace-pre-wrap text-sm">
-                    {`primary: {
+                <CodeBlock language="javascript" className="relative">
+{`primary: {
   50: "#f0f9ff",
   100: "#e0f2fe",
   // ... 200-800
@@ -217,8 +213,7 @@ function App() {
   DEFAULT: "#3b82f6",
   foreground: "#ffffff"
 }`}
-                  </pre>
-                </div>
+                </CodeBlock>
               </div>
             </div>
           </div>
@@ -231,9 +226,8 @@ function App() {
               </p>
               <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                  <pre className="whitespace-pre-wrap text-sm">
-                    {`success: {
+                <CodeBlock language="javascript" className="relative">
+{`success: {
   DEFAULT: "#22c55e",
   foreground: "#ffffff"
 },
@@ -241,8 +235,7 @@ error: {
   DEFAULT: "#ef4444",
   foreground: "#ffffff"
 }`}
-                  </pre>
-                </div>
+                </CodeBlock>
               </div>
             </div>
           </div>
@@ -255,9 +248,8 @@ error: {
               </p>
               <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                  <pre className="whitespace-pre-wrap text-sm">
-                    {`modes: {
+                <CodeBlock language="javascript" className="relative">
+{`modes: {
   light: {
     background: "#ffffff",
     foreground: "#000000"
@@ -267,8 +259,7 @@ error: {
     foreground: "#ffffff"
   }
 }`}
-                  </pre>
-                </div>
+                </CodeBlock>
               </div>
             </div>
           </div>
@@ -287,9 +278,8 @@ error: {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                <pre className="whitespace-pre-wrap text-sm">
-                  {`typography: {
+              <CodeBlock language="javascript" className="relative">
+{`typography: {
   fluid: {
     enabled: true,
     minScale: 1.067,  // Minor third
@@ -305,8 +295,7 @@ error: {
     }
   }
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -325,9 +314,8 @@ error: {
               </p>
               <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                  <pre className="whitespace-pre-wrap text-sm">
-                    {`spacing: {
+                <CodeBlock language="javascript" className="relative">
+{`spacing: {
   base: 8, // Base unit in pixels
   scale: {
     0: "0",
@@ -338,8 +326,7 @@ error: {
     // ... continue scale
   }
 }`}
-                  </pre>
-                </div>
+                </CodeBlock>
               </div>
             </div>
           </div>
@@ -352,9 +339,8 @@ error: {
               </p>
               <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                  <pre className="whitespace-pre-wrap text-sm">
-                    {`responsive: {
+                <CodeBlock language="javascript" className="relative">
+{`responsive: {
   spacing: {
     sm: { scale: 0.875 },
     md: { scale: 1 },
@@ -362,8 +348,7 @@ error: {
     xl: { scale: 1.25 }
   }
 }`}
-                  </pre>
-                </div>
+                </CodeBlock>
               </div>
             </div>
           </div>
@@ -376,9 +361,8 @@ error: {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-              {`const theme = {
+          <CodeBlock language="javascript" className="relative mb-6">
+{`const theme = {
   components: {
     button: {
       base: {
@@ -412,8 +396,7 @@ error: {
     }
   }
 };`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400">Using the Theme Hook</h3>
@@ -423,9 +406,8 @@ error: {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-              {`import { useTheme } from "@banja/react-jedi";
+          <CodeBlock language="typescript" className="relative mb-6">
+{`import { useTheme } from "@banja/react-jedi";
 
 function MyComponent() {
   const { theme, setTheme, colorMode, setColorMode } = useTheme();
@@ -450,8 +432,7 @@ function MyComponent() {
     </div>
   );
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400">Brand Presets</h3>
@@ -493,9 +474,8 @@ function MyComponent() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <div className="relative bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm mb-6">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-              {`import { brandPresets } from "@banja/react-jedi";
+          <CodeBlock language="javascript" className="relative mb-6">
+{`import { brandPresets } from "@banja/react-jedi";
 
 // Use a pre-built brand preset
 const modernTechTheme = brandPresets.modernTech;
@@ -513,8 +493,7 @@ const customTheme = {
     }
   }
 };`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400">Best Practices</h3>

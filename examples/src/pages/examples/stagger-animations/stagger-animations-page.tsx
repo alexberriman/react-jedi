@@ -10,6 +10,7 @@ import {
 } from "../../../../../src/lib/animation";
 import { Button } from "../../../components/ui/button";
 import { Card } from "../../../components/ui/card";
+import { CodeBlock } from "@/components/ui/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs";
 import {
   Select,
@@ -313,9 +314,8 @@ const StaggerAnimationsPage = () => {
 
       <div className="mt-16 bg-muted p-6 rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Usage Example</h2>
-        <pre className="bg-muted-foreground/10 p-4 rounded-md overflow-x-auto">
-          <code className="text-sm font-mono text-primary-foreground">
-            {`// Basic Stagger Example
+        <CodeBlock language="javascript">
+          {`// Basic Stagger Example
 import { Stagger } from "@banja/react-jedi/animation";
 
 export const MyList = () => (
@@ -346,8 +346,7 @@ export const MyDataList = () => (
     orchestration="cascade"
   />
 );`}
-          </code>
-        </pre>
+        </CodeBlock>
       </div>
     </div>
   );

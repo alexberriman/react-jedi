@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function StackShowcase() {
   usePageMetadata({
@@ -571,9 +572,9 @@ export function StackShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(basicStackSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -590,9 +591,9 @@ export function StackShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(spacingSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -609,9 +610,9 @@ export function StackShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(alignmentSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -628,9 +629,9 @@ export function StackShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(horizontalStackSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -647,9 +648,9 @@ export function StackShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(dividerStackSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -666,9 +667,9 @@ export function StackShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(responsiveStackSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -685,9 +686,9 @@ export function StackShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(nestedStackSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -788,9 +789,9 @@ export function StackShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(formExampleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(formExampleSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -804,9 +805,9 @@ export function StackShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(navigationExampleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(navigationExampleSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>

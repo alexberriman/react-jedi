@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../components/ui/card";
+import { CodeBlock } from "@/components/ui/code-block";
 import {
   RichSnippet,
   generateArticleSnippet,
@@ -165,9 +166,9 @@ export const RichSnippetsPage: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code>{JSON.stringify(blogSnippet, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json">
+                  {JSON.stringify(blogSnippet, null, 2)}
+                </CodeBlock>
               </CardContent>
             </Card>
 
@@ -180,9 +181,9 @@ export const RichSnippetsPage: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code>{JSON.stringify(productSnippet, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json">
+                  {JSON.stringify(productSnippet, null, 2)}
+                </CodeBlock>
               </CardContent>
             </Card>
 
@@ -193,9 +194,9 @@ export const RichSnippetsPage: React.FC = () => {
                 <CardDescription>FAQ page structured data for Q&A content</CardDescription>
               </CardHeader>
               <CardContent>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code>{JSON.stringify(faqSnippet, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json">
+                  {JSON.stringify(faqSnippet, null, 2)}
+                </CodeBlock>
               </CardContent>
             </Card>
 
@@ -206,9 +207,9 @@ export const RichSnippetsPage: React.FC = () => {
                 <CardDescription>Navigation breadcrumb structured data</CardDescription>
               </CardHeader>
               <CardContent>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code>{JSON.stringify(breadcrumbSnippet, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json">
+                  {JSON.stringify(breadcrumbSnippet, null, 2)}
+                </CodeBlock>
               </CardContent>
             </Card>
 
@@ -221,9 +222,9 @@ export const RichSnippetsPage: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code>{JSON.stringify(businessSnippet, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json">
+                  {JSON.stringify(businessSnippet, null, 2)}
+                </CodeBlock>
               </CardContent>
             </Card>
 
@@ -238,29 +239,27 @@ export const RichSnippetsPage: React.FC = () => {
               <CardContent className="space-y-4">
                 <div>
                   <h3 className="font-semibold mb-2">1. Import the utilities</h3>
-                  <pre className="bg-gray-100 p-3 rounded">
-                    <code>
-                      {"import { RichSnippet, createBlogPostSnippet } from '@banja/react-jedi';"}
-                    </code>
-                  </pre>
+                  <CodeBlock language="javascript">
+                    {"import { RichSnippet, createBlogPostSnippet } from '@banja/react-jedi';"}
+                  </CodeBlock>
                 </div>
 
                 <div>
                   <h3 className="font-semibold mb-2">2. Generate snippet data</h3>
-                  <pre className="bg-gray-100 p-3 rounded">
-                    <code>{`const snippet = createBlogPostSnippet({
+                  <CodeBlock language="javascript">
+                    {`const snippet = createBlogPostSnippet({
   title: 'My Blog Post',
   author: 'John Doe',
   // ... other properties
-});`}</code>
-                  </pre>
+});`}
+                  </CodeBlock>
                 </div>
 
                 <div>
                   <h3 className="font-semibold mb-2">3. Render the snippet</h3>
-                  <pre className="bg-gray-100 p-3 rounded">
-                    <code>{`<RichSnippet snippet={snippet} />`}</code>
-                  </pre>
+                  <CodeBlock language="javascript">
+                    {`<RichSnippet snippet={snippet} />`}
+                  </CodeBlock>
                 </div>
 
                 <div className="bg-blue-50 p-4 rounded-lg">

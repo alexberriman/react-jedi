@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function UIComponentsPage() {
   usePageMetadata({
@@ -42,9 +43,8 @@ export function UIComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative">
+{`{
   "type": "button",
   "text": "Click Me",
   "variant": "primary",
@@ -53,8 +53,7 @@ export function UIComponentsPage() {
   "loading": false,
   "disabled": false
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -85,9 +84,8 @@ export function UIComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative">
+{`{
   "type": "card",
   "children": [
     {
@@ -101,8 +99,7 @@ export function UIComponentsPage() {
     }
   ]
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -133,9 +130,8 @@ export function UIComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative">
+{`{
   "type": "badge",
   "text": "New",
   "variant": "default",
@@ -154,8 +150,7 @@ export function UIComponentsPage() {
   "text": "2 items",
   "variant": "outline"
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -186,17 +181,15 @@ export function UIComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative">
+{`{
   "type": "avatar",
   "src": "https://example.com/avatar.jpg",
   "alt": "User Name",
   "fallback": "JD",
   "size": "md"
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>

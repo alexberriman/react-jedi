@@ -1,5 +1,6 @@
 import React from "react";
 import { render, Card, CardContent } from "@banja/react-jedi";
+import { CodeBlock } from "@/components/ui/code-block";
 
 const stackExamples = {
   basic: {
@@ -161,9 +162,9 @@ export function StackDemo() {
             <p className="text-sm text-muted-foreground mb-4">
               Below are the JSON specifications used to create the Stack examples:
             </p>
-            <pre className="bg-muted rounded-lg p-4 overflow-x-auto">
-              <code className="text-sm">{JSON.stringify(stackExamples, null, 2)}</code>
-            </pre>
+            <CodeBlock language="json">
+{JSON.stringify(stackExamples, null, 2)}
+            </CodeBlock>
           </CardContent>
         </Card>
       </section>

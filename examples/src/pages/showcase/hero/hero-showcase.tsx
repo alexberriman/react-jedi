@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function HeroShowcase() {
   usePageMetadata({
@@ -409,9 +410,9 @@ export function HeroShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(variantsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -428,9 +429,9 @@ export function HeroShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(backgroundsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -447,9 +448,9 @@ export function HeroShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(animationsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -466,9 +467,9 @@ export function HeroShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(actionsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -485,9 +486,9 @@ export function HeroShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(contentSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -624,9 +625,9 @@ export function HeroShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(marketingExampleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(marketingExampleSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -640,9 +641,9 @@ export function HeroShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(productExampleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(productExampleSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>

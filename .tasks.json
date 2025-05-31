@@ -379,7 +379,7 @@
       {
         "id": "add-syntax-highlighting-plugin",
         "description": "Add a syntax highlighting plugin (like Prism.js or highlight.js) to the example app (./examples) for code and JSON examples. Apply syntax highlighting to: 1) Code blocks on the /documentation page, 2) All JSON examples on the /showcase page, 3) All JSON code on individual showcase pages (e.g., /showcase/button, /showcase/group), 4) Any other code snippets throughout the app. Ensure consistent and attractive code formatting.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "verify-library-styles-loaded",

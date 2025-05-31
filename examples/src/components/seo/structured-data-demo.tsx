@@ -1,5 +1,6 @@
 import React from "react";
 import { ExtendedHeadManager } from "@banja/react-jedi";
+import { CodeBlock } from "@/components/ui/code-block";
 import type { OrganizationSchema, ArticleSchema, FAQSchema } from "@banja/react-jedi";
 
 export function StructuredDataDemo() {
@@ -121,7 +122,7 @@ export function StructuredDataDemo() {
                   structured data schemas and automatically injects them as JSON-LD scripts in the
                   document head.
                 </p>
-                <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <CodeBlock language="javascript">
                   {`<ExtendedHeadManager
   metadata={{
     title: "Your Page Title",
@@ -133,7 +134,7 @@ export function StructuredDataDemo() {
     faqSchema
   ]}
 />`}
-                </pre>
+                </CodeBlock>
               </div>
             </div>
 

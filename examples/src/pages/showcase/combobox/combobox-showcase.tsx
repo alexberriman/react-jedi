@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function ComboboxShowcase() {
   usePageMetadata({
@@ -568,9 +569,9 @@ export function ComboboxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(basicSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -587,9 +588,9 @@ export function ComboboxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(searchableSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -606,9 +607,9 @@ export function ComboboxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(statesSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -625,9 +626,9 @@ export function ComboboxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(placeholderSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -644,9 +645,9 @@ export function ComboboxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(emptyStateSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -663,9 +664,9 @@ export function ComboboxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(longListSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -682,9 +683,9 @@ export function ComboboxShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(formExampleSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -785,9 +786,9 @@ export function ComboboxShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(advancedSearchSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(advancedSearchSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function ChartShowcase() {
   usePageMetadata({
@@ -431,9 +432,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(basicLineSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(basicLineSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -446,9 +447,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(multiLineSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(multiLineSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>
@@ -471,9 +472,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(basicBarSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(basicBarSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -486,9 +487,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(stackedBarSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(stackedBarSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>
@@ -511,9 +512,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(basicAreaSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(basicAreaSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -526,9 +527,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(stackedAreaSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(stackedAreaSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>
@@ -551,9 +552,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(basicPieSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(basicPieSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -566,9 +567,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(donutSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(donutSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>
@@ -590,9 +591,9 @@ export function ChartShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(basicRadarSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(basicRadarSpec, null, 2)}
+              </CodeBlock>
               </details>
             </div>
           </section>
@@ -613,9 +614,9 @@ export function ChartShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(radialBarSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(radialBarSpec, null, 2)}
+              </CodeBlock>
               </details>
             </div>
           </section>
@@ -637,9 +638,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(customColorsSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(customColorsSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -652,9 +653,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(noAnimationSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(noAnimationSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>
@@ -676,9 +677,9 @@ export function ChartShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(interactiveSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(interactiveSpec, null, 2)}
+              </CodeBlock>
               </details>
             </div>
           </section>
@@ -816,9 +817,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(salesDashboardSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(salesDashboardSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -832,9 +833,9 @@ export function ChartShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(analyticsOverviewSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(analyticsOverviewSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { usePageMetadata } from "../../../lib/meta";
 import { Heading, Text, padding } from "../../../components/ui";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function SelectShowcase() {
   usePageMetadata({
@@ -460,9 +461,9 @@ export function SelectShowcase() {
               {expandedCode === "basic" ? "Hide" : "Show"} JSON Specification
             </button>
             {expandedCode === "basic" && (
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(basicSelect, null, 2)}
-              </pre>
+              </CodeBlock>
             )}
           </div>
         </section>
@@ -554,9 +555,9 @@ export function SelectShowcase() {
               {expandedCode === "grouped" ? "Hide" : "Show"} JSON Specification
             </button>
             {expandedCode === "grouped" && (
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(groupedSelect, null, 2)}
-              </pre>
+              </CodeBlock>
             )}
           </div>
         </section>
@@ -578,9 +579,9 @@ export function SelectShowcase() {
               {expandedCode === "controlled" ? "Hide" : "Show"} JSON Specification
             </button>
             {expandedCode === "controlled" && (
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(controlledSelect, null, 2)}
-              </pre>
+              </CodeBlock>
             )}
           </div>
         </section>
@@ -602,9 +603,9 @@ export function SelectShowcase() {
               {expandedCode === "form" ? "Hide" : "Show"} JSON Specification
             </button>
             {expandedCode === "form" && (
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(formSelect, null, 2)}
-              </pre>
+              </CodeBlock>
             )}
           </div>
         </section>
@@ -626,9 +627,9 @@ export function SelectShowcase() {
               {expandedCode === "styling" ? "Hide" : "Show"} JSON Specification
             </button>
             {expandedCode === "styling" && (
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(styledSelect, null, 2)}
-              </pre>
+              </CodeBlock>
             )}
           </div>
         </section>

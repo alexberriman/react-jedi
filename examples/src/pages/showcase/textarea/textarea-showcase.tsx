@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ChevronDown, ChevronRight } from 'lucide-react';
 import { render } from '@banja/react-jedi';
+import { CodeBlock } from "../../../components/ui/code-block";
 
 function CollapsibleCode({ title, children }: { readonly title: string; readonly children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);

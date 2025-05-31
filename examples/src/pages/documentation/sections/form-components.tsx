@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function FormComponentsPage() {
   usePageMetadata({
@@ -43,9 +44,8 @@ export function FormComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "input",
   "id": "username",
   "placeholder": "Enter your username",
@@ -53,8 +53,7 @@ export function FormComponentsPage() {
   "disabled": false,
   "readOnly": false
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -85,16 +84,14 @@ export function FormComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "label",
   "text": "Username",
   "htmlFor": "username",
   "required": true
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>

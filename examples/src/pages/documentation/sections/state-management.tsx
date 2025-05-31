@@ -1,4 +1,5 @@
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function StateManagementPage() {
   usePageMetadata({
@@ -84,9 +85,8 @@ export function StateManagementPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "Container",
   "state": {
     "count": 0,
@@ -113,8 +113,7 @@ export function StateManagementPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
@@ -126,9 +125,8 @@ export function StateManagementPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "Container",
   "state": {
     "items": [
@@ -147,8 +145,7 @@ export function StateManagementPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
@@ -160,9 +157,8 @@ export function StateManagementPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "Container",
   "state": {
     "todos": [],
@@ -186,8 +182,7 @@ export function StateManagementPage() {
     }
   ]
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
@@ -199,9 +194,8 @@ export function StateManagementPage() {
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-          <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-              {`{
+          <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "Container",
   "state": {
     "preferences": {
@@ -216,8 +210,7 @@ export function StateManagementPage() {
     "include": ["preferences"]
   }
 }`}
-            </pre>
-          </div>
+          </CodeBlock>
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-purple-400 transition-colors">
@@ -231,9 +224,8 @@ export function StateManagementPage() {
             <p className="text-zinc-700 dark:text-zinc-300 mb-4 transition-colors">
               Manage form inputs with validation:
             </p>
-            <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 font-mono text-xs transition-colors">
-              <pre className="whitespace-pre-wrap">
-                {`{
+            <CodeBlock language="json" className="relative text-xs">
+{`{
   "state": {
     "form": {
       "email": "",
@@ -245,8 +237,7 @@ export function StateManagementPage() {
     "isValid": "{{ state.form.email && state.form.password }}"
   }
 }`}
-              </pre>
-            </div>
+            </CodeBlock>
           </div>
 
           <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">
@@ -256,9 +247,8 @@ export function StateManagementPage() {
             <p className="text-zinc-700 dark:text-zinc-300 mb-4 transition-colors">
               Manage dynamic lists with CRUD operations:
             </p>
-            <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 font-mono text-xs transition-colors">
-              <pre className="whitespace-pre-wrap">
-                {`{
+            <CodeBlock language="json" className="relative text-xs">
+{`{
   "state": {
     "items": [],
     "selectedId": null
@@ -267,8 +257,7 @@ export function StateManagementPage() {
     "selectedItem": "{{ state.items.find(i => i.id === state.selectedId) }}"
   }
 }`}
-              </pre>
-            </div>
+            </CodeBlock>
           </div>
         </div>
 

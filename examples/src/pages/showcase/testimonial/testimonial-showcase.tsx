@@ -1,6 +1,8 @@
 import { render } from '@banja/react-jedi';
 import { useState } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
+import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 function CollapsibleCode({ title, code }: { readonly title: string; readonly code: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,9 +17,9 @@ function CollapsibleCode({ title, code }: { readonly title: string; readonly cod
         {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>
       {isOpen && (
-        <pre className="p-4 bg-gray-900 text-gray-100 overflow-x-auto">
-          <code>{code}</code>
-        </pre>
+        <CodeBlock language="json">
+{code}
+        </CodeBlock>
       )}
     </div>
   );

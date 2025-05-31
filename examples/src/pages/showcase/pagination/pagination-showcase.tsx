@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function PaginationShowcase() {
   usePageMetadata({
@@ -443,9 +444,9 @@ export function PaginationShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(basicSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -467,9 +468,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(smallPagesSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(smallPagesSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -483,9 +484,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(largePagesSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(largePagesSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>
@@ -509,9 +510,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(firstPageSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(firstPageSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -525,9 +526,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(lastPageSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(lastPageSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>
@@ -551,9 +552,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(ellipsisBeginSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(ellipsisBeginSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -567,9 +568,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(ellipsisMiddleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(ellipsisMiddleSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -583,9 +584,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(ellipsisEndSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(ellipsisEndSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>
@@ -607,9 +608,9 @@ export function PaginationShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(noNavSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(noNavSpec, null, 2)}
+              </CodeBlock>
               </details>
             </div>
           </section>
@@ -630,9 +631,9 @@ export function PaginationShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(customSiblingSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(customSiblingSpec, null, 2)}
+              </CodeBlock>
               </details>
             </div>
           </section>
@@ -734,9 +735,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(dataTableExampleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(dataTableExampleSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
 
@@ -750,9 +751,9 @@ export function PaginationShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(blogExampleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(blogExampleSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function SeparatorShowcase() {
   usePageMetadata({
@@ -344,9 +345,9 @@ export function SeparatorShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(basicSeparatorSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(basicSeparatorSpec, null, 2)}
+              </CodeBlock>
               </details>
             </section>
 
@@ -375,9 +376,9 @@ export function SeparatorShowcase() {
                     <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                       View JSON Specification
                     </summary>
-                    <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                      {JSON.stringify(verticalSeparatorSpec, null, 2)}
-                    </pre>
+                    <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(verticalSeparatorSpec, null, 2)}
+              </CodeBlock>
                   </details>
                 </div>
               </div>
@@ -400,9 +401,9 @@ export function SeparatorShowcase() {
                     <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                       View JSON Specification
                     </summary>
-                    <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                      {JSON.stringify(navigationExampleSpec, null, 2)}
-                    </pre>
+                    <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(navigationExampleSpec, null, 2)}
+              </CodeBlock>
                   </details>
                 </div>
 
@@ -415,9 +416,9 @@ export function SeparatorShowcase() {
                     <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                       View JSON Specification
                     </summary>
-                    <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                      {JSON.stringify(breadcrumbSeparatorSpec, null, 2)}
-                    </pre>
+                    <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(breadcrumbSeparatorSpec, null, 2)}
+              </CodeBlock>
                   </details>
                 </div>
               </div>
@@ -438,9 +439,9 @@ export function SeparatorShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(listSeparatorSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(listSeparatorSpec, null, 2)}
+              </CodeBlock>
               </details>
             </section>
 
@@ -459,9 +460,9 @@ export function SeparatorShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(cardSeparatorSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(cardSeparatorSpec, null, 2)}
+              </CodeBlock>
               </details>
             </section>
 
@@ -480,9 +481,9 @@ export function SeparatorShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(toolbarSeparatorSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(toolbarSeparatorSpec, null, 2)}
+              </CodeBlock>
               </details>
             </section>
 
@@ -502,9 +503,9 @@ export function SeparatorShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(semanticSeparatorSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(semanticSeparatorSpec, null, 2)}
+              </CodeBlock>
               </details>
             </section>
 
@@ -591,9 +592,9 @@ export function SeparatorShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(footerSeparatorSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(footerSeparatorSpec, null, 2)}
+              </CodeBlock>
                 </details>
               </div>
             </section>

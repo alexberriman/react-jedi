@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function ButtonShowcase() {
   usePageMetadata({
@@ -321,9 +322,9 @@ export function ButtonShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(variantsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(variantsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -340,9 +341,9 @@ export function ButtonShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(sizesSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(sizesSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -359,9 +360,9 @@ export function ButtonShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(statesSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(statesSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -378,9 +379,9 @@ export function ButtonShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(iconsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(iconsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -397,9 +398,9 @@ export function ButtonShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(loadingSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(loadingSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -416,9 +417,9 @@ export function ButtonShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(fullWidthSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(fullWidthSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -435,9 +436,9 @@ export function ButtonShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(buttonGroupSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(buttonGroupSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -532,9 +533,9 @@ export function ButtonShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(formExampleSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+{JSON.stringify(formExampleSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
 
@@ -548,9 +549,9 @@ export function ButtonShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(actionButtonsSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+{JSON.stringify(actionButtonsSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
             </div>

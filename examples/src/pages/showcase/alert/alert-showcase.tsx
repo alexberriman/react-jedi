@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function AlertShowcasePage() {
   usePageMetadata({
@@ -331,9 +332,9 @@ export function AlertShowcasePage() {
                   <summary className="cursor-pointer px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
                     View JSON Specification
                   </summary>
-                  <pre className="overflow-x-auto p-4 text-sm">
-                    <code>{JSON.stringify(basicAlertSpec, null, 2)}</code>
-                  </pre>
+                  <CodeBlock language="json">
+{JSON.stringify(basicAlertSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
             </section>
@@ -353,9 +354,9 @@ export function AlertShowcasePage() {
                     <summary className="cursor-pointer px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
                       View JSON Specification
                     </summary>
-                    <pre className="overflow-x-auto p-4 text-sm">
-                      <code>{JSON.stringify(defaultAlertSpec, null, 2)}</code>
-                    </pre>
+                    <CodeBlock language="json">
+{JSON.stringify(defaultAlertSpec, null, 2)}
+                    </CodeBlock>
                   </details>
                 </div>
 
@@ -368,9 +369,9 @@ export function AlertShowcasePage() {
                     <summary className="cursor-pointer px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
                       View JSON Specification
                     </summary>
-                    <pre className="overflow-x-auto p-4 text-sm">
-                      <code>{JSON.stringify(destructiveAlertSpec, null, 2)}</code>
-                    </pre>
+                    <CodeBlock language="json">
+{JSON.stringify(destructiveAlertSpec, null, 2)}
+                    </CodeBlock>
                   </details>
                 </div>
               </div>
@@ -391,9 +392,9 @@ export function AlertShowcasePage() {
                     <summary className="cursor-pointer px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
                       View JSON Specification
                     </summary>
-                    <pre className="overflow-x-auto p-4 text-sm">
-                      <code>{JSON.stringify(alertWithTitleSpec, null, 2)}</code>
-                    </pre>
+                    <CodeBlock language="json">
+{JSON.stringify(alertWithTitleSpec, null, 2)}
+                    </CodeBlock>
                   </details>
                 </div>
 
@@ -406,9 +407,9 @@ export function AlertShowcasePage() {
                     <summary className="cursor-pointer px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
                       View JSON Specification
                     </summary>
-                    <pre className="overflow-x-auto p-4 text-sm">
-                      <code>{JSON.stringify(destructiveWithTitleSpec, null, 2)}</code>
-                    </pre>
+                    <CodeBlock language="json">
+{JSON.stringify(destructiveWithTitleSpec, null, 2)}
+                    </CodeBlock>
                   </details>
                 </div>
 
@@ -460,9 +461,9 @@ export function AlertShowcasePage() {
                     <summary className="cursor-pointer px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
                       View JSON Specification
                     </summary>
-                    <pre className="overflow-x-auto p-4 text-sm">
-                      <code>{JSON.stringify(accountVerificationSpec, null, 2)}</code>
-                    </pre>
+                    <CodeBlock language="json">
+{JSON.stringify(accountVerificationSpec, null, 2)}
+                    </CodeBlock>
                   </details>
                 </div>
               </div>

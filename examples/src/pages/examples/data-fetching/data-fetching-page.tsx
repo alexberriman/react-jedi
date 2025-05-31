@@ -1,5 +1,6 @@
 import { render } from "@banja/react-jedi";
 import { Card } from "@/components/ui/card";
+import { CodeBlock } from "@/components/ui/code-block";
 import dataFetchingSpecification from "@/schemas/data-fetching-example.json";
 
 export function DataFetchingPage() {
@@ -33,9 +34,9 @@ export function DataFetchingPage() {
 
       <Card className="mt-8 p-6">
         <h2 className="text-2xl font-semibold mb-4">JSON Specification</h2>
-        <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-          <code>{JSON.stringify(dataFetchingSpecification, null, 2)}</code>
-        </pre>
+        <CodeBlock language="json">
+          {JSON.stringify(dataFetchingSpecification, null, 2)}
+        </CodeBlock>
       </Card>
     </div>
   );

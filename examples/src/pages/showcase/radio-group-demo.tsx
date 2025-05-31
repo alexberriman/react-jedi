@@ -2,6 +2,7 @@ import { render } from "@banja/react-jedi";
 import type { UISpecification } from "@banja/react-jedi";
 import { usePageMetadata } from "../../lib/meta";
 import { Link } from "react-router-dom";
+import { CodeBlock } from "../../components/ui/code-block";
 
 export function RadioGroupDemo() {
   usePageMetadata({
@@ -379,9 +380,9 @@ export function RadioGroupDemo() {
 
         <div className="bg-gray-950 rounded-lg border p-4">
           <h3 className="text-sm font-mono text-emerald-400 mb-2">JSON Specification:</h3>
-          <pre className="text-xs text-gray-300 overflow-x-auto">
-            {JSON.stringify(basicRadioGroupSpec, null, 2)}
-          </pre>
+          <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(basicRadioGroupSpec, null, 2)}
+              </CodeBlock>
         </div>
       </section>
 
@@ -398,9 +399,9 @@ export function RadioGroupDemo() {
 
         <div className="bg-gray-950 rounded-lg border p-4">
           <h3 className="text-sm font-mono text-emerald-400 mb-2">JSON Specification:</h3>
-          <pre className="text-xs text-gray-300 overflow-x-auto">
-            {JSON.stringify(horizontalRadioGroupSpec, null, 2)}
-          </pre>
+          <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(horizontalRadioGroupSpec, null, 2)}
+              </CodeBlock>
         </div>
       </section>
 
@@ -419,9 +420,9 @@ export function RadioGroupDemo() {
             </div>
             <div className="bg-gray-950 rounded-lg border p-4 mb-8">
               <h4 className="text-sm font-mono text-emerald-400 mb-2">JSON Specification:</h4>
-              <pre className="text-xs text-gray-300 overflow-x-auto">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(disabledRadioGroupSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </div>
           </div>
 
@@ -432,9 +433,9 @@ export function RadioGroupDemo() {
             </div>
             <div className="bg-gray-950 rounded-lg border p-4">
               <h4 className="text-sm font-mono text-emerald-400 mb-2">JSON Specification:</h4>
-              <pre className="text-xs text-gray-300 overflow-x-auto">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(individualDisabledSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -453,9 +454,9 @@ export function RadioGroupDemo() {
 
         <div className="bg-gray-950 rounded-lg border p-4">
           <h3 className="text-sm font-mono text-emerald-400 mb-2">JSON Specification:</h3>
-          <pre className="text-xs text-gray-300 overflow-x-auto">
-            {JSON.stringify(cardStyleRadioGroupSpec, null, 2)}
-          </pre>
+          <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(cardStyleRadioGroupSpec, null, 2)}
+              </CodeBlock>
         </div>
       </section>
 
@@ -472,9 +473,9 @@ export function RadioGroupDemo() {
 
         <div className="bg-gray-950 rounded-lg border p-4">
           <h3 className="text-sm font-mono text-emerald-400 mb-2">JSON Specification:</h3>
-          <pre className="text-xs text-gray-300 overflow-x-auto">
-            {JSON.stringify(customStyledSpec, null, 2)}
-          </pre>
+          <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(customStyledSpec, null, 2)}
+              </CodeBlock>
         </div>
       </section>
 

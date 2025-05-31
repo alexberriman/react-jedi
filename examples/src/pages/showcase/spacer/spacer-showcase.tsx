@@ -3,6 +3,8 @@ import { render } from "@banja/react-jedi";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function SpacerShowcase() {
   usePageMetadata({
@@ -316,9 +318,9 @@ export function SpacerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(basicSpacerSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+{JSON.stringify(basicSpacerSpec, null, 2)}
+                </CodeBlock>
               </details>
             </section>
 
@@ -338,9 +340,9 @@ export function SpacerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(sizeVariationsSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+{JSON.stringify(sizeVariationsSpec, null, 2)}
+                </CodeBlock>
               </details>
             </section>
 
@@ -362,9 +364,9 @@ export function SpacerShowcase() {
                     <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                       View JSON Specification
                     </summary>
-                    <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                      {JSON.stringify(horizontalSpacerSpec, null, 2)}
-                    </pre>
+                    <CodeBlock language="json" className="mt-2">
+{JSON.stringify(horizontalSpacerSpec, null, 2)}
+                    </CodeBlock>
                   </details>
                 </div>
 
@@ -377,9 +379,9 @@ export function SpacerShowcase() {
                     <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                       View JSON Specification
                     </summary>
-                    <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                      {JSON.stringify(horizontalSizesSpec, null, 2)}
-                    </pre>
+                    <CodeBlock language="json" className="mt-2">
+{JSON.stringify(horizontalSizesSpec, null, 2)}
+                    </CodeBlock>
                   </details>
                 </div>
               </div>
@@ -400,9 +402,9 @@ export function SpacerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(formLayoutSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+{JSON.stringify(formLayoutSpec, null, 2)}
+                </CodeBlock>
               </details>
             </section>
 
@@ -421,9 +423,9 @@ export function SpacerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(cardLayoutSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+{JSON.stringify(cardLayoutSpec, null, 2)}
+                </CodeBlock>
               </details>
             </section>
 
@@ -442,9 +444,9 @@ export function SpacerShowcase() {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                   View JSON Specification
                 </summary>
-                <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                  {JSON.stringify(navigationBarSpec, null, 2)}
-                </pre>
+                <CodeBlock language="json" className="mt-2">
+{JSON.stringify(navigationBarSpec, null, 2)}
+                </CodeBlock>
               </details>
             </section>
 

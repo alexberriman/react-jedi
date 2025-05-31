@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function LayoutComponentsPage() {
   usePageMetadata({
@@ -42,9 +43,8 @@ export function LayoutComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "container",
   "maxWidth": "xl",
   "padding": "md",
@@ -53,8 +53,7 @@ export function LayoutComponentsPage() {
     // Container content
   ]
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -85,9 +84,8 @@ export function LayoutComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "box",
   "padding": "md",
   "background": "card",
@@ -109,8 +107,7 @@ export function LayoutComponentsPage() {
     }
   ]
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -141,9 +138,8 @@ export function LayoutComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "grid",
   "columns": {
     "default": 1,
@@ -156,8 +152,7 @@ export function LayoutComponentsPage() {
     // Grid items
   ]
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>
@@ -188,9 +183,8 @@ export function LayoutComponentsPage() {
             </p>
             <div className="relative group-hover:scale-[1.02] transition-transform duration-300">
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 transition-colors"></div>
-              <div className="relative bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-                <pre className="whitespace-pre-wrap text-sm transition-colors">
-                  {`{
+              <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "flex",
   "direction": "row",
   "wrap": "wrap",
@@ -201,8 +195,7 @@ export function LayoutComponentsPage() {
     // Flex items
   ]
 }`}
-                </pre>
-              </div>
+              </CodeBlock>
             </div>
           </div>
         </div>

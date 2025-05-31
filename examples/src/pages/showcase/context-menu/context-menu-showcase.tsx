@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "../../../components/ui/code-block";
 
 export function ContextMenuShowcase() {
   usePageMetadata({
@@ -541,9 +542,9 @@ export function ContextMenuShowcase() {
               <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                 View JSON Specification
               </summary>
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto text-xs">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(basicSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -562,9 +563,9 @@ export function ContextMenuShowcase() {
               <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                 View JSON Specification
               </summary>
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto text-xs">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(itemsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -583,9 +584,9 @@ export function ContextMenuShowcase() {
               <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                 View JSON Specification
               </summary>
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto text-xs">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(iconsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -604,9 +605,9 @@ export function ContextMenuShowcase() {
               <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                 View JSON Specification
               </summary>
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto text-xs">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(shortcutsSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -625,9 +626,9 @@ export function ContextMenuShowcase() {
               <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                 View JSON Specification
               </summary>
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto text-xs">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(nestedSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -646,9 +647,9 @@ export function ContextMenuShowcase() {
               <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                 View JSON Specification
               </summary>
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto text-xs">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(statesSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -667,9 +668,9 @@ export function ContextMenuShowcase() {
               <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                 View JSON Specification
               </summary>
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto text-xs">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(checkboxRadioSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 
@@ -688,9 +689,9 @@ export function ContextMenuShowcase() {
               <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                 View JSON Specification
               </summary>
-              <pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto text-xs">
+              <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(complexSpec, null, 2)}
-              </pre>
+              </CodeBlock>
             </details>
           </section>
 

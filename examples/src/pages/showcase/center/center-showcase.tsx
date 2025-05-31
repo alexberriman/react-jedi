@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function CenterShowcase() {
   usePageMetadata({
@@ -514,9 +515,9 @@ export function CenterShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(basicCenteringSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(basicCenteringSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -533,9 +534,9 @@ export function CenterShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(directionalCenteringSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(directionalCenteringSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -552,9 +553,9 @@ export function CenterShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(fullDimensionsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(fullDimensionsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -571,9 +572,9 @@ export function CenterShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(responsiveCenteringSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(responsiveCenteringSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -590,9 +591,9 @@ export function CenterShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(nestedCentersSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(nestedCentersSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -609,9 +610,9 @@ export function CenterShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(complexLayoutsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(complexLayoutsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -633,9 +634,9 @@ export function CenterShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(loadingStateSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+{JSON.stringify(loadingStateSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
 
@@ -649,9 +650,9 @@ export function CenterShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(emptyStateSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+{JSON.stringify(emptyStateSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
 
@@ -665,9 +666,9 @@ export function CenterShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(modalContentSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+{JSON.stringify(modalContentSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
             </div>

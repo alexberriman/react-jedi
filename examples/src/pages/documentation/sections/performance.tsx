@@ -1,4 +1,5 @@
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function PerformancePage() {
   usePageMetadata({
@@ -109,9 +110,8 @@ export function PerformancePage() {
             <p className="text-zinc-700 dark:text-zinc-300 mb-3 transition-colors">
               Keep your JSON specifications lean and focused:
             </p>
-            <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-              <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-                {`// ❌ Avoid deeply nested structures
+            <CodeBlock language="json" className="relative transition-colors">
+{`// ❌ Avoid deeply nested structures
 {
   "type": "Container",
   "children": [{
@@ -131,8 +131,7 @@ export function PerformancePage() {
     { "type": "Grid", "children": [/* items */] }
   ]
 }`}
-              </pre>
-            </div>
+            </CodeBlock>
           </div>
 
           <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">
@@ -165,9 +164,8 @@ export function PerformancePage() {
             <p className="text-zinc-700 dark:text-zinc-300 mb-3 transition-colors">
               Load complex components only when needed:
             </p>
-            <div className="bg-white dark:bg-black/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 font-mono text-sm transition-colors">
-              <pre className="whitespace-pre-wrap text-sm leading-relaxed transition-colors">
-                {`{
+            <CodeBlock language="json" className="relative transition-colors">
+{`{
   "type": "Conditional",
   "if": "state.showDetails",
   "then": {
@@ -179,8 +177,7 @@ export function PerformancePage() {
     }
   }
 }`}
-              </pre>
-            </div>
+            </CodeBlock>
           </div>
 
           <div className="bg-zinc-50 dark:bg-zinc-900/50 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden p-6 transition-colors">

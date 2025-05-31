@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function ImagePreview() {
   usePageMetadata({
@@ -884,9 +885,9 @@ export function ImagePreview() {
                 </button>
               </div>
               <div className="p-4 overflow-x-auto">
-                <pre className="text-sm text-zinc-700 dark:text-zinc-300">
-                  <code>{JSON.stringify(currentExample.spec, null, 2)}</code>
-                </pre>
+                <CodeBlock language="json">
+{JSON.stringify(currentExample.spec, null, 2)}
+                </CodeBlock>
               </div>
             </div>
 

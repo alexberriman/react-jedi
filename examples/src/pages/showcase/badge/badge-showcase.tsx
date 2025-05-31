@@ -3,6 +3,7 @@ import { render } from "@banja/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export function BadgeShowcase() {
   usePageMetadata({
@@ -371,9 +372,9 @@ export function BadgeShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(variantsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(variantsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -390,9 +391,9 @@ export function BadgeShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(iconsSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(iconsSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -409,9 +410,9 @@ export function BadgeShowcase() {
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
               </summary>
-              <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                {JSON.stringify(contextSpec, null, 2)}
-              </pre>
+              <CodeBlock language="json" className="mt-2">
+{JSON.stringify(contextSpec, null, 2)}
+              </CodeBlock>
             </details>
           </section>
 
@@ -488,9 +489,9 @@ export function BadgeShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(featureListSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+{JSON.stringify(featureListSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
 
@@ -504,9 +505,9 @@ export function BadgeShowcase() {
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
                   </summary>
-                  <pre className="mt-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto text-sm">
-                    {JSON.stringify(notificationSpec, null, 2)}
-                  </pre>
+                  <CodeBlock language="json" className="mt-2">
+{JSON.stringify(notificationSpec, null, 2)}
+                  </CodeBlock>
                 </details>
               </div>
             </div>

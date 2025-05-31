@@ -17,10 +17,10 @@ export default defineConfig({
     alias: [
       // Example app aliases
       { find: "@", replacement: path.resolve(__dirname, "./src") },
-      // Library CSS import
+      // Library CSS import - point to built CSS file
       {
         find: "@banja/react-jedi/dist/index.css",
-        replacement: path.resolve(__dirname, "../src/styles/global.css"),
+        replacement: path.resolve(__dirname, "../dist/index.css"),
       },
       // Library JS imports - use source directly for development
       {

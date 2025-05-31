@@ -4,7 +4,6 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
 import { ErrorBoundary } from "@banja/react-jedi";
 import { SmoothScrollProvider } from "./components/layout/smooth-scroll";
-import "@banja/react-jedi/dist/index.css";
 import "./styles/index.css";
 
 ReactDOM.createRoot(document.querySelector("#root")!).render(

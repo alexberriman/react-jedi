@@ -458,7 +458,7 @@
       {
         "id": "add-documentation-prev-next-navigation",
         "description": "Add previous/next navigation buttons at the bottom of each documentation page in the example app (./examples). Style them nicely to match the app design. First page (Getting Started) should only have 'Next' button leading to Component System. Last page should only have 'Previous' button. All other pages should have both. Include page titles in the buttons.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-showcase-floating-nav-offset",

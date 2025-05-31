@@ -1,5 +1,8 @@
 import { usePageMetadata } from "../../../lib/meta";
 import { CodeBlock } from "../../../components/ui/code-block";
+import { PrevNextNavigation } from "../../../components/documentation";
+import { getDocumentationNavigation } from "../../../lib/documentation-navigation";
+import { useLocation } from "react-router-dom";
 
 export function GettingStartedPage() {
   usePageMetadata({
@@ -7,6 +10,10 @@ export function GettingStartedPage() {
     description:
       "Get started with React Jedi - Installation, basic concepts, and your first component.",
   });
+  
+  const location = useLocation();
+  const { prev, next } = getDocumentationNavigation(location.pathname);
+  
   return (
     <div>
       <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
@@ -119,6 +126,8 @@ function MyApp() {
           </CodeBlock>
         </div>
       </div>
+      
+      <PrevNextNavigation prev={prev} next={next} />
     </div>
   );
 }

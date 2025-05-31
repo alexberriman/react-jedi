@@ -1,12 +1,19 @@
 import { Link } from "react-router-dom";
 import { usePageMetadata } from "../../../lib/meta";
 import { CodeBlock } from "@/components/ui/code-block";
+import { PrevNextNavigation } from "../../../components/documentation";
+import { getDocumentationNavigation } from "../../../lib/documentation-navigation";
+import { useLocation } from "react-router-dom";
 
 export function UIComponentsPage() {
   usePageMetadata({
     title: "UI Components",
     description: "React Jedi UI components documentation - Buttons, cards, badges, and more.",
   });
+  
+  const location = useLocation();
+  const { prev, next } = getDocumentationNavigation(location.pathname);
+  
   return (
     <div>
       <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
@@ -210,6 +217,8 @@ export function UIComponentsPage() {
           </svg>
         </Link>
       </div>
+      
+      <PrevNextNavigation prev={prev} next={next} />
     </div>
   );
 }

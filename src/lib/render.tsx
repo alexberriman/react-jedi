@@ -33,70 +33,9 @@ import {
   OptimizedStateProvider,
 } from "./performance";
 import { useDataSources } from "../hooks/use-data-sources";
+import { ErrorBoundary as SexyErrorBoundary } from "../components/ui/error-boundary";
 
-/**
- * ErrorBoundary component to catch rendering errors
- */
-class ErrorBoundary extends React.Component<
-  {
-    children: React.ReactNode;
-    componentType: string;
-    fallback?: React.ReactNode;
-    onError?: (error: Error, componentType: string) => void;
-  },
-  { hasError: boolean; error: Error | null }
-> {
-  constructor(props: {
-    children: React.ReactNode;
-    componentType: string;
-    fallback?: React.ReactNode;
-    onError?: (error: Error, componentType: string) => void;
-  }) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error) {
-    const { componentType, onError } = this.props;
-    if (onError) {
-      onError(error, componentType);
-    }
-  }
-
-  render(): React.ReactElement {
-    if (this.state.hasError) {
-      // Always return React.ReactElement
-      if (this.props.fallback) {
-        // Cast to ReactElement since we know it should be a valid React element
-        return this.props.fallback as React.ReactElement;
-      }
-
-      return (
-        <div className="p-4 border border-destructive text-destructive rounded-md">
-          <p>Error rendering component: {this.props.componentType}</p>
-          <p className="text-sm mt-2 font-mono">{this.state.error?.message}</p>
-        </div>
-      );
-    }
-
-    // Ensure we always return a ReactElement
-    if (!this.props.children) {
-      return <></>;
-    }
-
-    // If children is a valid ReactElement, return it directly
-    if (React.isValidElement(this.props.children)) {
-      return this.props.children;
-    }
-
-    // For other ReactNode types like arrays, strings, etc., wrap in a fragment
-    return <>{this.props.children}</>;
-  }
-}
+// Using the sexy ErrorBoundary from ../components/ui/error-boundary
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -516,9 +455,9 @@ function renderComponent(
   // Wrap in error boundary if enabled
   if (errorBoundaries) {
     return (
-      <ErrorBoundary componentType={resolvedSpec.type} onError={onError}>
+      <SexyErrorBoundary onError={onError ? (error) => onError(error, resolvedSpec.type) : undefined}>
         {element}
-      </ErrorBoundary>
+      </SexyErrorBoundary>
     );
   }
 
@@ -681,21 +620,65 @@ function wrapWithProviders(
   return stateProviderContent;
 }
 
+/**
+ * Wraps content in error boundary if enabled
+ */
+function wrapInErrorBoundary(
+  content: React.ReactElement | null,
+  options: RenderOptions
+): React.ReactElement | null {
+  if (!content || options.errorBoundaries === false) {
+    return content;
+  }
+
+  return (
+    <SexyErrorBoundary onError={options.onError ? (error) => options.onError!(error, 'root') : undefined}>
+      {content}
+    </SexyErrorBoundary>
+  );
+}
+
+/**
+ * Handles render errors by wrapping in error boundary
+ */
+function handleRenderError(error: unknown, options: RenderOptions): React.ReactElement {
+  if (options.errorBoundaries === false) {
+    throw error;
+  }
+
+  const errorToShow = error instanceof Error ? error : new Error(String(error));
+  return (
+    <SexyErrorBoundary onError={options.onError ? (error) => options.onError!(error, 'root') : undefined}>
+      <ErrorTrigger error={errorToShow} />
+    </SexyErrorBoundary>
+  );
+}
+
 export function render(
   specification: UISpecification | ComponentSpec,
   options: RenderOptions = {}
 ): React.ReactElement | null {
-  const componentSpec = getComponentSpec(specification);
-  const effectiveOptions = prepareRenderOptions(specification, options);
+  try {
+    const componentSpec = getComponentSpec(specification);
+    const effectiveOptions = prepareRenderOptions(specification, options);
 
-  const fullSpec = isComponentSpec(specification) ? null : specification;
-  const stateManager = createConfiguredStateManager(fullSpec, effectiveOptions);
+    const fullSpec = isComponentSpec(specification) ? null : specification;
+    const stateManager = createConfiguredStateManager(fullSpec, effectiveOptions);
 
-  if (stateManager) {
-    effectiveOptions.stateManager = stateManager;
+    if (stateManager) {
+      effectiveOptions.stateManager = stateManager;
+    }
+
+    const rendered = renderComponent(componentSpec, effectiveOptions);
+    const wrappedContent = wrapWithProviders(rendered, stateManager, fullSpec, effectiveOptions);
+
+    return wrapInErrorBoundary(wrappedContent, effectiveOptions);
+  } catch (error) {
+    return handleRenderError(error, options);
   }
+}
 
-  const rendered = renderComponent(componentSpec, effectiveOptions);
-
-  return wrapWithProviders(rendered, stateManager, fullSpec, effectiveOptions);
+// Helper component to trigger error boundary
+function ErrorTrigger({ error }: { error: Error }): null {
+  throw error;
 }

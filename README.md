@@ -88,7 +88,7 @@ const spec = {
 };
 
 function App() {
-  return <>{render({ spec })}</>;
+  return <>{render(spec)}</>;
 }
 ```
 
@@ -115,12 +115,12 @@ const loginForm = {
         {
           type: "input",
           placeholder: "Email",
-          type: "email"
+          inputType: "email"
         },
         {
           type: "input",
           placeholder: "Password",
-          type: "password"
+          inputType: "password"
         },
         {
           type: "button",
@@ -135,7 +135,7 @@ const loginForm = {
 
 // 2. Render it
 function LoginPage() {
-  return render({ spec: loginForm });
+  return render(loginForm);
 }
 ```
 

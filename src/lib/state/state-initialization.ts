@@ -18,7 +18,7 @@ export interface ComponentStateConfig {
  * Extract state configuration from component spec
  */
 export function extractStateConfig(spec: ComponentSpec): ComponentStateConfig | null {
-  if (!spec.state) {
+  if (!spec || !spec.state) {
     return null;
   }
 

@@ -370,6 +370,10 @@ function initializeStateIfNeeded(
   spec: ComponentSpec,
   stateManager: StateManager | undefined
 ): void {
+  if (!spec) {
+    return;
+  }
+  
   const stateConfig = extractStateConfig(spec);
 
   if (stateConfig && stateManager && spec.id) {
@@ -539,7 +543,26 @@ function renderComponent(
  * Extract the component spec from the specification
  */
 function getComponentSpec(specification: UISpecification | ComponentSpec): ComponentSpec {
-  return isComponentSpec(specification) ? specification : specification.root;
+  if (!specification) {
+    throw new Error(
+      "Invalid specification: The render function requires either a UISpecification object or a ComponentSpec object. " +
+      "Example: render({ type: 'button', children: 'Click me' }) or render({ version: '1.0', root: { type: 'button', children: 'Click me' } })"
+    );
+  }
+  
+  if (isComponentSpec(specification)) {
+    return specification;
+  }
+  
+  if (!specification.root) {
+    throw new Error(
+      "Invalid UISpecification: Missing 'root' property. " +
+      "A UISpecification must have a 'root' property containing a ComponentSpec. " +
+      "Example: { version: '1.0', root: { type: 'button', children: 'Click me' } }"
+    );
+  }
+  
+  return specification.root;
 }
 
 /**

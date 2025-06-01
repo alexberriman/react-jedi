@@ -28,7 +28,7 @@ export default defineConfig({
           "react/jsx-runtime": "jsx",
         },
         // Ensure CSS gets extracted
-        assetFileNames: "index.css",
+        assetFileNames: "styles.css",
       },
     },
     // Ensure CSS is extracted

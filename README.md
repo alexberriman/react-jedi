@@ -48,7 +48,7 @@ React Jedi requires its CSS styles to be imported for components to render corre
 
 ```jsx
 // In your main entry file (e.g., App.jsx, index.js, or _app.tsx)
-import '@alexberriman/react-jedi/dist/index.css';
+import '@alexberriman/react-jedi/styles.css';
 ```
 
 This CSS file includes:
@@ -65,7 +65,7 @@ Transform JSON into beautiful React components with a single function:
 
 ```jsx
 import { render } from "@alexberriman/react-jedi";
-import "@alexberriman/react-jedi/dist/index.css";
+import "@alexberriman/react-jedi/styles.css";
 
 const spec = {
   type: "flex",
@@ -308,7 +308,7 @@ React Jedi's styling system is built on:
 
 ```jsx
 // Option 1: Import everything (recommended)
-import '@alexberriman/react-jedi/dist/index.css';
+import '@alexberriman/react-jedi/styles.css';
 
 // Your styles are now ready to use!
 ```

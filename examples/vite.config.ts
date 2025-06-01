@@ -19,8 +19,8 @@ export default defineConfig({
       { find: "@", replacement: path.resolve(__dirname, "./src") },
       // Library CSS import - point to built CSS file
       {
-        find: "@alexberriman/react-jedi/dist/index.css",
-        replacement: path.resolve(__dirname, "../dist/index.css"),
+        find: "@alexberriman/react-jedi/styles.css",
+        replacement: path.resolve(__dirname, "../dist/styles.css"),
       },
       // Library JS imports - use source directly for development
       {

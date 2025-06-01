@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-01]
 
+- **Update README.md with clear instructions on how to import and use the styles when using react-jedi as a third-party dependency. Need to ensure styles are being published to npm and provide documentation on the correct import path and any required setup steps for consuming applications to properly load the CSS styles.**
+
+
+## [2025-06-01]
+
 - **When publishing to npm and installing in another repo, installation fails with an error about playwright or chromium not being installed. There appears to be a postinstall script that should only run for local development, not for consumers installing the published package. Need to investigate and fix the postinstall script to ensure it doesn't run when the package is installed as a dependency in other projects.**
 
 

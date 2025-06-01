@@ -340,10 +340,5 @@
         "status": "completed"
       }
     ]
-  },
-  {
-    "id": "document-styles-import",
-    "description": "Update README.md with clear instructions on how to import and use the styles when using react-jedi as a third-party dependency. Need to ensure styles are being published to npm and provide documentation on the correct import path and any required setup steps for consuming applications to properly load the CSS styles.",
-    "status": "pending"
   }
 ]

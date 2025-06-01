@@ -42,12 +42,30 @@ React Jedi is a **Server-Driven UI (SDUI) library** that transforms JSON specifi
 npm install @alexberriman/react-jedi
 ```
 
+### 📦 Import Styles
+
+React Jedi requires its CSS styles to be imported for components to render correctly. Add this import to your app's entry point:
+
+```jsx
+// In your main entry file (e.g., App.jsx, index.js, or _app.tsx)
+import '@alexberriman/react-jedi/dist/index.css';
+```
+
+This CSS file includes:
+- All component styles
+- TailwindCSS utilities
+- Theme variables (light/dark mode)
+- Animation classes
+
+**Note:** You don't need to install or configure TailwindCSS separately - everything is bundled in the CSS file.
+
 ## Quick Start
 
 Transform JSON into beautiful React components with a single function:
 
 ```jsx
 import { render } from "@alexberriman/react-jedi";
+import "@alexberriman/react-jedi/dist/index.css";
 
 const spec = {
   type: "flex",
@@ -275,6 +293,45 @@ const button: ButtonSpec = {
   size: "lg"
 };
 ```
+
+## Styling & Theming
+
+### CSS Architecture
+
+React Jedi's styling system is built on:
+- **TailwindCSS v4** - Modern utility-first CSS framework
+- **CSS Variables** - Dynamic theming support
+- **Dark Mode** - Built-in light and dark themes
+- **Custom Animations** - Smooth transitions and effects
+
+### Style Import Options
+
+```jsx
+// Option 1: Import everything (recommended)
+import '@alexberriman/react-jedi/dist/index.css';
+
+// Your styles are now ready to use!
+```
+
+### Theme Customization
+
+React Jedi uses CSS variables for theming, making it easy to customize:
+
+```css
+/* Override theme variables in your CSS */
+:root {
+  --primary: oklch(0.7 0.2 340);
+  --radius: 0.5rem;
+  /* ... other variables */
+}
+```
+
+### TailwindCSS Integration
+
+If you're already using TailwindCSS in your project:
+- React Jedi's styles are scoped and won't conflict
+- You can use your own Tailwind classes alongside React Jedi components
+- The bundled CSS includes only the utilities needed by React Jedi
 
 ## Documentation
 

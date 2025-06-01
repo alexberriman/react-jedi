@@ -342,11 +342,6 @@
     ]
   },
   {
-    "id": "fix-types-export",
-    "description": "When importing the published version in another repo, TypeScript types are not being resolved correctly, resulting in errors about types not being defined. Need to verify that types are being correctly generated and published to npm, and that the package.json is properly configured with the correct 'types' or 'typings' field pointing to the declaration files.",
-    "status": "pending"
-  },
-  {
     "id": "document-styles-import",
     "description": "Update README.md with clear instructions on how to import and use the styles when using react-jedi as a third-party dependency. Need to ensure styles are being published to npm and provide documentation on the correct import path and any required setup steps for consuming applications to properly load the CSS styles.",
     "status": "pending"

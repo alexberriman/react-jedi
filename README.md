@@ -344,6 +344,33 @@ npm run build
 - `npm run benchmark` - Run performance benchmarks
 - `npm run check` - Run all checks (lint, types, tests)
 
+### Releasing
+
+To release a new version of React Jedi:
+
+```bash
+# Release a patch version (1.0.0 → 1.0.1)
+npm run release:patch
+
+# Release a minor version (1.0.0 → 1.1.0)  
+npm run release:minor
+
+# Release a major version (1.0.0 → 2.0.0)
+npm run release:major
+```
+
+The release script will:
+1. Run all checks (lint, typecheck, tests)
+2. Build the library
+3. Bump the version in package.json
+4. Create a git commit and tag
+5. Provide instructions for publishing to npm
+
+After the script completes, follow the instructions to:
+- Push changes: `git push && git push --tags`
+- Publish to npm: `npm publish`
+- Create a GitHub release
+
 ## Community
 
 - 🐛 [Report Issues](https://github.com/alexberriman/react-jedi/issues)

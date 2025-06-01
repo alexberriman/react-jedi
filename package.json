@@ -21,7 +21,7 @@
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
     "prepare": "husky",
-    "postinstall": "playwright install chromium",
+    "dev:setup": "playwright install chromium",
     "lint": "eslint src/ --fix --cache --cache-location node_modules/.cache/eslint/",
     "lint:fix": "eslint src/ --fix --cache --cache-location node_modules/.cache/eslint/",
     "lint:example-app": "eslint examples/ --fix --cache --cache-location node_modules/.cache/eslint/",

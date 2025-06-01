@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2025-06-01]
+
+- **When publishing to npm and installing in another repo, installation fails with an error about playwright or chromium not being installed. There appears to be a postinstall script that should only run for local development, not for consumers installing the published package. Need to investigate and fix the postinstall script to ensure it doesn't run when the package is installed as a dependency in other projects.**
+
+
 ## [2025-05-31]
 
 - **Fix various UI issues and enhance the example app with better styling, placeholder images, syntax highlighting, search functionality, and other improvements.** (11 subtasks completed)

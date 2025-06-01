@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://banja.io/react-jedi/schemas/pagination.json",
+  "$id": "https://alexberriman.com/react-jedi/schemas/pagination.json",
   "title": "Pagination Component",
   "description": "A pagination component that allows users to navigate through pages of content",
   "type": "object",
@@ -71,7 +71,7 @@
       "default": "Pagination navigation"
     },
     "style": {
-      "$ref": "https://banja.io/react-jedi/schemas/style.json"
+      "$ref": "https://alexberriman.com/react-jedi/schemas/style.json"
     },
     "className": {
       "type": "string",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 import {
   Container,
   Box,
@@ -10,7 +10,7 @@ import {
   Button,
   Card,
   CardContent,
-} from "@banja/react-jedi";
+} from "@alexberriman/react-jedi";
 
 export interface JsonCodeComparisonResult {
   jsonBased: {

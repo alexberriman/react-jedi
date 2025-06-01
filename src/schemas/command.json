@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://banja.io/react-jedi/schemas/command.json",
+  "$id": "https://alexberriman.com/react-jedi/schemas/command.json",
   "title": "Command Component",
   "description": "A command palette component for searching and executing commands",
   "oneOf": [
@@ -109,7 +109,7 @@
           }
         },
         "style": {
-          "$ref": "https://banja.io/react-jedi/schemas/style.json"
+          "$ref": "https://alexberriman.com/react-jedi/schemas/style.json"
         },
         "className": {
           "type": "string",
@@ -174,7 +174,7 @@
           }
         },
         "style": {
-          "$ref": "https://banja.io/react-jedi/schemas/style.json"
+          "$ref": "https://alexberriman.com/react-jedi/schemas/style.json"
         },
         "className": {
           "type": "string",

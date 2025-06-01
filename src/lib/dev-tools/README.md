@@ -14,7 +14,7 @@ Get clear, actionable error messages with:
 - Path information
 
 ```typescript
-import { createDeveloperError, ErrorCodes } from "@banja/react-jedi/dev-tools";
+import { createDeveloperError, ErrorCodes } from "@alexberriman/react-jedi/dev-tools";
 
 const error = createDeveloperError(
   ErrorCodes.COMPONENT_NOT_FOUND,
@@ -37,7 +37,7 @@ Catch common issues in your specifications:
 - Inconsistent naming conventions
 
 ```typescript
-import { createLinter } from "@banja/react-jedi/dev-tools";
+import { createLinter } from "@alexberriman/react-jedi/dev-tools";
 
 const linter = createLinter();
 const results = linter.lint(specification);
@@ -53,7 +53,7 @@ Format your specifications consistently:
 - Line length limits
 
 ```typescript
-import { createFormatter } from "@banja/react-jedi/dev-tools";
+import { createFormatter } from "@alexberriman/react-jedi/dev-tools";
 
 const formatter = createFormatter();
 const formatted = formatter.format(specification);
@@ -69,7 +69,7 @@ Comprehensive debugging tools:
 - Debug reports
 
 ```typescript
-import { Debug, DebugLevel } from "@banja/react-jedi/dev-tools";
+import { Debug, DebugLevel } from "@alexberriman/react-jedi/dev-tools";
 
 // Configure debug mode
 Debug.configure({
@@ -90,7 +90,7 @@ Debug.profile("Heavy Operation", () => performWork());
 The developer tools are included with React Jedi:
 
 ```bash
-npm install @banja/react-jedi
+npm install @alexberriman/react-jedi
 ```
 
 ## Usage
@@ -102,7 +102,7 @@ import {
   createDeveloperError, 
   formatErrorWithContext,
   ErrorCodes 
-} from "@banja/react-jedi/dev-tools";
+} from "@alexberriman/react-jedi/dev-tools";
 
 // Create an enhanced error
 const error = createDeveloperError(
@@ -123,7 +123,7 @@ console.error(formatErrorWithContext(error, true));
 ### Linting
 
 ```typescript
-import { createLinter, builtInRules } from "@banja/react-jedi/dev-tools";
+import { createLinter, builtInRules } from "@alexberriman/react-jedi/dev-tools";
 
 // Create linter with built-in rules
 const linter = createLinter();
@@ -162,7 +162,7 @@ linter.addRule({
 ### Formatting
 
 ```typescript
-import { createFormatter, formatSpecification } from "@banja/react-jedi/dev-tools";
+import { createFormatter, formatSpecification } from "@alexberriman/react-jedi/dev-tools";
 
 // Format with custom options
 const formatter = createFormatter({
@@ -184,7 +184,7 @@ console.log(tree);
 ### Debugging
 
 ```typescript
-import { Debug, DebugLevel, useDebug } from "@banja/react-jedi/dev-tools";
+import { Debug, DebugLevel, useDebug } from "@alexberriman/react-jedi/dev-tools";
 
 // Configure debug mode
 Debug.configure({

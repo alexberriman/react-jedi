@@ -111,6 +111,6 @@ When creating new components:
 Feel free to:
 - Open an issue for bugs or feature requests
 - Start a discussion for questions
-- Reach out via email: support@banja.au
+- Reach out via email: support@alexberriman.com
 
 Thank you for contributing to React Jedi! 🚀

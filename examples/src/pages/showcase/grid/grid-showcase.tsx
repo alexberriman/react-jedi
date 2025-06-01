@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { render } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 import { Card } from "../../../components/ui/card";
 import { Button } from "../../../components/ui/button";
 import { ChevronDown, ChevronUp, Grid, Menu } from "lucide-react";

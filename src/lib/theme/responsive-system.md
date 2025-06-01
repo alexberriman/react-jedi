@@ -82,7 +82,7 @@ const value = ["1rem", "1.5rem", "2rem"]; // Maps to [base, xs, sm, ...]
 ### Basic Usage
 
 ```typescript
-import { generateMediaQuery, createMediaQueries } from "@banja/react-jedi/theme";
+import { generateMediaQuery, createMediaQueries } from "@alexberriman/react-jedi/theme";
 
 // Single media query
 const mdQuery = generateMediaQuery("md"); // "@media (min-width: 768px)"
@@ -118,7 +118,7 @@ const darkMode = generateMediaQuery("md", DEFAULT_BREAKPOINTS, {
 ### Responsive Utilities
 
 ```typescript
-import { useResponsive } from "@banja/react-jedi/theme";
+import { useResponsive } from "@alexberriman/react-jedi/theme";
 
 const responsive = useResponsive(theme);
 
@@ -148,7 +148,7 @@ Container queries enable component-level responsive design:
 ### Container Setup
 
 ```typescript
-import { createContainerDefinition } from "@banja/react-jedi/theme";
+import { createContainerDefinition } from "@alexberriman/react-jedi/theme";
 
 // Define a container
 const containerCSS = createContainerDefinition(".card", {
@@ -161,7 +161,7 @@ const containerCSS = createContainerDefinition(".card", {
 ### Query Builders
 
 ```typescript
-import { containerQuery } from "@banja/react-jedi/theme";
+import { containerQuery } from "@alexberriman/react-jedi/theme";
 
 // Various query types
 const minWidth = containerQuery.minWidth("400px");
@@ -198,7 +198,7 @@ import {
   createResponsiveColorToken,
   createResponsiveSpacingToken,
   createResponsiveTypographyToken 
-} from "@banja/react-jedi/theme";
+} from "@alexberriman/react-jedi/theme";
 
 // Color token
 const primaryColor = createResponsiveColorToken(
@@ -228,7 +228,7 @@ const fontSize = createResponsiveTypographyToken(
 ### Using Responsive Tokens
 
 ```typescript
-import { createResponsiveTokenUtils } from "@banja/react-jedi/theme";
+import { createResponsiveTokenUtils } from "@alexberriman/react-jedi/theme";
 
 const tokenUtils = createResponsiveTokenUtils(theme);
 
@@ -264,7 +264,7 @@ const cssVars = tokenUtils.toCssVars(primaryColor);
 import { 
   createResponsiveStyles,
   useResponsive 
-} from "@banja/react-jedi/theme";
+} from "@alexberriman/react-jedi/theme";
 
 // Using responsive utilities
 function ResponsiveCard({ theme }) {
@@ -303,7 +303,7 @@ const cardStyles = createResponsiveStyles(
 import { 
   createContainerStyles,
   containerQuery 
-} from "@banja/react-jedi/theme";
+} from "@alexberriman/react-jedi/theme";
 
 const responsiveCard = createContainerStyles(
   "card",
@@ -331,7 +331,7 @@ const responsiveCard = createContainerStyles(
 Combine media queries and container queries:
 
 ```typescript
-import { createHybridResponsiveStyles } from "@banja/react-jedi/theme";
+import { createHybridResponsiveStyles } from "@alexberriman/react-jedi/theme";
 
 const hybridStyles = createHybridResponsiveStyles(
   "font-size",
@@ -351,7 +351,7 @@ const hybridStyles = createHybridResponsiveStyles(
 ### Fluid Typography
 
 ```typescript
-import { fluidSpacing } from "@banja/react-jedi/theme/spacing";
+import { fluidSpacing } from "@alexberriman/react-jedi/theme/spacing";
 
 // Creates fluid spacing that scales with viewport
 const fluidPadding = fluidSpacing(
@@ -403,7 +403,7 @@ const cardStyles = {
 ### Responsive Token Collections
 
 ```typescript
-import { createResponsiveTokenCollection } from "@banja/react-jedi/theme";
+import { createResponsiveTokenCollection } from "@alexberriman/react-jedi/theme";
 
 // Create responsive version of entire token collection
 const responsiveTokens = createResponsiveTokenCollection(
@@ -447,7 +447,7 @@ import type {
   BreakpointKey,
   ContainerQueryCondition,
   ResponsiveDesignToken,
-} from "@banja/react-jedi/theme";
+} from "@alexberriman/react-jedi/theme";
 
 // Type-safe responsive value
 const padding: ResponsiveValue<string> = {

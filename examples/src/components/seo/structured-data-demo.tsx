@@ -1,7 +1,7 @@
 import React from "react";
-import { ExtendedHeadManager } from "@banja/react-jedi";
+import { ExtendedHeadManager } from "@alexberriman/react-jedi";
 import { CodeBlock } from "@/components/ui/code-block";
-import type { OrganizationSchema, ArticleSchema, FAQSchema } from "@banja/react-jedi";
+import type { OrganizationSchema, ArticleSchema, FAQSchema } from "@alexberriman/react-jedi";
 
 export function StructuredDataDemo() {
   const organizationSchema: OrganizationSchema = {
@@ -11,7 +11,7 @@ export function StructuredDataDemo() {
     url: "https://reactjedi.com",
     logo: "https://reactjedi.com/logo.png",
     description: "A revolutionary Server-Driven UI library for React",
-    sameAs: ["https://github.com/banja/react-jedi", "https://twitter.com/reactjedi"],
+    sameAs: ["https://github.com/alexberriman/react-jedi", "https://twitter.com/reactjedi"],
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+1-555-0123",

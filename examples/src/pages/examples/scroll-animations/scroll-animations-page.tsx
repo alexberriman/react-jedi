@@ -8,7 +8,7 @@ import {
   ScrollScale,
   ScrollTextReveal,
   scrollPresets,
-} from "@banja/react-jedi";
+} from "@alexberriman/react-jedi";
 
 export const ScrollAnimationsPage: React.FC = () => {
   const cards = [

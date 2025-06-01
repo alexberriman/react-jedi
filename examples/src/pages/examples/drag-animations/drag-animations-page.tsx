@@ -1,5 +1,5 @@
 import React from "react";
-import { AnimationProvider, Drag, DragCard, DragListItem, dragPresets } from "@banja/react-jedi";
+import { AnimationProvider, Drag, DragCard, DragListItem, dragPresets } from "@alexberriman/react-jedi";
 
 const getPriorityClassName = (priority: string) => {
   if (priority === "high") {

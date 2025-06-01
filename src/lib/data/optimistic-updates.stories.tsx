@@ -43,7 +43,7 @@ automatically rolls back to the previous state.
 ## Usage
 
 \`\`\`typescript
-import { useMutation } from "@banja/react-jedi";
+import { useMutation } from "@alexberriman/react-jedi";
 
 const mutation = useMutation({
   mutation: {

@@ -14,7 +14,7 @@ import {
   type BrandCategory,
   ThemeProvider,
   generateCssVariables,
-} from "@banja/react-jedi";
+} from "@alexberriman/react-jedi";
 
 // Helper functions for nested ternaries
 function getBorderRadius(playfulness: number, minimalism: number): string {
@@ -596,7 +596,7 @@ export const BrandPresetsPage: React.FC = () => {
                   Implementation Code
                 </h3>
                 <pre className="p-6 bg-white dark:bg-black/50 border border-gray-700 text-gray-300 rounded-xl overflow-x-auto font-mono text-sm leading-relaxed">
-                  <code>{`import { generateBrandTheme, ThemeProvider } from "@banja/react-jedi";
+                  <code>{`import { generateBrandTheme, ThemeProvider } from "@alexberriman/react-jedi";
 
 // Generate theme from preset
 const { theme } = generateBrandTheme({ 

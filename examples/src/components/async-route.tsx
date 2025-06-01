@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Loading, ErrorBoundary } from "@banja/react-jedi";
+import { Loading, ErrorBoundary } from "@alexberriman/react-jedi";
 
 interface AsyncRouteProps {
   readonly component: React.LazyExoticComponent<React.ComponentType>;

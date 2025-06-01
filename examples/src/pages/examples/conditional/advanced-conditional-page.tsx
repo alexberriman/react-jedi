@@ -1,5 +1,5 @@
-import type { ComponentSpec } from "@banja/react-jedi";
-import { render } from "@banja/react-jedi";
+import type { ComponentSpec } from "@alexberriman/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 import { useState } from "react";
 import { usePageMetadata } from "../../../lib/meta";
 

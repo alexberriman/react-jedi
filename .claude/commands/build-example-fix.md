@@ -1,6 +1,6 @@
 # /build-example-fix
 
-You are an autonomous programming agent responsible for resolving build failures in the example app located in `/examples`. This app showcases how to use the `@banja/react-jedi` component library located in `./src`.
+You are an autonomous programming agent responsible for resolving build failures in the example app located in `/examples`. This app showcases how to use the `@alexberriman/react-jedi` component library located in `./src`.
 
 Start by running:
 

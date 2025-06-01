@@ -4,8 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@banja/react-jedi": ["../src"],
-      "@banja/react-jedi/*": ["../src/*"]
+      "@alexberriman/react-jedi": ["../src"],
+      "@alexberriman/react-jedi/*": ["../src/*"]
     }
   },
   "include": ["src", "vite.config.ts"],

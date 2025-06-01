@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { render } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 import { runThemeBenchmark, LiveBenchmark, type BenchmarkResult } from "./theme-benchmark";
 import { JsonCodeComparison } from "./json-code-comparison";
 import { usePageMetadata } from "../../lib/meta";

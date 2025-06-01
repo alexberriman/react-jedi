@@ -1,5 +1,5 @@
 {
-  "name": "@banja/react-jedi",
+  "name": "@alexberriman/react-jedi",
   "version": "1.0.0",
   "description": "Rapidly build beautiful, modern websites using structured configurations, React, TailwindCSS, and ShadCN components.",
   "main": "dist/index.js",
@@ -48,14 +48,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/banja-au/react-jedi.git"
+    "url": "git+https://github.com/alexberriman/react-jedi.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/banja-au/react-jedi/issues"
+    "url": "https://github.com/alexberriman/react-jedi/issues"
   },
-  "homepage": "https://github.com/banja-au/react-jedi#readme",
+  "homepage": "https://github.com/alexberriman/react-jedi#readme",
   "dependencies": {
     "@emotion/is-prop-valid": "^1.3.1",
     "@hookform/resolvers": "^3.10.0",

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, Card, CardContent } from "@banja/react-jedi";
+import { render, Card, CardContent } from "@alexberriman/react-jedi";
 import { CodeBlock } from "@/components/ui/code-block";
 
 const stackExamples = {

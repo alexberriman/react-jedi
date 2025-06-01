@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-import { Loading } from "@banja/react-jedi";
+import { Loading } from "@alexberriman/react-jedi";
 
 interface LoadingLayoutProps {
   readonly children?: React.ReactNode;

@@ -8,7 +8,7 @@ import {
   createProductMicrodata,
   useMicrodata,
   useValidateMicrodata,
-} from "@banja/react-jedi";
+} from "@alexberriman/react-jedi";
 
 export function MicrodataDemo() {
   // Example microdata schemas

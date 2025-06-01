@@ -1,4 +1,4 @@
-import { render } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 
 export function MarketingDebugPage() {
   

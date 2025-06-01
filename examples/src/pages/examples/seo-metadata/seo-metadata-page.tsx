@@ -1,5 +1,5 @@
 import React from "react";
-import { render, HeadManager } from "@banja/react-jedi";
+import { render, HeadManager } from "@alexberriman/react-jedi";
 import { Navigation } from "@/components/layouts/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -280,7 +280,7 @@ const SEOMetadataPage: React.FC = () => {
   };
 
   // Code examples
-  const jsonLdExample = `import { useStructuredData } from "@banja/react-jedi";
+  const jsonLdExample = `import { useStructuredData } from "@alexberriman/react-jedi";
 
 const productSchema = {
   "@context": "https://schema.org",
@@ -314,7 +314,7 @@ function ProductPage() {
   return <div>Product content...</div>;
 }`;
 
-  const microdataExample = `import { MicrodataElement, BreadcrumbMicrodata } from "@banja/react-jedi";
+  const microdataExample = `import { MicrodataElement, BreadcrumbMicrodata } from "@alexberriman/react-jedi";
 
 function ArticlePage() {
   return (
@@ -346,7 +346,7 @@ function ArticlePage() {
   );
 }`;
 
-  const headManagerExample = `import { HeadManager } from "@banja/react-jedi";
+  const headManagerExample = `import { HeadManager } from "@alexberriman/react-jedi";
 
 function MyPage() {
   return (

@@ -24,7 +24,7 @@ export function GettingStartedPage() {
           Installation
         </h3>
         <CodeBlock language="bash">
-          {`npm install @banja/react-jedi`}
+          {`npm install @alexberriman/react-jedi`}
         </CodeBlock>
 
         <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
@@ -41,7 +41,7 @@ export function GettingStartedPage() {
 
         <div className="mb-8">
           <CodeBlock language="typescript">
-            {`import { render } from "@banja/react-jedi";
+            {`import { render } from "@alexberriman/react-jedi";
 
 // JSON specification for a simple UI
 const spec = {
@@ -76,7 +76,7 @@ function MyComponent() {
 
         <div className="mb-8">
           <CodeBlock language="typescript">
-            {`import { render, ComponentSpec } from "@banja/react-jedi";
+            {`import { render, ComponentSpec } from "@alexberriman/react-jedi";
 
 // Type-safe component specification
 const spec: ComponentSpec = {

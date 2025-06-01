@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* Import library styles first - this includes Tailwind and all component styles */
-@import "@banja/react-jedi/dist/index.css";
+@import "@alexberriman/react-jedi/dist/index.css";
 
 @layer base {
   :root {

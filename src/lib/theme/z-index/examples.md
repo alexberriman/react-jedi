@@ -7,7 +7,7 @@ The Z-Index Management System provides a standardized approach to handling z-ind
 ### Using the default z-index values
 
 ```tsx
-import { defaultZIndices, getZIndex } from "@banja/react-jedi";
+import { defaultZIndices, getZIndex } from "@alexberriman/react-jedi";
 
 // Default z-index values are available for common UI layers
 console.log(defaultZIndices.modal); // 50
@@ -21,7 +21,7 @@ const zIndex = getZIndex(theme, "modal"); // 50 (or custom value from theme)
 
 ```tsx
 import React from "react";
-import { useZIndex } from "@banja/react-jedi";
+import { useZIndex } from "@alexberriman/react-jedi";
 
 function Modal() {
   const zIndex = useZIndex();
@@ -51,7 +51,7 @@ function Modal() {
 You can create custom z-index scales by merging your values with the defaults:
 
 ```tsx
-import { createZIndexScale } from "@banja/react-jedi";
+import { createZIndexScale } from "@alexberriman/react-jedi";
 
 // Create a custom z-index scale
 const customZIndices = createZIndexScale({
@@ -90,7 +90,7 @@ const myTheme = {
 You can convert z-index values to CSS variables:
 
 ```tsx
-import { createZIndexCSSVariables } from "@banja/react-jedi";
+import { createZIndexCSSVariables } from "@alexberriman/react-jedi";
 
 const cssVars = createZIndexCSSVariables(defaultZIndices);
 // Result:

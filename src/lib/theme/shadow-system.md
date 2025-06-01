@@ -7,7 +7,7 @@ The shadow system provides a comprehensive set of utilities for managing shadows
 ### Basic Shadow Usage
 
 ```typescript
-import { getShadow } from '@banja/react-jedi';
+import { getShadow } from '@alexberriman/react-jedi';
 
 // Get a shadow from the default scale
 const smallShadow = getShadow('sm');
@@ -21,7 +21,7 @@ const modalShadow = getShadow('modal');
 ### Dark Mode Shadows
 
 ```typescript
-import { getDarkModeShadow } from '@banja/react-jedi';
+import { getDarkModeShadow } from '@alexberriman/react-jedi';
 
 // Get shadows optimized for dark mode
 const darkShadow = getDarkModeShadow('sm');
@@ -31,7 +31,7 @@ const darkModalShadow = getDarkModeShadow('modal');
 ### Responsive Shadows
 
 ```typescript
-import { createResponsiveShadow } from '@banja/react-jedi';
+import { createResponsiveShadow } from '@alexberriman/react-jedi';
 
 // Create shadows that change at different breakpoints
 const responsiveShadow = createResponsiveShadow({
@@ -45,7 +45,7 @@ const responsiveShadow = createResponsiveShadow({
 ### Combining Shadows
 
 ```typescript
-import { combineShadows, getShadow } from '@banja/react-jedi';
+import { combineShadows, getShadow } from '@alexberriman/react-jedi';
 
 // Combine multiple shadows for layered effects
 const layeredShadow = combineShadows(
@@ -129,7 +129,7 @@ The shadow system generates CSS variables for all shadows:
 The system includes predefined shadow animations:
 
 ```typescript
-import { SHADOW_ANIMATIONS } from '@banja/react-jedi';
+import { SHADOW_ANIMATIONS } from '@alexberriman/react-jedi';
 
 // Pulse animation
 const pulseAnimation = SHADOW_ANIMATIONS.pulse;
@@ -146,7 +146,7 @@ const floatAnimation = SHADOW_ANIMATIONS.float;
 Shadows are automatically integrated with the theme system:
 
 ```typescript
-import { ThemeSpecification } from '@banja/react-jedi';
+import { ThemeSpecification } from '@alexberriman/react-jedi';
 
 const theme: ThemeSpecification = {
   shadows: {
@@ -162,7 +162,7 @@ const theme: ThemeSpecification = {
 The shadow system is fully typed:
 
 ```typescript
-import type { ShadowKey, SemanticShadowKey } from '@banja/react-jedi';
+import type { ShadowKey, SemanticShadowKey } from '@alexberriman/react-jedi';
 
 // Type-safe shadow keys
 const shadow: ShadowKey = 'lg';
@@ -174,7 +174,7 @@ const semantic: SemanticShadowKey = 'card-hover';
 ### Generate Custom Shadow Scale
 
 ```typescript
-import { generateShadowScale } from '@banja/react-jedi';
+import { generateShadowScale } from '@alexberriman/react-jedi';
 
 const customScale = generateShadowScale({
   customValues: {
@@ -188,7 +188,7 @@ const customScale = generateShadowScale({
 ### Extract Shadows from Theme
 
 ```typescript
-import { extractShadowScale } from '@banja/react-jedi';
+import { extractShadowScale } from '@alexberriman/react-jedi';
 
 const themeShadows = extractShadowScale(theme);
 ```
@@ -215,7 +215,7 @@ Many UI components in the library support shadow properties:
 Example with a Box component:
 
 ```typescript
-import { Box } from '@banja/react-jedi';
+import { Box } from '@alexberriman/react-jedi';
 
 function Example() {
   return (

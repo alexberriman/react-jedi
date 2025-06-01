@@ -1,5 +1,5 @@
-import { render } from "@banja/react-jedi";
-import type { UISpecification } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
+import type { UISpecification } from "@alexberriman/react-jedi";
 import { usePageMetadata } from "../../lib/meta";
 import { Link } from "react-router-dom";
 import { CodeBlock } from "../../components/ui/code-block";

@@ -1,5 +1,5 @@
-import type { UISpecification } from "@banja/react-jedi";
-import { render } from "@banja/react-jedi";
+import type { UISpecification } from "@alexberriman/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -361,7 +361,7 @@ export function CollapsibleShowcase() {
             children: {
               type: "Box",
               className: "px-4 py-2 text-sm text-gray-600 dark:text-gray-400",
-              children: "You can install React Jedi using npm: npm install @banja/react-jedi",
+              children: "You can install React Jedi using npm: npm install @alexberriman/react-jedi",
             },
           },
         ],

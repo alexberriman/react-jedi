@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "@banja/react-jedi/schemas/spacer",
+  "$id": "@alexberriman/react-jedi/schemas/spacer",
   "title": "Spacer Component Schema",
   "description": "Schema for the Spacer component that provides flexible spacing between elements",
   "type": "object",

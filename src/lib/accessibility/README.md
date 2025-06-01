@@ -25,7 +25,7 @@ Utilities for managing ARIA attributes programmatically (from aria-attributes.ts
 
 ### Focus Trap
 ```tsx
-import { useFocusTrap } from '@banja/react-jedi/accessibility';
+import { useFocusTrap } from '@alexberriman/react-jedi/accessibility';
 
 function Modal({ isOpen, onClose }) {
   const modalRef = useRef(null);
@@ -45,7 +45,7 @@ function Modal({ isOpen, onClose }) {
 
 ### List Navigation
 ```tsx
-import { useFocusList } from '@banja/react-jedi/accessibility';
+import { useFocusList } from '@alexberriman/react-jedi/accessibility';
 
 function NavigationMenu({ items }) {
   const menuRef = useRef(null);
@@ -73,7 +73,7 @@ function NavigationMenu({ items }) {
 
 ### Skip Links
 ```tsx
-import { useSkipLink } from '@banja/react-jedi/accessibility';
+import { useSkipLink } from '@alexberriman/react-jedi/accessibility';
 
 function App() {
   const { skipToContent } = useSkipLink('main-content');
@@ -92,7 +92,7 @@ function App() {
 
 ### Auto Focus
 ```tsx
-import { useFocusOnMount } from '@banja/react-jedi/accessibility';
+import { useFocusOnMount } from '@alexberriman/react-jedi/accessibility';
 
 function SearchForm() {
   const inputRef = useRef(null);

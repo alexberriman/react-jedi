@@ -23,7 +23,7 @@ It's perfect for creating uniform grids of content like image galleries, product
 
 ## Usage
 \`\`\`tsx
-import { SimpleGrid } from "@banja/react-jedi";
+import { SimpleGrid } from "@alexberriman/react-jedi";
 
 // Fixed columns
 <SimpleGrid columns={3} spacing="4">

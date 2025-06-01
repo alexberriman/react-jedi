@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { usePageMetadata } from "../../lib/meta";
 import { PageHeader } from "../../components/ui/page-header";
-import { ThemeProvider, useTheme } from "@banja/react-jedi";
-import type { Theme } from "@banja/react-jedi";
+import { ThemeProvider, useTheme } from "@alexberriman/react-jedi";
+import type { Theme } from "@alexberriman/react-jedi";
 import {
   Button,
   Card,
@@ -21,7 +21,7 @@ import {
   Input,
   Label,
   Skeleton,
-} from "@banja/react-jedi";
+} from "@alexberriman/react-jedi";
 
 interface ThemePlaygroundProps {
   initialTheme?: Theme;

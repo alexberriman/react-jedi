@@ -1,4 +1,4 @@
-import { render, type UISpecification } from "@banja/react-jedi";
+import { render, type UISpecification } from "@alexberriman/react-jedi";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { usePageMetadata } from "../../../lib/meta";

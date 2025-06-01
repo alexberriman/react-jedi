@@ -10,7 +10,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@banja/react-jedi";
+} from "@alexberriman/react-jedi";
 
 export type NavItem = {
   title: string;
@@ -139,7 +139,7 @@ export function MobileMenu() {
           </nav>
           <div className="h-px bg-gray-200 dark:bg-gray-800 mx-2" />
           <a
-            href="https://github.com/banja-au/react-jedi"
+            href="https://github.com/alexberriman/react-jedi"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-2 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-md transition-colors"

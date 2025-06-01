@@ -3,7 +3,7 @@ import { usePageMetadata } from '../../lib/meta'
 import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Code } from '../../components/ui/code'
-import { render } from '@banja/react-jedi'
+import { render } from '@alexberriman/react-jedi'
 
 const scrollToSection = (sectionId: string) => {
   const element = document.querySelector(`[data-section="${sectionId}"]`)

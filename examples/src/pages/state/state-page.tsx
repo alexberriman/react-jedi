@@ -1,5 +1,5 @@
-import { render } from "@banja/react-jedi";
-import type { UISpecification, StateManager } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
+import type { UISpecification, StateManager } from "@alexberriman/react-jedi";
 import { usePageMetadata } from "../../lib/meta";
 import { PageHeader } from "../../components/ui/page-header";
 

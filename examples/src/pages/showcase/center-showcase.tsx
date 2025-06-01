@@ -1,4 +1,4 @@
-import { render, useTheme, type UISpecification } from "@banja/react-jedi";
+import { render, useTheme, type UISpecification } from "@alexberriman/react-jedi";
 
 export const CenterShowcase = () => {
   const { theme } = useTheme();

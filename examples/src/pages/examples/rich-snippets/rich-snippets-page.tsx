@@ -19,7 +19,7 @@ import {
   generateFAQSnippet,
   generateBreadcrumbSnippet,
   generateLocalBusinessSnippet,
-} from "@banja/react-jedi";
+} from "@alexberriman/react-jedi";
 
 export const RichSnippetsPage: React.FC = () => {
   // Blog post snippet
@@ -240,7 +240,7 @@ export const RichSnippetsPage: React.FC = () => {
                 <div>
                   <h3 className="font-semibold mb-2">1. Import the utilities</h3>
                   <CodeBlock language="javascript">
-                    {"import { RichSnippet, createBlogPostSnippet } from '@banja/react-jedi';"}
+                    {"import { RichSnippet, createBlogPostSnippet } from '@alexberriman/react-jedi';"}
                   </CodeBlock>
                 </div>
 

@@ -9,7 +9,7 @@ import {
   ClickIcon,
   type ClickPreset,
   AnimationProvider,
-} from "@banja/react-jedi";
+} from "@alexberriman/react-jedi";
 import { DocumentationPageTemplate } from "../../documentation/documentation-page-template";
 
 // Icon components for demos
@@ -271,7 +271,7 @@ export const ClickAnimationsPage: React.FC = () => {
             title: "Click Animation Presets",
             description: "Pre-built click animation presets for common interaction patterns.",
             content: <ClickPresetDemo />,
-            code: `import { useClickPreset, ClickButton, ClickCard, ClickIcon } from '@banja/react-jedi';
+            code: `import { useClickPreset, ClickButton, ClickCard, ClickIcon } from '@alexberriman/react-jedi';
 
 // Using presets with hooks
 const MyComponent = () => {
@@ -302,7 +302,7 @@ const MyComponent = () => {
             title: "Component Examples",
             description: "Pre-built click animation components for common UI patterns.",
             content: <ComponentExamples />,
-            code: `import { ClickButton, ClickCard, ClickIcon } from '@banja/react-jedi';
+            code: `import { ClickButton, ClickCard, ClickIcon } from '@alexberriman/react-jedi';
 
 // Button with variants and sizes
 <ClickButton 
@@ -336,7 +336,7 @@ const MyComponent = () => {
             title: "Custom Animation Configuration",
             description: "Create custom click animations with fine-grained control.",
             content: <CustomAnimationPlayground />,
-            code: `import { useClickAnimation } from '@banja/react-jedi';
+            code: `import { useClickAnimation } from '@alexberriman/react-jedi';
 
 const MyComponent = () => {
   const clickAnimation = useClickAnimation({

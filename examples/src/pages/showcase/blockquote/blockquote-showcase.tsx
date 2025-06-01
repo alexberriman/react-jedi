@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, type ComponentSpec } from '@banja/react-jedi';
+import { render, type ComponentSpec } from '@alexberriman/react-jedi';
 import { ChevronRight, ChevronDown, Package, Palette, Sparkles, Type, Layers, MousePointer, Square, SquareStack } from 'lucide-react';
 import { CodeBlock } from '../../../components/ui/code-block';
 

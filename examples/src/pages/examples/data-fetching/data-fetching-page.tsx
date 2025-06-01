@@ -1,4 +1,4 @@
-import { render } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 import { Card } from "@/components/ui/card";
 import { CodeBlock } from "@/components/ui/code-block";
 import dataFetchingSpecification from "@/schemas/data-fetching-example.json";

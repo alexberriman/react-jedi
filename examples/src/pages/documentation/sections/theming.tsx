@@ -93,7 +93,7 @@ export function ThemingPage() {
         <div className="relative group mb-8">
           <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="typescript" className="relative mb-6">
-{`import { ThemeProvider } from "@banja/react-jedi";
+{`import { ThemeProvider } from "@alexberriman/react-jedi";
 
 function App() {
   return (
@@ -411,7 +411,7 @@ error: {
         <div className="relative group mb-8">
           <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="typescript" className="relative mb-6">
-{`import { useTheme } from "@banja/react-jedi";
+{`import { useTheme } from "@alexberriman/react-jedi";
 
 function MyComponent() {
   const { theme, setTheme, colorMode, setColorMode } = useTheme();
@@ -479,7 +479,7 @@ function MyComponent() {
         <div className="relative group mb-8">
           <div className="absolute -inset-1 hidden"></div>
           <CodeBlock language="javascript" className="relative mb-6">
-{`import { brandPresets } from "@banja/react-jedi";
+{`import { brandPresets } from "@alexberriman/react-jedi";
 
 // Use a pre-built brand preset
 const modernTechTheme = brandPresets.modernTech;

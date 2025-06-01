@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { render } from "@banja/react-jedi";
-import { Container, Box, Flex, Grid, Text, Heading, Button, Card } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
+import { Container, Box, Flex, Grid, Text, Heading, Button, Card } from "@alexberriman/react-jedi";
 
 export interface BenchmarkResult {
   jsonBased: {

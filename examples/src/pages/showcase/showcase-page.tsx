@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { render } from "@banja/react-jedi";
-import type { ComponentSpec } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
+import type { ComponentSpec } from "@alexberriman/react-jedi";
 import { usePageMetadata } from "../../lib/meta";
 import { Heading, Text, spacing } from "../../components/ui";
 import { PageHeader } from "../../components/ui/page-header";

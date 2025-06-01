@@ -179,7 +179,7 @@ export function DocumentationPage() {
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="relative bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono mb-6 overflow-x-auto">
-                <code className="text-sm">npm install @banja/react-jedi</code>
+                <code className="text-sm">npm install @alexberriman/react-jedi</code>
               </div>
             </div>
 
@@ -197,7 +197,7 @@ export function DocumentationPage() {
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="relative bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono text-sm mb-6">
                 <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-                  {`import { render } from "@banja/react-jedi";
+                  {`import { render } from "@alexberriman/react-jedi";
 
 // JSON specification for a simple UI
 const spec = {
@@ -235,7 +235,7 @@ function MyComponent() {
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="relative bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono text-sm mb-6">
                 <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-                  {`import { render, ComponentSpec } from "@banja/react-jedi";
+                  {`import { render, ComponentSpec } from "@alexberriman/react-jedi";
 
 // Type-safe component specification
 const spec: ComponentSpec = {
@@ -2866,7 +2866,7 @@ function MyApp() {
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="relative bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono text-sm mb-6">
                 <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-                  {`import { render } from "@banja/react-jedi";
+                  {`import { render } from "@alexberriman/react-jedi";
 
 // Basic usage
 const component = render(spec);
@@ -2989,7 +2989,7 @@ const component = render(spec, {
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="relative bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono text-sm mb-6">
                 <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-                  {`import { ThemeProvider } from "@banja/react-jedi";
+                  {`import { ThemeProvider } from "@alexberriman/react-jedi";
 
 function App() {
   return (
@@ -3327,7 +3327,7 @@ error: {
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="relative bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono text-sm mb-6">
                 <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-                  {`import { useTheme } from "@banja/react-jedi";
+                  {`import { useTheme } from "@alexberriman/react-jedi";
 
 function MyComponent() {
   const { theme, setTheme, colorMode, setColorMode } = useTheme();
@@ -3397,7 +3397,7 @@ function MyComponent() {
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="relative bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono text-sm mb-6">
                 <pre className="whitespace-pre-wrap text-sm leading-relaxed">
-                  {`import { brandPresets } from "@banja/react-jedi";
+                  {`import { brandPresets } from "@alexberriman/react-jedi";
 
 // Use a pre-built brand preset
 const modernTechTheme = brandPresets.modernTech;
@@ -3761,7 +3761,7 @@ const customTheme = {
               </div>
               <div className="text-center">
                 <a
-                  href="https://github.com/banja-au/react-jedi"
+                  href="https://github.com/alexberriman/react-jedi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-700 rounded-full text-white font-medium hover:from-gray-700 hover:to-zinc-600 transition-all shadow-lg hover:shadow-zinc-900/20 group"

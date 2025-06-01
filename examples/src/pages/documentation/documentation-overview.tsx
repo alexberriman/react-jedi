@@ -304,11 +304,11 @@ export function DocumentationOverview() {
             
             <div className="space-y-4">
               <CodeBlock language="bash" title="Installation">
-                {`npm install @banja/react-jedi`}
+                {`npm install @alexberriman/react-jedi`}
               </CodeBlock>
               
               <CodeBlock language="typescript" title="Basic Usage">
-                {`import { render } from "@banja/react-jedi";
+                {`import { render } from "@alexberriman/react-jedi";
 
 // JSON specification for your UI
 const spec = {
@@ -403,7 +403,7 @@ function App() {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="https://github.com/banja-au/react-jedi/issues"
+                href="https://github.com/alexberriman/react-jedi/issues"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
@@ -425,7 +425,7 @@ function App() {
                 Report an Issue
               </a>
               <a
-                href="https://github.com/banja-au/react-jedi"
+                href="https://github.com/alexberriman/react-jedi"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 font-medium"

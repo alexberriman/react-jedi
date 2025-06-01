@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/npm/v/@banja/react-jedi?style=flat&colorA=000000&colorB=000000" alt="NPM Version" />
+  <img src="https://img.shields.io/npm/v/@alexberriman/react-jedi?style=flat&colorA=000000&colorB=000000" alt="NPM Version" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" alt="React" />
   <img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
@@ -39,7 +39,7 @@ React Jedi is a **Server-Driven UI (SDUI) library** that transforms JSON specifi
 ## 🚀 Installation
 
 ```bash
-npm install @banja/react-jedi
+npm install @alexberriman/react-jedi
 ```
 
 ## Quick Start
@@ -47,7 +47,7 @@ npm install @banja/react-jedi
 Transform JSON into beautiful React components with a single function:
 
 ```jsx
-import { render } from "@banja/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 
 const spec = {
   type: "flex",
@@ -254,7 +254,7 @@ const featureGrid = {
 Full TypeScript support with type inference and IntelliSense:
 
 ```typescript
-import { render, ComponentSpec } from "@banja/react-jedi";
+import { render, ComponentSpec } from "@alexberriman/react-jedi";
 
 // Type-safe specifications
 const spec: ComponentSpec = {
@@ -291,7 +291,7 @@ Interactive documentation with:
 
 ```bash
 # Clone and install
-git clone https://github.com/banja-au/react-jedi.git
+git clone https://github.com/alexberriman/react-jedi.git
 cd react-jedi && npm install
 
 # Run example app
@@ -346,20 +346,20 @@ npm run build
 
 ## Community
 
-- 🐛 [Report Issues](https://github.com/banja-au/react-jedi/issues)
-- 💬 [Discussions](https://github.com/banja-au/react-jedi/discussions)
-- 📧 [Contact](mailto:support@banja.au)
+- 🐛 [Report Issues](https://github.com/alexberriman/react-jedi/issues)
+- 💬 [Discussions](https://github.com/alexberriman/react-jedi/discussions)
+- 📧 [Contact](mailto:support@alexberriman.com)
 
 ## License
 
-ISC © [Banja](https://github.com/banja-au)
+ISC © [Alex Berriman](https://github.com/alexberriman)
 
 ---
 
 <div align="center">
-  <p>Built with ❤️ by the Banja team</p>
+  <p>Built with ❤️ by Alex Berriman</p>
   <p>
-    <a href="https://github.com/banja-au/react-jedi">Star us on GitHub</a> •
-    <a href="https://twitter.com/banja_au">Follow on Twitter</a>
+    <a href="https://github.com/alexberriman/react-jedi">Star us on GitHub</a> •
+    <a href="https://twitter.com/alexberriman">Follow on Twitter</a>
   </p>
 </div>

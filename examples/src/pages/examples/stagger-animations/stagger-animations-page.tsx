@@ -316,7 +316,7 @@ const StaggerAnimationsPage = () => {
         <h2 className="text-2xl font-bold mb-4">Usage Example</h2>
         <CodeBlock language="javascript">
           {`// Basic Stagger Example
-import { Stagger } from "@banja/react-jedi/animation";
+import { Stagger } from "@alexberriman/react-jedi/animation";
 
 export const MyList = () => (
   <Stagger
@@ -333,7 +333,7 @@ export const MyList = () => (
 );
 
 // With StaggerList (for arrays of data)
-import { StaggerList } from "@banja/react-jedi/animation";
+import { StaggerList } from "@alexberriman/react-jedi/animation";
 
 export const MyDataList = () => (
   <StaggerList

@@ -1,4 +1,4 @@
-import { render } from '@banja/react-jedi';
+import { render } from '@alexberriman/react-jedi';
 import { useState } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import { CodeBlock } from "../../../components/ui/code-block";

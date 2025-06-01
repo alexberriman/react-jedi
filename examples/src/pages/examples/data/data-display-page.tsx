@@ -1,6 +1,6 @@
 import React from "react";
-import { UISpecification } from "@banja/react-jedi";
-import { render } from "@banja/react-jedi";
+import { UISpecification } from "@alexberriman/react-jedi";
+import { render } from "@alexberriman/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 
 const dataDisplaySpec: UISpecification = {

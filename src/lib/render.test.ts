@@ -106,8 +106,11 @@ describe("render function", () => {
     // Ensure result is not null before checking props
     expect(result).not.toBeNull();
     if (result) {
-      // The rendered component has an ErrorBoundary wrapper, so we need to look at result.props.children
-      const component = result.props.children;
+      // Navigate through the nested error boundary structure
+      // Outer ErrorBoundary (from wrapInErrorBoundary) -> Inner ErrorBoundary (from renderComponent) -> Component
+      const outerErrorBoundary = result;
+      const innerErrorBoundary = outerErrorBoundary.props.children;
+      const component = innerErrorBoundary.props.children;
 
       // Check that the accessibility attributes are correctly passed to the component
       expect(component.props["aria-label"]).toBe("Action Button");
@@ -131,8 +134,11 @@ describe("render function", () => {
     // Ensure result is not null before checking props
     expect(result).not.toBeNull();
     if (result) {
-      // The rendered component has an ErrorBoundary wrapper, so we need to look at result.props.children
-      const component = result.props.children;
+      // Navigate through the nested error boundary structure
+      // Outer ErrorBoundary (from wrapInErrorBoundary) -> Inner ErrorBoundary (from renderComponent) -> Component
+      const outerErrorBoundary = result;
+      const innerErrorBoundary = outerErrorBoundary.props.children;
+      const component = innerErrorBoundary.props.children;
 
       // Check that the data attributes are correctly passed to the component
       expect(component.props["data-test"]).toBe("value");
@@ -153,8 +159,11 @@ describe("render function", () => {
     // Ensure result is not null before checking props
     expect(result).not.toBeNull();
     if (result) {
-      // The rendered component has an ErrorBoundary wrapper, so we need to look at result.props.children
-      const component = result.props.children;
+      // Navigate through the nested error boundary structure
+      // Outer ErrorBoundary (from wrapInErrorBoundary) -> Inner ErrorBoundary (from renderComponent) -> Component
+      const outerErrorBoundary = result;
+      const innerErrorBoundary = outerErrorBoundary.props.children;
+      const component = innerErrorBoundary.props.children;
 
       // Check that the testId is correctly passed to the component as data-testid
       expect(component.props["data-testid"]).toBe("box-test");

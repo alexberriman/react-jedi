@@ -28,11 +28,12 @@ describe("Render Prop Filtering", () => {
     expect(result).toBeDefined();
     expect(result!.type).toBeDefined();
 
-    // The result is wrapped in StateProvider, so we need to check the actual Box component
-    // Navigate through the wrapped structure
-    const stateProvider = result!;
-    const errorBoundary = stateProvider.props.children;
-    const boxElement = errorBoundary.props.children;
+    // Navigate through the wrapped structure:
+    // ErrorBoundary -> StateProvider -> ErrorBoundary -> Box
+    const outerErrorBoundary = result!;
+    const stateProvider = outerErrorBoundary.props.children;
+    const innerErrorBoundary = stateProvider.props.children;
+    const boxElement = innerErrorBoundary.props.children;
 
     // Extract just the props we care about for the test
     const props = boxElement.props;

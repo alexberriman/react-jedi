@@ -25,107 +25,131 @@ export function AlertShowcasePage() {
 
   // Basic alert example
   const basicAlertSpec: UISpecification = {
-    component: "Alert",
-    children: "This is a basic alert message to inform users.",
+    version: "1.0.0",
+    root: {
+      type: "Alert",
+      children: "This is a basic alert message to inform users.",
+    },
   };
 
   // Alert with default variant
   const defaultAlertSpec: UISpecification = {
-    component: "Alert",
-    variant: "default",
-    children: "Default alert with standard styling for general information.",
+    version: "1.0.0",
+    root: {
+      type: "Alert",
+      variant: "default",
+      children: "Default alert with standard styling for general information.",
+    },
   };
 
   // Alert with destructive variant
   const destructiveAlertSpec: UISpecification = {
-    component: "Alert",
-    variant: "destructive",
-    children: "Destructive alert for errors or critical warnings.",
+    version: "1.0.0",
+    root: {
+      type: "Alert",
+      variant: "destructive",
+      children: "Destructive alert for errors or critical warnings.",
+    },
   };
 
   // Alert with title and description
   const alertWithTitleSpec: UISpecification = {
-    component: "Alert",
-    children: [
-      {
-        component: "AlertTitle",
-        children: "Heads up!",
-      },
-      {
-        component: "AlertDescription",
-        children: "You can add components to your app using the cli. This alert has both a title and description.",
-      },
-    ],
+    version: "1.0.0",
+    root: {
+      type: "Alert",
+      children: [
+        {
+          type: "AlertTitle",
+          children: "Heads up!",
+        },
+        {
+          type: "AlertDescription",
+          children: "You can add components to your app using the cli. This alert has both a title and description.",
+        },
+      ],
+    },
   };
 
   // Destructive alert with title
   const destructiveWithTitleSpec: UISpecification = {
-    component: "Alert",
-    variant: "destructive",
-    children: [
-      {
-        component: "AlertTitle",
-        children: "Error",
-      },
-      {
-        component: "AlertDescription",
-        children: "Your session has expired. Please log in again to continue.",
-      },
-    ],
+    version: "1.0.0",
+    root: {
+      type: "Alert",
+      variant: "destructive",
+      children: [
+        {
+          type: "AlertTitle",
+          children: "Error",
+        },
+        {
+          type: "AlertDescription",
+          children: "Your session has expired. Please log in again to continue.",
+        },
+      ],
+    },
   };
 
   // Success alert example
   const successAlertSpec: UISpecification = {
-    component: "Alert",
-    className: "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950",
-    children: [
-      {
-        component: "AlertTitle",
-        className: "text-green-800 dark:text-green-200",
-        children: "Success!",
-      },
-      {
-        component: "AlertDescription",
-        className: "text-green-700 dark:text-green-300",
-        children: "Your changes have been saved successfully.",
-      },
-    ],
+    version: "1.0.0",
+    root: {
+      type: "Alert",
+      className: "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950",
+      children: [
+        {
+          type: "AlertTitle",
+          className: "text-green-800 dark:text-green-200",
+          children: "Success!",
+        },
+        {
+          type: "AlertDescription",
+          className: "text-green-700 dark:text-green-300",
+          children: "Your changes have been saved successfully.",
+        },
+      ],
+    },
   };
 
   // Warning alert example
   const warningAlertSpec: UISpecification = {
-    component: "Alert",
-    className: "border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950",
-    children: [
-      {
-        component: "AlertTitle",
-        className: "text-yellow-800 dark:text-yellow-200",
-        children: "Warning",
-      },
-      {
-        component: "AlertDescription",
-        className: "text-yellow-700 dark:text-yellow-300",
-        children: "Your subscription will expire in 5 days. Please renew to avoid service interruption.",
-      },
-    ],
+    version: "1.0.0",
+    root: {
+      type: "Alert",
+      className: "border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950",
+      children: [
+        {
+          type: "AlertTitle",
+          className: "text-yellow-800 dark:text-yellow-200",
+          children: "Warning",
+        },
+        {
+          type: "AlertDescription",
+          className: "text-yellow-700 dark:text-yellow-300",
+          children: "Your subscription will expire in 5 days. Please renew to avoid service interruption.",
+        },
+      ],
+    },
   };
 
   // Info alert example
   const infoAlertSpec: UISpecification = {
-    component: "Alert",
-    className: "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950",
-    children: [
-      {
-        component: "AlertTitle",
-        className: "text-blue-800 dark:text-blue-200",
-        children: "Information",
-      },
-      {
-        component: "AlertDescription",
-        className: "text-blue-700 dark:text-blue-300",
-        children: "New features are now available. Check out our changelog for more details.",
-      },
-    ],
+    version: "1.0.0",
+    root: {
+      type: "Alert",
+      className: "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950",
+      children: [
+        {
+          type: "AlertTitle",
+          className: "text-blue-800 dark:text-blue-200",
+          children: "Information",
+        },
+        {
+          type: "AlertDescription",
+          className: "text-blue-700 dark:text-blue-300",
+          children: "New features are now available. Check out our changelog for more details.",
+        },
+      ],
+    },
   };
 
   // Dismissible alert example with state
@@ -133,37 +157,40 @@ export function AlertShowcasePage() {
     const [isVisible, setIsVisible] = useState(true);
 
     const dismissibleAlertSpec: UISpecification = {
-      component: "Alert",
-      className: isVisible ? "" : "hidden",
-      children: [
-        {
-          component: "Flex",
-          justify: "between",
-          align: "start",
-          children: [
-            {
-              component: "Box",
-              children: [
-                {
-                  component: "AlertTitle",
-                  children: "Privacy Notice",
-                },
-                {
-                  component: "AlertDescription",
-                  children: "We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.",
-                },
-              ],
-            },
-            {
-              component: "Button",
-              variant: "ghost",
-              size: "sm",
-              onClick: () => setIsVisible(false),
-              children: "✕",
-            },
-          ],
-        },
-      ],
+      version: "1.0.0",
+      root: {
+        type: "Alert",
+        className: isVisible ? "" : "hidden",
+        children: [
+          {
+            type: "Flex",
+            justify: "between",
+            align: "start",
+            children: [
+              {
+                type: "Box",
+                children: [
+                  {
+                    type: "AlertTitle",
+                    children: "Privacy Notice",
+                  },
+                  {
+                    type: "AlertDescription",
+                    children: "We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.",
+                  },
+                ],
+              },
+              {
+                type: "Button",
+                variant: "ghost",
+                size: "sm",
+                onClick: () => setIsVisible(false),
+                children: "✕",
+              },
+            ],
+          },
+        ],
+      },
     };
 
     return (
@@ -183,53 +210,56 @@ export function AlertShowcasePage() {
 
   // Complete real-world example
   const accountVerificationSpec: UISpecification = {
-    component: "Stack",
-    spacing: 4,
-    children: [
-      {
-        component: "Alert",
-        className: "border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950",
-        children: [
-          {
-            component: "AlertTitle",
-            className: "text-yellow-800 dark:text-yellow-200",
-            children: "Account Verification Required",
-          },
-          {
-            component: "AlertDescription",
-            className: "text-yellow-700 dark:text-yellow-300",
-            children: [
-              {
-                component: "Stack",
-                spacing: 3,
-                children: [
-                  {
-                    component: "Text",
-                    children: "Please verify your email address to unlock all features. We&apos;ve sent a verification link to your registered email.",
-                  },
-                  {
-                    component: "Group",
-                    children: [
-                      {
-                        component: "Button",
-                        size: "sm",
-                        children: "Resend Email",
-                      },
-                      {
-                        component: "Button",
-                        variant: "outline",
-                        size: "sm",
-                        children: "Update Email",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    version: "1.0.0",
+    root: {
+      type: "Stack",
+      spacing: 4,
+      children: [
+        {
+          type: "Alert",
+          className: "border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950",
+          children: [
+            {
+              type: "AlertTitle",
+              className: "text-yellow-800 dark:text-yellow-200",
+              children: "Account Verification Required",
+            },
+            {
+              type: "AlertDescription",
+              className: "text-yellow-700 dark:text-yellow-300",
+              children: [
+                {
+                  type: "Stack",
+                  spacing: 3,
+                  children: [
+                    {
+                      type: "Text",
+                      children: "Please verify your email address to unlock all features. We&apos;ve sent a verification link to your registered email.",
+                    },
+                    {
+                      type: "Group",
+                      children: [
+                        {
+                          type: "Button",
+                          size: "sm",
+                          children: "Resend Email",
+                        },
+                        {
+                          type: "Button",
+                          variant: "outline",
+                          size: "sm",
+                          children: "Update Email",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   };
 
   return (

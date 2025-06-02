@@ -17,7 +17,7 @@
       {
         "id": "fix-invalid-ui-specification-error",
         "description": "Fix 'Invalid UISpecification: Missing root property' error. This occurs when JSON schemas are missing the required 'root' property. Found on pages: /showcase/alert, /showcase/grid, /showcase/image, /showcase/testimonial, /showcase/text. The specification parser expects a 'root' property containing a ComponentSpec",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-element-type-invalid-error",

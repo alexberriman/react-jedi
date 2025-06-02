@@ -48,9 +48,6 @@ const BadgeShowcase = lazy(() =>
 const ButtonShowcase = lazy(() =>
   import("../pages/showcase/button").then((module) => ({ default: module.ButtonShowcase }))
 );
-const ButtonTest = lazy(() =>
-  import("../pages/showcase/button/button-test").then((module) => ({ default: module.ButtonTest }))
-);
 const BoxShowcase = lazy(() =>
   import("../pages/showcase/box").then((module) => ({ default: module.BoxShowcase }))
 );
@@ -356,6 +353,9 @@ const MarketingContactPage = lazy(() =>
 const MarketingDebugPage = lazy(() =>
   import("../pages/debug/marketing-home").then((module) => ({ default: module.MarketingDebugPage }))
 );
+const CssDiagnosticsPage = lazy(() =>
+  import("../pages/debug/css-diagnostics").then((module) => ({ default: module.CssDiagnosticsPage }))
+);
 
 // Error pages
 const NotFoundPage = lazy(() =>
@@ -443,10 +443,6 @@ export const router = createBrowserRouter([
           {
             path: "button",
             element: <AsyncRoute component={ButtonShowcase} loadingText="Loading button showcase..." />,
-          },
-          {
-            path: "button-test",
-            element: <AsyncRoute component={ButtonTest} loadingText="Loading button test..." />,
           },
           {
             path: "box",
@@ -908,6 +904,10 @@ export const router = createBrowserRouter([
       {
         path: "state",
         element: <AsyncRoute component={StatePage} loadingText="Loading state management..." />,
+      },
+      {
+        path: "debug/css",
+        element: <AsyncRoute component={CssDiagnosticsPage} loadingText="Loading CSS diagnostics..." />,
       },
       {
         path: "*",

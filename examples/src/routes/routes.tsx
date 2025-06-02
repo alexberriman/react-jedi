@@ -287,7 +287,7 @@ const ScrollAnimationsPage = lazy(() =>
   import("../pages/examples/scroll-animations").then((module) => ({ default: module.ScrollAnimationsPage }))
 );
 const StaggerAnimationsPage = lazy(() =>
-  import("../pages/examples/stagger-animations")
+  import("../pages/examples/stagger-animations").then((module) => ({ default: module.default }))
 );
 const AnimationSequencePage = lazy(() =>
   import("../pages/examples/animation-sequence").then((module) => ({ default: module.AnimationSequencePage }))

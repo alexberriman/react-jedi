@@ -343,29 +343,17 @@
   },
   {
     "id": "fix-stagger-animation-provider-error",
-    "status": "pending",
-    "priority": "high",
-    "title": "Fix useAnimation AnimationProvider error on stagger animations page",
-    "description": "The stagger animations page (/examples/stagger-animations) is throwing multiple 'useAnimation must be used within an AnimationProvider' errors. The Stagger component in src/lib/animation/stagger.tsx:56:18 is trying to use the useAnimation hook but it's not wrapped in an AnimationProvider. Need to ensure the stagger animations page properly wraps components using animation hooks with AnimationProvider.",
-    "created": "2025-06-02T04:30:00.000Z",
-    "tags": ["console-error", "animation", "react-context"]
+    "description": "Fix useAnimation AnimationProvider error on stagger animations page (/examples/stagger-animations). The Stagger component in src/lib/animation/stagger.tsx:56:18 is trying to use the useAnimation hook but it's not wrapped in an AnimationProvider. Need to ensure the stagger animations page properly wraps components using animation hooks with AnimationProvider.",
+    "status": "pending"
   },
   {
-    "id": "fix-slider-onvaluechange-warning",
-    "status": "pending",
-    "priority": "medium",
-    "title": "Fix unknown event handler property warning for onValueChange in slider",
-    "description": "On the stagger animations page, there's a React warning about an unknown event handler property 'onValueChange' on a div element in the slider component (src/components/ui/slider.tsx:19:48). This suggests that the onValueChange prop is being passed directly to a DOM element instead of being handled properly. Need to ensure the slider component doesn't pass non-standard props to DOM elements.",
-    "created": "2025-06-02T04:30:00.000Z",
-    "tags": ["console-error", "react-warning", "slider-component"]
+    "id": "fix-slider-onvaluechange-warning", 
+    "description": "Fix unknown event handler property warning for onValueChange in slider component. On the stagger animations page, there's a React warning about 'onValueChange' on a div element in src/components/ui/slider.tsx:19:48. This suggests that the onValueChange prop is being passed directly to a DOM element instead of being handled properly. Need to ensure the slider component doesn't pass non-standard props to DOM elements.",
+    "status": "pending"
   },
   {
     "id": "verify-error-boundary-handling",
-    "status": "pending",
-    "priority": "low",
-    "title": "Verify React Router error boundary is properly handling animation errors",
-    "description": "The React Router error boundary is catching and logging errors from the stagger animations page. While this is working as expected, we should verify that the error boundary is providing a good user experience when these errors occur, rather than just showing a blank page or generic error message.",
-    "created": "2025-06-02T04:30:00.000Z",
-    "tags": ["error-boundary", "user-experience", "error-handling"]
+    "description": "Verify React Router error boundary is properly handling animation errors from the stagger animations page. While the error boundary is catching errors as expected, we should verify that it provides a good user experience when these errors occur, rather than just showing a blank page or generic error message.",
+    "status": "pending"
   }
 ]

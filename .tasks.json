@@ -340,10 +340,5 @@
         "status": "completed"
       }
     ]
-  },
-  {
-    "id": "verify-error-boundary-handling",
-    "description": "Verify React Router error boundary is properly handling animation errors from the stagger animations page. While the error boundary is catching errors as expected, we should verify that it provides a good user experience when these errors occur, rather than just showing a blank page or generic error message.",
-    "status": "pending"
   }
 ]

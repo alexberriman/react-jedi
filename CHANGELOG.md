@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2025-06-02]
+
+- **Fix all console errors found in the React Jedi example app** (5 subtasks completed)
+  - Fix validateDOMNesting error: <button> cannot appear as a descendant of <button>. This error occurs in the Tooltip component when a button is used as a tooltip trigger, creating nested buttons. Found on pages: /showcase, /showcase/popover, /showcase/tooltip. The issue is in src/components/ui/button/button.tsx:50 and src/components/ui/tooltip/tooltip.tsx:56
+  - Fix 'No QueryClient set, use QueryClientProvider to set one' error. This error occurs when using data fetching features without proper QueryClient setup. Found on pages: /examples/data-fetching, /examples/optimistic-updates. The error originates from src/hooks/use-data-sources.ts:103 when useQuery is called without QueryClientProvider context
+  - Fix 'Invalid UISpecification: Missing root property' error. This occurs when JSON schemas are missing the required 'root' property. Found on pages: /showcase/alert, /showcase/grid, /showcase/image, /showcase/testimonial, /showcase/text. The specification parser expects a 'root' property containing a ComponentSpec
+  - Fix 'Element type is invalid. Received a promise that resolves to: undefined' error. This is a lazy loading issue where components aren't properly exported. Found on pages: /examples/stagger-animations, /showcase/tabs. The lazy element type must resolve to a valid React component
+  - Fix 'Each child in a list should have a unique key prop' warning. This occurs in the Carousel component when rendering carousel items without unique keys. Found on page: /showcase/carousel
+
+
 ## [2025-06-01]
 
 - **Update README.md with clear instructions on how to import and use the styles when using react-jedi as a third-party dependency. Need to ensure styles are being published to npm and provide documentation on the correct import path and any required setup steps for consuming applications to properly load the CSS styles.**

@@ -22,7 +22,7 @@ const SheetDemo = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.SheetDemo }))
 );
 const TabsShowcase = lazy(() =>
-  import("../pages/showcase/tabs-demo").then((module) => ({ default: module.TabsShowcase }))
+  import("../pages/showcase/tabs-demo").then((module) => ({ default: module.TabsDemo }))
 );
 const AccordionDemo = lazy(() =>
   import("../pages/showcase").then((module) => ({ default: module.AccordionDemo }))
@@ -287,7 +287,7 @@ const ScrollAnimationsPage = lazy(() =>
   import("../pages/examples/scroll-animations").then((module) => ({ default: module.ScrollAnimationsPage }))
 );
 const StaggerAnimationsPage = lazy(() =>
-  import("../pages/examples/stagger-animations").then((module) => ({ default: module.StaggerAnimationsPage }))
+  import("../pages/examples/stagger-animations")
 );
 const AnimationSequencePage = lazy(() =>
   import("../pages/examples/animation-sequence").then((module) => ({ default: module.AnimationSequencePage }))

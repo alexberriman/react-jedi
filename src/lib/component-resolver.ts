@@ -24,6 +24,50 @@ import { Chart } from "../components/ui/chart/chart";
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
 
+// Helper function to transform props based on component type
+const transformPropsForComponent = (
+  spec: Record<string, unknown>,
+  actualProps: Record<string, unknown>
+): Record<string, unknown> => {
+  if (spec.type === "Heading" && "level" in actualProps && typeof actualProps.level === "number") {
+    return {
+      ...actualProps,
+      level: `h${actualProps.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6",
+    };
+  }
+
+  if (spec.type === "ToggleGroup" || spec.type === "ToggleGroupItem") {
+    const { type, children, ...componentProps } = spec;
+    return {
+      ...actualProps,
+      ...componentProps,
+    };
+  }
+
+  return actualProps;
+};
+
+// Helper function to convert Action props to event handlers
+const convertActionPropsToHandlers = (
+  props: Record<string, unknown>,
+  handlers?: Record<string, (...args: unknown[]) => unknown>
+): Record<string, unknown> => {
+  if (!handlers) return props;
+
+  const converted = { ...props };
+  for (const [key, value] of Object.entries(props)) {
+    if (key.endsWith('Action') && typeof value === 'string') {
+      const eventName = key.slice(0, -6);
+      const handler = handlers[value];
+      if (handler) {
+        converted[eventName] = handler;
+        delete converted[key];
+      }
+    }
+  }
+  return converted;
+};
+
 // Helper function to safely cast components to accept our standard ComponentProps
 // Special handling for certain components that have required props
 const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
@@ -60,35 +104,29 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
     const actualProps =
       (spec as Record<string, unknown> & { props?: Record<string, unknown> }).props || {};
 
-    // Special handling for Heading component's level prop
-    let transformedProps = actualProps;
-    if (
-      spec.type === "Heading" &&
-      "level" in actualProps &&
-      typeof actualProps.level === "number"
-    ) {
-      transformedProps = {
-        ...actualProps,
-        level: `h${actualProps.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6",
-      };
-    }
+    // Transform props based on component type
+    const transformedProps = transformPropsForComponent(spec as Record<string, unknown>, actualProps);
 
     // Handle children from spec.props.children for components like Text, Badge, Button, etc.
     const specPropsChildren = "children" in actualProps ? actualProps.children : undefined;
     const finalChildren: ReactNode =
       specPropsChildren === undefined ? children : (specPropsChildren as ReactNode);
 
+    // Convert Action props to event handlers
+    const handlers = parentContext?.handlers as Record<string, (...args: unknown[]) => unknown> | undefined;
+    const propsWithEventHandlers = convertActionPropsToHandlers(transformedProps, handlers);
+
     // Merge with any additional props passed through render
     const mergedProps: Record<string, unknown> = {
       ...defaultProps,
-      ...transformedProps,
+      ...propsWithEventHandlers,
       // Include className and style from the spec if present
       className:
         ("className" in spec ? spec.className : undefined) ||
-        ("className" in transformedProps ? transformedProps.className : undefined),
+        ("className" in propsWithEventHandlers ? propsWithEventHandlers.className : undefined),
       style:
         ("style" in spec ? spec.style : undefined) ||
-        ("style" in transformedProps ? transformedProps.style : undefined),
+        ("style" in propsWithEventHandlers ? propsWithEventHandlers.style : undefined),
       // Important: preserve the asChild prop from the spec for Radix UI components
       asChild:
         "asChild" in spec

@@ -10,18 +10,71 @@ const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariant
   variant: "default",
 });
 
-type ToggleGroupProps = React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
-  VariantProps<typeof toggleVariants>;
+// Base props that are common to both single and multiple variants
+type ToggleGroupBaseProps = VariantProps<typeof toggleVariants> & {
+  className?: string;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  rovingFocus?: boolean;
+  orientation?: "horizontal" | "vertical";
+  dir?: "ltr" | "rtl";
+  loop?: boolean;
+};
 
-function ToggleGroup({ className, variant, size, children, ...props }: ToggleGroupProps) {
-  const cleanProps = cleanDOMProps(props);
-  // Extract selectionType from props and map it to the required 'type' prop
-  const { selectionType = "single", type, ...restProps } = cleanProps as any;
+// Single selection variant props - either type or selectionType can specify "single"
+type ToggleGroupSingleProps = ToggleGroupBaseProps & (
+  | {
+      selectionType?: "single";
+      type?: never;
+      value?: string;
+      defaultValue?: string;
+      onValueChange?: (value: string) => void;
+    }
+  | {
+      selectionType?: never;
+      type?: "single";
+      value?: string;
+      defaultValue?: string;
+      onValueChange?: (value: string) => void;
+    }
+);
+
+// Multiple selection variant props - either type or selectionType must specify "multiple"
+type ToggleGroupMultipleProps = ToggleGroupBaseProps & (
+  | {
+      selectionType: "multiple";
+      type?: never;
+      value?: string[];
+      defaultValue?: string[];
+      onValueChange?: (value: string[]) => void;
+    }
+  | {
+      selectionType?: never;
+      type: "multiple";
+      value?: string[];
+      defaultValue?: string[];
+      onValueChange?: (value: string[]) => void;
+    }
+);
+
+type ToggleGroupProps = ToggleGroupSingleProps | ToggleGroupMultipleProps;
+
+function ToggleGroup(props: ToggleGroupProps) {
+  const { className, variant, size, children, selectionType = "single", type, ...restProps } = props;
+  const cleanProps = cleanDOMProps(restProps);
+  
+  // Determine the final type, preferring explicit type over selectionType
+  const finalType = type || selectionType;
+  
+  // Create the proper props based on the type
+  const rootProps = {
+    ...cleanProps,
+    type: finalType,
+  } as React.ComponentProps<typeof ToggleGroupPrimitive.Root>;
   
   return (
     <ToggleGroupPrimitive.Root
-      {...(restProps as React.ComponentProps<typeof ToggleGroupPrimitive.Root>)}
-      type={type || selectionType}
+      {...rootProps}
       data-slot="toggle-group"
       data-variant={variant}
       data-size={size}

@@ -199,7 +199,10 @@ function buildComponentProps(
     spec,
     theme: options.theme,
     state: options.initialState,
-    parentContext,
+    parentContext: {
+      ...parentContext,
+      handlers: options.handlers,
+    },
   };
 
   // Apply accessibility props

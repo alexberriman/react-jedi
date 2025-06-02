@@ -53,7 +53,30 @@ export function CarouselComponent({ spec }: CarouselComponentProps) {
     console.warn("Autoplay is not yet implemented in the Carousel component");
   }
 
-  // Determine what to render
+  // Check if children is already a CarouselContent spec
+  const isCarouselContent = isComponentSpec(children) && children.type === 'CarouselContent';
+  
+  // If children is CarouselContent, render it directly
+  if (isCarouselContent && isComponentSpec(children)) {
+    return (
+      <Carousel
+        opts={carouselOptions}
+        orientation={orientation}
+        className={className}
+        style={styles || style}
+      >
+        {render(children)}
+        {showArrows && (
+          <>
+            <CarouselPrevious />
+            <CarouselNext />
+          </>
+        )}
+      </Carousel>
+    );
+  }
+
+  // Otherwise, use the items array or wrap children
   const renderItems = items || (children ? [children] : []);
 
   return (

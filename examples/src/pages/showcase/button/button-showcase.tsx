@@ -4,6 +4,8 @@ import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CodeBlock } from "@/components/ui/code-block";
+import { ShowcaseWrapper } from "@/components/ui/showcase-wrapper";
+import { StyleDiagnostic } from "@/components/ui/style-diagnostic";
 
 export function ButtonShowcase() {
   usePageMetadata({
@@ -42,6 +44,7 @@ export function ButtonShowcase() {
       { type: "Button", children: "Destructive", variant: "destructive" },
     ],
   };
+
 
   // Button sizes specification
   const sizesSpec: UISpecification = {
@@ -307,6 +310,12 @@ export function ButtonShowcase() {
                 <li>Customizable with className prop</li>
               </ul>
             </div>
+            
+            {/* Style Diagnostic */}
+            <div className="mt-6">
+              <h3 className="text-lg font-medium mb-2">Style Diagnostic</h3>
+              <StyleDiagnostic />
+            </div>
           </section>
 
           {/* Variants Section */}
@@ -315,9 +324,10 @@ export function ButtonShowcase() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Choose from seven different button variants to match your design needs.
             </p>
-            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+            
+            <ShowcaseWrapper>
               {render(variantsSpec)}
-            </div>
+            </ShowcaseWrapper>
             <details className="mt-4">
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
@@ -334,9 +344,9 @@ export function ButtonShowcase() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Buttons come in four sizes to fit different contexts and layouts.
             </p>
-            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+            <ShowcaseWrapper>
               {render(sizesSpec)}
-            </div>
+            </ShowcaseWrapper>
             <details className="mt-4">
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
@@ -353,9 +363,9 @@ export function ButtonShowcase() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Buttons can be disabled or show a loading state to indicate processing.
             </p>
-            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+            <ShowcaseWrapper>
               {render(statesSpec)}
-            </div>
+            </ShowcaseWrapper>
             <details className="mt-4">
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
@@ -372,9 +382,9 @@ export function ButtonShowcase() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Enhance buttons with icons for better visual communication.
             </p>
-            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+            <ShowcaseWrapper>
               {render(iconsSpec)}
-            </div>
+            </ShowcaseWrapper>
             <details className="mt-4">
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
@@ -391,9 +401,9 @@ export function ButtonShowcase() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Show loading states to indicate that an action is being processed.
             </p>
-            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+            <ShowcaseWrapper>
               {render(loadingSpec)}
-            </div>
+            </ShowcaseWrapper>
             <details className="mt-4">
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
@@ -410,9 +420,9 @@ export function ButtonShowcase() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Buttons can expand to fill their container width using the className prop.
             </p>
-            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+            <ShowcaseWrapper>
               {render(fullWidthSpec)}
-            </div>
+            </ShowcaseWrapper>
             <details className="mt-4">
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
@@ -429,9 +439,9 @@ export function ButtonShowcase() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Group related buttons together for better organization.
             </p>
-            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+            <ShowcaseWrapper>
               {render(buttonGroupSpec)}
-            </div>
+            </ShowcaseWrapper>
             <details className="mt-4">
               <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                 View JSON Specification
@@ -526,9 +536,9 @@ export function ButtonShowcase() {
               {/* Form Example */}
               <div>
                 <h3 className="text-lg font-medium mb-3">Form with Action Buttons</h3>
-                <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                <ShowcaseWrapper>
                   {render(formExampleSpec)}
-                </div>
+                </ShowcaseWrapper>
                 <details className="mt-4">
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification
@@ -542,9 +552,9 @@ export function ButtonShowcase() {
               {/* Action Buttons Example */}
               <div>
                 <h3 className="text-lg font-medium mb-3">Alert with Action Buttons</h3>
-                <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                <ShowcaseWrapper>
                   {render(actionButtonsSpec)}
-                </div>
+                </ShowcaseWrapper>
                 <details className="mt-4">
                   <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
                     View JSON Specification

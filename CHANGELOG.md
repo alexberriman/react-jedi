@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-02]
 
+- **Fix useAnimation AnimationProvider error on stagger animations page (/examples/stagger-animations). The Stagger component in src/lib/animation/stagger.tsx:56:18 is trying to use the useAnimation hook but it's not wrapped in an AnimationProvider. Need to ensure the stagger animations page properly wraps components using animation hooks with AnimationProvider.**
+- **Fix unknown event handler property warning for onValueChange in slider component. On the stagger animations page, there's a React warning about 'onValueChange' on a div element in src/components/ui/slider.tsx:19:48. This suggests that the onValueChange prop is being passed directly to a DOM element instead of being handled properly. Need to ensure the slider component doesn't pass non-standard props to DOM elements.**
+- **Verify React Router error boundary is properly handling animation errors from the stagger animations page. While the error boundary is catching errors as expected, we should verify that it provides a good user experience when these errors occur, rather than just showing a blank page or generic error message.**
+
+
+## [2025-06-02]
+
 - **Verify React Router error boundary is properly handling animation errors from the stagger animations page. While the error boundary is catching errors as expected, we should verify that it provides a good user experience when these errors occur, rather than just showing a blank page or generic error message.**
 
 

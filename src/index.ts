@@ -4,7 +4,7 @@
  * This file exports everything from the library.
  */
 
-// Import styles
+// Import styles - order matters!
 import "./styles/global.css";
 
 import type {

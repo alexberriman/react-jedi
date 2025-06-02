@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  AnimationProvider,
   Stagger,
   StaggerList,
   StaggerContainer,
@@ -81,7 +82,8 @@ const StaggerAnimationsPage = () => {
   };
 
   return (
-    <div className="container mx-auto py-10 space-y-12">
+    <AnimationProvider>
+      <div className="container mx-auto py-10 space-y-12">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">Staggered Animations</h1>
         <p className="text-xl text-muted-foreground">
@@ -349,6 +351,7 @@ export const MyDataList = () => (
         </CodeBlock>
       </div>
     </div>
+    </AnimationProvider>
   );
 };
 

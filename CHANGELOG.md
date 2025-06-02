@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-02]
 
+- **Fix useAnimation AnimationProvider error on stagger animations page (/examples/stagger-animations). The Stagger component in src/lib/animation/stagger.tsx:56:18 is trying to use the useAnimation hook but it's not wrapped in an AnimationProvider. Need to ensure the stagger animations page properly wraps components using animation hooks with AnimationProvider.**
+
+
+## [2025-06-02]
+
 - **Fix all console errors found in the React Jedi example app** (0 subtasks completed)
 
 

@@ -12,7 +12,7 @@
       {
         "id": "fix-query-client-provider-error",
         "description": "Fix 'No QueryClient set, use QueryClientProvider to set one' error. This error occurs when using data fetching features without proper QueryClient setup. Found on pages: /examples/data-fetching, /examples/optimistic-updates. The error originates from src/hooks/use-data-sources.ts:103 when useQuery is called without QueryClientProvider context",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-invalid-ui-specification-error",

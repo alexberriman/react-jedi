@@ -74,9 +74,9 @@ export function CarouselComponent({ spec }: CarouselComponentProps) {
               <>
                 {item.map((child, childIndex) => {
                   if (isComponentSpec(child)) {
-                    return render(child);
+                    return <React.Fragment key={childIndex}>{render(child)}</React.Fragment>;
                   }
-                  return child;
+                  return <React.Fragment key={childIndex}>{child}</React.Fragment>;
                 })}
               </>
             );

@@ -48,6 +48,9 @@ const BadgeShowcase = lazy(() =>
 const ButtonShowcase = lazy(() =>
   import("../pages/showcase/button").then((module) => ({ default: module.ButtonShowcase }))
 );
+const ButtonTest = lazy(() =>
+  import("../pages/showcase/button/button-test").then((module) => ({ default: module.ButtonTest }))
+);
 const BoxShowcase = lazy(() =>
   import("../pages/showcase/box").then((module) => ({ default: module.BoxShowcase }))
 );
@@ -440,6 +443,10 @@ export const router = createBrowserRouter([
           {
             path: "button",
             element: <AsyncRoute component={ButtonShowcase} loadingText="Loading button showcase..." />,
+          },
+          {
+            path: "button-test",
+            element: <AsyncRoute component={ButtonTest} loadingText="Loading button test..." />,
           },
           {
             path: "box",

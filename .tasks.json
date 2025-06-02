@@ -7,7 +7,7 @@
       {
         "id": "fix-dom-nesting-button-error",
         "description": "Fix validateDOMNesting error: <button> cannot appear as a descendant of <button>. This error occurs in the Tooltip component when a button is used as a tooltip trigger, creating nested buttons. Found on pages: /showcase, /showcase/popover, /showcase/tooltip. The issue is in src/components/ui/button/button.tsx:50 and src/components/ui/tooltip/tooltip.tsx:56",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-query-client-provider-error",

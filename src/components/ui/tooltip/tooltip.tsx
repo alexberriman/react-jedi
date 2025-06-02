@@ -30,7 +30,7 @@ function TooltipTrigger({
   ...props
 }: Readonly<React.ComponentProps<typeof TooltipPrimitive.Trigger>>) {
   const cleanProps = cleanDOMProps(props);
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...cleanProps} />;
+  return <TooltipPrimitive.Trigger asChild data-slot="tooltip-trigger" {...cleanProps} />;
 }
 
 function TooltipContent({

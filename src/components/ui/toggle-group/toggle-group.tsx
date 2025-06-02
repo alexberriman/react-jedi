@@ -15,8 +15,13 @@ type ToggleGroupProps = React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
 
 function ToggleGroup({ className, variant, size, children, ...props }: ToggleGroupProps) {
   const cleanProps = cleanDOMProps(props);
+  // Extract selectionType from props and map it to the required 'type' prop
+  const { selectionType = "single", type, ...restProps } = cleanProps as any;
+  
   return (
     <ToggleGroupPrimitive.Root
+      {...(restProps as React.ComponentProps<typeof ToggleGroupPrimitive.Root>)}
+      type={type || selectionType}
       data-slot="toggle-group"
       data-variant={variant}
       data-size={size}
@@ -24,7 +29,6 @@ function ToggleGroup({ className, variant, size, children, ...props }: ToggleGro
         "group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs",
         className
       )}
-      {...(cleanProps as React.ComponentProps<typeof ToggleGroupPrimitive.Root>)}
     >
       <ToggleGroupContext.Provider value={{ variant, size }}>
         {children}

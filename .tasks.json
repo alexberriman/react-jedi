@@ -1,1 +1,371 @@
-[]
+[
+  {
+    "id": "example-app-component-pages",
+    "description": "There is a /showcase page in the example app that showcases all of the react-jedi components (remember, react jedi is a SDUI library that renders components from JSON). I want to create a nested page for EVERY component that gives: table of contents, basic usage/description, different variations and examples, description of props/options. I then want to make a change to the /showcase page to link these components to their nested page as well. Remember - they should render the SDUI component (from JSON) on the nested page.",
+    "status": "completed",
+    "subtasks": [
+      {
+        "id": "button-showcase",
+        "description": "Create a nested page in the example app to showcase the button component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the button component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "call-to-action-showcase",
+        "description": "Create a nested page in the example app to showcase the CallToAction component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the CallToAction component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "card-showcase",
+        "description": "Create a nested page in the example app to showcase the Card component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Card component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "carousel-showcase",
+        "description": "Create a nested page in the example app to showcase the Carousel component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Carousel component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "feature-card-showcase",
+        "description": "Create a nested page in the example app to showcase the FeatureCard component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the FeatureCard component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "footer-showcase",
+        "description": "Create a nested page in the example app to showcase the Footer component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Footer component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "hero-showcase",
+        "description": "Create a nested page in the example app to showcase the Hero component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Hero component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "image-showcase",
+        "description": "Create a nested page in the example app to showcase the Image component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Image component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "input-showcase",
+        "description": "Create a nested page in the example app to showcase the Input component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Input component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "label-showcase",
+        "description": "Create a nested page in the example app to showcase the Label component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Label component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "list-showcase",
+        "description": "Create a nested page in the example app to showcase the List component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the List component example has a link to the nested page as well.",
+        "status": "cancelled"
+      },
+      {
+        "id": "modal-showcase",
+        "description": "Create a nested page in the example app to showcase the Modal component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Modal component example has a link to the nested page as well.",
+        "status": "cancelled"
+      },
+      {
+        "id": "navigation-menu-showcase",
+        "description": "Create a nested page in the example app to showcase the NavigationMenu component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the NavigationMenu component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "pagination-showcase",
+        "description": "Create a nested page in the example app to showcase the Pagination component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Pagination component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "pricing-table-showcase",
+        "description": "Create a nested page in the example app to showcase the PricingTable component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the PricingTable component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "progress-showcase",
+        "description": "Create a nested page in the example app to showcase the Progress component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Progress component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "radio-group-showcase",
+        "description": "Create a nested page in the example app to showcase the RadioGroup component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the RadioGroup component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "select-showcase",
+        "description": "Create a nested page in the example app to showcase the Select component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Select component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "slider-showcase",
+        "description": "Create a nested page in the example app to showcase the Slider component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Slider component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "switch-showcase",
+        "description": "Create a nested page in the example app to showcase the Switch component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Switch component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "tabs-showcase",
+        "description": "Create a nested page in the example app to showcase the Tabs component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Tabs component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "testimonial-showcase",
+        "description": "Create a nested page in the example app to showcase the Testimonial component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Testimonial component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "text-showcase",
+        "description": "Create a nested page in the example app to showcase the Text component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Text component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "toast-showcase",
+        "description": "Create a nested page in the example app to showcase the Toast component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Toast component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "tooltip-showcase",
+        "description": "Create a nested page in the example app to showcase the Tooltip component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Tooltip component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "container-showcase",
+        "description": "Create a nested page in the example app to showcase the Container component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Container component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "box-showcase",
+        "description": "Create a nested page in the example app to showcase the Box component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Box component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "grid-showcase",
+        "description": "Create a nested page in the example app to showcase the Grid component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Grid component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "flex-showcase",
+        "description": "Create a nested page in the example app to showcase the Flex component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Flex component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "stack-showcase",
+        "description": "Create a nested page in the example app to showcase the Stack component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Stack component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "group-showcase",
+        "description": "Create a nested page in the example app to showcase the Group component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Group component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "center-showcase",
+        "description": "Create a nested page in the example app to showcase the Center component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Center component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "simple-grid-showcase",
+        "description": "Create a nested page in the example app to showcase the SimpleGrid component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the SimpleGrid component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "masonry-showcase",
+        "description": "Create a nested page in the example app to showcase the Masonry component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Masonry component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "spacer-showcase",
+        "description": "Create a nested page in the example app to showcase the Spacer component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Spacer component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "textarea-showcase",
+        "description": "Create a nested page in the example app to showcase the Textarea component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Textarea component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "checkbox-showcase",
+        "description": "Create a nested page in the example app to showcase the Checkbox component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Checkbox component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "toggle-showcase",
+        "description": "Create a nested page in the example app to showcase the Toggle component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Toggle component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "toggle-group-showcase",
+        "description": "Create a nested page in the example app to showcase the ToggleGroup component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the ToggleGroup component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "form-showcase",
+        "description": "Create a nested page in the example app to showcase the Form component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Form component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "separator-showcase",
+        "description": "Create a nested page in the example app to showcase the Separator component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Separator component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "badge-showcase",
+        "description": "Create a nested page in the example app to showcase the Badge component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Badge component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "heading-showcase",
+        "description": "Create a nested page in the example app to showcase the Heading component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Heading component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "blockquote-showcase",
+        "description": "Create a nested page in the example app to showcase the BlockQuote component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the BlockQuote component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "aspect-ratio-showcase",
+        "description": "Create a nested page in the example app to showcase the AspectRatio component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the AspectRatio component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "avatar-showcase",
+        "description": "Create a nested page in the example app to showcase the Avatar component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Avatar component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "skeleton-showcase",
+        "description": "Create a nested page in the example app to showcase the Skeleton component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Skeleton component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "alert-showcase",
+        "description": "Create a nested page in the example app to showcase the Alert component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Alert component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "alert-dialog-showcase",
+        "description": "Create a nested page in the example app to showcase the AlertDialog component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the AlertDialog component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "collapsible-showcase",
+        "description": "Create a nested page in the example app to showcase the Collapsible component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Collapsible component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "table-showcase",
+        "description": "Create a nested page in the example app to showcase the Table component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Table component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "data-table-showcase",
+        "description": "Create a nested page in the example app to showcase the DataTable component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the DataTable component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "chart-showcase",
+        "description": "Create a nested page in the example app to showcase the Chart component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Chart component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "timeline-component-showcase",
+        "description": "Create a nested page in the example app to showcase the TimelineComponent component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the TimelineComponent component example has a link to the nested page as well.",
+        "status": "cancelled"
+      },
+      {
+        "id": "popover-showcase",
+        "description": "Create a nested page in the example app to showcase the Popover component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Popover component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "hover-card-showcase",
+        "description": "Create a nested page in the example app to showcase the HoverCard component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the HoverCard component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "sonner-showcase",
+        "description": "Create a nested page in the example app to showcase the Sonner component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Sonner component example has a link to the nested page as well.",
+        "status": "cancelled"
+      },
+      {
+        "id": "drawer-showcase",
+        "description": "Create a nested page in the example app to showcase the Drawer component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Drawer component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "dropdown-menu-showcase",
+        "description": "Create a nested page in the example app to showcase the DropdownMenu component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the DropdownMenu component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "context-menu-showcase",
+        "description": "Create a nested page in the example app to showcase the ContextMenu component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the ContextMenu component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "menubar-showcase",
+        "description": "Create a nested page in the example app to showcase the Menubar component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Menubar component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "breadcrumb-showcase",
+        "description": "Create a nested page in the example app to showcase the Breadcrumb component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Breadcrumb component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "command-showcase",
+        "description": "Create a nested page in the example app to showcase the Command component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Command component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "calendar-showcase",
+        "description": "Create a nested page in the example app to showcase the Calendar component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Calendar component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "date-picker-showcase",
+        "description": "Create a nested page in the example app to showcase the DatePicker component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the DatePicker component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "combobox-showcase",
+        "description": "Create a nested page in the example app to showcase the Combobox component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the Combobox component example has a link to the nested page as well.",
+        "status": "completed"
+      },
+      {
+        "id": "input-otp-showcase",
+        "description": "Create a nested page in the example app to showcase the InputOTP component - it should render from SDUI (i.e. the JSON), it should have: table of contents, basic usage/description, different variations and examples, description of props/options. Then, update the /showcase page to make sure that the InputOTP component example has a link to the nested page as well.",
+        "status": "completed"
+      }
+    ]
+  },
+  {
+    "id": "fix-stagger-animation-provider-error",
+    "status": "pending",
+    "priority": "high",
+    "title": "Fix useAnimation AnimationProvider error on stagger animations page",
+    "description": "The stagger animations page (/examples/stagger-animations) is throwing multiple 'useAnimation must be used within an AnimationProvider' errors. The Stagger component in src/lib/animation/stagger.tsx:56:18 is trying to use the useAnimation hook but it's not wrapped in an AnimationProvider. Need to ensure the stagger animations page properly wraps components using animation hooks with AnimationProvider.",
+    "created": "2025-06-02T04:30:00.000Z",
+    "tags": ["console-error", "animation", "react-context"]
+  },
+  {
+    "id": "fix-slider-onvaluechange-warning",
+    "status": "pending",
+    "priority": "medium",
+    "title": "Fix unknown event handler property warning for onValueChange in slider",
+    "description": "On the stagger animations page, there's a React warning about an unknown event handler property 'onValueChange' on a div element in the slider component (src/components/ui/slider.tsx:19:48). This suggests that the onValueChange prop is being passed directly to a DOM element instead of being handled properly. Need to ensure the slider component doesn't pass non-standard props to DOM elements.",
+    "created": "2025-06-02T04:30:00.000Z",
+    "tags": ["console-error", "react-warning", "slider-component"]
+  },
+  {
+    "id": "verify-error-boundary-handling",
+    "status": "pending",
+    "priority": "low",
+    "title": "Verify React Router error boundary is properly handling animation errors",
+    "description": "The React Router error boundary is catching and logging errors from the stagger animations page. While this is working as expected, we should verify that the error boundary is providing a good user experience when these errors occur, rather than just showing a blank page or generic error message.",
+    "created": "2025-06-02T04:30:00.000Z",
+    "tags": ["error-boundary", "user-experience", "error-handling"]
+  }
+]

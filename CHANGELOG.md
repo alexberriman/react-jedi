@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-02]
 
+- **Fix all console errors found in the React Jedi example app** (0 subtasks completed)
+
+
+## [2025-06-02]
+
+- **Fix all console errors found in the React Jedi example app** (0 subtasks completed)
+
+
+## [2025-06-02]
+
 - **Fix all console errors found in the React Jedi example app** (5 subtasks completed)
   - Fix validateDOMNesting error: <button> cannot appear as a descendant of <button>. This error occurs in the Tooltip component when a button is used as a tooltip trigger, creating nested buttons. Found on pages: /showcase, /showcase/popover, /showcase/tooltip. The issue is in src/components/ui/button/button.tsx:50 and src/components/ui/tooltip/tooltip.tsx:56
   - Fix 'No QueryClient set, use QueryClientProvider to set one' error. This error occurs when using data fetching features without proper QueryClient setup. Found on pages: /examples/data-fetching, /examples/optimistic-updates. The error originates from src/hooks/use-data-sources.ts:103 when useQuery is called without QueryClientProvider context

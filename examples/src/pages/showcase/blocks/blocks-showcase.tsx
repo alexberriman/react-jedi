@@ -106,6 +106,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/restaurant-menu",
       },
+      {
+        name: "Process Steps",
+        description: "Visual workflow blocks for 'How it works' sections with multiple layouts including horizontal timeline, vertical steps, circular process, numbered cards, and branching paths.",
+        status: "completed",
+        path: "/showcase/blocks/process-steps",
+      },
     ],
   },
   {
@@ -1450,6 +1456,61 @@ const blockPreviews: Record<string, ComponentSpec> = {
       showCursor: true,
       cursorBlink: true,
       animated: true,
+    },
+  },
+  "Process Steps": {
+    type: "ProcessSteps",
+    props: {
+      variant: "horizontal",
+      currentStep: 2,
+      animated: true,
+      interactive: true,
+      steps: [
+        {
+          title: "Sign Up",
+          description: "Create your account",
+          icon: {
+            type: "Icon",
+            props: {
+              icon: "AiOutlineUserAdd",
+              color: "currentColor"
+            }
+          },
+        },
+        {
+          title: "Verify Email",
+          description: "Confirm your email",
+          icon: {
+            type: "Icon",
+            props: {
+              icon: "AiOutlineMail",
+              color: "currentColor"
+            }
+          },
+        },
+        {
+          title: "Complete Profile",
+          description: "Add your details",
+          icon: {
+            type: "Icon",
+            props: {
+              icon: "AiOutlineProfile",
+              color: "currentColor"
+            }
+          },
+        },
+        {
+          title: "Get Started",
+          description: "Start using the app",
+          icon: {
+            type: "Icon",
+            props: {
+              icon: "AiOutlineRocket",
+              color: "currentColor"
+            }
+          },
+        },
+      ],
     },
   },
 };

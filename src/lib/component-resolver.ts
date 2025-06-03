@@ -759,6 +759,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.TypewriterText as unknown as React.ComponentType<Record<string, unknown>>,
       { texts: "Hello World" } // Provide default required props
     ),
+    ProcessSteps: asComponent(
+      Blocks.ProcessSteps as unknown as React.ComponentType<Record<string, unknown>>,
+      { steps: [] } // Provide default required props
+    ),
+    "process-steps": asComponent(
+      Blocks.ProcessSteps as unknown as React.ComponentType<Record<string, unknown>>,
+      { steps: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

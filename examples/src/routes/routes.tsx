@@ -297,6 +297,9 @@ const PhotoFlipCardShowcasePage = lazy(() =>
 const RestaurantMenuShowcasePage = lazy(() =>
   import("../pages/showcase/blocks/restaurant-menu").then((module) => ({ default: module.RestaurantMenuShowcasePage }))
 );
+const ProcessStepsShowcasePage = lazy(() =>
+  import("../pages/showcase/blocks/process-steps").then((module) => ({ default: module.ProcessStepsShowcasePage }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -568,6 +571,10 @@ export const router = createBrowserRouter([
               {
                 path: "restaurant-menu",
                 element: <AsyncRoute component={RestaurantMenuShowcasePage} loadingText="Loading restaurant menu showcase..." />,
+              },
+              {
+                path: "process-steps",
+                element: <AsyncRoute component={ProcessStepsShowcasePage} loadingText="Loading process steps showcase..." />,
               },
             ],
           },

@@ -152,7 +152,7 @@
       {
         "id": "process-steps-block",
         "description": "Create Process Steps block for 'How it works' visual workflows. Variants: horizontal timeline, vertical steps, circular process, numbered cards, and branching paths. Features: step icons, connecting lines/arrows, progress indicators, interactive hover states, and optional animations. Add customizable numbering, icon library integration, responsive layouts, and step completion states. Include modern flat design with clean typography and smooth transitions.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "product-showcase-block",

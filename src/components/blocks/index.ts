@@ -34,3 +34,4 @@ export * from "./photo-gallery";
 export * from "./photo-flip-card";
 export * from "./restaurant-menu";
 export * from "./typewriter-text";
+export * from "./process-steps";

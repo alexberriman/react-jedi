@@ -667,14 +667,19 @@ export const WithPersistence: Story = {
       }
     ],
     persistData: true,
-    storageKey: 'storybook-contact-form'
+    storageKey: 'storybook-contact-form',
+    animated: false
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
+    // Wait for the component to be rendered and find input elements
+    const nameInput = await canvas.findByRole('textbox', { name: /name/i });
+    const emailInput = await canvas.findByRole('textbox', { name: /email/i });
+    
     // Type some data
-    await userEvent.type(canvas.getByLabelText('Name'), 'Test User');
-    await userEvent.type(canvas.getByLabelText('Email'), 'test@example.com');
+    await userEvent.type(nameInput, 'Test User');
+    await userEvent.type(emailInput, 'test@example.com');
     
     // Data should be persisted to localStorage
     await expect(localStorage.getItem('storybook-contact-form')).toBeTruthy();

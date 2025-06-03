@@ -4,6 +4,7 @@ import * as Ai from 'react-icons/ai';
 import * as Fa from 'react-icons/fa';
 import * as Fi from 'react-icons/fi';
 import * as Si from 'react-icons/si';
+import * as Tb from 'react-icons/tb';
 import type { IconType } from 'react-icons';
 
 interface IconItem {
@@ -107,15 +108,15 @@ const iconLibrary: IconItem[] = [
   { icon: Si.SiGit, name: 'SiGit', category: 'Technology', importPath: 'react-icons/si' },
   { icon: Si.SiDocker, name: 'SiDocker', category: 'Technology', importPath: 'react-icons/si' },
   { icon: Si.SiPython, name: 'SiPython', category: 'Technology', importPath: 'react-icons/si' },
-  { icon: Si.SiAmazonaws, name: 'SiAmazonaws', category: 'Technology', importPath: 'react-icons/si' },
+  { icon: Si.SiAmazonwebservices, name: 'SiAmazonwebservices', category: 'Technology', importPath: 'react-icons/si' },
   { icon: Si.SiGooglecloud, name: 'SiGooglecloud', category: 'Technology', importPath: 'react-icons/si' },
-  { icon: Si.SiMicrosoftazure, name: 'SiMicrosoftazure', category: 'Technology', importPath: 'react-icons/si' },
+  { icon: Tb.TbBrandAzure, name: 'TbBrandAzure', category: 'Technology', importPath: 'react-icons/tb' },
 
   // Security
   { icon: Ai.AiOutlineLock, name: 'AiOutlineLock', category: 'Security', importPath: 'react-icons/ai' },
   { icon: Ai.AiOutlineUnlock, name: 'AiOutlineUnlock', category: 'Security', importPath: 'react-icons/ai' },
   { icon: Ai.AiOutlineKey, name: 'AiOutlineKey', category: 'Security', importPath: 'react-icons/ai' },
-  { icon: Ai.AiOutlineShield, name: 'AiOutlineShield', category: 'Security', importPath: 'react-icons/ai' },
+  { icon: Fi.FiShield, name: 'FiShield', category: 'Security', importPath: 'react-icons/fi' },
   { icon: Fi.FiLock, name: 'FiLock', category: 'Security', importPath: 'react-icons/fi' },
   { icon: Fi.FiUnlock, name: 'FiUnlock', category: 'Security', importPath: 'react-icons/fi' },
   { icon: Fi.FiKey, name: 'FiKey', category: 'Security', importPath: 'react-icons/fi' },

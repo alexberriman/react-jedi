@@ -288,6 +288,9 @@ const ContactFormEnhancedShowcase = lazy(() =>
 const IconShowcase = lazy(() =>
   import("../pages/showcase/blocks/icon").then((module) => ({ default: module.IconShowcase }))
 );
+const PhotoGalleryShowcase = lazy(() =>
+  import("../pages/showcase/blocks/photo-gallery").then((module) => ({ default: module.PhotoGalleryShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -547,6 +550,10 @@ export const router = createBrowserRouter([
               {
                 path: "icon",
                 element: <AsyncRoute component={IconShowcase} loadingText="Loading icon showcase..." />,
+              },
+              {
+                path: "photo-gallery",
+                element: <AsyncRoute component={PhotoGalleryShowcase} loadingText="Loading photo gallery showcase..." />,
               },
             ],
           },

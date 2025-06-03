@@ -30,3 +30,4 @@ export * from "./map";
 export * from "./stat-block";
 export * from "./contact-form-block";
 export * from "./icon";
+export * from "./photo-gallery";

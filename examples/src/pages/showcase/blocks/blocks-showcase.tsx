@@ -174,6 +174,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/map",
       },
+      {
+        name: "Photo Gallery",
+        description: "Stunning photo gallery with multiple layouts (masonry, grid, carousel), lightbox modal, category filtering, lazy loading, and zoom functionality.",
+        status: "completed",
+        path: "/showcase/blocks/photo-gallery",
+      },
     ],
   },
   {
@@ -1333,5 +1339,74 @@ const blockPreviews: Record<string, ComponentSpec> = {
         }
       }
     ]
+  },
+  "Photo Gallery": {
+    type: "PhotoGallery",
+    props: {
+      variant: "grid",
+      columns: 3,
+      enableLightbox: true,
+      enableZoom: true,
+      enableFiltering: true,
+      animated: true,
+      aspectRatio: "landscape",
+      gap: "md",
+      photos: [
+        {
+          id: "1",
+          src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+          alt: "Mountain landscape",
+          title: "Majestic Mountains",
+          description: "Beautiful mountain landscape with snow-capped peaks",
+          category: "Nature",
+          tags: ["mountains", "landscape", "snow"],
+        },
+        {
+          id: "2",
+          src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=1200&fit=crop",
+          alt: "Forest path",
+          title: "Enchanted Forest",
+          description: "A mysterious path through an ancient forest",
+          category: "Nature",
+          tags: ["forest", "trees", "path"],
+        },
+        {
+          id: "3",
+          src: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=800&fit=crop",
+          alt: "Ocean sunset",
+          title: "Golden Hour",
+          description: "Spectacular sunset over the ocean waves",
+          category: "Seascape",
+          tags: ["ocean", "sunset", "waves"],
+        },
+        {
+          id: "4",
+          src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+          alt: "Desert landscape",
+          title: "Desert Dunes",
+          description: "Rolling sand dunes in the desert",
+          category: "Desert",
+          tags: ["desert", "sand", "dunes"],
+        },
+        {
+          id: "5",
+          src: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=800&h=1000&fit=crop",
+          alt: "Urban architecture",
+          title: "City Skyline",
+          description: "Modern skyscrapers reaching toward the sky",
+          category: "Architecture",
+          tags: ["city", "skyscrapers", "urban"],
+        },
+        {
+          id: "6",
+          src: "https://images.unsplash.com/photo-1433838552652-f9a46b332c40?w=800&h=600&fit=crop",
+          alt: "Tropical beach",
+          title: "Paradise Beach",
+          description: "Crystal clear waters and white sand beach",
+          category: "Seascape",
+          tags: ["beach", "tropical", "paradise"],
+        },
+      ],
+    },
   },
 };

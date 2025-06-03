@@ -127,7 +127,7 @@
       {
         "id": "photo-gallery-block",
         "description": "Create stunning Photo Gallery block for image showcases. Variants: masonry grid, perfect grid, carousel slider, lightbox modal, and Instagram-style. Features: lazy loading, image optimization, zoom functionality, fullscreen viewing, and category filtering. Add smooth transitions, touch gestures, keyboard navigation, and thumbnail strips. Include watermark support, download options, and social sharing. Design with modern flat aesthetics and elegant hover effects.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "restaurant-menu-block",

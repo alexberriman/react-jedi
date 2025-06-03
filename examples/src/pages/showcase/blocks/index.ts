@@ -9,3 +9,4 @@ export { LatestNewsShowcase } from "./latest-news";
 export { SocialShareBarShowcasePage } from "./social-share-bar";
 export { MapShowcase } from "./map";
 export { IconShowcase } from "./icon";
+export { PhotoGalleryShowcase } from "./photo-gallery";

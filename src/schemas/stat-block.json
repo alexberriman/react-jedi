@@ -1,0 +1,197 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "StatBlock",
+  "description": "Statistics display component with multiple layout variants",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "StatBlock"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["grid", "horizontal", "vertical", "card", "minimal", "detailed"],
+      "default": "grid",
+      "description": "Display variant for the statistics"
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/StatItem"
+      },
+      "description": "Array of statistics to display"
+    },
+    "columns": {
+      "type": "number",
+      "enum": [1, 2, 3, 4, 5, 6],
+      "default": 3,
+      "description": "Number of columns for grid layout"
+    },
+    "gap": {
+      "type": "string",
+      "enum": ["sm", "md", "lg", "xl"],
+      "default": "md",
+      "description": "Spacing between statistics"
+    },
+    "alignment": {
+      "type": "string",
+      "enum": ["left", "center", "right"],
+      "default": "center",
+      "description": "Text alignment within each stat"
+    },
+    "showBorder": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show border around each stat"
+    },
+    "showBackground": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show background color for each stat"
+    },
+    "showTrend": {
+      "type": "boolean",
+      "default": true,
+      "description": "Display trend indicators"
+    },
+    "showDescription": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show stat descriptions"
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": true,
+      "description": "Display stat icons"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable entrance animations"
+    },
+    "animationDuration": {
+      "type": "number",
+      "default": 300,
+      "description": "Animation duration in milliseconds"
+    },
+    "staggerDelay": {
+      "type": "number",
+      "default": 100,
+      "description": "Delay between each stat animation"
+    },
+    "countUp": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable count-up animation for numeric values"
+    },
+    "countUpDuration": {
+      "type": "number",
+      "default": 2000,
+      "description": "Count-up animation duration in milliseconds"
+    },
+    "size": {
+      "type": "string",
+      "enum": ["sm", "md", "lg", "xl"],
+      "default": "md",
+      "description": "Overall size preset"
+    },
+    "valueSize": {
+      "type": "string",
+      "enum": ["sm", "md", "lg", "xl", "2xl", "3xl"],
+      "default": "2xl",
+      "description": "Size of the stat value text"
+    },
+    "labelSize": {
+      "type": "string",
+      "enum": ["xs", "sm", "md", "lg"],
+      "default": "sm",
+      "description": "Size of the stat label text"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline CSS styles"
+    }
+  },
+  "required": ["type", "stats"],
+  "definitions": {
+    "StatItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the stat"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label/title for the statistic"
+        },
+        "value": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "number" }
+          ],
+          "description": "The statistic value"
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of measurement (e.g., 'GB', 'ms')"
+        },
+        "prefix": {
+          "type": "string",
+          "description": "Prefix to display before the value (e.g., '$')"
+        },
+        "suffix": {
+          "type": "string",
+          "description": "Suffix to display after the value (e.g., '%')"
+        },
+        "description": {
+          "type": "string",
+          "description": "Additional description or context"
+        },
+        "trend": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number",
+              "description": "Trend percentage value"
+            },
+            "direction": {
+              "type": "string",
+              "enum": ["up", "down", "neutral"],
+              "description": "Trend direction"
+            },
+            "label": {
+              "type": "string",
+              "description": "Optional trend label (e.g., 'vs last month')"
+            }
+          },
+          "required": ["value", "direction"]
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon name to display"
+        },
+        "iconPosition": {
+          "type": "string",
+          "enum": ["top", "left", "right"],
+          "default": "top",
+          "description": "Position of the icon relative to content"
+        },
+        "color": {
+          "type": "string",
+          "enum": ["default", "primary", "secondary", "success", "warning", "error"],
+          "description": "Color scheme for the stat"
+        },
+        "href": {
+          "type": "string",
+          "description": "Optional link URL"
+        }
+      },
+      "required": ["label", "value"]
+    }
+  }
+}

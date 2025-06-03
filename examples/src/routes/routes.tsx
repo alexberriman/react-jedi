@@ -273,6 +273,12 @@ const SocialShareBarShowcase = lazy(() =>
 const MapShowcase = lazy(() =>
   import("../pages/showcase/blocks/map").then((module) => ({ default: module.MapShowcase }))
 );
+const StatBlockPage = lazy(() =>
+  import("../pages/examples/stat-block").then((module) => ({ default: module.StatBlockPage }))
+);
+const StatBlockShowcase = lazy(() =>
+  import("../pages/showcase/blocks/stat-block").then((module) => ({ default: module.StatBlockShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -520,6 +526,10 @@ export const router = createBrowserRouter([
               {
                 path: "map",
                 element: <AsyncRoute component={MapShowcase} loadingText="Loading map block..." />,
+              },
+              {
+                path: "stat-block",
+                element: <AsyncRoute component={StatBlockShowcase} loadingText="Loading stat block..." />,
               },
             ],
           },
@@ -1012,6 +1022,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={TemplateVariablesPage}
                 loadingText="Loading template variables demo..."
+              />
+            ),
+          },
+          {
+            path: "stat-block",
+            element: (
+              <AsyncRoute
+                component={StatBlockPage}
+                loadingText="Loading stat block demo..."
               />
             ),
           },

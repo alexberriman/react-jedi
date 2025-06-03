@@ -711,6 +711,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.Map as unknown as React.ComponentType<Record<string, unknown>>,
       { center: { lat: 40.7128, lng: -74.006 }, zoom: 14 } // Provide default required props
     ),
+    StatBlock: asComponent(
+      Blocks.StatBlock as unknown as React.ComponentType<Record<string, unknown>>,
+      { stats: [] } // Provide default required props
+    ),
+    "stat-block": asComponent(
+      Blocks.StatBlock as unknown as React.ComponentType<Record<string, unknown>>,
+      { stats: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

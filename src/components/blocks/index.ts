@@ -31,4 +31,5 @@ export * from "./stat-block";
 export * from "./contact-form-block";
 export * from "./icon";
 export * from "./photo-gallery";
+export * from "./photo-flip-card";
 export * from "./restaurant-menu";

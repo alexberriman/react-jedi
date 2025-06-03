@@ -137,7 +137,7 @@
       {
         "id": "photo-flip-card-block",
         "description": "Create Photo Flip Card block with elegant hover animations. Variants: vertical flip, horizontal flip, fade transition, slide reveal, and 3D rotation. Features: front image display, back overlay content, smooth CSS animations, touch device support, and custom transition timing. Add text overlay options, gradient backgrounds, call-to-action buttons, and multiple card sizes. Design with modern flat styling and sophisticated hover effects.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "stat-counter-block",

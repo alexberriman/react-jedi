@@ -291,6 +291,9 @@ const IconShowcase = lazy(() =>
 const PhotoGalleryShowcase = lazy(() =>
   import("../pages/showcase/blocks/photo-gallery").then((module) => ({ default: module.PhotoGalleryShowcase }))
 );
+const PhotoFlipCardShowcasePage = lazy(() =>
+  import("../pages/showcase/blocks/photo-flip-card").then((module) => ({ default: module.PhotoFlipCardShowcasePage }))
+);
 const RestaurantMenuShowcasePage = lazy(() =>
   import("../pages/showcase/blocks/restaurant-menu").then((module) => ({ default: module.RestaurantMenuShowcasePage }))
 );
@@ -557,6 +560,10 @@ export const router = createBrowserRouter([
               {
                 path: "photo-gallery",
                 element: <AsyncRoute component={PhotoGalleryShowcase} loadingText="Loading photo gallery showcase..." />,
+              },
+              {
+                path: "photo-flip-card",
+                element: <AsyncRoute component={PhotoFlipCardShowcasePage} loadingText="Loading photo flip card showcase..." />,
               },
               {
                 path: "restaurant-menu",

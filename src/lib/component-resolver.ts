@@ -735,6 +735,22 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.Icon as unknown as React.ComponentType<Record<string, unknown>>,
       { icon: null } // Provide default required props
     ),
+    PhotoFlipCard: asComponent(
+      Blocks.PhotoFlipCard as unknown as React.ComponentType<Record<string, unknown>>,
+      { frontImage: "" } // Provide default required props
+    ),
+    "photo-flip-card": asComponent(
+      Blocks.PhotoFlipCard as unknown as React.ComponentType<Record<string, unknown>>,
+      { frontImage: "" } // Provide default required props
+    ),
+    PhotoFlipCardGrid: asComponent(
+      Blocks.PhotoFlipCardGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      { cards: [] } // Provide default required props
+    ),
+    "photo-flip-card-grid": asComponent(
+      Blocks.PhotoFlipCardGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      { cards: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

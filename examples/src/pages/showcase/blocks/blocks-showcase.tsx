@@ -186,6 +186,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/photo-gallery",
       },
+      {
+        name: "Photo Flip Card",
+        description: "Interactive photo cards with elegant hover animations, multiple transition effects, and responsive design.",
+        status: "completed",
+        path: "/showcase/blocks/photo-flip-card",
+      },
     ],
   },
   {

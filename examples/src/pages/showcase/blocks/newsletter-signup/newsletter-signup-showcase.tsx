@@ -7,7 +7,6 @@ import { CodeBlock } from "../../../../components/ui/code-block";
 import { Tabs } from "../../../../components/ui/tabs";
 import { Button } from "../../../../components/ui/button";
 import { cn } from "../../../../lib/utils";
-import { Sparkles, Gift, Star, Zap, Heart, Mail } from "lucide-react";
 
 // Example specifications
 const inlineForm: ComponentSpec = {
@@ -566,13 +565,13 @@ export function NewsletterSignupShowcasePage() {
                 <tr className="border-b">
                   <td className="p-2 font-mono text-xs">variant</td>
                   <td className="p-2 text-muted-foreground">string</td>
-                  <td className="p-2 text-muted-foreground">"inline"</td>
+                  <td className="p-2 text-muted-foreground">&quot;inline&quot;</td>
                   <td className="p-2 text-muted-foreground">Display variant: inline, modal, slide-in, footer-bar, with-incentive</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-2 font-mono text-xs">title</td>
                   <td className="p-2 text-muted-foreground">string</td>
-                  <td className="p-2 text-muted-foreground">"Stay updated"</td>
+                  <td className="p-2 text-muted-foreground">&quot;Stay updated&quot;</td>
                   <td className="p-2 text-muted-foreground">Main heading text</td>
                 </tr>
                 <tr className="border-b">
@@ -608,13 +607,13 @@ export function NewsletterSignupShowcasePage() {
                 <tr className="border-b">
                   <td className="p-2 font-mono text-xs">backgroundPattern</td>
                   <td className="p-2 text-muted-foreground">string</td>
-                  <td className="p-2 text-muted-foreground">"none"</td>
+                  <td className="p-2 text-muted-foreground">&quot;none&quot;</td>
                   <td className="p-2 text-muted-foreground">Background pattern: dots, grid, waves, gradient, none</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-2 font-mono text-xs">position</td>
                   <td className="p-2 text-muted-foreground">string</td>
-                  <td className="p-2 text-muted-foreground">"bottom-right"</td>
+                  <td className="p-2 text-muted-foreground">&quot;bottom-right&quot;</td>
                   <td className="p-2 text-muted-foreground">Position for slide-in variant</td>
                 </tr>
                 <tr className="border-b">

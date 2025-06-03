@@ -72,8 +72,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Feature Card",
         description: "Showcase product features with icons and descriptions.",
-        status: "pending",
-        path: "/showcase/feature-card",
+        status: "completed",
+        path: "/showcase/blocks/feature-card",
       },
       {
         name: "Testimonial",
@@ -625,6 +625,40 @@ const blockPreviews: Record<string, ComponentSpec> = {
         { text: "v2.0 Released", variant: "secondary" },
       ],
       spacing: "tight",
+    },
+  },
+  "Feature Card": {
+    type: "FeatureCardGrid",
+    props: {
+      columns: "3",
+      gap: "md",
+      cards: [
+        {
+          title: "Lightning Fast",
+          description: "Experience blazing fast performance with our optimized infrastructure.",
+          icon: "⚡",
+          iconColor: "#FFB800",
+          variant: "default",
+        },
+        {
+          title: "Secure by Design",
+          description: "Enterprise-grade security built into every layer of our platform.",
+          icon: "🔒",
+          iconColor: "#4ECDC4",
+          variant: "gradient",
+          gradientFrom: "#667eea",
+          gradientTo: "#764ba2",
+        },
+        {
+          title: "Scale Infinitely",
+          description: "Handle millions of users without breaking a sweat.",
+          icon: "🚀",
+          iconColor: "#FF6B6B",
+          variant: "bordered",
+          highlight: true,
+          highlightColor: "#FF6B6B",
+        },
+      ],
     },
   },
 };

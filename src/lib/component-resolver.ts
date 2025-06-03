@@ -506,12 +506,20 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     hero: asComponent(UI.Hero),
     // FeatureCard requires double type assertion due to required props
     FeatureCard: asComponent(
-      UI.FeatureCard as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.FeatureCard as unknown as React.ComponentType<Record<string, unknown>>,
       { title: "" } // Provide default title to prevent runtime errors
     ),
     "feature-card": asComponent(
-      UI.FeatureCard as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.FeatureCard as unknown as React.ComponentType<Record<string, unknown>>,
       { title: "" } // Provide default title to prevent runtime errors
+    ),
+    FeatureCardGrid: asComponent(
+      Blocks.FeatureCardGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      { cards: [] } // Provide default cards array to prevent runtime errors
+    ),
+    "feature-card-grid": asComponent(
+      Blocks.FeatureCardGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      { cards: [] } // Provide default cards array to prevent runtime errors
     ),
     Testimonial: asComponent(
       UI.Testimonial as unknown as React.ComponentType<Record<string, unknown>>,

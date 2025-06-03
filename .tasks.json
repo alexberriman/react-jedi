@@ -27,7 +27,7 @@
       {
         "id": "feature-card-block",
         "description": "Move the existing FeatureCard component to blocks directory. Create multiple variants: icon-top, icon-left, icon-background, card-hover-effects, with/without CTA buttons. Add support for: custom icons (via react-icons), gradient backgrounds, border variants, shadow options, and animation on scroll. Create grid layout options (2x2, 3x1, 3x2) in Storybook. Add to blocks showcase with interactive examples.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "pricing-table-block",

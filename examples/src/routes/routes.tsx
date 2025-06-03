@@ -66,9 +66,6 @@ const CardShowcase = lazy(() =>
 const CarouselShowcase = lazy(() =>
   import("../pages/showcase/carousel").then((module) => ({ default: module.CarouselShowcase }))
 );
-const FeatureCardShowcase = lazy(() =>
-  import("../pages/showcase/feature-card").then((module) => ({ default: module.FeatureCardShowcase }))
-);
 const FooterShowcase = lazy(() =>
   import("../pages/showcase/footer").then((module) => ({ default: module.FooterShowcase }))
 );
@@ -233,6 +230,9 @@ const PageHeroHeaderShowcase = lazy(() =>
 );
 const FooterBlockShowcase = lazy(() =>
   import("../pages/showcase/blocks/footer").then((module) => ({ default: module.FooterBlockShowcase }))
+);
+const FeatureCardBlockShowcase = lazy(() =>
+  import("../pages/showcase/blocks/feature-card").then((module) => ({ default: module.FeatureCardShowcasePage }))
 );
 
 // Documentation pages
@@ -414,6 +414,10 @@ export const router = createBrowserRouter([
                 path: "footer",
                 element: <AsyncRoute component={FooterBlockShowcase} loadingText="Loading footer block..." />,
               },
+              {
+                path: "feature-card",
+                element: <AsyncRoute component={FeatureCardBlockShowcase} loadingText="Loading feature card block..." />,
+              },
             ],
           },
           {
@@ -525,10 +529,6 @@ export const router = createBrowserRouter([
           {
             path: "collapsible",
             element: <AsyncRoute component={CollapsibleShowcase} loadingText="Loading collapsible showcase..." />,
-          },
-          {
-            path: "feature-card",
-            element: <AsyncRoute component={FeatureCardShowcase} loadingText="Loading feature card showcase..." />,
           },
           {
             path: "footer",

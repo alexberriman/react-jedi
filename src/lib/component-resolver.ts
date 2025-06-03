@@ -621,6 +621,30 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       FAQBlock as unknown as React.ComponentType<Record<string, unknown>>,
       { items: [] } // Provide default required props
     ),
+    TeamGrid: asComponent(
+      Blocks.TeamGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      { members: [] } // Provide default required props
+    ),
+    "team-grid": asComponent(
+      Blocks.TeamGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      { members: [] } // Provide default required props
+    ),
+    BlogPostGrid: asComponent(
+      Blocks.BlogPostGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      { posts: [] } // Provide default required props
+    ),
+    "blog-post-grid": asComponent(
+      Blocks.BlogPostGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      { posts: [] } // Provide default required props
+    ),
+    BlogPostDetail: asComponent(
+      Blocks.BlogPostDetail as unknown as React.ComponentType<Record<string, unknown>>,
+      { title: "", content: "", author: { name: "" }, publishDate: new Date().toISOString() } // Provide default required props
+    ),
+    "blog-post-detail": asComponent(
+      Blocks.BlogPostDetail as unknown as React.ComponentType<Record<string, unknown>>,
+      { title: "", content: "", author: { name: "" }, publishDate: new Date().toISOString() } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

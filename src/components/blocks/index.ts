@@ -16,3 +16,6 @@ export * from "./timeline";
 export * from "./testimonial";
 export * from "./carousel";
 export * from "./faq";
+export * from "./team-grid";
+export * from "./blog-post-grid";
+export * from "./blog-post-detail";

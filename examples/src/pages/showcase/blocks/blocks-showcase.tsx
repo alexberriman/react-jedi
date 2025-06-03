@@ -113,18 +113,21 @@ const blockCategories: BlockCategory[] = [
       },
       {
         name: "Team Grid",
-        description: "Display team members with photos and bios.",
-        status: "pending",
+        description: "Display team members with photos, bios, filtering, and detailed modal views.",
+        status: "completed",
+        path: "/showcase/blocks/team-grid",
       },
       {
         name: "Blog Post Grid",
-        description: "Grid layout for blog posts with filtering.",
-        status: "pending",
+        description: "Grid layout for blog posts with filtering, search, sorting, and multiple display variants.",
+        status: "completed",
+        path: "/showcase/blocks/blog-post-grid",
       },
       {
         name: "Blog Post Detail",
         description: "Full blog post layout with TOC and related posts.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/blocks/blog-post-detail",
       },
     ],
   },
@@ -943,5 +946,133 @@ const blockPreviews: Record<string, ComponentSpec> = {
       description: "Can't find what you're looking for?",
       buttonText: "Contact Support",
     },
+  },
+  "Team Grid": {
+    type: "team-grid",
+    props: {
+      variant: "grid",
+      columns: "3",
+      gap: "md",
+      showDepartmentFilter: true,
+      showSearch: true,
+      showModal: true,
+      showSocialLinks: true,
+      showContactInfo: false,
+      showBio: true,
+      maxBioLength: 80,
+      avatarSize: "md",
+      alignment: "center",
+      animated: true,
+      hoverEffect: "lift",
+      members: [
+        {
+          id: "1",
+          name: "Sarah Johnson",
+          role: "CEO",
+          department: "Executive",
+          bio: "Visionary leader with 15+ years of experience in tech startups.",
+          avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face",
+          socialLinks: [
+            { platform: "linkedin", url: "https://linkedin.com/in/sarah-johnson" },
+            { platform: "twitter", url: "https://twitter.com/sarahjohnson" },
+          ],
+        },
+        {
+          id: "2",
+          name: "Michael Chen",
+          role: "CTO",
+          department: "Engineering",
+          bio: "Full-stack engineer turned technical leader with scalable architecture expertise.",
+          avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+          socialLinks: [
+            { platform: "linkedin", url: "https://linkedin.com/in/michael-chen" },
+          ],
+        },
+        {
+          id: "3",
+          name: "Emily Rodriguez",
+          role: "Head of Design",
+          department: "Design",
+          bio: "Award-winning UX designer passionate about beautiful user experiences.",
+          avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+          socialLinks: [
+            { platform: "linkedin", url: "https://linkedin.com/in/emily-rodriguez" },
+            { platform: "twitter", url: "https://twitter.com/emilydesigns" },
+          ],
+        },
+      ],
+    },
+  },
+  "Blog Post Grid": {
+    type: "BlogPostGrid",
+    props: {
+      variant: "cards",
+      showFilters: true,
+      showSearch: true,
+      showPagination: true,
+      postsPerPage: 3,
+      posts: [
+        {
+          id: "1",
+          title: "Getting Started with React Jedi",
+          excerpt: "Learn how to build modern React interfaces using JSON specifications with React Jedi's powerful render engine.",
+          featuredImage: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=450&fit=crop",
+          category: "Tutorial",
+          author: {
+            name: "John Smith",
+            avatar: "https://i.pravatar.cc/150?img=8"
+          },
+          publishDate: "2024-01-15T10:00:00Z",
+          readTime: 5,
+          slug: "getting-started-react-jedi"
+        },
+        {
+          id: "2",
+          title: "Building Scalable Component Systems",
+          excerpt: "Discover best practices for creating reusable component libraries that scale with your application.",
+          featuredImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=450&fit=crop",
+          category: "Architecture",
+          author: {
+            name: "Emily Chen",
+            avatar: "https://i.pravatar.cc/150?img=5"
+          },
+          publishDate: "2024-01-10T14:30:00Z",
+          readTime: 8,
+          isFeatured: true,
+          slug: "building-scalable-component-systems"
+        },
+        {
+          id: "3",
+          title: "Performance Optimization Tips",
+          excerpt: "Master the art of optimizing React applications for better performance and user experience.",
+          featuredImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop",
+          category: "Performance",
+          author: {
+            name: "Mike Johnson",
+            avatar: "https://i.pravatar.cc/150?img=12"
+          },
+          publishDate: "2024-01-05T09:15:00Z",
+          readTime: 12,
+          slug: "performance-optimization-tips"
+        }
+      ]
+    }
+  },
+  "Blog Post Detail": {
+    type: "BlogPostDetail",
+    props: {
+      variant: "minimal",
+      title: "Getting Started with React Jedi",
+      content: "<p>Learn how to build modern React interfaces using JSON specifications...</p>",
+      author: {
+        name: "John Smith",
+        avatar: "https://i.pravatar.cc/150?img=8"
+      },
+      publishDate: "2024-01-15T10:00:00Z",
+      categories: ["Tutorial"],
+      showComments: false,
+      showShareButtons: false,
+      showProgressBar: false
+    }
   },
 };

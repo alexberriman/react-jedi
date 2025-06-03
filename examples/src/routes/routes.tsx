@@ -240,6 +240,15 @@ const FeatureCardBlockShowcase = lazy(() =>
 const PricingTableShowcase = lazy(() =>
   import("../pages/showcase/blocks/pricing-table").then((module) => ({ default: module.PricingTableShowcase }))
 );
+const TeamGridShowcase = lazy(() =>
+  import("../pages/showcase/blocks/team-grid").then((module) => ({ default: module.TeamGridShowcase }))
+);
+const BlogPostGridShowcase = lazy(() =>
+  import("../pages/showcase/blocks/blog-post-grid").then((module) => ({ default: module.BlogPostGridShowcase }))
+);
+const BlogPostDetailShowcase = lazy(() =>
+  import("../pages/showcase/blocks/blog-post-detail").then((module) => ({ default: module.BlogPostDetailShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -443,6 +452,18 @@ export const router = createBrowserRouter([
               {
                 path: "carousel",
                 element: <AsyncRoute component={CarouselBlockShowcase} loadingText="Loading carousel block..." />,
+              },
+              {
+                path: "team-grid",
+                element: <AsyncRoute component={TeamGridShowcase} loadingText="Loading team grid block..." />,
+              },
+              {
+                path: "blog-post-grid",
+                element: <AsyncRoute component={BlogPostGridShowcase} loadingText="Loading blog post grid block..." />,
+              },
+              {
+                path: "blog-post-detail",
+                element: <AsyncRoute component={BlogPostDetailShowcase} loadingText="Loading blog post detail block..." />,
               },
             ],
           },

@@ -62,17 +62,17 @@
       {
         "id": "team-grid-block",
         "description": "Create Team Grid block. Variants: grid cards, list view, minimal circles, with hover bio, and department groups. Features: profile photos with fallback, name/role/bio, social links (LinkedIn, Twitter), department tags, and direct contact options. Add filter by department, search by name, and optional org chart view. Include hover effects and modal bio option.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "blog-post-grid-block",
         "description": "Create Blog Post Grid block. Variants: cards with image, minimal list, magazine style, with sidebar, and masonry. Features: featured image, category tags, read time, author info, excerpt, and publish date. Add pagination, category filtering, search, and sort options (date, popularity). Support featured/sticky posts, loading states, and infinite scroll option.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "blog-post-detail-block",
         "description": "Create Blog Post Detail block. Variants: centered article, with sidebar, magazine layout, and minimal. Features: hero image, table of contents, share buttons, author bio box, related posts, and comments section placeholder. Add reading progress bar, estimated read time, syntax highlighting for code blocks, and image lightbox. Include prev/next navigation.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "brand-logo-bar-block",

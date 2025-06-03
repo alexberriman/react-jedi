@@ -273,13 +273,12 @@ function AccordionVariant({
   readonly allowCollapse?: boolean;
 }) {
   const defaultValue = openFirst ? items[0]?.id : undefined;
-  const type = allowCollapse ? "single" : "multiple";
 
   return (
     <Accordion 
-      type={type as "single"}
+      type="single"
       defaultValue={defaultValue}
-      collapsible={allowCollapse}
+      {...(allowCollapse && { collapsible: true })}
       className="w-full"
     >
       {items.map((item, index) => (

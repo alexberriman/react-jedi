@@ -162,7 +162,7 @@
       {
         "id": "job-listings-block",
         "description": "Create Job Listings block for career pages. Variants: card grid, list view, featured positions, department groups, and minimal listings. Features: job title, department, location, salary range, employment type, and application buttons. Add filtering by department/location/type, search functionality, and application form integration. Include modern job card design with clear hierarchy and easy application flow.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "portfolio-case-studies-block",

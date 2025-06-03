@@ -143,6 +143,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/blog-post-detail",
       },
+      {
+        name: "Job Listings",
+        description: "Display job openings with filtering, search, salary ranges, and multiple layout variants.",
+        status: "completed",
+        path: "/showcase/blocks/job-listings",
+      },
     ],
   },
   {
@@ -1140,6 +1146,86 @@ const blockPreviews: Record<string, ComponentSpec> = {
           publishDate: "2024-01-05T09:15:00Z",
           readTime: 12,
           slug: "performance-optimization-tips"
+        }
+      ]
+    }
+  },
+  "Job Listings": {
+    type: "JobListings",
+    props: {
+      variant: "grid",
+      columns: "3",
+      showFilters: true,
+      showSearch: true,
+      showSalary: true,
+      animated: true,
+      jobs: [
+        {
+          id: "1",
+          title: "Senior Frontend Developer",
+          department: "Engineering",
+          location: "San Francisco, CA",
+          type: "full-time",
+          salaryRange: {
+            min: 150000,
+            max: 200000,
+            currency: "$",
+            period: "yearly"
+          },
+          description: "Join our engineering team to build cutting-edge web applications using React, TypeScript, and modern frontend technologies.",
+          requirements: [
+            "5+ years of React experience",
+            "Strong TypeScript skills",
+            "Experience with modern frontend tools"
+          ],
+          posted: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+          featured: true,
+          experienceLevel: "senior",
+          companyName: "TechCorp"
+        },
+        {
+          id: "2",
+          title: "Product Designer",
+          department: "Design",
+          location: "Remote",
+          type: "full-time",
+          salaryRange: {
+            min: 120000,
+            max: 160000,
+            currency: "$",
+            period: "yearly"
+          },
+          description: "We're looking for a talented Product Designer to create beautiful and intuitive user experiences.",
+          requirements: [
+            "3+ years of product design experience",
+            "Proficiency in Figma",
+            "Strong portfolio"
+          ],
+          posted: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+          experienceLevel: "mid",
+          companyName: "Innovation Labs"
+        },
+        {
+          id: "3",
+          title: "Marketing Manager",
+          department: "Marketing",
+          location: "New York, NY",
+          type: "full-time",
+          salaryRange: {
+            min: 100000,
+            max: 130000,
+            currency: "$",
+            period: "yearly"
+          },
+          description: "Lead our marketing efforts and help us grow our brand presence in the market.",
+          requirements: [
+            "5+ years of marketing experience",
+            "Experience with digital marketing",
+            "Strong analytical skills"
+          ],
+          posted: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+          experienceLevel: "mid",
+          companyName: "Digital Solutions"
         }
       ]
     }

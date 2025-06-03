@@ -249,6 +249,9 @@ const BlogPostGridShowcase = lazy(() =>
 const BlogPostDetailShowcase = lazy(() =>
   import("../pages/showcase/blocks/blog-post-detail").then((module) => ({ default: module.BlogPostDetailShowcase }))
 );
+const JobListingsShowcase = lazy(() =>
+  import("../pages/showcase/blocks/job-listings").then((module) => ({ default: module.JobListingsShowcasePage }))
+);
 const BrandLogoBarShowcase = lazy(() =>
   import("../pages/showcase/blocks/brand-logo-bar").then((module) => ({ default: module.BrandLogoBarShowcase }))
 );
@@ -518,6 +521,10 @@ export const router = createBrowserRouter([
               {
                 path: "blog-post-detail",
                 element: <AsyncRoute component={BlogPostDetailShowcase} loadingText="Loading blog post detail block..." />,
+              },
+              {
+                path: "job-listings",
+                element: <AsyncRoute component={JobListingsShowcase} loadingText="Loading job listings block..." />,
               },
               {
                 path: "brand-logo-bar",

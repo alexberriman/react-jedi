@@ -36,3 +36,4 @@ export * from "./restaurant-menu";
 export * from "./typewriter-text";
 export * from "./process-steps";
 export * from "./product-showcase";
+export * from "./job-listings";

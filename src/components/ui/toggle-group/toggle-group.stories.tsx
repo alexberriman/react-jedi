@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, fn, userEvent, within } from "@storybook/test";
 import { ToggleGroup, ToggleGroupItem } from "./toggle-group";
 import {
   Bold,
@@ -47,6 +47,7 @@ export const Single: Story = {
   args: {
     type: "single",
     defaultValue: "center",
+    onValueChange: fn(),
     children: (
       <>
         <ToggleGroupItem value="left" aria-label="Left aligned">
@@ -97,6 +98,7 @@ export const Multiple: Story = {
   args: {
     type: "multiple",
     defaultValue: ["bold"],
+    onValueChange: fn(),
     children: (
       <>
         <ToggleGroupItem value="bold" aria-label="Toggle bold">

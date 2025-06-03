@@ -69,9 +69,9 @@ const generateSamplePosts = (count: number) => {
     tags: ['react', 'javascript', 'web'],
     author: authors[i % authors.length],
     publishDate: new Date(Date.now() - (i * 24 * 60 * 60 * 1000)).toISOString(),
-    readTime: Math.floor(Math.random() * 12) + 3,
+    readTime: ((i * 7) % 12) + 3,
     isFeatured: i < 3,
-    slug: titles[i % titles.length].toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    slug: titles[i % titles.length].toLowerCase().replaceAll(/[^a-z0-9]+/g, '-'),
   }));
 };
 
@@ -136,7 +136,7 @@ const gridVariants = [
                     {
                       type: "Badge",
                       variant: "secondary",
-                      children: Math.floor(Math.random() * 20) + 5
+                      children: ((category.length * 3) % 20) + 5
                     }
                   ]
                 }))

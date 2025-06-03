@@ -496,7 +496,7 @@ export function BlocksShowcasePage() {
             <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-6 text-center">
               <Text className="font-semibold mb-2">🚧 More Blocks Coming Soon!</Text>
               <Text variant="muted">
-                We're actively building more component blocks. Check back regularly for updates.
+                We&apos;re actively building more component blocks. Check back regularly for updates.
               </Text>
             </div>
           )}

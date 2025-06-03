@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { render } from "@alexberriman/react-jedi";
 import type { ComponentSpec } from "@alexberriman/react-jedi";
-import { usePageMetadata } from "../../../../../lib/meta";
-import { ShowcaseWrapper } from "../../../../../components/ui/showcase-wrapper";
-import { PageHeader } from "../../../../../components/ui/page-header";
+import { usePageMetadata } from "@/lib/meta";
+import { ShowcaseWrapper } from "@/components/ui/showcase-wrapper";
+import { PageHeader } from "@/components/ui/page-header";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

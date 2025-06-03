@@ -147,7 +147,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Contact Form",
         description: "Contact forms with validation and map integration.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/blocks/contact-form",
       },
       {
         name: "Newsletter Signup",
@@ -1221,5 +1222,13 @@ const blockPreviews: Record<string, ComponentSpec> = {
         ]
       }
     ]
+  },
+  "Contact Form": {
+    type: "ContactForm",
+    variant: "simple",
+    title: "Get in Touch",
+    description: "We'd love to hear from you. Send us a message!",
+    submitText: "Send Message",
+    animated: true,
   },
 };

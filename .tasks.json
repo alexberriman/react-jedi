@@ -92,7 +92,7 @@
       {
         "id": "contact-form-block",
         "description": "Create Contact Form block. Variants: simple contact, detailed inquiry, with map, split screen, and minimal. Features: form validation, field types (text, email, phone, textarea, select), optional fields, and file upload. Add reCAPTCHA support, success/error states, loading states, and thank you message. Include office info sidebar option with map integration.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "latest-news-block",

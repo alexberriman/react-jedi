@@ -670,6 +670,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       PageSection as unknown as React.ComponentType<Record<string, unknown>>,
       { children: null } // Provide default required props
     ),
+    ContactForm: asComponent(
+      Blocks.ContactForm as unknown as React.ComponentType<Record<string, unknown>>,
+      { title: "Contact Us", description: "Get in touch" } // Provide default required props
+    ),
+    "contact-form": asComponent(
+      Blocks.ContactForm as unknown as React.ComponentType<Record<string, unknown>>,
+      { title: "Contact Us", description: "Get in touch" } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

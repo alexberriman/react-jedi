@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContactForm",
+  "description": "Contact form block for collecting user inquiries",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "ContactForm"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["simple", "detailed", "with-map", "split-screen", "minimal"],
+      "default": "simple",
+      "description": "Visual variant of the contact form"
+    },
+    "title": {
+      "type": "string",
+      "default": "Contact Us",
+      "description": "Form title"
+    },
+    "description": {
+      "type": "string",
+      "default": "Get in touch with our team",
+      "description": "Form description text"
+    },
+    "officeInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Office name"
+        },
+        "address": {
+          "type": "string",
+          "description": "Office address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number"
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact email"
+        },
+        "hours": {
+          "type": "string",
+          "description": "Business hours"
+        },
+        "mapUrl": {
+          "type": "string",
+          "description": "Google Maps embed URL"
+        }
+      },
+      "required": ["address", "phone", "email"],
+      "description": "Office contact information for with-map variant"
+    },
+    "subjects": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": ["General Inquiry", "Support", "Sales", "Partnership", "Other"],
+      "description": "Subject options for the form"
+    },
+    "showFileUpload": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show file upload field"
+    },
+    "showPhone": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show phone number field"
+    },
+    "showCompany": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show company field"
+    },
+    "showPreferredContact": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show preferred contact method selection"
+    },
+    "submitText": {
+      "type": "string",
+      "default": "Send Message",
+      "description": "Submit button text"
+    },
+    "recaptchaSiteKey": {
+      "type": "string",
+      "description": "reCAPTCHA site key for spam protection"
+    },
+    "successMessage": {
+      "type": "string",
+      "default": "Thank you for your message. We'll get back to you soon!",
+      "description": "Message shown on successful submission"
+    },
+    "errorMessage": {
+      "type": "string",
+      "default": "Something went wrong. Please try again later.",
+      "description": "Message shown on submission error"
+    },
+    "backgroundImage": {
+      "type": "string",
+      "description": "Background image URL for split-screen variant"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable animations"
+    }
+  },
+  "required": ["type"]
+}

@@ -258,6 +258,9 @@ const ServiceListShowcase = lazy(() =>
 const PageSectionShowcase = lazy(() =>
   import("../pages/showcase/blocks/page-section").then((module) => ({ default: module.default }))
 );
+const ContactFormShowcase = lazy(() =>
+  import("../pages/showcase/blocks/contact-form").then((module) => ({ default: module.ContactFormShowcasePage }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -485,6 +488,10 @@ export const router = createBrowserRouter([
               {
                 path: "page-section",
                 element: <AsyncRoute component={PageSectionShowcase} loadingText="Loading page section block..." />,
+              },
+              {
+                path: "contact-form",
+                element: <AsyncRoute component={ContactFormShowcase} loadingText="Loading contact form block..." />,
               },
             ],
           },

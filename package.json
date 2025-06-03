@@ -49,6 +49,11 @@
     "example-app": "npm run build && vite --config examples/vite.config.ts",
     "example-app:build": "npm run build && vite build --config examples/vite.config.ts",
     "build:example": "npm run build && vite build --config examples/vite.config.ts",
+    "docker:build": "docker build -f examples/Dockerfile -t ghcr.io/alexberriman/react-jedi-example:latest .",
+    "docker:push": "docker push ghcr.io/alexberriman/react-jedi-example:latest",
+    "docker:build-push": "npm run docker:build && npm run docker:push",
+    "k8s:apply": "kubectl apply -f examples/kubernetes/",
+    "k8s:deploy": "npm run docker:build-push && npm run k8s:apply",
     "release:patch": "./scripts/release.sh --patch",
     "release:minor": "./scripts/release.sh --minor",
     "release:major": "./scripts/release.sh --major"

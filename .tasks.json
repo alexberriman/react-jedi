@@ -17,7 +17,7 @@
       {
         "id": "markdown-component",
         "description": "Create a Markdown component as a core UI component in src/components/ui/. Research and select a lightweight, modern React markdown library (consider: react-markdown, markdown-to-jsx, or similar - prioritize bundle size and active maintenance). Component should: 1) Accept markdown string as input and render formatted content, 2) Support common markdown features (headings, lists, links, code blocks, tables, images), 3) Allow custom component overrides for elements, 4) Support syntax highlighting for code blocks, 5) Be fully typed with TypeScript. Tasks: Create component with proper error handling, add comprehensive Storybook stories showing all markdown features, add to component showcase page, create dedicated showcase page at /showcase/markdown with live editor demo, ensure it works with the render function via JSON specification.",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   },

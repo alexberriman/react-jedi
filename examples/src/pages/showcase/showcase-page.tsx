@@ -208,6 +208,12 @@ const categories: ComponentCategory[] = [
         status: "completed",
         type: "custom",
       },
+      {
+        name: "Markdown",
+        description: "Render markdown content with syntax highlighting and GFM support.",
+        status: "completed",
+        type: "custom",
+      },
     ],
   },
   {

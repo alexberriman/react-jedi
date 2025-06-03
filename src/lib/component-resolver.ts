@@ -181,6 +181,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     Text: asComponent(UI.Text),
     Heading: asComponent(UI.Heading),
     BlockQuote: asComponent(UI.BlockQuote),
+    Markdown: asComponent(
+      UI.Markdown as unknown as React.ComponentType<Record<string, unknown>>,
+      { content: "" } // Provide default required props
+    ),
+    markdown: asComponent(
+      UI.Markdown as unknown as React.ComponentType<Record<string, unknown>>,
+      { content: "" } // Provide default required props
+    ),
 
     // UI Components
     Button: asComponent(UI.Button),

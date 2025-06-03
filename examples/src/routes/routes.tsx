@@ -225,6 +225,9 @@ const ComboboxShowcase = lazy(() =>
 const BlocksShowcasePage = lazy(() =>
   import("../pages/showcase/blocks").then((module) => ({ default: module.BlocksShowcasePage }))
 );
+const HeaderShowcase = lazy(() =>
+  import("../pages/showcase/header").then((module) => ({ default: module.HeaderShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -643,6 +646,10 @@ export const router = createBrowserRouter([
           {
             path: "heading",
             element: <AsyncRoute component={HeadingShowcase} loadingText="Loading heading showcase..." />,
+          },
+          {
+            path: "header",
+            element: <AsyncRoute component={HeaderShowcase} loadingText="Loading header showcase..." />,
           },
           {
             path: "hover-card",

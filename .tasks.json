@@ -1,27 +1,5 @@
 [
   {
-    "id": "polish",
-    "description": "Polish and enhancement tasks to improve the core library functionality, particularly around SEO/metadata handling and templating capabilities for the render function.",
-    "status": "pending",
-    "subtasks": [
-      {
-        "id": "seo-metadata-serialization",
-        "description": "Ensure SEO and metadata configuration can be serialized and passed through the render function. Currently the example app shows React component usage, but we need everything to work through JSON specification since APIs send down JSON specs. Tasks: 1) Check if SEO/structured data config is already serializable via render function options, 2) If not, implement serialization support for page titles, meta descriptions, Open Graph tags, Twitter cards, and structured data, 3) Update the /examples/seo-metadata page with clear instructions on how to configure SEO via JSON through render function, 4) Add a new comprehensive SEO documentation page to /documentation section explaining JSON-based SEO configuration with examples.",
-        "status": "completed"
-      },
-      {
-        "id": "templating-engine",
-        "description": "Implement a templating engine to support variables in JSON specifications. Use case: components/blocks can use placeholders like {{currentYear}}, {{companyName}}, {{userEmail}} etc. instead of hardcoding values. Tasks: 1) Research and choose between creating custom engine or using lightweight open-source solution (e.g. mustache, handlebars-lite), 2) Implement variable substitution in render function with support for nested properties, 3) Add reserved/special variables (currentYear, currentDate, timestamp, etc.), 4) Update render function to accept variables parameter, 5) Add comprehensive tests for templating, 6) Update README.md with templating documentation, 7) Create new documentation page at /documentation/templating with examples and variable reference.",
-        "status": "completed"
-      },
-      {
-        "id": "markdown-component",
-        "description": "Create a Markdown component as a core UI component in src/components/ui/. Research and select a lightweight, modern React markdown library (consider: react-markdown, markdown-to-jsx, or similar - prioritize bundle size and active maintenance). Component should: 1) Accept markdown string as input and render formatted content, 2) Support common markdown features (headings, lists, links, code blocks, tables, images), 3) Allow custom component overrides for elements, 4) Support syntax highlighting for code blocks, 5) Be fully typed with TypeScript. Tasks: Create component with proper error handling, add comprehensive Storybook stories showing all markdown features, add to component showcase page, create dedicated showcase page at /showcase/markdown with live editor demo, ensure it works with the render function via JSON specification.",
-        "status": "completed"
-      }
-    ]
-  },
-  {
     "id": "blocks",
     "description": "We have a great foundation of core library components (i.e. button etc.) however I want to introduce new, more advanced components (we call 'blocks'). These more advanced components should allow users to create fully functioning websites. All 'advanced' components should be in ./src/components/blocks, should be added to the component map, should have storybook files, should be added to the example site (create an 'Component Blocks' link under the 'Components' link in the header, and make sure each 'advanced' component/block has its own dedicated page, as well as being added to a new /showcase/blocks page).",
     "status": "pending",
@@ -34,7 +12,7 @@
       {
         "id": "header-block",
         "description": "Create a 'header' block - this is meant to be the header (with logo, navigation, light/dark mode toggle, fixed/floating) etc. that is at the top of all pages. There should be quite a few different variants and options (i.e. logo might be an image, text, etc. they might not want light/dark mode toggle, might not want it floating/sticky, might want buttons on right to login, signup etc. etc.) - it should be really flexible, while still looking really nice, clean and modern. Internally it should use existing components (i.e. menu, nav, button etc.). Should be mobile responsive",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "page-header",

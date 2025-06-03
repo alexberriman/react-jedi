@@ -2,6 +2,7 @@ import * as React from "react";
 import type { ReactNode } from "react";
 import type { ComponentResolver, ComponentProps } from "../types/schema/components";
 import * as UI from "../components/ui";
+import * as Blocks from "../components/blocks";
 import { BreadcrumbComponent } from "../components/ui/breadcrumb-component";
 import { HeadManager } from "../components/ui/head-manager";
 import { ExtendedHeadManager } from "./seo/head-manager-extended";
@@ -566,6 +567,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     "extended-head-manager": asComponent(
       ExtendedHeadManager as unknown as React.ComponentType<Record<string, unknown>>,
       { metadata: { title: "" } } // Provide default required props
+    ),
+
+    // Block Components
+    Header: asComponent(
+      Blocks.Header as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    header: asComponent(
+      Blocks.Header as unknown as React.ComponentType<Record<string, unknown>>
     ),
   };
 

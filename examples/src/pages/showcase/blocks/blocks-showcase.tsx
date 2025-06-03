@@ -29,7 +29,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Header",
         description: "Flexible header block with logo, navigation, and actions.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/header",
       },
       {
         name: "Footer",
@@ -508,5 +509,48 @@ export function BlocksShowcasePage() {
 
 // Block preview specifications (placeholder for now, will be populated as blocks are built)
 const blockPreviews: Record<string, ComponentSpec> = {
-  // Previews will be added as blocks are implemented
+  Header: {
+    type: "Header",
+    props: {
+      logo: {
+        type: "text",
+        text: "YourBrand",
+        href: "#",
+      },
+      navigation: [
+        {
+          label: "Products",
+          items: [
+            {
+              label: "Analytics",
+              href: "#analytics",
+              description: "Powerful analytics tools",
+            },
+            {
+              label: "Security",
+              href: "#security",
+              description: "Enterprise-grade security",
+            },
+          ],
+        },
+        {
+          label: "Pricing",
+          href: "#pricing",
+        },
+      ],
+      actions: [
+        {
+          label: "Sign In",
+          variant: "ghost",
+          href: "#signin",
+        },
+        {
+          label: "Get Started",
+          variant: "default",
+          href: "#signup",
+        },
+      ],
+      showDarkModeToggle: true,
+    },
+  },
 };

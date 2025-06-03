@@ -88,6 +88,8 @@ export default [
       "unicorn/no-useless-undefined": "off",
       "unicorn/no-null": "off",
       "unicorn/prevent-abbreviations": "off",
+      "sonarjs/different-types-comparison": "off",
+      "sonarjs/function-return-type": "off",
     },
   },
   {
@@ -164,6 +166,8 @@ export default [
       "unicorn/no-useless-undefined": "off",
       "unicorn/no-null": "off",
       "unicorn/prevent-abbreviations": "off",
+      "sonarjs/different-types-comparison": "off",
+      "sonarjs/function-return-type": "off",
     },
   },
   // Configuration for Node.js scripts

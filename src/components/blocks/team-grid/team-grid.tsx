@@ -171,7 +171,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const renderSocialLinks = () => {
+  const renderSocialLinks = (): React.ReactElement => {
     if (!showSocialLinks || !member.socialLinks?.length) return <></>;
 
     return (
@@ -205,7 +205,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
     );
   };
 
-  const renderContactInfo = () => {
+  const renderContactInfo = (): React.ReactElement => {
     if (!showContactInfo) return <></>;
 
     return (
@@ -226,7 +226,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
     );
   };
 
-  const renderDetailedModal = (): React.ReactNode => {
+  const renderDetailedModal = (): React.ReactElement | null => {
     if (!showModal) return null;
 
     return (
@@ -301,7 +301,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
     );
   };
 
-  const renderMinimalVariant = (): JSX.Element => {
+  const renderMinimalVariant = (): React.ReactElement => {
     const content = (
       <div className={cn("flex items-center gap-3 p-3 rounded-lg", hoverEffects[hoverEffect])}>
         <Avatar className={avatarSizes[avatarSize]}>
@@ -324,7 +324,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
     return content;
   };
 
-  const renderListVariant = () => {
+  const renderListVariant = (): React.ReactElement => {
     const content = (
       <Card className={cn("w-full", hoverEffects[hoverEffect])}>
         <CardContent className="p-4">
@@ -361,7 +361,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
     return content;
   };
 
-  const renderDefaultVariant = () => {
+  const renderDefaultVariant = (): React.ReactElement => {
     const content = (
       <Card className={cn("h-full", hoverEffects[hoverEffect])}>
         <CardHeader className={cn("text-center space-y-4", alignmentClasses[alignment])}>
@@ -396,13 +396,13 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
     return content;
   };
 
-  const getCardContent = () => {
+  const getCardContent = (): React.ReactElement => {
     if (variant === "minimal") return renderMinimalVariant();
     if (variant === "list") return renderListVariant();
     return renderDefaultVariant();
   };
 
-  const wrapWithModalAndAnimation = (content: React.ReactNode): React.ReactNode => {
+  const wrapWithModalAndAnimation = (content: React.ReactNode): React.ReactElement => {
     const wrappedContent = showModal ? (
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogTrigger asChild>
@@ -411,7 +411,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         {renderDetailedModal()}
       </Dialog>
     ) : (
-      content
+      <>{content}</>
     );
 
     if (animated) {
@@ -428,7 +428,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       );
     }
 
-    return wrappedContent;
+    return <>{wrappedContent}</>;
   };
 
   const cardContent = getCardContent();

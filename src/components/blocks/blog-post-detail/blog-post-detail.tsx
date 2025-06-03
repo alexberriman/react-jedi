@@ -654,7 +654,7 @@ export default function BlogPostDetail({
               {showShareButtons && (
                 <div className="mt-8">
                   <ShareButtons 
-                    url={typeof window !== 'undefined' ? window.location.href : '#'} 
+                    url={globalThis.window === undefined ? '#' : globalThis.location.href} 
                     title={title}
                     animated={animated}
                   />

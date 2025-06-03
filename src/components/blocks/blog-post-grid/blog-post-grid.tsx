@@ -260,7 +260,7 @@ export function BlogPostGrid({
   className,
   sidebarContent,
   ...properties
-}: BlogPostGridProperties) {
+}: Readonly<BlogPostGridProperties>) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('date-desc');
@@ -358,13 +358,13 @@ export function BlogPostGrid({
 
     switch (variant) {
       case 'minimal': {
-        return [
-          <div key="minimal-list" className="col-span-full border rounded-lg overflow-hidden">
+        return (
+          <div className="col-span-full border rounded-lg overflow-hidden">
             {paginatedPosts.map(post => (
               <BlogPostListItem key={post.id} post={post} />
             ))}
           </div>
-        ];
+        );
       }
 
       case 'magazine': {

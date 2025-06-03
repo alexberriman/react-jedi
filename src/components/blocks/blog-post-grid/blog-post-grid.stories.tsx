@@ -97,7 +97,7 @@ const generateSamplePosts = (count: number) => {
     tags: ['react', 'javascript', 'web'],
     author: authors[i % authors.length],
     publishDate: new Date(Date.now() - (i * 24 * 60 * 60 * 1000)).toISOString(),
-    readTime: Math.floor(Math.random() * 10) + 3,
+    readTime: ((i * 7) % 10) + 3, // Deterministic value based on index
     isFeatured: i < 2,
     slug: `${titles[i % titles.length].toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')}`,
   }));
@@ -118,7 +118,7 @@ const SidebarContent = () => (
             <div key={category} className="flex items-center justify-between">
               <span className="text-sm">{category}</span>
               <Badge variant="secondary">
-                {Math.floor(Math.random() * 20) + 5}
+                {((category.length * 3) % 20) + 5}
               </Badge>
             </div>
           ))}

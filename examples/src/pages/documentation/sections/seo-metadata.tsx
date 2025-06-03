@@ -145,23 +145,29 @@ export function SEOMetadataPage() {
     "ogTitle": "Revolutionary Widget by ACME",
     "ogDescription": "Experience the future of productivity",
     "ogImage": "https://example.com/images/widget-og.jpg",
+    "ogType": "product",
+    "ogUrl": "https://example.com/products/widget",
     
     // Twitter Card metadata
     "twitterCard": "summary_large_image",
     "twitterTitle": "Check out ACME's Revolutionary Widget!",
     "twitterDescription": "Game-changing technology that transforms workflows",
     "twitterImage": "https://example.com/images/widget-twitter.jpg",
+    "twitterSite": "@acmecorp",
+    "twitterCreator": "@acmecorp",
     
     // SEO essentials
     "canonicalUrl": "https://example.com/products/widget",
+    "robots": "index, follow",
     
     // Favicon configuration
     "favicon": {
       "default": "/favicon.ico",
       "apple": "/apple-touch-icon.png",
-      "icon16": "/favicon-16x16.png",
-      "icon32": "/favicon-32x32.png",
-      "manifest": "/site.webmanifest"
+      "png16": "/favicon-16x16.png",
+      "png32": "/favicon-32x32.png",
+      "png192": "/android-chrome-192x192.png",
+      "png512": "/android-chrome-512x512.png"
     }
   },
   "titleSuffix": " | ACME Corp",
@@ -413,42 +419,226 @@ render(spec);`}
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
-          Structured Data Support
+          Structured Data Support with ExtendedHeadManager
         </h3>
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-          For structured data and rich snippets, use the <code>ExtendedHeadManager</code> component
-          or the structured data hooks. See the <a href="/examples/seo-metadata" className="text-blue-600 dark:text-blue-400 hover:underline">SEO examples page</a> for
-          detailed implementation guides.
+          React Jedi now supports structured data (JSON-LD) through JSON specifications using the <code>extended-head-manager</code> component.
+          This enables rich snippets in search results without writing any React code.
         </p>
 
         <div className="relative group mb-8">
           <div className="absolute -inset-1 hidden"></div>
-          <CodeBlock language="typescript" className="relative">
-{`import { render, ExtendedHeadManager } from "@alexberriman/react-jedi";
-
-const pageWithStructuredData = {
-  "type": "ExtendedHeadManager",
+          <CodeBlock language="json" className="relative">
+{`{
+  "type": "extended-head-manager",
   "metadata": {
-    "title": "Product Name",
-    "description": "Product description"
+    "title": "Executive Anvil - Premium Quality",
+    "description": "Sleek and durable executive anvil for professionals",
+    "ogImage": "https://example.com/anvil-og.jpg"
   },
   "structuredData": {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Executive Anvil",
-    "description": "Sleek and durable anvil",
+    "image": "https://example.com/anvil.jpg",
+    "description": "Sleek and durable anvil for the modern executive",
+    "sku": "0446310786",
+    "brand": {
+      "@type": "Organization",
+      "name": "ACME Corporation"
+    },
     "offers": {
       "@type": "Offer",
+      "url": "https://example.com/products/executive-anvil",
+      "priceCurrency": "USD",
       "price": "119.99",
-      "priceCurrency": "USD"
+      "priceValidUntil": "2024-12-31",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.4,
+      "reviewCount": 89
     }
   },
   "children": [
-    // Page content
+    // Your product page content
   ]
-};`}
+}`}
           </CodeBlock>
         </div>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+          Multiple Structured Data Objects
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          You can include multiple structured data objects by passing an array:
+        </p>
+
+        <div className="relative group mb-8">
+          <div className="absolute -inset-1 hidden"></div>
+          <CodeBlock language="json" className="relative">
+{`{
+  "type": "extended-head-manager",
+  "metadata": {
+    "title": "ACME Corporation - Official Website"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ACME Corporation",
+      "url": "https://example.com",
+      "logo": "https://example.com/logo.png",
+      "sameAs": [
+        "https://facebook.com/acmecorp",
+        "https://twitter.com/acmecorp",
+        "https://linkedin.com/company/acmecorp"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://example.com",
+      "name": "ACME Corporation",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://example.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ],
+  "children": [
+    // Page content
+  ]
+}`}
+          </CodeBlock>
+        </div>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+          Supported Schema Types
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          React Jedi supports all major Schema.org types for structured data:
+        </p>
+
+        <div className="grid lg:grid-cols-3 gap-4 mb-8">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Content Types</h4>
+            <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+              <li>• Article / BlogPosting</li>
+              <li>• NewsArticle</li>
+              <li>• WebPage</li>
+              <li>• FAQPage</li>
+              <li>• BreadcrumbList</li>
+            </ul>
+          </div>
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Commerce Types</h4>
+            <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+              <li>• Product</li>
+              <li>• Offer</li>
+              <li>• AggregateRating</li>
+              <li>• Review</li>
+              <li>• Organization</li>
+            </ul>
+          </div>
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Other Types</h4>
+            <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+              <li>• Person</li>
+              <li>• Event</li>
+              <li>• Recipe</li>
+              <li>• VideoObject</li>
+              <li>• WebSite</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+          Server-Driven SEO with Structured Data
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          Your API can dynamically generate both metadata and structured data:
+        </p>
+
+        <div className="relative group mb-8">
+          <div className="absolute -inset-1 hidden"></div>
+          <CodeBlock language="typescript" className="relative">
+{`// Example API endpoint returning complete SEO configuration
+app.get('/api/products/:id', async (req, res) => {
+  const product = await getProduct(req.params.id);
+  
+  res.json({
+    type: "extended-head-manager",
+    metadata: {
+      title: `${product.name} - ${product.brand}`,
+      description: product.shortDescription,
+      ogImage: product.socialImage,
+      canonicalUrl: `https://example.com/products/${product.slug}`
+    },
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.name,
+      image: product.images,
+      description: product.description,
+      sku: product.sku,
+      brand: {
+        "@type": "Organization",
+        name: product.brand
+      },
+      offers: {
+        "@type": "Offer",
+        url: product.url,
+        priceCurrency: product.currency,
+        price: product.price,
+        availability: product.inStock ? 
+          "https://schema.org/InStock" : 
+          "https://schema.org/OutOfStock"
+      },
+      aggregateRating: product.rating ? {
+        "@type": "AggregateRating",
+        ratingValue: product.rating.average,
+        reviewCount: product.rating.count
+      } : undefined
+    },
+    children: [
+      // Dynamic product page content
+    ]
+  });
+});`}
+          </CodeBlock>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-8">
+          <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">Pro Tips</h4>
+          <ul className="space-y-2 text-green-800 dark:text-green-200">
+            <li className="flex items-start">
+              <span className="mr-2">💡</span>
+              <span>Use <code>extended-head-manager</code> when you need structured data support</span>
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">💡</span>
+              <span>Test your structured data with Google's Rich Results Test tool</span>
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">💡</span>
+              <span>Keep structured data in sync with your visible content</span>
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">💡</span>
+              <span>Include all required properties for each schema type</span>
+            </li>
+          </ul>
+        </div>
+
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          For more examples and implementation details, visit the <a href="/examples/seo-metadata" className="text-blue-600 dark:text-blue-400 hover:underline">SEO examples page</a>.
+        </p>
 
         <PrevNextNavigation prev={prev} next={next} />
       </div>

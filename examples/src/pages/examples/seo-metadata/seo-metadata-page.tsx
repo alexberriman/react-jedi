@@ -337,30 +337,92 @@ const completeSeoSpec = {
   children: [
     // Your page content as JSON
   ]
+};
+
+// Example 3: Extended HeadManager with Structured Data (JSON-LD)
+const seoWithStructuredDataSpec = {
+  type: "extended-head-manager", // Use extended version for structured data
+  metadata: {
+    title: "Executive Anvil - Premium Quality | ACME Corp",
+    description: "Sleek and durable executive anvil for the modern professional",
+    keywords: ["anvil", "executive", "premium", "acme"],
+    ogTitle: "Executive Anvil by ACME",
+    ogDescription: "The ultimate anvil for executives",
+    ogImage: "https://example.com/anvil-og.jpg",
+    canonicalUrl: "https://example.com/products/executive-anvil"
+  },
+  // Structured data for rich snippets in search results
+  structuredData: {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Executive Anvil",
+    image: "https://example.com/anvil.jpg",
+    description: "Sleek and durable anvil for the modern executive",
+    sku: "0446310786",
+    brand: {
+      "@type": "Organization",
+      name: "ACME Corporation"
+    },
+    offers: {
+      "@type": "Offer",
+      url: "https://example.com/products/executive-anvil",
+      priceCurrency: "USD",
+      price: "119.99",
+      priceValidUntil: "2024-12-31",
+      itemCondition: "https://schema.org/NewCondition",
+      availability: "https://schema.org/InStock"
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 4.4,
+      reviewCount: 89
+    }
+  },
+  children: [
+    // Your product page content
+  ]
 };`;
 
-  const apiExample = `// Example: Server API returning JSON with SEO metadata
+  const apiExample = `// Example: Server API returning JSON with SEO metadata and structured data
 async function fetchPageData(pageId) {
   const response = await fetch(\`/api/pages/\${pageId}\`);
   const spec = await response.json();
   return spec;
 }
 
-// API response includes SEO metadata
+// API response includes SEO metadata AND structured data
 {
-  "type": "head-manager",
+  "type": "extended-head-manager",
   "metadata": {
-    "title": "Dynamic Page Title",
-    "description": "Server-generated description",
-    "ogImage": "https://cdn.example.com/generated-image.jpg",
-    // ... other metadata
+    "title": "Dynamic Product - Server Generated",
+    "description": "Server-generated product description",
+    "ogImage": "https://cdn.example.com/product-og.jpg",
+    "canonicalUrl": "https://example.com/products/abc123"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Dynamic Product Name",
+    "image": "https://cdn.example.com/product.jpg",
+    "description": "Product details from database",
+    "sku": "ABC123",
+    "brand": {
+      "@type": "Organization",
+      "name": "Brand Name"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "49.99",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
   },
   "children": [
     // Dynamic page content
   ]
 }
 
-// Render the server response
+// Render the server response with full SEO support
 const pageSpec = await fetchPageData("product-123");
 render(pageSpec);`;
 
@@ -638,6 +700,109 @@ function MyPage() {
                 </CardHeader>
                 <CardContent>
                   <Code language="typescript" code={headManagerExample} />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>🔥 Structured Data Types via JSON</CardTitle>
+                  <CardDescription>Different schema types supported through JSON specifications</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Code language="typescript" code={`// Article with structured data
+const articleSpec = {
+  type: "extended-head-manager",
+  metadata: {
+    title: "Understanding React Jedi - A Complete Guide",
+    description: "Learn how to build server-driven UIs with React Jedi",
+    author: "John Doe"
+  },
+  structuredData: {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Understanding React Jedi - A Complete Guide",
+    author: {
+      "@type": "Person",
+      name: "John Doe"
+    },
+    datePublished: "2024-05-18T08:00:00Z",
+    dateModified: "2024-05-19T10:00:00Z",
+    publisher: {
+      "@type": "Organization",
+      name: "Tech Blog",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://example.com/logo.png"
+      }
+    }
+  }
+};
+
+// FAQ Page with structured data
+const faqSpec = {
+  type: "extended-head-manager",
+  metadata: {
+    title: "Frequently Asked Questions - React Jedi"
+  },
+  structuredData: {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is React Jedi?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "React Jedi is a server-driven UI library for React"
+        }
+      },
+      {
+        "@type": "Question",
+        name: "How do I install React Jedi?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Install via npm: npm install @alexberriman/react-jedi"
+        }
+      }
+    ]
+  }
+};
+
+// Organization with multiple structured data objects
+const organizationSpec = {
+  type: "extended-head-manager",
+  metadata: {
+    title: "ACME Corporation - Home"
+  },
+  structuredData: [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "ACME Corporation",
+      url: "https://example.com",
+      logo: "https://example.com/logo.png",
+      sameAs: [
+        "https://facebook.com/acmecorp",
+        "https://twitter.com/acmecorp",
+        "https://linkedin.com/company/acmecorp"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      url: "https://example.com",
+      name: "ACME Corporation",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://example.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+};`} />
                 </CardContent>
               </Card>
             </div>

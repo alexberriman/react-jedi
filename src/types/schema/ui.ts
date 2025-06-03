@@ -1016,4 +1016,6 @@ export type UIComponentSpec =
   | InputOTPDef
   | TableSpec
   | DataTableSpec
-  | import("@/types/components/carousel").CarouselDef;
+  | import("@/types/components/carousel").CarouselDef
+  | import("@/types/components/head-manager").HeadManagerSpec
+  | import("@/types/components/head-manager").ExtendedHeadManagerSpec;

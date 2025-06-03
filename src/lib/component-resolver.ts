@@ -4,6 +4,7 @@ import type { ComponentResolver, ComponentProps } from "../types/schema/componen
 import * as UI from "../components/ui";
 import { BreadcrumbComponent } from "../components/ui/breadcrumb-component";
 import { HeadManager } from "../components/ui/head-manager";
+import { ExtendedHeadManager } from "./seo/head-manager-extended";
 import { PaginationComponent } from "../components/ui/pagination";
 import {
   CommandComponent,
@@ -544,6 +545,18 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     ),
     headManager: asComponent(
       HeadManager as unknown as React.ComponentType<Record<string, unknown>>,
+      { metadata: { title: "" } } // Provide default required props
+    ),
+    ExtendedHeadManager: asComponent(
+      ExtendedHeadManager as unknown as React.ComponentType<Record<string, unknown>>,
+      { metadata: { title: "" } } // Provide default required props
+    ),
+    extendedHeadManager: asComponent(
+      ExtendedHeadManager as unknown as React.ComponentType<Record<string, unknown>>,
+      { metadata: { title: "" } } // Provide default required props
+    ),
+    "extended-head-manager": asComponent(
+      ExtendedHeadManager as unknown as React.ComponentType<Record<string, unknown>>,
       { metadata: { title: "" } } // Provide default required props
     ),
   };

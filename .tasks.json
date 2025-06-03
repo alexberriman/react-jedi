@@ -7,7 +7,7 @@
       {
         "id": "seo-metadata-serialization",
         "description": "Ensure SEO and metadata configuration can be serialized and passed through the render function. Currently the example app shows React component usage, but we need everything to work through JSON specification since APIs send down JSON specs. Tasks: 1) Check if SEO/structured data config is already serializable via render function options, 2) If not, implement serialization support for page titles, meta descriptions, Open Graph tags, Twitter cards, and structured data, 3) Update the /examples/seo-metadata page with clear instructions on how to configure SEO via JSON through render function, 4) Add a new comprehensive SEO documentation page to /documentation section explaining JSON-based SEO configuration with examples.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "templating-engine",

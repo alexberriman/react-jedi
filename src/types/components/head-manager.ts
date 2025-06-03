@@ -1,4 +1,5 @@
 import type { BaseComponentSpec } from "../schema/base";
+import type { StructuredDataSchema } from "../../lib/seo/structured-data";
 
 export interface HeadManagerSpec extends BaseComponentSpec {
   type: "head-manager" | "headManager";
@@ -27,4 +28,9 @@ export interface HeadManagerSpec extends BaseComponentSpec {
   };
   titleSuffix?: string;
   defaultTitle?: string;
+}
+
+export interface ExtendedHeadManagerSpec extends Omit<HeadManagerSpec, "type"> {
+  type: "extended-head-manager" | "extendedHeadManager" | "ExtendedHeadManager";
+  structuredData?: StructuredDataSchema | StructuredDataSchema[];
 }

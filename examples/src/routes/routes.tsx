@@ -306,6 +306,9 @@ const ProcessStepsShowcasePage = lazy(() =>
 const ProductShowcaseShowcase = lazy(() =>
   import("../pages/showcase/blocks/product-showcase").then((module) => ({ default: module.ProductShowcaseShowcase }))
 );
+const PortfolioCaseStudiesShowcase = lazy(() =>
+  import("../pages/showcase/portfolio-case-studies").then((module) => ({ default: module.PortfolioCaseStudiesShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -869,6 +872,10 @@ export const router = createBrowserRouter([
           {
             path: "menubar",
             element: <AsyncRoute component={MenubarShowcase} loadingText="Loading menubar showcase..." />,
+          },
+          {
+            path: "portfolio-case-studies",
+            element: <AsyncRoute component={PortfolioCaseStudiesShowcase} loadingText="Loading portfolio case studies showcase..." />,
           },
         ],
       },

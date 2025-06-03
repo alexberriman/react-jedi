@@ -167,7 +167,7 @@
       {
         "id": "portfolio-case-studies-block",
         "description": "Create Portfolio/Case Studies block for showcasing work. Variants: project grid, detailed case study cards, before/after showcase, client spotlight, and timeline format. Features: project images, client details, technology used, results metrics, and view details links. Add category filtering, project search, and lightbox galleries. Include elegant project cards with hover effects and professional presentation.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "cookie-consent-banner-block",

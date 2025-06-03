@@ -149,6 +149,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/job-listings",
       },
+      {
+        name: "Portfolio Case Studies",
+        description: "Showcase work with stunning portfolio layouts, project metrics, before/after views, and client testimonials.",
+        status: "completed",
+        path: "/showcase/blocks/portfolio-case-studies",
+      },
     ],
   },
   {

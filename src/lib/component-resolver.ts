@@ -784,6 +784,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.JobListings as unknown as React.ComponentType<Record<string, unknown>>,
       { jobs: [] } // Provide default required props
     ),
+    PortfolioCaseStudies: asComponent(
+      Blocks.PortfolioCaseStudies as unknown as React.ComponentType<Record<string, unknown>>,
+      { projects: [] } // Provide default required props
+    ),
+    "portfolio-case-studies": asComponent(
+      Blocks.PortfolioCaseStudies as unknown as React.ComponentType<Record<string, unknown>>,
+      { projects: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

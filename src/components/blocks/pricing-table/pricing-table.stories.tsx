@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within, userEvent } from "@storybook/test";
+import { expect, within, userEvent, fn } from "@storybook/test";
 import { PricingTable, type PricingTier } from "./pricing-table";
 import { Sparkles, Zap, Crown, Rocket, Star, Shield } from "lucide-react";
 
@@ -118,6 +118,7 @@ export const Default: Story = {
     showToggle: true,
     defaultBillingCycle: "monthly",
     animated: true,
+    onBillingCycleChange: fn(),
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -168,6 +169,7 @@ export const ComparisonTable: Story = {
     showFeatureComparison: true,
     showToggle: true,
     defaultBillingCycle: "monthly",
+    onBillingCycleChange: fn(),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -208,6 +210,7 @@ export const CompactVariant: Story = {
     variant: "compact",
     columns: 3,
     showToggle: true,
+    onBillingCycleChange: fn(),
   },
 };
 
@@ -246,6 +249,7 @@ export const GradientVariant: Story = {
     columns: 3,
     showToggle: true,
     animated: true,
+    onBillingCycleChange: fn(),
   },
 };
 
@@ -277,6 +281,7 @@ export const FourColumns: Story = {
     ],
     columns: 4,
     showToggle: true,
+    onBillingCycleChange: fn(),
   },
 };
 
@@ -361,6 +366,7 @@ export const SingleColumn: Story = {
     tiers: [defaultTiers[1]], // Just the Professional tier
     columns: 1,
     showToggle: true,
+    onBillingCycleChange: fn(),
   },
 };
 
@@ -400,9 +406,7 @@ export const InteractiveExample: Story = {
     showToggle: true,
     defaultBillingCycle: "monthly",
     animated: true,
-    onBillingCycleChange: (cycle) => {
-      console.log(`Billing cycle changed to: ${cycle}`);
-    },
+    onBillingCycleChange: fn(),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

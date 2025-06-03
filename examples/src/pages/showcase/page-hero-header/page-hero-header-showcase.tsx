@@ -374,7 +374,7 @@ export function PageHeroHeaderShowcase() {
                   onClick={(e) => {
                     e.preventDefault();
                     setActiveSection(item.id);
-                    document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                    document.querySelector(`#${item.id}`)?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className={`block rounded-md px-3 py-2 text-sm transition-colors ${
                     activeSection === item.id

@@ -1,9 +1,8 @@
-import { BrandLogoBar, Logo } from "@/components/blocks/brand-logo-bar";
+import { BrandLogoBar, Logo } from "@alexberriman/react-jedi";
 import { ShowcaseWrapper } from "@/components/ui/showcase-wrapper";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Box } from "@/components/ui/box";
-import { Flex } from "@/components/ui/flex";
+import { Box, Flex } from "@alexberriman/react-jedi";
 import { useState } from "react";
 
 // Sample logos for demonstration

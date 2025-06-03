@@ -6,5 +6,6 @@ export { UIComponentsPage } from "./ui-components";
 export { FormComponentsPage } from "./form-components";
 export { ThemingPage } from "./theming";
 export { StateManagementPage } from "./state-management";
+export { SEOMetadataPage } from "./seo-metadata";
 export { ComplexExamplesPage } from "./complex-examples";
 export { PerformancePage } from "./performance";

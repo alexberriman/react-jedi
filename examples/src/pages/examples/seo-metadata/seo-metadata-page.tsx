@@ -280,6 +280,90 @@ const SEOMetadataPage: React.FC = () => {
   };
 
   // Code examples
+  const jsonRenderExample = `import { render } from "@alexberriman/react-jedi";
+
+// Example 1: Basic SEO metadata via JSON specification
+const basicSeoSpec = {
+  type: "head-manager",
+  metadata: {
+    title: "My Product Page",
+    description: "Amazing product that solves all your problems",
+    keywords: ["product", "solution", "innovation"]
+  },
+  children: [
+    {
+      type: "container",
+      children: [
+        { type: "heading", level: 1, text: "My Product" }
+        // ... rest of your page content
+      ]
+    }
+  ]
+};
+
+// Render using the specification
+render(basicSeoSpec);
+
+// Example 2: Complete SEO metadata with social sharing
+const completeSeoSpec = {
+  type: "head-manager",
+  metadata: {
+    title: "Revolutionary Widget | ACME Corp",
+    description: "Discover our game-changing widget technology",
+    keywords: ["widget", "technology", "innovation"],
+    author: "ACME Corporation",
+    // Open Graph for Facebook/LinkedIn
+    ogTitle: "Revolutionary Widget by ACME",
+    ogDescription: "Transform your workflow with our innovation",
+    ogImage: "https://example.com/widget-og-image.jpg",
+    // Twitter Card metadata
+    twitterCard: "summary_large_image",
+    twitterTitle: "Check out ACME's Revolutionary Widget!",
+    twitterDescription: "Game-changing technology that transforms workflows",
+    twitterImage: "https://example.com/widget-twitter.jpg",
+    // SEO essentials
+    canonicalUrl: "https://example.com/products/widget",
+    // Favicon configuration
+    favicon: {
+      default: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+      icon16: "/favicon-16x16.png",
+      icon32: "/favicon-32x32.png",
+      manifest: "/site.webmanifest"
+    }
+  },
+  titleSuffix: " | ACME Corp",
+  defaultTitle: "Welcome to ACME",
+  children: [
+    // Your page content as JSON
+  ]
+};`;
+
+  const apiExample = `// Example: Server API returning JSON with SEO metadata
+async function fetchPageData(pageId) {
+  const response = await fetch(\`/api/pages/\${pageId}\`);
+  const spec = await response.json();
+  return spec;
+}
+
+// API response includes SEO metadata
+{
+  "type": "head-manager",
+  "metadata": {
+    "title": "Dynamic Page Title",
+    "description": "Server-generated description",
+    "ogImage": "https://cdn.example.com/generated-image.jpg",
+    // ... other metadata
+  },
+  "children": [
+    // Dynamic page content
+  ]
+}
+
+// Render the server response
+const pageSpec = await fetchPageData("product-123");
+render(pageSpec);`;
+
   const jsonLdExample = `import { useStructuredData } from "@alexberriman/react-jedi";
 
 const productSchema = {
@@ -509,7 +593,27 @@ function MyPage() {
             <div className="space-y-8">
               <Card>
                 <CardHeader>
-                  <CardTitle>JSON-LD Example</CardTitle>
+                  <CardTitle>📍 JSON Specification with SEO</CardTitle>
+                  <CardDescription>Configure SEO metadata through JSON passed to render function</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Code language="typescript" code={jsonRenderExample} />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>🌐 Server-Driven SEO</CardTitle>
+                  <CardDescription>Fetch and render pages with dynamic SEO metadata from APIs</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Code language="typescript" code={apiExample} />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>JSON-LD Structured Data</CardTitle>
                   <CardDescription>Using structured data with React hooks</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -529,8 +633,8 @@ function MyPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Head Manager Example</CardTitle>
-                  <CardDescription>Complete metadata management</CardDescription>
+                  <CardTitle>Head Manager Component</CardTitle>
+                  <CardDescription>Direct component usage for metadata management</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Code language="typescript" code={headManagerExample} />

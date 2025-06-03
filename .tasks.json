@@ -37,7 +37,7 @@
       {
         "id": "call-to-action-block",
         "description": "Move CallToAction component to blocks. Create variants: centered, split-screen, with background image, gradient backgrounds, with form integration, minimal, and bold. Support: multiple button styles, optional subtitle, background patterns/shapes, icon support, and statistics/trust indicators. Make fully responsive with different mobile layouts. Add entrance animations and hover effects.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "timeline-block",

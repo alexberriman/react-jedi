@@ -538,11 +538,11 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       { tiers: [] } // Provide default required props
     ),
     CallToAction: asComponent(
-      UI.CallToAction as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.CallToAction as unknown as React.ComponentType<Record<string, unknown>>,
       { title: "" } // Provide default required props
     ),
     "call-to-action": asComponent(
-      UI.CallToAction as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.CallToAction as unknown as React.ComponentType<Record<string, unknown>>,
       { title: "" } // Provide default required props
     ),
 

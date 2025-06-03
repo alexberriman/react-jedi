@@ -1,15 +1,15 @@
 import type { UISpecification } from "@alexberriman/react-jedi";
 import { render } from "@alexberriman/react-jedi";
-import { usePageMetadata } from "../../../lib/meta";
+import { usePageMetadata } from "../../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { CodeBlock } from "../../../components/ui/code-block";
+import { CodeBlock } from "../../../../components/ui/code-block";
 
 export function CallToActionShowcase() {
   usePageMetadata({
-    title: "CallToAction Component",
+    title: "CallToAction Block",
     description:
-      "A comprehensive showcase of the React Jedi CallToAction component with all variants, sizes, alignments, and usage examples.",
+      "Advanced call-to-action block component with multiple variants, form integration, split-screen layouts, and rich visual features for creating compelling conversion sections.",
   });
 
   const [activeSection, setActiveSection] = useState<string>("overview");
@@ -21,6 +21,9 @@ export function CallToActionShowcase() {
     { id: "sizes", label: "CTA Sizes" },
     { id: "alignments", label: "Alignment Options" },
     { id: "with-actions", label: "Action Buttons" },
+    { id: "split-screen", label: "Split Screen Layouts" },
+    { id: "form-integration", label: "Form Integration" },
+    { id: "trust-indicators", label: "Trust Indicators" },
     { id: "with-images", label: "Background Images" },
     { id: "decorative", label: "Decorative Elements" },
     { id: "props", label: "Props & Options" },
@@ -84,6 +87,40 @@ export function CallToActionShowcase() {
         variant: "light",
         primaryAction: {
           label: "View Demo",
+        },
+      },
+      {
+        type: "CallToAction",
+        title: "Centered Variant",
+        subtitle: "Join 10,000+ companies",
+        description: "Perfect for hero sections with trust indicators.",
+        variant: "centered",
+        primaryAction: {
+          label: "Start Free Trial",
+        },
+        trustIndicators: [
+          { label: "Active Users", value: "50K+" },
+          { label: "Rating", value: "4.9/5" },
+        ],
+      },
+      {
+        type: "CallToAction",
+        title: "Minimal Variant",
+        description: "Clean and simple for subtle conversion points.",
+        variant: "minimal",
+        primaryAction: {
+          label: "Learn More",
+        },
+      },
+      {
+        type: "CallToAction",
+        title: "Bold Variant",
+        subtitle: "Limited Time Offer",
+        description: "High-impact style for promotions and special offers.",
+        variant: "bold",
+        size: "lg",
+        primaryAction: {
+          label: "Claim Your Discount",
         },
       },
     ],
@@ -243,6 +280,101 @@ export function CallToActionShowcase() {
         primaryAction: {
           label: "Get Started",
         },
+      },
+    ],
+  };
+
+  // Split screen layouts
+  const splitScreenSpec: UISpecification = {
+    type: "Stack",
+    spacing: "6",
+    children: [
+      {
+        type: "CallToAction",
+        variant: "splitScreen",
+        title: "Build Better Products Faster",
+        description: "Our platform helps teams collaborate, iterate, and ship amazing products.",
+        primaryAction: {
+          label: "Get Started",
+          variant: "default",
+        },
+        secondaryAction: {
+          label: "Learn More",
+        },
+        splitImage: "https://placehold.co/600x400/EEE/31343C",
+        splitImagePosition: "right",
+        trustIndicators: [
+          { label: "Trusted by 50K+ teams" },
+        ],
+      },
+      {
+        type: "CallToAction",
+        variant: "splitScreen",
+        title: "Design with Purpose",
+        description: "Create meaningful experiences that users love.",
+        primaryAction: {
+          label: "Start Designing",
+        },
+        splitImage: "https://placehold.co/600x400/EEE/31343C",
+        splitImagePosition: "left",
+      },
+    ],
+  };
+
+  // Form integration
+  const formIntegrationSpec: UISpecification = {
+    type: "Stack",
+    spacing: "6",
+    children: [
+      {
+        type: "CallToAction",
+        variant: "formIntegrated",
+        title: "Stay in the Loop",
+        description: "Get the latest updates and exclusive content delivered to your inbox.",
+        formComponent: {
+          type: "Flex",
+          className: "mt-8 max-w-md mx-auto",
+          gap: "4",
+          children: [
+            {
+              type: "Input",
+              placeholder: "Enter your email",
+              className: "flex-1",
+            },
+            {
+              type: "Button",
+              children: "Subscribe",
+              size: "lg",
+            },
+          ],
+        },
+        trustIndicators: [
+          { label: "No spam, ever" },
+          { label: "Unsubscribe anytime" },
+        ],
+      },
+    ],
+  };
+
+  // Trust indicators
+  const trustIndicatorsSpec: UISpecification = {
+    type: "Stack",
+    spacing: "6",
+    children: [
+      {
+        type: "CallToAction",
+        variant: "gradient",
+        title: "Trusted by Industry Leaders",
+        description: "Join thousands of companies already transforming their business.",
+        primaryAction: {
+          label: "Start Your Journey",
+        },
+        trustIndicators: [
+          { icon: "👥", label: "Active Users", value: "100K+" },
+          { icon: "⭐", label: "Average Rating", value: "4.9/5" },
+          { icon: "🏆", label: "Awards Won", value: "15" },
+          { icon: "📈", label: "Growth Rate", value: "300%" },
+        ],
       },
     ],
   };
@@ -467,10 +599,10 @@ export function CallToActionShowcase() {
         </nav>
         <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
           <Link
-            to="/showcase"
+            to="/showcase/blocks"
             className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white flex items-center gap-2"
           >
-            ← Back to Showcase
+            ← Back to Blocks
           </Link>
         </div>
       </aside>
@@ -480,9 +612,9 @@ export function CallToActionShowcase() {
         <div className="space-y-12">
           {/* Header */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">CallToAction Component</h1>
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">CallToAction Block</h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              A powerful call-to-action component designed to drive user engagement and conversions. Perfect for hero sections, feature highlights, and conversion points throughout your application.
+              An advanced call-to-action block component designed to drive user engagement and conversions. This block includes enhanced variants like split-screen layouts, form integration, trust indicators, and rich visual features for creating compelling conversion sections.
             </p>
           </div>
 
@@ -491,11 +623,11 @@ export function CallToActionShowcase() {
             <h2 className="text-2xl font-semibold mb-4">Overview</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <p>
-                The CallToAction component is designed to grab user attention and encourage specific actions. It combines compelling copy, visual appeal, and clear action buttons to maximize conversion rates.
+                The CallToAction block is an advanced component designed to grab user attention and encourage specific actions. It combines compelling copy, visual appeal, clear action buttons, and sophisticated features like form integration and trust indicators to maximize conversion rates.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
-                <li>Six visual variants (default, primary, secondary, gradient, dark, light)</li>
+                <li>Fourteen visual variants including centered, split-screen, gradient, minimal, bold, and form-integrated</li>
                 <li>Three size options (small, default, large)</li>
                 <li>Flexible alignment (left, center, right)</li>
                 <li>Support for primary and secondary actions</li>
@@ -579,6 +711,63 @@ export function CallToActionShowcase() {
               </summary>
               <CodeBlock language="json" className="mt-2">
                 {JSON.stringify(actionsSpec, null, 2)}
+              </CodeBlock>
+            </details>
+          </section>
+
+          {/* Split Screen Layouts Section */}
+          <section id="split-screen" className="scroll-mt-20">
+            <h2 className="text-2xl font-semibold mb-4">Split Screen Layouts</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Create compelling layouts with split-screen designs that combine content and imagery.
+            </p>
+            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+              {render(splitScreenSpec)}
+            </div>
+            <details className="mt-4">
+              <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
+                View JSON Specification
+              </summary>
+              <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(splitScreenSpec, null, 2)}
+              </CodeBlock>
+            </details>
+          </section>
+
+          {/* Form Integration Section */}
+          <section id="form-integration" className="scroll-mt-20">
+            <h2 className="text-2xl font-semibold mb-4">Form Integration</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Seamlessly integrate forms for newsletter signups, lead capture, and more.
+            </p>
+            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+              {render(formIntegrationSpec)}
+            </div>
+            <details className="mt-4">
+              <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
+                View JSON Specification
+              </summary>
+              <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(formIntegrationSpec, null, 2)}
+              </CodeBlock>
+            </details>
+          </section>
+
+          {/* Trust Indicators Section */}
+          <section id="trust-indicators" className="scroll-mt-20">
+            <h2 className="text-2xl font-semibold mb-4">Trust Indicators</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Build credibility with statistics, ratings, and social proof elements.
+            </p>
+            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+              {render(trustIndicatorsSpec)}
+            </div>
+            <details className="mt-4">
+              <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
+                View JSON Specification
+              </summary>
+              <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(trustIndicatorsSpec, null, 2)}
               </CodeBlock>
             </details>
           </section>
@@ -786,10 +975,10 @@ export function CallToActionShowcase() {
           <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
             <div className="flex justify-between items-center">
               <Link
-                to="/showcase"
+                to="/showcase/blocks"
                 className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"
               >
-                ← Back to Component Showcase
+                ← Back to Component Blocks
               </Link>
               <Link
                 to="/documentation/ui-components"

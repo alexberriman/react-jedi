@@ -58,7 +58,7 @@ const MarkdownShowcase = lazy(() =>
   import("../pages/showcase/markdown").then((module) => ({ default: module.MarkdownShowcase }))
 );
 const CallToActionShowcase = lazy(() =>
-  import("../pages/showcase/call-to-action").then((module) => ({ default: module.CallToActionShowcase }))
+  import("../pages/showcase/blocks/call-to-action").then((module) => ({ default: module.CallToActionShowcase }))
 );
 const CardShowcase = lazy(() =>
   import("../pages/showcase/card").then((module) => ({ default: module.CardShowcase }))
@@ -422,6 +422,10 @@ export const router = createBrowserRouter([
                 path: "pricing-table",
                 element: <AsyncRoute component={PricingTableShowcase} loadingText="Loading pricing table block..." />,
               },
+              {
+                path: "call-to-action",
+                element: <AsyncRoute component={CallToActionShowcase} loadingText="Loading call-to-action block..." />,
+              },
             ],
           },
           {
@@ -513,10 +517,6 @@ export const router = createBrowserRouter([
           {
             path: "combobox",
             element: <AsyncRoute component={ComboboxShowcase} loadingText="Loading combobox showcase..." />,
-          },
-          {
-            path: "call-to-action",
-            element: <AsyncRoute component={CallToActionShowcase} loadingText="Loading call-to-action showcase..." />,
           },
           {
             path: "card",

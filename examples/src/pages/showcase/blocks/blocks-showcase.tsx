@@ -58,9 +58,9 @@ const blockCategories: BlockCategory[] = [
       },
       {
         name: "Call to Action",
-        description: "CTA sections with gradient backgrounds and multiple styles.",
-        status: "pending",
-        path: "/showcase/call-to-action",
+        description: "Advanced CTA blocks with multiple variants, form integration, and rich visual features.",
+        status: "completed",
+        path: "/showcase/blocks/call-to-action",
       },
     ],
   },
@@ -733,6 +733,28 @@ const blockPreviews: Record<string, ComponentSpec> = {
           },
         },
       ],
+    },
+  },
+  "Call to Action": {
+    type: "CallToAction",
+    props: {
+      variant: "gradient",
+      animated: true,
+      title: "Ready to Transform Your Business?",
+      subtitle: "Join 10,000+ companies",
+      description: "Start your journey with our platform and see results within days",
+      primaryAction: {
+        label: "Start Free Trial",
+        variant: "default",
+      },
+      secondaryAction: {
+        label: "Watch Demo",
+      },
+      trustIndicators: [
+        { label: "Active Users", value: "50K+" },
+        { label: "Rating", value: "4.9/5" },
+      ],
+      size: "default",
     },
   },
 };

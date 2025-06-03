@@ -90,7 +90,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "FAQ",
         description: "Frequently asked questions with search and categories.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/blocks/faq",
       },
       {
         name: "Service List",
@@ -134,9 +135,9 @@ const blockCategories: BlockCategory[] = [
     blocks: [
       {
         name: "Carousel",
-        description: "Image and content carousel with navigation.",
-        status: "pending",
-        path: "/showcase/carousel",
+        description: "Enhanced carousel with multiple variants: image gallery, content cards, testimonials, product showcase, and fullscreen modes.",
+        status: "completed",
+        path: "/showcase/blocks/carousel",
       },
       {
         name: "Contact Form",
@@ -856,5 +857,91 @@ const blockPreviews: Record<string, ComponentSpec> = {
         }
       ]
     }
+  },
+  Carousel: {
+    type: "Carousel",
+    variant: "gallery",
+    showArrows: true,
+    showDots: true,
+    autoplay: {
+      enabled: true,
+      delay: 4000,
+      stopOnMouseEnter: true,
+    },
+    data: {
+      images: [
+        {
+          src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop",
+          alt: "Mountain landscape",
+          title: "Mountain Vista",
+          description: "Breathtaking mountain scenery",
+        },
+        {
+          src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=400&fit=crop",
+          alt: "Ocean waves",
+          title: "Ocean Waves", 
+          description: "The endless rhythm of the sea",
+        },
+        {
+          src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=400&fit=crop",
+          alt: "Forest path",
+          title: "Forest Trail",
+          description: "A peaceful walk through nature",
+        },
+      ],
+      enableKenBurns: true,
+      enableZoom: true,
+      showThumbnails: true,
+    },
+  },
+  FAQ: {
+    type: "FAQ",
+    variant: "accordion",
+    showSearch: true,
+    showCategories: true,
+    animated: true,
+    items: [
+      {
+        id: "1",
+        question: "What is React Jedi?",
+        answer: "React Jedi is a server-driven UI library that enables developers to build modern React interfaces using JSON specifications.",
+        category: "general",
+        tags: ["react", "ui", "json"],
+        isPopular: true,
+      },
+      {
+        id: "2",
+        question: "How do I get started?",
+        answer: "<p>Getting started is easy! Install the package using <code>npm install react-jedi</code> and start building with JSON specifications.</p>",
+        category: "getting-started",
+        tags: ["install", "setup"],
+      },
+      {
+        id: "3",
+        question: "Is it production ready?",
+        answer: "Yes, React Jedi is production ready with comprehensive testing, accessibility features, and performance optimizations.",
+        category: "general",
+        tags: ["production", "stability"],
+      },
+    ],
+    categories: [
+      { id: "general", name: "General", count: 2 },
+      { id: "getting-started", name: "Getting Started", count: 1 },
+    ],
+    search: {
+      enabled: true,
+      placeholder: "Search FAQs...",
+      searchInAnswers: true,
+    },
+    voting: {
+      enabled: true,
+      showVoteCount: true,
+    },
+    contactSupport: {
+      enabled: true,
+      title: "Still need help?",
+      description: "Can't find what you're looking for?",
+      buttonText: "Contact Support",
+    },
   },
 };

@@ -1,0 +1,1 @@
+export { FAQShowcase } from "./faq-showcase";

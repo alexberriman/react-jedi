@@ -20,7 +20,8 @@ import {
 } from "../components/ui/command";
 import { CalendarComponent } from "../components/ui/calendar";
 import { DataTableComponent } from "../components/ui/data-table";
-import { CarouselComponent } from "../components/ui/carousel";
+import { CarouselBlock } from "../components/blocks/carousel";
+import { FAQBlock } from "../components/blocks/faq";
 import { Chart } from "../components/ui/chart/chart";
 
 // Type definition for components in our registry
@@ -83,7 +84,7 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
     // Some components expect the full spec object (like CarouselComponent)
     // Check if the component expects a spec prop
     const componentName = component.displayName || component.name || "";
-    const expectsSpec = componentName.includes("Component");
+    const expectsSpec = componentName.includes("Component") || componentName.includes("Block");
 
     if (expectsSpec) {
       // Pass the full ComponentProps to components that expect it
@@ -479,22 +480,28 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
 
     // Carousel Components
     Carousel: asComponent(
-      CarouselComponent as unknown as React.ComponentType<Record<string, unknown>>
+      CarouselBlock as unknown as React.ComponentType<Record<string, unknown>>
     ),
     carousel: asComponent(
-      CarouselComponent as unknown as React.ComponentType<Record<string, unknown>>
+      CarouselBlock as unknown as React.ComponentType<Record<string, unknown>>
     ),
     CarouselContent: asComponent(
-      UI.CarouselContent as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.CarouselContent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     CarouselItem: asComponent(
-      UI.CarouselItem as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.CarouselItem as unknown as React.ComponentType<Record<string, unknown>>
     ),
     CarouselPrevious: asComponent(
-      UI.CarouselPrevious as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.CarouselPrevious as unknown as React.ComponentType<Record<string, unknown>>
     ),
     CarouselNext: asComponent(
-      UI.CarouselNext as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.CarouselNext as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    CarouselDots: asComponent(
+      Blocks.CarouselDots as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    CarouselThumbnails: asComponent(
+      Blocks.CarouselThumbnails as unknown as React.ComponentType<Record<string, unknown>>
     ),
 
     // Chart Component
@@ -604,6 +611,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     ),
     timeline: asComponent(
       Blocks.Timeline as unknown as React.ComponentType<Record<string, unknown>>,
+      { items: [] } // Provide default required props
+    ),
+    FAQ: asComponent(
+      FAQBlock as unknown as React.ComponentType<Record<string, unknown>>,
+      { items: [] } // Provide default required props
+    ),
+    faq: asComponent(
+      FAQBlock as unknown as React.ComponentType<Record<string, unknown>>,
       { items: [] } // Provide default required props
     ),
   };

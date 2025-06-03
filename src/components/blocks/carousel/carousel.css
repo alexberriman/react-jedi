@@ -1,0 +1,159 @@
+/* Carousel Block Styles */
+
+/* Ken Burns effect animation for image galleries */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  25% {
+    transform: scale(1.1) translate(-2%, -1%);
+  }
+  50% {
+    transform: scale(1.08) translate(1%, -2%);
+  }
+  75% {
+    transform: scale(1.12) translate(-1%, 1%);
+  }
+  100% {
+    transform: scale(1.05) translate(1%, -1%);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 20s ease-in-out infinite alternate;
+}
+
+/* Smooth transitions for carousel items */
+.carousel-item-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.carousel-item-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.carousel-item-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.carousel-item-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+/* Thumbnail hover effects */
+.carousel-thumbnail {
+  transition: all 0.2s ease;
+}
+
+.carousel-thumbnail:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* Dots animation */
+.carousel-dot {
+  transition: all 0.2s ease;
+}
+
+.carousel-dot:hover {
+  transform: scale(1.2);
+}
+
+/* Autoplay pause indicator */
+.carousel-autoplay-paused {
+  opacity: 0.7;
+}
+
+/* Touch indicators for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .carousel-touch-hint {
+    display: block;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .carousel-item {
+    padding-left: 0.5rem;
+  }
+  
+  .carousel-dots {
+    gap: 0.375rem;
+  }
+  
+  .carousel-thumbnails {
+    gap: 0.375rem;
+  }
+  
+  .carousel-thumbnail {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .carousel-dot {
+    border: 2px solid currentColor;
+  }
+  
+  .carousel-arrow {
+    border: 2px solid currentColor;
+    background: Canvas;
+    color: CanvasText;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-ken-burns {
+    animation: none;
+  }
+  
+  .carousel-item-enter-active,
+  .carousel-item-exit-active {
+    transition: none;
+  }
+  
+  .carousel-thumbnail,
+  .carousel-dot {
+    transition: none;
+  }
+}
+
+/* Focus indicators for accessibility */
+.carousel-arrow:focus-visible,
+.carousel-dot:focus-visible,
+.carousel-thumbnail:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.carousel-loading {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .carousel-loading {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  }
+}

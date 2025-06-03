@@ -194,3 +194,4 @@ export type { CarouselDef } from "./carousel";
 export type { ChartComponentProps } from "./chart";
 export type { FooterProps } from "./footer";
 export type { HeadManagerSpec, ExtendedHeadManagerSpec } from "./head-manager";
+export type { FAQDef, FAQItem, FAQCategory, FAQSearchOptions, FAQVotingOptions, FAQContactSupport } from "./faq";

@@ -69,6 +69,9 @@ const CardShowcase = lazy(() =>
 const CarouselShowcase = lazy(() =>
   import("../pages/showcase/carousel").then((module) => ({ default: module.CarouselShowcase }))
 );
+const CarouselBlockShowcase = lazy(() =>
+  import("../pages/showcase/blocks/carousel").then((module) => ({ default: module.CarouselShowcase }))
+);
 const FooterShowcase = lazy(() =>
   import("../pages/showcase/footer").then((module) => ({ default: module.FooterShowcase }))
 );
@@ -436,6 +439,10 @@ export const router = createBrowserRouter([
               {
                 path: "testimonial",
                 element: <AsyncRoute component={TestimonialShowcase} loadingText="Loading testimonial block..." />,
+              },
+              {
+                path: "carousel",
+                element: <AsyncRoute component={CarouselBlockShowcase} loadingText="Loading carousel block..." />,
               },
             ],
           },

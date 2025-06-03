@@ -70,7 +70,6 @@ export * from "./combobox";
 export * from "./input-otp";
 export { InputOTPComponent } from "./input-otp-component";
 export * from "./data-table";
-export * from "./carousel";
 export * from "./chart";
 export * from "./hero";
 export * from "./footer";

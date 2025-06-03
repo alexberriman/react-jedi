@@ -52,12 +52,12 @@
       {
         "id": "carousel-block",
         "description": "Move Carousel to blocks directory. Enhance with variants: image gallery, content cards, testimonials, product showcase, and fullscreen. Features: dots/arrows navigation, thumbnails strip, auto-play with pause on hover, swipe support, infinite loop, and variable items per view. Add Ken Burns effect for images, lazy loading, and zoom on click. Create mobile-optimized touch interactions.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "faq-block",
         "description": "Create new FAQ block component. Variants: accordion style, grid cards, two-column, with categories, and with search. Features: expand/collapse animations, category filtering, search functionality, anchor links, and most helpful voting. Support rich content in answers (lists, links, code). Add 'Contact Support' CTA and related articles. Create smooth height transitions and mobile-optimized layouts.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "team-grid-block",

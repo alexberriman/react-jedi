@@ -200,8 +200,9 @@ const rendered = render(specification, { variables })`
         <h2 className="text-2xl font-semibold mb-4">Variable Editor</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Company Name</label>
+            <label htmlFor="company-name" className="block text-sm font-medium mb-1">Company Name</label>
             <input
+              id="company-name"
               type="text"
               value={variables.companyName}
               onChange={(e) => setVariables({ ...variables, companyName: e.target.value })}
@@ -209,8 +210,9 @@ const rendered = render(specification, { variables })`
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">User Email</label>
+            <label htmlFor="user-email" className="block text-sm font-medium mb-1">User Email</label>
             <input
+              id="user-email"
               type="email"
               value={variables.userEmail}
               onChange={(e) => setVariables({ ...variables, userEmail: e.target.value })}
@@ -218,8 +220,9 @@ const rendered = render(specification, { variables })`
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">User Name</label>
+            <label htmlFor="user-name" className="block text-sm font-medium mb-1">User Name</label>
             <input
+              id="user-name"
               type="text"
               value={variables.user.name}
               onChange={(e) => setVariables({ ...variables, user: { ...variables.user, name: e.target.value } })}
@@ -227,8 +230,9 @@ const rendered = render(specification, { variables })`
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">User Role</label>
+            <label htmlFor="user-role" className="block text-sm font-medium mb-1">User Role</label>
             <input
+              id="user-role"
               type="text"
               value={variables.user.role}
               onChange={(e) => setVariables({ ...variables, user: { ...variables.user, role: e.target.value } })}
@@ -236,17 +240,19 @@ const rendered = render(specification, { variables })`
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Product Count</label>
+            <label htmlFor="product-count" className="block text-sm font-medium mb-1">Product Count</label>
             <input
+              id="product-count"
               type="number"
               value={variables.productCount}
-              onChange={(e) => setVariables({ ...variables, productCount: parseInt(e.target.value) || 0 })}
+              onChange={(e) => setVariables({ ...variables, productCount: Number.parseInt(e.target.value) || 0 })}
               className="w-full px-3 py-2 border rounded-md"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Is Active</label>
+            <label htmlFor="is-active" className="block text-sm font-medium mb-1">Is Active</label>
             <select
+              id="is-active"
               value={String(variables.isActive)}
               onChange={(e) => setVariables({ ...variables, isActive: e.target.value === 'true' })}
               className="w-full px-3 py-2 border rounded-md"

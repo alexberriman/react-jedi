@@ -158,7 +158,7 @@ const rendered = render(spec, {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Complex Example</h2>
         <p className="text-muted-foreground">
-          Here's a more complex example showing how template variables can be used in a real-world scenario:
+          Here&apos;s a more complex example showing how template variables can be used in a real-world scenario:
         </p>
         <CodeBlock
           language="javascript"
@@ -191,7 +191,7 @@ const rendered = render(spec, {
               children: [
                 {
                   type: "text",
-                  text: "${{metrics.totalSales}}",
+                  text: "$" + "{{metrics.totalSales}}",
                   className: "text-3xl font-bold"
                 },
                 {

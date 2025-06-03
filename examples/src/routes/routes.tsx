@@ -118,7 +118,7 @@ const ToggleGroupShowcase = lazy(() =>
   import("../pages/showcase/toggle-group").then((module) => ({ default: module.ToggleGroupShowcase }))
 );
 const TestimonialShowcase = lazy(() =>
-  import("../pages/showcase/testimonial").then((module) => ({ default: module.TestimonialShowcase }))
+  import("../pages/showcase/blocks/testimonial").then((module) => ({ default: module.TestimonialShowcasePage }))
 );
 const TextShowcase = lazy(() =>
   import("../pages/showcase/text-showcase").then((module) => ({ default: module.default }))
@@ -432,6 +432,10 @@ export const router = createBrowserRouter([
               {
                 path: "timeline",
                 element: <AsyncRoute component={TimelineShowcase} loadingText="Loading timeline block..." />,
+              },
+              {
+                path: "testimonial",
+                element: <AsyncRoute component={TestimonialShowcase} loadingText="Loading testimonial block..." />,
               },
             ],
           },

@@ -77,9 +77,9 @@ const blockCategories: BlockCategory[] = [
       },
       {
         name: "Testimonial",
-        description: "Customer testimonials with ratings and avatars.",
-        status: "pending",
-        path: "/showcase/testimonial",
+        description: "Customer testimonials with ratings, avatars, carousel, and video support.",
+        status: "completed",
+        path: "/showcase/blocks/testimonial",
       },
       {
         name: "Timeline",
@@ -807,5 +807,54 @@ const blockPreviews: Record<string, ComponentSpec> = {
         badge: "Upcoming",
       },
     ],
+  },
+  "Testimonial": {
+    type: "Testimonial",
+    props: {
+      variant: "grid",
+      layout: "card",
+      columns: 3,
+      testimonials: [
+        {
+          id: "1",
+          author: {
+            name: "Sarah Chen",
+            role: "Product Designer",
+            company: "Tech Corp",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+            companyLogo: "https://logo.clearbit.com/google.com"
+          },
+          content: "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences.",
+          rating: 5,
+          date: "November 2024"
+        },
+        {
+          id: "2",
+          author: {
+            name: "James Wilson",
+            role: "Frontend Engineer",
+            company: "WebDev Inc",
+            avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+            companyLogo: "https://logo.clearbit.com/microsoft.com"
+          },
+          content: "Best UI library I've worked with. The attention to detail is remarkable and the performance is outstanding.",
+          rating: 5,
+          featured: true,
+          date: "December 2024"
+        },
+        {
+          id: "3",
+          author: {
+            name: "Emma Thompson",
+            role: "UX Designer",
+            company: "Creative Agency",
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop"
+          },
+          content: "Beautiful components that are a joy to work with. Highly recommended!",
+          rating: 5,
+          date: "October 2024"
+        }
+      ]
+    }
   },
 };

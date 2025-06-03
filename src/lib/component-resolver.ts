@@ -522,12 +522,12 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       { cards: [] } // Provide default cards array to prevent runtime errors
     ),
     Testimonial: asComponent(
-      UI.Testimonial as unknown as React.ComponentType<Record<string, unknown>>,
-      { author: { name: "" }, content: "" } // Provide default required props
+      Blocks.Testimonial as unknown as React.ComponentType<Record<string, unknown>>,
+      { testimonials: { author: { name: "" }, content: "" } } // Provide default required props
     ),
     testimonial: asComponent(
-      UI.Testimonial as unknown as React.ComponentType<Record<string, unknown>>,
-      { author: { name: "" }, content: "" } // Provide default required props
+      Blocks.Testimonial as unknown as React.ComponentType<Record<string, unknown>>,
+      { testimonials: { author: { name: "" }, content: "" } } // Provide default required props
     ),
     PricingTable: asComponent(
       Blocks.PricingTable as unknown as React.ComponentType<Record<string, unknown>>,

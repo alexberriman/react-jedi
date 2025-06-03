@@ -13,3 +13,4 @@ export * from "./feature-card";
 export * from "./pricing-table";
 export * from "./call-to-action";
 export * from "./timeline";
+export * from "./testimonial";

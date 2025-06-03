@@ -47,7 +47,7 @@
       {
         "id": "testimonial-block",
         "description": "Move Testimonial component to blocks. Create variants: single card, carousel, grid (2x2, 3x1), with video, minimal quote, and with ratings. Features: customer photos, company logos, job titles, star ratings, quote marks styling, and source links. Add navigation for carousel variant and auto-play option. Support long-form and short testimonials. Include social proof elements.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "carousel-block",

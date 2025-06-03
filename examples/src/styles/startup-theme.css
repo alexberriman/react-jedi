@@ -1,0 +1,126 @@
+/* Startup Theme Colors */
+:root {
+  /* Startup theme primary color - Indigo/Purple */
+  --primary: 0.5918 0.2132 263.83; /* #6366F1 */
+  --primary-foreground: 0.985 0 0; /* white */
+  
+  /* Startup theme secondary color - Cyan */
+  --secondary: 0.7437 0.1736 192.37; /* #22D3EE */
+  --secondary-foreground: 0.145 0 0; /* dark text */
+  
+  /* Startup theme accent color - Amber */
+  --accent: 0.7935 0.1844 77.41; /* #F59E0B */
+  --accent-foreground: 0.145 0 0; /* dark text */
+  
+  /* Startup theme neutral - Gray */
+  --muted: 0.97 0 0; /* light gray */
+  --muted-foreground: 0.4389 0.0291 256.78; /* #374151 */
+  
+  /* Startup theme destructive/error - Red */
+  --destructive: 0.704 0.191 22.216; /* #EF4444 */
+  --destructive-foreground: 0.985 0 0; /* white */
+  
+  /* Startup theme backgrounds */
+  --background: 0.9825 0 0; /* #F9FAFB */
+  --foreground: 0.2034 0.0282 268.84; /* #111827 */
+  
+  /* Card and popover (slightly white) */
+  --card: 1 0 0; /* white */
+  --card-foreground: 0.2034 0.0282 268.84; /* #111827 */
+  --popover: 1 0 0; /* white */
+  --popover-foreground: 0.2034 0.0282 268.84; /* #111827 */
+  
+  /* Borders and inputs */
+  --border: 0.922 0 0; /* light gray border */
+  --input: 0.922 0 0; /* light gray border */
+  --ring: 0.5918 0.2132 263.83; /* primary color for focus rings */
+  
+  /* Chart colors - using startup palette */
+  --chart-1: 0.5918 0.2132 263.83; /* primary */
+  --chart-2: 0.7437 0.1736 192.37; /* secondary */
+  --chart-3: 0.7935 0.1844 77.41; /* accent */
+  --chart-4: 0.7037 0.1407 142.12; /* success green #10B981 */
+  --chart-5: 0.6235 0.2132 254.61; /* info blue #3B82F6 */
+  
+  /* Sidebar */
+  --sidebar: 1 0 0;
+  --sidebar-foreground: 0.2034 0.0282 268.84;
+  --sidebar-primary: 0.5918 0.2132 263.83;
+  --sidebar-primary-foreground: 0.985 0 0;
+  --sidebar-accent: 0.97 0 0;
+  --sidebar-accent-foreground: 0.2034 0.0282 268.84;
+  --sidebar-border: 0.922 0 0;
+  --sidebar-ring: 0.5918 0.2132 263.83;
+}
+
+/* Dark mode overrides for startup theme */
+.dark {
+  /* Darker versions for dark mode */
+  --primary: 0.5918 0.2132 263.83; /* Keep primary bright */
+  --primary-foreground: 0.985 0 0;
+  
+  --secondary: 0.7437 0.1736 192.37; /* Keep secondary bright */
+  --secondary-foreground: 0.145 0 0;
+  
+  --accent: 0.7935 0.1844 77.41; /* Keep accent bright */
+  --accent-foreground: 0.145 0 0;
+  
+  --muted: 0.269 0 0;
+  --muted-foreground: 0.708 0 0;
+  
+  --destructive: 0.704 0.191 22.216;
+  --destructive-foreground: 0.985 0 0;
+  
+  /* Dark backgrounds */
+  --background: 0.145 0 0; /* Very dark */
+  --foreground: 0.985 0 0; /* White text */
+  
+  --card: 0.205 0 0;
+  --card-foreground: 0.985 0 0;
+  --popover: 0.205 0 0;
+  --popover-foreground: 0.985 0 0;
+  
+  --border: 0.269 0 0;
+  --input: 0.269 0 0;
+  --ring: 0.5918 0.2132 263.83;
+  
+  /* Chart colors stay vibrant in dark mode */
+  --chart-1: 0.5918 0.2132 263.83;
+  --chart-2: 0.7437 0.1736 192.37;
+  --chart-3: 0.7935 0.1844 77.41;
+  --chart-4: 0.7037 0.1407 142.12;
+  --chart-5: 0.6235 0.2132 254.61;
+  
+  --sidebar: 0.205 0 0;
+  --sidebar-foreground: 0.985 0 0;
+  --sidebar-primary: 0.5918 0.2132 263.83;
+  --sidebar-primary-foreground: 0.985 0 0;
+  --sidebar-accent: 0.269 0 0;
+  --sidebar-accent-foreground: 0.985 0 0;
+  --sidebar-border: 0.269 0 0;
+  --sidebar-ring: 0.5918 0.2132 263.83;
+}
+
+/* Update the color mapping for Tailwind v4 */
+@theme {
+  /* Map the startup theme colors */
+  --color-primary: oklch(var(--primary));
+  --color-primary-foreground: oklch(var(--primary-foreground));
+  --color-secondary: oklch(var(--secondary));
+  --color-secondary-foreground: oklch(var(--secondary-foreground));
+  --color-accent: oklch(var(--accent));
+  --color-accent-foreground: oklch(var(--accent-foreground));
+  --color-muted: oklch(var(--muted));
+  --color-muted-foreground: oklch(var(--muted-foreground));
+  --color-destructive: oklch(var(--destructive));
+  --color-destructive-foreground: oklch(var(--destructive-foreground));
+  --color-background: oklch(var(--background));
+  --color-foreground: oklch(var(--foreground));
+  --color-border: oklch(var(--border));
+  --color-input: oklch(var(--input));
+  --color-ring: oklch(var(--ring));
+  --color-card: oklch(var(--card));
+  --color-card-foreground: oklch(var(--card-foreground));
+  --color-popover: oklch(var(--popover));
+  --color-popover-foreground: oklch(var(--popover-foreground));
+}

@@ -1,12 +1,12 @@
-import { ProductShowcase, Product } from "../../../../../components/blocks/product-showcase"
-import { ShowcaseWrapper } from "../../../../../components/ui/showcase-wrapper"
-import { PageHeader } from "../../../../../components/ui/page-header"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../../components/ui/tabs"
-import { Card, CardContent, CardHeader, CardTitle } from "../../../../../components/ui/card"
+import { ProductShowcase, Product } from "@alexberriman/react-jedi"
+import { ShowcaseWrapper } from "../../../../components/ui/showcase-wrapper"
+import { PageHeader } from "../../../../components/ui/page-header"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../components/ui/tabs"
+import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card"
 import { useState } from "react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../../components/ui/select"
-import { Switch } from "../../../../../components/ui/switch"
-import { Label } from "../../../../../components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../components/ui/select"
+import { Switch } from "../../../../components/ui/switch"
+import { Label } from "../../../../components/ui/label"
 
 // Sample products data
 const sampleProducts: Product[] = [

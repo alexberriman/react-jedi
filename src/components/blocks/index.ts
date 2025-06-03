@@ -8,3 +8,4 @@
 // Export all block components
 export * from "./header";
 export * from "./page-hero-header";
+export * from "./footer";

@@ -35,8 +35,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Footer",
         description: "Multi-column footer with social links and newsletter signup.",
-        status: "pending",
-        path: "/showcase/footer",
+        status: "completed",
+        path: "/showcase/blocks/footer",
       },
       {
         name: "Page Section",
@@ -510,6 +510,53 @@ export function BlocksShowcasePage() {
 
 // Block preview specifications (placeholder for now, will be populated as blocks are built)
 const blockPreviews: Record<string, ComponentSpec> = {
+  Footer: {
+    type: "Footer",
+    props: {
+      layout: "standard",
+      companyInfo: {
+        name: "React Jedi",
+        logo: {
+          type: "Text",
+          className: "text-xl font-bold text-blue-600",
+          children: "React Jedi",
+        },
+        description: "Build modern React interfaces with JSON specifications",
+      },
+      sections: [
+        {
+          title: "Product",
+          links: [
+            { label: "Features", href: "#features" },
+            { label: "Pricing", href: "#pricing" },
+            { label: "Documentation", href: "#docs" },
+          ],
+        },
+        {
+          title: "Company",
+          links: [
+            { label: "About", href: "#about" },
+            { label: "Blog", href: "#blog" },
+            { label: "Careers", href: "#careers" },
+          ],
+        },
+      ],
+      socialLinks: [
+        { platform: "github", href: "https://github.com" },
+        { platform: "twitter", href: "https://twitter.com" },
+      ],
+      newsletter: {
+        title: "Stay Updated",
+        description: "Get the latest updates on new features and releases",
+        placeholder: "your@email.com",
+      },
+      copyright: "© 2024 React Jedi. All rights reserved.",
+      legalLinks: [
+        { label: "Privacy", href: "#privacy" },
+        { label: "Terms", href: "#terms" },
+      ],
+    },
+  },
   Header: {
     type: "Header",
     props: {

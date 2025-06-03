@@ -382,12 +382,6 @@ const categories: ComponentCategory[] = [
         type: "custom",
       },
       {
-        name: "Footer",
-        description: "Website footer with multiple layout options.",
-        status: "completed",
-        type: "custom",
-      },
-      {
         name: "PricingTable",
         description: "Pricing tables with multiple tiers and feature comparisons.",
         status: "completed",
@@ -772,7 +766,6 @@ export function ShowcasePage() {
                         component.name === "Carousel" ||
                         component.name === "Checkbox" ||
                         component.name === "FeatureCard" ||
-                        component.name === "Footer" ||
                         component.name === "Form" ||
                         component.name === "Image" ||
                         component.name === "Input" ||

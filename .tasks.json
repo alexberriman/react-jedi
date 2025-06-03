@@ -22,7 +22,7 @@
       {
         "id": "footer-block",
         "description": "Move the existing footer component to the new blocks directory (src/components/blocks/footer). Remove it from the showcase page in the example app and add it to the new blocks showcase page. Enhance it with: multiple column layouts (2-6 columns), social icon integration (install react-icons library), newsletter signup section, company info section, legal links row, and multiple variants (minimal, standard, expanded). Make it fully responsive with mobile-first design. Create comprehensive Storybook stories showing all variants.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "feature-card-block",

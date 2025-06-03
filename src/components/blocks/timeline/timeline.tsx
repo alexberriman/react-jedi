@@ -93,11 +93,13 @@ export function Timeline({
         <ItemComponent
           key={item.id}
           className="relative flex items-center justify-center pb-10 last:pb-0"
-          initial={animated ? "hidden" : undefined}
-          whileInView={animated ? "visible" : undefined}
-          viewport={animated ? { once: true } : undefined}
-          variants={animated ? timelineItemAnimation : undefined}
-          transition={animated ? { delay: index * 0.1 } : undefined}
+          {...(animated && {
+            initial: "hidden",
+            whileInView: "visible",
+            viewport: { once: true },
+            variants: timelineItemAnimation,
+            transition: { delay: index * 0.1 },
+          })}
         >
           <div className={cn(
             "absolute left-1/2 z-10 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-4 border-background",
@@ -169,11 +171,13 @@ export function Timeline({
         <ItemComponent
           key={item.id}
           className="relative mb-10 flex last:mb-0"
-          initial={animated ? "hidden" : undefined}
-          whileInView={animated ? "visible" : undefined}
-          viewport={animated ? { once: true } : undefined}
-          variants={animated ? timelineItemAnimation : undefined}
-          transition={animated ? { delay: index * 0.1 } : undefined}
+          {...(animated && {
+            initial: "hidden",
+            whileInView: "visible",
+            viewport: { once: true },
+            variants: timelineItemAnimation,
+            transition: { delay: index * 0.1 },
+          })}
         >
           <div className={cn(
             "absolute left-0 flex h-8 w-8 items-center justify-center rounded-full border-4 border-background md:left-1/2 md:-translate-x-1/2",
@@ -247,11 +251,13 @@ export function Timeline({
           <ItemComponent
             key={item.id}
             className="relative flex-1"
-            initial={animated ? "hidden" : undefined}
-            whileInView={animated ? "visible" : undefined}
-            viewport={animated ? { once: true } : undefined}
-            variants={animated ? timelineItemAnimation : undefined}
-            transition={animated ? { delay: index * 0.1 } : undefined}
+            {...(animated && {
+              initial: "hidden",
+              whileInView: "visible",
+              viewport: { once: true },
+              variants: timelineItemAnimation,
+              transition: { delay: index * 0.1 },
+            })}
           >
             <div className="flex flex-col items-center">
               <div className={cn(
@@ -295,11 +301,13 @@ export function Timeline({
         <ItemComponent
           key={item.id}
           className="flex items-start gap-4"
-          initial={animated ? "hidden" : undefined}
-          whileInView={animated ? "visible" : undefined}
-          viewport={animated ? { once: true } : undefined}
-          variants={animated ? timelineItemAnimation : undefined}
-          transition={animated ? { delay: index * 0.1 } : undefined}
+          {...(animated && {
+            initial: "hidden",
+            whileInView: "visible",
+            viewport: { once: true },
+            variants: timelineItemAnimation,
+            transition: { delay: index * 0.1 },
+          })}
         >
           <div className={cn(
             "mt-1 h-2 w-2 rounded-full",
@@ -330,11 +338,13 @@ export function Timeline({
         <ItemComponent
           key={item.id}
           className="group"
-          initial={animated ? "hidden" : undefined}
-          whileInView={animated ? "visible" : undefined}
-          viewport={animated ? { once: true } : undefined}
-          variants={animated ? timelineItemAnimation : undefined}
-          transition={animated ? { delay: index * 0.1 } : undefined}
+          {...(animated && {
+            initial: "hidden",
+            whileInView: "visible",
+            viewport: { once: true },
+            variants: timelineItemAnimation,
+            transition: { delay: index * 0.1 },
+          })}
         >
           <Card className="overflow-hidden">
             <div className="grid gap-6 md:grid-cols-2">

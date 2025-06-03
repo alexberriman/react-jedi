@@ -9,8 +9,8 @@ import {
   TrendingUp, Users, Clock, DollarSign, Star, Globe, Zap, Award, 
   Code, Palette, BarChart3, Briefcase, ExternalLink, ChevronRight 
 } from 'lucide-react';
-import { PageHeader } from '../../../../../src/components/ui/page-header';
-import { ShowcaseWrapper } from '../../../../../src/components/ui/showcase-wrapper';
+import { PageHeader } from '../../../components/ui/page-header';
+import { ShowcaseWrapper } from '../../../components/ui/showcase-wrapper';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../../../../../src/components/ui/dialog';
 import { ScrollArea } from '../../../../../src/components/ui/scroll-area';
 import { format } from 'date-fns';

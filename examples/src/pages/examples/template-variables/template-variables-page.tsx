@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { render } from 'react-jedi'
-import type { UISpecification } from 'react-jedi'
-import CodeBlock from '../../../components/ui/code-block'
+import { render } from '@alexberriman/react-jedi'
+import type { UISpecification } from '@alexberriman/react-jedi'
+import { CodeBlock } from '../../../components/ui/code-block'
 
 function TemplateVariablesPage() {
   const [variables, setVariables] = useState({
@@ -266,7 +266,7 @@ const rendered = render(specification, { variables })`
 
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Code Example</h2>
-        <CodeBlock code={specificationCode} language="typescript" />
+        <CodeBlock language="typescript">{specificationCode}</CodeBlock>
       </div>
 
       <div className="mb-8">

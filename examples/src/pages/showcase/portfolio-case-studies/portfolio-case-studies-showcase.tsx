@@ -7,13 +7,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../../../src/components/ui/tabs';
 import { 
   TrendingUp, Users, Clock, DollarSign, Star, Globe, Zap, Award, 
-  Code, Palette, BarChart3, Briefcase, ArrowLeft, ExternalLink, ChevronRight 
+  Code, Palette, BarChart3, Briefcase, ExternalLink, ChevronRight 
 } from 'lucide-react';
 import { PageHeader } from '../../../../../src/components/ui/page-header';
 import { ShowcaseWrapper } from '../../../../../src/components/ui/showcase-wrapper';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../../../../../src/components/ui/dialog';
 import { ScrollArea } from '../../../../../src/components/ui/scroll-area';
-import { Separator } from '../../../../../src/components/ui/separator';
 import { format } from 'date-fns';
 
 const sampleProjects: CaseStudy[] = [
@@ -227,7 +226,7 @@ const sampleProjects: CaseStudy[] = [
   },
 ];
 
-function ProjectDetailModal({ project, isOpen, onClose }: { project: CaseStudy | null; isOpen: boolean; onClose: () => void }) {
+function ProjectDetailModal({ project, isOpen, onClose }: { readonly project: CaseStudy | null; readonly isOpen: boolean; readonly onClose: () => void }) {
   if (!project) return null;
 
   return (
@@ -305,7 +304,7 @@ function ProjectDetailModal({ project, isOpen, onClose }: { project: CaseStudy |
                     <div key={index} className="aspect-video overflow-hidden rounded-lg">
                       <img 
                         src={image} 
-                        alt={`${project.title} - Image ${index + 1}`}
+                        alt={`${project.title} - ${index + 1}`}
                         className="h-full w-full object-cover hover:scale-105 transition-transform"
                       />
                     </div>
@@ -319,7 +318,7 @@ function ProjectDetailModal({ project, isOpen, onClose }: { project: CaseStudy |
               <Card className="bg-muted/50">
                 <CardContent className="p-6">
                   <blockquote className="space-y-3">
-                    <p className="text-lg italic">"{project.testimonial.content}"</p>
+                    <p className="text-lg italic">&ldquo;{project.testimonial.content}&rdquo;</p>
                     <footer className="text-sm">
                       <strong>{project.testimonial.author}</strong>
                       {project.testimonial.role && `, ${project.testimonial.role}`}

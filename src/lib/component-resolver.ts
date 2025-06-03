@@ -645,6 +645,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.BlogPostDetail as unknown as React.ComponentType<Record<string, unknown>>,
       { title: "", content: "", author: { name: "" }, publishDate: new Date().toISOString() } // Provide default required props
     ),
+    BrandLogoBar: asComponent(
+      Blocks.BrandLogoBar as unknown as React.ComponentType<Record<string, unknown>>,
+      { logos: [] } // Provide default required props
+    ),
+    "brand-logo-bar": asComponent(
+      Blocks.BrandLogoBar as unknown as React.ComponentType<Record<string, unknown>>,
+      { logos: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

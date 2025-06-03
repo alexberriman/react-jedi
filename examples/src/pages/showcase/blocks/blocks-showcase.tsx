@@ -162,7 +162,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Brand Logo Bar",
         description: "Display partner or client logos with animations.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/blocks/brand-logo-bar",
       },
       {
         name: "Latest News",

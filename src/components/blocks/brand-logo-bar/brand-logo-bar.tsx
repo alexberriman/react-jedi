@@ -1,0 +1,191 @@
+import React, { useState } from 'react'
+import { cn } from '../../../lib/utils'
+import { Image } from '../../ui/image'
+import { Box } from '../../ui/box'
+import { Text } from '../../ui/text'
+import { motion } from 'framer-motion'
+
+export interface Logo {
+  id: string
+  name: string
+  lightSrc: string
+  darkSrc?: string
+  href?: string
+  width?: number
+  height?: number
+}
+
+export interface BrandLogoBarProperties {
+  readonly logos: Logo[]
+  readonly variant?: 'scrolling' | 'grid' | 'withHeading' | 'grayscale' | 'compact'
+  readonly heading?: string
+  readonly size?: 'small' | 'medium' | 'large'
+  readonly spacing?: 'tight' | 'normal' | 'loose'
+  readonly pauseOnHover?: boolean
+  readonly scrollSpeed?: number
+  readonly columns?: 2 | 3 | 4 | 5 | 6
+  readonly animated?: boolean
+  readonly className?: string
+  readonly children?: React.ReactNode
+}
+
+const logoSizeMap = {
+  small: { width: 80, height: 40 },
+  medium: { width: 120, height: 60 },
+  large: { width: 160, height: 80 }
+}
+
+const spacingMap = {
+  tight: 'gap-4',
+  normal: 'gap-8',
+  loose: 'gap-12'
+}
+
+const columnsMap = {
+  2: 'grid-cols-2',
+  3: 'grid-cols-3',
+  4: 'grid-cols-4 sm:grid-cols-2',
+  5: 'grid-cols-5 sm:grid-cols-3',
+  6: 'grid-cols-6 sm:grid-cols-3 md:grid-cols-4'
+}
+
+function BrandLogoBar({
+  logos,
+  variant = 'grid',
+  heading = 'Trusted by leading companies',
+  size = 'medium',
+  spacing = 'normal',
+  pauseOnHover = true,
+  scrollSpeed = 30,
+  columns = 4,
+  animated = true,
+  className,
+  ...properties
+}: BrandLogoBarProperties) {
+  const [isPaused, setIsPaused] = useState(false)
+  const logoSize = logoSizeMap[size]
+
+  const LogoItem = ({ logo, index }: { logo: Logo; index: number }) => {
+    const [isHovered, setIsHovered] = useState(false)
+    const isDarkMode = document.documentElement.classList.contains('dark')
+    const logoSrc = isDarkMode && logo.darkSrc ? logo.darkSrc : logo.lightSrc
+    
+    const logoElement = (
+      <Box
+        className={cn(
+          'flex items-center justify-center transition-all duration-300',
+          variant === 'grayscale' && 'grayscale hover:grayscale-0',
+          variant === 'compact' ? 'p-2' : 'p-4'
+        )}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Image
+          src={logoSrc}
+          alt={logo.name}
+          width={logo.width || logoSize.width}
+          height={logo.height || logoSize.height}
+          className={cn(
+            'object-contain transition-all duration-300',
+            isHovered && animated && 'scale-110'
+          )}
+        />
+      </Box>
+    )
+
+    if (logo.href) {
+      return (
+        <a
+          key={logo.id}
+          href={logo.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block"
+          aria-label={`Visit ${logo.name}`}
+        >
+          {logoElement}
+        </a>
+      )
+    }
+
+    return <div key={logo.id}>{logoElement}</div>
+  }
+
+  const ScrollingMarquee = () => {
+    const duplicatedLogos = [...logos, ...logos]
+    
+    return (
+      <Box
+        className="relative overflow-hidden"
+        onMouseEnter={() => pauseOnHover && setIsPaused(true)}
+        onMouseLeave={() => pauseOnHover && setIsPaused(false)}
+      >
+        <motion.div
+          className={cn('flex', spacingMap[spacing])}
+          animate={{
+            x: isPaused ? 0 : '-50%'
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: 'loop',
+              duration: scrollSpeed,
+              ease: 'linear'
+            }
+          }}
+        >
+          {duplicatedLogos.map((logo, index) => (
+            <LogoItem key={`${logo.id}-${index}`} logo={logo} index={index} />
+          ))}
+        </motion.div>
+      </Box>
+    )
+  }
+
+  const GridLayout = () => (
+    <Box
+      className={cn(
+        'grid',
+        columnsMap[columns],
+        spacingMap[spacing],
+        'items-center justify-items-center'
+      )}
+    >
+      {logos.map((logo, index) => (
+        <LogoItem key={logo.id} logo={logo} index={index} />
+      ))}
+    </Box>
+  )
+
+  const renderContent = () => {
+    if (variant === 'scrolling') {
+      return <ScrollingMarquee />
+    }
+    
+    return <GridLayout />
+  }
+
+  return (
+    <Box
+      className={cn(
+        'py-8 md:py-12',
+        className
+      )}
+      {...properties}
+    >
+      {(variant === 'withHeading' || heading) && (
+        <Text
+          className="text-center text-sm font-medium text-muted-foreground mb-8"
+          element="p"
+        >
+          {heading}
+        </Text>
+      )}
+      {renderContent()}
+    </Box>
+  )
+}
+
+BrandLogoBar.displayName = 'BrandLogoBar'
+
+export { BrandLogoBar }

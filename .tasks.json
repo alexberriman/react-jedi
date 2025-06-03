@@ -77,7 +77,7 @@
       {
         "id": "brand-logo-bar-block",
         "description": "Create Brand Logo Bar block for trust/social proof. Variants: scrolling marquee, static grid, with heading, grayscale with color on hover, and compact. Features: logo sizing options, spacing controls, optional 'Trusted by' heading, and link support. Add smooth infinite scroll animation, pause on hover, and mobile responsive layouts. Support both light/dark logos with automatic switching.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "service-list-block",

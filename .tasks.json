@@ -147,7 +147,7 @@
       {
         "id": "typewriter-text-block",
         "description": "Create Typewriter Text block for dynamic text animations. Variants: typing effect, deleting and retyping, cursor blinking, multiple phrases rotation, and speed variations. Features: customizable typing speed, pause delays, cursor styling, infinite loop option, and text color transitions. Add multiple text strings cycling, character-by-character reveal, and responsive text sizing. Include modern fonts and smooth animations with accessibility considerations for reduced motion preferences.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "process-steps-block",

@@ -192,6 +192,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/photo-flip-card",
       },
+      {
+        name: "Typewriter Text",
+        description: "Dynamic text animations with typewriter effects, multiple text rotation, cursor styling, and accessibility support.",
+        status: "completed",
+        path: "/showcase/blocks/typewriter-text",
+      },
     ],
   },
   {
@@ -1419,6 +1425,31 @@ const blockPreviews: Record<string, ComponentSpec> = {
           tags: ["beach", "tropical", "paradise"],
         },
       ],
+    },
+  },
+  "Typewriter Text": {
+    type: "TypewriterText",
+    props: {
+      variant: "rotation",
+      texts: [
+        "Build amazing websites",
+        "Create beautiful interfaces",
+        "Ship products faster",
+        "Scale with confidence"
+      ],
+      typeSpeed: 80,
+      deleteSpeed: 50,
+      pauseDuration: 1500,
+      deleteDelay: 1000,
+      textSize: "2xl",
+      fontWeight: "bold",
+      textColor: "#059669",
+      cursorColor: "#10b981",
+      cursorStyle: "line",
+      alignment: "center",
+      showCursor: true,
+      cursorBlink: true,
+      animated: true,
     },
   },
 };

@@ -197,3 +197,4 @@ export type { HeadManagerSpec, ExtendedHeadManagerSpec } from "./head-manager";
 export type { FAQDef, FAQItem, FAQCategory, FAQSearchOptions, FAQVotingOptions, FAQContactSupport } from "./faq";
 export type { StatBlockDef, StatItem } from "./stat-block";
 export type { ContactFormBlockProperties, FormField, FormStep, ContactFormBlockVariant } from "./contact-form-block";
+export type { TypewriterTextDef } from "./typewriter-text";

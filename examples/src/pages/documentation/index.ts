@@ -10,6 +10,7 @@ export {
   FormComponentsPage as FormComponents,
   ThemingPage as Theming,
   StateManagementPage as StateManagement,
+  TemplatingPage as Templating,
   ComplexExamplesPage as ComplexExamples,
   PerformancePage as Performance
 } from "./sections";

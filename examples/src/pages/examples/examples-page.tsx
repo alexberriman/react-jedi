@@ -178,6 +178,14 @@ const examples: Example[] = [
     path: "/examples/focus-management",
     category: "accessibility",
   },
+  {
+    id: "template-variables",
+    title: "Template Variables",
+    description:
+      "Dynamic content with template variables. Use {{variableName}} syntax for variable substitution, nested properties, and reserved variables like {{currentYear}}.",
+    path: "/examples/template-variables",
+    category: "data",
+  },
   // More examples will be added here
 ];
 

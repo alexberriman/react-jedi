@@ -31,3 +31,10 @@ export {
   type ParsedDataSource,
   type DataSourceConfig,
 } from "./data-source-parser";
+
+export {
+  processTemplate,
+  processJsonTemplate,
+  hasTemplateVariables,
+  extractTemplateVariables,
+} from "./template-engine";

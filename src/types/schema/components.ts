@@ -147,6 +147,14 @@ export interface RenderOptions {
    * Options for data source fetching.
    */
   dataSourceOptions?: import("@/hooks/use-data-sources").UseDataSourcesOptions;
+
+  /**
+   * Template variables for variable substitution in string values.
+   * Variables can be referenced in strings using {{variableName}} syntax.
+   * Supports nested properties using dot notation (e.g., {{user.name}}).
+   * Reserved variables like {{currentYear}} are automatically available.
+   */
+  variables?: Record<string, unknown>;
 }
 
 /**

@@ -34,6 +34,7 @@ import {
 } from "./performance";
 import { useDataSources } from "../hooks/use-data-sources";
 import { ErrorBoundary as SexyErrorBoundary } from "../components/ui/error-boundary";
+import { processJsonTemplate, type TemplateVariable } from "./parser/template-engine";
 
 // Using the sexy ErrorBoundary from ../components/ui/error-boundary
 
@@ -662,10 +663,20 @@ export function render(
   options: RenderOptions = {}
 ): React.ReactElement | null {
   try {
-    const componentSpec = getComponentSpec(specification);
-    const effectiveOptions = prepareRenderOptions(specification, options);
+    // Process template variables if provided
+    let processedSpecification = specification;
+    if (options.variables) {
+      const templateResult = processJsonTemplate(specification, options.variables as TemplateVariable);
+      if (!templateResult.ok) {
+        throw templateResult.val;
+      }
+      processedSpecification = templateResult.val;
+    }
 
-    const fullSpec = isComponentSpec(specification) ? null : specification;
+    const componentSpec = getComponentSpec(processedSpecification);
+    const effectiveOptions = prepareRenderOptions(processedSpecification, options);
+
+    const fullSpec = isComponentSpec(processedSpecification) ? null : processedSpecification;
     const stateManager = createConfiguredStateManager(fullSpec, effectiveOptions);
 
     if (stateManager) {

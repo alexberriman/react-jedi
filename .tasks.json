@@ -12,7 +12,7 @@
       {
         "id": "templating-engine",
         "description": "Implement a templating engine to support variables in JSON specifications. Use case: components/blocks can use placeholders like {{currentYear}}, {{companyName}}, {{userEmail}} etc. instead of hardcoding values. Tasks: 1) Research and choose between creating custom engine or using lightweight open-source solution (e.g. mustache, handlebars-lite), 2) Implement variable substitution in render function with support for nested properties, 3) Add reserved/special variables (currentYear, currentDate, timestamp, etc.), 4) Update render function to accept variables parameter, 5) Add comprehensive tests for templating, 6) Update README.md with templating documentation, 7) Create new documentation page at /documentation/templating with examples and variable reference.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "markdown-component",

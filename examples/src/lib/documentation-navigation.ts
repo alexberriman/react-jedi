@@ -7,6 +7,8 @@ const docSections = [
   { id: "form-components", label: "Form Components", path: "/documentation/form-components" },
   { id: "theming", label: "Theming", path: "/documentation/theming" },
   { id: "state-management", label: "State Management", path: "/documentation/state-management" },
+  { id: "templating", label: "Template Variables", path: "/documentation/templating" },
+  { id: "seo-metadata", label: "SEO & Metadata", path: "/documentation/seo-metadata" },
   { id: "complex-examples", label: "Complex Examples", path: "/documentation/complex-examples" },
   { id: "performance", label: "Performance", path: "/documentation/performance" },
 ];

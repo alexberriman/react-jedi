@@ -158,6 +158,7 @@ function LoginPage() {
 - **Responsive Design** - Mobile-first with breakpoint support
 - **Theme System** - Dark mode and custom themes
 - **State Management** - Reactive state directly in JSON
+- **Template Variables** - Dynamic content with {{variableName}} syntax
 
 ## Component Library
 
@@ -293,6 +294,63 @@ const button: ButtonSpec = {
   size: "lg"
 };
 ```
+
+## Template Variables
+
+React Jedi supports template variables for dynamic content without hardcoding values:
+
+```javascript
+const spec = {
+  type: "card",
+  children: [
+    {
+      type: "heading",
+      level: "h2",
+      content: "Welcome {{user.name}}!"
+    },
+    {
+      type: "text",
+      text: "You have {{productCount}} items in your cart"
+    },
+    {
+      type: "footer",
+      children: "© {{currentYear}} {{companyName}}"
+    }
+  ]
+};
+
+// Render with variables
+const rendered = render(spec, {
+  variables: {
+    user: { name: "John Doe" },
+    productCount: 5,
+    companyName: "Acme Corp"
+    // currentYear is automatically available
+  }
+});
+```
+
+### Features
+
+- **Simple Syntax** - Use `{{variableName}}` in any string value
+- **Nested Properties** - Access nested objects with dot notation: `{{user.profile.name}}`
+- **Reserved Variables** - Automatic variables like `{{currentYear}}`, `{{currentDate}}`, `{{currentTime}}`
+- **HTML Escaping** - Values are escaped by default to prevent XSS
+- **Type Safe** - Full TypeScript support for variables
+
+### Reserved Variables
+
+These variables are automatically available in all templates:
+
+- `{{currentYear}}` - Current year (e.g., 2024)
+- `{{currentMonth}}` - Current month number (1-12)
+- `{{currentDay}}` - Current day of month (1-31)
+- `{{currentDate}}` - ISO date (YYYY-MM-DD)
+- `{{currentTime}}` - Time (HH:MM:SS)
+- `{{currentDateTime}}` - ISO datetime
+- `{{timestamp}}` - Unix timestamp
+- `{{weekday}}` - Day name (e.g., Monday)
+- `{{month}}` - Month name (e.g., January)
 
 ## Styling & Theming
 

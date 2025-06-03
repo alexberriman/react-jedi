@@ -242,6 +242,9 @@ const Theming = lazy(() =>
 const StateManagement = lazy(() =>
   import("../pages/documentation").then((module) => ({ default: module.StateManagement }))
 );
+const Templating = lazy(() =>
+  import("../pages/documentation").then((module) => ({ default: module.Templating }))
+);
 const Performance = lazy(() =>
   import("../pages/documentation").then((module) => ({ default: module.Performance }))
 );
@@ -309,6 +312,9 @@ const RichSnippetsPage = lazy(() =>
 );
 const FocusManagementPage = lazy(() =>
   import("../pages/accessibility/focus-management-page").then((module) => ({ default: module.FocusManagementPage }))
+);
+const TemplateVariablesPage = lazy(() =>
+  import("../pages/examples/template-variables").then((module) => ({ default: module.TemplateVariablesPage }))
 );
 
 // Feature pages
@@ -695,6 +701,12 @@ export const router = createBrowserRouter([
             ),
           },
           {
+            path: "templating",
+            element: (
+              <AsyncRoute component={Templating} loadingText="Loading template variables..." />
+            ),
+          },
+          {
             path: "performance",
             element: <AsyncRoute component={Performance} loadingText="Loading performance..." />,
           },
@@ -856,6 +868,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={FocusManagementPage}
                 loadingText="Loading focus management demo..."
+              />
+            ),
+          },
+          {
+            path: "template-variables",
+            element: (
+              <AsyncRoute
+                component={TemplateVariablesPage}
+                loadingText="Loading template variables demo..."
               />
             ),
           },

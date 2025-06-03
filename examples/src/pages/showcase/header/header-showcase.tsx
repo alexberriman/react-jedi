@@ -413,7 +413,7 @@ render(headerSpec, container);`;
                 <p className="text-muted-foreground">
                   The Header block component is a comprehensive navigation solution that combines
                   branding, navigation menus, action buttons, and optional features like dark mode
-                  toggle into a cohesive header. It's fully responsive with built-in mobile menu
+                  toggle into a cohesive header. It&apos;s fully responsive with built-in mobile menu
                   support.
                 </p>
               </section>

@@ -1,1 +1,1 @@
-export * from "./footer";
+export { FooterBlock, type FooterBlockProps, type FooterSection, type SocialLink, type ContactInfo, type CompanyInfo, type NewsletterConfig } from "./footer";

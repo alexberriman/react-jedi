@@ -8,6 +8,9 @@
 // UI Components - shadcn components
 export * from './ui';
 
+// Block Components - pre-built components for rapid development
+export * from './blocks';
+
 // Feature Components
 // Add new feature exports below as they're created
 // Example: export * from './feature-name';

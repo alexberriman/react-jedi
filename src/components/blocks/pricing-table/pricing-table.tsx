@@ -345,6 +345,7 @@ export const PricingTable = React.forwardRef<HTMLDivElement, PricingTableProps>(
         <Card
           key={index}
           className={getCardClasses(tier, animated)}
+          role="article"
         >
           {tier.badge && (
             <div className="absolute right-4 top-4 z-10">

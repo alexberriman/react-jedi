@@ -109,7 +109,7 @@ interface NewsletterConfig {
   onSubmit?: (email: string) => void | Promise<void>;
 }
 
-interface FooterProps
+interface FooterBlockProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof footerVariants> {
   companyInfo?: CompanyInfo;
@@ -402,7 +402,7 @@ const FooterBottom = ({
   </div>
 );
 
-const Footer = React.forwardRef<HTMLElement, FooterProps>(
+const FooterBlock = React.forwardRef<HTMLElement, FooterBlockProps>(
   (
     {
       className,
@@ -683,6 +683,6 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
   }
 );
 
-Footer.displayName = "Footer";
+FooterBlock.displayName = "FooterBlock";
 
-export { Footer, type FooterProps, type FooterSection, type SocialLink, type ContactInfo, type CompanyInfo, type NewsletterConfig };
+export { FooterBlock, type FooterBlockProps, type FooterSection, type SocialLink, type ContactInfo, type CompanyInfo, type NewsletterConfig };

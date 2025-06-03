@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Footer } from "./footer";
+import { FooterBlock } from "./footer";
 import { FaReact } from "react-icons/fa6";
 
 const meta = {
-  title: "Blocks/Footer",
-  component: Footer,
+  title: "Blocks/FooterBlock",
+  component: FooterBlock,
   parameters: {
     layout: "fullscreen",
   },
@@ -41,7 +41,7 @@ const meta = {
       options: ["default", "wide", "full"],
     },
   },
-} satisfies Meta<typeof Footer>;
+} satisfies Meta<typeof FooterBlock>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

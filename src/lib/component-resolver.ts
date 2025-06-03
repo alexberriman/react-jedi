@@ -593,10 +593,10 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       { title: "" } // Provide default required props
     ),
     Footer: asComponent(
-      Blocks.Footer as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.FooterBlock as unknown as React.ComponentType<Record<string, unknown>>
     ),
     footer: asComponent(
-      Blocks.Footer as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.FooterBlock as unknown as React.ComponentType<Record<string, unknown>>
     ),
   };
 

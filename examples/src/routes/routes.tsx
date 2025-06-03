@@ -228,6 +228,9 @@ const BlocksShowcasePage = lazy(() =>
 const HeaderShowcase = lazy(() =>
   import("../pages/showcase/header").then((module) => ({ default: module.HeaderShowcase }))
 );
+const PageHeroHeaderShowcase = lazy(() =>
+  import("../pages/showcase/page-hero-header").then((module) => ({ default: module.PageHeroHeaderShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -650,6 +653,10 @@ export const router = createBrowserRouter([
           {
             path: "header",
             element: <AsyncRoute component={HeaderShowcase} loadingText="Loading header showcase..." />,
+          },
+          {
+            path: "page-hero-header",
+            element: <AsyncRoute component={PageHeroHeaderShowcase} loadingText="Loading page hero header showcase..." />,
           },
           {
             path: "hover-card",

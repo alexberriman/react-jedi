@@ -17,7 +17,7 @@
       {
         "id": "page-header",
         "description": "Create a new 'page-hero-header' component. This is the component that should be the 'main' hero on a page (i.e. think marketing website). It should have many different props and variants to be really flexible and to suit many different types of websites (i.e. title, description, options for ctas, options for fullscreen image, option for right aligned image only, etc.  etc.). Just image its a flexible component for most different types of websites. It should look really sexy, real clean, simple, modern.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "footer-block",

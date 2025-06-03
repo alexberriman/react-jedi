@@ -53,7 +53,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Page Hero Header",
         description: "Main hero section for marketing pages with multiple variants.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/page-hero-header",
       },
       {
         name: "Call to Action",
@@ -551,6 +552,32 @@ const blockPreviews: Record<string, ComponentSpec> = {
         },
       ],
       showDarkModeToggle: true,
+    },
+  },
+  "Page Hero Header": {
+    type: "PageHeroHeader",
+    props: {
+      variant: "centered",
+      title: "Build Amazing Products Faster",
+      subtitle: "The modern way to create exceptional user experiences",
+      description: "Our platform provides everything you need to design, develop, and deploy beautiful applications at scale.",
+      primaryCTA: {
+        label: "Get Started Free",
+        variant: "default",
+        size: "lg",
+        icon: "arrow",
+      },
+      secondaryCTA: {
+        label: "Watch Demo",
+        variant: "outline",
+        size: "lg",
+        icon: "play",
+      },
+      badges: [
+        { text: "New", variant: "default" },
+        { text: "v2.0 Released", variant: "secondary" },
+      ],
+      spacing: "tight",
     },
   },
 };

@@ -152,8 +152,9 @@ const blockCategories: BlockCategory[] = [
       },
       {
         name: "Newsletter Signup",
-        description: "Email capture with various display modes.",
-        status: "pending",
+        description: "Email capture with various display modes, GDPR compliance, and multiple variants.",
+        status: "completed",
+        path: "/showcase/blocks/newsletter-signup",
       },
     ],
   },

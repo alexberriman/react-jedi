@@ -1,0 +1,1 @@
+export { NewsletterSignupShowcasePage as default } from "./newsletter-signup-showcase";

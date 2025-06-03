@@ -264,6 +264,9 @@ const ContactFormShowcase = lazy(() =>
 const LatestNewsShowcase = lazy(() =>
   import("../pages/showcase/blocks/latest-news").then((module) => ({ default: module.LatestNewsShowcase }))
 );
+const NewsletterSignupShowcase = lazy(() =>
+  import("../pages/showcase/blocks/newsletter-signup").then((module) => ({ default: module.NewsletterSignupShowcasePage }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -499,6 +502,10 @@ export const router = createBrowserRouter([
               {
                 path: "latest-news",
                 element: <AsyncRoute component={LatestNewsShowcase} loadingText="Loading latest news block..." />,
+              },
+              {
+                path: "newsletter-signup",
+                element: <AsyncRoute component={NewsletterSignupShowcase} loadingText="Loading newsletter signup block..." />,
               },
             ],
           },

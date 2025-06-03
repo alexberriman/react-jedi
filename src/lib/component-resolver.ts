@@ -687,6 +687,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       LatestNews as unknown as React.ComponentType<Record<string, unknown>>,
       { articles: [] } // Provide default required props
     ),
+    NewsletterSignup: asComponent(
+      Blocks.NewsletterSignup as unknown as React.ComponentType<Record<string, unknown>>,
+      { title: "Stay updated", description: "Get the latest news and updates delivered to your inbox." } // Provide default required props
+    ),
+    "newsletter-signup": asComponent(
+      Blocks.NewsletterSignup as unknown as React.ComponentType<Record<string, unknown>>,
+      { title: "Stay updated", description: "Get the latest news and updates delivered to your inbox." } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

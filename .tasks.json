@@ -102,7 +102,7 @@
       {
         "id": "newsletter-signup-block",
         "description": "Create Newsletter Signup block. Variants: inline form, modal popup, slide-in, footer bar, and with incentive. Features: email validation, name field option, GDPR checkbox, success confirmation, and loading states. Add integration points for email services, optional background images/patterns, and exit intent trigger option. Include privacy policy link and benefits list.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "social-share-bar-block",

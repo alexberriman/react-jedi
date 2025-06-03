@@ -139,6 +139,12 @@ const blockCategories: BlockCategory[] = [
     description: "Blocks with user interaction and dynamic content.",
     blocks: [
       {
+        name: "Icon",
+        description: "Comprehensive icon component with react-icons library, search, categories, animations, and size/color variants.",
+        status: "completed",
+        path: "/showcase/blocks/icon",
+      },
+      {
         name: "Carousel",
         description: "Enhanced carousel with multiple variants: image gallery, content cards, testimonials, product showcase, and fullscreen modes.",
         status: "completed",
@@ -1277,5 +1283,55 @@ const blockPreviews: Record<string, ComponentSpec> = {
       colorScheme: "brand",
       animated: true,
     },
+  },
+  Icon: {
+    type: "Flex",
+    props: {
+      gap: "xl",
+      align: "center",
+      justify: "center",
+      wrap: true,
+      className: "p-6"
+    },
+    children: [
+      {
+        type: "Icon",
+        props: {
+          icon: "AiOutlineHome",
+          size: "xl",
+          color: "#3b82f6"
+        }
+      },
+      {
+        type: "Icon",
+        props: {
+          icon: "AiOutlineHeart",
+          size: "xl",
+          color: "#ef4444",
+          animated: true,
+          animationType: "pulse"
+        }
+      },
+      {
+        type: "Icon",
+        props: {
+          icon: "AiOutlineStar",
+          size: "xl",
+          color: "#f59e0b",
+          variant: "background",
+          background: "#fef3c7"
+        }
+      },
+      {
+        type: "Icon",
+        props: {
+          icon: "AiOutlineCheck",
+          size: "xl",
+          color: "#10b981",
+          variant: "background",
+          background: "#d1fae5"
+        }
+      }
+    ]
   },
 };

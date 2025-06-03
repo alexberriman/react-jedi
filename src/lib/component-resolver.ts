@@ -727,6 +727,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.ContactFormBlock as unknown as React.ComponentType<Record<string, unknown>>,
       { fields: [] } // Provide default required props
     ),
+    Icon: asComponent(
+      Blocks.Icon as unknown as React.ComponentType<Record<string, unknown>>,
+      { icon: null } // Provide default required props
+    ),
+    icon: asComponent(
+      Blocks.Icon as unknown as React.ComponentType<Record<string, unknown>>,
+      { icon: null } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

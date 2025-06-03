@@ -29,3 +29,4 @@ export * from "./social-share-bar";
 export * from "./map";
 export * from "./stat-block";
 export * from "./contact-form-block";
+export * from "./icon";

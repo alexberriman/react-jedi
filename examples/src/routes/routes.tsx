@@ -285,6 +285,9 @@ const ContactFormEnhancedPage = lazy(() =>
 const ContactFormEnhancedShowcase = lazy(() =>
   import("../pages/showcase/blocks/contact-form-enhanced").then((module) => ({ default: module.ContactFormEnhancedShowcase }))
 );
+const IconShowcase = lazy(() =>
+  import("../pages/showcase/blocks/icon").then((module) => ({ default: module.IconShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -540,6 +543,10 @@ export const router = createBrowserRouter([
               {
                 path: "contact-form-enhanced",
                 element: <AsyncRoute component={ContactFormEnhancedShowcase} loadingText="Loading contact form enhanced..." />,
+              },
+              {
+                path: "icon",
+                element: <AsyncRoute component={IconShowcase} loadingText="Loading icon showcase..." />,
               },
             ],
           },

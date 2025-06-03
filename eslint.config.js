@@ -123,6 +123,10 @@ export default [
         FileReader: "readonly",
         URL: "readonly",
         URLSearchParams: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly",
+        setInterval: "readonly",
+        clearInterval: "readonly",
         
         // Other globals
         console: "readonly",

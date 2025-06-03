@@ -36,7 +36,7 @@ export function ShowcaseSection({ id, title, description, code, children }: Show
     if (code) {
       await navigator.clipboard.writeText(code);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      globalThis.setTimeout(() => setCopied(false), 2000);
     }
   };
 

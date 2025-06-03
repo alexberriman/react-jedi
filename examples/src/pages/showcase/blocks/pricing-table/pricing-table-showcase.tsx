@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PricingTable } from "@alexberriman/react-jedi";
+import { PricingTable, render } from "@alexberriman/react-jedi";
 import type { PricingTier } from "@alexberriman/react-jedi";
 import { Sparkles, Zap, Crown, Shield, Rocket, Star } from "lucide-react";
 import { usePageMetadata } from "../../../../lib/meta";

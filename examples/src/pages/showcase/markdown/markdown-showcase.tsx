@@ -280,7 +280,7 @@ render(spec);
                       onClick={(e) => {
                         e.preventDefault();
                         setActiveSection(item.id);
-                        document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                        document.querySelector(`#${item.id}`)?.scrollIntoView({ behavior: "smooth" });
                       }}
                       className={`block py-1 px-3 rounded text-sm transition-colors ${
                         activeSection === item.id
@@ -303,7 +303,7 @@ render(spec);
               <h2 className="text-2xl font-semibold mb-4">Overview</h2>
               <div className="prose dark:prose-invert max-w-none">
                 <p>
-                  The Markdown component allows you to render markdown content with full GitHub Flavored Markdown support, syntax highlighting for code blocks, and customizable styling. It's perfect for documentation, blog posts, or any content that needs rich formatting.
+                  The Markdown component allows you to render markdown content with full GitHub Flavored Markdown support, syntax highlighting for code blocks, and customizable styling. It&apos;s perfect for documentation, blog posts, or any content that needs rich formatting.
                 </p>
                 <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
                 <ul className="list-disc pl-6 space-y-1">
@@ -478,7 +478,7 @@ render(spec);
                     <tr className="border-b">
                       <td className="py-3 px-4 font-mono text-sm">className</td>
                       <td className="py-3 px-4 font-mono text-sm">string</td>
-                      <td className="py-3 px-4 font-mono text-sm">""</td>
+                      <td className="py-3 px-4 font-mono text-sm">&quot;&quot;</td>
                       <td className="py-3 px-4">Additional CSS classes</td>
                     </tr>
                     <tr className="border-b">

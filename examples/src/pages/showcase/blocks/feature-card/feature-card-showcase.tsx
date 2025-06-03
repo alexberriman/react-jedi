@@ -7,30 +7,6 @@ import { ShowcaseWrapper } from "../../../../../components/ui/showcase-wrapper";
 import { PageHeader } from "../../../../../components/ui/page-header";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Zap, 
-  Shield, 
-  Rocket, 
-  Users, 
-  BarChart, 
-  Code, 
-  Cloud, 
-  Lock,
-  Sparkles,
-  Heart,
-  Star,
-  Globe,
-  Cpu,
-  Database,
-  Settings,
-  Package,
-  Layers,
-  Palette,
-  Terminal,
-  FileCode,
-  GitBranch,
-  Workflow
-} from "lucide-react";
 
 export function FeatureCardShowcasePage() {
   usePageMetadata({

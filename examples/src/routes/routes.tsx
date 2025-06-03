@@ -60,6 +60,9 @@ const MarkdownShowcase = lazy(() =>
 const CallToActionShowcase = lazy(() =>
   import("../pages/showcase/blocks/call-to-action").then((module) => ({ default: module.CallToActionShowcase }))
 );
+const TimelineShowcase = lazy(() =>
+  import("../pages/showcase/blocks/timeline").then((module) => ({ default: module.TimelineShowcase }))
+);
 const CardShowcase = lazy(() =>
   import("../pages/showcase/card").then((module) => ({ default: module.CardShowcase }))
 );
@@ -425,6 +428,10 @@ export const router = createBrowserRouter([
               {
                 path: "call-to-action",
                 element: <AsyncRoute component={CallToActionShowcase} loadingText="Loading call-to-action block..." />,
+              },
+              {
+                path: "timeline",
+                element: <AsyncRoute component={TimelineShowcase} loadingText="Loading timeline block..." />,
               },
             ],
           },

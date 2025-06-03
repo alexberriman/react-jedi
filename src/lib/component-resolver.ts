@@ -598,6 +598,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     footer: asComponent(
       Blocks.FooterBlock as unknown as React.ComponentType<Record<string, unknown>>
     ),
+    Timeline: asComponent(
+      Blocks.Timeline as unknown as React.ComponentType<Record<string, unknown>>,
+      { items: [] } // Provide default required props
+    ),
+    timeline: asComponent(
+      Blocks.Timeline as unknown as React.ComponentType<Record<string, unknown>>,
+      { items: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

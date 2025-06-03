@@ -42,7 +42,7 @@
       {
         "id": "timeline-block",
         "description": "Create new Timeline block component. Variants: vertical centered, vertical alternating, horizontal (desktop only), minimal dots, with images. Features: date/time stamps, icons for each event, connecting lines (solid/dashed), milestone markers, and content cards. Support both past/future events with different styling. Add scroll-triggered animations. Create both company history and roadmap examples.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "testimonial-block",

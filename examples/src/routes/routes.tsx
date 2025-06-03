@@ -270,6 +270,9 @@ const NewsletterSignupShowcase = lazy(() =>
 const SocialShareBarShowcase = lazy(() =>
   import("../pages/showcase/blocks/social-share-bar").then((module) => ({ default: module.SocialShareBarShowcasePage }))
 );
+const MapShowcase = lazy(() =>
+  import("../pages/showcase/blocks/map").then((module) => ({ default: module.MapShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -513,6 +516,10 @@ export const router = createBrowserRouter([
               {
                 path: "social-share-bar",
                 element: <AsyncRoute component={SocialShareBarShowcase} loadingText="Loading social share bar block..." />,
+              },
+              {
+                path: "map",
+                element: <AsyncRoute component={MapShowcase} loadingText="Loading map block..." />,
               },
             ],
           },

@@ -254,7 +254,10 @@ type VariantProps = SocialShareBarProperties & {
   readonly ShareButtons: React.FC
 }
 
-function HorizontalVariant({ sticky, className, ShareButtons, ...properties }: VariantProps) {
+function HorizontalVariant({ sticky, className, ShareButtons, animated, size, position, ...rest }: VariantProps) {
+  // Extract non-DOM props
+  const { url, title, description, variant, showCounts, platforms, onShare, counts, showLabels, colorScheme, ...domProps } = rest
+  
   return (
     <div
       className={cn(
@@ -262,14 +265,17 @@ function HorizontalVariant({ sticky, className, ShareButtons, ...properties }: V
         sticky && 'sticky top-4 z-40',
         className
       )}
-      {...properties}
+      {...domProps}
     >
       <ShareButtons />
     </div>
   )
 }
 
-function VerticalVariant({ sticky, className, ShareButtons, ...properties }: VariantProps) {
+function VerticalVariant({ sticky, className, ShareButtons, animated, size, position, ...rest }: VariantProps) {
+  // Extract non-DOM props
+  const { url, title, description, variant, showCounts, platforms, onShare, counts, showLabels, colorScheme, ...domProps } = rest
+  
   return (
     <div
       className={cn(
@@ -277,7 +283,7 @@ function VerticalVariant({ sticky, className, ShareButtons, ...properties }: Var
         sticky && 'sticky top-20 z-40',
         className
       )}
-      {...properties}
+      {...domProps}
     >
       <ShareButtons />
     </div>
@@ -290,9 +296,13 @@ function FloatingVariant({
   ShareButtons, 
   animated,
   size,
-  ...properties 
+  sticky,
+  ...rest 
 }: VariantProps) {
   const [isFloatingExpanded, setIsFloatingExpanded] = useState(false)
+
+  // Extract non-DOM props
+  const { url, title, description, variant, showCounts, platforms, onShare, counts, showLabels, colorScheme, ...domProps } = rest
 
   const positionClasses = {
     'top-left': 'top-4 left-4',
@@ -306,7 +316,7 @@ function FloatingVariant({
   return (
     <div
       className={cn('fixed z-50', positionClasses[position], className)}
-      {...properties}
+      {...domProps}
     >
       <AnimatePresence>
         {isFloatingExpanded ? (
@@ -348,8 +358,11 @@ function FloatingVariant({
   )
 }
 
-function ModalVariant({ className, ShareButtons, ...properties }: VariantProps) {
+function ModalVariant({ className, ShareButtons, animated, size, position, sticky, ...rest }: VariantProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Extract non-DOM props
+  const { url, title, description, variant, showCounts, platforms, onShare, counts, showLabels, colorScheme, ...domProps } = rest
 
   return (
     <>
@@ -360,7 +373,7 @@ function ModalVariant({ className, ShareButtons, ...properties }: VariantProps) 
           'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
           className
         )}
-        {...properties}
+        {...domProps}
       >
         <FaShare />
         Share
@@ -405,11 +418,14 @@ function ModalVariant({ className, ShareButtons, ...properties }: VariantProps) 
   )
 }
 
-function MinimalVariant({ className, ShareButtons, ...properties }: VariantProps) {
+function MinimalVariant({ className, ShareButtons, animated, size, position, sticky, ...rest }: VariantProps) {
+  // Extract non-DOM props
+  const { url, title, description, variant, showCounts, platforms, onShare, counts, showLabels, colorScheme, ...domProps } = rest
+  
   return (
     <div
       className={cn('flex items-center gap-1', className)}
-      {...properties}
+      {...domProps}
     >
       <ShareButtons />
     </div>

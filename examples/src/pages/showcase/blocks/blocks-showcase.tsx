@@ -162,6 +162,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/social-share-bar",
       },
+      {
+        name: "Map",
+        description: "Interactive map block with Google Maps integration, custom markers, and multiple location displays.",
+        status: "completed",
+        path: "/showcase/blocks/map",
+      },
     ],
   },
   {

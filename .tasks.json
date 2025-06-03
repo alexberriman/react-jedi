@@ -112,7 +112,7 @@
       {
         "id": "map-block",
         "description": "Create interactive Map block for location display. Variants: embedded with info overlay, fullscreen modal, with contact details sidebar, minimal marker, and multi-location. Features: Google Maps integration, custom markers, business info popup, directions link, zoom controls, and satellite/terrain views. Add responsive iframe fallback, accessibility controls, and location search. Style with modern flat design and custom marker icons.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "contact-form-enhanced-block",

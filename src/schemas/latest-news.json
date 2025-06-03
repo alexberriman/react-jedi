@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Latest News Block",
+  "description": "Display recent articles and news updates in various layouts",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "LatestNews"
+    },
+    "props": {
+      "type": "object",
+      "properties": {
+        "articles": {
+          "type": "array",
+          "description": "Array of articles to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the article"
+              },
+              "title": {
+                "type": "string",
+                "description": "Article title"
+              },
+              "excerpt": {
+                "type": "string",
+                "description": "Brief excerpt or summary of the article"
+              },
+              "category": {
+                "type": "string",
+                "description": "Article category"
+              },
+              "date": {
+                "type": "string",
+                "description": "Publication date (ISO format)"
+              },
+              "author": {
+                "type": "object",
+                "description": "Author information",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Author name"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "description": "URL to author's avatar image"
+                  }
+                },
+                "required": ["name"]
+              },
+              "thumbnail": {
+                "type": "string",
+                "description": "URL to article thumbnail image"
+              },
+              "url": {
+                "type": "string",
+                "description": "URL to full article"
+              },
+              "readTime": {
+                "type": "string",
+                "description": "Estimated reading time (e.g., '5 min read')"
+              },
+              "featured": {
+                "type": "boolean",
+                "description": "Whether this is a featured article"
+              }
+            },
+            "required": ["id", "title", "date", "url"]
+          }
+        },
+        "variant": {
+          "type": "string",
+          "description": "Display variant",
+          "enum": ["featured-list", "cards-row", "minimal-links", "with-images", "magazine"],
+          "default": "cards-row"
+        },
+        "count": {
+          "type": "number",
+          "description": "Number of articles to display (3-6)",
+          "minimum": 3,
+          "maximum": 6,
+          "default": 3
+        },
+        "showCategoryTabs": {
+          "type": "boolean",
+          "description": "Show category tabs for filtering",
+          "default": false
+        },
+        "categories": {
+          "type": "array",
+          "description": "Categories for tabs (auto-detected if not provided)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "showNewsletter": {
+          "type": "boolean",
+          "description": "Show newsletter signup section",
+          "default": false
+        },
+        "newsletterHeading": {
+          "type": "string",
+          "description": "Newsletter section heading"
+        },
+        "newsletterDescription": {
+          "type": "string",
+          "description": "Newsletter section description"
+        },
+        "viewAllUrl": {
+          "type": "string",
+          "description": "URL for 'View All' link"
+        },
+        "viewAllText": {
+          "type": "string",
+          "description": "Text for 'View All' link",
+          "default": "View All Articles"
+        },
+        "loading": {
+          "type": "boolean",
+          "description": "Show loading skeleton state",
+          "default": false
+        },
+        "heading": {
+          "type": "string",
+          "description": "Section heading",
+          "default": "Latest News"
+        },
+        "description": {
+          "type": "string",
+          "description": "Section description"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      },
+      "required": ["articles"]
+    }
+  },
+  "required": ["type", "props"]
+}

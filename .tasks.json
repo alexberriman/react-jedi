@@ -97,7 +97,7 @@
       {
         "id": "latest-news-block",
         "description": "Create Latest News/Articles block for homepages. Variants: featured + list, cards row, minimal links, with images, and magazine style. Features: article thumbnails, categories, dates, author, and excerpt. Add 'View All' link, optional newsletter signup, and loading skeleton. Support 3-6 articles display with responsive layouts. Include optional category tabs.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "newsletter-signup-block",

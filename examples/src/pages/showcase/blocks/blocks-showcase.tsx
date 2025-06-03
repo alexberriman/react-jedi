@@ -171,7 +171,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Latest News",
         description: "Recent articles or updates for homepages.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/blocks/latest-news",
       },
     ],
   },

@@ -1,0 +1,1 @@
+export { LatestNewsShowcase as default } from './latest-news-showcase';

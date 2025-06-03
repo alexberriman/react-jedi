@@ -24,6 +24,7 @@ import { CarouselBlock } from "../components/blocks/carousel";
 import { FAQBlock } from "../components/blocks/faq";
 import { Chart } from "../components/ui/chart/chart";
 import { PageSection } from "../components/blocks/page-section";
+import { LatestNews } from "../components/blocks/latest-news";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -677,6 +678,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     "contact-form": asComponent(
       Blocks.ContactForm as unknown as React.ComponentType<Record<string, unknown>>,
       { title: "Contact Us", description: "Get in touch" } // Provide default required props
+    ),
+    LatestNews: asComponent(
+      LatestNews as unknown as React.ComponentType<Record<string, unknown>>,
+      { articles: [] } // Provide default required props
+    ),
+    "latest-news": asComponent(
+      LatestNews as unknown as React.ComponentType<Record<string, unknown>>,
+      { articles: [] } // Provide default required props
     ),
   };
 

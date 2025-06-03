@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { render } from "@alexberriman/react-jedi";
 import type { ComponentSpec } from "@alexberriman/react-jedi";
 import { PageHeader } from "../../../../components/ui/page-header";
 import { ShowcaseWrapper } from "../../../../components/ui/showcase-wrapper";
@@ -564,8 +563,8 @@ export function ProcessStepsShowcasePage() {
                   </tr>
                   <tr>
                     <td><code>variant</code></td>
-                    <td><code>"horizontal" | "vertical" | "circular" | "cards" | "branching"</code></td>
-                    <td><code>"horizontal"</code></td>
+                    <td><code>&quot;horizontal&quot; | &quot;vertical&quot; | &quot;circular&quot; | &quot;cards&quot; | &quot;branching&quot;</code></td>
+                    <td><code>&quot;horizontal&quot;</code></td>
                     <td>Layout variant</td>
                   </tr>
                   <tr>
@@ -588,8 +587,8 @@ export function ProcessStepsShowcasePage() {
                   </tr>
                   <tr>
                     <td><code>connectorStyle</code></td>
-                    <td><code>"solid" | "dashed" | "arrow"</code></td>
-                    <td><code>"solid"</code></td>
+                    <td><code>&quot;solid&quot; | &quot;dashed&quot; | &quot;arrow&quot;</code></td>
+                    <td><code>&quot;solid&quot;</code></td>
                     <td>Style of connecting lines</td>
                   </tr>
                   <tr>
@@ -606,13 +605,13 @@ export function ProcessStepsShowcasePage() {
                   </tr>
                   <tr>
                     <td><code>size</code></td>
-                    <td><code>"sm" | "md" | "lg"</code></td>
-                    <td><code>"md"</code></td>
+                    <td><code>&quot;sm&quot; | &quot;md&quot; | &quot;lg&quot;</code></td>
+                    <td><code>&quot;md&quot;</code></td>
                     <td>Size of steps and text</td>
                   </tr>
                   <tr>
                     <td><code>onStepClick</code></td>
-                    <td><code>(index: number) => void</code></td>
+                    <td><code>(index: number) =&gt; void</code></td>
                     <td><code>undefined</code></td>
                     <td>Callback when a step is clicked</td>
                   </tr>
@@ -651,7 +650,7 @@ export function ProcessStepsShowcasePage() {
                   </tr>
                   <tr>
                     <td><code>status</code></td>
-                    <td><code>"completed" | "current" | "upcoming" | "disabled"</code></td>
+                    <td><code>&quot;completed&quot; | &quot;current&quot; | &quot;upcoming&quot; | &quot;disabled&quot;</code></td>
                     <td>Override automatic status</td>
                   </tr>
                   <tr>

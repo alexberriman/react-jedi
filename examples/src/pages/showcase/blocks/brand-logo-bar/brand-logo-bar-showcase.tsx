@@ -101,10 +101,17 @@ export function BrandLogoBarShowcase() {
   const [size, setSize] = useState<"small" | "medium" | "large">("medium");
   const [spacing, setSpacing] = useState<"tight" | "normal" | "loose">("normal");
   const [columns, setColumns] = useState<2 | 3 | 4 | 5 | 6>(4);
-  const [animated, setAnimated] = useState(true);
+  const [animated] = useState(true);
   const [logoSet, setLogoSet] = useState<"tech" | "enterprise" | "mixed">("tech");
 
-  const logos = logoSet === "tech" ? techLogos : logoSet === "enterprise" ? enterpriseLogos : [...techLogos, ...enterpriseLogos];
+  let logos: Logo[];
+  if (logoSet === "tech") {
+    logos = techLogos;
+  } else if (logoSet === "enterprise") {
+    logos = enterpriseLogos;
+  } else {
+    logos = [...techLogos, ...enterpriseLogos];
+  }
 
   return (
     <Box className="container mx-auto py-12 space-y-8">
@@ -161,7 +168,7 @@ export function BrandLogoBarShowcase() {
             {variant !== "scrolling" && (
               <Box>
                 <Label htmlFor="columns">Columns</Label>
-                <Select value={columns.toString()} onValueChange={(value) => setColumns(parseInt(value) as typeof columns)}>
+                <Select value={columns.toString()} onValueChange={(value) => setColumns(Number.parseInt(value) as typeof columns)}>
                   <SelectTrigger id="columns" className="w-[200px]">
                     <SelectValue />
                   </SelectTrigger>

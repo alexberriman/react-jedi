@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageSection } from '@react-jedi/core';
+import { PageSection } from '@alexberriman/react-jedi';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

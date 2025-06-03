@@ -282,7 +282,7 @@ export function HomePage() {
                       Get started by installing React Jedi in your project.
                     </p>
                     <CodeBlock language="bash">
-                      npm install @react-jedi/core
+                      npm install @alexberriman/react-jedi
                     </CodeBlock>
                   </div>
                 </div>
@@ -320,7 +320,7 @@ export function HomePage() {
                     <p className="text-gray-600 dark:text-gray-400 mb-3">
                       Use the render function to create your interface.
                     </p>
-                    <CodeBlock language="typescript">{`import { render } from '@react-jedi/core';
+                    <CodeBlock language="typescript">{`import { render } from '@alexberriman/react-jedi';
 
 const MyComponent = render(specification);`}</CodeBlock>
                   </div>

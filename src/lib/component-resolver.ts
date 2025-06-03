@@ -653,6 +653,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.BrandLogoBar as unknown as React.ComponentType<Record<string, unknown>>,
       { logos: [] } // Provide default required props
     ),
+    ServiceList: asComponent(
+      Blocks.ServiceList as unknown as React.ComponentType<Record<string, unknown>>,
+      { services: [] } // Provide default required props
+    ),
+    "service-list": asComponent(
+      Blocks.ServiceList as unknown as React.ComponentType<Record<string, unknown>>,
+      { services: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

@@ -82,7 +82,7 @@
       {
         "id": "service-list-block",
         "description": "Create Service List block. Variants: cards grid, list with icons, alternating image/text, tabs layout, and accordion. Features: service icon/image, title, description, feature lists, pricing info, and CTA buttons. Add hover effects, optional badges (Popular, New), and comparison mode. Support both product features and service offerings layouts.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "page-section-block",

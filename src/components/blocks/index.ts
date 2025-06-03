@@ -20,3 +20,4 @@ export * from "./team-grid";
 export * from "./blog-post-grid";
 export * from "./blog-post-detail";
 export * from "./brand-logo-bar";
+export * from "./service-list";

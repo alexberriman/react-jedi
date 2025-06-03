@@ -96,7 +96,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Service List",
         description: "Display services or products with icons and CTAs.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/blocks/service-list",
       },
     ],
   },
@@ -1074,6 +1075,45 @@ const blockPreviews: Record<string, ComponentSpec> = {
       showComments: false,
       showShareButtons: false,
       showProgressBar: false
+    }
+  },
+  "Service List": {
+    type: "ServiceList",
+    props: {
+      variant: "cards",
+      columns: 3,
+      animated: true,
+      services: [
+        {
+          id: "1",
+          title: "Cloud Storage",
+          description: "Secure and scalable cloud storage solution",
+          features: ["Unlimited storage", "99.9% uptime", "Auto-backup"],
+          pricing: { price: "9.99", period: "month" },
+          badge: "popular",
+          ctaText: "Get Started",
+          ctaLink: "#"
+        },
+        {
+          id: "2",
+          title: "Security Suite",
+          description: "Enterprise-grade security for your business",
+          features: ["Real-time monitoring", "Threat detection", "Firewall protection"],
+          pricing: { price: "29.99", period: "month" },
+          ctaText: "Start Trial",
+          ctaLink: "#"
+        },
+        {
+          id: "3",
+          title: "Performance Boost",
+          description: "Optimize your applications for maximum speed",
+          features: ["CDN integration", "Caching optimization", "Load balancing"],
+          pricing: { price: "19.99", period: "month" },
+          badge: "new",
+          ctaText: "Learn More",
+          ctaLink: "#"
+        }
+      ]
     }
   },
 };

@@ -252,6 +252,9 @@ const BlogPostDetailShowcase = lazy(() =>
 const BrandLogoBarShowcase = lazy(() =>
   import("../pages/showcase/blocks/brand-logo-bar").then((module) => ({ default: module.BrandLogoBarShowcase }))
 );
+const ServiceListShowcase = lazy(() =>
+  import("../pages/showcase/blocks/service-list").then((module) => ({ default: module.ServiceListShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -471,6 +474,10 @@ export const router = createBrowserRouter([
               {
                 path: "brand-logo-bar",
                 element: <AsyncRoute component={BrandLogoBarShowcase} loadingText="Loading brand logo bar block..." />,
+              },
+              {
+                path: "service-list",
+                element: <AsyncRoute component={ServiceListShowcase} loadingText="Loading service list block..." />,
               },
             ],
           },

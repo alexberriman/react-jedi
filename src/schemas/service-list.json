@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ServiceList Component Schema",
+  "description": "Schema for the advanced service list block component",
+  "type": "object",
+  "properties": {
+    "component": {
+      "type": "string",
+      "enum": ["ServiceList", "service-list"],
+      "description": "The component type identifier"
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the service"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Icon name or React icon component"
+          },
+          "image": {
+            "type": "string",
+            "description": "URL for service image (used in alternating variant)"
+          },
+          "title": {
+            "type": "string",
+            "description": "Service title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Service description"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of features included in this service"
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "price": {
+                "type": "string",
+                "description": "Price amount"
+              },
+              "period": {
+                "type": "string",
+                "description": "Pricing period (e.g., 'month', 'year', 'user/month')"
+              },
+              "currency": {
+                "type": "string",
+                "description": "Currency symbol (e.g., '$', '€', '£')"
+              }
+            },
+            "required": ["price"],
+            "description": "Pricing information for the service"
+          },
+          "badge": {
+            "type": "string",
+            "enum": ["popular", "new", "recommended"],
+            "description": "Badge to display on the service"
+          },
+          "ctaText": {
+            "type": "string",
+            "description": "Call-to-action button text"
+          },
+          "ctaLink": {
+            "type": "string",
+            "description": "Call-to-action button link URL"
+          },
+          "highlighted": {
+            "type": "boolean",
+            "description": "Whether this service should be highlighted (e.g., with a border)"
+          }
+        },
+        "required": ["id", "title", "description"]
+      },
+      "description": "Array of services to display"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["cards", "list", "alternating", "tabs", "accordion"],
+      "default": "cards",
+      "description": "Display variant for the service list"
+    },
+    "columns": {
+      "type": "number",
+      "enum": [2, 3, 4],
+      "default": 3,
+      "description": "Number of columns for the cards variant"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to enable entrance animations"
+    },
+    "showComparison": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to show comparison mode (for comparing services)"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    }
+  },
+  "required": ["component", "services"]
+}

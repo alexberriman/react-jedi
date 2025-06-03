@@ -837,19 +837,19 @@ export function FooterBlockShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600">layout</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"standard"</td>
+                    <td className="py-3 px-4">&ldquo;standard&rdquo;</td>
                     <td className="py-3 px-4">Layout pattern: minimal, standard, expanded, centered, columns-2 through columns-6</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600">variant</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4">&ldquo;default&rdquo;</td>
                     <td className="py-3 px-4">Visual style: default, light, dark, gradient, minimal, brand</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600">size</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4">&ldquo;default&rdquo;</td>
                     <td className="py-3 px-4">Padding size: minimal, sm, default, lg, expanded</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
@@ -897,13 +897,13 @@ export function FooterBlockShowcase() {
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600">columnGap</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"normal"</td>
+                    <td className="py-3 px-4">&ldquo;normal&rdquo;</td>
                     <td className="py-3 px-4">Column spacing: tight, normal, wide</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600">containerWidth</td>
                     <td className="py-3 px-4 font-mono">string</td>
-                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4">&ldquo;default&rdquo;</td>
                     <td className="py-3 px-4">Container width: default, wide, full</td>
                   </tr>
                 </tbody>

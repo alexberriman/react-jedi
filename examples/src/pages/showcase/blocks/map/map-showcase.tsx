@@ -4,15 +4,13 @@ import { usePageMetadata } from "../../../../lib/meta";
 import { ShowcaseLayout } from "../../../../components/layouts/showcase-layout";
 import { CodeBlock } from "../../../../components/ui/code-block";
 import { Tabs } from "../../../../components/ui/tabs";
-import { Button } from "../../../../components/ui/button";
-import { cn } from "../../../../lib/utils";
 
 // Example specifications
 const embeddedMap: ComponentSpec = {
   type: "Map",
   props: {
     variant: "embedded",
-    center: { lat: 40.7128, lng: -74.0060 },
+    center: { lat: 40.7128, lng: -74.006 },
     zoom: 14,
     height: 450,
     showSearch: true,
@@ -21,7 +19,7 @@ const embeddedMap: ComponentSpec = {
     markers: [
       {
         id: "1",
-        position: { lat: 40.7128, lng: -74.0060 },
+        position: { lat: 40.7128, lng: -74.006 },
         title: "New York Office",
         description: "Our main headquarters",
         icon: "business",
@@ -44,7 +42,7 @@ const withSidebarMap: ComponentSpec = {
     variant: "with-sidebar",
     title: "Our Locations",
     description: "Find the nearest office location to you",
-    center: { lat: 40.7128, lng: -74.0060 },
+    center: { lat: 40.7128, lng: -74.006 },
     zoom: 12,
     showSearch: true,
     locations: [
@@ -54,7 +52,7 @@ const withSidebarMap: ComponentSpec = {
         phone: "(212) 555-0100",
         email: "manhattan@example.com",
         hours: "Mon-Fri: 9AM-6PM",
-        position: { lat: 40.7128, lng: -74.0060 },
+        position: { lat: 40.7128, lng: -74.006 },
         category: "Headquarters",
       },
       {
@@ -89,7 +87,7 @@ const minimalMap: ComponentSpec = {
   type: "Map",
   props: {
     variant: "minimal",
-    center: { lat: 40.7488, lng: -73.9680 }, // Empire State Building
+    center: { lat: 40.7488, lng: -73.968 }, // Empire State Building
     zoom: 17,
     height: 350,
     showSearch: false,
@@ -98,7 +96,7 @@ const minimalMap: ComponentSpec = {
     markers: [
       {
         id: "empire-state",
-        position: { lat: 40.7488, lng: -73.9680 },
+        position: { lat: 40.7488, lng: -73.968 },
         title: "Empire State Building",
         icon: "business",
       },
@@ -110,7 +108,7 @@ const multiLocationMap: ComponentSpec = {
   type: "Map",
   props: {
     variant: "multi-location",
-    center: { lat: 40.7580, lng: -73.9855 },
+    center: { lat: 40.758, lng: -73.9855 },
     zoom: 13,
     height: 500,
     showSearch: true,
@@ -122,7 +120,7 @@ const multiLocationMap: ComponentSpec = {
         address: "1500 Broadway, New York, NY 10036",
         phone: "(212) 555-1111",
         hours: "Daily: 10AM-10PM",
-        position: { lat: 40.7580, lng: -73.9855 },
+        position: { lat: 40.758, lng: -73.9855 },
         category: "Flagship Store",
         description: "Our largest store with full product range",
       },

@@ -389,7 +389,132 @@ function renderCarouselTestimonials(
   );
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
+function renderGridTestimonials(
+  testimonialArray: TestimonialData[],
+  layout: TestimonialProps["layout"],
+  animated: boolean,
+  columns: number,
+  className: string | undefined,
+  props: Record<string, unknown>,
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "grid gap-6",
+        columns === 1 && "grid-cols-1",
+        columns === 2 && "grid-cols-1 md:grid-cols-2",
+        columns === 3 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+        columns === 4 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+        className
+      )}
+      {...cleanDOMProps(props)}
+    >
+      {testimonialArray.map((testimonial, index) => (
+        <TestimonialCard
+          key={testimonial.id || index}
+          testimonial={testimonial}
+          layout={layout}
+          animated={animated}
+        />
+      ))}
+    </div>
+  );
+}
+
+function renderMasonryTestimonials(
+  testimonialArray: TestimonialData[],
+  layout: TestimonialProps["layout"],
+  animated: boolean,
+  className: string | undefined,
+  props: Record<string, unknown>,
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6",
+        className
+      )}
+      {...cleanDOMProps(props)}
+    >
+      {testimonialArray.map((testimonial, index) => (
+        <div key={testimonial.id || index} className="break-inside-avoid">
+          <TestimonialCard
+            testimonial={testimonial}
+            layout={layout}
+            animated={animated}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function renderVideoTestimonials(
+  testimonialArray: TestimonialData[],
+  layout: TestimonialProps["layout"],
+  animated: boolean,
+  columns: number,
+  className: string | undefined,
+  props: Record<string, unknown>,
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
+  const videoTestimonials = testimonialArray.filter(t => t.videoUrl);
+  const textTestimonials = testimonialArray.filter(t => !t.videoUrl);
+
+  return (
+    <div ref={ref} className={cn("space-y-8", className)} {...cleanDOMProps(props)}>
+      {videoTestimonials.length > 0 && (
+        <div className="space-y-4">
+          <h3 className="text-2xl font-semibold">Video Testimonials</h3>
+          <div className={cn(
+            "grid gap-6",
+            videoTestimonials.length === 1 && "grid-cols-1",
+            videoTestimonials.length === 2 && "grid-cols-1 md:grid-cols-2",
+            videoTestimonials.length >= 3 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          )}>
+            {videoTestimonials.map((testimonial, index) => (
+              <TestimonialCard
+                key={testimonial.id || index}
+                testimonial={testimonial}
+                layout="large"
+                animated={animated}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+      {textTestimonials.length > 0 && (
+        <div className="space-y-4">
+          {videoTestimonials.length > 0 && (
+            <h3 className="text-2xl font-semibold">More Testimonials</h3>
+          )}
+          <div className={cn(
+            "grid gap-6",
+            columns === 1 && "grid-cols-1",
+            columns === 2 && "grid-cols-1 md:grid-cols-2",
+            columns === 3 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+            columns === 4 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+          )}>
+            {textTestimonials.map((testimonial, index) => (
+              <TestimonialCard
+                key={testimonial.id || index}
+                testimonial={testimonial}
+                layout={layout}
+                animated={animated}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ 
 export const Testimonial = React.forwardRef<HTMLDivElement, TestimonialProps>(
   (
     {
@@ -439,135 +564,20 @@ export const Testimonial = React.forwardRef<HTMLDivElement, TestimonialProps>(
       );
     }
 
-    // Grid variant
     if (variant === "grid") {
-      return (
-        <div
-          ref={ref}
-          className={cn(
-            "grid gap-6",
-            columns === 1 && "grid-cols-1",
-            columns === 2 && "grid-cols-1 md:grid-cols-2",
-            columns === 3 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-            columns === 4 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
-            className
-          )}
-          {...cleanDOMProps(props)}
-        >
-          {testimonialArray.map((testimonial, index) => (
-            <TestimonialCard
-              key={testimonial.id || index}
-              testimonial={testimonial}
-              layout={layout}
-              animated={animated}
-            />
-          ))}
-        </div>
-      );
+      return renderGridTestimonials(testimonialArray, layout, animated, columns, className, props, ref);
     }
 
-    // Masonry variant
     if (variant === "masonry") {
-      return (
-        <div
-          ref={ref}
-          className={cn(
-            "columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6",
-            className
-          )}
-          {...cleanDOMProps(props)}
-        >
-          {testimonialArray.map((testimonial, index) => (
-            <div key={testimonial.id || index} className="break-inside-avoid">
-              <TestimonialCard
-                testimonial={testimonial}
-                layout={layout}
-                animated={animated}
-              />
-            </div>
-          ))}
-        </div>
-      );
+      return renderMasonryTestimonials(testimonialArray, layout, animated, className, props, ref);
     }
 
-    // Video gallery variant
     if (variant === "video") {
-      const videoTestimonials = testimonialArray.filter(t => t.videoUrl);
-      const textTestimonials = testimonialArray.filter(t => !t.videoUrl);
-
-      return (
-        <div ref={ref} className={cn("space-y-8", className)} {...cleanDOMProps(props)}>
-          {videoTestimonials.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="text-2xl font-semibold">Video Testimonials</h3>
-              <div className={cn(
-                "grid gap-6",
-                videoTestimonials.length === 1 && "grid-cols-1",
-                videoTestimonials.length === 2 && "grid-cols-1 md:grid-cols-2",
-                videoTestimonials.length >= 3 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-              )}>
-                {videoTestimonials.map((testimonial, index) => (
-                  <TestimonialCard
-                    key={testimonial.id || index}
-                    testimonial={testimonial}
-                    layout="large"
-                    animated={animated}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-          {textTestimonials.length > 0 && (
-            <div className="space-y-4">
-              {videoTestimonials.length > 0 && (
-                <h3 className="text-2xl font-semibold">More Testimonials</h3>
-              )}
-              <div className={cn(
-                "grid gap-6",
-                columns === 1 && "grid-cols-1",
-                columns === 2 && "grid-cols-1 md:grid-cols-2",
-                columns === 3 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-                columns === 4 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-              )}>
-                {textTestimonials.map((testimonial, index) => (
-                  <TestimonialCard
-                    key={testimonial.id || index}
-                    testimonial={testimonial}
-                    layout={layout}
-                    animated={animated}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      );
+      return renderVideoTestimonials(testimonialArray, layout, animated, columns, className, props, ref);
     }
 
     // Default to grid
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "grid gap-6",
-          columns === 1 && "grid-cols-1",
-          columns === 2 && "grid-cols-1 md:grid-cols-2",
-          columns === 3 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-          columns === 4 && "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
-          className
-        )}
-        {...cleanDOMProps(props)}
-      >
-        {testimonialArray.map((testimonial, index) => (
-          <TestimonialCard
-            key={testimonial.id || index}
-            testimonial={testimonial}
-            layout={layout}
-            animated={animated}
-          />
-        ))}
-      </div>
-    );
+    return renderGridTestimonials(testimonialArray, layout, animated, columns, className, props, ref);
   }
 );
 

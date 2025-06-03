@@ -117,7 +117,7 @@
       {
         "id": "contact-form-enhanced-block",
         "description": "Create enhanced Contact Form block with advanced features. Variants: simple contact, detailed inquiry, with map integration, split screen layout, and wizard steps. Features: multi-region phone formatting, conditional field display, file upload support, CAPTCHA integration, and real-time validation. Add custom field types (dropdown, checkbox, radio), optional fields configuration, and CRM integration points. Include success/error states and thank you redirects.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "icon-component-block",
@@ -142,7 +142,7 @@
       {
         "id": "stat-counter-block",
         "description": "Create Statistics Counter block for showcasing key metrics. Variants: number counters, progress bars, circular progress, icon stats, and comparison stats. Features: animated counting effects, percentage displays, custom icons, trend indicators, and prefix/suffix support. Add scroll-triggered animations, customizable speeds, and formatting options (K, M, B abbreviations). Include multiple layout options (horizontal, grid, cards) with clean, modern design.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "typewriter-text-block",

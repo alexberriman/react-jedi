@@ -279,6 +279,12 @@ const StatBlockPage = lazy(() =>
 const StatBlockShowcase = lazy(() =>
   import("../pages/showcase/blocks/stat-block").then((module) => ({ default: module.StatBlockShowcase }))
 );
+const ContactFormEnhancedPage = lazy(() =>
+  import("../pages/examples/contact-form-enhanced").then((module) => ({ default: module.ContactFormEnhancedPage }))
+);
+const ContactFormEnhancedShowcase = lazy(() =>
+  import("../pages/showcase/blocks/contact-form-enhanced").then((module) => ({ default: module.ContactFormEnhancedShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -530,6 +536,10 @@ export const router = createBrowserRouter([
               {
                 path: "stat-block",
                 element: <AsyncRoute component={StatBlockShowcase} loadingText="Loading stat block..." />,
+              },
+              {
+                path: "contact-form-enhanced",
+                element: <AsyncRoute component={ContactFormEnhancedShowcase} loadingText="Loading contact form enhanced..." />,
               },
             ],
           },
@@ -1031,6 +1041,15 @@ export const router = createBrowserRouter([
               <AsyncRoute
                 component={StatBlockPage}
                 loadingText="Loading stat block demo..."
+              />
+            ),
+          },
+          {
+            path: "contact-form-enhanced",
+            element: (
+              <AsyncRoute
+                component={ContactFormEnhancedPage}
+                loadingText="Loading contact form enhanced demo..."
               />
             ),
           },

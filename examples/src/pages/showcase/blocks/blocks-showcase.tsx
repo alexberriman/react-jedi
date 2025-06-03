@@ -189,6 +189,25 @@ const blockCategories: BlockCategory[] = [
       },
     ],
   },
+  {
+    id: "data",
+    title: "Data & Forms",
+    description: "Display data and collect user input.",
+    blocks: [
+      {
+        name: "Stat Block",
+        description: "Display key metrics and statistics with animated counters, trend indicators, and multiple layout options.",
+        status: "completed",
+        path: "/showcase/blocks/stat-block",
+      },
+      {
+        name: "Contact Form Enhanced",
+        description: "Advanced contact form with conditional fields, file uploads, phone formatting, wizard steps, and CRM integration.",
+        status: "completed",
+        path: "/showcase/blocks/contact-form-enhanced",
+      },
+    ],
+  },
 ];
 
 // Dropdown component for filters

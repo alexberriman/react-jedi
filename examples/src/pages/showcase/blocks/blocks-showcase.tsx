@@ -1167,8 +1167,8 @@ const blockPreviews: Record<string, ComponentSpec> = {
           location: "San Francisco, CA",
           type: "full-time",
           salaryRange: {
-            min: 150000,
-            max: 200000,
+            min: 150_000,
+            max: 200_000,
             currency: "$",
             period: "yearly"
           },
@@ -1190,8 +1190,8 @@ const blockPreviews: Record<string, ComponentSpec> = {
           location: "Remote",
           type: "full-time",
           salaryRange: {
-            min: 120000,
-            max: 160000,
+            min: 120_000,
+            max: 160_000,
             currency: "$",
             period: "yearly"
           },
@@ -1212,8 +1212,8 @@ const blockPreviews: Record<string, ComponentSpec> = {
           location: "New York, NY",
           type: "full-time",
           salaryRange: {
-            min: 100000,
-            max: 130000,
+            min: 100_000,
+            max: 130_000,
             currency: "$",
             period: "yearly"
           },

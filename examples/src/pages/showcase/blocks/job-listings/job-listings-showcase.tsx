@@ -6,6 +6,12 @@ import { PageHeader } from "../../../../components/ui/page-header";
 import { ShowcaseWrapper } from "../../../../components/ui/showcase-wrapper";
 import type { ComponentSpec } from "@alexberriman/react-jedi";
 
+// Use a deterministic approach for generating sample data
+const seededRandom = (seed: number) => {
+  const x = Math.sin(seed) * 10_000;
+  return x - Math.floor(x);
+};
+
 // Sample job data generator
 const generateSampleJobs = (count: number): JobListing[] => {
   const departments = ["Engineering", "Design", "Marketing", "Sales", "Operations", "Product"];
@@ -46,28 +52,38 @@ const generateSampleJobs = (count: number): JobListing[] => {
   return Array.from({ length: count }, (_, i) => {
     const department = departments[i % departments.length];
     const titleOptions = jobTitles[department as keyof typeof jobTitles] || jobTitles.Engineering;
-    const title = titleOptions[Math.floor(Math.random() * titleOptions.length)];
-    const type = types[Math.floor(Math.random() * types.length)];
-    const level = levels[Math.floor(Math.random() * levels.length)];
-    const posted = new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000);
-    const featured = Math.random() > 0.7;
-    const urgent = featured && Math.random() > 0.6;
+    const titleIndex = Math.floor(seededRandom(i * 2) * titleOptions.length);
+    const title = titleOptions[titleIndex];
+    const typeIndex = Math.floor(seededRandom(i * 3) * types.length);
+    const type = types[typeIndex];
+    const levelIndex = Math.floor(seededRandom(i * 5) * levels.length);
+    const level = levels[levelIndex];
+    const daysAgo = seededRandom(i * 7) * 30;
+    const posted = new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000);
+    const featured = seededRandom(i * 11) > 0.7;
+    const urgent = featured && seededRandom(i * 13) > 0.6;
 
     const baseSalary = {
-      entry: { min: 60000, max: 80000 },
-      mid: { min: 80000, max: 120000 },
-      senior: { min: 120000, max: 180000 },
-      lead: { min: 150000, max: 250000 },
+      entry: { min: 60_000, max: 80_000 },
+      mid: { min: 80_000, max: 120_000 },
+      senior: { min: 120_000, max: 180_000 },
+      lead: { min: 150_000, max: 250_000 },
     };
 
-    const salaryMultiplier = type === "contract" ? 1.2 : type === "internship" ? 0.3 : 1;
+    // Extract nested ternary for better readability
+    let salaryMultiplier = 1;
+    if (type === "contract") {
+      salaryMultiplier = 1.2;
+    } else if (type === "internship") {
+      salaryMultiplier = 0.3;
+    }
     const salary = baseSalary[level];
 
     return {
       id: `job-${i + 1}`,
       title,
       department,
-      location: locations[Math.floor(Math.random() * locations.length)],
+      location: locations[Math.floor(seededRandom(i * 17) * locations.length)],
       type,
       salaryRange: {
         min: Math.floor(salary.min * salaryMultiplier),
@@ -76,7 +92,7 @@ const generateSampleJobs = (count: number): JobListing[] => {
         period: type === "contract" ? "hourly" : "yearly",
       },
       description: `We are looking for a talented ${title} to join our ${department} team. This is an exciting opportunity to work on cutting-edge projects and make a real impact. You'll be working with a passionate team dedicated to building innovative solutions that help our customers succeed.`,
-      requirements: requirements.slice(0, 5 + Math.floor(Math.random() * 2)),
+      requirements: requirements.slice(0, 5 + Math.floor(seededRandom(i * 19) * 2)),
       responsibilities: [
         "Lead and execute key projects from inception to completion",
         "Collaborate with cross-functional teams to deliver high-quality solutions",
@@ -84,13 +100,13 @@ const generateSampleJobs = (count: number): JobListing[] => {
         "Drive continuous improvement and innovation",
         "Ensure quality deliverables and maintain high standards",
       ],
-      benefits: benefits.slice(0, 5 + Math.floor(Math.random() * 2)),
+      benefits: benefits.slice(0, 5 + Math.floor(seededRandom(i * 23) * 2)),
       posted,
       deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       featured,
       urgent,
       experienceLevel: level,
-      companyName: companies[Math.floor(Math.random() * companies.length)],
+      companyName: companies[Math.floor(seededRandom(i * 29) * companies.length)],
       applyUrl: "#apply",
     };
   });

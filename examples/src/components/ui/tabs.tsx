@@ -27,6 +27,8 @@ export const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
 );
 TabsList.displayName = "TabsList";
 
+export const TabList = TabsList; // Alias for compatibility
+
 export const TabsTrigger = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -46,6 +48,8 @@ export const TabsTrigger = React.forwardRef<
 });
 TabsTrigger.displayName = "TabsTrigger";
 
+export const Tab = TabsTrigger; // Alias for compatibility
+
 export const TabsContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
@@ -64,3 +68,5 @@ export const TabsContent = React.forwardRef<
   );
 });
 TabsContent.displayName = "TabsContent";
+
+export const TabPanel = TabsContent; // Alias for compatibility

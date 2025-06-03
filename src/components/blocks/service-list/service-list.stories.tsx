@@ -271,7 +271,13 @@ export const TwoColumns: Story = {
 
 export const FourColumns: Story = {
   args: {
-    services: [...basicServices, ...developmentServices.slice(0, 1)],
+    services: [
+      ...basicServices,
+      {
+        ...developmentServices[0],
+        id: "4", // Ensure unique ID
+      }
+    ],
     variant: "cards",
     columns: 4,
     animated: true,

@@ -575,10 +575,10 @@ app.get('/api/products/:id', async (req, res) => {
   res.json({
     type: "extended-head-manager",
     metadata: {
-      title: `${product.name} - ${product.brand}`,
+      title: \`\${product.name} - \${product.brand}\`,
       description: product.shortDescription,
       ogImage: product.socialImage,
-      canonicalUrl: `https://example.com/products/${product.slug}`
+      canonicalUrl: \`https://example.com/products/\${product.slug}\`
     },
     structuredData: {
       "@context": "https://schema.org",
@@ -623,7 +623,7 @@ app.get('/api/products/:id', async (req, res) => {
             </li>
             <li className="flex items-start">
               <span className="mr-2">💡</span>
-              <span>Test your structured data with Google's Rich Results Test tool</span>
+              <span>Test your structured data with Google&apos;s Rich Results Test tool</span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">💡</span>

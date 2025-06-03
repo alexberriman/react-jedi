@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../../lib/utils';
 import { Calendar, ArrowRight, Clock, ChevronRight } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent } from '../../ui/card';
+import { Badge } from '../../ui/badge';
+import { Button } from '../../ui/button';
+import { Skeleton } from '../../ui/skeleton';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../ui/tabs';
+import { Avatar, AvatarImage, AvatarFallback } from '../../ui/avatar';
+import { Input } from '../../ui/input';
 
 export interface Article {
   readonly id: string;

@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@alexberriman/react-jedi";
-import { ShowcaseWrapper } from "../../../ui/showcase-wrapper";
+import { ShowcaseWrapper } from "../../../../components/ui/showcase-wrapper";
 import { FaGithub, FaDribbble, FaInstagram, FaMedium } from "react-icons/fa";
 
 const sampleTeamMembers = [

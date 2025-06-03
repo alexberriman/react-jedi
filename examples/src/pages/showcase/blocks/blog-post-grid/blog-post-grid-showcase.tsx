@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@alexberriman/react-jedi";
-import { ShowcaseWrapper } from "../../../ui/showcase-wrapper";
+import { ShowcaseWrapper } from "../../../../components/ui/showcase-wrapper";
 
 // Generate sample blog posts with realistic content
 const generateSamplePosts = (count: number) => {

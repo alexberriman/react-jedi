@@ -5,7 +5,7 @@ import type { ComponentSpec } from "@alexberriman/react-jedi";
 import { usePageMetadata } from "../../../lib/meta";
 import { Heading, Text, spacing } from "../../../components/ui";
 import { PageHeader } from "../../../components/ui/page-header";
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBlock } from "../../../components/ui/code-block";
 import { ChevronDown } from "lucide-react";
 
 type BlockCategory = {

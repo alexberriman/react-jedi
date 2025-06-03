@@ -9,11 +9,11 @@ import {
   FaLink,
   FaGithub
 } from 'react-icons/fa'
-import { cn } from '@/lib/utils'
-import { Card } from '@/components/ui/card'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { Image } from '@/components/ui/image'
+import { cn } from '../../../lib/utils'
+import { Card } from '../../ui/card'
+import { Avatar, AvatarImage, AvatarFallback } from '../../ui/avatar'
+import { Badge } from '../../ui/badge'
+import { Image } from '../../ui/image'
 
 export interface RelatedPost {
   id: string

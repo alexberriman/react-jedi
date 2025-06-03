@@ -93,9 +93,6 @@ const PaginationShowcase = lazy(() =>
 const PopoverShowcase = lazy(() =>
   import("../pages/showcase/popover").then((module) => ({ default: module.PopoverShowcase }))
 );
-const PricingTableShowcase = lazy(() =>
-  import("../pages/showcase/pricing-table").then((module) => ({ default: module.PricingTableShowcase }))
-);
 const ProgressShowcase = lazy(() =>
   import("../pages/showcase/progress").then((module) => ({ default: module.ProgressShowcase }))
 );
@@ -233,6 +230,9 @@ const FooterBlockShowcase = lazy(() =>
 );
 const FeatureCardBlockShowcase = lazy(() =>
   import("../pages/showcase/blocks/feature-card").then((module) => ({ default: module.FeatureCardShowcasePage }))
+);
+const PricingTableShowcase = lazy(() =>
+  import("../pages/showcase/blocks/pricing-table").then((module) => ({ default: module.PricingTableShowcase }))
 );
 
 // Documentation pages
@@ -418,6 +418,10 @@ export const router = createBrowserRouter([
                 path: "feature-card",
                 element: <AsyncRoute component={FeatureCardBlockShowcase} loadingText="Loading feature card block..." />,
               },
+              {
+                path: "pricing-table",
+                element: <AsyncRoute component={PricingTableShowcase} loadingText="Loading pricing table block..." />,
+              },
             ],
           },
           {
@@ -569,10 +573,6 @@ export const router = createBrowserRouter([
           {
             path: "popover",
             element: <AsyncRoute component={PopoverShowcase} loadingText="Loading popover showcase..." />,
-          },
-          {
-            path: "pricing-table",
-            element: <AsyncRoute component={PricingTableShowcase} loadingText="Loading pricing table showcase..." />,
           },
           {
             path: "progress",

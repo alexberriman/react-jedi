@@ -530,11 +530,11 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       { author: { name: "" }, content: "" } // Provide default required props
     ),
     PricingTable: asComponent(
-      UI.PricingTable as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.PricingTable as unknown as React.ComponentType<Record<string, unknown>>,
       { tiers: [] } // Provide default required props
     ),
     "pricing-table": asComponent(
-      UI.PricingTable as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.PricingTable as unknown as React.ComponentType<Record<string, unknown>>,
       { tiers: [] } // Provide default required props
     ),
     CallToAction: asComponent(

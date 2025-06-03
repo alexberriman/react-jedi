@@ -10,3 +10,4 @@ export * from "./header";
 export * from "./page-hero-header";
 export * from "./footer";
 export * from "./feature-card";
+export * from "./pricing-table";

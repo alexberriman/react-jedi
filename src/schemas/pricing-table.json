@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PricingTable Component Schema",
-  "description": "Schema for the pricing table component specification",
+  "description": "Schema for the advanced pricing table block component",
   "type": "object",
   "properties": {
     "component": {
@@ -14,6 +14,10 @@
       "items": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the tier"
+          },
           "name": {
             "type": "string",
             "description": "The name of the pricing tier"
@@ -28,6 +32,20 @@
               { "type": "string" }
             ],
             "description": "The price of the tier (number or string like 'Custom')"
+          },
+          "monthlyPrice": {
+            "oneOf": [
+              { "type": "number" },
+              { "type": "string" }
+            ],
+            "description": "Monthly price for billing cycle toggle"
+          },
+          "yearlyPrice": {
+            "oneOf": [
+              { "type": "number" },
+              { "type": "string" }
+            ],
+            "description": "Yearly price for billing cycle toggle"
           },
           "currency": {
             "type": "string",
@@ -49,6 +67,10 @@
                 "included": {
                   "type": "boolean",
                   "description": "Whether the feature is included in this tier"
+                },
+                "tooltip": {
+                  "type": "string",
+                  "description": "Optional tooltip text for the feature"
                 }
               },
               "required": ["text", "included"]
@@ -66,6 +88,10 @@
                 "type": "string",
                 "enum": ["default", "destructive", "outline", "secondary", "ghost", "link"],
                 "description": "Button variant"
+              },
+              "href": {
+                "type": "string",
+                "description": "Optional URL for the CTA button"
               }
             },
             "required": ["text"]
@@ -77,6 +103,14 @@
           "highlighted": {
             "type": "boolean",
             "description": "Whether this tier should be highlighted"
+          },
+          "popular": {
+            "type": "boolean",
+            "description": "Whether this tier is marked as popular"
+          },
+          "savings": {
+            "type": "string",
+            "description": "Savings text to display for yearly billing"
           }
         },
         "required": ["name", "price", "features", "cta"]
@@ -88,6 +122,63 @@
       "enum": [1, 2, 3, 4],
       "default": 3,
       "description": "Number of columns to display"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["cards", "comparison", "minimal", "compact", "with-testimonials", "gradient"],
+      "default": "cards",
+      "description": "Visual variant of the pricing table"
+    },
+    "showToggle": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to show monthly/yearly billing toggle"
+    },
+    "defaultBillingCycle": {
+      "type": "string",
+      "enum": ["monthly", "yearly"],
+      "default": "monthly",
+      "description": "Default billing cycle to display"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Default currency symbol for all tiers"
+    },
+    "showFeatureComparison": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to show feature comparison matrix (for comparison variant)"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to enable animations and transitions"
+    },
+    "testimonials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tierName": {
+            "type": "string",
+            "description": "Name of the tier this testimonial belongs to"
+          },
+          "quote": {
+            "type": "string",
+            "description": "The testimonial quote"
+          },
+          "author": {
+            "type": "string",
+            "description": "Author of the testimonial"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role or title of the author"
+          }
+        },
+        "required": ["tierName", "quote", "author"]
+      },
+      "description": "Testimonials for with-testimonials variant"
     },
     "className": {
       "type": "string",

@@ -32,7 +32,7 @@
       {
         "id": "pricing-table-block",
         "description": "Move existing PricingTable to blocks directory. Enhance with: monthly/yearly toggle, feature comparison matrix, recommended tier highlighting, custom badge support, tiered pricing (starter/pro/enterprise), and currency formatting. Create variants: cards layout, comparison table, minimal cards, with testimonials. Add hover states, smooth transitions, and mobile-optimized views. Include 'Contact Sales' option for enterprise.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "call-to-action-block",

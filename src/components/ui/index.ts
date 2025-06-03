@@ -74,7 +74,6 @@ export * from "./carousel";
 export * from "./chart";
 export * from "./hero";
 export * from "./testimonial";
-export * from "./pricing-table";
 export * from "./call-to-action";
 export * from "./footer";
 export * from "./error-boundary";

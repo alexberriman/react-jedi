@@ -7,7 +7,7 @@ const basicExample: StatBlockDef = {
   stats: [
     {
       label: "Total Revenue",
-      value: 125420,
+      value: 125_420,
       prefix: "$",
       trend: { value: 12.5, direction: "up" },
       icon: "dollar",
@@ -33,7 +33,7 @@ const cardVariant: StatBlockDef = {
   stats: [
     {
       label: "Total Sales",
-      value: 2453080,
+      value: 2_453_080,
       prefix: "$",
       trend: { value: 15.3, direction: "up", label: "from last quarter" },
       icon: "dollar",
@@ -170,7 +170,7 @@ export function StatBlockShowcase() {
             },
             {
               label: "API Requests",
-              value: 892340,
+              value: 892_340,
               icon: "target",
               description: "Total API calls this month",
             },
@@ -199,7 +199,7 @@ export function StatBlockShowcase() {
             },
             {
               label: "API Requests",
-              value: 892340,
+              value: 892_340,
               icon: "target",
               description: "Total API calls this month",
             },
@@ -222,7 +222,7 @@ export function StatBlockShowcase() {
           type: "StatBlock",
           stats: [
             { label: "Orders", value: 1234 },
-            { label: "Revenue", value: 45678, prefix: "$" },
+            { label: "Revenue", value: 45_678, prefix: "$" },
             { label: "Customers", value: 892 },
           ],
           animated: false,
@@ -233,7 +233,7 @@ export function StatBlockShowcase() {
           type: "StatBlock",
           stats: [
             { label: "Orders", value: 1234 },
-            { label: "Revenue", value: 45678, prefix: "$" },
+            { label: "Revenue", value: 45_678, prefix: "$" },
             { label: "Customers", value: 892 },
           ],
           animated: false,

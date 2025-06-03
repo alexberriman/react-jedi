@@ -7,7 +7,7 @@ const dashboardStats: StatBlockDef = {
   stats: [
     {
       label: "Total Revenue",
-      value: 2453080,
+      value: 2_453_080,
       prefix: "$",
       trend: { value: 15.3, direction: "up", label: "from last quarter" },
       icon: "dollar",
@@ -16,7 +16,7 @@ const dashboardStats: StatBlockDef = {
     },
     {
       label: "Active Users",
-      value: 12847,
+      value: 12_847,
       trend: { value: 22.4, direction: "up" },
       icon: "users",
       description: "Users active in the last 30 days",
@@ -125,7 +125,7 @@ export function StatBlockPage() {
             stats: [
               {
                 label: "Total Sales",
-                value: 125420,
+                value: 125_420,
                 prefix: "$",
                 trend: { value: 12.5, direction: "up", label: "vs last month" },
                 icon: "dollar",
@@ -159,7 +159,7 @@ export function StatBlockPage() {
             stats: [
               {
                 label: "Monthly Recurring Revenue",
-                value: 125420,
+                value: 125_420,
                 prefix: "$",
                 description: "Total revenue from all active subscriptions this month. This includes all subscription tiers and add-ons.",
                 trend: { value: 12.5, direction: "up", label: "compared to last month" },
@@ -205,7 +205,7 @@ export function StatBlockPage() {
               },
               {
                 label: "API Requests",
-                value: 892340,
+                value: 892_340,
                 icon: "target",
                 description: "Total API calls this month",
               },

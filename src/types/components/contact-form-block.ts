@@ -1,4 +1,4 @@
-import type { BaseComponent } from '../schema/base';
+import type { BaseComponentSpec } from '../schema/base';
 
 export type ContactFormBlockVariant = 'simple' | 'detailed' | 'with-map' | 'split-screen' | 'wizard';
 
@@ -98,7 +98,7 @@ export interface CRMConfig {
   customData?: Record<string, unknown>;
 }
 
-export interface ContactFormBlockProperties extends BaseComponent {
+export interface ContactFormBlockProperties extends BaseComponentSpec {
   type: 'ContactFormBlock';
   variant?: ContactFormBlockVariant;
   title?: string;

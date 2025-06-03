@@ -81,7 +81,7 @@ const enterpriseContactForm: ContactFormBlockProperties = {
           validation: [
             { type: "required" },
             { type: "email" },
-            { type: "pattern", value: "^[^@]+@(?!gmail|yahoo|hotmail|outlook)[^@]+\\.[^@]+$", message: "Please use your work email address" }
+            { type: "pattern", value: String.raw`^[^@]+@(?!gmail|yahoo|hotmail|outlook)[^@]+\.[^@]+$`, message: "Please use your work email address" }
           ]
         },
         {

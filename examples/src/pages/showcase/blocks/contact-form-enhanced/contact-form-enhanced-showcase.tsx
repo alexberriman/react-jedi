@@ -5,7 +5,6 @@ import { ShowcaseLayout } from "../../../../components/layouts/showcase-layout";
 import { CodeBlock } from "../../../../components/ui/code-block";
 import { Tabs } from "../../../../components/ui/tabs";
 import { Button } from "../../../../components/ui/button";
-import { cn } from "../../../../lib/utils";
 
 // Example specifications
 const simpleFormSpec: ComponentSpec = {

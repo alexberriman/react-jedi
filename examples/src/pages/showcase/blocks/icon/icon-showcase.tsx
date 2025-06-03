@@ -1,18 +1,9 @@
 import { useState, useMemo } from 'react';
 import { Icon } from '@alexberriman/react-jedi';
 import * as Ai from 'react-icons/ai';
-import * as Bi from 'react-icons/bi';
-import * as Bs from 'react-icons/bs';
 import * as Fa from 'react-icons/fa';
 import * as Fi from 'react-icons/fi';
-import * as Hi from 'react-icons/hi';
-import * as Io from 'react-icons/io5';
-import * as Md from 'react-icons/md';
-import * as Ri from 'react-icons/ri';
 import * as Si from 'react-icons/si';
-import * as Ti from 'react-icons/ti';
-import * as Go from 'react-icons/go';
-import * as Vsc from 'react-icons/vsc';
 import type { IconType } from 'react-icons';
 
 interface IconItem {
@@ -145,7 +136,7 @@ const iconLibrary: IconItem[] = [
   { icon: Fi.FiVolumeX, name: 'FiVolumeX', category: 'Media', importPath: 'react-icons/fi' },
 ];
 
-const categories = Array.from(new Set(iconLibrary.map(item => item.category))).sort();
+const categories = [...new Set(iconLibrary.map(item => item.category))].sort((a, b) => a.localeCompare(b));
 
 const sizes = [
   { label: 'XS (12px)', value: 'xs' },
@@ -209,8 +200,9 @@ export function IconShowcase() {
         {/* Search and Category Filter */}
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
-            <label className="block text-sm font-medium mb-2">Search Icons</label>
+            <label htmlFor="search-icons" className="block text-sm font-medium mb-2">Search Icons</label>
             <input
+              id="search-icons"
               type="text"
               placeholder="Search by icon name..."
               value={searchQuery}
@@ -219,8 +211,9 @@ export function IconShowcase() {
             />
           </div>
           <div className="sm:w-48">
-            <label className="block text-sm font-medium mb-2">Category</label>
+            <label htmlFor="category-select" className="block text-sm font-medium mb-2">Category</label>
             <select
+              id="category-select"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -238,8 +231,8 @@ export function IconShowcase() {
         {/* Size and Color Controls */}
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
-            <label className="block text-sm font-medium mb-2">Size</label>
-            <div className="flex gap-2">
+            <div id="size-label" className="block text-sm font-medium mb-2">Size</div>
+            <div className="flex gap-2" role="group" aria-labelledby="size-label">
               {sizes.map((size) => (
                 <button
                   key={size.value}
@@ -256,8 +249,8 @@ export function IconShowcase() {
             </div>
           </div>
           <div className="flex-1">
-            <label className="block text-sm font-medium mb-2">Color</label>
-            <div className="flex gap-2">
+            <div id="color-label" className="block text-sm font-medium mb-2">Color</div>
+            <div className="flex gap-2" role="group" aria-labelledby="color-label">
               {colors.map((color) => (
                 <button
                   key={color.value}
@@ -288,13 +281,22 @@ export function IconShowcase() {
       {/* Icon Grid */}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-4">
         {filteredIcons.map((item) => (
-          <div
+          <button
             key={item.name}
-            className="relative group p-4 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all cursor-pointer"
+            className="relative group p-4 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all cursor-pointer w-full"
             onClick={() => {
               setSelectedIcon(item);
               setShowCode(true);
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setSelectedIcon(item);
+                setShowCode(true);
+              }
+            }}
+            tabIndex={0}
+            aria-label={`${item.name} icon`}
           >
             <div className="flex flex-col items-center gap-3">
               <Icon
@@ -328,7 +330,7 @@ export function IconShowcase() {
                 Copy Name
               </button>
             </div>
-          </div>
+          </button>
         ))}
       </div>
 

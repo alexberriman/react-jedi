@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isValidPhoneNumber, AsYouType } from 'libphonenumber-js';
+import { isValidPhoneNumber, AsYouType, CountryCode } from 'libphonenumber-js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Mail, 
@@ -39,6 +39,604 @@ import type {
   FormField
 } from '../../../types/components/contact-form-block';
 
+// Helper function to prepare submission data
+const prepareSubmissionData = (
+  formData: Record<string, unknown>,
+  uploadedFiles: Record<string, File[]>,
+  formId: string | undefined,
+  variant: string
+) => {
+  const submissionData: Record<string, unknown> = {
+    ...formData,
+    _formId: formId,
+    _timestamp: new Date().toISOString(),
+    _variant: variant
+  };
+
+  // Add uploaded files info
+  for (const [fieldId, files] of Object.entries(uploadedFiles)) {
+    submissionData[fieldId] = files.map(f => ({
+      name: f.name,
+      size: f.size,
+      type: f.type
+    }));
+  }
+
+  return submissionData;
+};
+
+// Helper function to send to CRM
+const sendToCRM = async (
+  crmConfig: ContactFormBlockProperties['crmConfig'],
+  submissionData: Record<string, unknown>
+) => {
+  if (!crmConfig?.endpoint) return;
+
+  let mappedData: Record<string, unknown>;
+  if (crmConfig.fieldMapping) {
+    mappedData = { ...crmConfig.customData };
+    for (const [key, fieldId] of Object.entries(crmConfig.fieldMapping)) {
+      mappedData[key] = submissionData[fieldId];
+    }
+  } else {
+    mappedData = submissionData;
+  }
+
+  const response = await fetch(crmConfig.endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...crmConfig.headers
+    },
+    body: JSON.stringify(mappedData)
+  });
+
+  if (!response.ok) {
+    throw new Error('Form submission failed');
+  }
+};
+
+// Helper type for field render props
+type FieldRenderProps = {
+  field: FormField;
+  fieldValue: unknown;
+  commonProps: Record<string, unknown>;
+  compact: boolean;
+  labelElement: React.ReactNode;
+  helperElement: React.ReactNode;
+  errorElement: React.ReactNode;
+  handleFieldChange: (fieldId: string, value: unknown) => void;
+  handleFieldBlur: (fieldId: string) => void;
+  isRequired?: boolean;
+  showRequiredIndicator?: boolean;
+  uploadedFiles?: Record<string, File[]>;
+  setUploadedFiles?: React.Dispatch<React.SetStateAction<Record<string, File[]>>>;
+};
+
+// Helper function to render text input fields
+const renderTextInput = (props: FieldRenderProps) => {
+  const { field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur } = props;
+  return (
+    <div className={cn('space-y-2', compact && 'space-y-1')}>
+      {labelElement}
+      <Input
+        {...commonProps}
+        type={field.type}
+        placeholder={field.placeholder}
+        value={String(fieldValue) || ''}
+        onChange={(e) => handleFieldChange(field.id, e.target.value)}
+        onBlur={() => handleFieldBlur(field.id)}
+        min={field.min}
+        max={field.max}
+        step={field.step}
+        className={cn(commonProps.className as string, compact && 'h-8 text-sm')}
+      />
+      {helperElement}
+      {errorElement}
+    </div>
+  );
+};
+
+// Helper function to render phone input fields
+const renderPhoneInput = (props: FieldRenderProps) => {
+  const { field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur } = props;
+  return (
+    <div className={cn('space-y-2', compact && 'space-y-1')}>
+      {labelElement}
+      <Input
+        {...commonProps}
+        type="tel"
+        placeholder={field.placeholder || '+1 (555) 123-4567'}
+        value={String(fieldValue) || ''}
+        onChange={(e) => {
+          const asYouType = new AsYouType(field.phoneConfig?.defaultCountry as CountryCode | undefined);
+          const formatted = asYouType.input(e.target.value);
+          handleFieldChange(field.id, formatted);
+        }}
+        onBlur={() => handleFieldBlur(field.id)}
+        className={cn(commonProps.className as string, compact && 'h-8 text-sm')}
+      />
+      {helperElement}
+      {errorElement}
+    </div>
+  );
+};
+
+// Helper function to render textarea fields
+const renderTextarea = (props: FieldRenderProps) => {
+  const { field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur } = props;
+  return (
+    <div className={cn('space-y-2', compact && 'space-y-1')}>
+      {labelElement}
+      <Textarea
+        {...commonProps}
+        placeholder={field.placeholder}
+        value={String(fieldValue) || ''}
+        onChange={(e) => handleFieldChange(field.id, e.target.value)}
+        onBlur={() => handleFieldBlur(field.id)}
+        rows={field.rows || (compact ? 3 : 4)}
+        className={cn(commonProps.className as string, compact && 'text-sm')}
+      />
+      {helperElement}
+      {errorElement}
+    </div>
+  );
+};
+
+// Helper function to render select fields
+const renderSelect = (props: FieldRenderProps) => {
+  const { field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange } = props;
+  return (
+    <div className={cn('space-y-2', compact && 'space-y-1')}>
+      {labelElement}
+      <Select
+        value={String(fieldValue) || ''}
+        onValueChange={(value) => handleFieldChange(field.id, value)}
+        disabled={commonProps.disabled as boolean}
+      >
+        <SelectTrigger 
+          id={field.id}
+          className={cn(commonProps.className as string, compact && 'h-8 text-sm')}
+          aria-invalid={commonProps['aria-invalid'] as boolean}
+        >
+          <SelectValue placeholder={field.placeholder || 'Select an option'} />
+        </SelectTrigger>
+        <SelectContent>
+          {field.options?.map(option => (
+            <SelectItem 
+              key={option.value} 
+              value={option.value}
+              disabled={option.disabled}
+            >
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      {helperElement}
+      {errorElement}
+    </div>
+  );
+};
+
+// Helper function to render checkbox groups
+const renderCheckboxGroup = (props: FieldRenderProps) => {
+  const { field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange } = props;
+  return (
+    <div className={cn('space-y-2', compact && 'space-y-1')}>
+      {labelElement}
+      <div className="space-y-2">
+        {field.options?.map(option => (
+          <label
+            key={option.value}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
+            <Checkbox
+              id={`${field.id}-${option.value}`}
+              checked={Array.isArray(fieldValue) && fieldValue.includes(option.value)}
+              onCheckedChange={(checked) => {
+                const currentValues = Array.isArray(fieldValue) ? fieldValue : [];
+                const newValues = checked
+                  ? [...currentValues, option.value]
+                  : currentValues.filter(v => v !== option.value);
+                handleFieldChange(field.id, newValues);
+              }}
+              disabled={Boolean(commonProps.disabled) || option.disabled}
+            />
+            <span className={cn('text-sm', compact && 'text-xs')}>{option.label}</span>
+          </label>
+        ))}
+      </div>
+      {helperElement}
+      {errorElement}
+    </div>
+  );
+};
+
+// Helper function to render single checkbox
+const renderSingleCheckbox = (props: FieldRenderProps) => {
+  const { field, fieldValue, commonProps, isRequired, showRequiredIndicator, handleFieldChange } = props;
+  return (
+    <div className="flex items-center space-x-2">
+      <Checkbox
+        {...commonProps}
+        checked={!!fieldValue as boolean}
+        onCheckedChange={(checked) => handleFieldChange(field.id, checked)}
+      />
+      <label
+        htmlFor={field.id}
+        className={cn('text-sm cursor-pointer', props.compact && 'text-xs')}
+      >
+        {field.label}
+        {showRequiredIndicator && isRequired && (
+          <span className="ml-1 text-destructive">*</span>
+        )}
+      </label>
+    </div>
+  );
+};
+
+// Helper function to render radio group
+const renderRadioGroup = (props: FieldRenderProps) => {
+  const { field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange } = props;
+  return (
+    <div className={cn('space-y-2', compact && 'space-y-1')}>
+      {labelElement}
+      <RadioGroup
+        value={String(fieldValue) || ''}
+        onValueChange={(value) => handleFieldChange(field.id, value)}
+        disabled={commonProps.disabled as boolean}
+      >
+        <div className="space-y-2">
+          {field.options?.map(option => (
+            <label
+              key={option.value}
+              className="flex items-center space-x-2 cursor-pointer"
+            >
+              <RadioGroupItem
+                value={option.value}
+                disabled={option.disabled}
+              />
+              <span className={cn('text-sm', compact && 'text-xs')}>{option.label}</span>
+            </label>
+          ))}
+        </div>
+      </RadioGroup>
+      {helperElement}
+      {errorElement}
+    </div>
+  );
+};
+
+// Helper function to render date/time input
+const renderDateTimeInput = (props: FieldRenderProps) => {
+  const { field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur } = props;
+  return (
+    <div className={cn('space-y-2', compact && 'space-y-1')}>
+      {labelElement}
+      <Input
+        {...commonProps}
+        type={field.type}
+        value={String(fieldValue) || ''}
+        onChange={(e) => handleFieldChange(field.id, e.target.value)}
+        onBlur={() => handleFieldBlur(field.id)}
+        min={field.min}
+        max={field.max}
+        className={cn(commonProps.className as string, compact && 'h-8 text-sm')}
+      />
+      {helperElement}
+      {errorElement}
+    </div>
+  );
+};
+
+// Helper function to render file upload field
+const renderFileField = (props: FieldRenderProps & { handleFileUpload: (fieldId: string, files: FileList | null) => void }) => {
+  const { field, commonProps, compact, labelElement, helperElement, errorElement, uploadedFiles = {}, setUploadedFiles, handleFileUpload } = props;
+  const fieldError = !!props.errorElement;
+  const files = uploadedFiles[field.id] || [];
+  
+  return (
+    <div className={cn('space-y-2', compact && 'space-y-1')}>
+      {labelElement}
+      <div className="space-y-2">
+        <label
+          htmlFor={field.id}
+          className={cn(
+            'flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50 transition-colors',
+            compact && 'h-24',
+            fieldError && 'border-destructive',
+            Boolean(commonProps.disabled) && 'cursor-not-allowed opacity-50'
+          )}
+        >
+          <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            <Upload className={cn('w-8 h-8 mb-2 text-muted-foreground', compact && 'w-6 h-6')} />
+            <p className={cn('text-sm text-muted-foreground', compact && 'text-xs')}>
+              Click to upload or drag and drop
+            </p>
+            {field.fileConfig?.accept && (
+              <p className="mt-1 text-xs text-muted-foreground">
+                {field.fileConfig.accept}
+              </p>
+            )}
+          </div>
+          <input
+            {...commonProps}
+            type="file"
+            className="hidden"
+            accept={field.fileConfig?.accept}
+            multiple={field.fileConfig?.multiple}
+            onChange={(e) => handleFileUpload(field.id, e.target.files)}
+          />
+        </label>
+        {files.length > 0 && renderUploadedFiles(files, field.id, setUploadedFiles)}
+      </div>
+      {helperElement}
+      {errorElement}
+    </div>
+  );
+};
+
+// Helper to handle file removal
+const handleFileRemoval = (
+  fieldId: string, 
+  files: File[], 
+  indexToRemove: number, 
+  setUploadedFiles: React.Dispatch<React.SetStateAction<Record<string, File[]>>>
+) => {
+  setUploadedFiles(prev => ({
+    ...prev,
+    [fieldId]: files.filter((_, i) => i !== indexToRemove)
+  }));
+};
+
+// Helper to render uploaded files list
+const renderUploadedFiles = (files: File[], fieldId: string, setUploadedFiles?: React.Dispatch<React.SetStateAction<Record<string, File[]>>>) => {
+  if (!setUploadedFiles) return null;
+  
+  return (
+    <div className="space-y-1">
+      {files.map((file, index) => (
+        <div
+          key={index}
+          className="flex items-center justify-between p-2 text-sm border rounded-md"
+        >
+          <div className="flex items-center space-x-2">
+            <FileText className="w-4 h-4 text-muted-foreground" />
+            <span className="truncate">{file.name}</span>
+            <span className="text-xs text-muted-foreground">
+              ({(file.size / 1024).toFixed(1)}KB)
+            </span>
+          </div>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => handleFileRemoval(fieldId, files, index, setUploadedFiles)}
+          >
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Helper to render submit button content
+const renderSubmitButtonContent = (isSubmitting: boolean, submitStatus: ContactFormBlockState['submitStatus'], submitButton: ContactFormBlockProperties['submitButton']) => {
+  if (isSubmitting) {
+    return (
+      <>
+        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+        {submitButton?.loadingText || 'Submitting...'}
+      </>
+    );
+  }
+  if (submitStatus === 'success') {
+    return (
+      <>
+        <CheckCircle className="w-4 h-4 mr-2" />
+        {submitButton?.successText || 'Submitted!'}
+      </>
+    );
+  }
+  return (
+    <>
+      <Send className="w-4 h-4 mr-2" />
+      {submitButton?.text || 'Submit'}
+    </>
+  );
+};
+
+// Helper to render wizard navigation buttons
+const renderWizardNavigation = ({
+  currentStep,
+  stepsLength,
+  isSubmitting,
+  submitButton,
+  onPrevious,
+  onNext,
+  submitStatus
+}: {
+  currentStep: number;
+  stepsLength: number;
+  isSubmitting: boolean;
+  submitButton: ContactFormBlockProperties['submitButton'];
+  onPrevious: () => void;
+  onNext: () => void;
+  submitStatus: ContactFormBlockState['submitStatus'];
+}) => {
+  return (
+    <div className="flex justify-between">
+      <Button
+        type="button"
+        variant="outline"
+        onClick={onPrevious}
+        disabled={currentStep === 0 || isSubmitting}
+      >
+        <ChevronLeft className="w-4 h-4 mr-2" />
+        Previous
+      </Button>
+      {currentStep < stepsLength - 1 ? (
+        <Button
+          type="button"
+          onClick={onNext}
+          disabled={isSubmitting}
+        >
+          Next
+          <ChevronRight className="w-4 h-4 ml-2" />
+        </Button>
+      ) : (
+        <Button
+          type="submit"
+          variant={submitButton?.variant || 'primary'}
+          size={submitButton?.size === 'md' ? 'default' : submitButton?.size || 'default'}
+          disabled={isSubmitting}
+          className={cn(submitButton?.fullWidth && 'w-full')}
+        >
+          {renderSubmitButtonContent(isSubmitting, submitStatus, submitButton)}
+        </Button>
+      )}
+    </div>
+  );
+};
+
+// Helper function to render field elements
+const renderFieldElements = (field: FormField, fieldError: string | undefined, compact: boolean, showRequiredIndicator: boolean, isRequired: boolean) => {
+  const labelElement = (
+    <Label htmlFor={field.id} className={cn('text-sm font-medium', compact && 'text-xs')}>
+      {field.label}
+      {showRequiredIndicator && isRequired && (
+        <span className="ml-1 text-destructive">*</span>
+      )}
+    </Label>
+  );
+
+  const errorElement = fieldError && (
+    <motion.p
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="mt-1 text-xs text-destructive"
+    >
+      {fieldError}
+    </motion.p>
+  );
+
+  const helperElement = field.helperText && !fieldError && (
+    <p id={`${field.id}-helper`} className="mt-1 text-xs text-muted-foreground">
+      {field.helperText}
+    </p>
+  );
+
+  return { labelElement, errorElement, helperElement };
+};
+
+// Individual validation functions to reduce complexity
+const validateRequired = (value: unknown, message?: string, label?: string): string | null => {
+  if (!value || (Array.isArray(value) && value.length === 0)) {
+    return message || `${label} is required`;
+  }
+  return null;
+};
+
+const validateEmail = (value: unknown, message?: string): string | null => {
+  const emailRegex = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{1,63}$/u;
+  if (value && !emailRegex.test(String(value))) {
+    return message || 'Please enter a valid email address';
+  }
+  return null;
+};
+
+const validatePhone = (value: unknown, defaultCountry: string | undefined, message?: string): string | null => {
+  if (value && !isValidPhoneNumber(String(value), defaultCountry as CountryCode | undefined)) {
+    return message || 'Please enter a valid phone number';
+  }
+  return null;
+};
+
+const validateUrl = (value: unknown, message?: string): string | null => {
+  try {
+    if (value) new URL(String(value));
+  } catch {
+    return message || 'Please enter a valid URL';
+  }
+  return null;
+};
+
+const validatePattern = (value: unknown, pattern: unknown, message?: string): string | null => {
+  if (value && pattern && !new RegExp(pattern as string).test(String(value))) {
+    return message || 'Invalid format';
+  }
+  return null;
+};
+
+const validateStringLength = (value: unknown, min: number | undefined, max: number | undefined, ruleValue: number, ruleType: string, message?: string): string | null => {
+  const length = String(value).length;
+  if (ruleType === 'minLength' && value && length < ruleValue) {
+    return message || `Minimum length is ${ruleValue}`;
+  }
+  if (ruleType === 'maxLength' && value && length > ruleValue) {
+    return message || `Maximum length is ${ruleValue}`;
+  }
+  return null;
+};
+
+const validateNumber = (value: unknown, ruleValue: number, ruleType: string, message?: string): string | null => {
+  const numValue = Number(value);
+  if (ruleType === 'min' && value && numValue < ruleValue) {
+    return message || `Minimum value is ${ruleValue}`;
+  }
+  if (ruleType === 'max' && value && numValue > ruleValue) {
+    return message || `Maximum value is ${ruleValue}`;
+  }
+  return null;
+};
+
+// Main validation function
+const validateField = (field: FormField, value: unknown): string | null => {
+  if (!field.validation) return null;
+
+  for (const rule of field.validation) {
+    let error: string | null = null;
+    
+    switch (rule.type) {
+      case 'required': {
+        error = validateRequired(value, rule.message, field.label);
+        break;
+      }
+      case 'email': {
+        error = validateEmail(value, rule.message);
+        break;
+      }
+      case 'phone': {
+        error = validatePhone(value, field.phoneConfig?.defaultCountry as string | undefined, rule.message);
+        break;
+      }
+      case 'url': {
+        error = validateUrl(value, rule.message);
+        break;
+      }
+      case 'pattern': {
+        error = validatePattern(value, rule.value, rule.message);
+        break;
+      }
+      case 'minLength':
+      case 'maxLength': {
+        error = validateStringLength(value, field.min, field.max, rule.value as number, rule.type, rule.message);
+        break;
+      }
+      case 'min':
+      case 'max': {
+        error = validateNumber(value, rule.value as number, rule.type, rule.message);
+        break;
+      }
+    }
+    
+    if (error) return error;
+  }
+  return null;
+};
+
 function ContactFormBlock({
   variant = 'simple',
   title,
@@ -65,7 +663,7 @@ function ContactFormBlock({
   persistData = false,
   storageKey = 'contact-form-data',
   ...props
-}: ContactFormBlockProperties) {
+}: Readonly<ContactFormBlockProperties>) {
   
   // State management
   const [formData, setFormData] = React.useState<Record<string, unknown>>({});
@@ -111,73 +709,6 @@ function ContactFormBlock({
     }
   }, [formData, persistData, storageKey]);
 
-  // Validation functions
-  const validateField = (field: FormField, value: unknown): string | null => {
-    if (!field.validation) return null;
-
-    for (const rule of field.validation) {
-      switch (rule.type) {
-        case 'required': {
-          if (!value || (Array.isArray(value) && value.length === 0)) {
-            return rule.message || `${field.label} is required`;
-          }
-          break;
-        }
-        case 'email': {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (value && !emailRegex.test(value)) {
-            return rule.message || 'Please enter a valid email address';
-          }
-          break;
-        }
-        case 'phone': {
-          if (value && !isValidPhoneNumber(String(value), field.phoneConfig?.defaultCountry)) {
-            return rule.message || 'Please enter a valid phone number';
-          }
-          break;
-        }
-        case 'url': {
-          try {
-            if (value) new URL(value);
-          } catch {
-            return rule.message || 'Please enter a valid URL';
-          }
-          break;
-        }
-        case 'pattern': {
-          if (value && rule.value && !new RegExp(rule.value as string).test(value)) {
-            return rule.message || 'Invalid format';
-          }
-          break;
-        }
-        case 'minLength': {
-          if (value && value.length < (rule.value as number)) {
-            return rule.message || `Minimum length is ${rule.value}`;
-          }
-          break;
-        }
-        case 'maxLength': {
-          if (value && value.length > (rule.value as number)) {
-            return rule.message || `Maximum length is ${rule.value}`;
-          }
-          break;
-        }
-        case 'min': {
-          if (value && Number(value) < (rule.value as number)) {
-            return rule.message || `Minimum value is ${rule.value}`;
-          }
-          break;
-        }
-        case 'max': {
-          if (value && Number(value) > (rule.value as number)) {
-            return rule.message || `Maximum value is ${rule.value}`;
-          }
-          break;
-        }
-      }
-    }
-    return null;
-  };
 
   // Check conditional display
   const shouldDisplayField = (field: FormField): boolean => {
@@ -307,47 +838,10 @@ function ContactFormBlock({
 
     try {
       // Prepare form data
-      const submissionData = {
-        ...formData,
-        _formId: formId,
-        _timestamp: new Date().toISOString(),
-        _variant: variant
-      };
-
-      // Add uploaded files info
-      for (const [fieldId, files] of Object.entries(uploadedFiles)) {
-        submissionData[fieldId] = files.map(f => ({
-          name: f.name,
-          size: f.size,
-          type: f.type
-        }));
-      }
+      const submissionData = prepareSubmissionData(formData, uploadedFiles, formId, variant);
 
       // CRM integration
-      if (crmConfig?.endpoint) {
-        let mappedData: Record<string, unknown>;
-        if (crmConfig.fieldMapping) {
-          mappedData = { ...crmConfig.customData };
-          for (const [key, fieldId] of Object.entries(crmConfig.fieldMapping)) {
-            mappedData[key] = submissionData[fieldId];
-          }
-        } else {
-          mappedData = submissionData;
-        }
-
-        const response = await fetch(crmConfig.endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...crmConfig.headers
-          },
-          body: JSON.stringify(mappedData)
-        });
-
-        if (!response.ok) {
-          throw new Error('Form submission failed');
-        }
-      }
+      await sendToCRM(crmConfig, submissionData);
 
       // Success handling
       setSubmitStatus('success');
@@ -395,304 +889,58 @@ function ContactFormBlock({
       'aria-describedby': field.helperText ? `${field.id}-helper` : undefined
     };
 
-    const labelElement = (
-      <Label htmlFor={field.id} className={cn('text-sm font-medium', compact && 'text-xs')}>
-        {field.label}
-        {showRequiredIndicator && isRequired && (
-          <span className="ml-1 text-destructive">*</span>
-        )}
-      </Label>
-    );
-
-    const errorElement = fieldError && (
-      <motion.p
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mt-1 text-xs text-destructive"
-      >
-        {fieldError}
-      </motion.p>
-    );
-
-    const helperElement = field.helperText && !fieldError && (
-      <p id={`${field.id}-helper`} className="mt-1 text-xs text-muted-foreground">
-        {field.helperText}
-      </p>
-    );
+    const { labelElement, errorElement, helperElement } = renderFieldElements(field, fieldError, compact, showRequiredIndicator, isRequired || false);
 
     switch (field.type) {
       case 'text':
       case 'email':
       case 'url':
       case 'number': {
-        return (
-          <div className={cn('space-y-2', compact && 'space-y-1')}>
-            {labelElement}
-            <Input
-              {...commonProps}
-              type={field.type}
-              placeholder={field.placeholder}
-              value={fieldValue}
-              onChange={(e) => handleFieldChange(field.id, e.target.value)}
-              onBlur={() => handleFieldBlur(field.id)}
-              min={field.min}
-              max={field.max}
-              step={field.step}
-              className={cn(commonProps.className, compact && 'h-8 text-sm')}
-            />
-            {helperElement}
-            {errorElement}
-          </div>
-        );
+        return renderTextInput({ field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur });
       }
 
       case 'phone': {
-        return (
-          <div className={cn('space-y-2', compact && 'space-y-1')}>
-            {labelElement}
-            <Input
-              {...commonProps}
-              type="tel"
-              placeholder={field.placeholder || '+1 (555) 123-4567'}
-              value={fieldValue}
-              onChange={(e) => {
-                const asYouType = new AsYouType(field.phoneConfig?.defaultCountry);
-                const formatted = asYouType.input(e.target.value);
-                handleFieldChange(field.id, formatted);
-              }}
-              onBlur={() => handleFieldBlur(field.id)}
-              className={cn(commonProps.className, compact && 'h-8 text-sm')}
-            />
-            {helperElement}
-            {errorElement}
-          </div>
-        );
+        return renderPhoneInput({ field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur });
       }
 
       case 'textarea': {
-        return (
-          <div className={cn('space-y-2', compact && 'space-y-1')}>
-            {labelElement}
-            <Textarea
-              {...commonProps}
-              placeholder={field.placeholder}
-              value={fieldValue}
-              onChange={(e) => handleFieldChange(field.id, e.target.value)}
-              onBlur={() => handleFieldBlur(field.id)}
-              rows={field.rows || (compact ? 3 : 4)}
-              className={cn(commonProps.className, compact && 'text-sm')}
-            />
-            {helperElement}
-            {errorElement}
-          </div>
-        );
+        return renderTextarea({ field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur });
       }
 
       case 'select': {
-        return (
-          <div className={cn('space-y-2', compact && 'space-y-1')}>
-            {labelElement}
-            <Select
-              value={fieldValue}
-              onValueChange={(value) => handleFieldChange(field.id, value)}
-              disabled={commonProps.disabled}
-            >
-              <SelectTrigger 
-                id={field.id}
-                className={cn(commonProps.className, compact && 'h-8 text-sm')}
-                aria-invalid={commonProps['aria-invalid']}
-              >
-                <SelectValue placeholder={field.placeholder || 'Select an option'} />
-              </SelectTrigger>
-              <SelectContent>
-                {field.options?.map(option => (
-                  <SelectItem 
-                    key={option.value} 
-                    value={option.value}
-                    disabled={option.disabled}
-                  >
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {helperElement}
-            {errorElement}
-          </div>
-        );
+        return renderSelect({ field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur });
       }
 
       case 'checkbox': {
-        return field.options && field.options.length > 1 ? (
-            <div className={cn('space-y-2', compact && 'space-y-1')}>
-              {labelElement}
-              <div className="space-y-2">
-                {field.options.map(option => (
-                  <label
-                    key={option.value}
-                    className="flex items-center space-x-2 cursor-pointer"
-                  >
-                    <Checkbox
-                      id={`${field.id}-${option.value}`}
-                      checked={Array.isArray(fieldValue) && fieldValue.includes(option.value)}
-                      onCheckedChange={(checked) => {
-                        const currentValues = Array.isArray(fieldValue) ? fieldValue : [];
-                        const newValues = checked
-                          ? [...currentValues, option.value]
-                          : currentValues.filter(v => v !== option.value);
-                        handleFieldChange(field.id, newValues);
-                      }}
-                      disabled={commonProps.disabled || option.disabled}
-                    />
-                    <span className={cn('text-sm', compact && 'text-xs')}>{option.label}</span>
-                  </label>
-                ))}
-              </div>
-              {helperElement}
-              {errorElement}
-            </div>
-          ) : (
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                {...commonProps}
-                checked={!!fieldValue}
-                onCheckedChange={(checked) => handleFieldChange(field.id, checked)}
-              />
-              <label
-                htmlFor={field.id}
-                className={cn('text-sm cursor-pointer', compact && 'text-xs')}
-              >
-                {field.label}
-                {showRequiredIndicator && isRequired && (
-                  <span className="ml-1 text-destructive">*</span>
-                )}
-              </label>
-            </div>
-          );
+        return field.options && field.options.length > 1 
+          ? renderCheckboxGroup({ field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur })
+          : renderSingleCheckbox({ field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur, isRequired, showRequiredIndicator });
       }
 
       case 'radio': {
-        return (
-          <div className={cn('space-y-2', compact && 'space-y-1')}>
-            {labelElement}
-            <RadioGroup
-              value={fieldValue}
-              onValueChange={(value) => handleFieldChange(field.id, value)}
-              disabled={commonProps.disabled}
-            >
-              <div className="space-y-2">
-                {field.options?.map(option => (
-                  <label
-                    key={option.value}
-                    className="flex items-center space-x-2 cursor-pointer"
-                  >
-                    <RadioGroupItem
-                      value={option.value}
-                      disabled={option.disabled}
-                    />
-                    <span className={cn('text-sm', compact && 'text-xs')}>{option.label}</span>
-                  </label>
-                ))}
-              </div>
-            </RadioGroup>
-            {helperElement}
-            {errorElement}
-          </div>
-        );
+        return renderRadioGroup({ field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur });
       }
 
       case 'file': {
-        const files = uploadedFiles[field.id] || [];
-        return (
-          <div className={cn('space-y-2', compact && 'space-y-1')}>
-            {labelElement}
-            <div className="space-y-2">
-              <label
-                htmlFor={field.id}
-                className={cn(
-                  'flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50 transition-colors',
-                  compact && 'h-24',
-                  fieldError && 'border-destructive',
-                  commonProps.disabled && 'cursor-not-allowed opacity-50'
-                )}
-              >
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <Upload className={cn('w-8 h-8 mb-2 text-muted-foreground', compact && 'w-6 h-6')} />
-                  <p className={cn('text-sm text-muted-foreground', compact && 'text-xs')}>
-                    Click to upload or drag and drop
-                  </p>
-                  {field.fileConfig?.accept && (
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {field.fileConfig.accept}
-                    </p>
-                  )}
-                </div>
-                <input
-                  {...commonProps}
-                  type="file"
-                  className="hidden"
-                  accept={field.fileConfig?.accept}
-                  multiple={field.fileConfig?.multiple}
-                  onChange={(e) => handleFileUpload(field.id, e.target.files)}
-                />
-              </label>
-              {files.length > 0 && (
-                <div className="space-y-1">
-                  {files.map((file, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-2 text-sm border rounded-md"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <FileText className="w-4 h-4 text-muted-foreground" />
-                        <span className="truncate">{file.name}</span>
-                        <span className="text-xs text-muted-foreground">
-                          ({(file.size / 1024).toFixed(1)}KB)
-                        </span>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          setUploadedFiles(prev => ({
-                            ...prev,
-                            [field.id]: files.filter((_, i) => i !== index)
-                          }));
-                        }}
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            {helperElement}
-            {errorElement}
-          </div>
-        );
+        return renderFileField({ 
+          field, 
+          fieldValue, 
+          commonProps, 
+          compact, 
+          labelElement, 
+          helperElement, 
+          errorElement, 
+          handleFieldChange, 
+          handleFieldBlur,
+          uploadedFiles,
+          setUploadedFiles,
+          handleFileUpload
+        });
       }
 
       case 'date':
       case 'time': {
-        return (
-          <div className={cn('space-y-2', compact && 'space-y-1')}>
-            {labelElement}
-            <Input
-              {...commonProps}
-              type={field.type}
-              value={fieldValue}
-              onChange={(e) => handleFieldChange(field.id, e.target.value)}
-              onBlur={() => handleFieldBlur(field.id)}
-              min={field.min}
-              max={field.max}
-              className={cn(commonProps.className, compact && 'h-8 text-sm')}
-            />
-            {helperElement}
-            {errorElement}
-          </div>
-        );
+        return renderDateTimeInput({ field, fieldValue, commonProps, compact, labelElement, helperElement, errorElement, handleFieldChange, handleFieldBlur });
       }
 
       default: {
@@ -736,51 +984,19 @@ function ContactFormBlock({
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex justify-between">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
-              disabled={currentStep === 0 || isSubmitting}
-            >
-              <ChevronLeft className="w-4 h-4 mr-2" />
-              Previous
-            </Button>
-            {currentStep < steps.length - 1 ? (
-              <Button
-                type="button"
-                onClick={() => {
-                  if (validateAllFields()) {
-                    setCurrentStep(prev => Math.min(steps.length - 1, prev + 1));
-                  }
-                }}
-                disabled={isSubmitting}
-              >
-                Next
-                <ChevronRight className="w-4 h-4 ml-2" />
-              </Button>
-            ) : (
-              <Button
-                type="submit"
-                variant={submitButton.variant || 'primary'}
-                size={submitButton.size || 'md'}
-                disabled={isSubmitting}
-                className={cn(submitButton.fullWidth && 'w-full')}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    {submitButton.loadingText || 'Submitting...'}
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4 mr-2" />
-                    {submitButton.text || 'Submit'}
-                  </>
-                )}
-              </Button>
-            )}
-          </div>
+          {renderWizardNavigation({
+            currentStep,
+            stepsLength: steps.length,
+            isSubmitting,
+            submitButton,
+            onPrevious: () => setCurrentStep(prev => Math.max(0, prev - 1)),
+            onNext: () => {
+              if (validateAllFields()) {
+                setCurrentStep(prev => Math.min(steps.length - 1, prev + 1));
+              }
+            },
+            submitStatus
+          })}
         </div>
       );
     }
@@ -800,26 +1016,11 @@ function ContactFormBlock({
         <Button
           type="submit"
           variant={submitButton.variant || 'primary'}
-          size={submitButton.size || 'md'}
+          size={submitButton?.size === 'md' ? 'default' : submitButton?.size || 'default'}
           disabled={isSubmitting}
           className={cn(submitButton.fullWidth && 'w-full', 'mt-6')}
         >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              {submitButton.loadingText || 'Submitting...'}
-            </>
-          ) : submitStatus === 'success' ? (
-            <>
-              <CheckCircle className="w-4 h-4 mr-2" />
-              {submitButton.successText || 'Submitted!'}
-            </>
-          ) : (
-            <>
-              <Send className="w-4 h-4 mr-2" />
-              {submitButton.text || 'Submit'}
-            </>
-          )}
+          {renderSubmitButtonContent(isSubmitting, submitStatus, submitButton)}
         </Button>
       </div>
     );
@@ -1026,7 +1227,7 @@ function ContactFormBlock({
     }
   };
 
-  const contentProps = omit(props, ['ariaLabel']);
+  const contentProps = omit(props, ['type' as keyof typeof props]);
 
   if (!animated) {
     return (

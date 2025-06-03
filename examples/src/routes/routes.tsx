@@ -267,6 +267,9 @@ const LatestNewsShowcase = lazy(() =>
 const NewsletterSignupShowcase = lazy(() =>
   import("../pages/showcase/blocks/newsletter-signup").then((module) => ({ default: module.NewsletterSignupShowcasePage }))
 );
+const SocialShareBarShowcase = lazy(() =>
+  import("../pages/showcase/blocks/social-share-bar").then((module) => ({ default: module.SocialShareBarShowcasePage }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -506,6 +509,10 @@ export const router = createBrowserRouter([
               {
                 path: "newsletter-signup",
                 element: <AsyncRoute component={NewsletterSignupShowcase} loadingText="Loading newsletter signup block..." />,
+              },
+              {
+                path: "social-share-bar",
+                element: <AsyncRoute component={SocialShareBarShowcase} loadingText="Loading social share bar block..." />,
               },
             ],
           },

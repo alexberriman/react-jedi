@@ -6,3 +6,4 @@ export { BrandLogoBarShowcase } from "./brand-logo-bar";
 export { ServiceListShowcase } from "./service-list";
 export { default as PageSectionShowcase } from "./page-section";
 export { LatestNewsShowcase } from "./latest-news";
+export { SocialShareBarShowcasePage } from "./social-share-bar";

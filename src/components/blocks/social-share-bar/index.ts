@@ -1,0 +1,1 @@
+export { SocialShareBar, type SocialShareBarProperties } from './social-share-bar'

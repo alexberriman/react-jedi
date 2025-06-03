@@ -25,3 +25,4 @@ export * from "./page-section";
 export * from "./contact-form";
 export * from "./latest-news";
 export * from "./newsletter-signup";
+export * from "./social-share-bar";

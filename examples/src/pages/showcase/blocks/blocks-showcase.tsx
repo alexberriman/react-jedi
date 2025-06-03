@@ -156,6 +156,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/newsletter-signup",
       },
+      {
+        name: "Social Share Bar",
+        description: "Content sharing with multiple platforms, layouts, and animation effects.",
+        status: "completed",
+        path: "/showcase/blocks/social-share-bar",
+      },
     ],
   },
   {
@@ -1232,5 +1238,19 @@ const blockPreviews: Record<string, ComponentSpec> = {
     description: "We'd love to hear from you. Send us a message!",
     submitText: "Send Message",
     animated: true,
+  },
+  "Social Share Bar": {
+    type: "SocialShareBar",
+    props: {
+      variant: "horizontal",
+      url: "https://example.com/article",
+      title: "Check out this amazing content!",
+      description: "An insightful article about modern web development",
+      platforms: ["twitter", "facebook", "linkedin", "reddit", "email", "copy"],
+      showLabels: true,
+      size: "md",
+      colorScheme: "brand",
+      animated: true,
+    },
   },
 };

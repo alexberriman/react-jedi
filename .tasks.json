@@ -107,7 +107,7 @@
       {
         "id": "social-share-bar-block",
         "description": "Create Social Share Bar block for content sharing. Variants: horizontal bar, vertical sidebar, floating buttons, modal overlay, and minimal icons. Features: popular platforms (Twitter, Facebook, LinkedIn, Reddit, email), custom share text, URL sharing, copy link button, and share counts. Add sticky positioning options, slide-in animations, and platform-specific optimizations. Support both page and custom content sharing with Open Graph integration.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "map-block",

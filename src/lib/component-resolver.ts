@@ -695,6 +695,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.NewsletterSignup as unknown as React.ComponentType<Record<string, unknown>>,
       { title: "Stay updated", description: "Get the latest news and updates delivered to your inbox." } // Provide default required props
     ),
+    SocialShareBar: asComponent(
+      Blocks.SocialShareBar as unknown as React.ComponentType<Record<string, unknown>>,
+      { url: "", title: "" } // Provide default required props
+    ),
+    "social-share-bar": asComponent(
+      Blocks.SocialShareBar as unknown as React.ComponentType<Record<string, unknown>>,
+      { url: "", title: "" } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

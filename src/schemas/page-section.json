@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PageSection",
+  "type": "object",
+  "description": "Page Section wrapper block for creating cohesive marketing page sections",
+  "properties": {
+    "component": {
+      "type": "string",
+      "const": "PageSection"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["full-width", "contained", "split", "angled", "curved", "pattern"],
+          "description": "Layout variant of the page section"
+        },
+        "background": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["color", "gradient", "image", "pattern"],
+              "description": "Type of background"
+            },
+            "value": {
+              "type": "string",
+              "description": "Background value (color, gradient, image URL, or pattern name)"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Background opacity"
+            }
+          },
+          "required": ["type", "value"]
+        },
+        "padding": {
+          "type": "string",
+          "enum": ["none", "sm", "md", "lg", "xl", "2xl"],
+          "description": "Vertical padding size"
+        },
+        "heading": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section heading title"
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Section heading subtitle"
+            },
+            "alignment": {
+              "type": "string",
+              "enum": ["left", "center", "right"],
+              "description": "Heading alignment"
+            }
+          },
+          "required": ["title"]
+        },
+        "contentAlignment": {
+          "type": "string",
+          "enum": ["left", "center", "right"],
+          "description": "Content alignment within the section"
+        },
+        "parallax": {
+          "type": "boolean",
+          "description": "Enable parallax scrolling effect for background"
+        },
+        "animate": {
+          "type": "boolean",
+          "description": "Enable entrance animations"
+        },
+        "animationType": {
+          "type": "string",
+          "enum": ["fade", "slide", "zoom"],
+          "description": "Type of entrance animation"
+        },
+        "dividerTop": {
+          "type": "string",
+          "enum": ["none", "wave", "angle", "curve"],
+          "description": "Top divider shape"
+        },
+        "dividerBottom": {
+          "type": "string",
+          "enum": ["none", "wave", "angle", "curve"],
+          "description": "Bottom divider shape"
+        },
+        "dividerColor": {
+          "type": "string",
+          "description": "Color of the divider shapes"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        },
+        "id": {
+          "type": "string",
+          "description": "Section ID for navigation anchors"
+        }
+      }
+    },
+    "children": {
+      "type": "array",
+      "description": "Child components to render within the section"
+    }
+  },
+  "required": ["component"]
+}

@@ -23,6 +23,7 @@ import { DataTableComponent } from "../components/ui/data-table";
 import { CarouselBlock } from "../components/blocks/carousel";
 import { FAQBlock } from "../components/blocks/faq";
 import { Chart } from "../components/ui/chart/chart";
+import { PageSection } from "../components/blocks/page-section";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -660,6 +661,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     "service-list": asComponent(
       Blocks.ServiceList as unknown as React.ComponentType<Record<string, unknown>>,
       { services: [] } // Provide default required props
+    ),
+    PageSection: asComponent(
+      PageSection as unknown as React.ComponentType<Record<string, unknown>>,
+      { children: null } // Provide default required props
+    ),
+    "page-section": asComponent(
+      PageSection as unknown as React.ComponentType<Record<string, unknown>>,
+      { children: null } // Provide default required props
     ),
   };
 

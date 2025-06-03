@@ -87,7 +87,7 @@
       {
         "id": "page-section-block",
         "description": "Create Page Section wrapper block for marketing pages. Variants: full-width, contained, split background, angled/curved edges, and with patterns. Features: background colors/gradients/images, padding options, optional heading, and content alignment. Add parallax scrolling option, intersection observer for animations, and divider shapes. This wraps other blocks to create cohesive page sections.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "contact-form-block",

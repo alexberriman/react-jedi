@@ -41,7 +41,8 @@ const blockCategories: BlockCategory[] = [
       {
         name: "Page Section",
         description: "Wrapper block for creating cohesive page sections.",
-        status: "pending",
+        status: "completed",
+        path: "/showcase/blocks/page-section",
       },
     ],
   },
@@ -1115,5 +1116,110 @@ const blockPreviews: Record<string, ComponentSpec> = {
         }
       ]
     }
+  },
+  "Page Section": {
+    type: "PageSection",
+    props: {
+      variant: "full-width",
+      background: {
+        type: "gradient",
+        value: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      },
+      heading: {
+        title: "Flexible Page Sections",
+        subtitle: "Create beautiful sections with backgrounds, dividers, and animations",
+        alignment: "center"
+      },
+      padding: "lg",
+      dividerBottom: "wave",
+      dividerColor: "#ffffff"
+    },
+    children: [
+      {
+        type: "Grid",
+        props: {
+          columns: "3",
+          gap: "md",
+          className: "text-white"
+        },
+        children: [
+          {
+            type: "Card",
+            props: {
+              className: "p-6 bg-white/10 backdrop-blur border-white/20"
+            },
+            children: [
+              {
+                type: "Heading",
+                props: {
+                  as: "h3",
+                  size: "card",
+                  className: "mb-2"
+                },
+                children: "Multiple Variants"
+              },
+              {
+                type: "Text",
+                props: {
+                  variant: "muted",
+                  className: "text-white/90"
+                },
+                children: "Full-width, contained, split backgrounds, and more"
+              }
+            ]
+          },
+          {
+            type: "Card",
+            props: {
+              className: "p-6 bg-white/10 backdrop-blur border-white/20"
+            },
+            children: [
+              {
+                type: "Heading",
+                props: {
+                  as: "h3",
+                  size: "card",
+                  className: "mb-2"
+                },
+                children: "Rich Backgrounds"
+              },
+              {
+                type: "Text",
+                props: {
+                  variant: "muted",
+                  className: "text-white/90"
+                },
+                children: "Colors, gradients, images, and patterns"
+              }
+            ]
+          },
+          {
+            type: "Card",
+            props: {
+              className: "p-6 bg-white/10 backdrop-blur border-white/20"
+            },
+            children: [
+              {
+                type: "Heading",
+                props: {
+                  as: "h3",
+                  size: "card",
+                  className: "mb-2"
+                },
+                children: "Shape Dividers"
+              },
+              {
+                type: "Text",
+                props: {
+                  variant: "muted",
+                  className: "text-white/90"
+                },
+                children: "Wave, angle, and curve dividers for smooth transitions"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
 };

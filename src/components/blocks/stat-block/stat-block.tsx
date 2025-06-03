@@ -31,8 +31,13 @@ import {
   Activity,
   Zap,
   Target,
-  Award
+  Award,
+  Shield,
+  Cloud,
+  Server
 } from "lucide-react";
+import { SiAmazonwebservices } from "react-icons/si";
+import { AiOutlineCloudServer } from "react-icons/ai";
 import type { ComponentProps as ReactJediComponentProps } from "../../../types/schema/components";
 import type { StatBlockDef, StatItem } from "../../../types/components/stat-block";
 import { cn } from "../../../lib/utils";
@@ -56,6 +61,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   award: Award,
   trendingUp: TrendingUp,
   trendingDown: TrendingDown,
+  shield: Shield,
+  cloud: Cloud,
+  server: Server,
+  aws: SiAmazonwebservices,
+  azure: AiOutlineCloudServer,
 };
 
 // Column classes for grid layout

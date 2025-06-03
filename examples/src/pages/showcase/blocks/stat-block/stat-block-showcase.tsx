@@ -1,6 +1,6 @@
 import { render } from "@alexberriman/react-jedi";
 import type { StatBlockDef } from "@alexberriman/react-jedi";
-import { ShowcaseWrapper } from "../../../components/ui/showcase-wrapper";
+import { ShowcaseWrapper } from "../../../../components/ui/showcase-wrapper";
 
 const basicExample: StatBlockDef = {
   type: "StatBlock",
@@ -125,6 +125,48 @@ const coloredStats: StatBlockDef = {
   showBorder: true,
 };
 
+const cloudInfrastructureStats: StatBlockDef = {
+  type: "StatBlock",
+  variant: "card",
+  stats: [
+    {
+      label: "AWS Instances",
+      value: 127,
+      icon: "aws",
+      color: "warning",
+      trend: { value: 5.2, direction: "up" },
+      description: "Active EC2 instances across regions",
+    },
+    {
+      label: "Azure Resources",
+      value: 84,
+      icon: "azure",
+      color: "primary",
+      trend: { value: 12.8, direction: "up" },
+      description: "Virtual machines and services",
+    },
+    {
+      label: "Security Score",
+      value: 98.5,
+      suffix: "%",
+      icon: "shield",
+      color: "success",
+      trend: { value: 2.1, direction: "up" },
+      description: "Overall infrastructure security rating",
+    },
+    {
+      label: "Total Servers",
+      value: 342,
+      icon: "server",
+      trend: { value: 8.4, direction: "up" },
+      description: "Combined cloud and on-premise",
+    },
+  ],
+  columns: 4,
+  gap: "lg",
+  showDescription: true,
+};
+
 export function StatBlockShowcase() {
   return (
     <div className="space-y-8">
@@ -153,6 +195,10 @@ export function StatBlockShowcase() {
 
       <ShowcaseWrapper title="Color Variations" code={JSON.stringify(coloredStats, null, 2)}>
         {render(coloredStats)}
+      </ShowcaseWrapper>
+
+      <ShowcaseWrapper title="Cloud Infrastructure Monitoring" code={JSON.stringify(cloudInfrastructureStats, null, 2)}>
+        {render(cloudInfrastructureStats)}
       </ShowcaseWrapper>
 
       <ShowcaseWrapper 

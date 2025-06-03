@@ -297,28 +297,23 @@ export function PhotoFlipCardShowcasePage() {
                 overlay: {
                   content: React.createElement("div", {
                     className: "space-y-4",
-                    children: [
-                      React.createElement("div", {
-                        className: "w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto",
-                        children: React.createElement("span", { className: "text-2xl" }, "👤"),
-                      }),
-                      React.createElement("h3", { className: "text-xl font-bold" }, "Sarah Johnson"),
-                      React.createElement("p", { className: "text-white/90 text-sm" }, "Senior Designer"),
-                      React.createElement("div", {
-                        className: "flex gap-2 justify-center mt-4",
-                        children: [
-                          React.createElement("span", {
-                            className: "w-8 h-8 bg-white/20 rounded-full flex items-center justify-center",
-                            children: React.createElement("span", { className: "text-xs" }, "Li"),
-                          }),
-                          React.createElement("span", {
-                            className: "w-8 h-8 bg-white/20 rounded-full flex items-center justify-center",
-                            children: React.createElement("span", { className: "text-xs" }, "Tw"),
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
+                  }, [
+                    React.createElement("div", {
+                      className: "w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto",
+                    }, React.createElement("span", { className: "text-2xl" }, "👤")),
+                    React.createElement("h3", { className: "text-xl font-bold" }, "Sarah Johnson"),
+                    React.createElement("p", { className: "text-white/90 text-sm" }, "Senior Designer"),
+                    React.createElement("div", {
+                      className: "flex gap-2 justify-center mt-4",
+                    }, [
+                      React.createElement("span", {
+                        className: "w-8 h-8 bg-white/20 rounded-full flex items-center justify-center",
+                      }, React.createElement("span", { className: "text-xs" }, "Li")),
+                      React.createElement("span", {
+                        className: "w-8 h-8 bg-white/20 rounded-full flex items-center justify-center",
+                      }, React.createElement("span", { className: "text-xs" }, "Tw")),
+                    ]),
+                  ]),
                 },
                 variant: "fade",
                 borderRadius: "full",

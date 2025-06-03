@@ -8,7 +8,7 @@ export function StyleDiagnostic() {
 
   useEffect(() => {
     // Get CSS custom properties
-    const rootStyles = getComputedStyle(document.documentElement);
+    const rootStyles = globalThis.getComputedStyle(document.documentElement);
     const cssVars: Record<string, string> = {};
     
     // Check key color variables
@@ -23,16 +23,16 @@ export function StyleDiagnostic() {
       '--accent-foreground'
     ];
     
-    colorVars.forEach(varName => {
+    for (const varName of colorVars) {
       cssVars[varName] = rootStyles.getPropertyValue(varName).trim();
-    });
+    }
 
     // Get computed styles of a button
     const button = document.querySelector('[data-slot="button"]');
     const computedStyles: Record<string, string> = {};
     
     if (button) {
-      const buttonStyles = getComputedStyle(button);
+      const buttonStyles = globalThis.getComputedStyle(button);
       computedStyles['background-color'] = buttonStyles.backgroundColor;
       computedStyles['color'] = buttonStyles.color;
       computedStyles['computed-background'] = buttonStyles.getPropertyValue('background-color');

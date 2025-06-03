@@ -1,10 +1,9 @@
 import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
 
 interface ShowcaseWrapperProps {
-  children: ReactNode;
-  className?: string;
-  isolated?: boolean;
+  readonly children: ReactNode;
+  readonly className?: string;
+  readonly isolated?: boolean;
 }
 
 export function ShowcaseWrapper({ children, className, isolated = false }: ShowcaseWrapperProps) {

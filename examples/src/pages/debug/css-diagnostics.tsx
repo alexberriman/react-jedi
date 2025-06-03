@@ -14,11 +14,11 @@ export function CssDiagnosticsPage() {
   useEffect(() => {
     // Get all CSS variables from :root
     const root = document.documentElement;
-    const rootStyles = getComputedStyle(root);
+    const rootStyles = globalThis.getComputedStyle(root);
     const variables: Record<string, string> = {};
 
     // Get all CSS custom properties
-    for (const prop of Array.from(rootStyles)) {
+    for (const prop of rootStyles) {
       if (prop.startsWith('--')) {
         variables[prop] = rootStyles.getPropertyValue(prop);
       }
@@ -27,21 +27,21 @@ export function CssDiagnosticsPage() {
     setCssVariables(variables);
 
     // Get computed styles for buttons after they render
-    setTimeout(() => {
-      const primaryButton = document.getElementById('primary-button');
-      const hardcodedButton = document.getElementById('hardcoded-button');
+    globalThis.setTimeout(() => {
+      const primaryButton = document.querySelector('#primary-button');
+      const hardcodedButton = document.querySelector('#hardcoded-button');
 
       if (primaryButton) {
         setComputedStyles((prev) => ({
           ...prev,
-          primary: getComputedStyle(primaryButton),
+          primary: globalThis.getComputedStyle(primaryButton),
         }));
       }
 
       if (hardcodedButton) {
         setComputedStyles((prev) => ({
           ...prev,
-          hardcoded: getComputedStyle(hardcodedButton),
+          hardcoded: globalThis.getComputedStyle(hardcodedButton),
         }));
       }
     }, 100);
@@ -98,7 +98,7 @@ export function CssDiagnosticsPage() {
           <pre className="text-sm">
             {Object.entries(cssVariables)
               .filter(([key]) => key.includes('primary') || key.includes('background') || key.includes('foreground'))
-              .sort()
+              .sort((a, b) => a[0].localeCompare(b[0]))
               .map(([key, value]) => (
                 <div key={key}>
                   <span className="text-blue-600">{key}</span>: <span className="text-green-600">{value}</span>

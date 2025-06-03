@@ -245,7 +245,7 @@ export function ContactFormShowcasePage() {
             <div>
               <code className="text-sm bg-muted px-2 py-1 rounded">variant</code>
               <p className="text-sm text-muted-foreground mt-1">
-                Visual variant: "simple" | "detailed" | "with-map" | "split-screen" | "minimal"
+                Visual variant: &quot;simple&quot; | &quot;detailed&quot; | &quot;with-map&quot; | &quot;split-screen&quot; | &quot;minimal&quot;
               </p>
             </div>
             <div>

@@ -1,0 +1,260 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "component": {
+      "type": "string",
+      "const": "ProductShowcase"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["grid", "list", "featured", "comparison", "category"],
+          "description": "The display variant of the product showcase",
+          "default": "grid"
+        },
+        "products": {
+          "type": "array",
+          "description": "Array of products to display",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "price", "image"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the product"
+              },
+              "name": {
+                "type": "string",
+                "description": "Product name"
+              },
+              "description": {
+                "type": "string",
+                "description": "Product description"
+              },
+              "price": {
+                "type": "number",
+                "description": "Regular price of the product"
+              },
+              "salePrice": {
+                "type": "number",
+                "description": "Sale price of the product"
+              },
+              "currency": {
+                "type": "string",
+                "description": "Currency symbol",
+                "default": "$"
+              },
+              "image": {
+                "type": "string",
+                "description": "Main product image URL"
+              },
+              "images": {
+                "type": "array",
+                "description": "Additional product images",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "category": {
+                "type": "string",
+                "description": "Product category"
+              },
+              "rating": {
+                "type": "number",
+                "description": "Product rating (0-5)",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "reviewCount": {
+                "type": "number",
+                "description": "Number of reviews"
+              },
+              "inStock": {
+                "type": "boolean",
+                "description": "Whether the product is in stock",
+                "default": true
+              },
+              "stockCount": {
+                "type": "number",
+                "description": "Number of items in stock"
+              },
+              "badge": {
+                "type": "string",
+                "description": "Badge text to display"
+              },
+              "badgeVariant": {
+                "type": "string",
+                "enum": ["default", "secondary", "destructive", "outline"],
+                "description": "Badge variant"
+              },
+              "variants": {
+                "type": "object",
+                "description": "Product variants (size, color, etc.)",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "name", "value"],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "available": {
+                        "type": "boolean",
+                        "default": true
+                      },
+                      "priceModifier": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              },
+              "features": {
+                "type": "array",
+                "description": "Product features",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "specifications": {
+                "type": "object",
+                "description": "Product specifications",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "columns": {
+          "type": "number",
+          "enum": [2, 3, 4],
+          "description": "Number of columns for grid layout",
+          "default": 3
+        },
+        "animated": {
+          "type": "boolean",
+          "description": "Enable/disable animations",
+          "default": true
+        },
+        "showWishlist": {
+          "type": "boolean",
+          "description": "Show wishlist functionality",
+          "default": true
+        },
+        "showQuickAdd": {
+          "type": "boolean",
+          "description": "Show quick add to cart",
+          "default": true
+        },
+        "showFilters": {
+          "type": "boolean",
+          "description": "Show category filters",
+          "default": false
+        },
+        "showRatings": {
+          "type": "boolean",
+          "description": "Show product ratings",
+          "default": true
+        },
+        "categories": {
+          "type": "array",
+          "description": "List of categories for filtering",
+          "items": {
+            "type": "string"
+          }
+        },
+        "filterLabel": {
+          "type": "string",
+          "description": "Label for filter dropdown",
+          "default": "Filter by category"
+        },
+        "allCategoriesLabel": {
+          "type": "string",
+          "description": "Label for all categories option",
+          "default": "All"
+        },
+        "addToCartLabel": {
+          "type": "string",
+          "description": "Label for add to cart button",
+          "default": "Add to Cart"
+        },
+        "quickAddLabel": {
+          "type": "string",
+          "description": "Label for quick add button",
+          "default": "Quick Add"
+        },
+        "outOfStockLabel": {
+          "type": "string",
+          "description": "Label for out of stock items",
+          "default": "Out of Stock"
+        },
+        "saleLabel": {
+          "type": "string",
+          "description": "Label for sale badge",
+          "default": "Sale"
+        },
+        "compareLabel": {
+          "type": "string",
+          "description": "Label for compare button",
+          "default": "Compare"
+        },
+        "featuredTitle": {
+          "type": "string",
+          "description": "Title for featured product",
+          "default": "Featured Product"
+        },
+        "featuredDescription": {
+          "type": "string",
+          "description": "Description for featured product",
+          "default": "Check out our top pick"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      },
+      "required": ["products"]
+    },
+    "events": {
+      "type": "object",
+      "properties": {
+        "onAddToCart": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string"
+            }
+          }
+        },
+        "onToggleWishlist": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string"
+            }
+          }
+        },
+        "onProductClick": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["component", "properties"]
+}

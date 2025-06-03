@@ -244,6 +244,19 @@ const blockCategories: BlockCategory[] = [
       },
     ],
   },
+  {
+    id: "ecommerce",
+    title: "E-commerce",
+    description: "Blocks for building online stores and product displays.",
+    blocks: [
+      {
+        name: "Product Showcase",
+        description: "Versatile product display with grid, list, featured, comparison, and category views. Includes wishlist, quick add, ratings, and filtering.",
+        status: "completed",
+        path: "/showcase/blocks/product-showcase",
+      },
+    ],
+  },
 ];
 
 // Dropdown component for filters

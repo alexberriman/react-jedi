@@ -1,0 +1,1 @@
+export { ProductShowcase, type ProductShowcaseProperties, type Product, type ProductVariant } from './product-showcase'

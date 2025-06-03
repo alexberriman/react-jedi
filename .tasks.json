@@ -157,7 +157,7 @@
       {
         "id": "product-showcase-block",
         "description": "Create Product Showcase block for e-commerce displays. Variants: grid cards, list view, featured product, comparison table, and category showcase. Features: product images, pricing, variants (size/color), quick add to cart, wishlist, and rating display. Add hover effects, sale badges, stock indicators, and filtering options. Include modern product card design with clean layouts and smooth interactions.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "job-listings-block",

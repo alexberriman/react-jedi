@@ -300,6 +300,9 @@ const RestaurantMenuShowcasePage = lazy(() =>
 const ProcessStepsShowcasePage = lazy(() =>
   import("../pages/showcase/blocks/process-steps").then((module) => ({ default: module.ProcessStepsShowcasePage }))
 );
+const ProductShowcaseShowcase = lazy(() =>
+  import("../pages/showcase/blocks/product-showcase").then((module) => ({ default: module.ProductShowcaseShowcase }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -575,6 +578,10 @@ export const router = createBrowserRouter([
               {
                 path: "process-steps",
                 element: <AsyncRoute component={ProcessStepsShowcasePage} loadingText="Loading process steps showcase..." />,
+              },
+              {
+                path: "product-showcase",
+                element: <AsyncRoute component={ProductShowcaseShowcase} loadingText="Loading product showcase..." />,
               },
             ],
           },

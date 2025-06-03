@@ -25,6 +25,7 @@ import { FAQBlock } from "../components/blocks/faq";
 import { Chart } from "../components/ui/chart/chart";
 import { PageSection } from "../components/blocks/page-section";
 import { LatestNews } from "../components/blocks/latest-news";
+import { ProductShowcase } from "../components/blocks/product-showcase";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -766,6 +767,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     "process-steps": asComponent(
       Blocks.ProcessSteps as unknown as React.ComponentType<Record<string, unknown>>,
       { steps: [] } // Provide default required props
+    ),
+    ProductShowcase: asComponent(
+      ProductShowcase as unknown as React.ComponentType<Record<string, unknown>>,
+      { products: [] } // Provide default required props
+    ),
+    "product-showcase": asComponent(
+      ProductShowcase as unknown as React.ComponentType<Record<string, unknown>>,
+      { products: [] } // Provide default required props
     ),
   };
 

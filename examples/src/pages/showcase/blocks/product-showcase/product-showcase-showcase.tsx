@@ -258,6 +258,22 @@ const sampleProducts: Product[] = [
   }
 ]
 
+// Event handler functions moved to outer scope
+const handleAddToCart = (product: Product, variants?: Record<string, string>) => {
+  console.log('Add to cart:', product.name, variants)
+  // In a real app, this would add the product to the cart
+}
+
+const handleToggleWishlist = (product: Product) => {
+  console.log('Toggle wishlist:', product.name)
+  // In a real app, this would add/remove from wishlist
+}
+
+const handleProductClick = (product: Product) => {
+  console.log('Product clicked:', product.name)
+  // In a real app, this would navigate to product details
+}
+
 export function ProductShowcaseShowcase() {
   const [variant, setVariant] = useState<'grid' | 'list' | 'featured' | 'comparison' | 'category'>('grid')
   const [columns, setColumns] = useState<2 | 3 | 4>(3)
@@ -267,19 +283,15 @@ export function ProductShowcaseShowcase() {
   const [showFilters, setShowFilters] = useState(true)
   const [showRatings, setShowRatings] = useState(true)
 
-  const handleAddToCart = (product: Product, variants?: Record<string, string>) => {
-    console.log('Add to cart:', product.name, variants)
-    // In a real app, this would add the product to the cart
-  }
-
-  const handleToggleWishlist = (product: Product) => {
-    console.log('Toggle wishlist:', product.name)
-    // In a real app, this would add/remove from wishlist
-  }
-
-  const handleProductClick = (product: Product) => {
-    console.log('Product clicked:', product.name)
-    // In a real app, this would navigate to product details
+  // Determine which products to display based on variant
+  const getDisplayProducts = () => {
+    if (variant === 'featured') {
+      return [sampleProducts[0]]
+    }
+    if (variant === 'comparison') {
+      return sampleProducts.slice(0, 3)
+    }
+    return sampleProducts
   }
 
   return (
@@ -298,7 +310,7 @@ export function ProductShowcaseShowcase() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="variant">Variant</Label>
-                <Select value={variant} onValueChange={(value: any) => setVariant(value)}>
+                <Select value={variant} onValueChange={(value) => setVariant(value as 'grid' | 'list' | 'featured' | 'comparison' | 'category')}>
                   <SelectTrigger id="variant">
                     <SelectValue />
                   </SelectTrigger>
@@ -315,7 +327,7 @@ export function ProductShowcaseShowcase() {
               {variant === 'grid' && (
                 <div className="space-y-2">
                   <Label htmlFor="columns">Columns</Label>
-                  <Select value={columns.toString()} onValueChange={(value) => setColumns(parseInt(value) as 2 | 3 | 4)}>
+                  <Select value={columns.toString()} onValueChange={(value) => setColumns(Number.parseInt(value) as 2 | 3 | 4)}>
                     <SelectTrigger id="columns">
                       <SelectValue />
                     </SelectTrigger>
@@ -360,7 +372,7 @@ export function ProductShowcaseShowcase() {
       <ShowcaseWrapper className="pb-12">
         <ProductShowcase
           variant={variant}
-          products={variant === 'featured' ? [sampleProducts[0]] : variant === 'comparison' ? sampleProducts.slice(0, 3) : sampleProducts}
+          products={getDisplayProducts()}
           columns={columns}
           animated={animated}
           showWishlist={showWishlist}

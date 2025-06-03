@@ -419,15 +419,19 @@ export function SocialShareBarShowcasePage() {
                 selectedDemo === "vertical" && "flex justify-end"
               )}
             >
-              {selectedDemo === "floating" && showFloating ? (
-                render(currentDemo.spec)
-              ) : selectedDemo !== "floating" ? (
-                render(currentDemo.spec)
-              ) : (
-                <div className="text-center text-gray-500">
-                  Click "Show Floating Button" to see the demo
-                </div>
-              )}
+              {(() => {
+                if (selectedDemo === "floating") {
+                  if (showFloating) {
+                    return render(currentDemo.spec);
+                  }
+                  return (
+                    <div className="text-center text-gray-500">
+                      Click &ldquo;Show Floating Button&rdquo; to see the demo
+                    </div>
+                  );
+                }
+                return render(currentDemo.spec);
+              })()}
             </div>
           </div>
         </div>

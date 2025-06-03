@@ -29,7 +29,7 @@
       {
         "id": "blocks-showcase-page",
         "description": "Create a new /showcase/blocks page in the example app (./examples). Add 'Component Blocks' link to the navigation menu under the existing 'Components' dropdown. The blocks showcase page should display all the advanced block components in an organized grid or list format with links to individual block demo pages. Include a hero section explaining what blocks are (pre-built, advanced components for quickly building websites). Style it consistently with the existing showcase pages.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "header-block",

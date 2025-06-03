@@ -222,6 +222,9 @@ const DatePickerShowcase = lazy(() =>
 const ComboboxShowcase = lazy(() =>
   import("../pages/showcase/combobox").then((module) => ({ default: module.ComboboxShowcase }))
 );
+const BlocksShowcasePage = lazy(() =>
+  import("../pages/showcase/blocks").then((module) => ({ default: module.BlocksShowcasePage }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -390,6 +393,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <AsyncRoute component={ShowcasePage} loadingText="Loading showcase..." />,
+          },
+          {
+            path: "blocks",
+            element: <AsyncRoute component={BlocksShowcasePage} loadingText="Loading blocks showcase..." />,
           },
           {
             path: "scroll-area",

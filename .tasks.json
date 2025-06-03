@@ -132,7 +132,7 @@
       {
         "id": "restaurant-menu-block",
         "description": "Create Restaurant Menu block for food service websites. Variants: categorized sections, single column, two-column, grid cards, and prix fixe. Features: menu categories (appetizers, mains, desserts), item images, descriptions, prices, dietary indicators (vegan, gluten-free), and allergen warnings. Add search/filter functionality, daily specials highlighting, and nutritional information. Include elegant typography and appetizing image layouts.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "photo-flip-card-block",

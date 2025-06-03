@@ -291,6 +291,9 @@ const IconShowcase = lazy(() =>
 const PhotoGalleryShowcase = lazy(() =>
   import("../pages/showcase/blocks/photo-gallery").then((module) => ({ default: module.PhotoGalleryShowcase }))
 );
+const RestaurantMenuShowcasePage = lazy(() =>
+  import("../pages/showcase/blocks/restaurant-menu").then((module) => ({ default: module.RestaurantMenuShowcasePage }))
+);
 
 // Documentation pages
 const DocumentationPage = lazy(() =>
@@ -554,6 +557,10 @@ export const router = createBrowserRouter([
               {
                 path: "photo-gallery",
                 element: <AsyncRoute component={PhotoGalleryShowcase} loadingText="Loading photo gallery showcase..." />,
+              },
+              {
+                path: "restaurant-menu",
+                element: <AsyncRoute component={RestaurantMenuShowcasePage} loadingText="Loading restaurant menu showcase..." />,
               },
             ],
           },

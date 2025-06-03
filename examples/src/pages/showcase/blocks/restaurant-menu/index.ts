@@ -1,0 +1,1 @@
+export { RestaurantMenuShowcasePage } from "./restaurant-menu-showcase";

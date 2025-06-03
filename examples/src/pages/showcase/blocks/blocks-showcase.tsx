@@ -100,6 +100,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/service-list",
       },
+      {
+        name: "Restaurant Menu",
+        description: "Comprehensive menu display with categories, dietary restrictions, search, and multiple layout variants.",
+        status: "completed",
+        path: "/showcase/blocks/restaurant-menu",
+      },
     ],
   },
   {

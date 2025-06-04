@@ -32,7 +32,7 @@
       {
         "id": "masonry",
         "description": "The Masonry component has a 'Pinterest Gallery' story/variant. When you hover over, the image kind of zooms, text appears, etc. It just 'appears' and looks weird - this should all transition in smoothly with framer motion.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "grid-stories",

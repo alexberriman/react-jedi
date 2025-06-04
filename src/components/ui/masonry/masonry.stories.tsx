@@ -6,6 +6,7 @@ import { Text } from "../text";
 import { Badge } from "../badge";
 import { Heading } from "../heading";
 import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { motion } from "framer-motion";
 
 /**
  * Masonry creates a Pinterest-style grid layout with beautiful animations and glassmorphic effects.
@@ -190,18 +191,44 @@ export const PinterestGallery: Story = {
     <div className="bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 p-8 rounded-lg">
       <Masonry {...args}>
         {pinterestItems.map((item) => (
-          <div
+          <motion.div
             key={item.id}
-            className="rounded-xl overflow-hidden transform transition-transform duration-300"
+            className="rounded-xl overflow-hidden"
+            whileHover="hover"
+            initial="initial"
+            animate="initial"
           >
-            <div className="relative group">
-              <Image
-                src={item.image}
-                alt={item.title}
-                className={`w-full ${item.height} object-cover`}
+            <motion.div className="relative group">
+              <motion.div
+                className={`w-full ${item.height} overflow-hidden`}
+                variants={{
+                  initial: { scale: 1 },
+                  hover: { scale: 1.1 }
+                }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                variants={{
+                  initial: { opacity: 0 },
+                  hover: { opacity: 1 }
+                }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <motion.div 
+                className="absolute bottom-0 left-0 right-0 p-4"
+                variants={{
+                  initial: { y: "100%", opacity: 0 },
+                  hover: { y: 0, opacity: 1 }
+                }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+              >
                 <Badge className="mb-2" variant="secondary">
                   {item.category}
                 </Badge>
@@ -209,9 +236,9 @@ export const PinterestGallery: Story = {
                   {item.title}
                 </Heading>
                 <Text className="text-white/80">❤️ {item.likes}</Text>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         ))}
       </Masonry>
     </div>

@@ -1,10 +1,23 @@
 import { type JSX, useState, useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '../../../lib/utils'
 import { Card } from '../../ui/card'
 import { Badge } from '../../ui/badge'
 import { Button } from '../../ui/button'
 import { Input } from '../../ui/input'
-import { FiClock, FiPhone, FiMail, FiMapPin, FiSearch, FiCalendar, FiExternalLink } from 'react-icons/fi'
+import { 
+  Clock, 
+  Phone, 
+  Mail, 
+  MapPin, 
+  Search, 
+  Calendar, 
+  ExternalLink,
+  ChevronRight,
+  Navigation,
+  Globe,
+  CheckCircle
+} from 'lucide-react'
 import type { LocationHoursProperties, Location } from './types'
 import { getLocationStatus, groupBusinessHours, formatTime, getTodaysSpecialSchedule } from './utils'
 
@@ -28,6 +41,7 @@ function LocationHours({
 }: Readonly<LocationHoursProperties>): JSX.Element {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedFilter, setSelectedFilter] = useState<string>('all')
+  const [expandedCard, setExpandedCard] = useState<string | null>(null)
 
   // Filter and search locations
   const filteredLocations = useMemo(() => {
@@ -73,15 +87,20 @@ function LocationHours({
     if (!allowLocationSearch && !allowLocationFilter) return null
 
     return (
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+      >
         {allowLocationSearch && (
           <div className="relative flex-1 max-w-md">
-            <FiSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search locations..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-10 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
             />
           </div>
         )}
@@ -90,7 +109,7 @@ function LocationHours({
           <select
             value={selectedFilter}
             onChange={(e) => setSelectedFilter(e.target.value)}
-            className="px-3 py-2 border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {filterOptions.map(option => (
               <option key={option.value} value={option.value}>
@@ -99,40 +118,60 @@ function LocationHours({
             ))}
           </select>
         )}
-      </div>
+      </motion.div>
     )
   }
 
   const renderLocationHeader = (location: Location, status: ReturnType<typeof getLocationStatus>): JSX.Element => (
-    <div className="flex items-start justify-between mb-4">
-      <div className="flex-1">
-        <h3 className={cn(
-          'font-semibold text-lg',
-          compactView && 'text-base',
-          darkMode && 'text-white'
-        )}>
-          {location.name}
-        </h3>
-        {location.description && !compactView && (
-          <p className={cn('text-sm text-muted-foreground mt-1', darkMode && 'text-gray-300')}>
-            {location.description}
-          </p>
+    <div className="mb-6">
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex-1">
+          <h3 className={cn(
+            'font-bold text-2xl mb-2 text-slate-900 dark:text-white',
+            compactView && 'text-xl'
+          )}>
+            {location.name}
+          </h3>
+          {location.description && !compactView && (
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              {location.description}
+            </p>
+          )}
+        </div>
+
+        {showCurrentStatus && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          >
+            <Badge 
+              variant={status.isOpen ? 'default' : 'secondary'}
+              className={cn(
+                'ml-4 px-4 py-2 text-sm font-medium',
+                status.isOpen 
+                  ? 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800' 
+                  : 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800'
+              )}
+            >
+              <Clock className="w-4 h-4 mr-2 inline" />
+              {status.isOpen ? 'Open Now' : 'Closed'}
+            </Badge>
+          </motion.div>
         )}
       </div>
-
+      
+      {/* Status Message with icon */}
       {showCurrentStatus && (
-        <Badge 
-          variant={status.isOpen ? 'default' : 'secondary'}
-          className={cn(
-            'ml-4',
-            status.isOpen ? 'bg-green-100 text-green-800 border-green-200' : 'bg-red-100 text-red-800 border-red-200',
-            darkMode && status.isOpen && 'bg-green-900 text-green-200 border-green-700',
-            darkMode && !status.isOpen && 'bg-red-900 text-red-200 border-red-700'
-          )}
-        >
-          <FiClock className="w-3 h-3 mr-1" />
-          {status.isOpen ? 'Open' : 'Closed'}
-        </Badge>
+        <div className="flex items-center gap-2 text-sm">
+          <div className={cn(
+            "w-2 h-2 rounded-full",
+            status.isOpen ? "bg-green-500" : "bg-red-500"
+          )} />
+          <p className="text-slate-600 dark:text-slate-400 font-medium">
+            {status.message}
+          </p>
+        </div>
       )}
     </div>
   )
@@ -141,220 +180,371 @@ function LocationHours({
     if (!showSpecialSchedules || !todaySpecial) return null
 
     return (
-      <div className={cn(
-        'mb-4 p-3 rounded-lg bg-yellow-50 border border-yellow-200',
-        darkMode && 'bg-yellow-900/20 border-yellow-700'
-      )}>
-        <div className="flex items-center gap-2">
-          <FiCalendar className="w-4 h-4 text-yellow-600" />
-          <span className={cn('text-sm font-medium text-yellow-800', darkMode && 'text-yellow-200')}>
-            {todaySpecial.name}
-          </span>
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="mb-6 p-4 rounded-xl bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-800"
+      >
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-yellow-100 dark:bg-yellow-900/40 rounded-lg">
+            <Calendar className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+          </div>
+          <div>
+            <span className="font-semibold text-yellow-800 dark:text-yellow-300">
+              {todaySpecial.name}
+            </span>
+            {todaySpecial.message && (
+              <p className="text-sm text-yellow-700 dark:text-yellow-400 mt-1">
+                {todaySpecial.message}
+              </p>
+            )}
+          </div>
         </div>
-        {todaySpecial.message && (
-          <p className={cn('text-sm text-yellow-700 mt-1', darkMode && 'text-yellow-300')}>
-            {todaySpecial.message}
-          </p>
+      </motion.div>
+    )
+  }
+
+  const renderBusinessHours = (location: Location, groupedHours: string[]): JSX.Element => {
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'short' }).toLowerCase().slice(0, 3)
+    
+    return (
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="p-2 bg-blue-100 dark:bg-blue-900/40 rounded-lg">
+            <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          </div>
+          <h4 className="font-semibold text-lg text-slate-900 dark:text-white">
+            Business Hours
+          </h4>
+        </div>
+        
+        {variant === 'minimal-hours' ? (
+          <div className="space-y-2 pl-12">
+            {groupedHours.map((hourGroup, index) => (
+              <motion.p 
+                key={index} 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05 }}
+                className="text-slate-600 dark:text-slate-400"
+              >
+                {hourGroup}
+              </motion.p>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-2 pl-12">
+            {location.businessHours.map((hours, index) => {
+              const isToday = hours.day.toLowerCase().startsWith(today)
+              return (
+                <motion.div 
+                  key={hours.day}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className={cn(
+                    "flex justify-between items-center py-2 px-3 rounded-lg transition-colors",
+                    isToday && "bg-blue-50 dark:bg-blue-900/20 font-medium"
+                  )}
+                >
+                  <span className={cn(
+                    "capitalize",
+                    isToday ? "text-blue-700 dark:text-blue-300" : "text-slate-700 dark:text-slate-300"
+                  )}>
+                    {hours.day}
+                  </span>
+                  <span className={cn(
+                    isToday ? "text-blue-600 dark:text-blue-400" : "text-slate-600 dark:text-slate-400"
+                  )}>
+                    {hours.closed ? (
+                      <span className="text-red-500 dark:text-red-400">Closed</span>
+                    ) : (
+                      `${formatTime(hours.openTime)} - ${formatTime(hours.closeTime)}`
+                    )}
+                  </span>
+                </motion.div>
+              )
+            })}
+          </div>
         )}
       </div>
     )
   }
-
-  const renderBusinessHours = (location: Location, groupedHours: string[]): JSX.Element => (
-    <div className="mb-4">
-      <h4 className={cn('font-medium text-sm mb-2', darkMode && 'text-gray-200')}>
-        Hours
-      </h4>
-      {variant === 'minimal-hours' ? (
-        <div className="space-y-1">
-          {groupedHours.map((hourGroup, index) => (
-            <p key={index} className={cn('text-sm', darkMode && 'text-gray-300')}>
-              {hourGroup}
-            </p>
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-1">
-          {location.businessHours.map((hours) => (
-            <div key={hours.day} className="flex justify-between text-sm">
-              <span className={cn('capitalize font-medium', darkMode && 'text-gray-200')}>
-                {hours.day.slice(0, 3)}
-              </span>
-              <span className={cn(darkMode && 'text-gray-300')}>
-                {hours.closed ? 'Closed' : `${formatTime(hours.openTime)} - ${formatTime(hours.closeTime)}`}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  )
 
   const renderContactInfo = (location: Location): JSX.Element | null => {
     if (!showContactInfo) return null
 
+    const contactItems = [
+      {
+        icon: MapPin,
+        label: 'Address',
+        value: `${location.contact.address.street}, ${location.contact.address.city}, ${location.contact.address.state} ${location.contact.address.zipCode}`,
+        color: 'text-purple-600 dark:text-purple-400',
+        bgColor: 'bg-purple-100 dark:bg-purple-900/40'
+      },
+      ...(location.contact.phone ? [{
+        icon: Phone,
+        label: 'Phone',
+        value: location.contact.phone,
+        href: `tel:${location.contact.phone}`,
+        color: 'text-green-600 dark:text-green-400',
+        bgColor: 'bg-green-100 dark:bg-green-900/40'
+      }] : []),
+      ...(location.contact.email ? [{
+        icon: Mail,
+        label: 'Email',
+        value: location.contact.email,
+        href: `mailto:${location.contact.email}`,
+        color: 'text-blue-600 dark:text-blue-400',
+        bgColor: 'bg-blue-100 dark:bg-blue-900/40'
+      }] : []),
+      ...(location.contact.website ? [{
+        icon: Globe,
+        label: 'Website',
+        value: 'Visit Website',
+        href: location.contact.website,
+        external: true,
+        color: 'text-indigo-600 dark:text-indigo-400',
+        bgColor: 'bg-indigo-100 dark:bg-indigo-900/40'
+      }] : [])
+    ]
+
     return (
-      <div className="mb-4 space-y-2">
-        <div className="flex items-center gap-2 text-sm">
-          <FiMapPin className="w-4 h-4 text-muted-foreground" />
-          <span className={cn(darkMode && 'text-gray-300')}>
-            {location.contact.address.street}, {location.contact.address.city}, {location.contact.address.state} {location.contact.address.zipCode}
-          </span>
+      <div className="mb-6 space-y-3">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="p-2 bg-purple-100 dark:bg-purple-900/40 rounded-lg">
+            <MapPin className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+          </div>
+          <h4 className="font-semibold text-lg text-slate-900 dark:text-white">
+            Contact Information
+          </h4>
         </div>
-
-        {location.contact.phone && (
-          <div className="flex items-center gap-2 text-sm">
-            <FiPhone className="w-4 h-4 text-muted-foreground" />
-            <a
-              href={`tel:${location.contact.phone}`}
-              className={cn('hover:underline', darkMode && 'text-blue-400')}
+        
+        <div className="space-y-3 pl-12">
+          {contactItems.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
+              className="flex items-start gap-3"
             >
-              {location.contact.phone}
-            </a>
-          </div>
-        )}
-
-        {location.contact.email && (
-          <div className="flex items-center gap-2 text-sm">
-            <FiMail className="w-4 h-4 text-muted-foreground" />
-            <a
-              href={`mailto:${location.contact.email}`}
-              className={cn('hover:underline', darkMode && 'text-blue-400')}
-            >
-              {location.contact.email}
-            </a>
-          </div>
-        )}
+              <div className={cn("p-1.5 rounded-lg", item.bgColor)}>
+                <item.icon className={cn("w-4 h-4", item.color)} />
+              </div>
+              <div className="flex-1">
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noopener noreferrer" : undefined}
+                    className={cn(
+                      "hover:underline transition-colors",
+                      item.color,
+                      "flex items-center gap-1"
+                    )}
+                  >
+                    {item.value}
+                    {item.external && <ExternalLink className="w-3 h-3" />}
+                  </a>
+                ) : (
+                  <span className="text-slate-600 dark:text-slate-400">
+                    {item.value}
+                  </span>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     )
   }
 
-  const renderActionButtons = (location: Location): JSX.Element => (
-    <div className="flex flex-wrap gap-2">
-      {showMap && location.map?.showDirectionsLink && (
-        <Button
-          variant="outline"
-          size="sm"
-          asChild
-          className="flex-1 sm:flex-none"
-        >
-          <a
-            href={`https://www.google.com/maps/dir/?api=1&destination=${location.map.latitude},${location.map.longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FiMapPin className="w-4 h-4 mr-2" />
-            Directions
-          </a>
-        </Button>
-      )}
+  const renderServices = (services: string[]): JSX.Element | null => {
+    if (!showServices || !services || services.length === 0) return null
 
-      {showAppointmentBooking && location.appointmentBookingUrl && (
-        <Button
-          size="sm"
-          asChild
-          className="flex-1 sm:flex-none"
-        >
-          <a
-            href={location.appointmentBookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FiCalendar className="w-4 h-4 mr-2" />
-            Book Appointment
-          </a>
-        </Button>
-      )}
+    return (
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="p-2 bg-green-100 dark:bg-green-900/40 rounded-lg">
+            <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+          </div>
+          <h4 className="font-semibold text-lg text-slate-900 dark:text-white">
+            Services Available
+          </h4>
+        </div>
+        <div className="flex flex-wrap gap-2 pl-12">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.05 }}
+            >
+              <Badge 
+                variant="outline" 
+                className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+              >
+                {service}
+              </Badge>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
-      {location.contact.website && (
-        <Button
-          variant="outline"
-          size="sm"
-          asChild
-          className="flex-1 sm:flex-none"
-        >
-          <a
-            href={location.contact.website}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FiExternalLink className="w-4 h-4 mr-2" />
-            Website
-          </a>
-        </Button>
-      )}
-    </div>
-  )
+  const renderActionButtons = (location: Location): JSX.Element => {
+    const actions = [
+      ...(showMap && location.map?.showDirectionsLink ? [{
+        icon: Navigation,
+        label: 'Get Directions',
+        href: `https://www.google.com/maps/dir/?api=1&destination=${location.map.latitude},${location.map.longitude}`,
+        variant: 'outline' as const,
+        color: 'hover:text-purple-600 dark:hover:text-purple-400'
+      }] : []),
+      ...(showAppointmentBooking && location.appointmentBookingUrl ? [{
+        icon: Calendar,
+        label: 'Book Appointment',
+        href: location.appointmentBookingUrl,
+        variant: 'default' as const,
+        color: ''
+      }] : []),
+      ...(location.contact.website ? [{
+        icon: Globe,
+        label: 'Website',
+        href: location.contact.website,
+        variant: 'outline' as const,
+        color: 'hover:text-blue-600 dark:hover:text-blue-400'
+      }] : [])
+    ]
 
-  const renderLocationCard = (location: Location): JSX.Element => {
+    if (actions.length === 0) return <></>
+
+    return (
+      <div className="flex flex-wrap gap-3 pt-6 border-t border-slate-200 dark:border-slate-700">
+        {actions.map((action, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <Button
+              variant={action.variant}
+              size="sm"
+              asChild
+              className={cn(
+                "group",
+                action.variant === 'default' 
+                  ? "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0"
+                  : action.color
+              )}
+            >
+              <a
+                href={action.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <action.icon className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                {action.label}
+              </a>
+            </Button>
+          </motion.div>
+        ))}
+      </div>
+    )
+  }
+
+  const renderLocationCard = (location: Location, index: number): JSX.Element => {
     const status = getLocationStatus(location)
     const todaySpecial = getTodaysSpecialSchedule(location.specialSchedules, location.timezone)
     const groupedHours = groupBusinessHours(location.businessHours)
+    const isExpanded = expandedCard === location.id
 
     return (
-      <Card
+      <motion.div
         key={location.id}
-        className={cn(
-          'p-6 transition-all duration-200 hover:shadow-lg',
-          compactView && 'p-4',
-          darkMode && 'bg-gray-800 border-gray-700'
-        )}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: index * 0.1 }}
+        layout
       >
-        {renderLocationHeader(location, status)}
+        <Card
+          className={cn(
+            'overflow-hidden transition-all duration-300 hover:shadow-xl',
+            'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700',
+            isExpanded && 'ring-2 ring-blue-500 dark:ring-blue-400'
+          )}
+        >
+          {/* Gradient accent top bar */}
+          <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-500" />
+          
+          <div className={cn('p-6', compactView && 'p-4')}>
+            {renderLocationHeader(location, status)}
+            {renderSpecialSchedule(todaySpecial)}
+            
+            <AnimatePresence>
+              {(variant === 'single-location' || isExpanded) && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {renderBusinessHours(location, groupedHours)}
+                  {renderContactInfo(location)}
+                  {renderServices(location.services || [])}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-        {/* Status Message */}
-        {showCurrentStatus && (
-          <p className={cn('text-sm font-medium mb-4', darkMode && 'text-gray-200')}>
-            {status.message}
-          </p>
-        )}
+            {/* Map Integration */}
+            {showMap && location.map?.enabled && location.map.latitude && location.map.longitude && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="mb-6 rounded-xl overflow-hidden shadow-md"
+              >
+                <div className="aspect-video bg-slate-100 dark:bg-slate-800">
+                  <iframe
+                    src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${location.map.latitude},${location.map.longitude}&zoom=${location.map.zoom || 15}`}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`Map for ${location.name}`}
+                  />
+                </div>
+              </motion.div>
+            )}
 
-        {renderSpecialSchedule(todaySpecial)}
-        {renderBusinessHours(location, groupedHours)}
-        {renderContactInfo(location)}
+            {variant !== 'single-location' && !isExpanded && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setExpandedCard(isExpanded ? null : location.id)}
+                className="w-full mt-4 group"
+              >
+                View Details
+                <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            )}
 
-        {/* Services */}
-        {showServices && location.services && location.services.length > 0 && (
-          <div className="mb-4">
-            <h4 className={cn('font-medium text-sm mb-2', darkMode && 'text-gray-200')}>
-              Services
-            </h4>
-            <div className="flex flex-wrap gap-1">
-              {location.services.map((service, index) => (
-                <Badge key={index} variant="outline" className="text-xs">
-                  {service}
-                </Badge>
-              ))}
-            </div>
+            {(variant === 'single-location' || isExpanded) && renderActionButtons(location)}
           </div>
-        )}
-
-        {/* Map Integration */}
-        {showMap && location.map?.enabled && location.map.latitude && location.map.longitude && (
-          <div className="mb-4">
-            <div className="aspect-video rounded-lg overflow-hidden bg-gray-100">
-              <iframe
-                src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${location.map.latitude},${location.map.longitude}&zoom=${location.map.zoom || 15}`}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title={`Map for ${location.name}`}
-              />
-            </div>
-          </div>
-        )}
-
-        {renderActionButtons(location)}
-      </Card>
+        </Card>
+      </motion.div>
     )
   }
 
   const getGridClasses = (): string => {
     if (variant === 'single-location' || filteredLocations.length === 1) {
-      return 'max-w-2xl mx-auto'
+      return 'max-w-3xl mx-auto'
     }
 
     if (variant === 'multiple-locations' || variant === 'detailed-info-cards') {
@@ -365,27 +555,44 @@ function LocationHours({
       return 'grid grid-cols-1 lg:grid-cols-2 gap-6'
     }
 
-    return 'space-y-4'
+    return 'space-y-6'
   }
 
   return (
     <div className={cn('w-full', className)}>
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+          Our Locations
+        </h2>
+        <p className="text-slate-600 dark:text-slate-400">
+          Find a location near you and visit us today
+        </p>
+      </div>
+
       {/* Search and Filter */}
       {renderSearchAndFilter()}
 
       {/* No Results */}
       {filteredLocations.length === 0 && (
-        <div className="text-center py-12">
-          <p className={cn('text-muted-foreground', darkMode && 'text-gray-400')}>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center py-12"
+        >
+          <div className="w-24 h-24 mx-auto mb-4 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
+            <MapPin className="w-12 h-12 text-slate-400" />
+          </div>
+          <p className="text-slate-600 dark:text-slate-400 text-lg">
             No locations found matching your criteria.
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* Locations Grid */}
       {filteredLocations.length > 0 && (
         <div className={getGridClasses()}>
-          {filteredLocations.map((location) => renderLocationCard(location))}
+          {filteredLocations.map((location, index) => renderLocationCard(location, index))}
         </div>
       )}
     </div>

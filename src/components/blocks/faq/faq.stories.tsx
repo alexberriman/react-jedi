@@ -147,6 +147,68 @@ const sampleCategories = [
   { id: "contributing", name: "Contributing", description: "How to contribute", count: 1 }
 ];
 
+// Default Carousel FAQ
+export const Default: Story = {
+  args: {
+    spec: {
+      type: "FAQ",
+      variant: "carousel",
+      items: sampleFAQs,
+      animated: true,
+      showSearch: false,
+      showCategories: false,
+      voting: {
+        enabled: true,
+        showVoteCount: true
+      },
+      contactSupport: {
+        enabled: true,
+        title: "Still have questions?",
+        description: "Our support team is here to help you 24/7",
+        buttonText: "Contact Support"
+      }
+    } as FAQDef,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Modern carousel-style FAQ with smooth animations and navigation. Navigate through questions using previous/next buttons or the progress indicators.",
+      },
+    },
+  },
+};
+
+// Carousel with Search
+export const CarouselWithSearch: Story = {
+  args: {
+    spec: {
+      type: "FAQ",
+      variant: "carousel",
+      items: sampleFAQs,
+      animated: true,
+      showSearch: true,
+      showCategories: true,
+      search: {
+        enabled: true,
+        placeholder: "Search questions...",
+        searchInAnswers: true
+      },
+      categories: sampleCategories,
+      voting: {
+        enabled: true,
+        showVoteCount: true
+      }
+    } as FAQDef,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Carousel FAQ with search functionality and category filters for better navigation through large FAQ sets.",
+      },
+    },
+  },
+};
+
 // Basic Accordion FAQ
 export const Accordion: Story = {
   args: {
@@ -181,7 +243,6 @@ export const GridCards: Story = {
       items: sampleFAQs.slice(0, 6),
       columns: 2,
       animated: true,
-      spacing: "normal",
       voting: {
         enabled: true,
         showVoteCount: false
@@ -191,7 +252,7 @@ export const GridCards: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Grid layout with FAQ items displayed as cards, perfect for showcasing featured questions.",
+        story: "Grid layout with FAQ items displayed as modern expandable cards, perfect for showcasing featured questions. Click on questions to expand answers.",
       },
     },
   },

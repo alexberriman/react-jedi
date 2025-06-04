@@ -4,7 +4,13 @@ import { Card } from '../../ui/card'
 import { Button } from '../../ui/button'
 import { Badge } from '../../ui/badge'
 import { Input } from '../../ui/input'
-import { Select } from '../../ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../../ui/select'
 import { cn } from '../../../lib/utils'
 
 export interface EventSpeaker {
@@ -68,8 +74,8 @@ const defaultEvents: Event[] = [
     endDate: '2024-06-17T17:00:00Z',
     location: { name: 'San Francisco Convention Center', address: '747 Howard St, San Francisco, CA' },
     speakers: [
-      { name: 'Dan Abramov', title: 'React Team Lead', image: '/api/placeholder/60/60' },
-      { name: 'Sophie Alpert', title: 'Former React Team Manager', image: '/api/placeholder/60/60' }
+      { name: 'Dan Abramov', title: 'React Team Lead', image: 'https://picsum.photos/60/60?random=1' },
+      { name: 'Sophie Alpert', title: 'Former React Team Manager', image: 'https://picsum.photos/60/60?random=2' }
     ],
     category: 'Conference',
     registrationUrl: '#',
@@ -78,7 +84,7 @@ const defaultEvents: Event[] = [
     featured: true,
     tags: ['React', 'JavaScript', 'Frontend'],
     price: { amount: 299, currency: 'USD' },
-    image: '/api/placeholder/400/200',
+    image: 'https://picsum.photos/400/200?random=3',
     status: 'upcoming'
   },
   {
@@ -88,7 +94,7 @@ const defaultEvents: Event[] = [
     startDate: '2024-05-20T14:00:00Z',
     endDate: '2024-05-20T18:00:00Z',
     location: { name: 'Tech Hub Downtown', virtual: false },
-    speakers: [{ name: 'Kyle Simpson', title: 'JavaScript Expert', image: '/api/placeholder/60/60' }],
+    speakers: [{ name: 'Kyle Simpson', title: 'JavaScript Expert', image: 'https://picsum.photos/60/60?random=4' }],
     category: 'Workshop',
     registrationUrl: '#',
     capacity: 50,
@@ -104,7 +110,7 @@ const defaultEvents: Event[] = [
     startDate: '2024-05-25T19:00:00Z',
     endDate: '2024-05-25T20:30:00Z',
     location: { name: 'Online', virtual: true },
-    speakers: [{ name: 'Anders Hejlsberg', title: 'TypeScript Creator', image: '/api/placeholder/60/60' }],
+    speakers: [{ name: 'Anders Hejlsberg', title: 'TypeScript Creator', image: 'https://picsum.photos/60/60?random=5' }],
     category: 'Webinar',
     registrationUrl: '#',
     capacity: 500,
@@ -304,51 +310,52 @@ function FeaturedEventCard({ event, showCountdown, animated, onEventClick, onReg
 
   return (
     <CardComponent {...cardProps}>
-      <Card className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white cursor-pointer hover:shadow-2xl transition-all duration-300"
+      <Card className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 cursor-pointer hover:shadow-2xl transition-all duration-300 border-2 border-slate-200 dark:border-slate-700"
             onClick={() => onEventClick?.(event)}>
-        <div className="p-8 lg:p-12">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="p-8 lg:p-12 relative">
           <div className="flex flex-col lg:flex-row gap-8 items-center">
             <div className="flex-1">
-              <Badge className="mb-4 bg-white/20 text-white border-0">
+              <Badge className="mb-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0">
                 Featured Event
               </Badge>
-              <h1 className="text-3xl lg:text-4xl font-bold mb-4">{event.title}</h1>
-              <p className="text-lg mb-6 text-white/90">{event.description}</p>
+              <h1 className="text-3xl lg:text-4xl font-bold mb-4 text-slate-900 dark:text-white">{event.title}</h1>
+              <p className="text-lg mb-6 text-slate-600 dark:text-slate-300">{event.description}</p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="flex items-center">
+                <div className="flex items-center text-slate-600 dark:text-slate-300">
                   <span className="mr-2">📅</span>
                   <span>{formatDate(event.startDate)}</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-slate-600 dark:text-slate-300">
                   <span className="mr-2">⏰</span>
                   <span>{formatTime(event.startDate)}</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-slate-600 dark:text-slate-300">
                   <span className="mr-2">{event.location.virtual ? '💻' : '📍'}</span>
                   <span>{event.location.name}</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-slate-600 dark:text-slate-300">
                   <span className="mr-2">💰</span>
                   <span>{event.price?.free ? 'Free' : `$${event.price?.amount || 0}`}</span>
                 </div>
               </div>
 
               {showCountdown && (
-                <div className="mb-6 p-4 bg-white/10 rounded-lg">
-                  <div className="text-sm text-white/80 mb-1">Event starts in:</div>
-                  <div className="text-2xl font-bold">{getTimeUntilEvent(event.startDate)}</div>
+                <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
+                  <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">Event starts in:</div>
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{getTimeUntilEvent(event.startDate)}</div>
                 </div>
               )}
 
               <Button 
                 size="lg"
-                variant="secondary"
+                variant="default"
                 onClick={(e) => {
                   e.stopPropagation()
                   onRegister?.(event)
                 }}
-                className="bg-white text-gray-900 hover:bg-gray-100"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0"
               >
                 Register Now
               </Button>
@@ -553,10 +560,15 @@ export function EventListings({
           {showFilters && (
             <div className="flex gap-2">
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <option value="all">All Categories</option>
-                {categories.slice(1).map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.slice(1).map(category => (
+                    <SelectItem key={category} value={category}>{category}</SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
             </div>
           )}

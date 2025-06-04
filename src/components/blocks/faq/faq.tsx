@@ -1,27 +1,22 @@
 /**
  * FAQ Block Component
  *
- * A comprehensive FAQ component with multiple variants and advanced features:
- * - Accordion, grid cards, two-column, categorized, and search variants
- * - Search functionality with highlighting
- * - Category filtering
- * - Voting system for helpful/not helpful
- * - Smooth animations and transitions
- * - Mobile-optimized layouts
- * - Anchor link support
- * - Contact support CTA
- * - Related articles
+ * A modern, clean FAQ component with carousel-style navigation and smooth animations.
+ * Features include search, categories, voting, and beautiful transitions.
  */
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Search, 
   ThumbsUp, 
   ThumbsDown, 
-  MessageCircle, 
-  ExternalLink,
-  Hash
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  Minus,
+  ArrowRight
 } from "lucide-react";
 import type { ComponentProps as ReactJediComponentProps } from "../../../types/schema/components";
 import type { FAQDef, FAQItem, FAQCategory } from "../../../types/components/faq";
@@ -30,15 +25,9 @@ import { render } from "../../../lib/render";
 import { isComponentSpec } from "../../../types/schema/guards";
 import { cn } from "../../../lib/utils";
 import { Button } from "../../ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import { Card, CardContent } from "../../ui/card";
 import { Badge } from "../../ui/badge";
 import { Input } from "../../ui/input";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../../ui/accordion";
 
 interface FAQBlockProps extends ReactJediComponentProps {
   readonly spec: FAQDef;
@@ -120,14 +109,14 @@ function FAQSearch({
   readonly className?: string;
 }) {
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("relative max-w-md mx-auto", className)}>
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground size-4" />
       <Input
         type="text"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="pl-10"
+        className="pl-10 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
       />
     </div>
   );
@@ -146,11 +135,17 @@ function CategoryFilter({
   readonly className?: string;
 }) {
   return (
-    <div className={cn("flex flex-wrap gap-2", className)}>
+    <div className={cn("flex flex-wrap gap-2 justify-center", className)}>
       <Button
         variant={selectedCategory === "all" ? "default" : "outline"}
         size="sm"
         onClick={() => onCategoryChange("all")}
+        className={cn(
+          "rounded-full",
+          selectedCategory === "all" 
+            ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0" 
+            : "hover:bg-slate-100 dark:hover:bg-slate-800"
+        )}
       >
         All
       </Button>
@@ -160,10 +155,16 @@ function CategoryFilter({
           variant={selectedCategory === category.id ? "default" : "outline"}
           size="sm"
           onClick={() => onCategoryChange(category.id)}
+          className={cn(
+            "rounded-full",
+            selectedCategory === category.id 
+              ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0" 
+              : "hover:bg-slate-100 dark:hover:bg-slate-800"
+          )}
         >
           {category.name}
           {category.count && (
-            <Badge variant="secondary" className="ml-2">
+            <Badge variant="secondary" className="ml-2 bg-slate-200 dark:bg-slate-700">
               {category.count}
             </Badge>
           )}
@@ -188,14 +189,14 @@ function FAQVoting({
   const itemVotes = votes[item.id] || { helpful: 0, notHelpful: 0 };
 
   return (
-    <div className="flex items-center gap-4 pt-4 border-t">
-      <span className="text-sm text-muted-foreground">Was this helpful?</span>
+    <div className="flex items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+      <span className="text-sm text-slate-600 dark:text-slate-400">Was this helpful?</span>
       <div className="flex items-center gap-2">
         <Button
           variant="ghost"
           size="sm"
           onClick={() => onVote(item.id, true)}
-          className="flex items-center gap-1"
+          className="flex items-center gap-1 hover:text-green-600 dark:hover:text-green-400"
           aria-label="thumbs up"
         >
           <ThumbsUp className="size-4" />
@@ -207,7 +208,7 @@ function FAQVoting({
           variant="ghost"
           size="sm"
           onClick={() => onVote(item.id, false)}
-          className="flex items-center gap-1"
+          className="flex items-center gap-1 hover:text-red-600 dark:hover:text-red-400"
           aria-label="thumbs down"
         >
           <ThumbsDown className="size-4" />
@@ -220,31 +221,10 @@ function FAQVoting({
   );
 }
 
-// Related articles component
-function RelatedArticles({ articles }: { readonly articles: Array<{ title: string; href: string }> }) {
-  return (
-    <div className="mt-4 p-3 bg-muted/50 rounded-lg">
-      <h4 className="font-medium text-sm mb-2">Related Articles</h4>
-      <div className="space-y-1">
-        {articles.map((article, index) => (
-          <a
-            key={index}
-            href={article.href}
-            className="text-sm text-primary hover:underline flex items-center gap-1"
-          >
-            {article.title}
-            <ExternalLink className="size-3" />
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // FAQ Item component for rendering answers
 function FAQAnswer({ answer }: { readonly answer: string | ComponentChildren }) {
   if (typeof answer === "string") {
-    return <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: answer }} />;
+    return <div className="prose prose-sm max-w-none dark:prose-invert text-slate-600 dark:text-slate-300" dangerouslySetInnerHTML={{ __html: answer }} />;
   }
   
   if (isComponentSpec(answer)) {
@@ -254,77 +234,160 @@ function FAQAnswer({ answer }: { readonly answer: string | ComponentChildren }) 
   return <>{answer as React.ReactNode}</>;
 }
 
-// Accordion variant
-function AccordionVariant({
+// Carousel variant - Main component
+function CarouselVariant({
   items,
   animated = true,
   voting,
   votes,
   onVote,
-  openFirst = false,
-  allowCollapse = true,
 }: {
   readonly items: FAQItem[];
   readonly animated?: boolean;
   readonly voting?: FAQDef["voting"];
   readonly votes: Record<string, { helpful: number; notHelpful: number }>;
   readonly onVote: (itemId: string, helpful: boolean) => void;
-  readonly openFirst?: boolean;
-  readonly allowCollapse?: boolean;
 }) {
-  const defaultValue = openFirst ? items[0]?.id : undefined;
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+
+  const handlePrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
+    setExpandedItem(null);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
+    setExpandedItem(null);
+  };
+
+  const toggleExpand = (itemId: string) => {
+    setExpandedItem(expandedItem === itemId ? null : itemId);
+  };
+
+  if (items.length === 0) return null;
+
+  const currentItem = items[currentIndex];
 
   return (
-    <Accordion 
-      type="single"
-      defaultValue={defaultValue}
-      {...(allowCollapse && { collapsible: true })}
-      className="w-full"
-    >
-      {items.map((item, index) => (
-        <AccordionItem key={item.id} value={item.id}>
-          <AccordionTrigger className="text-left">
-            <div className="flex items-center gap-3">
-              {item.anchorId && (
-                <Hash className="size-4 text-muted-foreground" />
+    <div className="relative max-w-4xl mx-auto">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentItem.id}
+          initial={animated ? { opacity: 0, y: 20 } : undefined}
+          animate={animated ? { opacity: 1, y: 0 } : undefined}
+          exit={animated ? { opacity: 0, y: -20 } : undefined}
+          transition={animated ? { duration: 0.3 } : undefined}
+        >
+          <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 shadow-lg">
+            <CardContent className="p-8">
+              <div className="flex items-start justify-between mb-4">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white pr-4">
+                  {currentItem.question}
+                </h3>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => toggleExpand(currentItem.id)}
+                  className="flex-shrink-0"
+                >
+                  {expandedItem === currentItem.id ? (
+                    <Minus className="size-5" />
+                  ) : (
+                    <Plus className="size-5" />
+                  )}
+                </Button>
+              </div>
+
+              <AnimatePresence>
+                {expandedItem === currentItem.id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pt-4">
+                      <FAQAnswer answer={currentItem.answer} />
+                      
+                      {voting?.enabled && (
+                        <FAQVoting
+                          item={currentItem}
+                          votes={votes}
+                          onVote={onVote}
+                          showVoteCount={voting.showVoteCount}
+                        />
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {currentItem.tags && currentItem.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {currentItem.tags.map((tag, index) => (
+                    <Badge
+                      key={index}
+                      variant="secondary"
+                      className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
               )}
-              <span>{item.question}</span>
-              {item.isPopular && (
-                <Badge variant="secondary" className="ml-auto">
-                  Popular
-                </Badge>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Navigation */}
+      <div className="flex items-center justify-between mt-6">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handlePrevious}
+          className="rounded-full"
+        >
+          <ChevronLeft className="size-4 mr-1" />
+          Previous
+        </Button>
+
+        <div className="flex items-center gap-2">
+          {items.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setCurrentIndex(index);
+                setExpandedItem(null);
+              }}
+              className={cn(
+                "w-2 h-2 rounded-full transition-all",
+                index === currentIndex
+                  ? "w-8 bg-gradient-to-r from-blue-500 to-purple-500"
+                  : "bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500"
               )}
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <motion.div
-              initial={animated ? { opacity: 0, y: -10 } : undefined}
-              animate={animated ? { opacity: 1, y: 0 } : undefined}
-              transition={animated ? { duration: 0.3, delay: index * 0.1 } : undefined}
-            >
-              <FAQAnswer answer={item.answer} />
-              
-              {item.relatedArticles && item.relatedArticles.length > 0 && (
-                <RelatedArticles articles={item.relatedArticles} />
-              )}
-              
-              {voting?.enabled && (
-                <FAQVoting
-                  item={item}
-                  votes={votes}
-                  onVote={onVote}
-                  showVoteCount={voting.showVoteCount}
-                />
-              )}
-            </motion.div>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+              aria-label={`Go to question ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleNext}
+          className="rounded-full"
+        >
+          Next
+          <ChevronRight className="size-4 ml-1" />
+        </Button>
+      </div>
+    </div>
   );
 }
 
-// Grid variant
+// Grid variant - Clean card layout
 function GridVariant({
   items,
   columns = 2,
@@ -340,6 +403,20 @@ function GridVariant({
   readonly votes: Record<string, { helpful: number; notHelpful: number }>;
   readonly onVote: (itemId: string, helpful: boolean) => void;
 }) {
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+
+  const toggleExpand = (itemId: string) => {
+    setExpandedItems(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(itemId)) {
+        newSet.delete(itemId);
+      } else {
+        newSet.add(itemId);
+      }
+      return newSet;
+    });
+  };
+
   const gridClass = {
     1: "grid-cols-1",
     2: "grid-cols-1 md:grid-cols-2",
@@ -355,32 +432,52 @@ function GridVariant({
           animate={animated ? { opacity: 1, y: 0 } : undefined}
           transition={animated ? { duration: 0.3, delay: index * 0.1 } : undefined}
         >
-          <Card className="h-full">
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                {item.anchorId && (
-                  <Hash className="size-4 text-muted-foreground" />
+          <Card className="h-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <button
+                onClick={() => toggleExpand(item.id)}
+                className="w-full text-left group"
+              >
+                <div className="flex items-start justify-between">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white pr-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {item.question}
+                  </h3>
+                  <ArrowRight className={cn(
+                    "size-5 text-slate-400 flex-shrink-0 transition-transform",
+                    expandedItems.has(item.id) && "rotate-90"
+                  )} />
+                </div>
+              </button>
+
+              <AnimatePresence>
+                {expandedItems.has(item.id) && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pt-4 mt-4 border-t border-slate-200 dark:border-slate-700">
+                      <FAQAnswer answer={item.answer} />
+                      
+                      {voting?.enabled && (
+                        <FAQVoting
+                          item={item}
+                          votes={votes}
+                          onVote={onVote}
+                          showVoteCount={voting.showVoteCount}
+                        />
+                      )}
+                    </div>
+                  </motion.div>
                 )}
-                {item.question}
-                {item.isPopular && (
-                  <Badge variant="secondary">Popular</Badge>
-                )}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <FAQAnswer answer={item.answer} />
-              
-              {item.relatedArticles && item.relatedArticles.length > 0 && (
-                <RelatedArticles articles={item.relatedArticles} />
-              )}
-              
-              {voting?.enabled && (
-                <FAQVoting
-                  item={item}
-                  votes={votes}
-                  onVote={onVote}
-                  showVoteCount={voting.showVoteCount}
-                />
+              </AnimatePresence>
+
+              {item.isPopular && (
+                <Badge className="mt-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white border-0">
+                  Popular
+                </Badge>
               )}
             </CardContent>
           </Card>
@@ -390,138 +487,42 @@ function GridVariant({
   );
 }
 
-// Two-column variant
-function TwoColumnVariant({
-  items,
-  animated = true,
-  voting,
-  votes,
-  onVote,
-}: {
-  readonly items: FAQItem[];
-  readonly animated?: boolean;
-  readonly voting?: FAQDef["voting"];
-  readonly votes: Record<string, { helpful: number; notHelpful: number }>;
-  readonly onVote: (itemId: string, helpful: boolean) => void;
-}) {
-  const leftColumn = items.filter((_, index) => index % 2 === 0);
-  const rightColumn = items.filter((_, index) => index % 2 === 1);
-
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div className="space-y-6">
-        {leftColumn.map((item, index) => (
-          <motion.div
-            key={item.id}
-            initial={animated ? { opacity: 0, x: -20 } : undefined}
-            animate={animated ? { opacity: 1, x: 0 } : undefined}
-            transition={animated ? { duration: 0.3, delay: index * 0.1 } : undefined}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  {item.anchorId && (
-                    <Hash className="size-4 text-muted-foreground" />
-                  )}
-                  {item.question}
-                  {item.isPopular && (
-                    <Badge variant="secondary">Popular</Badge>
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <FAQAnswer answer={item.answer} />
-                
-                {item.relatedArticles && item.relatedArticles.length > 0 && (
-                  <RelatedArticles articles={item.relatedArticles} />
-                )}
-                
-                {voting?.enabled && (
-                  <FAQVoting
-                    item={item}
-                    votes={votes}
-                    onVote={onVote}
-                    showVoteCount={voting.showVoteCount}
-                  />
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-      
-      <div className="space-y-6">
-        {rightColumn.map((item, index) => (
-          <motion.div
-            key={item.id}
-            initial={animated ? { opacity: 0, x: 20 } : undefined}
-            animate={animated ? { opacity: 1, x: 0 } : undefined}
-            transition={animated ? { duration: 0.3, delay: index * 0.1 } : undefined}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  {item.anchorId && (
-                    <Hash className="size-4 text-muted-foreground" />
-                  )}
-                  {item.question}
-                  {item.isPopular && (
-                    <Badge variant="secondary">Popular</Badge>
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <FAQAnswer answer={item.answer} />
-                
-                {item.relatedArticles && item.relatedArticles.length > 0 && (
-                  <RelatedArticles articles={item.relatedArticles} />
-                )}
-                
-                {voting?.enabled && (
-                  <FAQVoting
-                    item={item}
-                    votes={votes}
-                    onVote={onVote}
-                    showVoteCount={voting.showVoteCount}
-                  />
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // Contact Support CTA
 function ContactSupportCTA({ contactSupport }: { readonly contactSupport: FAQDef["contactSupport"] }) {
   if (!contactSupport?.enabled) return null;
 
   return (
-    <Card className="border-dashed border-2 border-muted-foreground/20">
-      <CardContent className="p-6 text-center">
-        <MessageCircle className="size-12 mx-auto mb-4 text-muted-foreground" />
-        <h3 className="font-semibold text-lg mb-2">
-          {contactSupport.title || "Still need help?"}
-        </h3>
-        <p className="text-muted-foreground mb-4">
-          {contactSupport.description || "Can't find what you're looking for? Get in touch with our support team."}
-        </p>
-        <Button>
-          {contactSupport.buttonText || "Contact Support"}
-        </Button>
-      </CardContent>
-    </Card>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
+      <Card className="border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900/50">
+        <CardContent className="p-8 text-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+            <Search className="size-8 text-white" />
+          </div>
+          <h3 className="font-semibold text-xl mb-2 text-slate-900 dark:text-white">
+            {contactSupport.title || "Still need help?"}
+          </h3>
+          <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-md mx-auto">
+            {contactSupport.description || "Can't find what you're looking for? Get in touch with our support team."}
+          </p>
+          <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0">
+            {contactSupport.buttonText || "Contact Support"}
+          </Button>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 }
 
 /**
- * FAQBlock - Comprehensive FAQ component with multiple variants
+ * FAQBlock - Modern FAQ component with carousel and grid variants
  */
 export function FAQBlock({ spec }: FAQBlockProps) {
   const {
-    variant = "accordion",
+    variant = "carousel",
     items = [],
     categories = [],
     search,
@@ -530,12 +531,9 @@ export function FAQBlock({ spec }: FAQBlockProps) {
     showCategories = false,
     showSearch = false,
     showPopularFirst = false,
-    allowCollapse = true,
-    openFirst = false,
     maxItems,
     animated = true,
     columns = 2,
-    spacing = "normal",
   } = spec;
 
   // Use direct props
@@ -578,17 +576,21 @@ export function FAQBlock({ spec }: FAQBlockProps) {
   const className = spec.className as string | undefined;
   const style = spec.style as React.CSSProperties | undefined;
 
-  const spacingClass = {
-    compact: "space-y-4",
-    normal: "space-y-6",
-    relaxed: "space-y-8",
-  }[spacing];
-
   return (
-    <div className={cn("w-full", spacingClass, className)} style={style}>
-      {/* Header with search and filters */}
+    <div className={cn("w-full space-y-8", className)} style={style}>
+      {/* Header */}
+      <div className="text-center space-y-2">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+          Frequently Asked Questions
+        </h2>
+        <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          Find answers to common questions about our products and services
+        </p>
+      </div>
+
+      {/* Search and filters */}
       {(showSearch || showCategories) && (
-        <div className="space-y-4 mb-8">
+        <div className="space-y-4">
           {showSearch && searchConfig?.enabled && (
             <FAQSearch
               value={searchQuery}
@@ -609,31 +611,29 @@ export function FAQBlock({ spec }: FAQBlockProps) {
 
       {/* Results count */}
       {(searchQuery || selectedCategory !== "all") && (
-        <div className="text-sm text-muted-foreground mb-4">
+        <div className="text-sm text-slate-600 dark:text-slate-400 text-center">
           {finalItems.length} result{finalItems.length === 1 ? "" : "s"} found
         </div>
       )}
 
       {/* FAQ Content */}
       {finalItems.length === 0 ? (
-        <Card className="p-8 text-center">
-          <p className="text-muted-foreground">No FAQs found matching your criteria.</p>
+        <Card className="p-8 text-center bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700">
+          <p className="text-slate-600 dark:text-slate-400">No FAQs found matching your criteria.</p>
         </Card>
       ) : (
         <>
-          {variant === "accordion" && (
-            <AccordionVariant
+          {(variant === "carousel" || variant === "accordion") && (
+            <CarouselVariant
               items={finalItems}
               animated={animated}
               voting={votingConfig}
               votes={votes}
               onVote={handleVote}
-              openFirst={openFirst}
-              allowCollapse={allowCollapse}
             />
           )}
           
-          {variant === "grid" && (
+          {(variant === "grid" || variant === "cards") && (
             <GridVariant
               items={finalItems}
               columns={columns}
@@ -643,34 +643,12 @@ export function FAQBlock({ spec }: FAQBlockProps) {
               onVote={handleVote}
             />
           )}
-          
-          {variant === "two-column" && (
-            <TwoColumnVariant
-              items={finalItems}
-              animated={animated}
-              voting={votingConfig}
-              votes={votes}
-              onVote={handleVote}
-            />
-          )}
-          
-          {(variant === "categorized" || variant === "search") && (
-            <AccordionVariant
-              items={finalItems}
-              animated={animated}
-              voting={votingConfig}
-              votes={votes}
-              onVote={handleVote}
-              openFirst={openFirst}
-              allowCollapse={allowCollapse}
-            />
-          )}
         </>
       )}
 
       {/* Contact Support CTA */}
       {contactConfig?.enabled && (
-        <div className="mt-8">
+        <div className="mt-12">
           <ContactSupportCTA contactSupport={contactConfig} />
         </div>
       )}

@@ -87,12 +87,12 @@
       {
         "id": "event-listings",
         "description": "The EventListings component block is pretty good. However, up the top it looks like there is some sort of filter (i.e. I see 'All CategoriesConferenceWorkshopWebinarMeetupNetworking' on the default story). These are just plain text - theyre not functional. If its a filter, implement a filter. Also, the 'Featured Event' variant/story is incredibly too in-your-face. Its all blue. It should be cleaner and more subtle, while still prominent. Make sure all images on this page use picsum.photos (though this may have been implemented by a prior task)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "faq",
         "description": "The FAQ component is awful. Styles are awful, greys everywhere etc. looks awful. I just want a simple carousel style FAQ component, with a bunch of different variants. Carousel states should smoothly transition and animate etc. Make it simple, clean and sexy.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "feature-card",
@@ -117,7 +117,7 @@
       {
         "id": "location-hours",
         "description": "The LocationHours component looks awful - its just a wall of text. I still want clean, simple, sexy UI, but make it look more beautiful - more visual",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "maps",

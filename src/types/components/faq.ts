@@ -50,7 +50,7 @@ export interface FAQContactSupport {
 
 export interface FAQDef extends BaseComponentSpec {
   type: "FAQ";
-  variant?: "accordion" | "grid" | "two-column" | "categorized" | "search";
+  variant?: "accordion" | "carousel" | "grid" | "cards" | "two-column" | "categorized" | "search";
   items?: FAQItem[];
   categories?: FAQCategory[];
   

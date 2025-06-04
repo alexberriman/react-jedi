@@ -534,15 +534,15 @@ const RestaurantMenuBlock = React.forwardRef<HTMLDivElement, RestaurantMenuBlock
     };
 
     const renderSearch = () => (
-      <div className="mb-6">
-        <div className="relative max-w-md mx-auto">
+      <div className="mb-6 w-full flex justify-center">
+        <div className="relative w-full max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
             type="text"
             placeholder={searchPlaceholder}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="pl-10 w-full"
           />
         </div>
       </div>
@@ -761,8 +761,8 @@ const RestaurantMenuBlock = React.forwardRef<HTMLDivElement, RestaurantMenuBlock
       >
         <Container>
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">{title}</h1>
+          <div className="text-center mb-8 w-full">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 w-full">{title}</h1>
             {description && (
               <Text className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 {description}

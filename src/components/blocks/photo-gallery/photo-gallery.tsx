@@ -199,8 +199,8 @@ function PhotoCard({
         alt={photo.alt}
         aspectRatio={variant === "instagram" ? "square" : aspectRatio}
         className={cn(
-          "transition-transform duration-300",
-          enableZoom && "group-hover:scale-105"
+          "transition-transform duration-700 ease-out",
+          enableZoom && "group-hover:scale-110"
         )}
       />
       
@@ -218,7 +218,7 @@ function PhotoCard({
                 <Button
                   size="icon"
                   variant="secondary"
-                  className="bg-white/20 hover:bg-white/30 text-white border-0"
+                  className="bg-white/20 hover:bg-white/30 text-white border-0 cursor-pointer"
                   onClick={(e) => {
                     e.stopPropagation();
                     onClick?.(photo, index);
@@ -233,7 +233,7 @@ function PhotoCard({
                 <Button
                   size="icon"
                   variant="secondary"
-                  className="bg-white/20 hover:bg-white/30 text-white border-0"
+                  className="bg-white/20 hover:bg-white/30 text-white border-0 cursor-pointer"
                   onClick={(e) => {
                     e.stopPropagation();
                     onDownload?.(photo);
@@ -248,7 +248,7 @@ function PhotoCard({
                 <Button
                   size="icon"
                   variant="secondary"
-                  className="bg-white/20 hover:bg-white/30 text-white border-0"
+                  className="bg-white/20 hover:bg-white/30 text-white border-0 cursor-pointer"
                   onClick={(e) => {
                     e.stopPropagation();
                     onShare?.(photo);
@@ -265,12 +265,12 @@ function PhotoCard({
       
       {/* Photo info overlay */}
       {(photo.title || photo.description) && variant !== "instagram" && (
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
           {photo.title && (
-            <h3 className="text-white font-semibold text-sm mb-1">{photo.title}</h3>
+            <h3 className="text-white font-semibold text-sm mb-1 drop-shadow-sm">{photo.title}</h3>
           )}
           {photo.description && (
-            <p className="text-white/90 text-xs line-clamp-2">{photo.description}</p>
+            <p className="text-white/90 text-xs line-clamp-2 drop-shadow-sm">{photo.description}</p>
           )}
         </div>
       )}
@@ -279,7 +279,7 @@ function PhotoCard({
       {photo.category && variant !== "instagram" && (
         <Badge 
           variant="secondary" 
-          className="absolute top-2 left-2 bg-black/20 text-white border-0"
+          className="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white border-0 shadow-md"
         >
           {photo.category}
         </Badge>
@@ -410,8 +410,8 @@ function CarouselGrid({
   };
 
   return (
-    <div className="relative">
-      <div className="overflow-hidden rounded-lg">
+    <div className="relative w-full">
+      <div className="overflow-hidden rounded-lg relative" style={{ minHeight: '400px' }}>
         <div 
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}

@@ -112,7 +112,7 @@
       {
         "id": "latest-news",
         "description": "In the latest news component there is a With Category Tabs variation/story. Here, the the filter/category styles should be a bit cleaner and nicer looking, and when you go between categories it should animate using framer. When you hover over images in cards, they should zoom with an animation/transition. This may have been implemented prior to this task, but please confirm and, if not, implement.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "location-hours",
@@ -142,12 +142,12 @@
       {
         "id": "photo-gallery",
         "description": "When you hover over an image in the PhotoGallery component, it should animate/transition in as it zooms, not happen instantly (this may have been implemented in a prior task, but if it hasnt, implement it). Also - these image cards look a bit poo. There is some weird gray element at the bottom? And half of the tag isn't visible - it goes beyond the container height and is cut off. Also, I'm not sure if there is an issue with the Carousel variation/story implementation, or its just storybook, but I cant see left/right etc. and can't navigate the carousel in storybook. The 'With Actions' variations have a few buttons - these should have cursor pointer.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "restaurant-menu-block",
         "description": "The header in the RestaurantMenuBlock doesn't seem to be 100% width + centered - it looks weird. The Search Menu Items input also should be centered horizontally.",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   }

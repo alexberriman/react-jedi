@@ -5,9 +5,9 @@ import { Card, CardContent } from '../../ui/card';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { Skeleton } from '../../ui/skeleton';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '../../ui/avatar';
 import { Input } from '../../ui/input';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export interface Article {
   readonly id: string;
@@ -228,7 +228,7 @@ export function LatestNews({
                   <img
                     src={article.thumbnail}
                     alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
                 </div>
               )}
@@ -276,7 +276,7 @@ export function LatestNews({
                   <img
                     src={article.thumbnail}
                     alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
                 </div>
               )}
@@ -479,19 +479,40 @@ export function LatestNews({
       </div>
 
       {showCategoryTabs && detectedCategories.length > 0 ? (
-        <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
-          <TabsList>
-            <TabsTrigger value="all">All</TabsTrigger>
+        <div>
+          <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-6">
+            <Button
+              variant={selectedCategory === 'all' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setSelectedCategory('all')}
+              className="transition-all duration-300 ease-out"
+            >
+              All
+            </Button>
             {detectedCategories.map((cat) => (
-              <TabsTrigger key={cat} value={cat}>
+              <Button
+                key={cat}
+                variant={selectedCategory === cat ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSelectedCategory(cat)}
+                className="transition-all duration-300 ease-out"
+              >
                 {cat}
-              </TabsTrigger>
+              </Button>
             ))}
-          </TabsList>
-          <TabsContent value={selectedCategory} className="mt-6">
-            {content}
-          </TabsContent>
-        </Tabs>
+          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+            >
+              {content}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       ) : (
         content
       )}

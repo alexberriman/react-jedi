@@ -22,7 +22,7 @@
       {
         "id": "select-flicker",
         "description": "When I click the Select box and the dropdown comes down, the main Select box 'flickers'. It goes invisible, visible, moves, etc. Please take a look and make sure it doesnt flicker or whatever and is very clean and functional. This also affects the ComboBox component.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "radiogroup",

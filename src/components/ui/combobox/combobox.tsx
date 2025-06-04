@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Check } from "lucide-react";
 import { cn } from "../../../lib/utils";
-import { Button } from "../button";
 import {
   Command,
   CommandEmpty,
@@ -57,15 +56,19 @@ export function Combobox({
     setOpen(false);
   };
 
+  const listboxId = React.useId();
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
+        <button
           role="combobox"
           aria-expanded={open}
+          aria-controls={listboxId}
+          aria-haspopup="listbox"
           className={cn(
-            "w-full justify-between",
+            "inline-flex items-center justify-between gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-150 disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+            "border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full",
             !selectedValue && "text-muted-foreground",
             className
           )}
@@ -87,10 +90,10 @@ export function Combobox({
               clipRule="evenodd"
             />
           </svg>
-        </Button>
+        </button>
       </PopoverTrigger>
       <PopoverContent className="w-[calc(var(--radix-popover-trigger-width))] p-0">
-        <Command>
+        <Command id={listboxId}>
           <CommandInput placeholder={searchPlaceholder} />
           <CommandList>
             <CommandEmpty>{emptyText}</CommandEmpty>

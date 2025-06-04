@@ -37,7 +37,7 @@
       {
         "id": "grid-stories",
         "description": "Why, in the Grid component storybooks, are most of the boxes fading in and out? Remove this",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "form-stories",

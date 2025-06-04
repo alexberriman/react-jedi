@@ -66,7 +66,7 @@ const GridItem = ({
   className?: string;
 }) => (
   <div
-    className={`bg-gradient-to-tr from-purple-500/80 to-indigo-500/80 rounded-xl shadow-lg backdrop-blur-sm p-6 flex items-center justify-center text-white font-medium animate-pulse ${className}`}
+    className={`bg-gradient-to-tr from-purple-500/80 to-indigo-500/80 rounded-xl shadow-lg backdrop-blur-sm p-6 flex items-center justify-center text-white font-medium ${className}`}
   >
     {children}
   </div>

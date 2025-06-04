@@ -1,0 +1,54 @@
+/* Prevent initial transition flicker for collapsible components */
+
+/* Disable all transitions initially for collapsible triggers */
+.collapsible-trigger-no-initial-transition,
+.collapsible-trigger-no-initial-transition > * {
+  transition: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* Re-enable transitions after mount */
+[data-slot="collapsible-trigger"]:not(.collapsible-trigger-no-initial-transition),
+[data-slot="collapsible-trigger"]:not(.collapsible-trigger-no-initial-transition) > * {
+  transition: 
+    transform var(--transition-duration, 200ms) var(--transition-timing, ease),
+    background-color var(--transition-duration, 200ms) var(--transition-timing, ease),
+    border-color var(--transition-duration, 200ms) var(--transition-timing, ease),
+    color var(--transition-duration, 200ms) var(--transition-timing, ease),
+    opacity var(--transition-duration, 200ms) var(--transition-timing, ease);
+}
+
+/* Disable initial transitions for content */
+.collapsible-content-no-initial-transition {
+  transition: none !important;
+}
+
+/* Override global transitions that cause flicker */
+[data-slot="collapsible"] * {
+  /* Don't apply color transitions on initial mount */
+  transition-property: transform, filter, box-shadow;
+  transition-duration: var(--transition-duration, 200ms);
+  transition-timing-function: var(--transition-timing, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+/* Ensure trigger buttons are always visible and don't flicker */
+[data-slot="collapsible-trigger"],
+[data-slot="collapsible-trigger"] button,
+[data-slot="collapsible-trigger"] [data-slot="button"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Smooth hover states without initial flicker */
+[data-slot="collapsible-trigger"]:hover > *,
+[data-slot="collapsible-trigger"] > *:hover {
+  transform: translateY(-1px);
+}
+
+/* Active state */
+[data-slot="collapsible-trigger"]:active > *,
+[data-slot="collapsible-trigger"] > *:active {
+  transform: scale(0.98);
+}

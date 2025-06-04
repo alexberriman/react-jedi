@@ -82,7 +82,7 @@
       {
         "id": "collapsible-flicker",
         "description": "When I first load the Collapsible stories, all of the buttons (Toggle Content) 'flicker' - theyre visible, then go invisible and back to visible. Please fix. Theres also a weird flicker effect when content appears and disappears",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "toast-background-zindex",

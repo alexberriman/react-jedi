@@ -1,7 +1,7 @@
 [
   {
     "id": "component-duplicates",
-    "description": "We have a large list of components and blocks (advanced components) and theyre all accessible in storybook. However, we need to polish off a few of these components and the storybook configuration. For all subtasks, where appropriate, make sure stories are updated, and relevant pages in the showcase examples app (./examples).",
+    "description": "We have a large list of components and blocks (advanced components) and theyre all accessible in storybook. However, we need to polish off a few of these components and the storybook configuration. For all subtasks, where appropriate, make sure stories are updated, and relevant pages in the showcase examples app (./examples). Feel free to pick multiple sub tasks at the same time to speed up development.",
     "status": "pending",
     "subtasks": [
       {
@@ -18,7 +18,7 @@
   },
   {
     "id": "component-fixes-storybook",
-    "description": "Theres quite a few components that need a bit of polish, either just the component itself or storybook. You can take multiple of these subtasks simultaneously to help speed up development. For all subtasks, where appropriate, make sure stories are updated, and relevant pages in the showcase examples app (./examples).",
+    "description": "Theres quite a few components that need a bit of polish, either just the component itself or storybook. You can take multiple of these subtasks simultaneously to help speed up development. For all subtasks, where appropriate, make sure stories are updated, and relevant pages in the showcase examples app (./examples).  Feel free to pick multiple sub tasks at the same time to speed up development.",
     "status": "pending",
     "subtasks": [
       {

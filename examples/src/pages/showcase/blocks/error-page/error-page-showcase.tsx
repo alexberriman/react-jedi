@@ -76,7 +76,7 @@ const errorPageVariants = {
         description: 'An unexpected error occurred while processing your request. Error ID: ERR_2024_001. Our engineering team has been automatically notified and is working on a fix.',
         contactEmail: 'support@example.com',
         customActions: [
-          { label: 'Retry', onClick: () => window.location.reload() },
+          { label: 'Retry', onClick: () => globalThis.location.reload() },
           { label: 'System Status', href: '/status' },
           { label: 'Report Issue', href: '/support/report' },
         ],

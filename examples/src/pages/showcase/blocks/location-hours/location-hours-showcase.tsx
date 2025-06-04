@@ -56,7 +56,7 @@ export function LocationHoursShowcasePage() {
       map: {
         enabled: true,
         latitude: 40.7128,
-        longitude: -74.0060,
+        longitude: -74.006,
         zoom: 15,
         showDirectionsLink: true
       },

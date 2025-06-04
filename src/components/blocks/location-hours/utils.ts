@@ -398,7 +398,11 @@ function formatDayRanges(days: BusinessHours['day'][]): string {
     } else if (group.length === 2) {
       return `${dayAbbrevs[group[0]]}, ${dayAbbrevs[group[1]]}`
     } else {
-      return `${dayAbbrevs[group[0]]}-${dayAbbrevs[group[group.length - 1]]}`
+      const lastDay = group.at(-1)
+      if (!lastDay) {
+        return dayAbbrevs[group[0]]
+      }
+      return `${dayAbbrevs[group[0]]}-${dayAbbrevs[lastDay]}`
     }
   }).join(', ')
 }

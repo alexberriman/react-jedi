@@ -1,9 +1,10 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { motion } from "framer-motion";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 
-const imageVariants = cva("transition-all duration-300 max-w-full", {
+const imageVariants = cva("max-w-full", {
   variants: {
     objectFit: {
       contain: "object-contain",
@@ -38,9 +39,9 @@ const imageVariants = cva("transition-all duration-300 max-w-full", {
     },
     hover: {
       none: "",
-      grow: "hover:scale-105",
-      shrink: "hover:scale-95",
-      rotate: "hover:rotate-2",
+      grow: "",
+      shrink: "",
+      rotate: "",
       shine: "hover:shadow-shine",
       glow: "hover:glow-md",
       pulse: "animate-pulse",
@@ -124,6 +125,66 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
       containerStyle.height = typeof height === "number" ? `${height}px` : height;
     }
 
+    // Define Framer Motion variants for hover effects
+    const hoverVariants = {
+      grow: {
+        scale: 1.1,
+        transition: {
+          duration: 0.5,
+          ease: "easeInOut",
+        },
+      },
+      shrink: {
+        scale: 0.95,
+        transition: {
+          duration: 0.5,
+          ease: "easeInOut",
+        },
+      },
+      rotate: {
+        rotate: 3,
+        transition: {
+          duration: 0.5,
+          ease: "easeInOut",
+        },
+      },
+    };
+
+    // Determine which hover effect to use
+    const whileHoverEffect = hover && hover !== "none" && hover !== "shine" && hover !== "glow" && hover !== "pulse" 
+      ? hoverVariants[hover as keyof typeof hoverVariants] 
+      : undefined;
+
+    // Extract only the props that are safe to pass to motion.img
+    const {
+      onClick,
+      onMouseEnter,
+      onMouseLeave,
+      title,
+      // Extract and ignore conflicting event handlers
+      onDrag,
+      onDragStart,
+      onDragEnd,
+      onAnimationStart,
+      onAnimationEnd,
+      onAnimationIteration,
+      ...restProps
+    } = cleanDOMProps(props);
+
+    const safeImageProps: Record<string, unknown> = {
+      onClick,
+      onMouseEnter,
+      onMouseLeave,
+      title,
+    };
+
+    // Add ARIA and data attributes
+    for (const key in restProps) {
+      if (key.startsWith('aria-') || key.startsWith('data-')) {
+        safeImageProps[key] = restProps[key as keyof typeof restProps];
+      }
+    }
+
     return (
       <div
         className={cn(
@@ -135,7 +196,7 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
         data-slot="image-container"
       >
         {imgSrc && (
-          <img
+          <motion.img
             data-slot="image"
             ref={ref}
             src={imgSrc}
@@ -153,7 +214,9 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
             loading={loading === "lazy" ? "lazy" : "eager"}
             onError={handleError}
             onLoad={handleLoad}
-            {...cleanDOMProps(props)}
+            initial={{ scale: 1, rotate: 0 }}
+            whileHover={whileHoverEffect}
+            {...safeImageProps}
           />
         )}
       </div>

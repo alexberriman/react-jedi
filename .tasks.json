@@ -147,7 +147,7 @@
       {
         "id": "image-zoom",
         "description": "In the Gallery story of the Image component, when I hover over the image there is some sort of zoom effect. It should animate/transition in with something like framer rather than be instant.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "card-image-zoom",

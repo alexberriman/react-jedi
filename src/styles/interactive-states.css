@@ -292,6 +292,29 @@ a[data-slot]:not(:disabled):hover {
               box-shadow var(--transition-duration) var(--transition-timing);
 }
 
+/* Prevent transition flicker on initial mount for drawer trigger buttons */
+[data-slot="drawer-trigger"],
+[data-slot="drawer-trigger"] > * {
+  transition-behavior: allow-discrete;
+  opacity: 1 !important;
+}
+
+/* Override the global transition for drawer triggers to prevent flicker */
+[data-slot="drawer-trigger"]:not(:hover),
+[data-slot="drawer-trigger"] > *:not(:hover) {
+  transition: none !important;
+}
+
+[data-slot="drawer-trigger"]:hover,
+[data-slot="drawer-trigger"] > *:hover {
+  transition: transform var(--transition-duration) var(--transition-timing),
+              filter var(--transition-duration) var(--transition-timing),
+              box-shadow var(--transition-duration) var(--transition-timing),
+              background-color var(--transition-duration) var(--transition-timing),
+              border-color var(--transition-duration) var(--transition-timing),
+              color var(--transition-duration) var(--transition-timing);
+}
+
 /* Card content hover effects */
 [data-slot="card"] [data-slot="card-title"] {
   transition: opacity var(--transition-duration) var(--transition-timing);

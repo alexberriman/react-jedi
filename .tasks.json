@@ -62,7 +62,7 @@
       {
         "id": "drawer-menu-flicker",
         "description": "When I first load the Drawer stories, all of the buttons (Open Drawer) 'flicker' - theyre visible, then go invisible and back to visible. Please fix.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "dialog-menu-flicker",

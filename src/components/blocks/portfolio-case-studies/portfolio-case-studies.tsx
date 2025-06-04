@@ -8,6 +8,7 @@ import { Skeleton } from '../../ui/skeleton';
 import { Search, ChevronLeft, ChevronRight, ArrowRight, Zap, TrendingUp, Code, Calendar, Users, Globe } from 'lucide-react';
 import { useState, useMemo, useEffect } from 'react';
 import { format } from 'date-fns';
+import { motion } from 'framer-motion';
 
 export interface ProjectStats {
   label: string;
@@ -65,11 +66,17 @@ function ProjectCard({ project, onViewDetails }: { readonly project: CaseStudy; 
   return (
     <Card className={cn('overflow-hidden hover:shadow-xl transition-all duration-300 group', project.isFeatured && 'ring-2 ring-primary')}>
       <div className="relative aspect-video overflow-hidden">
-        <img 
+        <motion.img 
           src={project.featuredImage} 
           alt={project.title}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover"
           loading="lazy"
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.08 }}
+          transition={{ 
+            duration: 0.6, 
+            ease: [0.4, 0, 0.2, 1] 
+          }}
         />
         {project.isFeatured && (
           <Badge className="absolute top-3 left-3" variant="default">
@@ -131,14 +138,20 @@ function ProjectCard({ project, onViewDetails }: { readonly project: CaseStudy; 
 
 function DetailedProjectCard({ project, onViewDetails }: { readonly project: CaseStudy; readonly onViewDetails?: (project: CaseStudy) => void }) {
   return (
-    <Card className="overflow-hidden hover:shadow-xl transition-shadow">
+    <Card className="overflow-hidden hover:shadow-xl transition-shadow group">
       <div className="grid md:grid-cols-2 gap-0">
-        <div className="relative aspect-video md:aspect-auto">
-          <img 
+        <div className="relative aspect-video md:aspect-auto overflow-hidden">
+          <motion.img 
             src={project.featuredImage} 
             alt={project.title}
             className="h-full w-full object-cover"
             loading="lazy"
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.08 }}
+            transition={{ 
+              duration: 0.6, 
+              ease: [0.4, 0, 0.2, 1] 
+            }}
           />
           {project.isFeatured && (
             <Badge className="absolute top-3 left-3" variant="default">
@@ -306,7 +319,7 @@ function BeforeAfterCard({ project, onViewDetails }: { readonly project: CaseStu
 
 function ClientSpotlightCard({ project, onViewDetails }: { readonly project: CaseStudy; readonly onViewDetails?: (project: CaseStudy) => void }) {
   return (
-    <Card className="overflow-hidden hover:shadow-xl transition-shadow">
+    <Card className="overflow-hidden hover:shadow-xl transition-shadow group">
       <div className="p-6 lg:p-8">
         <div className="flex items-start justify-between mb-4">
           <div>
@@ -319,11 +332,17 @@ function ClientSpotlightCard({ project, onViewDetails }: { readonly project: Cas
         </div>
         
         <div className="aspect-video overflow-hidden rounded-lg mb-6">
-          <img 
+          <motion.img 
             src={project.featuredImage} 
             alt={project.title}
             className="h-full w-full object-cover"
             loading="lazy"
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.08 }}
+            transition={{ 
+              duration: 0.6, 
+              ease: [0.4, 0, 0.2, 1] 
+            }}
           />
         </div>
 

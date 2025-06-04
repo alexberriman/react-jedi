@@ -182,7 +182,7 @@
       {
         "id": "portfolio-case-studies-zoom",
         "description": "Can you make sure when I hover over a card on the PortfolioCaseStudies component, the image that 'zooms' transitions/animates in with something like framer motion? Can you also slow it down so its quite noticable. Can you make sure the button on this component (View Case Study) has cursor pointer, as do buttons for pagination (on hover etc.). If this is an issue on the Button component - update it there",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "photo-gallery-image-zoom",

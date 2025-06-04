@@ -8,6 +8,11 @@ const meta: Meta<typeof Loading> = {
   parameters: {
     layout: "centered",
     tags: ["autodocs", "test"],
+    docs: {
+      description: {
+        component: "A versatile loading indicator component with multiple variants (spinner, dots, pulse, bars) and sizes. Can be used inline, as an overlay, or full-screen to indicate loading states throughout your application. Supports optional loading text and custom styling to match your design system.",
+      },
+    },
   },
   argTypes: {
     size: {

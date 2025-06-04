@@ -8,6 +8,11 @@ const meta: Meta<typeof SkeletonLoader> = {
   parameters: {
     layout: "padded",
     tags: ["autodocs", "test"],
+    docs: {
+      description: {
+        component: "A skeleton loader component that provides visual placeholders while content is loading. Supports multiple variants (text, circular, rectangular, rounded) and animations (pulse, wave) to match your UI design. Perfect for creating loading states that maintain the layout structure of your actual content.",
+      },
+    },
   },
   argTypes: {
     count: {

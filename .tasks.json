@@ -102,7 +102,7 @@
       {
         "id": "docs",
         "description": "The following component storybooks dont have a 'Docs' story (all of them should): SkeletonLoader, Loading",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "sidebar-blocks",

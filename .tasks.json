@@ -122,7 +122,7 @@
       {
         "id": "popover-flutter",
         "description": "When I click the buttons on the Popover storybook page, the button flickers into and out of existence (and kind of moves). Not sure why - fix.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "navigation-menu-height",

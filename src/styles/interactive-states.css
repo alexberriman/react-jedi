@@ -261,6 +261,24 @@ a[data-slot]:not(:disabled):hover {
   transition-timing-function: var(--transition-timing);
 }
 
+/* Override global transitions for trigger elements to prevent flicker */
+[data-slot="popover-trigger"],
+[data-slot="popover-trigger"] *,
+[data-slot="dialog-trigger"],
+[data-slot="dialog-trigger"] *,
+[data-slot="drawer-trigger"],
+[data-slot="drawer-trigger"] *,
+[data-slot="alert-dialog-trigger"],
+[data-slot="alert-dialog-trigger"] *,
+[data-slot="sheet-trigger"],
+[data-slot="sheet-trigger"] *,
+[data-slot="dropdown-menu-trigger"],
+[data-slot="dropdown-menu-trigger"] *,
+[data-slot="collapsible-trigger"],
+[data-slot="collapsible-trigger"] * {
+  transition-property: none;
+}
+
 /* Prevent initial flicker on components that use asChild */
 [data-slot="dropdown-menu-trigger"],
 [data-slot="dialog-trigger"],
@@ -287,12 +305,8 @@ a[data-slot]:not(:disabled):hover {
   /* Ensure proper initial state without forcing opacity */
   transform: translateY(0);
   opacity: initial;
-  /* Keep hover transitions but avoid initial animation */
-  transition: transform var(--transition-duration) var(--transition-timing),
-              filter var(--transition-duration) var(--transition-timing),
-              box-shadow var(--transition-duration) var(--transition-timing),
-              background-color var(--transition-duration) var(--transition-timing),
-              border-color var(--transition-duration) var(--transition-timing);
+  /* Remove transitions to prevent flicker */
+  transition: none;
 }
 
 /* Prevent transition flicker on initial mount for trigger buttons */
@@ -318,26 +332,17 @@ a[data-slot]:not(:disabled):hover {
 }
 
 /* Apply transitions only on hover for trigger elements to prevent initial flicker */
-[data-slot="dialog-trigger"]:hover,
-[data-slot="dialog-trigger"] > *:hover,
-[data-slot="drawer-trigger"]:hover,
-[data-slot="drawer-trigger"] > *:hover,
-[data-slot="alert-dialog-trigger"]:hover,
-[data-slot="alert-dialog-trigger"] > *:hover,
-[data-slot="sheet-trigger"]:hover,
-[data-slot="sheet-trigger"] > *:hover,
-[data-slot="dropdown-menu-trigger"]:hover,
-[data-slot="dropdown-menu-trigger"] > *:hover,
-[data-slot="popover-trigger"]:hover,
-[data-slot="popover-trigger"] > *:hover,
-[data-slot="collapsible-trigger"]:hover,
-[data-slot="collapsible-trigger"] > *:hover {
+[data-slot="dialog-trigger"]:hover > *,
+[data-slot="drawer-trigger"]:hover > *,
+[data-slot="alert-dialog-trigger"]:hover > *,
+[data-slot="sheet-trigger"]:hover > *,
+[data-slot="dropdown-menu-trigger"]:hover > *,
+[data-slot="popover-trigger"]:hover > *,
+[data-slot="collapsible-trigger"]:hover > * {
   transition: transform var(--transition-duration) var(--transition-timing),
               filter var(--transition-duration) var(--transition-timing),
-              box-shadow var(--transition-duration) var(--transition-timing),
-              background-color var(--transition-duration) var(--transition-timing),
-              border-color var(--transition-duration) var(--transition-timing),
-              color var(--transition-duration) var(--transition-timing);
+              box-shadow var(--transition-duration) var(--transition-timing);
+  /* Don't transition background/border/color to prevent flicker on state changes */
 }
 
 /* Card content hover effects */

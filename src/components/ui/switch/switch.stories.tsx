@@ -35,6 +35,11 @@ const meta: Meta<typeof Switch> = {
       control: "boolean",
       description: "Whether the switch is disabled",
     },
+    animated: {
+      control: "boolean",
+      description: "Whether to animate the switch transition",
+      defaultValue: true,
+    },
     onCheckedChange: {
       action: "checked changed",
       description: "Called when the state changes",
@@ -288,6 +293,60 @@ export const CustomStyling: Story = {
       </div>
     </div>
   ),
+};
+
+export const AnimationOptions: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-sm font-medium mb-3">Animated (Default)</h3>
+        <div className="flex items-center gap-4">
+          <Switch />
+          <span className="text-sm text-muted-foreground">Smooth spring animation</span>
+        </div>
+      </div>
+      
+      <div>
+        <h3 className="text-sm font-medium mb-3">Without Animation</h3>
+        <div className="flex items-center gap-4">
+          <Switch animated={false} />
+          <span className="text-sm text-muted-foreground">Instant transition</span>
+        </div>
+      </div>
+      
+      <div>
+        <h3 className="text-sm font-medium mb-3">Animation Comparison</h3>
+        <div className="space-y-3">
+          <div className="flex items-center gap-4">
+            <Switch defaultChecked />
+            <span className="text-sm">With animation (smooth)</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <Switch defaultChecked animated={false} />
+            <span className="text-sm">Without animation (instant)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    // Test both animated and non-animated switches
+    const switches = canvas.getAllByRole("switch");
+    expect(switches).toHaveLength(4);
+
+    // Test animated switch
+    const animatedSwitch = switches[0];
+    await user.click(animatedSwitch);
+    expect(animatedSwitch).toBeChecked();
+
+    // Test non-animated switch
+    const nonAnimatedSwitch = switches[1];
+    await user.click(nonAnimatedSwitch);
+    expect(nonAnimatedSwitch).toBeChecked();
+  },
 };
 
 const AdvancedExampleComponent = () => {

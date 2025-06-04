@@ -17,7 +17,7 @@
       {
         "id": "switch-animate",
         "description": "Can you animate the transition of the Switch component. Make it optional as a prop (default to animate, but have a prop to disable animation). Update the storybook page.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "select-flicker",

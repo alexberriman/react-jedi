@@ -36,6 +36,12 @@ export interface SwitchSpec extends BaseComponentSpec {
   name?: string;
 
   /**
+   * Whether to animate the switch transition.
+   * @default true
+   */
+  animated?: boolean;
+
+  /**
    * Custom CSS class names to add to the component.
    */
   className?: string;

@@ -21,6 +21,7 @@ export function SwitchShowcase() {
     { id: "states", label: "Switch States" },
     { id: "with-labels", label: "Switches with Labels" },
     { id: "sizes", label: "Size Variations" },
+    { id: "animation", label: "Animation Options" },
     { id: "controlled", label: "Controlled Switches" },
     { id: "form-integration", label: "Form Integration" },
     { id: "accessibility", label: "Accessibility" },
@@ -155,6 +156,46 @@ export function SwitchShowcase() {
         children: [
           { type: "Switch", id: "large-switch", className: "scale-125" },
           { type: "Text", children: "Large (125% scale)" },
+        ],
+      },
+    ],
+  };
+
+  // Animation options
+  const animationSpec: UISpecification = {
+    type: "Stack",
+    spacing: "6",
+    children: [
+      {
+        type: "Box",
+        children: [
+          { type: "Heading", level: 4, children: "Animated (Default)" },
+          { type: "Text", size: "small", variant: "muted", className: "mb-3", children: "Smooth spring animation when toggling" },
+          {
+            type: "Flex",
+            align: "center",
+            gap: "4",
+            children: [
+              { type: "Switch", id: "animated-switch" },
+              { type: "Text", children: "Toggle me for smooth animation" },
+            ],
+          },
+        ],
+      },
+      {
+        type: "Box",
+        children: [
+          { type: "Heading", level: 4, children: "Without Animation" },
+          { type: "Text", size: "small", variant: "muted", className: "mb-3", children: "Instant transition without animation" },
+          {
+            type: "Flex",
+            align: "center",
+            gap: "4",
+            children: [
+              { type: "Switch", id: "non-animated-switch", animated: false },
+              { type: "Text", children: "Toggle me for instant transition" },
+            ],
+          },
         ],
       },
     ],
@@ -564,6 +605,25 @@ export function SwitchShowcase() {
             </details>
           </section>
 
+          {/* Animation Options Section */}
+          <section id="animation" className="scroll-mt-20">
+            <h2 className="text-2xl font-semibold mb-4">Animation Options</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              The Switch component supports smooth spring animations by default, with an option to disable animations when needed.
+            </p>
+            <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+              {render(animationSpec)}
+            </div>
+            <details className="mt-4">
+              <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
+                View JSON Specification
+              </summary>
+              <CodeBlock language="json" className="mt-2">
+                {JSON.stringify(animationSpec, null, 2)}
+              </CodeBlock>
+            </details>
+          </section>
+
           {/* Controlled Switches Section */}
           <section id="controlled" className="scroll-mt-20">
             <h2 className="text-2xl font-semibold mb-4">Controlled Switches</h2>
@@ -659,6 +719,12 @@ export function SwitchShowcase() {
                     <td className="py-3 px-4 font-mono">boolean</td>
                     <td className="py-3 px-4">false</td>
                     <td className="py-3 px-4">Whether the switch is disabled</td>
+                  </tr>
+                  <tr className="border-b border-gray-200 dark:border-gray-800">
+                    <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">animated</td>
+                    <td className="py-3 px-4 font-mono">boolean</td>
+                    <td className="py-3 px-4">true</td>
+                    <td className="py-3 px-4">Whether to animate the switch transition</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onCheckedChange</td>

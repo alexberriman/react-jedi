@@ -327,3 +327,119 @@ export const CompactWithAllElements: Story = {
     height: "auto",
   },
 };
+
+export const WithDarkOverlay: Story = {
+  args: {
+    variant: "fullscreen",
+    title: "Create Something Amazing",
+    subtitle: "Your vision, our platform",
+    description: "Build beautiful, responsive applications with our comprehensive development toolkit.",
+    primaryCTA: {
+      label: "Start Free Trial",
+      variant: "default",
+      size: "lg",
+    },
+    secondaryCTA: {
+      label: "View Examples",
+      variant: "outline",
+      size: "lg",
+    },
+    backgroundImage: {
+      src: "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1600&q=80",
+      overlay: "dark",
+      overlayOpacity: 0.6,
+    },
+    height: "large",
+    alignment: "center",
+  },
+};
+
+export const WithLightOverlay: Story = {
+  args: {
+    variant: "fullscreen",
+    title: "Welcome to Innovation",
+    subtitle: "Where ideas come to life",
+    description: "Transform your concepts into reality with our cutting-edge technology stack.",
+    primaryCTA: {
+      label: "Get Started",
+      variant: "default",
+      size: "lg",
+    },
+    backgroundImage: {
+      src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80",
+      overlay: "light",
+      overlayOpacity: 0.8,
+    },
+    height: "large",
+    alignment: "center",
+    textColor: "#1a1a1a",
+  },
+};
+
+export const WithSubtleOverlay: Story = {
+  args: {
+    variant: "fullscreen",
+    title: "Elevate Your Business",
+    subtitle: "Professional tools for professional teams",
+    description: "Streamline your workflow with enterprise-grade features and seamless integrations.",
+    primaryCTA: {
+      label: "Request Demo",
+      variant: "default",
+      size: "lg",
+      icon: "arrow",
+    },
+    backgroundImage: {
+      src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80",
+      overlay: "dark",
+      overlayOpacity: 0.3,
+    },
+    height: "large",
+    alignment: "center",
+  },
+};
+
+export const WithNoOverlay: Story = {
+  args: {
+    variant: "fullscreen",
+    title: "Pure and Simple",
+    subtitle: "No distractions, just results",
+    description: "Experience the clarity of our minimalist design approach.",
+    primaryCTA: {
+      label: "Explore",
+      variant: "default",
+      size: "lg",
+    },
+    backgroundImage: {
+      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      overlay: "none",
+    },
+    height: "large",
+    alignment: "center",
+  },
+};
+
+export const WithHeavyOverlay: Story = {
+  args: {
+    variant: "fullscreen",
+    title: "Focus on What Matters",
+    subtitle: "Cut through the noise",
+    description: "Our platform helps you concentrate on building great products without the complexity.",
+    primaryCTA: {
+      label: "Start Building",
+      variant: "default",
+      size: "lg",
+    },
+    secondaryCTA: {
+      label: "Learn More",
+      variant: "outline",
+      size: "lg",
+    },
+    backgroundImage: {
+      src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80",
+      overlay: "dark",
+      overlayOpacity: 0.85,
+    },
+    height: "large",
+    alignment: "center",
+  },
+};

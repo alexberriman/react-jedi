@@ -24,6 +24,7 @@ export function PageHeroHeaderShowcase() {
     { id: "minimal", label: "Minimal Style" },
     { id: "with-stats", label: "With Statistics" },
     { id: "background-image", label: "Background Images" },
+    { id: "overlay-options", label: "Overlay Options" },
     { id: "cta-options", label: "CTA Options" },
     { id: "props", label: "Props & Options" },
     { id: "examples", label: "Complete Examples" },
@@ -161,6 +162,88 @@ export function PageHeroHeaderShowcase() {
         backgroundColor: "bg-gray-900",
         textColor: "white",
         height: "medium",
+      },
+    ],
+  };
+
+  // Overlay variations
+  const overlayVariations: UISpecification = {
+    type: "Stack",
+    spacing: "8",
+    children: [
+      {
+        type: "PageHeroHeader",
+        variant: "fullscreen",
+        title: "Dark Overlay",
+        subtitle: "Perfect for bright images",
+        description: "Use a dark overlay to ensure text readability on light backgrounds.",
+        primaryCTA: {
+          label: "Get Started",
+          variant: "default",
+          size: "lg",
+        },
+        backgroundImage: {
+          src: "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1600&q=80",
+          overlay: "dark",
+          overlayOpacity: 0.6,
+        },
+        height: "medium",
+        alignment: "center",
+      },
+      {
+        type: "PageHeroHeader",
+        variant: "fullscreen",
+        title: "Light Overlay",
+        subtitle: "For dark images",
+        description: "Apply a light overlay to improve text contrast on dark backgrounds.",
+        primaryCTA: {
+          label: "Learn More",
+          variant: "default",
+        },
+        backgroundImage: {
+          src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80",
+          overlay: "light",
+          overlayOpacity: 0.8,
+        },
+        height: "medium",
+        alignment: "center",
+        textColor: "#1a1a1a",
+      },
+      {
+        type: "PageHeroHeader",
+        variant: "fullscreen",
+        title: "Gradient Overlay",
+        subtitle: "Create depth and dimension",
+        description: "Use gradient overlays for a more sophisticated look.",
+        primaryCTA: {
+          label: "Explore",
+          variant: "default",
+          size: "lg",
+        },
+        backgroundImage: {
+          src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&q=80",
+          overlay: "gradient",
+          overlayOpacity: 0.7,
+        },
+        height: "medium",
+        alignment: "center",
+      },
+      {
+        type: "PageHeroHeader",
+        variant: "fullscreen",
+        title: "No Overlay",
+        subtitle: "Pure image background",
+        description: "When your image already has perfect contrast, skip the overlay.",
+        primaryCTA: {
+          label: "View More",
+          variant: "outline",
+        },
+        backgroundImage: {
+          src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+          overlay: "none",
+        },
+        height: "medium",
+        alignment: "center",
       },
     ],
   };
@@ -521,6 +604,36 @@ export function PageHeroHeaderShowcase() {
               language="json"
               title="background-variations.json"
             />
+          </section>
+
+          {/* Overlay Options */}
+          <section id="overlay-options" className="space-y-4">
+            <div>
+              <h2 className="text-2xl font-semibold">Overlay Options</h2>
+              <p className="text-muted-foreground">
+                Control text legibility with configurable overlay colors and opacity when using background images.
+              </p>
+            </div>
+
+            <ShowcaseWrapper fullWidth>{render(overlayVariations)}</ShowcaseWrapper>
+
+            <CodeBlock
+              code={JSON.stringify(overlayVariations, null, 2)}
+              language="json"
+              title="overlay-variations.json"
+            />
+
+            <div className="rounded-lg border bg-muted/50 p-6">
+              <h3 className="mb-2 font-semibold">Overlay Configuration</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><strong>overlay:</strong> 'dark' | 'light' | 'gradient' | 'none' - The type of overlay to apply</li>
+                <li><strong>overlayOpacity:</strong> number (0-1) - Controls the transparency of the overlay (default: 0.5)</li>
+                <li><strong>Dark overlay:</strong> Use for light/bright background images</li>
+                <li><strong>Light overlay:</strong> Use for dark background images</li>
+                <li><strong>Gradient overlay:</strong> Creates a gradient from top to bottom for added depth</li>
+                <li><strong>None:</strong> No overlay applied - use when your image already has good contrast</li>
+              </ul>
+            </div>
           </section>
 
           {/* CTA Options */}

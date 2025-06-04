@@ -197,7 +197,7 @@
       {
         "id": "page-hero-header",
         "description": "Love this component/block. Can you add another option to configure an 'overlay'? Use case: 'Fullscreen With Background Image' - I would like an overlay (either black or white, default black) where I can control the opacity (default it) to make the text more legible over the image. Make this configurable, update stories and showcase examples page (./examples)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "maps",

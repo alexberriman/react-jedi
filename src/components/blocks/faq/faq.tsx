@@ -403,7 +403,8 @@ function GridVariant({
   readonly votes: Record<string, { helpful: number; notHelpful: number }>;
   readonly onVote: (itemId: string, helpful: boolean) => void;
 }) {
-  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+  // Grid variant shows all items expanded by default
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(() => new Set(items.map(item => item.id)));
 
   const toggleExpand = (itemId: string) => {
     setExpandedItems(prev => {
@@ -483,6 +484,117 @@ function GridVariant({
           </Card>
         </motion.div>
       ))}
+    </div>
+  );
+}
+
+// Accordion variant
+function AccordionVariant({
+  items,
+  animated = true,
+  voting,
+  votes,
+  onVote,
+  openFirst = false,
+  allowCollapse = true,
+}: {
+  readonly items: FAQItem[];
+  readonly animated?: boolean;
+  readonly voting?: FAQDef["voting"];
+  readonly votes: Record<string, { helpful: number; notHelpful: number }>;
+  readonly onVote: (itemId: string, helpful: boolean) => void;
+  readonly openFirst?: boolean;
+  readonly allowCollapse?: boolean;
+}) {
+  const [openItems, setOpenItems] = useState<Set<string>>(() => {
+    const initialSet = new Set<string>();
+    if (openFirst && items[0]) {
+      initialSet.add(items[0].id);
+    }
+    return initialSet;
+  });
+
+  const toggleItem = (itemId: string) => {
+    setOpenItems(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(itemId)) {
+        if (allowCollapse) {
+          newSet.delete(itemId);
+        }
+      } else {
+        if (!allowCollapse) {
+          newSet.clear();
+        }
+        newSet.add(itemId);
+      }
+      return newSet;
+    });
+  };
+
+  return (
+    <div className="w-full space-y-2">
+      {items.map((item, index) => {
+        const isOpen = openItems.has(item.id);
+        
+        return (
+          <motion.div
+            key={item.id}
+            initial={animated ? { opacity: 0, y: 10 } : undefined}
+            animate={animated ? { opacity: 1, y: 0 } : undefined}
+            transition={animated ? { duration: 0.3, delay: index * 0.05 } : undefined}
+            data-radix-collection-item=""
+          >
+            <Card className="relative bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <button
+                onClick={() => toggleItem(item.id)}
+                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                aria-expanded={isOpen}
+              >
+                <span className="font-medium text-slate-900 dark:text-white pr-2">
+                  {item.question}
+                </span>
+                <ChevronRight
+                  className={cn(
+                    "size-5 text-slate-400 transition-transform flex-shrink-0",
+                    isOpen && "rotate-90"
+                  )}
+                />
+              </button>
+              
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 pb-4">
+                      <FAQAnswer answer={item.answer} />
+                      
+                      {voting?.enabled && (
+                        <FAQVoting
+                          item={item}
+                          votes={votes}
+                          onVote={onVote}
+                          showVoteCount={voting.showVoteCount}
+                        />
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
+              {item.isPopular && (
+                <Badge className="absolute top-4 right-12 bg-gradient-to-r from-orange-500 to-pink-500 text-white border-0">
+                  Popular
+                </Badge>
+              )}
+            </Card>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
@@ -623,13 +735,25 @@ export function FAQBlock({ spec }: FAQBlockProps) {
         </Card>
       ) : (
         <>
-          {(variant === "carousel" || variant === "accordion") && (
+          {variant === "carousel" && (
             <CarouselVariant
               items={finalItems}
               animated={animated}
               voting={votingConfig}
               votes={votes}
               onVote={handleVote}
+            />
+          )}
+          
+          {variant === "accordion" && (
+            <AccordionVariant
+              items={finalItems}
+              animated={animated}
+              voting={votingConfig}
+              votes={votes}
+              onVote={handleVote}
+              openFirst={spec.openFirst}
+              allowCollapse={spec.allowCollapse}
             />
           )}
           
@@ -642,6 +766,43 @@ export function FAQBlock({ spec }: FAQBlockProps) {
               votes={votes}
               onVote={handleVote}
             />
+          )}
+          
+          {variant === "two-column" && (
+            <div className={cn("grid gap-6 grid-cols-1 lg:grid-cols-2")}>
+              {finalItems.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={animated ? { opacity: 0, y: 20 } : undefined}
+                  animate={animated ? { opacity: 1, y: 0 } : undefined}
+                  transition={animated ? { duration: 0.3, delay: index * 0.1 } : undefined}
+                >
+                  <Card className="h-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3">
+                        {item.question}
+                      </h3>
+                      <FAQAnswer answer={item.answer} />
+                      
+                      {voting?.enabled && (
+                        <FAQVoting
+                          item={item}
+                          votes={votes}
+                          onVote={handleVote}
+                          showVoteCount={voting.showVoteCount}
+                        />
+                      )}
+                      
+                      {item.isPopular && (
+                        <Badge className="mt-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white border-0">
+                          Popular
+                        </Badge>
+                      )}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           )}
         </>
       )}

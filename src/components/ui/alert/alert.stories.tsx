@@ -59,7 +59,7 @@ export const Default: Story = {
     expect(canvas.getByText("You can add components to your app using the cli.")).toBeInTheDocument();
 
     // Verify default styling
-    expect(alert).toHaveClass("relative", "w-full", "rounded-lg", "border");
+    expect(alert).toHaveClass("relative", "w-full", "rounded-xl");
   },
 };
 

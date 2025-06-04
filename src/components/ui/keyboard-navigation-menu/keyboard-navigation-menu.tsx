@@ -8,6 +8,7 @@ import {
   createMenuNavigation,
 } from "@/lib/accessibility/keyboard-navigation";
 import { ChevronRight, ChevronDown } from "lucide-react";
+import "./keyboard-navigation-menu.css";
 
 export interface MenuItem {
   id: string;
@@ -139,11 +140,12 @@ export function KeyboardNavigationMenu({
           role="menuitem"
           tabIndex={isFocused ? 0 : -1}
           className={cn(
-            "flex items-center justify-between px-3 py-2 rounded-md cursor-pointer transition-colors",
+            "keyboard-nav-menu-item flex items-center justify-between px-3 py-2 rounded-md cursor-pointer transition-colors",
             "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
-            isFocused && "bg-muted",
+            "hover:bg-muted/50", // Add explicit hover state
+            isFocused && "bg-muted/50",
             isSelected && "bg-primary text-primary-foreground",
-            item.disabled && "opacity-50 cursor-not-allowed",
+            item.disabled && "opacity-50 cursor-not-allowed hover:bg-transparent",
             className
           )}
           onClick={() => handleItemClick(item)}

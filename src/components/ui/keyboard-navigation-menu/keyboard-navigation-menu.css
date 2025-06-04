@@ -1,0 +1,40 @@
+/* Override generic menuitem hover styles for KeyboardNavigationMenu */
+.keyboard-nav-menu-item[role="menuitem"]:hover {
+  /* Reset the generic styles from interactive-states.css */
+  background-color: hsl(var(--muted) / 0.5) !important;
+  padding-left: inherit !important;
+}
+
+/* Ensure smooth transitions */
+.keyboard-nav-menu-item[role="menuitem"] {
+  transition: background-color 200ms ease-out, transform 200ms ease-out;
+}
+
+/* Hover state */
+.keyboard-nav-menu-item[role="menuitem"]:not([aria-disabled="true"]):hover {
+  background-color: hsl(var(--muted) / 0.5) !important;
+  transform: translateX(2px);
+}
+
+/* Focused state */
+.keyboard-nav-menu-item[role="menuitem"]:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Selected state */
+.keyboard-nav-menu-item[role="menuitem"][aria-selected="true"] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Disabled state */
+.keyboard-nav-menu-item[role="menuitem"][aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.keyboard-nav-menu-item[role="menuitem"][aria-disabled="true"]:hover {
+  background-color: transparent !important;
+  transform: none !important;
+}

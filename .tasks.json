@@ -142,7 +142,7 @@
       {
         "id": "keyboard-navigation-hover",
         "description": "I don't know whats going on, but when I hover over the KeyboardNavigationMenu component the background color goes black for some ridiculous reason.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "image-zoom",

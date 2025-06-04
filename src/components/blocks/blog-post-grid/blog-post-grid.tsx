@@ -55,7 +55,7 @@ function BlogPostCard({ post, className }: { readonly post: BlogPost; readonly c
           <img 
             src={post.featuredImage} 
             alt={post.title}
-            className="h-full w-full object-cover transition-transform hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
             loading="lazy"
           />
         </div>
@@ -160,7 +160,7 @@ function BlogPostMagazineCard({ post, isLarge = false }: { readonly post: BlogPo
           <img 
             src={post.featuredImage} 
             alt={post.title}
-            className="h-full w-full object-cover transition-transform group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />

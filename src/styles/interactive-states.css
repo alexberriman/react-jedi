@@ -5,7 +5,7 @@
   --active-scale: 0.98;
   --transition-duration: 200ms;
   --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
-  --hover-brightness: 1.1;
+  --hover-brightness: 1.05;
   --hover-shadow-offset: 0 4px 20px -2px;
 }
 
@@ -38,7 +38,6 @@
 [data-slot="toggle"]:not(:disabled):hover,
 [data-slot="tabs-trigger"]:not(:disabled):hover {
   transform: translateY(-1px);
-  filter: brightness(var(--hover-brightness));
 }
 
 /* Card hover with shadow elevation */
@@ -265,11 +264,11 @@ a[data-slot]:not(:disabled):hover {
 
 /* Card content hover effects */
 [data-slot="card"] [data-slot="card-title"] {
-  transition: color var(--transition-duration) var(--transition-timing);
+  transition: opacity var(--transition-duration) var(--transition-timing);
 }
 
 [data-slot="card"]:hover [data-slot="card-title"] {
-  color: hsl(var(--primary));
+  opacity: 0.9;
 }
 
 /* Feature card icon bounce */

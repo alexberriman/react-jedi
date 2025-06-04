@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, CardImage } from "./card";
 
 const meta = {
   title: "Components/Card",
@@ -99,5 +99,115 @@ export const ContentOnly: Story = {
         <p>This card only has content.</p>
       </CardContent>
     </Card>
+  ),
+};
+
+export const WithImage: Story = {
+  render: () => (
+    <Card className="w-[350px]">
+      <CardImage 
+        src="https://picsum.photos/350/200" 
+        alt="Card image"
+      />
+      <CardHeader>
+        <CardTitle>Card with Image</CardTitle>
+        <CardDescription>This card has an image at the top</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Notice there&apos;s no padding at the top of the card when an image is present.</p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+export const WithZoomImage: Story = {
+  render: () => (
+    <Card className="w-[350px]">
+      <CardImage 
+        src="https://picsum.photos/350/200" 
+        alt="Card image"
+        variant="zoom"
+      />
+      <CardHeader>
+        <CardTitle>Card with Zoom Effect</CardTitle>
+        <CardDescription>Hover over the image to see the zoom effect</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>The image zooms smoothly when you hover over it.</p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+export const WithImageOverlay: Story = {
+  render: () => (
+    <Card className="w-[350px]">
+      <div className="relative">
+        <CardImage 
+          src="https://picsum.photos/350/200" 
+          alt="Card image"
+          overlay
+        />
+        <div className="absolute bottom-4 left-4 text-white">
+          <h3 className="text-xl font-bold">Overlay Text</h3>
+          <p className="text-sm">Text over the image</p>
+        </div>
+      </div>
+      <CardHeader>
+        <CardTitle>Card with Image Overlay</CardTitle>
+        <CardDescription>The image has a gradient overlay for text readability</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>You can place text over the image with the overlay enabled.</p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+export const MultipleCards: Story = {
+  render: () => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Card>
+        <CardImage 
+          src="https://picsum.photos/300/200?random=1" 
+          alt="Card 1"
+          variant="zoom"
+        />
+        <CardHeader>
+          <CardTitle>First Card</CardTitle>
+          <CardDescription>With zoom effect</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Content for the first card.</p>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardImage 
+          src="https://picsum.photos/300/200?random=2" 
+          alt="Card 2"
+        />
+        <CardHeader>
+          <CardTitle>Second Card</CardTitle>
+          <CardDescription>Standard image</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Content for the second card.</p>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardImage 
+          src="https://picsum.photos/300/200?random=3" 
+          alt="Card 3"
+          overlay
+        />
+        <CardHeader>
+          <CardTitle>Third Card</CardTitle>
+          <CardDescription>With overlay</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Content for the third card.</p>
+        </CardContent>
+      </Card>
+    </div>
   ),
 };

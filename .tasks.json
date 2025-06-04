@@ -12,7 +12,7 @@
       {
         "id": "alert-dialog-component",
         "description": "When I click Show Dialog button on the default story of the AlertDialog component, the button 'flashes' to visible, not visible etc. (button that was used to open it). Looks weird..",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "alert-component",
@@ -27,12 +27,12 @@
       {
         "id": "button-component",
         "description": "For some reason, the Button component are all grouped in a Button directory in storybook. It should be flat like all other components - remove Tests stories.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "card-component",
         "description": "For some reason, when I hover over a Card component in storybook, the title disappears. Its like it transitions to white or something when the bg is white. This shouldn't happen, as you can't read the text. Can you also add a prop for an image in the header (and if an image is passed through, there should be no padding at top of the card). Add some additional props/variants for header image styling, i.e. zoom effects when hovering, image by itself, image with the header text etc. over it (versus underneath) etc. Add more stories.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "charts-component",
@@ -67,7 +67,7 @@
       {
         "id": "blogpost-grid-hover",
         "description": "When you over over images on the BlogPostGrid component it 'zooms'. This is a nice effect, but its instant. It should transition/animate smoothly when zooming. Also, when I hover over the BlogPostGrid cards, the title disappears (I assume there is some sort of hover change to title text, maybe it goes to white? Im not sure why it would go to white when the bg is white. I tend to get this hover issue on quite a few cards, so investigate whether its an issue with the Card component itself and, if so, fix it there so it fixes it everywhere.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "brandlogo-bar",

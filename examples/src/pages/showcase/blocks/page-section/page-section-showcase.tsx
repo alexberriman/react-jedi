@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { PageHeader } from '@/components/ui/page-header';
 import { ShowcaseWrapper } from '@/components/ui/showcase-wrapper';
-import { Check, Star, ArrowRight, Shield, Zap, Users, Rocket, Target, Globe } from 'lucide-react';
+import { Check, Star, ArrowRight, Shield, Rocket, Target, Globe } from 'lucide-react';
 
 function PageSectionShowcase() {
   return (
@@ -563,7 +563,7 @@ function PageSectionShowcase() {
             <div className="grid md:grid-cols-3 gap-8 mt-12">
               <Card className="p-6">
                 <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
+                  {Array.from({length: 5}).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
@@ -584,7 +584,7 @@ function PageSectionShowcase() {
               </Card>
               <Card className="p-6">
                 <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
+                  {Array.from({length: 5}).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
@@ -605,7 +605,7 @@ function PageSectionShowcase() {
               </Card>
               <Card className="p-6">
                 <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
+                  {Array.from({length: 5}).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>

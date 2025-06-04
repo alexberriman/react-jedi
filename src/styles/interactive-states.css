@@ -80,10 +80,9 @@
   background-color: hsl(var(--ring) / 0.03);
 }
 
-/* Checkbox and radio hover with subtle grow */
+/* Checkbox and radio hover with subtle border color change */
 [data-slot="checkbox"]:not(:disabled):hover,
 [data-slot="radio-group-item"]:not(:disabled):hover {
-  transform: scale(1.05);
   border-color: hsl(var(--primary) / 0.8);
 }
 

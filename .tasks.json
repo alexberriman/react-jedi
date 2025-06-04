@@ -27,7 +27,7 @@
       {
         "id": "radiogroup",
         "description": "The RadioGroup options should have cursor-pointer on hover. ALso, when I hover over a RadioGroup option, the 'circle' element disappears for some reason. Both of these issues also impact the CheckBox component.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "masonry",

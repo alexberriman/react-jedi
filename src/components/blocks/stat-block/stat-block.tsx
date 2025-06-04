@@ -34,7 +34,15 @@ import {
   Award,
   Shield,
   Cloud,
-  Server
+  Server,
+  BarChart3,
+  Package,
+  Clock,
+  Globe,
+  Rocket,
+  Brain,
+  Sparkles,
+  TrendingUp as TrendUp
 } from "lucide-react";
 import { SiAmazonwebservices } from "react-icons/si";
 import { AiOutlineCloudServer } from "react-icons/ai";
@@ -66,6 +74,14 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   server: Server,
   aws: SiAmazonwebservices,
   azure: AiOutlineCloudServer,
+  chart: BarChart3,
+  package: Package,
+  clock: Clock,
+  globe: Globe,
+  rocket: Rocket,
+  brain: Brain,
+  sparkles: Sparkles,
+  trend: TrendUp,
 };
 
 // Column classes for grid layout
@@ -169,11 +185,12 @@ function formatNumber(value: number | string): string {
   return new Intl.NumberFormat().format(value);
 }
 
-// Trend indicator component
-function TrendIndicator({ trend }: { readonly trend: StatItem["trend"] }) {
+// Enhanced trend indicator component
+function TrendIndicator({ trend, variant }: { readonly trend: StatItem["trend"]; readonly variant?: string }) {
   if (!trend) return null;
 
   const isPositive = trend.direction === "up";
+  const isModernVariant = ["gradient", "glass", "modern", "neon"].includes(variant || "");
   
   let Icon;
   if (isPositive) {
@@ -191,6 +208,27 @@ function TrendIndicator({ trend }: { readonly trend: StatItem["trend"] }) {
     colorClass = "text-red-600 dark:text-red-400";
   } else {
     colorClass = "text-muted-foreground";
+  }
+
+  if (isModernVariant) {
+    return (
+      <div className={cn(
+        "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium",
+        isPositive && "bg-green-500/10 text-green-600 dark:text-green-400",
+        trend.direction === "down" && "bg-red-500/10 text-red-600 dark:text-red-400",
+        trend.direction === "neutral" && "bg-muted text-muted-foreground"
+      )}>
+        <Icon className="size-3" />
+        <span>
+          {trend.value > 0 ? "+" : ""}{trend.value}%
+        </span>
+        {trend.label && (
+          <span className="opacity-80">
+            {trend.label}
+          </span>
+        )}
+      </div>
+    );
   }
 
   return (
@@ -222,21 +260,86 @@ function StatIcon({
   return <IconComponent className={className} />;
 }
 
-// Stat item icon wrapper
+// Helper function to get icon container classes for modern variants
+function getIconContainerClasses(variant: string | undefined, size: "lg" | "md") {
+  const baseClasses = size === "lg" 
+    ? "relative mb-4 size-16 rounded-2xl flex items-center justify-center"
+    : "relative size-14 rounded-xl flex items-center justify-center flex-shrink-0";
+
+  switch (variant) {
+    case "gradient": {
+      return cn(baseClasses, "bg-gradient-to-br from-primary/20 to-primary/5");
+    }
+    case "glass": {
+      return cn(baseClasses, "bg-white/10 backdrop-blur-sm border border-white/20");
+    }
+    case "modern": {
+      return cn(baseClasses, "bg-muted");
+    }
+    case "neon": {
+      return cn(baseClasses, "bg-primary/10");
+    }
+    default: {
+      return baseClasses;
+    }
+  }
+}
+
+// Helper function to render an icon with modern variant styling
+function renderModernIcon(stat: StatItem, variant: string | undefined, size: "sm" | "md" | "lg") {
+  let iconSize = "size-6";
+  if (size === "lg") {
+    iconSize = "size-8";
+  } else if (size === "md") {
+    iconSize = "size-7";
+  }
+  
+  return (
+    <StatIcon 
+      icon={stat.icon!} 
+      className={cn(
+        iconSize,
+        colorClasses[stat.color || "default"],
+        variant === "neon" && "drop-shadow-[0_0_10px_currentColor]"
+      )}
+    />
+  );
+}
+
+// Stat item icon wrapper with enhanced styling
 function StatItemIcon({ 
   stat, 
   showIcon, 
   alignment, 
-  position 
+  position,
+  variant
 }: { 
   readonly stat: StatItem;
   readonly showIcon?: boolean;
-  readonly alignment: string;
+  readonly alignment: NonNullable<StatBlockDef["alignment"]>;
   readonly position: "top" | "side";
+  readonly variant?: string;
 }) {
   if (!showIcon || !stat.icon) return null;
   
-  if (position === "top" && stat.iconPosition === "top") {
+  const isModernVariant = ["gradient", "glass", "modern", "neon"].includes(variant || "");
+  const isTopPosition = position === "top" && stat.iconPosition === "top";
+  const isSidePosition = position === "side" && (stat.iconPosition === "left" || stat.iconPosition === "right");
+  
+  if (!isTopPosition && !isSidePosition) return null;
+  
+  if (isTopPosition) {
+    if (isModernVariant) {
+      return (
+        <div className={cn(
+          getIconContainerClasses(variant, "lg"),
+          alignment === "center" && "mx-auto"
+        )}>
+          {renderModernIcon(stat, variant, "lg")}
+        </div>
+      );
+    }
+    
     return (
       <StatIcon 
         icon={stat.icon} 
@@ -249,7 +352,15 @@ function StatItemIcon({
     );
   }
   
-  if (position === "side" && (stat.iconPosition === "left" || stat.iconPosition === "right")) {
+  if (isSidePosition) {
+    if (isModernVariant) {
+      return (
+        <div className={getIconContainerClasses(variant, "md")}>
+          {renderModernIcon(stat, variant, "md")}
+        </div>
+      );
+    }
+    
     return (
       <StatIcon 
         icon={stat.icon} 
@@ -288,7 +399,187 @@ function StatItemValue({
   );
 }
 
-// Individual stat component
+// Helper function to render styled cards for different variants
+function renderStyledCard(variant: string | undefined, content: React.ReactNode, showBorder?: boolean) {
+  switch (variant) {
+    case "gradient": {
+      return (
+        <motion.div 
+          className={cn(
+            "relative h-full rounded-2xl p-6 overflow-hidden",
+            "bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5",
+            "hover:from-primary/10 hover:via-primary/15 hover:to-primary/10",
+            "transition-all duration-300",
+            showBorder && "border border-primary/20"
+          )}
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-primary/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+          <div className="relative z-10">{content}</div>
+        </motion.div>
+      );
+    }
+    
+    case "glass": {
+      return (
+        <motion.div 
+          className={cn(
+            "relative h-full rounded-2xl p-6 overflow-hidden",
+            "bg-white/5 dark:bg-white/10 backdrop-blur-lg",
+            "border border-white/10 dark:border-white/20",
+            "shadow-lg shadow-black/5",
+            "hover:bg-white/10 dark:hover:bg-white/15",
+            "transition-all duration-300"
+          )}
+          whileHover={{ y: -4 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+          <div className="relative z-10">{content}</div>
+        </motion.div>
+      );
+    }
+    
+    case "modern": {
+      return (
+        <motion.div 
+          className={cn(
+            "relative h-full rounded-2xl p-6 overflow-hidden",
+            "bg-gradient-to-b from-muted/50 to-muted",
+            "hover:from-muted/70 hover:to-muted",
+            "shadow-sm hover:shadow-md",
+            "transition-all duration-300",
+            showBorder && "border"
+          )}
+          whileHover={{ y: -2 }}
+          transition={{ type: "spring", stiffness: 400 }}
+        >
+          <div className="relative z-10">{content}</div>
+        </motion.div>
+      );
+    }
+    
+    case "neon": {
+      return (
+        <motion.div 
+          className={cn(
+            "relative h-full rounded-2xl p-6 overflow-hidden",
+            "bg-background border-2 border-primary/20",
+            "hover:border-primary/40",
+            "shadow-[0_0_20px_rgba(var(--primary),0.1)]",
+            "hover:shadow-[0_0_30px_rgba(var(--primary),0.2)]",
+            "transition-all duration-300"
+          )}
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+          <div className="relative z-10">{content}</div>
+        </motion.div>
+      );
+    }
+    
+    default: {
+      // Default card variant
+      return (
+        <Card className={cn(
+          "h-full overflow-hidden",
+          "hover:shadow-lg transition-shadow duration-300",
+          !showBorder && "border-0 shadow-md"
+        )}>
+          <CardContent className="p-6">
+            {content}
+          </CardContent>
+        </Card>
+      );
+    }
+  }
+}
+
+// Helper function to create stat content
+function createStatContent({
+  stat,
+  variant,
+  showIcon,
+  showDescription,
+  showTrend,
+  displayValue,
+  alignment,
+  valueSize,
+  labelSize,
+}: {
+  readonly stat: StatItem;
+  readonly variant: StatBlockDef["variant"];
+  readonly showIcon?: boolean;
+  readonly showDescription?: boolean;
+  readonly showTrend?: boolean;
+  readonly displayValue: string;
+  readonly alignment: NonNullable<StatBlockDef["alignment"]>;
+  readonly valueSize: NonNullable<StatBlockDef["valueSize"]>;
+  readonly labelSize: NonNullable<StatBlockDef["labelSize"]>;
+}) {
+  return (
+    <div className={cn(
+      "flex flex-col",
+      alignmentClasses[alignment],
+      stat.iconPosition === "left" && "flex-row items-center gap-4",
+      stat.iconPosition === "right" && "flex-row-reverse items-center gap-4"
+    )}>
+      <StatItemIcon stat={stat} showIcon={showIcon} alignment={alignment} position="top" variant={variant} />
+      <StatItemIcon stat={stat} showIcon={showIcon} alignment={alignment} position="side" variant={variant} />
+      
+      <div className="flex-1">
+        <StatItemValue stat={stat} displayValue={displayValue} valueSize={valueSize} />
+        
+        <div className={cn(
+          "text-muted-foreground mt-1",
+          labelSizeClasses[labelSize],
+          variant === "gradient" && "text-foreground/70",
+          variant === "glass" && "text-white/70",
+          variant === "neon" && "text-foreground/80"
+        )}>
+          {stat.label}
+        </div>
+        
+        {showDescription && stat.description && (
+          <p className={cn(
+            "text-xs mt-2",
+            "text-muted-foreground",
+            variant === "gradient" && "text-foreground/60",
+            variant === "glass" && "text-white/60",
+            variant === "neon" && "text-foreground/70"
+          )}>
+            {stat.description}
+          </p>
+        )}
+        
+        {showTrend && stat.trend && (
+          <div className="mt-2">
+            <TrendIndicator trend={stat.trend} variant={variant} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Helper function to get display value
+function getDisplayValue(
+  value: string | number,
+  animatedValue: number,
+  countUp?: boolean
+): string {
+  if (countUp && typeof value === "number") {
+    return formatNumber(animatedValue);
+  }
+  if (typeof value === "number") {
+    return formatNumber(value);
+  }
+  return value;
+}
+
+// Individual stat component with enhanced styling
 function StatItemComponent({
   stat,
   variant,
@@ -327,71 +618,34 @@ function StatItemComponent({
     countUp && typeof stat.value === "number"
   );
 
-  let displayValue: string;
-  if (countUp && typeof stat.value === "number") {
-    displayValue = formatNumber(animatedValue);
-  } else if (typeof stat.value === "number") {
-    displayValue = formatNumber(stat.value);
-  } else {
-    displayValue = stat.value;
-  }
+  const displayValue = getDisplayValue(stat.value, animatedValue, countUp);
 
-  const content = (
-    <div className={cn(
-      "flex flex-col",
-      alignmentClasses[alignment],
-      stat.iconPosition === "left" && "flex-row items-center gap-4",
-      stat.iconPosition === "right" && "flex-row-reverse items-center gap-4"
-    )}>
-      <StatItemIcon stat={stat} showIcon={showIcon} alignment={alignment} position="top" />
-      <StatItemIcon stat={stat} showIcon={showIcon} alignment={alignment} position="side" />
-      
-      <div className="flex-1">
-        <StatItemValue stat={stat} displayValue={displayValue} valueSize={valueSize} />
-        
-        <div className={cn(
-          "text-muted-foreground mt-1",
-          labelSizeClasses[labelSize]
-        )}>
-          {stat.label}
-        </div>
-        
-        {showDescription && stat.description && (
-          <p className="text-xs text-muted-foreground mt-2">
-            {stat.description}
-          </p>
-        )}
-        
-        {showTrend && stat.trend && (
-          <div className="mt-2">
-            <TrendIndicator trend={stat.trend} />
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  const content = createStatContent({
+    stat,
+    variant,
+    showIcon,
+    showDescription,
+    showTrend,
+    displayValue,
+    alignment,
+    valueSize,
+    labelSize,
+  });
 
-  // Wrap in card for card variant
-  if (variant === "card" || (variant === "detailed" && showBackground)) {
-    return (
-      <Card className={cn(
-        "h-full",
-        !showBorder && "border-0 shadow-none"
-      )}>
-        <CardContent className="p-6">
-          {content}
-        </CardContent>
-      </Card>
-    );
+  // Enhanced card styling for different variants
+  const isCardVariant = variant === "card" || variant === "gradient" || variant === "glass" || 
+    variant === "modern" || variant === "neon" || (variant === "detailed" && showBackground);
+  
+  if (isCardVariant) {
+    return renderStyledCard(variant, content, showBorder);
   }
 
   // Add border/background for other variants if specified
-  const wrapperClasses = cn(
-    showBorder && "border rounded-lg p-6",
-    showBackground && "bg-muted/50 rounded-lg p-6"
-  );
-
   if (showBorder || showBackground) {
+    const wrapperClasses = cn(
+      showBorder && "border rounded-lg p-6",
+      showBackground && "bg-muted/50 rounded-lg p-6"
+    );
     return <div className={wrapperClasses}>{content}</div>;
   }
 

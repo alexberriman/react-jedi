@@ -162,7 +162,7 @@
       {
         "id": "statblock-ui",
         "description": "Can you redo all of the ui/styles for the StatBlock component? Its way too basic - just text on plain background. Make it more visual, modern, beautiful (but still simple and clean). Maybe add more variants. Update storybook and showcase examples app.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "restaurant-menu-block",

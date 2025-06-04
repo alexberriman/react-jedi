@@ -21,7 +21,7 @@ export interface StatItem {
 
 export interface StatBlockDef extends BaseComponentSpec {
   type: "StatBlock";
-  variant?: "grid" | "horizontal" | "vertical" | "card" | "minimal" | "detailed";
+  variant?: "grid" | "horizontal" | "vertical" | "card" | "minimal" | "detailed" | "gradient" | "glass" | "modern" | "neon";
   stats: StatItem[];
   
   // Layout options

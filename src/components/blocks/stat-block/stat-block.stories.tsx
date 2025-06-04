@@ -355,3 +355,345 @@ export const DashboardExample: Story = {
     },
   },
 };
+
+export const GradientVariant: Story = {
+  args: {
+    spec: {
+      type: "StatBlock",
+      variant: "gradient",
+      stats: [
+        {
+          label: "Monthly Revenue",
+          value: 125_420,
+          prefix: "$",
+          trend: { value: 12.5, direction: "up", label: "vs last month" },
+          icon: "dollar",
+          color: "primary",
+          iconPosition: "top",
+        },
+        {
+          label: "Active Projects",
+          value: 42,
+          trend: { value: 8.2, direction: "up" },
+          icon: "rocket",
+          iconPosition: "top",
+        },
+        {
+          label: "Team Members",
+          value: 128,
+          trend: { value: 15.3, direction: "up" },
+          icon: "users",
+          iconPosition: "top",
+        },
+        {
+          label: "Performance Score",
+          value: 94.2,
+          suffix: "%",
+          trend: { value: 3.1, direction: "up" },
+          icon: "chart",
+          iconPosition: "top",
+        },
+      ],
+      columns: 4,
+      gap: "lg",
+      animated: true,
+    },
+  },
+};
+
+export const GlassVariant: Story = {
+  parameters: {
+    backgrounds: {
+      default: 'gradient',
+      values: [
+        {
+          name: 'gradient',
+          value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        },
+      ],
+    },
+  },
+  args: {
+    spec: {
+      type: "StatBlock",
+      variant: "glass",
+      stats: [
+        {
+          label: "Cloud Storage",
+          value: "2.4TB",
+          trend: { value: 25, direction: "up" },
+          icon: "cloud",
+          iconPosition: "top",
+        },
+        {
+          label: "API Calls",
+          value: "1.2M",
+          trend: { value: 18.5, direction: "up" },
+          icon: "globe",
+          iconPosition: "top",
+        },
+        {
+          label: "Uptime",
+          value: 99.98,
+          suffix: "%",
+          icon: "activity",
+          iconPosition: "top",
+        },
+      ],
+      columns: 3,
+      gap: "lg",
+      animated: true,
+      showDescription: false,
+    },
+  },
+};
+
+export const ModernVariant: Story = {
+  args: {
+    spec: {
+      type: "StatBlock",
+      variant: "modern",
+      stats: [
+        {
+          label: "Total Revenue",
+          value: 845_920,
+          prefix: "$",
+          trend: { value: 24.8, direction: "up", label: "YoY growth" },
+          icon: "dollar",
+          color: "primary",
+          description: "Revenue across all product lines",
+          iconPosition: "left",
+        },
+        {
+          label: "Customer Base",
+          value: 12_847,
+          trend: { value: 18.3, direction: "up", label: "new this quarter" },
+          icon: "users",
+          description: "Total active customers",
+          iconPosition: "left",
+        },
+        {
+          label: "Market Share",
+          value: 34.2,
+          suffix: "%",
+          trend: { value: 5.7, direction: "up" },
+          icon: "target",
+          color: "success",
+          description: "Industry market share",
+          iconPosition: "left",
+        },
+        {
+          label: "AI Accuracy",
+          value: 97.8,
+          suffix: "%",
+          trend: { value: 2.1, direction: "up" },
+          icon: "brain",
+          color: "secondary",
+          description: "Model prediction accuracy",
+          iconPosition: "left",
+        },
+      ],
+      columns: 2,
+      gap: "xl",
+      showDescription: true,
+      animated: true,
+      countUp: true,
+    },
+  },
+};
+
+export const NeonVariant: Story = {
+  parameters: {
+    backgrounds: {
+      default: 'dark',
+      values: [
+        {
+          name: 'dark',
+          value: '#0a0a0a',
+        },
+      ],
+    },
+  },
+  args: {
+    spec: {
+      type: "StatBlock",
+      variant: "neon",
+      stats: [
+        {
+          label: "Live Users",
+          value: 3842,
+          trend: { value: 45.2, direction: "up" },
+          icon: "users",
+          color: "primary",
+          iconPosition: "top",
+        },
+        {
+          label: "Stream Quality",
+          value: "4K",
+          icon: "eye",
+          color: "success",
+          iconPosition: "top",
+        },
+        {
+          label: "Response Time",
+          value: 12,
+          suffix: "ms",
+          trend: { value: -8.5, direction: "down" },
+          icon: "zap",
+          color: "warning",
+          iconPosition: "top",
+        },
+        {
+          label: "Success Rate",
+          value: 99.2,
+          suffix: "%",
+          icon: "sparkles",
+          color: "secondary",
+          iconPosition: "top",
+        },
+      ],
+      columns: 4,
+      gap: "lg",
+      animated: true,
+      countUp: true,
+      animationDuration: 400,
+    },
+  },
+};
+
+export const SaaSMetrics: Story = {
+  args: {
+    spec: {
+      type: "StatBlock",
+      variant: "gradient",
+      stats: [
+        {
+          label: "MRR",
+          value: 184_250,
+          prefix: "$",
+          trend: { value: 18.5, direction: "up", label: "growth" },
+          icon: "trend",
+          color: "primary",
+          description: "Monthly Recurring Revenue",
+        },
+        {
+          label: "Churn Rate",
+          value: 2.8,
+          suffix: "%",
+          trend: { value: -0.5, direction: "down", label: "improved" },
+          icon: "chart",
+          color: "error",
+          description: "Monthly customer churn",
+        },
+        {
+          label: "LTV",
+          value: 4820,
+          prefix: "$",
+          trend: { value: 12.3, direction: "up" },
+          icon: "award",
+          color: "success",
+          description: "Customer lifetime value",
+        },
+        {
+          label: "CAC",
+          value: 385,
+          prefix: "$",
+          trend: { value: -8.2, direction: "down", label: "reduced" },
+          icon: "target",
+          color: "warning",
+          description: "Customer acquisition cost",
+        },
+      ],
+      columns: 4,
+      gap: "lg",
+      showDescription: true,
+      animated: true,
+      countUp: true,
+    },
+  },
+};
+
+export const EcommerceStats: Story = {
+  args: {
+    spec: {
+      type: "StatBlock",
+      variant: "modern",
+      stats: [
+        {
+          label: "Total Orders",
+          value: 8429,
+          trend: { value: 28.4, direction: "up" },
+          icon: "package",
+          iconPosition: "top",
+        },
+        {
+          label: "Cart Abandonment",
+          value: 68.2,
+          suffix: "%",
+          trend: { value: -5.3, direction: "down" },
+          icon: "cart",
+          color: "warning",
+          iconPosition: "top",
+        },
+        {
+          label: "Avg Basket Size",
+          value: 127.45,
+          prefix: "$",
+          trend: { value: 12.1, direction: "up" },
+          icon: "dollar",
+          color: "success",
+          iconPosition: "top",
+        },
+        {
+          label: "Return Rate",
+          value: 4.2,
+          suffix: "%",
+          trend: { value: -1.8, direction: "down" },
+          icon: "package",
+          color: "error",
+          iconPosition: "top",
+        },
+        {
+          label: "Customer Reviews",
+          value: 4.8,
+          suffix: "/5",
+          icon: "star",
+          color: "primary",
+          iconPosition: "top",
+        },
+        {
+          label: "Repeat Purchase",
+          value: 34.5,
+          suffix: "%",
+          trend: { value: 6.7, direction: "up" },
+          icon: "users",
+          iconPosition: "top",
+        },
+      ],
+      columns: 3,
+      gap: "lg",
+      animated: true,
+    },
+  },
+};
+
+export const CompactStats: Story = {
+  args: {
+    spec: {
+      type: "StatBlock",
+      variant: "glass",
+      stats: [
+        { label: "Downloads", value: "125K", icon: "chart" },
+        { label: "Stars", value: "8.2K", icon: "star" },
+        { label: "Forks", value: "1.8K", icon: "rocket" },
+        { label: "Contributors", value: "342", icon: "users" },
+      ],
+      columns: 4,
+      valueSize: "xl",
+      labelSize: "sm",
+      gap: "md",
+      animated: true,
+      countUp: false,
+    },
+  },
+};

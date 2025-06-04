@@ -167,6 +167,171 @@ const cloudInfrastructureStats: StatBlockDef = {
   showDescription: true,
 };
 
+const gradientVariant: StatBlockDef = {
+  type: "StatBlock",
+  variant: "gradient",
+  stats: [
+    {
+      label: "Monthly Revenue",
+      value: 125_420,
+      prefix: "$",
+      trend: { value: 12.5, direction: "up", label: "vs last month" },
+      icon: "dollar",
+      color: "primary",
+      iconPosition: "top",
+    },
+    {
+      label: "Active Projects",
+      value: 42,
+      trend: { value: 8.2, direction: "up" },
+      icon: "rocket",
+      iconPosition: "top",
+    },
+    {
+      label: "Team Members",
+      value: 128,
+      trend: { value: 15.3, direction: "up" },
+      icon: "users",
+      iconPosition: "top",
+    },
+    {
+      label: "Performance Score",
+      value: 94.2,
+      suffix: "%",
+      trend: { value: 3.1, direction: "up" },
+      icon: "chart",
+      iconPosition: "top",
+    },
+  ],
+  columns: 4,
+  gap: "lg",
+  animated: true,
+};
+
+const glassVariant: StatBlockDef = {
+  type: "StatBlock",
+  variant: "glass",
+  stats: [
+    {
+      label: "Cloud Storage",
+      value: "2.4TB",
+      trend: { value: 25.0, direction: "up" },
+      icon: "cloud",
+      iconPosition: "top",
+    },
+    {
+      label: "API Calls",
+      value: "1.2M",
+      trend: { value: 18.5, direction: "up" },
+      icon: "globe",
+      iconPosition: "top",
+    },
+    {
+      label: "Uptime",
+      value: 99.98,
+      suffix: "%",
+      icon: "activity",
+      iconPosition: "top",
+    },
+  ],
+  columns: 3,
+  gap: "lg",
+  animated: true,
+};
+
+const modernVariant: StatBlockDef = {
+  type: "StatBlock",
+  variant: "modern",
+  stats: [
+    {
+      label: "Total Revenue",
+      value: 845_920,
+      prefix: "$",
+      trend: { value: 24.8, direction: "up", label: "YoY growth" },
+      icon: "dollar",
+      color: "primary",
+      description: "Revenue across all product lines",
+      iconPosition: "left",
+    },
+    {
+      label: "Customer Base",
+      value: 12_847,
+      trend: { value: 18.3, direction: "up", label: "new this quarter" },
+      icon: "users",
+      description: "Total active customers",
+      iconPosition: "left",
+    },
+    {
+      label: "Market Share",
+      value: 34.2,
+      suffix: "%",
+      trend: { value: 5.7, direction: "up" },
+      icon: "target",
+      color: "success",
+      description: "Industry market share",
+      iconPosition: "left",
+    },
+    {
+      label: "AI Accuracy",
+      value: 97.8,
+      suffix: "%",
+      trend: { value: 2.1, direction: "up" },
+      icon: "brain",
+      color: "secondary",
+      description: "Model prediction accuracy",
+      iconPosition: "left",
+    },
+  ],
+  columns: 2,
+  gap: "xl",
+  showDescription: true,
+  animated: true,
+  countUp: true,
+};
+
+const neonVariant: StatBlockDef = {
+  type: "StatBlock",
+  variant: "neon",
+  stats: [
+    {
+      label: "Live Users",
+      value: 3_842,
+      trend: { value: 45.2, direction: "up" },
+      icon: "users",
+      color: "primary",
+      iconPosition: "top",
+    },
+    {
+      label: "Stream Quality",
+      value: "4K",
+      icon: "eye",
+      color: "success",
+      iconPosition: "top",
+    },
+    {
+      label: "Response Time",
+      value: 12,
+      suffix: "ms",
+      trend: { value: -8.5, direction: "down" },
+      icon: "zap",
+      color: "warning",
+      iconPosition: "top",
+    },
+    {
+      label: "Success Rate",
+      value: 99.2,
+      suffix: "%",
+      icon: "sparkles",
+      color: "secondary",
+      iconPosition: "top",
+    },
+  ],
+  columns: 4,
+  gap: "lg",
+  animated: true,
+  countUp: true,
+};
+
 export function StatBlockShowcase() {
   return (
     <div className="space-y-8">
@@ -199,6 +364,30 @@ export function StatBlockShowcase() {
 
       <ShowcaseWrapper title="Cloud Infrastructure Monitoring" code={JSON.stringify(cloudInfrastructureStats, null, 2)}>
         {render(cloudInfrastructureStats)}
+      </ShowcaseWrapper>
+
+      <ShowcaseWrapper title="Gradient Variant - Modern Dashboard" code={JSON.stringify(gradientVariant, null, 2)}>
+        {render(gradientVariant)}
+      </ShowcaseWrapper>
+
+      <ShowcaseWrapper 
+        title="Glass Variant - Transparent Style" 
+        code={JSON.stringify(glassVariant, null, 2)}
+        className="bg-gradient-to-br from-purple-600 to-blue-600 p-8 rounded-lg"
+      >
+        {render(glassVariant)}
+      </ShowcaseWrapper>
+
+      <ShowcaseWrapper title="Modern Variant - Clean & Professional" code={JSON.stringify(modernVariant, null, 2)}>
+        {render(modernVariant)}
+      </ShowcaseWrapper>
+
+      <ShowcaseWrapper 
+        title="Neon Variant - Futuristic Style" 
+        code={JSON.stringify(neonVariant, null, 2)}
+        className="bg-gray-900 p-8 rounded-lg"
+      >
+        {render(neonVariant)}
       </ShowcaseWrapper>
 
       <ShowcaseWrapper 

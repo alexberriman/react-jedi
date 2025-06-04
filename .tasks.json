@@ -87,7 +87,7 @@
       {
         "id": "toast-background-zindex",
         "description": "Im not sure whaats going on with the Toast component, but when I click the buttons on storybook, the toasts show up, but they either have no bg, or z-index is messed up or something, as the button is over it or visible or something. Please invvestigate and fix.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "tabs-animate",

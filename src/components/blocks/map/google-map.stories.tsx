@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Map } from "./map";
+import { GoogleMap } from "./google-map";
 
 const meta = {
-  title: "Blocks/Map",
-  component: Map,
+  title: "Blocks/GoogleMap",
+  component: GoogleMap,
   parameters: {
     layout: "centered",
     docs: {
       description: {
-        component: "An interactive map block for displaying locations using Leaflet. Features clean, flat map styles and supports multiple variants including embedded maps, fullscreen views, and multi-location displays.",
+        component: "An interactive map block for displaying locations with Google Maps integration. Supports multiple variants including embedded maps, fullscreen views, and multi-location displays.",
       },
     },
   },
@@ -37,7 +37,7 @@ const meta = {
     },
     showMapTypeControls: {
       control: "boolean",
-      description: "Show map style toggle",
+      description: "Show map type toggle",
     },
     showFullscreenButton: {
       control: "boolean",
@@ -45,11 +45,11 @@ const meta = {
     },
     mapStyle: {
       control: "select",
-      options: ["flat", "streets", "outdoors", "satellite"],
+      options: ["roadmap", "satellite", "hybrid", "terrain"],
       description: "Map display style",
     },
   },
-} satisfies Meta<typeof Map>;
+} satisfies Meta<typeof GoogleMap>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -116,46 +116,19 @@ export const Default: Story = {
     zoom: 14,
     height: 400,
     markers: sampleMarkers,
-    mapStyle: "flat",
   },
 };
 
-export const FlatStyle: Story = {
+export const Embedded: Story = {
   args: {
     variant: "embedded",
     center: { lat: 40.7128, lng: -74.006 },
     zoom: 14,
     height: 450,
     markers: sampleMarkers,
-    mapStyle: "flat",
     showSearch: true,
     showZoomControls: true,
     showFullscreenButton: true,
-  },
-};
-
-export const StreetStyle: Story = {
-  args: {
-    variant: "embedded",
-    center: { lat: 40.7128, lng: -74.006 },
-    zoom: 14,
-    height: 450,
-    markers: sampleMarkers,
-    mapStyle: "streets",
-    showSearch: true,
-    showZoomControls: true,
-    showMapTypeControls: true,
-  },
-};
-
-export const SatelliteStyle: Story = {
-  args: {
-    center: { lat: 40.7128, lng: -74.006 },
-    zoom: 16,
-    height: 450,
-    mapStyle: "satellite",
-    markers: sampleMarkers,
-    showMapTypeControls: true,
   },
 };
 
@@ -169,7 +142,6 @@ export const WithSidebar: Story = {
     locations: sampleLocations,
     contactInfo: contactInfo,
     showSearch: true,
-    mapStyle: "flat",
   },
   parameters: {
     layout: "fullscreen",
@@ -185,7 +157,6 @@ export const Minimal: Story = {
     showSearch: false,
     showZoomControls: false,
     showFullscreenButton: false,
-    mapStyle: "flat",
   },
 };
 
@@ -199,7 +170,6 @@ export const MultiLocation: Story = {
     showSearch: true,
     showZoomControls: true,
     showMapTypeControls: true,
-    mapStyle: "flat",
   },
   parameters: {
     layout: "fullscreen",
@@ -214,7 +184,37 @@ export const WithCustomStyling: Story = {
     markers: sampleMarkers,
     className: "rounded-xl shadow-2xl",
     showMapTypeControls: true,
-    mapStyle: "flat",
+  },
+};
+
+export const SatelliteView: Story = {
+  args: {
+    center: { lat: 40.7128, lng: -74.006 },
+    zoom: 16,
+    height: 450,
+    mapStyle: "satellite",
+    markers: sampleMarkers,
+    showMapTypeControls: true,
+  },
+};
+
+export const ContactFormIntegration: Story = {
+  args: {
+    variant: "with-sidebar",
+    title: "Contact Us",
+    description: "Visit our office or get in touch online",
+    center: { lat: 40.7128, lng: -74.006 },
+    zoom: 15,
+    contactInfo: {
+      address: "123 Broadway, New York, NY 10006",
+      phone: "(212) 555-0100",
+      email: "contact@example.com",
+      hours: "Mon-Fri: 9AM-6PM",
+    },
+    markers: sampleMarkers,
+  },
+  parameters: {
+    layout: "fullscreen",
   },
 };
 
@@ -255,7 +255,6 @@ export const RestaurantLocations: Story = {
     ],
     showSearch: true,
     showMapTypeControls: true,
-    mapStyle: "flat",
   },
   parameters: {
     layout: "fullscreen",
@@ -298,7 +297,6 @@ export const StoreLocator: Story = {
     showSearch: true,
     showZoomControls: true,
     showFullscreenButton: true,
-    mapStyle: "flat",
   },
   parameters: {
     layout: "fullscreen",
@@ -319,7 +317,6 @@ export const SingleLocationMinimal: Story = {
         icon: "business" as const,
       },
     ],
-    mapStyle: "flat",
   },
 };
 
@@ -349,7 +346,6 @@ export const EventVenue: Story = {
     ],
     showMapTypeControls: false,
     showFullscreenButton: true,
-    mapStyle: "flat",
   },
 };
 
@@ -364,43 +360,6 @@ export const NoControls: Story = {
     showMapTypeControls: false,
     showFullscreenButton: false,
     enableScrollZoom: false,
-    mapStyle: "flat",
-  },
-};
-
-export const MarkerTypes: Story = {
-  args: {
-    center: { lat: 40.73, lng: -73.99 },
-    zoom: 13,
-    height: 450,
-    markers: [
-      {
-        id: "1",
-        position: { lat: 40.735, lng: -73.995 },
-        title: "Business Office",
-        icon: "business" as const,
-      },
-      {
-        id: "2",
-        position: { lat: 40.728, lng: -73.99 },
-        title: "Restaurant",
-        icon: "restaurant" as const,
-      },
-      {
-        id: "3",
-        position: { lat: 40.725, lng: -73.985 },
-        title: "Hotel",
-        icon: "hotel" as const,
-      },
-      {
-        id: "4",
-        position: { lat: 40.732, lng: -73.985 },
-        title: "Shopping Center",
-        icon: "shopping" as const,
-      },
-    ],
-    showZoomControls: true,
-    mapStyle: "flat",
   },
 };
 
@@ -409,7 +368,6 @@ export const LoadingState: Story = {
     center: { lat: 40.7128, lng: -74.006 },
     zoom: 14,
     height: 400,
-    mapStyle: "flat",
   },
   render: (args) => {
     return (
@@ -417,7 +375,7 @@ export const LoadingState: Story = {
         <div className="text-center text-muted-foreground">
           Map component with loading skeleton
         </div>
-        <Map {...args} />
+        <GoogleMap {...args} />
       </div>
     );
   },

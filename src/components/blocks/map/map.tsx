@@ -1,4 +1,6 @@
 import * as React from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { Button } from "../../ui/button";
@@ -19,6 +21,49 @@ import {
   MaximizeIcon,
   XIcon 
 } from "lucide-react";
+
+// Import Leaflet CSS
+import "leaflet/dist/leaflet.css";
+
+// Fix Leaflet icon issue with Webpack
+delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: () => string })._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
+});
+
+// Define custom icons for different marker types
+const createCustomIcon = (type: string) => {
+  const iconMap = {
+    default: "📍",
+    business: "🏢",
+    restaurant: "🍴",
+    hotel: "🏨",
+    shopping: "🛍️",
+  };
+
+  const emoji = iconMap[type as keyof typeof iconMap] || iconMap.default;
+
+  return L.divIcon({
+    html: `<div style="
+      background-color: white;
+      border: 2px solid #3B82F6;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    ">${emoji}</div>`,
+    iconSize: [36, 36],
+    iconAnchor: [18, 36],
+    popupAnchor: [0, -36],
+    className: "custom-div-icon",
+  });
+};
 
 export interface MapMarker {
   id: string;
@@ -58,7 +103,6 @@ export interface MapLocation {
 
 export interface MapProperties extends React.HTMLAttributes<HTMLDivElement> {
   readonly variant?: "embedded" | "fullscreen" | "with-sidebar" | "minimal" | "multi-location";
-  readonly googleMapsApiKey?: string;
   readonly center?: {
     lat: number;
     lng: number;
@@ -73,8 +117,7 @@ export interface MapProperties extends React.HTMLAttributes<HTMLDivElement> {
   readonly showFullscreenButton?: boolean;
   readonly enableScrollZoom?: boolean;
   readonly enableDragging?: boolean;
-  readonly mapStyle?: "roadmap" | "satellite" | "hybrid" | "terrain";
-  readonly customMapStyles?: Record<string, unknown>[];
+  readonly mapStyle?: "flat" | "streets" | "outdoors" | "satellite" | "custom";
   readonly title?: string;
   readonly description?: string;
   readonly contactInfo?: {
@@ -90,9 +133,139 @@ export interface MapProperties extends React.HTMLAttributes<HTMLDivElement> {
   readonly onLocationSelect?: (location: MapLocation) => void;
 }
 
+// Map control component for zoom buttons
+function MapControls({ 
+  showZoomControls, 
+  showMapTypeControls, 
+  showFullscreenButton,
+  onFullscreen,
+  currentStyle,
+  onStyleChange,
+  variant 
+}: {
+  readonly showZoomControls?: boolean;
+  readonly showMapTypeControls?: boolean;
+  readonly showFullscreenButton?: boolean;
+  readonly onFullscreen?: () => void;
+  readonly currentStyle?: string;
+  readonly onStyleChange?: (style: "flat" | "streets" | "outdoors" | "satellite" | "custom") => void;
+  readonly variant?: string;
+}) {
+  const map = useMap();
+
+  return (
+    <div className="absolute top-4 right-4 flex flex-col gap-2 z-[1000]">
+      {showZoomControls && (
+        <div className="bg-white rounded-lg shadow-lg p-1 flex flex-col">
+          <Button 
+            size="icon" 
+            variant="ghost" 
+            className="h-8 w-8"
+            aria-label="Zoom in"
+            onClick={() => map.zoomIn()}
+          >
+            <PlusIcon className="h-4 w-4" />
+          </Button>
+          <Button 
+            size="icon" 
+            variant="ghost" 
+            className="h-8 w-8"
+            aria-label="Zoom out"
+            onClick={() => map.zoomOut()}
+          >
+            <MinusIcon className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
+      
+      {showMapTypeControls && onStyleChange && (
+        <Button 
+          size="icon" 
+          variant="outline" 
+          className="bg-white shadow-lg"
+          onClick={() => onStyleChange(
+            currentStyle === "flat" ? "streets" : "flat"
+          )}
+          aria-label="Toggle map type"
+        >
+          <LayersIcon className="h-4 w-4" />
+        </Button>
+      )}
+      
+      {showFullscreenButton && variant !== "fullscreen" && onFullscreen && (
+        <Button 
+          size="icon" 
+          variant="outline" 
+          className="bg-white shadow-lg"
+          onClick={onFullscreen}
+          aria-label="View fullscreen"
+        >
+          <MaximizeIcon className="h-4 w-4" />
+        </Button>
+      )}
+    </div>
+  );
+}
+
+// Map search component
+function MapSearch({ searchQuery, onSearchChange, onSearchSubmit }: {
+  readonly searchQuery: string;
+  readonly onSearchChange: (value: string) => void;
+  readonly onSearchSubmit: (e: React.FormEvent) => void;
+}) {
+  return (
+    <form onSubmit={onSearchSubmit} className="absolute top-4 left-4 z-[1000]">
+      <div className="relative">
+        <Input
+          type="search"
+          placeholder="Search locations..."
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          className="w-64 pl-10 pr-4 bg-white shadow-lg"
+        />
+        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      </div>
+    </form>
+  );
+}
+
+// Get tile layer URL based on map style
+function getTileLayerUrl(style: string): string {
+  const tileProviders = {
+    flat: {
+      url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    },
+    streets: {
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+    outdoors: {
+      url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    },
+    satellite: {
+      url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+    },
+  };
+
+  return tileProviders[style as keyof typeof tileProviders]?.url || tileProviders.flat.url;
+}
+
+function getTileLayerAttribution(style: string): string {
+  const tileProviders = {
+    flat: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    streets: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    outdoors: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    satellite: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+  };
+
+  return tileProviders[style as keyof typeof tileProviders] || tileProviders.flat;
+}
+
 function MapBlock({
   variant = "embedded",
-  googleMapsApiKey,
   center = { lat: 40.7128, lng: -74.006 }, // Default to NYC
   zoom = 14,
   markers = [],
@@ -104,8 +277,7 @@ function MapBlock({
   showFullscreenButton = true,
   enableScrollZoom = true,
   enableDragging = true,
-  mapStyle = "roadmap",
-  customMapStyles,
+  mapStyle = "flat",
   title,
   description,
   contactInfo,
@@ -124,22 +296,9 @@ function MapBlock({
   
   // Simulated loading effect
   React.useEffect(() => {
-    const timer = globalThis.setTimeout(() => setIsLoading(false), 1000);
+    const timer = globalThis.setTimeout(() => setIsLoading(false), 500);
     return () => globalThis.clearTimeout(timer);
   }, []);
-
-  // Generate Google Maps iframe URL
-  const generateMapUrl = React.useCallback(() => {
-    const baseUrl = "https://www.google.com/maps/embed/v1/place";
-    const params = new URLSearchParams({
-      key: googleMapsApiKey || "",
-      q: `${center.lat},${center.lng}`,
-      zoom: zoom.toString(),
-      maptype: currentMapStyle
-    });
-    
-    return `${baseUrl}?${params.toString()}`;
-  }, [googleMapsApiKey, center, zoom, currentMapStyle]);
 
   // Handle location selection
   const handleLocationSelect = (location: MapLocation) => {
@@ -159,74 +318,6 @@ function MapBlock({
     const destination = `${location.position.lat},${location.position.lng}`;
     return `${directionsBaseUrl}?api=1&destination=${destination}`;
   };
-
-  // Render map controls
-  const renderControls = () => (
-    <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
-      {showZoomControls && (
-        <div className="bg-white rounded-lg shadow-lg p-1 flex flex-col">
-          <Button 
-            size="icon" 
-            variant="ghost" 
-            className="h-8 w-8"
-            aria-label="Zoom in"
-          >
-            <PlusIcon className="h-4 w-4" />
-          </Button>
-          <Button 
-            size="icon" 
-            variant="ghost" 
-            className="h-8 w-8"
-            aria-label="Zoom out"
-          >
-            <MinusIcon className="h-4 w-4" />
-          </Button>
-        </div>
-      )}
-      
-      {showMapTypeControls && (
-        <Button 
-          size="icon" 
-          variant="outline" 
-          className="bg-white shadow-lg"
-          onClick={() => setCurrentMapStyle(
-            currentMapStyle === "roadmap" ? "satellite" : "roadmap"
-          )}
-          aria-label="Toggle map type"
-        >
-          <LayersIcon className="h-4 w-4" />
-        </Button>
-      )}
-      
-      {showFullscreenButton && variant !== "fullscreen" && (
-        <Button 
-          size="icon" 
-          variant="outline" 
-          className="bg-white shadow-lg"
-          onClick={() => setIsFullscreen(true)}
-          aria-label="View fullscreen"
-        >
-          <MaximizeIcon className="h-4 w-4" />
-        </Button>
-      )}
-    </div>
-  );
-
-  // Render search bar
-  const renderSearchBar = () => (
-    <form onSubmit={handleSearch} className="absolute top-4 left-4 z-10">
-      <div className="relative">
-        <Input
-          type="search"
-          placeholder="Search locations..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-64 pl-10 pr-4 bg-white shadow-lg"
-        />
-        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-      </div>
-    </form>
-  );
 
   // Render sidebar content
   const renderSidebar = () => (
@@ -336,21 +427,130 @@ function MapBlock({
       return <Skeleton className="w-full h-full" />;
     }
 
-    // In a real implementation, this would render the actual Google Maps
-    // For now, we'll use an iframe as a fallback
     return (
-      <iframe
-        src={generateMapUrl()}
-        width="100%"
-        height="100%"
-        style={{ border: 0 }}
-        allowFullScreen
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        title="Interactive Map"
-        aria-label="Google Maps"
+      <MapContainer
+        center={[center.lat, center.lng]}
+        zoom={zoom}
+        scrollWheelZoom={enableScrollZoom}
+        dragging={enableDragging}
         className="w-full h-full"
-      />
+        zoomControl={false} // We'll use custom controls
+      >
+        <TileLayer
+          url={getTileLayerUrl(currentMapStyle)}
+          attribution={getTileLayerAttribution(currentMapStyle)}
+        />
+        
+        {/* Render markers */}
+        {markers.map((marker) => (
+          <Marker
+            key={marker.id}
+            position={[marker.position.lat, marker.position.lng]}
+            icon={createCustomIcon(marker.icon || "default")}
+            eventHandlers={{
+              click: () => onMarkerClick?.(marker),
+            }}
+          >
+            {(marker.title || marker.infoWindow) && (
+              <Popup>
+                <div className="p-2 min-w-[200px]">
+                  {marker.infoWindow?.image && (
+                    <img 
+                      src={marker.infoWindow.image} 
+                      alt={marker.infoWindow.title || marker.title}
+                      className="w-full h-32 object-cover rounded mb-2"
+                    />
+                  )}
+                  <h3 className="font-semibold text-sm mb-1">
+                    {marker.infoWindow?.title || marker.title}
+                  </h3>
+                  {(marker.infoWindow?.content || marker.description) && (
+                    <p className="text-xs text-muted-foreground mb-2">
+                      {marker.infoWindow?.content || marker.description}
+                    </p>
+                  )}
+                  {marker.infoWindow?.actions && (
+                    <div className="flex gap-2">
+                      {marker.infoWindow.actions.map((action, index) => (
+                        <Button
+                          key={index}
+                          size="sm"
+                          variant={index === 0 ? "default" : "outline"}
+                          className="text-xs"
+                          onClick={action.onClick}
+                          asChild={!!action.href}
+                        >
+                          {action.href ? (
+                            <a href={action.href} target="_blank" rel="noopener noreferrer">
+                              {action.label}
+                            </a>
+                          ) : (
+                            action.label
+                          )}
+                        </Button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Popup>
+            )}
+          </Marker>
+        ))}
+        
+        {/* Render location markers */}
+        {locations.map((location, index) => (
+          <Marker
+            key={`location-${index}`}
+            position={[location.position.lat, location.position.lng]}
+            icon={createCustomIcon("business")}
+            eventHandlers={{
+              click: () => handleLocationSelect(location),
+            }}
+          >
+            <Popup>
+              <div className="p-2 min-w-[200px]">
+                <h3 className="font-semibold text-sm mb-1">{location.name}</h3>
+                <p className="text-xs text-muted-foreground mb-1">{location.address}</p>
+                {location.phone && (
+                  <p className="text-xs mb-2">
+                    <PhoneIcon className="inline h-3 w-3 mr-1" />
+                    {location.phone}
+                  </p>
+                )}
+                <Button size="sm" variant="default" className="w-full text-xs" asChild>
+                  <a 
+                    href={getDirectionsUrl(location)} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Get Directions
+                  </a>
+                </Button>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+        
+        {/* Custom controls */}
+        <MapControls
+          showZoomControls={showZoomControls}
+          showMapTypeControls={showMapTypeControls}
+          showFullscreenButton={showFullscreenButton}
+          onFullscreen={() => setIsFullscreen(true)}
+          currentStyle={currentMapStyle}
+          onStyleChange={setCurrentMapStyle}
+          variant={variant}
+        />
+        
+        {/* Search bar */}
+        {showSearch && (
+          <MapSearch
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            onSearchSubmit={handleSearch}
+          />
+        )}
+      </MapContainer>
     );
   };
 
@@ -361,12 +561,10 @@ function MapBlock({
         return (
           <div className="fixed inset-0 z-50 bg-background">
             <div className="relative w-full h-full">
-              {showSearch && renderSearchBar()}
-              {renderControls()}
               <Button
                 size="icon"
                 variant="outline"
-                className="absolute top-4 right-4 z-10 bg-white shadow-lg"
+                className="absolute top-4 right-4 z-[1001] bg-white shadow-lg"
                 onClick={() => setIsFullscreen(false)}
                 aria-label="Exit fullscreen"
               >
@@ -383,8 +581,6 @@ function MapBlock({
           <div className="flex flex-col lg:flex-row h-full bg-background rounded-lg overflow-hidden shadow-lg">
             {renderSidebar()}
             <div className="relative flex-1 min-h-[400px]">
-              {showSearch && renderSearchBar()}
-              {renderControls()}
               {renderMapContent()}
             </div>
           </div>
@@ -403,8 +599,6 @@ function MapBlock({
         return (
           <div className="space-y-6">
             <div className="relative w-full rounded-lg overflow-hidden shadow-lg" style={{ height }}>
-              {showSearch && renderSearchBar()}
-              {renderControls()}
               {renderMapContent()}
             </div>
             {locations.length > 0 && (
@@ -449,8 +643,6 @@ function MapBlock({
             style={{ height }}
             {...props}
           >
-            {showSearch && renderSearchBar()}
-            {renderControls()}
             {renderMapContent()}
           </div>
         );
@@ -461,17 +653,33 @@ function MapBlock({
   // Handle fullscreen mode
   if (isFullscreen && variant !== "fullscreen") {
     return (
-      <Sheet open={isFullscreen} onOpenChange={setIsFullscreen}>
-        <SheetContent side="right" className="w-full sm:max-w-full p-0">
-          <SheetHeader className="sr-only">
-            <SheetTitle>Map View</SheetTitle>
-            <SheetDescription>Interactive map display</SheetDescription>
-          </SheetHeader>
-          <div className="h-full">
-            {renderMap()}
-          </div>
-        </SheetContent>
-      </Sheet>
+      <>
+        {renderMap()}
+        <Sheet open={isFullscreen} onOpenChange={setIsFullscreen}>
+          <SheetContent side="right" className="w-full sm:max-w-full p-0">
+            <SheetHeader className="sr-only">
+              <SheetTitle>Map View</SheetTitle>
+              <SheetDescription>Interactive map display</SheetDescription>
+            </SheetHeader>
+            <div className="h-full">
+              <div className="fixed inset-0 z-50 bg-background">
+                <div className="relative w-full h-full">
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    className="absolute top-4 right-4 z-[1001] bg-white shadow-lg"
+                    onClick={() => setIsFullscreen(false)}
+                    aria-label="Exit fullscreen"
+                  >
+                    <XIcon className="h-4 w-4" />
+                  </Button>
+                  {renderMapContent()}
+                </div>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </>
     );
   }
 

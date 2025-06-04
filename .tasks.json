@@ -122,7 +122,7 @@
       {
         "id": "maps",
         "description": "Can you rename the existing Map component to GoogleMap, and then create a new Map component using Leaflet. Make sure you include all of the variations/examples (stories, showcase page in example (./examples) app etc.), and make it look really clean and nice (I like flat style maps, so not the default leaflet). Update other components/blocks that use Map (renaming to GoogleMap) to now use the new Map (leaflet) component",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "page-hero-header",

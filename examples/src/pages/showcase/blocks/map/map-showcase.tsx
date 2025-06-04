@@ -174,7 +174,7 @@ const restaurantMap: ComponentSpec = {
         infoWindow: {
           title: "The Gourmet Kitchen",
           content: "Award-winning cuisine in the heart of Manhattan",
-          image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400",
+          image: "https://picsum.photos/400/300",
           actions: [
             { label: "Reserve Table", href: "#" },
             { label: "View Menu", href: "#" },
@@ -229,13 +229,13 @@ const eventVenueMap: ComponentSpec = {
 export function MapShowcase() {
   usePageMetadata({
     title: "Map - Interactive Location Display | React Jedi",
-    description: "Display interactive maps with custom markers, multiple locations, and various layout options using Google Maps integration.",
+    description: "Display interactive maps with custom markers, multiple locations, and various layout options using Leaflet with clean, flat map styles.",
   });
 
   return (
     <ShowcaseLayout
       title="Map"
-      description="An interactive map block for displaying locations with Google Maps integration. Supports multiple variants including embedded maps, fullscreen views, and multi-location displays."
+      description="An interactive map block for displaying locations using Leaflet. Features clean, flat map styles and supports multiple variants including embedded maps, fullscreen views, and multi-location displays."
       category="blocks"
     >
       <section className="space-y-12">

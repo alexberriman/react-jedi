@@ -206,7 +206,7 @@ const blockCategories: BlockCategory[] = [
       },
       {
         name: "Map",
-        description: "Interactive map block with Google Maps integration, custom markers, and multiple location displays.",
+        description: "Interactive map block with Leaflet featuring clean, flat map styles, custom markers, and multiple location displays.",
         status: "completed",
         path: "/showcase/blocks/map",
       },

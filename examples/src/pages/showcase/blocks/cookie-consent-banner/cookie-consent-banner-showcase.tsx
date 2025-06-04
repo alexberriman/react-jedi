@@ -83,6 +83,19 @@ const minimalSpec: ComponentSpec = {
   },
 };
 
+const getBannerPosition = (demo: string): string => {
+  if (demo === "top") {
+    return "top";
+  }
+  if (demo === "modal") {
+    return "center";
+  }
+  if (demo === "corner" || demo === "minimal") {
+    return "corner";
+  }
+  return "bottom";
+};
+
 export function CookieConsentBannerShowcasePage() {
   usePageMetadata({
     title: "Cookie Consent Banner - Component Blocks",
@@ -93,16 +106,21 @@ export function CookieConsentBannerShowcasePage() {
 
   const getDemoSpec = () => {
     switch (activeDemo) {
-      case "top":
+      case "top": {
         return topBarSpec;
-      case "modal":
+      }
+      case "modal": {
         return modalSpec;
-      case "corner":
+      }
+      case "corner": {
         return cornerPopupSpec;
-      case "minimal":
+      }
+      case "minimal": {
         return minimalSpec;
-      default:
+      }
+      default: {
         return bottomBannerSpec;
+      }
     }
   };
 
@@ -165,7 +183,7 @@ export function CookieConsentBannerShowcasePage() {
                     This is a demo page showing how the cookie consent banner appears on your website.
                   </p>
                   <p className="text-gray-600 dark:text-gray-400">
-                    The banner will appear at the {activeDemo === "top" ? "top" : activeDemo === "modal" ? "center" : activeDemo === "corner" || activeDemo === "minimal" ? "corner" : "bottom"} of the page.
+                    The banner will appear at the {getBannerPosition(activeDemo)} of the page.
                   </p>
                 </div>
                 {render(getDemoSpec())}

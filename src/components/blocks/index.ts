@@ -43,3 +43,4 @@ export * from "./announcement-bar";
 export * from "./error-page";
 export * from "./features";
 export * from "./event-listings";
+export * from "./location-hours";

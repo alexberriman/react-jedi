@@ -161,6 +161,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/portfolio-case-studies",
       },
+      {
+        name: "Location Hours",
+        description: "Display business hours, contact info, and location details with timezone support, status indicators, and multiple layout variants.",
+        status: "completed",
+        path: "/showcase/blocks/location-hours",
+      },
     ],
   },
   {
@@ -1840,6 +1846,56 @@ const blockPreviews: Record<string, ComponentSpec> = {
           status: "upcoming"
         }
       ]
+    }
+  },
+  "Location Hours": {
+    type: "LocationHours",
+    props: {
+      variant: "single-location",
+      locations: [
+        {
+          id: "downtown",
+          name: "Downtown Office",
+          description: "Our main office in the heart of the city",
+          businessHours: [
+            { day: "monday", openTime: "09:00", closeTime: "17:00", closed: false },
+            { day: "tuesday", openTime: "09:00", closeTime: "17:00", closed: false },
+            { day: "wednesday", openTime: "09:00", closeTime: "17:00", closed: false },
+            { day: "thursday", openTime: "09:00", closeTime: "17:00", closed: false },
+            { day: "friday", openTime: "09:00", closeTime: "17:00", closed: false },
+            { day: "saturday", openTime: "10:00", closeTime: "14:00", closed: false },
+            { day: "sunday", openTime: "00:00", closeTime: "00:00", closed: true }
+          ],
+          specialSchedules: [
+            {
+              date: "2024-12-25",
+              name: "Christmas Day",
+              closed: true,
+              message: "Closed for Christmas. Happy Holidays!"
+            }
+          ],
+          contact: {
+            phone: "+1 (555) 123-4567",
+            email: "downtown@company.com",
+            website: "https://company.com",
+            address: {
+              street: "123 Main Street",
+              city: "New York",
+              state: "NY",
+              zipCode: "10001",
+              country: "USA"
+            }
+          },
+          timezone: "America/New_York",
+          services: ["Consulting", "Support", "Training"],
+          appointmentBookingUrl: "https://company.com/book-appointment"
+        }
+      ],
+      showCurrentStatus: true,
+      showSpecialSchedules: true,
+      showContactInfo: true,
+      showServices: true,
+      showAppointmentBooking: true
     }
   },
 };

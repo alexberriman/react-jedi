@@ -832,6 +832,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.EventListings as unknown as React.ComponentType<Record<string, unknown>>,
       { events: [] } // Provide default required props
     ),
+    LocationHours: asComponent(
+      Blocks.LocationHours as unknown as React.ComponentType<Record<string, unknown>>,
+      { locations: [] } // Provide default required props
+    ),
+    "location-hours": asComponent(
+      Blocks.LocationHours as unknown as React.ComponentType<Record<string, unknown>>,
+      { locations: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

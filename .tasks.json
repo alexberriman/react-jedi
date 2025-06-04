@@ -197,7 +197,7 @@
       {
         "id": "location-hours-block",
         "description": "Create Location Hours block for business operating information. Variants: single location, multiple locations, minimal hours, detailed info cards, and map integration. Features: business hours, special schedules, holiday hours, contact information, and directions links. Add timezone support, current status indicators (open/closed), location search/filtering, and appointment booking integration. Include modern flat design with clear typography, interactive maps, and mobile-optimized layouts for service businesses.",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   }

@@ -318,6 +318,9 @@ const AnnouncementBarShowcasePage = lazy(() =>
 const EventListingsShowcase = lazy(() =>
   import("../pages/showcase/blocks/event-listings").then((module) => ({ default: module.EventListingsShowcase }))
 );
+const LocationHoursShowcase = lazy(() =>
+  import("../pages/showcase/blocks/location-hours").then((module) => ({ default: module.LocationHoursShowcasePage }))
+);
 const PortfolioCaseStudiesShowcase = lazy(() =>
   import("../pages/showcase/portfolio-case-studies").then((module) => ({ default: module.PortfolioCaseStudiesShowcase }))
 );
@@ -620,6 +623,10 @@ export const router = createBrowserRouter([
               {
                 path: "event-listings",
                 element: <AsyncRoute component={EventListingsShowcase} loadingText="Loading event listings showcase..." />,
+              },
+              {
+                path: "location-hours",
+                element: <AsyncRoute component={LocationHoursShowcase} loadingText="Loading location hours showcase..." />,
               },
             ],
           },

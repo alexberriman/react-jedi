@@ -7,7 +7,7 @@ import { FiHeart, FiShoppingCart, FiStar, FiCheck, FiX } from 'react-icons/fi'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 export interface ProductVariant {
   id: string
@@ -98,7 +98,6 @@ function ProductShowcase({
   const [wishlist, setWishlist] = React.useState<Set<string>>(new Set())
   const [selectedCategory, setSelectedCategory] = React.useState<string>('all')
   const [selectedVariants, setSelectedVariants] = React.useState<Record<string, Record<string, string>>>({})
-  const [hoveredProduct, setHoveredProduct] = React.useState<string | null>(null)
 
   const handleWishlistToggle = (product: Product) => {
     const newWishlist = new Set(wishlist)
@@ -158,16 +157,16 @@ function ProductShowcase({
   const ProductCard = ({ product }: { product: Product }) => {
     const isInWishlist = wishlist.has(product.id)
     const isOnSale = product.salePrice && product.salePrice < product.price
-    const isHovered = hoveredProduct === product.id
+    const [isHovered, setIsHovered] = React.useState(false)
 
     return (
       <motion.div
         initial={animated ? { opacity: 0, y: 20 } : false}
         animate={animated ? { opacity: 1, y: 0 } : false}
         whileHover={animated ? { y: -4 } : undefined}
-        transition={{ duration: 0.3 }}
-        onMouseEnter={() => setHoveredProduct(product.id)}
-        onMouseLeave={() => setHoveredProduct(null)}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <Card className={cn("overflow-hidden h-full", className)}>
           <div className="relative aspect-square overflow-hidden bg-gray-100">
@@ -177,13 +176,12 @@ function ProductShowcase({
               onClick={() => onProductClick?.(product)}
               aria-label={`View details for ${product.name}`}
             >
-              <img
+              <motion.img
                 src={product.image}
                 alt={product.name}
-                className={cn(
-                  "h-full w-full object-cover transition-transform duration-300",
-                  isHovered && "scale-110"
-                )}
+                className="h-full w-full object-cover"
+                animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               />
             </button>
             {product.badge && (
@@ -665,41 +663,38 @@ function ProductShowcase({
         </div>
       )}
 
-      <AnimatePresence mode="wait">
-        {variant === 'grid' && (
-          <motion.div
-            key="grid"
-            className={cn(
-              "grid gap-6",
-              `grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns}`
-            )}
-          >
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </motion.div>
-        )}
+      {variant === 'grid' && (
+        <div
+          className={cn(
+            "grid gap-6",
+            `grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns}`
+          )}
+        >
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
 
-        {variant === 'list' && (
-          <motion.div key="list" className="space-y-4">
-            {filteredProducts.map((product) => (
-              <ListView key={product.id} product={product} />
-            ))}
-          </motion.div>
-        )}
+      {variant === 'list' && (
+        <div className="space-y-4">
+          {filteredProducts.map((product) => (
+            <ListView key={product.id} product={product} />
+          ))}
+        </div>
+      )}
 
-        {variant === 'featured' && filteredProducts.length > 0 && (
-          <FeaturedProduct product={filteredProducts[0]} />
-        )}
+      {variant === 'featured' && filteredProducts.length > 0 && (
+        <FeaturedProduct product={filteredProducts[0]} />
+      )}
 
-        {variant === 'comparison' && (
-          <ComparisonTable />
-        )}
+      {variant === 'comparison' && (
+        <ComparisonTable />
+      )}
 
-        {variant === 'category' && (
-          <CategoryShowcase />
-        )}
-      </AnimatePresence>
+      {variant === 'category' && (
+        <CategoryShowcase />
+      )}
     </div>
   )
 }

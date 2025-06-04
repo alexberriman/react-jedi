@@ -172,7 +172,7 @@
       {
         "id": "product-showcase-flickering",
         "description": "The ProductShowcase component has a lot of really strange flickering going on. Can you investigate and fix. Quite a few images on this page 404 (storybooks) - can you make sure theyre using images from picsum.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "process-steps-line",

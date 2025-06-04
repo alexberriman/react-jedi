@@ -132,7 +132,7 @@
       {
         "id": "remove-menubar",
         "description": "I don't know what this MenuBar component is, but it sucks. Remove it, stories, remove it from the examples app, component map, docs, etc. Get rid of it.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "markdown-code",

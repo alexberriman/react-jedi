@@ -321,8 +321,6 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     ContextMenu: asComponent(
       UI.ContextMenu as unknown as React.ComponentType<Record<string, unknown>>
     ),
-    Menubar: asComponent(UI.Menubar as unknown as React.ComponentType<Record<string, unknown>>),
-    menubar: asComponent(UI.Menubar as unknown as React.ComponentType<Record<string, unknown>>),
     Toast: asComponent(UI.Toaster as unknown as React.ComponentType<Record<string, unknown>>),
     Toaster: asComponent(UI.Toaster as unknown as React.ComponentType<Record<string, unknown>>),
     Tooltip: asComponent(UI.Tooltip),

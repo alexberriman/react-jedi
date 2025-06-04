@@ -456,12 +456,6 @@ const categories: ComponentCategory[] = [
         type: "shadcn",
       },
       {
-        name: "Menubar",
-        description: "Application menubar with dropdown menus.",
-        status: "completed",
-        type: "shadcn",
-      },
-      {
         name: "NavigationMenu",
         description: "Horizontal navigation menu with dropdowns.",
         status: "completed",
@@ -814,7 +808,6 @@ export function ShowcasePage() {
                         component.name === "Chart" ||
                         component.name === "Drawer" ||
                         component.name === "DropdownMenu" ||
-                        component.name === "Menubar" ||
                         component.name === "Command" ||
                         component.name === "Calendar" ||
                         component.name === "DatePicker" ||
@@ -2040,39 +2033,6 @@ const componentPreviews: Record<string, ComponentSpec> = {
           { type: "ContextMenuItem", children: "Paste" },
           { type: "ContextMenuSeparator" },
           { type: "ContextMenuItem", children: "Delete" },
-        ],
-      },
-    ],
-  },
-  Menubar: {
-    type: "Menubar",
-    children: [
-      {
-        type: "MenubarMenu",
-        children: [
-          { type: "MenubarTrigger", children: "File" },
-          {
-            type: "MenubarContent",
-            children: [
-              { type: "MenubarItem", children: "New" },
-              { type: "MenubarItem", children: "Open" },
-              { type: "MenubarSeparator" },
-              { type: "MenubarItem", children: "Exit" },
-            ],
-          },
-        ],
-      },
-      {
-        type: "MenubarMenu",
-        children: [
-          { type: "MenubarTrigger", children: "Edit" },
-          {
-            type: "MenubarContent",
-            children: [
-              { type: "MenubarItem", children: "Undo" },
-              { type: "MenubarItem", children: "Redo" },
-            ],
-          },
         ],
       },
     ],

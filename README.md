@@ -183,7 +183,7 @@ React Jedi includes 50+ production-ready components:
 `Table` `DataTable` `Chart` `Tabs` `Carousel` `PricingTable` `Testimonial`
 
 ### Navigation
-`NavigationMenu` `Breadcrumb` `Pagination` `Menubar`
+`NavigationMenu` `Breadcrumb` `Pagination`
 
 View all components with live examples in our [interactive showcase](./examples).
 

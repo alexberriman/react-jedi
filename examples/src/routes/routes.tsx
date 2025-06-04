@@ -204,9 +204,6 @@ const DropdownMenuShowcase = lazy(() =>
 const ContextMenuShowcase = lazy(() =>
   import("../pages/showcase/context-menu").then((module) => ({ default: module.ContextMenuShowcase }))
 );
-const MenubarShowcase = lazy(() =>
-  import("../pages/showcase/menubar").then((module) => ({ default: module.MenubarShowcase }))
-);
 const BreadcrumbShowcase = lazy(() =>
   import("../pages/showcase/breadcrumb").then((module) => ({ default: module.BreadcrumbShowcase }))
 );
@@ -903,10 +900,6 @@ export const router = createBrowserRouter([
           {
             path: "context-menu",
             element: <AsyncRoute component={ContextMenuShowcase} loadingText="Loading context menu showcase..." />,
-          },
-          {
-            path: "menubar",
-            element: <AsyncRoute component={MenubarShowcase} loadingText="Loading menubar showcase..." />,
           },
           {
             path: "portfolio-case-studies",

@@ -117,16 +117,6 @@ export type {
 } from "./dropdown-menu";
 export type { ContextMenuComponentSpec, ContextMenuItemSpec } from "./context-menu";
 export type {
-  MenubarComponent,
-  MenubarMenuSpec,
-  MenubarItemSpec,
-  MenubarSubmenuSpec,
-  MenubarCheckboxItemSpec,
-  MenubarRadioGroupSpec,
-  MenubarRadioItemSpec,
-  MenubarSeparatorSpec,
-} from "./menubar";
-export type {
   PopoverSpec,
   PopoverTriggerSpec,
   PopoverContentSpec,

@@ -8,10 +8,10 @@ const blockquoteVariants = cva(
     variants: {
       variant: {
         default: "border-border bg-background text-foreground",
-        primary: "border-primary/80 bg-primary/5 text-primary",
-        secondary: "border-secondary/80 bg-secondary/5 text-secondary",
-        accent: "border-accent/80 bg-accent/5 text-accent",
-        muted: "border-muted bg-muted/10 text-muted-foreground",
+        primary: "border-primary/80 bg-primary/5 text-primary-foreground",
+        secondary: "border-secondary/80 bg-secondary/10 text-secondary-foreground",
+        accent: "border-accent/80 bg-accent/10 text-accent-foreground",
+        muted: "border-muted bg-muted/20 text-muted-foreground",
         destructive: "border-destructive/80 bg-destructive/5 text-destructive",
       },
       size: {

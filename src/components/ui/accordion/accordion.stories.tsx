@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { Zap, Shield, Palette } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { render } from "@/lib/render";
 
@@ -392,4 +393,114 @@ export const ServerDrivenMultiple: Story = {
 
     return render(spec) || <></>;
   },
+};
+
+export const ModernDesign: Story = {
+  name: "Modern Design Example",
+  args: {
+    type: "single",
+    collapsible: true,
+    className: "w-[500px]",
+  },
+  render: (args) => (
+    <div className="space-y-4">
+      <h3 className="text-lg font-semibold mb-4">Frequently Asked Questions</h3>
+      <Accordion {...args}>
+        <AccordionItem value="item-1">
+          <AccordionTrigger className="text-left hover:no-underline">
+            What makes React Jedi different from other UI libraries?
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="leading-relaxed text-muted-foreground">
+              React Jedi stands out with its server-driven UI approach, allowing you to build entire 
+              interfaces using JSON specifications. It offers zero lock-in architecture, meaning you 
+              can import only what you need, and provides advanced features like reactive state 
+              management and theme inheritance directly within JSON.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2">
+          <AccordionTrigger className="text-left hover:no-underline">
+            How does the animation system work?
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="leading-relaxed text-muted-foreground">
+              Our animation system is built on Framer Motion, providing smooth, performant animations 
+              out of the box. All components support an `animated` prop that can be toggled on/off, 
+              and animations respect user preferences for reduced motion.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-3">
+          <AccordionTrigger className="text-left hover:no-underline">
+            Can I customize the theme and styling?
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="leading-relaxed text-muted-foreground">
+              Absolutely! React Jedi uses TailwindCSS for styling and supports comprehensive theme 
+              customization. You can override default styles, create custom variants, and even define 
+              your own design tokens. The theme system supports both light and dark modes automatically.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  ),
+};
+
+export const IconAccordion: Story = {
+  name: "With Icons",
+  args: {
+    type: "single",
+    collapsible: true,
+    className: "w-[500px]",
+  },
+  render: (args) => (
+    <Accordion {...args}>
+        <AccordionItem value="performance">
+          <AccordionTrigger className="text-left hover:no-underline">
+            <span className="flex items-center gap-3">
+              <Zap className="size-5 text-primary" />
+              <span>Lightning Fast Performance</span>
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="leading-relaxed text-muted-foreground ml-8">
+              Built with performance in mind, React Jedi leverages modern optimization techniques 
+              including code splitting, lazy loading, and efficient re-rendering to ensure your 
+              applications run smoothly even at scale.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="security">
+          <AccordionTrigger className="text-left hover:no-underline">
+            <span className="flex items-center gap-3">
+              <Shield className="size-5 text-primary" />
+              <span>Enterprise-Grade Security</span>
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="leading-relaxed text-muted-foreground ml-8">
+              Security is built into every layer of React Jedi. From XSS protection to secure 
+              prop sanitization, we ensure your applications are protected against common vulnerabilities.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="customization">
+          <AccordionTrigger className="text-left hover:no-underline">
+            <span className="flex items-center gap-3">
+              <Palette className="size-5 text-primary" />
+              <span>Fully Customizable Design</span>
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="leading-relaxed text-muted-foreground ml-8">
+              Every component is designed to be customizable. Use our pre-built themes or create 
+              your own. With support for CSS variables, Tailwind utilities, and component variants, 
+              the design possibilities are endless.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+  ),
 };

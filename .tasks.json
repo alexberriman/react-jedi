@@ -7,7 +7,7 @@
       {
         "id": "accordion-component",
         "description": "The Accordion component looks quite awful. When you hover it goes a dark gray? Is this our theme or default styles. It should look a lot nicer, cleaner, modern. When you hover over one, the text also jumps to the right as though there is a padding change, and has underlined text on hover (shouldnt). When you expand/minimize it jumps around a lot and looks awful, should be a lot smoother using framer. Overall, this component should be a lot nicer, cleaner, modern, beautiful.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "alert-dialog-component",
@@ -17,12 +17,12 @@
       {
         "id": "alert-component",
         "description": "Can you update the styles/ui of the Alert component to look a lot nicer, cleaner, more modern. It looks a bit dated.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "blockquote-component",
         "description": "The BlockQuote component has a couple of variants where the text is barely legible (its the 3rd and 4th in the variants story). Can you make sure in all variants the text is clearly legible relative to the bg color.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "button-component",

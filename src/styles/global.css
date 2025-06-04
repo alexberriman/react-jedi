@@ -412,6 +412,29 @@
   }
 }
 
+/* Accordion Animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
 /* ========== Animation Classes ========== */
 
 .animate-fadeIn {
@@ -521,6 +544,14 @@
 
 .animate-slide-in-from-bottom-4 {
   animation: slide-in-from-bottom-4 0.5s ease-out forwards;
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.3s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.3s ease-out;
 }
 
 /* Generic animate-in with modifiers */

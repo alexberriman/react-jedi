@@ -18,7 +18,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "destructive"],
+      options: ["default", "destructive", "info", "warning", "success"],
       description: "The visual style variant of the alert",
     },
     className: {
@@ -101,11 +101,11 @@ export const WithoutIcon: Story = {
 
 export const InfoAlert: Story = {
   render: () => (
-    <Alert className="border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950">
-      <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-      <AlertTitle className="text-blue-900 dark:text-blue-100">Information</AlertTitle>
-      <AlertDescription className="text-blue-700 dark:text-blue-300">
-        This is an informational alert using custom colors.
+    <Alert variant="info">
+      <Info className="h-4 w-4" />
+      <AlertTitle>Information</AlertTitle>
+      <AlertDescription>
+        This is an informational alert with the new info variant.
       </AlertDescription>
     </Alert>
   ),
@@ -113,10 +113,10 @@ export const InfoAlert: Story = {
 
 export const WarningAlert: Story = {
   render: () => (
-    <Alert className="border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950">
-      <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-      <AlertTitle className="text-yellow-900 dark:text-yellow-100">Warning</AlertTitle>
-      <AlertDescription className="text-yellow-700 dark:text-yellow-300">
+    <Alert variant="warning">
+      <AlertTriangle className="h-4 w-4" />
+      <AlertTitle>Warning</AlertTitle>
+      <AlertDescription>
         This is a warning alert that requires user attention.
       </AlertDescription>
     </Alert>
@@ -125,10 +125,10 @@ export const WarningAlert: Story = {
 
 export const SuccessAlert: Story = {
   render: () => (
-    <Alert className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950">
-      <AlertCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
-      <AlertTitle className="text-green-900 dark:text-green-100">Success</AlertTitle>
-      <AlertDescription className="text-green-700 dark:text-green-300">
+    <Alert variant="success">
+      <AlertCircle className="h-4 w-4" />
+      <AlertTitle>Success</AlertTitle>
+      <AlertDescription>
         Your changes have been saved successfully.
       </AlertDescription>
     </Alert>
@@ -273,26 +273,26 @@ export const Showcase: Story = {
         <AlertDescription>This alert indicates an error or critical issue.</AlertDescription>
       </Alert>
 
-      <Alert className="border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950">
-        <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-        <AlertTitle className="text-blue-900 dark:text-blue-100">Info Alert</AlertTitle>
-        <AlertDescription className="text-blue-700 dark:text-blue-300">
+      <Alert variant="info">
+        <Info className="h-4 w-4" />
+        <AlertTitle>Info Alert</AlertTitle>
+        <AlertDescription>
           This is an informational alert.
         </AlertDescription>
       </Alert>
 
-      <Alert className="border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950">
-        <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-        <AlertTitle className="text-yellow-900 dark:text-yellow-100">Warning Alert</AlertTitle>
-        <AlertDescription className="text-yellow-700 dark:text-yellow-300">
+      <Alert variant="warning">
+        <AlertTriangle className="h-4 w-4" />
+        <AlertTitle>Warning Alert</AlertTitle>
+        <AlertDescription>
           This is a warning alert.
         </AlertDescription>
       </Alert>
 
-      <Alert className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950">
-        <AlertCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
-        <AlertTitle className="text-green-900 dark:text-green-100">Success Alert</AlertTitle>
-        <AlertDescription className="text-green-700 dark:text-green-300">
+      <Alert variant="success">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>Success Alert</AlertTitle>
+        <AlertDescription>
           This is a success alert.
         </AlertDescription>
       </Alert>

@@ -1,0 +1,1 @@
+export { ErrorPageShowcase as default } from './error-page-showcase';

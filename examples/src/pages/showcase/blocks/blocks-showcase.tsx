@@ -281,6 +281,19 @@ const blockCategories: BlockCategory[] = [
       },
     ],
   },
+  {
+    id: "pages",
+    title: "Page Templates",
+    description: "Complete page templates for common scenarios.",
+    blocks: [
+      {
+        name: "Error Page",
+        description: "Customizable error pages for 404, 500, maintenance, and coming soon scenarios. Features search, popular links, animations, and clear recovery paths.",
+        status: "completed",
+        path: "/showcase/blocks/error-page",
+      },
+    ],
+  },
 ];
 
 // Dropdown component for filters
@@ -1684,6 +1697,37 @@ const blockPreviews: Record<string, ComponentSpec> = {
             colorScheme: "info",
             sticky: false,
             animated: true
+          }
+        }
+      ]
+    }
+  },
+  "Error Page": {
+    type: "Box",
+    props: {
+      className: "relative bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden",
+      children: [
+        {
+          type: "ErrorPage",
+          props: {
+            variant: "friendly-404",
+            title: "Oops! Page Not Found",
+            description: "The page you're looking for seems to have wandered off. Don't worry, we'll help you find your way back.",
+            showIcon: true,
+            homeLink: "#",
+            homeLinkText: "Return Home",
+            contactEmail: "support@example.com",
+            contactText: "Contact Support",
+            searchConfig: {
+              enabled: true,
+              placeholder: "Search for pages...",
+            },
+            popularLinks: [
+              { label: "Documentation", href: "#docs", description: "Browse our guides" },
+              { label: "Support", href: "#support", description: "Get help from our team" },
+              { label: "Status", href: "#status", description: "Check system status" },
+            ],
+            animated: true,
           }
         }
       ]

@@ -182,7 +182,7 @@
       {
         "id": "error-page-block",
         "description": "Create Error Page block for 404/500 pages. Variants: friendly 404, technical error, maintenance mode, coming soon, and search suggestions. Features: error illustrations, helpful navigation, search functionality, popular pages links, and contact information. Add animated graphics, breadcrumb trails, and return-to-home options. Include modern error page design with engaging visuals and clear recovery paths.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "features-block",

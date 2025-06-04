@@ -18,6 +18,7 @@ export function TabsShowcase() {
   const tocItems = [
     { id: "overview", label: "Overview" },
     { id: "basic", label: "Basic Tabs" },
+    { id: "animations", label: "Animations" },
     { id: "default-tab", label: "Default Tab Selection" },
     { id: "vertical", label: "Vertical Tabs" },
     { id: "disabled", label: "Disabled Tabs" },
@@ -1029,6 +1030,147 @@ export function TabsShowcase() {
             </details>
           </section>
 
+          {/* Animations Section */}
+          <section id="animations" className="scroll-mt-20">
+            <h2 className="text-2xl font-semibold mb-4">Animations</h2>
+            <div className="prose prose-gray dark:prose-invert max-w-none">
+              <p>
+                The tabs component now features smooth animations by default, creating a more polished user experience:
+              </p>
+              <ul className="list-disc pl-6 space-y-1 mt-4">
+                <li><strong>Sliding indicator:</strong> A smooth sliding background that follows the active tab</li>
+                <li><strong>Content transitions:</strong> Tab content fades in with a subtle upward motion</li>
+                <li><strong>Hover states:</strong> Gentle color transitions on tab hover</li>
+              </ul>
+              <p className="mt-4">
+                To disable animations, simply set the <code>animate</code> prop to <code>false</code>. This is useful for:
+              </p>
+              <ul className="list-disc pl-6 space-y-1">
+                <li>Reduced motion preferences</li>
+                <li>Performance-critical applications</li>
+                <li>Testing environments</li>
+              </ul>
+              <h3 className="text-lg font-medium mt-6 mb-3">With Animations (Default)</h3>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Tabs",
+                  defaultValue: "tab1",
+                  animate: true,
+                  className: "w-full max-w-md",
+                  children: [
+                    {
+                      type: "TabsList",
+                      className: "grid w-full grid-cols-3",
+                      children: [
+                        { type: "TabsTrigger", value: "tab1", children: "Profile" },
+                        { type: "TabsTrigger", value: "tab2", children: "Settings" },
+                        { type: "TabsTrigger", value: "tab3", children: "Billing" },
+                      ],
+                    },
+                    {
+                      type: "TabsContent",
+                      value: "tab1",
+                      children: {
+                        type: "Card",
+                        children: [
+                          {
+                            type: "CardHeader",
+                            children: { type: "CardTitle", children: "Profile Information" },
+                          },
+                          {
+                            type: "CardContent",
+                            children: { type: "Text", children: "Update your profile details and preferences here." },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      type: "TabsContent",
+                      value: "tab2",
+                      children: {
+                        type: "Card",
+                        children: [
+                          {
+                            type: "CardHeader",
+                            children: { type: "CardTitle", children: "Settings" },
+                          },
+                          {
+                            type: "CardContent",
+                            children: { type: "Text", children: "Configure your application settings." },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      type: "TabsContent",
+                      value: "tab3",
+                      children: {
+                        type: "Card",
+                        children: [
+                          {
+                            type: "CardHeader",
+                            children: { type: "CardTitle", children: "Billing & Payments" },
+                          },
+                          {
+                            type: "CardContent",
+                            children: { type: "Text", children: "Manage your subscription and payment methods." },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                })}
+              </div>
+              <h3 className="text-lg font-medium mt-6 mb-3">Without Animations</h3>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Tabs",
+                  defaultValue: "tab1",
+                  animate: false,
+                  className: "w-full max-w-md",
+                  children: [
+                    {
+                      type: "TabsList",
+                      className: "grid w-full grid-cols-3",
+                      children: [
+                        { type: "TabsTrigger", value: "tab1", children: "Profile" },
+                        { type: "TabsTrigger", value: "tab2", children: "Settings" },
+                        { type: "TabsTrigger", value: "tab3", children: "Billing" },
+                      ],
+                    },
+                    {
+                      type: "TabsContent",
+                      value: "tab1",
+                      children: {
+                        type: "Text",
+                        className: "p-4 text-center",
+                        children: "Instant transitions without animations",
+                      },
+                    },
+                    {
+                      type: "TabsContent",
+                      value: "tab2",
+                      children: {
+                        type: "Text",
+                        className: "p-4 text-center",
+                        children: "Perfect for reduced motion preferences",
+                      },
+                    },
+                    {
+                      type: "TabsContent",
+                      value: "tab3",
+                      children: {
+                        type: "Text",
+                        className: "p-4 text-center",
+                        children: "Clean and simple tab switching",
+                      },
+                    },
+                  ],
+                })}
+              </div>
+            </div>
+          </section>
+
           {/* Default Tab Section */}
           <section id="default-tab" className="scroll-mt-20">
             <h2 className="text-2xl font-semibold mb-4">Default Tab Selection</h2>
@@ -1200,6 +1342,12 @@ export function TabsShowcase() {
                     <td className="py-3 px-4 font-mono">&quot;automatic&quot; | &quot;manual&quot;</td>
                     <td className="py-3 px-4">&quot;automatic&quot;</td>
                     <td className="py-3 px-4">How tabs are activated with keyboard</td>
+                  </tr>
+                  <tr className="border-b border-gray-200 dark:border-gray-800">
+                    <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">animate</td>
+                    <td className="py-3 px-4 font-mono">boolean</td>
+                    <td className="py-3 px-4">true</td>
+                    <td className="py-3 px-4">Enable/disable animations for tab transitions</td>
                   </tr>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">className</td>

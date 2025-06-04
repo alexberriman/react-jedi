@@ -9,10 +9,17 @@ function Popover({ ...props }: Readonly<React.ComponentProps<typeof PopoverPrimi
 }
 
 function PopoverTrigger({
+  className,
   ...props
 }: Readonly<React.ComponentProps<typeof PopoverPrimitive.Trigger>>) {
   const cleanProps = cleanDOMProps(props);
-  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...cleanProps} />;
+  return (
+    <PopoverPrimitive.Trigger 
+      data-slot="popover-trigger" 
+      className={cn(className)}
+      {...cleanProps} 
+    />
+  );
 }
 
 function PopoverContent({

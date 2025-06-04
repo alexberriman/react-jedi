@@ -77,7 +77,7 @@
       {
         "id": "datepicker-flicker",
         "description": "When I first load the Dialog stories, all of the buttons (Pick a date) 'flicker' - theyre visible, then go invisible and back to visible. Please fix.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "collapsible-flicker",

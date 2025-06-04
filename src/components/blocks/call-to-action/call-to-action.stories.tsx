@@ -422,10 +422,10 @@ export const NewsletterCustomForm: Story = {
       <div className="mt-8 max-w-lg mx-auto">
         <form className="space-y-4">
           <div className="flex gap-4">
-            <Input type="text" placeholder="First name" className="flex-1" />
-            <Input type="text" placeholder="Last name" className="flex-1" />
+            <Input type="text" placeholder="First name" className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60" />
+            <Input type="text" placeholder="Last name" className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60" />
           </div>
-          <Input type="email" placeholder="Email address" />
+          <Input type="email" placeholder="Email address" className="bg-white/10 border-white/20 text-white placeholder:text-white/60" />
           <div className="flex items-start gap-2">
             <input type="checkbox" id="terms" className="mt-1" />
             <label htmlFor="terms" className="text-sm opacity-80">

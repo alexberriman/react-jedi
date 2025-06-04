@@ -458,9 +458,9 @@ const CTAActions = ({
     <div
       className={cn(
         "mt-8 flex flex-col sm:flex-row gap-4",
-        align === "center" && "justify-center",
-        align === "right" && "justify-end",
-        align === "left" && "justify-start"
+        align === "center" && "justify-center items-center sm:items-stretch",
+        align === "right" && "justify-end items-end sm:items-stretch",
+        align === "left" && "justify-start items-start sm:items-stretch"
       )}
     >
       {primaryAction && (

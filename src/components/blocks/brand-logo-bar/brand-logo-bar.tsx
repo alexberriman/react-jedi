@@ -19,6 +19,7 @@ export interface BrandLogoBarProperties {
   readonly logos: Logo[]
   readonly variant?: 'scrolling' | 'grid' | 'withHeading' | 'grayscale' | 'compact'
   readonly heading?: string
+  readonly headingPosition?: 'above' | 'left'
   readonly size?: 'small' | 'medium' | 'large'
   readonly spacing?: 'tight' | 'normal' | 'loose'
   readonly pauseOnHover?: boolean
@@ -42,17 +43,18 @@ const spacingMap = {
 }
 
 const columnsMap = {
-  2: 'grid-cols-2',
-  3: 'grid-cols-3',
-  4: 'grid-cols-4 sm:grid-cols-2',
-  5: 'grid-cols-5 sm:grid-cols-3',
-  6: 'grid-cols-6 sm:grid-cols-3 md:grid-cols-4'
+  2: 'grid-cols-1 sm:grid-cols-2',
+  3: 'grid-cols-2 sm:grid-cols-3',
+  4: 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',
+  5: 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5',
+  6: 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'
 }
 
 function BrandLogoBar({
   logos,
   variant = 'grid',
   heading = 'Trusted by leading companies',
+  headingPosition = 'above',
   size = 'medium',
   spacing = 'normal',
   pauseOnHover = true,
@@ -73,23 +75,29 @@ function BrandLogoBar({
     const logoElement = (
       <Box
         className={cn(
-          'flex items-center justify-center transition-all duration-300',
-          variant === 'grayscale' && 'grayscale hover:grayscale-0',
-          variant === 'compact' ? 'p-2' : 'p-4'
+          'relative flex items-center justify-center overflow-hidden transition-all duration-300 ease-out',
+          variant === 'compact' ? 'p-2' : 'p-4',
+          'rounded-lg'
         )}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Image
-          src={logoSrc}
-          alt={logo.name}
-          width={logo.width || logoSize.width}
-          height={logo.height || logoSize.height}
+        <Box
           className={cn(
-            'object-contain transition-all duration-300',
-            isHovered && animated && 'scale-110'
+            'transition-all duration-300 ease-out',
+            variant === 'grayscale' && 'grayscale',
+            variant === 'grayscale' && isHovered && 'grayscale-0',
+            animated && isHovered && !variant.includes('grayscale') && 'scale-105'
           )}
-        />
+        >
+          <Image
+            src={logoSrc}
+            alt={logo.name}
+            width={logo.width || logoSize.width}
+            height={logo.height || logoSize.height}
+            className="object-contain w-full h-full"
+          />
+        </Box>
       </Box>
     )
 
@@ -116,12 +124,12 @@ function BrandLogoBar({
     
     return (
       <Box
-        className="relative overflow-hidden"
+        className="relative overflow-hidden py-4"
         onMouseEnter={() => pauseOnHover && setIsPaused(true)}
         onMouseLeave={() => pauseOnHover && setIsPaused(false)}
       >
         <motion.div
-          className={cn('flex', spacingMap[spacing])}
+          className={cn('flex', spacingMap[spacing], 'w-max')}
           animate={{
             x: isPaused ? 0 : '-50%'
           }}
@@ -135,7 +143,9 @@ function BrandLogoBar({
           }}
         >
           {duplicatedLogos.map((logo, index) => (
-            <LogoItem key={`${logo.id}-${index}`} logo={logo} index={index} />
+            <Box key={`${logo.id}-${index}`} className="flex-shrink-0">
+              <LogoItem logo={logo} index={index} />
+            </Box>
           ))}
         </motion.div>
       </Box>
@@ -165,6 +175,35 @@ function BrandLogoBar({
     return <GridLayout />
   }
 
+  const headingElement = (variant === 'withHeading' || heading) && (
+    <Text
+      className={cn(
+        'text-sm font-medium text-muted-foreground',
+        headingPosition === 'above' ? 'text-center mb-8' : 'flex-shrink-0'
+      )}
+      element="p"
+    >
+      {heading}
+    </Text>
+  )
+
+  if (headingPosition === 'left' && headingElement) {
+    return (
+      <Box
+        className={cn(
+          'py-8 md:py-12',
+          className
+        )}
+        {...properties}
+      >
+        <Box className="flex items-center gap-8">
+          {headingElement}
+          {renderContent()}
+        </Box>
+      </Box>
+    )
+  }
+
   return (
     <Box
       className={cn(
@@ -173,14 +212,7 @@ function BrandLogoBar({
       )}
       {...properties}
     >
-      {(variant === 'withHeading' || heading) && (
-        <Text
-          className="text-center text-sm font-medium text-muted-foreground mb-8"
-          element="p"
-        >
-          {heading}
-        </Text>
-      )}
+      {headingElement}
       {renderContent()}
     </Box>
   )

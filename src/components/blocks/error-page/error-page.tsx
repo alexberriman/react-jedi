@@ -154,17 +154,6 @@ export function ErrorPage({
     },
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut',
-      },
-    },
-  }
 
   const iconVariants = {
     hidden: { scale: 0, rotate: -180 },
@@ -290,7 +279,7 @@ export function ErrorPage({
   }
 
   const content = (
-    <div className={cn('min-h-[60vh] flex items-center justify-center p-4', className)} {...properties}>
+    <div className={cn('min-h-[60vh] w-full flex items-center justify-center p-4', className)} {...properties}>
       <div className="max-w-2xl w-full text-center">
         {renderBreadcrumb()}
         
@@ -374,15 +363,12 @@ export function ErrorPage({
 
   return (
     <motion.div
+      className="w-full"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      {React.Children.map(content.props.children, (child, index) => (
-        <motion.div key={index} variants={itemVariants}>
-          {child}
-        </motion.div>
-      ))}
+      {content}
     </motion.div>
   )
 }

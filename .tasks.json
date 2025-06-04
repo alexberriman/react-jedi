@@ -72,17 +72,17 @@
       {
         "id": "brandlogo-bar",
         "description": "The BrandLogoBar component looks awful. Can you use placeholder images from picsum.photos. When you mouse over, it jumps, etc. looks really awful. This is meant to be the component that is often put under a page hero section, where there is generally either a static list of logos, or scrolling list, common variations inlude grayscale, zoom on hover, sometimes there is a title either above, to left (e.g. Trusted by Top Companies). e.g. https://i.imgur.com/B8kS8Rd.png - can you make sure this component works as expected.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "call-to-action",
         "description": "The CallToAction component has buttons towards the bottom (i.e. Start Free Trial ->, Watch Demo). These should be centered horizontally in the default state, however they're left aligned for some reason. Looking at the Storybook variants, they should be centered on Default, Centered, With Background Image (already are), Gradient Animated, Bold, With Background Video, With Background Pattern, Custom Gradient, With Custom Shapes, Glass Morphism. It feels like default state should be to center it. On the Newsletter Custom Form variant/story, the input text is gray - barely legible over the blue bg from the parent container",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "error-page",
         "description": "The ErrorPage component for the most part looks good. However, it doesnt appear to be centered. It should be 100% of the container width, and everything centered horizontally on the screen.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "event-listings",

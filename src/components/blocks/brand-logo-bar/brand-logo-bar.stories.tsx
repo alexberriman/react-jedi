@@ -31,48 +31,48 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Sample logos for demonstration
+// Sample logos for demonstration using picsum.photos placeholders
 const sampleLogos = [
   {
     id: "1",
     name: "Vercel",
-    lightSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/vercel.svg",
-    darkSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/vercel.svg",
+    lightSrc: "https://picsum.photos/120/60?random=1",
+    darkSrc: "https://picsum.photos/120/60?random=1&grayscale",
     href: "https://vercel.com",
   },
   {
     id: "2",
     name: "React",
-    lightSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/react.svg",
-    darkSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/react.svg",
+    lightSrc: "https://picsum.photos/120/60?random=2",
+    darkSrc: "https://picsum.photos/120/60?random=2&grayscale",
     href: "https://react.dev",
   },
   {
     id: "3",
     name: "TypeScript",
-    lightSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/typescript.svg",
-    darkSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/typescript.svg",
+    lightSrc: "https://picsum.photos/120/60?random=3",
+    darkSrc: "https://picsum.photos/120/60?random=3&grayscale",
     href: "https://www.typescriptlang.org",
   },
   {
     id: "4",
     name: "Tailwind CSS",
-    lightSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tailwindcss.svg",
-    darkSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tailwindcss.svg",
+    lightSrc: "https://picsum.photos/120/60?random=4",
+    darkSrc: "https://picsum.photos/120/60?random=4&grayscale",
     href: "https://tailwindcss.com",
   },
   {
     id: "5",
     name: "Vite",
-    lightSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/vite.svg",
-    darkSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/vite.svg",
+    lightSrc: "https://picsum.photos/120/60?random=5",
+    darkSrc: "https://picsum.photos/120/60?random=5&grayscale",
     href: "https://vitejs.dev",
   },
   {
     id: "6",
     name: "Next.js",
-    lightSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/nextdotjs.svg",
-    darkSrc: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/nextdotjs.svg",
+    lightSrc: "https://picsum.photos/120/60?random=6",
+    darkSrc: "https://picsum.photos/120/60?random=6&grayscale",
     href: "https://nextjs.org",
   },
 ];
@@ -81,7 +81,8 @@ const enterpriseLogos = [
   {
     id: "e1",
     name: "Microsoft",
-    lightSrc: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+    lightSrc: "https://picsum.photos/140/30?random=7",
+    darkSrc: "https://picsum.photos/140/30?random=7&grayscale",
     href: "https://microsoft.com",
     width: 140,
     height: 30,
@@ -89,7 +90,8 @@ const enterpriseLogos = [
   {
     id: "e2",
     name: "Google",
-    lightSrc: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+    lightSrc: "https://picsum.photos/120/40?random=8",
+    darkSrc: "https://picsum.photos/120/40?random=8&grayscale",
     href: "https://google.com",
     width: 120,
     height: 40,
@@ -97,7 +99,8 @@ const enterpriseLogos = [
   {
     id: "e3",
     name: "Amazon",
-    lightSrc: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+    lightSrc: "https://picsum.photos/130/40?random=9",
+    darkSrc: "https://picsum.photos/130/40?random=9&grayscale",
     href: "https://amazon.com",
     width: 130,
     height: 40,
@@ -105,8 +108,8 @@ const enterpriseLogos = [
   {
     id: "e4",
     name: "Apple",
-    lightSrc: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
-    darkSrc: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+    lightSrc: "https://picsum.photos/50/60?random=10",
+    darkSrc: "https://picsum.photos/50/60?random=10&grayscale",
     href: "https://apple.com",
     width: 50,
     height: 60,
@@ -114,7 +117,8 @@ const enterpriseLogos = [
   {
     id: "e5",
     name: "Meta",
-    lightSrc: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
+    lightSrc: "https://picsum.photos/140/30?random=11",
+    darkSrc: "https://picsum.photos/140/30?random=11&grayscale",
     href: "https://meta.com",
     width: 140,
     height: 30,
@@ -147,9 +151,22 @@ export const WithHeading: Story = {
     logos: sampleLogos,
     variant: "withHeading",
     heading: "Trusted by Industry Leaders",
+    headingPosition: "above",
     size: "medium",
     spacing: "normal",
     columns: 3,
+  },
+};
+
+export const WithHeadingLeft: Story = {
+  args: {
+    logos: sampleLogos.slice(0, 4),
+    variant: "withHeading",
+    heading: "Trusted by",
+    headingPosition: "left",
+    size: "medium",
+    spacing: "normal",
+    columns: 4,
   },
 };
 
@@ -209,6 +226,7 @@ export const GrayscaleWithHeading: Story = {
     logos: enterpriseLogos,
     variant: "grayscale",
     heading: "Powering the World's Best Companies",
+    headingPosition: "above",
     size: "medium",
     spacing: "normal",
     columns: 5,

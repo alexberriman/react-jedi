@@ -112,7 +112,7 @@
       {
         "id": "sheet-flicker",
         "description": "When I first load the Sheet stories, all of the buttons (Open Sheet) 'flicker' - theyre visible, then go invisible and back to visible. Please fix. Also - the sheet should animate/transition out (framer motion?) rather than just 'appear'. It looks awful. Also - the Sheet title/subtitle? is padded (good), but the sheet content isnt (bad). Please fix. ",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "progress-stories-not-visible",

@@ -41,9 +41,7 @@ export const Default: Story = {
             to leave the current page.
           </SheetDescription>
         </SheetHeader>
-        <div className="py-4">
-          <p>Sheet content goes here.</p>
-        </div>
+        <p>Sheet content goes here.</p>
       </SheetContent>
     </Sheet>
   ),
@@ -96,7 +94,7 @@ export const WithForm: Story = {
             Make changes to your profile here. Click save when you&apos;re done.
           </SheetDescription>
         </SheetHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Name
@@ -211,8 +209,7 @@ export const NestedSheets: Story = {
           <SheetTitle>First Sheet</SheetTitle>
           <SheetDescription>This is the first sheet. You can open another one.</SheetDescription>
         </SheetHeader>
-        <div className="py-4">
-          <Sheet>
+        <Sheet>
             <SheetTrigger asChild>
               <Button>Open Nested Sheet</Button>
             </SheetTrigger>
@@ -225,7 +222,6 @@ export const NestedSheets: Story = {
               </SheetHeader>
             </SheetContent>
           </Sheet>
-        </div>
       </SheetContent>
     </Sheet>
   ),
@@ -270,7 +266,7 @@ export const LongContent: Story = {
           <SheetTitle>Terms of Service</SheetTitle>
           <SheetDescription>Please read our terms of service carefully.</SheetDescription>
         </SheetHeader>
-        <div className="py-4 space-y-4">
+        <div className="space-y-4">
           {Array.from({ length: 20 }, (_, i) => (
             <div key={i}>
               <h3 className="font-medium">Section {i + 1}</h3>
@@ -310,7 +306,7 @@ export const CustomStyling: Story = {
             Unlock exclusive features with our premium plan.
           </SheetDescription>
         </SheetHeader>
-        <div className="py-8 space-y-4">
+        <div className="space-y-4">
           <div className="p-4 rounded-lg bg-white/50 dark:bg-black/20 backdrop-blur">
             <h4 className="font-semibold text-purple-900 dark:text-purple-100">
               🚀 Unlimited Projects
@@ -369,9 +365,7 @@ export const WithoutModal: Story = {
                 You can still interact with the content behind this sheet.
               </SheetDescription>
             </SheetHeader>
-            <div className="py-4">
-              <p>Try clicking on the buttons in the background!</p>
-            </div>
+            <p>Try clicking on the buttons in the background!</p>
           </SheetContent>
         </Sheet>
       </div>
@@ -385,4 +379,87 @@ export const WithoutModal: Story = {
       </div>
     </div>
   ),
+};
+
+function AnimationToggleComponent() {
+  const [animated, setAnimated] = React.useState(true);
+  
+  return (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            id="animation-toggle"
+            checked={animated}
+            onChange={(e) => setAnimated(e.target.checked)}
+            className="size-4"
+          />
+          <Label htmlFor="animation-toggle">Enable animations</Label>
+        </div>
+        
+        <div className="flex gap-4">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline">From Right</Button>
+            </SheetTrigger>
+            <SheetContent side="right" animated={animated}>
+              <SheetHeader>
+                <SheetTitle>Animated Sheet</SheetTitle>
+                <SheetDescription>
+                  This sheet {animated ? "slides in smoothly" : "appears instantly"}.
+                </SheetDescription>
+              </SheetHeader>
+              <p>Animation is currently {animated ? "enabled" : "disabled"}.</p>
+            </SheetContent>
+          </Sheet>
+          
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline">From Left</Button>
+            </SheetTrigger>
+            <SheetContent side="left" animated={animated}>
+              <SheetHeader>
+                <SheetTitle>Left Sheet</SheetTitle>
+                <SheetDescription>
+                  This sheet {animated ? "slides in from the left" : "appears instantly"}.
+                </SheetDescription>
+              </SheetHeader>
+              <p>Try toggling the animation setting!</p>
+            </SheetContent>
+          </Sheet>
+          
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline">From Top</Button>
+            </SheetTrigger>
+            <SheetContent side="top" animated={animated}>
+              <SheetHeader>
+                <SheetTitle>Top Sheet</SheetTitle>
+                <SheetDescription>
+                  This sheet {animated ? "slides down from the top" : "appears instantly"}.
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
+          
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline">From Bottom</Button>
+            </SheetTrigger>
+            <SheetContent side="bottom" animated={animated}>
+              <SheetHeader>
+                <SheetTitle>Bottom Sheet</SheetTitle>
+                <SheetDescription>
+                  This sheet {animated ? "slides up from the bottom" : "appears instantly"}.
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+  );
+}
+
+export const AnimationToggle: Story = {
+  render: AnimationToggleComponent,
 };

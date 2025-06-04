@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "component": {
+      "type": "string",
+      "const": "AnnouncementBar"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["top-banner", "floating", "slide-in", "countdown", "dismissible"],
+          "default": "top-banner",
+          "description": "The visual style variant of the announcement bar"
+        },
+        "message": {
+          "type": "string",
+          "description": "The main message content to display"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Button label text"
+              },
+              "onClick": {
+                "type": "string",
+                "description": "Click handler function name"
+              },
+              "href": {
+                "type": "string",
+                "description": "Link URL for the action"
+              },
+              "variant": {
+                "type": "string",
+                "enum": ["primary", "secondary", "link"],
+                "description": "Button style variant"
+              }
+            },
+            "required": ["label"]
+          },
+          "description": "Action buttons to display"
+        },
+        "autoHide": {
+          "type": "number",
+          "description": "Auto-hide timer in milliseconds"
+        },
+        "dismissible": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the bar can be dismissed"
+        },
+        "sticky": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the bar sticks to viewport edge"
+        },
+        "position": {
+          "type": "string",
+          "enum": ["top", "bottom"],
+          "default": "top",
+          "description": "Position of the announcement bar"
+        },
+        "colorScheme": {
+          "type": "string",
+          "enum": ["default", "info", "success", "warning", "error", "custom"],
+          "default": "default",
+          "description": "Predefined color scheme"
+        },
+        "customColors": {
+          "type": "object",
+          "properties": {
+            "background": {
+              "type": "string",
+              "description": "Custom background color"
+            },
+            "text": {
+              "type": "string",
+              "description": "Custom text color"
+            },
+            "button": {
+              "type": "string",
+              "description": "Custom button color"
+            }
+          },
+          "description": "Custom color configuration"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon component name to display"
+        },
+        "countdownTo": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Target date/time for countdown variant"
+        },
+        "countdownMessage": {
+          "type": "string",
+          "description": "Message to display with countdown"
+        },
+        "animated": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to animate entrance/exit"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        },
+        "id": {
+          "type": "string",
+          "default": "announcement-bar",
+          "description": "Unique identifier for localStorage"
+        }
+      },
+      "required": ["message"]
+    }
+  },
+  "required": ["component", "properties"]
+}

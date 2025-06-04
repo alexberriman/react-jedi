@@ -222,6 +222,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/cookie-consent-banner",
       },
+      {
+        name: "Announcement Bar",
+        description: "Versatile announcement bar for important notices, alerts, and time-sensitive information with multiple variants.",
+        status: "completed",
+        path: "/showcase/blocks/announcement-bar",
+      },
     ],
   },
   {
@@ -1660,5 +1666,27 @@ const blockPreviews: Record<string, ComponentSpec> = {
         },
       ],
     },
+  },
+  "Announcement Bar": {
+    type: "Box",
+    props: {
+      className: "relative h-[200px] bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden",
+      children: [
+        {
+          type: "AnnouncementBar",
+          props: {
+            variant: "top-banner",
+            message: "🎉 New feature released! Check out our latest updates and improvements.",
+            actions: [
+              { label: "Learn More", variant: "primary" },
+              { label: "Dismiss", variant: "link" }
+            ],
+            colorScheme: "info",
+            sticky: false,
+            animated: true
+          }
+        }
+      ]
+    }
   },
 };

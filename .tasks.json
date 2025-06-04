@@ -177,7 +177,7 @@
       {
         "id": "announcement-bar-block",
         "description": "Create Announcement Bar block for important notices. Variants: top banner, floating bar, slide-in notification, countdown timer, and dismissible alert. Features: custom messages, action buttons, auto-hide timers, close functionality, and urgency styling. Add animation effects, sticky positioning, and multiple color schemes. Include modern alert design with clear typography and attention-grabbing styles.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "error-page-block",

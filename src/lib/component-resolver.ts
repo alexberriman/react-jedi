@@ -800,6 +800,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.CookieConsentBanner as unknown as React.ComponentType<Record<string, unknown>>,
       { title: "We use cookies", description: "We use cookies to enhance your browsing experience." } // Provide default required props
     ),
+    AnnouncementBar: asComponent(
+      Blocks.AnnouncementBar as unknown as React.ComponentType<Record<string, unknown>>,
+      { message: "" } // Provide default required props
+    ),
+    "announcement-bar": asComponent(
+      Blocks.AnnouncementBar as unknown as React.ComponentType<Record<string, unknown>>,
+      { message: "" } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

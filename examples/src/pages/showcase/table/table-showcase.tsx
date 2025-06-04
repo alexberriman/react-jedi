@@ -25,6 +25,7 @@ export function TableShowcase() {
     { id: "row-states", label: "Row States" },
     { id: "complex-content", label: "Complex Content" },
     { id: "responsive", label: "Responsive Tables" },
+    { id: "variants", label: "Table Variants" },
     { id: "props", label: "Props & Options" },
     { id: "examples", label: "Complete Examples" },
   ];
@@ -688,6 +689,7 @@ export function TableShowcase() {
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">Key Features</h3>
               <ul className="list-disc pl-6 space-y-1">
+                <li>Multiple style variants (default, striped, bordered, minimal, compact, modern)</li>
                 <li>Support for headers, body, and footer sections</li>
                 <li>Flexible cell content (text, components, or React nodes)</li>
                 <li>Cell alignment options (left, center, right)</li>
@@ -696,6 +698,8 @@ export function TableShowcase() {
                 <li>Responsive design with horizontal scrolling</li>
                 <li>Custom styling with className support</li>
                 <li>Optional table captions for accessibility</li>
+                <li>Configurable hover effects</li>
+                <li>Smooth transitions and animations</li>
               </ul>
             </div>
           </section>
@@ -902,6 +906,18 @@ export function TableShowcase() {
                     <td className="py-3 px-4">-</td>
                     <td className="py-3 px-4">Additional CSS classes</td>
                   </tr>
+                  <tr className="border-b border-gray-200 dark:border-gray-800">
+                    <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
+                    <td className="py-3 px-4 font-mono">"default" | "striped" | "bordered" | "minimal" | "compact" | "modern"</td>
+                    <td className="py-3 px-4">"default"</td>
+                    <td className="py-3 px-4">Visual style variant of the table</td>
+                  </tr>
+                  <tr className="border-b border-gray-200 dark:border-gray-800">
+                    <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">hoverable</td>
+                    <td className="py-3 px-4 font-mono">boolean</td>
+                    <td className="py-3 px-4">true</td>
+                    <td className="py-3 px-4">Whether to show hover effects on rows</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -978,6 +994,411 @@ export function TableShowcase() {
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </section>
+
+          {/* Table Variants Section */}
+          <section id="variants" className="scroll-mt-20">
+            <h2 className="text-2xl font-semibold mb-4">Table Variants</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              The Table component now supports multiple visual variants to match different design needs. Each variant offers a unique style while maintaining full functionality.
+            </p>
+
+            {/* Default Variant */}
+            <div className="mb-12">
+              <h3 className="text-lg font-medium mb-3">Default Variant</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Clean standard table with subtle hover effects and modern styling.
+              </p>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Table",
+                  variant: "default",
+                  head: {
+                    rows: [{
+                      cells: [
+                        { content: "Product" },
+                        { content: "Category" },
+                        { content: "Price", align: "right" },
+                        { content: "Status" }
+                      ]
+                    }]
+                  },
+                  body: {
+                    rows: [
+                      {
+                        cells: [
+                          { content: "MacBook Pro" },
+                          { content: "Electronics" },
+                          { content: "$2,399", align: "right" },
+                          { content: { type: "Badge", variant: "default", children: "In Stock" } }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "iPhone 15" },
+                          { content: "Electronics" },
+                          { content: "$999", align: "right" },
+                          { content: { type: "Badge", variant: "secondary", children: "Low Stock" } }
+                        ]
+                      }
+                    ]
+                  }
+                })}
+              </div>
+            </div>
+
+            {/* Striped Variant */}
+            <div className="mb-12">
+              <h3 className="text-lg font-medium mb-3">Striped Variant</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Alternating row colors for better readability with large datasets.
+              </p>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Table",
+                  variant: "striped",
+                  head: {
+                    rows: [{
+                      cells: [
+                        { content: "Employee" },
+                        { content: "Department" },
+                        { content: "Role" },
+                        { content: "Salary", align: "right" }
+                      ]
+                    }]
+                  },
+                  body: {
+                    rows: [
+                      {
+                        cells: [
+                          { content: "Sarah Anderson" },
+                          { content: "Engineering" },
+                          { content: "Senior Developer" },
+                          { content: "$125,000", align: "right" }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "Michael Chen" },
+                          { content: "Product" },
+                          { content: "Product Manager" },
+                          { content: "$115,000", align: "right" }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "Emma Wilson" },
+                          { content: "Design" },
+                          { content: "UX Designer" },
+                          { content: "$95,000", align: "right" }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "James Smith" },
+                          { content: "Marketing" },
+                          { content: "Marketing Lead" },
+                          { content: "$105,000", align: "right" }
+                        ]
+                      }
+                    ]
+                  }
+                })}
+              </div>
+            </div>
+
+            {/* Bordered Variant */}
+            <div className="mb-12">
+              <h3 className="text-lg font-medium mb-3">Bordered Variant</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Full borders around all cells for clear data separation.
+              </p>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Table",
+                  variant: "bordered",
+                  head: {
+                    rows: [{
+                      cells: [
+                        { content: "Feature" },
+                        { content: "Free", align: "center" },
+                        { content: "Pro", align: "center" },
+                        { content: "Enterprise", align: "center" }
+                      ]
+                    }]
+                  },
+                  body: {
+                    rows: [
+                      {
+                        cells: [
+                          { content: "Users" },
+                          { content: "5", align: "center" },
+                          { content: "Unlimited", align: "center" },
+                          { content: "Unlimited", align: "center" }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "Storage" },
+                          { content: "10GB", align: "center" },
+                          { content: "100GB", align: "center" },
+                          { content: "1TB", align: "center" }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "Support" },
+                          { content: "Community", align: "center" },
+                          { content: "Priority", align: "center" },
+                          { content: "24/7 Phone", align: "center" }
+                        ]
+                      }
+                    ]
+                  }
+                })}
+              </div>
+            </div>
+
+            {/* Minimal Variant */}
+            <div className="mb-12">
+              <h3 className="text-lg font-medium mb-3">Minimal Variant</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Ultra-clean design with minimal borders and subtle styling.
+              </p>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Table",
+                  variant: "minimal",
+                  head: {
+                    rows: [{
+                      cells: [
+                        { content: "Task" },
+                        { content: "Assignee" },
+                        { content: "Priority" },
+                        { content: "Due Date" }
+                      ]
+                    }]
+                  },
+                  body: {
+                    rows: [
+                      {
+                        cells: [
+                          { content: "Update documentation" },
+                          { content: "John Doe" },
+                          { content: { type: "Badge", variant: "secondary", children: "Medium" } },
+                          { content: "Dec 15, 2024" }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "Fix login bug" },
+                          { content: "Jane Smith" },
+                          { content: { type: "Badge", variant: "destructive", children: "High" } },
+                          { content: "Dec 12, 2024" }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "Design new landing" },
+                          { content: "Bob Wilson" },
+                          { content: { type: "Badge", variant: "outline", children: "Low" } },
+                          { content: "Dec 20, 2024" }
+                        ]
+                      }
+                    ]
+                  }
+                })}
+              </div>
+            </div>
+
+            {/* Compact Variant */}
+            <div className="mb-12">
+              <h3 className="text-lg font-medium mb-3">Compact Variant</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Reduced padding for dense data display, perfect for dashboards and metrics.
+              </p>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Table",
+                  variant: "compact",
+                  caption: "Server metrics for the last hour",
+                  head: {
+                    rows: [{
+                      cells: [
+                        { content: "Server" },
+                        { content: "CPU %", align: "center" },
+                        { content: "Memory %", align: "center" },
+                        { content: "Status" }
+                      ]
+                    }]
+                  },
+                  body: {
+                    rows: [
+                      {
+                        cells: [
+                          { content: "web-01", className: "font-mono text-xs" },
+                          { content: "45%", align: "center" },
+                          { content: "62%", align: "center" },
+                          { content: { type: "Badge", variant: "default", className: "h-5 text-xs", children: "Healthy" } }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "web-02", className: "font-mono text-xs" },
+                          { content: "89%", align: "center" },
+                          { content: "91%", align: "center" },
+                          { content: { type: "Badge", variant: "destructive", className: "h-5 text-xs", children: "Critical" } }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "db-01", className: "font-mono text-xs" },
+                          { content: "23%", align: "center" },
+                          { content: "45%", align: "center" },
+                          { content: { type: "Badge", variant: "default", className: "h-5 text-xs", children: "Healthy" } }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { content: "cache-01", className: "font-mono text-xs" },
+                          { content: "12%", align: "center" },
+                          { content: "28%", align: "center" },
+                          { content: { type: "Badge", variant: "default", className: "h-5 text-xs", children: "Healthy" } }
+                        ]
+                      }
+                    ]
+                  }
+                })}
+              </div>
+            </div>
+
+            {/* Modern Variant */}
+            <div className="mb-12">
+              <h3 className="text-lg font-medium mb-3">Modern Variant</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Sleek design with shadows, gradients, and enhanced hover effects for a premium look.
+              </p>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Table",
+                  variant: "modern",
+                  head: {
+                    rows: [{
+                      cells: [
+                        { content: "Customer" },
+                        { content: "Order Date" },
+                        { content: "Total", align: "right" },
+                        { content: "Actions" }
+                      ]
+                    }]
+                  },
+                  body: {
+                    rows: [
+                      {
+                        cells: [
+                          { 
+                            content: {
+                              type: "Box",
+                              children: [
+                                { type: "Text", className: "font-medium", children: "Acme Corporation" },
+                                { type: "Text", className: "text-sm text-muted-foreground", children: "contact@acme.com" }
+                              ]
+                            }
+                          },
+                          { content: "Dec 10, 2024" },
+                          { content: "$1,249.00", align: "right", className: "font-medium" },
+                          { 
+                            content: {
+                              type: "Button",
+                              variant: "ghost",
+                              size: "sm",
+                              children: "View Details"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { 
+                            content: {
+                              type: "Box",
+                              children: [
+                                { type: "Text", className: "font-medium", children: "Globex Industries" },
+                                { type: "Text", className: "text-sm text-muted-foreground", children: "info@globex.com" }
+                              ]
+                            }
+                          },
+                          { content: "Dec 09, 2024" },
+                          { content: "$2,859.00", align: "right", className: "font-medium" },
+                          { 
+                            content: {
+                              type: "Button",
+                              variant: "ghost",
+                              size: "sm",
+                              children: "View Details"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        cells: [
+                          { 
+                            content: {
+                              type: "Box",
+                              children: [
+                                { type: "Text", className: "font-medium", children: "Soylent Corp" },
+                                { type: "Text", className: "text-sm text-muted-foreground", children: "hello@soylent.com" }
+                              ]
+                            }
+                          },
+                          { content: "Dec 08, 2024" },
+                          { content: "$649.00", align: "right", className: "font-medium" },
+                          { 
+                            content: {
+                              type: "Button",
+                              variant: "ghost",
+                              size: "sm",
+                              children: "View Details"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                })}
+              </div>
+            </div>
+
+            {/* Hoverable Property */}
+            <div className="mb-12">
+              <h3 className="text-lg font-medium mb-3">Hover Effects Control</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                You can disable hover effects by setting <code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-sm">hoverable: false</code>.
+              </p>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                {render({
+                  type: "Table",
+                  variant: "default",
+                  hoverable: false,
+                  caption: "Table without hover effects",
+                  head: {
+                    rows: [{
+                      cells: [
+                        { content: "Feature" },
+                        { content: "Enabled" }
+                      ]
+                    }]
+                  },
+                  body: {
+                    rows: [
+                      { cells: [{ content: "Hover Effects" }, { content: "No" }] },
+                      { cells: [{ content: "Click Selection" }, { content: "Yes" }] },
+                      { cells: [{ content: "Keyboard Navigation" }, { content: "Yes" }] }
+                    ]
+                  }
+                })}
+              </div>
             </div>
           </section>
 

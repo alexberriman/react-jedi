@@ -92,12 +92,12 @@
       {
         "id": "tabs-animate",
         "description": "Can you update the tabs component to 'animate' between tab transitions (both the tabs and the content). Add a prop to disable this, but enable by default (make sure to update storybook). Can you also update the UI of tabs component to make it look a lot more modern and nicer visually? (while still being really clean, simple and sexy)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "table-ui",
         "description": "The UI of the table component absolutely blows. Can you completely update the UI of the Table component to make it look way nicer, sexier (while still being really clean and modern). Feel free to add multiple style variants. Make sure to update storybook with all variants and the showcase page in the example app (./examples).",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "docs",

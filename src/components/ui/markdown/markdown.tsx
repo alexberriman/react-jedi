@@ -165,7 +165,7 @@ const defaultComponents: Partial<Components> = {
   ),
   pre: ({ children, ...props }) => {
     return (
-      <pre className="mb-4 mt-6 overflow-x-auto rounded-lg bg-muted p-4" {...props}>
+      <pre className="mb-4 mt-6 overflow-x-auto rounded-lg bg-muted p-4 border-0" {...props}>
         {children}
       </pre>
     );
@@ -197,6 +197,7 @@ const defaultComponents: Partial<Components> = {
           background: "hsl(var(--muted))",
           fontSize: "0.875rem",
           borderRadius: "0.5rem",
+          border: 0,
         }}
         codeTagProps={{
           style: {

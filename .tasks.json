@@ -137,7 +137,7 @@
       {
         "id": "markdown-code",
         "description": "The Markdown component looks REALLY nice. FOr some reason though, there is a 'grey' border or somerthing around the code example? The code examples look sick, not sure why there is that gray border around them.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "keyboard-navigation-hover",

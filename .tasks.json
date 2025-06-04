@@ -52,7 +52,7 @@
       {
         "id": "tooltip-flicker",
         "description": "When I first load the Tooltip stories, all of the buttons (Hover me) 'flicker' - theyre visible, then go invisible and back to visible. Please fix. Also - when I hover, I dont see the tooltip. This component seems REALLY buggy, please investigate and fix.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "dropdown-menu-flicker",

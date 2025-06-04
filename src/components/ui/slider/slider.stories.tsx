@@ -60,7 +60,7 @@ const meta: Meta<typeof Slider> = {
     },
   },
 
-  tags: ['ui-slider']};
+  tags: ['autodocs', 'ui-slider']};
 
 export default meta;
 type Story = StoryObj<typeof Slider>;

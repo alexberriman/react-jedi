@@ -7,7 +7,7 @@ const meta: Meta<typeof SkeletonLoader> = {
   component: SkeletonLoader,
   parameters: {
     layout: "padded",
-    tags: ["test"],
+    tags: ["autodocs", "test"],
   },
   argTypes: {
     count: {

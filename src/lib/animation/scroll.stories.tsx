@@ -27,7 +27,7 @@ const meta: Meta<typeof ScrollReveal> = {
     ),
   ],
 
-  tags: ['animation-scroll']};
+  tags: ['autodocs', 'animation-scroll']};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

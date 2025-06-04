@@ -25,7 +25,8 @@ const meta = {
     ),
   ],
 
-  tags: ['ui-tooltip'],} satisfies Meta<typeof Tooltip>;
+  tags: ['autodocs', 'ui-tooltip'],
+} satisfies Meta<typeof Tooltip>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

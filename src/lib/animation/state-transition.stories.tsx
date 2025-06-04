@@ -39,7 +39,7 @@ const meta: Meta<typeof StateTransition> = {
     ),
   ],
 
-  tags: ['animation-state-transition']};
+  tags: ['autodocs', 'animation-state-transition']};
 
 export default meta;
 type Story = StoryObj<typeof StateTransition>;

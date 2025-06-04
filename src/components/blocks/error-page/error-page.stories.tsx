@@ -7,7 +7,7 @@ const meta = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['test'],
+  tags: ['autodocs', 'test'],
   argTypes: {
     variant: {
       control: 'select',

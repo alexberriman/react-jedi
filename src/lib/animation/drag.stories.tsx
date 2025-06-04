@@ -25,7 +25,7 @@ const meta: Meta<typeof Drag> = {
     ),
   },
 
-  tags: ['animation-drag']};
+  tags: ['autodocs', 'animation-drag']};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

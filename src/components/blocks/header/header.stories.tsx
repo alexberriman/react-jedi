@@ -4,7 +4,7 @@ import { Header } from "./header";
 const meta = {
   title: "Blocks/Header",
   component: Header,
-  tags: ["test"],
+  tags: ["autodocs", "test"],
   parameters: {
     layout: "fullscreen",
     docs: {

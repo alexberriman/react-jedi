@@ -13,7 +13,7 @@ const meta: Meta<typeof SlideIn> = {
     ),
   ],
 
-  tags: ['animation-slide']};
+  tags: ['autodocs', 'animation-slide']};
 
 export default meta;
 

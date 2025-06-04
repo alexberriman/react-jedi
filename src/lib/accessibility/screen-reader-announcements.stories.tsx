@@ -179,7 +179,7 @@ function MyComponent() {
     },
   },
 
-  tags: ['accessibility-screen-reader-announcements']};
+  tags: ['autodocs', 'accessibility-screen-reader-announcements']};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

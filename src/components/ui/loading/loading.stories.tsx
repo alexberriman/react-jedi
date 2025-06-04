@@ -7,7 +7,7 @@ const meta: Meta<typeof Loading> = {
   component: Loading,
   parameters: {
     layout: "centered",
-    tags: ["test"],
+    tags: ["autodocs", "test"],
   },
   argTypes: {
     size: {

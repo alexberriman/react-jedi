@@ -399,7 +399,7 @@ const meta: Meta = {
     },
   },
 
-  tags: ['theme-style-extension']};
+  tags: ['autodocs', 'theme-style-extension']};
 
 export default meta;
 

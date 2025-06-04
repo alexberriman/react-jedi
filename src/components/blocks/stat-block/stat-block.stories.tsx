@@ -5,7 +5,7 @@ import type { StatBlockDef } from "../../../types/components/stat-block";
 const meta: Meta<typeof StatBlock> = {
   title: "Blocks/StatBlock",
   component: StatBlock,
-  tags: ["test"],
+  tags: ["autodocs", "test"],
   parameters: {
     layout: "padded",
   },

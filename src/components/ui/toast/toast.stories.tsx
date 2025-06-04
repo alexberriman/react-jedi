@@ -24,7 +24,8 @@ const meta = {
     },
   },
 
-  tags: ['ui-toast'],} satisfies Meta<typeof Toaster>;
+  tags: ['autodocs', 'ui-toast'],
+} satisfies Meta<typeof Toaster>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

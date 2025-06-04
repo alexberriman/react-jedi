@@ -33,7 +33,8 @@ const meta = {
     },
   },
 
-  tags: ['ui-accordion'],} satisfies Meta<typeof Accordion>;
+  tags: ['autodocs', 'ui-accordion'],
+} satisfies Meta<typeof Accordion>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

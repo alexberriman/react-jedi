@@ -126,7 +126,7 @@ const meta: Meta<typeof TeamGrid> = {
       },
     },
   },
-  tags: ["test"],
+  tags: ["autodocs", "test"],
   argTypes: {
     variant: {
       control: "select",

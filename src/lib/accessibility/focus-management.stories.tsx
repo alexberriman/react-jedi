@@ -40,7 +40,8 @@ The Focus Management system provides a comprehensive set of utilities and hooks 
     },
   },
 
-  tags: ['accessibility-focus-management'],} satisfies Meta;
+  tags: ['autodocs', 'accessibility-focus-management'],
+} satisfies Meta;
 
 export default meta;
 

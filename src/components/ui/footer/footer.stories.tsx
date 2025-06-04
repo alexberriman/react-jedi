@@ -10,7 +10,8 @@ const meta = {
     layout: "fullscreen",
   },
 
-  tags: ['ui-footer'],} satisfies Meta<typeof Footer>;
+  tags: ['autodocs', 'ui-footer'],
+} satisfies Meta<typeof Footer>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

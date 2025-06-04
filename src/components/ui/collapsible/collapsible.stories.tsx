@@ -45,7 +45,7 @@ const meta: Meta<typeof Collapsible> = {
     },
   },
 
-  tags: ['ui-collapsible']};
+  tags: ['autodocs', 'ui-collapsible']};
 
 export default meta;
 type Story = StoryObj<typeof Collapsible>;

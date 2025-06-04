@@ -30,7 +30,8 @@ const meta = {
     ),
   ],
 
-  tags: ['animation-click'],} satisfies Meta;
+  tags: ['autodocs', 'animation-click'],
+} satisfies Meta;
 
 export default meta;
 

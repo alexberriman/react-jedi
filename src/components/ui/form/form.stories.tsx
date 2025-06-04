@@ -34,7 +34,8 @@ const meta = {
     },
   },
 
-  tags: ['ui-form'],} satisfies Meta<typeof FormStory>;
+  tags: ['autodocs', 'ui-form'],
+} satisfies Meta<typeof FormStory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

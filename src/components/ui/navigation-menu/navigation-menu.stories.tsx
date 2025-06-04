@@ -27,7 +27,8 @@ const meta = {
     orientation: "horizontal",
   },
 
-  tags: ['ui-navigation-menu'],} satisfies Meta<typeof NavigationMenu>;
+  tags: ['autodocs', 'ui-navigation-menu'],
+} satisfies Meta<typeof NavigationMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

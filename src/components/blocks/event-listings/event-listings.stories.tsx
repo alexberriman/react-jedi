@@ -4,7 +4,7 @@ import { EventListings, type Event } from './event-listings'
 const meta: Meta<typeof EventListings> = {
   title: 'Blocks/EventListings',
   component: EventListings,
-  tags: ['test'],
+  tags: ['autodocs', 'test'],
   parameters: {
     layout: 'fullscreen',
     docs: {

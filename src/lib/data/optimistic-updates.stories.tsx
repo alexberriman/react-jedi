@@ -104,7 +104,7 @@ export const SimpleTest: Story = {
 export const Default: Story = {
   name: "Todo List Example",
   render: () => <OptimisticUpdateExample />,
-  tags: ["skip-test"],
+  tags: ["autodocs", "skip-test"],
   parameters: {
     docs: {
       description: {

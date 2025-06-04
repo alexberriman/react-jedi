@@ -31,7 +31,8 @@ const meta = {
     },
   },
 
-  tags: ['ui-alert'],} satisfies Meta<typeof Alert>;
+  tags: ['autodocs', 'ui-alert'],
+} satisfies Meta<typeof Alert>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

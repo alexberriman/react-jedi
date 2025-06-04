@@ -7,7 +7,7 @@ const meta: Meta<typeof ContactForm> = {
   parameters: {
     layout: "padded",
   },
-  tags: ["test"],
+  tags: ["autodocs", "test"],
   argTypes: {
     variant: {
       control: "select",

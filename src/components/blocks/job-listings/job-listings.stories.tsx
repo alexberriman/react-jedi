@@ -8,7 +8,7 @@ const meta: Meta<typeof JobListings> = {
   parameters: {
     layout: "fullscreen",
   },
-  tags: ["test"],
+  tags: ["autodocs", "test"],
   argTypes: {
     variant: {
       options: ["grid", "list", "featured", "departments", "minimal"],

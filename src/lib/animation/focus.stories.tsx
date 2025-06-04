@@ -17,7 +17,7 @@ const meta: Meta<typeof Focus> = {
     layout: "centered",
   },
 
-  tags: ['animation-focus']};
+  tags: ['autodocs', 'animation-focus']};
 
 export default meta;
 type Story = StoryObj<typeof Focus>;

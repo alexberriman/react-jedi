@@ -13,7 +13,7 @@ const meta: Meta<typeof FadeIn> = {
     ),
   ],
 
-  tags: ['animation-fade']};
+  tags: ['autodocs', 'animation-fade']};
 
 export default meta;
 

@@ -7,7 +7,7 @@ const meta = {
   parameters: {
     layout: "padded",
   },
-  tags: ["test"],
+  tags: ["autodocs", "test"],
   argTypes: {
     content: {
       description: "Markdown content to render",

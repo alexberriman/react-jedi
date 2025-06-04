@@ -32,7 +32,7 @@ A dynamic text animation component that creates typewriter effects with various 
       },
     },
   },
-  tags: ["test"],
+  tags: ["autodocs", "test"],
   argTypes: {
     spec: {
       description: "TypewriterText specification object",

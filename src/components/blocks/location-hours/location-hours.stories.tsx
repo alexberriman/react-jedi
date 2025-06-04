@@ -201,7 +201,7 @@ const meta: Meta<typeof LocationHours> = {
       description: 'Use dark theme'
     }
   },
-  tags: ['test']
+  tags: ['autodocs', 'test']
 }
 
 export default meta

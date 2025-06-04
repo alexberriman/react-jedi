@@ -247,7 +247,7 @@ formAnnounce.announceFieldError("Email", "Invalid email format");
     },
   },
 
-  tags: ['accessibility-integrated-announcements']};
+  tags: ['autodocs', 'accessibility-integrated-announcements']};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -9,7 +9,7 @@ const meta: Meta<typeof PageSection> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['test'],
+  tags: ['autodocs', 'test'],
   argTypes: {
     variant: {
       control: 'select',

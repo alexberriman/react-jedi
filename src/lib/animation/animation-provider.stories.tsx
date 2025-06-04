@@ -31,7 +31,7 @@ const meta: Meta<typeof AnimationProvider> = {
     ),
   ],
 
-  tags: ['animation-animation-provider']};
+  tags: ['autodocs', 'animation-animation-provider']};
 
 export default meta;
 type Story = StoryObj<typeof AnimationProvider>;

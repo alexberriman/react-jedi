@@ -60,7 +60,8 @@ const meta = {
     layout: "fullscreen",
   },
 
-  tags: ['ui-sidebar'],} satisfies Meta<typeof Sidebar>;
+  tags: ['autodocs', 'ui-sidebar'],
+} satisfies Meta<typeof Sidebar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -12,7 +12,7 @@
       {
         "id": "component-docs-storybook",
         "description": "A lot of storybook components have a Docs story where I can see them all - this is really good (i.e. look at AnnouncementBar, BlogPostDetail etc.). However, some don't (this is bad) (i.e. Look at ContactForm, ErrorPage). I want you to look at all stories and identify those that don't have a Docs page, and systematically go through and create one. ",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   }

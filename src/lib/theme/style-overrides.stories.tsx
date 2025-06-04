@@ -14,7 +14,8 @@ const meta = {
     ),
   ],
 
-  tags: ['theme-style-overrides'],} satisfies Meta;
+  tags: ['autodocs', 'theme-style-overrides'],
+} satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

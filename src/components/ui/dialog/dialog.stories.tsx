@@ -29,7 +29,8 @@ const meta = {
     },
   },
 
-  tags: ['ui-dialog'],} satisfies Meta<typeof Dialog>;
+  tags: ['autodocs', 'ui-dialog'],
+} satisfies Meta<typeof Dialog>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -41,7 +41,7 @@ const meta: Meta<typeof Switch> = {
     },
   },
 
-  tags: ['ui-switch']};
+  tags: ['autodocs', 'ui-switch']};
 
 export default meta;
 type Story = StoryObj<typeof Switch>;

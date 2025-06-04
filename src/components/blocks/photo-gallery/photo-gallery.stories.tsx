@@ -13,7 +13,7 @@ const meta: Meta<typeof PhotoGallery> = {
       },
     },
   },
-  tags: ["test"],
+  tags: ["autodocs", "test"],
   argTypes: {
     variant: {
       control: "select",

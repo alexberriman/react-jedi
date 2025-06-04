@@ -41,7 +41,7 @@ const meta: Meta = {
     },
   },
 
-  tags: ['ui-context-menu']};
+  tags: ['autodocs', 'ui-context-menu']};
 
 export default meta;
 

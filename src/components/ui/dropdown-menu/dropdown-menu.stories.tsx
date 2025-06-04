@@ -42,7 +42,8 @@ const meta = {
     layout: "centered",
   },
 
-  tags: ['ui-dropdown-menu'],} satisfies Meta<typeof DropdownMenu>;
+  tags: ['autodocs', 'ui-dropdown-menu'],
+} satisfies Meta<typeof DropdownMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

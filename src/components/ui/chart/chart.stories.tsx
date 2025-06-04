@@ -6,7 +6,7 @@ const meta = {
   title: "Components/Chart",
   component: Chart,
   parameters: {
-    layout: "centered",
+    layout: "padded",
   },
   tags: ["autodocs"],
   argTypes: {
@@ -15,6 +15,13 @@ const meta = {
       options: ["line", "bar", "area", "pie", "radar", "radialBar"],
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: "100%", height: "500px", padding: "20px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Chart>;
 
 export default meta;

@@ -37,7 +37,7 @@
       {
         "id": "charts-component",
         "description": "I can't see any of the Charts on the Chart component storybooks. I'm not sure if its an issue with the component, storybook issue (container height?) but not visible.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "command-component-storybook",

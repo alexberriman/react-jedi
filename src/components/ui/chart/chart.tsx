@@ -19,6 +19,7 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
+  ResponsiveContainer,
 } from "recharts";
 // Chart utility components will be defined below
 import { cn, cleanDOMProps } from "../../../lib/utils";
@@ -383,9 +384,15 @@ export const Chart: React.FC<ChartProps> = ({
     return null;
   }
 
+  // Determine the actual dimensions for the chart
+  const chartHeight = typeof height === "number" ? height : 350;
+  const chartWidth = typeof width === "number" ? width : "100%";
+
   return (
     <ChartContainer config={config} className={className}>
-      {chart}
+      <ResponsiveContainer width={chartWidth} height={chartHeight}>
+        {chart}
+      </ResponsiveContainer>
     </ChartContainer>
   );
 };

@@ -192,7 +192,7 @@
       {
         "id": "event-listings-block",
         "description": "Create Event Listings block for showcasing upcoming events and activities. Variants: calendar view, list cards, featured event, timeline format, and category grid. Features: event titles, dates/times, locations, descriptions, speaker info, and registration buttons. Add calendar integration, event filtering by type/date, search functionality, and RSVP tracking. Include modern event cards with countdown timers, capacity indicators, and responsive layouts for conferences, webinars, workshops, and company events.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "location-hours-block",

@@ -234,6 +234,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/announcement-bar",
       },
+      {
+        name: "Event Listings",
+        description: "Comprehensive event listings with calendar view, timeline format, search, filtering, and registration features for conferences, webinars, and meetups.",
+        status: "completed",
+        path: "/showcase/blocks/event-listings",
+      },
     ],
   },
   {
@@ -1766,6 +1772,72 @@ const blockPreviews: Record<string, ComponentSpec> = {
             ],
             animated: true,
           }
+        }
+      ]
+    }
+  },
+  "Event Listings": {
+    type: "EventListings",
+    props: {
+      variant: "cards",
+      showSearch: true,
+      showFilters: true,
+      showCountdown: true,
+      showCapacity: true,
+      animated: true,
+      events: [
+        {
+          id: "1",
+          title: "React Conference 2024",
+          description: "The biggest React conference of the year featuring the latest updates and best practices.",
+          startDate: "2024-06-15T09:00:00Z",
+          endDate: "2024-06-17T17:00:00Z",
+          location: { name: "San Francisco Convention Center", address: "747 Howard St, San Francisco, CA" },
+          speakers: [
+            { name: "Dan Abramov", title: "React Team Lead" },
+            { name: "Sophie Alpert", title: "Former React Team Manager" }
+          ],
+          category: "Conference",
+          registrationUrl: "#",
+          capacity: 1000,
+          registeredCount: 847,
+          featured: true,
+          tags: ["React", "JavaScript", "Frontend"],
+          price: { amount: 299, currency: "USD" },
+          image: "/api/placeholder/400/200",
+          status: "upcoming"
+        },
+        {
+          id: "2",
+          title: "JavaScript Workshop: Advanced Patterns",
+          description: "Deep dive into advanced JavaScript patterns and performance optimization techniques.",
+          startDate: "2024-05-20T14:00:00Z",
+          endDate: "2024-05-20T18:00:00Z",
+          location: { name: "Tech Hub Downtown", virtual: false },
+          speakers: [{ name: "Kyle Simpson", title: "JavaScript Expert" }],
+          category: "Workshop",
+          registrationUrl: "#",
+          capacity: 50,
+          registeredCount: 23,
+          tags: ["JavaScript", "Performance"],
+          price: { amount: 89, currency: "USD" },
+          status: "upcoming"
+        },
+        {
+          id: "3",
+          title: "Free Webinar: Getting Started with TypeScript",
+          description: "Introduction to TypeScript for JavaScript developers. Perfect for beginners.",
+          startDate: "2024-05-25T19:00:00Z",
+          endDate: "2024-05-25T20:30:00Z",
+          location: { name: "Online", virtual: true },
+          speakers: [{ name: "Anders Hejlsberg", title: "TypeScript Creator" }],
+          category: "Webinar",
+          registrationUrl: "#",
+          capacity: 500,
+          registeredCount: 342,
+          tags: ["TypeScript", "Beginner"],
+          price: { free: true, amount: 0, currency: "USD" },
+          status: "upcoming"
         }
       ]
     }

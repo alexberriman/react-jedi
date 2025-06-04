@@ -824,6 +824,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.Features as unknown as React.ComponentType<Record<string, unknown>>,
       { features: [] } // Provide default required props
     ),
+    EventListings: asComponent(
+      Blocks.EventListings as unknown as React.ComponentType<Record<string, unknown>>,
+      { events: [] } // Provide default required props
+    ),
+    "event-listings": asComponent(
+      Blocks.EventListings as unknown as React.ComponentType<Record<string, unknown>>,
+      { events: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

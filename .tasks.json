@@ -192,7 +192,7 @@
       {
         "id": "photo-flip-card",
         "description": "When you flip the photo flip card, it flips and there is a white background/shadow while its flipping. This kind of ruins the flip effect. Please somehow fix, or use transparent background/no shadow on the container. Some of the images on the storybooks page for this component 404 - please use Picsum (see other component stories for examples).",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "page-hero-header",

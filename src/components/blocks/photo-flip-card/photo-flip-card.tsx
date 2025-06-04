@@ -157,7 +157,6 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
   style,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleInteraction = () => {
     if (trigger === "click" || trigger === "touch") {
@@ -166,14 +165,12 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
   };
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
     if (trigger === "hover") {
       setIsFlipped(true);
     }
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
     if (trigger === "hover") {
       setIsFlipped(false);
     }
@@ -233,13 +230,11 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
         sizeClasses[size],
         aspectRatio !== "auto" && aspectRatioClasses[aspectRatio],
         borderRadiusClasses[borderRadius],
-        shadowClasses[shadow],
-        "transition-shadow duration-300",
-        isHovered && "shadow-xl",
         className
       )}
       style={{
         perspective: variant.includes("flip") || variant === "rotation-3d" ? "1000px" : undefined,
+        transformStyle: "preserve-3d",
         ...style,
       }}
       onClick={handleInteraction}
@@ -259,6 +254,9 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
       <motion.div
         className={cn(
           "absolute inset-0 backface-hidden",
+          borderRadiusClasses[borderRadius],
+          shadowClasses[shadow],
+          "transition-shadow duration-300",
           variant === "slide-reveal" ? "relative" : ""
         )}
         animate={variants.front}
@@ -280,7 +278,10 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
           
           {/* Front overlay content */}
           {(title || description) && (
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
+            <div className={cn(
+              "absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4",
+              borderRadiusClasses[borderRadius]
+            )}>
               {title && (
                 <h3 className="text-white font-semibold text-lg mb-1 line-clamp-2">
                   {title}
@@ -301,6 +302,8 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
         className={cn(
           "absolute inset-0 backface-hidden",
           borderRadiusClasses[borderRadius],
+          shadowClasses[shadow],
+          "transition-shadow duration-300",
           variant === "slide-reveal" ? "relative" : ""
         )}
         animate={variants.back}

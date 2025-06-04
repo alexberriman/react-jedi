@@ -177,7 +177,7 @@
       {
         "id": "process-steps-line",
         "description": "The line on the ProcessSteps component block don't go all the way (both horizontally and vertically). Please fix - also the UI looks quite.. bleh. Old, dates. Please make it a lot sexier (still clean and simple though).",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "portfolio-case-studies-zoom",

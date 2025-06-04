@@ -216,15 +216,6 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
 
   const variants = getAnimationVariants();
 
-  const gradientDirection = gradientOverlay?.direction || "to-b";
-  const gradientFrom = gradientOverlay?.from || "rgba(0,0,0,0)";
-  const gradientTo = gradientOverlay?.to || "rgba(0,0,0,0.5)";
-  const gradientOpacity = gradientOverlay?.opacity || 1;
-
-  const gradientStyle = gradientOverlay ? {
-    background: `linear-gradient(${gradientDirection}, ${gradientFrom}, ${gradientTo})`,
-    opacity: gradientOpacity,
-  } : {};
 
   const getBackTransform = () => {
     const isFlipVariant = variant.includes("flip") || variant === "rotation-3d";
@@ -308,7 +299,7 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
       {/* Back Side */}
       <motion.div
         className={cn(
-          "absolute inset-0 backface-hidden flex flex-col justify-center items-center p-6 text-center",
+          "absolute inset-0 backface-hidden",
           borderRadiusClasses[borderRadius],
           variant === "slide-reveal" ? "relative" : ""
         )}
@@ -317,44 +308,66 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
           transformStyle: "preserve-3d",
           backfaceVisibility: "hidden",
           transform: getBackTransform(),
-          background: "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%)",
-          ...gradientStyle,
         }}
       >
-        <div className="space-y-4 text-white">
-          {overlay?.badge && (
-            <span className="inline-block px-3 py-1 text-xs font-medium bg-white/20 rounded-full backdrop-blur-sm">
-              {overlay.badge}
-            </span>
-          )}
+        <div className="relative w-full h-full">
+          {/* Background image same as front */}
+          <img
+            src={frontImage}
+            alt={frontImageAlt}
+            className={cn(
+              "w-full h-full object-cover",
+              borderRadiusClasses[borderRadius]
+            )}
+            loading="lazy"
+          />
           
-          {overlay?.title && (
-            <h3 className="text-xl font-bold">
-              {overlay.title}
-            </h3>
-          )}
+          {/* Dark overlay */}
+          <div 
+            className={cn(
+              "absolute inset-0 bg-black/70",
+              borderRadiusClasses[borderRadius]
+            )}
+          />
           
-          {overlay?.description && (
-            <p className="text-white/90 text-sm leading-relaxed">
-              {overlay.description}
-            </p>
-          )}
-          
-          {overlay?.content && (
-            <div className="text-white">
-              {overlay.content}
+          {/* Content overlay */}
+          <div className="absolute inset-0 flex flex-col justify-center items-center p-6 text-center">
+            <div className="space-y-4 text-white">
+              {overlay?.badge && (
+                <span className="inline-block px-3 py-1 text-xs font-medium bg-white/20 rounded-full backdrop-blur-sm">
+                  {overlay.badge}
+                </span>
+              )}
+              
+              {overlay?.title && (
+                <h3 className="text-xl font-bold">
+                  {overlay.title}
+                </h3>
+              )}
+              
+              {overlay?.description && (
+                <p className="text-white/90 text-sm leading-relaxed">
+                  {overlay.description}
+                </p>
+              )}
+              
+              {overlay?.content && (
+                <div className="text-white">
+                  {overlay.content}
+                </div>
+              )}
+              
+              {cta && (
+                <Button
+                  variant={cta.variant || "secondary"}
+                  onClick={handleCtaClick}
+                  className="mt-4 bg-white text-primary hover:bg-white/90"
+                >
+                  {cta.text}
+                </Button>
+              )}
             </div>
-          )}
-          
-          {cta && (
-            <Button
-              variant={cta.variant || "secondary"}
-              onClick={handleCtaClick}
-              className="mt-4 bg-white text-primary hover:bg-white/90"
-            >
-              {cta.text}
-            </Button>
-          )}
+          </div>
         </div>
       </motion.div>
     </div>

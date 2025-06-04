@@ -266,17 +266,22 @@ export function PageHeroHeader({
       className={cn(
         "space-y-6",
         variant === "split" && image?.position === "right" && "lg:pr-12",
-        variant === "split" && image?.position === "left" && "lg:pl-12"
+        variant === "split" && image?.position === "left" && "lg:pl-12",
+        alignment === "center" && "w-full"
       )}
     >
       {renderBadges()}
 
-      <div className="space-y-4">
+      <div className={cn(
+        "space-y-4",
+        alignment === "center" && "w-full"
+      )}>
         <Heading
           level={titleLevel}
           className={cn(
             "text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight",
-            variant === "fullscreen" && backgroundImage && "text-white"
+            variant === "fullscreen" && backgroundImage && "text-white",
+            alignment === "center" && "text-center"
           )}
         >
           {title}
@@ -288,7 +293,8 @@ export function PageHeroHeader({
               "text-xl md:text-2xl font-medium",
               variant === "fullscreen" && backgroundImage
                 ? "text-white/90"
-                : "text-muted-foreground"
+                : "text-muted-foreground",
+              alignment === "center" && "text-center"
             )}
           >
             {subtitle}
@@ -299,7 +305,7 @@ export function PageHeroHeader({
           <Text
             className={cn(
               "text-base md:text-lg max-w-3xl",
-              alignment === "center" && "mx-auto",
+              alignment === "center" && "mx-auto text-center",
               alignment === "right" && "ml-auto",
               variant === "fullscreen" && backgroundImage
                 ? "text-white/80"
@@ -462,7 +468,17 @@ export function PageHeroHeader({
       {renderVideo()}
       {renderBackgroundOverlay()}
 
-      <Container size={maxWidth === "2xl" ? "xl" : maxWidth} className={containerClasses}>
+      <Container 
+        size={(() => {
+          if (maxWidth === "full") return undefined;
+          if (maxWidth === "2xl") return "xl";
+          return maxWidth;
+        })()}
+        className={cn(
+          containerClasses,
+          maxWidth === "full" && "max-w-full"
+        )}
+      >
         {renderContent()}
       </Container>
     </section>

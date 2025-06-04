@@ -759,12 +759,12 @@ const RestaurantMenuBlock = React.forwardRef<HTMLDivElement, RestaurantMenuBlock
         className={cn(restaurantMenuVariants({ variant }), className)}
         {...props}
       >
-        <Container>
+        <Container size="xl" className="w-full">
           {/* Header */}
-          <div className="text-center mb-8 w-full">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 w-full">{title}</h1>
+          <div className="text-center mb-8 w-full mx-auto">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{title}</h1>
             {description && (
-              <Text className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              <Text className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-center">
                 {description}
               </Text>
             )}

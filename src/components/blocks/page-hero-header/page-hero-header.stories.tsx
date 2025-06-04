@@ -78,6 +78,8 @@ export const Centered: Story = {
       { text: "New", variant: "default" },
       { text: "v2.0 Released", variant: "secondary" },
     ],
+    maxWidth: "full",
+    alignment: "center",
   },
 };
 
@@ -125,7 +127,7 @@ export const FullscreenWithBackgroundImage: Story = {
       overlay: "gradient",
       overlayOpacity: 0.6,
     },
-    height: "full",
+    height: "large",
     alignment: "center",
   },
 };
@@ -283,9 +285,19 @@ export const ColorfulBackground: Story = {
       variant: "secondary",
       size: "lg",
     },
+    secondaryCTA: {
+      label: "Learn More",
+      variant: "outline",
+      size: "lg",
+    },
     backgroundColor: "bg-gradient-to-br from-purple-600 to-blue-600",
     textColor: "white",
     height: "large",
+    backgroundImage: {
+      src: "",
+      overlay: "dark",
+      overlayOpacity: 0.2,
+    },
   },
 };
 

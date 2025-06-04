@@ -52,12 +52,12 @@ type Story = StoryObj<typeof PhotoFlipCard>;
 
 // Sample image URLs for demonstrations
 const sampleImages = {
-  nature: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop",
-  city: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=400&fit=crop",
-  portrait: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop",
-  landscape: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
-  tech: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop",
-  food: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop",
+  nature: "https://picsum.photos/400/400?random=1",
+  city: "https://picsum.photos/400/400?random=2",
+  portrait: "https://picsum.photos/400/400?random=3",
+  landscape: "https://picsum.photos/600/400?random=4",
+  tech: "https://picsum.photos/400/400?random=5",
+  food: "https://picsum.photos/400/400?random=6",
 };
 
 export const Default: Story = {

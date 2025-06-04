@@ -127,7 +127,7 @@
       {
         "id": "page-hero-header",
         "description": "Can you ensure the PageHeroHeader component is 100% of the container width and everything is centered horizontally (in the default story). In the 'Fullscreen With Background Image' story, the container height/image is way too big - can you reduce the height. The 'Colorful Background' story looks awful - text is barely legible over background, text and images etc. feel like they should be centered. In all of these examples, unless a variation explicitly should have left aligned text (i.e. two col), all text, headers, buttons etc. should be centered horizontally.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "page-section",
@@ -137,7 +137,7 @@
       {
         "id": "photo-flip-card",
         "description": "The PhotoFlipCard is a bit strange. It flips to an empty background with a button. It feels like this isnt common pattern. By default, can we 'flip' and have the same image (w/overlay) on the other side as well? I dont know - whatever most modern sites use, we should do that, but flipping to just a white background with button looks awful. Update all images on this page to use placeholder images from picsum.photos (this may have been done in a prior task).",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "photo-gallery",

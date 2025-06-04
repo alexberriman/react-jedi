@@ -37,6 +37,11 @@
       "default": false,
       "description": "Whether the accordion is disabled"
     },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to animate accordion transitions"
+    },
     "items": {
       "type": "array",
       "items": {

@@ -12,7 +12,7 @@
       {
         "id": "accordion",
         "description": "The Accordion component items go dark grey bg when hover - this looks awful, it should be a lot more subtle (very light grey for example). Also, text kind of jumps - i guessing there is no padding, and then when you hover there is padding, causing text to jump. Honestly, you are so far from the mark on this component. Redo all of the UI to make it way sexier, way more 🔥 (while still being really clean). Use framer motion/animations/transition etc. to make it all really, really nice.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "switch-animate",

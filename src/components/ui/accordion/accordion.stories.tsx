@@ -28,6 +28,11 @@ const meta = {
       control: "boolean",
       description: "Disable the entire accordion",
     },
+    animated: {
+      control: "boolean",
+      description: "Enable or disable animations",
+      defaultValue: true,
+    },
     className: {
       control: "text",
       description: "Additional CSS classes",
@@ -44,24 +49,30 @@ export const Single: Story = {
   args: {
     type: "single",
     collapsible: true,
-    className: "w-[400px]",
+    animated: true,
+    className: "w-[450px]",
   },
   render: (args) => (
     <Accordion {...args}>
       <AccordionItem value="item-1">
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
+        <AccordionContent>
+          Yes. It adheres to the WAI-ARIA design pattern and includes proper keyboard navigation,
+          ARIA attributes, and focus management.
+        </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
         <AccordionTrigger>Is it styled?</AccordionTrigger>
         <AccordionContent>
-          Yes. It comes with default styles that match the other components&apos; aesthetic.
+          Yes. It comes with modern, clean styles that match the other components&apos; aesthetic.
+          The hover states are subtle and the animations are smooth.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
         <AccordionTrigger>Is it animated?</AccordionTrigger>
         <AccordionContent>
-          Yes. It&apos;s animated by default, but you can disable it if you prefer.
+          Yes. It&apos;s animated by default with Framer Motion, but you can disable animations
+          by setting the animated prop to false.
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -133,7 +144,8 @@ export const Single: Story = {
 export const Multiple: Story = {
   args: {
     type: "multiple",
-    className: "w-[400px]",
+    animated: true,
+    className: "w-[450px]",
     defaultValue: ["item-1", "item-3"],
   },
   render: (args) => (
@@ -200,7 +212,8 @@ export const NonCollapsible: Story = {
   args: {
     type: "single",
     collapsible: false,
-    className: "w-[400px]",
+    animated: true,
+    className: "w-[450px]",
     defaultValue: "item-1",
   },
   render: (args) => (
@@ -225,7 +238,8 @@ export const WithDisabledItems: Story = {
   args: {
     type: "single",
     collapsible: true,
-    className: "w-[400px]",
+    animated: true,
+    className: "w-[450px]",
   },
   render: (args) => (
     <Accordion {...args}>
@@ -277,7 +291,8 @@ export const LongContent: Story = {
   args: {
     type: "single",
     collapsible: true,
-    className: "w-[500px]",
+    animated: true,
+    className: "w-[550px]",
   },
   render: (args) => (
     <Accordion {...args}>
@@ -410,18 +425,22 @@ export const ModernDesign: Story = {
   args: {
     type: "single",
     collapsible: true,
-    className: "w-[500px]",
+    animated: true,
+    className: "w-[600px]",
   },
   render: (args) => (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold mb-4">Frequently Asked Questions</h3>
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-xl font-semibold mb-2">Frequently Asked Questions</h3>
+        <p className="text-sm text-muted-foreground">Find answers to common questions about React Jedi</p>
+      </div>
       <Accordion {...args}>
         <AccordionItem value="item-1">
-          <AccordionTrigger className="text-left hover:no-underline">
+          <AccordionTrigger className="text-left">
             What makes React Jedi different from other UI libraries?
           </AccordionTrigger>
           <AccordionContent>
-            <p className="leading-relaxed text-muted-foreground">
+            <p className="leading-relaxed">
               React Jedi stands out with its server-driven UI approach, allowing you to build entire 
               interfaces using JSON specifications. It offers zero lock-in architecture, meaning you 
               can import only what you need, and provides advanced features like reactive state 
@@ -430,11 +449,11 @@ export const ModernDesign: Story = {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger className="text-left hover:no-underline">
+          <AccordionTrigger className="text-left">
             How does the animation system work?
           </AccordionTrigger>
           <AccordionContent>
-            <p className="leading-relaxed text-muted-foreground">
+            <p className="leading-relaxed">
               Our animation system is built on Framer Motion, providing smooth, performant animations 
               out of the box. All components support an `animated` prop that can be toggled on/off, 
               and animations respect user preferences for reduced motion.
@@ -442,11 +461,11 @@ export const ModernDesign: Story = {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger className="text-left hover:no-underline">
+          <AccordionTrigger className="text-left">
             Can I customize the theme and styling?
           </AccordionTrigger>
           <AccordionContent>
-            <p className="leading-relaxed text-muted-foreground">
+            <p className="leading-relaxed">
               Absolutely! React Jedi uses TailwindCSS for styling and supports comprehensive theme 
               customization. You can override default styles, create custom variants, and even define 
               your own design tokens. The theme system supports both light and dark modes automatically.
@@ -463,7 +482,8 @@ export const IconAccordion: Story = {
   args: {
     type: "single",
     collapsible: true,
-    className: "w-[500px]",
+    animated: true,
+    className: "w-[550px]",
   },
   render: (args) => (
     <Accordion {...args}>
@@ -512,5 +532,123 @@ export const IconAccordion: Story = {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+  ),
+};
+
+export const WithoutAnimation: Story = {
+  name: "Without Animation",
+  args: {
+    type: "single",
+    collapsible: true,
+    animated: false,
+    className: "w-[450px]",
+  },
+  render: (args) => (
+    <Accordion {...args}>
+      <AccordionItem value="item-1">
+        <AccordionTrigger>No animations here</AccordionTrigger>
+        <AccordionContent>
+          This accordion has animations disabled. The content appears and disappears instantly
+          without any transition effects.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Instant feedback</AccordionTrigger>
+        <AccordionContent>
+          Sometimes you want immediate response without animations, especially for performance-critical
+          applications or when users prefer reduced motion.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>Accessibility first</AccordionTrigger>
+        <AccordionContent>
+          Disabling animations can improve accessibility for users who experience motion sickness
+          or prefer a simpler interface.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  ),
+};
+
+export const CleanModern: Story = {
+  name: "Clean & Modern",
+  args: {
+    type: "single",
+    collapsible: true,
+    animated: true,
+    className: "w-[550px]",
+  },
+  render: (args) => (
+    <div className="p-8 bg-gradient-to-br from-background to-muted/20 rounded-lg">
+      <Accordion {...args} className="bg-background/50 backdrop-blur-sm rounded-lg border shadow-sm">
+        <AccordionItem value="item-1" className="px-4">
+          <AccordionTrigger className="text-base font-semibold">
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Premium Features
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="space-y-3">
+              <p className="leading-relaxed">
+                Get access to all premium features including advanced analytics, team collaboration,
+                and priority support.
+              </p>
+              <div className="flex gap-2">
+                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Analytics</span>
+                <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Collaboration</span>
+                <span className="px-3 py-1 bg-green-100 text-green-700 text-xs rounded-full">24/7 Support</span>
+              </div>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2" className="px-4">
+          <AccordionTrigger className="text-base font-semibold">
+            <span className="bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+              Enterprise Solutions
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="space-y-3">
+              <p className="leading-relaxed">
+                Tailored solutions for large organizations with custom integrations, dedicated
+                infrastructure, and SLA guarantees.
+              </p>
+              <ul className="space-y-2 ml-4">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                  Custom API integrations
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                  Dedicated infrastructure
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                  99.9% uptime SLA
+                </li>
+              </ul>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-3" className="px-4 border-b-0">
+          <AccordionTrigger className="text-base font-semibold">
+            <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+              Developer Tools
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="space-y-3">
+              <p className="leading-relaxed">
+                Powerful tools and APIs designed for developers to build, test, and deploy
+                applications faster.
+              </p>
+              <pre className="p-3 bg-muted rounded-md text-xs overflow-x-auto">
+                <code>{`npm install @react-jedi/core\nnpm install @react-jedi/ui`}</code>
+              </pre>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
   ),
 };

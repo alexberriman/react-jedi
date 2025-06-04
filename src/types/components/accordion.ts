@@ -13,5 +13,6 @@ export interface AccordionType extends BaseComponentSpec {
   defaultValue?: string | string[];
   collapsible?: boolean;
   disabled?: boolean;
+  animated?: boolean;
   items: AccordionItem[];
 }

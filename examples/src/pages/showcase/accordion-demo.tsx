@@ -14,6 +14,7 @@ export function AccordionDemo() {
     accordionType: "single",
     collapsible: true,
     className: "w-[400px]",
+    animated: true,
     children: [
       {
         type: "AccordionItem",
@@ -25,7 +26,7 @@ export function AccordionDemo() {
           },
           {
             type: "AccordionContent",
-            children: "Yes. It adheres to the WAI-ARIA design pattern.",
+            children: "Yes. It adheres to the WAI-ARIA design pattern with full keyboard navigation and screen reader support.",
           },
         ],
       },
@@ -40,7 +41,7 @@ export function AccordionDemo() {
           {
             type: "AccordionContent",
             children:
-              "Yes. It comes with default styles that match the other components' aesthetic.",
+              "Yes. It comes with modern, clean styles that match the other components' aesthetic. The hover states are subtle and the transitions are smooth.",
           },
         ],
       },
@@ -54,7 +55,7 @@ export function AccordionDemo() {
           },
           {
             type: "AccordionContent",
-            children: "Yes. It's animated by default, but you can disable it if you prefer.",
+            children: "Yes. It's animated by default with Framer Motion, but you can disable animations by setting the animated prop to false.",
           },
         ],
       },
@@ -113,11 +114,51 @@ export function AccordionDemo() {
     ],
   };
 
+  // No animation example
+  const noAnimationSpec: UISpecification = {
+    type: "Accordion",
+    accordionType: "single",
+    collapsible: true,
+    animated: false,
+    className: "w-[400px]",
+    children: [
+      {
+        type: "AccordionItem",
+        value: "item-1",
+        children: [
+          {
+            type: "AccordionTrigger",
+            children: "No animations here",
+          },
+          {
+            type: "AccordionContent",
+            children: "This accordion has animations disabled. The content appears and disappears instantly without any transition effects.",
+          },
+        ],
+      },
+      {
+        type: "AccordionItem",
+        value: "item-2",
+        children: [
+          {
+            type: "AccordionTrigger",
+            children: "Instant feedback",
+          },
+          {
+            type: "AccordionContent",
+            children: "Sometimes you want immediate response without animations, especially for performance-critical applications.",
+          },
+        ],
+      },
+    ],
+  };
+
   // JSON Examples
   const singleJsonExample = `{
   "type": "Accordion",
   "accordionType": "single",
   "collapsible": true,
+  "animated": true,
   "className": "w-[400px]",
   "children": [
     {
@@ -247,6 +288,20 @@ export function AccordionDemo() {
           </div>
         </section>
 
+        {/* No Animation Example */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold mb-3 text-zinc-100">Without Animation</h2>
+            <p className="text-zinc-600 dark:text-zinc-400">
+              Accordion with animations disabled for instant feedback.
+            </p>
+          </div>
+
+          <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-8">
+            {render(noAnimationSpec)}
+          </div>
+        </section>
+
         {/* Schema Documentation */}
         <section className="space-y-6">
           <h2 className="text-2xl font-semibold mb-4 text-zinc-100">Schema Properties</h2>
@@ -293,6 +348,12 @@ export function AccordionDemo() {
                   <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">disabled</dt>
                   <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                     boolean - Whether the accordion is disabled (default: false)
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-mono text-sm text-zinc-700 dark:text-zinc-300">animated</dt>
+                  <dd className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+                    boolean - Whether to animate accordion transitions (default: true)
                   </dd>
                 </div>
                 <div>

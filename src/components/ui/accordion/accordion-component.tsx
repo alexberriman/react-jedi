@@ -9,7 +9,7 @@ interface AccordionComponentProps extends ComponentProps {
 }
 
 export function AccordionComponent({ spec, children }: AccordionComponentProps) {
-  const { accordionType = "single", defaultValue, collapsible, disabled, className } = spec;
+  const { accordionType = "single", defaultValue, collapsible, disabled, animated, className } = spec;
 
   // Create proper typed props based on accordion type
   const accordionProps =
@@ -19,12 +19,14 @@ export function AccordionComponent({ spec, children }: AccordionComponentProps) 
           defaultValue: defaultValue as string | undefined,
           collapsible: collapsible ?? false,
           disabled,
+          animated: animated ?? true,
           className,
         }
       : {
           type: "multiple" as const,
           defaultValue: defaultValue as string[] | undefined,
           disabled,
+          animated: animated ?? true,
           className,
         };
 

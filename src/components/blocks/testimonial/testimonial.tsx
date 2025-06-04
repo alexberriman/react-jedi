@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../carousel";
 import { Star, Play, Quote } from "lucide-react";
 
 export interface TestimonialAuthor {

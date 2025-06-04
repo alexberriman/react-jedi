@@ -1,22 +1,5 @@
 [
   {
-    "id": "component-duplicates",
-    "description": "We have a large list of components and blocks (advanced components) and theyre all accessible in storybook. However, we need to polish off a few of these components and the storybook configuration. For all subtasks, where appropriate, make sure stories are updated, and relevant pages in the showcase examples app (./examples). Feel free to pick multiple sub tasks at the same time to speed up development.",
-    "status": "pending",
-    "subtasks": [
-      {
-        "id": "remove-duplicates",
-        "description": "Two carousel components for some reason - the one in blocks looks more recent - remove the other implementation, make sure you remove it from the component map and showcase example app as well (./examples). The following components under Components/* in storybook are more advanced components (I'd class them as blocks) - move to be under Blocks in storybook, make sure theyre in the blocks directory, not ui directory, make sure in the showcase example app (./examples) theyre on the Blocks showcase page and not the general Components showcase page: Components/Footer (is this a dupliacte of the FooterBlock? If so, I think FooterBlock is more recent, so remove the old Footer component, rename FooterBlock to footer),  ",
-        "status": "pending"
-      },
-      {
-        "id": "enhance-icon-component-storybook",
-        "description": "Is it possible to update the icon component storybook (and potentially showcase page in the showcase/example app) to iterate over and display ALL of the icons, and maybe even tooltip with the icon id/name to use to help embed (and potentially even a search). Storybook says there is an IconGallery block (https://storybook.js.org/docs/api/doc-blocks/doc-block-icongallery) with a section to automate icon documentation",
-        "status": "pending"
-      }
-    ]
-  },
-  {
     "id": "component-fixes-storybook",
     "description": "Theres quite a few components that need a bit of polish, either just the component itself or storybook. You can take multiple of these subtasks simultaneously to help speed up development. For all subtasks, where appropriate, make sure stories are updated, and relevant pages in the showcase examples app (./examples).  Feel free to pick multiple sub tasks at the same time to speed up development.",
     "status": "pending",
@@ -79,7 +62,7 @@
       {
         "id": "replace-placeholder-images",
         "description": "Quite a lot of images in the example app (./examples) and storybook files use placeholders, however many of them 404. Can you ensure for all images where you want a photo we use picsum.photos (url format is: https://picsum.photos/200/300 where 200 is width and 300 is height), and when you don't want a photo use https://placehold.co/600x600/EEE/31343C (600x600 - first is width second is height). Can you also add a note to `docs/directory-structure.md` to use these images for placeholders.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "blogpost-grid-hover",

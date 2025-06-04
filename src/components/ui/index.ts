@@ -72,7 +72,6 @@ export { InputOTPComponent } from "./input-otp-component";
 export * from "./data-table";
 export * from "./chart";
 export * from "./hero";
-export * from "./footer";
 export * from "./error-boundary";
 export * from "./loading";
 export * from "./skeleton-loader";

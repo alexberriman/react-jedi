@@ -127,7 +127,7 @@
       {
         "id": "navigation-menu-height",
         "description": "Increase the height of all of the NavigationMenu storybook containers (manually set them to 600px or something). I cant see the dropdown menues. Also, when you hover over a menu item in the NavigationMenu, I DONT want it to be underlined. Also - when an item has a dropdown, there is again that really fucking annoying flicker where it goes visible and then not visible, and the fucking text is WHITE ON A GREY BACKGROUND - CANT READ IT. This component needs to be restyled to be a lot sexier, cleaner, more modern and brandable.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "remove-menubar",

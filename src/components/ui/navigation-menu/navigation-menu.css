@@ -1,0 +1,66 @@
+/* NavigationMenu Component Styles */
+
+/* Prevent flicker on initial render */
+[data-slot="navigation-menu-viewport"],
+[data-slot="navigation-menu-content"] {
+  opacity: 0;
+  animation: fadeIn 0.15s ease-out forwards;
+}
+
+[data-slot="navigation-menu-viewport"][data-state="open"],
+[data-slot="navigation-menu-content"][data-state="open"] {
+  opacity: 1;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Prevent layout shift */
+[data-slot="navigation-menu-trigger"] {
+  will-change: background-color, color;
+}
+
+/* Ensure no underlines on any navigation links */
+[data-slot="navigation-menu"] a,
+[data-slot="navigation-menu-link"],
+[data-slot="navigation-menu-trigger"] {
+  text-decoration: none !important;
+}
+
+/* Smooth dropdown animations */
+[data-slot="navigation-menu-viewport"] {
+  transform-origin: top center;
+}
+
+/* Better focus styles */
+[data-slot="navigation-menu-trigger"]:focus-visible,
+[data-slot="navigation-menu-link"]:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+/* Ensure good contrast */
+[data-slot="navigation-menu-content"] {
+  background-color: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+}
+
+/* Prevent content jump */
+[data-slot="navigation-menu-list"] {
+  align-items: stretch;
+}
+
+[data-slot="navigation-menu-item"] {
+  display: flex;
+  align-items: center;
+}

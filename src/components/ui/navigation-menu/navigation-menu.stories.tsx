@@ -23,6 +23,13 @@ const meta = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ height: "600px", display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: "40px" }}>
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     orientation: "horizontal",
   },
@@ -77,7 +84,7 @@ const ListItem = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithout
         <a
           ref={ref}
           className={cn(
-            "block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none rounded-md p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground",
             className
           )}
           {...props}
@@ -104,7 +111,7 @@ export const Default: Story = {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-lg bg-gradient-to-b from-primary/5 to-primary/10 p-6 no-underline outline-none transition-all duration-200 hover:from-primary/10 hover:to-primary/15 focus:shadow-md"
                     href="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">React Jedi</div>
@@ -142,7 +149,7 @@ export const Default: Story = {
           <NavigationMenuLink
             href="#docs"
             className={cn(
-              "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+              "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline"
             )}
           >
             Documentation
@@ -196,7 +203,7 @@ export const WithIconsAndBadges: Story = {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/10 to-primary/20 p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-lg bg-gradient-to-b from-primary/5 to-primary/10 p-6 no-underline outline-none transition-all duration-200 hover:from-primary/10 hover:to-primary/15 focus:shadow-md"
                     href="/"
                   >
                     <div className="mb-2 text-4xl">🚀</div>
@@ -242,7 +249,7 @@ export const WithIconsAndBadges: Story = {
           <NavigationMenuLink
             href="#pricing"
             className={cn(
-              "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+              "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline"
             )}
           >
             Pricing
@@ -289,7 +296,7 @@ export const SimpleNavigation: Story = {
           <NavigationMenuLink
             href="#home"
             className={cn(
-              "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+              "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline"
             )}
           >
             Home
@@ -299,7 +306,7 @@ export const SimpleNavigation: Story = {
           <NavigationMenuLink
             href="#about"
             className={cn(
-              "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+              "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline"
             )}
           >
             About
@@ -309,7 +316,7 @@ export const SimpleNavigation: Story = {
           <NavigationMenuLink
             href="#services"
             className={cn(
-              "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+              "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline"
             )}
           >
             Services
@@ -319,7 +326,7 @@ export const SimpleNavigation: Story = {
           <NavigationMenuLink
             href="#contact"
             className={cn(
-              "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+              "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline"
             )}
           >
             Contact
@@ -365,7 +372,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#tutorials"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         Tutorials
                       </a>
@@ -375,7 +382,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#guides"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         Guides
                       </a>
@@ -385,7 +392,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#examples"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         Examples
                       </a>
@@ -400,7 +407,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#forums"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         Forums
                       </a>
@@ -410,7 +417,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#discord"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         Discord
                       </a>
@@ -420,7 +427,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#github"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         GitHub
                       </a>
@@ -435,7 +442,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#help"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         Help Center
                       </a>
@@ -445,7 +452,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#contact"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         Contact Support
                       </a>
@@ -455,7 +462,7 @@ export const WithFullWidthContent: Story = {
                     <NavigationMenuLink asChild>
                       <a
                         href="#status"
-                        className="block text-sm text-muted-foreground hover:text-foreground"
+                        className="block text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground no-underline"
                       >
                         Status
                       </a>
@@ -470,7 +477,7 @@ export const WithFullWidthContent: Story = {
           <NavigationMenuLink
             href="#blog"
             className={cn(
-              "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+              "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline"
             )}
           >
             Blog
@@ -514,7 +521,7 @@ export const WithBrandingAndCTA: Story = {
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <a
-                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-blue-500/10 to-blue-500/20 p-6 no-underline outline-none focus:shadow-md"
+                        className="flex h-full w-full select-none flex-col justify-end rounded-lg bg-gradient-to-b from-blue-500/5 to-blue-500/10 p-6 no-underline outline-none transition-all duration-200 hover:from-blue-500/10 hover:to-blue-500/15 focus:shadow-md"
                         href="/"
                       >
                         <div className="mb-2 text-4xl">⚡</div>
@@ -561,8 +568,8 @@ export const WithBrandingAndCTA: Story = {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-4">
-        <button className="text-sm font-medium">Sign In</button>
-        <button className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+        <button className="text-sm font-medium cursor-pointer transition-colors duration-200 hover:text-primary">Sign In</button>
+        <button className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground cursor-pointer transition-all duration-200 hover:bg-primary/90 hover:shadow-md">
           Get Started
         </button>
       </div>

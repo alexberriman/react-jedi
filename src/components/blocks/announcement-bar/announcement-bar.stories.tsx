@@ -37,7 +37,20 @@ const meta = {
     sticky: {
       control: 'boolean'
     }
-  }
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ position: 'relative', height: '500px', overflow: 'hidden' }}>
+        <Story />
+        <div style={{ padding: '60px 20px' }}>
+          <h2 style={{ marginBottom: '20px' }}>Page Content</h2>
+          <p style={{ marginBottom: '16px' }}>This is example page content to demonstrate how the announcement bar appears above or below the main content.</p>
+          <p style={{ marginBottom: '16px' }}>The announcement bar can be positioned at the top or bottom of the viewport and can be sticky or scroll with the page.</p>
+          <p>Different variants provide different visual styles and behaviors suitable for various use cases.</p>
+        </div>
+      </div>
+    )
+  ]
 } satisfies Meta<typeof AnnouncementBar>
 
 export default meta

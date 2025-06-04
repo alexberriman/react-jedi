@@ -220,7 +220,7 @@ function ProductShowcase({
               </div>
             )}
           </div>
-          <CardHeader className="pb-3">
+          <CardHeader className="pb-3 pt-0">
             <div className="space-y-1">
               {product.category && (
                 <p className="text-sm text-muted-foreground">{product.category}</p>

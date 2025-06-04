@@ -42,22 +42,22 @@
       {
         "id": "command-component-storybook",
         "description": "The Command component has a storybook file, but I cant use any of it. When I go there on web, its already up with an overlay, and I Cant dismiss, interact with it, etc. Storybook needs to be setup in schh a way that I can see all of the stories/variants and interface with all of them individually.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "announcements",
         "description": "I can't see any examples of the AnnouncementBar components in storybook - I'm not sure why. Is it a styling conflict? Is there styling on the announcement bar that means its not visible in the box for whatever reason? You can see it here: https://i.imgur.com/GOdVgki.png",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "blog-post-detail-markdown",
         "description": "The BlogPostDetail component looks nice, but the markdown is styled terribly (see: https://i.imgur.com/2f6jU81.png). Are we using the Markdown component we have? Also - above the title in this component there are some tags. Can you make sure these tags are centered horizontally? They're currently left aligned.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "cards-images",
         "description": "A lot of cards have images first (BlogPostGrid, BlogPostDetail at the bottom, there's tonnes of them). When there is an image, there is a weird padding at the top. If a card has an image first, there should be no padding at the top of the card. Fix the ones I listed, but also search throughout the codebase for all examples of cards with images and make sure there is no padding at the top of the card in these situations. Its the same for loading states with cards (i.e. BlogPostGrid loading state hover)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "replace-placeholder-images",

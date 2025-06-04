@@ -271,7 +271,7 @@ function ContentCardsCarousel({
                   />
                 </div>
               )}
-              <CardContent className="p-6">
+              <CardContent className={cn("p-6", item.image && "pt-0")}>
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="font-semibold text-lg">{item.title}</h3>
                   {item.badge && (
@@ -441,7 +441,7 @@ function ProductShowcaseCarousel({
                   </div>
                 )}
               </div>
-              <CardContent className="p-4">
+              <CardContent className="p-4 pt-0">
                 <h3 className="font-semibold text-lg mb-2 line-clamp-2">{product.name}</h3>
                 {product.description && (
                   <p className="text-sm text-muted-foreground mb-3 line-clamp-2">

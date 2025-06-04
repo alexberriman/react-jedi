@@ -14,6 +14,7 @@ import { Card } from '../../ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '../../ui/avatar'
 import { Badge } from '../../ui/badge'
 import { Image } from '../../ui/image'
+import { Markdown } from '../../ui/markdown'
 
 export interface RelatedPost {
   id: string
@@ -79,15 +80,24 @@ function calculateReadTime(content: string): number {
 }
 
 function extractTableOfContents(content: string): TableOfContentsItem[] {
-  const headingRegex = /<h([1-6])[^>]*>([^<]+)<\/h[1-6]>/gi
   const toc: TableOfContentsItem[] = []
-  let match
+  const lines = content.split('\n')
   
-  while ((match = headingRegex.exec(content)) !== null) {
-    const level = Number.parseInt(match[1])
-    const text = match[2].trim()
-    const id = text.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')
-    toc.push({ id, text, level })
+  for (const line of lines) {
+    const trimmedLine = line.trim()
+    // Match markdown headings (1-6 hashes followed by space and text)
+    if (trimmedLine.startsWith('#')) {
+      const hashRegex = /^(#{1,6})\s/
+      const hashMatch = hashRegex.exec(trimmedLine)
+      if (hashMatch) {
+        const level = hashMatch[1].length
+        const text = trimmedLine.slice(hashMatch[0].length).trim()
+        if (text) {
+          const id = text.toLowerCase().replaceAll(/[^a-z0-9]/g, '-').replaceAll(/-+/g, '-').replaceAll(/(^-)|(-$)/g, '')
+          toc.push({ id, text, level })
+        }
+      }
+    }
   }
   
   return toc
@@ -429,16 +439,18 @@ function ArticleHeader({
   title, 
   categories, 
   publishDate, 
-  readTime 
+  readTime,
+  centered = false
 }: { 
   readonly title: string
   readonly categories: readonly string[]
   readonly publishDate: string
   readonly readTime: number
+  readonly centered?: boolean
 }) {
   return (
-    <header className="mb-8">
-      <div className="flex flex-wrap gap-2 mb-4">
+    <header className={cn("mb-8", centered && "text-center")}>
+      <div className={cn("flex flex-wrap gap-2 mb-4", centered && "justify-center")}>
         {categories.map((category) => (
           <Badge key={category} variant="secondary">
             {category}
@@ -450,7 +462,7 @@ function ArticleHeader({
         {title}
       </h1>
       
-      <div className="flex items-center gap-4 text-muted-foreground">
+      <div className={cn("flex items-center gap-4 text-muted-foreground", centered && "justify-center")}>
         <span>{formatDate(publishDate)}</span>
         <span>•</span>
         <span>{readTime} min read</span>
@@ -459,12 +471,12 @@ function ArticleHeader({
   )
 }
 
-function TagsSection({ tags }: { readonly tags: readonly string[] }) {
+function TagsSection({ tags, centered = false }: { readonly tags: readonly string[]; readonly centered?: boolean }) {
   if (tags.length === 0) return null
   
   return (
     <div className="mt-8 pt-8 border-t">
-      <div className="flex flex-wrap gap-2">
+      <div className={cn("flex flex-wrap gap-2", centered && "justify-center")}>
         <span className="text-sm text-muted-foreground">Tags:</span>
         {tags.map((tag) => (
           <Badge key={tag} variant="outline">
@@ -590,7 +602,7 @@ export default function BlogPostDetail({
       const headings = contentRef.current.querySelectorAll('h1, h2, h3, h4, h5, h6')
       for (const heading of headings) {
         const text = heading.textContent || ''
-        const id = text.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')
+        const id = text.toLowerCase().replaceAll(/[^a-z0-9]/g, '-').replaceAll(/-+/g, '-').replaceAll(/(^-)|(-$)/g, '')
         heading.id = id
       }
 
@@ -641,13 +653,12 @@ export default function BlogPostDetail({
                 categories={categories}
                 publishDate={publishDate}
                 readTime={calculatedReadTime}
+                centered={false}
               />
 
-              <div 
-                ref={contentRef}
-                className="prose prose-lg dark:prose-invert max-w-none"
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
+              <div ref={contentRef}>
+                <Markdown content={content} className="prose-lg" />
+              </div>
 
               <TagsSection tags={tags} />
 
@@ -706,27 +717,22 @@ export default function BlogPostDetail({
               onImageClick={setLightboxImage}
             />
 
-            <div className="text-center">
-              <ArticleHeader 
-                title={title}
-                categories={categories}
-                publishDate={publishDate}
-                readTime={calculatedReadTime}
+            <ArticleHeader 
+              title={title}
+              categories={categories}
+              publishDate={publishDate}
+              readTime={calculatedReadTime}
+              centered={true}
+            />
+
+            <div ref={contentRef}>
+              <Markdown 
+                content={content} 
+                className={variant === 'magazine' ? "prose-xl" : "prose-lg"} 
               />
             </div>
 
-            <div 
-              ref={contentRef}
-              className={cn(
-                "prose dark:prose-invert max-w-none",
-                variant === 'magazine' ? "prose-xl" : "prose-lg"
-              )}
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
-
-            <div className="flex justify-center">
-              <TagsSection tags={tags} />
-            </div>
+            <TagsSection tags={tags} centered={true} />
 
             {showShareButtons && (
               <div className="mt-8 flex justify-center">

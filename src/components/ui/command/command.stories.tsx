@@ -10,7 +10,7 @@ import {
   CommandShortcut,
   CommandSeparator,
 } from "./command";
-import { CommandComponent, CommandDialogComponent } from "./command-component";
+import { CommandComponent } from "./command-component";
 import React from "react";
 import {
   Calendar,
@@ -315,43 +315,57 @@ export const DialogExample: Story = {
 };
 
 function JsonCommandDialogExample() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   return (
     <div>
       <button
         onClick={() => setOpen(true)}
-        className="px-4 py-2 bg-primary text-primary-foreground rounded-md"
+        className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
       >
         Open Command Palette
       </button>
-      <CommandDialogComponent
-        type="commandDialog"
-        open={open}
-        title="Command Menu"
-        description="Choose an action to perform"
-        searchPlaceholder="Type to search..."
-        emptyMessage="Nothing found."
-        groups={[
-          {
-            heading: "Recent",
-            items: [
-              { id: "doc1", label: "Product Requirements", icon: "📄" },
-              { id: "doc2", label: "Design System", icon: "🎨" },
-              { id: "doc3", label: "API Documentation", icon: "📚" },
-            ],
-          },
-          {
-            heading: "Quick Actions",
-            items: [
-              { id: "create", label: "Create New", icon: "➕", shortcut: "⌘N" },
-              { id: "search", label: "Search", icon: "🔍", shortcut: "⌘F" },
-              { id: "share", label: "Share", icon: "📤", shortcut: "⌘S" },
-            ],
-          },
-        ]}
-        onOpenChange={open ? "close" : "open"}
-      />
+      <CommandDialog 
+        open={open} 
+        onOpenChange={setOpen}
+      >
+        <CommandInput placeholder="Type to search..." />
+        <CommandList>
+          <CommandEmpty>Nothing found.</CommandEmpty>
+          <CommandGroup heading="Recent">
+            <CommandItem>
+              <span className="mr-2">📄</span>
+              Product Requirements
+            </CommandItem>
+            <CommandItem>
+              <span className="mr-2">🎨</span>
+              Design System
+            </CommandItem>
+            <CommandItem>
+              <span className="mr-2">📚</span>
+              API Documentation
+            </CommandItem>
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Quick Actions">
+            <CommandItem>
+              <span className="mr-2">➕</span>
+              Create New
+              <CommandShortcut>⌘N</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <span className="mr-2">🔍</span>
+              Search
+              <CommandShortcut>⌘F</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <span className="mr-2">📤</span>
+              Share
+              <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </div>
   );
 }
@@ -436,6 +450,100 @@ export const NavigationExample: Story = {
     docs: {
       description: {
         story: "Command palette for navigation with multiple sections.",
+      },
+    },
+  },
+};
+
+// Interactive Dialog Demo
+function InteractiveDialogDemo() {
+  const [open, setOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState("");
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-4 items-center">
+        <button
+          onClick={() => setOpen(true)}
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+        >
+          Open Command Dialog
+        </button>
+        {selectedValue && (
+          <p className="text-sm text-muted-foreground">
+            Selected: <span className="font-medium">{selectedValue}</span>
+          </p>
+        )}
+      </div>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Actions">
+            <CommandItem
+              onSelect={() => {
+                setSelectedValue("New File");
+                setOpen(false);
+              }}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              New File
+              <CommandShortcut>⌘N</CommandShortcut>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                setSelectedValue("Open File");
+                setOpen(false);
+              }}
+            >
+              <Folder className="mr-2 h-4 w-4" />
+              Open File
+              <CommandShortcut>⌘O</CommandShortcut>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                setSelectedValue("Save");
+                setOpen(false);
+              }}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              Save
+              <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Tools">
+            <CommandItem
+              onSelect={() => {
+                setSelectedValue("Calculator");
+                setOpen(false);
+              }}
+            >
+              <Calculator className="mr-2 h-4 w-4" />
+              Calculator
+            </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                setSelectedValue("Calendar");
+                setOpen(false);
+              }}
+            >
+              <Calendar className="mr-2 h-4 w-4" />
+              Calendar
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
+    </div>
+  );
+}
+
+export const InteractiveDialog: Story = {
+  render: InteractiveDialogDemo,
+  parameters: {
+    docs: {
+      description: {
+        story: "Interactive command dialog that shows selected values and proper open/close behavior.",
       },
     },
   },

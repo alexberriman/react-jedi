@@ -60,7 +60,7 @@ function BlogPostCard({ post, className }: { readonly post: BlogPost; readonly c
           />
         </div>
       )}
-      <CardHeader className="space-y-2">
+      <CardHeader className={cn("space-y-2", post.featuredImage && "pt-0")}>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Badge variant="secondary" className="font-normal">
             {post.category}
@@ -219,7 +219,7 @@ function BlogPostSkeleton({ variant }: { readonly variant: BlogPostGridPropertie
   return (
     <Card className="overflow-hidden">
       <Skeleton className="aspect-video w-full" />
-      <CardHeader className="space-y-2">
+      <CardHeader className="space-y-2 pt-0">
         <Skeleton className="h-4 w-24" />
         <Skeleton className="h-6 w-full" />
       </CardHeader>

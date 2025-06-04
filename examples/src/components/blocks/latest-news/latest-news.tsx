@@ -135,7 +135,7 @@ export function LatestNews({
                 />
               </div>
             )}
-            <CardHeader className="flex-grow">
+            <CardHeader className={cn("flex-grow", article.thumbnail && "pt-0")}>
               <Badge variant="secondary" className="w-fit mb-2">
                 {article.category}
               </Badge>
@@ -249,7 +249,7 @@ export function LatestNews({
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <CardContent className="p-4">
+            <CardContent className="p-4 pt-0">
               <Badge variant="secondary" className="mb-2">
                 {article.category}
               </Badge>
@@ -285,7 +285,7 @@ export function LatestNews({
                   className="w-full h-full object-cover"
                 />
               </div>
-              <CardContent className="p-6">
+              <CardContent className="p-6 pt-0">
                 <Badge className="mb-3">
                   {article.category}
                 </Badge>
@@ -319,7 +319,7 @@ export function LatestNews({
                 className="w-full h-full object-cover"
               />
             </div>
-            <CardContent className="p-4">
+            <CardContent className="p-4 pt-0">
               <Badge variant="secondary" className="text-xs mb-2">
                 {article.category}
               </Badge>

@@ -77,7 +77,7 @@ function ProjectCard({ project, onViewDetails }: { readonly project: CaseStudy; 
           </Badge>
         )}
       </div>
-      <CardHeader className="space-y-3">
+      <CardHeader className="space-y-3 pt-0">
         <div className="flex items-center justify-between">
           <Badge variant="secondary" className="font-normal">
             {project.category}
@@ -268,7 +268,7 @@ function BeforeAfterCard({ project, onViewDetails }: { readonly project: CaseStu
           />
         )}
       </div>
-      <CardHeader>
+      <CardHeader className="pt-0">
         <div className="flex items-center justify-between mb-2">
           <Badge variant="outline">{project.category}</Badge>
           <span className="text-sm text-muted-foreground">

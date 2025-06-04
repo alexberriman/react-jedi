@@ -117,7 +117,7 @@
       {
         "id": "progress-stories-not-visible",
         "description": "I can't see some of the Progress stories - not sure why. Please investigate and fix: Default, Empty, Quarter, Half, Three Quarters, Complete. I can see all of the rest",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "popover-flutter",

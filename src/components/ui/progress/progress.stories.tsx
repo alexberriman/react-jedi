@@ -19,6 +19,13 @@ const meta = {
       description: "Additional CSS classes",
     },
   },
+  decorators: [
+    (Story) => (
+      <div className="w-[350px] max-w-full">
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Progress>;
 
 export default meta;

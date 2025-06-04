@@ -42,7 +42,7 @@
       {
         "id": "form-stories",
         "description": "The Form component storybook has a With Initial Errors story. I dont actually see any errors in this variant/state. Can you investigate and confirm whether its a storybook issue or component issue. If component issue, fix it.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "placeholder-images",

@@ -1,3 +1,4 @@
+import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, userEvent, expect, waitFor } from "@storybook/test";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -399,8 +400,13 @@ function InitialErrorsFormExample() {
       email: "invalid-email",
       phone: "123",
     },
-    mode: "onChange",
+    mode: "all", // Changed to "all" to validate on mount
   });
+
+  // Trigger validation on mount to show initial errors
+  React.useEffect(() => {
+    form.trigger();
+  }, [form]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -446,7 +452,40 @@ export const WithInitialErrors: Story = {
     children: null,
   },
   render: () => <InitialErrorsFormExample />,
-  // Test removed - react-hook-form with mode: 'onChange' doesn't trigger validation on mount
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Wait for initial validation to trigger
+    await waitFor(() => {
+      // Verify initial errors are displayed
+      expect(canvas.getByText('Invalid email')).toBeInTheDocument();
+      expect(canvas.getByText('Phone number too short')).toBeInTheDocument();
+    });
+    
+    // Find form elements
+    const emailInput = canvas.getByDisplayValue('invalid-email');
+    const phoneInput = canvas.getByDisplayValue('123');
+    
+    // Fix email
+    await userEvent.clear(emailInput);
+    await userEvent.type(emailInput, 'valid@example.com');
+    
+    // Email error should be gone
+    await waitFor(() => {
+      expect(canvas.queryByText('Invalid email')).not.toBeInTheDocument();
+      expect(canvas.getByText('Phone number too short')).toBeInTheDocument();
+    });
+    
+    // Fix phone
+    await userEvent.clear(phoneInput);
+    await userEvent.type(phoneInput, '1234567890');
+    
+    // All errors should be gone
+    await waitFor(() => {
+      expect(canvas.queryByText('Invalid email')).not.toBeInTheDocument();
+      expect(canvas.queryByText('Phone number too short')).not.toBeInTheDocument();
+    });
+  },
 };
 
 function ContactFormExample() {

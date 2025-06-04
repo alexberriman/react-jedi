@@ -194,15 +194,23 @@ function PhotoCard({
       tabIndex={0}
       aria-label={`View ${photo.title || photo.alt || 'image'} in full size`}
     >
-      <LazyImage
-        src={photo.src}
-        alt={photo.alt}
-        aspectRatio={variant === "instagram" ? "square" : aspectRatio}
-        className={cn(
-          "transition-transform duration-700 ease-out",
-          enableZoom && "group-hover:scale-110"
-        )}
-      />
+      <motion.div
+        className="w-full h-full"
+        whileHover={enableZoom ? { scale: 1.1 } : {}}
+        transition={{ 
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          mass: 0.8
+        }}
+      >
+        <LazyImage
+          src={photo.src}
+          alt={photo.alt}
+          aspectRatio={variant === "instagram" ? "square" : aspectRatio}
+          className="w-full h-full"
+        />
+      </motion.div>
       
       {/* Overlay with actions */}
       <AnimatePresence>
@@ -277,12 +285,14 @@ function PhotoCard({
       
       {/* Category badge */}
       {photo.category && variant !== "instagram" && (
-        <Badge 
-          variant="secondary" 
-          className="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white border-0 shadow-md"
-        >
-          {photo.category}
-        </Badge>
+        <div className="absolute top-4 left-4">
+          <Badge 
+            variant="secondary" 
+            className="bg-black/50 backdrop-blur-sm text-white border-0 shadow-md hover:bg-black/60 transition-colors"
+          >
+            {photo.category}
+          </Badge>
+        </div>
       )}
     </div>
   );

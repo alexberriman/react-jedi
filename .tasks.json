@@ -187,7 +187,7 @@
       {
         "id": "photo-gallery-image-zoom",
         "description": "Can you make sure when I hover over an image in the PhotoGallery component, the image that 'zooms' transitions/animates in with something like framer motion? Can you also slow it down so its quite noticable. Also - not sure whats going on, but half the tag isnt visible (its overflowing outside of the container)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "photo-flip-card",

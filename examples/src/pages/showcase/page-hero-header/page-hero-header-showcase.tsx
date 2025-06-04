@@ -626,7 +626,7 @@ export function PageHeroHeaderShowcase() {
             <div className="rounded-lg border bg-muted/50 p-6">
               <h3 className="mb-2 font-semibold">Overlay Configuration</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><strong>overlay:</strong> 'dark' | 'light' | 'gradient' | 'none' - The type of overlay to apply</li>
+                <li><strong>overlay:</strong> &apos;dark&apos; | &apos;light&apos; | &apos;gradient&apos; | &apos;none&apos; - The type of overlay to apply</li>
                 <li><strong>overlayOpacity:</strong> number (0-1) - Controls the transparency of the overlay (default: 0.5)</li>
                 <li><strong>Dark overlay:</strong> Use for light/bright background images</li>
                 <li><strong>Light overlay:</strong> Use for dark background images</li>

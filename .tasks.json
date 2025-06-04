@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": "component-blocks-polish",
+    "description": "We have a large list of components and blocks (advanced components) and theyre all accessible in storybook. However, we need to polish off a few of these components and the storybook configuration.",
+    "status": "pending",
+    "subtasks": [
+      {
+        "id": "storybook-categorization",
+        "description": "I want to re-categorize many of the components in storybook. What is currently under 'Blocks' is good (i.e. AnnouncementBar). There are some under Component/Blocks/* that need to be moved to the Blocks category (Carousel, FAQ, Timeline). There are a lot of subcategories under Components - I dont want this Components top level category. I want to move everything under Components/UI/* (i.e. Accordion, Badge) to top level under Components (i.e. Components/Accordion). Everything under Components/Overlay/* (i.e. AlertDialog) should just be under Components, same for Components/Feedback/* (Alert to Components, no Feedback category), Components/Media/* (i.e. AspectRatio), Components/Typography/* (i.e. BlockQuote), Components/Layout/* (i.e. Box) (layout components can go to a new Layout Components category, i.e. 'Layout Components/Box), Components/Navigation/* to Components/*, Components/DataDisplay/* to Components/*, Components/Form/* to Form Components/*, Components/Marketing/* should be moved to Blocks/* (these are advanced components i.e. Blocks), UI/* (i.e. Loading) can just go to Components/*. Move DataFetcher story from Core/* to Utility/* (similar to HeadManager). Same as Library/Data/* (optimistic updates) to Utility/*. Basically I want to flatten everything.",
+        "status": "pending"
+      },
+      {
+        "id": "component-docs-storybook",
+        "description": "A lot of storybook components have a Docs story where I can see them all - this is really good (i.e. look at AnnouncementBar, BlogPostDetail etc.). However, some don't (this is bad) (i.e. Look at ContactForm, ErrorPage). I want you to look at all stories and identify those that don't have a Docs page, and systematically go through and create one. ",
+        "status": "pending"
+      }
+    ]
+  }
+]

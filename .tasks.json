@@ -72,7 +72,7 @@
       {
         "id": "alertdialog-flicker",
         "description": "When I first load the AlertDialog stories, all of the buttons (Show Dialog) 'flicker' - theyre visible, then go invisible and back to visible. Please fix.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "datepicker-flicker",

@@ -13,10 +13,17 @@ function AlertDialog({
 }
 
 function AlertDialogTrigger({
+  className,
   ...props
 }: Readonly<React.ComponentProps<typeof AlertDialogPrimitive.Trigger>>) {
   const cleanProps = cleanDOMProps(props);
-  return <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...cleanProps} />;
+  return (
+    <AlertDialogPrimitive.Trigger 
+      data-slot="alert-dialog-trigger" 
+      className={cn(className)}
+      {...cleanProps} 
+    />
+  );
 }
 
 function AlertDialogPortal({

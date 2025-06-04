@@ -1,4 +1,5 @@
 import * as React from "react";
+import { motion } from "framer-motion";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 
@@ -82,21 +83,62 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
 interface CardImageProperties extends React.ComponentProps<"img"> {
   variant?: "cover" | "contain" | "zoom";
   overlay?: boolean;
+  animated?: boolean;
 }
 
-function CardImage({ className, variant = "cover", overlay = false, ...props }: Readonly<CardImageProperties>) {
+function CardImage({ className, variant = "cover", overlay = false, animated = true, ...props }: Readonly<CardImageProperties>) {
   const cleanProps = cleanDOMProps(props);
+
+  // Define animation variants
+  const zoomVariants = {
+    hover: {
+      scale: 1.08,
+      transition: {
+        duration: 0.7,
+        ease: "easeInOut",
+      },
+    },
+    initial: {
+      scale: 1,
+    },
+  };
+
+  // Prepare safe props for motion.img
+  const { 
+    onDrag, 
+    onDragStart, 
+    onDragEnd, 
+    onAnimationStart, 
+    onAnimationEnd, 
+    onAnimationIteration,
+    ...safeProps 
+  } = cleanProps;
+
   return (
     <div data-slot="card-image" className="relative aspect-video overflow-hidden">
-      <img 
-        alt=""
-        className={cn(
-          "h-full w-full object-cover transition-transform duration-300",
-          variant === "zoom" && "hover:scale-105",
-          className
-        )}
-        {...cleanProps}
-      />
+      {variant === "zoom" && animated ? (
+        <motion.img 
+          alt=""
+          className={cn(
+            "h-full w-full object-cover",
+            className
+          )}
+          initial="initial"
+          whileHover="hover"
+          variants={zoomVariants}
+          {...safeProps}
+        />
+      ) : (
+        <img 
+          alt=""
+          className={cn(
+            "h-full w-full object-cover",
+            variant === "zoom" && !animated && "transition-transform duration-300 hover:scale-105",
+            className
+          )}
+          {...safeProps}
+        />
+      )}
       {overlay && (
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
       )}

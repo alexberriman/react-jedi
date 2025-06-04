@@ -4,6 +4,7 @@ import { usePageMetadata } from "../../../lib/meta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CodeBlock } from "@/components/ui/code-block";
+import { Card, CardContent, CardDescription, CardHeader, CardImage, CardTitle } from "@alexberriman/react-jedi";
 
 export function CardShowcase() {
   usePageMetadata({
@@ -21,6 +22,7 @@ export function CardShowcase() {
     { id: "with-header", label: "Cards with Headers" },
     { id: "with-footer", label: "Cards with Footers" },
     { id: "complete", label: "Complete Cards" },
+    { id: "with-images", label: "Cards with Images" },
     { id: "interactive", label: "Interactive Cards" },
     { id: "layouts", label: "Card Layouts" },
     { id: "complex", label: "Complex Examples" },
@@ -1023,6 +1025,119 @@ export function CardShowcase() {
             </details>
           </section>
 
+          {/* Cards with Images Section */}
+          <section id="with-images" className="scroll-mt-20">
+            <h2 className="text-2xl font-semibold mb-4">Cards with Images</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Cards can include images with various effects like zoom on hover.
+            </p>
+            <div className="space-y-8">
+              {/* Direct React Component Examples */}
+              <div>
+                <h3 className="text-lg font-medium mb-3">Image Card Variants</h3>
+                <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Standard Image Card */}
+                    <Card>
+                      <CardImage 
+                        src="https://picsum.photos/350/200" 
+                        alt="Standard image"
+                      />
+                      <CardHeader>
+                        <CardTitle>Standard Image</CardTitle>
+                        <CardDescription>Basic card with image</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Simple image card without any hover effects.</p>
+                      </CardContent>
+                    </Card>
+
+                    {/* Card with Zoom Effect */}
+                    <Card>
+                      <CardImage 
+                        src="https://picsum.photos/350/200?random=1" 
+                        alt="Zoom image"
+                        variant="zoom"
+                      />
+                      <CardHeader>
+                        <CardTitle>Zoom Effect</CardTitle>
+                        <CardDescription>Hover to see smooth zoom</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Image zooms smoothly with Framer Motion animation.</p>
+                      </CardContent>
+                    </Card>
+
+                    {/* Card with Image Overlay */}
+                    <Card>
+                      <div className="relative">
+                        <CardImage 
+                          src="https://picsum.photos/350/200?random=2" 
+                          alt="Overlay image"
+                          overlay
+                          variant="zoom"
+                        />
+                        <div className="absolute bottom-4 left-4 text-white">
+                          <h3 className="text-xl font-bold">Overlay Text</h3>
+                          <p className="text-sm">With zoom and overlay</p>
+                        </div>
+                      </div>
+                      <CardHeader>
+                        <CardTitle>With Overlay</CardTitle>
+                        <CardDescription>Gradient overlay for text</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Combines zoom effect with overlay.</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+
+              {/* Animation Control Example */}
+              <div>
+                <h3 className="text-lg font-medium mb-3">Animation Control</h3>
+                <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* With Animation */}
+                    <Card>
+                      <CardImage 
+                        src="https://picsum.photos/350/200?random=3" 
+                        alt="Animated zoom"
+                        variant="zoom"
+                        animated={true}
+                      />
+                      <CardHeader>
+                        <CardTitle>Framer Motion Zoom</CardTitle>
+                        <CardDescription>Smooth animation enabled</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Uses Framer Motion for smooth zoom effect (animated=true).</p>
+                      </CardContent>
+                    </Card>
+
+                    {/* Without Animation */}
+                    <Card>
+                      <CardImage 
+                        src="https://picsum.photos/350/200?random=4" 
+                        alt="CSS zoom"
+                        variant="zoom"
+                        animated={false}
+                      />
+                      <CardHeader>
+                        <CardTitle>CSS Transition Zoom</CardTitle>
+                        <CardDescription>CSS-only animation</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Falls back to CSS transitions when animated=false.</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Interactive Cards Section */}
           <section id="interactive" className="scroll-mt-20">
             <h2 className="text-2xl font-semibold mb-4">Interactive Cards</h2>
@@ -1196,6 +1311,67 @@ export function CardShowcase() {
                         <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">
                           className
                         </td>
+                        <td className="py-3 px-4 font-mono">string</td>
+                        <td className="py-3 px-4">-</td>
+                        <td className="py-3 px-4">Additional CSS classes</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* CardImage Props */}
+              <div>
+                <h3 className="text-lg font-medium mb-3">CardImage Component</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <th className="text-left py-3 px-4 font-medium">Prop</th>
+                        <th className="text-left py-3 px-4 font-medium">Type</th>
+                        <th className="text-left py-3 px-4 font-medium">Default</th>
+                        <th className="text-left py-3 px-4 font-medium">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-sm">
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
+                        <td className="py-3 px-4 font-mono">&quot;CardImage&quot;</td>
+                        <td className="py-3 px-4">required</td>
+                        <td className="py-3 px-4">Component type identifier</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">src</td>
+                        <td className="py-3 px-4 font-mono">string</td>
+                        <td className="py-3 px-4">required</td>
+                        <td className="py-3 px-4">Image source URL</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">alt</td>
+                        <td className="py-3 px-4 font-mono">string</td>
+                        <td className="py-3 px-4">&quot;&quot;</td>
+                        <td className="py-3 px-4">Alternative text for accessibility</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
+                        <td className="py-3 px-4 font-mono">&quot;cover&quot; | &quot;contain&quot; | &quot;zoom&quot;</td>
+                        <td className="py-3 px-4">&quot;cover&quot;</td>
+                        <td className="py-3 px-4">Image display variant. Use &quot;zoom&quot; for hover zoom effect</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">overlay</td>
+                        <td className="py-3 px-4 font-mono">boolean</td>
+                        <td className="py-3 px-4">false</td>
+                        <td className="py-3 px-4">Add gradient overlay for text readability</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">animated</td>
+                        <td className="py-3 px-4 font-mono">boolean</td>
+                        <td className="py-3 px-4">true</td>
+                        <td className="py-3 px-4">Enable Framer Motion animations (when variant=&quot;zoom&quot;)</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">className</td>
                         <td className="py-3 px-4 font-mono">string</td>
                         <td className="py-3 px-4">-</td>
                         <td className="py-3 px-4">Additional CSS classes</td>

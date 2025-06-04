@@ -152,7 +152,7 @@
       {
         "id": "card-image-zoom",
         "description": "The Card component has a 'With Zoom Image' story/variant. The zoom should animate/transition in with something like framer, and be a bit slower",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "hero",

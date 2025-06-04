@@ -130,10 +130,30 @@ export const WithZoomImage: Story = {
       />
       <CardHeader>
         <CardTitle>Card with Zoom Effect</CardTitle>
-        <CardDescription>Hover over the image to see the zoom effect</CardDescription>
+        <CardDescription>Hover over the image to see the smooth zoom effect</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>The image zooms smoothly when you hover over it.</p>
+        <p>The image zooms smoothly with Framer Motion when you hover over it.</p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+export const WithZoomImageNoAnimation: Story = {
+  render: () => (
+    <Card className="w-[350px]">
+      <CardImage 
+        src="https://picsum.photos/350/200" 
+        alt="Card image"
+        variant="zoom"
+        animated={false}
+      />
+      <CardHeader>
+        <CardTitle>Card with CSS Zoom</CardTitle>
+        <CardDescription>Hover to see CSS-based zoom (animations disabled)</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>This uses CSS transitions instead of Framer Motion (animated=false).</p>
       </CardContent>
     </Card>
   ),

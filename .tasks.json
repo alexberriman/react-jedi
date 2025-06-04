@@ -5,149 +5,244 @@
     "status": "pending",
     "subtasks": [
       {
-        "id": "accordion-component",
-        "description": "The Accordion component looks quite awful. When you hover it goes a dark gray? Is this our theme or default styles. It should look a lot nicer, cleaner, modern. When you hover over one, the text also jumps to the right as though there is a padding change, and has underlined text on hover (shouldnt). When you expand/minimize it jumps around a lot and looks awful, should be a lot smoother using framer. Overall, this component should be a lot nicer, cleaner, modern, beautiful.",
-        "status": "completed"
+        "id": "togglegroup",
+        "description": "The ToggleGroup component default story goes black bg when hover - this looks awful, it should be a lot more subtle (very light grey for example). Textarea, input fields etc. have the WORST grey background on hover - they either shouldn't have any hover background, or should be VERY subtle (i.e. if main bg is white, should hover to bg-gray-50 or something (or whatever that equivalent is). This impacts Textarea, Input, Select. Like honestly, its the worst thing I've ever seen.",
+        "status": "pending"
       },
       {
-        "id": "alert-dialog-component",
-        "description": "When I click Show Dialog button on the default story of the AlertDialog component, the button 'flashes' to visible, not visible etc. (button that was used to open it). Looks weird..",
-        "status": "completed"
+        "id": "accordion",
+        "description": "The Accordion component items go dark grey bg when hover - this looks awful, it should be a lot more subtle (very light grey for example). Also, text kind of jumps - i guessing there is no padding, and then when you hover there is padding, causing text to jump. Honestly, you are so far from the mark on this component. Redo all of the UI to make it way sexier, way more 🔥 (while still being really clean). Use framer motion/animations/transition etc. to make it all really, really nice.",
+        "status": "pending"
       },
       {
-        "id": "alert-component",
-        "description": "Can you update the styles/ui of the Alert component to look a lot nicer, cleaner, more modern. It looks a bit dated.",
-        "status": "completed"
+        "id": "switch-animate",
+        "description": "Can you animate the transition of the Switch component. Make it optional as a prop (default to animate, but have a prop to disable animation). Update the storybook page.",
+        "status": "pending"
       },
       {
-        "id": "blockquote-component",
-        "description": "The BlockQuote component has a couple of variants where the text is barely legible (its the 3rd and 4th in the variants story). Can you make sure in all variants the text is clearly legible relative to the bg color.",
-        "status": "completed"
+        "id": "select-flicker",
+        "description": "When I click the Select box and the dropdown comes down, the main Select box 'flickers'. It goes invisible, visible, moves, etc. Please take a look and make sure it doesnt flicker or whatever and is very clean and functional. This also affects the ComboBox component.",
+        "status": "pending"
       },
       {
-        "id": "button-component",
-        "description": "For some reason, the Button component are all grouped in a Button directory in storybook. It should be flat like all other components - remove Tests stories.",
-        "status": "completed"
+        "id": "radiogroup",
+        "description": "The RadioGroup options should have cursor-pointer on hover. ALso, when I hover over a RadioGroup option, the 'circle' element disappears for some reason. Both of these issues also impact the CheckBox component.",
+        "status": "pending"
       },
       {
-        "id": "card-component",
-        "description": "For some reason, when I hover over a Card component in storybook, the title disappears. Its like it transitions to white or something when the bg is white. This shouldn't happen, as you can't read the text. Can you also add a prop for an image in the header (and if an image is passed through, there should be no padding at top of the card). Add some additional props/variants for header image styling, i.e. zoom effects when hovering, image by itself, image with the header text etc. over it (versus underneath) etc. Add more stories.",
-        "status": "completed"
+        "id": "masonry",
+        "description": "The Masonry component has a 'Pinterest Gallery' story/variant. When you hover over, the image kind of zooms, text appears, etc. It just 'appears' and looks weird - this should all transition in smoothly with framer motion.",
+        "status": "pending"
       },
       {
-        "id": "charts-component",
-        "description": "I can't see any of the Charts on the Chart component storybooks. I'm not sure if its an issue with the component, storybook issue (container height?) but not visible.",
-        "status": "completed"
+        "id": "grid-stories",
+        "description": "Why, in the Grid component storybooks, are most of the boxes fading in and out? Remove this",
+        "status": "pending"
       },
       {
-        "id": "command-component-storybook",
-        "description": "The Command component has a storybook file, but I cant use any of it. When I go there on web, its already up with an overlay, and I Cant dismiss, interact with it, etc. Storybook needs to be setup in schh a way that I can see all of the stories/variants and interface with all of them individually.",
-        "status": "completed"
+        "id": "form-stories",
+        "description": "The Form component storybook has a With Initial Errors story. I dont actually see any errors in this variant/state. Can you investigate and confirm whether its a storybook issue or component issue. If component issue, fix it.",
+        "status": "pending"
       },
       {
-        "id": "announcements",
-        "description": "I can't see any examples of the AnnouncementBar components in storybook - I'm not sure why. Is it a styling conflict? Is there styling on the announcement bar that means its not visible in the box for whatever reason? You can see it here: https://i.imgur.com/GOdVgki.png",
-        "status": "completed"
+        "id": "placeholder-images",
+        "description": "The following component stories contain images that 404. Can you update with images from Picsum (if photo) or placehold.co (if not photo). You can see examples from other component storybooks: Box ('Box With Backdrop Blur')",
+        "status": "pending"
       },
       {
-        "id": "blog-post-detail-markdown",
-        "description": "The BlogPostDetail component looks nice, but the markdown is styled terribly (see: https://i.imgur.com/2f6jU81.png). Are we using the Markdown component we have? Also - above the title in this component there are some tags. Can you make sure these tags are centered horizontally? They're currently left aligned.",
-        "status": "completed"
+        "id": "tooltip-flicker",
+        "description": "When I first load the Tooltip stories, all of the buttons (Hover me) 'flicker' - theyre visible, then go invisible and back to visible. Please fix. Also - when I hover, I dont see the tooltip. This component seems REALLY buggy, please investigate and fix.",
+        "status": "pending"
       },
       {
-        "id": "cards-images",
-        "description": "A lot of cards have images first (BlogPostGrid, BlogPostDetail at the bottom, there's tonnes of them). When there is an image, there is a weird padding at the top. If a card has an image first, there should be no padding at the top of the card. Fix the ones I listed, but also search throughout the codebase for all examples of cards with images and make sure there is no padding at the top of the card in these situations. Its the same for loading states with cards (i.e. BlogPostGrid loading state hover)",
-        "status": "completed"
+        "id": "dropdown-menu-flicker",
+        "description": "When I first load the DropdownMenu stories, all of the buttons (Open Menu) 'flicker' - theyre visible, then go invisible and back to visible. Please fix.",
+        "status": "pending"
       },
       {
-        "id": "replace-placeholder-images",
-        "description": "Quite a lot of images in the example app (./examples) and storybook files use placeholders, however many of them 404. Can you ensure for all images where you want a photo we use picsum.photos (url format is: https://picsum.photos/200/300 where 200 is width and 300 is height), and when you don't want a photo use https://placehold.co/600x600/EEE/31343C (600x600 - first is width second is height). Can you also add a note to `docs/directory-structure.md` to use these images for placeholders.",
-        "status": "completed"
+        "id": "drawer-menu-flicker",
+        "description": "When I first load the Drawer stories, all of the buttons (Open Drawer) 'flicker' - theyre visible, then go invisible and back to visible. Please fix.",
+        "status": "pending"
       },
       {
-        "id": "blogpost-grid-hover",
-        "description": "When you over over images on the BlogPostGrid component it 'zooms'. This is a nice effect, but its instant. It should transition/animate smoothly when zooming. Also, when I hover over the BlogPostGrid cards, the title disappears (I assume there is some sort of hover change to title text, maybe it goes to white? Im not sure why it would go to white when the bg is white. I tend to get this hover issue on quite a few cards, so investigate whether its an issue with the Card component itself and, if so, fix it there so it fixes it everywhere.",
-        "status": "completed"
+        "id": "dialog-menu-flicker",
+        "description": "When I first load the Dialog stories, all of the buttons (Open Dialog) 'flicker' - theyre visible, then go invisible and back to visible. Please fix.",
+        "status": "pending"
       },
       {
-        "id": "brandlogo-bar",
-        "description": "The BrandLogoBar component looks awful. Can you use placeholder images from picsum.photos. When you mouse over, it jumps, etc. looks really awful. This is meant to be the component that is often put under a page hero section, where there is generally either a static list of logos, or scrolling list, common variations inlude grayscale, zoom on hover, sometimes there is a title either above, to left (e.g. Trusted by Top Companies). e.g. https://i.imgur.com/B8kS8Rd.png - can you make sure this component works as expected.",
-        "status": "completed"
+        "id": "alertdialog-flicker",
+        "description": "When I first load the AlertDialog stories, all of the buttons (Show Dialog) 'flicker' - theyre visible, then go invisible and back to visible. Please fix.",
+        "status": "pending"
       },
       {
-        "id": "call-to-action",
-        "description": "The CallToAction component has buttons towards the bottom (i.e. Start Free Trial ->, Watch Demo). These should be centered horizontally in the default state, however they're left aligned for some reason. Looking at the Storybook variants, they should be centered on Default, Centered, With Background Image (already are), Gradient Animated, Bold, With Background Video, With Background Pattern, Custom Gradient, With Custom Shapes, Glass Morphism. It feels like default state should be to center it. On the Newsletter Custom Form variant/story, the input text is gray - barely legible over the blue bg from the parent container",
-        "status": "completed"
+        "id": "datepicker-flicker",
+        "description": "When I first load the Dialog stories, all of the buttons (Pick a date) 'flicker' - theyre visible, then go invisible and back to visible. Please fix.",
+        "status": "pending"
       },
       {
-        "id": "error-page",
-        "description": "The ErrorPage component for the most part looks good. However, it doesnt appear to be centered. It should be 100% of the container width, and everything centered horizontally on the screen.",
-        "status": "completed"
+        "id": "collapsible-flicker",
+        "description": "When I first load the Collapsible stories, all of the buttons (Toggle Content) 'flicker' - theyre visible, then go invisible and back to visible. Please fix. Theres also a weird flicker effect when content appears and disappears",
+        "status": "pending"
       },
       {
-        "id": "event-listings",
-        "description": "The EventListings component block is pretty good. However, up the top it looks like there is some sort of filter (i.e. I see 'All CategoriesConferenceWorkshopWebinarMeetupNetworking' on the default story). These are just plain text - theyre not functional. If its a filter, implement a filter. Also, the 'Featured Event' variant/story is incredibly too in-your-face. Its all blue. It should be cleaner and more subtle, while still prominent. Make sure all images on this page use picsum.photos (though this may have been implemented by a prior task)",
-        "status": "completed"
+        "id": "toast-background-zindex",
+        "description": "Im not sure whaats going on with the Toast component, but when I click the buttons on storybook, the toasts show up, but they either have no bg, or z-index is messed up or something, as the button is over it or visible or something. Please invvestigate and fix.",
+        "status": "pending"
       },
       {
-        "id": "faq",
-        "description": "The FAQ component is awful. Styles are awful, greys everywhere etc. looks awful. I just want a simple carousel style FAQ component, with a bunch of different variants. Carousel states should smoothly transition and animate etc. Make it simple, clean and sexy.",
-        "status": "completed"
+        "id": "tabs-animate",
+        "description": "Can you update the tabs component to 'animate' between tab transitions (both the tabs and the content). Add a prop to disable this, but enable by default (make sure to update storybook). Can you also update the UI of tabs component to make it look a lot more modern and nicer visually? (while still being really clean, simple and sexy)",
+        "status": "pending"
       },
       {
-        "id": "feature-card",
-        "description": "Does the FeatureCard component have icons? For many of the stories I dont see icons (i.e. the Icon Positions story). For the Tabbed Categories variation, the filter styles should be a bit cleaner and nicer looking, and when you go between categories it should animate using framer. In the Icon Focused story/variation, everything is centered except the icon. The icon should be centered in the card",
-        "status": "completed"
+        "id": "table-ui",
+        "description": "The UI of the table component absolutely blows. Can you completely update the UI of the Table component to make it look way nicer, sexier (while still being really clean and modern). Feel free to add multiple style variants. Make sure to update storybook with all variants and the showcase page in the example app (./examples).",
+        "status": "pending"
       },
       {
-        "id": "footer-block",
-        "description": "In the default FooterBlock (may have been renamed to Footer) block component, when I hover over the social icons, they transition to white (disappear since bg is white). This is a bug. In the 'Standard' variation/story, I assume its dark deliberately (even on light mode). This is fine, but the text 'Building modern React interfaces with JSON specifications' is black and barely legible over the dark background. Same as the 'Get the latest updates on new features and releases' text under the Stay Updated section and the copyright text. Can you confirm the text is legible on all stories and variations.",
-        "status": "completed"
+        "id": "docs",
+        "description": "The following component storybooks dont have a 'Docs' story (all of them should): SkeletonLoader, Loading",
+        "status": "pending"
       },
       {
-        "id": "header-block",
-        "description": "The Header block component has a few bugs: When you hover over a link in the menu (i.e. Docs in the default story), the text should not be underlined. When you hover over a menu item with children items, the text goes white and is barely legible over the light gray background. It also 'jumps' when the dropdown shows. I also can't see the dropdown in the storybook stories as the container is small (height wise). Can you either update the dropdown component to ensure it displays, or inrease the height of the containers in storybook. Can you also confirm the style of the dropdown is fine - even though I can't see it, it looks like there might be some issues i.e. width. Make sure the company logo uses a placeholder image (this may have been fixed in a prior task) in variations with a logo. The FullWidth and CustomGradient stories/variations have links that I can't read - they have a white bg or something which is weird when over the background color and white text. Can you also add a variation (and option/props) with icons or something in the dropdown menu - there should be multiple variations of the dropdown menu, from single vertical list one column stacked, to multi columns, icons, title/icon/desription etc. Needs to be really clean, fresh and modern.",
-        "status": "completed"
+        "id": "sidebar-blocks",
+        "description": "We define basic components like buttons as Components and more advanced components (like TeamGrid) as Blocks. Currently, Sidebar is in the components dir and classified as a component. Can you move this code to the blocks dir, update the storybook to be in the Blocks category, and move it from the Components showcase (in example app ./examples) to the blocks components showcase in the example app?",
+        "status": "pending"
       },
       {
-        "id": "latest-news",
-        "description": "In the latest news component there is a With Category Tabs variation/story. Here, the the filter/category styles should be a bit cleaner and nicer looking, and when you go between categories it should animate using framer. When you hover over images in cards, they should zoom with an animation/transition. This may have been implemented prior to this task, but please confirm and, if not, implement.",
-        "status": "completed"
+        "id": "sheet-flicker",
+        "description": "When I first load the Sheet stories, all of the buttons (Open Sheet) 'flicker' - theyre visible, then go invisible and back to visible. Please fix. Also - the sheet should animate/transition out (framer motion?) rather than just 'appear'. It looks awful. Also - the Sheet title/subtitle? is padded (good), but the sheet content isnt (bad). Please fix. ",
+        "status": "pending"
       },
       {
-        "id": "location-hours",
-        "description": "The LocationHours component looks awful - its just a wall of text. I still want clean, simple, sexy UI, but make it look more beautiful - more visual",
-        "status": "completed"
+        "id": "progress-stories-not-visible",
+        "description": "I can't see some of the Progress stories - not sure why. Please investigate and fix: Default, Empty, Quarter, Half, Three Quarters, Complete. I can see all of the rest",
+        "status": "pending"
       },
       {
-        "id": "maps",
-        "description": "Can you rename the existing Map component to GoogleMap, and then create a new Map component using Leaflet. Make sure you include all of the variations/examples (stories, showcase page in example (./examples) app etc.), and make it look really clean and nice (I like flat style maps, so not the default leaflet). Update other components/blocks that use Map (renaming to GoogleMap) to now use the new Map (leaflet) component",
-        "status": "completed"
+        "id": "popover-flutter",
+        "description": "When I click the buttons on the Popover storybook page, the button flickers into and out of existence (and kind of moves). Not sure why - fix.",
+        "status": "pending"
       },
       {
-        "id": "page-hero-header",
-        "description": "Can you ensure the PageHeroHeader component is 100% of the container width and everything is centered horizontally (in the default story). In the 'Fullscreen With Background Image' story, the container height/image is way too big - can you reduce the height. The 'Colorful Background' story looks awful - text is barely legible over background, text and images etc. feel like they should be centered. In all of these examples, unless a variation explicitly should have left aligned text (i.e. two col), all text, headers, buttons etc. should be centered horizontally.",
-        "status": "completed"
+        "id": "navigation-menu-height",
+        "description": "Increase the height of all of the NavigationMenu storybook containers (manually set them to 600px or something). I cant see the dropdown menues. Also, when you hover over a menu item in the NavigationMenu, I DONT want it to be underlined. Also - when an item has a dropdown, there is again that really fucking annoying flicker where it goes visible and then not visible, and the fucking text is WHITE ON A GREY BACKGROUND - CANT READ IT. This component needs to be restyled to be a lot sexier, cleaner, more modern and brandable.",
+        "status": "pending"
       },
       {
-        "id": "page-section",
-        "description": "Can you update the PageSection component stories to use more examples that are commonly used on websites/marketing websites. Some features: alternating sections (i.e. alternating background color to make them stand out), left/right, more visual variations (i.e. common pattern is image on left/right (alternating), title (h2 default), text underneath, ctas, etc.). Make sure it all looks really nice, storybooks with stories, and update variations/props accordingly (and showcase page).",
-        "status": "completed"
+        "id": "remove-menubar",
+        "description": "I don't know what this MenuBar component is, but it sucks. Remove it, stories, remove it from the examples app, component map, docs, etc. Get rid of it.",
+        "status": "pending"
       },
       {
-        "id": "photo-flip-card",
-        "description": "The PhotoFlipCard is a bit strange. It flips to an empty background with a button. It feels like this isnt common pattern. By default, can we 'flip' and have the same image (w/overlay) on the other side as well? I dont know - whatever most modern sites use, we should do that, but flipping to just a white background with button looks awful. Update all images on this page to use placeholder images from picsum.photos (this may have been done in a prior task).",
-        "status": "completed"
+        "id": "markdown-code",
+        "description": "The Markdown component looks REALLY nice. FOr some reason though, there is a 'grey' border or somerthing around the code example? The code examples look sick, not sure why there is that gray border around them.",
+        "status": "pending"
       },
       {
-        "id": "photo-gallery",
-        "description": "When you hover over an image in the PhotoGallery component, it should animate/transition in as it zooms, not happen instantly (this may have been implemented in a prior task, but if it hasnt, implement it). Also - these image cards look a bit poo. There is some weird gray element at the bottom? And half of the tag isn't visible - it goes beyond the container height and is cut off. Also, I'm not sure if there is an issue with the Carousel variation/story implementation, or its just storybook, but I cant see left/right etc. and can't navigate the carousel in storybook. The 'With Actions' variations have a few buttons - these should have cursor pointer.",
-        "status": "completed"
+        "id": "keyboard-navigation-hover",
+        "description": "I don't know whats going on, but when I hover over the KeyboardNavigationMenu component the background color goes black for some ridiculous reason.",
+        "status": "pending"
+      },
+      {
+        "id": "image-zoom",
+        "description": "In the Gallery story of the Image component, when I hover over the image there is some sort of zoom effect. It should animate/transition in with something like framer rather than be instant.",
+        "status": "pending"
+      },
+      {
+        "id": "card-image-zoom",
+        "description": "The Card component has a 'With Zoom Image' story/variant. The zoom should animate/transition in with something like framer, and be a bit slower",
+        "status": "pending"
+      },
+      {
+        "id": "hero",
+        "description": "The Hero component block default stories have this really weird effect on the main title where it kind fades from right to left or something - get rid of it. It looks awful. Otherwise, looks good.",
+        "status": "pending"
+      },
+      {
+        "id": "statblock-ui",
+        "description": "Can you redo all of the ui/styles for the StatBlock component? Its way too basic - just text on plain background. Make it more visual, modern, beautiful (but still simple and clean). Maybe add more variants. Update storybook and showcase examples app.",
+        "status": "pending"
       },
       {
         "id": "restaurant-menu-block",
-        "description": "The header in the RestaurantMenuBlock doesn't seem to be 100% width + centered - it looks weird. The Search Menu Items input also should be centered horizontally.",
-        "status": "completed"
+        "description": "The RestaurantMenuBlock component - the default story has categories/filters or something - this isn't centered horizontally (it should) - the container should be 100% width of the parent, and all of the buttons/filters centered horizontally. At the moment it doesn't align with the title/subtitle/search. Also - quite a few images on this page 404. Can you use photos from picsum (see examples in other storybooks).",
+        "status": "pending"
+      },
+      {
+        "id": "product-showcase-flickering",
+        "description": "The ProductShowcase component has a lot of really strange flickering going on. Can you investigate and fix. Quite a few images on this page 404 (storybooks) - can you make sure theyre using images from picsum.",
+        "status": "pending"
+      },
+      {
+        "id": "process-steps-line",
+        "description": "The line on the ProcessSteps component block don't go all the way (both horizontally and vertically). Please fix - also the UI looks quite.. bleh. Old, dates. Please make it a lot sexier (still clean and simple though).",
+        "status": "pending"
+      },
+      {
+        "id": "portfolio-case-studies-zoom",
+        "description": "Can you make sure when I hover over a card on the PortfolioCaseStudies component, the image that 'zooms' transitions/animates in with something like framer motion? Can you also slow it down so its quite noticable. Can you make sure the button on this component (View Case Study) has cursor pointer, as do buttons for pagination (on hover etc.). If this is an issue on the Button component - update it there",
+        "status": "pending"
+      },
+      {
+        "id": "photo-gallery-image-zoom",
+        "description": "Can you make sure when I hover over an image in the PhotoGallery component, the image that 'zooms' transitions/animates in with something like framer motion? Can you also slow it down so its quite noticable. Also - not sure whats going on, but half the tag isnt visible (its overflowing outside of the container)",
+        "status": "pending"
+      },
+      {
+        "id": "photo-flip-card",
+        "description": "When you flip the photo flip card, it flips and there is a white background/shadow while its flipping. This kind of ruins the flip effect. Please somehow fix, or use transparent background/no shadow on the container. Some of the images on the storybooks page for this component 404 - please use Picsum (see other component stories for examples).",
+        "status": "pending"
+      },
+      {
+        "id": "page-hero-header",
+        "description": "Love this component/block. Can you add another option to configure an 'overlay'? Use case: 'Fullscreen With Background Image' - I would like an overlay (either black or white, default black) where I can control the opacity (default it) to make the text more legible over the image. Make this configurable, update stories and showcase examples page (./examples)",
+        "status": "pending"
+      },
+      {
+        "id": "maps",
+        "description": "I can't see any maps in some of the stories for the Map component (Default, Flat Style, Street Style, Satellite Style, Minimal, With Custom Styling, Single Location Minimal, Event Venue). Theres more actually - please investigate and fix. Also, when scrolling using my mousewheel, and I scroll over a map, it stops and starts zooming in/out the map. I think you can disable this behaviour with leaflet - please do. Also - is it possible to remove the Leaflet/carto copyright? If so, can you do it.",
+        "status": "pending"
+      },
+      {
+        "id": "latest-news-image-zoom",
+        "description": "Can you make sure when I hover over an image in the Latest News component, the image that 'zooms' transitions/animates in with something like framer motion? Can you also slow it down so its quite noticable.",
+        "status": "pending"
+      },
+      {
+        "id": "header",
+        "description": "Some images in Header block component stories 404 - can you use placehold.co (see other storybooks for examples). ALso - menu is awful. Hovering over a menu item with dropdown flickers it, its white text on a light gray background, the text is underlined (it shuoldnt be). The buttons on the right should also have cursor-pointer. If these are issues in reusable components, please ensure theyre fixed in the reusable components",
+        "status": "pending"
+      },
+      {
+        "id": "faq",
+        "description": "Can you make sure any element in the FAQ component that is clickable has cursor-pointer (next prev buttons, + symbol etc.). On the carousel variant, there is a really weird pink/red dot or something bottom left (is it meant to be a tag or something, because barely any of it is visible - it overflows outside of the container with hidden overflow)",
+        "status": "pending"
+      },
+      {
+        "id": "event-listings",
+        "description": "A lot of the images in the EventListings storybook 404 - update all to use picsum",
+        "status": "pending"
+      },
+      {
+        "id": "error-page-sexier",
+        "description": "Can you make the ErrorPage component look way sexier, and make different variations for different styles of websites (blog, ecommerce platform, magazine, restaurant, etc.)",
+        "status": "pending"
+      },
+      {
+        "id": "carousel",
+        "description": "I can't see any images in some of the Carousel component stories. Not sure what the issue is, please investigate. Also please update all iamges to use picsum (see examples elsewhere)",
+        "status": "pending"
+      },
+      {
+        "id": "call-to-action",
+        "description": "Make sure the buttons are centered horizontally in the CallToAction component (the cta buttons Start Free Trial watch demo). The container needs to be 100% width and buttons centered within it.",
+        "status": "pending"
+      },
+      {
+        "id": "blog-post-detail",
+        "description": "Update the BlogPostDetail component to render markdown (and use our Markdown component we have already built internally). Update storybook and showcase example app (./examples)",
+        "status": "pending"
       }
     ]
   }

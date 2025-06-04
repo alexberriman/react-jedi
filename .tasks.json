@@ -187,7 +187,7 @@
       {
         "id": "features-block",
         "description": "Create comprehensive Features block for showcasing product/service capabilities. Variants: grid layout, alternating rows, tabbed sections, icon-focused, and comparison table. Features: feature icons, titles, descriptions, benefit highlights, and optional media (images/videos). Add interactive hover states, category filtering, feature comparison mode, and 'coming soon' badges. Include modern card designs with clean typography, subtle animations, and responsive layouts for SaaS features, company capabilities, and service offerings.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "event-listings-block",

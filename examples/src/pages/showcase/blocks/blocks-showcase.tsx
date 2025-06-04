@@ -71,6 +71,12 @@ const blockCategories: BlockCategory[] = [
     description: "Blocks for displaying various types of content.",
     blocks: [
       {
+        name: "Features",
+        description: "Comprehensive features block with multiple variants: grid, alternating, tabbed, icon-focused, and comparison layouts.",
+        status: "completed",
+        path: "/showcase/blocks/features",
+      },
+      {
         name: "Feature Card",
         description: "Showcase product features with icons and descriptions.",
         status: "completed",
@@ -754,6 +760,37 @@ const blockPreviews: Record<string, ComponentSpec> = {
       ],
       spacing: "tight",
     },
+  },
+  Features: {
+    type: "Features",
+    props: {
+      variant: "grid",
+      gridColumns: 3,
+      title: "Powerful Features",
+      features: [
+        {
+          id: "1",
+          title: "Fast Performance",
+          description: "Lightning-fast load times for better user experience.",
+          icon: "FiZap",
+          status: "available",
+        },
+        {
+          id: "2",
+          title: "Secure Platform",
+          description: "Enterprise-grade security to protect your data.",
+          icon: "FiShield",
+          status: "available",
+        },
+        {
+          id: "3",
+          title: "AI-Powered",
+          description: "Smart features powered by machine learning.",
+          icon: "FiTrendingUp",
+          status: "coming-soon",
+        },
+      ]
+    }
   },
   "Feature Card": {
     type: "FeatureCardGrid",

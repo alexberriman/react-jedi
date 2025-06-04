@@ -41,3 +41,4 @@ export * from "./portfolio-case-studies";
 export * from "./cookie-consent-banner";
 export * from "./announcement-bar";
 export * from "./error-page";
+export * from "./features";

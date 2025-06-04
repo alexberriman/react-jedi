@@ -816,6 +816,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.ErrorPage as unknown as React.ComponentType<Record<string, unknown>>,
       { variant: "friendly-404" } // Provide default required props
     ),
+    Features: asComponent(
+      Blocks.Features as unknown as React.ComponentType<Record<string, unknown>>,
+      { features: [] } // Provide default required props
+    ),
+    features: asComponent(
+      Blocks.Features as unknown as React.ComponentType<Record<string, unknown>>,
+      { features: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

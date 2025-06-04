@@ -146,16 +146,21 @@ export function AnnouncementBarShowcasePage() {
 
   const getDemoSpec = () => {
     switch (activeDemo) {
-      case "floating":
+      case "floating": {
         return floatingBarSpec;
-      case "slide-in":
+      }
+      case "slide-in": {
         return slideInSpec;
-      case "countdown":
+      }
+      case "countdown": {
         return countdownSpec;
-      case "dismissible":
+      }
+      case "dismissible": {
         return dismissibleSpec;
-      default:
+      }
+      default: {
         return topBannerSpec;
+      }
     }
   };
 
@@ -165,11 +170,11 @@ export function AnnouncementBarShowcasePage() {
     const dismissedBars = localStorage.getItem('dismissedAnnouncementBars');
     if (dismissedBars) {
       const parsed = JSON.parse(dismissedBars);
-      Object.keys(parsed).forEach(key => {
+      for (const key of Object.keys(parsed)) {
         if (key.startsWith('announcement-')) {
           delete parsed[key];
         }
-      });
+      }
       localStorage.setItem('dismissedAnnouncementBars', JSON.stringify(parsed));
     }
     setActiveDemo(variant);
@@ -387,7 +392,7 @@ export function AnnouncementBarShowcasePage() {
                         localStorage.setItem('dismissedAnnouncementBars', JSON.stringify(parsed));
                       }
                       // Force re-render
-                      window.location.reload();
+                      globalThis.location.reload();
                     }}
                     className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                   >

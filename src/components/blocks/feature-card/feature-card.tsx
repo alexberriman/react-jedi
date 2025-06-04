@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { LucideIcon } from "lucide-react";
 import { IconType } from "react-icons";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
+import * as LucideIcons from "lucide-react";
+import * as ReactIcons from "react-icons/fa";
+import * as SiIcons from "react-icons/si";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 
 export interface FeatureCardProps {
   title: string;
   description?: string;
-  icon?: LucideIcon | IconType | React.ReactNode;
+  icon?: LucideIcon | IconType | React.ReactNode | string;
   iconColor?: string;
   iconSize?: "sm" | "md" | "lg" | "xl";
   badge?: string;
@@ -38,6 +42,7 @@ export interface FeatureCardProps {
   hoverEffect?: "none" | "lift" | "glow" | "pulse" | "rotate";
   className?: string;
   children?: React.ReactNode;
+  category?: string;
 }
 
 const iconSizes = {
@@ -169,21 +174,43 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
 
   const isClickable = !!onClick || !!link || !!cta?.onClick || !!cta?.href;
 
-  const renderIcon = () => {
+  function getIconComponent(icon: string | LucideIcon | IconType | React.ReactNode | undefined): React.ReactElement | null {
     if (!icon) return null;
-
-    let iconElement: React.ReactElement | null = null;
     
     if (React.isValidElement(icon)) {
-      iconElement = icon;
-    } else if (typeof icon === "function") {
-      const IconComponent = icon as React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
-      iconElement = React.createElement(IconComponent, { 
-        className: cn(iconSizes[iconSize], "flex-shrink-0"),
-        style: { color: iconColor },
-      });
+      return icon;
     }
+    
+    if (typeof icon === "string") {
+      // Check Lucide icons first
+      if (icon in LucideIcons) {
+        const IconComponent = LucideIcons[icon as keyof typeof LucideIcons] as LucideIcon;
+        return <IconComponent className={cn(iconSizes[iconSize], "flex-shrink-0")} style={{ color: iconColor }} />;
+      }
+      // Check React Icons (Fa)
+      if (icon.startsWith("Fa") && icon in ReactIcons) {
+        const IconComponent = ReactIcons[icon as keyof typeof ReactIcons] as IconType;
+        return <IconComponent className={cn(iconSizes[iconSize], "flex-shrink-0")} style={{ color: iconColor }} />;
+      }
+      // Check Simple Icons (Si)
+      if (icon.startsWith("Si") && icon in SiIcons) {
+        const IconComponent = SiIcons[icon as keyof typeof SiIcons] as IconType;
+        return <IconComponent className={cn(iconSizes[iconSize], "flex-shrink-0")} style={{ color: iconColor }} />;
+      }
+      return null;
+    }
+    
+    if (typeof icon === "function") {
+      const IconComponent = icon as React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+      return <IconComponent className={cn(iconSizes[iconSize], "flex-shrink-0")} style={{ color: iconColor }} />;
+    }
+    
+    return null;
+  }
 
+  const renderIcon = () => {
+    const iconElement = getIconComponent(icon);
+    
     if (!iconElement) return null;
 
     if (iconPosition === "background") {
@@ -350,3 +377,77 @@ export const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 };
 
 FeatureCardGrid.displayName = "FeatureCardGrid";
+
+export interface TabbedFeatureCardsProps {
+  cards: FeatureCardProps[];
+  categories: string[];
+  defaultCategory?: string;
+  columns?: "1" | "2" | "3" | "4" | "auto";
+  gap?: "sm" | "md" | "lg";
+  animated?: boolean;
+  staggerDelay?: number;
+  className?: string;
+}
+
+export const TabbedFeatureCards: React.FC<TabbedFeatureCardsProps> = ({
+  cards,
+  categories,
+  defaultCategory,
+  columns = "3",
+  gap = "md",
+  animated = true,
+  staggerDelay = 0.1,
+  className,
+}) => {
+  const [activeCategory, setActiveCategory] = useState(defaultCategory || categories[0] || "all");
+  
+  const filteredCards = activeCategory === "all" 
+    ? cards 
+    : cards.filter(card => card.category === activeCategory);
+
+  return (
+    <div className={cn("space-y-6", className)}>
+      <Tabs defaultValue={activeCategory} onValueChange={setActiveCategory}>
+        <TabsList className="grid w-full grid-cols-auto gap-2 h-auto p-1 bg-gray-100 dark:bg-gray-800">
+          <TabsTrigger 
+            value="all" 
+            className="px-4 py-2 rounded-md font-medium transition-all data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900 data-[state=active]:shadow-sm"
+          >
+            All Features
+          </TabsTrigger>
+          {categories.map((category) => (
+            <TabsTrigger 
+              key={category} 
+              value={category}
+              className="px-4 py-2 rounded-md font-medium transition-all data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900 data-[state=active]:shadow-sm"
+            >
+              {category}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        
+        <TabsContent value={activeCategory} className="mt-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <FeatureCardGrid
+                cards={filteredCards}
+                columns={columns}
+                gap={gap}
+                animated={animated}
+                staggerDelay={staggerDelay}
+              />
+            </motion.div>
+          </AnimatePresence>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+};
+
+TabbedFeatureCards.displayName = "TabbedFeatureCards";

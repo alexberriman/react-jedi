@@ -127,18 +127,23 @@ interface FooterProps
   containerWidth?: "default" | "wide" | "full";
 }
 
-const CompanyInfoComponent = ({ info }: { info: CompanyInfo }) => (
-  <div className="space-y-4">
-    {info.logo && <div className="mb-4">{info.logo}</div>}
-    {info.name && <h3 className="text-xl font-bold">{info.name}</h3>}
-    {info.tagline && <p className="text-sm font-medium opacity-90">{info.tagline}</p>}
-    {info.description && <Text className="text-sm opacity-80">{info.description}</Text>}
-    <div className="space-y-1 text-xs opacity-70">
-      {info.established && <p>Est. {info.established}</p>}
-      {info.registration && <p>Reg. {info.registration}</p>}
+const CompanyInfoComponent = ({ info, variant }: { info: CompanyInfo; variant?: string | null }) => {
+  const textColorClass = variant === "light" || variant === "minimal" ? "text-gray-900" : "text-current";
+  const mutedTextClass = variant === "light" || variant === "minimal" ? "text-gray-600" : "opacity-80";
+  
+  return (
+    <div className="space-y-4">
+      {info.logo && <div className="mb-4">{info.logo}</div>}
+      {info.name && <h3 className={cn("text-xl font-bold", textColorClass)}>{info.name}</h3>}
+      {info.tagline && <p className={cn("text-sm font-medium", textColorClass, "opacity-90")}>{info.tagline}</p>}
+      {info.description && <Text className={cn("text-sm", mutedTextClass)}>{info.description}</Text>}
+      <div className={cn("space-y-1 text-xs", mutedTextClass)}>
+        {info.established && <p>Est. {info.established}</p>}
+        {info.registration && <p>Reg. {info.registration}</p>}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const FooterSectionComponent = ({ section }: { section: FooterSection }) => (
   <div>
@@ -187,11 +192,24 @@ const SocialLinks = ({
   
   const baseClasses = "rounded-lg transition-all duration-200 flex items-center gap-2";
   
-  let variantClasses = "hover:bg-white/10 hover:text-white";
-  if (variant === "light") {
+  let variantClasses = "hover:bg-white/10";
+  switch (variant) {
+  case "light": {
     variantClasses = "hover:bg-gray-200 text-gray-600 hover:text-gray-900";
-  } else if (variant === "brand") {
-    variantClasses = "hover:bg-white/20 hover:text-white";
+  
+  break;
+  }
+  case "minimal": {
+    variantClasses = "hover:bg-gray-100 text-gray-600 hover:text-gray-900";
+  
+  break;
+  }
+  case "brand": {
+    variantClasses = "hover:bg-white/20";
+  
+  break;
+  }
+  // No default
   }
 
   return (
@@ -308,13 +326,16 @@ const Newsletter = ({
     }
   };
 
+  const textColorClass = variant === "light" || variant === "minimal" ? "text-gray-900" : "text-current";
+  const mutedTextClass = variant === "light" || variant === "minimal" ? "text-gray-600" : "opacity-80";
+
   return (
     <div className="max-w-md">
-      <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider opacity-90">
+      <h3 className={cn("mb-4 text-sm font-semibold uppercase tracking-wider", textColorClass, "opacity-90")}>
         {newsletter.title || "Newsletter"}
       </h3>
       {newsletter.description && (
-        <Text className="mb-4 text-sm opacity-80">{newsletter.description}</Text>
+        <Text className={cn("mb-4 text-sm", mutedTextClass)}>{newsletter.description}</Text>
       )}
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="flex gap-2">
@@ -373,34 +394,38 @@ const FooterBottom = ({
   copyright?: string;
   legalLinks?: FooterLink[];
   variant?: string | null;
-}) => (
-  <div
-    className={cn(
-      "mt-8 pt-8 border-t",
-      variant === "light" ? "border-gray-200" : "border-white/10"
-    )}
-  >
-    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-      {copyright && <Text className="text-sm opacity-60">{copyright}</Text>}
-      {legalLinks && legalLinks.length > 0 && (
-        <nav className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
-          {legalLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm hover:opacity-100 opacity-60 transition-opacity inline-flex items-center gap-1"
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
-            >
-              {link.label}
-              {link.external && <ExternalLink className="h-3 w-3" />}
-            </a>
-          ))}
-        </nav>
+}) => {
+  const textColorClass = variant === "light" || variant === "minimal" ? "text-gray-600" : "opacity-60";
+  
+  return (
+    <div
+      className={cn(
+        "mt-8 pt-8 border-t",
+        variant === "light" || variant === "minimal" ? "border-gray-200" : "border-white/10"
       )}
+    >
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        {copyright && <Text className={cn("text-sm", textColorClass)}>{copyright}</Text>}
+        {legalLinks && legalLinks.length > 0 && (
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
+            {legalLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm hover:opacity-100 opacity-60 transition-opacity inline-flex items-center gap-1"
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+              >
+                {link.label}
+                {link.external && <ExternalLink className="h-3 w-3" />}
+              </a>
+            ))}
+          </nav>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Footer = React.forwardRef<HTMLElement, FooterProps>(
   (
@@ -499,7 +524,7 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
       <>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           <div className="lg:col-span-4">
-            {companyInfo && <CompanyInfoComponent info={companyInfo} />}
+            {companyInfo && <CompanyInfoComponent info={companyInfo} variant={variant} />}
             {socialLinks.length > 0 && (
               <div className="mt-6">
                 <SocialLinks links={socialLinks} variant={variant} />
@@ -533,7 +558,7 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
       <>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           <div className="lg:col-span-4">
-            {companyInfo && <CompanyInfoComponent info={companyInfo} />}
+            {companyInfo && <CompanyInfoComponent info={companyInfo} variant={variant} />}
             {contactInfo && (
               <div className="mt-8">
                 <ContactInfoComponent info={contactInfo} variant={variant} />
@@ -541,7 +566,10 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
             )}
             {socialLinks.length > 0 && (
               <div className="mt-8">
-                <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider opacity-90">
+                <h3 className={cn(
+                  "mb-4 text-sm font-semibold uppercase tracking-wider opacity-90",
+                  variant === "light" || variant === "minimal" ? "text-gray-900" : "text-current"
+                )}>
                   Follow Us
                 </h3>
                 <SocialLinks links={socialLinks} variant={variant} size="lg" showLabels />
@@ -578,9 +606,15 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
           {companyInfo && (
             <div className="mb-8">
               {companyInfo.logo && <div className="flex justify-center mb-4">{companyInfo.logo}</div>}
-              {companyInfo.name && <h3 className="text-xl font-bold mb-2">{companyInfo.name}</h3>}
+              {companyInfo.name && <h3 className={cn(
+                "text-xl font-bold mb-2",
+                variant === "light" || variant === "minimal" ? "text-gray-900" : "text-current"
+              )}>{companyInfo.name}</h3>}
               {companyInfo.description && (
-                <Text className="text-sm opacity-80">{companyInfo.description}</Text>
+                <Text className={cn(
+                  "text-sm",
+                  variant === "light" || variant === "minimal" ? "text-gray-600" : "opacity-80"
+                )}>{companyInfo.description}</Text>
               )}
             </div>
           )}
@@ -625,7 +659,7 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
         <div className={cn("grid", getColumnClass(), gapClasses[columnGap])}>
           {companyInfo && (
             <div>
-              <CompanyInfoComponent info={companyInfo} />
+              <CompanyInfoComponent info={companyInfo} variant={variant} />
               {socialLinks.length > 0 && (
                 <div className="mt-6">
                   <SocialLinks links={socialLinks} variant={variant} />

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { FeatureCard, FeatureCardGrid } from "./feature-card";
+import { FeatureCard, FeatureCardGrid, TabbedFeatureCards } from "./feature-card";
 import { 
   Zap, 
   Shield, 
@@ -510,4 +510,150 @@ export const HighlightedCards: Story = {
       />
     </div>
   ),
+};
+
+export const IconFocused: Story = {
+  render: () => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <FeatureCard
+        title="Performance"
+        description="Lightning fast execution"
+        icon={Zap}
+        iconColor="#FFB800"
+        iconSize="xl"
+        align="center"
+        variant="bordered"
+      />
+      
+      <FeatureCard
+        title="Security"
+        description="Enterprise-grade protection"
+        icon={Shield}
+        iconColor="#4ECDC4"
+        iconSize="xl"
+        align="center"
+        variant="gradient"
+        gradientFrom="#4ECDC4"
+        gradientTo="#44A08D"
+      />
+      
+      <FeatureCard
+        title="Analytics"
+        description="Real-time insights"
+        icon={BarChart}
+        iconColor="#8B5CF6"
+        iconSize="xl"
+        align="center"
+        variant="shadow"
+        shadowSize="xl"
+      />
+    </div>
+  ),
+};
+
+export const TabbedCategories: Story = {
+  render: () => {
+    const cards = [
+      // Frontend
+      {
+        title: "React Development",
+        description: "Build modern web applications with React 18.",
+        icon: FaReact,
+        iconColor: "#61DAFB",
+        category: "Frontend",
+        badge: "Popular",
+      },
+      {
+        title: "TypeScript",
+        description: "Type-safe development with enhanced IDE support.",
+        icon: SiTypescript,
+        iconColor: "#3178C6",
+        category: "Frontend",
+      },
+      {
+        title: "Tailwind CSS",
+        description: "Utility-first CSS framework for rapid UI development.",
+        icon: SiTailwindcss,
+        iconColor: "#06B6D4",
+        category: "Frontend",
+      },
+      {
+        title: "Next.js",
+        description: "Full-stack React framework with SSR/SSG support.",
+        icon: SiNextdotjs,
+        iconColor: "#000000",
+        category: "Frontend",
+        badge: "New",
+      },
+      // Backend
+      {
+        title: "Node.js",
+        description: "JavaScript runtime for server-side development.",
+        icon: FaNodeJs,
+        iconColor: "#339933",
+        category: "Backend",
+      },
+      {
+        title: "Python",
+        description: "Versatile language for APIs and data science.",
+        icon: FaPython,
+        iconColor: "#3776AB",
+        category: "Backend",
+      },
+      {
+        title: "PostgreSQL",
+        description: "Powerful open-source relational database.",
+        icon: SiPostgresql,
+        iconColor: "#4169E1",
+        category: "Backend",
+      },
+      {
+        title: "Redis",
+        description: "In-memory data store for caching and queues.",
+        icon: SiRedis,
+        iconColor: "#DC382D",
+        category: "Backend",
+      },
+      // DevOps
+      {
+        title: "Docker",
+        description: "Container platform for consistent deployments.",
+        icon: FaDocker,
+        iconColor: "#2496ED",
+        category: "DevOps",
+      },
+      {
+        title: "Kubernetes",
+        description: "Container orchestration at scale.",
+        icon: SiKubernetes,
+        iconColor: "#326CE5",
+        category: "DevOps",
+        badge: "Enterprise",
+      },
+      {
+        title: "AWS",
+        description: "Cloud infrastructure and services.",
+        icon: FaAws,
+        iconColor: "#FF9900",
+        category: "DevOps",
+      },
+      {
+        title: "Terraform",
+        description: "Infrastructure as code for cloud resources.",
+        icon: SiTerraform,
+        iconColor: "#7B42BC",
+        category: "DevOps",
+      },
+    ];
+    
+    return (
+      <TabbedFeatureCards
+        cards={cards}
+        categories={["Frontend", "Backend", "DevOps"]}
+        columns="3"
+        gap="md"
+        animated={true}
+      />
+    );
+  },
 };

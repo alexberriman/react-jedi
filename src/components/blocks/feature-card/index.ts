@@ -1,2 +1,2 @@
-export { FeatureCard, FeatureCardGrid } from "./feature-card";
-export type { FeatureCardProps, FeatureCardGridProps } from "./feature-card";
+export { FeatureCard, FeatureCardGrid, TabbedFeatureCards } from "./feature-card";
+export type { FeatureCardProps, FeatureCardGridProps, TabbedFeatureCardsProps } from "./feature-card";

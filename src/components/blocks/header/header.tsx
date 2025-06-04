@@ -4,7 +4,8 @@ import { Button } from "../../ui/button";
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, NavigationMenuIndicator } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "../../ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../../ui/collapsible";
-import { Menu, ChevronDown, Moon, Sun } from "lucide-react";
+import { Menu, ChevronDown, Moon, Sun, LucideIcon } from "lucide-react";
+import * as Icons from "lucide-react";
 
 export interface HeaderLogoProperties {
   type: "image" | "text";
@@ -20,10 +21,12 @@ export interface HeaderNavigationItem {
   label: string;
   href?: string;
   description?: string;
+  icon?: LucideIcon | string;
   items?: Array<{
     label: string;
     href: string;
     description?: string;
+    icon?: LucideIcon | string;
   }>;
 }
 
@@ -59,6 +62,23 @@ export interface HeaderProperties {
   readonly computedProps?: Record<string, unknown>;
   readonly when?: string | boolean;
   readonly eventActions?: Record<string, unknown>;
+}
+
+// Helper function to render icons
+function renderIcon(icon: LucideIcon | string | undefined): React.ReactNode {
+  if (!icon) return null;
+  
+  if (typeof icon === "string" && icon in Icons) {
+    const IconComponent = Icons[icon as keyof typeof Icons] as LucideIcon;
+    return <IconComponent className="h-4 w-4" />;
+  }
+  
+  if (typeof icon === "function") {
+    const IconComponent = icon as LucideIcon;
+    return <IconComponent className="h-4 w-4" />;
+  }
+  
+  return null;
 }
 
 // Dark Mode Toggle Component (simplified for the header)
@@ -184,7 +204,7 @@ function MobileNavigation({
                       onOpenChange={() => toggleExpanded(item.label)}
                     >
                       <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2 text-left hover:bg-accent rounded-md transition-colors">
-                        <span className="font-medium">{item.label}</span>
+                        <span className="font-medium no-underline">{item.label}</span>
                         <ChevronDown
                           className={cn(
                             "h-4 w-4 transition-transform",
@@ -197,15 +217,20 @@ function MobileNavigation({
                           <a
                             key={subItem.label}
                             href={subItem.href}
-                            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
+                            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors no-underline"
                             onClick={handleNavClick}
                           >
-                            {subItem.label}
-                            {subItem.description && (
-                              <span className="block text-xs text-muted-foreground mt-1">
-                                {subItem.description}
-                              </span>
-                            )}
+                            <div className="flex items-start gap-3">
+                              {subItem.icon && renderIcon(subItem.icon)}
+                              <div className="flex-1">
+                                <span className="block">{subItem.label}</span>
+                                {subItem.description && (
+                                  <span className="block text-xs text-muted-foreground mt-1">
+                                    {subItem.description}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
                           </a>
                         ))}
                       </CollapsibleContent>
@@ -213,7 +238,7 @@ function MobileNavigation({
                   ) : (
                     <a
                       href={item.href}
-                      className="block px-3 py-2 font-medium hover:bg-accent rounded-md transition-colors"
+                      className="block px-3 py-2 font-medium hover:bg-accent rounded-md transition-colors no-underline"
                       onClick={handleNavClick}
                     >
                       {item.label}
@@ -377,7 +402,12 @@ export function Header({
             <NavigationMenuItem key={item.label}>
               {item.items ? (
                 <>
-                  <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="data-[state=open]:bg-accent/50">
+                    <span className="flex items-center gap-2">
+                      {item.icon && renderIcon(item.icon)}
+                      {item.label}
+                    </span>
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {item.items.map((subItem) => (
@@ -387,14 +417,19 @@ export function Header({
                               href={subItem.href}
                               className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                             >
-                              <div className="text-sm font-medium leading-none">
-                                {subItem.label}
+                              <div className="flex items-start gap-3">
+                                {subItem.icon && <div className="mt-0.5">{renderIcon(subItem.icon)}</div>}
+                                <div className="flex-1">
+                                  <div className="text-sm font-medium leading-none">
+                                    {subItem.label}
+                                  </div>
+                                  {subItem.description && (
+                                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                                      {subItem.description}
+                                    </p>
+                                  )}
+                                </div>
                               </div>
-                              {subItem.description && (
-                                <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  {subItem.description}
-                                </p>
-                              )}
                             </a>
                           </NavigationMenuLink>
                         </li>
@@ -406,9 +441,12 @@ export function Header({
                 <NavigationMenuLink asChild>
                   <a
                     href={item.href}
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 no-underline"
                   >
-                    {item.label}
+                    <span className="flex items-center gap-2">
+                      {item.icon && renderIcon(item.icon)}
+                      {item.label}
+                    </span>
                   </a>
                 </NavigationMenuLink>
               )}

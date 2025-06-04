@@ -97,17 +97,17 @@
       {
         "id": "feature-card",
         "description": "Does the FeatureCard component have icons? For many of the stories I dont see icons (i.e. the Icon Positions story). For the Tabbed Categories variation, the filter styles should be a bit cleaner and nicer looking, and when you go between categories it should animate using framer. In the Icon Focused story/variation, everything is centered except the icon. The icon should be centered in the card",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "footer-block",
         "description": "In the default FooterBlock (may have been renamed to Footer) block component, when I hover over the social icons, they transition to white (disappear since bg is white). This is a bug. In the 'Standard' variation/story, I assume its dark deliberately (even on light mode). This is fine, but the text 'Building modern React interfaces with JSON specifications' is black and barely legible over the dark background. Same as the 'Get the latest updates on new features and releases' text under the Stay Updated section and the copyright text. Can you confirm the text is legible on all stories and variations.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "header-block",
         "description": "The Header block component has a few bugs: When you hover over a link in the menu (i.e. Docs in the default story), the text should not be underlined. When you hover over a menu item with children items, the text goes white and is barely legible over the light gray background. It also 'jumps' when the dropdown shows. I also can't see the dropdown in the storybook stories as the container is small (height wise). Can you either update the dropdown component to ensure it displays, or inrease the height of the containers in storybook. Can you also confirm the style of the dropdown is fine - even though I can't see it, it looks like there might be some issues i.e. width. Make sure the company logo uses a placeholder image (this may have been fixed in a prior task) in variations with a logo. The FullWidth and CustomGradient stories/variations have links that I can't read - they have a white bg or something which is weird when over the background color and white text. Can you also add a variation (and option/props) with icons or something in the dropdown menu - there should be multiple variations of the dropdown menu, from single vertical list one column stacked, to multi columns, icons, title/icon/desription etc. Needs to be really clean, fresh and modern.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "latest-news",

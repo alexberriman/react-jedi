@@ -14,6 +14,13 @@ const meta = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ minHeight: "300px" }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     variant: {
       control: "select",
@@ -543,4 +550,186 @@ export const NoAnimation: Story = {
       </div>
     ),
   ],
+};
+
+export const WithIcons: Story = {
+  args: {
+    logo: {
+      type: "text",
+      text: "IconNav",
+      href: "#",
+    },
+    navigation: [
+      {
+        label: "Products",
+        icon: "Package" as const,
+        items: [
+          {
+            label: "Analytics Dashboard",
+            href: "#analytics",
+            description: "Real-time analytics and insights",
+            icon: "BarChart3" as const,
+          },
+          {
+            label: "Cloud Storage",
+            href: "#storage",
+            description: "Secure file storage and sharing",
+            icon: "Cloud" as const,
+          },
+          {
+            label: "API Gateway",
+            href: "#api",
+            description: "Manage and monitor your APIs",
+            icon: "Network" as const,
+          },
+          {
+            label: "Database",
+            href: "#database",
+            description: "Scalable database solutions",
+            icon: "Database" as const,
+          },
+        ],
+      },
+      {
+        label: "Solutions",
+        icon: "Lightbulb" as const,
+        items: [
+          {
+            label: "E-commerce",
+            href: "#ecommerce",
+            description: "Complete e-commerce platform",
+            icon: "ShoppingCart" as const,
+          },
+          {
+            label: "Healthcare",
+            href: "#healthcare",
+            description: "HIPAA-compliant solutions",
+            icon: "Heart" as const,
+          },
+          {
+            label: "Education",
+            href: "#education",
+            description: "Learning management systems",
+            icon: "GraduationCap" as const,
+          },
+        ],
+      },
+      {
+        label: "Resources",
+        icon: "BookOpen" as const,
+        items: [
+          {
+            label: "Documentation",
+            href: "#docs",
+            icon: "FileText" as const,
+          },
+          {
+            label: "Tutorials",
+            href: "#tutorials",
+            icon: "Video" as const,
+          },
+          {
+            label: "Community",
+            href: "#community",
+            icon: "Users" as const,
+          },
+        ],
+      },
+      {
+        label: "Pricing",
+        href: "#pricing",
+        icon: "CreditCard" as const,
+      },
+    ],
+    actions: actions,
+    showDarkModeToggle: true,
+  },
+};
+
+export const MultiColumnDropdown: Story = {
+  args: {
+    logo: {
+      type: "text",
+      text: "MultiCol",
+      href: "#",
+    },
+    navigation: [
+      {
+        label: "Platform",
+        items: [
+          {
+            label: "Infrastructure",
+            href: "#infrastructure",
+            description: "Cloud-native infrastructure",
+            icon: "Server" as const,
+          },
+          {
+            label: "Compute",
+            href: "#compute",
+            description: "Scalable compute resources",
+            icon: "Cpu" as const,
+          },
+          {
+            label: "Storage",
+            href: "#storage",
+            description: "Object and block storage",
+            icon: "HardDrive" as const,
+          },
+          {
+            label: "Networking",
+            href: "#networking",
+            description: "Global CDN and load balancing",
+            icon: "Globe" as const,
+          },
+          {
+            label: "Security",
+            href: "#security",
+            description: "Advanced threat protection",
+            icon: "Shield" as const,
+          },
+          {
+            label: "Monitoring",
+            href: "#monitoring",
+            description: "Real-time performance insights",
+            icon: "Activity" as const,
+          },
+        ],
+      },
+      {
+        label: "Developers",
+        items: [
+          {
+            label: "API Reference",
+            href: "#api-ref",
+            icon: "Code" as const,
+          },
+          {
+            label: "SDKs",
+            href: "#sdks",
+            icon: "Package" as const,
+          },
+          {
+            label: "CLI Tools",
+            href: "#cli",
+            icon: "Terminal" as const,
+          },
+          {
+            label: "Examples",
+            href: "#examples",
+            icon: "FileCode" as const,
+          },
+        ],
+      },
+    ],
+    actions: [
+      {
+        label: "Console",
+        variant: "outline" as const,
+      },
+      {
+        label: "Sign Up",
+        variant: "default" as const,
+      },
+    ],
+  },
 };

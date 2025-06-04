@@ -295,8 +295,7 @@ export function ProcessSteps({
     }
     
     if (connectorStyle === 'dashed') {
-      classes.push(isHorizontal ? 'bg-none border-t-2 border-dashed' : 'bg-none border-l-2 border-dashed')
-      classes.push(isCompleted ? 'border-emerald-400' : 'border-gray-300')
+      classes.push(isHorizontal ? 'bg-none border-t-2 border-dashed' : 'bg-none border-l-2 border-dashed', isCompleted ? 'border-emerald-400' : 'border-gray-300')
     }
     
     return classes

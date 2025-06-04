@@ -7,7 +7,6 @@ import { PageHeader } from "../../../../components/ui/page-header";
 import { ShowcaseWrapper } from "../../../../components/ui/showcase-wrapper";
 import { CodeBlock } from "../../../../components/ui/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../components/ui/tabs";
-import { FiZap, FiShield, FiTrendingUp, FiUsers, FiCode, FiDatabase, FiLayout, FiLock, FiServer } from "react-icons/fi";
 
 const gridSpec: ComponentSpec = {
   type: "Features",
@@ -456,7 +455,7 @@ export function FeaturesShowcasePage() {
                   <tr className="border-b border-gray-100 dark:border-gray-800">
                     <td className="py-3 px-4 font-mono text-sm">variant</td>
                     <td className="py-3 px-4 text-sm">string</td>
-                    <td className="py-3 px-4 text-sm">"grid"</td>
+                    <td className="py-3 px-4 text-sm">&ldquo;grid&rdquo;</td>
                     <td className="py-3 px-4 text-sm">Display variant: grid, alternating, tabbed, icon-focused, comparison</td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800">

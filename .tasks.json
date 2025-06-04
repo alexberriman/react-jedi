@@ -7,7 +7,7 @@
       {
         "id": "togglegroup",
         "description": "The ToggleGroup component default story goes black bg when hover - this looks awful, it should be a lot more subtle (very light grey for example). Textarea, input fields etc. have the WORST grey background on hover - they either shouldn't have any hover background, or should be VERY subtle (i.e. if main bg is white, should hover to bg-gray-50 or something (or whatever that equivalent is). This impacts Textarea, Input, Select. Like honestly, its the worst thing I've ever seen.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "accordion",

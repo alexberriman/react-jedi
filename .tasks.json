@@ -157,7 +157,7 @@
       {
         "id": "hero",
         "description": "The Hero component block default stories have this really weird effect on the main title where it kind fades from right to left or something - get rid of it. It looks awful. Otherwise, looks good.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "statblock-ui",

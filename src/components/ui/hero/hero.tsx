@@ -174,7 +174,6 @@ const HeroContent = ({
     <h1
       className={cn(
         "text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight",
-        animated && "animated-gradient-text",
         animated && "animate-fade-in-up animation-delay-200"
       )}
     >

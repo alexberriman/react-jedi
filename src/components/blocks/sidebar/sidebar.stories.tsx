@@ -35,17 +35,17 @@ import {
   SidebarGroupAction,
   SidebarInput,
 } from "./sidebar";
-import { Button } from "../button";
-import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
+import { Button } from "../../ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../dropdown-menu";
+} from "../../ui/dropdown-menu";
 
 const meta = {
-  title: "Components/Sidebar",
+  title: "Blocks/Sidebar",
   component: Sidebar,
   decorators: [
     (Story) => (

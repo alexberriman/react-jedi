@@ -107,7 +107,7 @@
       {
         "id": "sidebar-blocks",
         "description": "We define basic components like buttons as Components and more advanced components (like TeamGrid) as Blocks. Currently, Sidebar is in the components dir and classified as a component. Can you move this code to the blocks dir, update the storybook to be in the Blocks category, and move it from the Components showcase (in example app ./examples) to the blocks components showcase in the example app?",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "sheet-flicker",

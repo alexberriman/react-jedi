@@ -431,28 +431,28 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       CommandShortcutComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     sidebar: asComponent(
-      UI.SidebarComponent as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.SidebarComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     Sidebar: asComponent(
-      UI.SidebarComponent as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.SidebarComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     sidebarProvider: asComponent(
-      UI.SidebarProvider as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.SidebarProvider as unknown as React.ComponentType<Record<string, unknown>>
     ),
     SidebarProvider: asComponent(
-      UI.SidebarProvider as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.SidebarProvider as unknown as React.ComponentType<Record<string, unknown>>
     ),
     sidebarInset: asComponent(
-      UI.SidebarInsetComponent as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.SidebarInsetComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     SidebarInset: asComponent(
-      UI.SidebarInsetComponent as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.SidebarInsetComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     sidebarTrigger: asComponent(
-      UI.SidebarTriggerComponent as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.SidebarTriggerComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     SidebarTrigger: asComponent(
-      UI.SidebarTriggerComponent as unknown as React.ComponentType<Record<string, unknown>>
+      Blocks.SidebarTriggerComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     calendar: asComponent(
       CalendarComponent as unknown as React.ComponentType<Record<string, unknown>>

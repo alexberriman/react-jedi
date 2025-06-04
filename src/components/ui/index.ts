@@ -63,7 +63,6 @@ export * from "./progress";
 export * from "./navigation-menu";
 export * from "./pagination";
 export * from "./command";
-export * from "./sidebar";
 export * from "./calendar";
 export * from "./date-picker";
 export * from "./combobox";

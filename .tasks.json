@@ -47,7 +47,7 @@
       {
         "id": "placeholder-images",
         "description": "The following component stories contain images that 404. Can you update with images from Picsum (if photo) or placehold.co (if not photo). You can see examples from other component storybooks: Box ('Box With Backdrop Blur')",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "tooltip-flicker",

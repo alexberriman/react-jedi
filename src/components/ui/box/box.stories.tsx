@@ -436,7 +436,7 @@ export const BoxWithBackdropBlur: Story = {
     <Box className="relative w-[400px] h-[300px]">
       <Box className="w-full h-full flex items-center justify-center">
         <img
-          src="https://source.unsplash.com/random/400x300?nature"
+          src="https://picsum.photos/400/300"
           alt="Nature"
           className="w-full h-full object-cover absolute inset-0 rounded-lg"
         />

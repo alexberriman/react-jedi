@@ -132,7 +132,7 @@
       {
         "id": "page-section",
         "description": "Can you update the PageSection component stories to use more examples that are commonly used on websites/marketing websites. Some features: alternating sections (i.e. alternating background color to make them stand out), left/right, more visual variations (i.e. common pattern is image on left/right (alternating), title (h2 default), text underneath, ctas, etc.). Make sure it all looks really nice, storybooks with stories, and update variations/props accordingly (and showcase page).",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "photo-flip-card",

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 export interface PageSectionBackground {
   type: 'color' | 'gradient' | 'image' | 'pattern';
@@ -14,20 +15,46 @@ export interface PageSectionHeading {
   alignment?: 'left' | 'center' | 'right';
 }
 
+export interface PageSectionCTA {
+  text: string;
+  href?: string;
+  variant?: 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+  size?: 'sm' | 'default' | 'lg';
+}
+
+export interface PageSectionLayout {
+  type: 'default' | 'image-left' | 'image-right' | 'two-column' | 'centered' | 'hero' | 'feature-alternating';
+  imageUrl?: string;
+  imageAlt?: string;
+  imagePosition?: 'start' | 'center' | 'end';
+  imageZoomOnHover?: boolean;
+  imageRounded?: boolean;
+  imageShadow?: boolean;
+  imageOverlay?: boolean;
+  contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
+  contentSpacing?: 'tight' | 'normal' | 'relaxed';
+  reverseOnMobile?: boolean;
+}
+
 export interface PageSectionProperties {
   readonly variant?: 'full-width' | 'contained' | 'split' | 'angled' | 'curved' | 'pattern';
+  readonly layout?: PageSectionLayout;
   readonly background?: PageSectionBackground;
+  readonly alternateBackground?: boolean;
   readonly padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   readonly heading?: PageSectionHeading;
+  readonly description?: string;
+  readonly ctas?: PageSectionCTA[];
   readonly contentAlignment?: 'left' | 'center' | 'right';
   readonly parallax?: boolean;
   readonly animate?: boolean;
-  readonly animationType?: 'fade' | 'slide' | 'zoom';
+  readonly animationType?: 'fade' | 'slide' | 'zoom' | 'slide-left' | 'slide-right';
   readonly dividerTop?: 'wave' | 'angle' | 'curve' | 'none';
   readonly dividerBottom?: 'wave' | 'angle' | 'curve' | 'none';
   readonly dividerColor?: string;
   readonly className?: string;
   readonly id?: string;
+  readonly sectionIndex?: number;
   readonly children: React.ReactNode;
 }
 
@@ -48,9 +75,13 @@ const alignmentClasses = {
 
 function PageSection({
   variant = 'full-width',
+  layout = { type: 'default' },
   background,
+  alternateBackground = false,
   padding = 'lg',
   heading,
+  description,
+  ctas,
   contentAlignment = 'left',
   parallax = false,
   animate = false,
@@ -60,6 +91,7 @@ function PageSection({
   dividerColor = 'currentColor',
   className,
   id,
+  sectionIndex = 0,
   children
 }: PageSectionProperties) {
   const sectionRef = React.useRef<HTMLElement>(null);
@@ -91,38 +123,45 @@ function PageSection({
     return () => observer.disconnect();
   }, [animate]);
 
+  const finalBackground = React.useMemo(() => {
+    return background || (alternateBackground ? {
+      type: 'color' as const,
+      value: sectionIndex % 2 === 0 ? '#ffffff' : '#f9fafb'
+    } : undefined);
+  }, [background, alternateBackground, sectionIndex]);
+  
   const getBackgroundStyle = React.useMemo(() => {
-    if (!background) return {};
+    if (!finalBackground) return {};
     
     const style: React.CSSProperties = {};
     
-    switch (background.type) {
+    switch (finalBackground.type) {
       case 'color': {
-        style.backgroundColor = background.value;
+        style.backgroundColor = finalBackground.value;
         break;
       }
       case 'gradient': {
-        style.backgroundImage = background.value;
+        style.backgroundImage = finalBackground.value;
         break;
       }
       case 'image': {
-        style.backgroundImage = `url(${background.value})`;
+        style.backgroundImage = `url(${finalBackground.value})`;
         style.backgroundSize = 'cover';
         style.backgroundPosition = 'center';
         break;
       }
       case 'pattern': {
-        style.backgroundImage = getPatternBackground(background.value);
+        style.backgroundImage = getPatternBackground(finalBackground.value);
         break;
       }
     }
     
-    if (background.opacity !== undefined) {
-      style.opacity = background.opacity;
+    if (finalBackground.opacity !== undefined) {
+      style.opacity = finalBackground.opacity;
     }
     
     return style;
-  }, [background]);
+  }, [finalBackground]);
 
   const getAnimationProps = () => {
     if (!animate) return {};
@@ -139,6 +178,20 @@ function PageSection({
           ...baseAnimation,
           initial: { opacity: 0, y: 50 },
           animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+        };
+      }
+      case 'slide-left': {
+        return {
+          ...baseAnimation,
+          initial: { opacity: 0, x: -50 },
+          animate: isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }
+        };
+      }
+      case 'slide-right': {
+        return {
+          ...baseAnimation,
+          initial: { opacity: 0, x: 50 },
+          animate: isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }
         };
       }
       case 'zoom': {
@@ -167,6 +220,216 @@ function PageSection({
     variant === 'split' && 'grid md:grid-cols-2 gap-8 container mx-auto px-4 sm:px-6 lg:px-8'
   );
 
+  const contentWidthClasses = {
+    narrow: 'max-w-2xl mx-auto',
+    medium: 'max-w-4xl mx-auto',
+    wide: 'max-w-6xl mx-auto',
+    full: ''
+  };
+
+  const contentSpacingClasses = {
+    tight: 'space-y-4',
+    normal: 'space-y-6',
+    relaxed: 'space-y-8'
+  };
+
+  const renderHeadingContent = () => {
+    const isCentered = layout.type === 'centered' || layout.type === 'hero';
+    
+    return (
+      <div className={cn(
+        contentSpacingClasses[layout.contentSpacing || 'normal'],
+        alignmentClasses[heading?.alignment || contentAlignment],
+        isCentered && 'text-center'
+      )}>
+        {heading && (
+          <div>
+            <h2 className={cn(
+              "font-bold mb-4",
+              layout.type === 'hero' 
+                ? "text-4xl md:text-5xl lg:text-6xl" 
+                : "text-3xl md:text-4xl lg:text-5xl"
+            )}>
+              {heading.title}
+            </h2>
+            {heading.subtitle && (
+              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+                {heading.subtitle}
+              </p>
+            )}
+          </div>
+        )}
+        {description && (
+          <p className={cn(
+            "text-muted-foreground",
+            layout.type === 'hero' ? "text-lg md:text-xl" : "text-base md:text-lg",
+            "max-w-3xl",
+            isCentered && "mx-auto"
+          )}>
+            {description}
+          </p>
+        )}
+        {ctas && ctas.length > 0 && (
+          <div className={cn(
+            "flex flex-wrap gap-4",
+            isCentered && "justify-center"
+          )}>
+            {ctas.map((cta, index) => (
+              <Button
+                key={index}
+                variant={cta.variant ?? (index === 0 ? 'default' : 'outline')}
+                size={cta.size ?? 'default'}
+                asChild={!!cta.href}
+              >
+                {cta.href ? <a href={cta.href}>{cta.text}</a> : <span>{cta.text}</span>}
+              </Button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderImageLayout = (headingContent: React.ReactNode) => {
+    const isImageLeft = layout.type === 'image-left' || 
+      (layout.type === 'feature-alternating' && sectionIndex % 2 === 0);
+    const imageClasses = cn(
+      'relative overflow-hidden',
+      layout.imageRounded !== false && 'rounded-lg',
+      layout.imageShadow && 'shadow-xl',
+      layout.imageZoomOnHover && 'group',
+      layout.imagePosition === 'start' && 'self-start',
+      layout.imagePosition === 'center' && 'self-center',
+      layout.imagePosition === 'end' && 'self-end'
+    );
+    
+    return (
+      <div className={cn(
+        'container mx-auto px-4 sm:px-6 lg:px-8',
+        contentWidthClasses[layout.contentWidth || 'wide']
+      )}>
+        <div className={cn(
+          'grid md:grid-cols-2 gap-8 lg:gap-12 items-center',
+          !isImageLeft && 'md:grid-flow-dense',
+          layout.reverseOnMobile && 'flex-col-reverse md:grid'
+        )}>
+          <div className={cn(
+            !isImageLeft && 'md:col-start-2',
+            isImageLeft && 'md:col-start-1'
+          )}>
+            {layout.imageUrl && (
+              <div className={imageClasses}>
+                {layout.imageOverlay && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10" />
+                )}
+                <img
+                  src={layout.imageUrl}
+                  alt={layout.imageAlt || ''}
+                  className={cn(
+                    'w-full h-full object-cover',
+                    layout.imageZoomOnHover && 'transition-transform duration-700 group-hover:scale-110'
+                  )}
+                />
+              </div>
+            )}
+          </div>
+          <div className={cn(
+            !isImageLeft && 'md:col-start-1',
+            isImageLeft && 'md:col-start-2'
+          )}>
+            {headingContent}
+            {children && (
+              <div className={cn(
+                "mt-6",
+                contentSpacingClasses[layout.contentSpacing || 'normal']
+              )}>
+                {children}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderLayoutContent = () => {
+    const headingContent = renderHeadingContent();
+
+    switch (layout.type) {
+      case 'image-left':
+      case 'image-right':
+      case 'feature-alternating': {
+        return renderImageLayout(headingContent);
+      }
+      
+      case 'two-column': {
+        return (
+          <div className={cn(
+            'container mx-auto px-4 sm:px-6 lg:px-8',
+            contentWidthClasses[layout.contentWidth || 'wide']
+          )}>
+            {(heading || description || ctas) && (
+              <div className="mb-12">
+                {headingContent}
+              </div>
+            )}
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+              {children}
+            </div>
+          </div>
+        );
+      }
+      
+      case 'centered': {
+        return (
+          <div className={cn(
+            'container mx-auto px-4 sm:px-6 lg:px-8 text-center',
+            contentWidthClasses[layout.contentWidth || 'medium']
+          )}>
+            {headingContent}
+            {children && (
+              <div className={cn(
+                "mt-8",
+                contentSpacingClasses[layout.contentSpacing || 'normal']
+              )}>
+                {children}
+              </div>
+            )}
+          </div>
+        );
+      }
+      
+      case 'hero': {
+        return (
+          <div className={cn(
+            'container mx-auto px-4 sm:px-6 lg:px-8',
+            contentWidthClasses[layout.contentWidth || 'medium'],
+            'flex flex-col items-center justify-center min-h-[60vh] text-center'
+          )}>
+            {headingContent}
+            {children && (
+              <div className={cn(
+                "mt-8",
+                contentSpacingClasses[layout.contentSpacing || 'normal']
+              )}>
+                {children}
+              </div>
+            )}
+          </div>
+        );
+      }
+      
+      default: {
+        return (
+          <div className={contentClasses}>
+            {(heading || description || ctas) && headingContent}
+            {children}
+          </div>
+        );
+      }
+    }
+  };
+
   const MotionComponent = animate ? motion.section : 'section';
 
   return (
@@ -182,7 +445,7 @@ function PageSection({
         </div>
       )}
       
-      {background && (
+      {finalBackground && (
         <motion.div
           className="absolute inset-0 z-0"
           style={{
@@ -192,25 +455,7 @@ function PageSection({
         />
       )}
       
-      <div className={contentClasses}>
-        {heading && (
-          <div className={cn(
-            'mb-8 md:mb-12',
-            alignmentClasses[heading.alignment || contentAlignment]
-          )}>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              {heading.title}
-            </h2>
-            {heading.subtitle && (
-              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-                {heading.subtitle}
-              </p>
-            )}
-          </div>
-        )}
-        
-        {children}
-      </div>
+      {renderLayoutContent()}
       
       {dividerBottom !== 'none' && (
         <div className="absolute bottom-0 left-0 right-0 z-0">

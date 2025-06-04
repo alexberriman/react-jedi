@@ -38,3 +38,4 @@ export * from "./process-steps";
 export * from "./product-showcase";
 export * from "./job-listings";
 export * from "./portfolio-case-studies";
+export * from "./cookie-consent-banner";

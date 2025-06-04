@@ -1,0 +1,1 @@
+export { CookieConsentBannerShowcasePage } from "./cookie-consent-banner-showcase";

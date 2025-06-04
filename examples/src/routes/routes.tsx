@@ -306,6 +306,9 @@ const ProcessStepsShowcasePage = lazy(() =>
 const ProductShowcaseShowcase = lazy(() =>
   import("../pages/showcase/blocks/product-showcase").then((module) => ({ default: module.ProductShowcaseShowcase }))
 );
+const CookieConsentBannerShowcasePage = lazy(() =>
+  import("../pages/showcase/blocks/cookie-consent-banner").then((module) => ({ default: module.CookieConsentBannerShowcasePage }))
+);
 const PortfolioCaseStudiesShowcase = lazy(() =>
   import("../pages/showcase/portfolio-case-studies").then((module) => ({ default: module.PortfolioCaseStudiesShowcase }))
 );
@@ -592,6 +595,10 @@ export const router = createBrowserRouter([
               {
                 path: "product-showcase",
                 element: <AsyncRoute component={ProductShowcaseShowcase} loadingText="Loading product showcase..." />,
+              },
+              {
+                path: "cookie-consent-banner",
+                element: <AsyncRoute component={CookieConsentBannerShowcasePage} loadingText="Loading cookie consent banner showcase..." />,
               },
             ],
           },

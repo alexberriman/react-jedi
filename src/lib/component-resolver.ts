@@ -792,6 +792,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.PortfolioCaseStudies as unknown as React.ComponentType<Record<string, unknown>>,
       { projects: [] } // Provide default required props
     ),
+    CookieConsentBanner: asComponent(
+      Blocks.CookieConsentBanner as unknown as React.ComponentType<Record<string, unknown>>,
+      { title: "We use cookies", description: "We use cookies to enhance your browsing experience." } // Provide default required props
+    ),
+    "cookie-consent-banner": asComponent(
+      Blocks.CookieConsentBanner as unknown as React.ComponentType<Record<string, unknown>>,
+      { title: "We use cookies", description: "We use cookies to enhance your browsing experience." } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

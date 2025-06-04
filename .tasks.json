@@ -172,7 +172,7 @@
       {
         "id": "cookie-consent-banner-block",
         "description": "Create Cookie Consent Banner block for GDPR compliance. Variants: bottom banner, top bar, modal overlay, corner popup, and minimal notice. Features: customizable text, accept/reject buttons, settings panel, cookie categories, and privacy policy links. Add slide-in animations, remember preferences, and accessibility compliance. Include modern flat design with clear call-to-actions and legal compliance features.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "announcement-bar-block",

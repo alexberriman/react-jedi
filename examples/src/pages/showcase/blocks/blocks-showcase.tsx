@@ -216,6 +216,12 @@ const blockCategories: BlockCategory[] = [
         status: "completed",
         path: "/showcase/blocks/typewriter-text",
       },
+      {
+        name: "Cookie Consent Banner",
+        description: "GDPR-compliant cookie consent banner with multiple variants, preference management, and animations.",
+        status: "completed",
+        path: "/showcase/blocks/cookie-consent-banner",
+      },
     ],
   },
   {
@@ -1417,6 +1423,43 @@ const blockPreviews: Record<string, ComponentSpec> = {
       size: "md",
       colorScheme: "brand",
       animated: true,
+    },
+  },
+  "Cookie Consent Banner": {
+    type: "Box",
+    props: {
+      className: "relative h-[400px] bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden",
+      children: [
+        {
+          type: "CookieConsentBanner",
+          props: {
+            variant: "bottom-banner",
+            title: "We value your privacy",
+            description: "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking 'Accept All', you consent to our use of cookies.",
+            cookiePolicyUrl: "/cookies",
+            privacyPolicyUrl: "/privacy",
+            categories: [
+              {
+                id: "necessary",
+                name: "Necessary",
+                description: "Essential for the website to function properly",
+                required: true,
+              },
+              {
+                id: "analytics",
+                name: "Analytics",
+                description: "Help us understand how visitors interact with our website",
+              },
+              {
+                id: "marketing",
+                name: "Marketing",
+                description: "Used to track visitors for marketing purposes",
+              },
+            ],
+            animated: true,
+          },
+        },
+      ],
     },
   },
   Icon: {

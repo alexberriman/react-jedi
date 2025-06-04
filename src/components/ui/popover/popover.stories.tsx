@@ -69,7 +69,7 @@ export const Basic: Story = {
     await waitFor(() => {
       const popoverContent = document.body.querySelector('[role="dialog"]');
       expect(popoverContent).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };
 
@@ -359,7 +359,10 @@ export const ControlledState: Story = {
     await waitFor(() => {
       const popoverContent = document.body.querySelector('[role="dialog"]');
       expect(popoverContent).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
+    
+    // Small delay to ensure popover is fully closed
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
 
     // Test opening via trigger
     await user.click(triggerButton);

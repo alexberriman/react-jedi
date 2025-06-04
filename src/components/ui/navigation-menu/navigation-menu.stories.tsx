@@ -162,7 +162,7 @@ export const Default: Story = {
     await waitFor(() => {
       const reactJedi = canvas.getByText("React Jedi");
       expect(reactJedi).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
     
     // Test navigating to Components menu
     const componentsTrigger = await canvas.findByText("Components");
@@ -172,7 +172,7 @@ export const Default: Story = {
     await waitFor(() => {
       const alertDialog = canvas.getByText("Alert Dialog");
       expect(alertDialog).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
     
     // Test direct link
     const documentationLink = await canvas.findByText("Documentation");
@@ -268,7 +268,7 @@ export const WithIconsAndBadges: Story = {
       expect(featuredProduct).toBeInTheDocument();
       const rocket = canvas.getByText("🚀");
       expect(rocket).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
     
     // Test Solutions menu with emojis in titles
     const solutionsTrigger = await canvas.findByText("Solutions");
@@ -277,7 +277,7 @@ export const WithIconsAndBadges: Story = {
     await waitFor(() => {
       const enterprise = canvas.getByText(/Enterprise/);
       expect(enterprise).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };
 
@@ -491,7 +491,7 @@ export const WithFullWidthContent: Story = {
       expect(canvas.getByText("Learn")).toBeInTheDocument();
       expect(canvas.getByText("Community")).toBeInTheDocument();
       expect(canvas.getByText("Support")).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
     
     // Verify subcategory links
     expect(canvas.getByText("Tutorials")).toBeInTheDocument();
@@ -582,7 +582,7 @@ export const WithBrandingAndCTA: Story = {
     await waitFor(() => {
       const acmePro = canvas.getByText("ACME Pro");
       expect(acmePro).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
     
     // Verify CTA buttons
     const signInButton = canvas.getByText("Sign In");

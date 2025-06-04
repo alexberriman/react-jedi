@@ -71,9 +71,9 @@ export const Single: Story = {
     const user = userEvent.setup();
 
     // Test single accordion behavior
-    const trigger1 = canvas.getByRole("button", { name: "Is it accessible?" });
-    const trigger2 = canvas.getByRole("button", { name: "Is it styled?" });
-    const trigger3 = canvas.getByRole("button", { name: "Is it animated?" });
+    const trigger1 = canvas.getByRole("button", { name: "Is it accessible?"});
+    const trigger2 = canvas.getByRole("button", { name: "Is it styled?"});
+    const trigger3 = canvas.getByRole("button", { name: "Is it animated?"});
 
     // Initially all items should be collapsed
     expect(trigger1).toHaveAttribute("data-state", "closed");
@@ -86,12 +86,12 @@ export const Single: Story = {
     // Wait for the state change and content to appear
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "open");
-    });
+  });
     
     // Check content is present after animation
     await waitFor(() => {
       expect(canvas.getByText("Yes. It adheres to the WAI-ARIA design pattern.")).toBeInTheDocument();
-    });
+   });
 
     // Click second item - first should collapse, second should expand
     await user.click(trigger2);
@@ -99,34 +99,34 @@ export const Single: Story = {
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "closed");
       expect(trigger2).toHaveAttribute("data-state", "open");
-    });
+   });
 
     // Click second item again - should collapse (collapsible is true)
     await user.click(trigger2);
     
     await waitFor(() => {
       expect(trigger2).toHaveAttribute("data-state", "closed");
-    });
+   });
 
     // Test keyboard navigation
     await user.click(trigger1);
     
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "open");
-    });
+  });
     
     await user.keyboard("{ArrowDown}");
     
     await waitFor(() => {
       expect(trigger2).toHaveFocus();
-    });
+   });
     
     await user.keyboard("{Enter}");
     
     await waitFor(() => {
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger1).toHaveAttribute("data-state", "closed");
-    });
+   });
   },
 };
 
@@ -161,9 +161,9 @@ export const Multiple: Story = {
     const user = userEvent.setup();
 
     // Test multiple accordion behavior
-    const trigger1 = canvas.getByRole("button", { name: "Section 1" });
-    const trigger2 = canvas.getByRole("button", { name: "Section 2" });
-    const trigger3 = canvas.getByRole("button", { name: "Section 3" });
+    const trigger1 = canvas.getByRole("button", { name: "Section 1"});
+    const trigger2 = canvas.getByRole("button", { name: "Section 2"});
+    const trigger3 = canvas.getByRole("button", { name: "Section 3"});
 
     // Check default expanded items
     expect(trigger1).toHaveAttribute("data-state", "open");
@@ -176,7 +176,7 @@ export const Multiple: Story = {
       expect(trigger1).toHaveAttribute("data-state", "open");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-    });
+   });
 
     // Click first item - should collapse
     await user.click(trigger1);
@@ -184,7 +184,7 @@ export const Multiple: Story = {
       expect(trigger1).toHaveAttribute("data-state", "closed");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-    });
+   });
 
     // Verify multiple items can be expanded simultaneously
     await user.click(trigger1);
@@ -192,7 +192,7 @@ export const Multiple: Story = {
       expect(trigger1).toHaveAttribute("data-state", "open");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-    });
+   });
   },
 };
 
@@ -249,9 +249,9 @@ export const WithDisabledItems: Story = {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
 
-    const enabledTrigger1 = canvas.getByRole("button", { name: "Enabled Item" });
-    const disabledTrigger = canvas.getByRole("button", { name: "Disabled Item" });
-    const enabledTrigger2 = canvas.getByRole("button", { name: "Another Enabled Item" });
+    const enabledTrigger1 = canvas.getByRole("button", { name: "Enabled Item"});
+    const disabledTrigger = canvas.getByRole("button", { name: "Disabled Item"});
+    const enabledTrigger2 = canvas.getByRole("button", { name: "Another Enabled Item"});
 
     // Test disabled item behavior
     expect(disabledTrigger).toBeDisabled();
@@ -263,13 +263,13 @@ export const WithDisabledItems: Story = {
     await user.click(enabledTrigger1);
     await waitFor(() => {
       expect(enabledTrigger1).toHaveAttribute("data-state", "open");
-    });
+   });
 
     await user.click(enabledTrigger2);
     await waitFor(() => {
       expect(enabledTrigger2).toHaveAttribute("data-state", "open");
       expect(enabledTrigger1).toHaveAttribute("data-state", "closed");
-    });
+   });
   },
 };
 

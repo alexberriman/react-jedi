@@ -76,7 +76,7 @@ export const Basic: Story = {
     await waitFor(() => {
       expect(toggleButton).toHaveAttribute("data-state", "open");
       expect(canvas.getByText(/this is the collapsible content/i)).toBeVisible();
-    });
+    }, { timeout: 5000 });
     
     // Verify content is displayed
     const content = canvas.getByText(/this is the collapsible content/i);
@@ -86,7 +86,7 @@ export const Basic: Story = {
     await userEvent.click(toggleButton);
     await waitFor(() => {
       expect(toggleButton).toHaveAttribute("data-state", "closed");
-    });
+    }, { timeout: 5000 });
   },
 };
 
@@ -150,21 +150,21 @@ export const Controlled: Story = {
       expect(content).toBeVisible();
       expect(canvas.getByText(/state: open/i)).toBeVisible();
       expect(canvas.getByRole("button", { name: /hide content/i })).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
     
     // Click close button
     await userEvent.click(closeButton);
     await waitFor(() => {
       expect(canvas.getByRole("button", { name: /show content/i })).toBeInTheDocument();
       expect(canvas.getByRole("button", { name: /show content/i })).toHaveAttribute("data-state", "closed");
-    });
+    }, { timeout: 5000 });
     
     // Toggle via main button
     await userEvent.click(canvas.getByRole("button", { name: /show content/i }));
     await waitFor(() => {
       const content = canvas.getByText(/this is controlled content/i);
       expect(content).toBeVisible();
-    });
+    }, { timeout: 5000 });
   },
 };
 

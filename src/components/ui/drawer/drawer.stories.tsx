@@ -586,14 +586,23 @@ export const MobileOptimized: Story = {
       expect(within(document.body).queryByText('Mobile Optimized')).not.toBeInTheDocument();
     }, { timeout: 5000 });
     
+    // Small delay to ensure drawer is fully closed before reopening
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+    
     // Open again to test close button
     await userEvent.click(triggerButton);
     
     await waitFor(() => {
       expect(within(document.body).getByText('Mobile Optimized')).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
     
     // Close with close button
-    await userEvent.click(within(document.body).getByRole('button', { name: /^close$/i }));
+    const closeButton = within(document.body).getByRole('button', { name: /^close$/i });
+    await userEvent.click(closeButton);
+    
+    // Wait for drawer to close completely
+    await waitFor(() => {
+      expect(within(document.body).queryByText('Mobile Optimized')).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };

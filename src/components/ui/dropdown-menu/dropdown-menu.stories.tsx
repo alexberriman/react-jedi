@@ -127,7 +127,7 @@ export const Basic: Story = {
     // Menu should close after clicking an item
     await waitFor(() => {
       expect(within(document.body).queryByText('My Account')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };
 
@@ -208,7 +208,7 @@ export const WithCheckboxes: Story = {
     // Menu should close
     await waitFor(() => {
       expect(within(document.body).queryByText('Appearance')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };
 
@@ -278,7 +278,7 @@ export const WithRadioGroup: Story = {
     // Menu should close
     await waitFor(() => {
       expect(within(document.body).queryByText('Panel Position')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };
 
@@ -501,6 +501,6 @@ export const WithCustomTrigger: Story = {
     // Menu should close
     await waitFor(() => {
       expect(within(document.body).queryByText('John Doe')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };

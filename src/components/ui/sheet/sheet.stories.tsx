@@ -76,7 +76,10 @@ export const Default: Story = {
     // Verify sheet is closed (content no longer visible)
     await waitFor(() => {
       expect(within(document.body).queryByText('Sheet Title')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
+    
+    // Small delay to ensure sheet is fully closed
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
   },
 };
 

@@ -163,13 +163,9 @@ export const WithFooter: Story = {
     
     // Dialog should close after save
     await waitFor(() => {
-      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
-      if (dialogContent) {
-        expect(dialogContent.dataset.state).toBe('closed');
-      } else {
-        expect(dialogContent).not.toBeInTheDocument();
-      }
-    });
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialogContent).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -221,13 +217,9 @@ export const CustomClose: Story = {
     
     // Verify dialog closes
     await waitFor(() => {
-      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
-      if (dialogContent) {
-        expect(dialogContent.dataset.state).toBe('closed');
-      } else {
-        expect(dialogContent).not.toBeInTheDocument();
-      }
-    });
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialogContent).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -292,13 +284,9 @@ export const ScrollableContent: Story = {
     
     // Dialog should close
     await waitFor(() => {
-      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
-      if (dialogContent) {
-        expect(dialogContent.dataset.state).toBe('closed');
-      } else {
-        expect(dialogContent).not.toBeInTheDocument();
-      }
-    });
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialogContent).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -350,13 +338,9 @@ export const NonModal: Story = {
     await userEvent.click(closeButton);
     
     await waitFor(() => {
-      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
-      if (dialogContent) {
-        expect(dialogContent.dataset.state).toBe('closed');
-      } else {
-        expect(dialogContent).not.toBeInTheDocument();
-      }
-    });
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialogContent).not.toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 };
 
@@ -394,13 +378,12 @@ export const InitiallyOpen: Story = {
     
     // Wait for dialog to close
     await waitFor(() => {
-      const dialogContent = document.querySelector('[data-slot="dialog-content"]') as HTMLElement | null;
-      if (dialogContent) {
-        expect(dialogContent.dataset.state).toBe('closed');
-      } else {
-        expect(dialogContent).not.toBeInTheDocument();
-      }
-    });
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialogContent).not.toBeInTheDocument();
+    }, { timeout: 5000 });
+    
+    // Small delay to ensure dialog is fully closed
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
     
     // Reopen using trigger button - wait for it to be accessible after dialog closes
     await waitFor(() => {

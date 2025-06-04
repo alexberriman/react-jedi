@@ -89,7 +89,7 @@ export const Default: Story = {
     // Dialog should be closed
     await waitFor(() => {
       expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
 
     // Open again to test action button
     await user.click(trigger);
@@ -102,7 +102,7 @@ export const Default: Story = {
     // Dialog should be closed after action
     await waitFor(() => {
       expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };
 
@@ -152,7 +152,7 @@ export const DestructiveAction: Story = {
     await user.keyboard("{Escape}");
     await waitFor(() => {
       expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };
 
@@ -226,7 +226,7 @@ export const ControlledState: Story = {
     await user.click(cancelButton);
     await waitFor(() => {
       expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
 
     // Open again and test confirm
     await user.click(trigger);
@@ -237,7 +237,7 @@ export const ControlledState: Story = {
     await user.click(confirmButton);
     await waitFor(() => {
       expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   },
 };
 

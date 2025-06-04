@@ -215,7 +215,7 @@ const glassVariant: StatBlockDef = {
     {
       label: "Cloud Storage",
       value: "2.4TB",
-      trend: { value: 25.0, direction: "up" },
+      trend: { value: 25, direction: "up" },
       icon: "cloud",
       iconPosition: "top",
     },
@@ -295,7 +295,7 @@ const neonVariant: StatBlockDef = {
   stats: [
     {
       label: "Live Users",
-      value: 3_842,
+      value: 3842,
       trend: { value: 45.2, direction: "up" },
       icon: "users",
       color: "primary",

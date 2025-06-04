@@ -15,7 +15,7 @@ import {
 import { Button } from "../button";
 
 const meta = {
-  title: "Components/Overlay/AlertDialog",
+  title: "Components/AlertDialog",
   component: AlertDialog,
   parameters: {
     layout: "centered",

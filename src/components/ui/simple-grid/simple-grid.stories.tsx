@@ -4,7 +4,7 @@ import { SimpleGrid } from "./simple-grid";
 import { Box } from "../box";
 
 const meta = {
-  title: "Components/Layout/SimpleGrid",
+  title: "Layout Components/SimpleGrid",
   component: SimpleGrid,
   parameters: {
     layout: "padded",

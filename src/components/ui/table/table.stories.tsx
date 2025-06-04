@@ -12,7 +12,7 @@ import {
 } from "./table";
 
 const meta = {
-  title: "Components/DataDisplay/Table",
+  title: "Components/Table",
   component: Table,
   parameters: {
     layout: "centered",

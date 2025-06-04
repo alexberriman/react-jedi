@@ -3,7 +3,7 @@ import { FAQBlock } from "./faq";
 import type { FAQDef } from "../../../types/components/faq";
 
 const meta: Meta<typeof FAQBlock> = {
-  title: "Components/Blocks/FAQ",
+  title: "Blocks/FAQ",
   component: FAQBlock,
   tags: ["autodocs", "test"],
   parameters: {

@@ -3,7 +3,7 @@ import { expect, userEvent, within, waitFor } from "@storybook/test";
 import { Avatar, AvatarImage, AvatarFallback } from "./avatar";
 
 const meta = {
-  title: "Components/Media/Avatar",
+  title: "Components/Avatar",
   component: Avatar,
   parameters: {
     layout: "centered",

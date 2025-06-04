@@ -13,7 +13,7 @@ import { PaginationComponent } from "./pagination-component";
 import React from "react";
 
 const meta = {
-  title: "Components/Navigation/Pagination",
+  title: "Components/Pagination",
   component: Pagination,
   parameters: {
     layout: "centered",

@@ -13,7 +13,7 @@ import * as React from "react";
 import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta = {
-  title: "Components/Navigation/NavigationMenu",
+  title: "Components/NavigationMenu",
   component: NavigationMenu,
   parameters: {
     layout: "centered",

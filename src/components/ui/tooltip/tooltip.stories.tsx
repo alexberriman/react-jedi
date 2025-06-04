@@ -6,7 +6,7 @@ import { InfoIcon, Plus, Settings, TrendingUp } from "lucide-react";
 import { within, userEvent, waitFor, expect, screen } from "@storybook/test";
 
 const meta = {
-  title: "Components/Overlay/Tooltip",
+  title: "Components/Tooltip",
   component: Tooltip,
   parameters: {
     layout: "centered",

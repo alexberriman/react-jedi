@@ -6,7 +6,7 @@ import { Button } from "../button";
 import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta: Meta<typeof Collapsible> = {
-  title: "Components/UI/Collapsible",
+  title: "Components/Collapsible",
   component: Collapsible,
   parameters: {
     docs: {

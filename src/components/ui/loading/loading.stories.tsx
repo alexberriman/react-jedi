@@ -3,7 +3,7 @@ import { expect, within } from "@storybook/test";
 import { Loading } from "./loading";
 
 const meta: Meta<typeof Loading> = {
-  title: "UI/Loading",
+  title: "Components/Loading",
   component: Loading,
   parameters: {
     layout: "centered",

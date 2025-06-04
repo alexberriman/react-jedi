@@ -26,7 +26,7 @@ import {
 import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta = {
-  title: "Components/Overlay/Command",
+  title: "Components/Command",
   component: Command,
   parameters: {
     layout: "centered",

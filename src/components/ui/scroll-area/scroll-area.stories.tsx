@@ -3,7 +3,7 @@ import { within, expect } from "@storybook/test";
 import { ScrollArea } from "./scroll-area";
 
 const meta = {
-  title: "Components/Layout/ScrollArea",
+  title: "Layout Components/ScrollArea",
   component: ScrollArea,
   parameters: {
     layout: "centered",

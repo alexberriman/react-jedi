@@ -4,7 +4,7 @@ import { Rocket, Star, Code2, Zap } from "lucide-react";
 import { within, userEvent, waitFor, expect } from "@storybook/test";
 
 const meta: Meta<typeof Hero> = {
-  title: "Components/Marketing/Hero",
+  title: "Blocks/Hero",
   component: Hero,
   parameters: {
     layout: "fullscreen",

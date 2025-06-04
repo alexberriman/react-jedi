@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { OptimisticUpdateExample } from "../examples/optimistic-update-example";
 
 const meta: Meta<typeof OptimisticUpdateExample> = {
-  title: "Library/Data/Optimistic Updates",
+  title: "Utility/Optimistic Updates",
   component: OptimisticUpdateExample,
   decorators: [
     (Story) => {

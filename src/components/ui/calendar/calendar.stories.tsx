@@ -6,7 +6,7 @@ import { addDays, isSaturday, isSunday } from "date-fns";
 import type { DateRange } from "react-day-picker";
 
 const meta = {
-  title: "Components/UI/Calendar",
+  title: "Components/Calendar",
   component: Calendar,
   parameters: {
     layout: "centered",

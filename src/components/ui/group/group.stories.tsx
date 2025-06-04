@@ -7,7 +7,7 @@ import { Avatar } from "../avatar";
 import { Separator } from "../separator";
 
 const meta = {
-  title: "Components/Layout/Group",
+  title: "Layout Components/Group",
   component: Group,
   tags: ["autodocs"],
   argTypes: {

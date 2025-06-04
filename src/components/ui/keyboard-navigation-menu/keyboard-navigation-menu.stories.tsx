@@ -4,7 +4,7 @@ import { Home, User, Settings, Mail, Calendar, Bell, HelpCircle, LogOut } from "
 import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta: Meta<typeof KeyboardNavigationMenu> = {
-  title: "Components/UI/KeyboardNavigationMenu",
+  title: "Components/KeyboardNavigationMenu",
   component: KeyboardNavigationMenu,
   parameters: {
     layout: "centered",

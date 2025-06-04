@@ -8,7 +8,7 @@ import { Button } from "./button";
  * This shows how to write interaction tests, assertions, and accessibility checks
  */
 const meta = {
-  title: "Components/UI/Button/Tests",
+  title: "Components/Button/Tests",
   component: Button,
   parameters: {
     layout: "centered",

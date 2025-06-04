@@ -3,7 +3,7 @@ import { expect } from "@storybook/test";
 import { Skeleton } from "./skeleton";
 
 const meta = {
-  title: "Components/DataDisplay/Skeleton",
+  title: "Components/Skeleton",
   component: Skeleton,
   parameters: {
     layout: "centered",

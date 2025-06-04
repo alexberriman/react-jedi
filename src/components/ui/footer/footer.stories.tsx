@@ -4,7 +4,7 @@ import { Footer } from "./footer";
 import { Container } from "../container/container";
 
 const meta = {
-  title: "Components/UI/Footer",
+  title: "Components/Footer",
   component: Footer,
   parameters: {
     layout: "fullscreen",

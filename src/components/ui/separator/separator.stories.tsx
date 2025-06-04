@@ -3,7 +3,7 @@ import { within, expect } from "@storybook/test";
 import { Separator } from "./separator";
 
 const meta: Meta<typeof Separator> = {
-  title: "Components/UI/Separator",
+  title: "Components/Separator",
   component: Separator,
   tags: ["autodocs"],
   parameters: {

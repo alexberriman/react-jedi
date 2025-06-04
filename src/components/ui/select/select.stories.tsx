@@ -13,7 +13,7 @@ import {
 } from "./select";
 
 const meta: Meta<typeof Select> = {
-  title: "Components/Form/Select",
+  title: "Form Components/Select",
   component: Select,
   parameters: {
     layout: "centered",

@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 
 const meta: Meta = {
-  title: "Components/Overlay/ContextMenu",
+  title: "Components/ContextMenu",
   component: ContextMenu,
   parameters: {
     layout: "centered",

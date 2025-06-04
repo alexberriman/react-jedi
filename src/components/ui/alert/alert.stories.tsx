@@ -4,7 +4,7 @@ import { AlertCircle, Terminal, Info, AlertTriangle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "./index";
 
 const meta = {
-  title: "Components/Feedback/Alert",
+  title: "Components/Alert",
   component: Alert,
   parameters: {
     layout: "padded",

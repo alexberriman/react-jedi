@@ -5,7 +5,7 @@ import { Label } from "../label";
 import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Components/Form/Checkbox",
+  title: "Form Components/Checkbox",
   component: Checkbox,
   parameters: {
     layout: "centered",

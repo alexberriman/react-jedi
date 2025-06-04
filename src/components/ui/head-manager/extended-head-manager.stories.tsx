@@ -11,7 +11,7 @@ import {
 } from "@/lib/seo";
 
 const meta = {
-  title: "Components/UI/ExtendedHeadManager",
+  title: "Components/ExtendedHeadManager",
   component: ExtendedHeadManager,
   parameters: {
     layout: "centered",

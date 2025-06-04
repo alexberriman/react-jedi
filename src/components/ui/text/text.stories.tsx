@@ -3,7 +3,7 @@ import { expect, within } from "@storybook/test";
 import { Text } from "./text";
 
 const meta = {
-  title: "Components/Typography/Text",
+  title: "Components/Text",
   component: Text,
   parameters: {
     layout: "centered",

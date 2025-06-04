@@ -22,7 +22,7 @@ const FormStory = ({ children }: { children: React.ReactNode }) => {
 };
 
 const meta = {
-  title: "Components/Layout/Form",
+  title: "Layout Components/Form",
   component: FormStory,
   parameters: {
     layout: "padded",

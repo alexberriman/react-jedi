@@ -4,7 +4,7 @@ import { Label } from "../label/label";
 import { within, userEvent, expect } from "@storybook/test";
 
 const meta = {
-  title: "Components/Form/Input",
+  title: "Form Components/Input",
   component: Input,
   parameters: {
     layout: "centered",

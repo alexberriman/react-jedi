@@ -3,7 +3,7 @@ import { expect, within } from "@storybook/test";
 import { Center } from "./center";
 
 const meta = {
-  title: "Components/Layout/Center",
+  title: "Layout Components/Center",
   component: Center,
   parameters: {
     layout: "fullscreen",

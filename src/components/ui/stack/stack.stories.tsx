@@ -8,7 +8,7 @@ import { Text } from "../text";
 import { Separator } from "../separator";
 
 const meta = {
-  title: "Components/Layout/Stack",
+  title: "Layout Components/Stack",
   component: Stack,
   parameters: {
     layout: "centered",

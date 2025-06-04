@@ -17,7 +17,7 @@ import {
 import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta: Meta<typeof Menubar> = {
-  title: "Components/Overlay/Menubar",
+  title: "Components/Menubar",
   component: Menubar,
   parameters: {
     layout: "centered",

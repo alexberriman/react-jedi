@@ -3,7 +3,7 @@ import { expect, within } from "@storybook/test";
 import { AspectRatio } from "./aspect-ratio";
 
 const meta: Meta<typeof AspectRatio> = {
-  title: "Components/Media/AspectRatio",
+  title: "Components/AspectRatio",
   component: AspectRatio,
   tags: ["autodocs"],
   parameters: {

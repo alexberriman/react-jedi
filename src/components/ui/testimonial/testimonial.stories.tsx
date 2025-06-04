@@ -3,7 +3,7 @@ import { expect, within } from "@storybook/test";
 import { Testimonial } from "./testimonial";
 
 const meta = {
-  title: "Components/Marketing/Testimonial",
+  title: "Blocks/Testimonial",
   component: Testimonial,
   parameters: {
     layout: "centered",

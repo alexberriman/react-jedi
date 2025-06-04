@@ -3,7 +3,7 @@ import { Image } from "./image";
 import { within, waitFor, expect } from "@storybook/test";
 
 const meta = {
-  title: "Components/Media/Image",
+  title: "Components/Image",
   component: Image,
   parameters: {
     layout: "centered",

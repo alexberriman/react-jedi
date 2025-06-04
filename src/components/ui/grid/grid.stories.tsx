@@ -3,7 +3,7 @@ import { within, expect } from "@storybook/test";
 import { Grid } from "./grid";
 
 const meta: Meta<typeof Grid> = {
-  title: "Components/Layout/Grid",
+  title: "Layout Components/Grid",
   component: Grid,
   parameters: {
     layout: "centered",

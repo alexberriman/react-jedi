@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./
 import { render } from "@/lib/render";
 
 const meta = {
-  title: "Components/UI/Accordion",
+  title: "Components/Accordion",
   component: Accordion,
   parameters: {
     layout: "centered",

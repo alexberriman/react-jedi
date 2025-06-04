@@ -45,7 +45,7 @@ import {
 } from "../dropdown-menu";
 
 const meta = {
-  title: "Components/UI/Sidebar",
+  title: "Components/Sidebar",
   component: Sidebar,
   decorators: [
     (Story) => (

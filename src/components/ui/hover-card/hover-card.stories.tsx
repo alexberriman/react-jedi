@@ -6,7 +6,7 @@ import { CalendarDays } from "lucide-react";
 import { within, userEvent, waitFor, expect, screen } from "@storybook/test";
 
 const meta = {
-  title: "Components/Overlay/HoverCard",
+  title: "Components/HoverCard",
   component: HoverCard,
   tags: ["autodocs"],
   parameters: {

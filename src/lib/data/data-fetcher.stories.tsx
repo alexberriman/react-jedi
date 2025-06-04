@@ -196,7 +196,7 @@ const StateIntegratedExample: React.FC = () => {
 };
 
 const meta: Meta = {
-  title: "Core/DataFetcher",
+  title: "Utility/DataFetcher",
   parameters: {
     docs: {
       description: {

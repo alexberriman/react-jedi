@@ -4,7 +4,7 @@ import { within, expect } from "@storybook/test";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./resizable";
 
 const meta = {
-  title: "Components/UI/Resizable",
+  title: "Components/Resizable",
   component: ResizablePanelGroup,
   parameters: {
     layout: "centered",

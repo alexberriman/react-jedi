@@ -3,7 +3,7 @@ import { expect, within } from "@storybook/test";
 import { Spacer } from "./spacer";
 
 const meta = {
-  title: "Components/Layout/Spacer",
+  title: "Layout Components/Spacer",
   component: Spacer,
   parameters: {
     layout: "padded",

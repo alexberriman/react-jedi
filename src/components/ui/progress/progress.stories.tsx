@@ -3,7 +3,7 @@ import { expect, waitFor, within } from "@storybook/test";
 import { Progress } from "./progress";
 
 const meta = {
-  title: "Components/DataDisplay/Progress",
+  title: "Components/Progress",
   component: Progress,
   parameters: {
     layout: "centered",

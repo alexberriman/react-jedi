@@ -3,7 +3,7 @@ import { expect } from "@storybook/test";
 import { SkeletonLoader } from "./skeleton-loader";
 
 const meta: Meta<typeof SkeletonLoader> = {
-  title: "UI/SkeletonLoader",
+  title: "Components/SkeletonLoader",
   component: SkeletonLoader,
   parameters: {
     layout: "padded",

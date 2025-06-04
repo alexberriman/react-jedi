@@ -5,7 +5,7 @@ import { Toaster } from "./index";
 import { toast } from "sonner";
 
 const meta = {
-  title: "Components/Overlay/Toast",
+  title: "Components/Toast",
   component: Toaster,
   decorators: [
     (Story) => (

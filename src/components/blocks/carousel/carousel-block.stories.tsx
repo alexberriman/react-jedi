@@ -3,7 +3,7 @@ import { CarouselBlock } from "./carousel-block";
 import type { CarouselDef } from "../../../types/components/carousel";
 
 const meta: Meta<typeof CarouselBlock> = {
-  title: "Components/Blocks/Carousel",
+  title: "Blocks/Carousel",
   component: CarouselBlock,
   tags: ["autodocs", "test"],
   parameters: {

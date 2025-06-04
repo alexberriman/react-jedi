@@ -13,7 +13,7 @@ import {
 import { Button } from "../button";
 
 const meta = {
-  title: "Components/Overlay/Dialog",
+  title: "Components/Dialog",
   component: Dialog,
   parameters: {
     layout: "centered",

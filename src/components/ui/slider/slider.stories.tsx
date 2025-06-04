@@ -4,7 +4,7 @@ import * as React from "react";
 import { Slider } from "./slider";
 
 const meta: Meta<typeof Slider> = {
-  title: "Components/Form/Slider",
+  title: "Form Components/Slider",
   component: Slider,
   parameters: {
     docs: {

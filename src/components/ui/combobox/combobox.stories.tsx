@@ -3,7 +3,7 @@ import { Combobox, type ComboboxOption } from "./combobox";
 import { within, userEvent, expect, waitFor } from "@storybook/test";
 
 const meta = {
-  title: "Components/Form/Combobox",
+  title: "Form Components/Combobox",
   component: Combobox,
   parameters: {
     layout: "centered",

@@ -12,7 +12,7 @@ import { within, userEvent, expect, waitFor } from "@storybook/test";
  * Perfect for showcasing dynamic content like images, cards, or any content with varying heights.
  */
 const meta = {
-  title: "Components/Layout/Masonry",
+  title: "Layout Components/Masonry",
   component: Masonry,
   tags: ["autodocs"],
   argTypes: {

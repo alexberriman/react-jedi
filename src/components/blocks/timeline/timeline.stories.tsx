@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 const meta = {
-  title: "Components/Blocks/Timeline",
+  title: "Blocks/Timeline",
   component: Timeline,
   parameters: {
     layout: "centered",

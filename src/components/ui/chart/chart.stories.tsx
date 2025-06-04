@@ -3,7 +3,7 @@ import { expect, within, waitFor } from "@storybook/test";
 import { Chart } from "./chart";
 
 const meta = {
-  title: "Components/DataDisplay/Chart",
+  title: "Components/Chart",
   component: Chart,
   parameters: {
     layout: "centered",

@@ -8,7 +8,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
  * Built using Radix UI primitives for full accessibility and keyboard navigation.
  */
 const meta: Meta<typeof Tabs> = {
-  title: "Components/DataDisplay/Tabs",
+  title: "Components/Tabs",
   component: Tabs,
   parameters: {
     layout: "centered",

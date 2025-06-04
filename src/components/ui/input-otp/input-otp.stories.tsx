@@ -4,7 +4,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./inpu
 import { within, userEvent, waitFor, expect } from "@storybook/test";
 
 const meta = {
-  title: "Components/Form/InputOTP",
+  title: "Form Components/InputOTP",
   component: InputOTP,
   parameters: {
     layout: "centered",

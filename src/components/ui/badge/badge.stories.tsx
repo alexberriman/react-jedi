@@ -3,7 +3,7 @@ import { expect, userEvent, within } from "@storybook/test";
 import { Badge } from "./badge";
 
 const meta = {
-  title: "Components/UI/Badge",
+  title: "Components/Badge",
   component: Badge,
   parameters: {
     layout: "centered",

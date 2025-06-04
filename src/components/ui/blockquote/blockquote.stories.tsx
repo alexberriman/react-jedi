@@ -3,7 +3,7 @@ import { expect, within } from "@storybook/test";
 import { BlockQuote } from "./blockquote";
 
 const meta = {
-  title: "Components/Typography/BlockQuote",
+  title: "Components/BlockQuote",
   component: BlockQuote,
   parameters: {
     layout: "centered",

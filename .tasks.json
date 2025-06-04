@@ -167,7 +167,7 @@
       {
         "id": "restaurant-menu-block",
         "description": "The RestaurantMenuBlock component - the default story has categories/filters or something - this isn't centered horizontally (it should) - the container should be 100% width of the parent, and all of the buttons/filters centered horizontally. At the moment it doesn't align with the title/subtitle/search. Also - quite a few images on this page 404. Can you use photos from picsum (see examples in other storybooks).",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "product-showcase-flickering",

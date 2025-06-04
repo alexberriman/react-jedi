@@ -549,8 +549,8 @@ const RestaurantMenuBlock = React.forwardRef<HTMLDivElement, RestaurantMenuBlock
     );
 
     const renderFilters = () => (
-      <div className="mb-8 space-y-4">
-        <div className="flex flex-wrap justify-center gap-2">
+      <div className="mb-8 space-y-4 w-full">
+        <div className="flex flex-wrap justify-center gap-2 w-full">
           <Button
             variant={selectedCategory === "all" ? "default" : "outline"}
             size="sm"
@@ -571,7 +571,7 @@ const RestaurantMenuBlock = React.forwardRef<HTMLDivElement, RestaurantMenuBlock
         </div>
 
         {allDietaryRestrictions.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-center gap-2 w-full">
             {allDietaryRestrictions.map(restriction => (
               <Button
                 key={restriction}
@@ -761,10 +761,10 @@ const RestaurantMenuBlock = React.forwardRef<HTMLDivElement, RestaurantMenuBlock
       >
         <Container size="xl" className="w-full">
           {/* Header */}
-          <div className="text-center mb-8 w-full mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{title}</h1>
+          <div className="text-center mb-8 w-full">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">{title}</h1>
             {description && (
-              <Text className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-center">
+              <Text className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 {description}
               </Text>
             )}

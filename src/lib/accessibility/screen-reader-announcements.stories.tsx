@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { ScreenReaderProvider, useScreenReaderAnnouncement } from "./screen-reader-announcements";
 import { Button } from "../../components/ui/button";
@@ -14,10 +14,10 @@ const AnnouncementDemo = () => {
       <Card className="p-6">
         <h2 className="text-2xl font-bold mb-4">Screen Reader Announcements</h2>
         <p className="mb-6 text-muted-foreground">
-          This demo showcases screen reader announcements. While the announcements are not visible on screen,
-          they are read by screen readers to provide important updates to users.
+          This demo showcases screen reader announcements. While the announcements are not visible
+          on screen, they are read by screen readers to provide important updates to users.
         </p>
-        
+
         <div className="space-y-4">
           <div className="flex gap-4">
             <Input
@@ -26,25 +26,16 @@ const AnnouncementDemo = () => {
               placeholder="Enter a custom message"
               className="flex-1"
             />
-            <Button
-              onClick={() => message && announcePolite(message)}
-              variant="secondary"
-            >
+            <Button onClick={() => message && announcePolite(message)} variant="secondary">
               Announce Polite
             </Button>
-            <Button
-              onClick={() => message && announceAssertive(message)}
-              variant="secondary"
-            >
+            <Button onClick={() => message && announceAssertive(message)} variant="secondary">
               Announce Assertive
             </Button>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Button
-              onClick={() => announcePolite("Page loaded successfully")}
-              variant="outline"
-            >
+            <Button onClick={() => announcePolite("Page loaded successfully")} variant="outline">
               Announce Page Load
             </Button>
             <Button
@@ -53,28 +44,17 @@ const AnnouncementDemo = () => {
             >
               Announce Error
             </Button>
-            <Button
-              onClick={() => announcePolite("Form submitted successfully")}
-              variant="outline"
-            >
+            <Button onClick={() => announcePolite("Form submitted successfully")} variant="outline">
               Announce Success
             </Button>
-            <Button
-              onClick={() => announcePolite("Loading data...")}
-              variant="outline"
-            >
+            <Button onClick={() => announcePolite("Loading data...")} variant="outline">
               Announce Loading
             </Button>
-            <Button
-              onClick={() => announcePolite("10 items loaded")}
-              variant="outline"
-            >
+            <Button onClick={() => announcePolite("10 items loaded")} variant="outline">
               Announce Data Loaded
             </Button>
             <Button
-              onClick={() => 
-                announce("This is a delayed message", { delay: 2000 })
-              }
+              onClick={() => announce("This is a delayed message", { delay: 2000 })}
               variant="outline"
             >
               Delayed Announcement (2s)
@@ -153,7 +133,7 @@ import { useScreenReaderAnnouncement } from "@/lib/a11y/screen-reader-announceme
 
 function MyComponent() {
   const { announcePolite, announceAssertive } = useScreenReaderAnnouncement();
-  
+
   return (
     <button onClick={() => announcePolite("Button clicked")}>
       Click Me
@@ -179,7 +159,8 @@ function MyComponent() {
     },
   },
 
-  tags: ['autodocs', 'accessibility-screen-reader-announcements']};
+  tags: ["autodocs", "accessibility-screen-reader-announcements"],
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -201,7 +182,7 @@ export const WithSampleForm: Story = {
 
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!email.includes("@")) {
           announceAssertive("Error: Please enter a valid email address");
           return;

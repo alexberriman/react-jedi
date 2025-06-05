@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { ScreenReaderProvider } from "./screen-reader-announcements";
@@ -18,12 +18,24 @@ const IntegratedDemo = () => {
         <div className="p-8 max-w-4xl mx-auto">
           <nav className="mb-8">
             <ul className="flex gap-4">
-              <li><Link to="/" className="text-blue-600 hover:underline">Home</Link></li>
-              <li><Link to="/about" className="text-blue-600 hover:underline">About</Link></li>
-              <li><Link to="/contact" className="text-blue-600 hover:underline">Contact</Link></li>
+              <li>
+                <Link to="/" className="text-blue-600 hover:underline">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-blue-600 hover:underline">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-blue-600 hover:underline">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </nav>
-          
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -48,17 +60,17 @@ const Home = () => {
           <Button onClick={() => toast.success("Welcome to the home page!")}>
             Show Success Toast
           </Button>
-          <Button onClick={() => toast.error("Something went wrong!")}>
-            Show Error Toast
-          </Button>
-          <Button onClick={() => {
-            const promise = new Promise(resolve => globalThis.setTimeout(resolve, 2000));
-            toast.promise(promise, {
-              loading: "Loading data...",
-              success: "Data loaded successfully!",
-              error: "Failed to load data",
-            });
-          }}>
+          <Button onClick={() => toast.error("Something went wrong!")}>Show Error Toast</Button>
+          <Button
+            onClick={() => {
+              const promise = new Promise((resolve) => globalThis.setTimeout(resolve, 2000));
+              toast.promise(promise, {
+                loading: "Loading data...",
+                success: "Data loaded successfully!",
+                error: "Failed to load data",
+              });
+            }}
+          >
             Show Async Toast
           </Button>
         </div>
@@ -95,17 +107,17 @@ const Contact = () => {
   const validateEmail = (value: string) => {
     if (!value) {
       const error = "Email is required";
-      setErrors(prev => ({ ...prev, email: error }));
+      setErrors((prev) => ({ ...prev, email: error }));
       announceFieldError("Email", error);
       return false;
     }
     if (!value.includes("@")) {
       const error = "Please enter a valid email";
-      setErrors(prev => ({ ...prev, email: error }));
+      setErrors((prev) => ({ ...prev, email: error }));
       announceFieldError("Email", error);
       return false;
     }
-    setErrors(prev => ({ ...prev, email: "" }));
+    setErrors((prev) => ({ ...prev, email: "" }));
     announceFieldValid("Email");
     return true;
   };
@@ -113,36 +125,36 @@ const Contact = () => {
   const validateMessage = (value: string) => {
     if (!value) {
       const error = "Message is required";
-      setErrors(prev => ({ ...prev, message: error }));
+      setErrors((prev) => ({ ...prev, message: error }));
       announceFieldError("Message", error);
       return false;
     }
     if (value.length < 10) {
       const error = "Message must be at least 10 characters";
-      setErrors(prev => ({ ...prev, message: error }));
+      setErrors((prev) => ({ ...prev, message: error }));
       announceFieldError("Message", error);
       return false;
     }
-    setErrors(prev => ({ ...prev, message: "" }));
+    setErrors((prev) => ({ ...prev, message: "" }));
     announceFieldValid("Message");
     return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const emailValid = validateEmail(email);
     const messageValid = validateMessage(message);
-    
+
     const errorCount = Object.values(errors).filter(Boolean).length;
     announceValidationSummary(errorCount);
-    
+
     if (emailValid && messageValid) {
       announceFormSubmitting();
-      
+
       // Simulate API call
-      await new Promise(resolve => globalThis.setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 2000));
+
       announceFormSuccess("Thank you for your message! We'll get back to you soon.");
       setEmail("");
       setMessage("");
@@ -175,7 +187,7 @@ const Contact = () => {
               </p>
             )}
           </div>
-          
+
           <div>
             <label htmlFor="message" className="block text-sm font-medium mb-2">
               Message
@@ -196,7 +208,7 @@ const Contact = () => {
               </p>
             )}
           </div>
-          
+
           <Button type="submit" className="w-full">
             Send Message
           </Button>
@@ -247,7 +259,8 @@ formAnnounce.announceFieldError("Email", "Invalid email format");
     },
   },
 
-  tags: ['autodocs', 'accessibility-integrated-announcements']};
+  tags: ["autodocs", "accessibility-integrated-announcements"],
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -280,20 +293,20 @@ export const FormValidationFlow: Story = {
       });
 
       const handleFieldBlur = (field: keyof typeof formData) => {
-        setTouched(prev => ({ ...prev, [field]: true }));
-        
+        setTouched((prev) => ({ ...prev, [field]: true }));
+
         if (field === "username" && formData.username.length < 3) {
           announceFieldError("Username", "Must be at least 3 characters");
         } else if (field === "username" && formData.username.length >= 3) {
           announceFieldValid("Username");
         }
-        
+
         if (field === "password" && formData.password.length < 8) {
           announceFieldError("Password", "Must be at least 8 characters");
         } else if (field === "password" && formData.password.length >= 8) {
           announceFieldValid("Password");
         }
-        
+
         if (field === "confirmPassword" && formData.password !== formData.confirmPassword) {
           announceFieldError("Confirm password", "Passwords do not match");
         } else if (field === "confirmPassword" && formData.password === formData.confirmPassword) {
@@ -303,16 +316,20 @@ export const FormValidationFlow: Story = {
 
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        if (formData.username.length < 3 || formData.password.length < 8 || formData.password !== formData.confirmPassword) {
+
+        if (
+          formData.username.length < 3 ||
+          formData.password.length < 8 ||
+          formData.password !== formData.confirmPassword
+        ) {
           announceFormError("Please fix all errors before submitting");
           return;
         }
-        
+
         announceFormSubmitting();
-        
+
         try {
-          await new Promise(resolve => globalThis.setTimeout(resolve, 2000));
+          await new Promise((resolve) => globalThis.setTimeout(resolve, 2000));
           announceFormSuccess("Registration completed successfully!");
           setFormData({ username: "", password: "", confirmPassword: "" });
           setTouched({ username: false, password: false, confirmPassword: false });
@@ -332,7 +349,7 @@ export const FormValidationFlow: Story = {
               <Input
                 id="username"
                 value={formData.username}
-                onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
+                onChange={(e) => setFormData((prev) => ({ ...prev, username: e.target.value }))}
                 onBlur={() => handleFieldBlur("username")}
                 aria-invalid={touched.username && formData.username.length < 3}
               />
@@ -340,7 +357,7 @@ export const FormValidationFlow: Story = {
                 <p className="text-sm text-red-600 mt-1">Must be at least 3 characters</p>
               )}
             </div>
-            
+
             <div>
               <label htmlFor="password" className="block text-sm font-medium mb-2">
                 Password
@@ -349,7 +366,7 @@ export const FormValidationFlow: Story = {
                 id="password"
                 type="password"
                 value={formData.password}
-                onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+                onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
                 onBlur={() => handleFieldBlur("password")}
                 aria-invalid={touched.password && formData.password.length < 8}
               />
@@ -357,7 +374,7 @@ export const FormValidationFlow: Story = {
                 <p className="text-sm text-red-600 mt-1">Must be at least 8 characters</p>
               )}
             </div>
-            
+
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
                 Confirm Password
@@ -366,15 +383,19 @@ export const FormValidationFlow: Story = {
                 id="confirmPassword"
                 type="password"
                 value={formData.confirmPassword}
-                onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, confirmPassword: e.target.value }))
+                }
                 onBlur={() => handleFieldBlur("confirmPassword")}
-                aria-invalid={touched.confirmPassword && formData.password !== formData.confirmPassword}
+                aria-invalid={
+                  touched.confirmPassword && formData.password !== formData.confirmPassword
+                }
               />
               {touched.confirmPassword && formData.password !== formData.confirmPassword && (
                 <p className="text-sm text-red-600 mt-1">Passwords do not match</p>
               )}
             </div>
-            
+
             <Button type="submit" className="w-full">
               Register
             </Button>

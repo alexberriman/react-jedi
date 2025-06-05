@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { Click, ClickButton, ClickCard, ClickIcon } from "./click";
 import { AnimationProvider } from "./animation-provider";
@@ -28,7 +28,7 @@ const meta = {
     ),
   ],
 
-  tags: ['autodocs', 'animation-click-components'],
+  tags: ["autodocs", "animation-click-components"],
 } satisfies Meta;
 
 export default meta;

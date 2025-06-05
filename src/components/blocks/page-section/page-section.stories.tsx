@@ -1,41 +1,54 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { PageSection } from './page-section';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Check, Star, Users, Zap, Shield, Award, TrendingUp, Heart, Target, Rocket, Globe } from 'lucide-react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { PageSection } from "./page-section";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowRight,
+  Check,
+  Star,
+  Users,
+  Zap,
+  Shield,
+  Award,
+  TrendingUp,
+  Heart,
+  Target,
+  Rocket,
+  Globe,
+} from "lucide-react";
 
 const meta: Meta<typeof PageSection> = {
-  title: 'Blocks/PageSection',
+  title: "Blocks/PageSection",
   component: PageSection,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
-  tags: ['autodocs', 'test'],
+  tags: ["autodocs", "test"],
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['full-width', 'contained', 'split', 'angled', 'curved', 'pattern'],
+      control: "select",
+      options: ["full-width", "contained", "split", "angled", "curved", "pattern"],
     },
     padding: {
-      control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'xl', '2xl'],
+      control: "select",
+      options: ["none", "sm", "md", "lg", "xl", "2xl"],
     },
     contentAlignment: {
-      control: 'select',
-      options: ['left', 'center', 'right'],
+      control: "select",
+      options: ["left", "center", "right"],
     },
     animationType: {
-      control: 'select',
-      options: ['fade', 'slide', 'zoom', 'slide-left', 'slide-right'],
+      control: "select",
+      options: ["fade", "slide", "zoom", "slide-left", "slide-right"],
     },
     dividerTop: {
-      control: 'select',
-      options: ['none', 'wave', 'angle', 'curve'],
+      control: "select",
+      options: ["none", "wave", "angle", "curve"],
     },
     dividerBottom: {
-      control: 'select',
-      options: ['none', 'wave', 'angle', 'curve'],
+      control: "select",
+      options: ["none", "wave", "angle", "curve"],
     },
   },
 };
@@ -68,22 +81,23 @@ const SampleContent = () => (
 
 export const HeroSection: Story = {
   args: {
-    layout: { type: 'hero' },
+    layout: { type: "hero" },
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      type: "gradient",
+      value: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     },
     heading: {
-      title: 'Build Something Amazing Today',
-      subtitle: 'The modern platform for creating exceptional digital experiences',
-      alignment: 'center',
+      title: "Build Something Amazing Today",
+      subtitle: "The modern platform for creating exceptional digital experiences",
+      alignment: "center",
     },
-    description: 'Join thousands of developers who are building the future with our powerful tools and intuitive APIs.',
+    description:
+      "Join thousands of developers who are building the future with our powerful tools and intuitive APIs.",
     ctas: [
-      { text: 'Start Free Trial', size: 'lg' },
-      { text: 'Watch Demo', variant: 'outline', size: 'lg' }
+      { text: "Start Free Trial", size: "lg" },
+      { text: "Watch Demo", variant: "outline", size: "lg" },
     ],
-    padding: '2xl',
+    padding: "2xl",
     children: (
       <div className="flex gap-8 justify-center text-white mt-8">
         <div className="text-center">
@@ -106,44 +120,51 @@ export const HeroSection: Story = {
 export const FeatureWithImageLeft: Story = {
   args: {
     layout: {
-      type: 'image-left',
-      imageUrl: 'https://picsum.photos/600/400',
-      imageAlt: 'Feature demonstration',
+      type: "image-left",
+      imageUrl: "https://picsum.photos/600/400",
+      imageAlt: "Feature demonstration",
       imageZoomOnHover: true,
       imageShadow: true,
-      contentSpacing: 'relaxed'
+      contentSpacing: "relaxed",
     },
     heading: {
-      title: 'Powerful Analytics Dashboard',
-      subtitle: 'Real-time insights at your fingertips',
+      title: "Powerful Analytics Dashboard",
+      subtitle: "Real-time insights at your fingertips",
     },
-    description: 'Track performance, monitor user behavior, and make data-driven decisions with our comprehensive analytics suite.',
+    description:
+      "Track performance, monitor user behavior, and make data-driven decisions with our comprehensive analytics suite.",
     ctas: [
-      { text: 'Learn More', href: '#' },
-      { text: 'See Demo', variant: 'outline', href: '#' }
+      { text: "Learn More", href: "#" },
+      { text: "See Demo", variant: "outline", href: "#" },
     ],
-    padding: 'xl',
+    padding: "xl",
     children: (
       <div className="space-y-4">
         <div className="flex items-start gap-3">
           <Check className="w-5 h-5 text-green-500 mt-0.5" />
           <div>
             <div className="font-medium">Real-time data visualization</div>
-            <div className="text-sm text-muted-foreground">See your metrics update in real-time with beautiful charts</div>
+            <div className="text-sm text-muted-foreground">
+              See your metrics update in real-time with beautiful charts
+            </div>
           </div>
         </div>
         <div className="flex items-start gap-3">
           <Check className="w-5 h-5 text-green-500 mt-0.5" />
           <div>
             <div className="font-medium">Custom dashboards</div>
-            <div className="text-sm text-muted-foreground">Create personalized views for different team members</div>
+            <div className="text-sm text-muted-foreground">
+              Create personalized views for different team members
+            </div>
           </div>
         </div>
         <div className="flex items-start gap-3">
           <Check className="w-5 h-5 text-green-500 mt-0.5" />
           <div>
             <div className="font-medium">Export reports</div>
-            <div className="text-sm text-muted-foreground">Generate PDF and Excel reports with one click</div>
+            <div className="text-sm text-muted-foreground">
+              Generate PDF and Excel reports with one click
+            </div>
           </div>
         </div>
       </div>
@@ -154,25 +175,23 @@ export const FeatureWithImageLeft: Story = {
 export const FeatureWithImageRight: Story = {
   args: {
     layout: {
-      type: 'image-right',
-      imageUrl: 'https://picsum.photos/600/400?random=1',
-      imageAlt: 'Collaboration features',
+      type: "image-right",
+      imageUrl: "https://picsum.photos/600/400?random=1",
+      imageAlt: "Collaboration features",
       imageZoomOnHover: true,
       imageShadow: true,
-      contentSpacing: 'relaxed'
+      contentSpacing: "relaxed",
     },
     heading: {
-      title: 'Seamless Team Collaboration',
-      subtitle: 'Work together like never before',
+      title: "Seamless Team Collaboration",
+      subtitle: "Work together like never before",
     },
-    description: 'Break down silos and enhance productivity with tools designed for modern teams.',
-    ctas: [
-      { text: 'Start Collaborating', href: '#' }
-    ],
-    padding: 'xl',
+    description: "Break down silos and enhance productivity with tools designed for modern teams.",
+    ctas: [{ text: "Start Collaborating", href: "#" }],
+    padding: "xl",
     background: {
-      type: 'color',
-      value: '#f9fafb'
+      type: "color",
+      value: "#f9fafb",
     },
     children: (
       <div className="space-y-4">
@@ -180,21 +199,27 @@ export const FeatureWithImageRight: Story = {
           <Users className="w-5 h-5 text-blue-500 mt-0.5" />
           <div>
             <div className="font-medium">Real-time collaboration</div>
-            <div className="text-sm text-muted-foreground">Multiple team members can work on the same project simultaneously</div>
+            <div className="text-sm text-muted-foreground">
+              Multiple team members can work on the same project simultaneously
+            </div>
           </div>
         </div>
         <div className="flex items-start gap-3">
           <Zap className="w-5 h-5 text-blue-500 mt-0.5" />
           <div>
             <div className="font-medium">Instant notifications</div>
-            <div className="text-sm text-muted-foreground">Stay updated with real-time alerts and mentions</div>
+            <div className="text-sm text-muted-foreground">
+              Stay updated with real-time alerts and mentions
+            </div>
           </div>
         </div>
         <div className="flex items-start gap-3">
           <Shield className="w-5 h-5 text-blue-500 mt-0.5" />
           <div>
             <div className="font-medium">Secure sharing</div>
-            <div className="text-sm text-muted-foreground">Enterprise-grade security for all your shared content</div>
+            <div className="text-sm text-muted-foreground">
+              Enterprise-grade security for all your shared content
+            </div>
           </div>
         </div>
       </div>
@@ -207,17 +232,17 @@ export const AlternatingFeatures: Story = {
     <div>
       <PageSection
         layout={{
-          type: 'feature-alternating',
-          imageUrl: 'https://picsum.photos/600/400?random=2',
-          imageAlt: 'Feature 1',
+          type: "feature-alternating",
+          imageUrl: "https://picsum.photos/600/400?random=2",
+          imageAlt: "Feature 1",
           imageZoomOnHover: true,
           imageShadow: true,
         }}
         heading={{
-          title: 'Lightning Fast Performance',
-          subtitle: 'Built for speed from the ground up',
+          title: "Lightning Fast Performance",
+          subtitle: "Built for speed from the ground up",
         }}
-        description='Experience blazing fast load times and smooth interactions that keep your users engaged.'
+        description="Experience blazing fast load times and smooth interactions that keep your users engaged."
         padding="xl"
         alternateBackground
         sectionIndex={0}
@@ -233,20 +258,20 @@ export const AlternatingFeatures: Story = {
           </div>
         </div>
       </PageSection>
-      
+
       <PageSection
         layout={{
-          type: 'feature-alternating',
-          imageUrl: 'https://picsum.photos/600/400?random=3',
-          imageAlt: 'Feature 2',
+          type: "feature-alternating",
+          imageUrl: "https://picsum.photos/600/400?random=3",
+          imageAlt: "Feature 2",
           imageZoomOnHover: true,
           imageShadow: true,
         }}
         heading={{
-          title: 'Enterprise-Grade Security',
-          subtitle: 'Your data is safe with us',
+          title: "Enterprise-Grade Security",
+          subtitle: "Your data is safe with us",
         }}
-        description='Bank-level encryption and security measures to protect your most sensitive information.'
+        description="Bank-level encryption and security measures to protect your most sensitive information."
         padding="xl"
         alternateBackground
         sectionIndex={1}
@@ -269,53 +294,56 @@ export const AlternatingFeatures: Story = {
           </ul>
         </div>
       </PageSection>
-      
+
       <PageSection
         layout={{
-          type: 'feature-alternating',
-          imageUrl: 'https://picsum.photos/600/400?random=4',
-          imageAlt: 'Feature 3',
+          type: "feature-alternating",
+          imageUrl: "https://picsum.photos/600/400?random=4",
+          imageAlt: "Feature 3",
           imageZoomOnHover: true,
           imageShadow: true,
         }}
         heading={{
-          title: 'Powerful Integrations',
-          subtitle: 'Connect with your favorite tools',
+          title: "Powerful Integrations",
+          subtitle: "Connect with your favorite tools",
         }}
-        description='Seamlessly integrate with the tools you already use and love.'
+        description="Seamlessly integrate with the tools you already use and love."
         padding="xl"
         alternateBackground
         sectionIndex={2}
         ctas={[
-          { text: 'View All Integrations', href: '#' },
-          { text: 'Request Integration', variant: 'outline', href: '#' }
+          { text: "View All Integrations", href: "#" },
+          { text: "Request Integration", variant: "outline", href: "#" },
         ]}
       >
         <div className="grid grid-cols-3 gap-4">
-          {['Slack', 'GitHub', 'Jira', 'Figma', 'Notion', 'Linear'].map((tool) => (
-            <div key={tool} className="p-4 border rounded-lg text-center hover:shadow-md transition-shadow">
+          {["Slack", "GitHub", "Jira", "Figma", "Notion", "Linear"].map((tool) => (
+            <div
+              key={tool}
+              className="p-4 border rounded-lg text-center hover:shadow-md transition-shadow"
+            >
               <div className="text-sm font-medium">{tool}</div>
             </div>
           ))}
         </div>
       </PageSection>
     </div>
-  )
+  ),
 };
 
 export const ServicesGrid: Story = {
   args: {
-    variant: 'contained',
-    layout: { type: 'default', contentWidth: 'wide' },
+    variant: "contained",
+    layout: { type: "default", contentWidth: "wide" },
     heading: {
-      title: 'Everything You Need to Succeed',
-      subtitle: 'Comprehensive solutions for modern businesses',
-      alignment: 'center',
+      title: "Everything You Need to Succeed",
+      subtitle: "Comprehensive solutions for modern businesses",
+      alignment: "center",
     },
-    padding: 'xl',
+    padding: "xl",
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(to bottom, #f9fafb, #ffffff)',
+      type: "gradient",
+      value: "linear-gradient(to bottom, #f9fafb, #ffffff)",
     },
     children: (
       <div className="grid md:grid-cols-3 gap-8 mt-12">
@@ -325,7 +353,8 @@ export const ServicesGrid: Story = {
           </div>
           <h3 className="text-xl font-semibold mb-3">Fast Deployment</h3>
           <p className="text-muted-foreground mb-4">
-            Get up and running in minutes with our streamlined setup process and comprehensive documentation.
+            Get up and running in minutes with our streamlined setup process and comprehensive
+            documentation.
           </p>
           <Button variant="ghost" className="p-0 h-auto font-medium">
             Learn more <ArrowRight className="w-4 h-4 ml-1" />
@@ -362,10 +391,10 @@ export const ServicesGrid: Story = {
 
 export const SplitBackground: Story = {
   args: {
-    variant: 'split',
+    variant: "split",
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(to right, #4f46e5 0%, #4f46e5 50%, #f3f4f6 50%, #f3f4f6 100%)',
+      type: "gradient",
+      value: "linear-gradient(to right, #4f46e5 0%, #4f46e5 50%, #f3f4f6 50%, #f3f4f6 100%)",
     },
     children: (
       <>
@@ -390,18 +419,18 @@ export const SplitBackground: Story = {
 
 export const WithWaveDividers: Story = {
   args: {
-    variant: 'full-width',
+    variant: "full-width",
     background: {
-      type: 'color',
-      value: '#1e40af',
+      type: "color",
+      value: "#1e40af",
     },
-    dividerTop: 'wave',
-    dividerBottom: 'wave',
-    dividerColor: '#ffffff',
+    dividerTop: "wave",
+    dividerBottom: "wave",
+    dividerColor: "#ffffff",
     heading: {
-      title: 'Wave Dividers',
-      subtitle: 'Smooth wave shapes at top and bottom',
-      alignment: 'center',
+      title: "Wave Dividers",
+      subtitle: "Smooth wave shapes at top and bottom",
+      alignment: "center",
     },
     children: (
       <div className="text-white">
@@ -413,18 +442,18 @@ export const WithWaveDividers: Story = {
 
 export const WithAngleDividers: Story = {
   args: {
-    variant: 'contained',
+    variant: "contained",
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+      type: "gradient",
+      value: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
     },
-    dividerTop: 'angle',
-    dividerBottom: 'angle',
-    dividerColor: '#ffffff',
+    dividerTop: "angle",
+    dividerBottom: "angle",
+    dividerColor: "#ffffff",
     heading: {
-      title: 'Angled Dividers',
-      subtitle: 'Sharp angled dividers for a modern look',
-      alignment: 'center',
+      title: "Angled Dividers",
+      subtitle: "Sharp angled dividers for a modern look",
+      alignment: "center",
     },
     children: (
       <div className="text-white">
@@ -436,18 +465,18 @@ export const WithAngleDividers: Story = {
 
 export const WithCurveDividers: Story = {
   args: {
-    variant: 'full-width',
+    variant: "full-width",
     background: {
-      type: 'color',
-      value: '#059669',
+      type: "color",
+      value: "#059669",
     },
-    dividerTop: 'curve',
-    dividerBottom: 'curve',
-    dividerColor: '#ffffff',
+    dividerTop: "curve",
+    dividerBottom: "curve",
+    dividerColor: "#ffffff",
     heading: {
-      title: 'Curved Dividers',
-      subtitle: 'Elegant curved dividers for smooth transitions',
-      alignment: 'center',
+      title: "Curved Dividers",
+      subtitle: "Elegant curved dividers for smooth transitions",
+      alignment: "center",
     },
     children: (
       <div className="text-white">
@@ -459,16 +488,16 @@ export const WithCurveDividers: Story = {
 
 export const WithBackgroundImage: Story = {
   args: {
-    variant: 'full-width',
+    variant: "full-width",
     background: {
-      type: 'image',
-      value: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1600',
+      type: "image",
+      value: "https://images.unsplash.com/photo-1557683316-973673baf926?w=1600",
       opacity: 0.1,
     },
     heading: {
-      title: 'Background Image Section',
-      subtitle: 'Beautiful background images with opacity control',
-      alignment: 'center',
+      title: "Background Image Section",
+      subtitle: "Beautiful background images with opacity control",
+      alignment: "center",
     },
     children: <SampleContent />,
   },
@@ -476,15 +505,15 @@ export const WithBackgroundImage: Story = {
 
 export const WithPattern: Story = {
   args: {
-    variant: 'contained',
+    variant: "contained",
     background: {
-      type: 'pattern',
-      value: 'dots',
+      type: "pattern",
+      value: "dots",
     },
     heading: {
-      title: 'Pattern Background',
-      subtitle: 'Subtle patterns for visual interest',
-      alignment: 'center',
+      title: "Pattern Background",
+      subtitle: "Subtle patterns for visual interest",
+      alignment: "center",
     },
     children: <SampleContent />,
   },
@@ -492,18 +521,18 @@ export const WithPattern: Story = {
 
 export const WithParallax: Story = {
   args: {
-    variant: 'full-width',
+    variant: "full-width",
     background: {
-      type: 'image',
-      value: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600',
+      type: "image",
+      value: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600",
     },
     parallax: true,
     heading: {
-      title: 'Parallax Background',
-      subtitle: 'Scroll to see the parallax effect in action',
-      alignment: 'center',
+      title: "Parallax Background",
+      subtitle: "Scroll to see the parallax effect in action",
+      alignment: "center",
     },
-    padding: 'xl',
+    padding: "xl",
     children: (
       <div className="text-white bg-black/50 p-8 rounded-lg">
         <SampleContent />
@@ -514,17 +543,17 @@ export const WithParallax: Story = {
 
 export const WithAnimation: Story = {
   args: {
-    variant: 'contained',
+    variant: "contained",
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(135deg, #6B73FF 0%, #000DFF 100%)',
+      type: "gradient",
+      value: "linear-gradient(135deg, #6B73FF 0%, #000DFF 100%)",
     },
     animate: true,
-    animationType: 'slide',
+    animationType: "slide",
     heading: {
-      title: 'Animated Section',
-      subtitle: 'Content slides in when scrolled into view',
-      alignment: 'center',
+      title: "Animated Section",
+      subtitle: "Content slides in when scrolled into view",
+      alignment: "center",
     },
     children: (
       <div className="text-white">
@@ -536,37 +565,35 @@ export const WithAnimation: Story = {
 
 export const MinimalPadding: Story = {
   args: {
-    variant: 'full-width',
-    padding: 'sm',
+    variant: "full-width",
+    padding: "sm",
     background: {
-      type: 'color',
-      value: '#fef3c7',
+      type: "color",
+      value: "#fef3c7",
     },
     heading: {
-      title: 'Minimal Padding',
-      alignment: 'left',
+      title: "Minimal Padding",
+      alignment: "left",
     },
-    contentAlignment: 'left',
+    contentAlignment: "left",
     children: (
-      <p className="text-lg">
-        This section has minimal padding for a more compact appearance.
-      </p>
+      <p className="text-lg">This section has minimal padding for a more compact appearance.</p>
     ),
   },
 };
 
 export const ExtraPadding: Story = {
   args: {
-    variant: 'contained',
-    padding: '2xl',
+    variant: "contained",
+    padding: "2xl",
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(to bottom, #e0e7ff, #c7d2fe)',
+      type: "gradient",
+      value: "linear-gradient(to bottom, #e0e7ff, #c7d2fe)",
     },
     heading: {
-      title: 'Extra Large Padding',
-      subtitle: 'More breathing room for important content',
-      alignment: 'center',
+      title: "Extra Large Padding",
+      subtitle: "More breathing room for important content",
+      alignment: "center",
     },
     children: (
       <div className="max-w-2xl mx-auto text-center">
@@ -581,12 +608,12 @@ export const ExtraPadding: Story = {
 
 export const RightAligned: Story = {
   args: {
-    variant: 'contained',
-    contentAlignment: 'right',
+    variant: "contained",
+    contentAlignment: "right",
     heading: {
-      title: 'Right Aligned Content',
-      subtitle: 'Everything aligned to the right',
-      alignment: 'right',
+      title: "Right Aligned Content",
+      subtitle: "Everything aligned to the right",
+      alignment: "right",
     },
     children: (
       <div>
@@ -599,14 +626,14 @@ export const RightAligned: Story = {
 
 export const ProcessSection: Story = {
   args: {
-    variant: 'contained',
-    layout: { type: 'default' },
+    variant: "contained",
+    layout: { type: "default" },
     heading: {
-      title: 'How It Works',
-      subtitle: 'Get started in three simple steps',
-      alignment: 'center',
+      title: "How It Works",
+      subtitle: "Get started in three simple steps",
+      alignment: "center",
     },
-    padding: 'xl',
+    padding: "xl",
     children: (
       <div className="grid md:grid-cols-3 gap-8 mt-12">
         <div className="text-center">
@@ -643,17 +670,17 @@ export const ProcessSection: Story = {
 
 export const BenefitsSection: Story = {
   args: {
-    variant: 'contained',
-    layout: { type: 'two-column' },
+    variant: "contained",
+    layout: { type: "two-column" },
     heading: {
-      title: 'Why Choose Our Platform?',
-      subtitle: 'Built by developers, for developers',
-      alignment: 'center',
+      title: "Why Choose Our Platform?",
+      subtitle: "Built by developers, for developers",
+      alignment: "center",
     },
-    padding: 'xl',
+    padding: "xl",
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(to bottom, #ffffff, #f9fafb)',
+      type: "gradient",
+      value: "linear-gradient(to bottom, #ffffff, #f9fafb)",
     },
     children: (
       <>
@@ -664,7 +691,8 @@ export const BenefitsSection: Story = {
               Increase Productivity
             </h3>
             <p className="text-muted-foreground">
-              Streamline your workflow with automated processes and intelligent suggestions that help you work smarter, not harder.
+              Streamline your workflow with automated processes and intelligent suggestions that
+              help you work smarter, not harder.
             </p>
           </div>
           <div>
@@ -673,7 +701,8 @@ export const BenefitsSection: Story = {
               Developer Friendly
             </h3>
             <p className="text-muted-foreground">
-              Clean APIs, comprehensive documentation, and a vibrant community make integration a breeze.
+              Clean APIs, comprehensive documentation, and a vibrant community make integration a
+              breeze.
             </p>
           </div>
           <div>
@@ -693,7 +722,8 @@ export const BenefitsSection: Story = {
               Enterprise Security
             </h3>
             <p className="text-muted-foreground">
-              Bank-level encryption, regular security audits, and compliance with international standards.
+              Bank-level encryption, regular security audits, and compliance with international
+              standards.
             </p>
           </div>
           <div>
@@ -702,7 +732,8 @@ export const BenefitsSection: Story = {
               Lightning Fast
             </h3>
             <p className="text-muted-foreground">
-              Optimized for performance with global CDN distribution and edge computing capabilities.
+              Optimized for performance with global CDN distribution and edge computing
+              capabilities.
             </p>
           </div>
           <div>
@@ -722,14 +753,14 @@ export const BenefitsSection: Story = {
 
 export const ComparisonSection: Story = {
   args: {
-    variant: 'contained',
-    layout: { type: 'centered' },
+    variant: "contained",
+    layout: { type: "centered" },
     heading: {
-      title: 'See the Difference',
-      subtitle: 'Compare us with the competition',
-      alignment: 'center',
+      title: "See the Difference",
+      subtitle: "Compare us with the competition",
+      alignment: "center",
     },
-    padding: 'xl',
+    padding: "xl",
     children: (
       <div className="overflow-x-auto mt-12">
         <table className="w-full border-collapse">
@@ -745,23 +776,35 @@ export const ComparisonSection: Story = {
           </thead>
           <tbody>
             {[
-              ['Unlimited Projects', true, false, true],
-              ['24/7 Support', true, false, false],
-              ['Custom Integrations', true, true, false],
-              ['Advanced Analytics', true, false, false],
-              ['API Access', true, true, true],
-              ['White Labeling', true, false, false],
+              ["Unlimited Projects", true, false, true],
+              ["24/7 Support", true, false, false],
+              ["Custom Integrations", true, true, false],
+              ["Advanced Analytics", true, false, false],
+              ["API Access", true, true, true],
+              ["White Labeling", true, false, false],
             ].map(([feature, us, compA, compB], index) => (
               <tr key={index} className="border-b">
                 <td className="p-4 font-medium">{feature}</td>
                 <td className="text-center p-4 bg-primary/5">
-                  {us ? <Check className="w-5 h-5 text-green-500 mx-auto" /> : <span className="text-muted-foreground">-</span>}
+                  {us ? (
+                    <Check className="w-5 h-5 text-green-500 mx-auto" />
+                  ) : (
+                    <span className="text-muted-foreground">-</span>
+                  )}
                 </td>
                 <td className="text-center p-4">
-                  {compA ? <Check className="w-5 h-5 text-green-500 mx-auto" /> : <span className="text-muted-foreground">-</span>}
+                  {compA ? (
+                    <Check className="w-5 h-5 text-green-500 mx-auto" />
+                  ) : (
+                    <span className="text-muted-foreground">-</span>
+                  )}
                 </td>
                 <td className="text-center p-4">
-                  {compB ? <Check className="w-5 h-5 text-green-500 mx-auto" /> : <span className="text-muted-foreground">-</span>}
+                  {compB ? (
+                    <Check className="w-5 h-5 text-green-500 mx-auto" />
+                  ) : (
+                    <span className="text-muted-foreground">-</span>
+                  )}
                 </td>
               </tr>
             ))}
@@ -777,36 +820,36 @@ export const FullMarketingPage: Story = {
     <div>
       {/* Hero */}
       <PageSection
-        layout={{ type: 'hero' }}
+        layout={{ type: "hero" }}
         background={{
-          type: 'gradient',
-          value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+          type: "gradient",
+          value: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         }}
         heading={{
-          title: 'Build Something Amazing',
-          subtitle: 'The all-in-one platform for modern teams',
+          title: "Build Something Amazing",
+          subtitle: "The all-in-one platform for modern teams",
         }}
-        description='Start building today with the tools you need to succeed.'
+        description="Start building today with the tools you need to succeed."
         ctas={[
-          { text: 'Get Started Free', size: 'lg' },
-          { text: 'Book a Demo', variant: 'outline', size: 'lg' }
+          { text: "Get Started Free", size: "lg" },
+          { text: "Book a Demo", variant: "outline", size: "lg" },
         ]}
         padding="2xl"
       >
         <div />
       </PageSection>
-      
+
       {/* Features */}
       <PageSection
         layout={{
-          type: 'feature-alternating',
-          imageUrl: 'https://picsum.photos/600/400?random=20',
+          type: "feature-alternating",
+          imageUrl: "https://picsum.photos/600/400?random=20",
           imageZoomOnHover: true,
           imageShadow: true,
         }}
         heading={{
-          title: 'Powerful Features',
-          subtitle: 'Everything you need in one place',
+          title: "Powerful Features",
+          subtitle: "Everything you need in one place",
         }}
         alternateBackground
         sectionIndex={0}
@@ -814,16 +857,19 @@ export const FullMarketingPage: Story = {
       >
         <div className="space-y-4">
           <Badge>New</Badge>
-          <p className="text-lg">Experience the next generation of productivity tools designed to help your team achieve more.</p>
+          <p className="text-lg">
+            Experience the next generation of productivity tools designed to help your team achieve
+            more.
+          </p>
         </div>
       </PageSection>
-      
+
       {/* Stats */}
       <PageSection
-        layout={{ type: 'centered' }}
+        layout={{ type: "centered" }}
         heading={{
-          title: 'Trusted Worldwide',
-          alignment: 'center',
+          title: "Trusted Worldwide",
+          alignment: "center",
         }}
         alternateBackground
         sectionIndex={1}
@@ -848,22 +894,20 @@ export const FullMarketingPage: Story = {
           </div>
         </div>
       </PageSection>
-      
+
       {/* CTA */}
       <PageSection
-        layout={{ type: 'centered' }}
+        layout={{ type: "centered" }}
         background={{
-          type: 'gradient',
-          value: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)'
+          type: "gradient",
+          value: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
         }}
         heading={{
-          title: 'Ready to Get Started?',
-          subtitle: 'Join thousands of teams already using our platform',
-          alignment: 'center',
+          title: "Ready to Get Started?",
+          subtitle: "Join thousands of teams already using our platform",
+          alignment: "center",
         }}
-        ctas={[
-          { text: 'Start Free Trial', variant: 'secondary', size: 'lg' }
-        ]}
+        ctas={[{ text: "Start Free Trial", variant: "secondary", size: "lg" }]}
         padding="2xl"
         dividerTop="wave"
         dividerColor="#ffffff"
@@ -871,32 +915,32 @@ export const FullMarketingPage: Story = {
         <div />
       </PageSection>
     </div>
-  )
+  ),
 };
 
 export const CTASection: Story = {
   args: {
-    variant: 'full-width',
-    layout: { type: 'centered' },
+    variant: "full-width",
+    layout: { type: "centered" },
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+      type: "gradient",
+      value: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
     },
-    padding: '2xl',
-    dividerTop: 'wave',
-    dividerBottom: 'wave',
-    dividerColor: '#ffffff',
+    padding: "2xl",
+    dividerTop: "wave",
+    dividerBottom: "wave",
+    dividerColor: "#ffffff",
     animate: true,
-    animationType: 'zoom',
+    animationType: "zoom",
     heading: {
-      title: 'Ready to Get Started?',
-      subtitle: 'Join thousands of satisfied customers today',
-      alignment: 'center',
+      title: "Ready to Get Started?",
+      subtitle: "Join thousands of satisfied customers today",
+      alignment: "center",
     },
-    description: 'Start your free trial today and see the difference. No credit card required.',
+    description: "Start your free trial today and see the difference. No credit card required.",
     ctas: [
-      { text: 'Start Free Trial', variant: 'secondary', size: 'lg' },
-      { text: 'Schedule Demo', variant: 'outline', size: 'lg' }
+      { text: "Start Free Trial", variant: "secondary", size: "lg" },
+      { text: "Schedule Demo", variant: "outline", size: "lg" },
     ],
     children: (
       <div className="text-white text-center mt-8">
@@ -910,17 +954,17 @@ export const CTASection: Story = {
 
 export const StatsSection: Story = {
   args: {
-    variant: 'contained',
-    layout: { type: 'centered' },
+    variant: "contained",
+    layout: { type: "centered" },
     heading: {
-      title: 'Trusted by Industry Leaders',
-      subtitle: 'Our numbers speak for themselves',
-      alignment: 'center',
+      title: "Trusted by Industry Leaders",
+      subtitle: "Our numbers speak for themselves",
+      alignment: "center",
     },
-    padding: 'xl',
+    padding: "xl",
     background: {
-      type: 'color',
-      value: '#f9fafb',
+      type: "color",
+      value: "#f9fafb",
     },
     children: (
       <div className="grid md:grid-cols-4 gap-8 mt-12">
@@ -951,30 +995,31 @@ export const StatsSection: Story = {
 
 export const TestimonialsSection: Story = {
   args: {
-    variant: 'full-width',
-    layout: { type: 'default' },
+    variant: "full-width",
+    layout: { type: "default" },
     heading: {
-      title: 'What Our Customers Say',
-      subtitle: 'Don\'t just take our word for it',
-      alignment: 'center',
+      title: "What Our Customers Say",
+      subtitle: "Don't just take our word for it",
+      alignment: "center",
     },
-    padding: 'xl',
+    padding: "xl",
     children: (
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 mt-12">
           <Card className="p-6">
             <div className="flex gap-1 mb-4">
-              {Array.from({length: 5}).map((_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
               ))}
             </div>
             <p className="text-muted-foreground mb-4">
-              &ldquo;This platform has transformed how we work. The intuitive interface and powerful features have boosted our productivity significantly.&rdquo;
+              &ldquo;This platform has transformed how we work. The intuitive interface and powerful
+              features have boosted our productivity significantly.&rdquo;
             </p>
             <div className="flex items-center gap-3">
-              <img 
-                src="https://picsum.photos/40/40?random=10" 
-                alt="Customer" 
+              <img
+                src="https://picsum.photos/40/40?random=10"
+                alt="Customer"
                 className="w-10 h-10 rounded-full"
               />
               <div>
@@ -985,17 +1030,18 @@ export const TestimonialsSection: Story = {
           </Card>
           <Card className="p-6">
             <div className="flex gap-1 mb-4">
-              {Array.from({length: 5}).map((_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
               ))}
             </div>
             <p className="text-muted-foreground mb-4">
-              &ldquo;The customer support is exceptional. They&apos;re always available and go above and beyond to ensure we&apos;re successful.&rdquo;
+              &ldquo;The customer support is exceptional. They&apos;re always available and go above
+              and beyond to ensure we&apos;re successful.&rdquo;
             </p>
             <div className="flex items-center gap-3">
-              <img 
-                src="https://picsum.photos/40/40?random=11" 
-                alt="Customer" 
+              <img
+                src="https://picsum.photos/40/40?random=11"
+                alt="Customer"
                 className="w-10 h-10 rounded-full"
               />
               <div>
@@ -1006,17 +1052,18 @@ export const TestimonialsSection: Story = {
           </Card>
           <Card className="p-6">
             <div className="flex gap-1 mb-4">
-              {Array.from({length: 5}).map((_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
               ))}
             </div>
             <p className="text-muted-foreground mb-4">
-              &ldquo;Best investment we&apos;ve made this year. The ROI has been incredible, and our team loves using it every day.&rdquo;
+              &ldquo;Best investment we&apos;ve made this year. The ROI has been incredible, and our
+              team loves using it every day.&rdquo;
             </p>
             <div className="flex items-center gap-3">
-              <img 
-                src="https://picsum.photos/40/40?random=12" 
-                alt="Customer" 
+              <img
+                src="https://picsum.photos/40/40?random=12"
+                alt="Customer"
                 className="w-10 h-10 rounded-full"
               />
               <div>
@@ -1033,20 +1080,22 @@ export const TestimonialsSection: Story = {
 
 export const PricingSection: Story = {
   args: {
-    variant: 'contained',
-    layout: { type: 'default' },
+    variant: "contained",
+    layout: { type: "default" },
     heading: {
-      title: 'Simple, Transparent Pricing',
-      subtitle: 'Choose the plan that fits your needs',
-      alignment: 'center',
+      title: "Simple, Transparent Pricing",
+      subtitle: "Choose the plan that fits your needs",
+      alignment: "center",
     },
-    padding: 'xl',
+    padding: "xl",
     children: (
       <div className="grid md:grid-cols-3 gap-8 mt-12">
         <Card className="p-6 hover:shadow-lg transition-shadow">
           <div className="text-center mb-6">
             <h3 className="text-2xl font-bold mb-2">Starter</h3>
-            <div className="text-4xl font-bold mb-2">$29<span className="text-lg font-normal text-muted-foreground">/mo</span></div>
+            <div className="text-4xl font-bold mb-2">
+              $29<span className="text-lg font-normal text-muted-foreground">/mo</span>
+            </div>
             <p className="text-muted-foreground">Perfect for small teams</p>
           </div>
           <ul className="space-y-3 mb-6">
@@ -1073,7 +1122,9 @@ export const PricingSection: Story = {
           <Badge className="absolute top-4 right-4">Popular</Badge>
           <div className="text-center mb-6">
             <h3 className="text-2xl font-bold mb-2">Professional</h3>
-            <div className="text-4xl font-bold mb-2">$79<span className="text-lg font-normal text-muted-foreground">/mo</span></div>
+            <div className="text-4xl font-bold mb-2">
+              $79<span className="text-lg font-normal text-muted-foreground">/mo</span>
+            </div>
             <p className="text-muted-foreground">For growing businesses</p>
           </div>
           <ul className="space-y-3 mb-6">
@@ -1098,7 +1149,9 @@ export const PricingSection: Story = {
               <span>API access</span>
             </li>
           </ul>
-          <Button className="w-full" size="lg">Get Started</Button>
+          <Button className="w-full" size="lg">
+            Get Started
+          </Button>
         </Card>
         <Card className="p-6 hover:shadow-lg transition-shadow">
           <div className="text-center mb-6">
@@ -1128,7 +1181,9 @@ export const PricingSection: Story = {
               <span>SLA guarantee</span>
             </li>
           </ul>
-          <Button className="w-full" variant="outline">Contact Sales</Button>
+          <Button className="w-full" variant="outline">
+            Contact Sales
+          </Button>
         </Card>
       </div>
     ),

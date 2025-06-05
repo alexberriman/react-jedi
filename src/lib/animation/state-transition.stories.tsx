@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { AnimationProvider } from "./animation-provider";
 import {
   StateTransition,
@@ -39,7 +39,8 @@ const meta: Meta<typeof StateTransition> = {
     ),
   ],
 
-  tags: ['autodocs', 'animation-state-transition']};
+  tags: ["autodocs", "animation-state-transition"],
+};
 
 export default meta;
 type Story = StoryObj<typeof StateTransition>;
@@ -239,7 +240,8 @@ export const TransitionPatterns: Story = {
 export const TimingFunctions: Story = {
   render: function TimingFunctionsStory() {
     const [currentEasing, setCurrentEasing] = React.useState<keyof typeof easingPresets>("easeOut");
-    const [currentDuration, setCurrentDuration] = React.useState<keyof typeof durationPresets>("normal");
+    const [currentDuration, setCurrentDuration] =
+      React.useState<keyof typeof durationPresets>("normal");
     const [currentSpring, setCurrentSpring] = React.useState<keyof typeof springPresets>("default");
 
     const easingOptions = Object.keys(easingPresets);

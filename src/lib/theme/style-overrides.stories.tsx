@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { render } from "../render";
 import { ThemeProvider } from "./theme-provider";
 import type { UISpecification, ThemeSpecification } from "../../types/schema/specification";
@@ -14,7 +14,7 @@ const meta = {
     ),
   ],
 
-  tags: ['autodocs', 'theme-style-overrides'],
+  tags: ["autodocs", "theme-style-overrides"],
 } satisfies Meta;
 
 export default meta;

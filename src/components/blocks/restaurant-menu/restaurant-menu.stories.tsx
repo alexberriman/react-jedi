@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { RestaurantMenuBlock, type MenuCategory } from "./restaurant-menu";
 
 const meta = {
@@ -14,7 +14,7 @@ const meta = {
       options: ["default", "light", "dark", "elegant", "minimal"],
     },
     spacing: {
-      control: "select", 
+      control: "select",
       options: ["tight", "normal", "relaxed"],
     },
     layout: {
@@ -41,7 +41,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "truffle-fries",
         name: "Truffle Parmesan Fries",
-        description: "Crispy hand-cut fries tossed with truffle oil, fresh herbs, and aged parmesan cheese",
+        description:
+          "Crispy hand-cut fries tossed with truffle oil, fresh herbs, and aged parmesan cheese",
         price: 14.5,
         category: "appetizers",
         image: "https://picsum.photos/400/300?random=1",
@@ -59,7 +60,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "caesar-salad",
         name: "Classic Caesar Salad",
-        description: "Crisp romaine lettuce, house-made croutons, and fresh parmesan with our signature Caesar dressing",
+        description:
+          "Crisp romaine lettuce, house-made croutons, and fresh parmesan with our signature Caesar dressing",
         price: 12,
         category: "appetizers",
         image: "https://picsum.photos/400/300?random=2",
@@ -77,7 +79,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "buffalo-cauliflower",
         name: "Buffalo Cauliflower Bites",
-        description: "Crispy battered cauliflower tossed in spicy buffalo sauce, served with vegan ranch",
+        description:
+          "Crispy battered cauliflower tossed in spicy buffalo sauce, served with vegan ranch",
         price: 11,
         category: "appetizers",
         image: "https://picsum.photos/400/300?random=3",
@@ -104,7 +107,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "grilled-salmon",
         name: "Herb-Crusted Salmon",
-        description: "Fresh Atlantic salmon with herb crust, served with roasted vegetables and lemon butter sauce",
+        description:
+          "Fresh Atlantic salmon with herb crust, served with roasted vegetables and lemon butter sauce",
         price: 28,
         category: "mains",
         image: "https://picsum.photos/400/300?random=4",
@@ -123,7 +127,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "wagyu-burger",
         name: "Wagyu Beef Burger",
-        description: "Premium wagyu beef patty with aged cheddar, caramelized onions, truffle aioli on brioche bun",
+        description:
+          "Premium wagyu beef patty with aged cheddar, caramelized onions, truffle aioli on brioche bun",
         price: 32,
         originalPrice: 36,
         category: "mains",
@@ -142,7 +147,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "mushroom-risotto",
         name: "Wild Mushroom Risotto",
-        description: "Creamy arborio rice with mixed wild mushrooms, fresh herbs, and aged parmesan",
+        description:
+          "Creamy arborio rice with mixed wild mushrooms, fresh herbs, and aged parmesan",
         price: 24,
         category: "mains",
         image: "https://picsum.photos/400/300?random=6",
@@ -160,7 +166,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "thai-curry",
         name: "Thai Green Curry",
-        description: "Coconut milk-based curry with vegetables, fresh basil, and your choice of protein",
+        description:
+          "Coconut milk-based curry with vegetables, fresh basil, and your choice of protein",
         price: 22,
         category: "mains",
         image: "https://picsum.photos/400/300?random=7",
@@ -186,7 +193,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "chocolate-lava",
         name: "Chocolate Lava Cake",
-        description: "Warm chocolate cake with molten center, served with vanilla ice cream and berry compote",
+        description:
+          "Warm chocolate cake with molten center, served with vanilla ice cream and berry compote",
         price: 12,
         category: "desserts",
         image: "https://picsum.photos/400/300?random=8",
@@ -205,7 +213,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "tiramisu",
         name: "Classic Tiramisu",
-        description: "Traditional Italian dessert with espresso-soaked ladyfingers and mascarpone cream",
+        description:
+          "Traditional Italian dessert with espresso-soaked ladyfingers and mascarpone cream",
         price: 10,
         category: "desserts",
         image: "https://picsum.photos/400/300?random=9",
@@ -250,7 +259,8 @@ const sampleMenuData: MenuCategory[] = [
       {
         id: "craft-cocktail",
         name: "Signature Old Fashioned",
-        description: "Premium bourbon with house-made simple syrup, orange bitters, and fresh orange peel",
+        description:
+          "Premium bourbon with house-made simple syrup, orange bitters, and fresh orange peel",
         price: 16,
         category: "beverages",
         prepTime: 5,
@@ -419,7 +429,8 @@ export const VeganRestaurant: Story = {
           {
             id: "quinoa-bowl",
             name: "Rainbow Quinoa Bowl",
-            description: "Nutrient-packed quinoa with roasted vegetables, avocado, and tahini dressing",
+            description:
+              "Nutrient-packed quinoa with roasted vegetables, avocado, and tahini dressing",
             price: 16,
             category: "vegan-mains",
             image: "https://picsum.photos/400/300?random=11",

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   useFocusTrap,
   useFocusReturn,
@@ -40,7 +40,7 @@ The Focus Management system provides a comprehensive set of utilities and hooks 
     },
   },
 
-  tags: ['autodocs', 'accessibility-focus-management'],
+  tags: ["autodocs", "accessibility-focus-management"],
 } satisfies Meta;
 
 export default meta;
@@ -78,10 +78,10 @@ const FocusTrapDemo = () => {
           >
             <h3 className="text-lg font-bold mb-4">Modal with Focus Trap</h3>
             <p className="mb-4">
-              Tab through the elements below. Focus will be trapped within this modal.
-              Press Escape to close.
+              Tab through the elements below. Focus will be trapped within this modal. Press Escape
+              to close.
             </p>
-            
+
             <div className="space-y-4">
               <input
                 type="text"
@@ -105,7 +105,7 @@ const FocusTrapDemo = () => {
                 </button>
               </div>
             </div>
-            
+
             <div className="mt-4 text-sm text-gray-600">
               Focus trap is: <strong>{isActive ? "Active" : "Inactive"}</strong>
             </div>
@@ -179,7 +179,7 @@ export const FocusReturn: Story = {
 const FocusOnMountDemo = () => {
   const [showInput, setShowInput] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  
+
   useFocusOnMount(inputRef, {
     enabled: showInput,
     delay: 100,
@@ -229,22 +229,23 @@ const FocusMonitorDemo = () => {
     <div className="space-y-4">
       <h2 className="text-xl font-bold mb-4">Focus Monitor Demo</h2>
       <p className="mb-4">
-        The button below is being monitored for focus state. Check the console for focus/blur events.
+        The button below is being monitored for focus state. Check the console for focus/blur
+        events.
       </p>
-      
+
       <button
         ref={buttonRef}
         className={`px-4 py-2 rounded transition-all ${
-          isFocused
-            ? "bg-green-500 text-white scale-110"
-            : "bg-gray-300 hover:bg-gray-400"
+          isFocused ? "bg-green-500 text-white scale-110" : "bg-gray-300 hover:bg-gray-400"
         } focus:outline-none focus:ring-2 focus:ring-green-500`}
       >
         {isFocused ? "Focused!" : "Click to Focus"}
       </button>
-      
+
       <div className="mt-4 p-4 bg-gray-100 rounded">
-        <p>Focus State: <strong>{isFocused ? "Focused" : "Not Focused"}</strong></p>
+        <p>
+          Focus State: <strong>{isFocused ? "Focused" : "Not Focused"}</strong>
+        </p>
       </div>
     </div>
   );
@@ -271,7 +272,7 @@ const FocusListDemo = () => {
       <p className="mb-4">
         Use arrow keys to navigate through the list. Home/End keys jump to first/last items.
       </p>
-      
+
       <div
         ref={listRef}
         role="listbox"
@@ -286,9 +287,7 @@ const FocusListDemo = () => {
             aria-selected={focusedIndex === index}
             tabIndex={index === 0 ? 0 : -1}
             className={`w-full text-left px-4 py-3 cursor-pointer transition-colors ${
-              focusedIndex === index
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-100"
+              focusedIndex === index ? "bg-blue-500 text-white" : "hover:bg-gray-100"
             } focus:outline-none`}
             onClick={() => focusItem(index)}
           >
@@ -319,10 +318,26 @@ const SkipLinkDemo = () => {
 
       <nav className="bg-gray-800 text-white p-4 mb-8">
         <ul className="flex space-x-4">
-          <li><a href="/" className="hover:underline">Home</a></li>
-          <li><a href="/about" className="hover:underline">About</a></li>
-          <li><a href="/services" className="hover:underline">Services</a></li>
-          <li><a href="/contact" className="hover:underline">Contact</a></li>
+          <li>
+            <a href="/" className="hover:underline">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/about" className="hover:underline">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="/services" className="hover:underline">
+              Services
+            </a>
+          </li>
+          <li>
+            <a href="/contact" className="hover:underline">
+              Contact
+            </a>
+          </li>
         </ul>
       </nav>
 
@@ -342,8 +357,8 @@ const SkipLinkDemo = () => {
         <main id="main-content" className="p-4 border-2 border-blue-500 rounded">
           <h2 className="text-xl font-bold mb-4">Main Content</h2>
           <p>
-            This is the main content area. The skip link will focus this section
-            and scroll it into view.
+            This is the main content area. The skip link will focus this section and scroll it into
+            view.
           </p>
         </main>
       </div>
@@ -371,7 +386,7 @@ const LastFocusedDemo = () => {
       <p className="mb-4">
         Focus different elements below, then use the buttons to track or restore focus.
       </p>
-      
+
       <div className="grid grid-cols-3 gap-4 mb-4">
         <button
           id="btn-1"
@@ -409,7 +424,9 @@ const LastFocusedDemo = () => {
       </div>
 
       <div className="mt-4 p-4 bg-gray-100 rounded">
-        <p>Last Focused Element ID: <strong>{lastFocusedId || "Not set"}</strong></p>
+        <p>
+          Last Focused Element ID: <strong>{lastFocusedId || "Not set"}</strong>
+        </p>
       </div>
     </div>
   );

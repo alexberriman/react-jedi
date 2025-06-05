@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Header } from "./header";
 
 const meta = {
@@ -249,14 +249,14 @@ export const StickyHeader: Story = {
           <div className="mx-auto max-w-4xl space-y-4">
             <h1 className="text-4xl font-bold">Scroll to see sticky header</h1>
             <p className="text-lg text-muted-foreground">
-              The header will stick to the top when you scroll down. Notice the backdrop blur
-              and shadow effects that appear on scroll.
+              The header will stick to the top when you scroll down. Notice the backdrop blur and
+              shadow effects that appear on scroll.
             </p>
             {Array.from({ length: 20 }).map((_, i) => (
               <p key={i} className="text-muted-foreground">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>
             ))}
           </div>

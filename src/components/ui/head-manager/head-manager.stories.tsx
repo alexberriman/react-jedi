@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { within, expect, waitFor } from "storybook/test";
 import { HeadManager } from "./head-manager";
 

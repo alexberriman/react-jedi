@@ -1,8 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { useDataSource } from "./data-fetcher";
 import { createStateManager, useStateValue } from "../state/state-management";
-import type { DataSourceSpecification, RestDataSourceConfig } from "../../types/schema/specification";
+import type {
+  DataSourceSpecification,
+  RestDataSourceConfig,
+} from "../../types/schema/specification";
 
 // Example component that uses data fetching
 const DataFetcherExample: React.FC<{
@@ -99,23 +102,21 @@ const StateIntegratedExample: React.FC = () => {
     };
 
     // Type narrowing - only REST data sources have URL
-    if (dataSource.type !== 'rest') {
+    if (dataSource.type !== "rest") {
       return dataSource;
     }
-    
+
     const restConfig = dataSource.config as RestDataSourceConfig;
-    
+
     return {
       ...dataSource,
       config: {
         ...restConfig,
-        url: restConfig.url
-          .replace('{userId}', String(userId))
-          .replace('{limit}', String(limit))
-      }
+        url: restConfig.url.replace("{userId}", String(userId)).replace("{limit}", String(limit)),
+      },
     };
   }, [userId, limit]);
-  
+
   const { data, loading, error } = useDataSource(stableDataSource);
 
   return (
@@ -206,7 +207,8 @@ const meta: Meta = {
     },
   },
 
-  tags: ['autodocs', 'data-data-fetcher']};
+  tags: ["autodocs", "data-data-fetcher"],
+};
 
 export default meta;
 

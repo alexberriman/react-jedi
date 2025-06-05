@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FadeIn, FadeOut, FadeTransition } from "./fade";
 import { AnimationProvider } from "./animation-provider";
 import { useState } from "react";
@@ -13,7 +13,8 @@ const meta: Meta<typeof FadeIn> = {
     ),
   ],
 
-  tags: ['autodocs', 'animation-fade']};
+  tags: ["autodocs", "animation-fade"],
+};
 
 export default meta;
 

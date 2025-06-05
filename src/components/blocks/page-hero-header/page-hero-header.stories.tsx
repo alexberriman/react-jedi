@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PageHeroHeader } from "./page-hero-header";
 
 const meta = {
@@ -11,7 +11,15 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["centered", "split", "fullscreen", "minimal", "left-aligned", "right-aligned", "multi-column"],
+      options: [
+        "centered",
+        "split",
+        "fullscreen",
+        "minimal",
+        "left-aligned",
+        "right-aligned",
+        "multi-column",
+      ],
       description: "Layout variant of the hero header",
     },
     title: {
@@ -61,7 +69,8 @@ export const Centered: Story = {
     variant: "centered",
     title: "Build Amazing Products Faster",
     subtitle: "The modern way to create exceptional user experiences",
-    description: "Our platform provides everything you need to design, develop, and deploy beautiful applications at scale. Join thousands of teams already building with us.",
+    description:
+      "Our platform provides everything you need to design, develop, and deploy beautiful applications at scale. Join thousands of teams already building with us.",
     primaryCTA: {
       label: "Get Started Free",
       variant: "default",
@@ -87,7 +96,8 @@ export const SplitWithImage: Story = {
   args: {
     variant: "split",
     title: "Welcome to the Future of Development",
-    description: "Experience a new way of building applications with our cutting-edge tools and intuitive interface. Ship faster, scale better.",
+    description:
+      "Experience a new way of building applications with our cutting-edge tools and intuitive interface. Ship faster, scale better.",
     primaryCTA: {
       label: "Start Building",
       variant: "default",
@@ -112,7 +122,8 @@ export const FullscreenWithBackgroundImage: Story = {
     variant: "fullscreen",
     title: "Unleash Your Creativity",
     subtitle: "Design without limits",
-    description: "Join a community of creators building the next generation of digital experiences.",
+    description:
+      "Join a community of creators building the next generation of digital experiences.",
     primaryCTA: {
       label: "Get Started",
       variant: "default",
@@ -151,7 +162,8 @@ export const LeftAligned: Story = {
     variant: "left-aligned",
     title: "Transform Your Business",
     subtitle: "Enterprise-grade solutions for modern teams",
-    description: "Streamline workflows, enhance collaboration, and drive growth with our comprehensive suite of tools designed for businesses of all sizes.",
+    description:
+      "Streamline workflows, enhance collaboration, and drive growth with our comprehensive suite of tools designed for businesses of all sizes.",
     primaryCTA: {
       label: "Request Demo",
       variant: "default",
@@ -193,7 +205,8 @@ export const SplitWithLeftImage: Story = {
     variant: "split",
     title: "Designed for Developers",
     subtitle: "Built by developers, for developers",
-    description: "Write less code, ship more features. Our intuitive API and comprehensive documentation make integration a breeze.",
+    description:
+      "Write less code, ship more features. Our intuitive API and comprehensive documentation make integration a breeze.",
     primaryCTA: {
       label: "View Documentation",
       variant: "default",
@@ -243,14 +256,13 @@ export const MultiColumn: Story = {
     variant: "multi-column",
     title: "Everything You Need to Succeed",
     subtitle: "Comprehensive tools for modern teams",
-    description: "From ideation to deployment, we've got you covered with a complete suite of development tools.",
+    description:
+      "From ideation to deployment, we've got you covered with a complete suite of development tools.",
     primaryCTA: {
       label: "Get Started",
       variant: "default",
     },
-    badges: [
-      { text: "All-in-One Platform", variant: "secondary" },
-    ],
+    badges: [{ text: "All-in-One Platform", variant: "secondary" }],
   },
 };
 
@@ -259,7 +271,8 @@ export const RightAligned: Story = {
     variant: "right-aligned",
     title: "Ready to Scale?",
     subtitle: "Growth starts here",
-    description: "Take your business to the next level with enterprise features and dedicated support.",
+    description:
+      "Take your business to the next level with enterprise features and dedicated support.",
     primaryCTA: {
       label: "Talk to Sales",
       variant: "default",
@@ -279,7 +292,8 @@ export const ColorfulBackground: Story = {
     variant: "centered",
     title: "Stand Out from the Crowd",
     subtitle: "Make an impression that lasts",
-    description: "Create stunning designs with our advanced customization options and pre-built templates.",
+    description:
+      "Create stunning designs with our advanced customization options and pre-built templates.",
     primaryCTA: {
       label: "Browse Templates",
       variant: "secondary",
@@ -306,7 +320,8 @@ export const CompactWithAllElements: Story = {
     variant: "centered",
     title: "Launch Your Next Project",
     subtitle: "From idea to production in days, not months",
-    description: "Our platform accelerates development with pre-built components, automated workflows, and seamless integrations.",
+    description:
+      "Our platform accelerates development with pre-built components, automated workflows, and seamless integrations.",
     primaryCTA: {
       label: "Start Building",
       variant: "default",
@@ -333,7 +348,8 @@ export const WithDarkOverlay: Story = {
     variant: "fullscreen",
     title: "Create Something Amazing",
     subtitle: "Your vision, our platform",
-    description: "Build beautiful, responsive applications with our comprehensive development toolkit.",
+    description:
+      "Build beautiful, responsive applications with our comprehensive development toolkit.",
     primaryCTA: {
       label: "Start Free Trial",
       variant: "default",
@@ -381,7 +397,8 @@ export const WithSubtleOverlay: Story = {
     variant: "fullscreen",
     title: "Elevate Your Business",
     subtitle: "Professional tools for professional teams",
-    description: "Streamline your workflow with enterprise-grade features and seamless integrations.",
+    description:
+      "Streamline your workflow with enterprise-grade features and seamless integrations.",
     primaryCTA: {
       label: "Request Demo",
       variant: "default",
@@ -423,7 +440,8 @@ export const WithHeavyOverlay: Story = {
     variant: "fullscreen",
     title: "Focus on What Matters",
     subtitle: "Cut through the noise",
-    description: "Our platform helps you concentrate on building great products without the complexity.",
+    description:
+      "Our platform helps you concentrate on building great products without the complexity.",
     primaryCTA: {
       label: "Start Building",
       variant: "default",

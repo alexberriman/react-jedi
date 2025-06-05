@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Markdown } from "./markdown";
 
 const meta = {
@@ -124,11 +124,11 @@ interface User {
 
 class UserService {
   private users: User[] = [];
-  
+
   addUser(user: User): void {
     this.users.push(user);
   }
-  
+
   getUser(id: number): User | undefined {
     return this.users.find(u => u.id === id);
   }
@@ -329,7 +329,7 @@ const customComponents = {
   ),
 };
 
-<Markdown 
+<Markdown
   content={markdownContent}
   components={customComponents}
 />

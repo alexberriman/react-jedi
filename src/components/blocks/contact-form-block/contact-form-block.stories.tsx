@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ContactFormBlock } from "./contact-form-block";
 import { within, userEvent, expect } from "storybook/test";
 

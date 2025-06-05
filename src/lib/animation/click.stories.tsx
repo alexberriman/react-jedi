@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { motion } from "framer-motion";
 import { useClickAnimation, useClickPreset, clickPresets, ClickPreset } from "./animation-hooks";
@@ -30,7 +30,7 @@ const meta = {
     ),
   ],
 
-  tags: ['autodocs', 'animation-click'],
+  tags: ["autodocs", "animation-click"],
 } satisfies Meta;
 
 export default meta;

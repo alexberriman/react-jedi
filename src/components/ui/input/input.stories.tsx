@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Input } from "./input";
 import { Label } from "../label/label";
 import { within, userEvent, expect } from "storybook/test";

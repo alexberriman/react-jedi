@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { NewsletterSignup } from "./newsletter-signup";
 import { Mail, Sparkles, Gift, Star, Zap, Heart } from "lucide-react";
 
@@ -33,8 +33,14 @@ export const InlineWithBenefits: Story = {
     title: "Join our community",
     description: "Stay informed with our weekly newsletter.",
     benefits: [
-      { text: "Weekly industry insights and trends", icon: <Sparkles className="h-4 w-4 text-primary" /> },
-      { text: "Exclusive subscriber-only content", icon: <Star className="h-4 w-4 text-primary" /> },
+      {
+        text: "Weekly industry insights and trends",
+        icon: <Sparkles className="h-4 w-4 text-primary" />,
+      },
+      {
+        text: "Exclusive subscriber-only content",
+        icon: <Star className="h-4 w-4 text-primary" />,
+      },
       { text: "Early access to new features", icon: <Zap className="h-4 w-4 text-primary" /> },
       { text: "No spam, unsubscribe anytime", icon: <Heart className="h-4 w-4 text-primary" /> },
     ],
@@ -110,9 +116,7 @@ export const Modal: Story = {
   render: function ModalStory(args) {
     return (
       <div>
-        <button 
-          className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-        >
+        <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">
           Open Newsletter Modal
         </button>
         <NewsletterSignup {...args} />
@@ -216,10 +220,10 @@ export const FooterBar: Story = {
       <div className="min-h-[400px] relative">
         <div className="p-8">
           <h1 className="text-2xl font-bold mb-4">Page Content</h1>
-          <p className="mb-4">This is example page content. The newsletter signup bar appears at the bottom.</p>
-          <button 
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-          >
+          <p className="mb-4">
+            This is example page content. The newsletter signup bar appears at the bottom.
+          </p>
+          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">
             Show Footer Bar
           </button>
         </div>
@@ -268,7 +272,8 @@ export const WithBackgroundImage: Story = {
     variant: "inline",
     title: "Travel Newsletter",
     description: "Get wanderlust-inducing content every week.",
-    backgroundImage: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&h=900&fit=crop",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&h=900&fit=crop",
     className: "text-white [&_*]:text-white [&_.text-muted-foreground]:text-white/80",
   },
 };
@@ -317,7 +322,7 @@ export const WithSubmissionHandler: Story = {
     onSubmit: async (data) => {
       console.log("Form submitted with data:", data);
       // Simulate API delay
-      await new Promise(resolve => globalThis.setTimeout(resolve, 2000));
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 2000));
       // You could throw an error here to test error handling
       // throw new Error("Subscription failed");
     },
@@ -378,6 +383,7 @@ export const FullFeatured: Story = {
     backgroundPattern: "gradient",
     className: "max-w-2xl",
     successTitle: "Welcome to the community! 🎉",
-    successMessage: "Check your email for your free TypeScript course and confirm your subscription.",
+    successMessage:
+      "Check your email for your free TypeScript course and confirm your subscription.",
   },
 };

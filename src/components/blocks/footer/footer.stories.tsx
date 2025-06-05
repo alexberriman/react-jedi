@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Footer } from "./footer";
 import { FaReact } from "react-icons/fa6";
 
@@ -238,8 +238,8 @@ export const FiveColumns: Story = {
     companyInfo: defaultCompanyInfo,
     sections: defaultSections,
     contactInfo: defaultContactInfo,
-    newsletter: { 
-      title: "Newsletter", 
+    newsletter: {
+      title: "Newsletter",
       placeholder: "Email address",
       onSubmit: defaultNewsletter.onSubmit,
     },
@@ -266,7 +266,7 @@ export const SixColumns: Story = {
       },
       {
         title: "Legal",
-        links: defaultLegalLinks.map(link => ({ ...link, external: false })),
+        links: defaultLegalLinks.map((link) => ({ ...link, external: false })),
       },
     ],
     socialLinks: defaultSocialLinks,
@@ -350,7 +350,8 @@ export const NewsletterFocus: Story = {
     },
     newsletter: {
       title: "Join 10,000+ developers",
-      description: "Get weekly insights on React best practices, new features, and community highlights delivered to your inbox.",
+      description:
+        "Get weekly insights on React best practices, new features, and community highlights delivered to your inbox.",
       placeholder: "Enter your email",
       buttonText: "Subscribe Now",
       termsText: "We respect your privacy. Unsubscribe at any time.",
@@ -372,7 +373,8 @@ export const ContactFocus: Story = {
       email: "support@reactjedi.com",
       phone: "+1 (555) 123-4567",
       address: "123 Component Street, Suite 456, React City, JS 12345, United States",
-      hours: "Monday - Friday: 9:00 AM - 6:00 PM PST\nSaturday: 10:00 AM - 4:00 PM PST\nSunday: Closed",
+      hours:
+        "Monday - Friday: 9:00 AM - 6:00 PM PST\nSaturday: 10:00 AM - 4:00 PM PST\nSunday: Closed",
       mapUrl: "https://maps.google.com",
     },
     sections: [

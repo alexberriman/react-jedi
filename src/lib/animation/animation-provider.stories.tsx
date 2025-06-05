@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AnimationProvider, useAnimation } from "./animation-provider";
 import {
   useAnimationVariants,
@@ -31,7 +31,8 @@ const meta: Meta<typeof AnimationProvider> = {
     ),
   ],
 
-  tags: ['autodocs', 'animation-animation-provider']};
+  tags: ["autodocs", "animation-animation-provider"],
+};
 
 export default meta;
 type Story = StoryObj<typeof AnimationProvider>;

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SocialShareBar } from "./social-share-bar";
 import { expect } from "storybook/test";
 

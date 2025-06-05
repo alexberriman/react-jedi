@@ -7,7 +7,7 @@
  * - Cascading style resolution
  */
 
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { cn } from "../utils";
 import {
@@ -361,9 +361,9 @@ function IntegrationDemo() {
             {`const extension = createStyleExtension(theme);
 
 // Extract inheritable styles
-const inheritable = extension.extractInheritable({ 
-  color: "red", 
-  margin: "10px" 
+const inheritable = extension.extractInheritable({
+  color: "red",
+  margin: "10px"
 });
 // Result: { color: "red" }
 
@@ -399,7 +399,8 @@ const meta: Meta = {
     },
   },
 
-  tags: ['autodocs', 'theme-style-extension']};
+  tags: ["autodocs", "theme-style-extension"],
+};
 
 export default meta;
 

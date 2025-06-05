@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { TypewriterText } from "./typewriter-text";
 
 const meta: Meta<typeof TypewriterText> = {
@@ -89,9 +89,9 @@ export const Rotation: Story = {
       variant: "rotation",
       texts: [
         "Build amazing websites",
-        "Create beautiful interfaces", 
+        "Create beautiful interfaces",
         "Ship products faster",
-        "Scale with confidence"
+        "Scale with confidence",
       ],
       typeSpeed: 80,
       deleteSpeed: 50,
@@ -168,11 +168,7 @@ export const HeroText: Story = {
     spec: {
       type: "TypewriterText",
       variant: "rotation",
-      texts: [
-        "We build the future",
-        "One component at a time",
-        "With React Jedi"
-      ],
+      texts: ["We build the future", "One component at a time", "With React Jedi"],
       typeSpeed: 100,
       deleteSpeed: 60,
       pauseDuration: 2500,
@@ -196,13 +192,7 @@ export const InfiniteLoop: Story = {
     spec: {
       type: "TypewriterText",
       variant: "infinite",
-      texts: [
-        "React",
-        "TypeScript", 
-        "TailwindCSS",
-        "Storybook",
-        "Framer Motion"
-      ],
+      texts: ["React", "TypeScript", "TailwindCSS", "Storybook", "Framer Motion"],
       typeSpeed: 120,
       deleteSpeed: 80,
       pauseDuration: 800,
@@ -222,11 +212,7 @@ export const OneTime: Story = {
     spec: {
       type: "TypewriterText",
       variant: "one-time",
-      texts: [
-        "First line of text",
-        "Second line of text", 
-        "Final line of text"
-      ],
+      texts: ["First line of text", "Second line of text", "Final line of text"],
       typeSpeed: 80,
       pauseDuration: 1000,
       textSize: "lg",
@@ -245,7 +231,7 @@ export const ReducedMotion: Story = {
       texts: [
         "This respects motion preferences",
         "Accessibility first design",
-        "No animation when preferred"
+        "No animation when preferred",
       ],
       reduceMotion: true,
       textSize: "xl",
@@ -257,7 +243,8 @@ export const ReducedMotion: Story = {
   parameters: {
     docs: {
       description: {
-        story: "When reduceMotion is true or user prefers reduced motion, the final text appears immediately without animation.",
+        story:
+          "When reduceMotion is true or user prefers reduced motion, the final text appears immediately without animation.",
       },
     },
   },
@@ -286,7 +273,7 @@ export const SerifFont: Story = {
   args: {
     spec: {
       type: "TypewriterText",
-      variant: "basic", 
+      variant: "basic",
       texts: "Elegant typography with serif fonts",
       typeSpeed: 60,
       textSize: "2xl",
@@ -322,11 +309,7 @@ export const RightAligned: Story = {
     spec: {
       type: "TypewriterText",
       variant: "rotation",
-      texts: [
-        "Right aligned text",
-        "Perfect for RTL layouts",
-        "Or special designs"
-      ],
+      texts: ["Right aligned text", "Perfect for RTL layouts", "Or special designs"],
       typeSpeed: 70,
       deleteSpeed: 50,
       pauseDuration: 1200,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { within, expect } from "storybook/test";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./resizable";
 

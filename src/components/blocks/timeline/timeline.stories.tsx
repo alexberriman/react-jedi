@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Timeline } from "./timeline";
 import {
   FiBriefcase,
@@ -33,7 +33,13 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["vertical-centered", "vertical-alternating", "horizontal", "minimal", "with-images"],
+      options: [
+        "vertical-centered",
+        "vertical-alternating",
+        "horizontal",
+        "minimal",
+        "with-images",
+      ],
       description: "Visual style variant of the timeline",
     },
     lineStyle: {
@@ -388,7 +394,8 @@ export const ProductRoadmap: Story = {
   parameters: {
     docs: {
       description: {
-        story: "A product development roadmap showing completed, in-progress, and planned features.",
+        story:
+          "A product development roadmap showing completed, in-progress, and planned features.",
       },
     },
   },

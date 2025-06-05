@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import {
   Sheet,

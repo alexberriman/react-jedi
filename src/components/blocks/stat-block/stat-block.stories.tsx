@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StatBlock } from "./stat-block";
 import type { StatBlockDef } from "../../../types/components/stat-block";
 
@@ -404,11 +404,11 @@ export const GradientVariant: Story = {
 export const GlassVariant: Story = {
   parameters: {
     backgrounds: {
-      default: 'gradient',
+      default: "gradient",
       values: [
         {
-          name: 'gradient',
-          value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          name: "gradient",
+          value: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         },
       ],
     },
@@ -505,11 +505,11 @@ export const ModernVariant: Story = {
 export const NeonVariant: Story = {
   parameters: {
     backgrounds: {
-      default: 'dark',
+      default: "dark",
       values: [
         {
-          name: 'dark',
-          value: '#0a0a0a',
+          name: "dark",
+          value: "#0a0a0a",
         },
       ],
     },

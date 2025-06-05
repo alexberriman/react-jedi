@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PhotoFlipCard, PhotoFlipCardGrid } from "./photo-flip-card";
 
 const meta: Meta<typeof PhotoFlipCard> = {
@@ -8,7 +8,8 @@ const meta: Meta<typeof PhotoFlipCard> = {
     layout: "centered",
     docs: {
       description: {
-        component: "Photo Flip Card block with elegant hover animations. Features multiple animation variants, responsive design, and touch support.",
+        component:
+          "Photo Flip Card block with elegant hover animations. Features multiple animation variants, responsive design, and touch support.",
       },
     },
   },
@@ -19,7 +20,7 @@ const meta: Meta<typeof PhotoFlipCard> = {
       options: ["vertical-flip", "horizontal-flip", "fade", "slide-reveal", "rotation-3d"],
     },
     size: {
-      control: "select", 
+      control: "select",
       options: ["sm", "md", "lg", "xl", "auto"],
     },
     aspectRatio: {
@@ -68,7 +69,8 @@ export const Default: Story = {
     description: "A breathtaking view of snow-capped mountains",
     overlay: {
       title: "Explore Nature",
-      description: "Discover the beauty of untouched wilderness and find your perfect adventure in the mountains.",
+      description:
+        "Discover the beauty of untouched wilderness and find your perfect adventure in the mountains.",
       badge: "Featured",
     },
     cta: {
@@ -98,7 +100,7 @@ export const HorizontalFlip: Story = {
     variant: "horizontal-flip",
     frontImage: sampleImages.city,
     overlay: {
-      title: "Horizontal Animation", 
+      title: "Horizontal Animation",
       description: "Card flips along the vertical axis with smooth horizontal rotation.",
     },
   },
@@ -149,7 +151,8 @@ export const ClickTrigger: Story = {
     description: "Click the card to see the animation",
     overlay: {
       title: "Click Interaction",
-      description: "This card responds to click events instead of hover for better mobile experience.",
+      description:
+        "This card responds to click events instead of hover for better mobile experience.",
     },
   },
 };

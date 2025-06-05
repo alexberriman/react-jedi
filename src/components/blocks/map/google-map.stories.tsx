@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GoogleMap } from "./google-map";
 
 const meta = {
@@ -8,7 +8,8 @@ const meta = {
     layout: "centered",
     docs: {
       description: {
-        component: "An interactive map block for displaying locations with Google Maps integration. Supports multiple variants including embedded maps, fullscreen views, and multi-location displays.",
+        component:
+          "An interactive map block for displaying locations with Google Maps integration. Supports multiple variants including embedded maps, fullscreen views, and multi-location displays.",
       },
     },
   },
@@ -372,9 +373,7 @@ export const LoadingState: Story = {
   render: (args) => {
     return (
       <div className="space-y-4">
-        <div className="text-center text-muted-foreground">
-          Map component with loading skeleton
-        </div>
+        <div className="text-center text-muted-foreground">Map component with loading skeleton</div>
         <GoogleMap {...args} />
       </div>
     );

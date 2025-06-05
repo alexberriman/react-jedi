@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Focus, FocusButton, FocusInput, FocusTextarea, FocusCard, FocusLink } from "./focus";
 import { AnimationProvider } from "./animation-provider";
 
@@ -17,7 +17,8 @@ const meta: Meta<typeof Focus> = {
     layout: "centered",
   },
 
-  tags: ['autodocs', 'animation-focus']};
+  tags: ["autodocs", "animation-focus"],
+};
 
 export default meta;
 type Story = StoryObj<typeof Focus>;

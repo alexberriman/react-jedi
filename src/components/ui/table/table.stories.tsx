@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Table,
   TableBody,
@@ -82,33 +82,63 @@ const invoiceData = [
 
 // Sample data for products
 const productData = [
-  { name: "MacBook Pro 16\"", category: "Electronics", price: 2399, stock: 12, status: "In Stock" },
+  { name: 'MacBook Pro 16"', category: "Electronics", price: 2399, stock: 12, status: "In Stock" },
   { name: "iPhone 15 Pro", category: "Electronics", price: 999, stock: 0, status: "Out of Stock" },
   { name: "AirPods Pro", category: "Accessories", price: 249, stock: 45, status: "In Stock" },
   { name: "Apple Watch Ultra", category: "Wearables", price: 799, stock: 5, status: "Low Stock" },
-  { name: "iPad Pro 12.9\"", category: "Electronics", price: 1299, stock: 8, status: "In Stock" },
+  { name: 'iPad Pro 12.9"', category: "Electronics", price: 1299, stock: 8, status: "In Stock" },
   { name: "Magic Keyboard", category: "Accessories", price: 349, stock: 23, status: "In Stock" },
 ];
 
 // Sample data for users
 const userData = [
-  { name: "John Doe", email: "john.doe@example.com", role: "Developer", status: "Active", lastActive: "2 hours ago" },
-  { name: "Jane Smith", email: "jane.smith@example.com", role: "Designer", status: "Active", lastActive: "5 minutes ago" },
-  { name: "Bob Johnson", email: "bob.johnson@example.com", role: "Manager", status: "Inactive", lastActive: "2 days ago" },
-  { name: "Alice Brown", email: "alice.brown@example.com", role: "Developer", status: "Active", lastActive: "1 hour ago" },
-  { name: "Charlie Wilson", email: "charlie.wilson@example.com", role: "QA Engineer", status: "Active", lastActive: "30 minutes ago" },
+  {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    role: "Developer",
+    status: "Active",
+    lastActive: "2 hours ago",
+  },
+  {
+    name: "Jane Smith",
+    email: "jane.smith@example.com",
+    role: "Designer",
+    status: "Active",
+    lastActive: "5 minutes ago",
+  },
+  {
+    name: "Bob Johnson",
+    email: "bob.johnson@example.com",
+    role: "Manager",
+    status: "Inactive",
+    lastActive: "2 days ago",
+  },
+  {
+    name: "Alice Brown",
+    email: "alice.brown@example.com",
+    role: "Developer",
+    status: "Active",
+    lastActive: "1 hour ago",
+  },
+  {
+    name: "Charlie Wilson",
+    email: "charlie.wilson@example.com",
+    role: "QA Engineer",
+    status: "Active",
+    lastActive: "30 minutes ago",
+  },
 ];
 
 const getStatusBadge = (status: string) => {
   const variants: Record<string, "default" | "destructive" | "secondary" | "outline"> = {
-    "Paid": "default",
-    "Pending": "secondary",
-    "Unpaid": "destructive",
+    Paid: "default",
+    Pending: "secondary",
+    Unpaid: "destructive",
     "In Stock": "default",
     "Out of Stock": "destructive",
     "Low Stock": "secondary",
-    "Active": "default",
-    "Inactive": "outline",
+    Active: "default",
+    Inactive: "outline",
   };
   return <Badge variant={variants[status] || "default"}>{status}</Badge>;
 };
@@ -227,25 +257,33 @@ export const Minimal: Story = {
       <TableBody>
         <TableRow>
           <TableCell>Update documentation</TableCell>
-          <TableCell><Badge variant="secondary">Medium</Badge></TableCell>
+          <TableCell>
+            <Badge variant="secondary">Medium</Badge>
+          </TableCell>
           <TableCell>John Doe</TableCell>
           <TableCell>Dec 15, 2024</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Fix login bug</TableCell>
-          <TableCell><Badge variant="destructive">High</Badge></TableCell>
+          <TableCell>
+            <Badge variant="destructive">High</Badge>
+          </TableCell>
           <TableCell>Jane Smith</TableCell>
           <TableCell>Dec 12, 2024</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Design new landing page</TableCell>
-          <TableCell><Badge variant="outline">Low</Badge></TableCell>
+          <TableCell>
+            <Badge variant="outline">Low</Badge>
+          </TableCell>
           <TableCell>Bob Johnson</TableCell>
           <TableCell>Dec 20, 2024</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Implement search feature</TableCell>
-          <TableCell><Badge variant="destructive">High</Badge></TableCell>
+          <TableCell>
+            <Badge variant="destructive">High</Badge>
+          </TableCell>
           <TableCell>Alice Brown</TableCell>
           <TableCell>Dec 14, 2024</TableCell>
         </TableRow>
@@ -277,35 +315,55 @@ export const Compact: Story = {
             <TableCell>45%</TableCell>
             <TableCell>62%</TableCell>
             <TableCell>78%</TableCell>
-            <TableCell><Badge variant="default" className="h-5 text-xs">Healthy</Badge></TableCell>
+            <TableCell>
+              <Badge variant="default" className="h-5 text-xs">
+                Healthy
+              </Badge>
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-mono text-xs">web-02</TableCell>
             <TableCell>89%</TableCell>
             <TableCell>91%</TableCell>
             <TableCell>85%</TableCell>
-            <TableCell><Badge variant="destructive" className="h-5 text-xs">Critical</Badge></TableCell>
+            <TableCell>
+              <Badge variant="destructive" className="h-5 text-xs">
+                Critical
+              </Badge>
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-mono text-xs">db-01</TableCell>
             <TableCell>23%</TableCell>
             <TableCell>45%</TableCell>
             <TableCell>56%</TableCell>
-            <TableCell><Badge variant="default" className="h-5 text-xs">Healthy</Badge></TableCell>
+            <TableCell>
+              <Badge variant="default" className="h-5 text-xs">
+                Healthy
+              </Badge>
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-mono text-xs">db-02</TableCell>
             <TableCell>67%</TableCell>
             <TableCell>73%</TableCell>
             <TableCell>69%</TableCell>
-            <TableCell><Badge variant="secondary" className="h-5 text-xs">Warning</Badge></TableCell>
+            <TableCell>
+              <Badge variant="secondary" className="h-5 text-xs">
+                Warning
+              </Badge>
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-mono text-xs">cache-01</TableCell>
             <TableCell>12%</TableCell>
             <TableCell>28%</TableCell>
             <TableCell>34%</TableCell>
-            <TableCell><Badge variant="default" className="h-5 text-xs">Healthy</Badge></TableCell>
+            <TableCell>
+              <Badge variant="default" className="h-5 text-xs">
+                Healthy
+              </Badge>
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -346,7 +404,9 @@ export const Modern: Story = {
           <TableCell>8 items</TableCell>
           <TableCell className="text-right font-medium">$1,249.00</TableCell>
           <TableCell>
-            <Button variant="ghost" size="sm">View</Button>
+            <Button variant="ghost" size="sm">
+              View
+            </Button>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -363,7 +423,9 @@ export const Modern: Story = {
           <TableCell>12 items</TableCell>
           <TableCell className="text-right font-medium">$2,859.00</TableCell>
           <TableCell>
-            <Button variant="ghost" size="sm">View</Button>
+            <Button variant="ghost" size="sm">
+              View
+            </Button>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -380,7 +442,9 @@ export const Modern: Story = {
           <TableCell>5 items</TableCell>
           <TableCell className="text-right font-medium">$649.00</TableCell>
           <TableCell>
-            <Button variant="ghost" size="sm">View</Button>
+            <Button variant="ghost" size="sm">
+              View
+            </Button>
           </TableCell>
         </TableRow>
       </TableBody>
@@ -497,16 +561,26 @@ export const ComplexData: Story = {
           </TableCell>
           <TableCell>
             <div className="flex gap-1">
-              <Badge variant="outline" className="text-xs">React</Badge>
-              <Badge variant="outline" className="text-xs">Node.js</Badge>
-              <Badge variant="outline" className="text-xs">+2</Badge>
+              <Badge variant="outline" className="text-xs">
+                React
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                Node.js
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                +2
+              </Badge>
             </div>
           </TableCell>
           <TableCell className="text-right font-medium">$125,000</TableCell>
           <TableCell>
             <div className="flex gap-2">
-              <Button variant="ghost" size="sm">Edit</Button>
-              <Button variant="ghost" size="sm">View</Button>
+              <Button variant="ghost" size="sm">
+                Edit
+              </Button>
+              <Button variant="ghost" size="sm">
+                View
+              </Button>
             </div>
           </TableCell>
         </TableRow>
@@ -531,15 +605,23 @@ export const ComplexData: Story = {
           </TableCell>
           <TableCell>
             <div className="flex gap-1">
-              <Badge variant="outline" className="text-xs">Strategy</Badge>
-              <Badge variant="outline" className="text-xs">Analytics</Badge>
+              <Badge variant="outline" className="text-xs">
+                Strategy
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                Analytics
+              </Badge>
             </div>
           </TableCell>
           <TableCell className="text-right font-medium">$115,000</TableCell>
           <TableCell>
             <div className="flex gap-2">
-              <Button variant="ghost" size="sm">Edit</Button>
-              <Button variant="ghost" size="sm">View</Button>
+              <Button variant="ghost" size="sm">
+                Edit
+              </Button>
+              <Button variant="ghost" size="sm">
+                View
+              </Button>
             </div>
           </TableCell>
         </TableRow>

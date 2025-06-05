@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CarouselBlock } from "./carousel-block";
 import type { CarouselDef } from "../../../types/components/carousel";
 
@@ -10,7 +10,8 @@ const meta: Meta<typeof CarouselBlock> = {
     layout: "fullscreen",
     docs: {
       description: {
-        component: "Enhanced carousel block with multiple variants including image gallery, content cards, testimonials, product showcase, and fullscreen modes. Features autoplay, touch support, dots/thumbnails navigation, Ken Burns effect, and zoom functionality.",
+        component:
+          "Enhanced carousel block with multiple variants including image gallery, content cards, testimonials, product showcase, and fullscreen modes. Features autoplay, touch support, dots/thumbnails navigation, Ken Burns effect, and zoom functionality.",
       },
     },
   },
@@ -50,14 +51,16 @@ const sampleImages = [
 const sampleContentItems = [
   {
     title: "Modern Design System",
-    description: "Build consistent and beautiful user interfaces with our comprehensive design system.",
+    description:
+      "Build consistent and beautiful user interfaces with our comprehensive design system.",
     image: "https://picsum.photos/400/300?random=5",
     badge: "New",
     cta: { text: "Learn More", href: "#" },
   },
   {
     title: "Performance Optimization",
-    description: "Optimize your applications for maximum speed and efficiency with proven techniques.",
+    description:
+      "Optimize your applications for maximum speed and efficiency with proven techniques.",
     image: "https://picsum.photos/400/300?random=6",
     badge: "Popular",
     cta: { text: "Get Started", href: "#" },
@@ -72,7 +75,8 @@ const sampleContentItems = [
 
 const sampleTestimonials = [
   {
-    content: "This carousel component has transformed how we showcase our portfolio. The Ken Burns effect and smooth transitions create an incredibly engaging experience.",
+    content:
+      "This carousel component has transformed how we showcase our portfolio. The Ken Burns effect and smooth transitions create an incredibly engaging experience.",
     author: {
       name: "Sarah Chen",
       role: "Creative Director",
@@ -82,7 +86,8 @@ const sampleTestimonials = [
     rating: 5,
   },
   {
-    content: "The variety of carousel variants makes it perfect for any project. We use the product showcase for our e-commerce site and the testimonials for our landing page.",
+    content:
+      "The variety of carousel variants makes it perfect for any project. We use the product showcase for our e-commerce site and the testimonials for our landing page.",
     author: {
       name: "Michael Rodriguez",
       role: "Frontend Developer",
@@ -92,7 +97,8 @@ const sampleTestimonials = [
     rating: 5,
   },
   {
-    content: "The touch support and mobile optimization are outstanding. Our users love the smooth swiping experience across all devices.",
+    content:
+      "The touch support and mobile optimization are outstanding. Our users love the smooth swiping experience across all devices.",
     author: {
       name: "Emma Thompson",
       role: "UX Designer",
@@ -218,7 +224,8 @@ export const ImageGallery: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Image gallery carousel with Ken Burns effect, zoom functionality, thumbnails navigation, and autoplay that pauses on hover.",
+        story:
+          "Image gallery carousel with Ken Burns effect, zoom functionality, thumbnails navigation, and autoplay that pauses on hover.",
       },
     },
   },
@@ -240,7 +247,8 @@ export const ContentCards: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Content cards carousel perfect for showcasing features, services, or blog posts with images, badges, and call-to-action buttons.",
+        story:
+          "Content cards carousel perfect for showcasing features, services, or blog posts with images, badges, and call-to-action buttons.",
       },
     },
   },
@@ -267,7 +275,8 @@ export const TestimonialsCards: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Testimonials carousel in card format with author photos, ratings, and company information.",
+        story:
+          "Testimonials carousel in card format with author photos, ratings, and company information.",
       },
     },
   },
@@ -312,7 +321,8 @@ export const ProductShowcase: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Product showcase carousel with pricing, badges, stock status, and hover effects perfect for e-commerce.",
+        story:
+          "Product showcase carousel with pricing, badges, stock status, and hover effects perfect for e-commerce.",
       },
     },
   },
@@ -331,7 +341,7 @@ export const Fullscreen: Story = {
         delay: 4000,
       },
       data: {
-        images: sampleImages.map(img => ({
+        images: sampleImages.map((img) => ({
           ...img,
           title: img.title + " Hero",
           description: "Experience the beauty of nature in full screen glory",
@@ -343,7 +353,8 @@ export const Fullscreen: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Fullscreen hero carousel with overlay text, perfect for landing pages and hero sections.",
+        story:
+          "Fullscreen hero carousel with overlay text, perfect for landing pages and hero sections.",
       },
     },
   },
@@ -374,7 +385,8 @@ export const AutoplayCustom: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Autoplay carousel with custom timing and interaction behavior. Continues playing after user interaction but pauses on hover.",
+        story:
+          "Autoplay carousel with custom timing and interaction behavior. Continues playing after user interaction but pauses on hover.",
       },
     },
   },
@@ -556,7 +568,8 @@ export const SwipeOnly: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Touch/swipe-only carousel without navigation arrows, relying on dots and gesture controls.",
+        story:
+          "Touch/swipe-only carousel without navigation arrows, relying on dots and gesture controls.",
       },
     },
   },

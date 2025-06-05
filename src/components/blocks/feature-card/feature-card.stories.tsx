@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FeatureCard, FeatureCardGrid, TabbedFeatureCards } from "./feature-card";
-import { 
-  Zap, 
-  Shield, 
-  Rocket, 
-  Users, 
-  BarChart, 
-  Code, 
+import {
+  Zap,
+  Shield,
+  Rocket,
+  Users,
+  BarChart,
+  Code,
   Cloud,
   Sparkles,
   Heart,
@@ -15,17 +15,17 @@ import {
   Cpu,
   Database,
   Settings,
-  Package
+  Package,
 } from "lucide-react";
-import { 
-  FaReact, 
-  FaNodeJs, 
-  FaPython, 
+import {
+  FaReact,
+  FaNodeJs,
+  FaPython,
   FaDocker,
   FaAws,
   FaGithub,
   FaFigma,
-  FaSlack
+  FaSlack,
 } from "react-icons/fa";
 import {
   SiTypescript,
@@ -35,7 +35,7 @@ import {
   SiRedis,
   SiKubernetes,
   SiTerraform,
-  SiJenkins
+  SiJenkins,
 } from "react-icons/si";
 
 const meta: Meta<typeof FeatureCard> = {
@@ -95,7 +95,7 @@ export const IconPositions: Story = {
         iconPosition="top"
         iconColor="#FF6B6B"
       />
-      
+
       <FeatureCard
         title="Icon Left"
         description="The icon is positioned to the left of the content."
@@ -103,7 +103,7 @@ export const IconPositions: Story = {
         iconPosition="left"
         iconColor="#4ECDC4"
       />
-      
+
       <FeatureCard
         title="Icon Right"
         description="The icon is positioned to the right of the content."
@@ -111,7 +111,7 @@ export const IconPositions: Story = {
         iconPosition="right"
         iconColor="#45B7D1"
       />
-      
+
       <FeatureCard
         title="Icon Background"
         description="The icon appears as a subtle background element."
@@ -132,7 +132,7 @@ export const Variants: Story = {
         icon={Code}
         variant="default"
       />
-      
+
       <FeatureCard
         title="Highlighted Variant"
         description="Emphasized card with gradient background."
@@ -140,7 +140,7 @@ export const Variants: Story = {
         variant="highlighted"
         iconColor="#FFD93D"
       />
-      
+
       <FeatureCard
         title="Minimal Variant"
         description="Clean card without borders or shadows."
@@ -148,7 +148,7 @@ export const Variants: Story = {
         variant="minimal"
         iconColor="#FF6B6B"
       />
-      
+
       <FeatureCard
         title="Bordered Variant"
         description="Card with prominent border styling."
@@ -156,7 +156,7 @@ export const Variants: Story = {
         variant="bordered"
         iconColor="#FFB800"
       />
-      
+
       <FeatureCard
         title="Gradient Variant"
         description="Beautiful gradient background effect."
@@ -166,7 +166,7 @@ export const Variants: Story = {
         gradientTo="#764ba2"
         iconColor="#FFFFFF"
       />
-      
+
       <FeatureCard
         title="Shadow Variant"
         description="Card with enhanced shadow depth."
@@ -174,7 +174,7 @@ export const Variants: Story = {
         variant="shadow"
         shadowSize="xl"
       />
-      
+
       <FeatureCard
         title="Glass Variant"
         description="Modern glassmorphism effect."
@@ -200,7 +200,7 @@ export const WithCTA: Story = {
           onClick: () => alert("Starting free trial!"),
         }}
       />
-      
+
       <FeatureCard
         title="Enterprise Solution"
         description="Powerful features designed for large organizations."
@@ -226,7 +226,7 @@ export const HoverEffects: Story = {
         icon={Zap}
         hoverEffect="lift"
       />
-      
+
       <FeatureCard
         title="Glow Effect"
         description="Card glows on hover."
@@ -234,7 +234,7 @@ export const HoverEffects: Story = {
         hoverEffect="glow"
         variant="gradient"
       />
-      
+
       <FeatureCard
         title="Pulse Effect"
         description="Card pulses on hover."
@@ -242,7 +242,7 @@ export const HoverEffects: Story = {
         hoverEffect="pulse"
         iconColor="#FF6B6B"
       />
-      
+
       <FeatureCard
         title="Rotate Effect"
         description="Card slightly rotates on hover."
@@ -263,35 +263,35 @@ export const WithReactIcons: Story = {
         icon={FaReact}
         iconColor="#61DAFB"
       />
-      
+
       <FeatureCard
         title="Node.js Backend"
         description="Scalable server-side applications."
         icon={FaNodeJs}
         iconColor="#339933"
       />
-      
+
       <FeatureCard
         title="Python Integration"
         description="Machine learning and data analysis."
         icon={FaPython}
         iconColor="#3776AB"
       />
-      
+
       <FeatureCard
         title="TypeScript"
         description="Type-safe development experience."
         icon={SiTypescript}
         iconColor="#3178C6"
       />
-      
+
       <FeatureCard
         title="Tailwind CSS"
         description="Utility-first CSS framework."
         icon={SiTailwindcss}
         iconColor="#06B6D4"
       />
-      
+
       <FeatureCard
         title="Next.js"
         description="Full-stack React framework."
@@ -311,21 +311,21 @@ export const IconSizes: Story = {
         icon={Settings}
         iconSize="sm"
       />
-      
+
       <FeatureCard
         title="Medium Icon"
         description="Default icon size"
         icon={Settings}
         iconSize="md"
       />
-      
+
       <FeatureCard
         title="Large Icon"
         description="Prominent icon size"
         icon={Settings}
         iconSize="lg"
       />
-      
+
       <FeatureCard
         title="Extra Large"
         description="Maximum icon size"
@@ -384,12 +384,12 @@ export const GridLayouts: Story = {
           <h3 className="text-lg font-semibold mb-4">2 Column Grid</h3>
           <FeatureCardGrid cards={cards.slice(0, 4)} columns="2" />
         </div>
-        
+
         <div>
           <h3 className="text-lg font-semibold mb-4">3 Column Grid</h3>
           <FeatureCardGrid cards={cards} columns="3" />
         </div>
-        
+
         <div>
           <h3 className="text-lg font-semibold mb-4">4 Column Grid</h3>
           <FeatureCardGrid cards={cards} columns="4" gap="sm" />
@@ -435,14 +435,7 @@ export const AnimatedGrid: Story = {
       },
     ];
 
-    return (
-      <FeatureCardGrid 
-        cards={cards} 
-        columns="2" 
-        animated={true} 
-        staggerDelay={0.15}
-      />
-    );
+    return <FeatureCardGrid cards={cards} columns="2" animated={true} staggerDelay={0.15} />;
   },
 };
 
@@ -487,7 +480,7 @@ export const HighlightedCards: Story = {
         icon={Package}
         iconPosition="left"
       />
-      
+
       <FeatureCard
         title="Pro Plan"
         description="Advanced features for growing businesses."
@@ -501,7 +494,7 @@ export const HighlightedCards: Story = {
         gradientFrom="#8B5CF6"
         gradientTo="#EC4899"
       />
-      
+
       <FeatureCard
         title="Enterprise"
         description="Custom solutions for large organizations."
@@ -524,7 +517,7 @@ export const IconFocused: Story = {
         align="center"
         variant="bordered"
       />
-      
+
       <FeatureCard
         title="Security"
         description="Enterprise-grade protection"
@@ -536,7 +529,7 @@ export const IconFocused: Story = {
         gradientFrom="#4ECDC4"
         gradientTo="#44A08D"
       />
-      
+
       <FeatureCard
         title="Analytics"
         description="Real-time insights"
@@ -645,7 +638,7 @@ export const TabbedCategories: Story = {
         category: "DevOps",
       },
     ];
-    
+
     return (
       <TabbedFeatureCards
         cards={cards}

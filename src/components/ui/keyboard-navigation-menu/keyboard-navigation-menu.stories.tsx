@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { KeyboardNavigationMenu, MenuItem } from "./keyboard-navigation-menu";
 import { Home, User, Settings, Mail, Calendar, Bell, HelpCircle, LogOut } from "lucide-react";
 import { within, userEvent, expect, waitFor } from "storybook/test";

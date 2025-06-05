@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PhotoGallery } from "./photo-gallery";
 import type { PhotoItem } from "./photo-gallery";
 
@@ -9,7 +9,8 @@ const meta: Meta<typeof PhotoGallery> = {
     layout: "padded",
     docs: {
       description: {
-        component: "A stunning photo gallery block with multiple layout variants, lazy loading, lightbox modal, category filtering, and modern animations.",
+        component:
+          "A stunning photo gallery block with multiple layout variants, lazy loading, lightbox modal, category filtering, and modern animations.",
       },
     },
   },
@@ -31,7 +32,7 @@ const meta: Meta<typeof PhotoGallery> = {
       description: "Aspect ratio for photos",
     },
     gap: {
-      control: "select", 
+      control: "select",
       options: ["sm", "md", "lg"],
       description: "Gap size between photos",
     },
@@ -83,37 +84,41 @@ const samplePhotos: PhotoItem[] = [
     description: "Beautiful mountain landscape with snow-capped peaks",
     category: "Nature",
     tags: ["mountains", "landscape", "snow"],
-    downloadUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1440&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1440&fit=crop&dl=1",
   },
   {
-    id: "2", 
+    id: "2",
     src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=1200&fit=crop",
     alt: "Forest path",
     title: "Enchanted Forest",
     description: "A mysterious path through an ancient forest",
     category: "Nature",
     tags: ["forest", "trees", "path"],
-    downloadUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=2880&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=2880&fit=crop&dl=1",
   },
   {
     id: "3",
-    src: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=800&fit=crop", 
+    src: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=800&fit=crop",
     alt: "Ocean sunset",
     title: "Golden Hour",
     description: "Spectacular sunset over the ocean waves",
     category: "Seascape",
     tags: ["ocean", "sunset", "waves"],
-    downloadUrl: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1920&h=1920&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1920&h=1920&fit=crop&dl=1",
   },
   {
     id: "4",
     src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
     alt: "Desert landscape",
-    title: "Desert Dunes", 
+    title: "Desert Dunes",
     description: "Rolling sand dunes in the desert",
     category: "Desert",
     tags: ["desert", "sand", "dunes"],
-    downloadUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1440&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1440&fit=crop&dl=1",
   },
   {
     id: "5",
@@ -123,7 +128,8 @@ const samplePhotos: PhotoItem[] = [
     description: "Modern skyscrapers reaching toward the sky",
     category: "Architecture",
     tags: ["city", "skyscrapers", "urban"],
-    downloadUrl: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1920&h=2400&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1920&h=2400&fit=crop&dl=1",
   },
   {
     id: "6",
@@ -131,9 +137,10 @@ const samplePhotos: PhotoItem[] = [
     alt: "Tropical beach",
     title: "Paradise Beach",
     description: "Crystal clear waters and white sand beach",
-    category: "Seascape", 
+    category: "Seascape",
     tags: ["beach", "tropical", "paradise"],
-    downloadUrl: "https://images.unsplash.com/photo-1433838552652-f9a46b332c40?w=1920&h=1440&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1433838552652-f9a46b332c40?w=1920&h=1440&fit=crop&dl=1",
   },
   {
     id: "7",
@@ -143,7 +150,8 @@ const samplePhotos: PhotoItem[] = [
     description: "Vibrant fall foliage in golden sunlight",
     category: "Nature",
     tags: ["autumn", "leaves", "colors"],
-    downloadUrl: "https://images.unsplash.com/photo-1485470733090-0aae1788d5af?w=1920&h=1920&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1485470733090-0aae1788d5af?w=1920&h=1920&fit=crop&dl=1",
   },
   {
     id: "8",
@@ -153,7 +161,8 @@ const samplePhotos: PhotoItem[] = [
     description: "A secret waterfall deep in the jungle",
     category: "Nature",
     tags: ["waterfall", "jungle", "water"],
-    downloadUrl: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1920&h=2880&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1920&h=2880&fit=crop&dl=1",
   },
   {
     id: "9",
@@ -163,7 +172,8 @@ const samplePhotos: PhotoItem[] = [
     description: "Abstract architectural patterns and lines",
     category: "Architecture",
     tags: ["modern", "geometric", "abstract"],
-    downloadUrl: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1440&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1440&fit=crop&dl=1",
   },
   {
     id: "10",
@@ -173,7 +183,8 @@ const samplePhotos: PhotoItem[] = [
     description: "The galaxy stretching across the night sky",
     category: "Space",
     tags: ["stars", "galaxy", "night"],
-    downloadUrl: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1920&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1920&fit=crop&dl=1",
   },
   {
     id: "11",
@@ -183,7 +194,8 @@ const samplePhotos: PhotoItem[] = [
     description: "Panoramic view of a mountain valley",
     category: "Nature",
     tags: ["valley", "panoramic", "vista"],
-    downloadUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1200&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1200&fit=crop&dl=1",
   },
   {
     id: "12",
@@ -193,7 +205,8 @@ const samplePhotos: PhotoItem[] = [
     description: "A perfectly frozen lake reflecting the sky",
     category: "Nature",
     tags: ["frozen", "lake", "winter"],
-    downloadUrl: "https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=1920&h=1440&fit=crop&dl=1",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=1920&h=1440&fit=crop&dl=1",
   },
 ];
 
@@ -215,7 +228,7 @@ export const Grid: Story = {
 export const Masonry: Story = {
   args: {
     photos: samplePhotos,
-    variant: "masonry", 
+    variant: "masonry",
     columns: 3,
     enableLightbox: true,
     enableZoom: true,

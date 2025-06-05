@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { JobListings, type JobListing } from "./job-listings";
 
 const meta: Meta<typeof JobListings> = {
@@ -47,20 +47,91 @@ const createSeededRandom = (seed: number) => {
 
 const generateJobs = (count: number): JobListing[] => {
   const random = createSeededRandom(12_345);
-  const departments = ["Engineering", "Marketing", "Sales", "Design", "Customer Success", "Product", "Operations"];
-  const locations = ["San Francisco, CA", "New York, NY", "Remote", "London, UK", "Austin, TX", "Seattle, WA", "Boston, MA"];
-  const types: JobListing["type"][] = ["full-time", "part-time", "contract", "internship", "remote"];
+  const departments = [
+    "Engineering",
+    "Marketing",
+    "Sales",
+    "Design",
+    "Customer Success",
+    "Product",
+    "Operations",
+  ];
+  const locations = [
+    "San Francisco, CA",
+    "New York, NY",
+    "Remote",
+    "London, UK",
+    "Austin, TX",
+    "Seattle, WA",
+    "Boston, MA",
+  ];
+  const types: JobListing["type"][] = [
+    "full-time",
+    "part-time",
+    "contract",
+    "internship",
+    "remote",
+  ];
   const levels: JobListing["experienceLevel"][] = ["entry", "mid", "senior", "lead"];
-  const companies = ["TechCorp", "Innovation Labs", "Digital Solutions", "Cloud Systems", "Data Dynamics"];
+  const companies = [
+    "TechCorp",
+    "Innovation Labs",
+    "Digital Solutions",
+    "Cloud Systems",
+    "Data Dynamics",
+  ];
 
   const jobTitles = {
-    Engineering: ["Software Engineer", "Senior Frontend Developer", "Backend Engineer", "DevOps Engineer", "Full Stack Developer", "Mobile Developer", "QA Engineer"],
-    Marketing: ["Marketing Manager", "Content Strategist", "Social Media Manager", "SEO Specialist", "Brand Manager", "Growth Marketer"],
-    Sales: ["Sales Representative", "Account Executive", "Sales Manager", "Business Development Rep", "Sales Engineer"],
-    Design: ["UI/UX Designer", "Product Designer", "Graphic Designer", "Design Lead", "Motion Designer"],
-    "Customer Success": ["Customer Success Manager", "Support Engineer", "Technical Account Manager", "Customer Support Lead"],
-    Product: ["Product Manager", "Product Owner", "Technical Product Manager", "Senior Product Manager"],
-    Operations: ["Operations Manager", "Project Manager", "Business Analyst", "Data Analyst", "HR Manager"],
+    Engineering: [
+      "Software Engineer",
+      "Senior Frontend Developer",
+      "Backend Engineer",
+      "DevOps Engineer",
+      "Full Stack Developer",
+      "Mobile Developer",
+      "QA Engineer",
+    ],
+    Marketing: [
+      "Marketing Manager",
+      "Content Strategist",
+      "Social Media Manager",
+      "SEO Specialist",
+      "Brand Manager",
+      "Growth Marketer",
+    ],
+    Sales: [
+      "Sales Representative",
+      "Account Executive",
+      "Sales Manager",
+      "Business Development Rep",
+      "Sales Engineer",
+    ],
+    Design: [
+      "UI/UX Designer",
+      "Product Designer",
+      "Graphic Designer",
+      "Design Lead",
+      "Motion Designer",
+    ],
+    "Customer Success": [
+      "Customer Success Manager",
+      "Support Engineer",
+      "Technical Account Manager",
+      "Customer Support Lead",
+    ],
+    Product: [
+      "Product Manager",
+      "Product Owner",
+      "Technical Product Manager",
+      "Senior Product Manager",
+    ],
+    Operations: [
+      "Operations Manager",
+      "Project Manager",
+      "Business Analyst",
+      "Data Analyst",
+      "HR Manager",
+    ],
   };
 
   const benefits = [
@@ -112,7 +183,10 @@ const generateJobs = (count: number): JobListing[] => {
     const featured = random() > 0.8;
     const urgent = featured && random() > 0.7;
 
-    const baseSalary: Record<NonNullable<JobListing["experienceLevel"]>, { min: number; max: number }> = {
+    const baseSalary: Record<
+      NonNullable<JobListing["experienceLevel"]>,
+      { min: number; max: number }
+    > = {
       entry: { min: 60_000, max: 80_000 },
       mid: { min: 80_000, max: 120_000 },
       senior: { min: 120_000, max: 180_000 },
@@ -220,7 +294,7 @@ export const WithRequirements: Story = {
     ...Default.args,
     showRequirements: true,
     variant: "featured",
-    jobs: sampleJobs.slice(0, 6).map(job => ({ ...job, featured: true })),
+    jobs: sampleJobs.slice(0, 6).map((job) => ({ ...job, featured: true })),
   },
 };
 
@@ -266,14 +340,14 @@ export const EmptyState: Story = {
 export const RemoteOnly: Story = {
   args: {
     ...Default.args,
-    jobs: sampleJobs.filter(job => job.type === "remote" || job.location === "Remote"),
+    jobs: sampleJobs.filter((job) => job.type === "remote" || job.location === "Remote"),
   },
 };
 
 export const InternshipsOnly: Story = {
   args: {
     ...Default.args,
-    jobs: sampleJobs.filter(job => job.type === "internship"),
+    jobs: sampleJobs.filter((job) => job.type === "internship"),
     variant: "list",
   },
 };
@@ -291,7 +365,7 @@ export const LongDescriptions: Story = {
     ...Default.args,
     maxDescriptionLength: 300,
     variant: "list",
-    jobs: sampleJobs.map(job => ({
+    jobs: sampleJobs.map((job) => ({
       ...job,
       description: `${job.description}\n\nWe offer a collaborative work environment where innovation thrives. Our team is passionate about creating products that make a difference. Join us in our mission to transform the industry through technology and creativity.\n\nThis role offers significant growth opportunities and the chance to work with cutting-edge technologies. You'll be part of a team that values diversity, inclusion, and work-life balance.`,
     })),

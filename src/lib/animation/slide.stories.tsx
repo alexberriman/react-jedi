@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SlideIn, SlideOut, SlideTransition } from "./slide";
 import { AnimationProvider } from "./animation-provider";
 import { useState } from "react";
@@ -13,7 +13,8 @@ const meta: Meta<typeof SlideIn> = {
     ),
   ],
 
-  tags: ['autodocs', 'animation-slide']};
+  tags: ["autodocs", "animation-slide"],
+};
 
 export default meta;
 

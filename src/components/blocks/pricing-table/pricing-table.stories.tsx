@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within, userEvent, fn } from "storybook/test";
 import { PricingTable, type PricingTier } from "./pricing-table";
 import { Sparkles, Zap, Crown, Rocket, Star, Shield } from "lucide-react";

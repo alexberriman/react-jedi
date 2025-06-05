@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { OptimisticUpdateExample } from "../examples/optimistic-update-example";
@@ -8,15 +8,19 @@ const meta: Meta<typeof OptimisticUpdateExample> = {
   component: OptimisticUpdateExample,
   decorators: [
     (Story) => {
-      const queryClient = React.useMemo(() => new QueryClient({
-        defaultOptions: {
-          queries: { 
-            retry: false,
-            staleTime: 0,
-          },
-        },
-      }), []);
-      
+      const queryClient = React.useMemo(
+        () =>
+          new QueryClient({
+            defaultOptions: {
+              queries: {
+                retry: false,
+                staleTime: 0,
+              },
+            },
+          }),
+        []
+      );
+
       return (
         <QueryClientProvider client={queryClient}>
           <Story />
@@ -28,14 +32,14 @@ const meta: Meta<typeof OptimisticUpdateExample> = {
     docs: {
       description: {
         component: `
-Optimistic updates provide instant feedback to users by updating the UI immediately 
-while the actual request happens in the background. If the request fails, the UI 
+Optimistic updates provide instant feedback to users by updating the UI immediately
+while the actual request happens in the background. If the request fails, the UI
 automatically rolls back to the previous state.
 
 ## Features
 
 - **Instant UI updates**: Changes appear immediately without waiting for server response
-- **Automatic rollback**: Failed requests automatically revert the UI to previous state  
+- **Automatic rollback**: Failed requests automatically revert the UI to previous state
 - **State snapshots**: Captures state before mutations for reliable rollback
 - **Query invalidation**: Automatically refreshes related data after successful mutations
 - **Error handling**: Graceful error states with customizable error messages
@@ -112,12 +116,12 @@ export const Default: Story = {
 Interactive todo list demonstrating optimistic updates:
 
 - Add new todos with instant UI feedback
-- Toggle todo completion status  
+- Toggle todo completion status
 - Simulated API delays (1-2 seconds)
 - Random failure chance to demonstrate rollback
 - Visual indicators for pending operations
 
-Try adding multiple todos quickly or toggling several items to see 
+Try adding multiple todos quickly or toggling several items to see
 how optimistic updates handle concurrent operations.
         `,
       },
@@ -147,18 +151,18 @@ const mutation = useMutation({
       ...variables,
       status: "pending",
     }),
-    
+
     // Update local state immediately
     updateLocalState: (stateManager, data) => {
       const items = stateManager.getState().items || [];
       stateManager.setState("items", [...items, data]);
     },
-    
+
     // Optional: Custom rollback logic
     rollback: (stateManager, error, variables) => {
       // Remove the optimistically added item
       const items = stateManager.getState().items || [];
-      stateManager.setState("items", 
+      stateManager.setState("items",
         items.filter(item => item.id !== variables.id)
       );
     },
@@ -180,9 +184,7 @@ export const ErrorHandling: Story = {
     <div className="p-6 space-y-4">
       <div className="prose">
         <h3>Error Handling & Automatic Rollback</h3>
-        <p>
-          When a mutation fails, the optimistic update is automatically rolled back:
-        </p>
+        <p>When a mutation fails, the optimistic update is automatically rolled back:</p>
         <pre>{`
 const mutation = useMutation({
   mutation: {
@@ -200,7 +202,7 @@ const mutation = useMutation({
     onError: (error, variables, context) => {
       // Custom error handling
       console.error("Update failed:", error);
-      
+
       // Show error notification
       showNotification({
         type: "error",
@@ -229,9 +231,7 @@ export const MultipleUpdates: Story = {
     <div className="p-6 space-y-4">
       <div className="prose">
         <h3>Handling Multiple Concurrent Updates</h3>
-        <p>
-          Optimistic updates handle multiple concurrent operations gracefully:
-        </p>
+        <p>Optimistic updates handle multiple concurrent operations gracefully:</p>
         <pre>{`
 // Multiple mutations can be in flight simultaneously
 const updateStatusMutation = useMutation({

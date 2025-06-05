@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Hero } from "./hero";
 import { Rocket, Star, Code2, Zap } from "lucide-react";
 import { within, userEvent, waitFor, expect } from "storybook/test";

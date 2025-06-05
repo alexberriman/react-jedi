@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn, within, userEvent, expect, waitFor } from "storybook/test";
 import { DataTable, createSortableHeader, type DataTableColumn } from "./data-table";
 import { Copy, Edit, Trash } from "lucide-react";

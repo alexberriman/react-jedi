@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Drag, DragCard, DragListItem } from "./drag";
 import { AnimationProvider } from "./animation-provider";
 import { dragPresets } from "./animation-hooks";
@@ -25,7 +25,8 @@ const meta: Meta<typeof Drag> = {
     ),
   },
 
-  tags: ['autodocs', 'animation-drag']};
+  tags: ["autodocs", "animation-drag"],
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

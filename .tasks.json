@@ -237,7 +237,7 @@
       {
         "id": "call-to-action",
         "description": "Make sure the buttons are centered horizontally in the CallToAction component (the cta buttons Start Free Trial watch demo). The container needs to be 100% width and buttons centered within it.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "blog-post-detail",

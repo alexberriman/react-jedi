@@ -10,7 +10,7 @@
       "properties": {
         "variant": {
           "type": "string",
-          "enum": ["default", "destructive"],
+          "enum": ["default", "destructive", "info", "warning", "success"],
           "description": "Visual variant of the alert"
         },
         "className": {

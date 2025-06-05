@@ -51,6 +51,46 @@ const transformPropsForComponent = (
     };
   }
 
+  if (spec.type === "Flex") {
+    const transformed = { ...actualProps };
+    
+    // Transform hyphenated direction values to camelCase
+    if ("direction" in actualProps && typeof actualProps.direction === "string") {
+      const directionMap: Record<string, string> = {
+        "row": "row",
+        "column": "column",
+        "row-reverse": "rowReverse",
+        "column-reverse": "columnReverse"
+      };
+      transformed.direction = directionMap[actualProps.direction] || actualProps.direction;
+    }
+    
+    // Transform hyphenated wrap values to camelCase
+    if ("wrap" in actualProps && typeof actualProps.wrap === "string") {
+      const wrapMap: Record<string, string> = {
+        "nowrap": "nowrap",
+        "wrap": "wrap",
+        "wrap-reverse": "wrapReverse"
+      };
+      transformed.wrap = wrapMap[actualProps.wrap] || actualProps.wrap;
+    }
+    
+    // Transform justify values
+    if ("justify" in actualProps && typeof actualProps.justify === "string") {
+      const justifyMap: Record<string, string> = {
+        "start": "start",
+        "end": "end",
+        "center": "center",
+        "space-between": "between",
+        "space-around": "around",
+        "space-evenly": "evenly"
+      };
+      transformed.justify = justifyMap[actualProps.justify] || actualProps.justify;
+    }
+    
+    return transformed;
+  }
+
   return actualProps;
 };
 

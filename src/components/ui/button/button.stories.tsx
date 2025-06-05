@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { Button } from "./button";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/Button",
@@ -45,7 +46,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     variant: "default",
     size: "default",
@@ -64,58 +65,128 @@ export const Default: Story = {
     // Test default styling
     expect(button).toHaveAttribute("data-slot", "button");
   },
-};
+});
 
-export const Secondary: Story = {
+export const Secondary: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     variant: "secondary",
     children: "Secondary",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Destructive: Story = {
+    // Test secondary button renders
+    const button = canvas.getByRole("button", { name: "Secondary" });
+    expect(button).toBeInTheDocument();
+
+    // Test secondary variant styling
+    expect(button).toHaveAttribute("data-slot", "button");
+  },
+});
+
+export const Destructive: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     variant: "destructive",
     children: "Delete",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Outline: Story = {
+    // Test destructive button renders
+    const button = canvas.getByRole("button", { name: "Delete" });
+    expect(button).toBeInTheDocument();
+
+    // Test destructive variant styling
+    expect(button).toHaveAttribute("data-slot", "button");
+  },
+});
+
+export const Outline: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     variant: "outline",
     children: "Outline",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Ghost: Story = {
+    // Test outline button renders
+    const button = canvas.getByRole("button", { name: "Outline" });
+    expect(button).toBeInTheDocument();
+
+    // Test outline variant styling
+    expect(button).toHaveAttribute("data-slot", "button");
+  },
+});
+
+export const Ghost: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     variant: "ghost",
     children: "Ghost",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Link: Story = {
+    // Test ghost button renders
+    const button = canvas.getByRole("button", { name: "Ghost" });
+    expect(button).toBeInTheDocument();
+
+    // Test ghost variant styling
+    expect(button).toHaveAttribute("data-slot", "button");
+  },
+});
+
+export const Link: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     variant: "link",
     children: "Link Button",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Small: Story = {
+    // Test link button renders
+    const button = canvas.getByRole("button", { name: "Link Button" });
+    expect(button).toBeInTheDocument();
+
+    // Test link variant styling
+    expect(button).toHaveAttribute("data-slot", "button");
+  },
+});
+
+export const Small: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     size: "sm",
     children: "Small",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Large: Story = {
+    // Test small button renders
+    const button = canvas.getByRole("button", { name: "Small" });
+    expect(button).toBeInTheDocument();
+
+    // Test small size styling
+    expect(button).toHaveAttribute("data-slot", "button");
+  },
+});
+
+export const Large: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     size: "lg",
     children: "Large",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Disabled: Story = {
+    // Test large button renders
+    const button = canvas.getByRole("button", { name: "Large" });
+    expect(button).toBeInTheDocument();
+
+    // Test large size styling
+    expect(button).toHaveAttribute("data-slot", "button");
+  },
+});
+
+export const Disabled: Story = enhanceStoryForDualMode<typeof Button>({
   args: {
     children: "Disabled",
     disabled: true,
@@ -137,12 +208,12 @@ export const Disabled: Story = {
     // Cannot test clicking disabled button as userEvent respects pointer-events: none
     // This is actually good - it means the button is truly disabled
   },
-};
+});
 
-export const WithIcon: Story = {
-  args: {
-    children: (
-      <>
+export const WithIcon: Story = enhanceStoryForDualMode<typeof Button>(
+  {
+    render: () => (
+      <Button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -158,83 +229,137 @@ export const WithIcon: Story = {
           <path d="M9 18c-4.51 2-5-2-7-2" />
         </svg>
         GitHub
-      </>
+      </Button>
     ),
-  },
-};
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-export const IconOnly: Story = {
-  args: {
-    size: "icon",
-    "aria-label": "Settings",
-    children: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
+      // Test button with icon renders
+      const button = canvas.getByRole("button", { name: /GitHub/ });
+      expect(button).toBeInTheDocument();
+
+      // Test button styling
+      expect(button).toHaveAttribute("data-slot", "button");
+
+      // Test that SVG icon is present (React mode only)
+      const svg = button.querySelector("svg");
+      if (svg) {
+        expect(svg).toBeInTheDocument();
+      }
+    },
+  },
+  {
+    // For SDUI mode, we'll use text representation since SVG is complex
+    renderSpec: {
+      type: "Button",
+      children: "🐙 GitHub",
+    },
+  }
+);
+
+export const IconOnly: Story = enhanceStoryForDualMode<typeof Button>(
+  {
+    render: () => (
+      <Button size="icon" aria-label="Settings">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+      </Button>
     ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
+
+      // Test icon button
+      const button = canvas.getByRole("button", { name: "Settings" });
+      expect(button).toBeInTheDocument();
+
+      // Test icon size class
+      expect(button).toHaveClass("size-9");
+
+      // Test hover interaction
+      await user.hover(button);
+
+      // Test keyboard interaction
+      button.focus();
+      await user.keyboard("{Enter}");
+    },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const user = userEvent.setup();
+  {
+    // For SDUI mode, we'll use text representation since SVG is complex
+    renderSpec: {
+      type: "Button",
+      size: "icon",
+      "aria-label": "Settings",
+      children: "⚙️",
+    },
+  }
+);
 
-    // Test icon button
-    const button = canvas.getByRole("button", { name: "Settings" });
-    expect(button).toBeInTheDocument();
+export const ButtonGroup: Story = enhanceStoryForDualMode<typeof Button>(
+  {
+    render: (args) => (
+      <div className="inline-flex gap-2">
+        <Button variant="outline">Cancel</Button>
+        <Button>Submit</Button>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    // Test icon size class
-    expect(button).toHaveClass("size-9");
+      // Test both buttons exist
+      const cancelButton = canvas.getByRole("button", { name: "Cancel" });
+      const submitButton = canvas.getByRole("button", { name: "Submit" });
 
-    // Test hover interaction
-    await user.hover(button);
+      expect(cancelButton).toBeInTheDocument();
+      expect(submitButton).toBeInTheDocument();
 
-    // Test keyboard interaction
-    button.focus();
-    await user.keyboard("{Enter}");
+      // Test button variants
+      expect(cancelButton).toHaveClass("border", "border-input");
+      expect(submitButton).toHaveClass("bg-primary");
+
+      // Test button group layout
+      const container = canvasElement.querySelector(".inline-flex.gap-2");
+      expect(container).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "row",
+      gap: "sm",
+      className: "inline-flex",
+      children: [
+        {
+          type: "Button",
+          variant: "outline",
+          children: "Cancel",
+        },
+        {
+          type: "Button",
+          variant: "default",
+          children: "Submit",
+        },
+      ],
+    },
+  }
+);
 
-export const ButtonGroup: Story = {
-  render: (args) => (
-    <div className="inline-flex gap-2">
-      <Button variant="outline">Cancel</Button>
-      <Button>Submit</Button>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Test both buttons exist
-    const cancelButton = canvas.getByRole("button", { name: "Cancel" });
-    const submitButton = canvas.getByRole("button", { name: "Submit" });
-
-    expect(cancelButton).toBeInTheDocument();
-    expect(submitButton).toBeInTheDocument();
-
-    // Test button variants
-    expect(cancelButton).toHaveClass("border", "border-input");
-    expect(submitButton).toHaveClass("bg-primary");
-
-    // Test button group layout
-    const container = canvasElement.querySelector(".inline-flex.gap-2");
-    expect(container).toBeInTheDocument();
-  },
-};
-
-export const Loading: Story = {
-  args: {
-    children: (
-      <>
+export const Loading: Story = enhanceStoryForDualMode<typeof Button>(
+  {
+    render: () => (
+      <Button disabled>
         <svg
           className="animate-spin"
           xmlns="http://www.w3.org/2000/svg"
@@ -250,8 +375,35 @@ export const Loading: Story = {
           <path d="M21 12a9 9 0 1 1-6.219-8.56" />
         </svg>
         Processing...
-      </>
+      </Button>
     ),
-    disabled: true,
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test loading button renders
+      const button = canvas.getByRole("button", { name: /Processing/ });
+      expect(button).toBeInTheDocument();
+
+      // Test button is disabled during loading
+      expect(button).toBeDisabled();
+
+      // Test button styling
+      expect(button).toHaveAttribute("data-slot", "button");
+
+      // Test loading spinner is present (React mode only)
+      const svg = button.querySelector("svg");
+      if (svg) {
+        expect(svg).toBeInTheDocument();
+        expect(svg).toHaveClass("animate-spin");
+      }
+    },
   },
-};
+  {
+    // For SDUI mode, we'll use text representation since SVG is complex
+    renderSpec: {
+      type: "Button",
+      disabled: true,
+      children: "⏳ Processing...",
+    },
+  }
+);

@@ -97,7 +97,6 @@ export const Minimal: Story = {
 };
 
 export const WithCustomSubjects: Story = {
-  name: "With Custom Subjects",
   args: {
     variant: "detailed",
     title: "How Can We Help?",
@@ -115,7 +114,6 @@ export const WithCustomSubjects: Story = {
 };
 
 export const WithAllOptions: Story = {
-  name: "With All Options",
   args: {
     variant: "detailed",
     title: "Complete Contact Form",
@@ -132,7 +130,6 @@ export const WithAllOptions: Story = {
 };
 
 export const CustomerSupport: Story = {
-  name: "Customer Support",
   args: {
     variant: "detailed",
     title: "Customer Support",
@@ -153,7 +150,6 @@ export const CustomerSupport: Story = {
 };
 
 export const SalesInquiry: Story = {
-  name: "Sales Inquiry",
   args: {
     variant: "split-screen",
     title: "Ready to Get Started?",
@@ -205,7 +201,6 @@ export const WithRecaptcha: Story = {
 };
 
 export const LoadingState: Story = {
-  name: "Loading State",
   args: {
     variant: "simple",
     title: "Contact Form",

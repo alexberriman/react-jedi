@@ -364,7 +364,6 @@ export const FormActions: Story = {
 };
 
 export const ToolbarExample: Story = {
-  name: "Toolbar Example",
   render: () => (
     <div className="rounded-lg border p-4">
       <Group spacing="sm" align="center">

@@ -107,7 +107,7 @@ const ControlledSequenceWrapper = () => {
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
-        <Button onClick={() => controlRef.current?.play()}>Play</Button>
+        <Button onClick={() => { const controls = controlRef.current; if (controls) controls['play'](); }}>Play</Button>
         <Button onClick={() => controlRef.current?.pause()}>Pause</Button>
         <Button onClick={() => controlRef.current?.resume()}>Resume</Button>
         <Button onClick={() => controlRef.current?.reset()}>Reset</Button>
@@ -302,7 +302,7 @@ const HookExampleWrapper = () => {
       </AnimationSequence>
 
       <div className="flex gap-2 justify-center">
-        <Button size="sm" onClick={() => controlRef.current?.play()}>
+        <Button size="sm" onClick={() => { const controls = controlRef.current; if (controls) controls['play'](); }}>
           Play
         </Button>
         <Button size="sm" onClick={() => controlRef.current?.pause()}>
@@ -372,7 +372,8 @@ const StepByStepShowcaseWrapper = () => {
             size="sm"
             onClick={() => {
               controlRef.current?.reset();
-              controlRef.current?.play();
+              const controls = controlRef.current;
+              if (controls) controls['play']();
               setCurrentStep(0);
             }}
           >

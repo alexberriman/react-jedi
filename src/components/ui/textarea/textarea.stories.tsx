@@ -205,7 +205,6 @@ return render({
 };
 
 export const ResizableTextarea: Story = {
-  name: "Resizable Textarea",
   render: () => {
     const spec: TextareaSpec = {
       type: "Textarea",
@@ -239,7 +238,6 @@ export const NoResizeTextarea: Story = {
 };
 
 export const ErrorState: Story = {
-  name: "Error State",
   render: () => (
     <div className="space-y-2">
       <Label htmlFor="error-textarea">Description</Label>

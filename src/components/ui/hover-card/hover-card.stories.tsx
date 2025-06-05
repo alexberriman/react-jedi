@@ -178,7 +178,6 @@ export const TextWithTooltip: Story = {
 };
 
 export const ProductPreview: Story = {
-  name: "Product Preview",
   render: () => (
     <div className="p-8 flex justify-center">
       <HoverCard>
@@ -227,7 +226,6 @@ export const ProductPreview: Story = {
 };
 
 export const CodePreview: Story = {
-  name: "Code Preview",
   render: () => (
     <div className="p-8 flex justify-center">
       <HoverCard>
@@ -276,7 +274,6 @@ export const CodePreview: Story = {
 };
 
 export const CustomStyling: Story = {
-  name: "Custom Styling",
   render: () => (
     <div className="p-8 flex justify-center">
       <HoverCard>
@@ -331,7 +328,6 @@ export const CustomStyling: Story = {
 };
 
 export const DelayedOpen: Story = {
-  name: "Delayed Open",
   render: () => (
     <div className="p-8 flex justify-center">
       <HoverCard openDelay={500} closeDelay={300}>

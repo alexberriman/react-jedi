@@ -101,7 +101,6 @@ type Story = StoryObj<typeof meta>;
 
 // Simple test story to verify basic rendering
 export const SimpleTest: Story = {
-  name: "Simple Test",
   render: () => <div>Simple test content</div>,
 };
 

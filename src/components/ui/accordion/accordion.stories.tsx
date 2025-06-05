@@ -541,7 +541,6 @@ export const IconAccordion: Story = {
 };
 
 export const WithoutAnimation: Story = {
-  name: "Without Animation",
   args: {
     type: "single",
     collapsible: true,

@@ -233,7 +233,6 @@ export const VerticalOrientation: Story = {
 };
 
 export const WithDisabledTab: Story = {
-  name: "With Disabled Tab",
   args: {
     defaultValue: "active",
   },
@@ -300,7 +299,6 @@ export const WithDisabledTab: Story = {
 };
 
 export const WithIcons: Story = {
-  name: "With Icons",
   args: {
     defaultValue: "files",
   },
@@ -389,7 +387,6 @@ export const WithIcons: Story = {
 };
 
 export const ManualActivation: Story = {
-  name: "Manual Activation",
   args: {
     defaultValue: "tab-1",
     activationMode: "manual",
@@ -427,7 +424,6 @@ export const ManualActivation: Story = {
 };
 
 export const WithFormContent: Story = {
-  name: "With Form Content",
   args: {
     defaultValue: "personal",
   },
@@ -585,7 +581,6 @@ export const WithAnimation: Story = {
 };
 
 export const WithoutAnimation: Story = {
-  name: "Without Animation",
   args: {
     defaultValue: "tab-1",
     animate: false,

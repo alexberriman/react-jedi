@@ -291,10 +291,10 @@ export const SpacingShowcase: Story = enhanceStoryForDualMode<typeof Stack>(
 
       // Test all spacing variants are rendered
       const spacingLabels = ["xs", "sm", "md", "lg", "xl", "2xl"];
-      spacingLabels.forEach((spacing) => {
+      for (const spacing of spacingLabels) {
         const label = canvas.getByText(`Spacing: ${spacing}`);
         expect(label).toBeInTheDocument();
-      });
+      }
 
       // Test badges are rendered for each spacing variant
       const badge1Elements = canvas.getAllByText("Badge 1");
@@ -724,10 +724,10 @@ export const JustifyShowcase: Story = enhanceStoryForDualMode<typeof Stack>(
 
       // Test all justify variants are rendered
       const justifyLabels = ["start", "center", "end", "between", "around", "evenly"];
-      justifyLabels.forEach((justify) => {
+      for (const justify of justifyLabels) {
         const label = canvas.getByText(`Justify: ${justify}`);
         expect(label).toBeInTheDocument();
-      });
+      }
 
       // Test buttons are rendered for each justify variant
       const aButtons = canvas.getAllByRole("button", { name: "A" });

@@ -62,8 +62,8 @@ const sampleEvents: Event[] = [
     endDate: '2024-06-17T17:00:00Z',
     location: { name: 'San Francisco Convention Center', address: '747 Howard St, San Francisco, CA' },
     speakers: [
-      { name: 'Dan Abramov', title: 'React Team Lead', image: '/api/placeholder/60/60' },
-      { name: 'Sophie Alpert', title: 'Former React Team Manager', image: '/api/placeholder/60/60' }
+      { name: 'Dan Abramov', title: 'React Team Lead', image: 'https://picsum.photos/60/60?random=1' },
+      { name: 'Sophie Alpert', title: 'Former React Team Manager', image: 'https://picsum.photos/60/60?random=2' }
     ],
     category: 'Conference',
     registrationUrl: '#',
@@ -72,7 +72,7 @@ const sampleEvents: Event[] = [
     featured: true,
     tags: ['React', 'JavaScript', 'Frontend'],
     price: { amount: 299, currency: 'USD' },
-    image: '/api/placeholder/400/200',
+    image: 'https://picsum.photos/400/200?random=1',
     status: 'upcoming'
   },
   {
@@ -82,14 +82,14 @@ const sampleEvents: Event[] = [
     startDate: '2024-05-20T14:00:00Z',
     endDate: '2024-05-20T18:00:00Z',
     location: { name: 'Tech Hub Downtown', address: '456 Innovation Blvd, Austin, TX' },
-    speakers: [{ name: 'Kyle Simpson', title: 'JavaScript Expert', image: '/api/placeholder/60/60' }],
+    speakers: [{ name: 'Kyle Simpson', title: 'JavaScript Expert', image: 'https://picsum.photos/60/60?random=3' }],
     category: 'Workshop',
     registrationUrl: '#',
     capacity: 50,
     registeredCount: 23,
     tags: ['JavaScript', 'Performance', 'Advanced'],
     price: { amount: 89, currency: 'USD' },
-    image: '/api/placeholder/400/200',
+    image: 'https://picsum.photos/400/200?random=2',
     status: 'upcoming'
   },
   {
@@ -99,14 +99,14 @@ const sampleEvents: Event[] = [
     startDate: '2024-05-25T19:00:00Z',
     endDate: '2024-05-25T20:30:00Z',
     location: { name: 'Online', virtual: true },
-    speakers: [{ name: 'Anders Hejlsberg', title: 'TypeScript Creator', image: '/api/placeholder/60/60' }],
+    speakers: [{ name: 'Anders Hejlsberg', title: 'TypeScript Creator', image: 'https://picsum.photos/60/60?random=4' }],
     category: 'Webinar',
     registrationUrl: '#',
     capacity: 500,
     registeredCount: 342,
     tags: ['TypeScript', 'Beginner', 'Free'],
     price: { free: true, amount: 0, currency: 'USD' },
-    image: '/api/placeholder/400/200',
+    image: 'https://picsum.photos/400/200?random=3',
     status: 'upcoming'
   },
   {
@@ -117,8 +117,8 @@ const sampleEvents: Event[] = [
     endDate: '2024-05-30T21:00:00Z',
     location: { name: 'Design Studio Co-work', address: '123 Creative St, Austin, TX' },
     speakers: [
-      { name: 'Sarah Chen', title: 'Senior UX Designer', image: '/api/placeholder/60/60' },
-      { name: 'Mike Rodriguez', title: 'Design Director', image: '/api/placeholder/60/60' }
+      { name: 'Sarah Chen', title: 'Senior UX Designer', image: 'https://picsum.photos/60/60?random=5' },
+      { name: 'Mike Rodriguez', title: 'Design Director', image: 'https://picsum.photos/60/60?random=6' }
     ],
     category: 'Meetup',
     registrationUrl: '#',
@@ -136,8 +136,8 @@ const sampleEvents: Event[] = [
     endDate: '2024-07-12T18:00:00Z',
     location: { name: 'Seattle Convention Center', address: '705 Pike St, Seattle, WA' },
     speakers: [
-      { name: 'Kelsey Hightower', title: 'Kubernetes Expert', image: '/api/placeholder/60/60' },
-      { name: 'Charity Majors', title: 'CTO at Honeycomb', image: '/api/placeholder/60/60' }
+      { name: 'Kelsey Hightower', title: 'Kubernetes Expert', image: 'https://picsum.photos/60/60?random=7' },
+      { name: 'Charity Majors', title: 'CTO at Honeycomb', image: 'https://picsum.photos/60/60?random=8' }
     ],
     category: 'Conference',
     registrationUrl: '#',
@@ -145,7 +145,7 @@ const sampleEvents: Event[] = [
     registeredCount: 623,
     tags: ['DevOps', 'Cloud', 'Kubernetes'],
     price: { amount: 399, currency: 'USD' },
-    image: '/api/placeholder/400/200',
+    image: 'https://picsum.photos/400/200?random=4',
     status: 'upcoming'
   },
   {
@@ -155,14 +155,14 @@ const sampleEvents: Event[] = [
     startDate: '2024-06-05T10:00:00Z',
     endDate: '2024-06-05T16:00:00Z',
     location: { name: 'University Tech Lab', address: '789 Research Ave, Boston, MA' },
-    speakers: [{ name: 'Dr. Emily Watson', title: 'AI Research Scientist', image: '/api/placeholder/60/60' }],
+    speakers: [{ name: 'Dr. Emily Watson', title: 'AI Research Scientist', image: 'https://picsum.photos/60/60?random=9' }],
     category: 'Workshop',
     registrationUrl: '#',
     capacity: 25,
     registeredCount: 22,
     tags: ['AI', 'Machine Learning', 'Neural Networks'],
     price: { amount: 149, currency: 'USD' },
-    image: '/api/placeholder/400/200',
+    image: 'https://picsum.photos/400/200?random=5',
     status: 'upcoming'
   },
   {
@@ -187,14 +187,14 @@ const sampleEvents: Event[] = [
     startDate: '2024-06-12T15:00:00Z',
     endDate: '2024-06-12T16:30:00Z',
     location: { name: 'Online', virtual: true },
-    speakers: [{ name: 'Alex Thompson', title: 'Security Architect', image: '/api/placeholder/60/60' }],
+    speakers: [{ name: 'Alex Thompson', title: 'Security Architect', image: 'https://picsum.photos/60/60?random=10' }],
     category: 'Webinar',
     registrationUrl: '#',
     capacity: 300,
     registeredCount: 156,
     tags: ['Cybersecurity', 'Zero Trust', 'Enterprise'],
     price: { free: true, amount: 0, currency: 'USD' },
-    image: '/api/placeholder/400/200',
+    image: 'https://picsum.photos/400/200?random=6',
     status: 'upcoming'
   }
 ]

@@ -222,7 +222,7 @@
       {
         "id": "event-listings",
         "description": "A lot of the images in the EventListings storybook 404 - update all to use picsum",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "error-page-sexier",

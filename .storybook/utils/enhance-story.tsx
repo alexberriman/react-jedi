@@ -59,13 +59,21 @@ export function enhanceStoryForDualMode<T extends ComponentType<any>>(
                   restConfig.render(context.args, context)
                 ) : (
                   <div className="space-y-4">
-                    {render(finalRenderSpec)}
-                    <details className="border rounded p-4">
-                      <summary className="cursor-pointer font-medium">View JSON Spec</summary>
-                      <pre className="mt-4 overflow-auto text-sm bg-muted p-4 rounded">
-                        {JSON.stringify(finalRenderSpec, null, 2)}
-                      </pre>
-                    </details>
+                    {(() => {
+                      // Extract handlers from the spec
+                      const { handlers, ...specWithoutHandlers } = finalRenderSpec || {};
+                      return (
+                        <>
+                          {render(specWithoutHandlers, { handlers: handlers || {} })}
+                          <details className="border rounded p-4">
+                            <summary className="cursor-pointer font-medium">View JSON Spec</summary>
+                            <pre className="mt-4 overflow-auto text-sm bg-muted p-4 rounded">
+                              {JSON.stringify(specWithoutHandlers, null, 2)}
+                            </pre>
+                          </details>
+                        </>
+                      );
+                    })()}
                   </div>
                 )}
               </div>
@@ -75,7 +83,11 @@ export function enhanceStoryForDualMode<T extends ComponentType<any>>(
 
         // For stories with only args (no custom render), create the spec from args
         const componentName = context.title.split("/").pop() || "";
-        const spec = finalRenderSpec || {
+        
+        // Extract handlers from the renderSpec if present
+        const { handlers = {}, ...specWithoutHandlers } = finalRenderSpec || {};
+        
+        const spec = specWithoutHandlers || {
           type: componentName,
           ...context.args,
         };
@@ -113,7 +125,7 @@ export function enhanceStoryForDualMode<T extends ComponentType<any>>(
                 <Story {...context} />
               ) : (
                 <div className="space-y-4">
-                  {render(spec)}
+                  {render(spec, { handlers: handlers as Record<string, (...args: unknown[]) => void> })}
                   <details className="border rounded p-4">
                     <summary className="cursor-pointer font-medium">View JSON Spec</summary>
                     <pre className="mt-4 overflow-auto text-sm bg-muted p-4 rounded">

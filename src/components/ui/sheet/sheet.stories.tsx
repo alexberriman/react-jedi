@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import {
   Sheet,
   SheetContent,
@@ -48,36 +48,39 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Check that the trigger button is rendered
-    const trigger = canvas.getByRole('button', { name: 'Open Sheet' });
+    const trigger = canvas.getByRole("button", { name: "Open Sheet" });
     expect(trigger).toBeInTheDocument();
-    
+
     // Click to open the sheet
     await user.click(trigger);
-    
+
     // Wait for sheet to open and check that the sheet content is visible
     // Use screen instead of canvas since sheet renders in a portal
     await waitFor(() => {
-      expect(within(document.body).getByText('Sheet Title')).toBeInTheDocument();
+      expect(within(document.body).getByText("Sheet Title")).toBeInTheDocument();
     });
     expect(within(document.body).getByText(/This is a sheet description/)).toBeInTheDocument();
-    expect(within(document.body).getByText('Sheet content goes here.')).toBeInTheDocument();
-    
+    expect(within(document.body).getByText("Sheet content goes here.")).toBeInTheDocument();
+
     // Check that close button is present
-    const closeButton = within(document.body).getByRole('button', { name: 'Close' });
+    const closeButton = within(document.body).getByRole("button", { name: "Close" });
     expect(closeButton).toBeInTheDocument();
-    
+
     // Close the sheet
     await user.click(closeButton);
-    
+
     // Verify sheet is closed (content no longer visible)
-    await waitFor(() => {
-      expect(within(document.body).queryByText('Sheet Title')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
-    
+    await waitFor(
+      () => {
+        expect(within(document.body).queryByText("Sheet Title")).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+
     // Small delay to ensure sheet is fully closed
-    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
   },
 };
 
@@ -119,27 +122,27 @@ export const WithForm: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Click to open the sheet
-    const trigger = canvas.getByRole('button', { name: 'Edit Profile' });
+    const trigger = canvas.getByRole("button", { name: "Edit Profile" });
     await user.click(trigger);
-    
+
     // Wait for sheet to open and check that the form is rendered
     // Use screen since sheet renders in a portal
     await waitFor(() => {
-      expect(within(document.body).getByText('Edit profile')).toBeInTheDocument();
+      expect(within(document.body).getByText("Edit profile")).toBeInTheDocument();
     });
-    expect(within(document.body).getByLabelText('Name')).toBeInTheDocument();
-    expect(within(document.body).getByLabelText('Username')).toBeInTheDocument();
-    
+    expect(within(document.body).getByLabelText("Name")).toBeInTheDocument();
+    expect(within(document.body).getByLabelText("Username")).toBeInTheDocument();
+
     // Check that inputs have default values
-    const nameInput = within(document.body).getByLabelText('Name') as HTMLInputElement;
-    const usernameInput = within(document.body).getByLabelText('Username') as HTMLInputElement;
-    expect(nameInput.value).toBe('Pedro Duarte');
-    expect(usernameInput.value).toBe('@peduarte');
-    
+    const nameInput = within(document.body).getByLabelText("Name") as HTMLInputElement;
+    const usernameInput = within(document.body).getByLabelText("Username") as HTMLInputElement;
+    expect(nameInput.value).toBe("Pedro Duarte");
+    expect(usernameInput.value).toBe("@peduarte");
+
     // Check save button is present
-    const saveButton = within(document.body).getByRole('button', { name: 'Save changes' });
+    const saveButton = within(document.body).getByRole("button", { name: "Save changes" });
     expect(saveButton).toBeInTheDocument();
   },
 };
@@ -210,48 +213,52 @@ export const NestedSheets: Story = {
           <SheetDescription>This is the first sheet. You can open another one.</SheetDescription>
         </SheetHeader>
         <Sheet>
-            <SheetTrigger asChild>
-              <Button>Open Nested Sheet</Button>
-            </SheetTrigger>
-            <SheetContent side="left">
-              <SheetHeader>
-                <SheetTitle>Nested Sheet</SheetTitle>
-                <SheetDescription>
-                  This is a nested sheet that appears from the opposite side.
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
+          <SheetTrigger asChild>
+            <Button>Open Nested Sheet</Button>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <SheetHeader>
+              <SheetTitle>Nested Sheet</SheetTitle>
+              <SheetDescription>
+                This is a nested sheet that appears from the opposite side.
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </SheetContent>
     </Sheet>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Open the first sheet
-    const firstTrigger = canvas.getByRole('button', { name: 'Open First Sheet' });
+    const firstTrigger = canvas.getByRole("button", { name: "Open First Sheet" });
     await user.click(firstTrigger);
-    
+
     // Check that first sheet is open
     await waitFor(() => {
-      expect(within(document.body).getByText('First Sheet')).toBeInTheDocument();
+      expect(within(document.body).getByText("First Sheet")).toBeInTheDocument();
     });
-    expect(within(document.body).getByText('This is the first sheet. You can open another one.')).toBeInTheDocument();
-    
+    expect(
+      within(document.body).getByText("This is the first sheet. You can open another one.")
+    ).toBeInTheDocument();
+
     // Check that nested sheet trigger is available
-    const nestedTrigger = within(document.body).getByRole('button', { name: 'Open Nested Sheet' });
+    const nestedTrigger = within(document.body).getByRole("button", { name: "Open Nested Sheet" });
     expect(nestedTrigger).toBeInTheDocument();
-    
+
     // Open the nested sheet
     await user.click(nestedTrigger);
-    
+
     // Check that both sheets are open
     await waitFor(() => {
-      expect(within(document.body).getByText('Nested Sheet')).toBeInTheDocument();
+      expect(within(document.body).getByText("Nested Sheet")).toBeInTheDocument();
     });
-    expect(within(document.body).getByText('First Sheet')).toBeInTheDocument();
-    expect(within(document.body).getByText('This is a nested sheet that appears from the opposite side.')).toBeInTheDocument();
+    expect(within(document.body).getByText("First Sheet")).toBeInTheDocument();
+    expect(
+      within(document.body).getByText("This is a nested sheet that appears from the opposite side.")
+    ).toBeInTheDocument();
   },
 };
 
@@ -383,80 +390,80 @@ export const WithoutModal: Story = {
 
 function AnimationToggleComponent() {
   const [animated, setAnimated] = React.useState(true);
-  
+
   return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            id="animation-toggle"
-            checked={animated}
-            onChange={(e) => setAnimated(e.target.checked)}
-            className="size-4"
-          />
-          <Label htmlFor="animation-toggle">Enable animations</Label>
-        </div>
-        
-        <div className="flex gap-4">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline">From Right</Button>
-            </SheetTrigger>
-            <SheetContent side="right" animated={animated}>
-              <SheetHeader>
-                <SheetTitle>Animated Sheet</SheetTitle>
-                <SheetDescription>
-                  This sheet {animated ? "slides in smoothly" : "appears instantly"}.
-                </SheetDescription>
-              </SheetHeader>
-              <p>Animation is currently {animated ? "enabled" : "disabled"}.</p>
-            </SheetContent>
-          </Sheet>
-          
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline">From Left</Button>
-            </SheetTrigger>
-            <SheetContent side="left" animated={animated}>
-              <SheetHeader>
-                <SheetTitle>Left Sheet</SheetTitle>
-                <SheetDescription>
-                  This sheet {animated ? "slides in from the left" : "appears instantly"}.
-                </SheetDescription>
-              </SheetHeader>
-              <p>Try toggling the animation setting!</p>
-            </SheetContent>
-          </Sheet>
-          
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline">From Top</Button>
-            </SheetTrigger>
-            <SheetContent side="top" animated={animated}>
-              <SheetHeader>
-                <SheetTitle>Top Sheet</SheetTitle>
-                <SheetDescription>
-                  This sheet {animated ? "slides down from the top" : "appears instantly"}.
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
-          
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline">From Bottom</Button>
-            </SheetTrigger>
-            <SheetContent side="bottom" animated={animated}>
-              <SheetHeader>
-                <SheetTitle>Bottom Sheet</SheetTitle>
-                <SheetDescription>
-                  This sheet {animated ? "slides up from the bottom" : "appears instantly"}.
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
-        </div>
+    <div className="space-y-4">
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id="animation-toggle"
+          checked={animated}
+          onChange={(e) => setAnimated(e.target.checked)}
+          className="size-4"
+        />
+        <Label htmlFor="animation-toggle">Enable animations</Label>
       </div>
+
+      <div className="flex gap-4">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline">From Right</Button>
+          </SheetTrigger>
+          <SheetContent side="right" animated={animated}>
+            <SheetHeader>
+              <SheetTitle>Animated Sheet</SheetTitle>
+              <SheetDescription>
+                This sheet {animated ? "slides in smoothly" : "appears instantly"}.
+              </SheetDescription>
+            </SheetHeader>
+            <p>Animation is currently {animated ? "enabled" : "disabled"}.</p>
+          </SheetContent>
+        </Sheet>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline">From Left</Button>
+          </SheetTrigger>
+          <SheetContent side="left" animated={animated}>
+            <SheetHeader>
+              <SheetTitle>Left Sheet</SheetTitle>
+              <SheetDescription>
+                This sheet {animated ? "slides in from the left" : "appears instantly"}.
+              </SheetDescription>
+            </SheetHeader>
+            <p>Try toggling the animation setting!</p>
+          </SheetContent>
+        </Sheet>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline">From Top</Button>
+          </SheetTrigger>
+          <SheetContent side="top" animated={animated}>
+            <SheetHeader>
+              <SheetTitle>Top Sheet</SheetTitle>
+              <SheetDescription>
+                This sheet {animated ? "slides down from the top" : "appears instantly"}.
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline">From Bottom</Button>
+          </SheetTrigger>
+          <SheetContent side="bottom" animated={animated}>
+            <SheetHeader>
+              <SheetTitle>Bottom Sheet</SheetTitle>
+              <SheetDescription>
+                This sheet {animated ? "slides up from the bottom" : "appears instantly"}.
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
+      </div>
+    </div>
   );
 }
 

@@ -178,3 +178,5 @@ playwright-report/
 
 # Generated analysis files
 missing-play-functions.txt
+
+*storybook.log

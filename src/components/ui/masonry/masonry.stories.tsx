@@ -5,7 +5,7 @@ import { Image } from "../image";
 import { Text } from "../text";
 import { Badge } from "../badge";
 import { Heading } from "../heading";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import { motion } from "framer-motion";
 
 /**
@@ -156,20 +156,20 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify masonry grid is rendered
     await waitFor(() => {
       const cards = canvas.getAllByText(/Card \d/);
       expect(cards).toHaveLength(9);
     });
-    
+
     // Verify different card heights
     const card3 = await canvas.findByText("Card 3");
-    const card3Container = card3.closest('.h-64');
+    const card3Container = card3.closest(".h-64");
     expect(card3Container).toBeTruthy();
-    
+
     const card2 = await canvas.findByText("Card 2");
-    const card2Container = card2.closest('.h-48');
+    const card2Container = card2.closest(".h-48");
     expect(card2Container).toBeTruthy();
   },
 };
@@ -203,29 +203,25 @@ export const PinterestGallery: Story = {
                 className={`w-full ${item.height} overflow-hidden`}
                 variants={{
                   initial: { scale: 1 },
-                  hover: { scale: 1.1 }
+                  hover: { scale: 1.1 },
                 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
               >
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover"
-                />
+                <Image src={item.image} alt={item.title} className="w-full h-full object-cover" />
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
                 variants={{
                   initial: { opacity: 0 },
-                  hover: { opacity: 1 }
+                  hover: { opacity: 1 },
                 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               />
-              <motion.div 
+              <motion.div
                 className="absolute bottom-0 left-0 right-0 p-4"
                 variants={{
                   initial: { y: "100%", opacity: 0 },
-                  hover: { y: 0, opacity: 1 }
+                  hover: { y: 0, opacity: 1 },
                 }}
                 transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
               >
@@ -246,23 +242,25 @@ export const PinterestGallery: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Verify Pinterest items are rendered
     await waitFor(() => {
-      const items = pinterestItems.map(item => canvas.getByAltText(item.title));
+      const items = pinterestItems.map((item) => canvas.getByAltText(item.title));
       expect(items).toHaveLength(pinterestItems.length);
     });
-    
+
     // Test hover interaction on first item
     const firstImage = await canvas.findByAltText(pinterestItems[0].title);
-    const firstItem = firstImage.closest('.group');
-    
+    const firstItem = firstImage.closest(".group");
+
     if (firstItem) {
       await user.hover(firstItem);
-      
+
       // Verify hover reveals the overlay content - look within the hovered item
       await waitFor(() => {
-        const categoryBadges = within(firstItem as HTMLElement).getAllByText(pinterestItems[0].category);
+        const categoryBadges = within(firstItem as HTMLElement).getAllByText(
+          pinterestItems[0].category
+        );
         expect(categoryBadges.length).toBeGreaterThan(0);
       });
     }
@@ -297,7 +295,7 @@ export const ResponsiveColumns: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify all 18 items are rendered
     await waitFor(() => {
       const items = canvas.getAllByText(/^\d+$/);
@@ -358,18 +356,18 @@ export const AutoFitColumns: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify project cards are rendered
     const projectAlpha = await canvas.findByText("Project Alpha");
     expect(projectAlpha).toBeInTheDocument();
-    
+
     // Verify status badges
     const activeStatus = canvas.getAllByText("Active");
     expect(activeStatus).toHaveLength(2);
-    
+
     const completedStatus = canvas.getAllByText("Completed");
     expect(completedStatus).toHaveLength(2);
-    
+
     // Verify progress bars are rendered
     // Look for specific percentage values we know are in the data
     const percent75 = canvas.getByText("75%");
@@ -406,14 +404,14 @@ export const CustomWrapper: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify content items are rendered
     const newsArticle = await canvas.findByText("News Article 1");
     expect(newsArticle).toBeInTheDocument();
-    
+
     const tutorial = await canvas.findByText("Tutorial");
     expect(tutorial).toBeInTheDocument();
-    
+
     // Verify all 6 items are present
     const headings = canvas.getAllByRole("heading", { level: 5 });
     expect(headings).toHaveLength(6);
@@ -445,11 +443,11 @@ export const NoAnimation: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify static items are rendered immediately
     const items = canvas.getAllByText(/Static Item \d+/);
     expect(items).toHaveLength(9);
-    
+
     // Verify first and last items
     expect(canvas.getByText("Static Item 1")).toBeInTheDocument();
     expect(canvas.getByText("Static Item 9")).toBeInTheDocument();

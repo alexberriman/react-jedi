@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Input } from "./input";
 import { Label } from "../label/label";
-import { within, userEvent, expect } from "@storybook/test";
+import { within, userEvent, expect } from "storybook/test";
 
 const meta = {
   title: "Form Components/Input",
@@ -104,7 +104,7 @@ export const WithIcon: Story = {
     expect(input).toHaveClass("pl-8");
 
     // Check that the search icon is present
-    const svgIcon = canvasElement.querySelector('svg');
+    const svgIcon = canvasElement.querySelector("svg");
     expect(svgIcon).toBeInTheDocument();
 
     await userEvent.type(input, "search query");

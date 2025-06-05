@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { Toggle } from "./toggle";
 import { Bold, Italic, Underline, Code, AlignLeft, AlignCenter, AlignRight } from "lucide-react";
 
@@ -38,24 +38,24 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Test toggle renders
-    const toggle = canvas.getByRole('button', { name: 'Toggle' });
+    const toggle = canvas.getByRole("button", { name: "Toggle" });
     expect(toggle).toBeInTheDocument();
-    
+
     // Test initial unpressed state
-    expect(toggle).toHaveAttribute('data-state', 'off');
-    expect(toggle).toHaveAttribute('aria-pressed', 'false');
-    
+    expect(toggle).toHaveAttribute("data-state", "off");
+    expect(toggle).toHaveAttribute("aria-pressed", "false");
+
     // Test clicking to toggle on
     await user.click(toggle);
-    expect(toggle).toHaveAttribute('data-state', 'on');
-    expect(toggle).toHaveAttribute('aria-pressed', 'true');
-    
+    expect(toggle).toHaveAttribute("data-state", "on");
+    expect(toggle).toHaveAttribute("aria-pressed", "true");
+
     // Test clicking again to toggle off
     await user.click(toggle);
-    expect(toggle).toHaveAttribute('data-state', 'off');
-    expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    expect(toggle).toHaveAttribute("data-state", "off");
+    expect(toggle).toHaveAttribute("aria-pressed", "false");
   },
 };
 
@@ -88,23 +88,23 @@ export const WithIcon: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Test icon toggle renders
-    const toggle = canvas.getByRole('button', { name: 'Toggle bold' });
+    const toggle = canvas.getByRole("button", { name: "Toggle bold" });
     expect(toggle).toBeInTheDocument();
-    
+
     // Test aria-label is present
-    expect(toggle).toHaveAttribute('aria-label', 'Toggle bold');
-    
+    expect(toggle).toHaveAttribute("aria-label", "Toggle bold");
+
     // Test initial state
-    expect(toggle).toHaveAttribute('data-state', 'off');
-    
+    expect(toggle).toHaveAttribute("data-state", "off");
+
     // Test clicking icon toggle
     await user.click(toggle);
-    expect(toggle).toHaveAttribute('data-state', 'on');
-    
+    expect(toggle).toHaveAttribute("data-state", "on");
+
     // Test icon is present (check for SVG)
-    const icon = toggle.querySelector('svg');
+    const icon = toggle.querySelector("svg");
     expect(icon).toBeInTheDocument();
   },
 };
@@ -127,15 +127,15 @@ export const Pressed: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Test toggle renders in pressed state
-    const toggle = canvas.getByRole('button', { name: 'Pressed Toggle' });
+    const toggle = canvas.getByRole("button", { name: "Pressed Toggle" });
     expect(toggle).toBeInTheDocument();
-    
+
     // Test initial pressed state (controlled component with pressed={true})
-    expect(toggle).toHaveAttribute('data-state', 'on');
-    expect(toggle).toHaveAttribute('aria-pressed', 'true');
-    
+    expect(toggle).toHaveAttribute("data-state", "on");
+    expect(toggle).toHaveAttribute("aria-pressed", "true");
+
     // Note: Since this is a controlled component with pressed={true},
     // clicking won't change the state without an onPressedChange handler
     // So we just verify the initial state is correct
@@ -149,18 +149,18 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Test disabled toggle
-    const toggle = canvas.getByRole('button', { name: 'Disabled Toggle' });
+    const toggle = canvas.getByRole("button", { name: "Disabled Toggle" });
     expect(toggle).toBeInTheDocument();
     expect(toggle).toBeDisabled();
-    
+
     // Test disabled attribute
-    expect(toggle).toHaveAttribute('disabled');
-    
+    expect(toggle).toHaveAttribute("disabled");
+
     // Test initial state
-    expect(toggle).toHaveAttribute('data-state', 'off');
-    expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    expect(toggle).toHaveAttribute("data-state", "off");
+    expect(toggle).toHaveAttribute("aria-pressed", "false");
   },
 };
 

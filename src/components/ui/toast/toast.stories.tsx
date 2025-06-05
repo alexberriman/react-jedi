@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { Button } from "../button";
 import { Toaster } from "./index";
 import { toast } from "sonner";
@@ -24,7 +24,7 @@ const meta = {
     },
   },
 
-  tags: ['autodocs', 'ui-toast'],
+  tags: ["autodocs", "ui-toast"],
 } satisfies Meta<typeof Toaster>;
 
 export default meta;
@@ -47,26 +47,26 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Test buttons render
-    const basicButton = canvas.getByRole('button', { name: 'Show Basic Toast' });
-    const successButton = canvas.getByRole('button', { name: 'Show Success Toast' });
-    const errorButton = canvas.getByRole('button', { name: 'Show Error Toast' });
-    const warningButton = canvas.getByRole('button', { name: 'Show Warning Toast' });
-    const infoButton = canvas.getByRole('button', { name: 'Show Info Toast' });
-    
+    const basicButton = canvas.getByRole("button", { name: "Show Basic Toast" });
+    const successButton = canvas.getByRole("button", { name: "Show Success Toast" });
+    const errorButton = canvas.getByRole("button", { name: "Show Error Toast" });
+    const warningButton = canvas.getByRole("button", { name: "Show Warning Toast" });
+    const infoButton = canvas.getByRole("button", { name: "Show Info Toast" });
+
     expect(basicButton).toBeInTheDocument();
     expect(successButton).toBeInTheDocument();
     expect(errorButton).toBeInTheDocument();
     expect(warningButton).toBeInTheDocument();
     expect(infoButton).toBeInTheDocument();
-    
+
     // Test clicking basic toast button
     await user.click(basicButton);
-    
+
     // Wait a moment for toast to appear and test if there's a toast container in the document
     // Note: Testing toast content directly is complex due to portal rendering
-    expect(basicButton).toHaveAttribute('data-slot', 'button');
+    expect(basicButton).toHaveAttribute("data-slot", "button");
   },
 };
 
@@ -97,18 +97,18 @@ export const WithDescription: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Test buttons render
-    const descriptionButton = canvas.getByRole('button', { name: 'Toast with Description' });
-    const detailsButton = canvas.getByRole('button', { name: 'Success with Details' });
-    
+    const descriptionButton = canvas.getByRole("button", { name: "Toast with Description" });
+    const detailsButton = canvas.getByRole("button", { name: "Success with Details" });
+
     expect(descriptionButton).toBeInTheDocument();
     expect(detailsButton).toBeInTheDocument();
-    
+
     // Test clicking toast buttons
     await user.click(descriptionButton);
     await user.click(detailsButton);
-    
+
     // Verify buttons are clickable and functional
     expect(descriptionButton).toBeEnabled();
     expect(detailsButton).toBeEnabled();
@@ -173,20 +173,20 @@ export const WithAction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Test buttons render
-    const actionButton = canvas.getByRole('button', { name: 'Toast with Action Button' });
-    const successActionButton = canvas.getByRole('button', { name: 'Success with Action' });
-    
+    const actionButton = canvas.getByRole("button", { name: "Toast with Action Button" });
+    const successActionButton = canvas.getByRole("button", { name: "Success with Action" });
+
     expect(actionButton).toBeInTheDocument();
     expect(successActionButton).toBeInTheDocument();
-    
+
     // Test clicking action buttons
     await user.click(actionButton);
-    
+
     // Verify button is functional
     expect(actionButton).toBeEnabled();
-    
+
     await user.click(successActionButton);
     expect(successActionButton).toBeEnabled();
   },

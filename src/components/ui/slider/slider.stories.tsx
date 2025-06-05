@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import * as React from "react";
 import { Slider } from "./slider";
 
@@ -60,7 +60,8 @@ const meta: Meta<typeof Slider> = {
     },
   },
 
-  tags: ['autodocs', 'ui-slider']};
+  tags: ["autodocs", "ui-slider"],
+};
 
 export default meta;
 type Story = StoryObj<typeof Slider>;
@@ -142,7 +143,7 @@ export const SteppedSlider: Story = {
 
     const slider = canvas.getByRole("slider");
     expect(slider).toHaveValue(50);
-    
+
     // Test step behavior
     slider.focus();
     await user.keyboard("{ArrowRight}");

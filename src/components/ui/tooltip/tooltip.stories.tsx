@@ -3,7 +3,7 @@ import * as React from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 import { Button } from "../button";
 import { InfoIcon, Plus, Settings, TrendingUp } from "lucide-react";
-import { within, userEvent, waitFor, expect, screen } from "@storybook/test";
+import { within, userEvent, waitFor, expect, screen } from "storybook/test";
 
 const meta = {
   title: "Components/Tooltip",
@@ -25,7 +25,7 @@ const meta = {
     ),
   ],
 
-  tags: ['autodocs', 'ui-tooltip'],
+  tags: ["autodocs", "ui-tooltip"],
 } satisfies Meta<typeof Tooltip>;
 
 export default meta;
@@ -351,9 +351,9 @@ export const Complex: Story = {
 
     // Test the first button (Plus icon)
     await userEvent.hover(buttons[0]);
-    
+
     // Wait a bit for tooltip to appear
-    await new Promise(resolve => globalThis.setTimeout(resolve, 200));
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 200));
 
     await waitFor(
       () => {
@@ -390,9 +390,9 @@ export const Accessible: Story = {
 
     // Test focus accessibility
     await userEvent.tab();
-    
+
     // Wait a bit for tooltip to appear
-    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
 
     await waitFor(
       () => {

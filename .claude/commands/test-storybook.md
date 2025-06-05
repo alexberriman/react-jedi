@@ -4,7 +4,7 @@ Start by running:
 
 `npm run test-storybook`
 
-This command runs component-level tests defined in `.stories.tsx` or `.stories.mdx` files using the Storybook test addon (via `@storybook/test` and `@storybook/testing-library`).
+This command runs component-level tests defined in `.stories.tsx` or `.stories.mdx` files using the Storybook test addon (via `storybook/test` and `storybook/testing-library`).
 
 Your task:
 
@@ -13,9 +13,9 @@ Your task:
    - Analyze the error message and stack trace to identify the root cause
    - Open the relevant Storybook story file
    - Fix or add a `play` function to cover the interactive behavior that failed or was missing
-     - Use `userEvent` and `within` from `@storybook/testing-library`
+     - Use `userEvent` and `within` from `storybook/testing-library`
      - Simulate expected interactions (e.g., clicks, typing)
-     - Add `expect` assertions from `@storybook/test` to verify behavior
+     - Add `expect` assertions from `storybook/test` to verify behavior
 
 2. For **new components or uncovered behaviors**:
 

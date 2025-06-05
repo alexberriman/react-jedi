@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, within } from "storybook/test";
 import { AspectRatio } from "./aspect-ratio";
 
 const meta: Meta<typeof AspectRatio> = {
@@ -130,7 +130,9 @@ export const WithContent: Story = {
 
     // Test content rendering
     const heading = canvas.getByText("Stunning UI Components");
-    const description = canvas.getByText("Create beautiful, responsive interfaces with precise aspect ratios");
+    const description = canvas.getByText(
+      "Create beautiful, responsive interfaces with precise aspect ratios"
+    );
 
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveClass("text-2xl", "font-bold");
@@ -140,7 +142,12 @@ export const WithContent: Story = {
 
     // Test gradient background
     const aspectRatioElement = heading.closest('[class*="bg-gradient"]');
-    expect(aspectRatioElement).toHaveClass("bg-gradient-to-r", "from-purple-500", "to-indigo-600", "rounded-xl");
+    expect(aspectRatioElement).toHaveClass(
+      "bg-gradient-to-r",
+      "from-purple-500",
+      "to-indigo-600",
+      "rounded-xl"
+    );
   },
 };
 

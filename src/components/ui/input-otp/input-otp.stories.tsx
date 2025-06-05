@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./input-otp";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { within, userEvent, waitFor, expect } from "storybook/test";
 
 const meta = {
   title: "Form Components/InputOTP",
@@ -294,13 +294,13 @@ export const Controlled: Story = {
 
     const input = canvas.getByRole("textbox");
     expect(input).toBeInTheDocument();
-    
+
     await waitFor(() => {
       expect(canvas.getByText("Current value: (empty)")).toBeInTheDocument();
     });
 
     await userEvent.type(input, "999");
-    
+
     await waitFor(() => {
       expect(canvas.getByText("Current value: 999")).toBeInTheDocument();
     });
@@ -350,7 +350,7 @@ export const WithOnComplete: Story = {
     expect(input).toBeInTheDocument();
 
     await userEvent.type(input, "111222");
-    
+
     await waitFor(
       () => {
         expect(canvas.getByText("✓ Code complete! Value: 111222")).toBeInTheDocument();
@@ -381,9 +381,9 @@ export const Password: Story = {
     const input = canvas.getByRole("textbox");
     expect(input).toBeInTheDocument();
     expect(input).toHaveAttribute("maxlength", "4");
-    
+
     // Check that the OTP container has the password class
-    const otpContainer = canvasElement.querySelector('.password');
+    const otpContainer = canvasElement.querySelector(".password");
     expect(otpContainer).toBeInTheDocument();
 
     await userEvent.type(input, "9876");

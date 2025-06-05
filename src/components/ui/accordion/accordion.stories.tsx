@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { Zap, Shield, Palette } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { render } from "@/lib/render";
@@ -39,7 +39,7 @@ const meta = {
     },
   },
 
-  tags: ['autodocs', 'ui-accordion'],
+  tags: ["autodocs", "ui-accordion"],
 } satisfies Meta<typeof Accordion>;
 
 export default meta;
@@ -71,8 +71,8 @@ export const Single: Story = {
       <AccordionItem value="item-3">
         <AccordionTrigger>Is it animated?</AccordionTrigger>
         <AccordionContent>
-          Yes. It&apos;s animated by default with Framer Motion, but you can disable animations
-          by setting the animated prop to false.
+          Yes. It&apos;s animated by default with Framer Motion, but you can disable animations by
+          setting the animated prop to false.
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -82,9 +82,9 @@ export const Single: Story = {
     const user = userEvent.setup();
 
     // Test single accordion behavior
-    const trigger1 = canvas.getByRole("button", { name: "Is it accessible?"});
-    const trigger2 = canvas.getByRole("button", { name: "Is it styled?"});
-    const trigger3 = canvas.getByRole("button", { name: "Is it animated?"});
+    const trigger1 = canvas.getByRole("button", { name: "Is it accessible?" });
+    const trigger2 = canvas.getByRole("button", { name: "Is it styled?" });
+    const trigger3 = canvas.getByRole("button", { name: "Is it animated?" });
 
     // Initially all items should be collapsed
     expect(trigger1).toHaveAttribute("data-state", "closed");
@@ -93,51 +93,53 @@ export const Single: Story = {
 
     // Click first item - should expand
     await user.click(trigger1);
-    
+
     // Wait for the state change and content to appear
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "open");
-  });
-    
+    });
+
     // Check content is present after animation
     await waitFor(() => {
-      expect(canvas.getByText("Yes. It adheres to the WAI-ARIA design pattern.")).toBeInTheDocument();
-   });
+      expect(
+        canvas.getByText("Yes. It adheres to the WAI-ARIA design pattern.")
+      ).toBeInTheDocument();
+    });
 
     // Click second item - first should collapse, second should expand
     await user.click(trigger2);
-    
+
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "closed");
       expect(trigger2).toHaveAttribute("data-state", "open");
-   });
+    });
 
     // Click second item again - should collapse (collapsible is true)
     await user.click(trigger2);
-    
+
     await waitFor(() => {
       expect(trigger2).toHaveAttribute("data-state", "closed");
-   });
+    });
 
     // Test keyboard navigation
     await user.click(trigger1);
-    
+
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "open");
-  });
-    
+    });
+
     await user.keyboard("{ArrowDown}");
-    
+
     await waitFor(() => {
       expect(trigger2).toHaveFocus();
-   });
-    
+    });
+
     await user.keyboard("{Enter}");
-    
+
     await waitFor(() => {
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger1).toHaveAttribute("data-state", "closed");
-   });
+    });
   },
 };
 
@@ -173,9 +175,9 @@ export const Multiple: Story = {
     const user = userEvent.setup();
 
     // Test multiple accordion behavior
-    const trigger1 = canvas.getByRole("button", { name: "Section 1"});
-    const trigger2 = canvas.getByRole("button", { name: "Section 2"});
-    const trigger3 = canvas.getByRole("button", { name: "Section 3"});
+    const trigger1 = canvas.getByRole("button", { name: "Section 1" });
+    const trigger2 = canvas.getByRole("button", { name: "Section 2" });
+    const trigger3 = canvas.getByRole("button", { name: "Section 3" });
 
     // Check default expanded items
     expect(trigger1).toHaveAttribute("data-state", "open");
@@ -188,7 +190,7 @@ export const Multiple: Story = {
       expect(trigger1).toHaveAttribute("data-state", "open");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-   });
+    });
 
     // Click first item - should collapse
     await user.click(trigger1);
@@ -196,7 +198,7 @@ export const Multiple: Story = {
       expect(trigger1).toHaveAttribute("data-state", "closed");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-   });
+    });
 
     // Verify multiple items can be expanded simultaneously
     await user.click(trigger1);
@@ -204,7 +206,7 @@ export const Multiple: Story = {
       expect(trigger1).toHaveAttribute("data-state", "open");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-   });
+    });
   },
 };
 
@@ -263,13 +265,13 @@ export const WithDisabledItems: Story = {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
 
-    const enabledTrigger1 = canvas.getByRole("button", { name: "Enabled Item"});
-    const disabledTrigger = canvas.getByRole("button", { name: "Disabled Item"});
-    const enabledTrigger2 = canvas.getByRole("button", { name: "Another Enabled Item"});
+    const enabledTrigger1 = canvas.getByRole("button", { name: "Enabled Item" });
+    const disabledTrigger = canvas.getByRole("button", { name: "Disabled Item" });
+    const enabledTrigger2 = canvas.getByRole("button", { name: "Another Enabled Item" });
 
     // Test disabled item behavior
     expect(disabledTrigger).toBeDisabled();
-    
+
     // Disabled items cannot be clicked - just verify they stay closed
     expect(disabledTrigger).toHaveAttribute("data-state", "closed");
 
@@ -277,13 +279,13 @@ export const WithDisabledItems: Story = {
     await user.click(enabledTrigger1);
     await waitFor(() => {
       expect(enabledTrigger1).toHaveAttribute("data-state", "open");
-   });
+    });
 
     await user.click(enabledTrigger2);
     await waitFor(() => {
       expect(enabledTrigger2).toHaveAttribute("data-state", "open");
       expect(enabledTrigger1).toHaveAttribute("data-state", "closed");
-   });
+    });
   },
 };
 
@@ -432,7 +434,9 @@ export const ModernDesign: Story = {
     <div className="space-y-6">
       <div>
         <h3 className="text-xl font-semibold mb-2">Frequently Asked Questions</h3>
-        <p className="text-sm text-muted-foreground">Find answers to common questions about React Jedi</p>
+        <p className="text-sm text-muted-foreground">
+          Find answers to common questions about React Jedi
+        </p>
       </div>
       <Accordion {...args}>
         <AccordionItem value="item-1">
@@ -441,9 +445,9 @@ export const ModernDesign: Story = {
           </AccordionTrigger>
           <AccordionContent>
             <p className="leading-relaxed">
-              React Jedi stands out with its server-driven UI approach, allowing you to build entire 
-              interfaces using JSON specifications. It offers zero lock-in architecture, meaning you 
-              can import only what you need, and provides advanced features like reactive state 
+              React Jedi stands out with its server-driven UI approach, allowing you to build entire
+              interfaces using JSON specifications. It offers zero lock-in architecture, meaning you
+              can import only what you need, and provides advanced features like reactive state
               management and theme inheritance directly within JSON.
             </p>
           </AccordionContent>
@@ -454,9 +458,9 @@ export const ModernDesign: Story = {
           </AccordionTrigger>
           <AccordionContent>
             <p className="leading-relaxed">
-              Our animation system is built on Framer Motion, providing smooth, performant animations 
-              out of the box. All components support an `animated` prop that can be toggled on/off, 
-              and animations respect user preferences for reduced motion.
+              Our animation system is built on Framer Motion, providing smooth, performant
+              animations out of the box. All components support an `animated` prop that can be
+              toggled on/off, and animations respect user preferences for reduced motion.
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -466,9 +470,10 @@ export const ModernDesign: Story = {
           </AccordionTrigger>
           <AccordionContent>
             <p className="leading-relaxed">
-              Absolutely! React Jedi uses TailwindCSS for styling and supports comprehensive theme 
-              customization. You can override default styles, create custom variants, and even define 
-              your own design tokens. The theme system supports both light and dark modes automatically.
+              Absolutely! React Jedi uses TailwindCSS for styling and supports comprehensive theme
+              customization. You can override default styles, create custom variants, and even
+              define your own design tokens. The theme system supports both light and dark modes
+              automatically.
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -487,51 +492,51 @@ export const IconAccordion: Story = {
   },
   render: (args) => (
     <Accordion {...args}>
-        <AccordionItem value="performance">
-          <AccordionTrigger className="text-left hover:no-underline">
-            <span className="flex items-center gap-3">
-              <Zap className="size-5 text-primary" />
-              <span>Lightning Fast Performance</span>
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <p className="leading-relaxed text-muted-foreground ml-8">
-              Built with performance in mind, React Jedi leverages modern optimization techniques 
-              including code splitting, lazy loading, and efficient re-rendering to ensure your 
-              applications run smoothly even at scale.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="security">
-          <AccordionTrigger className="text-left hover:no-underline">
-            <span className="flex items-center gap-3">
-              <Shield className="size-5 text-primary" />
-              <span>Enterprise-Grade Security</span>
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <p className="leading-relaxed text-muted-foreground ml-8">
-              Security is built into every layer of React Jedi. From XSS protection to secure 
-              prop sanitization, we ensure your applications are protected against common vulnerabilities.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="customization">
-          <AccordionTrigger className="text-left hover:no-underline">
-            <span className="flex items-center gap-3">
-              <Palette className="size-5 text-primary" />
-              <span>Fully Customizable Design</span>
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <p className="leading-relaxed text-muted-foreground ml-8">
-              Every component is designed to be customizable. Use our pre-built themes or create 
-              your own. With support for CSS variables, Tailwind utilities, and component variants, 
-              the design possibilities are endless.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <AccordionItem value="performance">
+        <AccordionTrigger className="text-left hover:no-underline">
+          <span className="flex items-center gap-3">
+            <Zap className="size-5 text-primary" />
+            <span>Lightning Fast Performance</span>
+          </span>
+        </AccordionTrigger>
+        <AccordionContent>
+          <p className="leading-relaxed text-muted-foreground ml-8">
+            Built with performance in mind, React Jedi leverages modern optimization techniques
+            including code splitting, lazy loading, and efficient re-rendering to ensure your
+            applications run smoothly even at scale.
+          </p>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="security">
+        <AccordionTrigger className="text-left hover:no-underline">
+          <span className="flex items-center gap-3">
+            <Shield className="size-5 text-primary" />
+            <span>Enterprise-Grade Security</span>
+          </span>
+        </AccordionTrigger>
+        <AccordionContent>
+          <p className="leading-relaxed text-muted-foreground ml-8">
+            Security is built into every layer of React Jedi. From XSS protection to secure prop
+            sanitization, we ensure your applications are protected against common vulnerabilities.
+          </p>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="customization">
+        <AccordionTrigger className="text-left hover:no-underline">
+          <span className="flex items-center gap-3">
+            <Palette className="size-5 text-primary" />
+            <span>Fully Customizable Design</span>
+          </span>
+        </AccordionTrigger>
+        <AccordionContent>
+          <p className="leading-relaxed text-muted-foreground ml-8">
+            Every component is designed to be customizable. Use our pre-built themes or create your
+            own. With support for CSS variables, Tailwind utilities, and component variants, the
+            design possibilities are endless.
+          </p>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   ),
 };
 
@@ -555,15 +560,15 @@ export const WithoutAnimation: Story = {
       <AccordionItem value="item-2">
         <AccordionTrigger>Instant feedback</AccordionTrigger>
         <AccordionContent>
-          Sometimes you want immediate response without animations, especially for performance-critical
-          applications or when users prefer reduced motion.
+          Sometimes you want immediate response without animations, especially for
+          performance-critical applications or when users prefer reduced motion.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
         <AccordionTrigger>Accessibility first</AccordionTrigger>
         <AccordionContent>
-          Disabling animations can improve accessibility for users who experience motion sickness
-          or prefer a simpler interface.
+          Disabling animations can improve accessibility for users who experience motion sickness or
+          prefer a simpler interface.
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -580,7 +585,10 @@ export const CleanModern: Story = {
   },
   render: (args) => (
     <div className="p-8 bg-gradient-to-br from-background to-muted/20 rounded-lg">
-      <Accordion {...args} className="bg-background/50 backdrop-blur-sm rounded-lg border shadow-sm">
+      <Accordion
+        {...args}
+        className="bg-background/50 backdrop-blur-sm rounded-lg border shadow-sm"
+      >
         <AccordionItem value="item-1" className="px-4">
           <AccordionTrigger className="text-base font-semibold">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -594,9 +602,15 @@ export const CleanModern: Story = {
                 and priority support.
               </p>
               <div className="flex gap-2">
-                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Analytics</span>
-                <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Collaboration</span>
-                <span className="px-3 py-1 bg-green-100 text-green-700 text-xs rounded-full">24/7 Support</span>
+                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+                  Analytics
+                </span>
+                <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">
+                  Collaboration
+                </span>
+                <span className="px-3 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                  24/7 Support
+                </span>
               </div>
             </div>
           </AccordionContent>

@@ -23,7 +23,7 @@ import {
   FileText,
   Hash,
 } from "lucide-react";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 
 const meta = {
   title: "Components/Command",
@@ -85,19 +85,19 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find search input
     const searchInput = canvas.getByPlaceholderText("Type a command or search...");
     expect(searchInput).toBeInTheDocument();
-    
+
     // Click to focus the input (since it might not auto-focus)
     await userEvent.click(searchInput);
-    
+
     // Verify all items are visible initially
     expect(canvas.getByText("Calendar")).toBeInTheDocument();
     expect(canvas.getByText("Calculator")).toBeInTheDocument();
     expect(canvas.getByText("Profile")).toBeInTheDocument();
-    
+
     // Search for an item
     await userEvent.type(searchInput, "cal");
     await waitFor(() => {
@@ -105,7 +105,7 @@ export const Default: Story = {
       expect(canvas.getByText("Calculator")).toBeInTheDocument();
       expect(canvas.queryByText("Profile")).not.toBeInTheDocument();
     });
-    
+
     // Clear search
     await userEvent.clear(searchInput);
     await userEvent.type(searchInput, "settings");
@@ -115,7 +115,7 @@ export const Default: Story = {
       expect(settingsItem).toBeInTheDocument();
       expect(canvas.queryByText("Calendar")).not.toBeInTheDocument();
     });
-    
+
     // Test keyboard navigation - just verify we can clear the search
     await userEvent.clear(searchInput);
     expect(searchInput).toHaveValue("");
@@ -325,10 +325,7 @@ function JsonCommandDialogExample() {
       >
         Open Command Palette
       </button>
-      <CommandDialog 
-        open={open} 
-        onOpenChange={setOpen}
-      >
+      <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type to search..." />
         <CommandList>
           <CommandEmpty>Nothing found.</CommandEmpty>
@@ -543,7 +540,8 @@ export const InteractiveDialog: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Interactive command dialog that shows selected values and proper open/close behavior.",
+        story:
+          "Interactive command dialog that shows selected values and proper open/close behavior.",
       },
     },
   },

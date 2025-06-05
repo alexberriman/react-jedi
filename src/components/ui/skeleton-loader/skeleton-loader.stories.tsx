@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect } from "@storybook/test";
+import { expect } from "storybook/test";
 import { SkeletonLoader } from "./skeleton-loader";
 
 const meta: Meta<typeof SkeletonLoader> = {
@@ -10,7 +10,8 @@ const meta: Meta<typeof SkeletonLoader> = {
     tags: ["autodocs", "test"],
     docs: {
       description: {
-        component: "A skeleton loader component that provides visual placeholders while content is loading. Supports multiple variants (text, circular, rectangular, rounded) and animations (pulse, wave) to match your UI design. Perfect for creating loading states that maintain the layout structure of your actual content.",
+        component:
+          "A skeleton loader component that provides visual placeholders while content is loading. Supports multiple variants (text, circular, rectangular, rounded) and animations (pulse, wave) to match your UI design. Perfect for creating loading states that maintain the layout structure of your actual content.",
       },
     },
   },
@@ -53,7 +54,7 @@ export const Default: Story = {
     const skeleton = canvasElement.querySelector('[class*="animate-pulse"]');
     await expect(skeleton).toBeInTheDocument();
     // Check for height only, as width can be computed differently
-    await expect(skeleton).toHaveStyle({ height: '20px' });
+    await expect(skeleton).toHaveStyle({ height: "20px" });
   },
 };
 
@@ -77,7 +78,7 @@ export const Circular: Story = {
   play: async ({ canvasElement }) => {
     const skeleton = canvasElement.querySelector('[class*="bg-gradient"]');
     await expect(skeleton).toHaveClass("rounded-full");
-    await expect(skeleton).toHaveStyle({ width: '48px', height: '48px' });
+    await expect(skeleton).toHaveStyle({ width: "48px", height: "48px" });
   },
 };
 
@@ -191,7 +192,7 @@ export const ListSkeleton: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const circularSkeletons = canvasElement.querySelectorAll('.rounded-full');
+    const circularSkeletons = canvasElement.querySelectorAll(".rounded-full");
     await expect(circularSkeletons).toHaveLength(3);
   },
 };
@@ -274,7 +275,7 @@ export const ResponsiveSkeleton: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const rectangularSkeletons = canvasElement.querySelectorAll('.rounded-none');
+    const rectangularSkeletons = canvasElement.querySelectorAll(".rounded-none");
     await expect(rectangularSkeletons).toHaveLength(6);
   },
 };

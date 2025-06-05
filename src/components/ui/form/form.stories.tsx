@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -35,7 +35,7 @@ const meta = {
     },
   },
 
-  tags: ['autodocs', 'ui-form'],
+  tags: ["autodocs", "ui-form"],
 } satisfies Meta<typeof FormStory>;
 
 export default meta;
@@ -107,33 +107,33 @@ export const Default: Story = {
   render: () => <SimpleFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify form fields are rendered
-    const usernameInput = canvas.getByPlaceholderText('Enter username');
-    const emailInput = canvas.getByPlaceholderText('Enter email');
-    const submitButton = canvas.getByRole('button', { name: 'Submit' });
-    
+    const usernameInput = canvas.getByPlaceholderText("Enter username");
+    const emailInput = canvas.getByPlaceholderText("Enter email");
+    const submitButton = canvas.getByRole("button", { name: "Submit" });
+
     expect(usernameInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
     expect(submitButton).toBeInTheDocument();
-    
+
     // Test validation - submit empty form
     await userEvent.click(submitButton);
-    
+
     // Wait for validation errors
     await waitFor(() => {
-      expect(canvas.getByText('Username must be at least 2 characters.')).toBeInTheDocument();
-      expect(canvas.getByText('Please enter a valid email address.')).toBeInTheDocument();
+      expect(canvas.getByText("Username must be at least 2 characters.")).toBeInTheDocument();
+      expect(canvas.getByText("Please enter a valid email address.")).toBeInTheDocument();
     });
-    
+
     // Fill in valid data
-    await userEvent.type(usernameInput, 'testuser');
-    await userEvent.type(emailInput, 'test@example.com');
-    
+    await userEvent.type(usernameInput, "testuser");
+    await userEvent.type(emailInput, "test@example.com");
+
     // Verify error messages are gone
     await waitFor(() => {
-      expect(canvas.queryByText('Username must be at least 2 characters.')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Please enter a valid email address.')).not.toBeInTheDocument();
+      expect(canvas.queryByText("Username must be at least 2 characters.")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Please enter a valid email address.")).not.toBeInTheDocument();
     });
   },
 };
@@ -213,42 +213,46 @@ export const WithValidation: Story = {
   render: () => <ValidationFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find form elements
-    const ageInput = canvas.getByPlaceholderText('Enter your age');
-    const passwordInput = canvas.getByPlaceholderText('Enter password');
-    const submitButton = canvas.getByRole('button', { name: /submit/i });
-    
+    const ageInput = canvas.getByPlaceholderText("Enter your age");
+    const passwordInput = canvas.getByPlaceholderText("Enter password");
+    const submitButton = canvas.getByRole("button", { name: /submit/i });
+
     // Test password validation - too short
-    await userEvent.type(passwordInput, 'short');
+    await userEvent.type(passwordInput, "short");
     await userEvent.click(submitButton); // Trigger validation
-    
+
     await waitFor(() => {
-      expect(canvas.getByText('Password must be at least 8 characters')).toBeInTheDocument();
+      expect(canvas.getByText("Password must be at least 8 characters")).toBeInTheDocument();
     });
-    
+
     // Clear and test password with missing uppercase
     await userEvent.clear(passwordInput);
-    await userEvent.type(passwordInput, 'lowercase123');
+    await userEvent.type(passwordInput, "lowercase123");
     await userEvent.click(submitButton); // Trigger validation
-    
+
     await waitFor(() => {
-      expect(canvas.getByText('Password must contain at least one uppercase letter')).toBeInTheDocument();
+      expect(
+        canvas.getByText("Password must contain at least one uppercase letter")
+      ).toBeInTheDocument();
     });
-    
+
     // Enter valid age
-    await userEvent.type(ageInput, '25');
-    
+    await userEvent.type(ageInput, "25");
+
     // Enter valid password
     await userEvent.clear(passwordInput);
-    await userEvent.type(passwordInput, 'ValidPass123');
+    await userEvent.type(passwordInput, "ValidPass123");
     await userEvent.click(submitButton); // Trigger validation
-    
+
     // Verify no validation errors
     await waitFor(() => {
-      expect(canvas.queryByText('Please enter a valid number')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Password must be at least 8 characters')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Password must contain at least one uppercase letter')).not.toBeInTheDocument();
+      expect(canvas.queryByText("Please enter a valid number")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Password must be at least 8 characters")).not.toBeInTheDocument();
+      expect(
+        canvas.queryByText("Password must contain at least one uppercase letter")
+      ).not.toBeInTheDocument();
     });
   },
 };
@@ -344,46 +348,48 @@ export const WithRequiredFields: Story = {
   render: () => <RequiredFieldsFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find form elements
-    const firstNameInput = canvas.getByPlaceholderText('John');
-    const lastNameInput = canvas.getByPlaceholderText('Doe');
-    const termsCheckbox = canvas.getByRole('checkbox');
-    const submitButton = canvas.getByRole('button', { name: 'Submit' });
-    
+    const firstNameInput = canvas.getByPlaceholderText("John");
+    const lastNameInput = canvas.getByPlaceholderText("Doe");
+    const termsCheckbox = canvas.getByRole("checkbox");
+    const submitButton = canvas.getByRole("button", { name: "Submit" });
+
     // Verify required field indicators
-    const requiredIndicators = canvas.getAllByText('*');
+    const requiredIndicators = canvas.getAllByText("*");
     expect(requiredIndicators).toHaveLength(2);
-    
+
     // Try to submit empty form
     await userEvent.click(submitButton);
-    
+
     // Check for validation errors
     await waitFor(() => {
-      expect(canvas.getByText('First name is required')).toBeInTheDocument();
-      expect(canvas.getByText('Last name is required')).toBeInTheDocument();
-      expect(canvas.getByText('You must accept the terms and conditions')).toBeInTheDocument();
+      expect(canvas.getByText("First name is required")).toBeInTheDocument();
+      expect(canvas.getByText("Last name is required")).toBeInTheDocument();
+      expect(canvas.getByText("You must accept the terms and conditions")).toBeInTheDocument();
     });
-    
+
     // Fill in first name only
-    await userEvent.type(firstNameInput, 'John');
+    await userEvent.type(firstNameInput, "John");
     await userEvent.click(submitButton);
-    
+
     // First name error should be gone
     await waitFor(() => {
-      expect(canvas.queryByText('First name is required')).not.toBeInTheDocument();
-      expect(canvas.getByText('Last name is required')).toBeInTheDocument();
+      expect(canvas.queryByText("First name is required")).not.toBeInTheDocument();
+      expect(canvas.getByText("Last name is required")).toBeInTheDocument();
     });
-    
+
     // Fill in last name and check terms
-    await userEvent.type(lastNameInput, 'Doe');
+    await userEvent.type(lastNameInput, "Doe");
     await userEvent.click(termsCheckbox);
-    
+
     // All errors should be gone
     await waitFor(() => {
-      expect(canvas.queryByText('First name is required')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Last name is required')).not.toBeInTheDocument();
-      expect(canvas.queryByText('You must accept the terms and conditions')).not.toBeInTheDocument();
+      expect(canvas.queryByText("First name is required")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Last name is required")).not.toBeInTheDocument();
+      expect(
+        canvas.queryByText("You must accept the terms and conditions")
+      ).not.toBeInTheDocument();
     });
   },
 };
@@ -454,36 +460,36 @@ export const WithInitialErrors: Story = {
   render: () => <InitialErrorsFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Wait for initial validation to trigger
     await waitFor(() => {
       // Verify initial errors are displayed
-      expect(canvas.getByText('Invalid email')).toBeInTheDocument();
-      expect(canvas.getByText('Phone number too short')).toBeInTheDocument();
+      expect(canvas.getByText("Invalid email")).toBeInTheDocument();
+      expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
     });
-    
+
     // Find form elements
-    const emailInput = canvas.getByDisplayValue('invalid-email');
-    const phoneInput = canvas.getByDisplayValue('123');
-    
+    const emailInput = canvas.getByDisplayValue("invalid-email");
+    const phoneInput = canvas.getByDisplayValue("123");
+
     // Fix email
     await userEvent.clear(emailInput);
-    await userEvent.type(emailInput, 'valid@example.com');
-    
+    await userEvent.type(emailInput, "valid@example.com");
+
     // Email error should be gone
     await waitFor(() => {
-      expect(canvas.queryByText('Invalid email')).not.toBeInTheDocument();
-      expect(canvas.getByText('Phone number too short')).toBeInTheDocument();
+      expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
+      expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
     });
-    
+
     // Fix phone
     await userEvent.clear(phoneInput);
-    await userEvent.type(phoneInput, '1234567890');
-    
+    await userEvent.type(phoneInput, "1234567890");
+
     // All errors should be gone
     await waitFor(() => {
-      expect(canvas.queryByText('Invalid email')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Phone number too short')).not.toBeInTheDocument();
+      expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Phone number too short")).not.toBeInTheDocument();
     });
   },
 };
@@ -585,45 +591,45 @@ export const ContactForm: Story = {
   render: () => <ContactFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find form elements
-    const nameInput = canvas.getByPlaceholderText('Your name');
-    const emailInput = canvas.getByPlaceholderText('Your email');
-    const subjectInput = canvas.getByPlaceholderText('Subject of your message');
-    const messageTextarea = canvas.getByPlaceholderText('Type your message here...');
-    const submitButton = canvas.getByRole('button', { name: 'Send Message' });
-    
+    const nameInput = canvas.getByPlaceholderText("Your name");
+    const emailInput = canvas.getByPlaceholderText("Your email");
+    const subjectInput = canvas.getByPlaceholderText("Subject of your message");
+    const messageTextarea = canvas.getByPlaceholderText("Type your message here...");
+    const submitButton = canvas.getByRole("button", { name: "Send Message" });
+
     // Verify grid layout (2 columns for name and email)
-    const gridContainer = canvasElement.querySelector('.grid-cols-2');
+    const gridContainer = canvasElement.querySelector(".grid-cols-2");
     expect(gridContainer).toBeInTheDocument();
-    expect(gridContainer).toHaveClass('grid');
-    expect(gridContainer).toHaveClass('gap-4');
-    
+    expect(gridContainer).toHaveClass("grid");
+    expect(gridContainer).toHaveClass("gap-4");
+
     // Try to submit empty form
     await userEvent.click(submitButton);
-    
+
     // Check for validation errors
     await waitFor(() => {
-      expect(canvas.getByText('Name is required')).toBeInTheDocument();
-      expect(canvas.getByText('Invalid email address')).toBeInTheDocument();
-      expect(canvas.getByText('Subject is required')).toBeInTheDocument();
-      expect(canvas.getByText('Message must be at least 10 characters')).toBeInTheDocument();
+      expect(canvas.getByText("Name is required")).toBeInTheDocument();
+      expect(canvas.getByText("Invalid email address")).toBeInTheDocument();
+      expect(canvas.getByText("Subject is required")).toBeInTheDocument();
+      expect(canvas.getByText("Message must be at least 10 characters")).toBeInTheDocument();
     });
-    
+
     // Fill in the form
-    await userEvent.type(nameInput, 'Jane Doe');
-    await userEvent.type(emailInput, 'jane@example.com');
-    await userEvent.type(subjectInput, 'Question about your service');
-    await userEvent.type(messageTextarea, 'I would like to know more about your pricing plans.');
-    
+    await userEvent.type(nameInput, "Jane Doe");
+    await userEvent.type(emailInput, "jane@example.com");
+    await userEvent.type(subjectInput, "Question about your service");
+    await userEvent.type(messageTextarea, "I would like to know more about your pricing plans.");
+
     // All errors should be cleared
     await waitFor(() => {
-      expect(canvas.queryByText('Name is required')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Invalid email address')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Subject is required')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Message must be at least 10 characters')).not.toBeInTheDocument();
+      expect(canvas.queryByText("Name is required")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Invalid email address")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Subject is required")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Message must be at least 10 characters")).not.toBeInTheDocument();
     });
-    
+
     // Verify description text
     expect(canvas.getByText("We'll respond to your message within 24 hours.")).toBeInTheDocument();
   },

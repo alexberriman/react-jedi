@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { AlertCircle, Terminal, Info, AlertTriangle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "./index";
 
@@ -31,7 +31,7 @@ const meta = {
     },
   },
 
-  tags: ['autodocs', 'ui-alert'],
+  tags: ["autodocs", "ui-alert"],
 } satisfies Meta<typeof Alert>;
 
 export default meta;
@@ -56,7 +56,9 @@ export const Default: Story = {
 
     // Check title and description
     expect(canvas.getByText("Heads up!")).toBeInTheDocument();
-    expect(canvas.getByText("You can add components to your app using the cli.")).toBeInTheDocument();
+    expect(
+      canvas.getByText("You can add components to your app using the cli.")
+    ).toBeInTheDocument();
 
     // Verify default styling
     expect(alert).toHaveClass("relative", "w-full", "rounded-xl");
@@ -104,9 +106,7 @@ export const InfoAlert: Story = {
     <Alert variant="info">
       <Info className="h-4 w-4" />
       <AlertTitle>Information</AlertTitle>
-      <AlertDescription>
-        This is an informational alert with the new info variant.
-      </AlertDescription>
+      <AlertDescription>This is an informational alert with the new info variant.</AlertDescription>
     </Alert>
   ),
 };
@@ -116,9 +116,7 @@ export const WarningAlert: Story = {
     <Alert variant="warning">
       <AlertTriangle className="h-4 w-4" />
       <AlertTitle>Warning</AlertTitle>
-      <AlertDescription>
-        This is a warning alert that requires user attention.
-      </AlertDescription>
+      <AlertDescription>This is a warning alert that requires user attention.</AlertDescription>
     </Alert>
   ),
 };
@@ -128,9 +126,7 @@ export const SuccessAlert: Story = {
     <Alert variant="success">
       <AlertCircle className="h-4 w-4" />
       <AlertTitle>Success</AlertTitle>
-      <AlertDescription>
-        Your changes have been saved successfully.
-      </AlertDescription>
+      <AlertDescription>Your changes have been saved successfully.</AlertDescription>
     </Alert>
   ),
 };
@@ -176,7 +172,7 @@ export const ComplexContent: Story = {
     // Test interactive button
     const docButton = canvas.getByRole("button", { name: "documentation" });
     expect(docButton).toBeInTheDocument();
-    
+
     // Test button is clickable
     await user.click(docButton);
     // Note: We can't easily test console.log in Storybook test runner
@@ -276,25 +272,19 @@ export const Showcase: Story = {
       <Alert variant="info">
         <Info className="h-4 w-4" />
         <AlertTitle>Info Alert</AlertTitle>
-        <AlertDescription>
-          This is an informational alert.
-        </AlertDescription>
+        <AlertDescription>This is an informational alert.</AlertDescription>
       </Alert>
 
       <Alert variant="warning">
         <AlertTriangle className="h-4 w-4" />
         <AlertTitle>Warning Alert</AlertTitle>
-        <AlertDescription>
-          This is a warning alert.
-        </AlertDescription>
+        <AlertDescription>This is a warning alert.</AlertDescription>
       </Alert>
 
       <Alert variant="success">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Success Alert</AlertTitle>
-        <AlertDescription>
-          This is a success alert.
-        </AlertDescription>
+        <AlertDescription>This is a success alert.</AlertDescription>
       </Alert>
     </div>
   ),

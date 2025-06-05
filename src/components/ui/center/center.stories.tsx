@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, within } from "storybook/test";
 import { Center } from "./center";
 
 const meta = {
@@ -46,17 +46,20 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Test center container - look for the component by its classes
-    const center = canvasElement.querySelector('.flex.items-center.justify-center') || 
-                   canvasElement.querySelector(String.raw`.min-h-\[400px\]`);
+    const center =
+      canvasElement.querySelector(".flex.items-center.justify-center") ||
+      canvasElement.querySelector(String.raw`.min-h-\[400px\]`);
     expect(center).toBeTruthy();
     expect(center).toHaveClass("min-h-[400px]", "bg-gray-50", "rounded-lg");
-    
+
     // Test centered content
     expect(canvas.getByText("Centered Content")).toBeInTheDocument();
-    expect(canvas.getByText("This content is perfectly centered in its container")).toBeInTheDocument();
-    
+    expect(
+      canvas.getByText("This content is perfectly centered in its container")
+    ).toBeInTheDocument();
+
     // Test default centering (both directions) - check for classes instead of styles
     expect(center).toHaveClass("flex");
     expect(center).toHaveClass("items-center");

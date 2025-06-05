@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { Stack } from "./stack";
 import { Card, CardContent } from "../card";
 import { Button } from "../button";
@@ -67,7 +67,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Test stack container exists
-    const stack = canvasElement.querySelector('.flex');
+    const stack = canvasElement.querySelector(".flex");
     expect(stack).toBeInTheDocument();
 
     // Test all three cards are rendered
@@ -99,7 +99,7 @@ export const Horizontal: Story = {
     const user = userEvent.setup();
 
     // Test stack container has horizontal orientation
-    const stack = canvasElement.querySelector('.flex');
+    const stack = canvasElement.querySelector(".flex");
     expect(stack).toBeInTheDocument();
     expect(stack).toHaveClass("flex-row");
 
@@ -147,7 +147,7 @@ export const VerticalCentered: Story = {
     const user = userEvent.setup();
 
     // Test stack container alignment
-    const stack = canvasElement.querySelector('.flex');
+    const stack = canvasElement.querySelector(".flex");
     expect(stack).toBeInTheDocument();
     expect(stack).toHaveClass("flex-col", "items-center");
 

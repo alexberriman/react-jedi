@@ -1,7 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { CallToAction } from "./call-to-action";
-import { Rocket, Star, Code2, Sparkles, ChevronRight, Shield, Check, Users, TrendingUp, Award, Heart } from "lucide-react";
+import {
+  Rocket,
+  Star,
+  Code2,
+  Sparkles,
+  ChevronRight,
+  Shield,
+  Check,
+  Users,
+  TrendingUp,
+  Award,
+  Heart,
+} from "lucide-react";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 
@@ -249,11 +261,7 @@ export const FormIntegrated: Story = {
     description: "Get the latest updates and exclusive content delivered to your inbox",
     formComponent: (
       <form className="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-        <Input
-          type="email"
-          placeholder="Enter your email"
-          className="flex-1"
-        />
+        <Input type="email" placeholder="Enter your email" className="flex-1" />
         <Button type="submit" size="lg">
           Subscribe
         </Button>
@@ -336,9 +344,24 @@ export const WithCustomShapes: Story = {
       href: "#",
     },
     shapes: [
-      { type: "circle", color: "blue-400/20", size: "100px", position: { top: "10%", right: "5%" } },
-      { type: "square", color: "purple-400/20", size: "80px", position: { bottom: "15%", left: "10%" } },
-      { type: "circle", color: "pink-400/20", size: "60px", position: { top: "50%", right: "20%" } },
+      {
+        type: "circle",
+        color: "blue-400/20",
+        size: "100px",
+        position: { top: "10%", right: "5%" },
+      },
+      {
+        type: "square",
+        color: "purple-400/20",
+        size: "80px",
+        position: { bottom: "15%", left: "10%" },
+      },
+      {
+        type: "circle",
+        color: "pink-400/20",
+        size: "60px",
+        position: { top: "50%", right: "20%" },
+      },
     ],
   },
 };
@@ -422,10 +445,22 @@ export const NewsletterCustomForm: Story = {
       <div className="mt-8 max-w-lg mx-auto">
         <form className="space-y-4">
           <div className="flex gap-4">
-            <Input type="text" placeholder="First name" className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60" />
-            <Input type="text" placeholder="Last name" className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60" />
+            <Input
+              type="text"
+              placeholder="First name"
+              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+            />
+            <Input
+              type="text"
+              placeholder="Last name"
+              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+            />
           </div>
-          <Input type="email" placeholder="Email address" className="bg-white/10 border-white/20 text-white placeholder:text-white/60" />
+          <Input
+            type="email"
+            placeholder="Email address"
+            className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+          />
           <div className="flex items-start gap-2">
             <input type="checkbox" id="terms" className="mt-1" />
             <label htmlFor="terms" className="text-sm opacity-80">
@@ -442,16 +477,16 @@ export const NewsletterCustomForm: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Test form interactions
     const firstNameInput = canvas.getByPlaceholderText("First name");
     const lastNameInput = canvas.getByPlaceholderText("Last name");
     const emailInput = canvas.getByPlaceholderText("Email address");
-    
+
     await user.type(firstNameInput, "John");
     await user.type(lastNameInput, "Doe");
     await user.type(emailInput, "john@example.com");
-    
+
     expect(firstNameInput).toHaveValue("John");
     expect(lastNameInput).toHaveValue("Doe");
     expect(emailInput).toHaveValue("john@example.com");

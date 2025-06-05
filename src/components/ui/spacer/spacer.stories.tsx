@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, within } from "storybook/test";
 import { Spacer } from "./spacer";
 
 const meta = {
@@ -71,7 +71,7 @@ export const Default: Story = {
 
     // Test guide is visible when showGuide is true
     if (spacer) {
-      expect(spacer).toHaveClass('bg-purple-100');
+      expect(spacer).toHaveClass("bg-purple-100");
     }
 
     // Test sections are rendered
@@ -97,7 +97,7 @@ export const AllSizes: Story = {
     const canvas = within(canvasElement);
 
     // Test all size variants are rendered
-    const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+    const sizes = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl"];
     for (const size of sizes) {
       expect(canvas.getByText(`Size: ${size}`)).toBeInTheDocument();
     }
@@ -108,7 +108,7 @@ export const AllSizes: Story = {
 
     // Test all spacers have guide visible
     for (const spacer of spacers) {
-      expect(spacer).toHaveClass('bg-purple-100');
+      expect(spacer).toHaveClass("bg-purple-100");
     }
   },
 };
@@ -153,8 +153,8 @@ export const HorizontalSpacing: Story = {
       const spacerElement = spacer as HTMLElement;
       const styles = spacerElement.style;
       // lg size is 1.5rem = 24px
-      expect(styles.width).toBe('1.5rem');
-      expect(styles.height).toBe('1.5rem');
+      expect(styles.width).toBe("1.5rem");
+      expect(styles.height).toBe("1.5rem");
     }
   },
 };
@@ -233,10 +233,10 @@ export const ResponsiveExample: Story = {
     expect(spacers).toHaveLength(4);
 
     // Test responsive classes
-    expect(spacers[0]).toHaveClass('sm:hidden');
-    expect(spacers[1]).toHaveClass('hidden', 'sm:block', 'md:hidden');
-    expect(spacers[2]).toHaveClass('hidden', 'md:block', 'lg:hidden');
-    expect(spacers[3]).toHaveClass('hidden', 'lg:block');
+    expect(spacers[0]).toHaveClass("sm:hidden");
+    expect(spacers[1]).toHaveClass("hidden", "sm:block", "md:hidden");
+    expect(spacers[2]).toHaveClass("hidden", "md:block", "lg:hidden");
+    expect(spacers[3]).toHaveClass("hidden", "lg:block");
   },
 };
 
@@ -316,8 +316,8 @@ export const FormExample: Story = {
     for (const spacer of spacers) {
       const spacerElement = spacer as HTMLElement;
       const height = spacerElement.style.height;
-      if (height === '1rem') mdCount++; // md size
-      if (height === '0.25rem') xsCount++; // xs size
+      if (height === "1rem") mdCount++; // md size
+      if (height === "0.25rem") xsCount++; // xs size
     }
     expect(mdCount).toBeGreaterThan(0);
     expect(xsCount).toBeGreaterThan(0);
@@ -390,7 +390,7 @@ export const WithoutGuide: Story = {
 
     // Test guide is NOT visible (no purple background)
     for (const spacer of spacers) {
-      expect(spacer).not.toHaveClass('bg-purple-100');
+      expect(spacer).not.toHaveClass("bg-purple-100");
     }
   },
 };

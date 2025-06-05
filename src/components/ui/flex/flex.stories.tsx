@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { within, expect } from "storybook/test";
 import { Flex } from "./flex";
 
 const BoxItem = ({ className, children }: { className?: string; children?: React.ReactNode }) => (
@@ -119,17 +119,17 @@ export const WrapExample: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify wrap is enabled
-    const flexContainer = canvas.getByTestId('flex-container');
-    expect(flexContainer).toHaveClass('flex-wrap');
-    
+    const flexContainer = canvas.getByTestId("flex-container");
+    expect(flexContainer).toHaveClass("flex-wrap");
+
     // Verify 6 items are rendered
     const boxes = canvas.getAllByText(/^[1-6]$/);
     expect(boxes).toHaveLength(6);
-    
+
     // Verify constrained width
-    expect(flexContainer).toHaveClass('w-[300px]');
+    expect(flexContainer).toHaveClass("w-[300px]");
   },
 };
 
@@ -155,23 +155,24 @@ export const AlignStretch: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify stretch alignment
-    const flexContainer = canvas.getByTestId('flex-container');
-    expect(flexContainer).toHaveClass('items-stretch');
-    
+    const flexContainer = canvas.getByTestId("flex-container");
+    expect(flexContainer).toHaveClass("items-stretch");
+
     // Verify container has height
-    expect(flexContainer).toHaveClass('h-32');
-    
+    expect(flexContainer).toHaveClass("h-32");
+
     // Verify children
-    const boxes = flexContainer.querySelectorAll('.h-full');
+    const boxes = flexContainer.querySelectorAll(".h-full");
     expect(boxes).toHaveLength(3);
   },
 };
 
 export const ResponsiveLayout: Story = {
   args: {
-    className: "w-full flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-4 sm:items-center",
+    className:
+      "w-full flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-4 sm:items-center",
     children: (
       <>
         <BoxItem className="w-full sm:w-auto">Responsive</BoxItem>
@@ -187,25 +188,25 @@ export const ResponsiveLayout: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify responsive classes are applied
-    const flexContainer = canvas.getByTestId('flex-container');
-    expect(flexContainer).toHaveClass('flex');
-    expect(flexContainer).toHaveClass('w-full');
-    expect(flexContainer).toHaveClass('flex-col');
-    expect(flexContainer).toHaveClass('sm:flex-row');
-    expect(flexContainer).toHaveClass('sm:items-center');
-    
+    const flexContainer = canvas.getByTestId("flex-container");
+    expect(flexContainer).toHaveClass("flex");
+    expect(flexContainer).toHaveClass("w-full");
+    expect(flexContainer).toHaveClass("flex-col");
+    expect(flexContainer).toHaveClass("sm:flex-row");
+    expect(flexContainer).toHaveClass("sm:items-center");
+
     // Verify responsive box items
     const boxes = canvas.getAllByText(/Responsive|Layout|Example/);
     expect(boxes).toHaveLength(3);
-    
+
     // Check that each box item has responsive classes
-    const boxItems = canvasElement.querySelectorAll('.size-16');
+    const boxItems = canvasElement.querySelectorAll(".size-16");
     expect(boxItems).toHaveLength(3);
     for (const boxItem of boxItems) {
-      expect(boxItem).toHaveClass('w-full');
-      expect(boxItem).toHaveClass('sm:w-auto');
+      expect(boxItem).toHaveClass("w-full");
+      expect(boxItem).toHaveClass("sm:w-auto");
     }
   },
 };
@@ -233,31 +234,31 @@ export const ComplexAlignment: Story = {
   ),
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify the outer container
-    const container = canvasElement.querySelector('.space-y-8');
+    const container = canvasElement.querySelector(".space-y-8");
     expect(container).toBeInTheDocument();
-    
+
     // Verify first flex layout (justify-between)
-    const firstFlex = canvasElement.querySelector('.justify-between');
-    expect(firstFlex).toHaveClass('bg-muted/50');
-    expect(firstFlex).toHaveClass('p-4');
-    
+    const firstFlex = canvasElement.querySelector(".justify-between");
+    expect(firstFlex).toHaveClass("bg-muted/50");
+    expect(firstFlex).toHaveClass("p-4");
+
     // Verify nested flex in first section
-    const nestedFlex = firstFlex?.querySelector('.gap-2');
+    const nestedFlex = firstFlex?.querySelector(".gap-2");
     expect(nestedFlex).toBeInTheDocument();
-    
+
     // Verify second flex layout (column direction)
-    const columnFlex = canvasElement.querySelector('.flex-col');
-    expect(columnFlex).toHaveClass('bg-muted/50');
-    
+    const columnFlex = canvasElement.querySelector(".flex-col");
+    expect(columnFlex).toHaveClass("bg-muted/50");
+
     // Verify complex layout has all expected text
-    expect(canvas.getByText('Left')).toBeInTheDocument();
-    expect(canvas.getByText('Right 1')).toBeInTheDocument();
-    expect(canvas.getByText('Right 2')).toBeInTheDocument();
-    expect(canvas.getByText('Header')).toBeInTheDocument();
-    expect(canvas.getByText('Content 1')).toBeInTheDocument();
-    expect(canvas.getByText('Content 2')).toBeInTheDocument();
-    expect(canvas.getByText('Footer')).toBeInTheDocument();
+    expect(canvas.getByText("Left")).toBeInTheDocument();
+    expect(canvas.getByText("Right 1")).toBeInTheDocument();
+    expect(canvas.getByText("Right 2")).toBeInTheDocument();
+    expect(canvas.getByText("Header")).toBeInTheDocument();
+    expect(canvas.getByText("Content 1")).toBeInTheDocument();
+    expect(canvas.getByText("Content 2")).toBeInTheDocument();
+    expect(canvas.getByText("Footer")).toBeInTheDocument();
   },
 };

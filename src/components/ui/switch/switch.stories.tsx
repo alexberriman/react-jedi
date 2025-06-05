@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import * as React from "react";
 import { Switch } from "./switch";
 
@@ -14,7 +14,7 @@ const meta: Meta<typeof Switch> = {
 ## Usage
 
 \`\`\`tsx
-<Switch 
+<Switch
   checked={isEnabled}
   onCheckedChange={setIsEnabled}
 />
@@ -46,7 +46,8 @@ const meta: Meta<typeof Switch> = {
     },
   },
 
-  tags: ['autodocs', 'ui-switch']};
+  tags: ["autodocs", "ui-switch"],
+};
 
 export default meta;
 type Story = StoryObj<typeof Switch>;
@@ -305,7 +306,7 @@ export const AnimationOptions: Story = {
           <span className="text-sm text-muted-foreground">Smooth spring animation</span>
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-sm font-medium mb-3">Without Animation</h3>
         <div className="flex items-center gap-4">
@@ -313,7 +314,7 @@ export const AnimationOptions: Story = {
           <span className="text-sm text-muted-foreground">Instant transition</span>
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-sm font-medium mb-3">Animation Comparison</h3>
         <div className="space-y-3">

@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
 
 /**
@@ -72,19 +72,25 @@ export const Default: Story = {
     expect(passwordTab).toHaveAttribute("data-state", "inactive");
 
     // Test initial content
-    expect(canvas.getByText("Make changes to your account here. Click save when you're done.")).toBeInTheDocument();
+    expect(
+      canvas.getByText("Make changes to your account here. Click save when you're done.")
+    ).toBeInTheDocument();
 
     // Test clicking Password tab
     await user.click(passwordTab);
     expect(passwordTab).toHaveAttribute("data-state", "active");
     expect(accountTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("Change your password here. After saving, you'll be logged out.")).toBeInTheDocument();
+    expect(
+      canvas.getByText("Change your password here. After saving, you'll be logged out.")
+    ).toBeInTheDocument();
 
     // Test clicking back to Account tab
     await user.click(accountTab);
     expect(accountTab).toHaveAttribute("data-state", "active");
     expect(passwordTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("Make changes to your account here. Click save when you're done.")).toBeInTheDocument();
+    expect(
+      canvas.getByText("Make changes to your account here. Click save when you're done.")
+    ).toBeInTheDocument();
   },
 };
 
@@ -144,19 +150,25 @@ export const Controlled: Story = {
 
     // Test initial state (Overview should be active)
     expect(overviewTab).toHaveAttribute("data-state", "active");
-    expect(canvas.getByText("Welcome to the overview tab. Get a bird's eye view of your data.")).toBeInTheDocument();
+    expect(
+      canvas.getByText("Welcome to the overview tab. Get a bird's eye view of your data.")
+    ).toBeInTheDocument();
 
     // Test switching to Analytics
     await user.click(analyticsTab);
     expect(analyticsTab).toHaveAttribute("data-state", "active");
     expect(overviewTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("Dive deep into your analytics and understand your metrics.")).toBeInTheDocument();
+    expect(
+      canvas.getByText("Dive deep into your analytics and understand your metrics.")
+    ).toBeInTheDocument();
 
     // Test switching to Reports
     await user.click(reportsTab);
     expect(reportsTab).toHaveAttribute("data-state", "active");
     expect(analyticsTab).toHaveAttribute("data-state", "inactive");
-    expect(canvas.getByText("Access detailed reports and export them in various formats.")).toBeInTheDocument();
+    expect(
+      canvas.getByText("Access detailed reports and export them in various formats.")
+    ).toBeInTheDocument();
   },
 };
 
@@ -279,7 +291,7 @@ export const WithDisabledTab: Story = {
     // We verify the disabled state rather than trying to click it since it has pointer-events: none
     expect(disabledTab).toHaveAttribute("data-state", "inactive");
     expect(pendingTab).toHaveAttribute("data-state", "active");
-    
+
     // Verify the disabled tab has the correct styling
     const disabledTabElement = disabledTab as HTMLElement;
     const styles = globalThis.getComputedStyle(disabledTabElement);
@@ -517,7 +529,8 @@ export const WithAnimation: Story = {
   render: (args) => (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground mb-4">
-        Tabs with smooth animations between transitions. The indicator slides between tabs and content fades in.
+        Tabs with smooth animations between transitions. The indicator slides between tabs and
+        content fades in.
       </p>
       <Tabs {...args} className="w-[400px]">
         <TabsList className="grid w-full grid-cols-3">
@@ -557,14 +570,14 @@ export const WithAnimation: Story = {
     const user = userEvent.setup();
 
     // Wait for initial render
-    await new globalThis.Promise(resolve => globalThis.setTimeout(resolve, 100));
+    await new globalThis.Promise((resolve) => globalThis.setTimeout(resolve, 100));
 
     // Test tab transitions with animations
     const settingsTab = canvas.getByRole("tab", { name: "Settings" });
     await user.click(settingsTab);
-    
+
     // Wait for animation
-    await new globalThis.Promise(resolve => globalThis.setTimeout(resolve, 300));
+    await new globalThis.Promise((resolve) => globalThis.setTimeout(resolve, 300));
 
     const notificationsTab = canvas.getByRole("tab", { name: "Notifications" });
     await user.click(notificationsTab);
@@ -628,10 +641,11 @@ export const ModernStyling: Story = {
       <div>
         <h3 className="text-lg font-semibold mb-2">Enhanced Visual Design</h3>
         <p className="text-sm text-muted-foreground mb-6">
-          The updated tabs feature a modern glassmorphic design with subtle borders, smooth animations, and improved contrast.
+          The updated tabs feature a modern glassmorphic design with subtle borders, smooth
+          animations, and improved contrast.
         </p>
       </div>
-      
+
       <Tabs {...args} className="w-full">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">

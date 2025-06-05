@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, within } from "storybook/test";
 import { SimpleGrid } from "./simple-grid";
 import { Box } from "../box";
 
@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component: `
-The SimpleGrid component creates a responsive grid layout with equal-sized cells. 
+The SimpleGrid component creates a responsive grid layout with equal-sized cells.
 It's perfect for creating uniform grids of content like image galleries, product cards, or feature grids.
 
 ## Features
@@ -33,7 +33,7 @@ import { SimpleGrid } from "@alexberriman/react-jedi";
 </SimpleGrid>
 
 // Responsive columns
-<SimpleGrid 
+<SimpleGrid
   columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
   spacing="6"
 >
@@ -112,11 +112,11 @@ export const Default: Story = {
     if (grid) {
       const gridElement = grid as HTMLElement;
       const computedStyle = globalThis.getComputedStyle(gridElement);
-      expect(computedStyle.display).toBe('grid');
+      expect(computedStyle.display).toBe("grid");
       // Check that it has 3 columns by checking the computed style
       // The exact format might vary, so just check it has 3 columns worth of space
       const templateColumns = computedStyle.gridTemplateColumns;
-      const columnCount = templateColumns.split(' ').length;
+      const columnCount = templateColumns.split(" ").length;
       expect(columnCount).toBe(3);
     }
   },
@@ -151,16 +151,16 @@ export const ResponsiveColumns: Story = {
     // Test responsive classes are applied
     const grid = canvasElement.querySelector('[data-slot="simple-grid"]');
     expect(grid).toBeTruthy();
-    
+
     // Check that grid has the proper CSS variables set
     if (grid) {
       const gridElement = grid as HTMLElement;
       const styles = gridElement.style;
-      expect(styles.getPropertyValue('--grid-columns')).toBe('1');
-      expect(styles.getPropertyValue('--grid-columns-sm')).toBe('2');
-      expect(styles.getPropertyValue('--grid-columns-md')).toBe('3');
-      expect(styles.getPropertyValue('--grid-columns-lg')).toBe('4');
-      expect(styles.getPropertyValue('--grid-columns-xl')).toBe('5');
+      expect(styles.getPropertyValue("--grid-columns")).toBe("1");
+      expect(styles.getPropertyValue("--grid-columns-sm")).toBe("2");
+      expect(styles.getPropertyValue("--grid-columns-md")).toBe("3");
+      expect(styles.getPropertyValue("--grid-columns-lg")).toBe("4");
+      expect(styles.getPropertyValue("--grid-columns-xl")).toBe("5");
     }
   },
 };
@@ -200,7 +200,7 @@ export const AutoFitMinWidth: Story = {
     if (grid) {
       const gridElement = grid as HTMLElement;
       const styles = gridElement.style;
-      expect(styles.getPropertyValue('--grid-min-child-width')).toBe('200px');
+      expect(styles.getPropertyValue("--grid-min-child-width")).toBe("200px");
     }
   },
 };
@@ -238,10 +238,10 @@ export const ResponsiveSpacing: Story = {
     if (grid) {
       const gridElement = grid as HTMLElement;
       const styles = gridElement.style;
-      expect(styles.getPropertyValue('--grid-spacing')).toBe('2');
-      expect(styles.getPropertyValue('--grid-spacing-sm')).toBe('4');
-      expect(styles.getPropertyValue('--grid-spacing-md')).toBe('6');
-      expect(styles.getPropertyValue('--grid-spacing-lg')).toBe('8');
+      expect(styles.getPropertyValue("--grid-spacing")).toBe("2");
+      expect(styles.getPropertyValue("--grid-spacing-sm")).toBe("4");
+      expect(styles.getPropertyValue("--grid-spacing-md")).toBe("6");
+      expect(styles.getPropertyValue("--grid-spacing-lg")).toBe("8");
     }
   },
 };
@@ -328,7 +328,7 @@ export const ContentCards: Story = {
     expect(cards).toHaveLength(6);
 
     // Test grid has proper shadow styling
-    const cardElements = canvasElement.querySelectorAll('.shadow-lg');
+    const cardElements = canvasElement.querySelectorAll(".shadow-lg");
     expect(cardElements.length).toBeGreaterThanOrEqual(6);
   },
 };
@@ -361,14 +361,23 @@ export const MixedContent: Story = {
     const canvas = within(canvasElement);
 
     // Test all color boxes render
-    const colors = ['Red', 'Blue (Taller)', 'Green', 'Yellow', 'Purple', 'Pink (Tallest)', 'Orange', 'Teal'];
+    const colors = [
+      "Red",
+      "Blue (Taller)",
+      "Green",
+      "Yellow",
+      "Purple",
+      "Pink (Tallest)",
+      "Orange",
+      "Teal",
+    ];
     for (const color of colors) {
       expect(canvas.getByText(color)).toBeInTheDocument();
     }
 
     // Test different height classes
-    expect(canvasElement.querySelector('.h-32')).toBeTruthy();
-    expect(canvasElement.querySelector('.h-48')).toBeTruthy();
-    expect(canvasElement.querySelector('.h-56')).toBeTruthy();
+    expect(canvasElement.querySelector(".h-32")).toBeTruthy();
+    expect(canvasElement.querySelector(".h-48")).toBeTruthy();
+    expect(canvasElement.querySelector(".h-56")).toBeTruthy();
   },
 };

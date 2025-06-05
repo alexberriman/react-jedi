@@ -3,7 +3,7 @@ import { HoverCard, HoverCardTrigger, HoverCardContent } from "./hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { CalendarDays } from "lucide-react";
-import { within, userEvent, waitFor, expect, screen } from "@storybook/test";
+import { within, userEvent, waitFor, expect, screen } from "storybook/test";
 
 const meta = {
   title: "Components/HoverCard",
@@ -60,7 +60,9 @@ export const Default: Story = {
 
     await waitFor(
       () => {
-        const content = screen.getByText("Creator of shadcn/ui - modern component library for React.");
+        const content = screen.getByText(
+          "Creator of shadcn/ui - modern component library for React."
+        );
         expect(content).toBeInTheDocument();
         expect(screen.getByText("Joined December 2021")).toBeInTheDocument();
       },
@@ -121,7 +123,9 @@ export const UserProfile: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Develop. Preview. Ship. Creators of Next.js and the Edge Platform.")).toBeInTheDocument();
+        expect(
+          screen.getByText("Develop. Preview. Ship. Creators of Next.js and the Edge Platform.")
+        ).toBeInTheDocument();
         expect(screen.getByText("256")).toBeInTheDocument();
         expect(screen.getByText("44.5k")).toBeInTheDocument();
       },
@@ -237,7 +241,7 @@ export const CodePreview: Story = {
               A React hook for creating accessible hover card interactions.
             </p>
             <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
-              {`const { isOpen, ref, handlers } = 
+              {`const { isOpen, ref, handlers } =
   useHoverCard({
     openDelay: 700,
     closeDelay: 300
@@ -261,7 +265,9 @@ export const CodePreview: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("A React hook for creating accessible hover card interactions.")).toBeInTheDocument();
+        expect(
+          screen.getByText("A React hook for creating accessible hover card interactions.")
+        ).toBeInTheDocument();
         expect(screen.getByText(/Provides keyboard navigation/)).toBeInTheDocument();
       },
       { timeout: 10_000 }

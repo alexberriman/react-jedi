@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within, userEvent, fn } from "@storybook/test";
+import { expect, within, userEvent, fn } from "storybook/test";
 import { PricingTable, type PricingTier } from "./pricing-table";
 import { Sparkles, Zap, Crown, Rocket, Star, Shield } from "lucide-react";
 
@@ -140,11 +140,11 @@ export const Default: Story = {
     await step("Test billing cycle toggle", async () => {
       const yearlyButton = canvas.getByRole("tab", { name: /yearly/i });
       await userEvent.click(yearlyButton);
-      
+
       // Check yearly prices are displayed
       expect(canvas.getByText("90")).toBeInTheDocument();
       expect(canvas.getByText("290")).toBeInTheDocument();
-      
+
       // Check savings text
       expect(canvas.getByText("Save $18")).toBeInTheDocument();
       expect(canvas.getByText("Save $58")).toBeInTheDocument();
@@ -181,11 +181,11 @@ export const ComparisonTable: Story = {
     // Verify feature rows
     expect(canvas.getByText("5 Projects")).toBeInTheDocument();
     expect(canvas.getByText("Unlimited Projects")).toBeInTheDocument();
-    
+
     // Test billing toggle in comparison view
     const yearlyButton = canvas.getByRole("button", { name: /yearly/i });
     await userEvent.click(yearlyButton);
-    
+
     expect(canvas.getByText("90")).toBeInTheDocument();
     expect(canvas.getByText("290")).toBeInTheDocument();
   },
@@ -203,7 +203,7 @@ export const MinimalVariant: Story = {
 
 export const CompactVariant: Story = {
   args: {
-    tiers: defaultTiers.map(tier => ({
+    tiers: defaultTiers.map((tier) => ({
       ...tier,
       features: tier.features.slice(0, 5), // Fewer features for compact view
     })),
@@ -341,7 +341,7 @@ export const TwoColumns: Story = {
 
 export const CustomCurrency: Story = {
   args: {
-    tiers: defaultTiers.map(tier => ({
+    tiers: defaultTiers.map((tier) => ({
       ...tier,
       currency: "€",
       price: typeof tier.price === "number" ? tier.price * 0.85 : tier.price,
@@ -386,11 +386,11 @@ export const CustomIcons: Story = {
 
 export const WithTooltips: Story = {
   args: {
-    tiers: defaultTiers.map(tier => ({
+    tiers: defaultTiers.map((tier) => ({
       ...tier,
-      features: tier.features.map(feature => ({
+      features: tier.features.map((feature) => ({
         ...feature,
-        tooltip: feature.included 
+        tooltip: feature.included
           ? `This feature is included in the ${tier.name} plan`
           : `Upgrade to access this feature`,
       })),
@@ -415,12 +415,12 @@ export const InteractiveExample: Story = {
     const cards = canvas.getAllByRole("article");
     for (const card of cards) {
       await userEvent.hover(card);
-      await new Promise(resolve => globalThis.setTimeout(resolve, 100)); // Brief pause for animation
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 100)); // Brief pause for animation
     }
 
     // Test CTA button interactions
     const ctaButtons = canvas.getAllByRole("button");
-    const salesButton = ctaButtons.find(btn => btn.textContent === "Contact Sales");
+    const salesButton = ctaButtons.find((btn) => btn.textContent === "Contact Sales");
     if (salesButton) {
       await userEvent.click(salesButton);
     }

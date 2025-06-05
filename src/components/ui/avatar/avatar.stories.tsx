@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within, waitFor } from "@storybook/test";
+import { expect, userEvent, within, waitFor } from "storybook/test";
 import { Avatar, AvatarImage, AvatarFallback } from "./avatar";
 
 const meta = {
@@ -100,10 +100,10 @@ export const CustomSizes: Story = {
     // Check each avatar has the correct size class
     const container = canvasElement.querySelector(".flex");
     const avatarElements = container?.querySelectorAll('[data-slot="avatar"]');
-    
+
     // Verify avatars exist and have proper parent wrappers with size classes
     expect(avatarElements).toHaveLength(5);
-    
+
     // Check the wrapper divs that have the size classes
     const sizeWrappers = container?.children;
     expect(sizeWrappers?.[0]).toHaveClass("size-6");

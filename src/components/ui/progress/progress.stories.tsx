@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, waitFor, within } from "@storybook/test";
+import { expect, waitFor, within } from "storybook/test";
 import { Progress } from "./progress";
 
 const meta = {
@@ -50,7 +50,10 @@ export const Default: Story = {
     const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
     expect(indicator).toBeInTheDocument();
     // Check the style attribute directly instead of computed style
-    expect(indicator).toHaveAttribute('style', expect.stringContaining('transform: translateX(-40%)'));
+    expect(indicator).toHaveAttribute(
+      "style",
+      expect.stringContaining("transform: translateX(-40%)")
+    );
   },
 };
 
@@ -67,7 +70,10 @@ export const Empty: Story = {
     // Test visual indicator at 0%
     const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
     // Check the style attribute directly instead of computed style
-    expect(indicator).toHaveAttribute('style', expect.stringContaining('transform: translateX(-100%)'));
+    expect(indicator).toHaveAttribute(
+      "style",
+      expect.stringContaining("transform: translateX(-100%)")
+    );
   },
 };
 
@@ -102,7 +108,10 @@ export const Complete: Story = {
     // Test visual indicator at 100%
     const indicator = progressBar.querySelector('[data-slot="progress-indicator"]');
     // Check the style attribute directly instead of computed style
-    expect(indicator).toHaveAttribute('style', expect.stringContaining('transform: translateX(0%)'));
+    expect(indicator).toHaveAttribute(
+      "style",
+      expect.stringContaining("transform: translateX(0%)")
+    );
   },
 };
 

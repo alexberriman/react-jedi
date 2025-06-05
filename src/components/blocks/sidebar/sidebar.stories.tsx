@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within, waitFor } from "@storybook/test";
+import { expect, userEvent, within, waitFor } from "storybook/test";
 import {
   ChevronRight as ChevronRightIcon,
   Home as HomeIcon,
@@ -60,7 +60,7 @@ const meta = {
     layout: "fullscreen",
   },
 
-  tags: ['autodocs', 'ui-sidebar'],
+  tags: ["autodocs", "ui-sidebar"],
 } satisfies Meta<typeof Sidebar>;
 
 export default meta;
@@ -164,7 +164,7 @@ export const Default: Story = {
 
     // Test sidebar trigger - there might be multiple, get the visible one
     const triggers = canvas.getAllByRole("button", { name: "Toggle Sidebar" });
-    const trigger = triggers.find(t => t.offsetParent !== null) || triggers[0];
+    const trigger = triggers.find((t) => t.offsetParent !== null) || triggers[0];
     expect(trigger).toBeTruthy();
 
     // Click trigger to toggle sidebar
@@ -260,19 +260,19 @@ export const CollapsibleIcon: Story = {
 
     // Test sidebar trigger to collapse - get all and use the visible one
     const triggers = canvas.getAllByRole("button", { name: "Toggle Sidebar" });
-    const trigger = triggers.find(t => t.offsetParent !== null) || triggers[0];
+    const trigger = triggers.find((t) => t.offsetParent !== null) || triggers[0];
     await user.click(trigger);
 
     // Test hover for tooltips in collapsed state - wait for collapse animation
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       const timeoutId = globalThis.setTimeout(resolve, 300);
       return timeoutId;
     });
-    
+
     // Hover over a menu item to see tooltip
     const projectsIcon = canvas.getAllByRole("link")[1]; // Skip dashboard link
     await user.hover(projectsIcon);
-    
+
     // Click trigger to expand again
     await user.click(trigger);
 
@@ -466,13 +466,11 @@ export const WithBadgesAndActions: Story = {
 
     // Test group action button
     const groupActionButtons = canvas.getAllByRole("button");
-    const shareButton = groupActionButtons.find(btn => 
-      btn.querySelector('svg[class*="h-3"]')
-    );
+    const shareButton = groupActionButtons.find((btn) => btn.querySelector('svg[class*="h-3"]'));
     expect(shareButton).toBeInTheDocument();
 
     // Hover over notifications to reveal action
-    const notificationsItem = canvas.getByText("Notifications").closest('li');
+    const notificationsItem = canvas.getByText("Notifications").closest("li");
     await user.hover(notificationsItem!);
 
     // Test action buttons are visible
@@ -542,7 +540,7 @@ export const FloatingVariant: Story = {
     const sidebar = canvasElement.querySelector('[data-slot="sidebar"]');
     expect(sidebar).toBeTruthy();
     if (sidebar) {
-      expect(sidebar).toHaveAttribute('data-variant', 'floating');
+      expect(sidebar).toHaveAttribute("data-variant", "floating");
     }
 
     // Test content renders
@@ -613,7 +611,7 @@ export const InsetVariant: Story = {
     const sidebar = canvasElement.querySelector('[data-slot="sidebar"]');
     expect(sidebar).toBeTruthy();
     if (sidebar) {
-      expect(sidebar).toHaveAttribute('data-variant', 'inset');
+      expect(sidebar).toHaveAttribute("data-variant", "inset");
     }
 
     // Test content renders
@@ -687,12 +685,12 @@ export const RightSidebar: Story = {
     const sidebar = canvasElement.querySelector('[data-slot="sidebar"]');
     expect(sidebar).toBeTruthy();
     if (sidebar) {
-      expect(sidebar).toHaveAttribute('data-side', 'right');
+      expect(sidebar).toHaveAttribute("data-side", "right");
     }
 
     // Test trigger is on the right
     const trigger = canvas.getByRole("button", { name: "Toggle Sidebar" });
-    const triggerContainer = trigger.closest('.ml-auto');
+    const triggerContainer = trigger.closest(".ml-auto");
     expect(triggerContainer).toBeTruthy();
 
     // Toggle sidebar
@@ -791,14 +789,14 @@ export const WithSearch: Story = {
 
     // Test multiple groups
     expect(canvas.getByText("Main Menu")).toBeInTheDocument();
-    
+
     // Find Settings label within the data attribute
     await waitFor(() => {
       const settingsLabels = canvas.getAllByText("Settings");
       // Should have at least one Settings label
       expect(settingsLabels.length).toBeGreaterThan(0);
       // Find the one that's a group label
-      const groupLabel = settingsLabels.find(el => el.closest('[data-sidebar="group-label"]'));
+      const groupLabel = settingsLabels.find((el) => el.closest('[data-sidebar="group-label"]'));
       expect(groupLabel).toBeTruthy();
     });
   },

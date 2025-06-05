@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -42,7 +42,7 @@ const meta = {
     layout: "centered",
   },
 
-  tags: ['autodocs', 'ui-dropdown-menu'],
+  tags: ["autodocs", "ui-dropdown-menu"],
 } satisfies Meta<typeof DropdownMenu>;
 
 export default meta;
@@ -101,33 +101,36 @@ export const Basic: Story = {
   ),
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Open dropdown menu
-    const triggerButton = canvas.getByRole('button', { name: /open menu/i });
+    const triggerButton = canvas.getByRole("button", { name: /open menu/i });
     await userEvent.click(triggerButton);
-    
+
     // Wait for menu to appear in the document
     await waitFor(() => {
-      expect(within(document.body).getByText('My Account')).toBeInTheDocument();
+      expect(within(document.body).getByText("My Account")).toBeInTheDocument();
     });
-    
+
     // Verify menu items are visible
-    expect(within(document.body).getByText('Profile')).toBeInTheDocument();
-    expect(within(document.body).getByText('Billing')).toBeInTheDocument();
-    expect(within(document.body).getByText('Settings')).toBeInTheDocument();
-    
+    expect(within(document.body).getByText("Profile")).toBeInTheDocument();
+    expect(within(document.body).getByText("Billing")).toBeInTheDocument();
+    expect(within(document.body).getByText("Settings")).toBeInTheDocument();
+
     // Verify disabled item
-    const apiItem = within(document.body).getByText('API').closest('[role="menuitem"]');
-    expect(apiItem).toHaveAttribute('aria-disabled', 'true');
-    
+    const apiItem = within(document.body).getByText("API").closest('[role="menuitem"]');
+    expect(apiItem).toHaveAttribute("aria-disabled", "true");
+
     // Click on a menu item
-    const profileItem = within(document.body).getByText('Profile').closest('[role="menuitem"]');
+    const profileItem = within(document.body).getByText("Profile").closest('[role="menuitem"]');
     await userEvent.click(profileItem!);
-    
+
     // Menu should close after clicking an item
-    await waitFor(() => {
-      expect(within(document.body).queryByText('My Account')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(within(document.body).queryByText("My Account")).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };
 
@@ -166,49 +169,56 @@ export const WithCheckboxes: Story = {
   render: () => <WithCheckboxesExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Open dropdown
-    const triggerButton = canvas.getByRole('button', { name: /open menu/i });
+    const triggerButton = canvas.getByRole("button", { name: /open menu/i });
     await userEvent.click(triggerButton);
-    
+
     // Wait for menu to appear
     await waitFor(() => {
-      expect(within(document.body).getByText('Appearance')).toBeInTheDocument();
+      expect(within(document.body).getByText("Appearance")).toBeInTheDocument();
     });
-    
+
     // Verify initial checkbox states
-    const statusBarCheckbox = within(document.body).getByRole('menuitemcheckbox', { name: /status bar/i });
-    const activityBarCheckbox = within(document.body).getByRole('menuitemcheckbox', { name: /activity bar/i });
-    const panelCheckbox = within(document.body).getByRole('menuitemcheckbox', { name: /panel/i });
-    
-    expect(statusBarCheckbox).toHaveAttribute('aria-checked', 'true');
-    expect(activityBarCheckbox).toHaveAttribute('aria-checked', 'false');
-    expect(activityBarCheckbox).toHaveAttribute('aria-disabled', 'true');
-    expect(panelCheckbox).toHaveAttribute('aria-checked', 'false');
-    
+    const statusBarCheckbox = within(document.body).getByRole("menuitemcheckbox", {
+      name: /status bar/i,
+    });
+    const activityBarCheckbox = within(document.body).getByRole("menuitemcheckbox", {
+      name: /activity bar/i,
+    });
+    const panelCheckbox = within(document.body).getByRole("menuitemcheckbox", { name: /panel/i });
+
+    expect(statusBarCheckbox).toHaveAttribute("aria-checked", "true");
+    expect(activityBarCheckbox).toHaveAttribute("aria-checked", "false");
+    expect(activityBarCheckbox).toHaveAttribute("aria-disabled", "true");
+    expect(panelCheckbox).toHaveAttribute("aria-checked", "false");
+
     // Click on Status Bar checkbox to uncheck it
     await userEvent.click(statusBarCheckbox);
-    
+
     // Verify it toggled
-    expect(statusBarCheckbox).toHaveAttribute('aria-checked', 'false');
-    
+    expect(statusBarCheckbox).toHaveAttribute("aria-checked", "false");
+
     // Click on Panel checkbox to check it
     await userEvent.click(panelCheckbox);
-    
+
     // Verify it toggled
-    expect(panelCheckbox).toHaveAttribute('aria-checked', 'true');
-    
+    expect(panelCheckbox).toHaveAttribute("aria-checked", "true");
+
     // Verify disabled checkbox cannot be clicked (it has aria-disabled)
-    expect(activityBarCheckbox).toHaveAttribute('aria-disabled', 'true');
-    expect(activityBarCheckbox).toHaveAttribute('aria-checked', 'false');
-    
+    expect(activityBarCheckbox).toHaveAttribute("aria-disabled", "true");
+    expect(activityBarCheckbox).toHaveAttribute("aria-checked", "false");
+
     // Close menu by clicking outside
     await userEvent.click(document.body);
-    
+
     // Menu should close
-    await waitFor(() => {
-      expect(within(document.body).queryByText('Appearance')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(within(document.body).queryByText("Appearance")).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };
 
@@ -237,48 +247,51 @@ export const WithRadioGroup: Story = {
   render: () => <WithRadioGroupExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Open dropdown
-    const triggerButton = canvas.getByRole('button', { name: /open menu/i });
+    const triggerButton = canvas.getByRole("button", { name: /open menu/i });
     await userEvent.click(triggerButton);
-    
+
     // Wait for menu to appear
     await waitFor(() => {
-      expect(within(document.body).getByText('Panel Position')).toBeInTheDocument();
+      expect(within(document.body).getByText("Panel Position")).toBeInTheDocument();
     });
-    
+
     // Verify initial radio selection (bottom is selected by default)
-    const topRadio = within(document.body).getByRole('menuitemradio', { name: /top/i });
-    const bottomRadio = within(document.body).getByRole('menuitemradio', { name: /bottom/i });
-    const rightRadio = within(document.body).getByRole('menuitemradio', { name: /right/i });
-    
-    expect(topRadio).toHaveAttribute('aria-checked', 'false');
-    expect(bottomRadio).toHaveAttribute('aria-checked', 'true');
-    expect(rightRadio).toHaveAttribute('aria-checked', 'false');
-    
+    const topRadio = within(document.body).getByRole("menuitemradio", { name: /top/i });
+    const bottomRadio = within(document.body).getByRole("menuitemradio", { name: /bottom/i });
+    const rightRadio = within(document.body).getByRole("menuitemradio", { name: /right/i });
+
+    expect(topRadio).toHaveAttribute("aria-checked", "false");
+    expect(bottomRadio).toHaveAttribute("aria-checked", "true");
+    expect(rightRadio).toHaveAttribute("aria-checked", "false");
+
     // Click on Top radio
     await userEvent.click(topRadio);
-    
+
     // Verify selection changed
-    expect(topRadio).toHaveAttribute('aria-checked', 'true');
-    expect(bottomRadio).toHaveAttribute('aria-checked', 'false');
-    expect(rightRadio).toHaveAttribute('aria-checked', 'false');
-    
+    expect(topRadio).toHaveAttribute("aria-checked", "true");
+    expect(bottomRadio).toHaveAttribute("aria-checked", "false");
+    expect(rightRadio).toHaveAttribute("aria-checked", "false");
+
     // Click on Right radio
     await userEvent.click(rightRadio);
-    
+
     // Verify selection changed again
-    expect(topRadio).toHaveAttribute('aria-checked', 'false');
-    expect(bottomRadio).toHaveAttribute('aria-checked', 'false');
-    expect(rightRadio).toHaveAttribute('aria-checked', 'true');
-    
+    expect(topRadio).toHaveAttribute("aria-checked", "false");
+    expect(bottomRadio).toHaveAttribute("aria-checked", "false");
+    expect(rightRadio).toHaveAttribute("aria-checked", "true");
+
     // Close menu
-    await userEvent.keyboard('{Escape}');
-    
+    await userEvent.keyboard("{Escape}");
+
     // Menu should close
-    await waitFor(() => {
-      expect(within(document.body).queryByText('Panel Position')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(within(document.body).queryByText("Panel Position")).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };
 
@@ -479,28 +492,31 @@ export const WithCustomTrigger: Story = {
   ),
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find custom trigger button (avatar button with JD initials)
-    const triggerButton = canvas.getByText('JD');
+    const triggerButton = canvas.getByText("JD");
     await userEvent.click(triggerButton);
-    
+
     // Wait for menu to appear
     await waitFor(() => {
-      expect(within(document.body).getByText('John Doe')).toBeInTheDocument();
+      expect(within(document.body).getByText("John Doe")).toBeInTheDocument();
     });
-    
+
     // Verify menu items
-    expect(within(document.body).getByText('Profile')).toBeInTheDocument();
-    expect(within(document.body).getByText('Settings')).toBeInTheDocument();
-    expect(within(document.body).getByText('Log out')).toBeInTheDocument();
-    
+    expect(within(document.body).getByText("Profile")).toBeInTheDocument();
+    expect(within(document.body).getByText("Settings")).toBeInTheDocument();
+    expect(within(document.body).getByText("Log out")).toBeInTheDocument();
+
     // Click Settings
-    const settingsItem = within(document.body).getByText('Settings').closest('[role="menuitem"]');
+    const settingsItem = within(document.body).getByText("Settings").closest('[role="menuitem"]');
     await userEvent.click(settingsItem!);
-    
+
     // Menu should close
-    await waitFor(() => {
-      expect(within(document.body).queryByText('John Doe')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(within(document.body).queryByText("John Doe")).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };

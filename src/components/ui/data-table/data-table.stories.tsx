@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn, within, userEvent, expect, waitFor } from "@storybook/test";
+import { fn, within, userEvent, expect, waitFor } from "storybook/test";
 import { DataTable, createSortableHeader, type DataTableColumn } from "./data-table";
 import { Copy, Edit, Trash } from "lucide-react";
 import type { Column, Row } from "@tanstack/react-table";
@@ -105,7 +105,7 @@ const meta = {
     docs: {
       description: {
         component: `
-A powerful and flexible data table component built on TanStack Table. 
+A powerful and flexible data table component built on TanStack Table.
 Features include sorting, filtering, pagination, row selection, and customizable actions.
 
 ### Key Features
@@ -232,41 +232,41 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Test filtering
-    const filterInput = canvas.getByPlaceholderText('Filter emails...');
-    await userEvent.type(filterInput, 'gmail');
-    
+    const filterInput = canvas.getByPlaceholderText("Filter emails...");
+    await userEvent.type(filterInput, "gmail");
+
     // Wait for filtered results
     await waitFor(() => {
-      const rows = canvas.getAllByRole('row');
+      const rows = canvas.getAllByRole("row");
       // Header + filtered rows
       expect(rows.length).toBeLessThan(7); // Less than header + all 5 items
     });
-    
+
     // Clear filter
     await userEvent.clear(filterInput);
-    
+
     // Test sorting by clicking Email header
-    const emailHeader = canvas.getByRole('button', { name: /email/i });
+    const emailHeader = canvas.getByRole("button", { name: /email/i });
     await userEvent.click(emailHeader);
-    
+
     // Test row selection
-    const checkboxes = canvas.getAllByRole('checkbox');
+    const checkboxes = canvas.getAllByRole("checkbox");
     await userEvent.click(checkboxes[1]); // Click first row checkbox
-    
+
     // Test pagination - go to next page
-    const nextButton = canvas.getByRole('button', { name: /next/i });
-    if (!nextButton.hasAttribute('disabled')) {
+    const nextButton = canvas.getByRole("button", { name: /next/i });
+    if (!nextButton.hasAttribute("disabled")) {
       await userEvent.click(nextButton);
-      
+
       // Only go back if we actually went forward
       await waitFor(() => {
-        const prevButton = canvas.getByRole('button', { name: /previous/i });
+        const prevButton = canvas.getByRole("button", { name: /previous/i });
         expect(prevButton).not.toBeDisabled();
       });
-      
-      const prevButton = canvas.getByRole('button', { name: /previous/i });
+
+      const prevButton = canvas.getByRole("button", { name: /previous/i });
       await userEvent.click(prevButton);
     }
   },
@@ -285,7 +285,7 @@ export const WithActions: Story = {
         onClick: fn((row: unknown) => {
           const payment = row as Payment;
           // Mock clipboard write for testing
-          console.log('Copying ID:', payment.id);
+          console.log("Copying ID:", payment.id);
         }),
         icon: Copy,
       },
@@ -303,33 +303,42 @@ export const WithActions: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Wait for table to be fully rendered
-    await waitFor(() => {
-      expect(canvas.getByRole('table')).toBeInTheDocument();
-    }, { timeout: 10_000 });
-    
+    await waitFor(
+      () => {
+        expect(canvas.getByRole("table")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+
     // Find the first actions button (three dots menu) - use aria-label from the component
-    const actionsButtons = canvas.getAllByRole('button', { name: /open menu/i });
+    const actionsButtons = canvas.getAllByRole("button", { name: /open menu/i });
     await userEvent.click(actionsButtons[0]);
-    
+
     // Wait for dropdown menu to appear - check in document since it might be in a portal
-    await waitFor(() => {
-      expect(within(document.body).getByText('Copy ID')).toBeInTheDocument();
-    }, { timeout: 10_000 });
-    
+    await waitFor(
+      () => {
+        expect(within(document.body).getByText("Copy ID")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+
     // Click on Edit action
-    await userEvent.click(within(document.body).getByText('Edit'));
-    
+    await userEvent.click(within(document.body).getByText("Edit"));
+
     // Click actions button again to open menu
     await userEvent.click(actionsButtons[0]);
-    
+
     // Wait for menu and click Copy ID
-    await waitFor(() => {
-      expect(within(document.body).getByText('Copy ID')).toBeInTheDocument();
-    }, { timeout: 10_000 });
-    
-    await userEvent.click(within(document.body).getByText('Copy ID'));
+    await waitFor(
+      () => {
+        expect(within(document.body).getByText("Copy ID")).toBeInTheDocument();
+      },
+      { timeout: 10_000 }
+    );
+
+    await userEvent.click(within(document.body).getByText("Copy ID"));
   },
 };
 
@@ -413,21 +422,21 @@ export const MinimalFeatures: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify table renders with data
-    expect(canvas.getByText('John Doe')).toBeInTheDocument();
-    expect(canvas.getByText('jane.smith@example.com')).toBeInTheDocument();
-    
+    expect(canvas.getByText("John Doe")).toBeInTheDocument();
+    expect(canvas.getByText("jane.smith@example.com")).toBeInTheDocument();
+
     // Test sorting by clicking Name header
-    const nameHeader = canvas.getByRole('button', { name: /name/i });
+    const nameHeader = canvas.getByRole("button", { name: /name/i });
     await userEvent.click(nameHeader);
-    
+
     // Click again to reverse sort
     await userEvent.click(nameHeader);
-    
+
     // Verify no pagination controls
-    expect(canvas.queryByRole('button', { name: /next/i })).not.toBeInTheDocument();
-    expect(canvas.queryByRole('button', { name: /previous/i })).not.toBeInTheDocument();
+    expect(canvas.queryByRole("button", { name: /next/i })).not.toBeInTheDocument();
+    expect(canvas.queryByRole("button", { name: /previous/i })).not.toBeInTheDocument();
   },
 };
 
@@ -442,20 +451,20 @@ export const CustomStyling: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify custom styling is applied to the outer wrapper
     // The className is applied to the outermost div that contains the table
-    const wrapper = canvas.getByRole('table').closest('.shadow-lg');
+    const wrapper = canvas.getByRole("table").closest(".shadow-lg");
     expect(wrapper).toBeInTheDocument();
-    expect(wrapper).toHaveClass('shadow-lg');
-    expect(wrapper).toHaveClass('rounded-lg');
-    
+    expect(wrapper).toHaveClass("shadow-lg");
+    expect(wrapper).toHaveClass("rounded-lg");
+
     // Basic interaction test
-    const filterInput = canvas.getByPlaceholderText('Filter emails...');
-    await userEvent.type(filterInput, 'yahoo');
-    
+    const filterInput = canvas.getByPlaceholderText("Filter emails...");
+    await userEvent.type(filterInput, "yahoo");
+
     await waitFor(() => {
-      expect(canvas.getByText('ken99@yahoo.com')).toBeInTheDocument();
+      expect(canvas.getByText("ken99@yahoo.com")).toBeInTheDocument();
     });
   },
 };
@@ -472,24 +481,24 @@ export const WithRowSelection: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    
+
     // Get all checkboxes
-    const checkboxes = canvas.getAllByRole('checkbox');
-    
+    const checkboxes = canvas.getAllByRole("checkbox");
+
     // Select first row
     await userEvent.click(checkboxes[1]);
-    
+
     // Select second row
     await userEvent.click(checkboxes[2]);
-    
+
     // Verify onRowSelect was called
     await waitFor(() => {
       expect(args.onRowSelect).toHaveBeenCalled();
     });
-    
+
     // Select all rows
     await userEvent.click(checkboxes[0]); // Header checkbox
-    
+
     // Deselect all
     await userEvent.click(checkboxes[0]);
   },
@@ -504,15 +513,15 @@ export const EmptyState: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify empty state message
-    expect(canvas.getByText('No results.')).toBeInTheDocument();
-    
+    expect(canvas.getByText("No results.")).toBeInTheDocument();
+
     // Verify filter input is still available
-    expect(canvas.getByPlaceholderText('Filter emails...')).toBeInTheDocument();
-    
+    expect(canvas.getByPlaceholderText("Filter emails...")).toBeInTheDocument();
+
     // Verify table headers are still rendered
-    expect(canvas.getByText('Email')).toBeInTheDocument();
-    expect(canvas.getByText('Amount')).toBeInTheDocument();
+    expect(canvas.getByText("Email")).toBeInTheDocument();
+    expect(canvas.getByText("Amount")).toBeInTheDocument();
   },
 };

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { Button } from "./button";
 
 const meta = {
@@ -130,7 +130,7 @@ export const Disabled: Story = {
 
     // Test disabled attribute is present
     expect(button).toHaveAttribute("disabled");
-    
+
     // Test pointer-events-none class is applied
     expect(button).toHaveClass("disabled:pointer-events-none");
 

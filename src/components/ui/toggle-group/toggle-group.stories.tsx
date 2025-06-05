@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, fn, userEvent, within } from "@storybook/test";
+import { expect, fn, userEvent, within } from "storybook/test";
 import { ToggleGroup, ToggleGroupItem } from "./toggle-group";
 import {
   Bold,
@@ -68,29 +68,29 @@ export const Single: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Test toggle group renders
-    const toggleGroup = canvas.getByRole('group');
+    const toggleGroup = canvas.getByRole("group");
     expect(toggleGroup).toBeInTheDocument();
-    
+
     // Test toggle items render (toggle items in single mode have role="radio")
-    const leftToggle = canvas.getByRole('radio', { name: 'Left aligned' });
-    const centerToggle = canvas.getByRole('radio', { name: 'Center aligned' });
-    const rightToggle = canvas.getByRole('radio', { name: 'Right aligned' });
-    const justifyToggle = canvas.getByRole('radio', { name: 'Justified' });
-    
+    const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
+    const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
+    const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
+    const justifyToggle = canvas.getByRole("radio", { name: "Justified" });
+
     expect(leftToggle).toBeInTheDocument();
     expect(centerToggle).toBeInTheDocument();
     expect(rightToggle).toBeInTheDocument();
     expect(justifyToggle).toBeInTheDocument();
-    
+
     // Test default selection (center)
-    expect(centerToggle).toHaveAttribute('data-state', 'on');
-    
+    expect(centerToggle).toHaveAttribute("data-state", "on");
+
     // Test clicking a different toggle
     await user.click(leftToggle);
-    expect(leftToggle).toHaveAttribute('data-state', 'on');
-    expect(centerToggle).toHaveAttribute('data-state', 'off');
+    expect(leftToggle).toHaveAttribute("data-state", "on");
+    expect(centerToggle).toHaveAttribute("data-state", "off");
   },
 };
 
@@ -116,33 +116,33 @@ export const Multiple: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    
+
     // Test toggle group renders
-    const toggleGroup = canvas.getByRole('group');
+    const toggleGroup = canvas.getByRole("group");
     expect(toggleGroup).toBeInTheDocument();
-    
+
     // Test toggle items render (toggle items in multiple mode have role="button")
-    const boldToggle = canvas.getByRole('button', { name: 'Toggle bold' });
-    const italicToggle = canvas.getByRole('button', { name: 'Toggle italic' });
-    const underlineToggle = canvas.getByRole('button', { name: 'Toggle underline' });
-    
+    const boldToggle = canvas.getByRole("button", { name: "Toggle bold" });
+    const italicToggle = canvas.getByRole("button", { name: "Toggle italic" });
+    const underlineToggle = canvas.getByRole("button", { name: "Toggle underline" });
+
     expect(boldToggle).toBeInTheDocument();
     expect(italicToggle).toBeInTheDocument();
     expect(underlineToggle).toBeInTheDocument();
-    
+
     // Test default selection (bold)
-    expect(boldToggle).toHaveAttribute('data-state', 'on');
-    expect(italicToggle).toHaveAttribute('data-state', 'off');
-    
+    expect(boldToggle).toHaveAttribute("data-state", "on");
+    expect(italicToggle).toHaveAttribute("data-state", "off");
+
     // Test clicking multiple toggles (multiple mode)
     await user.click(italicToggle);
-    expect(boldToggle).toHaveAttribute('data-state', 'on');
-    expect(italicToggle).toHaveAttribute('data-state', 'on');
-    
+    expect(boldToggle).toHaveAttribute("data-state", "on");
+    expect(italicToggle).toHaveAttribute("data-state", "on");
+
     await user.click(underlineToggle);
-    expect(boldToggle).toHaveAttribute('data-state', 'on');
-    expect(italicToggle).toHaveAttribute('data-state', 'on');
-    expect(underlineToggle).toHaveAttribute('data-state', 'on');
+    expect(boldToggle).toHaveAttribute("data-state", "on");
+    expect(italicToggle).toHaveAttribute("data-state", "on");
+    expect(underlineToggle).toHaveAttribute("data-state", "on");
   },
 };
 
@@ -253,23 +253,23 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Test disabled toggle group (disabled toggles have role="radio")
-    const leftToggle = canvas.getByRole('radio', { name: 'Left aligned' });
-    const centerToggle = canvas.getByRole('radio', { name: 'Center aligned' });
-    const rightToggle = canvas.getByRole('radio', { name: 'Right aligned' });
-    
+    const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
+    const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
+    const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
+
     expect(leftToggle).toBeInTheDocument();
     expect(centerToggle).toBeInTheDocument();
     expect(rightToggle).toBeInTheDocument();
-    
+
     // Test all items are disabled
     expect(leftToggle).toBeDisabled();
     expect(centerToggle).toBeDisabled();
     expect(rightToggle).toBeDisabled();
-    
+
     // Test default selection is still maintained
-    expect(centerToggle).toHaveAttribute('data-state', 'on');
+    expect(centerToggle).toHaveAttribute("data-state", "on");
   },
 };
 

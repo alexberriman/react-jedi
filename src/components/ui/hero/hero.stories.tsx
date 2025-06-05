@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Hero } from "./hero";
 import { Rocket, Star, Code2, Zap } from "lucide-react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { within, userEvent, waitFor, expect } from "storybook/test";
 
 const meta: Meta<typeof Hero> = {
   title: "Blocks/Hero",
@@ -27,7 +27,8 @@ const meta: Meta<typeof Hero> = {
     },
   },
 
-  tags: ['autodocs', 'ui-hero']};
+  tags: ["autodocs", "ui-hero"],
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -58,7 +59,9 @@ export const AnimatedCentered: Story = {
       () => {
         expect(canvas.getByText("Welcome to the Future 2025")).toBeInTheDocument();
         expect(canvas.getByText("Next Generation Platform")).toBeInTheDocument();
-        expect(canvas.getByText(/Experience the power of modern web development/)).toBeInTheDocument();
+        expect(
+          canvas.getByText(/Experience the power of modern web development/)
+        ).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -110,11 +113,13 @@ export const LeftAlignedAnimated: Story = {
 
     const originalAlert = globalThis.alert;
     let alertMessage = "";
-    globalThis.alert = (msg: string) => { alertMessage = msg; };
-    
+    globalThis.alert = (msg: string) => {
+      alertMessage = msg;
+    };
+
     await userEvent.click(primaryButton);
     expect(alertMessage).toBe("Start building clicked!");
-    
+
     globalThis.alert = originalAlert;
   },
 };
@@ -244,7 +249,9 @@ export const MinimalAnimated: Story = {
     await waitFor(
       () => {
         expect(canvas.getByText("Simple. Powerful. Beautiful.")).toBeInTheDocument();
-        expect(canvas.getByText("Everything you need to build modern web applications.")).toBeInTheDocument();
+        expect(
+          canvas.getByText("Everything you need to build modern web applications.")
+        ).toBeInTheDocument();
         expect(canvas.getByRole("button", { name: "Get Started" })).toBeInTheDocument();
       },
       { timeout: 10_000 }

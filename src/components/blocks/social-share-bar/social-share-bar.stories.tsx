@@ -1,88 +1,95 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { SocialShareBar } from './social-share-bar'
-import { expect } from '@storybook/test'
+import type { Meta, StoryObj } from "@storybook/react";
+import { SocialShareBar } from "./social-share-bar";
+import { expect } from "storybook/test";
 
 const meta = {
-  title: 'Blocks/SocialShareBar',
+  title: "Blocks/SocialShareBar",
   component: SocialShareBar,
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
-  tags: ['autodocs', 'test'],
+  tags: ["autodocs", "test"],
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['horizontal', 'vertical', 'floating', 'modal', 'minimal'],
-      description: 'The layout variant of the share bar',
+      control: "select",
+      options: ["horizontal", "vertical", "floating", "modal", "minimal"],
+      description: "The layout variant of the share bar",
     },
     position: {
-      control: 'select',
-      options: ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'center-left', 'center-right'],
-      description: 'Position when using floating variant',
+      control: "select",
+      options: [
+        "top-left",
+        "top-right",
+        "bottom-left",
+        "bottom-right",
+        "center-left",
+        "center-right",
+      ],
+      description: "Position when using floating variant",
     },
     platforms: {
-      control: 'check',
-      options: ['twitter', 'facebook', 'linkedin', 'reddit', 'email', 'copy'],
-      description: 'Social platforms to include',
+      control: "check",
+      options: ["twitter", "facebook", "linkedin", "reddit", "email", "copy"],
+      description: "Social platforms to include",
     },
     size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Size of the share buttons',
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Size of the share buttons",
     },
     colorScheme: {
-      control: 'select',
-      options: ['default', 'brand', 'monochrome', 'gradient'],
-      description: 'Color scheme for the buttons',
+      control: "select",
+      options: ["default", "brand", "monochrome", "gradient"],
+      description: "Color scheme for the buttons",
     },
     showLabels: {
-      control: 'boolean',
-      description: 'Whether to show labels with icons',
+      control: "boolean",
+      description: "Whether to show labels with icons",
     },
     showCounts: {
-      control: 'boolean',
-      description: 'Whether to show share counts',
+      control: "boolean",
+      description: "Whether to show share counts",
     },
     animated: {
-      control: 'boolean',
-      description: 'Whether to animate the component',
+      control: "boolean",
+      description: "Whether to animate the component",
     },
     sticky: {
-      control: 'boolean',
-      description: 'Whether the component should be sticky',
+      control: "boolean",
+      description: "Whether the component should be sticky",
     },
   },
-} satisfies Meta<typeof SocialShareBar>
+} satisfies Meta<typeof SocialShareBar>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    url: 'https://example.com/article',
-    title: 'Check out this amazing article!',
-    description: 'An insightful article about modern web development',
+    url: "https://example.com/article",
+    title: "Check out this amazing article!",
+    description: "An insightful article about modern web development",
   },
-}
+};
 
 export const HorizontalBar: Story = {
   args: {
-    variant: 'horizontal',
-    url: 'https://example.com/blog-post',
-    title: 'Amazing Blog Post',
+    variant: "horizontal",
+    url: "https://example.com/blog-post",
+    title: "Amazing Blog Post",
     showLabels: true,
-    size: 'md',
+    size: "md",
   },
-}
+};
 
 export const VerticalSidebar: Story = {
   args: {
-    variant: 'vertical',
-    url: 'https://example.com/article',
-    title: 'Interesting Article',
+    variant: "vertical",
+    url: "https://example.com/article",
+    title: "Interesting Article",
     showLabels: false,
     sticky: true,
-    className: 'ml-auto',
+    className: "ml-auto",
   },
   decorators: [
     (Story) => (
@@ -90,14 +97,14 @@ export const VerticalSidebar: Story = {
         <div className="flex-1 max-w-2xl mx-auto p-8">
           <h1 className="text-3xl font-bold mb-4">Article Title</h1>
           <p className="text-gray-600 mb-8">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
             exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
           <p className="text-gray-600 mb-8">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-            culpa qui officia deserunt mollit anim id est laborum.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum.
           </p>
         </div>
         <div className="w-16">
@@ -106,14 +113,14 @@ export const VerticalSidebar: Story = {
       </div>
     ),
   ],
-}
+};
 
 export const FloatingButton: Story = {
   args: {
-    variant: 'floating',
-    position: 'bottom-right',
-    url: 'https://example.com/page',
-    title: 'Share this page',
+    variant: "floating",
+    position: "bottom-right",
+    url: "https://example.com/page",
+    title: "Share this page",
     animated: true,
   },
   decorators: [
@@ -129,33 +136,33 @@ export const FloatingButton: Story = {
       </div>
     ),
   ],
-}
+};
 
 export const ModalTrigger: Story = {
   args: {
-    variant: 'modal',
-    url: 'https://example.com/content',
-    title: 'Great Content to Share',
-    description: 'This is an amazing piece of content worth sharing',
-    platforms: ['twitter', 'facebook', 'linkedin', 'reddit', 'email', 'copy'],
+    variant: "modal",
+    url: "https://example.com/content",
+    title: "Great Content to Share",
+    description: "This is an amazing piece of content worth sharing",
+    platforms: ["twitter", "facebook", "linkedin", "reddit", "email", "copy"],
   },
-}
+};
 
 export const MinimalIcons: Story = {
   args: {
-    variant: 'minimal',
-    url: 'https://example.com/minimal',
-    title: 'Minimal Share Example',
-    size: 'sm',
+    variant: "minimal",
+    url: "https://example.com/minimal",
+    title: "Minimal Share Example",
+    size: "sm",
     showLabels: false,
   },
-}
+};
 
 export const WithShareCounts: Story = {
   args: {
-    variant: 'horizontal',
-    url: 'https://example.com/popular',
-    title: 'Popular Article',
+    variant: "horizontal",
+    url: "https://example.com/popular",
+    title: "Popular Article",
     showCounts: true,
     counts: {
       twitter: 234,
@@ -164,75 +171,75 @@ export const WithShareCounts: Story = {
       reddit: 456,
     },
   },
-}
+};
 
 export const BrandColors: Story = {
   args: {
-    variant: 'horizontal',
-    colorScheme: 'brand',
-    url: 'https://example.com/brand',
-    title: 'Brand Colored Share Buttons',
+    variant: "horizontal",
+    colorScheme: "brand",
+    url: "https://example.com/brand",
+    title: "Brand Colored Share Buttons",
     showLabels: true,
   },
-}
+};
 
 export const MonochromeStyle: Story = {
   args: {
-    variant: 'horizontal',
-    colorScheme: 'monochrome',
-    url: 'https://example.com/mono',
-    title: 'Monochrome Share Buttons',
+    variant: "horizontal",
+    colorScheme: "monochrome",
+    url: "https://example.com/mono",
+    title: "Monochrome Share Buttons",
     showLabels: false,
   },
-}
+};
 
 export const GradientStyle: Story = {
   args: {
-    variant: 'horizontal',
-    colorScheme: 'gradient',
-    url: 'https://example.com/gradient',
-    title: 'Gradient Share Buttons',
+    variant: "horizontal",
+    colorScheme: "gradient",
+    url: "https://example.com/gradient",
+    title: "Gradient Share Buttons",
     showLabels: true,
-    size: 'lg',
+    size: "lg",
   },
-}
+};
 
 export const LargeButtons: Story = {
   args: {
-    variant: 'horizontal',
-    size: 'lg',
-    url: 'https://example.com/large',
-    title: 'Large Share Buttons',
+    variant: "horizontal",
+    size: "lg",
+    url: "https://example.com/large",
+    title: "Large Share Buttons",
     showLabels: true,
   },
-}
+};
 
 export const SmallButtons: Story = {
   args: {
-    variant: 'horizontal',
-    size: 'sm',
-    url: 'https://example.com/small',
-    title: 'Small Share Buttons',
+    variant: "horizontal",
+    size: "sm",
+    url: "https://example.com/small",
+    title: "Small Share Buttons",
     showLabels: false,
   },
-}
+};
 
 export const SelectedPlatforms: Story = {
   args: {
-    variant: 'horizontal',
-    platforms: ['twitter', 'facebook', 'copy'],
-    url: 'https://example.com/selected',
-    title: 'Selected Platforms Only',
+    variant: "horizontal",
+    platforms: ["twitter", "facebook", "copy"],
+    url: "https://example.com/selected",
+    title: "Selected Platforms Only",
     showLabels: true,
   },
-}
+};
 
 export const FloatingCenterLeft: Story = {
   args: {
-    variant: 'floating',
-    position: 'center-left',
-    url: 'https://example.com/left',
-    title: 'Left Side Floating Button',
+    variant: "floating",
+    position: "center-left",
+    url: "https://example.com/left",
+    title: "Left Side Floating Button",
   },
   decorators: [
     (Story) => (
@@ -247,25 +254,25 @@ export const FloatingCenterLeft: Story = {
       </div>
     ),
   ],
-}
+};
 
 export const WithCallback: Story = {
   args: {
-    variant: 'horizontal',
-    url: 'https://example.com/callback',
-    title: 'Share with Callback',
+    variant: "horizontal",
+    url: "https://example.com/callback",
+    title: "Share with Callback",
     onShare: (platform) => {
-      console.log(`Shared on ${platform}`)
+      console.log(`Shared on ${platform}`);
     },
   },
   play: async ({ args, canvasElement, step }) => {
-    const buttons = canvasElement.querySelectorAll('button')
-    
-    await step('Check that share buttons are rendered', async () => {
-      await expect(buttons.length).toBeGreaterThan(0)
-    })
+    const buttons = canvasElement.querySelectorAll("button");
+
+    await step("Check that share buttons are rendered", async () => {
+      await expect(buttons.length).toBeGreaterThan(0);
+    });
   },
-}
+};
 
 export const IntegratedInContent: Story = {
   decorators: [
@@ -289,14 +296,14 @@ export const IntegratedInContent: Story = {
           />
         </div>
         <p className="text-gray-700 mb-6">
-          In today&apos;s fast-paced digital world, building modern web applications requires 
-          a deep understanding of various technologies and best practices. This comprehensive 
-          guide will walk you through the essential steps and considerations.
+          In today&apos;s fast-paced digital world, building modern web applications requires a deep
+          understanding of various technologies and best practices. This comprehensive guide will
+          walk you through the essential steps and considerations.
         </p>
         <p className="text-gray-700 mb-6">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
         <div className="my-8 p-6 bg-gray-50 rounded-lg">
           <p className="text-lg font-semibold mb-2">Enjoyed this article?</p>
@@ -312,4 +319,4 @@ export const IntegratedInContent: Story = {
       </article>
     ),
   ],
-}
+};

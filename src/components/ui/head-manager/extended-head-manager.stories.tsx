@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect, waitFor } from "@storybook/test";
+import { within, expect, waitFor } from "storybook/test";
 import { ExtendedHeadManager } from "@/lib/seo";
 import {
   type OrganizationSchema,
@@ -87,39 +87,41 @@ export const Organization: Story = {
   ),
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify component rendered correctly
-    expect(canvas.getByText('This component modifies the document head')).toBeInTheDocument();
-    expect(canvas.getByText('Generated JSON-LD:')).toBeInTheDocument();
-    
+    expect(canvas.getByText("This component modifies the document head")).toBeInTheDocument();
+    expect(canvas.getByText("Generated JSON-LD:")).toBeInTheDocument();
+
     // Wait for head manager to update document
     await waitFor(() => {
       // Verify title is set
-      expect(document.title).toContain('ACME Corporation');
+      expect(document.title).toContain("ACME Corporation");
     });
-    
+
     // Verify meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     expect(metaDescription).toBeInTheDocument();
-    expect(metaDescription?.getAttribute('content')).toBe('Leading provider of innovative solutions');
-    
+    expect(metaDescription?.getAttribute("content")).toBe(
+      "Leading provider of innovative solutions"
+    );
+
     // Verify Open Graph tags
     const ogTitle = document.querySelector('meta[property="og:title"]');
     expect(ogTitle).toBeInTheDocument();
-    expect(ogTitle?.getAttribute('content')).toBe('ACME Corporation - Innovation Leaders');
-    
+    expect(ogTitle?.getAttribute("content")).toBe("ACME Corporation - Innovation Leaders");
+
     // Wait a bit for the component to mount and add scripts
-    await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 1000));
+
     // If no scripts found, the component might not be adding them in test environment
     // Let's at least verify the component rendered
-    expect(canvas.getByText('Generated JSON-LD:')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Generated JSON-LD:")).toBeInTheDocument();
+
     // Verify the JSON display shows the correct content
-    const jsonDisplay = canvasElement.querySelector('pre');
+    const jsonDisplay = canvasElement.querySelector("pre");
     expect(jsonDisplay).toBeInTheDocument();
     expect(jsonDisplay?.textContent).toContain('"@type": "Organization"');
-    expect(jsonDisplay?.textContent).toContain('ACME Corporation');
+    expect(jsonDisplay?.textContent).toContain("ACME Corporation");
   },
 };
 
@@ -162,32 +164,32 @@ export const Article: Story = {
   ),
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify component content
-    expect(canvas.getByText('Article Page')).toBeInTheDocument();
-    expect(canvas.getByText('With Article structured data')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Article Page")).toBeInTheDocument();
+    expect(canvas.getByText("With Article structured data")).toBeInTheDocument();
+
     // Wait for head updates
     await waitFor(() => {
-      expect(document.title).toContain('Understanding Server-Driven UI');
+      expect(document.title).toContain("Understanding Server-Driven UI");
     });
-    
+
     // Verify author meta tag
     const authorMeta = document.querySelector('meta[name="author"]');
     expect(authorMeta).toBeInTheDocument();
-    expect(authorMeta?.getAttribute('content')).toBe('Jane Doe');
-    
+    expect(authorMeta?.getAttribute("content")).toBe("Jane Doe");
+
     // Wait a bit for the component to mount and add scripts
-    await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 1000));
+
     // Verify the component rendered correctly
-    expect(canvas.getByText('Generated JSON-LD:')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Generated JSON-LD:")).toBeInTheDocument();
+
     // Verify the JSON display shows the correct content
-    const jsonDisplay = canvasElement.querySelector('pre');
+    const jsonDisplay = canvasElement.querySelector("pre");
     expect(jsonDisplay).toBeInTheDocument();
     expect(jsonDisplay?.textContent).toContain('"@type": "Article"');
-    expect(jsonDisplay?.textContent).toContain('Understanding Server-Driven UI');
+    expect(jsonDisplay?.textContent).toContain("Understanding Server-Driven UI");
   },
 };
 
@@ -235,26 +237,26 @@ export const Product: Story = {
   ),
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify component content
-    expect(canvas.getByText('Product Page')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Product Page")).toBeInTheDocument();
+
     // Wait for head updates
     await waitFor(() => {
-      expect(document.title).toContain('Premium Widget Pro');
+      expect(document.title).toContain("Premium Widget Pro");
     });
-    
+
     // Wait a bit for the component to mount and add scripts
-    await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 1000));
+
     // Verify the component rendered correctly
-    expect(canvas.getByText('Generated JSON-LD:')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Generated JSON-LD:")).toBeInTheDocument();
+
     // Verify the JSON display shows the correct content
-    const jsonDisplay = canvasElement.querySelector('pre');
+    const jsonDisplay = canvasElement.querySelector("pre");
     expect(jsonDisplay).toBeInTheDocument();
     expect(jsonDisplay?.textContent).toContain('"@type": "Product"');
-    expect(jsonDisplay?.textContent).toContain('Premium Widget Pro');
+    expect(jsonDisplay?.textContent).toContain("Premium Widget Pro");
     expect(jsonDisplay?.textContent).toContain('"price": "99.99"');
   },
 };

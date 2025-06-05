@@ -17,7 +17,7 @@ The Storybook Test Addon is configured to enable writing and running tests direc
 ### Basic Example
 
 ```typescript
-import { expect, fn, userEvent, within } from "@storybook/test";
+import { expect, fn, userEvent, within } from "storybook/test";
 
 export const MyStory: Story = {
   args: {
@@ -47,12 +47,14 @@ export const MyStory: Story = {
 ## Running Tests
 
 ### Interactive Mode
+
 ```bash
 npm run storybook
 # Tests run automatically when viewing stories
 ```
 
 ### Command Line
+
 ```bash
 npm run test-storybook        # Run all story tests
 npm run test-storybook:watch  # Watch mode
@@ -60,6 +62,7 @@ npm run test-storybook:ci     # CI mode (headless)
 ```
 
 ### With Coverage
+
 ```bash
 npm run test-storybook:coverage
 ```
@@ -75,6 +78,7 @@ npm run test-storybook:coverage
 ## Testing Patterns
 
 ### Testing States
+
 ```typescript
 export const DisabledState: Story = {
   args: { disabled: true },
@@ -86,14 +90,15 @@ export const DisabledState: Story = {
 ```
 
 ### Testing Async Behavior
+
 ```typescript
 export const AsyncLoading: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button");
-    
+
     await userEvent.click(button);
-    
+
     // Wait for loading state
     await waitFor(() => {
       expect(canvas.getByText("Loading...")).toBeInTheDocument();
@@ -103,11 +108,12 @@ export const AsyncLoading: Story = {
 ```
 
 ### Testing Form Inputs
+
 ```typescript
 export const FormInput: Story = {
   play: async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole("textbox");
-    
+
     await userEvent.type(input, "Hello World");
     await expect(input).toHaveValue("Hello World");
   },
@@ -129,10 +135,10 @@ The test runner is configured to work with popular CI services:
 # Example GitHub Actions workflow
 - name: Install dependencies
   run: npm ci
-  
+
 - name: Build Storybook
   run: npm run build-storybook
-  
+
 - name: Run Storybook tests
   run: npm run test-storybook:ci
 ```
@@ -140,10 +146,13 @@ The test runner is configured to work with popular CI services:
 ## Troubleshooting
 
 ### Tests timing out
+
 Increase the timeout in your test configuration if needed.
 
 ### Cannot find element
+
 Ensure elements are rendered before querying:
+
 ```typescript
 await waitFor(() => {
   expect(canvas.getByRole("button")).toBeInTheDocument();
@@ -151,10 +160,12 @@ await waitFor(() => {
 ```
 
 ### Flaky tests
+
 Use `waitFor` for async operations and avoid fixed delays:
+
 ```typescript
 // Bad
-await new Promise(resolve => setTimeout(resolve, 1000));
+await new Promise((resolve) => setTimeout(resolve, 1000));
 
 // Good
 await waitFor(() => expect(element).toBeVisible());

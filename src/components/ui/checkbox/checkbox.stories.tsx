@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { Checkbox } from "./checkbox";
 import { Label } from "../label";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 
 const meta: Meta<typeof Checkbox> = {
   title: "Form Components/Checkbox",
@@ -39,18 +39,18 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const checkbox = canvas.getByRole("checkbox");
-    
+
     // Verify checkbox is unchecked by default
     expect(checkbox).not.toBeChecked();
     expect(checkbox).toHaveAttribute("data-state", "unchecked");
-    
+
     // Click to check
     await userEvent.click(checkbox);
     await waitFor(() => {
       expect(checkbox).toBeChecked();
       expect(checkbox).toHaveAttribute("data-state", "checked");
     });
-    
+
     // Click to uncheck
     await userEvent.click(checkbox);
     await waitFor(() => {
@@ -90,19 +90,19 @@ export const WithLabel: Story = {
   render: () => <CheckboxWithLabel />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find checkbox by its label
     const checkbox = canvas.getByRole("checkbox", { name: /accept terms and conditions/i });
     const label = canvas.getByText(/accept terms and conditions/i);
-    
+
     // Verify label is properly associated
     expect(checkbox).toHaveAttribute("id", "terms");
     expect(label).toHaveAttribute("for", "terms");
-    
+
     // Click label to toggle checkbox
     await userEvent.click(label);
     expect(checkbox).toBeChecked();
-    
+
     // Click checkbox directly to uncheck
     await userEvent.click(checkbox);
     expect(checkbox).not.toBeChecked();
@@ -140,19 +140,19 @@ export const Controlled: Story = {
   render: () => <ControlledCheckbox />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     const checkbox = canvas.getByRole("checkbox", { name: /controlled checkbox/i });
     const toggleButton = canvas.getByRole("button", { name: /toggle from outside/i });
-    
+
     // Initially unchecked
     expect(checkbox).not.toBeChecked();
     expect(canvas.getByText(/checked: false/i)).toBeInTheDocument();
-    
+
     // Toggle via button
     await userEvent.click(toggleButton);
     expect(checkbox).toBeChecked();
     expect(canvas.getByText(/checked: true/i)).toBeInTheDocument();
-    
+
     // Toggle via checkbox
     await userEvent.click(checkbox);
     expect(checkbox).not.toBeChecked();

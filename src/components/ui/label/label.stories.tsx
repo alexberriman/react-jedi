@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Label } from "./label";
 import { Input } from "../input/input";
-import { within, userEvent, expect } from "@storybook/test";
+import { within, userEvent, expect } from "storybook/test";
 
 const meta = {
   title: "Form Components/Label",
@@ -22,11 +22,11 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify label is rendered
     const label = await canvas.findByText("Label");
     expect(label).toBeInTheDocument();
-    
+
     // Verify label has correct htmlFor attribute
     expect(label).toHaveAttribute("for", "input");
   },
@@ -41,14 +41,14 @@ export const WithInput: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find label and input
     const label = await canvas.findByText("Email");
     const input = await canvas.findByPlaceholderText("Enter your email");
-    
+
     expect(label).toBeInTheDocument();
     expect(input).toBeInTheDocument();
-    
+
     // Clicking the label should focus the input
     await userEvent.click(label);
     expect(input).toHaveFocus();
@@ -66,17 +66,17 @@ export const Required: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find label and input
     const label = await canvas.findByText("Username");
     const input = await canvas.findByPlaceholderText("Enter username");
-    
+
     expect(label).toBeInTheDocument();
     expect(input).toBeInTheDocument();
-    
+
     // Verify the required indicator (asterisk) styling is applied
     expect(label).toHaveClass("after:content-['*']");
-    
+
     // Clicking the label should focus the input
     await userEvent.click(label);
     expect(input).toHaveFocus();

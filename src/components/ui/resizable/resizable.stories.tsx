@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { within, expect } from "storybook/test";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./resizable";
 
 const meta = {
@@ -36,14 +36,14 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find the resizable handle by data attribute since role might not be 'separator'
-    const handle = canvas.getByTestId('resizable-handle');
+    const handle = canvas.getByTestId("resizable-handle");
     expect(handle).toBeInTheDocument();
-    
+
     // Check that panels are rendered
-    expect(canvas.getByText('Left Panel')).toBeInTheDocument();
-    expect(canvas.getByText('Right Panel')).toBeInTheDocument();
+    expect(canvas.getByText("Left Panel")).toBeInTheDocument();
+    expect(canvas.getByText("Right Panel")).toBeInTheDocument();
   },
 };
 
@@ -68,14 +68,14 @@ export const VerticalSplit: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find the resizable handle by data attribute
-    const handle = canvas.getByTestId('resizable-handle');
+    const handle = canvas.getByTestId("resizable-handle");
     expect(handle).toBeInTheDocument();
-    
+
     // Check that panels are rendered
-    expect(canvas.getByText('Top Panel')).toBeInTheDocument();
-    expect(canvas.getByText('Bottom Panel')).toBeInTheDocument();
+    expect(canvas.getByText("Top Panel")).toBeInTheDocument();
+    expect(canvas.getByText("Bottom Panel")).toBeInTheDocument();
   },
 };
 
@@ -131,17 +131,17 @@ export const CollapsiblePanels: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find the resizable handle by data attribute
-    const handle = canvas.getByTestId('resizable-handle');
+    const handle = canvas.getByTestId("resizable-handle");
     expect(handle).toBeInTheDocument();
-    
+
     // Check that panels are rendered - use more flexible text matching
     expect(canvas.getByText(/Collapsible/i)).toBeInTheDocument();
-    expect(canvas.getByText('Main Content')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Main Content")).toBeInTheDocument();
+
     // Test that the handle has the visual handle indicator
-    const handleIndicator = handle.querySelector('[data-panel-resize-handle-enabled]');
+    const handleIndicator = handle.querySelector("[data-panel-resize-handle-enabled]");
     expect(handleIndicator).toBeInTheDocument();
   },
 };
@@ -247,15 +247,15 @@ export const DisabledHandle: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find the resizable handle by data attribute
-    const handle = canvas.getByTestId('resizable-handle');
+    const handle = canvas.getByTestId("resizable-handle");
     expect(handle).toBeInTheDocument();
-    
+
     // Check that panels are rendered
-    expect(canvas.getByText('Fixed Left Panel')).toBeInTheDocument();
-    expect(canvas.getByText('Fixed Right Panel')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Fixed Left Panel")).toBeInTheDocument();
+    expect(canvas.getByText("Fixed Right Panel")).toBeInTheDocument();
+
     // Test that the handle is disabled - disabled handles may have different attributes
     // The disabled prop should prevent interaction but might not add a specific attribute
     // So we just verify the elements are rendered correctly

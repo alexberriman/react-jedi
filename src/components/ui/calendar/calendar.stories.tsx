@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { Calendar } from "./calendar";
 import { addDays, isSaturday, isSunday } from "date-fns";
 import type { DateRange } from "react-day-picker";
@@ -98,7 +98,9 @@ export const SingleDateSelection: Story = {
 
     // Test clicking a different date
     const days = canvas.getAllByRole("gridcell");
-    const availableDay = days.find(day => !day.hasAttribute("disabled") && day.textContent === "15");
+    const availableDay = days.find(
+      (day) => !day.hasAttribute("disabled") && day.textContent === "15"
+    );
     if (availableDay) {
       await user.click(availableDay);
       // Date should update
@@ -291,7 +293,9 @@ export const WithoutOutsideDays: Story = {
     expect(calendar).toBeInTheDocument();
 
     // Check for outside days (they should have a specific class when shown)
-    const outsideDays = canvasElement.querySelectorAll('[aria-selected="false"][aria-disabled="true"]');
+    const outsideDays = canvasElement.querySelectorAll(
+      '[aria-selected="false"][aria-disabled="true"]'
+    );
     // With showOutsideDays: false, there should be fewer disabled days
     expect(outsideDays.length).toBeLessThan(10);
   },

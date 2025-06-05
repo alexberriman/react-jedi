@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within, waitFor } from "@storybook/test";
+import { expect, userEvent, within, waitFor } from "storybook/test";
 import React from "react";
 import {
   AlertDialog,
@@ -87,9 +87,12 @@ export const Default: Story = {
     await user.click(cancelButton);
 
     // Dialog should be closed
-    await waitFor(() => {
-      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
     // Open again to test action button
     await user.click(trigger);
@@ -100,9 +103,12 @@ export const Default: Story = {
     await user.click(actionButton);
 
     // Dialog should be closed after action
-    await waitFor(() => {
-      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };
 
@@ -150,9 +156,12 @@ export const DestructiveAction: Story = {
 
     // Test keyboard navigation - Escape key
     await user.keyboard("{Escape}");
-    await waitFor(() => {
-      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };
 
@@ -209,7 +218,7 @@ export const ControlledState: Story = {
 
     // Test controlled state
     const trigger = canvas.getByRole("button", { name: "Open Dialog" });
-    
+
     // Initially no dialog
     expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
 
@@ -224,9 +233,12 @@ export const ControlledState: Story = {
     const screen = within(document.body);
     const cancelButton = screen.getByRole("button", { name: "Cancel" });
     await user.click(cancelButton);
-    await waitFor(() => {
-      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
     // Open again and test confirm
     await user.click(trigger);
@@ -235,9 +247,12 @@ export const ControlledState: Story = {
     });
     const confirmButton = screen.getByRole("button", { name: "Confirm" });
     await user.click(confirmButton);
-    await waitFor(() => {
-      expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await waitFor(
+      () => {
+        expect(document.querySelector('[role="alertdialog"]')).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };
 

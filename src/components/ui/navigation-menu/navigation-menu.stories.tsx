@@ -10,7 +10,7 @@ import {
 import { cn } from "../../../lib/utils";
 import { Badge } from "../badge";
 import * as React from "react";
-import { within, userEvent, expect, waitFor } from "@storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 
 const meta = {
   title: "Components/NavigationMenu",
@@ -25,7 +25,15 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div style={{ height: "600px", display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: "40px" }}>
+      <div
+        style={{
+          height: "600px",
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "center",
+          paddingTop: "40px",
+        }}
+      >
         <Story />
       </div>
     ),
@@ -34,7 +42,7 @@ const meta = {
     orientation: "horizontal",
   },
 
-  tags: ['autodocs', 'ui-navigation-menu'],
+  tags: ["autodocs", "ui-navigation-menu"],
 } satisfies Meta<typeof NavigationMenu>;
 
 export default meta;
@@ -160,27 +168,33 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Test opening navigation menu
     const gettingStartedTrigger = await canvas.findByText("Getting Started");
     await userEvent.hover(gettingStartedTrigger);
-    
+
     // Verify content appears
-    await waitFor(() => {
-      const reactJedi = canvas.getByText("React Jedi");
-      expect(reactJedi).toBeInTheDocument();
-    }, { timeout: 5000 });
-    
+    await waitFor(
+      () => {
+        const reactJedi = canvas.getByText("React Jedi");
+        expect(reactJedi).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+
     // Test navigating to Components menu
     const componentsTrigger = await canvas.findByText("Components");
     await userEvent.hover(componentsTrigger);
-    
+
     // Verify component list appears
-    await waitFor(() => {
-      const alertDialog = canvas.getByText("Alert Dialog");
-      expect(alertDialog).toBeInTheDocument();
-    }, { timeout: 5000 });
-    
+    await waitFor(
+      () => {
+        const alertDialog = canvas.getByText("Alert Dialog");
+        expect(alertDialog).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+
     // Test direct link
     const documentationLink = await canvas.findByText("Documentation");
     expect(documentationLink).toHaveAttribute("href", "#docs");
@@ -260,31 +274,37 @@ export const WithIconsAndBadges: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Test badge is visible
     const newBadge = await canvas.findByText("New");
     expect(newBadge).toBeInTheDocument();
-    
+
     // Test Products menu with badge
     const productsTrigger = canvas.getByText("Products");
     await userEvent.hover(productsTrigger);
-    
+
     // Verify emoji and featured product
-    await waitFor(() => {
-      const featuredProduct = canvas.getByText("Featured Product");
-      expect(featuredProduct).toBeInTheDocument();
-      const rocket = canvas.getByText("🚀");
-      expect(rocket).toBeInTheDocument();
-    }, { timeout: 5000 });
-    
+    await waitFor(
+      () => {
+        const featuredProduct = canvas.getByText("Featured Product");
+        expect(featuredProduct).toBeInTheDocument();
+        const rocket = canvas.getByText("🚀");
+        expect(rocket).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+
     // Test Solutions menu with emojis in titles
     const solutionsTrigger = await canvas.findByText("Solutions");
     await userEvent.hover(solutionsTrigger);
-    
-    await waitFor(() => {
-      const enterprise = canvas.getByText(/Enterprise/);
-      expect(enterprise).toBeInTheDocument();
-    }, { timeout: 5000 });
+
+    await waitFor(
+      () => {
+        const enterprise = canvas.getByText(/Enterprise/);
+        expect(enterprise).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };
 
@@ -337,18 +357,18 @@ export const SimpleNavigation: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify all simple links are present
     const homeLink = await canvas.findByText("Home");
     const aboutLink = await canvas.findByText("About");
     const servicesLink = await canvas.findByText("Services");
     const contactLink = await canvas.findByText("Contact");
-    
+
     expect(homeLink).toBeInTheDocument();
     expect(aboutLink).toBeInTheDocument();
     expect(servicesLink).toBeInTheDocument();
     expect(contactLink).toBeInTheDocument();
-    
+
     // Verify links have correct hrefs
     expect(homeLink).toHaveAttribute("href", "#home");
     expect(aboutLink).toHaveAttribute("href", "#about");
@@ -488,18 +508,21 @@ export const WithFullWidthContent: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Open Resources menu
     const resourcesTrigger = await canvas.findByText("Resources");
     await userEvent.hover(resourcesTrigger);
-    
+
     // Verify categories are displayed
-    await waitFor(() => {
-      expect(canvas.getByText("Learn")).toBeInTheDocument();
-      expect(canvas.getByText("Community")).toBeInTheDocument();
-      expect(canvas.getByText("Support")).toBeInTheDocument();
-    }, { timeout: 5000 });
-    
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Learn")).toBeInTheDocument();
+        expect(canvas.getByText("Community")).toBeInTheDocument();
+        expect(canvas.getByText("Support")).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+
     // Verify subcategory links
     expect(canvas.getByText("Tutorials")).toBeInTheDocument();
     expect(canvas.getByText("Discord")).toBeInTheDocument();
@@ -568,7 +591,9 @@ export const WithBrandingAndCTA: Story = {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-4">
-        <button className="text-sm font-medium cursor-pointer transition-colors duration-200 hover:text-primary">Sign In</button>
+        <button className="text-sm font-medium cursor-pointer transition-colors duration-200 hover:text-primary">
+          Sign In
+        </button>
         <button className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground cursor-pointer transition-all duration-200 hover:bg-primary/90 hover:shadow-md">
           Get Started
         </button>
@@ -577,24 +602,27 @@ export const WithBrandingAndCTA: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify branding
     const brand = await canvas.findByText("ACME");
     expect(brand).toBeInTheDocument();
-    
+
     // Test navigation
     const productsTrigger = await canvas.findByText("Products");
     await userEvent.hover(productsTrigger);
-    
-    await waitFor(() => {
-      const acmePro = canvas.getByText("ACME Pro");
-      expect(acmePro).toBeInTheDocument();
-    }, { timeout: 5000 });
-    
+
+    await waitFor(
+      () => {
+        const acmePro = canvas.getByText("ACME Pro");
+        expect(acmePro).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+
     // Verify CTA buttons
     const signInButton = canvas.getByText("Sign In");
     const getStartedButton = canvas.getByText("Get Started");
-    
+
     expect(signInButton).toBeInTheDocument();
     expect(getStartedButton).toBeInTheDocument();
     expect(getStartedButton).toHaveClass("bg-primary");

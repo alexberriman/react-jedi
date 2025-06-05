@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import * as React from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Button } from "../button";
@@ -17,7 +17,7 @@ const meta = {
     docs: {
       description: {
         component: `
-A floating container component that displays content on top of the main page content. 
+A floating container component that displays content on top of the main page content.
 Perfect for tooltips, dropdowns, or any content that should appear contextually.
 
 Features:
@@ -56,7 +56,7 @@ export const Basic: Story = {
 
     // Test clicking opens popover
     await user.click(triggerButton);
-    
+
     // Wait for popover content to appear (it might be in a portal)
     await waitFor(() => {
       const popoverContent = document.body.querySelector('[role="dialog"]');
@@ -65,11 +65,14 @@ export const Basic: Story = {
     });
 
     // Test Escape key closes popover
-    await user.keyboard('{Escape}');
-    await waitFor(() => {
-      const popoverContent = document.body.querySelector('[role="dialog"]');
-      expect(popoverContent).not.toBeInTheDocument();
-    }, { timeout: 5000 });
+    await user.keyboard("{Escape}");
+    await waitFor(
+      () => {
+        const popoverContent = document.body.querySelector('[role="dialog"]');
+        expect(popoverContent).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   },
 };
 
@@ -127,7 +130,7 @@ export const WithFormElements: Story = {
     // Find form elements in the popover
     const popoverContent = document.body.querySelector('[role="dialog"]');
     const popoverWithin = within(popoverContent as HTMLElement);
-    
+
     const widthInput = popoverWithin.getByLabelText("Width");
     const maxWidthInput = popoverWithin.getByLabelText("Max. width");
     const heightInput = popoverWithin.getByLabelText("Height");
@@ -356,13 +359,16 @@ export const ControlledState: Story = {
 
     // Test closing via control button
     await user.click(closeButton);
-    await waitFor(() => {
-      const popoverContent = document.body.querySelector('[role="dialog"]');
-      expect(popoverContent).not.toBeInTheDocument();
-    }, { timeout: 5000 });
-    
+    await waitFor(
+      () => {
+        const popoverContent = document.body.querySelector('[role="dialog"]');
+        expect(popoverContent).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+
     // Small delay to ensure popover is fully closed
-    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
 
     // Test opening via trigger
     await user.click(triggerButton);

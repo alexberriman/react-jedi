@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { DatePicker } from "./date-picker";
-import { within, userEvent, expect, waitFor, screen } from "@storybook/test";
+import { within, userEvent, expect, waitFor, screen } from "storybook/test";
 
 const meta = {
   title: "Components/DatePicker",
@@ -42,18 +42,18 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find and verify the date picker button exists
-    const dateButton = canvas.getByRole('button', { name: /pick a date/i });
+    const dateButton = canvas.getByRole("button", { name: /pick a date/i });
     expect(dateButton).toBeInTheDocument();
     expect(dateButton).not.toBeDisabled();
-    
+
     // Click to open the date picker
     await userEvent.click(dateButton);
-    
+
     // Verify calendar opens
     await waitFor(() => {
-      const calendarElement = document.querySelector('.rdp');
+      const calendarElement = document.querySelector(".rdp");
       expect(calendarElement).toBeInTheDocument();
     });
   },
@@ -69,28 +69,34 @@ export const WithSelectedDate: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify selected date is displayed
-    const dateButton = canvas.getByRole('button');
-    const dateText = dateButton.textContent || '';
-    expect(dateText).not.toBe('Pick a date');
-    
+    const dateButton = canvas.getByRole("button");
+    const dateText = dateButton.textContent || "";
+    expect(dateText).not.toBe("Pick a date");
+
     // Click to open calendar
     await userEvent.click(dateButton);
-    
+
     // Wait for calendar
     await waitFor(() => {
-      const calendarElement = document.querySelector('.rdp') || canvas.getByText(/january|february|march|april|may|june|july|august|september|october|november|december/i);
+      const calendarElement =
+        document.querySelector(".rdp") ||
+        canvas.getByText(
+          /january|february|march|april|may|june|july|august|september|october|november|december/i
+        );
       expect(calendarElement).toBeInTheDocument();
     });
-    
+
     // Click a different date (tomorrow)
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const tomorrowDate = tomorrow.getDate().toString();
-    
+
     try {
-      const tomorrowButton = canvas.getByRole('gridcell', { name: new RegExp(`^${tomorrowDate}$`) });
+      const tomorrowButton = canvas.getByRole("gridcell", {
+        name: new RegExp(`^${tomorrowDate}$`),
+      });
       await userEvent.click(tomorrowButton);
     } catch {
       // If tomorrow is in next month, just close the calendar
@@ -108,20 +114,24 @@ export const CustomPlaceholder: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify custom placeholder is displayed
-    const dateButton = canvas.getByRole('button', { name: /select your birthday/i });
+    const dateButton = canvas.getByRole("button", { name: /select your birthday/i });
     expect(dateButton).toBeInTheDocument();
-    
+
     // Click to open calendar
     await userEvent.click(dateButton);
-    
+
     // Verify calendar opens
     await waitFor(() => {
-      const calendarElement = document.querySelector('.rdp') || canvas.getByText(/january|february|march|april|may|june|july|august|september|october|november|december/i);
+      const calendarElement =
+        document.querySelector(".rdp") ||
+        canvas.getByText(
+          /january|february|march|april|may|june|july|august|september|october|november|december/i
+        );
       expect(calendarElement).toBeInTheDocument();
     });
-    
+
     // Close calendar by clicking outside
     await userEvent.click(document.body);
   },
@@ -137,15 +147,15 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find the disabled button
-    const dateButton = canvas.getByRole('button', { name: /pick a date/i });
-    
+    const dateButton = canvas.getByRole("button", { name: /pick a date/i });
+
     // Verify it's disabled
     expect(dateButton).toBeDisabled();
-    
+
     // Verify calendar doesn't open (since button is disabled)
-    expect(document.querySelector('.rdp')).not.toBeInTheDocument();
+    expect(document.querySelector(".rdp")).not.toBeInTheDocument();
   },
 };
 
@@ -160,19 +170,19 @@ export const DisabledWithDate: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find the disabled button
-    const dateButton = canvas.getByRole('button');
-    
+    const dateButton = canvas.getByRole("button");
+
     // Verify it's disabled
     expect(dateButton).toBeDisabled();
-    
+
     // Verify date is still displayed
-    const dateText = dateButton.textContent || '';
-    expect(dateText).not.toBe('Pick a date');
-    
+    const dateText = dateButton.textContent || "";
+    expect(dateText).not.toBe("Pick a date");
+
     // Verify calendar doesn't open (since button is disabled)
-    expect(document.querySelector('.rdp')).not.toBeInTheDocument();
+    expect(document.querySelector(".rdp")).not.toBeInTheDocument();
   },
 };
 
@@ -194,29 +204,33 @@ export const Controlled: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify initial state
-    expect(canvas.getByText('Selected date: None')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Selected date: None")).toBeInTheDocument();
+
     // Open date picker
-    const dateButton = canvas.getByRole('button', { name: /select a date/i });
+    const dateButton = canvas.getByRole("button", { name: /select a date/i });
     await userEvent.click(dateButton);
-    
+
     // Wait for calendar
     await waitFor(() => {
-      const calendarElement = document.querySelector('.rdp') || canvas.getByText(/january|february|march|april|may|june|july|august|september|october|november|december/i);
+      const calendarElement =
+        document.querySelector(".rdp") ||
+        canvas.getByText(
+          /january|february|march|april|may|june|july|august|september|october|november|december/i
+        );
       expect(calendarElement).toBeInTheDocument();
     });
-    
+
     // Select a date (15th is always visible)
     await waitFor(() => {
       // Calendar might be in a portal, use screen
-      const fifteenthButton = screen.getByText('15');
+      const fifteenthButton = screen.getByText("15");
       expect(fifteenthButton).toBeInTheDocument();
     });
-    const fifteenthButton = screen.getByText('15');
+    const fifteenthButton = screen.getByText("15");
     await userEvent.click(fifteenthButton);
-    
+
     // Verify date is displayed
     await waitFor(() => {
       expect(canvas.getByText(/Selected date:.*\d{4}/)).toBeInTheDocument();
@@ -264,31 +278,39 @@ export const Multiple: Story = {
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find all date pickers
-    const dateButtons = canvas.getAllByRole('button');
-    
+    const dateButtons = canvas.getAllByRole("button");
+
     // Test Start Date picker
     await userEvent.click(dateButtons[0]);
     await waitFor(() => {
-      const calendarElement = document.querySelector('.rdp') || canvas.getByText(/january|february|march|april|may|june|july|august|september|october|november|december/i);
+      const calendarElement =
+        document.querySelector(".rdp") ||
+        canvas.getByText(
+          /january|february|march|april|may|june|july|august|september|october|november|december/i
+        );
       expect(calendarElement).toBeInTheDocument();
     });
     await userEvent.click(document.body); // Close calendar
-    
+
     // Test End Date picker (should have a pre-selected date)
-    const endDateText = dateButtons[1].textContent || '';
-    expect(endDateText).not.toBe('Select end date');
-    
+    const endDateText = dateButtons[1].textContent || "";
+    expect(endDateText).not.toBe("Select end date");
+
     await userEvent.click(dateButtons[1]);
     await waitFor(() => {
-      const calendarElement = document.querySelector('.rdp') || canvas.getByText(/january|february|march|april|may|june|july|august|september|october|november|december/i);
+      const calendarElement =
+        document.querySelector(".rdp") ||
+        canvas.getByText(
+          /january|february|march|april|may|june|july|august|september|october|november|december/i
+        );
       expect(calendarElement).toBeInTheDocument();
     });
     await userEvent.click(document.body); // Close calendar
-    
+
     // Test Disabled Date picker
     expect(dateButtons[2]).toBeDisabled();
-    expect(dateButtons[2]).toHaveTextContent('Cannot select');
+    expect(dateButtons[2]).toHaveTextContent("Cannot select");
   },
 };

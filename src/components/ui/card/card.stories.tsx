@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, CardImage } from "./card";
+import { expect, within } from "storybook/test";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  CardImage,
+} from "./card";
 
 const meta = {
   title: "Components/Card",
@@ -31,33 +39,33 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Test card structure
     const card = canvasElement.querySelector('[data-slot="card"]');
     expect(card).toBeInTheDocument();
     expect(card).toHaveClass("w-[350px]");
-    
+
     // Test header section
     const header = canvasElement.querySelector('[data-slot="card-header"]');
     expect(header).toBeInTheDocument();
-    
+
     // Test title
     const title = canvas.getByText("Card Title");
     expect(title).toBeInTheDocument();
     const titleElement = canvasElement.querySelector('[data-slot="card-title"]');
     expect(titleElement).toBeInTheDocument();
-    
+
     // Test description
     const description = canvas.getByText("Card description goes here");
     expect(description).toBeInTheDocument();
     const descriptionElement = canvasElement.querySelector('[data-slot="card-description"]');
     expect(descriptionElement).toBeInTheDocument();
-    
+
     // Test content section
     const content = canvasElement.querySelector('[data-slot="card-content"]');
     expect(content).toBeInTheDocument();
     expect(canvas.getByText("Card content goes here.")).toBeInTheDocument();
-    
+
     // Test footer section
     const footer = canvasElement.querySelector('[data-slot="card-footer"]');
     expect(footer).toBeInTheDocument();
@@ -105,10 +113,7 @@ export const ContentOnly: Story = {
 export const WithImage: Story = {
   render: () => (
     <Card className="w-[350px]">
-      <CardImage 
-        src="https://picsum.photos/350/200" 
-        alt="Card image"
-      />
+      <CardImage src="https://picsum.photos/350/200" alt="Card image" />
       <CardHeader>
         <CardTitle>Card with Image</CardTitle>
         <CardDescription>This card has an image at the top</CardDescription>
@@ -123,11 +128,7 @@ export const WithImage: Story = {
 export const WithZoomImage: Story = {
   render: () => (
     <Card className="w-[350px]">
-      <CardImage 
-        src="https://picsum.photos/350/200" 
-        alt="Card image"
-        variant="zoom"
-      />
+      <CardImage src="https://picsum.photos/350/200" alt="Card image" variant="zoom" />
       <CardHeader>
         <CardTitle>Card with Zoom Effect</CardTitle>
         <CardDescription>Hover over the image to see the smooth zoom effect</CardDescription>
@@ -142,8 +143,8 @@ export const WithZoomImage: Story = {
 export const WithZoomImageNoAnimation: Story = {
   render: () => (
     <Card className="w-[350px]">
-      <CardImage 
-        src="https://picsum.photos/350/200" 
+      <CardImage
+        src="https://picsum.photos/350/200"
         alt="Card image"
         variant="zoom"
         animated={false}
@@ -163,11 +164,7 @@ export const WithImageOverlay: Story = {
   render: () => (
     <Card className="w-[350px]">
       <div className="relative">
-        <CardImage 
-          src="https://picsum.photos/350/200" 
-          alt="Card image"
-          overlay
-        />
+        <CardImage src="https://picsum.photos/350/200" alt="Card image" overlay />
         <div className="absolute bottom-4 left-4 text-white">
           <h3 className="text-xl font-bold">Overlay Text</h3>
           <p className="text-sm">Text over the image</p>
@@ -188,11 +185,7 @@ export const MultipleCards: Story = {
   render: () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <Card>
-        <CardImage 
-          src="https://picsum.photos/300/200?random=1" 
-          alt="Card 1"
-          variant="zoom"
-        />
+        <CardImage src="https://picsum.photos/300/200?random=1" alt="Card 1" variant="zoom" />
         <CardHeader>
           <CardTitle>First Card</CardTitle>
           <CardDescription>With zoom effect</CardDescription>
@@ -202,10 +195,7 @@ export const MultipleCards: Story = {
         </CardContent>
       </Card>
       <Card>
-        <CardImage 
-          src="https://picsum.photos/300/200?random=2" 
-          alt="Card 2"
-        />
+        <CardImage src="https://picsum.photos/300/200?random=2" alt="Card 2" />
         <CardHeader>
           <CardTitle>Second Card</CardTitle>
           <CardDescription>Standard image</CardDescription>
@@ -215,11 +205,7 @@ export const MultipleCards: Story = {
         </CardContent>
       </Card>
       <Card>
-        <CardImage 
-          src="https://picsum.photos/300/200?random=3" 
-          alt="Card 3"
-          overlay
-        />
+        <CardImage src="https://picsum.photos/300/200?random=3" alt="Card 3" overlay />
         <CardHeader>
           <CardTitle>Third Card</CardTitle>
           <CardDescription>With overlay</CardDescription>

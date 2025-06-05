@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, within } from "storybook/test";
 import { Loading } from "./loading";
 
 const meta: Meta<typeof Loading> = {
@@ -10,7 +10,8 @@ const meta: Meta<typeof Loading> = {
     tags: ["autodocs", "test"],
     docs: {
       description: {
-        component: "A versatile loading indicator component with multiple variants (spinner, dots, pulse, bars) and sizes. Can be used inline, as an overlay, or full-screen to indicate loading states throughout your application. Supports optional loading text and custom styling to match your design system.",
+        component:
+          "A versatile loading indicator component with multiple variants (spinner, dots, pulse, bars) and sizes. Can be used inline, as an overlay, or full-screen to indicate loading states throughout your application. Supports optional loading text and custom styling to match your design system.",
       },
     },
   },
@@ -51,7 +52,7 @@ export const Default: Story = {
   args: {},
   play: async ({ canvasElement }) => {
     // Default uses spinner variant
-    const spinner = canvasElement.querySelector('svg');
+    const spinner = canvasElement.querySelector("svg");
     await expect(spinner).toHaveClass("animate-spin");
   },
 };
@@ -61,7 +62,7 @@ export const Spinner: Story = {
     variant: "spinner",
   },
   play: async ({ canvasElement }) => {
-    const spinner = canvasElement.querySelector('svg');
+    const spinner = canvasElement.querySelector("svg");
     await expect(spinner).toHaveClass("animate-spin");
   },
 };
@@ -74,7 +75,7 @@ export const SpinnerWithText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Loading content...")).toBeInTheDocument();
-    const spinner = canvasElement.querySelector('svg');
+    const spinner = canvasElement.querySelector("svg");
     await expect(spinner).toHaveClass("animate-spin");
   },
 };
@@ -84,7 +85,7 @@ export const Dots: Story = {
     variant: "dots",
   },
   play: async ({ canvasElement }) => {
-    const dots = canvasElement.querySelectorAll('.animate-bounce');
+    const dots = canvasElement.querySelectorAll(".animate-bounce");
     await expect(dots).toHaveLength(3);
   },
 };
@@ -97,7 +98,7 @@ export const DotsWithText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Please wait...")).toBeInTheDocument();
-    const dots = canvasElement.querySelectorAll('.animate-bounce');
+    const dots = canvasElement.querySelectorAll(".animate-bounce");
     await expect(dots).toHaveLength(3);
   },
 };
@@ -107,7 +108,7 @@ export const Pulse: Story = {
     variant: "pulse",
   },
   play: async ({ canvasElement }) => {
-    const pulse = canvasElement.querySelector('.animate-pulse');
+    const pulse = canvasElement.querySelector(".animate-pulse");
     await expect(pulse).toBeInTheDocument();
     await expect(pulse).toHaveClass("rounded-full");
   },
@@ -118,7 +119,7 @@ export const Bars: Story = {
     variant: "bars",
   },
   play: async ({ canvasElement }) => {
-    const bars = canvasElement.querySelectorAll('.animate-pulse');
+    const bars = canvasElement.querySelectorAll(".animate-pulse");
     await expect(bars).toHaveLength(4);
   },
 };
@@ -131,7 +132,7 @@ export const SmallSize: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const spinner = canvasElement.querySelector('svg');
+    const spinner = canvasElement.querySelector("svg");
     await expect(spinner).toHaveClass("w-4", "h-4");
     await expect(canvas.getByText("Small loader")).toBeInTheDocument();
   },
@@ -145,7 +146,7 @@ export const LargeSize: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const spinner = canvasElement.querySelector('svg');
+    const spinner = canvasElement.querySelector("svg");
     await expect(spinner).toHaveClass("w-12", "h-12");
     await expect(canvas.getByText("Large loader")).toBeInTheDocument();
   },
@@ -159,7 +160,7 @@ export const ExtraLargeSize: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const spinner = canvasElement.querySelector('svg');
+    const spinner = canvasElement.querySelector("svg");
     await expect(spinner).toHaveClass("w-16", "h-16");
     await expect(canvas.getByText("Extra large loader")).toBeInTheDocument();
   },
@@ -205,9 +206,9 @@ export const AllVariantsSizes: Story = {
           <div className="flex items-center justify-around space-x-4 p-4 bg-gray-50 rounded">
             {["sm", "md", "lg", "xl"].map((size) => (
               <div key={size} className="flex flex-col items-center space-y-2">
-                <Loading 
-                  variant={variant as "spinner" | "dots" | "pulse" | "bars"} 
-                  size={size as "sm" | "md" | "lg" | "xl"} 
+                <Loading
+                  variant={variant as "spinner" | "dots" | "pulse" | "bars"}
+                  size={size as "sm" | "md" | "lg" | "xl"}
                 />
                 <span className="text-xs text-gray-500">{size}</span>
               </div>

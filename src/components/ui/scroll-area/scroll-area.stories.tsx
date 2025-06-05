@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { within, expect } from "storybook/test";
 import { ScrollArea } from "./scroll-area";
 
 const meta = {
@@ -37,15 +37,15 @@ export const VerticalScroll: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check that the scroll area is rendered
     const scrollArea = canvasElement.querySelector('[data-slot="scroll-area"]');
     expect(scrollArea).toBeInTheDocument();
-    
+
     // Check that content is rendered
-    expect(canvas.getByText('Tags')).toBeInTheDocument();
-    expect(canvas.getByText('v1.2.0-beta.50')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Tags")).toBeInTheDocument();
+    expect(canvas.getByText("v1.2.0-beta.50")).toBeInTheDocument();
+
     // Test scrollbar visibility - scrollbars may not be visible initially
     expect(scrollArea).toBeTruthy();
   },
@@ -77,15 +77,15 @@ export const HorizontalScroll: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check that the scroll area is rendered
     const scrollArea = canvasElement.querySelector('[data-slot="scroll-area"]');
     expect(scrollArea).toBeInTheDocument();
-    
+
     // Check that content is rendered
-    const firstImage = canvas.getByAltText('Version v1.2.0-beta.50');
+    const firstImage = canvas.getByAltText("Version v1.2.0-beta.50");
     expect(firstImage).toBeInTheDocument();
-    
+
     // Test horizontal scrollbar - scrollbars may not be visible initially
     expect(scrollArea).toBeTruthy();
   },
@@ -178,17 +178,17 @@ export const NestedScrollAreas: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check that both scroll areas are rendered
     const scrollAreas = canvasElement.querySelectorAll('[data-slot="scroll-area"]');
     expect(scrollAreas).toHaveLength(3); // Parent + 2 nested
-    
+
     // Check that both headings are present
-    expect(canvas.getByText('Vertical Scroll')).toBeInTheDocument();
-    expect(canvas.getByText('Horizontal Scroll')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Vertical Scroll")).toBeInTheDocument();
+    expect(canvas.getByText("Horizontal Scroll")).toBeInTheDocument();
+
     // Verify nested content
-    const allTags = canvas.getAllByText('v1.2.0-beta.50');
+    const allTags = canvas.getAllByText("v1.2.0-beta.50");
     expect(allTags.length).toBeGreaterThan(1);
   },
 };
@@ -248,18 +248,18 @@ export const LongContent: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check that the scroll area is rendered
     const scrollArea = canvasElement.querySelector('[data-slot="scroll-area"]');
     expect(scrollArea).toBeInTheDocument();
-    
+
     // Check that the title is rendered
-    expect(canvas.getByText('ScrollArea Component Documentation')).toBeInTheDocument();
-    
+    expect(canvas.getByText("ScrollArea Component Documentation")).toBeInTheDocument();
+
     // Check that sections are rendered
-    expect(canvas.getByText('Features')).toBeInTheDocument();
-    expect(canvas.getByText('Accessibility')).toBeInTheDocument();
-    
+    expect(canvas.getByText("Features")).toBeInTheDocument();
+    expect(canvas.getByText("Accessibility")).toBeInTheDocument();
+
     // Test scrollbar presence for long content - scrollbars may not be visible initially
     expect(scrollArea).toBeTruthy();
   },

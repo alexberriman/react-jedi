@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { within, expect } from "storybook/test";
 import { Separator } from "./separator";
 
 const meta: Meta<typeof Separator> = {
@@ -43,20 +43,20 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check that the separator is rendered (decorative separators have role="none")
-    const separator = canvas.getByRole('none');
+    const separator = canvas.getByRole("none");
     expect(separator).toBeInTheDocument();
-    
+
     // Check that it has data-slot attribute
-    expect(separator).toHaveAttribute('data-slot', 'separator-root');
-    
+    expect(separator).toHaveAttribute("data-slot", "separator-root");
+
     // Check that it has horizontal orientation
-    expect(separator).toHaveAttribute('data-orientation', 'horizontal');
-    
+    expect(separator).toHaveAttribute("data-orientation", "horizontal");
+
     // Check that surrounding content is rendered
-    expect(canvas.getByText('Content Above')).toBeInTheDocument();
-    expect(canvas.getByText('Content Below')).toBeInTheDocument();
+    expect(canvas.getByText("Content Above")).toBeInTheDocument();
+    expect(canvas.getByText("Content Below")).toBeInTheDocument();
   },
 };
 
@@ -74,20 +74,20 @@ export const Vertical: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check that the separator is rendered (decorative separators have role="none")
-    const separator = canvas.getByRole('none');
+    const separator = canvas.getByRole("none");
     expect(separator).toBeInTheDocument();
-    
+
     // Check that it has data-slot attribute
-    expect(separator).toHaveAttribute('data-slot', 'separator-root');
-    
+    expect(separator).toHaveAttribute("data-slot", "separator-root");
+
     // Check that it has vertical orientation
-    expect(separator).toHaveAttribute('data-orientation', 'vertical');
-    
+    expect(separator).toHaveAttribute("data-orientation", "vertical");
+
     // Check that surrounding content is rendered
-    expect(canvas.getByText('Left')).toBeInTheDocument();
-    expect(canvas.getByText('Right')).toBeInTheDocument();
+    expect(canvas.getByText("Left")).toBeInTheDocument();
+    expect(canvas.getByText("Right")).toBeInTheDocument();
   },
 };
 
@@ -155,19 +155,19 @@ export const NonDecorative: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check that the separator is rendered with role="separator" for non-decorative
-    const separator = canvas.getByRole('separator');
+    const separator = canvas.getByRole("separator");
     expect(separator).toBeInTheDocument();
-    
+
     // Check that it has data-slot attribute
-    expect(separator).toHaveAttribute('data-slot', 'separator-root');
-    
+    expect(separator).toHaveAttribute("data-slot", "separator-root");
+
     // Check that it has horizontal orientation via data attribute
-    expect(separator).toHaveAttribute('data-orientation', 'horizontal');
-    
+    expect(separator).toHaveAttribute("data-orientation", "horizontal");
+
     // Check that surrounding content is rendered
-    expect(canvas.getByText('Section 1')).toBeInTheDocument();
-    expect(canvas.getByText('Section 2')).toBeInTheDocument();
+    expect(canvas.getByText("Section 1")).toBeInTheDocument();
+    expect(canvas.getByText("Section 2")).toBeInTheDocument();
   },
 };

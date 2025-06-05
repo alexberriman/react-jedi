@@ -19,7 +19,7 @@ You are provided with a list of Storybook files missing `play` functions, saved 
 
    - Open the `.stories.tsx` file.
    - Add a meaningful `play` function to **at least one story** in the file.
-     - Use `@storybook/testing-library` (e.g. `within`, `userEvent`, etc.).
+     - Use `storybook/testing-library` (e.g. `within`, `userEvent`, etc.).
      - Simulate relevant interactions and add appropriate `expect` assertions.
      - Validate accessibility (e.g., `getByRole`, `getByLabelText`, etc.).
      - Follow the existing code style and structure.

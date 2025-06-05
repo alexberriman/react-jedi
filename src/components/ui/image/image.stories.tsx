@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Image } from "./image";
-import { within, waitFor, expect } from "@storybook/test";
+import { within, waitFor, expect } from "storybook/test";
 
 const meta = {
   title: "Components/Image",
@@ -207,7 +207,7 @@ export const FullWidth: Story = {
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("object-cover");
-    
+
     const container = image.parentElement;
     expect(container).toBeInTheDocument();
     // Check that the container has the width style applied
@@ -226,7 +226,7 @@ export const Landscape: Story = {
 
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
-    
+
     const container = image.parentElement;
     expect(container).toHaveStyle({ width: "600px" });
   },
@@ -244,7 +244,7 @@ export const Portrait: Story = {
 
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
-    
+
     const container = image.parentElement;
     expect(container).toHaveStyle({ width: "300px", height: "400px" });
   },
@@ -287,7 +287,7 @@ export const Gallery: Story = {
 
     const images = canvas.getAllByAltText("Sample image");
     expect(images).toHaveLength(3);
-    
+
     for (const image of images) {
       expect(image).toBeInTheDocument();
       expect(image).toHaveClass("rounded-lg", "shadow-md");

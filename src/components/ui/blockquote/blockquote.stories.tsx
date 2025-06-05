@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, within } from "storybook/test";
 import { BlockQuote } from "./blockquote";
 
 const meta = {
@@ -63,14 +63,16 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Test blockquote content
-    const quote = canvas.getByText("The future belongs to those who believe in the beauty of their dreams.");
+    const quote = canvas.getByText(
+      "The future belongs to those who believe in the beauty of their dreams."
+    );
     expect(quote).toBeInTheDocument();
 
     // Test author is rendered
     expect(canvas.getByText("Eleanor Roosevelt")).toBeInTheDocument();
 
     // Test blockquote element exists
-    const blockquote = canvasElement.querySelector('blockquote');
+    const blockquote = canvasElement.querySelector("blockquote");
     expect(blockquote).toBeInTheDocument();
   },
 };
@@ -126,12 +128,18 @@ export const Variants: Story = {
     const canvas = within(canvasElement);
 
     // Test all variants are rendered
-    const blockquotes = canvasElement.querySelectorAll('blockquote');
+    const blockquotes = canvasElement.querySelectorAll("blockquote");
     expect(blockquotes).toHaveLength(6);
 
     // Test specific quotes
-    expect(canvas.getByText("Design is not just what it looks like and feels like. Design is how it works.")).toBeInTheDocument();
-    expect(canvas.getByText("Innovation distinguishes between a leader and a follower.")).toBeInTheDocument();
+    expect(
+      canvas.getByText(
+        "Design is not just what it looks like and feels like. Design is how it works."
+      )
+    ).toBeInTheDocument();
+    expect(
+      canvas.getByText("Innovation distinguishes between a leader and a follower.")
+    ).toBeInTheDocument();
     expect(canvas.getByText("Stay hungry, stay foolish.")).toBeInTheDocument();
 
     // Test all have Steve Jobs attribution

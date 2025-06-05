@@ -237,6 +237,12 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     // UI Components
     Button: asComponent(UI.Button),
     Card: asComponent(UI.Card),
+    CardHeader: asComponent(UI.CardHeader),
+    CardFooter: asComponent(UI.CardFooter),
+    CardTitle: asComponent(UI.CardTitle),
+    CardDescription: asComponent(UI.CardDescription),
+    CardContent: asComponent(UI.CardContent),
+    CardImage: asComponent(UI.CardImage),
     Badge: asComponent(UI.Badge),
     Avatar: asComponent(UI.Avatar),
     Image: asComponent(UI.Image),

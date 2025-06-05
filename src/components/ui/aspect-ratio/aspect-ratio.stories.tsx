@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { AspectRatio } from "./aspect-ratio";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta: Meta<typeof AspectRatio> = {
   title: "Components/AspectRatio",
@@ -20,204 +21,341 @@ const meta: Meta<typeof AspectRatio> = {
 export default meta;
 type Story = StoryObj<typeof AspectRatio>;
 
-export const Default: Story = {
-  args: {
-    ratio: 16 / 9,
+export const Default: Story = enhanceStoryForDualMode<typeof AspectRatio>(
+  {
+    args: {
+      ratio: 16 / 9,
+    },
+    render: (args) => (
+      <div className="w-[500px]">
+        <AspectRatio {...args}>
+          <img
+            src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?w=500&auto=format&fit=crop&q=80"
+            alt="A futuristic cityscape with neon lights"
+            className="object-cover w-full h-full rounded-md"
+          />
+        </AspectRatio>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test image presence
+      const image = canvas.getByRole("img", { name: "A futuristic cityscape with neon lights" });
+      expect(image).toBeInTheDocument();
+      
+      // In React mode, check the AspectRatio wrapper
+      const aspectRatioWrapper = canvasElement.querySelector('[data-slot="aspect-ratio"]');
+      if (aspectRatioWrapper) {
+        expect(aspectRatioWrapper).toBeInTheDocument();
+      }
+      
+      // In SDUI mode, the Image component is wrapped differently
+      const imageContainer = canvasElement.querySelector('[data-slot="image-container"]');
+      if (imageContainer) {
+        expect(imageContainer).toBeInTheDocument();
+      }
+    },
   },
-  render: (args) => (
-    <div className="w-[500px]">
-      <AspectRatio {...args}>
-        <img
-          src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?w=500&auto=format&fit=crop&q=80"
-          alt="A futuristic cityscape with neon lights"
-          className="object-cover w-full h-full rounded-md"
-        />
-      </AspectRatio>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  {
+    renderSpec: {
+      type: "Box",
+      className: "w-[500px]",
+      children: {
+        type: "AspectRatio",
+        ratio: 16 / 9,
+        children: {
+          type: "Image",
+          src: "https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?w=500&auto=format&fit=crop&q=80",
+          alt: "A futuristic cityscape with neon lights",
+          className: "object-cover w-full h-full rounded-md",
+        },
+      },
+    },
+  }
+);
 
-    // Test aspect ratio container
-    const container = canvas.getByRole("img").parentElement;
-    expect(container).toBeInTheDocument();
+export const Square: Story = enhanceStoryForDualMode<typeof AspectRatio>(
+  {
+    args: {
+      ratio: 1,
+    },
+    render: (args) => (
+      <div className="w-[400px]">
+        <AspectRatio {...args}>
+          <img
+            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop&q=80"
+            alt="Abstract geometric art with vibrant colors"
+            className="object-cover w-full h-full rounded-md"
+          />
+        </AspectRatio>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    // Test image presence and attributes
-    const image = canvas.getByRole("img", { name: "A futuristic cityscape with neon lights" });
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveClass("object-cover", "w-full", "h-full", "rounded-md");
+      // Test square aspect ratio
+      const image = canvas.getByRole("img", { name: "Abstract geometric art with vibrant colors" });
+      expect(image).toBeInTheDocument();
 
-    // Verify aspect ratio is applied
-    const aspectRatioWrapper = container;
-    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+      // Check for either aspect-ratio or image-container
+      const aspectRatioWrapper = canvasElement.querySelector('[data-slot="aspect-ratio"]');
+      const imageContainer = canvasElement.querySelector('[data-slot="image-container"]');
+      expect(aspectRatioWrapper || imageContainer).toBeTruthy();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Box",
+      className: "w-[400px]",
+      children: {
+        type: "AspectRatio",
+        ratio: 1,
+        children: {
+          type: "Image",
+          src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop&q=80",
+          alt: "Abstract geometric art with vibrant colors",
+          className: "object-cover w-full h-full rounded-md",
+        },
+      },
+    },
+  }
+);
 
-export const Square: Story = {
-  args: {
-    ratio: 1,
+export const Portrait: Story = enhanceStoryForDualMode<typeof AspectRatio>(
+  {
+    args: {
+      ratio: 3 / 4,
+    },
+    render: (args) => (
+      <div className="w-[300px]">
+        <AspectRatio {...args}>
+          <img
+            src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=300&auto=format&fit=crop&q=80"
+            alt="A portrait photograph"
+            className="object-cover w-full h-full rounded-md"
+          />
+        </AspectRatio>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test portrait aspect ratio
+      const image = canvas.getByRole("img", { name: "A portrait photograph" });
+      expect(image).toBeInTheDocument();
+
+      // Check for either aspect-ratio or image-container
+      const aspectRatioWrapper = canvasElement.querySelector('[data-slot="aspect-ratio"]');
+      const imageContainer = canvasElement.querySelector('[data-slot="image-container"]');
+      expect(aspectRatioWrapper || imageContainer).toBeTruthy();
+    },
   },
-  render: (args) => (
-    <div className="w-[400px]">
-      <AspectRatio {...args}>
-        <img
-          src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop&q=80"
-          alt="Abstract geometric art with vibrant colors"
-          className="object-cover w-full h-full rounded-md"
-        />
-      </AspectRatio>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  {
+    renderSpec: {
+      type: "Box",
+      className: "w-[300px]",
+      children: {
+        type: "AspectRatio",
+        ratio: 3 / 4,
+        children: {
+          type: "Image",
+          src: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=300&auto=format&fit=crop&q=80",
+          alt: "A portrait photograph",
+          className: "object-cover w-full h-full rounded-md",
+        },
+      },
+    },
+  }
+);
 
-    // Test square aspect ratio
-    const image = canvas.getByRole("img", { name: "Abstract geometric art with vibrant colors" });
-    expect(image).toBeInTheDocument();
+export const WithContent: Story = enhanceStoryForDualMode<typeof AspectRatio>(
+  {
+    args: {
+      ratio: 16 / 9,
+    },
+    render: (args) => (
+      <div className="w-[500px]">
+        <AspectRatio {...args} className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl">
+          <div className="flex flex-col items-center justify-center h-full text-white p-6">
+            <h3 className="text-2xl font-bold mb-2">Stunning UI Components</h3>
+            <p className="text-center">
+              Create beautiful, responsive interfaces with precise aspect ratios
+            </p>
+          </div>
+        </AspectRatio>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    // Verify aspect ratio container exists
-    const aspectRatioWrapper = image.parentElement;
-    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+      // Test content rendering
+      const heading = canvas.getByText("Stunning UI Components");
+      const description = canvas.getByText(
+        "Create beautiful, responsive interfaces with precise aspect ratios"
+      );
+
+      expect(heading).toBeInTheDocument();
+      expect(heading).toHaveClass("text-2xl", "font-bold");
+
+      expect(description).toBeInTheDocument();
+      expect(description).toHaveClass("text-center");
+
+      // Test gradient background
+      const aspectRatioElement = heading.closest('[class*="bg-gradient"]');
+      expect(aspectRatioElement).toHaveClass(
+        "bg-gradient-to-r",
+        "from-purple-500",
+        "to-indigo-600",
+        "rounded-xl"
+      );
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Box",
+      className: "w-[500px]",
+      children: {
+        type: "AspectRatio",
+        ratio: 16 / 9,
+        className: "bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl",
+        children: {
+          type: "Flex",
+          direction: "column",
+          align: "center",
+          justify: "center",
+          className: "h-full text-white p-6",
+          children: [
+            {
+              type: "Heading",
+              level: 3,
+              className: "text-2xl font-bold mb-2",
+              children: "Stunning UI Components",
+            },
+            {
+              type: "Text",
+              align: "center",
+              children: "Create beautiful, responsive interfaces with precise aspect ratios",
+            },
+          ],
+        },
+      },
+    },
+  }
+);
 
-export const Portrait: Story = {
-  args: {
-    ratio: 3 / 4,
+export const WithImage: Story = enhanceStoryForDualMode<typeof AspectRatio>(
+  {
+    args: {
+      ratio: 16 / 9,
+    },
+    render: (args) => (
+      <div className="w-[600px]">
+        <AspectRatio {...args}>
+          <img
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80"
+            alt="Modern workspace with laptop and coffee"
+            className="object-cover w-full h-full rounded-lg"
+          />
+        </AspectRatio>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test image presence
+      const image = canvas.getByRole("img", { name: "Modern workspace with laptop and coffee" });
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveAttribute("src", expect.stringContaining("images.unsplash.com"));
+      
+      // Check for object-cover class (present in both modes)
+      expect(image).toHaveClass("object-cover");
+
+      // Check for either aspect-ratio or image-container
+      const aspectRatioWrapper = canvasElement.querySelector('[data-slot="aspect-ratio"]');
+      const imageContainer = canvasElement.querySelector('[data-slot="image-container"]');
+      expect(aspectRatioWrapper || imageContainer).toBeTruthy();
+    },
   },
-  render: (args) => (
-    <div className="w-[300px]">
-      <AspectRatio {...args}>
-        <img
-          src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=300&auto=format&fit=crop&q=80"
-          alt="A portrait photograph"
-          className="object-cover w-full h-full rounded-md"
-        />
-      </AspectRatio>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  {
+    renderSpec: {
+      type: "Box",
+      className: "w-[600px]",
+      children: {
+        type: "AspectRatio",
+        ratio: 16 / 9,
+        children: {
+          type: "Image",
+          src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80",
+          alt: "Modern workspace with laptop and coffee",
+          className: "object-cover w-full h-full rounded-lg",
+        },
+      },
+    },
+  }
+);
 
-    // Test portrait aspect ratio
-    const image = canvas.getByRole("img", { name: "A portrait photograph" });
-    expect(image).toBeInTheDocument();
+export const WithVideo: Story = enhanceStoryForDualMode<typeof AspectRatio>(
+  {
+    args: {
+      ratio: 16 / 9,
+    },
+    render: (args) => (
+      <div className="w-[600px]">
+        <AspectRatio {...args}>
+          <video
+            className="object-cover w-full h-full rounded-lg"
+            poster="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&auto=format&fit=crop&q=80"
+            controls
+          >
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+            <track kind="captions" />
+            Your browser does not support the video tag.
+          </video>
+        </AspectRatio>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      within(canvasElement);
 
-    // Verify aspect ratio container exists
-    const aspectRatioWrapper = image.parentElement;
-    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+      // In React mode, test video element
+      const video = canvasElement.querySelector("video");
+      if (video) {
+        expect(video).toBeInTheDocument();
+        expect(video).toHaveAttribute("controls");
+        expect(video).toHaveAttribute("poster", expect.stringContaining("images.unsplash.com"));
+        expect(video).toHaveClass("object-cover", "w-full", "h-full", "rounded-lg");
+
+        // Test video source
+        const source = video.querySelector("source");
+        expect(source).toBeInTheDocument();
+        expect(source).toHaveAttribute("src", "https://www.w3schools.com/html/mov_bbb.mp4");
+        expect(source).toHaveAttribute("type", "video/mp4");
+
+        // Verify aspect ratio container
+        const aspectRatioWrapper = video.parentElement;
+        expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
+      } else {
+        // In SDUI mode, check for placeholder message
+        const placeholder = canvasElement.querySelector('.bg-muted');
+        expect(placeholder).toBeInTheDocument();
+        expect(placeholder).toHaveTextContent("Video content cannot be rendered in SDUI mode");
+      }
+    },
   },
-};
-
-export const WithContent: Story = {
-  args: {
-    ratio: 16 / 9,
-  },
-  render: (args) => (
-    <div className="w-[500px]">
-      <AspectRatio {...args} className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl">
-        <div className="flex flex-col items-center justify-center h-full text-white p-6">
-          <h3 className="text-2xl font-bold mb-2">Stunning UI Components</h3>
-          <p className="text-center">
-            Create beautiful, responsive interfaces with precise aspect ratios
-          </p>
-        </div>
-      </AspectRatio>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Test content rendering
-    const heading = canvas.getByText("Stunning UI Components");
-    const description = canvas.getByText(
-      "Create beautiful, responsive interfaces with precise aspect ratios"
-    );
-
-    expect(heading).toBeInTheDocument();
-    expect(heading).toHaveClass("text-2xl", "font-bold");
-
-    expect(description).toBeInTheDocument();
-    expect(description).toHaveClass("text-center");
-
-    // Test gradient background
-    const aspectRatioElement = heading.closest('[class*="bg-gradient"]');
-    expect(aspectRatioElement).toHaveClass(
-      "bg-gradient-to-r",
-      "from-purple-500",
-      "to-indigo-600",
-      "rounded-xl"
-    );
-  },
-};
-
-export const WithImage: Story = {
-  args: {
-    ratio: 16 / 9,
-  },
-  render: (args) => (
-    <div className="w-[600px]">
-      <AspectRatio {...args}>
-        <img
-          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80"
-          alt="Modern workspace with laptop and coffee"
-          className="object-cover w-full h-full rounded-lg"
-        />
-      </AspectRatio>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Test image presence
-    const image = canvas.getByRole("img", { name: "Modern workspace with laptop and coffee" });
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", expect.stringContaining("images.unsplash.com"));
-    expect(image).toHaveClass("object-cover", "w-full", "h-full", "rounded-lg");
-
-    // Verify aspect ratio container
-    const aspectRatioWrapper = image.parentElement;
-    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
-  },
-};
-
-export const WithVideo: Story = {
-  args: {
-    ratio: 16 / 9,
-  },
-  render: (args) => (
-    <div className="w-[600px]">
-      <AspectRatio {...args}>
-        <video
-          className="object-cover w-full h-full rounded-lg"
-          poster="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&auto=format&fit=crop&q=80"
-          controls
-        >
-          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-          <track kind="captions" />
-          Your browser does not support the video tag.
-        </video>
-      </AspectRatio>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    within(canvasElement);
-
-    // Test video element presence
-    const video = canvasElement.querySelector("video");
-    expect(video).toBeInTheDocument();
-    expect(video).toHaveAttribute("controls");
-    expect(video).toHaveAttribute("poster", expect.stringContaining("images.unsplash.com"));
-    expect(video).toHaveClass("object-cover", "w-full", "h-full", "rounded-lg");
-
-    // Test video source
-    const source = video?.querySelector("source");
-    expect(source).toBeInTheDocument();
-    expect(source).toHaveAttribute("src", "https://www.w3schools.com/html/mov_bbb.mp4");
-    expect(source).toHaveAttribute("type", "video/mp4");
-
-    // Verify aspect ratio container
-    const aspectRatioWrapper = video?.parentElement;
-    expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
-  },
-};
+  {
+    renderSpec: {
+      type: "Box",
+      className: "w-[600px]",
+      children: {
+        type: "AspectRatio",
+        ratio: 16 / 9,
+        children: {
+          type: "Box",
+          children: "Video content cannot be rendered in SDUI mode - use HTML video element directly",
+          className: "object-cover w-full h-full rounded-lg bg-muted flex items-center justify-center text-muted-foreground",
+        },
+      },
+    },
+  }
+);

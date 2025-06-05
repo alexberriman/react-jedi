@@ -203,6 +203,8 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     Skeleton: asComponent(UI.Skeleton),
     Label: asComponent(UI.Label),
     Input: asComponent(UI.Input),
+    Loading: asComponent(UI.Loading),
+    loading: asComponent(UI.Loading),
     table: asComponent(
       UI.TableComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),

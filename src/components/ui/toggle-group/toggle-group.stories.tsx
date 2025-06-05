@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { ToggleGroup, ToggleGroupItem } from "./toggle-group";
 import {
   Bold,
@@ -10,6 +10,7 @@ import {
   AlignRight,
   AlignJustify,
 } from "lucide-react";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Form Components/ToggleGroup",
@@ -17,7 +18,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "test"],
   argTypes: {
     variant: {
       control: { type: "select" },
@@ -43,13 +44,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Single: Story = {
-  args: {
-    type: "single",
-    defaultValue: "center",
-    onValueChange: fn(),
-    children: (
-      <>
+export const Single = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <ToggleGroup type="single" defaultValue="center">
         <ToggleGroupItem value="left" aria-label="Left aligned">
           <AlignLeft size={16} />
         </ToggleGroupItem>
@@ -62,45 +60,74 @@ export const Single: Story = {
         <ToggleGroupItem value="justify" aria-label="Justified">
           <AlignJustify size={16} />
         </ToggleGroupItem>
-      </>
+      </ToggleGroup>
     ),
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
+
+      // Test toggle group renders
+      const toggleGroup = canvas.getByRole("group");
+      expect(toggleGroup).toBeInTheDocument();
+
+      // Test toggle items render (toggle items in single mode have role="radio")
+      const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
+      const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
+      const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
+      const justifyToggle = canvas.getByRole("radio", { name: "Justified" });
+
+      expect(leftToggle).toBeInTheDocument();
+      expect(centerToggle).toBeInTheDocument();
+      expect(rightToggle).toBeInTheDocument();
+      expect(justifyToggle).toBeInTheDocument();
+
+      // Test default selection (center)
+      expect(centerToggle).toHaveAttribute("data-state", "on");
+
+      // Test clicking a different toggle
+      await user.click(leftToggle);
+      expect(leftToggle).toHaveAttribute("data-state", "on");
+      expect(centerToggle).toHaveAttribute("data-state", "off");
+    },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const user = userEvent.setup();
+  {
+    renderSpec: {
+    type: "ToggleGroup",
+    selectionType: "single", 
+    defaultValue: "center",
+    children: [
+      {
+        type: "ToggleGroupItem",
+        value: "left",
+        "aria-label": "Left aligned",
+        children: "←"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "center",
+        "aria-label": "Center aligned",
+        children: "↔"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "right",
+        "aria-label": "Right aligned",
+        children: "→"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "justify",
+        "aria-label": "Justified",
+        children: "⇔"
+      }
+    ]
+  }
+});
 
-    // Test toggle group renders
-    const toggleGroup = canvas.getByRole("group");
-    expect(toggleGroup).toBeInTheDocument();
-
-    // Test toggle items render (toggle items in single mode have role="radio")
-    const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
-    const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
-    const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
-    const justifyToggle = canvas.getByRole("radio", { name: "Justified" });
-
-    expect(leftToggle).toBeInTheDocument();
-    expect(centerToggle).toBeInTheDocument();
-    expect(rightToggle).toBeInTheDocument();
-    expect(justifyToggle).toBeInTheDocument();
-
-    // Test default selection (center)
-    expect(centerToggle).toHaveAttribute("data-state", "on");
-
-    // Test clicking a different toggle
-    await user.click(leftToggle);
-    expect(leftToggle).toHaveAttribute("data-state", "on");
-    expect(centerToggle).toHaveAttribute("data-state", "off");
-  },
-};
-
-export const Multiple: Story = {
-  args: {
-    type: "multiple",
-    defaultValue: ["bold"],
-    onValueChange: fn(),
-    children: (
-      <>
+export const Multiple = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <ToggleGroup type="multiple" defaultValue={["bold"]}>
         <ToggleGroupItem value="bold" aria-label="Toggle bold">
           <Bold size={16} />
         </ToggleGroupItem>
@@ -110,49 +137,72 @@ export const Multiple: Story = {
         <ToggleGroupItem value="underline" aria-label="Toggle underline">
           <Underline size={16} />
         </ToggleGroupItem>
-      </>
+      </ToggleGroup>
     ),
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
+
+      // Test toggle group renders
+      const toggleGroup = canvas.getByRole("group");
+      expect(toggleGroup).toBeInTheDocument();
+
+      // Test toggle items render (toggle items in multiple mode have role="button")
+      const boldToggle = canvas.getByRole("button", { name: "Toggle bold" });
+      const italicToggle = canvas.getByRole("button", { name: "Toggle italic" });
+      const underlineToggle = canvas.getByRole("button", { name: "Toggle underline" });
+
+      expect(boldToggle).toBeInTheDocument();
+      expect(italicToggle).toBeInTheDocument();
+      expect(underlineToggle).toBeInTheDocument();
+
+      // Test default selection (bold)
+      expect(boldToggle).toHaveAttribute("data-state", "on");
+      expect(italicToggle).toHaveAttribute("data-state", "off");
+
+      // Test clicking multiple toggles (multiple mode)
+      await user.click(italicToggle);
+      expect(boldToggle).toHaveAttribute("data-state", "on");
+      expect(italicToggle).toHaveAttribute("data-state", "on");
+
+      await user.click(underlineToggle);
+      expect(boldToggle).toHaveAttribute("data-state", "on");
+      expect(italicToggle).toHaveAttribute("data-state", "on");
+      expect(underlineToggle).toHaveAttribute("data-state", "on");
+    },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const user = userEvent.setup();
+  {
+    renderSpec: {
+    type: "ToggleGroup",
+    selectionType: "multiple",
+    defaultValue: ["bold"],
+    children: [
+      {
+        type: "ToggleGroupItem",
+        value: "bold",
+        "aria-label": "Toggle bold",
+        children: "B"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "italic",
+        "aria-label": "Toggle italic",
+        children: "I"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "underline",
+        "aria-label": "Toggle underline",
+        children: "U"
+      }
+    ]
+  }
+});
 
-    // Test toggle group renders
-    const toggleGroup = canvas.getByRole("group");
-    expect(toggleGroup).toBeInTheDocument();
-
-    // Test toggle items render (toggle items in multiple mode have role="button")
-    const boldToggle = canvas.getByRole("button", { name: "Toggle bold" });
-    const italicToggle = canvas.getByRole("button", { name: "Toggle italic" });
-    const underlineToggle = canvas.getByRole("button", { name: "Toggle underline" });
-
-    expect(boldToggle).toBeInTheDocument();
-    expect(italicToggle).toBeInTheDocument();
-    expect(underlineToggle).toBeInTheDocument();
-
-    // Test default selection (bold)
-    expect(boldToggle).toHaveAttribute("data-state", "on");
-    expect(italicToggle).toHaveAttribute("data-state", "off");
-
-    // Test clicking multiple toggles (multiple mode)
-    await user.click(italicToggle);
-    expect(boldToggle).toHaveAttribute("data-state", "on");
-    expect(italicToggle).toHaveAttribute("data-state", "on");
-
-    await user.click(underlineToggle);
-    expect(boldToggle).toHaveAttribute("data-state", "on");
-    expect(italicToggle).toHaveAttribute("data-state", "on");
-    expect(underlineToggle).toHaveAttribute("data-state", "on");
-  },
-};
-
-export const Outline: Story = {
-  args: {
-    variant: "outline",
-    type: "single",
-    defaultValue: "left",
-    children: (
-      <>
+export const Outline = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <ToggleGroup variant="outline" type="single" defaultValue="left">
         <ToggleGroupItem value="left" aria-label="Left aligned">
           <AlignLeft size={16} />
         </ToggleGroupItem>
@@ -162,18 +212,64 @@ export const Outline: Story = {
         <ToggleGroupItem value="right" aria-label="Right aligned">
           <AlignRight size={16} />
         </ToggleGroupItem>
-      </>
+      </ToggleGroup>
     ),
-  },
-};
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test toggle group renders
+      const toggleGroup = canvas.getByRole("group");
+      expect(toggleGroup).toBeInTheDocument();
+      
+      // Test variant is applied
+      expect(toggleGroup).toHaveAttribute("data-variant", "outline");
 
-export const Small: Story = {
-  args: {
-    size: "sm",
-    type: "single",
-    defaultValue: "center",
-    children: (
-      <>
+      // Test toggle items render 
+      const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
+      const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
+      const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
+
+      expect(leftToggle).toBeInTheDocument();
+      expect(centerToggle).toBeInTheDocument();
+      expect(rightToggle).toBeInTheDocument();
+
+      // Test default selection (left)
+      expect(leftToggle).toHaveAttribute("data-state", "on");
+    },
+  },
+  {
+    renderSpec: {
+    type: "ToggleGroup",
+    variant: "outline",
+    selectionType: "single",
+    defaultValue: "left",
+    children: [
+      {
+        type: "ToggleGroupItem",
+        value: "left",
+        "aria-label": "Left aligned",
+        children: "←"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "center",
+        "aria-label": "Center aligned",
+        children: "↔"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "right",
+        "aria-label": "Right aligned",
+        children: "→"
+      }
+    ]
+  }
+});
+
+export const Small = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <ToggleGroup size="sm" type="single" defaultValue="center">
         <ToggleGroupItem value="left" aria-label="Left aligned">
           <AlignLeft size={14} />
         </ToggleGroupItem>
@@ -183,18 +279,64 @@ export const Small: Story = {
         <ToggleGroupItem value="right" aria-label="Right aligned">
           <AlignRight size={14} />
         </ToggleGroupItem>
-      </>
+      </ToggleGroup>
     ),
-  },
-};
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test toggle group renders
+      const toggleGroup = canvas.getByRole("group");
+      expect(toggleGroup).toBeInTheDocument();
+      
+      // Test size is applied
+      expect(toggleGroup).toHaveAttribute("data-size", "sm");
 
-export const Large: Story = {
-  args: {
-    size: "lg",
-    type: "single",
+      // Test toggle items render 
+      const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
+      const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
+      const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
+
+      expect(leftToggle).toBeInTheDocument();
+      expect(centerToggle).toBeInTheDocument();
+      expect(rightToggle).toBeInTheDocument();
+
+      // Test default selection (center)
+      expect(centerToggle).toHaveAttribute("data-state", "on");
+    },
+  },
+  {
+    renderSpec: {
+    type: "ToggleGroup",
+    size: "sm",
+    selectionType: "single",
     defaultValue: "center",
-    children: (
-      <>
+    children: [
+      {
+        type: "ToggleGroupItem",
+        value: "left",
+        "aria-label": "Left aligned",
+        children: "←"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "center",
+        "aria-label": "Center aligned",
+        children: "↔"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "right",
+        "aria-label": "Right aligned",
+        children: "→"
+      }
+    ]
+  }
+});
+
+export const Large = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <ToggleGroup size="lg" type="single" defaultValue="center">
         <ToggleGroupItem value="left" aria-label="Left aligned">
           <AlignLeft size={20} />
         </ToggleGroupItem>
@@ -204,17 +346,64 @@ export const Large: Story = {
         <ToggleGroupItem value="right" aria-label="Right aligned">
           <AlignRight size={20} />
         </ToggleGroupItem>
-      </>
+      </ToggleGroup>
     ),
-  },
-};
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test toggle group renders
+      const toggleGroup = canvas.getByRole("group");
+      expect(toggleGroup).toBeInTheDocument();
+      
+      // Test size is applied
+      expect(toggleGroup).toHaveAttribute("data-size", "lg");
 
-export const WithText: Story = {
-  args: {
-    type: "single",
-    defaultValue: "left",
-    children: (
-      <>
+      // Test toggle items render 
+      const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
+      const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
+      const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
+
+      expect(leftToggle).toBeInTheDocument();
+      expect(centerToggle).toBeInTheDocument();
+      expect(rightToggle).toBeInTheDocument();
+
+      // Test default selection (center)
+      expect(centerToggle).toHaveAttribute("data-state", "on");
+    },
+  },
+  {
+    renderSpec: {
+    type: "ToggleGroup",
+    size: "lg",
+    selectionType: "single",
+    defaultValue: "center",
+    children: [
+      {
+        type: "ToggleGroupItem",
+        value: "left",
+        "aria-label": "Left aligned",
+        children: "←"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "center",
+        "aria-label": "Center aligned",
+        children: "↔"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "right",
+        "aria-label": "Right aligned",
+        children: "→"
+      }
+    ]
+  }
+});
+
+export const WithText = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <ToggleGroup type="single" defaultValue="left">
         <ToggleGroupItem value="left">
           <AlignLeft size={16} className="mr-2" />
           Left
@@ -227,18 +416,68 @@ export const WithText: Story = {
           <AlignRight size={16} className="mr-2" />
           Right
         </ToggleGroupItem>
-      </>
+      </ToggleGroup>
     ),
-  },
-};
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test toggle group renders
+      const toggleGroup = canvas.getByRole("group");
+      expect(toggleGroup).toBeInTheDocument();
 
-export const Disabled: Story = {
-  args: {
-    type: "single",
-    disabled: true,
-    defaultValue: "center",
-    children: (
-      <>
+      // Test toggle items render 
+      const leftToggle = canvas.getByRole("radio", { name: /Left/ });
+      const centerToggle = canvas.getByRole("radio", { name: /Center/ });
+      const rightToggle = canvas.getByRole("radio", { name: /Right/ });
+
+      expect(leftToggle).toBeInTheDocument();
+      expect(centerToggle).toBeInTheDocument();
+      expect(rightToggle).toBeInTheDocument();
+
+      // Test default selection (left)
+      expect(leftToggle).toHaveAttribute("data-state", "on");
+      
+      // Test text content is present (text varies between React and SDUI mode)
+      // In React mode: "Left", "Center", "Right"
+      // In SDUI mode: "← Left", "↔ Center", "→ Right"
+      const leftToggleText = (leftToggle as HTMLElement).textContent || "";
+      const centerToggleText = (centerToggle as HTMLElement).textContent || "";
+      const rightToggleText = (rightToggle as HTMLElement).textContent || "";
+      
+      expect(leftToggleText).toMatch(/Left/);
+      expect(centerToggleText).toMatch(/Center/);
+      expect(rightToggleText).toMatch(/Right/);
+    },
+  },
+  {
+    renderSpec: {
+    type: "ToggleGroup",
+    selectionType: "single",
+    defaultValue: "left",
+    children: [
+      {
+        type: "ToggleGroupItem",
+        value: "left",
+        children: "← Left"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "center",
+        children: "↔ Center"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "right",
+        children: "→ Right"
+      }
+    ]
+  }
+});
+
+export const Disabled = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <ToggleGroup type="single" disabled={true} defaultValue="center">
         <ToggleGroupItem value="left" aria-label="Left aligned">
           <AlignLeft size={16} />
         </ToggleGroupItem>
@@ -248,117 +487,392 @@ export const Disabled: Story = {
         <ToggleGroupItem value="right" aria-label="Right aligned">
           <AlignRight size={16} />
         </ToggleGroupItem>
-      </>
+      </ToggleGroup>
     ),
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test disabled toggle group (disabled toggles have role="radio")
+      const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
+      const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
+      const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
+
+      expect(leftToggle).toBeInTheDocument();
+      expect(centerToggle).toBeInTheDocument();
+      expect(rightToggle).toBeInTheDocument();
+
+      // Test all items are disabled
+      expect(leftToggle).toBeDisabled();
+      expect(centerToggle).toBeDisabled();
+      expect(rightToggle).toBeDisabled();
+
+      // Test default selection is still maintained
+      expect(centerToggle).toHaveAttribute("data-state", "on");
+    },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  {
+    renderSpec: {
+    type: "ToggleGroup",
+    selectionType: "single",
+    disabled: true,
+    defaultValue: "center",
+    children: [
+      {
+        type: "ToggleGroupItem",
+        value: "left",
+        "aria-label": "Left aligned",
+        children: "←"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "center",
+        "aria-label": "Center aligned",
+        children: "↔"
+      },
+      {
+        type: "ToggleGroupItem",
+        value: "right",
+        "aria-label": "Right aligned",
+        children: "→"
+      }
+    ]
+  }
+});
 
-    // Test disabled toggle group (disabled toggles have role="radio")
-    const leftToggle = canvas.getByRole("radio", { name: "Left aligned" });
-    const centerToggle = canvas.getByRole("radio", { name: "Center aligned" });
-    const rightToggle = canvas.getByRole("radio", { name: "Right aligned" });
-
-    expect(leftToggle).toBeInTheDocument();
-    expect(centerToggle).toBeInTheDocument();
-    expect(rightToggle).toBeInTheDocument();
-
-    // Test all items are disabled
-    expect(leftToggle).toBeDisabled();
-    expect(centerToggle).toBeDisabled();
-    expect(rightToggle).toBeDisabled();
-
-    // Test default selection is still maintained
-    expect(centerToggle).toHaveAttribute("data-state", "on");
+export const SizeComparison = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Small (sm)</p>
+          <ToggleGroup type="single" size="sm" defaultValue="center">
+            <ToggleGroupItem value="left" aria-label="Left aligned">
+              <AlignLeft size={14} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="center" aria-label="Center aligned">
+              <AlignCenter size={14} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="right" aria-label="Right aligned">
+              <AlignRight size={14} />
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Default</p>
+          <ToggleGroup type="single" defaultValue="center">
+            <ToggleGroupItem value="left" aria-label="Left aligned">
+              <AlignLeft size={16} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="center" aria-label="Center aligned">
+              <AlignCenter size={16} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="right" aria-label="Right aligned">
+              <AlignRight size={16} />
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Large (lg)</p>
+          <ToggleGroup type="single" size="lg" defaultValue="center">
+            <ToggleGroupItem value="left" aria-label="Left aligned">
+              <AlignLeft size={20} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="center" aria-label="Center aligned">
+              <AlignCenter size={20} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="right" aria-label="Right aligned">
+              <AlignRight size={20} />
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+      </div>
+    ),
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test all size variants render
+      const smallLabel = canvas.getByText("Small (sm)");
+      const defaultLabel = canvas.getByText("Default");
+      const largeLabel = canvas.getByText("Large (lg)");
+      
+      expect(smallLabel).toBeInTheDocument();
+      expect(defaultLabel).toBeInTheDocument();
+      expect(largeLabel).toBeInTheDocument();
+      
+      // Test all toggle groups render
+      const toggleGroups = canvas.getAllByRole("group");
+      expect(toggleGroups).toHaveLength(3);
+      
+      // Test sizes are correctly applied
+      expect(toggleGroups[0]).toHaveAttribute("data-size", "sm");
+      expect(toggleGroups[1]).not.toHaveAttribute("data-size"); // default has no size attribute
+      expect(toggleGroups[2]).toHaveAttribute("data-size", "lg");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "column",
+      gap: "md",
+      children: [
+        {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            {
+              type: "Text",
+              size: "sm",
+              className: "text-muted-foreground",
+              children: "Small (sm)"
+            },
+            {
+              type: "ToggleGroup",
+              selectionType: "single",
+              size: "sm",
+              defaultValue: "center",
+              children: [
+                {
+                  type: "ToggleGroupItem",
+                  value: "left",
+                  "aria-label": "Left aligned",
+                  children: "←"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "center",
+                  "aria-label": "Center aligned",
+                  children: "↔"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "right",
+                  "aria-label": "Right aligned",
+                  children: "→"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            {
+              type: "Text",
+              size: "sm",
+              className: "text-muted-foreground",
+              children: "Default"
+            },
+            {
+              type: "ToggleGroup",
+              selectionType: "single",
+              defaultValue: "center",
+              children: [
+                {
+                  type: "ToggleGroupItem",
+                  value: "left",
+                  "aria-label": "Left aligned",
+                  children: "←"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "center",
+                  "aria-label": "Center aligned",
+                  children: "↔"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "right",
+                  "aria-label": "Right aligned",
+                  children: "→"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            {
+              type: "Text",
+              size: "sm",
+              className: "text-muted-foreground",
+              children: "Large (lg)"
+            },
+            {
+              type: "ToggleGroup",
+              selectionType: "single",
+              size: "lg",
+              defaultValue: "center",
+              children: [
+                {
+                  type: "ToggleGroupItem",
+                  value: "left",
+                  "aria-label": "Left aligned",
+                  children: "←"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "center",
+                  "aria-label": "Center aligned",
+                  children: "↔"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "right",
+                  "aria-label": "Right aligned",
+                  children: "→"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+);
 
-export const SizeComparison: Story = {
-  args: {
-    type: "single",
+export const VariantsShowcase = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Default variant</p>
+          <ToggleGroup type="single" defaultValue="center">
+            <ToggleGroupItem value="left" aria-label="Left aligned">
+              <AlignLeft size={16} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="center" aria-label="Center aligned">
+              <AlignCenter size={16} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="right" aria-label="Right aligned">
+              <AlignRight size={16} />
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Outline variant</p>
+          <ToggleGroup type="single" variant="outline" defaultValue="center">
+            <ToggleGroupItem value="left" aria-label="Left aligned">
+              <AlignLeft size={16} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="center" aria-label="Center aligned">
+              <AlignCenter size={16} />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="right" aria-label="Right aligned">
+              <AlignRight size={16} />
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+      </div>
+    ),
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test variant labels render
+      const defaultLabel = canvas.getByText("Default variant");
+      const outlineLabel = canvas.getByText("Outline variant");
+      
+      expect(defaultLabel).toBeInTheDocument();
+      expect(outlineLabel).toBeInTheDocument();
+      
+      // Test all toggle groups render
+      const toggleGroups = canvas.getAllByRole("group");
+      expect(toggleGroups).toHaveLength(2);
+      
+      // Test variants are correctly applied
+      expect(toggleGroups[0]).not.toHaveAttribute("data-variant"); // default has no variant attribute
+      expect(toggleGroups[1]).toHaveAttribute("data-variant", "outline");
+    },
   },
-  render: () => (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">Small (sm)</p>
-        <ToggleGroup type="single" size="sm" defaultValue="center">
-          <ToggleGroupItem value="left" aria-label="Left aligned">
-            <AlignLeft size={14} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="center" aria-label="Center aligned">
-            <AlignCenter size={14} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="right" aria-label="Right aligned">
-            <AlignRight size={14} />
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
-      <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">Default</p>
-        <ToggleGroup type="single" defaultValue="center">
-          <ToggleGroupItem value="left" aria-label="Left aligned">
-            <AlignLeft size={16} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="center" aria-label="Center aligned">
-            <AlignCenter size={16} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="right" aria-label="Right aligned">
-            <AlignRight size={16} />
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
-      <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">Large (lg)</p>
-        <ToggleGroup type="single" size="lg" defaultValue="center">
-          <ToggleGroupItem value="left" aria-label="Left aligned">
-            <AlignLeft size={20} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="center" aria-label="Center aligned">
-            <AlignCenter size={20} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="right" aria-label="Right aligned">
-            <AlignRight size={20} />
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
-    </div>
-  ),
-};
-
-export const VariantsShowcase: Story = {
-  args: {
-    type: "single",
-  },
-  render: () => (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">Default variant</p>
-        <ToggleGroup type="single" defaultValue="center">
-          <ToggleGroupItem value="left" aria-label="Left aligned">
-            <AlignLeft size={16} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="center" aria-label="Center aligned">
-            <AlignCenter size={16} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="right" aria-label="Right aligned">
-            <AlignRight size={16} />
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
-      <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">Outline variant</p>
-        <ToggleGroup type="single" variant="outline" defaultValue="center">
-          <ToggleGroupItem value="left" aria-label="Left aligned">
-            <AlignLeft size={16} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="center" aria-label="Center aligned">
-            <AlignCenter size={16} />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="right" aria-label="Right aligned">
-            <AlignRight size={16} />
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
-    </div>
-  ),
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "column",
+      gap: "md",
+      children: [
+        {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            {
+              type: "Text",
+              size: "sm",
+              className: "text-muted-foreground",
+              children: "Default variant"
+            },
+            {
+              type: "ToggleGroup",
+              selectionType: "single",
+              defaultValue: "center",
+              children: [
+                {
+                  type: "ToggleGroupItem",
+                  value: "left",
+                  "aria-label": "Left aligned",
+                  children: "←"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "center",
+                  "aria-label": "Center aligned",
+                  children: "↔"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "right",
+                  "aria-label": "Right aligned",
+                  children: "→"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            {
+              type: "Text",
+              size: "sm",
+              className: "text-muted-foreground",
+              children: "Outline variant"
+            },
+            {
+              type: "ToggleGroup",
+              selectionType: "single",
+              variant: "outline",
+              defaultValue: "center",
+              children: [
+                {
+                  type: "ToggleGroupItem",
+                  value: "left",
+                  "aria-label": "Left aligned",
+                  children: "←"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "center",
+                  "aria-label": "Center aligned",
+                  children: "↔"
+                },
+                {
+                  type: "ToggleGroupItem",
+                  value: "right",
+                  "aria-label": "Right aligned",
+                  children: "→"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+);

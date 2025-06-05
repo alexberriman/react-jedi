@@ -155,7 +155,7 @@ export const ImageLogo: Story = {
   args: {
     logo: {
       type: "image",
-      src: "https://via.placeholder.com/120x40/3b82f6/ffffff?text=Logo",
+      src: "https://placehold.co/120x40/3b82f6/ffffff?text=Logo",
       alt: "Company Logo",
       href: "#",
     },

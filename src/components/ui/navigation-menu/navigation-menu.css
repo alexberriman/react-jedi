@@ -4,12 +4,16 @@
 [data-slot="navigation-menu-viewport"],
 [data-slot="navigation-menu-content"] {
   opacity: 0;
-  animation: fadeIn 0.15s ease-out forwards;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease-out, visibility 0.15s ease-out, transform 0.15s ease-out;
 }
 
 [data-slot="navigation-menu-viewport"][data-state="open"],
 [data-slot="navigation-menu-content"][data-state="open"] {
   opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 /* Smooth fade-in animation */
@@ -24,9 +28,18 @@
   }
 }
 
-/* Prevent layout shift */
+/* Prevent layout shift and flicker */
 [data-slot="navigation-menu-trigger"] {
   will-change: background-color, color;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Ensure all clickable elements have cursor pointer */
+[data-slot="navigation-menu-trigger"],
+[data-slot="navigation-menu-link"],
+[data-slot="navigation-menu"] a {
+  cursor: pointer;
 }
 
 /* Ensure no underlines on any navigation links */

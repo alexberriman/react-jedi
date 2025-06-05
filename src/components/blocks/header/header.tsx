@@ -203,7 +203,7 @@ function MobileNavigation({
                       open={expandedItems.includes(item.label)}
                       onOpenChange={() => toggleExpanded(item.label)}
                     >
-                      <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2 text-left hover:bg-accent rounded-md transition-colors">
+                      <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2 text-left hover:bg-accent rounded-md transition-colors cursor-pointer">
                         <span className="font-medium no-underline">{item.label}</span>
                         <ChevronDown
                           className={cn(
@@ -217,7 +217,7 @@ function MobileNavigation({
                           <a
                             key={subItem.label}
                             href={subItem.href}
-                            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors no-underline"
+                            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors no-underline cursor-pointer"
                             onClick={handleNavClick}
                           >
                             <div className="flex items-start gap-3">
@@ -238,7 +238,7 @@ function MobileNavigation({
                   ) : (
                     <a
                       href={item.href}
-                      className="block px-3 py-2 font-medium hover:bg-accent rounded-md transition-colors no-underline"
+                      className="block px-3 py-2 font-medium hover:bg-accent rounded-md transition-colors no-underline cursor-pointer"
                       onClick={handleNavClick}
                     >
                       {item.label}
@@ -415,7 +415,7 @@ export function Header({
                           <NavigationMenuLink asChild>
                             <a
                               href={subItem.href}
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
                             >
                               <div className="flex items-start gap-3">
                                 {subItem.icon && <div className="mt-0.5">{renderIcon(subItem.icon)}</div>}
@@ -441,9 +441,9 @@ export function Header({
                 <NavigationMenuLink asChild>
                   <a
                     href={item.href}
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 no-underline"
+                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 no-underline cursor-pointer"
                   >
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2 no-underline">
                       {item.icon && renderIcon(item.icon)}
                       {item.label}
                     </span>

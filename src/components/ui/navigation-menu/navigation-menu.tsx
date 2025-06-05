@@ -60,7 +60,7 @@ function NavigationMenuItem({
 }
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/10 data-[state=open]:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline"
+  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent data-[state=open]:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring/50 outline-none no-underline cursor-pointer"
 );
 
 function NavigationMenuTrigger({
@@ -130,7 +130,7 @@ function NavigationMenuLink({
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        "data-[active=true]:bg-accent/10 data-[active=true]:text-accent-foreground hover:bg-accent/10 hover:text-accent-foreground focus:bg-accent/10 focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-md p-3 text-sm transition-all duration-200 outline-none no-underline [&_svg:not([class*='size-'])]:size-4",
+        "data-[active=true]:bg-accent data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-md p-3 text-sm transition-all duration-200 outline-none no-underline [&_svg:not([class*='size-'])]:size-4 cursor-pointer",
         className
       )}
       {...cleanProps}

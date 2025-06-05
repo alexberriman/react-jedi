@@ -212,7 +212,7 @@
       {
         "id": "header",
         "description": "Some images in Header block component stories 404 - can you use placehold.co (see other storybooks for examples). ALso - menu is awful. Hovering over a menu item with dropdown flickers it, its white text on a light gray background, the text is underlined (it shuoldnt be). The buttons on the right should also have cursor-pointer. If these are issues in reusable components, please ensure theyre fixed in the reusable components",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "faq",

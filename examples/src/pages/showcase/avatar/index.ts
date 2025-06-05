@@ -1,1 +1,0 @@
-export { AvatarShowcase } from "./avatar-showcase";

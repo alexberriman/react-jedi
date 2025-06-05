@@ -1,1 +1,0 @@
-export { IconShowcase } from './icon-showcase';

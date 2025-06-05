@@ -10,8 +10,7 @@
   <a href="#installation"><strong>Install</strong></a> •
   <a href="#quick-start"><strong>Quick Start</strong></a> •
   <a href="#features"><strong>Features</strong></a> •
-  <a href="#documentation"><strong>Docs</strong></a> •
-  <a href="./examples"><strong>Demo</strong></a>
+  <a href="#documentation"><strong>Docs</strong></a>
 </p>
 
 <p align="center">
@@ -29,7 +28,8 @@
 React Jedi is a **Server-Driven UI (SDUI) library** that transforms JSON specifications into fully functional React components. With just a single `render()` function, you can build complete user interfaces without writing traditional React code.
 
 **Why React Jedi?**
-- 🎯 **One Function, Infinite Possibilities** - Just `render({ spec })` 
+
+- 🎯 **One Function, Infinite Possibilities** - Just `render({ spec })`
 - 🔥 **Beautiful by Default** - Powered by TailwindCSS and ShadCN components
 - 🚀 **Zero Lock-in** - Import only what you need, works with any React app
 - 📱 **Server-Driven** - Update UIs without app deployments
@@ -48,10 +48,11 @@ React Jedi requires its CSS styles to be imported for components to render corre
 
 ```jsx
 // In your main entry file (e.g., App.jsx, index.js, or _app.tsx)
-import '@alexberriman/react-jedi/styles.css';
+import "@alexberriman/react-jedi/styles.css";
 ```
 
 This CSS file includes:
+
 - All component styles
 - TailwindCSS utilities
 - Theme variables (light/dark mode)
@@ -76,15 +77,15 @@ const spec = {
       type: "heading",
       level: "h1",
       content: "Welcome to React Jedi",
-      gradient: "rainbow"
+      gradient: "rainbow",
     },
     {
       type: "button",
       text: "Get Started",
       variant: "primary",
-      size: "lg"
-    }
-  ]
+      size: "lg",
+    },
+  ],
 };
 
 function App() {
@@ -107,7 +108,7 @@ const loginForm = {
     {
       type: "heading",
       level: "h2",
-      content: "Sign In"
+      content: "Sign In",
     },
     {
       type: "form",
@@ -115,22 +116,22 @@ const loginForm = {
         {
           type: "input",
           placeholder: "Email",
-          inputType: "email"
+          inputType: "email",
         },
         {
           type: "input",
           placeholder: "Password",
-          inputType: "password"
+          inputType: "password",
         },
         {
           type: "button",
           text: "Login",
           variant: "primary",
-          className: "w-full"
-        }
-      ]
-    }
-  ]
+          className: "w-full",
+        },
+      ],
+    },
+  ],
 };
 
 // 2. Render it
@@ -165,31 +166,37 @@ function LoginPage() {
 React Jedi includes 50+ production-ready components:
 
 ### Layout Components
+
 `Container` `Box` `Flex` `Grid` `Stack` `Group` `Center` `SimpleGrid` `Spacer`
 
 ### Typography
-`Heading` `Text` `BlockQuote` 
+
+`Heading` `Text` `BlockQuote`
 
 ### Form Components
+
 `Form` `Input` `Textarea` `Select` `Checkbox` `RadioGroup` `Switch` `Toggle` `Slider` `DatePicker`
 
-### UI Components  
+### UI Components
+
 `Button` `Card` `Badge` `Alert` `Avatar` `Image` `Separator` `Skeleton` `Progress` `Tooltip`
 
 ### Interactive Components
+
 `AlertDialog` `Collapsible` `Popover` `HoverCard` `Drawer` `DropdownMenu` `ContextMenu` `Command`
 
 ### Data Display
+
 `Table` `DataTable` `Chart` `Tabs` `Carousel` `PricingTable` `Testimonial`
 
 ### Navigation
-`NavigationMenu` `Breadcrumb` `Pagination`
 
-View all components with live examples in our [interactive showcase](./examples).
+`NavigationMenu` `Breadcrumb` `Pagination`
 
 ## Real-World Examples
 
 ### Hero Section
+
 ```javascript
 const heroSection = {
   type: "container",
@@ -204,20 +211,20 @@ const heroSection = {
         {
           type: "badge",
           text: "New Release",
-          variant: "outline"
+          variant: "outline",
         },
         {
           type: "heading",
           level: "h1",
           content: "Build Faster with React Jedi",
           size: "6xl",
-          gradient: "rainbow"
+          gradient: "rainbow",
         },
         {
           type: "text",
           text: "Create beautiful, responsive UIs with just JSON",
           size: "xl",
-          className: "text-muted-foreground max-w-2xl text-center"
+          className: "text-muted-foreground max-w-2xl text-center",
         },
         {
           type: "group",
@@ -226,23 +233,24 @@ const heroSection = {
               type: "button",
               text: "Get Started",
               variant: "primary",
-              size: "lg"
+              size: "lg",
             },
             {
               type: "button",
               text: "View Demo",
               variant: "outline",
-              size: "lg"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+              size: "lg",
+            },
+          ],
+        },
+      ],
+    },
+  ],
 };
 ```
 
 ### Feature Grid
+
 ```javascript
 const featureGrid = {
   type: "grid",
@@ -255,16 +263,16 @@ const featureGrid = {
         {
           type: "heading",
           level: "h3",
-          content: "Lightning Fast"
+          content: "Lightning Fast",
         },
         {
           type: "text",
-          text: "Optimized performance with automatic memoization"
-        }
-      ]
+          text: "Optimized performance with automatic memoization",
+        },
+      ],
     },
     // ... more feature cards
-  ]
+  ],
 };
 ```
 
@@ -282,16 +290,16 @@ const spec: ComponentSpec = {
     {
       type: "heading",
       level: "h1", // TypeScript knows valid levels
-      content: "Type-Safe UI"
-    }
-  ]
+      content: "Type-Safe UI",
+    },
+  ],
 };
 
 // Auto-completion for all component properties
 const button: ButtonSpec = {
   type: "button",
   variant: "primary", // IntelliSense shows all variants
-  size: "lg"
+  size: "lg",
 };
 ```
 
@@ -306,17 +314,17 @@ const spec = {
     {
       type: "heading",
       level: "h2",
-      content: "Welcome {{user.name}}!"
+      content: "Welcome {{user.name}}!",
     },
     {
       type: "text",
-      text: "You have {{productCount}} items in your cart"
+      text: "You have {{productCount}} items in your cart",
     },
     {
       type: "footer",
-      children: "© {{currentYear}} {{companyName}}"
-    }
-  ]
+      children: "© {{currentYear}} {{companyName}}",
+    },
+  ],
 };
 
 // Render with variables
@@ -324,9 +332,9 @@ const rendered = render(spec, {
   variables: {
     user: { name: "John Doe" },
     productCount: 5,
-    companyName: "Acme Corp"
+    companyName: "Acme Corp",
     // currentYear is automatically available
-  }
+  },
 });
 ```
 
@@ -357,6 +365,7 @@ These variables are automatically available in all templates:
 ### CSS Architecture
 
 React Jedi's styling system is built on:
+
 - **TailwindCSS v4** - Modern utility-first CSS framework
 - **CSS Variables** - Dynamic theming support
 - **Dark Mode** - Built-in light and dark themes
@@ -366,7 +375,7 @@ React Jedi's styling system is built on:
 
 ```jsx
 // Option 1: Import everything (recommended)
-import '@alexberriman/react-jedi/styles.css';
+import "@alexberriman/react-jedi/styles.css";
 
 // Your styles are now ready to use!
 ```
@@ -387,33 +396,10 @@ React Jedi uses CSS variables for theming, making it easy to customize:
 ### TailwindCSS Integration
 
 If you're already using TailwindCSS in your project:
+
 - React Jedi's styles are scoped and won't conflict
 - You can use your own Tailwind classes alongside React Jedi components
 - The bundled CSS includes only the utilities needed by React Jedi
-
-## Documentation
-
-### 📚 [Live Documentation](./examples)
-
-Interactive documentation with:
-- Component playground
-- Live code examples  
-- API reference
-- Best practices
-- TypeScript guides
-
-### 🚀 Run Examples Locally
-
-```bash
-# Clone and install
-git clone https://github.com/alexberriman/react-jedi.git
-cd react-jedi && npm install
-
-# Run example app
-npm run example-app
-```
-
-Visit [http://localhost:5173](http://localhost:5173) to explore all components.
 
 ## Server-Driven UI
 
@@ -421,7 +407,7 @@ React Jedi excels at server-driven UI scenarios:
 
 ```javascript
 // Fetch UI specification from server
-const response = await fetch('/api/ui/dashboard');
+const response = await fetch("/api/ui/dashboard");
 const spec = await response.json();
 
 // Render the UI
@@ -467,7 +453,7 @@ To release a new version of React Jedi:
 # Release a patch version (1.0.0 → 1.0.1)
 npm run release:patch
 
-# Release a minor version (1.0.0 → 1.1.0)  
+# Release a minor version (1.0.0 → 1.1.0)
 npm run release:minor
 
 # Release a major version (1.0.0 → 2.0.0)
@@ -475,6 +461,7 @@ npm run release:major
 ```
 
 The release script will:
+
 1. Run all checks (lint, typecheck, tests)
 2. Build the library
 3. Bump the version in package.json
@@ -482,6 +469,7 @@ The release script will:
 5. Provide instructions for publishing to npm
 
 After the script completes, follow the instructions to:
+
 - Push changes: `git push && git push --tags`
 - Publish to npm: `npm publish`
 - Create a GitHub release

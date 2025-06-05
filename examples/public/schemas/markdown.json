@@ -1,6 +1,0 @@
-{
-  "type": "markdown",
-  "properties": {
-    "content": "# Markdown Component Example\n\nThis demonstrates the **Markdown** component rendering content from a JSON specification.\n\n## Features\n\n- GitHub Flavored Markdown\n- Syntax highlighting for code blocks\n- Customizable styling\n- Type-safe props\n\n### Code Example\n\n```typescript\nconst spec = {\n  type: 'markdown',\n  properties: {\n    content: '# Hello World'\n  }\n};\n\nrender(spec);\n```\n\n## Links\n\n[Learn more about React Jedi](https://github.com/alexberriman/react-jedi)\n\n---\n\n*Rendered via JSON specification*"
-  }
-}

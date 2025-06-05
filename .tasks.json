@@ -245,7 +245,8 @@
         "status": "completed"
       }
     ]
-  }, {
+  },
+  {
     "id": "sdui-story-rendering",
     "description": "Add SDUI render function stories for all existing component storybooks. For each component that has storybook stories, create additional story variants that demonstrate the same UI/behavior but rendered using the SDUI render() function with JSON specifications. This validates that all components work correctly in both direct React usage and through the SDUI system. Each story variant should have both the original React version and an SDUI version (e.g., 'Default' and 'Default (SDUI)').",
     "status": "pending",

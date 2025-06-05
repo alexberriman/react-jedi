@@ -1,1 +1,0 @@
-export { TeamGridShowcase } from "./team-grid-showcase";

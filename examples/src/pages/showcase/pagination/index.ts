@@ -1,1 +1,0 @@
-export { PaginationShowcase } from "./pagination-showcase";

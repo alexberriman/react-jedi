@@ -1,1 +1,0 @@
-export { AnnouncementBarShowcasePage } from './announcement-bar-showcase';

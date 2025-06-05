@@ -16,12 +16,12 @@
   - `types/` - TypeScript type definitions
   - `schemas/` - JSON schemas for components
   - `benchmark/` - Performance benchmarking
-- `examples/` - Example application demonstrating library usage
 - `docs/` - Documentation files
 - `dist/` - Built library output
 
 ## Image Placeholders
 
-When using placeholder images in examples and storybook files:
+When using placeholder images in storybook files:
+
 - For photo placeholders, use: `https://picsum.photos/{width}/{height}` (e.g., `https://picsum.photos/200/300`)
 - For generic placeholders, use: `https://placehold.co/{width}x{height}/EEE/31343C` (e.g., `https://placehold.co/600x600/EEE/31343C`)

@@ -1,1 +1,0 @@
-export { default as TemplateVariablesPage } from './template-variables-page'

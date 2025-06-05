@@ -12,57 +12,59 @@ import { cleanup } from "@testing-library/react";
 beforeEach(() => {
   // Use fake timers by default for all tests
   vi.useFakeTimers();
-  
+
   // Mock global fetch API with default responses
   globalThis.fetch = vi.fn().mockImplementation((url: string) => {
     // Mock responses for common test URLs
-    if (url.includes('jsonplaceholder.typicode.com/users')) {
+    if (url.includes("jsonplaceholder.typicode.com/users")) {
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve([
-          { id: 1, name: 'John Doe', email: 'john@example.com' },
-          { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
-        ])
+        json: () =>
+          Promise.resolve([
+            { id: 1, name: "John Doe", email: "john@example.com" },
+            { id: 2, name: "Jane Smith", email: "jane@example.com" },
+          ]),
       });
     }
-    
-    if (url.includes('jsonplaceholder.typicode.com/posts')) {
+
+    if (url.includes("jsonplaceholder.typicode.com/posts")) {
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve([
-          { id: 1, userId: 1, title: 'Test Post', body: 'Test content' },
-          { id: 2, userId: 1, title: 'Another Post', body: 'More content' }
-        ])
+        json: () =>
+          Promise.resolve([
+            { id: 1, userId: 1, title: "Test Post", body: "Test content" },
+            { id: 2, userId: 1, title: "Another Post", body: "More content" },
+          ]),
       });
     }
-    
-    if (url.includes('jsonplaceholder.typicode.com/comments')) {
+
+    if (url.includes("jsonplaceholder.typicode.com/comments")) {
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve([
-          { id: 1, postId: 1, email: 'test@example.com', body: 'Test comment' }
-        ])
+        json: () =>
+          Promise.resolve([{ id: 1, postId: 1, email: "test@example.com", body: "Test comment" }]),
       });
     }
-    
-    if (url.includes('jsonplaceholder.typicode.com/todos')) {
+
+    if (url.includes("jsonplaceholder.typicode.com/todos")) {
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve([
-          { id: 1, title: 'Test Todo', completed: false },
-          { id: 2, title: 'Completed Todo', completed: true }
-        ])
+        json: () =>
+          Promise.resolve([
+            { id: 1, title: "Test Todo", completed: false },
+            { id: 2, title: "Completed Todo", completed: true },
+          ]),
       });
     }
-    
+
     // Default mock for API calls
-    if (url.includes('/api/')) {
+    if (url.includes("/api/")) {
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ success: true, data: {} })
+        json: () => Promise.resolve({ success: true, data: {} }),
       });
     }
-    
+
     // Simulate network error for invalid URLs
     return Promise.reject(new Error(`Network error: ${url}`));
   });

@@ -9,6 +9,4 @@
 - `typecheck` - Check TypeScript types
 - `check` - Run lint, typecheck, and tests
 - `build-storybook` - Build Storybook for production
-- `example-app` - Build library and run example app
-- `example-app:build` - Build library and example app for production
 - `rj-dev` - Run React Jedi CLI tool

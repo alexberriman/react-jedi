@@ -52,6 +52,8 @@ export interface LatestNewsProperties {
   readonly heading?: string;
   /** Section description */
   readonly description?: string;
+  /** Enable image hover animations (default: true) */
+  readonly animated?: boolean;
   /** Additional CSS classes */
   readonly className?: string;
   /** Newsletter submit handler */
@@ -146,6 +148,7 @@ export function LatestNews({
   loading = false,
   heading = 'Latest News',
   description,
+  animated = true,
   className,
   onNewsletterSubmit,
   ...properties
@@ -225,11 +228,27 @@ export function LatestNews({
             <a href={article.url} className="block">
               {article.thumbnail && (
                 <div className="aspect-[16/9] overflow-hidden">
-                  <img
-                    src={article.thumbnail}
-                    alt={article.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
+                  {animated ? (
+                    <motion.img
+                      src={article.thumbnail}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                      initial={{ scale: 1 }}
+                      whileHover={{ 
+                        scale: 1.12,
+                        transition: { 
+                          duration: 0.8, 
+                          ease: "easeInOut" 
+                        }
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={article.thumbnail}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
               )}
               <CardContent className="p-4 space-y-3">
@@ -273,11 +292,27 @@ export function LatestNews({
                   "aspect-[16/9] overflow-hidden rounded-lg",
                   index === 0 && "lg:aspect-[2/1]"
                 )}>
-                  <img
-                    src={article.thumbnail}
-                    alt={article.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
+                  {animated ? (
+                    <motion.img
+                      src={article.thumbnail}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                      initial={{ scale: 1 }}
+                      whileHover={{ 
+                        scale: 1.12,
+                        transition: { 
+                          duration: 0.8, 
+                          ease: "easeInOut" 
+                        }
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={article.thumbnail}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
               )}
               <div className="space-y-2">
@@ -366,11 +401,27 @@ export function LatestNews({
           <a href={featuredArticle.url} className="group">
             {featuredArticle.thumbnail && (
               <div className="aspect-[16/9] overflow-hidden rounded-lg mb-4">
-                <img
-                  src={featuredArticle.thumbnail}
-                  alt={featuredArticle.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+                {animated ? (
+                  <motion.img
+                    src={featuredArticle.thumbnail}
+                    alt={featuredArticle.title}
+                    className="w-full h-full object-cover"
+                    initial={{ scale: 1 }}
+                    whileHover={{ 
+                      scale: 1.08,
+                      transition: { 
+                        duration: 0.8, 
+                        ease: "easeInOut" 
+                      }
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={featuredArticle.thumbnail}
+                    alt={featuredArticle.title}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
             )}
             <div className="space-y-3">

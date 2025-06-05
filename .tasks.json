@@ -207,7 +207,7 @@
       {
         "id": "latest-news-image-zoom",
         "description": "Can you make sure when I hover over an image in the Latest News component, the image that 'zooms' transitions/animates in with something like framer motion? Can you also slow it down so its quite noticable.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "header",

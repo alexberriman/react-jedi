@@ -241,3 +241,27 @@ export const NoExcerpts: Story = {
     heading: 'Latest Updates'
   },
 };
+
+export const WithoutAnimations: Story = {
+  args: {
+    articles: sampleArticles,
+    variant: 'with-images',
+    count: 3,
+    heading: 'Latest News (No Animations)',
+    description: 'Same content but with hover animations disabled',
+    animated: false,
+    viewAllUrl: '/news'
+  },
+};
+
+export const AnimatedMagazineStyle: Story = {
+  args: {
+    articles: sampleArticles,
+    variant: 'magazine',
+    count: 5,
+    heading: 'Magazine with Animations',
+    description: 'Hover over images to see smooth zoom effects',
+    animated: true,
+    viewAllUrl: '/news'
+  },
+};

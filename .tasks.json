@@ -167,12 +167,12 @@
       {
         "id": "dual-mode-collapsible",
         "description": "Implement dual-mode story functionality for Collapsible component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/ui/collapsible/collapsible.stories.tsx",
-        "status": "in_progress"
+        "status": "completed"
       },
       {
         "id": "dual-mode-accordion",
         "description": "Implement dual-mode story functionality for Accordion component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/ui/accordion/accordion.stories.tsx",
-        "status": "pending"
+        "status": "in_progress"
       },
       {
         "id": "dual-mode-tabs",

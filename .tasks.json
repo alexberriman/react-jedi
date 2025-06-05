@@ -227,7 +227,7 @@
       {
         "id": "error-page-sexier",
         "description": "Can you make the ErrorPage component look way sexier, and make different variations for different styles of websites (blog, ecommerce platform, magazine, restaurant, etc.)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "carousel",

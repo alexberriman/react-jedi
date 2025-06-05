@@ -24,6 +24,106 @@ const errorPageVariants = {
       },
     },
   },
+  'blog-error': {
+    title: 'Blog Error Page',
+    description: 'Perfect for blogs and content-focused websites',
+    spec: {
+      type: 'ErrorPage',
+      props: {
+        siteType: 'blog',
+        popularLinks: [
+          { label: 'Latest Articles', href: '/articles', description: 'Read our newest posts' },
+          { label: 'Categories', href: '/categories', description: 'Browse by topic' },
+          { label: 'About the Author', href: '/about', description: 'Learn more about me' },
+          { label: 'Subscribe', href: '/subscribe', description: 'Get updates via email' },
+        ],
+        searchConfig: {
+          enabled: true,
+          placeholder: 'Search articles and topics...',
+          searchAction: '/search',
+        },
+        contactEmail: 'hello@myblog.com',
+        animated: true,
+      },
+    },
+  },
+  'ecommerce-error': {
+    title: 'E-commerce Error Page',
+    description: 'Designed for online stores and shopping sites',
+    spec: {
+      type: 'ErrorPage',
+      props: {
+        siteType: 'ecommerce',
+        popularLinks: [
+          { label: 'Best Sellers', href: '/bestsellers', description: 'Our most popular items' },
+          { label: 'New Arrivals', href: '/new', description: 'Latest products' },
+          { label: 'Sale Items', href: '/sale', description: 'Great deals and discounts' },
+          { label: 'Customer Service', href: '/support', description: 'Need help with your order?' },
+        ],
+        searchConfig: {
+          enabled: true,
+          placeholder: 'Search products...',
+          searchAction: '/search',
+        },
+        contactEmail: 'support@shop.com',
+        customActions: [
+          { label: 'View Cart', href: '/cart', variant: 'outline' },
+          { label: 'Track Order', href: '/orders', variant: 'outline' },
+          { label: 'Live Chat', href: '/chat', variant: 'ghost' },
+        ],
+        animated: true,
+      },
+    },
+  },
+  'restaurant-error': {
+    title: 'Restaurant Error Page',
+    description: 'Tailored for restaurants and food service businesses',
+    spec: {
+      type: 'ErrorPage',
+      props: {
+        siteType: 'restaurant',
+        popularLinks: [
+          { label: 'Our Menu', href: '/menu', description: 'View our full menu' },
+          { label: 'Reservations', href: '/reservations', description: 'Book a table' },
+          { label: 'Location & Hours', href: '/location', description: 'Find us and our hours' },
+          { label: 'Order Online', href: '/order', description: 'Get delivery or takeout' },
+        ],
+        contactEmail: 'info@restaurant.com',
+        customActions: [
+          { label: 'Make Reservation', href: '/reservations', variant: 'default' },
+          { label: 'Order Takeout', href: '/order', variant: 'outline' },
+          { label: 'Call Us', href: 'tel:+1234567890', variant: 'ghost' },
+        ],
+        image: 'https://picsum.photos/600/400?random=restaurant',
+        showIcon: false,
+        animated: true,
+      },
+    },
+  },
+  'portfolio-error': {
+    title: 'Portfolio Error Page',
+    description: 'Ideal for creative professionals and portfolios',
+    spec: {
+      type: 'ErrorPage',
+      props: {
+        siteType: 'portfolio',
+        popularLinks: [
+          { label: 'Featured Work', href: '/portfolio', description: 'My best projects' },
+          { label: 'About Me', href: '/about', description: 'Learn more about my background' },
+          { label: 'Contact', href: '/contact', description: 'Let\'s work together' },
+          { label: 'Blog', href: '/blog', description: 'Thoughts and insights' },
+        ],
+        contactEmail: 'hello@designer.com',
+        customActions: [
+          { label: 'View Portfolio', href: '/portfolio', variant: 'default' },
+          { label: 'Hire Me', href: '/contact', variant: 'outline' },
+        ],
+        image: 'https://picsum.photos/600/400?random=portfolio',
+        showIcon: false,
+        animated: true,
+      },
+    },
+  },
   'friendly-404-search': {
     title: '404 with Search',
     description: 'Help users find what they need with integrated search',

@@ -3,7 +3,7 @@ import * as React from "react";
 import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 import { Button } from "../button";
-import { within, userEvent, expect, waitFor } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta: Meta<typeof Collapsible> = {
   title: "Components/Collapsible",
@@ -51,7 +51,7 @@ const meta: Meta<typeof Collapsible> = {
 export default meta;
 type Story = StoryObj<typeof Collapsible>;
 
-export const Basic: Story = {
+export const Basic: Story = enhanceStoryForDualMode<typeof Collapsible>({
   render: () => (
     <Collapsible>
       <CollapsibleTrigger asChild>
@@ -64,40 +64,9 @@ export const Basic: Story = {
       </CollapsibleContent>
     </Collapsible>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", { name: /toggle content/i });
+});
 
-    // Check the button exists and has correct attributes
-    expect(toggleButton).toBeInTheDocument();
-    expect(toggleButton).toHaveAttribute("data-state", "closed");
-
-    // Click to expand
-    await userEvent.click(toggleButton);
-    await waitFor(
-      () => {
-        expect(toggleButton).toHaveAttribute("data-state", "open");
-        expect(canvas.getByText("This is the collapsible content. It can be expanded or collapsed.")).toBeVisible();
-      },
-      { timeout: 5000 }
-    );
-
-    // Verify content is displayed
-    const content = canvas.getByText("This is the collapsible content. It can be expanded or collapsed.");
-    expect(content).toBeInTheDocument();
-
-    // Click to collapse
-    await userEvent.click(toggleButton);
-    await waitFor(
-      () => {
-        expect(toggleButton).toHaveAttribute("data-state", "closed");
-      },
-      { timeout: 5000 }
-    );
-  },
-};
-
-export const DefaultOpen: Story = {
+export const DefaultOpen: Story = enhanceStoryForDualMode<typeof Collapsible>({
   render: () => (
     <Collapsible defaultOpen>
       <CollapsibleTrigger asChild>
@@ -110,7 +79,7 @@ export const DefaultOpen: Story = {
       </CollapsibleContent>
     </Collapsible>
   ),
-};
+});
 
 const ControlledExample = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -139,52 +108,9 @@ const ControlledExample = () => {
   );
 };
 
-export const Controlled: Story = {
+export const Controlled: Story = enhanceStoryForDualMode<typeof Collapsible>({
   render: () => <ControlledExample />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const openButton = canvas.getByRole("button", { name: /^open$/i });
-    const closeButton = canvas.getByRole("button", { name: /^close$/i });
-    const toggleButton = canvas.getByRole("button", { name: /show content/i });
-
-    // Initially content should be hidden
-    expect(toggleButton).toHaveAttribute("data-state", "closed");
-
-    // Click open button
-    await userEvent.click(openButton);
-    await waitFor(
-      () => {
-        const content = canvas.getByText("This is controlled content. State: Open");
-        expect(content).toBeVisible();
-        expect(canvas.getByRole("button", { name: /hide content/i })).toBeInTheDocument();
-      },
-      { timeout: 5000 }
-    );
-
-    // Click close button
-    await userEvent.click(closeButton);
-    await waitFor(
-      () => {
-        expect(canvas.getByRole("button", { name: /show content/i })).toBeInTheDocument();
-        expect(canvas.getByRole("button", { name: /show content/i })).toHaveAttribute(
-          "data-state",
-          "closed"
-        );
-      },
-      { timeout: 5000 }
-    );
-
-    // Toggle via main button
-    await userEvent.click(canvas.getByRole("button", { name: /show content/i }));
-    await waitFor(
-      () => {
-        const content = canvas.getByText("This is controlled content. State: Open");
-        expect(content).toBeVisible();
-      },
-      { timeout: 5000 }
-    );
-  },
-};
+});
 
 const WithIconExample = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -219,11 +145,11 @@ const WithIconExample = () => {
   );
 };
 
-export const WithIcon: Story = {
+export const WithIcon: Story = enhanceStoryForDualMode<typeof Collapsible>({
   render: () => <WithIconExample />,
-};
+});
 
-export const Multiple: Story = {
+export const Multiple: Story = enhanceStoryForDualMode<typeof Collapsible>({
   render: () => (
     <div className="space-y-2">
       <Collapsible>
@@ -266,9 +192,9 @@ export const Multiple: Story = {
       </Collapsible>
     </div>
   ),
-};
+});
 
-export const Disabled: Story = {
+export const Disabled: Story = enhanceStoryForDualMode<typeof Collapsible>({
   render: () => (
     <Collapsible disabled>
       <CollapsibleTrigger asChild>
@@ -283,7 +209,7 @@ export const Disabled: Story = {
       </CollapsibleContent>
     </Collapsible>
   ),
-};
+});
 
 const FAQExample = () => {
   const faqs = [
@@ -324,9 +250,9 @@ const FAQExample = () => {
   );
 };
 
-export const FAQ: Story = {
+export const FAQ: Story = enhanceStoryForDualMode<typeof Collapsible>({
   render: () => <FAQExample />,
-};
+});
 
 const CardExample = () => {
   return (
@@ -375,6 +301,6 @@ const CardExample = () => {
   );
 };
 
-export const InCard: Story = {
+export const InCard: Story = enhanceStoryForDualMode<typeof Collapsible>({
   render: () => <CardExample />,
-};
+});

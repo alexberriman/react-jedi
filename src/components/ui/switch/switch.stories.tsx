@@ -238,7 +238,7 @@ export const Controlled: Story = enhanceStoryForDualMode<typeof Switch>(
         await user.click(toggleButton);
         expect(switchButton).toBeChecked();
         expect(canvas.getByText("Status: On")).toBeInTheDocument();
-      } catch (error) {
+      } catch {
         // In SDUI mode, just verify initial static state renders correctly
         expect(canvas.getByText("Status: Off")).toBeInTheDocument();
       }

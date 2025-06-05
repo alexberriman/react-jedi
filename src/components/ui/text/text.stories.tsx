@@ -121,118 +121,122 @@ export const Default: Story = {
   },
 };
 
-export const ElementTypes: Story = enhanceStoryForDualMode({
-  render: () => (
-    <div className="space-y-4 max-w-lg">
-      <Text element="p">
-        Paragraph: Default text element with standard styling for body content.
-      </Text>
-      <Text element="span">Span: Inline text element.</Text>
-      <div className="flex gap-2 items-center">
-        <Text element="span">This is regular text</Text>
-        <Text element="strong">Strong: Bold emphasis</Text>
-        <Text element="em">Em: Italic emphasis</Text>
+export const ElementTypes: Story = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <div className="space-y-4 max-w-lg">
+        <Text element="p">
+          Paragraph: Default text element with standard styling for body content.
+        </Text>
+        <Text element="span">Span: Inline text element.</Text>
+        <div className="flex gap-2 items-center">
+          <Text element="span">This is regular text</Text>
+          <Text element="strong">Strong: Bold emphasis</Text>
+          <Text element="em">Em: Italic emphasis</Text>
+        </div>
+        <Text element="small">Small: Smaller text for less emphasis or secondary information.</Text>
+        <Text element="blockquote">
+          Blockquote: Used for quotations. &quot;The future belongs to those who believe in the
+          beauty of their dreams.&quot; - Eleanor Roosevelt
+        </Text>
+        <Text element="code">Code: for inline code snippets or technical terms.</Text>
+        <Text element="div">Div: Block-level container for text content.</Text>
       </div>
-      <Text element="small">Small: Smaller text for less emphasis or secondary information.</Text>
-      <Text element="blockquote">
-        Blockquote: Used for quotations. &quot;The future belongs to those who believe in the beauty
-        of their dreams.&quot; - Eleanor Roosevelt
-      </Text>
-      <Text element="code">Code: for inline code snippets or technical terms.</Text>
-      <Text element="div">Div: Block-level container for text content.</Text>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    // Test different element types render correctly
-    const paragraph = canvas.getByText(/Paragraph: Default text element/);
-    expect(paragraph.tagName.toLowerCase()).toBe("p");
+      // Test different element types render correctly
+      const paragraph = canvas.getByText(/Paragraph: Default text element/);
+      expect(paragraph.tagName.toLowerCase()).toBe("p");
 
-    const span = canvas.getByText("Span: Inline text element.");
-    expect(span.tagName.toLowerCase()).toBe("span");
+      const span = canvas.getByText("Span: Inline text element.");
+      expect(span.tagName.toLowerCase()).toBe("span");
 
-    const strong = canvas.getByText("Strong: Bold emphasis");
-    expect(strong.tagName.toLowerCase()).toBe("strong");
+      const strong = canvas.getByText("Strong: Bold emphasis");
+      expect(strong.tagName.toLowerCase()).toBe("strong");
 
-    const em = canvas.getByText("Em: Italic emphasis");
-    expect(em.tagName.toLowerCase()).toBe("em");
+      const em = canvas.getByText("Em: Italic emphasis");
+      expect(em.tagName.toLowerCase()).toBe("em");
 
-    const small = canvas.getByText(/Small: Smaller text/);
-    expect(small.tagName.toLowerCase()).toBe("small");
+      const small = canvas.getByText(/Small: Smaller text/);
+      expect(small.tagName.toLowerCase()).toBe("small");
 
-    const blockquote = canvas.getByText(/Blockquote: Used for quotations/);
-    expect(blockquote.tagName.toLowerCase()).toBe("blockquote");
+      const blockquote = canvas.getByText(/Blockquote: Used for quotations/);
+      expect(blockquote.tagName.toLowerCase()).toBe("blockquote");
 
-    const code = canvas.getByText(/Code: for inline code/);
-    expect(code.tagName.toLowerCase()).toBe("code");
+      const code = canvas.getByText(/Code: for inline code/);
+      expect(code.tagName.toLowerCase()).toBe("code");
 
-    const div = canvas.getByText("Div: Block-level container for text content.");
-    expect(div.tagName.toLowerCase()).toBe("div");
+      const div = canvas.getByText("Div: Block-level container for text content.");
+      expect(div.tagName.toLowerCase()).toBe("div");
+    },
   },
-}, {
-  // Since this uses a custom render function, we need to provide the JSON spec manually
-  renderSpec: {
-    type: "Flex",
-    direction: "column",
-    gap: "4",
-    className: "max-w-lg",
-    children: [
-      {
-        type: "Text",
-        element: "p",
-        children: "Paragraph: Default text element with standard styling for body content."
-      },
-      {
-        type: "Text", 
-        element: "span",
-        children: "Span: Inline text element."
-      },
-      {
-        type: "Flex",
-        gap: "2",
-        alignItems: "center",
-        children: [
-          {
-            type: "Text",
-            element: "span",
-            children: "This is regular text"
-          },
-          {
-            type: "Text",
-            element: "strong", 
-            children: "Strong: Bold emphasis"
-          },
-          {
-            type: "Text",
-            element: "em",
-            children: "Em: Italic emphasis"
-          }
-        ]
-      },
-      {
-        type: "Text",
-        element: "small",
-        children: "Small: Smaller text for less emphasis or secondary information."
-      },
-      {
-        type: "Text",
-        element: "blockquote",
-        children: "Blockquote: Used for quotations. \"The future belongs to those who believe in the beauty of their dreams.\" - Eleanor Roosevelt"
-      },
-      {
-        type: "Text",
-        element: "code",
-        children: "Code: for inline code snippets or technical terms."
-      },
-      {
-        type: "Text",
-        element: "div",
-        children: "Div: Block-level container for text content."
-      }
-    ]
+  {
+    // Since this uses a custom render function, we need to provide the JSON spec manually
+    renderSpec: {
+      type: "Flex",
+      direction: "column",
+      gap: "md",
+      className: "max-w-lg",
+      children: [
+        {
+          type: "Text",
+          element: "p",
+          children: "Paragraph: Default text element with standard styling for body content.",
+        },
+        {
+          type: "Text",
+          element: "span",
+          children: "Span: Inline text element.",
+        },
+        {
+          type: "Flex",
+          gap: "sm",
+          align: "center",
+          children: [
+            {
+              type: "Text",
+              element: "span",
+              children: "This is regular text",
+            },
+            {
+              type: "Text",
+              element: "strong",
+              children: "Strong: Bold emphasis",
+            },
+            {
+              type: "Text",
+              element: "em",
+              children: "Em: Italic emphasis",
+            },
+          ],
+        },
+        {
+          type: "Text",
+          element: "small",
+          children: "Small: Smaller text for less emphasis or secondary information.",
+        },
+        {
+          type: "Text",
+          element: "blockquote",
+          children:
+            'Blockquote: Used for quotations. "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt',
+        },
+        {
+          type: "Text",
+          element: "code",
+          children: "Code: for inline code snippets or technical terms.",
+        },
+        {
+          type: "Text",
+          element: "div",
+          children: "Div: Block-level container for text content.",
+        },
+      ],
+    },
   }
-});
+);
 
 export const SizeVariants: Story = {
   render: () => (

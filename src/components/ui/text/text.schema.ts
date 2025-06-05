@@ -6,7 +6,7 @@ import { z } from "zod";
  */
 export const textSchema = z.object({
   type: z.literal("text"),
-  text: z.string(),
+  children: z.string(),
   element: z
     .enum(["p", "span", "div", "blockquote", "code", "strong", "em", "small"])
     .optional()
@@ -60,7 +60,7 @@ export type TextSpecification = z.infer<typeof textSchema>;
  * ```json
  * {
  *   "type": "text",
- *   "text": "This is a paragraph with custom styling.",
+ *   "children": "This is a paragraph with custom styling.",
  *   "size": "lg",
  *   "weight": "medium",
  *   "variant": "primary",
@@ -73,7 +73,7 @@ export type TextSpecification = z.infer<typeof textSchema>;
  * ```json
  * {
  *   "type": "text",
- *   "text": "This is a styled span element.",
+ *   "children": "This is a styled span element.",
  *   "element": "span",
  *   "gradient": "rainbow",
  *   "weight": "bold",
@@ -84,7 +84,7 @@ export type TextSpecification = z.infer<typeof textSchema>;
  * ```json
  * {
  *   "type": "text",
- *   "text": "A blockquote with inspiration.",
+ *   "children": "A blockquote with inspiration.",
  *   "element": "blockquote",
  *   "variant": "muted",
  *   "italic": true
@@ -94,7 +94,7 @@ export type TextSpecification = z.infer<typeof textSchema>;
  * ```json
  * {
  *   "type": "text",
- *   "text": "This is a very long text that will be truncated after two lines to save space while giving readers a preview of the content.",
+ *   "children": "This is a very long text that will be truncated after two lines to save space while giving readers a preview of the content.",
  *   "truncate": "multiline",
  *   "size": "sm"
  * }

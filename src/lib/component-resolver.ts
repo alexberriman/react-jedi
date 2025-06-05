@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import type { ComponentResolver, ComponentProps } from "../types/schema/components";
 import * as UI from "../components/ui";
 import * as Blocks from "../components/blocks";
+import { omit } from "./utils";
 import { BreadcrumbComponent } from "../components/ui/breadcrumb-component";
 import { HeadManager } from "../components/ui/head-manager";
 import { ExtendedHeadManager } from "./seo/head-manager-extended";
@@ -105,18 +106,16 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
       );
     }
 
-    // For all other components, we need to extract the real props
-    // The spec has the actual props we want to pass to the component
-    const actualProps =
-      (spec as Record<string, unknown> & { props?: Record<string, unknown> }).props || {};
+    // For all other components, extract props directly from spec
+    // Remove internal properties and children (children are handled separately)
+    const actualProps = omit(spec as Record<string, unknown>, ["type", "spec", "theme", "state", "parentContext", "children"]);
 
     // Transform props based on component type
     const transformedProps = transformPropsForComponent(spec as Record<string, unknown>, actualProps);
 
-    // Handle children from spec.props.children for components like Text, Badge, Button, etc.
-    const specPropsChildren = "children" in actualProps ? actualProps.children : undefined;
-    const finalChildren: ReactNode =
-      specPropsChildren === undefined ? children : (specPropsChildren as ReactNode);
+    // Always use the pre-rendered children passed from the render function
+    // The render function already processes spec.children into React elements
+    const finalChildren: ReactNode = children;
 
     // Convert Action props to event handlers
     const handlers = parentContext?.handlers as Record<string, (...args: unknown[]) => unknown> | undefined;

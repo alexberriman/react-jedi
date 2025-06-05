@@ -55,7 +55,9 @@ function CollapsibleContent({
         data-slot="collapsible-content" 
         className={cn("collapsible-content-no-initial-transition", className)}
         {...cleanProps} 
-      />
+      >
+        {props.children}
+      </CollapsiblePrimitive.CollapsibleContent>
     );
   }
   
@@ -93,7 +95,9 @@ function CollapsibleContent({
             }
           }
         }}
-      />
+      >
+        {props.children}
+      </motion.div>
     </CollapsiblePrimitive.CollapsibleContent>
   );
 }

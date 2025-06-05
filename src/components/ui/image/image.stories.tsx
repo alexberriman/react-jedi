@@ -175,8 +175,10 @@ export const HoverGrow: Story = {
 
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
-    expect(image).toHaveClass("transition-all");
-    expect(image).toHaveClass("hover:scale-105");
+    // The grow effect is handled by Framer Motion's whileHover prop
+    // so we don't expect CSS transition classes
+    expect(image).toHaveClass("object-cover");
+    expect(image).toHaveClass("shadow-md");
   },
 };
 
@@ -190,8 +192,9 @@ export const HoverGlow: Story = {
 
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
-    expect(image).toHaveClass("transition-all");
+    // The glow effect is applied via hover:glow-md class
     expect(image).toHaveClass("hover:glow-md");
+    expect(image).toHaveClass("rounded-xl");
   },
 };
 

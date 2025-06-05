@@ -129,7 +129,7 @@ export const Basic: Story = {
       () => {
         expect(within(document.body).queryByText("My Account")).not.toBeInTheDocument();
       },
-      { timeout: 5000 }
+      { timeout: 3000 }
     );
   },
 };
@@ -217,7 +217,7 @@ export const WithCheckboxes: Story = {
       () => {
         expect(within(document.body).queryByText("Appearance")).not.toBeInTheDocument();
       },
-      { timeout: 5000 }
+      { timeout: 3000 }
     );
   },
 };
@@ -262,25 +262,31 @@ export const WithRadioGroup: Story = {
     const bottomRadio = within(document.body).getByRole("menuitemradio", { name: /bottom/i });
     const rightRadio = within(document.body).getByRole("menuitemradio", { name: /right/i });
 
-    expect(topRadio).toHaveAttribute("aria-checked", "false");
-    expect(bottomRadio).toHaveAttribute("aria-checked", "true");
-    expect(rightRadio).toHaveAttribute("aria-checked", "false");
+    await waitFor(() => {
+      expect(topRadio).toHaveAttribute("aria-checked", "false");
+      expect(bottomRadio).toHaveAttribute("aria-checked", "true");
+      expect(rightRadio).toHaveAttribute("aria-checked", "false");
+    });
 
     // Click on Top radio
     await userEvent.click(topRadio);
 
-    // Verify selection changed
-    expect(topRadio).toHaveAttribute("aria-checked", "true");
-    expect(bottomRadio).toHaveAttribute("aria-checked", "false");
-    expect(rightRadio).toHaveAttribute("aria-checked", "false");
+    // Wait for state to update after click
+    await waitFor(() => {
+      expect(topRadio).toHaveAttribute("aria-checked", "true");
+      expect(bottomRadio).toHaveAttribute("aria-checked", "false");
+      expect(rightRadio).toHaveAttribute("aria-checked", "false");
+    });
 
     // Click on Right radio
     await userEvent.click(rightRadio);
 
-    // Verify selection changed again
-    expect(topRadio).toHaveAttribute("aria-checked", "false");
-    expect(bottomRadio).toHaveAttribute("aria-checked", "false");
-    expect(rightRadio).toHaveAttribute("aria-checked", "true");
+    // Wait for state to update after second click
+    await waitFor(() => {
+      expect(topRadio).toHaveAttribute("aria-checked", "false");
+      expect(bottomRadio).toHaveAttribute("aria-checked", "false");
+      expect(rightRadio).toHaveAttribute("aria-checked", "true");
+    });
 
     // Close menu
     await userEvent.keyboard("{Escape}");
@@ -290,7 +296,7 @@ export const WithRadioGroup: Story = {
       () => {
         expect(within(document.body).queryByText("Panel Position")).not.toBeInTheDocument();
       },
-      { timeout: 5000 }
+      { timeout: 3000 }
     );
   },
 };
@@ -516,7 +522,7 @@ export const WithCustomTrigger: Story = {
       () => {
         expect(within(document.body).queryByText("John Doe")).not.toBeInTheDocument();
       },
-      { timeout: 5000 }
+      { timeout: 3000 }
     );
   },
 };

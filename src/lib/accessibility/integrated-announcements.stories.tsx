@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { MemoryRouter, Route, Routes, Link } from "react-router-dom";
 import { ScreenReaderProvider } from "./screen-reader-announcements";
 import { RouteAnnouncer } from "./route-announcer";
 import { useToastWithAnnouncements } from "./toast-announcer";
@@ -13,7 +13,7 @@ import { Toaster } from "../../components/ui/toast";
 const IntegratedDemo = () => {
   return (
     <ScreenReaderProvider>
-      <BrowserRouter>
+      <MemoryRouter>
         <RouteAnnouncer />
         <div className="p-8 max-w-4xl mx-auto">
           <nav className="mb-8">
@@ -43,7 +43,7 @@ const IntegratedDemo = () => {
           </Routes>
         </div>
         <Toaster />
-      </BrowserRouter>
+      </MemoryRouter>
     </ScreenReaderProvider>
   );
 };
@@ -236,10 +236,10 @@ Demonstrates the integration of screen reader announcements with various UI comp
 ### With React Router
 \`\`\`tsx
 <ScreenReaderProvider>
-  <BrowserRouter>
+  <MemoryRouter>
     <RouteAnnouncer />
     {/* Your app */}
-  </BrowserRouter>
+  </MemoryRouter>
 </ScreenReaderProvider>
 \`\`\`
 

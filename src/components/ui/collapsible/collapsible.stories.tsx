@@ -77,13 +77,13 @@ export const Basic: Story = {
     await waitFor(
       () => {
         expect(toggleButton).toHaveAttribute("data-state", "open");
-        expect(canvas.getByText(/this is the collapsible content/i)).toBeVisible();
+        expect(canvas.getByText("This is the collapsible content. It can be expanded or collapsed.")).toBeVisible();
       },
       { timeout: 5000 }
     );
 
     // Verify content is displayed
-    const content = canvas.getByText(/this is the collapsible content/i);
+    const content = canvas.getByText("This is the collapsible content. It can be expanded or collapsed.");
     expect(content).toBeInTheDocument();
 
     // Click to collapse
@@ -154,9 +154,8 @@ export const Controlled: Story = {
     await userEvent.click(openButton);
     await waitFor(
       () => {
-        const content = canvas.getByText(/this is controlled content/i);
+        const content = canvas.getByText("This is controlled content. State: Open");
         expect(content).toBeVisible();
-        expect(canvas.getByText(/state: open/i)).toBeVisible();
         expect(canvas.getByRole("button", { name: /hide content/i })).toBeInTheDocument();
       },
       { timeout: 5000 }
@@ -179,7 +178,7 @@ export const Controlled: Story = {
     await userEvent.click(canvas.getByRole("button", { name: /show content/i }));
     await waitFor(
       () => {
-        const content = canvas.getByText(/this is controlled content/i);
+        const content = canvas.getByText("This is controlled content. State: Open");
         expect(content).toBeVisible();
       },
       { timeout: 5000 }

@@ -50,6 +50,21 @@ const meta: Meta<typeof PageSection> = {
       control: "select",
       options: ["none", "wave", "angle", "curve"],
     },
+    background: {
+      control: false,
+    },
+    dividerColor: {
+      control: false,
+    },
+    layout: {
+      control: false,
+    },
+    heading: {
+      control: false,
+    },
+    ctas: {
+      control: false,
+    },
   },
 };
 

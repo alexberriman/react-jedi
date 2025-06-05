@@ -102,7 +102,7 @@ export const Single: Story = {
     // Check content is present after animation
     await waitFor(() => {
       expect(
-        canvas.getByText("Yes. It adheres to the WAI-ARIA design pattern.")
+        canvas.getByText(/Yes\. It adheres to the WAI-ARIA design pattern/)
       ).toBeInTheDocument();
     });
 

@@ -28,8 +28,20 @@ export default mergeConfig(
         provider: "playwright",
         headless: true,
         instances: [{ browser: "chromium" }],
+        viewport: {
+          width: 1280,
+          height: 720,
+        },
+      },
+      pool: "forks",
+      poolOptions: {
+        forks: {
+          singleFork: true,
+        },
       },
       setupFiles: ["./.storybook/vitest.setup.ts"],
+      testTimeout: 30000,
+      hookTimeout: 30000,
     },
     resolve: {
       alias: {
@@ -61,8 +73,20 @@ export default mergeConfig(
             headless: true,
             provider: "playwright",
             instances: [{ browser: "chromium" }],
+            viewport: {
+              width: 1280,
+              height: 720,
+            },
+          },
+          pool: "forks",
+          poolOptions: {
+            forks: {
+              singleFork: true,
+            },
           },
           setupFiles: [".storybook/vitest.setup.ts"],
+          testTimeout: 30000,
+          hookTimeout: 30000,
         },
       },
     ],

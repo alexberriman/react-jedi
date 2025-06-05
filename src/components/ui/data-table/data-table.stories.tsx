@@ -304,33 +304,48 @@ export const WithActions: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
 
-    // Wait for table to be fully rendered
+    // Wait for table to be fully rendered with data
     await waitFor(
       () => {
         expect(canvas.getByRole("table")).toBeInTheDocument();
+        // Ensure data is loaded by checking for specific content
+        expect(canvas.getByText("ken99@yahoo.com")).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
 
+    // Wait a bit for any animations or async rendering to complete
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+
     // Find the first actions button (three dots menu) - use aria-label from the component
     const actionsButtons = canvas.getAllByRole("button", { name: /open menu/i });
+    expect(actionsButtons.length).toBeGreaterThan(0);
+    
+    // Click the first actions button
     await userEvent.click(actionsButtons[0]);
 
     // Wait for dropdown menu to appear - check in document since it might be in a portal
     await waitFor(
       () => {
+        const dropdownItems = within(document.body).queryAllByRole("menuitem");
+        expect(dropdownItems.length).toBeGreaterThan(0);
+        // Also check for the specific text
         expect(within(document.body).getByText("Copy ID")).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
 
     // Click on Edit action
-    await userEvent.click(within(document.body).getByText("Edit"));
+    const editButton = within(document.body).getByText("Edit");
+    await userEvent.click(editButton);
+
+    // Wait a bit for the menu to close
+    await new Promise(resolve => globalThis.setTimeout(resolve, 300));
 
     // Click actions button again to open menu
     await userEvent.click(actionsButtons[0]);
 
-    // Wait for menu and click Copy ID
+    // Wait for menu to reopen
     await waitFor(
       () => {
         expect(within(document.body).getByText("Copy ID")).toBeInTheDocument();
@@ -338,7 +353,9 @@ export const WithActions: Story = {
       { timeout: 10_000 }
     );
 
-    await userEvent.click(within(document.body).getByText("Copy ID"));
+    // Click Copy ID
+    const copyButton = within(document.body).getByText("Copy ID");
+    await userEvent.click(copyButton);
   },
 };
 

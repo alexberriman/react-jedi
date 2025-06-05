@@ -232,7 +232,7 @@
       {
         "id": "carousel",
         "description": "I can't see any images in some of the Carousel component stories. Not sure what the issue is, please investigate. Also please update all iamges to use picsum (see examples elsewhere)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "call-to-action",

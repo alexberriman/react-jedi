@@ -20,19 +20,19 @@ export function CarouselShowcase() {
   // Sample data
   const sampleImages = [
     {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+      src: "https://picsum.photos/800/600?random=15",
       alt: "Mountain landscape",
       title: "Mountain Vista",
       description: "A breathtaking view of snow-capped peaks",
     },
     {
-      src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=600&fit=crop",
+      src: "https://picsum.photos/800/600?random=16",
       alt: "Ocean waves",
       title: "Ocean Waves",
       description: "The endless rhythm of the sea",
     },
     {
-      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop",
+      src: "https://picsum.photos/800/600?random=17",
       alt: "Forest path",
       title: "Forest Trail",
       description: "A peaceful walk through ancient woods",
@@ -43,21 +43,21 @@ export function CarouselShowcase() {
     {
       title: "Modern Design System",
       description: "Build consistent and beautiful user interfaces with our comprehensive design system.",
-      image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=400&h=300&fit=crop",
+      image: "https://picsum.photos/400/300?random=18",
       badge: "New",
       cta: { text: "Learn More", href: "#" },
     },
     {
       title: "Performance Optimization",
       description: "Optimize your applications for maximum speed and efficiency with proven techniques.",
-      image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=300&fit=crop",
+      image: "https://picsum.photos/400/300?random=19",
       badge: "Popular",
       cta: { text: "Get Started", href: "#" },
     },
     {
       title: "Developer Experience",
       description: "Enhance productivity with tools and workflows designed for modern development.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop",
+      image: "https://picsum.photos/400/300?random=20",
       cta: { text: "Explore", href: "#" },
     },
   ];
@@ -69,7 +69,7 @@ export function CarouselShowcase() {
         name: "Sarah Chen",
         role: "Creative Director",
         company: "Design Studio Pro",
-        image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+        image: "https://picsum.photos/100/100?random=21",
       },
       rating: 5,
     },
@@ -79,7 +79,7 @@ export function CarouselShowcase() {
         name: "Michael Rodriguez",
         role: "Frontend Developer",
         company: "TechFlow Inc",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+        image: "https://picsum.photos/100/100?random=22",
       },
       rating: 5,
     },
@@ -90,7 +90,7 @@ export function CarouselShowcase() {
       name: "Premium Wireless Headphones",
       price: "$299",
       originalPrice: "$399",
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
+      image: "https://picsum.photos/300/300?random=23",
       description: "High-quality audio with noise cancellation",
       badge: "Sale",
       inStock: true,
@@ -98,7 +98,7 @@ export function CarouselShowcase() {
     {
       name: "Smart Fitness Watch",
       price: "$199",
-      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",
+      image: "https://picsum.photos/300/300?random=24",
       description: "Track your health and fitness goals",
       badge: "New",
       inStock: true,
@@ -106,7 +106,7 @@ export function CarouselShowcase() {
     {
       name: "Minimalist Backpack",
       price: "$89",
-      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop",
+      image: "https://picsum.photos/300/300?random=25",
       description: "Perfect for daily commuting",
       inStock: false,
     },

@@ -253,7 +253,7 @@
       {
         "id": "sdui-accordion",
         "description": "Add SDUI render stories for Accordion component (/src/components/ui/accordion/accordion.stories.tsx). For each existing story variant, create a matching SDUI version that uses the render() function with JSON specification to achieve the same result.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "sdui-alert-dialog",

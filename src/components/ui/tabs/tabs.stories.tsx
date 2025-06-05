@@ -2,6 +2,7 @@ import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 /**
  * A set of layered sections of content—known as tab panels—that are displayed one at a time.
@@ -19,13 +20,13 @@ const meta: Meta<typeof Tabs> = {
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "test"],
 };
 
 export default meta;
 type Story = StoryObj<typeof Tabs>;
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode<typeof Tabs>({
   args: {
     defaultValue: "tab-1",
   },
@@ -68,8 +69,8 @@ export const Default: Story = {
     expect(passwordTab).toBeInTheDocument();
 
     // Test initial state (Account tab should be selected)
-    expect(accountTab).toHaveAttribute("data-state", "active");
-    expect(passwordTab).toHaveAttribute("data-state", "inactive");
+    expect(accountTab).toHaveAttribute("aria-selected", "true");
+    expect(passwordTab).toHaveAttribute("aria-selected", "false");
 
     // Test initial content
     expect(
@@ -78,21 +79,63 @@ export const Default: Story = {
 
     // Test clicking Password tab
     await user.click(passwordTab);
-    expect(passwordTab).toHaveAttribute("data-state", "active");
-    expect(accountTab).toHaveAttribute("data-state", "inactive");
+    expect(passwordTab).toHaveAttribute("aria-selected", "true");
+    expect(accountTab).toHaveAttribute("aria-selected", "false");
     expect(
       canvas.getByText("Change your password here. After saving, you'll be logged out.")
     ).toBeInTheDocument();
 
     // Test clicking back to Account tab
     await user.click(accountTab);
-    expect(accountTab).toHaveAttribute("data-state", "active");
-    expect(passwordTab).toHaveAttribute("data-state", "inactive");
+    expect(accountTab).toHaveAttribute("aria-selected", "true");
+    expect(passwordTab).toHaveAttribute("aria-selected", "false");
     expect(
       canvas.getByText("Make changes to your account here. Click save when you're done.")
     ).toBeInTheDocument();
   },
-};
+}, {
+  renderSpec: {
+    type: "Tabs",
+    defaultValue: "tab-1",
+    className: "w-[400px]",
+    children: [
+      {
+        type: "TabsList",
+        className: "grid w-full grid-cols-2",
+        children: [
+          { type: "TabsTrigger", value: "tab-1", children: "Account" },
+          { type: "TabsTrigger", value: "tab-2", children: "Password" }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "tab-1",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Account" },
+            { type: "Text", size: "sm", variant: "muted", children: "Make changes to your account here. Click save when you're done." }
+          ]
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "tab-2",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Password" },
+            { type: "Text", size: "sm", variant: "muted", children: "Change your password here. After saving, you'll be logged out." }
+          ]
+        }
+      }
+    ]
+  }
+}) as Story;
 
 function ControlledTabsComponent() {
   const [value, setValue] = React.useState("overview");
@@ -132,10 +175,11 @@ function ControlledTabsComponent() {
   );
 }
 
-export const Controlled: Story = {
-  name: "Controlled Tabs",
-  render: () => <ControlledTabsComponent />,
-  play: async ({ canvasElement }) => {
+export const Controlled: Story = enhanceStoryForDualMode<typeof Tabs>(
+  {
+    name: "Controlled Tabs",
+    render: () => <ControlledTabsComponent />,
+    play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
 
@@ -149,30 +193,88 @@ export const Controlled: Story = {
     expect(reportsTab).toBeInTheDocument();
 
     // Test initial state (Overview should be active)
-    expect(overviewTab).toHaveAttribute("data-state", "active");
+    expect(overviewTab).toHaveAttribute("aria-selected", "true");
     expect(
       canvas.getByText("Welcome to the overview tab. Get a bird's eye view of your data.")
     ).toBeInTheDocument();
 
     // Test switching to Analytics
     await user.click(analyticsTab);
-    expect(analyticsTab).toHaveAttribute("data-state", "active");
-    expect(overviewTab).toHaveAttribute("data-state", "inactive");
+    expect(analyticsTab).toHaveAttribute("aria-selected", "true");
+    expect(overviewTab).toHaveAttribute("aria-selected", "false");
     expect(
       canvas.getByText("Dive deep into your analytics and understand your metrics.")
     ).toBeInTheDocument();
 
     // Test switching to Reports
     await user.click(reportsTab);
-    expect(reportsTab).toHaveAttribute("data-state", "active");
-    expect(analyticsTab).toHaveAttribute("data-state", "inactive");
+    expect(reportsTab).toHaveAttribute("aria-selected", "true");
+    expect(analyticsTab).toHaveAttribute("aria-selected", "false");
     expect(
       canvas.getByText("Access detailed reports and export them in various formats.")
     ).toBeInTheDocument();
   },
-};
+},
+{
+  renderSpec: {
+    type: "Tabs",
+    value: "overview",
+    className: "w-[400px]",
+    children: [
+      {
+        type: "TabsList",
+        className: "grid w-full grid-cols-3",
+        children: [
+          { type: "TabsTrigger", value: "overview", children: "Overview" },
+          { type: "TabsTrigger", value: "analytics", children: "Analytics" },
+          { type: "TabsTrigger", value: "reports", children: "Reports" }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "overview",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Overview" },
+            { type: "Text", size: "sm", variant: "muted", children: "Welcome to the overview tab. Get a bird's eye view of your data." }
+          ]
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "analytics",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Analytics" },
+            { type: "Text", size: "sm", variant: "muted", children: "Dive deep into your analytics and understand your metrics." }
+          ]
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "reports",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Reports" },
+            { type: "Text", size: "sm", variant: "muted", children: "Access detailed reports and export them in various formats." }
+          ]
+        }
+      }
+    ]
+  }
+}
+) as Story;
 
-export const VerticalOrientation: Story = {
+export const VerticalOrientation: Story = enhanceStoryForDualMode<typeof Tabs>({
   name: "Vertical Tabs",
   args: {
     defaultValue: "general",
@@ -230,9 +332,22 @@ export const VerticalOrientation: Story = {
       </div>
     </Tabs>
   ),
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that vertical tabs render correctly
+    const tablist = canvas.getByRole("tablist");
+    expect(tablist).toBeInTheDocument();
+    
+    // Test all tabs are present
+    expect(canvas.getByRole("tab", { name: "General" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Profile" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Notifications" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Security" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithDisabledTab: Story = {
+export const WithDisabledTab: Story = enhanceStoryForDualMode<typeof Tabs>({
   args: {
     defaultValue: "active",
   },
@@ -273,7 +388,7 @@ export const WithDisabledTab: Story = {
     expect(pendingTab).toBeInTheDocument();
 
     // Test initial state
-    expect(activeTab).toHaveAttribute("data-state", "active");
+    expect(activeTab).toHaveAttribute("aria-selected", "true");
     expect(canvas.getByText("This tab is active and accessible.")).toBeInTheDocument();
 
     // Test disabled tab
@@ -282,23 +397,23 @@ export const WithDisabledTab: Story = {
 
     // Test switching to pending tab
     await user.click(pendingTab);
-    expect(pendingTab).toHaveAttribute("data-state", "active");
-    expect(activeTab).toHaveAttribute("data-state", "inactive");
+    expect(pendingTab).toHaveAttribute("aria-selected", "true");
+    expect(activeTab).toHaveAttribute("aria-selected", "false");
     expect(canvas.getByText("This tab is pending approval.")).toBeInTheDocument();
 
     // Test that disabled tab cannot be activated (has pointer-events: none)
     // We verify the disabled state rather than trying to click it since it has pointer-events: none
-    expect(disabledTab).toHaveAttribute("data-state", "inactive");
-    expect(pendingTab).toHaveAttribute("data-state", "active");
+    expect(disabledTab).toHaveAttribute("aria-selected", "false");
+    expect(pendingTab).toHaveAttribute("aria-selected", "true");
 
     // Verify the disabled tab has the correct styling
     const disabledTabElement = disabledTab as HTMLElement;
     const styles = globalThis.getComputedStyle(disabledTabElement);
     expect(styles.pointerEvents).toBe("none");
   },
-};
+}) as Story;
 
-export const WithIcons: Story = {
+export const WithIcons: Story = enhanceStoryForDualMode<typeof Tabs>({
   args: {
     defaultValue: "files",
   },
@@ -384,9 +499,21 @@ export const WithIcons: Story = {
       </TabsContent>
     </Tabs>
   ),
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test tabs with icons render
+    const tablist = canvas.getByRole("tablist");
+    expect(tablist).toBeInTheDocument();
+    
+    // Test tabs are present
+    expect(canvas.getByRole("tab", { name: "Files" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Settings" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Access" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const ManualActivation: Story = {
+export const ManualActivation: Story = enhanceStoryForDualMode<typeof Tabs>({
   args: {
     defaultValue: "tab-1",
     activationMode: "manual",
@@ -421,9 +548,21 @@ export const ManualActivation: Story = {
       </TabsContent>
     </Tabs>
   ),
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test manual activation mode tabs render
+    const tablist = canvas.getByRole("tablist");
+    expect(tablist).toBeInTheDocument();
+    
+    // Test tabs are present
+    expect(canvas.getByRole("tab", { name: "Tab 1" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Tab 2" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Tab 3" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithFormContent: Story = {
+export const WithFormContent: Story = enhanceStoryForDualMode<typeof Tabs>({
   args: {
     defaultValue: "personal",
   },
@@ -514,9 +653,21 @@ export const WithFormContent: Story = {
       </TabsContent>
     </Tabs>
   ),
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test form content tabs render
+    const tablist = canvas.getByRole("tablist");
+    expect(tablist).toBeInTheDocument();
+    
+    // Test tabs are present
+    expect(canvas.getByRole("tab", { name: "Personal Info" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Contact" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Preferences" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithAnimation: Story = {
+export const WithAnimation: Story = enhanceStoryForDualMode<typeof Tabs>({
   name: "With Animation (Default)",
   args: {
     defaultValue: "tab-1",
@@ -561,26 +712,10 @@ export const WithAnimation: Story = {
       </Tabs>
     </div>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const user = userEvent.setup();
+  // Removed play function as it's testing animation timing which is implementation-specific
+}) as Story;
 
-    // Wait for initial render
-    await new globalThis.Promise((resolve) => globalThis.setTimeout(resolve, 100));
-
-    // Test tab transitions with animations
-    const settingsTab = canvas.getByRole("tab", { name: "Settings" });
-    await user.click(settingsTab);
-
-    // Wait for animation
-    await new globalThis.Promise((resolve) => globalThis.setTimeout(resolve, 300));
-
-    const notificationsTab = canvas.getByRole("tab", { name: "Notifications" });
-    await user.click(notificationsTab);
-  },
-};
-
-export const WithoutAnimation: Story = {
+export const WithoutAnimation: Story = enhanceStoryForDualMode<typeof Tabs>({
   args: {
     defaultValue: "tab-1",
     animate: false,
@@ -623,9 +758,21 @@ export const WithoutAnimation: Story = {
       </Tabs>
     </div>
   ),
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test tabs without animation render
+    const tablist = canvas.getByRole("tablist");
+    expect(tablist).toBeInTheDocument();
+    
+    // Test tabs are present
+    expect(canvas.getByRole("tab", { name: "Profile" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Settings" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Notifications" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const ModernStyling: Story = {
+export const ModernStyling: Story = enhanceStoryForDualMode<typeof Tabs>({
   name: "Modern Styling Showcase",
   args: {
     defaultValue: "overview",
@@ -866,9 +1013,22 @@ export const ModernStyling: Story = {
       </Tabs>
     </div>
   ),
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test modern styling tabs render
+    const tablist = canvas.getByRole("tablist");
+    expect(tablist).toBeInTheDocument();
+    
+    // Test tabs are present
+    expect(canvas.getByRole("tab", { name: "Overview" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Analytics" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Reports" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Settings" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithNestedTabs: Story = {
+export const WithNestedTabs: Story = enhanceStoryForDualMode<typeof Tabs>({
   name: "Nested Tabs",
   args: {
     defaultValue: "account",
@@ -934,4 +1094,16 @@ export const WithNestedTabs: Story = {
       </TabsContent>
     </Tabs>
   ),
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test nested tabs render - at least check one tablist exists
+    const tablist = canvas.getByRole("tablist");
+    expect(tablist).toBeInTheDocument();
+    
+    // Test main tabs are present
+    expect(canvas.getByRole("tab", { name: "Account" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Security" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Billing" })).toBeInTheDocument();
+  },
+}) as Story;

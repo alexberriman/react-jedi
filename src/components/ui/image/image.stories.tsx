@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Image } from "./image";
 import { within, waitFor, expect } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/Image",
@@ -76,7 +77,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     objectFit: "cover",
     rounded: "md",
@@ -90,9 +91,9 @@ export const Default: Story = {
     expect(image).toHaveAttribute("src", expect.stringContaining("unsplash.com"));
     expect(image).toHaveClass("rounded-md");
   },
-};
+});
 
-export const Rounded: Story = {
+export const Rounded: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     rounded: "xl",
     shadow: "md",
@@ -105,9 +106,9 @@ export const Rounded: Story = {
     expect(image).toHaveClass("rounded-xl");
     expect(image).toHaveClass("shadow-md");
   },
-};
+});
 
-export const Circle: Story = {
+export const Circle: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     rounded: "full",
     aspectRatio: "1/1",
@@ -122,9 +123,9 @@ export const Circle: Story = {
     expect(image).toHaveClass("rounded-full");
     expect(image).toHaveClass("object-cover");
   },
-};
+});
 
-export const WithShadow: Story = {
+export const WithShadow: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     shadow: "xl",
     rounded: "lg",
@@ -137,9 +138,9 @@ export const WithShadow: Story = {
     expect(image).toHaveClass("shadow-xl");
     expect(image).toHaveClass("rounded-lg");
   },
-};
+});
 
-export const Grayscale: Story = {
+export const Grayscale: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     filter: "grayscale",
   },
@@ -150,9 +151,9 @@ export const Grayscale: Story = {
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("grayscale");
   },
-};
+});
 
-export const Sepia: Story = {
+export const Sepia: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     filter: "sepia",
   },
@@ -163,9 +164,9 @@ export const Sepia: Story = {
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("sepia");
   },
-};
+});
 
-export const HoverGrow: Story = {
+export const HoverGrow: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     hover: "grow",
     shadow: "md",
@@ -180,9 +181,9 @@ export const HoverGrow: Story = {
     expect(image).toHaveClass("object-cover");
     expect(image).toHaveClass("shadow-md");
   },
-};
+});
 
-export const HoverGlow: Story = {
+export const HoverGlow: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     hover: "glow",
     rounded: "xl",
@@ -196,9 +197,9 @@ export const HoverGlow: Story = {
     expect(image).toHaveClass("hover:glow-md");
     expect(image).toHaveClass("rounded-xl");
   },
-};
+});
 
-export const FullWidth: Story = {
+export const FullWidth: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     width: "100%",
     height: "300px",
@@ -216,9 +217,9 @@ export const FullWidth: Story = {
     // Check that the container has the width style applied
     expect(container?.style.width).toBe("100%");
   },
-};
+});
 
-export const Landscape: Story = {
+export const Landscape: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     aspectRatio: "21/9",
     width: "600px",
@@ -233,9 +234,9 @@ export const Landscape: Story = {
     const container = image.parentElement;
     expect(container).toHaveStyle({ width: "600px" });
   },
-};
+});
 
-export const Portrait: Story = {
+export const Portrait: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     aspectRatio: "3/4",
     width: "300px",
@@ -251,54 +252,96 @@ export const Portrait: Story = {
     const container = image.parentElement;
     expect(container).toHaveStyle({ width: "300px", height: "400px" });
   },
-};
+});
 
-export const Gallery: Story = {
-  render: (args) => (
-    <div className="grid grid-cols-3 gap-4 p-4">
-      <Image
-        {...args}
-        rounded="lg"
-        shadow="md"
-        hover="grow"
-        aspectRatio="1/1"
-        width="100%"
-        src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-      />
-      <Image
-        {...args}
-        rounded="lg"
-        shadow="md"
-        hover="grow"
-        aspectRatio="1/1"
-        width="100%"
-        src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-      />
-      <Image
-        {...args}
-        rounded="lg"
-        shadow="md"
-        hover="grow"
-        aspectRatio="1/1"
-        width="100%"
-        src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-      />
-    </div>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const Gallery: Story = enhanceStoryForDualMode<typeof Image>(
+  {
+    render: (args) => (
+      <div className="grid grid-cols-3 gap-4 p-4">
+        <Image
+          {...args}
+          rounded="lg"
+          shadow="md"
+          hover="grow"
+          aspectRatio="1/1"
+          width="100%"
+          src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        />
+        <Image
+          {...args}
+          rounded="lg"
+          shadow="md"
+          hover="grow"
+          aspectRatio="1/1"
+          width="100%"
+          src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        />
+        <Image
+          {...args}
+          rounded="lg"
+          shadow="md"
+          hover="grow"
+          aspectRatio="1/1"
+          width="100%"
+          src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        />
+      </div>
+    ),
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-    const images = canvas.getAllByAltText("Sample image");
-    expect(images).toHaveLength(3);
+      const images = canvas.getAllByAltText("Sample image");
+      expect(images).toHaveLength(3);
 
-    for (const image of images) {
-      expect(image).toBeInTheDocument();
-      expect(image).toHaveClass("rounded-lg", "shadow-md");
-    }
+      for (const image of images) {
+        expect(image).toBeInTheDocument();
+        expect(image).toHaveClass("rounded-lg", "shadow-md");
+      }
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Grid",
+      cols: 3,
+      gap: "md",
+      className: "p-4",
+      children: [
+        {
+          type: "Image",
+          rounded: "lg",
+          shadow: "md",
+          hover: "grow",
+          aspectRatio: "1/1",
+          width: "100%",
+          src: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+          alt: "Sample image",
+        },
+        {
+          type: "Image",
+          rounded: "lg",
+          shadow: "md",
+          hover: "grow",
+          aspectRatio: "1/1",
+          width: "100%",
+          src: "https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+          alt: "Sample image",
+        },
+        {
+          type: "Image",
+          rounded: "lg",
+          shadow: "md",
+          hover: "grow",
+          aspectRatio: "1/1",
+          width: "100%",
+          src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+          alt: "Sample image",
+        },
+      ],
+    },
+  }
+);
 
-export const WithFallback: Story = {
+export const WithFallback: Story = enhanceStoryForDualMode<typeof Image>({
   args: {
     src: "https://this-image-does-not-exist.jpg",
     fallback: "https://placehold.co/400x225/EFEFEF/AAAAAA?text=Image+Not+Found",
@@ -317,4 +360,4 @@ export const WithFallback: Story = {
       { timeout: 10_000 }
     );
   },
-};
+});

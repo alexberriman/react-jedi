@@ -3,7 +3,7 @@ import * as React from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 import { Button } from "../button";
 import { InfoIcon, Plus, Settings, TrendingUp } from "lucide-react";
-import { within, userEvent, waitFor, expect, screen } from "storybook/test";
+import { within, userEvent, waitFor, expect } from "storybook/test";
 
 const meta = {
   title: "Components/Tooltip",
@@ -52,7 +52,7 @@ export const Default: Story = {
 
     await waitFor(
       () => {
-        const tooltips = screen.queryAllByText("This is a helpful tooltip");
+        const tooltips = within(document.body).queryAllByText("This is a helpful tooltip");
         expect(tooltips.length).toBeGreaterThan(0);
         expect(tooltips[0]).toBeInTheDocument();
       },
@@ -84,7 +84,7 @@ export const WithIcon: Story = {
 
     await waitFor(
       () => {
-        const tooltips = screen.queryAllByText("Learn more about this feature");
+        const tooltips = within(document.body).queryAllByText("Learn more about this feature");
         expect(tooltips.length).toBeGreaterThan(0);
         expect(tooltips[0]).toBeInTheDocument();
       },
@@ -143,7 +143,7 @@ export const MultiplePlacement: Story = {
 
     await waitFor(
       () => {
-        const tooltips = screen.queryAllByText("Tooltip on top");
+        const tooltips = within(document.body).queryAllByText("Tooltip on top");
         expect(tooltips.length).toBeGreaterThan(0);
         expect(tooltips[0]).toBeInTheDocument();
       },
@@ -179,10 +179,10 @@ export const LongContent: Story = {
 
     await waitFor(
       () => {
-        const proTipTooltips = screen.queryAllByText("Pro Tip");
+        const proTipTooltips = within(document.body).queryAllByText("Pro Tip");
         expect(proTipTooltips.length).toBeGreaterThan(0);
         expect(proTipTooltips[0]).toBeInTheDocument();
-        const contentTooltips = screen.queryAllByText(/multiple lines of content/);
+        const contentTooltips = within(document.body).queryAllByText(/multiple lines of content/);
         expect(contentTooltips.length).toBeGreaterThan(0);
         expect(contentTooltips[0]).toBeInTheDocument();
       },
@@ -212,7 +212,7 @@ export const CustomStyling: Story = {
 
     await waitFor(
       () => {
-        const tooltips = screen.queryAllByText("Custom colored tooltip");
+        const tooltips = within(document.body).queryAllByText("Custom colored tooltip");
         expect(tooltips.length).toBeGreaterThan(0);
         expect(tooltips[0]).toBeInTheDocument();
       },
@@ -262,7 +262,7 @@ export const WithAlignment: Story = {
 
     await waitFor(
       () => {
-        const tooltips = screen.queryAllByText("Aligned to start");
+        const tooltips = within(document.body).queryAllByText("Aligned to start");
         expect(tooltips.length).toBeGreaterThan(0);
         expect(tooltips[0]).toBeInTheDocument();
       },
@@ -294,7 +294,7 @@ export const WithDelay: Story = {
 
     await waitFor(
       () => {
-        const tooltips = screen.queryAllByText("This tooltip has a custom delay");
+        const tooltips = within(document.body).queryAllByText("This tooltip has a custom delay");
         expect(tooltips.length).toBeGreaterThan(0);
         expect(tooltips[0]).toBeInTheDocument();
       },
@@ -357,7 +357,7 @@ export const Complex: Story = {
 
     await waitFor(
       () => {
-        const tooltips = screen.queryAllByText("Add new item");
+        const tooltips = within(document.body).queryAllByText("Add new item");
         expect(tooltips.length).toBeGreaterThan(0);
         expect(tooltips[0]).toBeInTheDocument();
       },
@@ -396,7 +396,7 @@ export const Accessible: Story = {
 
     await waitFor(
       () => {
-        const tooltips = screen.queryAllByText("This tooltip appears on focus too!");
+        const tooltips = within(document.body).queryAllByText("This tooltip appears on focus too!");
         expect(tooltips.length).toBeGreaterThan(0);
         expect(tooltips[0]).toBeInTheDocument();
       },

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { DatePicker } from "./date-picker";
-import { within, userEvent, expect, waitFor, screen } from "storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 
 const meta = {
   title: "Components/DatePicker",
@@ -225,10 +225,10 @@ export const Controlled: Story = {
     // Select a date (15th is always visible)
     await waitFor(() => {
       // Calendar might be in a portal, use screen
-      const fifteenthButton = screen.getByText("15");
+      const fifteenthButton = within(document.body).getByText("15");
       expect(fifteenthButton).toBeInTheDocument();
     });
-    const fifteenthButton = screen.getByText("15");
+    const fifteenthButton = within(document.body).getByText("15");
     await userEvent.click(fifteenthButton);
 
     // Verify date is displayed

@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import * as React from "react";
-import { within, userEvent, expect, waitFor, screen } from "storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -104,25 +104,25 @@ Default.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   // Wait for menu to appear - use screen since menus are often portaled
   await waitFor(
     () => {
-      const profileItem = screen.queryByText("Profile");
+      const profileItem = within(document.body).queryByText("Profile");
       expect(profileItem).toBeInTheDocument();
     },
     { timeout: 10_000 }
   );
 
   // Verify all menu items are visible
-  expect(screen.getByText("Settings")).toBeInTheDocument();
-  expect(screen.getByText("Copy")).toBeInTheDocument();
-  expect(screen.getByText("Cut")).toBeInTheDocument();
-  expect(screen.getByText("Paste")).toBeInTheDocument();
-  expect(screen.getByText("Delete")).toBeInTheDocument();
+  expect(within(document.body).getByText("Settings")).toBeInTheDocument();
+  expect(within(document.body).getByText("Copy")).toBeInTheDocument();
+  expect(within(document.body).getByText("Cut")).toBeInTheDocument();
+  expect(within(document.body).getByText("Paste")).toBeInTheDocument();
+  expect(within(document.body).getByText("Delete")).toBeInTheDocument();
 
   // Click on Copy menu item
-  await userEvent.click(screen.getByText("Copy"));
+  await userEvent.click(within(document.body).getByText("Copy"));
 
   // Verify menu closes after clicking
   await waitFor(() => {
-    expect(screen.queryByText("Profile")).not.toBeInTheDocument();
+    expect(within(document.body).queryByText("Profile")).not.toBeInTheDocument();
   });
 };
 
@@ -171,7 +171,7 @@ WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLEleme
   // Wait for menu to appear
   await waitFor(
     () => {
-      const preferencesLabel = screen.queryByText("Preferences");
+      const preferencesLabel = within(document.body).queryByText("Preferences");
       expect(preferencesLabel).toBeInTheDocument();
     },
     { timeout: 10_000 }
@@ -180,16 +180,16 @@ WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLEleme
   // Find and click the checkbox - add timeout
   await waitFor(
     () => {
-      const checkbox = screen.getByText("Show notifications");
+      const checkbox = within(document.body).getByText("Show notifications");
       expect(checkbox).toBeInTheDocument();
     },
     { timeout: 10_000 }
   );
-  const checkbox = screen.getByText("Show notifications");
+  const checkbox = within(document.body).getByText("Show notifications");
   await userEvent.click(checkbox);
 
   // Click on a radio option
-  const highPriority = screen.getByText("High");
+  const highPriority = within(document.body).getByText("High");
   await userEvent.click(highPriority);
 
   // Click outside to close menu
@@ -197,7 +197,7 @@ WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLEleme
 
   // Verify menu is closed
   await waitFor(() => {
-    expect(screen.queryByText("Preferences")).not.toBeInTheDocument();
+    expect(within(document.body).queryByText("Preferences")).not.toBeInTheDocument();
   });
 };
 
@@ -258,36 +258,36 @@ WithSubMenu.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => 
   // Wait for menu to appear
   await waitFor(
     () => {
-      const favoritesItem = screen.queryByText("Add to favorites");
+      const favoritesItem = within(document.body).queryByText("Add to favorites");
       expect(favoritesItem).toBeInTheDocument();
     },
     { timeout: 10_000 }
   );
 
   // Hover over Share to open submenu
-  const shareItem = screen.getByText("Share");
+  const shareItem = within(document.body).getByText("Share");
   await userEvent.hover(shareItem);
 
   // Wait for submenu to appear
   await waitFor(() => {
-    expect(screen.getByText("Copy link")).toBeInTheDocument();
+    expect(within(document.body).getByText("Copy link")).toBeInTheDocument();
   });
 
   // Hover over "More options" to open nested submenu
-  const moreOptions = screen.getByText("More options");
+  const moreOptions = within(document.body).getByText("More options");
   await userEvent.hover(moreOptions);
 
   // Wait for nested submenu
   await waitFor(() => {
-    expect(screen.getByText("Twitter")).toBeInTheDocument();
+    expect(within(document.body).getByText("Twitter")).toBeInTheDocument();
   });
 
   // Click on Twitter option
-  await userEvent.click(screen.getByText("Twitter"));
+  await userEvent.click(within(document.body).getByText("Twitter"));
 
   // Verify menu closes
   await waitFor(() => {
-    expect(screen.queryByText("Add to favorites")).not.toBeInTheDocument();
+    expect(within(document.body).queryByText("Add to favorites")).not.toBeInTheDocument();
   });
 };
 
@@ -442,20 +442,20 @@ Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   // Wait for menu to appear
   await waitFor(
     () => {
-      const themeOptions = screen.queryByText("Theme Options");
+      const themeOptions = within(document.body).queryByText("Theme Options");
       expect(themeOptions).toBeInTheDocument();
     },
     { timeout: 10_000 }
   );
 
   // Hover over Advanced to open submenu directly (skip radio/checkbox interactions)
-  const advanced = screen.getByText("Advanced");
+  const advanced = within(document.body).getByText("Advanced");
   await userEvent.hover(advanced);
 
   // Wait for submenu to appear
   await waitFor(
     () => {
-      const exportSettingsElement = screen.getByText("Export settings");
+      const exportSettingsElement = within(document.body).getByText("Export settings");
       expect(exportSettingsElement).toBeInTheDocument();
       expect(exportSettingsElement).toBeVisible();
     },
@@ -463,16 +463,16 @@ Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   );
 
   // Verify all submenu items are visible
-  expect(screen.getByText("Import settings")).toBeInTheDocument();
-  expect(screen.getByText("Reset to defaults")).toBeInTheDocument();
+  expect(within(document.body).getByText("Import settings")).toBeInTheDocument();
+  expect(within(document.body).getByText("Reset to defaults")).toBeInTheDocument();
 
   // Click Export settings
-  await userEvent.click(screen.getByText("Export settings"));
+  await userEvent.click(within(document.body).getByText("Export settings"));
 
   // Verify menu is closed - use a longer timeout and check for visibility
   await waitFor(
     () => {
-      expect(screen.queryByText("Theme Options")).not.toBeInTheDocument();
+      expect(within(document.body).queryByText("Theme Options")).not.toBeInTheDocument();
     },
     { timeout: 5000 }
   );

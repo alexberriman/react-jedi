@@ -3,7 +3,7 @@ import { HoverCard, HoverCardTrigger, HoverCardContent } from "./hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { CalendarDays } from "lucide-react";
-import { within, userEvent, waitFor, expect, screen } from "storybook/test";
+import { within, userEvent, waitFor, expect } from "storybook/test";
 
 const meta = {
   title: "Components/HoverCard",
@@ -60,11 +60,11 @@ export const Default: Story = {
 
     await waitFor(
       () => {
-        const content = screen.getByText(
+        const content = within(document.body).getByText(
           "Creator of shadcn/ui - modern component library for React."
         );
         expect(content).toBeInTheDocument();
-        expect(screen.getByText("Joined December 2021")).toBeInTheDocument();
+        expect(within(document.body).getByText("Joined December 2021")).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -124,10 +124,10 @@ export const UserProfile: Story = {
     await waitFor(
       () => {
         expect(
-          screen.getByText("Develop. Preview. Ship. Creators of Next.js and the Edge Platform.")
+          within(document.body).getByText("Develop. Preview. Ship. Creators of Next.js and the Edge Platform.")
         ).toBeInTheDocument();
-        expect(screen.getByText("256")).toBeInTheDocument();
-        expect(screen.getByText("44.5k")).toBeInTheDocument();
+        expect(within(document.body).getByText("256")).toBeInTheDocument();
+        expect(within(document.body).getByText("44.5k")).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -169,8 +169,8 @@ export const TextWithTooltip: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Meta Platforms, Inc.")).toBeInTheDocument();
-        expect(screen.getByText(/Previously known as Facebook/)).toBeInTheDocument();
+        expect(within(document.body).getByText("Meta Platforms, Inc.")).toBeInTheDocument();
+        expect(within(document.body).getByText(/Previously known as Facebook/)).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -216,9 +216,9 @@ export const ProductPreview: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Premium Headphones")).toBeInTheDocument();
-        expect(screen.getByText("$299.99")).toBeInTheDocument();
-        expect(screen.getByText("In Stock")).toBeInTheDocument();
+        expect(within(document.body).getByText("Premium Headphones")).toBeInTheDocument();
+        expect(within(document.body).getByText("$299.99")).toBeInTheDocument();
+        expect(within(document.body).getByText("In Stock")).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -264,9 +264,9 @@ export const CodePreview: Story = {
     await waitFor(
       () => {
         expect(
-          screen.getByText("A React hook for creating accessible hover card interactions.")
+          within(document.body).getByText("A React hook for creating accessible hover card interactions.")
         ).toBeInTheDocument();
-        expect(screen.getByText(/Provides keyboard navigation/)).toBeInTheDocument();
+        expect(within(document.body).getByText(/Provides keyboard navigation/)).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -317,10 +317,10 @@ export const CustomStyling: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Welcome to the Future")).toBeInTheDocument();
-        expect(screen.getByText("Modern")).toBeInTheDocument();
-        expect(screen.getByText("Beautiful")).toBeInTheDocument();
-        expect(screen.getByText("Accessible")).toBeInTheDocument();
+        expect(within(document.body).getByText("Welcome to the Future")).toBeInTheDocument();
+        expect(within(document.body).getByText("Modern")).toBeInTheDocument();
+        expect(within(document.body).getByText("Beautiful")).toBeInTheDocument();
+        expect(within(document.body).getByText("Accessible")).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );
@@ -357,8 +357,8 @@ export const DelayedOpen: Story = {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Delayed Opening")).toBeInTheDocument();
-        expect(screen.getByText("Close delay: 300ms")).toBeInTheDocument();
+        expect(within(document.body).getByText("Delayed Opening")).toBeInTheDocument();
+        expect(within(document.body).getByText("Close delay: 300ms")).toBeInTheDocument();
       },
       { timeout: 10_000 }
     );

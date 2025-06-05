@@ -78,12 +78,12 @@ export const Default: Story = {
     });
 
     // Check title and description (search in document)
-    const screen = within(document.body);
-    expect(screen.getByText("Are you absolutely sure?")).toBeInTheDocument();
-    expect(screen.getByText(/This action cannot be undone/)).toBeInTheDocument();
+    const portalScreen = within(document.body);
+    expect(portalScreen.getByText("Are you absolutely sure?")).toBeInTheDocument();
+    expect(portalScreen.getByText(/This action cannot be undone/)).toBeInTheDocument();
 
     // Test cancel button
-    const cancelButton = screen.getByRole("button", { name: "Cancel" });
+    const cancelButton = portalScreen.getByRole("button", { name: "Cancel" });
     await user.click(cancelButton);
 
     // Dialog should be closed
@@ -99,7 +99,7 @@ export const Default: Story = {
     await waitFor(() => {
       expect(document.querySelector('[role="alertdialog"]')).toBeInTheDocument();
     });
-    const actionButton = screen.getByRole("button", { name: "Continue" });
+    const actionButton = portalScreen.getByRole("button", { name: "Continue" });
     await user.click(actionButton);
 
     // Dialog should be closed after action
@@ -150,8 +150,8 @@ export const DestructiveAction: Story = {
     });
 
     // Check destructive action button styling
-    const screen = within(document.body);
-    const deleteButton = screen.getByRole("button", { name: "Yes, delete account" });
+    const portalScreen = within(document.body);
+    const deleteButton = portalScreen.getByRole("button", { name: "Yes, delete account" });
     expect(deleteButton).toHaveClass("bg-destructive");
 
     // Test keyboard navigation - Escape key
@@ -230,8 +230,8 @@ export const ControlledState: Story = {
     });
 
     // Test that both cancel and confirm close the dialog
-    const screen = within(document.body);
-    const cancelButton = screen.getByRole("button", { name: "Cancel" });
+    const portalScreen = within(document.body);
+    const cancelButton = portalScreen.getByRole("button", { name: "Cancel" });
     await user.click(cancelButton);
     await waitFor(
       () => {
@@ -245,7 +245,7 @@ export const ControlledState: Story = {
     await waitFor(() => {
       expect(document.querySelector('[role="alertdialog"]')).toBeInTheDocument();
     });
-    const confirmButton = screen.getByRole("button", { name: "Confirm" });
+    const confirmButton = portalScreen.getByRole("button", { name: "Confirm" });
     await user.click(confirmButton);
     await waitFor(
       () => {

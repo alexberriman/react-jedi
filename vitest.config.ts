@@ -44,5 +44,27 @@ export default mergeConfig(
         "@utils": resolve(__dirname, "./src/lib/utils.ts"),
       },
     },
+    // Add projects field to replace workspace file
+    projects: [
+      {
+        name: "storybook",
+        extends: "./vite.config.ts",
+        plugins: [
+          storybookTest({
+            configDir: path.join(dirname, ".storybook"),
+            storybookScript: "npm run storybook --ci",
+          }),
+        ],
+        test: {
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: "playwright",
+            instances: [{ browser: "chromium" }],
+          },
+          setupFiles: [".storybook/vitest.setup.ts"],
+        },
+      },
+    ],
   })
 );

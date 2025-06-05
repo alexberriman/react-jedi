@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { Text } from "./text";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/Text",
@@ -120,7 +121,7 @@ export const Default: Story = {
   },
 };
 
-export const ElementTypes: Story = {
+export const ElementTypes: Story = enhanceStoryForDualMode({
   render: () => (
     <div className="space-y-4 max-w-lg">
       <Text element="p">
@@ -169,7 +170,69 @@ export const ElementTypes: Story = {
     const div = canvas.getByText("Div: Block-level container for text content.");
     expect(div.tagName.toLowerCase()).toBe("div");
   },
-};
+}, {
+  // Since this uses a custom render function, we need to provide the JSON spec manually
+  renderSpec: {
+    type: "Flex",
+    direction: "column",
+    gap: "4",
+    className: "max-w-lg",
+    children: [
+      {
+        type: "Text",
+        element: "p",
+        children: "Paragraph: Default text element with standard styling for body content."
+      },
+      {
+        type: "Text", 
+        element: "span",
+        children: "Span: Inline text element."
+      },
+      {
+        type: "Flex",
+        gap: "2",
+        alignItems: "center",
+        children: [
+          {
+            type: "Text",
+            element: "span",
+            children: "This is regular text"
+          },
+          {
+            type: "Text",
+            element: "strong", 
+            children: "Strong: Bold emphasis"
+          },
+          {
+            type: "Text",
+            element: "em",
+            children: "Em: Italic emphasis"
+          }
+        ]
+      },
+      {
+        type: "Text",
+        element: "small",
+        children: "Small: Smaller text for less emphasis or secondary information."
+      },
+      {
+        type: "Text",
+        element: "blockquote",
+        children: "Blockquote: Used for quotations. \"The future belongs to those who believe in the beauty of their dreams.\" - Eleanor Roosevelt"
+      },
+      {
+        type: "Text",
+        element: "code",
+        children: "Code: for inline code snippets or technical terms."
+      },
+      {
+        type: "Text",
+        element: "div",
+        children: "Div: Block-level container for text content."
+      }
+    ]
+  }
+});
 
 export const SizeVariants: Story = {
   render: () => (

@@ -48,17 +48,45 @@ function convertChildren(children: unknown): unknown {
   return children;
 }
 
+// Map of special component name conversions
+const COMPONENT_NAME_MAP: Record<string, string> = {
+  blockquote: 'BlockQuote',
+  inputotp: 'InputOTP',
+  alertdialog: 'AlertDialog',
+  dropdownmenu: 'DropdownMenu',
+  hovercard: 'HoverCard',
+  radiogroup: 'RadioGroup',
+  scrollarea: 'ScrollArea',
+  togglegroup: 'ToggleGroup',
+  simplegrid: 'SimpleGrid',
+  datepicker: 'DatePicker',
+  aspectratio: 'AspectRatio',
+  datatable: 'DataTable',
+  contextmenu: 'ContextMenu',
+  breadcrumb: 'Breadcrumb',
+  skeletonloader: 'SkeletonLoader',
+  navigationmenu: 'NavigationMenu',
+  headmanager: 'HeadManager',
+};
+
 /**
  * Converts Storybook args to a component specification
  */
 export function convertArgsToSpec(args: Record<string, unknown>, componentId?: string): ComponentSpec {
-  // Extract component name from componentId (e.g., "components-text--default" -> "Text")
+  // Extract component name from componentId (e.g., "components-blockquote--default" -> "BlockQuote")
   let componentType = 'Component';
   if (componentId) {
-    const regex = /components-(\w+)--/i;
+    const regex = /components-([^-]+)--/i;
     const match = regex.exec(componentId);
     if (match) {
-      componentType = match[1].charAt(0).toUpperCase() + match[1].slice(1);
+      const name = match[1].toLowerCase();
+      
+      // Check if we have a specific mapping for this component
+      componentType = COMPONENT_NAME_MAP[name] || 
+        name
+          .split(/[-_]/)
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join('');
     }
   }
   

@@ -3,111 +3,82 @@ import { render } from "@alexberriman/react-jedi";
 import { ShowcaseWrapper } from "../../../../components/ui/showcase-wrapper";
 
 const sampleContent = `
-<h2>Introduction to Modern Web Development</h2>
-<p>
-  Web development has evolved significantly over the past decade. From simple static pages to complex, 
-  interactive applications, the landscape continues to change at a rapid pace. In this comprehensive guide, 
-  we'll explore the key concepts and technologies that define modern web development.
-</p>
+## Introduction to Modern Web Development
 
-<h2>The Foundation: HTML, CSS, and JavaScript</h2>
-<p>
-  At the core of every web application lie three fundamental technologies: HTML for structure, CSS for styling, 
-  and JavaScript for interactivity. While these technologies have been around for decades, they continue to 
-  evolve with new features and capabilities.
-</p>
+Web development has evolved significantly over the past decade. From simple static pages to complex, interactive applications, the landscape continues to change at a rapid pace. In this comprehensive guide, we'll explore the key concepts and technologies that define modern web development.
 
-<h3>HTML5 and Semantic Markup</h3>
-<p>
-  HTML5 introduced semantic elements that make our markup more meaningful. Elements like <code>&lt;article&gt;</code>, 
-  <code>&lt;section&gt;</code>, and <code>&lt;nav&gt;</code> provide better structure and accessibility.
-</p>
+## The Foundation: HTML, CSS, and JavaScript
 
-<pre><code class="language-html">&lt;article&gt;
-  &lt;header&gt;
-    &lt;h1&gt;Article Title&lt;/h1&gt;
-    &lt;time datetime="2024-01-15"&gt;January 15, 2024&lt;/time&gt;
-  &lt;/header&gt;
-  &lt;section&gt;
-    &lt;p&gt;Article content goes here...&lt;/p&gt;
-  &lt;/section&gt;
-&lt;/article&gt;</code></pre>
+At the core of every web application lie three fundamental technologies: HTML for structure, CSS for styling, and JavaScript for interactivity. While these technologies have been around for decades, they continue to evolve with new features and capabilities.
 
-<h3>Modern CSS Techniques</h3>
-<p>
-  CSS has come a long way with features like Grid, Flexbox, and Custom Properties. These tools enable us to 
-  create complex layouts with minimal code.
-</p>
+### HTML5 and Semantic Markup
 
-<h2>JavaScript Frameworks and Libraries</h2>
-<p>
-  The JavaScript ecosystem has exploded with frameworks and libraries designed to simplify application development. 
-  React, Vue, and Angular dominate the landscape, each offering unique approaches to building user interfaces.
-</p>
+HTML5 introduced semantic elements that make our markup more meaningful. Elements like \`<article>\`, \`<section>\`, and \`<nav>\` provide better structure and accessibility.
 
-<h3>React: A Component-Based Approach</h3>
-<p>
-  React's component-based architecture has revolutionized how we think about building UIs. By breaking down 
-  interfaces into reusable components, we can create maintainable and scalable applications.
-</p>
+\`\`\`html
+<article>
+  <header>
+    <h1>Article Title</h1>
+    <time datetime="2024-01-15">January 15, 2024</time>
+  </header>
+  <section>
+    <p>Article content goes here...</p>
+  </section>
+</article>
+\`\`\`
 
-<pre><code class="language-javascript">function Button({ onClick, children }) {
+### Modern CSS Techniques
+
+CSS has come a long way with features like Grid, Flexbox, and Custom Properties. These tools enable us to create complex layouts with minimal code.
+
+## JavaScript Frameworks and Libraries
+
+The JavaScript ecosystem has exploded with frameworks and libraries designed to simplify application development. React, Vue, and Angular dominate the landscape, each offering unique approaches to building user interfaces.
+
+### React: A Component-Based Approach
+
+React's component-based architecture has revolutionized how we think about building UIs. By breaking down interfaces into reusable components, we can create maintainable and scalable applications.
+
+\`\`\`javascript
+function Button({ onClick, children }) {
   return (
-    &lt;button 
+    <button 
       className="px-4 py-2 bg-blue-500 text-white rounded"
       onClick={onClick}
-    &gt;
+    >
       {children}
-    &lt;/button&gt;
+    </button>
   );
-}</code></pre>
+}
+\`\`\`
 
-<h2>State Management and Data Flow</h2>
-<p>
-  As applications grow in complexity, managing state becomes crucial. Solutions like Redux, MobX, and Zustand 
-  provide structured approaches to handling application state.
-</p>
+## State Management and Data Flow
 
-<h3>The Rise of Server-Side Rendering</h3>
-<p>
-  Server-side rendering (SSR) has made a comeback with frameworks like Next.js and Nuxt.js. These tools combine 
-  the benefits of server-rendered content with the interactivity of client-side applications.
-</p>
+As applications grow in complexity, managing state becomes crucial. Solutions like Redux, MobX, and Zustand provide structured approaches to handling application state.
 
-<h2>Performance Optimization</h2>
-<p>
-  Performance is critical for user experience. Techniques like code splitting, lazy loading, and image optimization 
-  can significantly improve load times and responsiveness.
-</p>
+### The Rise of Server-Side Rendering
 
-<ul>
-  <li>Implement code splitting to reduce initial bundle size</li>
-  <li>Use lazy loading for images and components</li>
-  <li>Optimize images with modern formats like WebP</li>
-  <li>Implement caching strategies</li>
-  <li>Minimize and compress assets</li>
-</ul>
+Server-side rendering (SSR) has made a comeback with frameworks like Next.js and Nuxt.js. These tools combine the benefits of server-rendered content with the interactivity of client-side applications.
 
-<h2>The Future of Web Development</h2>
-<p>
-  Looking ahead, exciting technologies are on the horizon. WebAssembly promises near-native performance, 
-  while Web Components offer true framework-agnostic components. Progressive Web Apps continue to blur 
-  the line between web and native applications.
-</p>
+## Performance Optimization
 
-<blockquote>
-  <p>
-    "The web is constantly evolving, and as developers, we must evolve with it. Embracing new technologies 
-    while maintaining a solid foundation in the fundamentals is key to success."
-  </p>
-</blockquote>
+Performance is critical for user experience. Techniques like code splitting, lazy loading, and image optimization can significantly improve load times and responsiveness.
 
-<h2>Conclusion</h2>
-<p>
-  Modern web development is an exciting field with endless possibilities. By understanding the core technologies 
-  and staying current with emerging trends, developers can create amazing experiences that push the boundaries 
-  of what's possible on the web.
-</p>
+- Implement code splitting to reduce initial bundle size
+- Use lazy loading for images and components
+- Optimize images with modern formats like WebP
+- Implement caching strategies
+- Minimize and compress assets
+
+## The Future of Web Development
+
+Looking ahead, exciting technologies are on the horizon. WebAssembly promises near-native performance, while Web Components offer true framework-agnostic components. Progressive Web Apps continue to blur the line between web and native applications.
+
+> "The web is constantly evolving, and as developers, we must evolve with it. Embracing new technologies while maintaining a solid foundation in the fundamentals is key to success."
+
+## Conclusion
+
+Modern web development is an exciting field with endless possibilities. By understanding the core technologies and staying current with emerging trends, developers can create amazing experiences that push the boundaries of what's possible on the web.
 `;
 
 const sampleRelatedPosts = [
@@ -211,33 +182,37 @@ const BlogPostDetailShowcase = () => {
   };
 
   const technicalArticleContent = `
-<h2>Overview</h2>
-<p>
-  Authentication is a critical component of modern web applications. In this tutorial, we'll implement 
-  a complete authentication system in Next.js using JWT tokens and secure best practices.
-</p>
+## Overview
 
-<h2>Prerequisites</h2>
-<p>Before we begin, make sure you have:</p>
-<ul>
-  <li>Node.js 16+ installed</li>
-  <li>Basic knowledge of React and Next.js</li>
-  <li>Understanding of REST APIs</li>
-</ul>
+Authentication is a critical component of modern web applications. In this tutorial, we'll implement a complete authentication system in Next.js using JWT tokens and secure best practices.
 
-<h2>Setting Up the Project</h2>
-<p>First, create a new Next.js application:</p>
+## Prerequisites
 
-<pre><code class="language-bash">npx create-next-app@latest my-auth-app --typescript --tailwind --app
+Before we begin, make sure you have:
+
+- Node.js 16+ installed
+- Basic knowledge of React and Next.js
+- Understanding of REST APIs
+
+## Setting Up the Project
+
+First, create a new Next.js application:
+
+\`\`\`bash
+npx create-next-app@latest my-auth-app --typescript --tailwind --app
 cd my-auth-app
 npm install jsonwebtoken bcryptjs
-npm install --save-dev @types/jsonwebtoken @types/bcryptjs</code></pre>
+npm install --save-dev @types/jsonwebtoken @types/bcryptjs
+\`\`\`
 
-<h2>Creating the Authentication API</h2>
-<p>Let's create our authentication endpoints:</p>
+## Creating the Authentication API
 
-<h3>User Registration</h3>
-<pre><code class="language-typescript">// app/api/auth/register/route.ts
+Let's create our authentication endpoints:
+
+### User Registration
+
+\`\`\`typescript
+// app/api/auth/register/route.ts
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -270,22 +245,20 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}</code></pre>
+}
+\`\`\`
 
-<h2>Best Practices</h2>
-<ol>
-  <li><strong>Use HTTPS:</strong> Always serve your application over HTTPS in production</li>
-  <li><strong>Secure Cookies:</strong> Set httpOnly, secure, and sameSite flags</li>
-  <li><strong>Token Expiration:</strong> Implement refresh tokens for better security</li>
-  <li><strong>Input Validation:</strong> Always validate and sanitize user input</li>
-  <li><strong>Rate Limiting:</strong> Implement rate limiting to prevent brute force attacks</li>
-</ol>
+## Best Practices
 
-<h2>Conclusion</h2>
-<p>
-  We've implemented a basic authentication system in Next.js. Remember to adapt this implementation 
-  to your specific needs and always follow security best practices in production environments.
-</p>
+1. **Use HTTPS:** Always serve your application over HTTPS in production
+2. **Secure Cookies:** Set httpOnly, secure, and sameSite flags
+3. **Token Expiration:** Implement refresh tokens for better security
+4. **Input Validation:** Always validate and sanitize user input
+5. **Rate Limiting:** Implement rate limiting to prevent brute force attacks
+
+## Conclusion
+
+We've implemented a basic authentication system in Next.js. Remember to adapt this implementation to your specific needs and always follow security best practices in production environments.
   `;
 
   const technicalShowcase = {

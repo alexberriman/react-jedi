@@ -242,7 +242,7 @@
       {
         "id": "blog-post-detail",
         "description": "Update the BlogPostDetail component to render markdown (and use our Markdown component we have already built internally). Update storybook and showcase example app (./examples)",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   }, {

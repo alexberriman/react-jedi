@@ -217,7 +217,7 @@
       {
         "id": "faq",
         "description": "Can you make sure any element in the FAQ component that is clickable has cursor-pointer (next prev buttons, + symbol etc.). On the carousel variant, there is a really weird pink/red dot or something bottom left (is it meant to be a tag or something, because barely any of it is visible - it overflows outside of the container with hidden overflow)",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "event-listings",

@@ -363,7 +363,7 @@ function CarouselVariant({
                 setExpandedItem(null);
               }}
               className={cn(
-                "w-2 h-2 rounded-full transition-all",
+                "w-2 h-2 rounded-full transition-all cursor-pointer",
                 index === currentIndex
                   ? "w-8 bg-gradient-to-r from-blue-500 to-purple-500"
                   : "bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500"
@@ -437,7 +437,7 @@ function GridVariant({
             <CardContent className="p-6">
               <button
                 onClick={() => toggleExpand(item.id)}
-                className="w-full text-left group"
+                className="w-full text-left group cursor-pointer"
               >
                 <div className="flex items-start justify-between">
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white pr-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -547,7 +547,7 @@ function AccordionVariant({
             <Card className="relative bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
               <button
                 onClick={() => toggleItem(item.id)}
-                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                 aria-expanded={isOpen}
               >
                 <span className="font-medium text-slate-900 dark:text-white pr-2">
@@ -587,7 +587,7 @@ function AccordionVariant({
               </AnimatePresence>
               
               {item.isPopular && (
-                <Badge className="absolute top-4 right-12 bg-gradient-to-r from-orange-500 to-pink-500 text-white border-0">
+                <Badge className="absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white border-0 z-10">
                   Popular
                 </Badge>
               )}

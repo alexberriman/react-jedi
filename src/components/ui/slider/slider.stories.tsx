@@ -648,9 +648,9 @@ export const VariableSizes: Story = enhanceStoryForDualMode<typeof Slider>(
       // Test sliders render
       const sliders = canvas.getAllByRole("slider");
       expect(sliders).toHaveLength(3);
-      sliders.forEach((slider) => {
+      for (const slider of sliders) {
         expect(slider).toHaveValue(50);
-      });
+      }
     },
   },
   {

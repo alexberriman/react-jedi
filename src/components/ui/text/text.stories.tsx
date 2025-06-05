@@ -101,7 +101,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = enhanceStoryForDualMode({
+export const Default: Story = enhanceStoryForDualMode<typeof Text>({
   args: {
     children:
       "This is a paragraph of text that demonstrates the default styling of the Text component. It should have a reasonable width for comfortable reading and proper spacing.",
@@ -121,7 +121,7 @@ export const Default: Story = enhanceStoryForDualMode({
   },
 });
 
-export const ElementTypes: Story = enhanceStoryForDualMode(
+export const ElementTypes: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-4 max-w-lg">
@@ -238,7 +238,7 @@ export const ElementTypes: Story = enhanceStoryForDualMode(
   }
 );
 
-export const SizeVariants: Story = enhanceStoryForDualMode(
+export const SizeVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-4 max-w-lg">
@@ -311,7 +311,7 @@ export const SizeVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const WeightVariants: Story = enhanceStoryForDualMode(
+export const WeightVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-2 max-w-lg">
@@ -398,7 +398,7 @@ export const WeightVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const AlignmentVariants: Story = enhanceStoryForDualMode(
+export const AlignmentVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-4 w-full max-w-lg border border-muted p-4">
@@ -467,7 +467,7 @@ export const AlignmentVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const ColorVariants: Story = enhanceStoryForDualMode(
+export const ColorVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-2 max-w-lg">
@@ -544,7 +544,7 @@ export const ColorVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const TextTransformVariants: Story = enhanceStoryForDualMode(
+export const TextTransformVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-2 max-w-lg">
@@ -609,7 +609,7 @@ export const TextTransformVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const StyleVariants: Story = enhanceStoryForDualMode(
+export const StyleVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-4 max-w-lg">
@@ -666,7 +666,7 @@ export const StyleVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const GradientVariants: Story = enhanceStoryForDualMode(
+export const GradientVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-2 max-w-lg">
@@ -756,7 +756,7 @@ export const GradientVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const TextWithShadow: Story = enhanceStoryForDualMode(
+export const TextWithShadow: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-4 max-w-lg">
@@ -835,7 +835,7 @@ export const TextWithShadow: Story = enhanceStoryForDualMode(
   }
 );
 
-export const AnimatedText: Story = enhanceStoryForDualMode(
+export const AnimatedText: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-8 max-w-lg">
@@ -901,7 +901,7 @@ export const AnimatedText: Story = enhanceStoryForDualMode(
   }
 );
 
-export const TruncationVariants: Story = enhanceStoryForDualMode(
+export const TruncationVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-4 max-w-xs border border-muted p-4">
@@ -998,7 +998,7 @@ export const TruncationVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const LineHeightVariants: Story = enhanceStoryForDualMode(
+export const LineHeightVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-8 max-w-lg">
@@ -1125,7 +1125,7 @@ export const LineHeightVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const LetterSpacingVariants: Story = enhanceStoryForDualMode(
+export const LetterSpacingVariants: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="space-y-4 max-w-lg">
@@ -1209,7 +1209,7 @@ export const LetterSpacingVariants: Story = enhanceStoryForDualMode(
   }
 );
 
-export const LongformText: Story = enhanceStoryForDualMode(
+export const LongformText: Story = enhanceStoryForDualMode<typeof Text>(
   {
     render: () => (
       <div className="max-w-prose space-y-4">
@@ -1345,7 +1345,7 @@ export const LongformText: Story = enhanceStoryForDualMode(
   }
 );
 
-export const FeatureText: Story = enhanceStoryForDualMode({
+export const FeatureText: Story = enhanceStoryForDualMode<typeof Text>({
   args: {
     size: "xl",
     weight: "bold",

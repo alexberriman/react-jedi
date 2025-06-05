@@ -1,9 +1,7 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
-import type { ReactRenderer } from "@storybook/react-vite";
-import type { DecoratorFunction } from "@storybook/types";
+import type { StoryContext, StoryFn } from "@storybook/react";
 import { render } from "../../lib/render";
-import { cn } from "../../lib/utils";
 import { Toggle } from "../../components/ui/toggle";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import { TabButton } from "../components/tab-button";
@@ -30,7 +28,7 @@ function JsonIcon() {
   );
 }
 
-function CodeIcon({ className }: { className?: string }) {
+function CodeIcon({ className }: { readonly className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
@@ -38,19 +36,17 @@ function CodeIcon({ className }: { className?: string }) {
   );
 }
 
-export const DualModeDecorator: DecoratorFunction<ReactRenderer> = (Story, context) => {
-  const [activeTab, setActiveTab] = useState<'react' | 'sdui'>('react');
-  const [showJson, setShowJson] = useState(true);
-  
+export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
   // Check if dual mode is enabled for this story
   const isDualModeEnabled = context.parameters?.dualMode?.enabled !== false;
   
-  if (!isDualModeEnabled) {
-    return <Story />;
-  }
+  const [activeTab, setActiveTab] = useState<'react' | 'sdui'>('react');
+  const [showJson, setShowJson] = useState(true);
   
-  // Get custom spec or convert from args
+  // Get custom spec or convert from args - must be called unconditionally
   const jsonSpec = useMemo(() => {
+    if (!isDualModeEnabled) return null;
+    
     if (context.parameters?.dualMode?.jsonSpec) {
       return context.parameters.dualMode.jsonSpec;
     }
@@ -61,7 +57,11 @@ export const DualModeDecorator: DecoratorFunction<ReactRenderer> = (Story, conte
     }
     
     return convertArgsToSpec(context.args, context.id);
-  }, [context.args, context.id, context.parameters]);
+  }, [context.args, context.id, context.parameters, isDualModeEnabled]);
+  
+  if (!isDualModeEnabled) {
+    return <Story />;
+  }
   
   return (
     <div className="w-full" data-dual-mode-decorator>

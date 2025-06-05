@@ -3,8 +3,8 @@ import { useState } from "react";
 import { cn } from "../../lib/utils";
 
 interface CopyButtonProps {
-  text: string;
-  className?: string;
+  readonly text: string;
+  readonly className?: string;
 }
 
 export function CopyButton({ text, className }: CopyButtonProps) {
@@ -14,9 +14,9 @@ export function CopyButton({ text, className }: CopyButtonProps) {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
+      globalThis.setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
     }
   };
   

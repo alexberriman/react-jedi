@@ -2,10 +2,10 @@ import * as React from "react";
 import { cn } from "../../lib/utils";
 
 interface TabButtonProps {
-  active: boolean;
-  onClick: () => void;
-  icon?: React.ReactNode;
-  children: React.ReactNode;
+  readonly active: boolean;
+  readonly onClick: () => void;
+  readonly icon?: React.ReactNode;
+  readonly children: React.ReactNode;
 }
 
 export function TabButton({ active, onClick, icon, children }: TabButtonProps) {

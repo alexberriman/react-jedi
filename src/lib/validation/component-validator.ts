@@ -130,7 +130,7 @@ export class ComponentValidator {
       {
         type: "flex",
         direction: "row",
-        justify: "between",
+        justify: "space-between",
         align: "center",
         gap: "md",
         children: []

@@ -6,9 +6,9 @@ import { z } from "zod";
  */
 export const flexSchema = z.object({
   type: z.literal("flex"),
-  direction: z.enum(["row", "column", "rowReverse", "columnReverse"]).optional(),
-  wrap: z.enum(["nowrap", "wrap", "wrapReverse"]).optional(),
-  justify: z.enum(["start", "end", "center", "between", "around", "evenly"]).optional(),
+  direction: z.enum(["row", "column", "row-reverse", "column-reverse"]).optional(),
+  wrap: z.enum(["nowrap", "wrap", "wrap-reverse"]).optional(),
+  justify: z.enum(["start", "end", "center", "space-between", "space-around", "space-evenly"]).optional(),
   align: z.enum(["start", "end", "center", "baseline", "stretch"]).optional(),
   gap: z.enum(["none", "xs", "sm", "md", "lg", "xl"]).optional(),
   className: z.string().optional(),
@@ -35,7 +35,7 @@ export type FlexSpecification = z.infer<typeof flexSchema>;
  *   "type": "flex",
  *   "direction": "row",
  *   "wrap": "wrap",
- *   "justify": "between",
+ *   "justify": "space-between",
  *   "align": "center",
  *   "gap": "md",
  *   "className": "p-4 bg-muted/30 rounded-lg",

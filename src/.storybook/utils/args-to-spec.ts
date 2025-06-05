@@ -1,4 +1,5 @@
 import type { ComponentSpec } from "../../types/schema/components";
+import type { ComponentChildren } from "../../types/schema/base";
 
 /**
  * Converts React children to spec-compatible format
@@ -13,7 +14,10 @@ function convertChildren(children: unknown): unknown {
   
   // React element
   if (typeof children === 'object' && children !== null && 'props' in children) {
-    const element = children as any;
+    const element = children as {
+      type?: string | symbol | { name?: string };
+      props?: Record<string, unknown> & { children?: unknown };
+    };
     
     // Handle arrays of elements
     if (Array.isArray(element)) {
@@ -51,7 +55,8 @@ export function convertArgsToSpec(args: Record<string, unknown>, componentId?: s
   // Extract component name from componentId (e.g., "components-text--default" -> "Text")
   let componentType = 'Component';
   if (componentId) {
-    const match = componentId.match(/components-(\w+)--/i);
+    const regex = /components-(\w+)--/i;
+    const match = regex.exec(componentId);
     if (match) {
       componentType = match[1].charAt(0).toUpperCase() + match[1].slice(1);
     }
@@ -67,7 +72,7 @@ export function convertArgsToSpec(args: Record<string, unknown>, componentId?: s
   // Convert children
   const convertedChildren = convertChildren(children);
   if (convertedChildren !== undefined) {
-    spec.children = convertedChildren;
+    spec.children = convertedChildren as ComponentChildren;
   }
   
   return spec;
@@ -76,15 +81,15 @@ export function convertArgsToSpec(args: Record<string, unknown>, componentId?: s
 /**
  * For complex rendered stories, extract the spec from the render function
  */
-export function extractSpecFromRender(renderFn: () => JSX.Element): ComponentSpec | null {
+export function extractSpecFromRender(renderFn: () => React.JSX.Element): ComponentSpec | null {
   try {
     // This is a simplified version - in practice, you might need more sophisticated parsing
     const element = renderFn();
     if (element && typeof element === 'object' && 'props' in element) {
       return convertArgsToSpec(element.props);
     }
-  } catch (e) {
-    console.error('Failed to extract spec from render function:', e);
+  } catch (error) {
+    console.error('Failed to extract spec from render function:', error);
   }
   return null;
 }

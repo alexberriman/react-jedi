@@ -1,13 +1,17 @@
-import type { PlayFunction } from "@storybook/react-vite";
-import { within, userEvent } from "storybook/test";
+import { userEvent } from "storybook/test";
+import type { StoryContext } from "@storybook/react";
+
+export type PlayFunction<TArgs = Record<string, unknown>> = (
+  context: StoryContext<TArgs>
+) => Promise<void> | void;
 
 /**
  * Wraps a play function to test both React and SDUI modes automatically
  */
-export function createDualPlayFunction(
-  originalPlay: PlayFunction
-): PlayFunction {
-  return async (context) => {
+export function createDualPlayFunction<TArgs = Record<string, unknown>>(
+  originalPlay: PlayFunction<TArgs>
+): PlayFunction<TArgs> {
+  return async (context: StoryContext<TArgs>) => {
     const { canvasElement, parameters, step } = context;
     
     // Skip dual testing if not enabled
@@ -16,7 +20,7 @@ export function createDualPlayFunction(
     }
     
     // Wait a bit for the decorator to render
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
     
     // Find the decorator container
     const decoratorContainer = canvasElement.querySelector('[data-dual-mode-decorator]');
@@ -33,7 +37,7 @@ export function createDualPlayFunction(
       for (const button of buttons) {
         if (button.textContent?.includes(tabText)) {
           await user.click(button as HTMLElement);
-          await new Promise(resolve => setTimeout(resolve, 200)); // Wait for tab switch animation
+          await new Promise(resolve => globalThis.setTimeout(resolve, 200)); // Wait for tab switch animation
           return;
         }
       }

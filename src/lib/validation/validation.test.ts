@@ -293,6 +293,7 @@ describe("ComponentValidator", () => {
         // Invalid child component to test nested validation
         {
           type: "text",
+          text: "Test text",
           size: "unknown-size" // Invalid size
         }
       ]

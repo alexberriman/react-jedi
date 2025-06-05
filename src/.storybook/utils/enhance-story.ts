@@ -1,6 +1,6 @@
 import type { StoryObj } from "@storybook/react-vite";
 import { DualModeDecorator } from "../decorators/dual-mode-decorator";
-import { createDualPlayFunction } from "./dual-play-wrapper";
+import { createDualPlayFunction, type PlayFunction } from "./dual-play-wrapper";
 
 interface EnhanceStoryOptions {
   /**
@@ -27,7 +27,7 @@ interface EnhanceStoryOptions {
 /**
  * Enhances a story to support dual-mode rendering (React + SDUI)
  */
-export function enhanceStoryForDualMode<T = any>(
+export function enhanceStoryForDualMode<T = unknown>(
   story: StoryObj<T>,
   options: EnhanceStoryOptions = {}
 ): StoryObj<T> {
@@ -36,10 +36,10 @@ export function enhanceStoryForDualMode<T = any>(
   return {
     ...story,
     decorators: [
-      ...(story.decorators || []),
-      DualModeDecorator
+      ...((story.decorators || []) as Array<(story: unknown, context: unknown) => React.ReactElement>),
+      DualModeDecorator as unknown as (story: unknown, context: unknown) => React.ReactElement
     ],
-    play: story.play && autoTest ? createDualPlayFunction(story.play) : story.play,
+    play: story.play && autoTest ? createDualPlayFunction(story.play as unknown as PlayFunction<T>) : story.play,
     parameters: {
       ...story.parameters,
       layout: story.parameters?.layout || 'fullscreen',
@@ -48,7 +48,7 @@ export function enhanceStoryForDualMode<T = any>(
         autoTest,
         jsonSpec,
         renderSpec,
-        ...(story.parameters?.dualMode || {})
+        ...story.parameters?.dualMode
       }
     }
   };

@@ -43,6 +43,11 @@ const meta = {
       control: "boolean",
       description: "Show fullscreen button",
     },
+    enableScrollZoom: {
+      control: "boolean",
+      description: "Enable mouse wheel zoom (disabled by default for better UX)",
+      defaultValue: false,
+    },
     mapStyle: {
       control: "select",
       options: ["flat", "streets", "outdoors", "satellite"],
@@ -117,6 +122,7 @@ export const Default: Story = {
     height: 400,
     markers: sampleMarkers,
     mapStyle: "flat",
+    enableScrollZoom: false, // Disabled by default for better UX
   },
 };
 
@@ -131,6 +137,7 @@ export const FlatStyle: Story = {
     showSearch: true,
     showZoomControls: true,
     showFullscreenButton: true,
+    enableScrollZoom: false,
   },
 };
 
@@ -145,6 +152,7 @@ export const StreetStyle: Story = {
     showSearch: true,
     showZoomControls: true,
     showMapTypeControls: true,
+    enableScrollZoom: false,
   },
 };
 
@@ -156,6 +164,7 @@ export const SatelliteStyle: Story = {
     mapStyle: "satellite",
     markers: sampleMarkers,
     showMapTypeControls: true,
+    enableScrollZoom: false,
   },
 };
 
@@ -185,6 +194,7 @@ export const Minimal: Story = {
     showSearch: false,
     showZoomControls: false,
     showFullscreenButton: false,
+    enableScrollZoom: false,
     mapStyle: "flat",
   },
 };
@@ -404,12 +414,33 @@ export const MarkerTypes: Story = {
   },
 };
 
+export const WithScrollZoom: Story = {
+  args: {
+    center: { lat: 40.7128, lng: -74.006 },
+    zoom: 14,
+    height: 450,
+    markers: sampleMarkers,
+    mapStyle: "flat",
+    showZoomControls: true,
+    showMapTypeControls: true,
+    enableScrollZoom: true, // Scroll zoom enabled for this story
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Map with scroll zoom enabled. Use mouse wheel to zoom in/out.",
+      },
+    },
+  },
+};
+
 export const LoadingState: Story = {
   args: {
     center: { lat: 40.7128, lng: -74.006 },
     zoom: 14,
     height: 400,
     mapStyle: "flat",
+    enableScrollZoom: false,
   },
   render: (args) => {
     return (

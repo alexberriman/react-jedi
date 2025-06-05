@@ -1,6 +1,7 @@
 @import "../../tailwind.css";
 @import "tw-animate-css";
 @import "./interactive-states.css";
+@import "./leaflet.css";
 
 @custom-variant dark (&:is(.dark *));
 

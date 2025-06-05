@@ -202,7 +202,7 @@
       {
         "id": "maps",
         "description": "I can't see any maps in some of the stories for the Map component (Default, Flat Style, Street Style, Satellite Style, Minimal, With Custom Styling, Single Location Minimal, Event Venue). Theres more actually - please investigate and fix. Also, when scrolling using my mousewheel, and I scroll over a map, it stops and starts zooming in/out the map. I think you can disable this behaviour with leaflet - please do. Also - is it possible to remove the Leaflet/carto copyright? If so, can you do it.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "latest-news-image-zoom",

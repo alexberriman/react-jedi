@@ -22,9 +22,6 @@ import {
   XIcon 
 } from "lucide-react";
 
-// Import Leaflet CSS
-import "leaflet/dist/leaflet.css";
-
 // Fix Leaflet icon issue with Webpack
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: () => string })._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -115,6 +112,7 @@ export interface MapProperties extends React.HTMLAttributes<HTMLDivElement> {
   readonly showZoomControls?: boolean;
   readonly showMapTypeControls?: boolean;
   readonly showFullscreenButton?: boolean;
+  /** Enable/disable mouse wheel zoom. Disabled by default for better user experience. */
   readonly enableScrollZoom?: boolean;
   readonly enableDragging?: boolean;
   readonly mapStyle?: "flat" | "streets" | "outdoors" | "satellite" | "custom";
@@ -255,10 +253,10 @@ function getTileLayerUrl(style: string): string {
 
 function getTileLayerAttribution(style: string): string {
   const tileProviders = {
-    flat: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    streets: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    outdoors: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    satellite: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+    flat: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/attributions">CARTO</a>',
+    streets: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    outdoors: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/attributions">CARTO</a>',
+    satellite: '© <a href="https://www.esri.com/">Esri</a>',
   };
 
   return tileProviders[style as keyof typeof tileProviders] || tileProviders.flat;
@@ -275,7 +273,7 @@ function MapBlock({
   showZoomControls = true,
   showMapTypeControls = false,
   showFullscreenButton = true,
-  enableScrollZoom = true,
+  enableScrollZoom = false,
   enableDragging = true,
   mapStyle = "flat",
   title,
@@ -293,12 +291,29 @@ function MapBlock({
   const [selectedLocation, setSelectedLocation] = React.useState<MapLocation | null>(null);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [currentMapStyle, setCurrentMapStyle] = React.useState(mapStyle);
+  const [hasMapError, setHasMapError] = React.useState(false);
   
-  // Simulated loading effect
+  // Loading effect with error handling
   React.useEffect(() => {
-    const timer = globalThis.setTimeout(() => setIsLoading(false), 500);
+    const timer = globalThis.setTimeout(() => {
+      setIsLoading(false);
+    }, 800); // Slightly longer to ensure tiles load
+    
+    // Reset error state when style changes
+    setHasMapError(false);
+    
     return () => globalThis.clearTimeout(timer);
-  }, []);
+  }, [currentMapStyle]);
+
+  // Handle tile layer errors
+  const handleTileError = React.useCallback(() => {
+    console.warn('Map tiles failed to load, falling back to default style');
+    if (currentMapStyle === 'streets') {
+      setHasMapError(true);
+    } else {
+      setCurrentMapStyle('streets');
+    }
+  }, [currentMapStyle]);
 
   // Handle location selection
   const handleLocationSelect = (location: MapLocation) => {
@@ -424,7 +439,36 @@ function MapBlock({
   // Render map content
   const renderMapContent = () => {
     if (isLoading) {
-      return <Skeleton className="w-full h-full" />;
+      return (
+        <div className="w-full h-full flex items-center justify-center bg-gray-50">
+          <div className="text-center">
+            <Skeleton className="w-12 h-12 rounded-full mx-auto mb-2" />
+            <p className="text-sm text-muted-foreground">Loading map...</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (hasMapError) {
+      return (
+        <div className="w-full h-full flex items-center justify-center bg-gray-50">
+          <div className="text-center p-4">
+            <MapIcon className="w-12 h-12 mx-auto mb-2 text-muted-foreground" />
+            <p className="text-sm text-muted-foreground mb-2">Unable to load map</p>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                setHasMapError(false);
+                setIsLoading(true);
+                setCurrentMapStyle('flat');
+              }}
+            >
+              Try Again
+            </Button>
+          </div>
+        </div>
+      );
     }
 
     return (
@@ -439,6 +483,10 @@ function MapBlock({
         <TileLayer
           url={getTileLayerUrl(currentMapStyle)}
           attribution={getTileLayerAttribution(currentMapStyle)}
+          errorTileUrl="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+          eventHandlers={{
+            tileerror: handleTileError,
+          }}
         />
         
         {/* Render markers */}

@@ -31,6 +31,64 @@ import { ProductShowcase } from "../components/blocks/product-showcase";
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
 
+// Helper function to transform Input props
+const transformInputProps = (actualProps: Record<string, unknown>): Record<string, unknown> => {
+  const transformed = { ...actualProps };
+  
+  // Transform inputType to type for HTML input element
+  if ("inputType" in actualProps) {
+    transformed.type = actualProps.inputType;
+    delete transformed.inputType;
+  }
+  
+  // Remove icon props that aren't supported by the basic Input component
+  delete transformed.startIcon;
+  delete transformed.endIcon;
+  
+  return transformed;
+};
+
+// Helper function to transform Flex props
+const transformFlexProps = (actualProps: Record<string, unknown>): Record<string, unknown> => {
+  const transformed = { ...actualProps };
+  
+  // Transform hyphenated direction values to camelCase
+  if ("direction" in actualProps && typeof actualProps.direction === "string") {
+    const directionMap: Record<string, string> = {
+      "row": "row",
+      "column": "column",
+      "row-reverse": "rowReverse",
+      "column-reverse": "columnReverse"
+    };
+    transformed.direction = directionMap[actualProps.direction] || actualProps.direction;
+  }
+  
+  // Transform hyphenated wrap values to camelCase
+  if ("wrap" in actualProps && typeof actualProps.wrap === "string") {
+    const wrapMap: Record<string, string> = {
+      "nowrap": "nowrap",
+      "wrap": "wrap",
+      "wrap-reverse": "wrapReverse"
+    };
+    transformed.wrap = wrapMap[actualProps.wrap] || actualProps.wrap;
+  }
+  
+  // Transform justify values
+  if ("justify" in actualProps && typeof actualProps.justify === "string") {
+    const justifyMap: Record<string, string> = {
+      "start": "start",
+      "end": "end",
+      "center": "center",
+      "space-between": "between",
+      "space-around": "around",
+      "space-evenly": "evenly"
+    };
+    transformed.justify = justifyMap[actualProps.justify] || actualProps.justify;
+  }
+  
+  return transformed;
+};
+
 // Helper function to transform props based on component type
 const transformPropsForComponent = (
   spec: Record<string, unknown>,
@@ -51,44 +109,12 @@ const transformPropsForComponent = (
     };
   }
 
+  if (spec.type === "Input") {
+    return transformInputProps(actualProps);
+  }
+
   if (spec.type === "Flex") {
-    const transformed = { ...actualProps };
-    
-    // Transform hyphenated direction values to camelCase
-    if ("direction" in actualProps && typeof actualProps.direction === "string") {
-      const directionMap: Record<string, string> = {
-        "row": "row",
-        "column": "column",
-        "row-reverse": "rowReverse",
-        "column-reverse": "columnReverse"
-      };
-      transformed.direction = directionMap[actualProps.direction] || actualProps.direction;
-    }
-    
-    // Transform hyphenated wrap values to camelCase
-    if ("wrap" in actualProps && typeof actualProps.wrap === "string") {
-      const wrapMap: Record<string, string> = {
-        "nowrap": "nowrap",
-        "wrap": "wrap",
-        "wrap-reverse": "wrapReverse"
-      };
-      transformed.wrap = wrapMap[actualProps.wrap] || actualProps.wrap;
-    }
-    
-    // Transform justify values
-    if ("justify" in actualProps && typeof actualProps.justify === "string") {
-      const justifyMap: Record<string, string> = {
-        "start": "start",
-        "end": "end",
-        "center": "center",
-        "space-between": "between",
-        "space-around": "around",
-        "space-evenly": "evenly"
-      };
-      transformed.justify = justifyMap[actualProps.justify] || actualProps.justify;
-    }
-    
-    return transformed;
+    return transformFlexProps(actualProps);
   }
 
   return actualProps;
@@ -245,6 +271,8 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     CardImage: asComponent(UI.CardImage),
     Badge: asComponent(UI.Badge),
     Avatar: asComponent(UI.Avatar),
+    AvatarImage: asComponent(UI.AvatarImage),
+    AvatarFallback: asComponent(UI.AvatarFallback),
     Image: asComponent(UI.Image),
     Skeleton: asComponent(UI.Skeleton),
     Label: asComponent(UI.Label),

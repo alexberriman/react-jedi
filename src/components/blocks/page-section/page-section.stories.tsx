@@ -25,6 +25,13 @@ const meta: Meta<typeof PageSection> = {
     layout: "fullscreen",
   },
   tags: ["autodocs", "test"],
+  decorators: [
+    (Story) => (
+      <div style={{ position: 'relative', minHeight: '100vh' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     variant: {
       control: "select",
@@ -54,7 +61,7 @@ const meta: Meta<typeof PageSection> = {
       control: false,
     },
     dividerColor: {
-      control: false,
+      control: 'text',
     },
     layout: {
       control: false,

@@ -122,7 +122,7 @@ export const WithHomeIcon: Story = enhanceStoryForDualMode<typeof Breadcrumb>(
     renderSpec: {
       type: "breadcrumb",
       items: [
-        { label: "Home", href: "/", icon: "🏠" },
+        { label: "Home", href: "/", icon: { type: "Icon", name: "home", size: 16 } },
         { label: "Projects", href: "/projects" },
         { label: "React Jedi", isCurrentPage: true },
       ],
@@ -175,7 +175,8 @@ export const WithEllipsis: Story = enhanceStoryForDualMode<typeof Breadcrumb>(
     renderSpec: {
       type: "breadcrumb",
       items: [
-        { label: "🏠", href: "/" },
+        { label: "", href: "/", icon: { type: "Icon", name: "home", size: 16 } },
+        { isEllipsis: true },
         { label: "Parent", href: "/parent" },
         { label: "Current Page", isCurrentPage: true },
       ],
@@ -288,8 +289,9 @@ export const ComplexExample: Story = enhanceStoryForDualMode<typeof Breadcrumb>(
     renderSpec: {
       type: "breadcrumb",
       items: [
-        { label: "Dashboard", href: "/", icon: "🏠" },
+        { label: "Dashboard", href: "/", icon: { type: "Icon", name: "home", size: 16 } },
         { label: "Projects", href: "/projects" },
+        { isEllipsis: true },
         { label: "React Jedi", href: "/projects/react-jedi" },
         { label: "Settings", isCurrentPage: true },
       ],
@@ -343,7 +345,7 @@ export const ResponsiveBreadcrumb: Story = enhanceStoryForDualMode<typeof Breadc
     renderSpec: {
       type: "breadcrumb",
       items: [
-        { label: "Home", href: "/", icon: "🏠" },
+        { label: "Home", href: "/", icon: { type: "Icon", name: "home", size: 16 } },
         { label: "Documents", href: "/documents" },
         { label: "Shared", href: "/documents/shared" },
         { label: "Important File.pdf", isCurrentPage: true },

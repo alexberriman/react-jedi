@@ -7,8 +7,10 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  BreadcrumbEllipsis,
 } from "./breadcrumb";
 import { ChevronRight, Slash } from "lucide-react";
+import { isIconReference, transformIconReference } from "@/lib/icons";
 
 /**
  * Breadcrumb component for JSON specification rendering
@@ -42,18 +44,46 @@ export function BreadcrumbComponent(props: Readonly<Record<string, unknown>>) {
           <React.Fragment key={index}>
             <BreadcrumbItem>
               {(() => {
+                // Handle ellipsis case
+                if (item.isEllipsis) {
+                  return <BreadcrumbEllipsis />;
+                }
+                
+                // Render icon if present
+                const renderIcon = () => {
+                  if (!item.icon) return null;
+                  
+                  // If it's an icon reference object, transform it
+                  if (isIconReference(item.icon)) {
+                    return transformIconReference(item.icon);
+                  }
+                  
+                  // Otherwise render as is (for backwards compatibility)
+                  return <span className="mr-1">{item.icon}</span>;
+                };
+                
                 if (item.isCurrentPage) {
-                  return <BreadcrumbPage>{item.label}</BreadcrumbPage>;
+                  return (
+                    <BreadcrumbPage>
+                      {renderIcon()}
+                      {item.label}
+                    </BreadcrumbPage>
+                  );
                 }
                 if (item.href) {
                   return (
-                    <BreadcrumbLink href={item.href}>
-                      {item.icon && <span className="mr-1">{item.icon}</span>}
-                      {item.label}
+                    <BreadcrumbLink href={item.href} className={item.icon ? "flex items-center gap-1" : undefined}>
+                      {renderIcon()}
+                      {item.label && <span>{item.label}</span>}
                     </BreadcrumbLink>
                   );
                 }
-                return <span>{item.label}</span>;
+                return (
+                  <span className={item.icon ? "flex items-center gap-1" : undefined}>
+                    {renderIcon()}
+                    {item.label && <span>{item.label}</span>}
+                  </span>
+                );
               })()}
             </BreadcrumbItem>
             {index < items.length - 1 && (

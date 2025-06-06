@@ -1,10 +1,11 @@
 import { BaseComponentSpec } from "../schema/base";
 
 export interface BreadcrumbItemSpec {
-  label: string;
+  label?: string;
   href?: string;
-  icon?: string;
+  icon?: string | { type: "Icon"; name: string; size?: number };
   isCurrentPage?: boolean;
+  isEllipsis?: boolean;
 }
 
 export interface BreadcrumbProps extends BaseComponentSpec {

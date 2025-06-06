@@ -22,6 +22,7 @@ import type {
 } from "../../../types/components/command";
 import { render } from "../../../lib/render";
 import { isComponentSpecArray } from "../../../types/schema/guards";
+import { SDUIIcon } from "../../../lib/icons";
 
 /**
  * Command component for JSON specification rendering
@@ -48,7 +49,13 @@ export function CommandComponent(props: Readonly<Record<string, unknown>>) {
             <CommandGroup heading={group.heading}>
               {group.items.map((item) => (
                 <CommandItem key={item.id} value={item.value || item.id}>
-                  {item.icon && <span>{item.icon}</span>}
+                  {item.icon && (
+                    <SDUIIcon
+                      name={item.icon}
+                      size={16}
+                      className="mr-2"
+                    />
+                  )}
                   {item.label}
                   {item.shortcut && <CommandShortcut>{item.shortcut}</CommandShortcut>}
                 </CommandItem>
@@ -60,7 +67,13 @@ export function CommandComponent(props: Readonly<Record<string, unknown>>) {
 
         {items?.map((item) => (
           <CommandItem key={item.id} value={item.value || item.id}>
-            {item.icon && <span>{item.icon}</span>}
+            {item.icon && (
+              <SDUIIcon
+                name={item.icon}
+                size={16}
+                className="mr-2"
+              />
+            )}
             {item.label}
             {item.shortcut && <CommandShortcut>{item.shortcut}</CommandShortcut>}
           </CommandItem>
@@ -96,7 +109,13 @@ export function CommandDialogComponent(props: Readonly<Record<string, unknown>>)
             <CommandGroup heading={group.heading}>
               {group.items.map((item) => (
                 <CommandItem key={item.id} value={item.value || item.id}>
-                  {item.icon && <span>{item.icon}</span>}
+                  {item.icon && (
+                    <SDUIIcon
+                      name={item.icon}
+                      size={16}
+                      className="mr-2"
+                    />
+                  )}
                   {item.label}
                   {item.shortcut && <CommandShortcut>{item.shortcut}</CommandShortcut>}
                 </CommandItem>
@@ -108,7 +127,13 @@ export function CommandDialogComponent(props: Readonly<Record<string, unknown>>)
 
         {items?.map((item) => (
           <CommandItem key={item.id} value={item.value || item.id}>
-            {item.icon && <span>{item.icon}</span>}
+            {item.icon && (
+              <SDUIIcon
+                name={item.icon}
+                size={16}
+                className="mr-2"
+              />
+            )}
             {item.label}
             {item.shortcut && <CommandShortcut>{item.shortcut}</CommandShortcut>}
           </CommandItem>

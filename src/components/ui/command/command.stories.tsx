@@ -21,6 +21,12 @@ import {
   Search,
   FileText,
   Hash,
+  FilePlus,
+  FolderOpen,
+  Save,
+  Copy,
+  Clipboard,
+  Scissors,
 } from "lucide-react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
@@ -131,16 +137,16 @@ export const Default: Story = enhanceStoryForDualMode<typeof Command>(
         {
           heading: "Suggestions",
           items: [
-            { id: "calendar", label: "Calendar", icon: "📅" },
-            { id: "calculator", label: "Calculator", icon: "🧮" },
-            { id: "card", label: "Card", icon: "💳" },
+            { id: "calendar", label: "Calendar", icon: "calendar" },
+            { id: "calculator", label: "Calculator", icon: "calculator" },
+            { id: "card", label: "Card", icon: "credit-card" },
           ],
         },
         {
           heading: "Settings",
           items: [
-            { id: "profile", label: "Profile", icon: "👤", shortcut: "⌘P" },
-            { id: "settings", label: "Settings", icon: "⚙️", shortcut: "⌘S" },
+            { id: "profile", label: "Profile", icon: "user", shortcut: "⌘P" },
+            { id: "settings", label: "Settings", icon: "settings", shortcut: "⌘S" },
           ],
         },
       ],
@@ -158,15 +164,15 @@ export const BasicCommand: Story = enhanceStoryForDualMode<typeof Command>(
           <CommandList>
             <CommandEmpty>No items found.</CommandEmpty>
             <CommandItem>
-              <span className="mr-2">📅</span>
+              <Calendar className="mr-2 h-4 w-4" />
               Calendar
             </CommandItem>
             <CommandItem>
-              <span className="mr-2">🧮</span>
+              <Calculator className="mr-2 h-4 w-4" />
               Calculator
             </CommandItem>
             <CommandItem>
-              <span className="mr-2">💳</span>
+              <CreditCard className="mr-2 h-4 w-4" />
               Card
             </CommandItem>
           </CommandList>
@@ -187,9 +193,9 @@ export const BasicCommand: Story = enhanceStoryForDualMode<typeof Command>(
       searchPlaceholder: "Search...",
       emptyMessage: "No items found.",
       items: [
-        { id: "1", label: "Calendar", icon: "📅" },
-        { id: "2", label: "Calculator", icon: "🧮" },
-        { id: "3", label: "Card", icon: "💳" },
+        { id: "1", label: "Calendar", icon: "calendar" },
+        { id: "2", label: "Calculator", icon: "calculator" },
+        { id: "3", label: "Card", icon: "credit-card" },
       ],
     },
   }
@@ -206,17 +212,17 @@ export const GroupedCommand: Story = enhanceStoryForDualMode<typeof Command>(
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Actions">
               <CommandItem>
-                <span className="mr-2">➕</span>
+                <FilePlus className="mr-2 h-4 w-4" />
                 New File
                 <CommandShortcut>⌘N</CommandShortcut>
               </CommandItem>
               <CommandItem>
-                <span className="mr-2">📁</span>
+                <FolderOpen className="mr-2 h-4 w-4" />
                 Open
                 <CommandShortcut>⌘O</CommandShortcut>
               </CommandItem>
               <CommandItem>
-                <span className="mr-2">💾</span>
+                <Save className="mr-2 h-4 w-4" />
                 Save
                 <CommandShortcut>⌘S</CommandShortcut>
               </CommandItem>
@@ -224,17 +230,17 @@ export const GroupedCommand: Story = enhanceStoryForDualMode<typeof Command>(
             <CommandSeparator />
             <CommandGroup heading="Edit">
               <CommandItem>
-                <span className="mr-2">📋</span>
+                <Copy className="mr-2 h-4 w-4" />
                 Copy
                 <CommandShortcut>⌘C</CommandShortcut>
               </CommandItem>
               <CommandItem>
-                <span className="mr-2">📄</span>
+                <Clipboard className="mr-2 h-4 w-4" />
                 Paste
                 <CommandShortcut>⌘V</CommandShortcut>
               </CommandItem>
               <CommandItem>
-                <span className="mr-2">✂️</span>
+                <Scissors className="mr-2 h-4 w-4" />
                 Cut
                 <CommandShortcut>⌘X</CommandShortcut>
               </CommandItem>
@@ -260,17 +266,17 @@ export const GroupedCommand: Story = enhanceStoryForDualMode<typeof Command>(
         {
           heading: "Actions",
           items: [
-            { id: "new", label: "New File", icon: "➕", shortcut: "⌘N" },
-            { id: "open", label: "Open", icon: "📁", shortcut: "⌘O" },
-            { id: "save", label: "Save", icon: "💾", shortcut: "⌘S" },
+            { id: "new", label: "New File", icon: "file-plus", shortcut: "⌘N" },
+            { id: "open", label: "Open", icon: "folder-open", shortcut: "⌘O" },
+            { id: "save", label: "Save", icon: "save", shortcut: "⌘S" },
           ],
         },
         {
           heading: "Edit",
           items: [
-            { id: "copy", label: "Copy", icon: "📋", shortcut: "⌘C" },
-            { id: "paste", label: "Paste", icon: "📄", shortcut: "⌘V" },
-            { id: "cut", label: "Cut", icon: "✂️", shortcut: "⌘X" },
+            { id: "copy", label: "Copy", icon: "copy", shortcut: "⌘C" },
+            { id: "paste", label: "Paste", icon: "clipboard", shortcut: "⌘V" },
+            { id: "cut", label: "Cut", icon: "scissors", shortcut: "⌘X" },
           ],
         },
       ],
@@ -462,9 +468,9 @@ export const NavigationExample: Story = enhanceStoryForDualMode<typeof Command>(
         {
           heading: "Main",
           items: [
-            { id: "projects", label: "Projects", icon: "📁" },
-            { id: "documents", label: "Documents", icon: "📄" },
-            { id: "channels", label: "Channels", icon: "#️⃣" },
+            { id: "projects", label: "Projects", icon: "folder" },
+            { id: "documents", label: "Documents", icon: "file-text" },
+            { id: "channels", label: "Channels", icon: "hash" },
           ],
         },
         {

@@ -19,6 +19,11 @@
       "type": "boolean",
       "default": true,
       "description": "Whether to show the handle icon"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the handle is disabled and cannot be resized"
     }
   },
   "required": ["type"],

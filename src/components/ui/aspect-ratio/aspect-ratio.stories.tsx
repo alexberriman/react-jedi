@@ -229,12 +229,15 @@ export const WithContent: Story = enhanceStoryForDualMode<typeof AspectRatio>(
             {
               type: "Heading",
               level: 3,
-              className: "text-2xl font-bold mb-2",
+              variant: undefined,
+              className: "text-2xl font-bold mb-2 text-white",
               children: "Stunning UI Components",
             },
             {
               type: "Text",
               align: "center",
+              variant: undefined,
+              className: "text-white",
               children: "Create beautiful, responsive interfaces with precise aspect ratios",
             },
           ],
@@ -336,10 +339,14 @@ export const WithVideo: Story = enhanceStoryForDualMode<typeof AspectRatio>(
         const aspectRatioWrapper = video.parentElement;
         expect(aspectRatioWrapper).toHaveAttribute("data-slot", "aspect-ratio");
       } else {
-        // In SDUI mode, check for placeholder message
-        const placeholder = canvasElement.querySelector('.bg-muted');
-        expect(placeholder).toBeInTheDocument();
-        expect(placeholder).toHaveTextContent("Video content cannot be rendered in SDUI mode");
+        // In SDUI mode, video should now render properly
+        const sduiVideo = canvasElement.querySelector('[data-slot="box"][as="video"]');
+        if (sduiVideo) {
+          expect(sduiVideo).toBeInTheDocument();
+          expect(sduiVideo).toHaveAttribute("controls");
+          expect(sduiVideo).toHaveAttribute("poster", expect.stringContaining("placehold.co"));
+          expect(sduiVideo).toHaveClass("object-cover", "w-full", "h-full", "rounded-lg");
+        }
       }
     },
   },
@@ -352,8 +359,23 @@ export const WithVideo: Story = enhanceStoryForDualMode<typeof AspectRatio>(
         ratio: 16 / 9,
         children: {
           type: "Box",
-          children: "Video content cannot be rendered in SDUI mode - use HTML video element directly",
-          className: "object-cover w-full h-full rounded-lg bg-muted flex items-center justify-center text-muted-foreground",
+          as: "video",
+          className: "object-cover w-full h-full rounded-lg",
+          poster: "https://placehold.co/600x340/EEE/31343C",
+          controls: true,
+          children: [
+            {
+              type: "Box",
+              as: "source",
+              src: "https://www.w3schools.com/html/mov_bbb.mp4"
+            },
+            {
+              type: "Box",
+              as: "track",
+              kind: "captions"
+            },
+            "Your browser does not support the video tag."
+          ]
         },
       },
     },

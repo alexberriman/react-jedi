@@ -4,6 +4,7 @@ import { within, userEvent, expect, waitFor } from "storybook/test";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 import {
   Form,
@@ -18,7 +19,7 @@ import { Input } from "../input/input";
 import { Button } from "../button/button";
 
 // Create a wrapper component for stories that doesn't require form props
-const FormStory = ({ children }: { children: React.ReactNode }) => {
+const FormStory = ({ children }: { children?: React.ReactNode }) => {
   return <>{children}</>;
 };
 
@@ -100,13 +101,15 @@ function SimpleFormExample() {
   );
 }
 
-export const Default: Story = {
-  args: {
-    children: null,
-  },
+export const Default: Story = enhanceStoryForDualMode<typeof FormStory>({
+  args: {},
   render: () => <SimpleFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
+
+    // Check if we're in SDUI mode (form validation won't work in SDUI)
+    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
+    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
 
     // Verify form fields are rendered
     const usernameInput = canvas.getByPlaceholderText("Enter username");
@@ -117,26 +120,83 @@ export const Default: Story = {
     expect(emailInput).toBeInTheDocument();
     expect(submitButton).toBeInTheDocument();
 
-    // Test validation - submit empty form
-    await userEvent.click(submitButton);
+    // Only test validation in React mode since SDUI doesn't support react-hook-form
+    if (!isSDUIMode) {
+      // Test validation - submit empty form
+      await userEvent.click(submitButton);
 
-    // Wait for validation errors
-    await waitFor(() => {
-      expect(canvas.getByText("Username must be at least 2 characters.")).toBeInTheDocument();
-      expect(canvas.getByText("Please enter a valid email address.")).toBeInTheDocument();
-    });
+      // Wait for validation errors
+      await waitFor(() => {
+        expect(canvas.getByText("Username must be at least 2 characters.")).toBeInTheDocument();
+        expect(canvas.getByText("Please enter a valid email address.")).toBeInTheDocument();
+      });
 
-    // Fill in valid data
-    await userEvent.type(usernameInput, "testuser");
-    await userEvent.type(emailInput, "test@example.com");
+      // Fill in valid data
+      await userEvent.type(usernameInput, "testuser");
+      await userEvent.type(emailInput, "test@example.com");
 
-    // Verify error messages are gone
-    await waitFor(() => {
-      expect(canvas.queryByText("Username must be at least 2 characters.")).not.toBeInTheDocument();
-      expect(canvas.queryByText("Please enter a valid email address.")).not.toBeInTheDocument();
-    });
+      // Verify error messages are gone
+      await waitFor(() => {
+        expect(canvas.queryByText("Username must be at least 2 characters.")).not.toBeInTheDocument();
+        expect(canvas.queryByText("Please enter a valid email address.")).not.toBeInTheDocument();
+      });
+    }
   },
-};
+}, {
+  renderSpec: {
+    type: "Flex",
+    direction: "column",
+    gap: "xl",
+    children: [
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Label",
+            children: "Username"
+          },
+          {
+            type: "Input",
+            placeholder: "Enter username"
+          },
+          {
+            type: "Text",
+            size: "sm",
+            variant: "muted",
+            children: "This is your public display name."
+          }
+        ]
+      },
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Label",
+            children: "Email"
+          },
+          {
+            type: "Input",
+            placeholder: "Enter email"
+          },
+          {
+            type: "Text",
+            size: "sm",
+            variant: "muted",
+            children: "We'll never share your email."
+          }
+        ]
+      },
+      {
+        type: "Button",
+        children: "Submit"
+      }
+    ]
+  }
+});
 
 function ValidationFormExample() {
   const formSchema = z.object({
@@ -206,56 +266,119 @@ function ValidationFormExample() {
   );
 }
 
-export const WithValidation: Story = {
-  args: {
-    children: null,
-  },
+export const WithValidation: Story = enhanceStoryForDualMode<typeof FormStory>({
+  args: {},
   render: () => <ValidationFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
+
+    // Check if we're in SDUI mode
+    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
+    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
 
     // Find form elements
     const ageInput = canvas.getByPlaceholderText("Enter your age");
     const passwordInput = canvas.getByPlaceholderText("Enter password");
     const submitButton = canvas.getByRole("button", { name: /submit/i });
 
-    // Test password validation - too short
-    await userEvent.type(passwordInput, "short");
-    await userEvent.click(submitButton); // Trigger validation
+    expect(ageInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
 
-    await waitFor(() => {
-      expect(canvas.getByText("Password must be at least 8 characters")).toBeInTheDocument();
-    });
+    // Only test validation in React mode
+    if (!isSDUIMode) {
+      // Test password validation - too short
+      await userEvent.type(passwordInput, "short");
+      await userEvent.click(submitButton); // Trigger validation
 
-    // Clear and test password with missing uppercase
-    await userEvent.clear(passwordInput);
-    await userEvent.type(passwordInput, "lowercase123");
-    await userEvent.click(submitButton); // Trigger validation
+      await waitFor(() => {
+        expect(canvas.getByText("Password must be at least 8 characters")).toBeInTheDocument();
+      });
 
-    await waitFor(() => {
-      expect(
-        canvas.getByText("Password must contain at least one uppercase letter")
-      ).toBeInTheDocument();
-    });
+      // Clear and test password with missing uppercase
+      await userEvent.clear(passwordInput);
+      await userEvent.type(passwordInput, "lowercase123");
+      await userEvent.click(submitButton); // Trigger validation
 
-    // Enter valid age
-    await userEvent.type(ageInput, "25");
+      await waitFor(() => {
+        expect(
+          canvas.getByText("Password must contain at least one uppercase letter")
+        ).toBeInTheDocument();
+      });
 
-    // Enter valid password
-    await userEvent.clear(passwordInput);
-    await userEvent.type(passwordInput, "ValidPass123");
-    await userEvent.click(submitButton); // Trigger validation
+      // Enter valid age
+      await userEvent.type(ageInput, "25");
 
-    // Verify no validation errors
-    await waitFor(() => {
-      expect(canvas.queryByText("Please enter a valid number")).not.toBeInTheDocument();
-      expect(canvas.queryByText("Password must be at least 8 characters")).not.toBeInTheDocument();
-      expect(
-        canvas.queryByText("Password must contain at least one uppercase letter")
-      ).not.toBeInTheDocument();
-    });
+      // Enter valid password
+      await userEvent.clear(passwordInput);
+      await userEvent.type(passwordInput, "ValidPass123");
+      await userEvent.click(submitButton); // Trigger validation
+
+      // Verify no validation errors
+      await waitFor(() => {
+        expect(canvas.queryByText("Please enter a valid number")).not.toBeInTheDocument();
+        expect(canvas.queryByText("Password must be at least 8 characters")).not.toBeInTheDocument();
+        expect(
+          canvas.queryByText("Password must contain at least one uppercase letter")
+        ).not.toBeInTheDocument();
+      });
+    }
   },
-};
+}, {
+  renderSpec: {
+    type: "Flex",
+    direction: "column",
+    gap: "xl",
+    children: [
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Label",
+            children: "Age"
+          },
+          {
+            type: "Input",
+            placeholder: "Enter your age"
+          },
+          {
+            type: "Text",
+            size: "sm",
+            variant: "muted",
+            children: "Must be a valid number."
+          }
+        ]
+      },
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Label",
+            children: "Password"
+          },
+          {
+            type: "Input",
+            placeholder: "Enter password"
+          },
+          {
+            type: "Text",
+            size: "sm",
+            variant: "muted",
+            children: "Must be at least 8 characters with uppercase, lowercase, and numbers."
+          }
+        ]
+      },
+      {
+        type: "Button",
+        children: "Submit"
+      }
+    ]
+  }
+});
 
 function RequiredFieldsFormExample() {
   const formSchema = z.object({
@@ -341,13 +464,15 @@ function RequiredFieldsFormExample() {
   );
 }
 
-export const WithRequiredFields: Story = {
-  args: {
-    children: null,
-  },
+export const WithRequiredFields: Story = enhanceStoryForDualMode<typeof FormStory>({
+  args: {},
   render: () => <RequiredFieldsFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
+
+    // Check if we're in SDUI mode
+    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
+    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
 
     // Find form elements
     const firstNameInput = canvas.getByPlaceholderText("John");
@@ -355,44 +480,143 @@ export const WithRequiredFields: Story = {
     const termsCheckbox = canvas.getByRole("checkbox");
     const submitButton = canvas.getByRole("button", { name: "Submit" });
 
+    expect(firstNameInput).toBeInTheDocument();
+    expect(lastNameInput).toBeInTheDocument();
+    expect(termsCheckbox).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+
     // Verify required field indicators
     const requiredIndicators = canvas.getAllByText("*");
     expect(requiredIndicators).toHaveLength(2);
 
-    // Try to submit empty form
-    await userEvent.click(submitButton);
+    // Only test validation in React mode
+    if (!isSDUIMode) {
+      // Try to submit empty form
+      await userEvent.click(submitButton);
 
-    // Check for validation errors
-    await waitFor(() => {
-      expect(canvas.getByText("First name is required")).toBeInTheDocument();
-      expect(canvas.getByText("Last name is required")).toBeInTheDocument();
-      expect(canvas.getByText("You must accept the terms and conditions")).toBeInTheDocument();
-    });
+      // Check for validation errors
+      await waitFor(() => {
+        expect(canvas.getByText("First name is required")).toBeInTheDocument();
+        expect(canvas.getByText("Last name is required")).toBeInTheDocument();
+        expect(canvas.getByText("You must accept the terms and conditions")).toBeInTheDocument();
+      });
 
-    // Fill in first name only
-    await userEvent.type(firstNameInput, "John");
-    await userEvent.click(submitButton);
+      // Fill in first name only
+      await userEvent.type(firstNameInput, "John");
+      await userEvent.click(submitButton);
 
-    // First name error should be gone
-    await waitFor(() => {
-      expect(canvas.queryByText("First name is required")).not.toBeInTheDocument();
-      expect(canvas.getByText("Last name is required")).toBeInTheDocument();
-    });
+      // First name error should be gone
+      await waitFor(() => {
+        expect(canvas.queryByText("First name is required")).not.toBeInTheDocument();
+        expect(canvas.getByText("Last name is required")).toBeInTheDocument();
+      });
 
-    // Fill in last name and check terms
-    await userEvent.type(lastNameInput, "Doe");
-    await userEvent.click(termsCheckbox);
+      // Fill in last name and check terms
+      await userEvent.type(lastNameInput, "Doe");
+      await userEvent.click(termsCheckbox);
 
-    // All errors should be gone
-    await waitFor(() => {
-      expect(canvas.queryByText("First name is required")).not.toBeInTheDocument();
-      expect(canvas.queryByText("Last name is required")).not.toBeInTheDocument();
-      expect(
-        canvas.queryByText("You must accept the terms and conditions")
-      ).not.toBeInTheDocument();
-    });
+      // All errors should be gone
+      await waitFor(() => {
+        expect(canvas.queryByText("First name is required")).not.toBeInTheDocument();
+        expect(canvas.queryByText("Last name is required")).not.toBeInTheDocument();
+        expect(
+          canvas.queryByText("You must accept the terms and conditions")
+        ).not.toBeInTheDocument();
+      });
+    }
   },
-};
+}, {
+  renderSpec: {
+    type: "Flex",
+    direction: "column",
+    gap: "xl",
+    children: [
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Flex",
+            gap: "xs",
+            children: [
+              {
+                type: "Label",
+                children: "First Name"
+              },
+              {
+                type: "Text",
+                variant: "destructive",
+                children: "*"
+              }
+            ]
+          },
+          {
+            type: "Input",
+            placeholder: "John"
+          }
+        ]
+      },
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Flex",
+            gap: "xs",
+            children: [
+              {
+                type: "Label",
+                children: "Last Name"
+              },
+              {
+                type: "Text",
+                variant: "destructive",
+                children: "*"
+              }
+            ]
+          },
+          {
+            type: "Input",
+            placeholder: "Doe"
+          }
+        ]
+      },
+      {
+        type: "Flex",
+        align: "start",
+        gap: "sm",
+        children: [
+          {
+            type: "Checkbox"
+          },
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "xs",
+            children: [
+              {
+                type: "Label",
+                children: "Accept terms and conditions"
+              },
+              {
+                type: "Text",
+                size: "sm",
+                variant: "muted",
+                children: "You agree to our Terms of Service and Privacy Policy."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: "Button",
+        children: "Submit"
+      }
+    ]
+  }
+});
 
 function InitialErrorsFormExample() {
   const formSchema = z.object({
@@ -453,46 +677,112 @@ function InitialErrorsFormExample() {
   );
 }
 
-export const WithInitialErrors: Story = {
-  args: {
-    children: null,
-  },
+export const WithInitialErrors: Story = enhanceStoryForDualMode<typeof FormStory>({
+  args: {},
   render: () => <InitialErrorsFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
 
-    // Wait for initial validation to trigger
-    await waitFor(() => {
-      // Verify initial errors are displayed
-      expect(canvas.getByText("Invalid email")).toBeInTheDocument();
-      expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
-    });
+    // Check if we're in SDUI mode
+    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
+    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
 
-    // Find form elements
-    const emailInput = canvas.getByDisplayValue("invalid-email");
-    const phoneInput = canvas.getByDisplayValue("123");
+    // In SDUI mode, fields will have placeholder values instead of actual values
+    if (isSDUIMode) {
+      // Find form elements by placeholder in SDUI mode
+      const emailInput = canvas.getByRole('textbox', { name: /email/i });
+      const phoneInput = canvas.getByRole('textbox', { name: /phone/i });
+      
+      expect(emailInput).toBeInTheDocument();
+      expect(phoneInput).toBeInTheDocument();
+    } else {
+      // Wait for initial validation to trigger
+      await waitFor(() => {
+        // Verify initial errors are displayed
+        expect(canvas.getByText("Invalid email")).toBeInTheDocument();
+        expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
+      });
 
-    // Fix email
-    await userEvent.clear(emailInput);
-    await userEvent.type(emailInput, "valid@example.com");
+      // Find form elements
+      const emailInput = canvas.getByDisplayValue("invalid-email");
+      const phoneInput = canvas.getByDisplayValue("123");
 
-    // Email error should be gone
-    await waitFor(() => {
-      expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
-      expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
-    });
+      // Fix email
+      await userEvent.clear(emailInput);
+      await userEvent.type(emailInput, "valid@example.com");
 
-    // Fix phone
-    await userEvent.clear(phoneInput);
-    await userEvent.type(phoneInput, "1234567890");
+      // Email error should be gone
+      await waitFor(() => {
+        expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
+        expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
+      });
 
-    // All errors should be gone
-    await waitFor(() => {
-      expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
-      expect(canvas.queryByText("Phone number too short")).not.toBeInTheDocument();
-    });
+      // Fix phone
+      await userEvent.clear(phoneInput);
+      await userEvent.type(phoneInput, "1234567890");
+
+      // All errors should be gone
+      await waitFor(() => {
+        expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
+        expect(canvas.queryByText("Phone number too short")).not.toBeInTheDocument();
+      });
+    }
   },
-};
+}, {
+  renderSpec: {
+    type: "Flex",
+    direction: "column",
+    gap: "xl",
+    children: [
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Label",
+            children: "Email"
+          },
+          {
+            type: "Input",
+            value: "invalid-email"
+          },
+          {
+            type: "Text",
+            size: "sm",
+            variant: "destructive",
+            children: "Invalid email"
+          }
+        ]
+      },
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Label",
+            children: "Phone"
+          },
+          {
+            type: "Input",
+            value: "123"
+          },
+          {
+            type: "Text",
+            size: "sm",
+            variant: "destructive",
+            children: "Phone number too short"
+          }
+        ]
+      },
+      {
+        type: "Button",
+        children: "Submit"
+      }
+    ]
+  }
+});
 
 function ContactFormExample() {
   const formSchema = z.object({
@@ -584,13 +874,15 @@ function ContactFormExample() {
   );
 }
 
-export const ContactForm: Story = {
-  args: {
-    children: null,
-  },
+export const ContactForm: Story = enhanceStoryForDualMode<typeof FormStory>({
+  args: {},
   render: () => <ContactFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
+
+    // Check if we're in SDUI mode
+    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
+    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
 
     // Find form elements
     const nameInput = canvas.getByPlaceholderText("Your name");
@@ -599,38 +891,133 @@ export const ContactForm: Story = {
     const messageTextarea = canvas.getByPlaceholderText("Type your message here...");
     const submitButton = canvas.getByRole("button", { name: "Send Message" });
 
+    expect(nameInput).toBeInTheDocument();
+    expect(emailInput).toBeInTheDocument();
+    expect(subjectInput).toBeInTheDocument();
+    expect(messageTextarea).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+
     // Verify grid layout (2 columns for name and email)
     const gridContainer = canvasElement.querySelector(".grid-cols-2");
     expect(gridContainer).toBeInTheDocument();
     expect(gridContainer).toHaveClass("grid");
     expect(gridContainer).toHaveClass("gap-4");
 
-    // Try to submit empty form
-    await userEvent.click(submitButton);
-
-    // Check for validation errors
-    await waitFor(() => {
-      expect(canvas.getByText("Name is required")).toBeInTheDocument();
-      expect(canvas.getByText("Invalid email address")).toBeInTheDocument();
-      expect(canvas.getByText("Subject is required")).toBeInTheDocument();
-      expect(canvas.getByText("Message must be at least 10 characters")).toBeInTheDocument();
-    });
-
-    // Fill in the form
-    await userEvent.type(nameInput, "Jane Doe");
-    await userEvent.type(emailInput, "jane@example.com");
-    await userEvent.type(subjectInput, "Question about your service");
-    await userEvent.type(messageTextarea, "I would like to know more about your pricing plans.");
-
-    // All errors should be cleared
-    await waitFor(() => {
-      expect(canvas.queryByText("Name is required")).not.toBeInTheDocument();
-      expect(canvas.queryByText("Invalid email address")).not.toBeInTheDocument();
-      expect(canvas.queryByText("Subject is required")).not.toBeInTheDocument();
-      expect(canvas.queryByText("Message must be at least 10 characters")).not.toBeInTheDocument();
-    });
-
     // Verify description text
     expect(canvas.getByText("We'll respond to your message within 24 hours.")).toBeInTheDocument();
+
+    // Only test validation in React mode
+    if (!isSDUIMode) {
+      // Try to submit empty form
+      await userEvent.click(submitButton);
+
+      // Check for validation errors
+      await waitFor(() => {
+        expect(canvas.getByText("Name is required")).toBeInTheDocument();
+        expect(canvas.getByText("Invalid email address")).toBeInTheDocument();
+        expect(canvas.getByText("Subject is required")).toBeInTheDocument();
+        expect(canvas.getByText("Message must be at least 10 characters")).toBeInTheDocument();
+      });
+
+      // Fill in the form
+      await userEvent.type(nameInput, "Jane Doe");
+      await userEvent.type(emailInput, "jane@example.com");
+      await userEvent.type(subjectInput, "Question about your service");
+      await userEvent.type(messageTextarea, "I would like to know more about your pricing plans.");
+
+      // All errors should be cleared
+      await waitFor(() => {
+        expect(canvas.queryByText("Name is required")).not.toBeInTheDocument();
+        expect(canvas.queryByText("Invalid email address")).not.toBeInTheDocument();
+        expect(canvas.queryByText("Subject is required")).not.toBeInTheDocument();
+        expect(canvas.queryByText("Message must be at least 10 characters")).not.toBeInTheDocument();
+      });
+    }
   },
-};
+}, {
+  renderSpec: {
+    type: "Flex",
+    direction: "column",
+    gap: "xl",
+    children: [
+      {
+        type: "Grid",
+        columns: 2,
+        gap: "md",
+        children: [
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "sm",
+            children: [
+              {
+                type: "Label",
+                children: "Name"
+              },
+              {
+                type: "Input",
+                placeholder: "Your name"
+              }
+            ]
+          },
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "sm",
+            children: [
+              {
+                type: "Label",
+                children: "Email"
+              },
+              {
+                type: "Input",
+                placeholder: "Your email"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Label",
+            children: "Subject"
+          },
+          {
+            type: "Input",
+            placeholder: "Subject of your message"
+          }
+        ]
+      },
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "sm",
+        children: [
+          {
+            type: "Label",
+            children: "Message"
+          },
+          {
+            type: "Textarea",
+            placeholder: "Type your message here...",
+            rows: 4
+          },
+          {
+            type: "Text",
+            size: "sm",
+            variant: "muted",
+            children: "We'll respond to your message within 24 hours."
+          }
+        ]
+      },
+      {
+        type: "Button",
+        children: "Send Message"
+      }
+    ]
+  }
+});

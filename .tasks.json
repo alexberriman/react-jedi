@@ -1,10 +1,5 @@
 [
   {
-    "id": "implement-dropdownmenu-sdui",
-    "description": "TASK: Implement SDUI support for DropdownMenu component. ISSUE: DropdownMenu component has no SDUI/JSON rendering support. Dropdown menus are not available in SDUI mode. APPROACH: Consider enhancing Command component to handle dropdown menu patterns if direct implementation is complex, as they share similar item selection patterns. ACTION REQUIRED: 1) Assess if DropdownMenu can be directly implemented in SDUI. 2) If complex, extend Command component to support dropdown patterns. 3) Implement trigger button click handling and menu positioning. 4) Support menu items, separators, sub-menus, and disabled states. 5) Ensure keyboard navigation works properly. EXPECTED OUTCOME: Working dropdown menus in SDUI mode with full feature parity with React mode.",
-    "status": "pending"
-  },
-  {
     "id": "implement-headmanager-sdui",
     "description": "TASK: Implement SDUI support for ExtendedHeadManager component. ISSUE: ExtendedHeadManager (for managing document head/meta tags) has no SDUI support. This limits SEO and meta tag management in SDUI applications. CONSIDERATIONS: This might be architectural - SDUI may not support dynamic head management by design. ACTION REQUIRED: 1) Determine if head management is architecturally possible in SDUI mode. 2) If possible, implement meta tag, title, and link tag management. 3) If not possible due to SDUI limitations, document this clearly. 4) Consider alternative approaches for SEO in SDUI applications. EXPECTED OUTCOME: Either working head management in SDUI or clear documentation explaining the limitation with recommended alternatives.",
     "status": "pending"

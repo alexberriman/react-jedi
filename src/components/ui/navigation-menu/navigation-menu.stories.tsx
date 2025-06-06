@@ -399,7 +399,15 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
       type: "navigationMenu",
       items: [
         {
-          trigger: { label: "Products" },
+          trigger: { 
+            label: "Products",
+            badge: {
+              type: "Badge",
+              variant: "secondary",
+              className: "ml-2 h-5 px-1.5",
+              children: "New"
+            }
+          },
           content: {
             width: "lg",
             items: [
@@ -407,7 +415,11 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
                 title: "Featured Product",
                 description: "Our most powerful development tool for modern applications.",
                 href: "/",
-                icon: "🚀"
+                icon: {
+                  type: "Icon",
+                  name: "rocket",
+                  size: 32
+                }
               },
               {
                 title: "Core Platform",
@@ -433,24 +445,44 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
             width: "md",
             items: [
               {
-                title: "🏢 Enterprise",
+                title: "Enterprise",
                 description: "Solutions for large-scale organizations",
-                href: "#enterprise"
+                href: "#enterprise",
+                icon: {
+                  type: "Icon",
+                  name: "building",
+                  size: 16
+                }
               },
               {
-                title: "🚀 Startup",
+                title: "Startup",
                 description: "Get up and running quickly",
-                href: "#startup"
+                href: "#startup",
+                icon: {
+                  type: "Icon",
+                  name: "rocket",
+                  size: 16
+                }
               },
               {
-                title: "🎓 Education",
+                title: "Education",
                 description: "Resources for students and educators",
-                href: "#education"
+                href: "#education",
+                icon: {
+                  type: "Icon",
+                  name: "graduation-cap",
+                  size: 16
+                }
               },
               {
-                title: "❤️ Non-profit",
+                title: "Non-profit",
                 description: "Special programs for non-profit organizations",
-                href: "#nonprofit"
+                href: "#nonprofit",
+                icon: {
+                  type: "Icon",
+                  name: "heart",
+                  size: 16
+                }
               }
             ]
           }
@@ -867,7 +899,11 @@ export const WithBrandingAndCTA: Story = enhanceStoryForDualMode<typeof Navigati
                 title: "ACME Pro",
                 description: "The ultimate toolkit for modern development.",
                 href: "/",
-                icon: "⚡"
+                icon: {
+                  type: "Icon",
+                  name: "zap",
+                  size: 32
+                }
               },
               {
                 title: "Cloud",

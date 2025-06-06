@@ -1,10 +1,5 @@
 [
   {
-    "id": "fix-badge-icon-rendering",
-    "description": "TASK: Fix Badge component icon rendering and appearance in SDUI mode. SOLUTION: The new SDUI icon system is now available. Use { type: 'Icon', name: 'icon-name', size: 16 } to include icons in badges. Some badge stories have been updated, but more work is needed. ACTION REQUIRED: 1) Update remaining badge stories to use the new icon system in SDUI renderSpec. 2) Replace ANY remaining emoji fallbacks with proper icon references. 3) For status badges, use appropriate icons: 'circle' for status indicators, 'check' for verified, etc. 4) Ensure icon sizing and alignment match React mode by adjusting the size prop. 5) Test all badge variants with icons for visual consistency. EXPECTED OUTCOME: Badges in SDUI should render actual SVG icons identically to React mode with NO emoji fallbacks.",
-    "status": "pending"
-  },
-  {
     "id": "fix-breadcrumb-sdui",
     "description": "TASK: Fix Breadcrumb component icon support and ellipsis functionality in SDUI mode. SOLUTION: The new SDUI icon system supports icon rendering. Use { type: 'Icon', name: 'icon-name', size: 16 } for breadcrumb icons. ACTION REQUIRED: 1) Update breadcrumb stories to use icon references in SDUI renderSpec. 2) Common breadcrumb icons: 'home' for home, 'chevron-right' for separators, 'folder' for categories. 3) Remove ALL emoji fallbacks and replace with icon references. 4) Fix the ellipsis rendering logic for SDUI - ensure collapsed state works properly. 5) Test all breadcrumb stories with proper icons and ellipsis behavior. EXPECTED OUTCOME: SDUI breadcrumbs should have full SVG icon support and working ellipsis functionality matching React mode.",
     "status": "pending"

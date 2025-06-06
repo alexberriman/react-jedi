@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { Testimonial } from "./testimonial";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Blocks/Testimonial",
@@ -26,21 +27,20 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defaultProps = {
-  author: {
-    name: "Sarah Chen",
-    role: "Product Designer",
-    company: "Tech Corp",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-  },
-  content:
-    "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
-  rating: 5,
-  date: "November 2024",
-};
 
-export const Default: Story = {
-  args: defaultProps,
+export const Default = enhanceStoryForDualMode({
+  args: {
+    author: {
+      name: "Sarah Chen",
+      role: "Product Designer",
+      company: "Tech Corp",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+    },
+    content:
+      "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
+    rating: 5,
+    date: "November 2024",
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
@@ -68,11 +68,20 @@ export const Default: Story = {
     const testimonial = canvasElement.querySelector("div");
     expect(testimonial).toBeInTheDocument();
   },
-};
+});
 
-export const Minimal: Story = {
+export const Minimal = enhanceStoryForDualMode({
   args: {
-    ...defaultProps,
+    author: {
+      name: "Sarah Chen",
+      role: "Product Designer",
+      company: "Tech Corp",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+    },
+    content:
+      "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
+    rating: 5,
+    date: "November 2024",
     variant: "minimal",
   },
   play: async ({ canvasElement }) => {
@@ -88,27 +97,83 @@ export const Minimal: Story = {
     const testimonial = canvasElement.querySelector("div");
     expect(testimonial).toBeInTheDocument();
   },
-};
+});
 
-export const Large: Story = {
+export const Large = enhanceStoryForDualMode({
   args: {
-    ...defaultProps,
-    variant: "large",
+    author: {
+      name: "Sarah Chen",
+      role: "Product Designer",
+      company: "Tech Corp",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+    },
     content:
       "The React Jedi library is absolutely game-changing. We've cut our development time in half while delivering interfaces that look like they're from the future. The theming system is incredibly powerful and the component quality is outstanding.",
+    rating: 5,
+    date: "November 2024",
+    variant: "large",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Quote: Story = {
+    // Test testimonial content
+    expect(canvas.getByText(/The React Jedi library is absolutely game-changing/)).toBeInTheDocument();
+
+    // Test author information
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+    expect(canvas.getByText(/Product Designer at Tech Corp/)).toBeInTheDocument();
+
+    // Test date
+    expect(canvas.getByText("November 2024")).toBeInTheDocument();
+
+    // Test testimonial structure is present
+    const testimonial = canvasElement.querySelector("div");
+    expect(testimonial).toBeInTheDocument();
+  },
+});
+
+export const Quote = enhanceStoryForDualMode({
   args: {
-    ...defaultProps,
+    author: {
+      name: "Sarah Chen",
+      role: "Product Designer",
+      company: "Tech Corp",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+    },
+    content:
+      "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
+    rating: 5,
+    date: "November 2024",
     variant: "quote",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Highlighted: Story = {
+    // Test testimonial content
+    expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+
+    // Test author information
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+    expect(canvas.getByText(/Product Designer at Tech Corp/)).toBeInTheDocument();
+
+    // Test testimonial structure is present (figure element for quote variant)
+    const testimonial = canvasElement.querySelector("figure");
+    expect(testimonial).toBeInTheDocument();
+  },
+});
+
+export const Highlighted = enhanceStoryForDualMode({
   args: {
-    ...defaultProps,
+    author: {
+      name: "Sarah Chen",
+      role: "Product Designer",
+      company: "Tech Corp",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+    },
+    content:
+      "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
+    rating: 5,
+    date: "November 2024",
     highlight: true,
   },
   play: async ({ canvasElement }) => {
@@ -122,12 +187,19 @@ export const Highlighted: Story = {
     const testimonial = canvasElement.querySelector("div");
     expect(testimonial).toBeInTheDocument();
   },
-};
+});
 
-export const WithoutRating: Story = {
+export const WithoutRating = enhanceStoryForDualMode({
   args: {
-    ...defaultProps,
-    rating: undefined,
+    author: {
+      name: "Sarah Chen",
+      role: "Product Designer",
+      company: "Tech Corp",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+    },
+    content:
+      "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
+    date: "November 2024",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -142,9 +214,9 @@ export const WithoutRating: Story = {
       expect(ratingContainer).not.toBeInTheDocument();
     }
   },
-};
+});
 
-export const WithoutAvatar: Story = {
+export const WithoutAvatar = enhanceStoryForDualMode({
   args: {
     author: {
       name: "Alex Johnson",
@@ -170,61 +242,152 @@ export const WithoutAvatar: Story = {
     const testimonial = canvasElement.querySelector("div");
     expect(testimonial).toBeInTheDocument();
   },
-};
+});
 
-export const MultipleTestimonials: Story = {
-  args: {
-    author: { name: "", role: "", company: "" },
-    content: "",
+export const MultipleTestimonials = enhanceStoryForDualMode(
+  {
+    args: {
+      author: { name: "", role: "", company: "" },
+      content: "",
+    },
+    render: () => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl">
+        <Testimonial
+          author={{
+            name: "Maria Rodriguez",
+            role: "Lead Developer",
+            company: "Design Studio",
+            avatar:
+              "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
+          }}
+          content="The component architecture is brilliant. Easy to customize and extend."
+          rating={5}
+          variant="card"
+        />
+        <Testimonial
+          author={{
+            name: "James Wilson",
+            role: "Frontend Engineer",
+            company: "WebDev Inc",
+            avatar:
+              "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+          }}
+          content="Best UI library I've worked with. The attention to detail is remarkable."
+          rating={5}
+          variant="card"
+          highlight
+        />
+        <Testimonial
+          author={{
+            name: "Emma Thompson",
+            role: "UX Designer",
+            company: "Creative Agency",
+            avatar:
+              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop",
+          }}
+          content="Beautiful components that are a joy to work with. Highly recommended!"
+          rating={5}
+          variant="card"
+        />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test all three testimonials are present
+      expect(canvas.getByText("Maria Rodriguez")).toBeInTheDocument();
+      expect(canvas.getByText("James Wilson")).toBeInTheDocument();
+      expect(canvas.getByText("Emma Thompson")).toBeInTheDocument();
+
+      // Test testimonial content
+      expect(canvas.getByText(/The component architecture is brilliant/)).toBeInTheDocument();
+      expect(canvas.getByText(/Best UI library I've worked with/)).toBeInTheDocument();
+      expect(canvas.getByText(/Beautiful components that are a joy/)).toBeInTheDocument();
+
+      // Test grid layout is present
+      const gridContainer = canvasElement.querySelector("div");
+      expect(gridContainer).toBeInTheDocument();
+    },
   },
-  render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl">
-      <Testimonial
-        author={{
-          name: "Maria Rodriguez",
-          role: "Lead Developer",
-          company: "Design Studio",
-          avatar:
-            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
-        }}
-        content="The component architecture is brilliant. Easy to customize and extend."
-        rating={5}
-        variant="card"
-      />
-      <Testimonial
-        author={{
-          name: "James Wilson",
-          role: "Frontend Engineer",
-          company: "WebDev Inc",
-          avatar:
-            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
-        }}
-        content="Best UI library I've worked with. The attention to detail is remarkable."
-        rating={5}
-        variant="card"
-        highlight
-      />
-      <Testimonial
-        author={{
-          name: "Emma Thompson",
-          role: "UX Designer",
-          company: "Creative Agency",
-          avatar:
-            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop",
-        }}
-        content="Beautiful components that are a joy to work with. Highly recommended!"
-        rating={5}
-        variant="card"
-      />
-    </div>
-  ),
-};
+  {
+    renderSpec: {
+      type: "Grid",
+      cols: "1",
+      colsMd: "3",
+      gap: "md",
+      className: "max-w-6xl",
+      children: [
+        {
+          type: "Testimonial",
+          author: {
+            name: "Maria Rodriguez",
+            role: "Lead Developer",
+            company: "Design Studio",
+            avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
+          },
+          content: "The component architecture is brilliant. Easy to customize and extend.",
+          rating: 5,
+          variant: "card",
+        },
+        {
+          type: "Testimonial",
+          author: {
+            name: "James Wilson",
+            role: "Frontend Engineer",
+            company: "WebDev Inc",
+            avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+          },
+          content: "Best UI library I've worked with. The attention to detail is remarkable.",
+          rating: 5,
+          variant: "card",
+          highlight: true,
+        },
+        {
+          type: "Testimonial",
+          author: {
+            name: "Emma Thompson",
+            role: "UX Designer",
+            company: "Creative Agency",
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop",
+          },
+          content: "Beautiful components that are a joy to work with. Highly recommended!",
+          rating: 5,
+          variant: "card",
+        },
+      ],
+    },
+  }
+);
 
-export const LongContent: Story = {
+export const LongContent = enhanceStoryForDualMode({
   args: {
-    ...defaultProps,
+    author: {
+      name: "Sarah Chen",
+      role: "Product Designer",
+      company: "Tech Corp",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+    },
     content:
       "Working with React Jedi has been an absolute pleasure. The Server-Driven UI approach revolutionizes how we think about building interfaces. The component library is comprehensive, the theming system is powerful yet intuitive, and the overall developer experience is unmatched. We've been able to deliver stunning, performant applications in record time. This is truly the future of web development.",
+    rating: 5,
+    date: "November 2024",
     variant: "large",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test long testimonial content
+    expect(canvas.getByText(/Working with React Jedi has been an absolute pleasure/)).toBeInTheDocument();
+
+    // Test author information
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+    expect(canvas.getByText(/Product Designer at Tech Corp/)).toBeInTheDocument();
+
+    // Test date
+    expect(canvas.getByText("November 2024")).toBeInTheDocument();
+
+    // Test testimonial structure is present
+    const testimonial = canvasElement.querySelector("div");
+    expect(testimonial).toBeInTheDocument();
+  },
+});

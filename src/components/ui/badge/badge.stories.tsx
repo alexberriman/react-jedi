@@ -148,10 +148,16 @@ export const WithIcon: Story = enhanceStoryForDualMode<typeof Badge>(
     },
   },
   {
-    // For SDUI mode, simplify to text only since complex SVG isn't supported
     renderSpec: {
       type: "Badge",
-      children: "✓ Verified",
+      children: [
+        {
+          type: "Icon",
+          name: "check",
+          size: 16
+        },
+        " Verified"
+      ]
     },
   }
 );
@@ -301,7 +307,6 @@ export const StatusBadge: Story = enhanceStoryForDualMode<typeof Badge>(
     },
   },
   {
-    // For SDUI mode, simplify status badges to text with emoji indicators
     renderSpec: {
       type: "Flex",
       direction: "column",
@@ -311,19 +316,43 @@ export const StatusBadge: Story = enhanceStoryForDualMode<typeof Badge>(
           type: "Badge",
           variant: "default",
           className: "bg-green-500 hover:bg-green-600",
-          children: "🟢 Online",
+          children: [
+            {
+              type: "Icon",
+              name: "circle",
+              size: 8,
+              className: "mr-1"
+            },
+            "Online"
+          ]
         },
         {
           type: "Badge",
           variant: "default",
           className: "bg-yellow-500 hover:bg-yellow-600",
-          children: "🟡 Away",
+          children: [
+            {
+              type: "Icon",
+              name: "circle",
+              size: 8,
+              className: "mr-1"
+            },
+            "Away"
+          ]
         },
         {
           type: "Badge",
           variant: "default",
           className: "bg-red-500 hover:bg-red-600",
-          children: "🔴 Offline",
+          children: [
+            {
+              type: "Icon",
+              name: "circle",
+              size: 8,
+              className: "mr-1"
+            },
+            "Offline"
+          ]
         },
       ],
     },

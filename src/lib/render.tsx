@@ -35,6 +35,7 @@ import {
 import { useDataSources } from "../hooks/use-data-sources";
 import { ErrorBoundary as SexyErrorBoundary } from "../components/ui/error-boundary";
 import { processJsonTemplate, type TemplateVariable } from "./parser/template-engine";
+import { isIconReference, transformIconReference } from "./icons";
 
 // Using the sexy ErrorBoundary from ../components/ui/error-boundary
 
@@ -86,6 +87,12 @@ function renderChildren(
   }
 
   if (isComponentSpec(spec.children)) {
+    // Check if it's an icon reference first
+    if (isIconReference(spec.children)) {
+      const iconElement = transformIconReference(spec.children);
+      return React.createElement(React.Fragment, null, iconElement);
+    }
+    
     const childComponent = renderComponent(
       spec.children,
       options,
@@ -101,6 +108,16 @@ function renderChildren(
 
   if (isComponentSpecArray(spec.children)) {
     const elements = spec.children.map((child, index) => {
+      // Check if it's an icon reference first
+      if (isIconReference(child)) {
+        const iconElement = transformIconReference(child);
+        return React.createElement(
+          React.Fragment,
+          { key: `${spec.type}-icon-${index}` as React.Key },
+          iconElement
+        );
+      }
+      
       const renderedChild = renderComponent(
         child,
         options,
@@ -132,6 +149,16 @@ function renderChildren(
         );
       }
       if (isComponentSpec(child)) {
+        // Check if it's an icon reference first
+        if (isIconReference(child)) {
+          const iconElement = transformIconReference(child);
+          return React.createElement(
+            React.Fragment,
+            { key: `${spec.type}-icon-${index}` as React.Key },
+            iconElement
+          );
+        }
+        
         const renderedChild = renderComponent(
           child,
           options,

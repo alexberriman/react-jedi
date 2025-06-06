@@ -27,6 +27,7 @@ import { Chart } from "../components/ui/chart/chart";
 import { PageSection } from "../components/blocks/page-section";
 import { LatestNews } from "../components/blocks/latest-news";
 import { ProductShowcase } from "../components/blocks/product-showcase";
+import { SDUIIcon } from "./icons";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -806,12 +807,12 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       { fields: [] } // Provide default required props
     ),
     Icon: asComponent(
-      Blocks.Icon as unknown as React.ComponentType<Record<string, unknown>>,
-      { icon: null } // Provide default required props
+      SDUIIcon as unknown as React.ComponentType<Record<string, unknown>>,
+      { name: "help-circle" } // Provide default icon name
     ),
     icon: asComponent(
-      Blocks.Icon as unknown as React.ComponentType<Record<string, unknown>>,
-      { icon: null } // Provide default required props
+      SDUIIcon as unknown as React.ComponentType<Record<string, unknown>>,
+      { name: "help-circle" } // Provide default icon name
     ),
     PhotoFlipCard: asComponent(
       Blocks.PhotoFlipCard as unknown as React.ComponentType<Record<string, unknown>>,

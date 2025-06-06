@@ -69,6 +69,11 @@ export const Default: Story = enhanceStoryForDualMode<typeof Alert>(
       type: "Alert",
       children: [
         {
+          type: "Icon",
+          name: "terminal",
+          size: 16
+        },
+        {
           type: "AlertTitle",
           children: "Heads up!"
         },
@@ -109,6 +114,11 @@ export const Destructive: Story = enhanceStoryForDualMode<typeof Alert>(
       type: "Alert",
       variant: "destructive",
       children: [
+        {
+          type: "Icon",
+          name: "alert-circle",
+          size: 16
+        },
         {
           type: "AlertTitle",
           children: "Error"
@@ -190,6 +200,11 @@ export const InfoAlert: Story = enhanceStoryForDualMode<typeof Alert>(
       variant: "info",
       children: [
         {
+          type: "Icon",
+          name: "info",
+          size: 16
+        },
+        {
           type: "AlertTitle",
           children: "Information"
         },
@@ -229,6 +244,11 @@ export const WarningAlert: Story = enhanceStoryForDualMode<typeof Alert>(
       variant: "warning",
       children: [
         {
+          type: "Icon",
+          name: "alert-triangle",
+          size: 16
+        },
+        {
           type: "AlertTitle",
           children: "Warning"
         },
@@ -267,6 +287,11 @@ export const SuccessAlert: Story = enhanceStoryForDualMode<typeof Alert>(
       type: "Alert",
       variant: "success",
       children: [
+        {
+          type: "Icon",
+          name: "check-circle",
+          size: 16
+        },
         {
           type: "AlertTitle",
           children: "Success"
@@ -340,6 +365,11 @@ export const ComplexContent: Story = enhanceStoryForDualMode<typeof Alert>(
     renderSpec: {
       type: "Alert",
       children: [
+        {
+          type: "Icon",
+          name: "info",
+          size: 16
+        },
         {
           type: "AlertTitle",
           children: "New Features Available"
@@ -418,6 +448,11 @@ export const CompactAlert: Story = enhanceStoryForDualMode<typeof Alert>(
       className: "py-2",
       children: [
         {
+          type: "Icon",
+          name: "terminal",
+          size: 12
+        },
+        {
           type: "AlertDescription",
           className: "text-xs",
           children: "Terminal access granted. Type 'help' for available commands."
@@ -475,6 +510,11 @@ export const MultipleParagraphs: Story = enhanceStoryForDualMode<typeof Alert>(
     renderSpec: {
       type: "Alert",
       children: [
+        {
+          type: "Icon",
+          name: "alert-circle",
+          size: 16
+        },
         {
           type: "AlertTitle",
           children: "System Maintenance"
@@ -582,6 +622,11 @@ export const WithAction: Story = enhanceStoryForDualMode<typeof Alert>(
       type: "Alert",
       children: [
         {
+          type: "Icon",
+          name: "alert-circle",
+          size: 16
+        },
+        {
           type: "AlertTitle",
           children: "Update Available"
         },
@@ -688,6 +733,11 @@ export const Showcase: Story = enhanceStoryForDualMode<typeof Alert>(
           type: "Alert",
           children: [
             {
+              type: "Icon",
+              name: "terminal",
+              size: 16
+            },
+            {
               type: "AlertTitle",
               children: "Default Alert"
             },
@@ -701,6 +751,11 @@ export const Showcase: Story = enhanceStoryForDualMode<typeof Alert>(
           type: "Alert",
           variant: "destructive",
           children: [
+            {
+              type: "Icon",
+              name: "alert-circle",
+              size: 16
+            },
             {
               type: "AlertTitle",
               children: "Destructive Alert"
@@ -716,6 +771,11 @@ export const Showcase: Story = enhanceStoryForDualMode<typeof Alert>(
           variant: "info",
           children: [
             {
+              type: "Icon",
+              name: "info",
+              size: 16
+            },
+            {
               type: "AlertTitle",
               children: "Info Alert"
             },
@@ -730,6 +790,11 @@ export const Showcase: Story = enhanceStoryForDualMode<typeof Alert>(
           variant: "warning",
           children: [
             {
+              type: "Icon",
+              name: "alert-triangle",
+              size: 16
+            },
+            {
               type: "AlertTitle",
               children: "Warning Alert"
             },
@@ -743,6 +808,11 @@ export const Showcase: Story = enhanceStoryForDualMode<typeof Alert>(
           type: "Alert",
           variant: "success",
           children: [
+            {
+              type: "Icon",
+              name: "check-circle",
+              size: 16
+            },
             {
               type: "AlertTitle",
               children: "Success Alert"

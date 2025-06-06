@@ -1,10 +1,5 @@
 [
   {
-    "id": "implement-contextmenu-sdui",
-    "description": "TASK: Implement SDUI support for ContextMenu component. ISSUE: ContextMenu component has no SDUI/JSON rendering support at all. Right-click context menus are not available in SDUI mode. APPROACH: Since context menus share similarities with command palettes, consider enhancing the Command component to handle context menu use cases if direct implementation is complex. ACTION REQUIRED: 1) Assess feasibility of direct ContextMenu SDUI implementation. 2) If complex, enhance Command component to support context menu patterns. 3) Implement right-click event handling in SDUI mode. 4) Support nested menu items, dividers, disabled items, and icons. IMPORTANT: Icons must be actual SVG components, NOT emojis. 5) Ensure proper positioning and dismiss behavior. EXPECTED OUTCOME: Working context menus in SDUI mode with proper SVG icon support, either through direct implementation or Command component enhancement.",
-    "status": "completed"
-  },
-  {
     "id": "fix-datatable-sdui",
     "description": "TASK: Fix DataTable rendering issues in SDUI mode. ISSUE 1 - Missing Checkboxes: Selection checkboxes don't appear at all in SDUI mode, breaking row selection functionality. ISSUE 2 - Status Badge Rendering: Status badges render as plain text instead of styled badge components, losing visual hierarchy and meaning. ROOT CAUSE: Complex components (Checkbox, Badge) within DataTable cells are not being properly processed by SDUI renderer. ACTION REQUIRED: 1) Fix checkbox rendering within table cells - ensure Checkbox component works inside DataTable. 2) Fix badge rendering - status columns should show proper Badge components, not plain text. 3) Ensure all DataTable features work: sorting, filtering, pagination, selection. 4) Test with various data types and column configurations. EXPECTED OUTCOME: DataTable in SDUI mode should have fully functional checkboxes and proper badge rendering matching React mode.",
     "status": "pending"

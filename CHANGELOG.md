@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-06]
 
+- **TASK: Implement SDUI support for ContextMenu component. ISSUE: ContextMenu component has no SDUI/JSON rendering support at all. Right-click context menus are not available in SDUI mode. APPROACH: Since context menus share similarities with command palettes, consider enhancing the Command component to handle context menu use cases if direct implementation is complex. ACTION REQUIRED: 1) Assess feasibility of direct ContextMenu SDUI implementation. 2) If complex, enhance Command component to support context menu patterns. 3) Implement right-click event handling in SDUI mode. 4) Support nested menu items, dividers, disabled items, and icons. IMPORTANT: Icons must be actual SVG components, NOT emojis. 5) Ensure proper positioning and dismiss behavior. EXPECTED OUTCOME: Working context menus in SDUI mode with proper SVG icon support, either through direct implementation or Command component enhancement.**
+
+
+## [2025-06-06]
+
 - **TASK: Implement icon support for Command palette component in SDUI mode. ISSUE: Command component (command palette) displays emoji characters instead of proper icons in SDUI views. This affects the usability and professional appearance of the command palette. IMPACT: Command palettes typically show icons for commands, search, categories - all showing emojis instead. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Analyze command.tsx structure and how icons are passed to command items. 2) Update SDUI renderer to handle actual SVG icon components within Command palette items. 3) Ensure icons work for: command items, categories, search icon, keyboard shortcuts. 4) Remove ALL emoji fallback logic entirely. 5) Test command palette with various icon types and positions. EXPECTED OUTCOME: Command palette in SDUI mode should display proper SVG icons matching the React implementation, maintaining the professional appearance.**
 
 

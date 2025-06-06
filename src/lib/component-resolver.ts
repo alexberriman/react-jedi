@@ -30,6 +30,7 @@ import { ProductShowcase } from "../components/blocks/product-showcase";
 import { SDUIIcon } from "./icons";
 import { InputWithIconWrapper } from "./icons/input-with-icon-wrapper";
 import { DrawerWrapper } from "../components/ui/drawer/drawer-wrapper";
+import { HoverCardWrapper } from "../components/ui/hover-card/hover-card-wrapper";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -155,7 +156,8 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
   defaultProps?: Partial<Record<string, unknown>>
 ): ComponentType => {
   // Wrap the component to accept ComponentProps and extract the relevant props
-  return ((componentProps: ComponentProps) => {
+  // Use forwardRef to support ref forwarding for Radix UI components
+  const forwardRefComponent = React.forwardRef<unknown, ComponentProps>((componentProps, ref) => {
     const { spec, children, theme, state, parentContext, ...restProps } = componentProps;
 
     // Some components expect the full spec object (like CarouselComponent)
@@ -174,6 +176,7 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
           state,
           parentContext,
           ...restProps,
+          ref,
         },
         children
       );
@@ -219,8 +222,13 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
       }
     }
 
-    return React.createElement(component, mergedProps, finalChildren);
-  }) as ComponentType;
+    return React.createElement(component, { ...mergedProps, ref }, finalChildren);
+  });
+  
+  // Set display name for debugging
+  forwardRefComponent.displayName = `AsComponent(${component.displayName || component.name || 'Component'})`;
+  
+  return forwardRefComponent as unknown as ComponentType;
 };
 
 /**
@@ -415,7 +423,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     PopoverTrigger: asComponent(UI.PopoverTrigger),
     PopoverContent: asComponent(UI.PopoverContent),
     PopoverAnchor: asComponent(UI.PopoverAnchor),
-    HoverCard: asComponent(UI.HoverCard),
+    HoverCard: asComponent(HoverCardWrapper as React.ComponentType<Record<string, unknown>>),
     HoverCardTrigger: asComponent(UI.HoverCardTrigger),
     HoverCardContent: asComponent(UI.HoverCardContent),
     Alert: asComponent(UI.Alert),

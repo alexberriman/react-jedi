@@ -222,6 +222,16 @@
   color: oklch(var(--foreground)) !important;
 }
 
+/* ========== Popover Initial State ========== */
+/* Ensure popover content starts hidden to prevent flash on mount */
+[data-radix-popper-content-wrapper] {
+  opacity: 0;
+}
+
+[data-radix-popper-content-wrapper][data-state="open"] {
+  opacity: 1;
+}
+
 /* ========== Core Animation System ========== */
 
 /* Fade Animations */

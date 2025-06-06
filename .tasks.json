@@ -1,10 +1,5 @@
 [
   {
-    "id": "fix-datepicker-flash",
-    "description": "TASK: Fix DatePicker flashing issue on initial render. ISSUE: DatePicker component flashes during initial render (visible → invisible → visible sequence) in BOTH React and SDUI modes. This creates a poor user experience and appears broken. ROOT CAUSE: Likely related to hydration, initial state setup, or CSS loading timing. ACTION REQUIRED: 1) Debug the render lifecycle to identify what causes the flash. 2) Check if it's related to portal rendering, positioning calculations, or style loading. 3) Implement proper initial state to prevent the flash. 4) May need to adjust CSS or use visibility instead of display properties. 5) Test across different scenarios and ensure smooth initial render. EXPECTED OUTCOME: DatePicker should render smoothly without any flashing in both React and SDUI modes.",
-    "status": "pending"
-  },
-  {
     "id": "implement-dropdownmenu-sdui",
     "description": "TASK: Implement SDUI support for DropdownMenu component. ISSUE: DropdownMenu component has no SDUI/JSON rendering support. Dropdown menus are not available in SDUI mode. APPROACH: Consider enhancing Command component to handle dropdown menu patterns if direct implementation is complex, as they share similar item selection patterns. ACTION REQUIRED: 1) Assess if DropdownMenu can be directly implemented in SDUI. 2) If complex, extend Command component to support dropdown patterns. 3) Implement trigger button click handling and menu positioning. 4) Support menu items, separators, sub-menus, and disabled states. 5) Ensure keyboard navigation works properly. EXPECTED OUTCOME: Working dropdown menus in SDUI mode with full feature parity with React mode.",
     "status": "pending"

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Combobox, type ComboboxOption } from "./combobox";
 import { within, userEvent, expect, waitFor } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Form Components/Combobox",
@@ -8,7 +9,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "test"],
   argTypes: {
     value: {
       control: "text",
@@ -76,7 +77,7 @@ const countries: ComboboxOption[] = [
   { value: "br", label: "Brazil" },
 ];
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode<typeof Combobox>({
   args: {
     options: frameworks,
     placeholder: "Select framework...",
@@ -143,16 +144,24 @@ export const Default: Story = {
       expect(trigger).toHaveAttribute("aria-expanded", "false");
     });
   },
-};
+});
 
-export const WithValue: Story = {
+export const WithValue: Story = enhanceStoryForDualMode<typeof Combobox>({
   args: {
     ...Default.args,
     value: "next",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify the combobox shows the selected value
+    const trigger = canvas.getByRole("combobox");
+    expect(trigger).toHaveTextContent("Next.js");
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+  },
+});
 
-export const Fruits: Story = {
+export const Fruits: Story = enhanceStoryForDualMode<typeof Combobox>({
   args: {
     options: fruits,
     placeholder: "Select a fruit...",
@@ -225,46 +234,114 @@ export const Fruits: Story = {
       );
     }
   },
-};
+});
 
-export const Countries: Story = {
+export const Countries: Story = enhanceStoryForDualMode<typeof Combobox>({
   args: {
     options: countries,
     placeholder: "Select a country...",
     searchPlaceholder: "Search countries...",
     emptyText: "No country found.",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify the combobox renders with country options
+    const trigger = canvas.getByRole("combobox");
+    expect(trigger).toHaveTextContent("Select a country...");
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    
+    // Verify it can be opened
+    await userEvent.click(trigger);
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("aria-expanded", "true");
+    });
+  },
+});
 
-export const Disabled: Story = {
+export const Disabled: Story = enhanceStoryForDualMode<typeof Combobox>({
   args: {
     ...Default.args,
     value: "vite",
     disabled: true,
   },
-};
-
-export const CustomWidth: Story = {
-  render: (args) => (
-    <div className="w-96">
-      <Combobox {...args} />
-    </div>
-  ),
-  args: {
-    ...Default.args,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify the combobox is disabled and shows selected value
+    const trigger = canvas.getByRole("combobox");
+    expect(trigger).toHaveTextContent("Vite");
+    expect(trigger).toBeDisabled();
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
   },
-};
+});
 
-export const EmptyOptions: Story = {
+export const CustomWidth: Story = enhanceStoryForDualMode<typeof Combobox>(
+  {
+    render: (args) => (
+      <div className="w-96">
+        <Combobox {...args} />
+      </div>
+    ),
+    args: {
+      ...Default.args,
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Verify the combobox renders within a custom width container
+      const trigger = canvas.getByRole("combobox");
+      expect(trigger).toHaveTextContent("Select framework...");
+      
+      // Check that the container has the correct width class
+      const container = trigger.closest('.w-96');
+      expect(container).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Box",
+      className: "w-96",
+      children: {
+        type: "Combobox",
+        options: frameworks,
+        placeholder: "Select framework...",
+        searchPlaceholder: "Search framework...",
+        emptyText: "No framework found.",
+      },
+    },
+  }
+);
+
+export const EmptyOptions: Story = enhanceStoryForDualMode<typeof Combobox>({
   args: {
     options: [],
     placeholder: "No options available",
     searchPlaceholder: "Type to search...",
     emptyText: "No options to display.",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify the combobox renders with no options
+    const trigger = canvas.getByRole("combobox");
+    expect(trigger).toHaveTextContent("No options available");
+    
+    // Open and verify empty state
+    await userEvent.click(trigger);
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("aria-expanded", "true");
+    });
+    
+    // Wait for empty text to appear
+    await waitFor(() => {
+      const emptyText = document.querySelector('[data-slot="command-empty"]');
+      expect(emptyText).toHaveTextContent("No options to display.");
+    });
+  },
+});
 
-export const LongLabels: Story = {
+export const LongLabels: Story = enhanceStoryForDualMode<typeof Combobox>({
   args: {
     options: [
       { value: "long1", label: "This is a very long option label that might need truncation" },
@@ -277,4 +354,29 @@ export const LongLabels: Story = {
     ],
     placeholder: "Select an option with long labels...",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify the combobox renders with long label options
+    const trigger = canvas.getByRole("combobox");
+    expect(trigger).toHaveTextContent("Select an option with long labels...");
+    
+    // Open combobox to verify options render
+    await userEvent.click(trigger);
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("aria-expanded", "true");
+    });
+    
+    // Wait and verify long labels are visible
+    await waitFor(() => {
+      const commandItems = document.querySelectorAll('[data-slot="command-item"]');
+      expect(commandItems.length).toBe(4);
+      
+      // Check that a long label is present
+      const longLabelItem = [...commandItems].find(el => 
+        el.textContent?.includes("This is a very long option label")
+      );
+      expect(longLabelItem).toBeInTheDocument();
+    });
+  },
+});

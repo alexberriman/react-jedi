@@ -17,7 +17,7 @@ import {
   createChildStyleContext,
   type StyleContext,
 } from "./theme/style-extension";
-import { defaultComponentResolver } from "./component-resolver";
+import { defaultComponentResolver, getUnwrappedComponent } from "./component-resolver";
 import type { DataSourcesState } from "../hooks/use-data-sources";
 import { createStateManager, type StateManager, StateProvider } from "./state";
 import {
@@ -36,6 +36,110 @@ import { useDataSources } from "../hooks/use-data-sources";
 import { ErrorBoundary as SexyErrorBoundary } from "../components/ui/error-boundary";
 import { processJsonTemplate, type TemplateVariable } from "./parser/template-engine";
 import { isIconReference, transformIconReference } from "./icons";
+
+// Import helper functions from component-resolver
+const transformPropsForComponent = (spec: Record<string, unknown>, actualProps: Record<string, unknown>): Record<string, unknown> => {
+  if (spec.type === "Heading" && "level" in actualProps && typeof actualProps.level === "number") {
+    return {
+      ...actualProps,
+      level: `h${actualProps.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6",
+    };
+  }
+
+  if (spec.type === "ToggleGroup" || spec.type === "ToggleGroupItem") {
+    const { type, children, ...componentProps } = spec;
+    return {
+      ...actualProps,
+      ...componentProps,
+    };
+  }
+
+  if (spec.type === "Input") {
+    return transformInputProps(actualProps);
+  }
+
+  if (spec.type === "Flex") {
+    return transformFlexProps(actualProps);
+  }
+
+  return actualProps;
+};
+
+const transformInputProps = (actualProps: Record<string, unknown>): Record<string, unknown> => {
+  const transformed = { ...actualProps };
+  
+  // Transform inputType to type for HTML input element
+  if ("inputType" in actualProps) {
+    transformed.type = actualProps.inputType;
+    delete transformed.inputType;
+  }
+  
+  return transformed;
+};
+
+const transformFlexProps = (actualProps: Record<string, unknown>): Record<string, unknown> => {
+  const transformed = { ...actualProps };
+  
+  // Transform hyphenated direction values to camelCase
+  if ("direction" in actualProps && typeof actualProps.direction === "string") {
+    const directionMap: Record<string, string> = {
+      "row": "row",
+      "column": "column",
+      "row-reverse": "rowReverse",
+      "column-reverse": "columnReverse"
+    };
+    transformed.direction = directionMap[actualProps.direction] || actualProps.direction;
+  }
+  
+  // Transform hyphenated wrap values to camelCase
+  if ("wrap" in actualProps && typeof actualProps.wrap === "string") {
+    const wrapMap: Record<string, string> = {
+      "nowrap": "nowrap",
+      "wrap": "wrap",
+      "wrap-reverse": "wrapReverse"
+    };
+    transformed.wrap = wrapMap[actualProps.wrap] || actualProps.wrap;
+  }
+  
+  // Transform justify values
+  if ("justify" in actualProps && typeof actualProps.justify === "string") {
+    const justifyMap: Record<string, string> = {
+      "start": "start",
+      "end": "end",
+      "center": "center",
+      "space-between": "between",
+      "space-around": "around",
+      "space-evenly": "evenly"
+    };
+    transformed.justify = justifyMap[actualProps.justify] || actualProps.justify;
+  }
+  
+  return transformed;
+};
+
+const convertActionPropsToHandlers = (
+  props: Record<string, unknown>,
+  handlers?: Record<string, (...args: unknown[]) => unknown>
+): Record<string, unknown> => {
+  const converted = { ...props };
+  
+  for (const [key, value] of Object.entries(props)) {
+    if (key.endsWith('Action') && typeof value === 'string') {
+      // Always remove the Action prop to prevent React warnings
+      delete converted[key];
+      
+      // Only add the handler if we have handlers defined and the handler exists
+      if (handlers) {
+        const eventName = key.slice(0, -6);
+        const handler = handlers[value];
+        if (handler) {
+          converted[eventName] = handler;
+        }
+      }
+    }
+  }
+  return converted;
+};
 
 // Using the sexy ErrorBoundary from ../components/ui/error-boundary
 
@@ -75,7 +179,8 @@ function renderChildren(
   spec: ComponentSpec,
   options: RenderOptions,
   parentContext: Record<string, unknown>,
-  parentStyleContext?: StyleContext
+  parentStyleContext?: StyleContext,
+  parentHasAsChild: boolean = false
 ): React.ReactElement | null {
   if (!spec.children) {
     return null;
@@ -95,13 +200,26 @@ function renderChildren(
     
     const childComponent = renderComponent(
       spec.children,
-      options,
+      {
+        ...options,
+        // Disable error boundaries for children of components with asChild
+        // This allows Radix UI's Slot component to properly merge props
+        errorBoundaries: parentHasAsChild ? false : options.errorBoundaries,
+      },
       {
         ...parentContext,
         parent: { type: spec.type, id: spec.id },
       },
-      parentStyleContext
+      parentStyleContext,
+      parentHasAsChild
     );
+    
+    // If parent has asChild, return the child directly without Fragment wrapper
+    // This is crucial for Radix UI's Slot component to work properly
+    if (parentHasAsChild) {
+      return childComponent;
+    }
+    
     // Always return a consistent type
     return React.createElement(React.Fragment, null, childComponent);
   }
@@ -120,13 +238,23 @@ function renderChildren(
       
       const renderedChild = renderComponent(
         child,
-        options,
+        {
+          ...options,
+          // Disable error boundaries for children of components with asChild
+          errorBoundaries: parentHasAsChild ? false : options.errorBoundaries,
+        },
         {
           ...parentContext,
           parent: { type: spec.type, id: spec.id },
         },
-        parentStyleContext
+        parentStyleContext,
+        parentHasAsChild
       );
+
+      // If parent has asChild and there's only one child, return it directly
+      if (parentHasAsChild && Array.isArray(spec.children) && spec.children.length === 1) {
+        return renderedChild;
+      }
 
       return React.createElement(
         React.Fragment,
@@ -134,6 +262,12 @@ function renderChildren(
         renderedChild
       );
     });
+    
+    // If parent has asChild and there's only one element, return it directly
+    if (parentHasAsChild && elements.length === 1) {
+      return elements[0];
+    }
+    
     // Return wrapped elements
     return React.createElement(React.Fragment, null, ...elements);
   }
@@ -161,12 +295,17 @@ function renderChildren(
         
         const renderedChild = renderComponent(
           child,
-          options,
+          {
+            ...options,
+            // Disable error boundaries for children of components with asChild
+            errorBoundaries: parentHasAsChild ? false : options.errorBoundaries,
+          },
           {
             ...parentContext,
             parent: { type: spec.type, id: spec.id },
           },
-          parentStyleContext
+          parentStyleContext,
+          parentHasAsChild
         );
         return React.createElement(
           React.Fragment,
@@ -406,13 +545,113 @@ function resolveBindings(spec: ComponentSpec, options: RenderOptions): Component
 }
 
 /**
+ * Gets or creates a memoized version of a component
+ */
+function getMemoizedComponent(
+  Component: ComponentType,
+  componentType: string,
+  options: RenderOptions
+): ComponentType {
+  const memoOptions = options.memoization || defaultMemoizationOptions;
+  if (!memoOptions.enabled) {
+    return Component;
+  }
+  
+  const cacheKey = `${componentType}_${memoOptions.enabled}_${memoOptions.trackPerformance}`;
+  
+  // Check if we already have a memoized version
+  if (!memoizedComponentRegistry[cacheKey]) {
+    memoizedComponentRegistry[cacheKey] = createMemoizedComponent(
+      Component,
+      componentType,
+      memoOptions
+    );
+  }
+  
+  return memoizedComponentRegistry[cacheKey];
+}
+
+/**
+ * Creates style context for component rendering
+ */
+function createComponentStyleContext(
+  parentStyleContext: StyleContext | undefined,
+  options: RenderOptions,
+  theme: RenderOptions["theme"]
+): StyleContext | undefined {
+  if (parentStyleContext) {
+    return parentStyleContext;
+  }
+  
+  if (options.styleContext) {
+    return options.styleContext;
+  }
+  
+  const { useStyleExtension = true } = options;
+  
+  if (useStyleExtension && theme && (theme as ThemeSpecification).styleExtension) {
+    const tokens = createTokenResolver(
+      theme as ThemeSpecification,
+      createTokenCollection(extractTokensFromTheme(theme as ThemeSpecification))
+    );
+    return {
+      theme: theme as ThemeSpecification,
+      tokens,
+      componentPath: [],
+    };
+  }
+  
+  return undefined;
+}
+
+/**
+ * Renders a component using the unwrapped component when parent has asChild
+ */
+function renderUnwrappedComponent(
+  unwrappedComponent: React.ComponentType<Record<string, unknown>>,
+  resolvedSpec: ComponentSpec,
+  children: React.ReactNode,
+  styleOverrides: { className?: string; style?: React.CSSProperties },
+  options: RenderOptions
+): React.ReactElement {
+  // Extract actual props excluding internal properties
+  const actualProps = omit(resolvedSpec as Record<string, unknown>, [
+    "spec", "children", "theme", "state", "parentContext", "type", "id",
+    "conditionalProps", "when", "actions", "computedProps"
+  ]);
+  const transformedProps = transformPropsForComponent(resolvedSpec, actualProps);
+  const propsWithHandlers = convertActionPropsToHandlers(transformedProps, options.handlers);
+  
+  // Build final props
+  const finalProps: Record<string, unknown> = {
+    ...propsWithHandlers,
+    className: cn(resolvedSpec.className as string | undefined, styleOverrides.className),
+    style: { 
+      ...(resolvedSpec.style as React.CSSProperties | undefined), 
+      ...styleOverrides.style 
+    },
+    children,
+  };
+  
+  // Clean up undefined values
+  for (const key of Object.keys(finalProps)) {
+    if (finalProps[key] === undefined) {
+      delete finalProps[key];
+    }
+  }
+  
+  return React.createElement(unwrappedComponent, finalProps);
+}
+
+/**
  * Renders a component spec into a React element
  */
 function renderComponent(
   spec: ComponentSpec,
   options: RenderOptions = {},
   parentContext: Record<string, unknown> = {},
-  parentStyleContext?: StyleContext
+  parentStyleContext?: StyleContext,
+  parentHasAsChild: boolean = false
 ): React.ReactElement | null {
   const {
     resolver = defaultComponentResolver,
@@ -456,40 +695,8 @@ function renderComponent(
     return development ? renderUnknownComponent(resolvedSpec.type) : null;
   }
 
-  // Apply memoization if enabled
-  const memoOptions = options.memoization || defaultMemoizationOptions;
-  if (memoOptions.enabled) {
-    const cacheKey = `${resolvedSpec.type}_${memoOptions.enabled}_${memoOptions.trackPerformance}`;
-
-    // Check if we already have a memoized version
-    if (!memoizedComponentRegistry[cacheKey]) {
-      memoizedComponentRegistry[cacheKey] = createMemoizedComponent(
-        Component,
-        resolvedSpec.type,
-        memoOptions
-      );
-    }
-
-    Component = memoizedComponentRegistry[cacheKey];
-  }
-
   // Create or inherit style context
-  const styleContext =
-    parentStyleContext ||
-    options.styleContext ||
-    (useStyleExtension && theme && (theme as ThemeSpecification).styleExtension
-      ? (() => {
-          const tokens = createTokenResolver(
-            theme as ThemeSpecification,
-            createTokenCollection(extractTokensFromTheme(theme as ThemeSpecification))
-          );
-          return {
-            theme: theme as ThemeSpecification,
-            tokens,
-            componentPath: [],
-          };
-        })()
-      : undefined);
+  const styleContext = createComponentStyleContext(parentStyleContext, options, theme);
 
   // Process style overrides from theme
   const styleOverrides = applyStyleOverrides(resolvedSpec, theme, styleContext);
@@ -500,8 +707,25 @@ function renderComponent(
       ? createChildStyleContext(styleContext, resolvedSpec, styleOverrides)
       : undefined;
 
+  // Check if this component has asChild prop
+  const hasAsChild = resolvedSpec.asChild === true;
+  
   // Render children with style context
-  const children = renderChildren(resolvedSpec, options, parentContext, childStyleContext);
+  const children = renderChildren(resolvedSpec, options, parentContext, childStyleContext, hasAsChild);
+
+  // If parent has asChild=true, use the unwrapped component
+  // This allows Radix UI's Slot component to properly merge props
+  if (parentHasAsChild) {
+    const unwrappedComponent = getUnwrappedComponent(Component);
+    if (unwrappedComponent) {
+      return renderUnwrappedComponent(unwrappedComponent, resolvedSpec, children, styleOverrides, options);
+    }
+  }
+
+  // Apply memoization if enabled (only for non-asChild cases)
+  if (!parentHasAsChild) {
+    Component = getMemoizedComponent(Component, resolvedSpec.type, options);
+  }
 
   // Build component props
   const componentProps = buildComponentProps(

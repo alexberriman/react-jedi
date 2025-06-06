@@ -149,6 +149,9 @@ const convertActionPropsToHandlers = (
   return converted;
 };
 
+// Store references to unwrapped components
+const unwrappedComponentRegistry = new WeakMap<ComponentType, React.ComponentType<Record<string, unknown>>>();
+
 // Helper function to safely cast components to accept our standard ComponentProps
 // Special handling for certain components that have required props
 const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
@@ -228,7 +231,12 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
   // Set display name for debugging
   forwardRefComponent.displayName = `AsComponent(${component.displayName || component.name || 'Component'})`;
   
-  return forwardRefComponent as unknown as ComponentType;
+  const wrappedComponent = forwardRefComponent as unknown as ComponentType;
+  
+  // Store reference to the unwrapped component
+  unwrappedComponentRegistry.set(wrappedComponent, component);
+  
+  return wrappedComponent;
 };
 
 /**
@@ -1016,4 +1024,13 @@ export function createCustomResolver(
 
     return component || null;
   };
+}
+
+/**
+ * Get the unwrapped component (without asComponent wrapper)
+ * This is used when rendering children of components with asChild=true
+ * to allow Radix UI's Slot component to properly merge props
+ */
+export function getUnwrappedComponent(wrappedComponent: ComponentType): React.ComponentType<Record<string, unknown>> | null {
+  return unwrappedComponentRegistry.get(wrappedComponent) || null;
 }

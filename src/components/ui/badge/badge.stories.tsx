@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { Badge } from "./badge";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@/.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/Badge",

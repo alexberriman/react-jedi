@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-06]
 
+- **TASK: Fix DataTable rendering issues in SDUI mode. ISSUE 1 - Missing Checkboxes: Selection checkboxes don't appear at all in SDUI mode, breaking row selection functionality. ISSUE 2 - Status Badge Rendering: Status badges render as plain text instead of styled badge components, losing visual hierarchy and meaning. ROOT CAUSE: Complex components (Checkbox, Badge) within DataTable cells are not being properly processed by SDUI renderer. ACTION REQUIRED: 1) Fix checkbox rendering within table cells - ensure Checkbox component works inside DataTable. 2) Fix badge rendering - status columns should show proper Badge components, not plain text. 3) Ensure all DataTable features work: sorting, filtering, pagination, selection. 4) Test with various data types and column configurations. EXPECTED OUTCOME: DataTable in SDUI mode should have fully functional checkboxes and proper badge rendering matching React mode.**
+
+
+## [2025-06-06]
+
 - **TASK: Fix HoverCard hover interactions in SDUI mode. CRITICAL ISSUE: HoverCard component hover interactions don't work at all in SDUI mode - hovering over triggers shows nothing. This breaks tooltip-like information display. SEVERITY: Critical - hover interactions are essential for HoverCard. ROOT CAUSE: Mouse event handlers (onMouseEnter/onMouseLeave) are not properly connected in SDUI rendering. ACTION REQUIRED: 1) Debug why hover events aren't triggering in SDUI mode. 2) Implement proper mouse event handler binding for SDUI. 3) Ensure hover delay timing works correctly. 4) Support hover card positioning and animations. 5) Handle edge cases: viewport boundaries, rapid hover/unhover. 6) Test with various trigger elements and card content. EXPECTED OUTCOME: HoverCards should appear on hover in SDUI mode exactly as they do in React mode.**
 
 

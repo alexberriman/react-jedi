@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Hero } from "./hero";
 import { Rocket, Star, Code2, Zap } from "lucide-react";
 import { within, userEvent, waitFor, expect } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta: Meta<typeof Hero> = {
   title: "Blocks/Hero",
@@ -33,7 +34,7 @@ const meta: Meta<typeof Hero> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const AnimatedCentered: Story = {
+export const AnimatedCentered: Story = enhanceStoryForDualMode<typeof Hero>({
   args: {
     title: "Welcome to the Future 2025",
     subtitle: "Next Generation Platform",
@@ -78,98 +79,155 @@ export const AnimatedCentered: Story = {
     expect(primaryButton).toHaveAttribute("href", "#");
     expect(secondaryButton).toHaveAttribute("href", "#");
   },
-};
+});
 
-export const LeftAlignedAnimated: Story = {
-  args: {
-    title: "Build Something Amazing",
-    subtitle: "Developer First",
-    description:
-      "Create beautiful, responsive websites with our intuitive design system. No compromises on performance or accessibility.",
-    variant: "left-aligned",
-    animated: true,
-    primaryAction: {
-      text: "Start Building",
-      onClick: () => alert("Start building clicked!"),
-    },
-    secondaryAction: {
-      text: "View Documentation",
-      variant: "ghost",
-    },
-  },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    await waitFor(
-      () => {
-        expect(canvas.getByText("Build Something Amazing")).toBeInTheDocument();
-        expect(canvas.getByText("Developer First")).toBeInTheDocument();
+export const LeftAlignedAnimated: Story = enhanceStoryForDualMode<typeof Hero>(
+  {
+    args: {
+      title: "Build Something Amazing",
+      subtitle: "Developer First",
+      description:
+        "Create beautiful, responsive websites with our intuitive design system. No compromises on performance or accessibility.",
+      variant: "left-aligned",
+      animated: true,
+      primaryAction: {
+        text: "Start Building",
+        onClick: () => alert("Start building clicked!"),
       },
-      { timeout: 10_000 }
-    );
-
-    const primaryButton = canvas.getByRole("button", { name: "Start Building" });
-    expect(primaryButton).toBeInTheDocument();
-
-    const originalAlert = globalThis.alert;
-    let alertMessage = "";
-    globalThis.alert = (msg: string) => {
-      alertMessage = msg;
-    };
-
-    await userEvent.click(primaryButton);
-    expect(alertMessage).toBe("Start building clicked!");
-
-    globalThis.alert = originalAlert;
-  },
-};
-
-export const SplitWithParallax: Story = {
-  args: {
-    title: "The Modern Way to Build",
-    subtitle: "Revolutionary Design",
-    description:
-      "Transform your development workflow with our powerful component library and design system.",
-    variant: "split",
-    animated: true,
-    parallax: true,
-    primaryAction: {
-      text: "Try It Now",
-    },
-    secondaryAction: {
-      text: "Watch Demo",
-      variant: "secondary",
-    },
-    children: (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl animate-scale-in animation-delay-800">
-        <img
-          src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80"
-          alt="Team collaboration"
-          className="w-full h-full object-cover"
-        />
-      </div>
-    ),
-  },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    await waitFor(
-      () => {
-        expect(canvas.getByText("The Modern Way to Build")).toBeInTheDocument();
-        expect(canvas.getByAltText("Team collaboration")).toBeInTheDocument();
+      secondaryAction: {
+        text: "View Documentation",
+        variant: "ghost",
       },
-      { timeout: 10_000 }
-    );
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-    const primaryButton = canvas.getByRole("button", { name: "Try It Now" });
-    const secondaryButton = canvas.getByRole("button", { name: "Watch Demo" });
+      await waitFor(
+        () => {
+          expect(canvas.getByText("Build Something Amazing")).toBeInTheDocument();
+          expect(canvas.getByText("Developer First")).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
 
-    expect(primaryButton).toBeInTheDocument();
-    expect(secondaryButton).toBeInTheDocument();
+      const primaryButton = canvas.getByRole("button", { name: "Start Building" });
+      expect(primaryButton).toBeInTheDocument();
+
+      const originalAlert = globalThis.alert;
+      let alertMessage = "";
+      globalThis.alert = (msg: string) => {
+        alertMessage = msg;
+      };
+
+      await userEvent.click(primaryButton);
+      expect(alertMessage).toBe("Start building clicked!");
+
+      globalThis.alert = originalAlert;
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "hero",
+      title: "Build Something Amazing",
+      subtitle: "Developer First",
+      description:
+        "Create beautiful, responsive websites with our intuitive design system. No compromises on performance or accessibility.",
+      variant: "left-aligned",
+      animated: true,
+      primaryAction: {
+        text: "Start Building",
+        onClick: "handleStartBuilding",
+      },
+      secondaryAction: {
+        text: "View Documentation",
+        variant: "ghost",
+      },
+      handlers: {
+        handleStartBuilding: () => alert("Start building clicked!"),
+      },
+    },
+  }
+);
 
-export const WithAnimatedBackground: Story = {
+export const SplitWithParallax: Story = enhanceStoryForDualMode<typeof Hero>(
+  {
+    args: {
+      title: "The Modern Way to Build",
+      subtitle: "Revolutionary Design",
+      description:
+        "Transform your development workflow with our powerful component library and design system.",
+      variant: "split",
+      animated: true,
+      parallax: true,
+      primaryAction: {
+        text: "Try It Now",
+      },
+      secondaryAction: {
+        text: "Watch Demo",
+        variant: "secondary",
+      },
+      children: (
+        <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl animate-scale-in animation-delay-800">
+          <img
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80"
+            alt="Team collaboration"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      ),
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+
+      await waitFor(
+        () => {
+          expect(canvas.getByText("The Modern Way to Build")).toBeInTheDocument();
+          expect(canvas.getByAltText("Team collaboration")).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+
+      const primaryButton = canvas.getByRole("button", { name: "Try It Now" });
+      const secondaryButton = canvas.getByRole("button", { name: "Watch Demo" });
+
+      expect(primaryButton).toBeInTheDocument();
+      expect(secondaryButton).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "hero",
+      title: "The Modern Way to Build",
+      subtitle: "Revolutionary Design",
+      description:
+        "Transform your development workflow with our powerful component library and design system.",
+      variant: "split",
+      animated: true,
+      parallax: true,
+      primaryAction: {
+        text: "Try It Now",
+      },
+      secondaryAction: {
+        text: "Watch Demo",
+        variant: "secondary",
+      },
+      children: [
+        {
+          type: "Box",
+          className: "relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl animate-scale-in animation-delay-800",
+          children: {
+            type: "Image",
+            src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+            alt: "Team collaboration",
+            className: "w-full h-full object-cover",
+          },
+        },
+      ],
+    },
+  }
+);
+
+export const WithAnimatedBackground: Story = enhanceStoryForDualMode<typeof Hero>({
   args: {
     title: "Innovate Without Limits",
     subtitle: "Enterprise Ready",
@@ -194,9 +252,9 @@ export const WithAnimatedBackground: Story = {
       { timeout: 10_000 }
     );
   },
-};
+});
 
-export const AnimatedGradient: Story = {
+export const AnimatedGradient: Story = enhanceStoryForDualMode<typeof Hero>({
   args: {
     title: "Design Beautiful Interfaces",
     subtitle: "UI/UX Excellence",
@@ -231,9 +289,9 @@ export const AnimatedGradient: Story = {
     expect(primaryButton).toBeInTheDocument();
     expect(secondaryButton).toBeInTheDocument();
   },
-};
+});
 
-export const MinimalAnimated: Story = {
+export const MinimalAnimated: Story = enhanceStoryForDualMode<typeof Hero>({
   args: {
     title: "Simple. Powerful. Beautiful.",
     description: "Everything you need to build modern web applications.",
@@ -257,55 +315,159 @@ export const MinimalAnimated: Story = {
       { timeout: 10_000 }
     );
   },
-};
+});
 
-export const FloatingElements: Story = {
-  args: {
-    title: "Trusted by Industry Leaders",
-    description: "Join thousands of companies building their future with our platform.",
-    variant: "centered",
-    animated: true,
-    floatingShapes: true,
-    primaryAction: {
-      text: "Start Free Trial",
-      variant: "default",
-    },
-    children: (
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 stagger-animation">
-        {[
-          { name: "Google", icon: <Star className="h-6 w-6" /> },
-          { name: "Microsoft", icon: <Code2 className="h-6 w-6" /> },
-          { name: "Amazon", icon: <Rocket className="h-6 w-6" /> },
-          { name: "Apple", icon: <Zap className="h-6 w-6" /> },
-        ].map((company) => (
-          <div
-            key={company.name}
-            className="flex flex-col items-center justify-center gap-2 text-muted-foreground/50 hover-scale"
-          >
-            {company.icon}
-            <div className="text-xl font-bold">{company.name}</div>
-          </div>
-        ))}
-      </div>
-    ),
-  },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    await waitFor(
-      () => {
-        expect(canvas.getByText("Trusted by Industry Leaders")).toBeInTheDocument();
-        expect(canvas.getByText("Google")).toBeInTheDocument();
-        expect(canvas.getByText("Microsoft")).toBeInTheDocument();
-        expect(canvas.getByText("Amazon")).toBeInTheDocument();
-        expect(canvas.getByText("Apple")).toBeInTheDocument();
+export const FloatingElements: Story = enhanceStoryForDualMode<typeof Hero>(
+  {
+    args: {
+      title: "Trusted by Industry Leaders",
+      description: "Join thousands of companies building their future with our platform.",
+      variant: "centered",
+      animated: true,
+      floatingShapes: true,
+      primaryAction: {
+        text: "Start Free Trial",
+        variant: "default",
       },
-      { timeout: 10_000 }
-    );
-  },
-};
+      children: (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 stagger-animation">
+          {[
+            { name: "Google", icon: <Star className="h-6 w-6" /> },
+            { name: "Microsoft", icon: <Code2 className="h-6 w-6" /> },
+            { name: "Amazon", icon: <Rocket className="h-6 w-6" /> },
+            { name: "Apple", icon: <Zap className="h-6 w-6" /> },
+          ].map((company) => (
+            <div
+              key={company.name}
+              className="flex flex-col items-center justify-center gap-2 text-muted-foreground/50 hover-scale"
+            >
+              {company.icon}
+              <div className="text-xl font-bold">{company.name}</div>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-export const VideoBackgroundAnimated: Story = {
+      await waitFor(
+        () => {
+          expect(canvas.getByText("Trusted by Industry Leaders")).toBeInTheDocument();
+          expect(canvas.getByText("Google")).toBeInTheDocument();
+          expect(canvas.getByText("Microsoft")).toBeInTheDocument();
+          expect(canvas.getByText("Amazon")).toBeInTheDocument();
+          expect(canvas.getByText("Apple")).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+    },
+  },
+  {
+    renderSpec: {
+      type: "hero",
+      title: "Trusted by Industry Leaders",
+      description: "Join thousands of companies building their future with our platform.",
+      variant: "centered",
+      animated: true,
+      floatingShapes: true,
+      primaryAction: {
+        text: "Start Free Trial",
+        variant: "default",
+      },
+      children: [
+        {
+          type: "Box",
+          className: "grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 stagger-animation",
+          children: [
+            {
+              type: "Flex",
+              direction: "column",
+              align: "center",
+              justify: "center",
+              gap: "sm",
+              className: "text-muted-foreground/50 hover-scale",
+              children: [
+                {
+                  type: "Text",
+                  children: "⭐",
+                  className: "text-xl",
+                },
+                {
+                  type: "Text",
+                  className: "text-xl font-bold",
+                  children: "Google",
+                },
+              ],
+            },
+            {
+              type: "Flex",
+              direction: "column",
+              align: "center",
+              justify: "center",
+              gap: "sm",
+              className: "text-muted-foreground/50 hover-scale",
+              children: [
+                {
+                  type: "Text",
+                  children: "💻",
+                  className: "text-xl",
+                },
+                {
+                  type: "Text",
+                  className: "text-xl font-bold",
+                  children: "Microsoft",
+                },
+              ],
+            },
+            {
+              type: "Flex",
+              direction: "column",
+              align: "center",
+              justify: "center",
+              gap: "sm",
+              className: "text-muted-foreground/50 hover-scale",
+              children: [
+                {
+                  type: "Text",
+                  children: "🚀",
+                  className: "text-xl",
+                },
+                {
+                  type: "Text",
+                  className: "text-xl font-bold",
+                  children: "Amazon",
+                },
+              ],
+            },
+            {
+              type: "Flex",
+              direction: "column",
+              align: "center",
+              justify: "center",
+              gap: "sm",
+              className: "text-muted-foreground/50 hover-scale",
+              children: [
+                {
+                  type: "Text",
+                  children: "⚡",
+                  className: "text-xl",
+                },
+                {
+                  type: "Text",
+                  className: "text-xl font-bold",
+                  children: "Apple",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  }
+);
+
+export const VideoBackgroundAnimated: Story = enhanceStoryForDualMode<typeof Hero>({
   args: {
     title: "Experience the Future",
     subtitle: "Immersive Technology",
@@ -329,9 +491,9 @@ export const VideoBackgroundAnimated: Story = {
       { timeout: 10_000 }
     );
   },
-};
+});
 
-export const GlassMorphism: Story = {
+export const GlassMorphism: Story = enhanceStoryForDualMode<typeof Hero>({
   args: {
     title: "Next-Gen Interface Design",
     subtitle: "Glassmorphism Example",
@@ -361,4 +523,4 @@ export const GlassMorphism: Story = {
       { timeout: 10_000 }
     );
   },
-};
+});

@@ -23,7 +23,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[350px] max-w-full">
+      <div className="w-[350px] max-w-full py-8">
         <Story />
       </div>
     ),
@@ -278,7 +278,7 @@ export const IndeterminateProgress: Story = enhanceStoryForDualMode<typeof Progr
       // This is a demo of how it could be customized
       return (
         <div className="w-96 space-y-4">
-          <div className="bg-primary/20 relative h-2 w-full overflow-hidden rounded-full">
+          <div className="bg-primary/20 relative h-3 w-full overflow-hidden rounded-full">
             <div className="bg-primary h-full w-1/2 animate-pulse" />
           </div>
           <p className="text-center text-sm text-muted-foreground">Loading...</p>
@@ -301,7 +301,7 @@ export const IndeterminateProgress: Story = enhanceStoryForDualMode<typeof Progr
       children: [
         {
           type: "Box",
-          className: "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full",
+          className: "bg-primary/20 relative h-3 w-full overflow-hidden rounded-full",
           children: {
             type: "Box",
             className: "bg-primary h-full w-1/2 animate-pulse",

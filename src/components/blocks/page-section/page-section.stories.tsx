@@ -143,7 +143,7 @@ export const FeatureWithImageLeft: Story = {
   args: {
     layout: {
       type: "image-left",
-      imageUrl: "https://picsum.photos/600/400",
+      imageUrl: "https://placehold.co/600x400/EEE/31343C",
       imageAlt: "Feature demonstration",
       imageZoomOnHover: true,
       imageShadow: true,
@@ -198,7 +198,7 @@ export const FeatureWithImageRight: Story = {
   args: {
     layout: {
       type: "image-right",
-      imageUrl: "https://picsum.photos/600/400?random=1",
+      imageUrl: "https://placehold.co/600x400/EEE/31343C",
       imageAlt: "Collaboration features",
       imageZoomOnHover: true,
       imageShadow: true,
@@ -255,7 +255,7 @@ export const AlternatingFeatures: Story = {
       <PageSection
         layout={{
           type: "feature-alternating",
-          imageUrl: "https://picsum.photos/600/400?random=2",
+          imageUrl: "https://placehold.co/600x400/EEE/31343C",
           imageAlt: "Feature 1",
           imageZoomOnHover: true,
           imageShadow: true,
@@ -284,7 +284,7 @@ export const AlternatingFeatures: Story = {
       <PageSection
         layout={{
           type: "feature-alternating",
-          imageUrl: "https://picsum.photos/600/400?random=3",
+          imageUrl: "https://placehold.co/600x400/EEE/31343C",
           imageAlt: "Feature 2",
           imageZoomOnHover: true,
           imageShadow: true,
@@ -320,7 +320,7 @@ export const AlternatingFeatures: Story = {
       <PageSection
         layout={{
           type: "feature-alternating",
-          imageUrl: "https://picsum.photos/600/400?random=4",
+          imageUrl: "https://placehold.co/600x400/EEE/31343C",
           imageAlt: "Feature 3",
           imageZoomOnHover: true,
           imageShadow: true,
@@ -513,7 +513,7 @@ export const WithBackgroundImage: Story = {
     variant: "full-width",
     background: {
       type: "image",
-      value: "https://images.unsplash.com/photo-1557683316-973673baf926?w=1600",
+      value: "https://placehold.co/1600x900/EEE/31343C",
       opacity: 0.1,
     },
     heading: {
@@ -546,7 +546,7 @@ export const WithParallax: Story = {
     variant: "full-width",
     background: {
       type: "image",
-      value: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600",
+      value: "https://placehold.co/1600x900/EEE/31343C",
     },
     parallax: true,
     heading: {
@@ -865,7 +865,7 @@ export const FullMarketingPage: Story = {
       <PageSection
         layout={{
           type: "feature-alternating",
-          imageUrl: "https://picsum.photos/600/400?random=20",
+          imageUrl: "https://placehold.co/600x400/EEE/31343C",
           imageZoomOnHover: true,
           imageShadow: true,
         }}
@@ -1040,7 +1040,7 @@ export const TestimonialsSection: Story = {
             </p>
             <div className="flex items-center gap-3">
               <img
-                src="https://picsum.photos/40/40?random=10"
+                src="https://placehold.co/40x40/EEE/31343C"
                 alt="Customer"
                 className="w-10 h-10 rounded-full"
               />
@@ -1062,7 +1062,7 @@ export const TestimonialsSection: Story = {
             </p>
             <div className="flex items-center gap-3">
               <img
-                src="https://picsum.photos/40/40?random=11"
+                src="https://placehold.co/40x40/EEE/31343C"
                 alt="Customer"
                 className="w-10 h-10 rounded-full"
               />
@@ -1084,7 +1084,7 @@ export const TestimonialsSection: Story = {
             </p>
             <div className="flex items-center gap-3">
               <img
-                src="https://picsum.photos/40/40?random=12"
+                src="https://placehold.co/40x40/EEE/31343C"
                 alt="Customer"
                 className="w-10 h-10 rounded-full"
               />

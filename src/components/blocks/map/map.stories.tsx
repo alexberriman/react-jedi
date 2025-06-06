@@ -350,7 +350,7 @@ export const EventVenue: Story = {
         infoWindow: {
           title: "Annual Gala 2024",
           content: "Join us for an evening of art and celebration",
-          image: "https://picsum.photos/400/300",
+          image: "https://placehold.co/400x300/EEE/31343C",
           actions: [
             { label: "Get Tickets", href: "#" },
             { label: "Event Details", href: "#" },

@@ -10,7 +10,7 @@ const sampleMembers: TeamMember[] = [
     department: "Executive",
     bio: "Visionary leader with 15+ years of experience in tech startups. Passionate about building products that make a difference in people's lives.",
     avatar:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face",
+      "https://placehold.co/150x150/EEE/31343C",
     email: "sarah@company.com",
     phone: "+1 (555) 123-4567",
     location: "San Francisco, CA",
@@ -34,7 +34,7 @@ const sampleMembers: TeamMember[] = [
     department: "Engineering",
     bio: "Full-stack engineer turned technical leader. Expertise in scalable architecture and building high-performance engineering teams.",
     avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      "https://placehold.co/150x150/EEE/31343C",
     email: "michael@company.com",
     phone: "+1 (555) 234-5678",
     location: "Seattle, WA",
@@ -63,7 +63,7 @@ const sampleMembers: TeamMember[] = [
     department: "Design",
     bio: "Award-winning UX designer with a passion for creating intuitive and beautiful user experiences that drive business results.",
     avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      "https://placehold.co/150x150/EEE/31343C",
     email: "emily@company.com",
     location: "Austin, TX",
     joinDate: "June 2020",
@@ -91,7 +91,7 @@ const sampleMembers: TeamMember[] = [
     department: "Sales",
     bio: "Results-driven sales leader with expertise in enterprise software sales. Built and scaled sales teams from startup to IPO.",
     avatar:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
+      "https://placehold.co/150x150/EEE/31343C",
     email: "david@company.com",
     phone: "+1 (555) 345-6789",
     location: "New York, NY",
@@ -115,7 +115,7 @@ const sampleMembers: TeamMember[] = [
     department: "Marketing",
     bio: "Growth marketing expert with a data-driven approach to building brands and scaling customer acquisition.",
     avatar:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face",
+      "https://placehold.co/150x150/EEE/31343C",
     email: "lisa@company.com",
     location: "Los Angeles, CA",
     joinDate: "January 2021",
@@ -143,7 +143,7 @@ const sampleMembers: TeamMember[] = [
     department: "Engineering",
     bio: "Backend engineer specializing in distributed systems and database optimization. Passionate about clean code and mentoring junior developers.",
     avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      "https://placehold.co/150x150/EEE/31343C",
     email: "james@company.com",
     location: "Remote",
     joinDate: "April 2021",

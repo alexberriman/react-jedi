@@ -53,12 +53,12 @@ type Story = StoryObj<typeof PhotoFlipCard>;
 
 // Sample image URLs for demonstrations
 const sampleImages = {
-  nature: "https://picsum.photos/400/400?random=1",
-  city: "https://picsum.photos/400/400?random=2",
-  portrait: "https://picsum.photos/400/400?random=3",
-  landscape: "https://picsum.photos/600/400?random=4",
-  tech: "https://picsum.photos/400/400?random=5",
-  food: "https://picsum.photos/400/400?random=6",
+  nature: "https://placehold.co/400x400/EEE/31343C",
+  city: "https://placehold.co/400x400/EEE/31343C",
+  portrait: "https://placehold.co/400x400/EEE/31343C",
+  landscape: "https://placehold.co/600x400/EEE/31343C",
+  tech: "https://placehold.co/400x400/EEE/31343C",
+  food: "https://placehold.co/400x400/EEE/31343C",
 };
 
 export const Default: Story = {

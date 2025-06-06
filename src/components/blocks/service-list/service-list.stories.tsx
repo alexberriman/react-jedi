@@ -155,7 +155,7 @@ const servicesWithImages = [
     id: "1",
     icon: <BarChart className="h-8 w-8" />,
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=60",
+      "https://placehold.co/800x450/EEE/31343C",
     title: "Business Analytics",
     description:
       "Transform your data into actionable insights with our powerful analytics platform. Get real-time dashboards, custom reports, and predictive analytics to drive better business decisions.",
@@ -176,7 +176,7 @@ const servicesWithImages = [
     id: "2",
     icon: <Users className="h-8 w-8" />,
     image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&auto=format&fit=crop&q=60",
+      "https://placehold.co/800x450/EEE/31343C",
     title: "Team Collaboration",
     description:
       "Bring your team together with our comprehensive collaboration suite. Share files, communicate in real-time, and manage projects all in one place.",
@@ -196,7 +196,7 @@ const servicesWithImages = [
     id: "3",
     icon: <Rocket className="h-8 w-8" />,
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=60",
+      "https://placehold.co/800x450/EEE/31343C",
     title: "Growth Platform",
     description:
       "Accelerate your business growth with our all-in-one platform. From marketing automation to sales tools, we've got everything you need to scale.",

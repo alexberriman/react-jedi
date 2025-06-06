@@ -169,7 +169,7 @@ export const SplitWithParallax: Story = enhanceStoryForDualMode<typeof Hero>(
       children: (
         <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl animate-scale-in animation-delay-800">
           <img
-            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80"
+            src="https://placehold.co/800x450/EEE/31343C"
             alt="Team collaboration"
             className="w-full h-full object-cover"
           />
@@ -217,7 +217,7 @@ export const SplitWithParallax: Story = enhanceStoryForDualMode<typeof Hero>(
           className: "relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl animate-scale-in animation-delay-800",
           children: {
             type: "Image",
-            src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+            src: "https://placehold.co/800x450/EEE/31343C",
             alt: "Team collaboration",
             className: "w-full h-full object-cover",
           },
@@ -232,7 +232,7 @@ export const WithAnimatedBackground: Story = enhanceStoryForDualMode<typeof Hero
     title: "Innovate Without Limits",
     subtitle: "Enterprise Ready",
     description: "Scale your business with confidence using our enterprise-grade infrastructure.",
-    backgroundImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
+    backgroundImage: "https://placehold.co/1920x1080/EEE/31343C",
     backgroundOverlay: true,
     animated: true,
     parallax: true,
@@ -499,7 +499,7 @@ export const GlassMorphism: Story = enhanceStoryForDualMode<typeof Hero>({
     subtitle: "Glassmorphism Example",
     description:
       "Beautiful glass effects that adapt to any background with modern blur and transparency.",
-    backgroundImage: "https://images.unsplash.com/photo-1557682260-96773eb01377?w=1920&q=80",
+    backgroundImage: "https://placehold.co/1920x1080/EEE/31343C",
     backgroundOverlay: false,
     animated: true,
     floatingShapes: true,

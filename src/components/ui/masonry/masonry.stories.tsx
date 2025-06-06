@@ -44,7 +44,7 @@ type Story = StoryObj<typeof meta>;
 const pinterestItems = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=600&h=400",
+    image: "https://placehold.co/600x400/EEE/31343C",
     title: "Modern Architecture",
     category: "Design",
     likes: 234,
@@ -52,7 +52,7 @@ const pinterestItems = [
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800",
+    image: "https://placehold.co/600x800/EEE/31343C",
     title: "Portrait Photography",
     category: "Art",
     likes: 567,
@@ -60,7 +60,7 @@ const pinterestItems = [
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600",
+    image: "https://placehold.co/600x600/EEE/31343C",
     title: "Mountain Vista",
     category: "Nature",
     likes: 892,
@@ -68,7 +68,7 @@ const pinterestItems = [
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=600&h=500",
+    image: "https://placehold.co/600x500/EEE/31343C",
     title: "Urban Minimalism",
     category: "Design",
     likes: 432,
@@ -76,7 +76,7 @@ const pinterestItems = [
   },
   {
     id: 5,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=700",
+    image: "https://placehold.co/600x700/EEE/31343C",
     title: "Abstract Art",
     category: "Art",
     likes: 678,
@@ -84,7 +84,7 @@ const pinterestItems = [
   },
   {
     id: 6,
-    image: "https://images.unsplash.com/photo-1515191107209-c28698631303?w=600&h=450",
+    image: "https://placehold.co/600x450/EEE/31343C",
     title: "Beach Sunset",
     category: "Nature",
     likes: 1203,
@@ -92,7 +92,7 @@ const pinterestItems = [
   },
   {
     id: 7,
-    image: "https://images.unsplash.com/photo-1481026469463-66327c86e544?w=600&h=900",
+    image: "https://placehold.co/600x900/EEE/31343C",
     title: "Fashion Editorial",
     category: "Fashion",
     likes: 345,
@@ -100,7 +100,7 @@ const pinterestItems = [
   },
   {
     id: 8,
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=600",
+    image: "https://placehold.co/600x600/EEE/31343C",
     title: "Professional Headshot",
     category: "Portrait",
     likes: 789,
@@ -108,7 +108,7 @@ const pinterestItems = [
   },
   {
     id: 9,
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&h=500",
+    image: "https://placehold.co/600x500/EEE/31343C",
     title: "Culinary Art",
     category: "Food",
     likes: 521,
@@ -116,7 +116,7 @@ const pinterestItems = [
   },
   {
     id: 10,
-    image: "https://images.unsplash.com/photo-1476362555312-ab9e108a0b7e?w=600&h=700",
+    image: "https://placehold.co/600x700/EEE/31343C",
     title: "Tech Innovation",
     category: "Technology",
     likes: 932,
@@ -482,7 +482,7 @@ export const PinterestGallery: Story = enhanceStoryForDualMode<typeof Masonry>(
                 className: "w-full h-64 overflow-hidden",
                 children: {
                   type: "Image",
-                  src: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=600&h=400",
+                  src: "https://placehold.co/600x400/EEE/31343C",
                   alt: "Modern Architecture",
                   className: "w-full h-full object-cover",
                 },
@@ -525,7 +525,7 @@ export const PinterestGallery: Story = enhanceStoryForDualMode<typeof Masonry>(
                 className: "w-full h-96 overflow-hidden",
                 children: {
                   type: "Image",
-                  src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800",
+                  src: "https://placehold.co/600x800/EEE/31343C",
                   alt: "Portrait Photography",
                   className: "w-full h-full object-cover",
                 },
@@ -568,7 +568,7 @@ export const PinterestGallery: Story = enhanceStoryForDualMode<typeof Masonry>(
                 className: "w-full h-80 overflow-hidden",
                 children: {
                   type: "Image",
-                  src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600",
+                  src: "https://placehold.co/600x600/EEE/31343C",
                   alt: "Mountain Vista",
                   className: "w-full h-full object-cover",
                 },

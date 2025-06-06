@@ -110,7 +110,7 @@ export const SplitWithImage: Story = {
       icon: "chevron",
     },
     image: {
-      src: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80",
+      src: "https://placehold.co/800x450/EEE/31343C",
       alt: "Dashboard preview",
       position: "right",
     },
@@ -134,7 +134,7 @@ export const FullscreenWithBackgroundImage: Story = {
       href: "#gallery",
     },
     backgroundImage: {
-      src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&q=80",
+      src: "https://placehold.co/1600x900/EEE/31343C",
       overlay: "gradient",
       overlayOpacity: 0.6,
     },
@@ -216,7 +216,7 @@ export const SplitWithLeftImage: Story = {
       variant: "secondary",
     },
     image: {
-      src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
+      src: "https://placehold.co/800x450/EEE/31343C",
       alt: "Code editor",
       position: "left",
     },
@@ -236,7 +236,7 @@ export const WithVideo: Story = {
     },
     video: {
       src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-      poster: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      poster: "https://placehold.co/1600x900/EEE/31343C",
       autoPlay: true,
       loop: true,
       muted: true,
@@ -280,7 +280,7 @@ export const RightAligned: Story = {
     },
     alignment: "right",
     image: {
-      src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      src: "https://placehold.co/800x450/EEE/31343C",
       alt: "Analytics dashboard",
       position: "bottom",
     },
@@ -361,7 +361,7 @@ export const WithDarkOverlay: Story = {
       size: "lg",
     },
     backgroundImage: {
-      src: "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1600&q=80",
+      src: "https://placehold.co/1600x900/EEE/31343C",
       overlay: "dark",
       overlayOpacity: 0.6,
     },
@@ -382,7 +382,7 @@ export const WithLightOverlay: Story = {
       size: "lg",
     },
     backgroundImage: {
-      src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80",
+      src: "https://placehold.co/1600x900/EEE/31343C",
       overlay: "light",
       overlayOpacity: 0.8,
     },
@@ -406,7 +406,7 @@ export const WithSubtleOverlay: Story = {
       icon: "arrow",
     },
     backgroundImage: {
-      src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80",
+      src: "https://placehold.co/1600x900/EEE/31343C",
       overlay: "dark",
       overlayOpacity: 0.3,
     },
@@ -427,7 +427,7 @@ export const WithNoOverlay: Story = {
       size: "lg",
     },
     backgroundImage: {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      src: "https://placehold.co/1600x900/EEE/31343C",
       overlay: "none",
     },
     height: "large",
@@ -453,7 +453,7 @@ export const WithHeavyOverlay: Story = {
       size: "lg",
     },
     backgroundImage: {
-      src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80",
+      src: "https://placehold.co/1600x900/EEE/31343C",
       overlay: "dark",
       overlayOpacity: 0.85,
     },

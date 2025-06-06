@@ -290,7 +290,7 @@ export const WithImage: Story = enhanceStoryForDualMode(
   {
     render: () => (
       <Card className="w-[350px]">
-        <CardImage src="https://picsum.photos/350/200" alt="Card image" />
+        <CardImage src="https://placehold.co/350x200/EEE/31343C" alt="Card image" />
         <CardHeader>
           <CardTitle>Card with Image</CardTitle>
           <CardDescription>This card has an image at the top</CardDescription>
@@ -332,7 +332,7 @@ export const WithImage: Story = enhanceStoryForDualMode(
       children: [
         {
           type: "CardImage",
-          src: "https://picsum.photos/350/200",
+          src: "https://placehold.co/350x200/EEE/31343C",
           alt: "Card image"
         },
         {
@@ -364,7 +364,7 @@ export const WithZoomImage: Story = enhanceStoryForDualMode(
   {
     render: () => (
       <Card className="w-[350px]">
-        <CardImage src="https://picsum.photos/350/200" alt="Card image" variant="zoom" />
+        <CardImage src="https://placehold.co/350x200/EEE/31343C" alt="Card image" variant="zoom" />
         <CardHeader>
           <CardTitle>Card with Zoom Effect</CardTitle>
           <CardDescription>Hover over the image to see the smooth zoom effect</CardDescription>
@@ -398,7 +398,7 @@ export const WithZoomImage: Story = enhanceStoryForDualMode(
       children: [
         {
           type: "CardImage",
-          src: "https://picsum.photos/350/200",
+          src: "https://placehold.co/350x200/EEE/31343C",
           alt: "Card image",
           variant: "zoom"
         },
@@ -432,7 +432,7 @@ export const WithZoomImageNoAnimation: Story = enhanceStoryForDualMode(
     render: () => (
       <Card className="w-[350px]">
         <CardImage
-          src="https://picsum.photos/350/200"
+          src="https://placehold.co/350x200/EEE/31343C"
           alt="Card image"
           variant="zoom"
           animated={false}
@@ -470,7 +470,7 @@ export const WithZoomImageNoAnimation: Story = enhanceStoryForDualMode(
       children: [
         {
           type: "CardImage",
-          src: "https://picsum.photos/350/200",
+          src: "https://placehold.co/350x200/EEE/31343C",
           alt: "Card image",
           variant: "zoom",
           animated: false
@@ -505,7 +505,7 @@ export const WithImageOverlay: Story = enhanceStoryForDualMode(
     render: () => (
       <Card className="w-[350px]">
         <div className="relative">
-          <CardImage src="https://picsum.photos/350/200" alt="Card image" overlay />
+          <CardImage src="https://placehold.co/350x200/EEE/31343C" alt="Card image" overlay />
           <div className="absolute bottom-4 left-4 text-white">
             <h3 className="text-xl font-bold">Overlay Text</h3>
             <p className="text-sm">Text over the image</p>
@@ -552,7 +552,7 @@ export const WithImageOverlay: Story = enhanceStoryForDualMode(
           children: [
             {
               type: "CardImage",
-              src: "https://picsum.photos/350/200",
+              src: "https://placehold.co/350x200/EEE/31343C",
               alt: "Card image",
               overlay: true
             },
@@ -605,7 +605,7 @@ export const MultipleCards: Story = enhanceStoryForDualMode(
     render: () => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
-          <CardImage src="https://picsum.photos/300/200?random=1" alt="Card 1" variant="zoom" />
+          <CardImage src="https://placehold.co/300x200/EEE/31343C" alt="Card 1" variant="zoom" />
           <CardHeader>
             <CardTitle>First Card</CardTitle>
             <CardDescription>With zoom effect</CardDescription>
@@ -615,7 +615,7 @@ export const MultipleCards: Story = enhanceStoryForDualMode(
           </CardContent>
         </Card>
         <Card>
-          <CardImage src="https://picsum.photos/300/200?random=2" alt="Card 2" />
+          <CardImage src="https://placehold.co/300x200/EEE/31343C" alt="Card 2" />
           <CardHeader>
             <CardTitle>Second Card</CardTitle>
             <CardDescription>Standard image</CardDescription>
@@ -625,7 +625,7 @@ export const MultipleCards: Story = enhanceStoryForDualMode(
           </CardContent>
         </Card>
         <Card>
-          <CardImage src="https://picsum.photos/300/200?random=3" alt="Card 3" overlay />
+          <CardImage src="https://placehold.co/300x200/EEE/31343C" alt="Card 3" overlay />
           <CardHeader>
             <CardTitle>Third Card</CardTitle>
             <CardDescription>With overlay</CardDescription>
@@ -674,7 +674,7 @@ export const MultipleCards: Story = enhanceStoryForDualMode(
           children: [
             {
               type: "CardImage",
-              src: "https://picsum.photos/300/200?random=1",
+              src: "https://placehold.co/300x200/EEE/31343C",
               alt: "Card 1",
               variant: "zoom"
             },
@@ -705,7 +705,7 @@ export const MultipleCards: Story = enhanceStoryForDualMode(
           children: [
             {
               type: "CardImage",
-              src: "https://picsum.photos/300/200?random=2",
+              src: "https://placehold.co/300x200/EEE/31343C",
               alt: "Card 2"
             },
             {
@@ -735,7 +735,7 @@ export const MultipleCards: Story = enhanceStoryForDualMode(
           children: [
             {
               type: "CardImage",
-              src: "https://picsum.photos/300/200?random=3",
+              src: "https://placehold.co/300x200/EEE/31343C",
               alt: "Card 3",
               overlay: true
             },

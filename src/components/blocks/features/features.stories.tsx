@@ -91,7 +91,7 @@ const featuresWithImages: Feature[] = [
     description:
       "A beautifully designed dashboard that puts all your important metrics at your fingertips. Monitor performance, track goals, and make data-driven decisions.",
     icon: FiLayout,
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    image: "https://placehold.co/800x450/EEE/31343C",
     benefits: ["Customizable widgets", "Real-time data updates", "Mobile responsive design"],
     category: "Core Features",
   },
@@ -101,7 +101,7 @@ const featuresWithImages: Feature[] = [
     description:
       "Enterprise-grade security features protect your data with multiple layers of encryption, regular security audits, and compliance certifications.",
     icon: FiLock,
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    image: "https://placehold.co/800x450/EEE/31343C",
     benefits: ["Two-factor authentication", "End-to-end encryption", "Regular security audits"],
     category: "Security",
   },
@@ -111,7 +111,7 @@ const featuresWithImages: Feature[] = [
     description:
       "Connect with your favorite tools and services. Our platform integrates with over 100+ popular business applications.",
     icon: FiServer,
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+    image: "https://placehold.co/800x450/EEE/31343C",
     benefits: ["One-click integrations", "Custom API support", "Automated workflows"],
     category: "Integrations",
   },
@@ -288,7 +288,7 @@ export const ServiceOfferings: Story = {
         title: "Strategic Consulting",
         description: "Expert guidance to transform your business with proven methodologies.",
         icon: FiUsers,
-        image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
+        image: "https://placehold.co/800x450/EEE/31343C",
         benefits: ["Industry expertise", "Tailored solutions", "ROI focused"],
       },
       {
@@ -296,7 +296,7 @@ export const ServiceOfferings: Story = {
         title: "Implementation Services",
         description: "End-to-end implementation with dedicated project management.",
         icon: FiSettings,
-        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80",
+        image: "https://placehold.co/800x450/EEE/31343C",
         benefits: ["Agile methodology", "Risk mitigation", "On-time delivery"],
       },
       {
@@ -304,7 +304,7 @@ export const ServiceOfferings: Story = {
         title: "24/7 Support",
         description: "Round-the-clock support from our team of certified experts.",
         icon: FiShield,
-        image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80",
+        image: "https://placehold.co/800x450/EEE/31343C",
         benefits: ["Phone & chat support", "Dedicated account manager", "Priority response"],
       },
     ],

@@ -75,7 +75,7 @@ export const SplitScreen: Story = {
     title: "Let's Connect",
     description: "Transform your ideas into reality. Get in touch with our expert team.",
     backgroundImage:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
+      "https://placehold.co/1200x800/EEE/31343C",
   },
 };
 
@@ -159,7 +159,7 @@ export const SalesInquiry: Story = {
     subjects: ["Small Business", "Enterprise", "Non-Profit", "Government"],
     submitText: "Request Quote",
     backgroundImage:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop",
+      "https://placehold.co/1200x800/EEE/31343C",
   },
 };
 

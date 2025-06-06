@@ -1,10 +1,5 @@
 [
   {
-    "id": "update-placeholder-images",
-    "description": "TASK: Update all placeholder images across the entire codebase. ISSUE: Currently using picsum.photos and unsplash.com for placeholder images which may have availability/performance issues. SCOPE: Search ALL story files (*.stories.tsx) throughout the codebase. ACTION REQUIRED: 1) Find all instances of picsum.photos URLs and unsplash.com URLs in story files. 2) Replace each URL with placehold.co format: https://placehold.co/{width}x{height}/EEE/31343C. 3) Preserve the original dimensions from each image URL when replacing. EXAMPLE: Replace 'https://picsum.photos/200/300' with 'https://placehold.co/200x300/EEE/31343C'. EXPECTED OUTCOME: All story files use consistent, reliable placeholder images from placehold.co.",
-    "status": "pending"
-  },
-  {
     "id": "fix-alert-sdui-icons",
     "description": "TASK: Fix Alert component icon rendering in SDUI mode. ISSUE: Alert components in SDUI/JSON mode are missing icons entirely, while React mode displays them correctly. Visual evidence: SDUI mode (incorrect) - https://i.imgur.com/AtEIIrk.png shows alerts without icons. React mode (correct) - https://i.imgur.com/eDfLr6k.png shows alerts with proper icons. ROOT CAUSE: The SDUI rendering pipeline is not properly handling icon components within Alert. ACTION REQUIRED: 1) Investigate alert.tsx and the SDUI render function to understand why icons are being stripped. 2) Ensure the Alert component's icon prop is properly passed through the JSON specification. 3) Update the SDUI renderer to handle icon components within Alert. 4) Test all Alert variants (success, warning, error, info) to ensure icons render in both modes. EXPECTED OUTCOME: Alert components in SDUI mode should display icons identical to React mode.",
     "status": "pending"

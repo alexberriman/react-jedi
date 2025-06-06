@@ -92,7 +92,7 @@ const generateSamplePosts = (count: number) => {
     id: `post-${i + 1}`,
     title: titles[i % titles.length],
     excerpt: excerpts[i % excerpts.length],
-    featuredImage: `https://picsum.photos/seed/${i + 1}/800/450`,
+    featuredImage: `https://placehold.co/800x450/EEE/31343C`,
     category: categories[i % categories.length],
     tags: ["react", "javascript", "web"],
     author: authors[i % authors.length],

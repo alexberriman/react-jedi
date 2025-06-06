@@ -67,7 +67,7 @@ const meta = {
     },
   },
   args: {
-    src: "https://images.unsplash.com/photo-1522252234503-e356532cafd5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    src: "https://placehold.co/800x450/EEE/31343C",
     alt: "Sample image",
     aspectRatio: "16/9",
     width: "400px",
@@ -88,7 +88,7 @@ export const Default: Story = enhanceStoryForDualMode<typeof Image>({
 
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", expect.stringContaining("unsplash.com"));
+    expect(image).toHaveAttribute("src", expect.stringContaining("placehold.co"));
     expect(image).toHaveClass("rounded-md");
   },
 });
@@ -265,7 +265,7 @@ export const Gallery: Story = enhanceStoryForDualMode<typeof Image>(
           hover="grow"
           aspectRatio="1/1"
           width="100%"
-          src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+          src="https://placehold.co/800x450/EEE/31343C"
         />
         <Image
           {...args}
@@ -274,7 +274,7 @@ export const Gallery: Story = enhanceStoryForDualMode<typeof Image>(
           hover="grow"
           aspectRatio="1/1"
           width="100%"
-          src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+          src="https://placehold.co/800x450/EEE/31343C"
         />
         <Image
           {...args}
@@ -283,7 +283,7 @@ export const Gallery: Story = enhanceStoryForDualMode<typeof Image>(
           hover="grow"
           aspectRatio="1/1"
           width="100%"
-          src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+          src="https://placehold.co/800x450/EEE/31343C"
         />
       </div>
     ),
@@ -313,7 +313,7 @@ export const Gallery: Story = enhanceStoryForDualMode<typeof Image>(
           hover: "grow",
           aspectRatio: "1/1",
           width: "100%",
-          src: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+          src: "https://placehold.co/800x450/EEE/31343C",
           alt: "Sample image",
         },
         {
@@ -323,7 +323,7 @@ export const Gallery: Story = enhanceStoryForDualMode<typeof Image>(
           hover: "grow",
           aspectRatio: "1/1",
           width: "100%",
-          src: "https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+          src: "https://placehold.co/800x450/EEE/31343C",
           alt: "Sample image",
         },
         {
@@ -333,7 +333,7 @@ export const Gallery: Story = enhanceStoryForDualMode<typeof Image>(
           hover: "grow",
           aspectRatio: "1/1",
           width: "100%",
-          src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+          src: "https://placehold.co/800x450/EEE/31343C",
           alt: "Sample image",
         },
       ],

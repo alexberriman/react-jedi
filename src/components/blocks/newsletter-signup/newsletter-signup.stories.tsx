@@ -273,7 +273,7 @@ export const WithBackgroundImage: Story = {
     title: "Travel Newsletter",
     description: "Get wanderlust-inducing content every week.",
     backgroundImage:
-      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&h=900&fit=crop",
+      "https://placehold.co/1600x900/EEE/31343C",
     className: "text-white [&_*]:text-white [&_.text-muted-foreground]:text-white/80",
   },
 };

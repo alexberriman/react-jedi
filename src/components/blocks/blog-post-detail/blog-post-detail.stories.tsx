@@ -121,7 +121,7 @@ Modern web development is an exciting field with endless possibilities. By under
 
 const sampleAuthor = {
   name: "Sarah Johnson",
-  avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+  avatar: "https://placehold.co/400x400/EEE/31343C",
   bio: "Sarah is a full-stack developer with over 10 years of experience building web applications. She specializes in React, Node.js, and modern web technologies.",
   social: {
     twitter: "sarahjohnsondev",
@@ -136,7 +136,7 @@ const sampleRelatedPosts = [
     title: "Understanding React Hooks: A Deep Dive",
     excerpt:
       "Explore the power of React Hooks and how they revolutionize state management in functional components.",
-    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=400&fit=crop",
+    image: "https://placehold.co/600x400/EEE/31343C",
     url: "#",
     readTime: 8,
     category: "React",
@@ -146,7 +146,7 @@ const sampleRelatedPosts = [
     title: "CSS Grid vs Flexbox: When to Use Each",
     excerpt:
       "Learn the strengths and use cases of CSS Grid and Flexbox to create responsive layouts.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
+    image: "https://placehold.co/600x400/EEE/31343C",
     url: "#",
     readTime: 6,
     category: "CSS",
@@ -155,7 +155,7 @@ const sampleRelatedPosts = [
     id: "3",
     title: "Building Performant Web Applications",
     excerpt: "Discover techniques and best practices for optimizing web application performance.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    image: "https://placehold.co/600x400/EEE/31343C",
     url: "#",
     readTime: 12,
     category: "Performance",
@@ -168,7 +168,7 @@ export const Default: Story = {
     title: "The Complete Guide to Modern Web Development in 2024",
     content: sampleContent,
     heroImage: {
-      src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=600&fit=crop",
+      src: "https://placehold.co/1200x600/EEE/31343C",
       alt: "Modern web development workspace",
       caption: "Photo by Christopher Gower on Unsplash",
     },
@@ -205,7 +205,7 @@ export const Magazine: Story = {
     ...Default.args,
     variant: "magazine",
     heroImage: {
-      src: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1600&h=900&fit=crop",
+      src: "https://placehold.co/1600x900/EEE/31343C",
       alt: "Coding on multiple screens",
       caption: "The modern developer workspace",
     },
@@ -378,12 +378,12 @@ export const config = {
 We've implemented a basic authentication system in Next.js. Remember to adapt this implementation to your specific needs and always follow security best practices in production environments.
     `,
     heroImage: {
-      src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=600&fit=crop",
+      src: "https://placehold.co/1200x600/EEE/31343C",
       alt: "Code editor showing authentication implementation",
     },
     author: {
       name: "Michael Chen",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+      avatar: "https://placehold.co/400x400/EEE/31343C",
       bio: "Senior Full-Stack Engineer specializing in Next.js and Node.js. Passionate about web security and performance.",
       social: {
         twitter: "michaelchen_dev",

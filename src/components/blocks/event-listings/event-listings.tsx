@@ -74,8 +74,8 @@ const defaultEvents: Event[] = [
     endDate: '2024-06-17T17:00:00Z',
     location: { name: 'San Francisco Convention Center', address: '747 Howard St, San Francisco, CA' },
     speakers: [
-      { name: 'Dan Abramov', title: 'React Team Lead', image: 'https://picsum.photos/60/60?random=1' },
-      { name: 'Sophie Alpert', title: 'Former React Team Manager', image: 'https://picsum.photos/60/60?random=2' }
+      { name: 'Dan Abramov', title: 'React Team Lead', image: 'https://placehold.co/60x60/EEE/31343C' },
+      { name: 'Sophie Alpert', title: 'Former React Team Manager', image: 'https://placehold.co/60x60/EEE/31343C' }
     ],
     category: 'Conference',
     registrationUrl: '#',
@@ -84,7 +84,7 @@ const defaultEvents: Event[] = [
     featured: true,
     tags: ['React', 'JavaScript', 'Frontend'],
     price: { amount: 299, currency: 'USD' },
-    image: 'https://picsum.photos/400/200?random=3',
+    image: 'https://placehold.co/400x200/EEE/31343C',
     status: 'upcoming'
   },
   {
@@ -94,7 +94,7 @@ const defaultEvents: Event[] = [
     startDate: '2024-05-20T14:00:00Z',
     endDate: '2024-05-20T18:00:00Z',
     location: { name: 'Tech Hub Downtown', virtual: false },
-    speakers: [{ name: 'Kyle Simpson', title: 'JavaScript Expert', image: 'https://picsum.photos/60/60?random=4' }],
+    speakers: [{ name: 'Kyle Simpson', title: 'JavaScript Expert', image: 'https://placehold.co/60x60/EEE/31343C' }],
     category: 'Workshop',
     registrationUrl: '#',
     capacity: 50,
@@ -110,7 +110,7 @@ const defaultEvents: Event[] = [
     startDate: '2024-05-25T19:00:00Z',
     endDate: '2024-05-25T20:30:00Z',
     location: { name: 'Online', virtual: true },
-    speakers: [{ name: 'Anders Hejlsberg', title: 'TypeScript Creator', image: 'https://picsum.photos/60/60?random=5' }],
+    speakers: [{ name: 'Anders Hejlsberg', title: 'TypeScript Creator', image: 'https://placehold.co/60x60/EEE/31343C' }],
     category: 'Webinar',
     registrationUrl: '#',
     capacity: 500,

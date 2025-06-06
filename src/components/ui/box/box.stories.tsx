@@ -787,7 +787,7 @@ export const BoxWithBackdropBlur: Story = enhanceStoryForDualMode<typeof Box>(
       <Box className="relative w-[400px] h-[300px]">
         <Box className="w-full h-full flex items-center justify-center">
           <img
-            src="https://picsum.photos/400/300"
+            src="https://placehold.co/400x300/EEE/31343C"
             alt="Nature"
             className="w-full h-full object-cover absolute inset-0 rounded-lg"
           />
@@ -823,7 +823,7 @@ export const BoxWithBackdropBlur: Story = enhanceStoryForDualMode<typeof Box>(
         children: [
           {
             type: "Image",
-            src: "https://picsum.photos/400/300",
+            src: "https://placehold.co/400x300/EEE/31343C",
             alt: "Nature",
             className: "w-full h-full object-cover absolute inset-0 rounded-lg",
           },

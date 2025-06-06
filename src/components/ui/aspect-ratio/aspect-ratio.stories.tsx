@@ -30,7 +30,7 @@ export const Default: Story = enhanceStoryForDualMode<typeof AspectRatio>(
       <div className="w-[500px]">
         <AspectRatio {...args}>
           <img
-            src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?w=500&auto=format&fit=crop&q=80"
+            src="https://placehold.co/500x280/EEE/31343C"
             alt="A futuristic cityscape with neon lights"
             className="object-cover w-full h-full rounded-md"
           />
@@ -66,7 +66,7 @@ export const Default: Story = enhanceStoryForDualMode<typeof AspectRatio>(
         ratio: 16 / 9,
         children: {
           type: "Image",
-          src: "https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?w=500&auto=format&fit=crop&q=80",
+          src: "https://placehold.co/500x280/EEE/31343C",
           alt: "A futuristic cityscape with neon lights",
           className: "object-cover w-full h-full rounded-md",
         },
@@ -84,7 +84,7 @@ export const Square: Story = enhanceStoryForDualMode<typeof AspectRatio>(
       <div className="w-[400px]">
         <AspectRatio {...args}>
           <img
-            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop&q=80"
+            src="https://placehold.co/400x400/EEE/31343C"
             alt="Abstract geometric art with vibrant colors"
             className="object-cover w-full h-full rounded-md"
           />
@@ -113,7 +113,7 @@ export const Square: Story = enhanceStoryForDualMode<typeof AspectRatio>(
         ratio: 1,
         children: {
           type: "Image",
-          src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop&q=80",
+          src: "https://placehold.co/400x400/EEE/31343C",
           alt: "Abstract geometric art with vibrant colors",
           className: "object-cover w-full h-full rounded-md",
         },
@@ -131,7 +131,7 @@ export const Portrait: Story = enhanceStoryForDualMode<typeof AspectRatio>(
       <div className="w-[300px]">
         <AspectRatio {...args}>
           <img
-            src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=300&auto=format&fit=crop&q=80"
+            src="https://placehold.co/300x400/EEE/31343C"
             alt="A portrait photograph"
             className="object-cover w-full h-full rounded-md"
           />
@@ -160,7 +160,7 @@ export const Portrait: Story = enhanceStoryForDualMode<typeof AspectRatio>(
         ratio: 3 / 4,
         children: {
           type: "Image",
-          src: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=300&auto=format&fit=crop&q=80",
+          src: "https://placehold.co/300x400/EEE/31343C",
           alt: "A portrait photograph",
           className: "object-cover w-full h-full rounded-md",
         },
@@ -253,7 +253,7 @@ export const WithImage: Story = enhanceStoryForDualMode<typeof AspectRatio>(
       <div className="w-[600px]">
         <AspectRatio {...args}>
           <img
-            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80"
+            src="https://placehold.co/600x340/EEE/31343C"
             alt="Modern workspace with laptop and coffee"
             className="object-cover w-full h-full rounded-lg"
           />
@@ -266,7 +266,7 @@ export const WithImage: Story = enhanceStoryForDualMode<typeof AspectRatio>(
       // Test image presence
       const image = canvas.getByRole("img", { name: "Modern workspace with laptop and coffee" });
       expect(image).toBeInTheDocument();
-      expect(image).toHaveAttribute("src", expect.stringContaining("images.unsplash.com"));
+      expect(image).toHaveAttribute("src", expect.stringContaining("placehold.co"));
       
       // Check for object-cover class (present in both modes)
       expect(image).toHaveClass("object-cover");
@@ -286,7 +286,7 @@ export const WithImage: Story = enhanceStoryForDualMode<typeof AspectRatio>(
         ratio: 16 / 9,
         children: {
           type: "Image",
-          src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80",
+          src: "https://placehold.co/600x340/EEE/31343C",
           alt: "Modern workspace with laptop and coffee",
           className: "object-cover w-full h-full rounded-lg",
         },
@@ -305,7 +305,7 @@ export const WithVideo: Story = enhanceStoryForDualMode<typeof AspectRatio>(
         <AspectRatio {...args}>
           <video
             className="object-cover w-full h-full rounded-lg"
-            poster="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&auto=format&fit=crop&q=80"
+            poster="https://placehold.co/600x340/EEE/31343C"
             controls
           >
             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
@@ -323,7 +323,7 @@ export const WithVideo: Story = enhanceStoryForDualMode<typeof AspectRatio>(
       if (video) {
         expect(video).toBeInTheDocument();
         expect(video).toHaveAttribute("controls");
-        expect(video).toHaveAttribute("poster", expect.stringContaining("images.unsplash.com"));
+        expect(video).toHaveAttribute("poster", expect.stringContaining("placehold.co"));
         expect(video).toHaveClass("object-cover", "w-full", "h-full", "rounded-lg");
 
         // Test video source

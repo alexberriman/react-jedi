@@ -64,7 +64,7 @@ const sampleTestimonial = {
     name: "Sarah Chen",
     role: "Product Designer",
     company: "Tech Corp",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+    avatar: "https://placehold.co/150x150/EEE/31343C",
     companyLogo: "https://logo.clearbit.com/google.com",
   },
   content:
@@ -85,7 +85,7 @@ const sampleTestimonials = [
       name: "James Wilson",
       role: "Frontend Engineer",
       company: "WebDev Inc",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
       companyLogo: "https://logo.clearbit.com/microsoft.com",
     },
     content:
@@ -100,7 +100,7 @@ const sampleTestimonials = [
       name: "Emma Thompson",
       role: "UX Designer",
       company: "Creative Agency",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
       companyLogo: "https://logo.clearbit.com/apple.com",
     },
     content:
@@ -114,7 +114,7 @@ const sampleTestimonials = [
       name: "Michael Rodriguez",
       role: "CTO",
       company: "StartupCo",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
       companyLogo: "https://logo.clearbit.com/netflix.com",
     },
     content:
@@ -128,7 +128,7 @@ const sampleTestimonials = [
       name: "Lisa Park",
       role: "Developer",
       company: "Innovation Labs",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
     },
     content:
       "Game-changing library! The documentation is excellent and the community support is top-notch.",
@@ -141,7 +141,7 @@ const sampleTestimonials = [
       name: "David Kim",
       role: "Tech Lead",
       company: "Digital Solutions",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
       companyLogo: "https://logo.clearbit.com/spotify.com",
     },
     content:

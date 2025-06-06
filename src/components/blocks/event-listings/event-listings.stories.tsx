@@ -70,12 +70,12 @@ const sampleEvents: Event[] = [
       {
         name: "Dan Abramov",
         title: "React Team Lead",
-        image: "https://picsum.photos/60/60?random=1",
+        image: "https://placehold.co/60x60/EEE/31343C?random=1",
       },
       {
         name: "Sophie Alpert",
         title: "Former React Team Manager",
-        image: "https://picsum.photos/60/60?random=2",
+        image: "https://placehold.co/60x60/EEE/31343C?random=2",
       },
     ],
     category: "Conference",
@@ -85,7 +85,7 @@ const sampleEvents: Event[] = [
     featured: true,
     tags: ["React", "JavaScript", "Frontend"],
     price: { amount: 299, currency: "USD" },
-    image: "https://picsum.photos/400/200?random=1",
+    image: "https://placehold.co/400x200/EEE/31343C?random=1",
     status: "upcoming",
   },
   {
@@ -100,7 +100,7 @@ const sampleEvents: Event[] = [
       {
         name: "Kyle Simpson",
         title: "JavaScript Expert",
-        image: "https://picsum.photos/60/60?random=3",
+        image: "https://placehold.co/60x60/EEE/31343C?random=3",
       },
     ],
     category: "Workshop",
@@ -109,7 +109,7 @@ const sampleEvents: Event[] = [
     registeredCount: 23,
     tags: ["JavaScript", "Performance", "Advanced"],
     price: { amount: 89, currency: "USD" },
-    image: "https://picsum.photos/400/200?random=2",
+    image: "https://placehold.co/400x200/EEE/31343C?random=2",
     status: "upcoming",
   },
   {
@@ -124,7 +124,7 @@ const sampleEvents: Event[] = [
       {
         name: "Anders Hejlsberg",
         title: "TypeScript Creator",
-        image: "https://picsum.photos/60/60?random=4",
+        image: "https://placehold.co/60x60/EEE/31343C?random=4",
       },
     ],
     category: "Webinar",
@@ -133,7 +133,7 @@ const sampleEvents: Event[] = [
     registeredCount: 342,
     tags: ["TypeScript", "Beginner", "Free"],
     price: { free: true, amount: 0, currency: "USD" },
-    image: "https://picsum.photos/400/200?random=3",
+    image: "https://placehold.co/400x200/EEE/31343C?random=3",
     status: "upcoming",
   },
   {
@@ -148,12 +148,12 @@ const sampleEvents: Event[] = [
       {
         name: "Sarah Chen",
         title: "Senior UX Designer",
-        image: "https://picsum.photos/60/60?random=5",
+        image: "https://placehold.co/60x60/EEE/31343C?random=5",
       },
       {
         name: "Mike Rodriguez",
         title: "Design Director",
-        image: "https://picsum.photos/60/60?random=6",
+        image: "https://placehold.co/60x60/EEE/31343C?random=6",
       },
     ],
     category: "Meetup",
@@ -176,12 +176,12 @@ const sampleEvents: Event[] = [
       {
         name: "Kelsey Hightower",
         title: "Kubernetes Expert",
-        image: "https://picsum.photos/60/60?random=7",
+        image: "https://placehold.co/60x60/EEE/31343C?random=7",
       },
       {
         name: "Charity Majors",
         title: "CTO at Honeycomb",
-        image: "https://picsum.photos/60/60?random=8",
+        image: "https://placehold.co/60x60/EEE/31343C?random=8",
       },
     ],
     category: "Conference",
@@ -190,7 +190,7 @@ const sampleEvents: Event[] = [
     registeredCount: 623,
     tags: ["DevOps", "Cloud", "Kubernetes"],
     price: { amount: 399, currency: "USD" },
-    image: "https://picsum.photos/400/200?random=4",
+    image: "https://placehold.co/400x200/EEE/31343C?random=4",
     status: "upcoming",
   },
   {
@@ -205,7 +205,7 @@ const sampleEvents: Event[] = [
       {
         name: "Dr. Emily Watson",
         title: "AI Research Scientist",
-        image: "https://picsum.photos/60/60?random=9",
+        image: "https://placehold.co/60x60/EEE/31343C?random=9",
       },
     ],
     category: "Workshop",
@@ -214,7 +214,7 @@ const sampleEvents: Event[] = [
     registeredCount: 22,
     tags: ["AI", "Machine Learning", "Neural Networks"],
     price: { amount: 149, currency: "USD" },
-    image: "https://picsum.photos/400/200?random=5",
+    image: "https://placehold.co/400x200/EEE/31343C?random=5",
     status: "upcoming",
   },
   {
@@ -245,7 +245,7 @@ const sampleEvents: Event[] = [
       {
         name: "Alex Thompson",
         title: "Security Architect",
-        image: "https://picsum.photos/60/60?random=10",
+        image: "https://placehold.co/60x60/EEE/31343C?random=10",
       },
     ],
     category: "Webinar",
@@ -254,7 +254,7 @@ const sampleEvents: Event[] = [
     registeredCount: 156,
     tags: ["Cybersecurity", "Zero Trust", "Enterprise"],
     price: { free: true, amount: 0, currency: "USD" },
-    image: "https://picsum.photos/400/200?random=6",
+    image: "https://placehold.co/400x200/EEE/31343C?random=6",
     status: "upcoming",
   },
 ];

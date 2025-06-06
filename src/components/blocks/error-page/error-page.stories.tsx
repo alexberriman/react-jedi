@@ -251,7 +251,7 @@ export const Friendly404CustomContent: Story = {
     title: "Oops! Lost in Space",
     description:
       "Houston, we have a problem. The page you're looking for has drifted into the cosmos.",
-    image: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400&h=300&fit=crop",
+    image: "https://placehold.co/400x300/EEE/31343C",
     showIcon: false,
     popularLinks: popularLinks.slice(0, 3),
   },
@@ -507,7 +507,7 @@ export const RestaurantErrorPage: Story = {
       { label: "Order Takeout", href: "/order", variant: "outline" },
       { label: "Call Us", href: "tel:+1234567890", variant: "ghost" },
     ],
-    image: "https://picsum.photos/600/400?random=restaurant",
+    image: "https://placehold.co/600x400/EEE/31343C",
     showIcon: false,
   },
 };
@@ -564,7 +564,7 @@ export const PortfolioErrorPage: Story = {
       { label: "View Portfolio", href: "/portfolio", variant: "default" },
       { label: "Hire Me", href: "/contact", variant: "outline" },
     ],
-    image: "https://picsum.photos/600/400?random=portfolio",
+    image: "https://placehold.co/600x400/EEE/31343C",
     showIcon: false,
   },
 };
@@ -640,7 +640,7 @@ export const EnhancedComingSoon: Story = {
       { label: "Learn More", href: "#about", variant: "outline" },
       { label: "Follow Updates", href: "#follow", variant: "ghost" },
     ],
-    image: "https://picsum.photos/600/400?random=launch",
+    image: "https://placehold.co/600x400/EEE/31343C",
     showIcon: false,
   },
 };

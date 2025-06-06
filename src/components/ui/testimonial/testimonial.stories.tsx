@@ -34,7 +34,7 @@ export const Default = enhanceStoryForDualMode({
       name: "Sarah Chen",
       role: "Product Designer",
       company: "Tech Corp",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
     },
     content:
       "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
@@ -60,7 +60,7 @@ export const Default = enhanceStoryForDualMode({
     // Test avatar image
     const avatar = canvasElement.querySelector("img");
     if (avatar) {
-      expect(avatar).toHaveAttribute("src", expect.stringContaining("unsplash.com"));
+      expect(avatar).toHaveAttribute("src", expect.stringContaining("placehold.co"));
       expect(avatar).toHaveAttribute("alt", expect.stringContaining("Sarah Chen"));
     }
 
@@ -76,7 +76,7 @@ export const Minimal = enhanceStoryForDualMode({
       name: "Sarah Chen",
       role: "Product Designer",
       company: "Tech Corp",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
     },
     content:
       "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
@@ -105,7 +105,7 @@ export const Large = enhanceStoryForDualMode({
       name: "Sarah Chen",
       role: "Product Designer",
       company: "Tech Corp",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
     },
     content:
       "The React Jedi library is absolutely game-changing. We've cut our development time in half while delivering interfaces that look like they're from the future. The theming system is incredibly powerful and the component quality is outstanding.",
@@ -138,7 +138,7 @@ export const Quote = enhanceStoryForDualMode({
       name: "Sarah Chen",
       role: "Product Designer",
       company: "Tech Corp",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
     },
     content:
       "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
@@ -168,7 +168,7 @@ export const Highlighted = enhanceStoryForDualMode({
       name: "Sarah Chen",
       role: "Product Designer",
       company: "Tech Corp",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
     },
     content:
       "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
@@ -195,7 +195,7 @@ export const WithoutRating = enhanceStoryForDualMode({
       name: "Sarah Chen",
       role: "Product Designer",
       company: "Tech Corp",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
     },
     content:
       "This library has transformed how we build UI components. The Server-Driven UI approach allows us to iterate faster and deliver beautiful experiences to our users.",
@@ -258,7 +258,7 @@ export const MultipleTestimonials = enhanceStoryForDualMode(
             role: "Lead Developer",
             company: "Design Studio",
             avatar:
-              "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
+              "https://placehold.co/150x150/EEE/31343C",
           }}
           content="The component architecture is brilliant. Easy to customize and extend."
           rating={5}
@@ -270,7 +270,7 @@ export const MultipleTestimonials = enhanceStoryForDualMode(
             role: "Frontend Engineer",
             company: "WebDev Inc",
             avatar:
-              "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+              "https://placehold.co/150x150/EEE/31343C",
           }}
           content="Best UI library I've worked with. The attention to detail is remarkable."
           rating={5}
@@ -283,7 +283,7 @@ export const MultipleTestimonials = enhanceStoryForDualMode(
             role: "UX Designer",
             company: "Creative Agency",
             avatar:
-              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop",
+              "https://placehold.co/150x150/EEE/31343C",
           }}
           content="Beautiful components that are a joy to work with. Highly recommended!"
           rating={5}
@@ -323,7 +323,7 @@ export const MultipleTestimonials = enhanceStoryForDualMode(
             name: "Maria Rodriguez",
             role: "Lead Developer",
             company: "Design Studio",
-            avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
+            avatar: "https://placehold.co/150x150/EEE/31343C",
           },
           content: "The component architecture is brilliant. Easy to customize and extend.",
           rating: 5,
@@ -335,7 +335,7 @@ export const MultipleTestimonials = enhanceStoryForDualMode(
             name: "James Wilson",
             role: "Frontend Engineer",
             company: "WebDev Inc",
-            avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+            avatar: "https://placehold.co/150x150/EEE/31343C",
           },
           content: "Best UI library I've worked with. The attention to detail is remarkable.",
           rating: 5,
@@ -348,7 +348,7 @@ export const MultipleTestimonials = enhanceStoryForDualMode(
             name: "Emma Thompson",
             role: "UX Designer",
             company: "Creative Agency",
-            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop",
+            avatar: "https://placehold.co/150x150/EEE/31343C",
           },
           content: "Beautiful components that are a joy to work with. Highly recommended!",
           rating: 5,
@@ -365,7 +365,7 @@ export const LongContent = enhanceStoryForDualMode({
       name: "Sarah Chen",
       role: "Product Designer",
       company: "Tech Corp",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      avatar: "https://placehold.co/150x150/EEE/31343C",
     },
     content:
       "Working with React Jedi has been an absolute pleasure. The Server-Driven UI approach revolutionizes how we think about building interfaces. The component library is comprehensive, the theming system is powerful yet intuitive, and the overall developer experience is unmatched. We've been able to deliver stunning, performant applications in record time. This is truly the future of web development.",

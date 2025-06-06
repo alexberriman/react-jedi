@@ -51,14 +51,14 @@ const sampleProjects: CaseStudy[] = [
     technologies: ["React", "Node.js", "PostgreSQL", "AWS", "Stripe", "Next.js"],
     projectUrl: "https://example.com/techstyle",
     featuredImage:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     galleryImages: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&w=1200",
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
+      "https://placehold.co/800x450/EEE/31343C",
     ],
     beforeAfterImages: {
-      before: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&w=1200",
-      after: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&w=1200",
+      before: "https://placehold.co/800x450/EEE/31343C",
+      after: "https://placehold.co/800x450/EEE/31343C",
     },
     completedDate: "2024-03-15",
     duration: "6 months",
@@ -102,7 +102,7 @@ const sampleProjects: CaseStudy[] = [
     technologies: ["Vue.js", "Python", "Redis", "D3.js", "Docker", "Kubernetes"],
     projectUrl: "https://example.com/dataviz",
     featuredImage:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     completedDate: "2024-02-28",
     duration: "4 months",
     results: [
@@ -125,10 +125,10 @@ const sampleProjects: CaseStudy[] = [
     category: "FinTech",
     technologies: ["React Native", "TypeScript", "GraphQL", "AWS", "Plaid API"],
     featuredImage:
-      "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     beforeAfterImages: {
-      before: "https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&w=1200",
-      after: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?ixlib=rb-4.0.3&w=1200",
+      before: "https://placehold.co/800x450/EEE/31343C",
+      after: "https://placehold.co/800x450/EEE/31343C",
     },
     completedDate: "2024-01-20",
     duration: "8 months",
@@ -159,7 +159,7 @@ const sampleProjects: CaseStudy[] = [
     technologies: ["Next.js", "Sanity CMS", "Stripe", "OpenTable API", "Vercel"],
     projectUrl: "https://example.com/gourmet",
     featuredImage:
-      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     completedDate: "2023-12-10",
     duration: "3 months",
     results: [
@@ -186,10 +186,10 @@ const sampleProjects: CaseStudy[] = [
     category: "Healthcare",
     technologies: ["Angular", "Java Spring", "PostgreSQL", "WebRTC", "Docker"],
     featuredImage:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     beforeAfterImages: {
-      before: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-4.0.3&w=1200",
-      after: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&w=1200",
+      before: "https://placehold.co/800x450/EEE/31343C",
+      after: "https://placehold.co/800x450/EEE/31343C",
     },
     completedDate: "2023-11-15",
     duration: "10 months",
@@ -230,7 +230,7 @@ const sampleProjects: CaseStudy[] = [
     technologies: ["React", "Python", "TensorFlow", "MongoDB", "Socket.io"],
     projectUrl: "https://example.com/learnhub",
     featuredImage:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     completedDate: "2023-10-20",
     duration: "5 months",
     results: [
@@ -256,7 +256,7 @@ const sampleProjects: CaseStudy[] = [
     category: "Real Estate",
     technologies: ["Vue.js", "Node.js", "Elasticsearch", "Three.js", "AWS"],
     featuredImage:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     completedDate: "2023-09-30",
     duration: "6 months",
     results: [
@@ -282,10 +282,10 @@ const sampleProjects: CaseStudy[] = [
     category: "Health & Fitness",
     technologies: ["Flutter", "Firebase", "TensorFlow Lite", "HealthKit", "Google Fit API"],
     featuredImage:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     beforeAfterImages: {
-      before: "https://images.unsplash.com/photo-1583521214690-73421a1829a9?ixlib=rb-4.0.3&w=1200",
-      after: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&w=1200",
+      before: "https://placehold.co/800x450/EEE/31343C",
+      after: "https://placehold.co/800x450/EEE/31343C",
     },
     completedDate: "2023-08-25",
     duration: "4 months",
@@ -311,7 +311,7 @@ const sampleProjects: CaseStudy[] = [
     category: "Enterprise",
     technologies: ["SharePoint", "React", ".NET Core", "Azure", "Microsoft Graph API"],
     featuredImage:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200",
+      "https://placehold.co/800x450/EEE/31343C",
     completedDate: "2023-07-15",
     duration: "12 months",
     results: [

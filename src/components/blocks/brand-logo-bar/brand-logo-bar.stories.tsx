@@ -31,48 +31,48 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Sample logos for demonstration using picsum.photos placeholders
+// Sample logos for demonstration using placehold.co placeholders
 const sampleLogos = [
   {
     id: "1",
     name: "Vercel",
-    lightSrc: "https://picsum.photos/120/60?random=1",
-    darkSrc: "https://picsum.photos/120/60?random=1&grayscale",
+    lightSrc: "https://placehold.co/120x60/EEE/31343C?random=1",
+    darkSrc: "https://placehold.co/120x60/EEE/31343C?random=1&grayscale",
     href: "https://vercel.com",
   },
   {
     id: "2",
     name: "React",
-    lightSrc: "https://picsum.photos/120/60?random=2",
-    darkSrc: "https://picsum.photos/120/60?random=2&grayscale",
+    lightSrc: "https://placehold.co/120x60/EEE/31343C?random=2",
+    darkSrc: "https://placehold.co/120x60/EEE/31343C?random=2&grayscale",
     href: "https://react.dev",
   },
   {
     id: "3",
     name: "TypeScript",
-    lightSrc: "https://picsum.photos/120/60?random=3",
-    darkSrc: "https://picsum.photos/120/60?random=3&grayscale",
+    lightSrc: "https://placehold.co/120x60/EEE/31343C?random=3",
+    darkSrc: "https://placehold.co/120x60/EEE/31343C?random=3&grayscale",
     href: "https://www.typescriptlang.org",
   },
   {
     id: "4",
     name: "Tailwind CSS",
-    lightSrc: "https://picsum.photos/120/60?random=4",
-    darkSrc: "https://picsum.photos/120/60?random=4&grayscale",
+    lightSrc: "https://placehold.co/120x60/EEE/31343C?random=4",
+    darkSrc: "https://placehold.co/120x60/EEE/31343C?random=4&grayscale",
     href: "https://tailwindcss.com",
   },
   {
     id: "5",
     name: "Vite",
-    lightSrc: "https://picsum.photos/120/60?random=5",
-    darkSrc: "https://picsum.photos/120/60?random=5&grayscale",
+    lightSrc: "https://placehold.co/120x60/EEE/31343C?random=5",
+    darkSrc: "https://placehold.co/120x60/EEE/31343C?random=5&grayscale",
     href: "https://vitejs.dev",
   },
   {
     id: "6",
     name: "Next.js",
-    lightSrc: "https://picsum.photos/120/60?random=6",
-    darkSrc: "https://picsum.photos/120/60?random=6&grayscale",
+    lightSrc: "https://placehold.co/120x60/EEE/31343C?random=6",
+    darkSrc: "https://placehold.co/120x60/EEE/31343C?random=6&grayscale",
     href: "https://nextjs.org",
   },
 ];
@@ -81,8 +81,8 @@ const enterpriseLogos = [
   {
     id: "e1",
     name: "Microsoft",
-    lightSrc: "https://picsum.photos/140/30?random=7",
-    darkSrc: "https://picsum.photos/140/30?random=7&grayscale",
+    lightSrc: "https://placehold.co/140x30/EEE/31343C?random=7",
+    darkSrc: "https://placehold.co/140x30/EEE/31343C?random=7&grayscale",
     href: "https://microsoft.com",
     width: 140,
     height: 30,
@@ -90,8 +90,8 @@ const enterpriseLogos = [
   {
     id: "e2",
     name: "Google",
-    lightSrc: "https://picsum.photos/120/40?random=8",
-    darkSrc: "https://picsum.photos/120/40?random=8&grayscale",
+    lightSrc: "https://placehold.co/120x40/EEE/31343C?random=8",
+    darkSrc: "https://placehold.co/120x40/EEE/31343C?random=8&grayscale",
     href: "https://google.com",
     width: 120,
     height: 40,
@@ -99,8 +99,8 @@ const enterpriseLogos = [
   {
     id: "e3",
     name: "Amazon",
-    lightSrc: "https://picsum.photos/130/40?random=9",
-    darkSrc: "https://picsum.photos/130/40?random=9&grayscale",
+    lightSrc: "https://placehold.co/130x40/EEE/31343C?random=9",
+    darkSrc: "https://placehold.co/130x40/EEE/31343C?random=9&grayscale",
     href: "https://amazon.com",
     width: 130,
     height: 40,
@@ -108,8 +108,8 @@ const enterpriseLogos = [
   {
     id: "e4",
     name: "Apple",
-    lightSrc: "https://picsum.photos/50/60?random=10",
-    darkSrc: "https://picsum.photos/50/60?random=10&grayscale",
+    lightSrc: "https://placehold.co/50x60/EEE/31343C?random=10",
+    darkSrc: "https://placehold.co/50x60/EEE/31343C?random=10&grayscale",
     href: "https://apple.com",
     width: 50,
     height: 60,
@@ -117,8 +117,8 @@ const enterpriseLogos = [
   {
     id: "e5",
     name: "Meta",
-    lightSrc: "https://picsum.photos/140/30?random=11",
-    darkSrc: "https://picsum.photos/140/30?random=11&grayscale",
+    lightSrc: "https://placehold.co/140x30/EEE/31343C?random=11",
+    darkSrc: "https://placehold.co/140x30/EEE/31343C?random=11&grayscale",
     href: "https://meta.com",
     width: 140,
     height: 30,

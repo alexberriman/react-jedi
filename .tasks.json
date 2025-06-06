@@ -20,11 +20,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-hovercard-sdui-critical",
-    "description": "TASK: Fix HoverCard hover interactions in SDUI mode. CRITICAL ISSUE: HoverCard component hover interactions don't work at all in SDUI mode - hovering over triggers shows nothing. This breaks tooltip-like information display. SEVERITY: Critical - hover interactions are essential for HoverCard. ROOT CAUSE: Mouse event handlers (onMouseEnter/onMouseLeave) are not properly connected in SDUI rendering. ACTION REQUIRED: 1) Debug why hover events aren't triggering in SDUI mode. 2) Implement proper mouse event handler binding for SDUI. 3) Ensure hover delay timing works correctly. 4) Support hover card positioning and animations. 5) Handle edge cases: viewport boundaries, rapid hover/unhover. 6) Test with various trigger elements and card content. EXPECTED OUTCOME: HoverCards should appear on hover in SDUI mode exactly as they do in React mode.",
-    "status": "pending"
-  },
-  {
     "id": "implement-keyboardnav-sdui",
     "description": "TASK: Implement SDUI support for KeyboardNavigationMenu component. ISSUE: KeyboardNavigationMenu has no SDUI rendering support. Keyboard-navigable menus are not available in SDUI mode. APPROACH: May be able to enhance Command component as it already has keyboard navigation patterns. ACTION REQUIRED: 1) Assess if KeyboardNavigationMenu can be implemented in SDUI. 2) Consider extending Command component for keyboard navigation patterns. 3) Implement arrow key navigation, Enter/Space selection. 4) Support focus management and ARIA attributes. 5) Ensure Tab key navigation works properly. EXPECTED OUTCOME: Keyboard-navigable menus working in SDUI mode with full accessibility support.",
     "status": "pending"

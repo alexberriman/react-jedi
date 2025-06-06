@@ -1,33 +1,17 @@
 import React from "react";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "./hover-card";
+import { HoverCard } from "./hover-card";
 import type { ComponentProps } from "../../../types/schema/components";
 import type { ComponentSpec } from "../../../types/schema";
-import { defaultComponentResolver } from "../../../lib/component-resolver";
 
 /**
  * Wrapper component for HoverCard that handles SDUI rendering
- * This ensures the proper parent-child relationship is maintained for Radix UI
+ * This component expects its children to be already rendered by the main render function
  */
 export function HoverCardWrapper(props: Readonly<ComponentProps>) {
-  const { spec, parentContext } = props;
-  
-  // Handle onOpenChange callback - must be defined before any returns
-  const handleOpenChange = React.useCallback((newOpen: boolean) => {
-    if (typeof spec?.onOpenChange === 'string' && parentContext?.handlers) {
-      const handlers = parentContext.handlers as Record<string, (...args: unknown[]) => unknown>;
-      const handler = handlers[spec.onOpenChange];
-      if (handler) {
-        handler(newOpen);
-      }
-    }
-  }, [spec, parentContext]);
-  
-  if (!spec) {
-    return null;
-  }
+  const { spec, parentContext, children } = props;
   
   // Extract HoverCard props from spec
-  const { openDelay, closeDelay, defaultOpen, open, onOpenChange, children } = spec as ComponentSpec & {
+  const { openDelay, closeDelay, defaultOpen, open, onOpenChange } = (spec || {}) as ComponentSpec & {
     openDelay?: number;
     closeDelay?: number;
     defaultOpen?: boolean;
@@ -35,44 +19,23 @@ export function HoverCardWrapper(props: Readonly<ComponentProps>) {
     onOpenChange?: string;
   };
   
-  // Find trigger and content specs
-  let triggerSpec: ComponentSpec | null = null;
-  let contentSpec: ComponentSpec | null = null;
-  
-  if (Array.isArray(children)) {
-    for (const child of children as ComponentSpec[]) {
-      if (child.type === "HoverCardTrigger") {
-        triggerSpec = child;
-      } else if (child.type === "HoverCardContent") {
-        contentSpec = child;
+  // Handle onOpenChange callback
+  const handleOpenChange = React.useCallback((newOpen: boolean) => {
+    if (typeof onOpenChange === 'string' && parentContext?.handlers) {
+      const handlers = parentContext.handlers as Record<string, (...args: unknown[]) => unknown>;
+      const handler = handlers[onOpenChange];
+      if (handler) {
+        handler(newOpen);
       }
     }
-  }
+  }, [onOpenChange, parentContext]);
   
-  if (!triggerSpec || !contentSpec) {
-    console.warn("HoverCard must have both HoverCardTrigger and HoverCardContent");
+  if (!spec) {
     return null;
   }
   
-  // Helper function to render child component
-  const renderChild = (spec: ComponentSpec | string | undefined): React.ReactNode => {
-    if (!spec) return null;
-    if (typeof spec === 'string') return spec;
-    
-    const ChildComponent = defaultComponentResolver(spec.type);
-    if (!ChildComponent) return null;
-    
-    return (
-      <ChildComponent spec={spec} parentContext={parentContext}>
-        {spec.children as React.ReactNode}
-      </ChildComponent>
-    );
-  };
-  
-  const triggerContent = renderChild(triggerSpec.children as ComponentSpec);
-  const contentContent = renderChild(contentSpec.children as ComponentSpec | string);
-  
-  // Now render the HoverCard with properly structured children
+  // The children are already rendered by the main render function
+  // We just need to pass them through to the HoverCard component
   return (
     <HoverCard
       openDelay={openDelay}
@@ -81,16 +44,7 @@ export function HoverCardWrapper(props: Readonly<ComponentProps>) {
       open={open}
       onOpenChange={onOpenChange ? handleOpenChange : undefined}
     >
-      <HoverCardTrigger asChild={triggerSpec.asChild as boolean | undefined}>
-        {triggerContent}
-      </HoverCardTrigger>
-      <HoverCardContent 
-        className={contentSpec.className as string | undefined}
-        align={contentSpec.align as "center" | "start" | "end" | undefined}
-        sideOffset={contentSpec.sideOffset as number | undefined}
-      >
-        {contentContent}
-      </HoverCardContent>
+      {children}
     </HoverCard>
   );
 }

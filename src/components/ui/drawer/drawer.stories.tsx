@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import {
   Drawer,
@@ -34,43 +35,47 @@ type Story = StoryObj<typeof meta>;
 export const Default = enhanceStoryForDualMode(
   {
     args: {},
-    render: () => (
-      <Drawer>
-        <DrawerTrigger asChild>
-          <Button variant="outline">Open Drawer</Button>
-        </DrawerTrigger>
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>Edit Profile</DrawerTitle>
-            <DrawerDescription>
-              Make changes to your profile here. Click save when you&apos;re done.
-            </DrawerDescription>
-          </DrawerHeader>
-          <DrawerSection>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Shadcn" />
+    render: () => {
+      const [open, setOpen] = React.useState(false);
+      
+      return (
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>
+            <Button variant="outline">Open Drawer</Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Edit Profile</DrawerTitle>
+              <DrawerDescription>
+                Make changes to your profile here. Click save when you&apos;re done.
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerSection>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input id="name" placeholder="Shadcn" />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="username">Username</Label>
+                  <Input id="username" placeholder="@shadcn" />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="bio">Bio</Label>
+                  <Textarea id="bio" placeholder="Tell us about yourself" />
+                </div>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" placeholder="@shadcn" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="bio">Bio</Label>
-                <Textarea id="bio" placeholder="Tell us about yourself" />
-              </div>
-            </div>
-          </DrawerSection>
-          <DrawerFooter>
-            <Button type="submit">Save changes</Button>
-            <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    ),
+            </DrawerSection>
+            <DrawerFooter>
+              <Button type="submit">Save changes</Button>
+              <DrawerClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      );
+    },
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
       const canvas = within(canvasElement);
 
@@ -109,13 +114,10 @@ export const Default = enhanceStoryForDualMode(
       type: "Drawer",
       children: [
         {
-          type: "DrawerTrigger",
-          asChild: true,
-          children: {
-            type: "Button",
-            variant: "outline",
-            children: "Open Drawer",
-          },
+          type: "Button",
+          variant: "outline",
+          onClickAction: "openDrawer",
+          children: "Open Drawer",
         },
         {
           type: "DrawerContent",
@@ -199,13 +201,10 @@ export const Default = enhanceStoryForDualMode(
                   children: "Save changes",
                 },
                 {
-                  type: "DrawerClose",
-                  asChild: true,
-                  children: {
-                    type: "Button",
-                    variant: "outline",
-                    children: "Cancel",
-                  },
+                  type: "Button",
+                  variant: "outline",
+                  onClickAction: "closeDrawer",
+                  children: "Cancel",
                 },
               ],
             },
@@ -213,51 +212,65 @@ export const Default = enhanceStoryForDualMode(
         },
       ],
     },
+    handlers: {
+      openDrawer: () => {
+        // This will be dynamically set by the Drawer component
+        console.log("Opening drawer");
+      },
+      closeDrawer: () => {
+        // This will be dynamically set by the Drawer component
+        console.log("Closing drawer");
+      },
+    },
   }
 );
 
 export const RightSide = enhanceStoryForDualMode(
   {
     args: {},
-    render: () => (
-      <Drawer>
-        <DrawerTrigger asChild>
-          <Button variant="default">Right Side Drawer</Button>
-        </DrawerTrigger>
-        <DrawerContent data-vaul-drawer-direction="right">
-          <DrawerHeader>
-            <DrawerTitle>Navigation Menu</DrawerTitle>
-            <DrawerDescription>Quick access to all features and settings.</DrawerDescription>
-          </DrawerHeader>
-          <DrawerSection>
-            <nav className="grid gap-2">
-              <Button variant="ghost" className="w-full justify-start">
-                Dashboard
+    render: () => {
+      const [open, setOpen] = React.useState(false);
+      
+      return (
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>
+            <Button variant="default">Right Side Drawer</Button>
+          </DrawerTrigger>
+          <DrawerContent data-vaul-drawer-direction="right">
+            <DrawerHeader>
+              <DrawerTitle>Navigation Menu</DrawerTitle>
+              <DrawerDescription>Quick access to all features and settings.</DrawerDescription>
+            </DrawerHeader>
+            <DrawerSection>
+              <nav className="grid gap-2">
+                <Button variant="ghost" className="w-full justify-start">
+                  Dashboard
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  Profile
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  Settings
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  Support
+                </Button>
+              </nav>
+            </DrawerSection>
+            <DrawerFooter>
+              <Button variant="default" className="w-full">
+                Upgrade to Pro
               </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                Profile
-              </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                Settings
-              </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                Support
-              </Button>
-            </nav>
-          </DrawerSection>
-          <DrawerFooter>
-            <Button variant="default" className="w-full">
-              Upgrade to Pro
-            </Button>
-            <DrawerClose asChild>
-              <Button variant="ghost" className="w-full">
-                Close
-              </Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    ),
+              <DrawerClose asChild>
+                <Button variant="ghost" className="w-full">
+                  Close
+                </Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      );
+    },
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
       const canvas = within(canvasElement);
 
@@ -296,13 +309,10 @@ export const RightSide = enhanceStoryForDualMode(
       type: "Drawer",
       children: [
         {
-          type: "DrawerTrigger",
-          asChild: true,
-          children: {
-            type: "Button",
-            variant: "default",
-            children: "Right Side Drawer",
-          },
+          type: "Button",
+          variant: "default",
+          onClickAction: "openDrawer",
+          children: "Right Side Drawer",
         },
         {
           type: "DrawerContent",
@@ -365,14 +375,11 @@ export const RightSide = enhanceStoryForDualMode(
                   children: "Upgrade to Pro",
                 },
                 {
-                  type: "DrawerClose",
-                  asChild: true,
-                  children: {
-                    type: "Button",
-                    variant: "ghost",
-                    className: "w-full",
-                    children: "Close",
-                  },
+                  type: "Button",
+                  variant: "ghost",
+                  className: "w-full",
+                  onClickAction: "closeDrawer",
+                  children: "Close",
                 },
               ],
             },
@@ -380,49 +387,61 @@ export const RightSide = enhanceStoryForDualMode(
         },
       ],
     },
+    handlers: {
+      openDrawer: () => {
+        console.log("Opening right side drawer");
+      },
+      closeDrawer: () => {
+        console.log("Closing right side drawer");
+      },
+    },
   }
 );
 
 export const LeftSide = enhanceStoryForDualMode(
   {
     args: {},
-    render: () => (
-      <Drawer>
-        <DrawerTrigger asChild>
-          <Button variant="secondary">Left Side Drawer</Button>
-        </DrawerTrigger>
-        <DrawerContent data-vaul-drawer-direction="left">
-          <DrawerHeader>
-            <DrawerTitle>Settings</DrawerTitle>
-            <DrawerDescription>Customize your application experience.</DrawerDescription>
-          </DrawerHeader>
-          <DrawerSection>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="dark-mode">Dark Mode</Label>
-                <input type="checkbox" id="dark-mode" className="toggle" />
+    render: () => {
+      const [open, setOpen] = React.useState(false);
+      
+      return (
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>
+            <Button variant="secondary">Left Side Drawer</Button>
+          </DrawerTrigger>
+          <DrawerContent data-vaul-drawer-direction="left">
+            <DrawerHeader>
+              <DrawerTitle>Settings</DrawerTitle>
+              <DrawerDescription>Customize your application experience.</DrawerDescription>
+            </DrawerHeader>
+            <DrawerSection>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="dark-mode">Dark Mode</Label>
+                  <input type="checkbox" id="dark-mode" className="toggle" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="notifications">Notifications</Label>
+                  <input type="checkbox" id="notifications" className="toggle" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="analytics">Analytics</Label>
+                  <input type="checkbox" id="analytics" className="toggle" />
+                </div>
               </div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="notifications">Notifications</Label>
-                <input type="checkbox" id="notifications" className="toggle" />
-              </div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="analytics">Analytics</Label>
-                <input type="checkbox" id="analytics" className="toggle" />
-              </div>
-            </div>
-          </DrawerSection>
-          <DrawerFooter>
-            <DrawerClose asChild>
-              <Button variant="default">Save Preferences</Button>
-            </DrawerClose>
-            <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    ),
+            </DrawerSection>
+            <DrawerFooter>
+              <DrawerClose asChild>
+                <Button variant="default">Save Preferences</Button>
+              </DrawerClose>
+              <DrawerClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      );
+    },
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
       const canvas = within(canvasElement);
 
@@ -461,13 +480,10 @@ export const LeftSide = enhanceStoryForDualMode(
       type: "Drawer",
       children: [
         {
-          type: "DrawerTrigger",
-          asChild: true,
-          children: {
-            type: "Button",
-            variant: "secondary",
-            children: "Left Side Drawer",
-          },
+          type: "Button",
+          variant: "secondary",
+          onClickAction: "openDrawer",
+          children: "Left Side Drawer",
         },
         {
           type: "DrawerContent",
@@ -557,28 +573,30 @@ export const LeftSide = enhanceStoryForDualMode(
               type: "DrawerFooter",
               children: [
                 {
-                  type: "DrawerClose",
-                  asChild: true,
-                  children: {
-                    type: "Button",
-                    variant: "default",
-                    children: "Save Preferences",
-                  },
+                  type: "Button",
+                  variant: "default",
+                  onClickAction: "closeDrawer",
+                  children: "Save Preferences",
                 },
                 {
-                  type: "DrawerClose",
-                  asChild: true,
-                  children: {
-                    type: "Button",
-                    variant: "outline",
-                    children: "Cancel",
-                  },
+                  type: "Button",
+                  variant: "outline",
+                  onClickAction: "closeDrawer",
+                  children: "Cancel",
                 },
               ],
             },
           ],
         },
       ],
+    },
+    handlers: {
+      openDrawer: () => {
+        console.log("Opening left side drawer");
+      },
+      closeDrawer: () => {
+        console.log("Closing left side drawer");
+      },
     },
   }
 );
@@ -1444,3 +1462,4 @@ export const MobileOptimized = enhanceStoryForDualMode(
     },
   }
 );
+

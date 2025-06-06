@@ -29,6 +29,7 @@ import { LatestNews } from "../components/blocks/latest-news";
 import { ProductShowcase } from "../components/blocks/product-showcase";
 import { SDUIIcon } from "./icons";
 import { InputWithIconWrapper } from "./icons/input-with-icon-wrapper";
+import { DrawerWrapper } from "../components/ui/drawer/drawer-wrapper";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -367,7 +368,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     DialogClose: asComponent(
       UI.DialogClose as unknown as React.ComponentType<Record<string, unknown>>
     ),
-    Drawer: asComponent(UI.Drawer),
+    Drawer: asComponent(DrawerWrapper),
     DrawerTrigger: asComponent(UI.DrawerTrigger),
     DrawerContent: asComponent(UI.DrawerContent),
     DrawerHeader: asComponent(UI.DrawerHeader),

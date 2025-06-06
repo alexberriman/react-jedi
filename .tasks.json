@@ -137,7 +137,7 @@
   {
     "id": "fix-checkbox-hover",
     "description": "TASK: Fix Checkbox hover state visibility. ISSUE: Checkbox hover effect is barely visible - appears to have a strange or too-subtle hover state that users can't see. This affects usability as users can't tell when they're hovering. ACTION REQUIRED: 1) Review current checkbox hover styles. 2) Increase hover state contrast/visibility. 3) Ensure hover effect is consistent with design system. 4) May need border color change, background tint, or shadow. 5) Test in both light and dark modes. 6) Ensure hover state is accessible (sufficient contrast). EXPECTED OUTCOME: Clear, visible hover state on checkboxes that matches the design system.",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "id": "fix-radiogroup-hover",

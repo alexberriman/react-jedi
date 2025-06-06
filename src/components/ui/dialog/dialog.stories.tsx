@@ -11,7 +11,7 @@ import {
   DialogClose,
 } from "./dialog";
 import { Button } from "../button";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryWithHandlers, createDialogHandlers } from "../../../.storybook/utils/enhance-story-with-handlers";
 
 const meta = {
   title: "Components/Dialog",
@@ -36,7 +36,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = enhanceStoryForDualMode<typeof Dialog>(
+export const Basic: Story = enhanceStoryWithHandlers<typeof Dialog>(
   {
     args: {
       defaultOpen: false,
@@ -101,6 +101,7 @@ export const Basic: Story = enhanceStoryForDualMode<typeof Dialog>(
     renderSpec: {
       type: "Dialog",
       defaultOpen: false,
+      onOpenChangeAction: "handleDialogOpenChange",
       children: [
         {
           type: "DialogTrigger",
@@ -130,10 +131,15 @@ export const Basic: Story = enhanceStoryForDualMode<typeof Dialog>(
         },
       ],
     },
+    handlers: createDialogHandlers({
+      onOpenChange: (open) => {
+        console.log('Dialog open state changed to:', open);
+      }
+    })
   }
 );
 
-export const WithFooter: Story = enhanceStoryForDualMode<typeof Dialog>(
+export const WithFooter: Story = enhanceStoryWithHandlers<typeof Dialog>(
   {
     args: {
       defaultOpen: false,
@@ -308,7 +314,7 @@ export const WithFooter: Story = enhanceStoryForDualMode<typeof Dialog>(
   }
 );
 
-export const CustomClose: Story = enhanceStoryForDualMode<typeof Dialog>(
+export const CustomClose: Story = enhanceStoryWithHandlers<typeof Dialog>(
   {
     args: {
       defaultOpen: false,
@@ -431,7 +437,7 @@ export const CustomClose: Story = enhanceStoryForDualMode<typeof Dialog>(
   }
 );
 
-export const ScrollableContent: Story = enhanceStoryForDualMode<typeof Dialog>(
+export const ScrollableContent: Story = enhanceStoryWithHandlers<typeof Dialog>(
   {
     args: {
       defaultOpen: false,
@@ -585,7 +591,7 @@ export const ScrollableContent: Story = enhanceStoryForDualMode<typeof Dialog>(
   }
 );
 
-export const NonModal: Story = enhanceStoryForDualMode<typeof Dialog>(
+export const NonModal: Story = enhanceStoryWithHandlers<typeof Dialog>(
   {
     args: {
       defaultOpen: false,
@@ -691,7 +697,7 @@ export const NonModal: Story = enhanceStoryForDualMode<typeof Dialog>(
   }
 );
 
-export const InitiallyOpen: Story = enhanceStoryForDualMode<typeof Dialog>(
+export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
   {
     args: {
       defaultOpen: true,

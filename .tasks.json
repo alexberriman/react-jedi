@@ -322,12 +322,13 @@
       {
         "id": "dual-mode-keyboard-navigation-menu",
         "description": "Implement dual-mode story functionality for KeyboardNavigationMenu component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/ui/keyboard-navigation-menu/keyboard-navigation-menu.stories.tsx",
-        "status": "pending"
+        "status": "cancelled",
+        "reason": "KeyboardNavigationMenu component is not compatible with dual-mode testing due to its complex structure and special handling requirements. The component uses MenuItem objects containing React components (icons) and functions (actions) that cannot be serialized to JSON for SDUI rendering. Additionally, it requires complex keyboard navigation state management and special interaction patterns that conflict with the standard dual-mode testing approach."
       },
       {
         "id": "dual-mode-skeleton-loader",
         "description": "Implement dual-mode story functionality for SkeletonLoader component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/ui/skeleton-loader/skeleton-loader.stories.tsx",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "dual-mode-head-manager",

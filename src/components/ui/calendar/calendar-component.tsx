@@ -1,6 +1,7 @@
 import React from "react";
 import { Calendar } from "./calendar";
 import { BaseComponentSpec } from "@/types";
+import type { ComponentProps } from "@/types/schema/components";
 import type {
   SelectSingleEventHandler,
   SelectMultipleEventHandler,
@@ -13,25 +14,30 @@ type ParsedSelectedValue =
   | { mode: "multiple"; value: Date[] }
   | { mode: "range"; value: { from: Date | undefined; to: Date | undefined } | undefined };
 
-export interface CalendarComponentProps extends BaseComponentSpec {
+export interface CalendarSpec extends BaseComponentSpec {
   type: "calendar";
   mode?: "single" | "multiple" | "range";
-  selected?: Date | Date[] | { from: Date | undefined; to: Date | undefined };
-  defaultMonth?: Date;
-  disabled?: Date[] | ((date: Date) => boolean);
+  selected?: Date | Date[] | { from: Date | undefined; to: Date | undefined } | string | string[] | { from?: string; to?: string };
+  defaultMonth?: Date | string;
+  disabled?: Date[] | string[] | ((date: Date) => boolean) | "weekends";
   initialFocus?: boolean;
   showOutsideDays?: boolean;
   fixedWeeks?: boolean;
   numberOfMonths?: number;
   fromYear?: number;
   toYear?: number;
-  fromMonth?: Date;
-  toMonth?: Date;
-  fromDate?: Date;
-  toDate?: Date;
+  fromMonth?: Date | string;
+  toMonth?: Date | string;
+  fromDate?: Date | string;
+  toDate?: Date | string;
   onSelect?: string;
   onMonthChange?: string;
   // style and className are inherited from BaseComponentSpec
+}
+
+interface CalendarComponentProps extends ComponentProps {
+  readonly spec: CalendarSpec;
+  readonly children?: React.ReactNode;
 }
 
 // Handle date parsing from JSON specification
@@ -42,34 +48,30 @@ const parseDate = (date: unknown): Date | undefined => {
   return undefined;
 };
 
-export function CalendarComponent({
-  mode = "single",
-  selected,
-  defaultMonth,
-  disabled,
-  initialFocus,
-  showOutsideDays = true,
-  fixedWeeks,
-  numberOfMonths,
-  fromYear,
-  toYear,
-  fromMonth,
-  toMonth,
-  fromDate,
-  toDate,
-  onSelect,
-  onMonthChange,
-  style = {},
-  className = "",
-  $state = {},
-  dataContext = {},
-  ...props
-}: CalendarComponentProps & {
-  style?: React.CSSProperties;
-  className?: string;
-  $state?: Record<string, unknown>;
-  dataContext?: Record<string, unknown>;
-}) {
+export function CalendarComponent({ spec, parentContext }: CalendarComponentProps) {
+  const {
+    mode = "single",
+    selected,
+    defaultMonth,
+    disabled,
+    initialFocus,
+    showOutsideDays = true,
+    fixedWeeks,
+    numberOfMonths,
+    fromYear,
+    toYear,
+    fromMonth,
+    toMonth,
+    fromDate,
+    toDate,
+    onSelect,
+    onMonthChange,
+    style = {},
+    className = "",
+  } = spec;
+
+  // Get handlers from parent context
+  const handlers = parentContext?.handlers as Record<string, (...args: unknown[]) => unknown> | undefined;
   // Helper functions for parsing different selection types
   const parseSingleSelect = (selected: unknown): Date | undefined => {
     return parseDate(selected);
@@ -97,6 +99,20 @@ export function CalendarComponent({
     return undefined;
   };
 
+  // Parse disabled dates
+  const parsedDisabled = React.useMemo(() => {
+    if (disabled === "weekends") {
+      return (date: Date) => {
+        const day = date.getDay();
+        return day === 0 || day === 6; // Sunday = 0, Saturday = 6
+      };
+    }
+    if (Array.isArray(disabled)) {
+      return disabled.map((d) => parseDate(d)).filter(Boolean) as Date[];
+    }
+    return disabled;
+  }, [disabled]);
+
   // Parse dates from JSON specification
   const parsedValue = React.useMemo((): ParsedSelectedValue => {
     switch (mode) {
@@ -119,46 +135,44 @@ export function CalendarComponent({
   // Event handlers for calendar - these need to match react-day-picker's exact signatures
   const handleSelectSingle: SelectSingleEventHandler = React.useCallback(
     (date, selectedDay, activeModifiers, e) => {
-      if (onSelect) {
-        // For now, just log the selection. In a real implementation,
-        // this would dispatch an action or call a handler
-        console.log("Calendar selected:", date);
+      if (onSelect && handlers && handlers[onSelect]) {
+        handlers[onSelect](date);
       }
     },
-    [onSelect]
+    [onSelect, handlers]
   );
 
   const handleSelectMultiple: SelectMultipleEventHandler = React.useCallback(
     (dates, selectedDay, activeModifiers, e) => {
-      if (onSelect) {
-        console.log("Calendar selected multiple:", dates);
+      if (onSelect && handlers && handlers[onSelect]) {
+        handlers[onSelect](dates);
       }
     },
-    [onSelect]
+    [onSelect, handlers]
   );
 
   const handleSelectRange: SelectRangeEventHandler = React.useCallback(
     (range, selectedDay, activeModifiers, e) => {
-      if (onSelect) {
-        console.log("Calendar selected range:", range);
+      if (onSelect && handlers && handlers[onSelect]) {
+        handlers[onSelect](range);
       }
     },
-    [onSelect]
+    [onSelect, handlers]
   );
 
   const handleMonthChange = React.useCallback(
     (month: Date) => {
-      if (onMonthChange) {
-        console.log("Calendar month changed:", month);
+      if (onMonthChange && handlers && handlers[onMonthChange]) {
+        handlers[onMonthChange](month);
       }
     },
-    [onMonthChange]
+    [onMonthChange, handlers]
   );
 
   // Common props for all modes
   const commonProps = {
-    defaultMonth: parseDate(defaultMonth),
-    disabled,
+    defaultMonth: parseDate(defaultMonth) || new Date(),
+    disabled: parsedDisabled,
     initialFocus,
     showOutsideDays,
     fixedWeeks,

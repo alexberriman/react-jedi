@@ -62,6 +62,7 @@ export function Combobox({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button
+          data-slot="combobox-trigger"
           role="combobox"
           aria-expanded={open}
           aria-controls={listboxId}

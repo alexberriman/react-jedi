@@ -730,8 +730,44 @@
 
 /* Generic animate-in with modifiers */
 .animate-in {
-  opacity: 0;
+  /* Only set opacity: 0 when the animation is actually defined and running */
   animation-fill-mode: forwards;
+}
+
+/* Apply opacity: 0 only when animation is defined and when data-state is open */
+.animate-in.fade-in,
+.animate-in.fade-in-0,
+.animate-in.zoom-in,
+.animate-in.zoom-in-95,
+.animate-in.spin-in,
+.animate-in.slide-in-from-top-2,
+.animate-in.slide-in-from-bottom-2,
+.animate-in.slide-in-from-bottom-4,
+.animate-in.slide-in-from-left-2,
+.animate-in.slide-in-from-right-2 {
+  opacity: 0;
+}
+
+/* Ensure Popover/Select/DatePicker triggers don't flash */
+[data-slot="popover-trigger"],
+[data-slot="select-trigger"],
+[data-slot="combobox-trigger"],
+button:has(+ [data-radix-popper-content-wrapper]) {
+  opacity: 1 !important;
+}
+
+/* Fix for Radix UI animation flashing */
+[data-state="closed"].animate-in,
+[data-state="closed"] .animate-in {
+  animation: none;
+  opacity: 1;
+}
+
+/* Prevent animation classes from affecting triggers */
+[role="combobox"][aria-expanded],
+[data-slot$="-trigger"] {
+  animation: none !important;
+  opacity: 1 !important;
 }
 
 .animate-in.fade-in {

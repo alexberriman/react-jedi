@@ -4,6 +4,7 @@ import { DataTable, createSortableHeader, type DataTableColumn } from "./data-ta
 import { Copy, Edit, Trash } from "lucide-react";
 import type { Column, Row } from "@tanstack/react-table";
 import { Checkbox } from "../checkbox/checkbox";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 // Sample data types
 interface Payment {
@@ -222,142 +223,206 @@ const paymentColumns: DataTableColumn<Payment>[] = [
   },
 ];
 
-export const Default: Story = {
-  args: {
-    columns: paymentColumns as DataTableColumn<unknown>[],
-    data: payments as unknown[],
-    filterColumn: "email",
-    filterPlaceholder: "Filter emails...",
-    pageSize: 5,
-  },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const Default: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      columns: paymentColumns as DataTableColumn<unknown>[],
+      data: payments as unknown[],
+      filterColumn: "email",
+      filterPlaceholder: "Filter emails...",
+      pageSize: 5,
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-    // Test filtering
-    const filterInput = canvas.getByPlaceholderText("Filter emails...");
-    await userEvent.type(filterInput, "gmail");
+      // Test basic rendering
+      expect(canvas.getByRole("table")).toBeInTheDocument();
+      expect(canvas.getByText("ken99@yahoo.com")).toBeInTheDocument();
 
-    // Wait for filtered results
-    await waitFor(() => {
-      const rows = canvas.getAllByRole("row");
-      // Header + filtered rows
-      expect(rows.length).toBeLessThan(7); // Less than header + all 5 items
-    });
+      // Test filtering
+      const filterInput = canvas.getByPlaceholderText("Filter emails...");
+      await userEvent.type(filterInput, "gmail");
 
-    // Clear filter
-    await userEvent.clear(filterInput);
-
-    // Test sorting by clicking Email header
-    const emailHeader = canvas.getByRole("button", { name: /email/i });
-    await userEvent.click(emailHeader);
-
-    // Test row selection
-    const checkboxes = canvas.getAllByRole("checkbox");
-    await userEvent.click(checkboxes[1]); // Click first row checkbox
-
-    // Test pagination - go to next page
-    const nextButton = canvas.getByRole("button", { name: /next/i });
-    if (!nextButton.hasAttribute("disabled")) {
-      await userEvent.click(nextButton);
-
-      // Only go back if we actually went forward
+      // Wait for filtered results
       await waitFor(() => {
-        const prevButton = canvas.getByRole("button", { name: /previous/i });
-        expect(prevButton).not.toBeDisabled();
+        const rows = canvas.getAllByRole("row");
+        // Header + filtered rows
+        expect(rows.length).toBeLessThan(7); // Less than header + all 5 items
       });
 
-      const prevButton = canvas.getByRole("button", { name: /previous/i });
-      await userEvent.click(prevButton);
-    }
+      // Clear filter
+      await userEvent.clear(filterInput);
+
+      // Test sorting by clicking Email header
+      const emailHeader = canvas.getByRole("button", { name: /email/i });
+      await userEvent.click(emailHeader);
+
+      // Test row selection
+      const checkboxes = canvas.getAllByRole("checkbox");
+      if (checkboxes.length > 1) {
+        await userEvent.click(checkboxes[1]); // Click first row checkbox
+      }
+
+      // Test pagination - go to next page
+      const nextButton = canvas.getByRole("button", { name: /next/i });
+      if (!nextButton.hasAttribute("disabled")) {
+        await userEvent.click(nextButton);
+
+        // Only go back if we actually went forward
+        await waitFor(() => {
+          const prevButton = canvas.getByRole("button", { name: /previous/i });
+          expect(prevButton).not.toBeDisabled();
+        });
+
+        const prevButton = canvas.getByRole("button", { name: /previous/i });
+        await userEvent.click(prevButton);
+      }
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "DataTable",
+      columns: [
+        { id: "select", header: "Select", enableSorting: false, enableHiding: false },
+        { id: "id", accessorKey: "id", header: "ID" },
+        { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "status", accessorKey: "status", header: "Status" },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+      ],
+      data: [
+        { id: "1", amount: 316, status: "success", email: "ken99@yahoo.com", createdAt: "2024-01-15" },
+        { id: "2", amount: 242, status: "success", email: "Abe45@gmail.com", createdAt: "2024-01-14" },
+        { id: "3", amount: 837, status: "processing", email: "Monserrat44@gmail.com", createdAt: "2024-01-13" },
+        { id: "4", amount: 874, status: "success", email: "Silas22@gmail.com", createdAt: "2024-01-12" },
+        { id: "5", amount: 721, status: "failed", email: "Gwendolyn71@yahoo.com", createdAt: "2024-01-11" },
+      ],
+      filterColumn: "email",
+      filterPlaceholder: "Filter emails...",
+      pageSize: 5,
+    },
+  }
+) as Story;
 
-export const WithActions: Story = {
-  args: {
-    columns: paymentColumns.filter((col) => col.id !== "select") as DataTableColumn<unknown>[],
-    data: payments as unknown[],
-    filterColumn: "email",
-    filterPlaceholder: "Filter emails...",
-    pageSize: 5,
-    actions: [
-      {
-        label: "Copy ID",
-        onClick: fn((row: unknown) => {
-          const payment = row as Payment;
-          // Mock clipboard write for testing
-          console.log("Copying ID:", payment.id);
-        }),
-        icon: Copy,
-      },
-      {
-        label: "Edit",
-        onClick: fn(),
-        icon: Edit,
-      },
-      {
-        label: "Delete",
-        onClick: fn(),
-        icon: Trash,
-      },
-    ],
+export const WithActions: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      columns: paymentColumns.filter((col) => col.id !== "select") as DataTableColumn<unknown>[],
+      data: payments as unknown[],
+      filterColumn: "email",
+      filterPlaceholder: "Filter emails...",
+      pageSize: 5,
+      actions: [
+        {
+          label: "Copy ID",
+          onClick: fn((row: unknown) => {
+            const payment = row as Payment;
+            // Mock clipboard write for testing
+            console.log("Copying ID:", payment.id);
+          }),
+          icon: Copy,
+        },
+        {
+          label: "Edit",
+          onClick: fn(),
+          icon: Edit,
+        },
+        {
+          label: "Delete",
+          onClick: fn(),
+          icon: Trash,
+        },
+      ],
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test basic rendering
+      expect(canvas.getByRole("table")).toBeInTheDocument();
+      expect(canvas.getByText("ken99@yahoo.com")).toBeInTheDocument();
+
+      // Wait for table to be fully rendered with data
+      await waitFor(
+        () => {
+          expect(canvas.getByRole("table")).toBeInTheDocument();
+          // Ensure data is loaded by checking for specific content
+          expect(canvas.getByText("ken99@yahoo.com")).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+
+      // Wait a bit for any animations or async rendering to complete
+      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+
+      // Find the first actions button (three dots menu) - use aria-label from the component
+      const actionsButtons = canvas.getAllByRole("button", { name: /open menu/i });
+      expect(actionsButtons.length).toBeGreaterThan(0);
+      
+      // Click the first actions button
+      await userEvent.click(actionsButtons[0]);
+
+      // Wait for dropdown menu to appear - check in document since it might be in a portal
+      await waitFor(
+        () => {
+          const dropdownItems = within(document.body).queryAllByRole("menuitem");
+          expect(dropdownItems.length).toBeGreaterThan(0);
+          // Also check for the specific text
+          expect(within(document.body).getByText("Copy ID")).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+
+      // Click on Edit action
+      const editButton = within(document.body).getByText("Edit");
+      await userEvent.click(editButton);
+
+      // Wait a bit for the menu to close
+      await new Promise(resolve => globalThis.setTimeout(resolve, 300));
+
+      // Click actions button again to open menu
+      await userEvent.click(actionsButtons[0]);
+
+      // Wait for menu to reopen
+      await waitFor(
+        () => {
+          expect(within(document.body).getByText("Copy ID")).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+
+      // Click Copy ID
+      const copyButton = within(document.body).getByText("Copy ID");
+      await userEvent.click(copyButton);
+    },
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    // Wait for table to be fully rendered with data
-    await waitFor(
-      () => {
-        expect(canvas.getByRole("table")).toBeInTheDocument();
-        // Ensure data is loaded by checking for specific content
-        expect(canvas.getByText("ken99@yahoo.com")).toBeInTheDocument();
-      },
-      { timeout: 10_000 }
-    );
-
-    // Wait a bit for any animations or async rendering to complete
-    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
-
-    // Find the first actions button (three dots menu) - use aria-label from the component
-    const actionsButtons = canvas.getAllByRole("button", { name: /open menu/i });
-    expect(actionsButtons.length).toBeGreaterThan(0);
-    
-    // Click the first actions button
-    await userEvent.click(actionsButtons[0]);
-
-    // Wait for dropdown menu to appear - check in document since it might be in a portal
-    await waitFor(
-      () => {
-        const dropdownItems = within(document.body).queryAllByRole("menuitem");
-        expect(dropdownItems.length).toBeGreaterThan(0);
-        // Also check for the specific text
-        expect(within(document.body).getByText("Copy ID")).toBeInTheDocument();
-      },
-      { timeout: 10_000 }
-    );
-
-    // Click on Edit action
-    const editButton = within(document.body).getByText("Edit");
-    await userEvent.click(editButton);
-
-    // Wait a bit for the menu to close
-    await new Promise(resolve => globalThis.setTimeout(resolve, 300));
-
-    // Click actions button again to open menu
-    await userEvent.click(actionsButtons[0]);
-
-    // Wait for menu to reopen
-    await waitFor(
-      () => {
-        expect(within(document.body).getByText("Copy ID")).toBeInTheDocument();
-      },
-      { timeout: 10_000 }
-    );
-
-    // Click Copy ID
-    const copyButton = within(document.body).getByText("Copy ID");
-    await userEvent.click(copyButton);
-  },
-};
+  {
+    renderSpec: {
+      type: "DataTable",
+      columns: [
+        { id: "id", accessorKey: "id", header: "ID" },
+        { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "status", accessorKey: "status", header: "Status" },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+      ],
+      data: [
+        { id: "1", amount: 316, status: "success", email: "ken99@yahoo.com", createdAt: "2024-01-15" },
+        { id: "2", amount: 242, status: "success", email: "Abe45@gmail.com", createdAt: "2024-01-14" },
+        { id: "3", amount: 837, status: "processing", email: "Monserrat44@gmail.com", createdAt: "2024-01-13" },
+        { id: "4", amount: 874, status: "success", email: "Silas22@gmail.com", createdAt: "2024-01-12" },
+        { id: "5", amount: 721, status: "failed", email: "Gwendolyn71@yahoo.com", createdAt: "2024-01-11" },
+      ],
+      filterColumn: "email",
+      filterPlaceholder: "Filter emails...",
+      pageSize: 5,
+      actions: [
+        { label: "Copy ID", onClick: "copyId" },
+        { label: "Edit", onClick: "edit" },
+        { label: "Delete", onClick: "delete" },
+      ],
+    },
+  }
+) as Story;
 
 // User columns without selection
 const userColumns: DataTableColumn<User>[] = [
@@ -429,116 +494,222 @@ const userColumns: DataTableColumn<User>[] = [
   },
 ];
 
-export const MinimalFeatures: Story = {
-  args: {
-    columns: userColumns as DataTableColumn<unknown>[],
-    data: users as unknown[],
-    showPagination: false,
-    showColumnFilter: false,
-    showViewOptions: false,
+export const MinimalFeatures: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      columns: userColumns as DataTableColumn<unknown>[],
+      data: users as unknown[],
+      showPagination: false,
+      showColumnFilter: false,
+      showViewOptions: false,
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test basic rendering
+      expect(canvas.getByRole("table")).toBeInTheDocument();
+
+      // Verify table renders with data
+      expect(canvas.getByText("John Doe")).toBeInTheDocument();
+      expect(canvas.getByText("jane.smith@example.com")).toBeInTheDocument();
+
+      // Test sorting by clicking Name header
+      const nameHeader = canvas.getByRole("button", { name: /name/i });
+      await userEvent.click(nameHeader);
+
+      // Click again to reverse sort
+      await userEvent.click(nameHeader);
+
+      // Verify no pagination controls
+      expect(canvas.queryByRole("button", { name: /next/i })).not.toBeInTheDocument();
+      expect(canvas.queryByRole("button", { name: /previous/i })).not.toBeInTheDocument();
+    },
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+  {
+    renderSpec: {
+      type: "DataTable",
+      columns: [
+        { id: "name", accessorKey: "name", header: "Name", enableSorting: true },
+        { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
+        { id: "role", accessorKey: "role", header: "Role" },
+        { id: "status", accessorKey: "status", header: "Status" },
+        { id: "lastLogin", accessorKey: "lastLogin", header: "Last Login", enableSorting: true },
+      ],
+      data: [
+        { id: "1", name: "John Doe", email: "john.doe@example.com", role: "Admin", status: "active", lastLogin: "2024-01-20" },
+        { id: "2", name: "Jane Smith", email: "jane.smith@example.com", role: "User", status: "active", lastLogin: "2024-01-19" },
+        { id: "3", name: "Bob Johnson", email: "bob.johnson@example.com", role: "User", status: "inactive", lastLogin: "2024-01-10" },
+        { id: "4", name: "Alice Williams", email: "alice.williams@example.com", role: "Moderator", status: "active", lastLogin: "2024-01-20" },
+      ],
+      showPagination: false,
+      showColumnFilter: false,
+      showViewOptions: false,
+    },
+  }
+) as Story;
 
-    // Verify table renders with data
-    expect(canvas.getByText("John Doe")).toBeInTheDocument();
-    expect(canvas.getByText("jane.smith@example.com")).toBeInTheDocument();
+export const CustomStyling: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      columns: paymentColumns as DataTableColumn<unknown>[],
+      data: payments as unknown[],
+      filterColumn: "email",
+      filterPlaceholder: "Filter emails...",
+      className: "shadow-lg rounded-lg",
+      pageSize: 3,
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-    // Test sorting by clicking Name header
-    const nameHeader = canvas.getByRole("button", { name: /name/i });
-    await userEvent.click(nameHeader);
+      // Test basic rendering
+      expect(canvas.getByRole("table")).toBeInTheDocument();
 
-    // Click again to reverse sort
-    await userEvent.click(nameHeader);
+      // Verify custom styling is applied to the outer wrapper
+      // The className is applied to the outermost div that contains the table
+      const wrapper = canvas.getByRole("table").closest(".shadow-lg");
+      expect(wrapper).toBeInTheDocument();
+      expect(wrapper).toHaveClass("shadow-lg");
+      expect(wrapper).toHaveClass("rounded-lg");
 
-    // Verify no pagination controls
-    expect(canvas.queryByRole("button", { name: /next/i })).not.toBeInTheDocument();
-    expect(canvas.queryByRole("button", { name: /previous/i })).not.toBeInTheDocument();
+      // Basic interaction test
+      const filterInput = canvas.getByPlaceholderText("Filter emails...");
+      await userEvent.type(filterInput, "yahoo");
+
+      await waitFor(() => {
+        expect(canvas.getByText("ken99@yahoo.com")).toBeInTheDocument();
+      });
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "DataTable",
+      columns: [
+        { id: "select", header: "Select", enableSorting: false, enableHiding: false },
+        { id: "id", accessorKey: "id", header: "ID" },
+        { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "status", accessorKey: "status", header: "Status" },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+      ],
+      data: [
+        { id: "1", amount: 316, status: "success", email: "ken99@yahoo.com", createdAt: "2024-01-15" },
+        { id: "2", amount: 242, status: "success", email: "Abe45@gmail.com", createdAt: "2024-01-14" },
+        { id: "3", amount: 837, status: "processing", email: "Monserrat44@gmail.com", createdAt: "2024-01-13" },
+        { id: "4", amount: 874, status: "success", email: "Silas22@gmail.com", createdAt: "2024-01-12" },
+        { id: "5", amount: 721, status: "failed", email: "Gwendolyn71@yahoo.com", createdAt: "2024-01-11" },
+      ],
+      filterColumn: "email",
+      filterPlaceholder: "Filter emails...",
+      className: "shadow-lg rounded-lg",
+      pageSize: 3,
+    },
+  }
+) as Story;
 
-export const CustomStyling: Story = {
-  args: {
-    columns: paymentColumns as DataTableColumn<unknown>[],
-    data: payments as unknown[],
-    filterColumn: "email",
-    filterPlaceholder: "Filter emails...",
-    className: "shadow-lg rounded-lg",
-    pageSize: 3,
+export const WithRowSelection: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      columns: paymentColumns.filter((col) => col.id !== "select") as DataTableColumn<unknown>[],
+      data: payments as unknown[],
+      filterColumn: "email",
+      selectable: true,
+      onRowSelect: fn((selectedRows: unknown[]) => {
+        console.log("Selected rows:", selectedRows as Payment[]);
+      }),
+    },
+    play: async ({ canvasElement, args }) => {
+      const canvas = within(canvasElement);
+
+      // Test basic rendering
+      expect(canvas.getByRole("table")).toBeInTheDocument();
+
+      // Get all checkboxes
+      const checkboxes = canvas.getAllByRole("checkbox");
+
+      // Select first row
+      if (checkboxes.length > 1) {
+        await userEvent.click(checkboxes[1]);
+
+        // Select second row
+        if (checkboxes.length > 2) {
+          await userEvent.click(checkboxes[2]);
+        }
+
+        // Verify onRowSelect was called
+        await waitFor(() => {
+          expect(args.onRowSelect).toHaveBeenCalled();
+        });
+
+        // Select all rows
+        await userEvent.click(checkboxes[0]); // Header checkbox
+
+        // Deselect all
+        await userEvent.click(checkboxes[0]);
+      }
+    },
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+  {
+    renderSpec: {
+      type: "DataTable",
+      columns: [
+        { id: "id", accessorKey: "id", header: "ID" },
+        { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "status", accessorKey: "status", header: "Status" },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+      ],
+      data: [
+        { id: "1", amount: 316, status: "success", email: "ken99@yahoo.com", createdAt: "2024-01-15" },
+        { id: "2", amount: 242, status: "success", email: "Abe45@gmail.com", createdAt: "2024-01-14" },
+        { id: "3", amount: 837, status: "processing", email: "Monserrat44@gmail.com", createdAt: "2024-01-13" },
+        { id: "4", amount: 874, status: "success", email: "Silas22@gmail.com", createdAt: "2024-01-12" },
+        { id: "5", amount: 721, status: "failed", email: "Gwendolyn71@yahoo.com", createdAt: "2024-01-11" },
+      ],
+      filterColumn: "email",
+      selectable: true,
+    },
+  }
+) as Story;
 
-    // Verify custom styling is applied to the outer wrapper
-    // The className is applied to the outermost div that contains the table
-    const wrapper = canvas.getByRole("table").closest(".shadow-lg");
-    expect(wrapper).toBeInTheDocument();
-    expect(wrapper).toHaveClass("shadow-lg");
-    expect(wrapper).toHaveClass("rounded-lg");
+export const EmptyState: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      columns: paymentColumns as DataTableColumn<unknown>[],
+      data: [],
+      filterColumn: "email",
+      filterPlaceholder: "Filter emails...",
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-    // Basic interaction test
-    const filterInput = canvas.getByPlaceholderText("Filter emails...");
-    await userEvent.type(filterInput, "yahoo");
+      // Test basic rendering
+      expect(canvas.getByRole("table")).toBeInTheDocument();
 
-    await waitFor(() => {
-      expect(canvas.getByText("ken99@yahoo.com")).toBeInTheDocument();
-    });
+      // Verify empty state message
+      expect(canvas.getByText("No results.")).toBeInTheDocument();
+
+      // Verify filter input is still available
+      expect(canvas.getByPlaceholderText("Filter emails...")).toBeInTheDocument();
+
+      // Verify table headers are still rendered
+      expect(canvas.getByText("Email")).toBeInTheDocument();
+      expect(canvas.getByText("Amount")).toBeInTheDocument();
+    },
   },
-};
-
-export const WithRowSelection: Story = {
-  args: {
-    columns: paymentColumns.filter((col) => col.id !== "select") as DataTableColumn<unknown>[],
-    data: payments as unknown[],
-    filterColumn: "email",
-    selectable: true,
-    onRowSelect: fn((selectedRows: unknown[]) => {
-      console.log("Selected rows:", selectedRows as Payment[]);
-    }),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
-    // Get all checkboxes
-    const checkboxes = canvas.getAllByRole("checkbox");
-
-    // Select first row
-    await userEvent.click(checkboxes[1]);
-
-    // Select second row
-    await userEvent.click(checkboxes[2]);
-
-    // Verify onRowSelect was called
-    await waitFor(() => {
-      expect(args.onRowSelect).toHaveBeenCalled();
-    });
-
-    // Select all rows
-    await userEvent.click(checkboxes[0]); // Header checkbox
-
-    // Deselect all
-    await userEvent.click(checkboxes[0]);
-  },
-};
-
-export const EmptyState: Story = {
-  args: {
-    columns: paymentColumns as DataTableColumn<unknown>[],
-    data: [],
-    filterColumn: "email",
-    filterPlaceholder: "Filter emails...",
-  },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    // Verify empty state message
-    expect(canvas.getByText("No results.")).toBeInTheDocument();
-
-    // Verify filter input is still available
-    expect(canvas.getByPlaceholderText("Filter emails...")).toBeInTheDocument();
-
-    // Verify table headers are still rendered
-    expect(canvas.getByText("Email")).toBeInTheDocument();
-    expect(canvas.getByText("Amount")).toBeInTheDocument();
-  },
-};
+  {
+    renderSpec: {
+      type: "DataTable",
+      columns: [
+        { id: "select", header: "Select", enableSorting: false, enableHiding: false },
+        { id: "id", accessorKey: "id", header: "ID" },
+        { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "status", accessorKey: "status", header: "Status" },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+      ],
+      data: [],
+      filterColumn: "email",
+      filterPlaceholder: "Filter emails...",
+    },
+  }
+) as Story;

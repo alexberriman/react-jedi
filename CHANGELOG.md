@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-06]
 
+- **TASK: Fix Combobox component flash on initial render. ISSUE: Combobox flashes/flickers when first rendered, creating a poor user experience. Similar to DatePicker flash issue. LIKELY CAUSE: Initial state setup, portal rendering, or CSS transitions on mount. ACTION REQUIRED: 1) Debug the initial render lifecycle of Combobox. 2) Check for portal mounting issues or position calculations. 3) Review initial state and default values. 4) May need to adjust opacity/visibility instead of display. 5) Ensure smooth render without flash in both modes. 6) Test with various initial states (open/closed, with/without value). EXPECTED OUTCOME: Smooth initial render without any flashing or flickering.**
+
+
+## [2025-06-06]
+
 - **TASK: Fix RadioGroup hover state visibility. ISSUE: RadioGroup has the same hover visibility issue as Checkbox - hover effect is barely noticeable. Users can't tell when hovering over radio options. ACTION REQUIRED: 1) Review current radio button hover styles. 2) Increase hover state visibility to match checkbox improvements. 3) Ensure consistency between checkbox and radio hover states. 4) Test with different color schemes and themes. 5) Verify hover state meets accessibility standards. 6) Apply to both individual radios and group container if needed. EXPECTED OUTCOME: Clear, visible hover state on radio buttons consistent with checkboxes.**
 
 

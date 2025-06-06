@@ -105,11 +105,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-combobox-flash",
-    "description": "TASK: Fix Combobox component flash on initial render. ISSUE: Combobox flashes/flickers when first rendered, creating a poor user experience. Similar to DatePicker flash issue. LIKELY CAUSE: Initial state setup, portal rendering, or CSS transitions on mount. ACTION REQUIRED: 1) Debug the initial render lifecycle of Combobox. 2) Check for portal mounting issues or position calculations. 3) Review initial state and default values. 4) May need to adjust opacity/visibility instead of display. 5) Ensure smooth render without flash in both modes. 6) Test with various initial states (open/closed, with/without value). EXPECTED OUTCOME: Smooth initial render without any flashing or flickering.",
-    "status": "in_progress"
-  },
-  {
     "id": "fix-inputotp-sdui",
     "description": "TASK: Fix InputOTP component issues in SDUI mode. ISSUE 1 - Digit Count: 'Four Digit PIN' renders 6 digits in SDUI instead of 4. Same for 'Custom Separator' and 'Password' variants. ISSUE 2 - Default Value: 'With Default Value' story doesn't show the default value in SDUI. ISSUE 3 - Disabled State: 'Disabled' variant isn't actually disabled in SDUI mode. ACTION REQUIRED: 1) Fix maxLength/length prop handling in SDUI to show correct digit count. 2) Ensure defaultValue prop is properly passed and rendered. 3) Implement disabled state handling in SDUI mode. 4) Test all InputOTP configurations thoroughly. 5) Ensure input restrictions (numeric only) work in SDUI. EXPECTED OUTCOME: InputOTP in SDUI should match React behavior for digit count, default values, and disabled state.",
     "status": "pending"

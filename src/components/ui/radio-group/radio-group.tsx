@@ -28,7 +28,11 @@ const RadioGroupItem = React.forwardRef<
       ref={ref}
       data-slot="radio-group-item"
       className={cn(
-        "border-input text-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50",
+        "border-input text-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-all duration-200 outline-none focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50",
+        // Enhanced hover states
+        "hover:border-primary/80 hover:bg-primary/5 dark:hover:bg-primary/10 hover:shadow-sm hover:shadow-primary/20",
+        // Ensure disabled state overrides hover
+        "disabled:hover:border-input disabled:hover:bg-transparent disabled:hover:shadow-xs",
         className
       )}
       {...cleanDOMProps(props)}

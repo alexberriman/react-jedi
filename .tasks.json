@@ -65,11 +65,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-progress-layout",
-    "description": "TASK: Fix Progress component layout issues in Storybook. ISSUE: Progress component stories appear visually squashed/compressed (https://i.imgur.com/PL6G0v5.png). The progress bars don't have proper height or spacing. LIKELY CAUSE: Container sizing or story decorators not providing adequate space. ACTION REQUIRED: 1) Review progress.stories.tsx layout and decorators. 2) Ensure proper minimum height for progress bars. 3) Add appropriate spacing between story variants. 4) Check if this affects both React and SDUI views. 5) May need to adjust story container styles or add wrapper elements. EXPECTED OUTCOME: Progress bars should display with proper height and spacing in Storybook.",
-    "status": "completed"
-  },
-  {
     "id": "fix-resizable-sdui",
     "description": "TASK: Fix Resizable component styling and icon issues in SDUI mode. ISSUE 1 - Text Color: IDE Layout story shows black text in SDUI (https://i.imgur.com/Eh2WkRq.png) but white text in React (https://i.imgur.com/4CVhL4H.png). This breaks the IDE theme appearance. ISSUE 2 - Missing Icons: Icons don't render at all in SDUI mode for resizable panels. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Fix text color inheritance - ensure dark theme styles apply in SDUI. 2) Implement actual SVG icon rendering for resize handles and panel content. 3) Ensure resize functionality works identically in both modes. 4) Test with nested resizable panels and different orientations. 5) Verify drag handles and cursors work properly. EXPECTED OUTCOME: Resizable panels in SDUI should match React appearance and functionality exactly with proper SVG icons.",
     "status": "pending"
@@ -107,11 +102,6 @@
   {
     "id": "fix-masonry-layout-sdui",
     "description": "TASK: Fix Masonry grid layout in SDUI mode. ISSUE: Masonry component renders cards in a vertical stack instead of proper masonry grid layout. React mode shows correct masonry layout with staggered columns. ROOT CAUSE: CSS Grid or Flexbox properties for masonry layout aren't being applied in SDUI mode. ACTION REQUIRED: 1) Investigate why masonry CSS isn't applied in SDUI. 2) Ensure grid-auto-flow and column properties work in SDUI. 3) Implement proper height calculations for masonry items. 4) Support responsive column counts. 5) Test with various content heights to ensure proper staggering. 6) Verify gap/spacing properties work correctly. EXPECTED OUTCOME: SDUI masonry layout should match React with proper multi-column staggered grid.",
-    "status": "pending"
-  },
-  {
-    "id": "fix-radiogroup-hover",
-    "description": "TASK: Fix RadioGroup hover state visibility. ISSUE: RadioGroup has the same hover visibility issue as Checkbox - hover effect is barely noticeable. Users can't tell when hovering over radio options. ACTION REQUIRED: 1) Review current radio button hover styles. 2) Increase hover state visibility to match checkbox improvements. 3) Ensure consistency between checkbox and radio hover states. 4) Test with different color schemes and themes. 5) Verify hover state meets accessibility standards. 6) Apply to both individual radios and group container if needed. EXPECTED OUTCOME: Clear, visible hover state on radio buttons consistent with checkboxes.",
     "status": "pending"
   },
   {

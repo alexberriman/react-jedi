@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-06]
 
+- **TASK: Fix RadioGroup hover state visibility. ISSUE: RadioGroup has the same hover visibility issue as Checkbox - hover effect is barely noticeable. Users can't tell when hovering over radio options. ACTION REQUIRED: 1) Review current radio button hover styles. 2) Increase hover state visibility to match checkbox improvements. 3) Ensure consistency between checkbox and radio hover states. 4) Test with different color schemes and themes. 5) Verify hover state meets accessibility standards. 6) Apply to both individual radios and group container if needed. EXPECTED OUTCOME: Clear, visible hover state on radio buttons consistent with checkboxes.**
+
+
+## [2025-06-06]
+
+- **TASK: Fix Progress component layout issues in Storybook. ISSUE: Progress component stories appear visually squashed/compressed (https://i.imgur.com/PL6G0v5.png). The progress bars don't have proper height or spacing. LIKELY CAUSE: Container sizing or story decorators not providing adequate space. ACTION REQUIRED: 1) Review progress.stories.tsx layout and decorators. 2) Ensure proper minimum height for progress bars. 3) Add appropriate spacing between story variants. 4) Check if this affects both React and SDUI views. 5) May need to adjust story container styles or add wrapper elements. EXPECTED OUTCOME: Progress bars should display with proper height and spacing in Storybook.**
+
+
+## [2025-06-06]
+
 - **TASK: Fix Dialog component trigger functionality in SDUI mode. CRITICAL ISSUE: Dialog trigger buttons in SDUI mode don't open dialogs at all - clicking does nothing. This is a complete failure of the dialog system in JSON rendering. SEVERITY: Critical - dialogs are essential UI components. ROOT CAUSE: Event handlers for dialog triggers are not properly wired in SDUI mode, or dialog state management is not functioning. ACTION REQUIRED: 1) Debug why click events on dialog triggers don't work in SDUI. 2) Implement proper event handler binding for SDUI dialog triggers. 3) Ensure dialog state (open/closed) is managed correctly in JSON mode. 4) Support all dialog features: close button, backdrop click, ESC key, focus management. 5) Test nested dialogs and various trigger types. EXPECTED OUTCOME: Fully functional dialogs in SDUI mode with all interactions working identically to React mode.**
 
 

@@ -244,7 +244,7 @@ export const SizeOverrides: Story = {
           {
             type: "Flex",
             gap: "4",
-            alignItems: "center",
+            align: "center",
             children: [
               {
                 type: "Button",

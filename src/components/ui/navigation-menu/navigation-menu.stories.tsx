@@ -11,6 +11,7 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../badge";
 import * as React from "react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/NavigationMenu",
@@ -108,8 +109,9 @@ const ListItem = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithout
 );
 ListItem.displayName = "ListItem";
 
-export const Default: Story = {
-  render: () => (
+export const Default: Story = enhanceStoryForDualMode<typeof NavigationMenu>(
+  {
+    render: () => (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
@@ -165,41 +167,119 @@ export const Default: Story = {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    // Test opening navigation menu
-    const gettingStartedTrigger = await canvas.findByText("Getting Started");
-    await userEvent.hover(gettingStartedTrigger);
+      // Test opening navigation menu
+      const gettingStartedTrigger = await canvas.findByText("Getting Started");
+      await userEvent.hover(gettingStartedTrigger);
 
-    // Verify content appears
-    await waitFor(
-      () => {
-        const reactJedi = canvas.getByText("React Jedi");
-        expect(reactJedi).toBeInTheDocument();
-      },
-      { timeout: 5000 }
-    );
+      // Verify content appears
+      await waitFor(
+        () => {
+          const reactJedi = canvas.getByText("React Jedi");
+          expect(reactJedi).toBeInTheDocument();
+        },
+        { timeout: 5000 }
+      );
 
-    // Test navigating to Components menu
-    const componentsTrigger = await canvas.findByText("Components");
-    await userEvent.hover(componentsTrigger);
+      // Test navigating to Components menu
+      const componentsTrigger = await canvas.findByText("Components");
+      await userEvent.hover(componentsTrigger);
 
-    // Verify component list appears
-    await waitFor(
-      () => {
-        const alertDialog = canvas.getByText("Alert Dialog");
-        expect(alertDialog).toBeInTheDocument();
-      },
-      { timeout: 5000 }
-    );
+      // Verify component list appears
+      await waitFor(
+        () => {
+          const alertDialog = canvas.getByText("Alert Dialog");
+          expect(alertDialog).toBeInTheDocument();
+        },
+        { timeout: 5000 }
+      );
 
-    // Test direct link
-    const documentationLink = await canvas.findByText("Documentation");
-    expect(documentationLink).toHaveAttribute("href", "#docs");
+      // Test direct link
+      const documentationLink = await canvas.findByText("Documentation");
+      expect(documentationLink).toHaveAttribute("href", "#docs");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "navigationMenu",
+      items: [
+        {
+          trigger: { label: "Getting Started" },
+          content: {
+            width: "lg",
+            items: [
+              {
+                title: "React Jedi",
+                description: "Server-driven UI for rapid prototyping with beautiful components.",
+                href: "/"
+              },
+              {
+                title: "Introduction",
+                description: "Build beautiful web interfaces through JSON specifications.",
+                href: "#docs"
+              },
+              {
+                title: "Installation",
+                description: "How to install dependencies and structure your app.",
+                href: "#docs/installation"
+              },
+              {
+                title: "Typography",
+                description: "Styles for headings, paragraphs, lists...etc",
+                href: "#docs/primitives/typography"
+              }
+            ]
+          }
+        },
+        {
+          trigger: { label: "Components" },
+          content: {
+            width: "2xl",
+            items: [
+              {
+                title: "Alert Dialog",
+                description: "A modal dialog that interrupts the user with important content and expects a response.",
+                href: "#alert-dialog"
+              },
+              {
+                title: "Hover Card",
+                description: "For sighted users to preview content available behind a link.",
+                href: "#hover-card"
+              },
+              {
+                title: "Progress",
+                description: "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+                href: "#progress"
+              },
+              {
+                title: "Scroll Area",
+                description: "Visually or semantically separates content.",
+                href: "#scroll-area"
+              },
+              {
+                title: "Tabs",
+                description: "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+                href: "#tabs"
+              },
+              {
+                title: "Tooltip",
+                description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+                href: "#tooltip"
+              }
+            ]
+          }
+        },
+        {
+          trigger: { label: "Documentation" },
+          href: "#docs"
+        }
+      ]
+    }
+  }
+);
 
 export const WithIconsAndBadges: Story = {
   render: () => (

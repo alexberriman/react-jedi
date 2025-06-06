@@ -125,16 +125,20 @@ const convertActionPropsToHandlers = (
   props: Record<string, unknown>,
   handlers?: Record<string, (...args: unknown[]) => unknown>
 ): Record<string, unknown> => {
-  if (!handlers) return props;
-
   const converted = { ...props };
+  
   for (const [key, value] of Object.entries(props)) {
     if (key.endsWith('Action') && typeof value === 'string') {
-      const eventName = key.slice(0, -6);
-      const handler = handlers[value];
-      if (handler) {
-        converted[eventName] = handler;
-        delete converted[key];
+      // Always remove the Action prop to prevent React warnings
+      delete converted[key];
+      
+      // Only add the handler if we have handlers defined and the handler exists
+      if (handlers) {
+        const eventName = key.slice(0, -6);
+        const handler = handlers[value];
+        if (handler) {
+          converted[eventName] = handler;
+        }
       }
     }
   }
@@ -439,7 +443,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     NavigationMenuIndicator: asComponent(UI.NavigationMenuIndicator),
     NavigationMenuViewport: asComponent(UI.NavigationMenuViewport),
     navigationMenu: asComponent(
-      UI.NavigationMenu as unknown as React.ComponentType<Record<string, unknown>>
+      UI.NavigationMenuWrapper as unknown as React.ComponentType<Record<string, unknown>>
     ),
     breadcrumb: asComponent(BreadcrumbComponent),
     Breadcrumb: asComponent(BreadcrumbComponent),

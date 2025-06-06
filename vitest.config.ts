@@ -8,10 +8,14 @@ const dirname =
 
 import viteConfig from "./vite.config";
 
+// Check if we're running storybook tests specifically
+const isStorybookTest = process.env.VITEST_STORYBOOK === "true" || 
+  process.argv.some(arg => arg.includes(".stories."));
+
 export default mergeConfig(
   viteConfig,
   defineConfig({
-    plugins: [
+    plugins: isStorybookTest ? [
       storybookTest({
         // The location of your Storybook config, main.js|ts
         configDir: path.join(dirname, ".storybook"),
@@ -19,10 +23,10 @@ export default mergeConfig(
         // The --ci flag will skip prompts and not open a browser
         storybookScript: "yarn storybook --ci",
       }),
-    ],
+    ] : [],
     test: {
-      // Enable browser mode
-      browser: {
+      // Enable browser mode only for storybook tests
+      browser: isStorybookTest ? {
         enabled: true,
         // Make sure to install Playwright
         provider: "playwright",
@@ -32,16 +36,24 @@ export default mergeConfig(
           width: 1280,
           height: 720,
         },
-      },
-      pool: "forks",
-      poolOptions: {
+      } : undefined,
+      environment: isStorybookTest ? undefined : "jsdom",
+      pool: isStorybookTest ? "forks" : "threads",
+      poolOptions: isStorybookTest ? {
         forks: {
           singleFork: true,
         },
-      },
-      setupFiles: ["./.storybook/vitest.setup.ts"],
+      } : undefined,
+      setupFiles: isStorybookTest 
+        ? ["./.storybook/vitest.setup.ts"] 
+        : ["./src/testing-setup.ts"],
       testTimeout: 30000,
       hookTimeout: 30000,
+      // Include test files only when not in storybook mode
+      include: !isStorybookTest 
+        ? ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"]
+        : undefined,
+      exclude: ["**/*.mdx", "node_modules/**", "dist/**", "cypress/**", "**/*.d.ts"],
     },
     resolve: {
       alias: {
@@ -56,39 +68,5 @@ export default mergeConfig(
         "@utils": resolve(__dirname, "./src/lib/utils.ts"),
       },
     },
-    // Add projects field to replace workspace file
-    projects: [
-      {
-        name: "storybook",
-        extends: "./vite.config.ts",
-        plugins: [
-          storybookTest({
-            configDir: path.join(dirname, ".storybook"),
-            storybookScript: "npm run storybook --ci",
-          }),
-        ],
-        test: {
-          browser: {
-            enabled: true,
-            headless: true,
-            provider: "playwright",
-            instances: [{ browser: "chromium" }],
-            viewport: {
-              width: 1280,
-              height: 720,
-            },
-          },
-          pool: "forks",
-          poolOptions: {
-            forks: {
-              singleFork: true,
-            },
-          },
-          setupFiles: [".storybook/vitest.setup.ts"],
-          testTimeout: 30000,
-          hookTimeout: 30000,
-        },
-      },
-    ],
   })
 );

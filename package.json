@@ -23,6 +23,8 @@
     "preview": "vite preview",
     "test": "vitest run --changed",
     "test:all": "vitest run",
+    "test:unit": "vitest run -c vitest.unit.config.ts",
+    "test:stories": "VITEST_STORYBOOK=true vitest run src/**/*.stories.{ts,tsx}",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
     "prepare": "husky",

@@ -121,6 +121,38 @@ function renderChildren(
     return React.createElement(React.Fragment, null, ...elements);
   }
 
+  // Handle mixed arrays (strings and ComponentSpecs)
+  if (Array.isArray(spec.children)) {
+    const elements = spec.children.map((child, index) => {
+      if (isTextContent(child)) {
+        return React.createElement(
+          React.Fragment,
+          { key: `${spec.type}-text-${index}` as React.Key },
+          child
+        );
+      }
+      if (isComponentSpec(child)) {
+        const renderedChild = renderComponent(
+          child,
+          options,
+          {
+            ...parentContext,
+            parent: { type: spec.type, id: spec.id },
+          },
+          parentStyleContext
+        );
+        return React.createElement(
+          React.Fragment,
+          { key: (child.id || `${spec.type}-child-${index}`) as React.Key },
+          renderedChild
+        );
+      }
+      return null;
+    });
+    // Return wrapped elements
+    return React.createElement(React.Fragment, null, ...elements);
+  }
+
   return null;
 }
 

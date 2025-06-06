@@ -19,8 +19,9 @@ export interface ComponentSpec extends BaseComponentSpec {
 
 /**
  * Type for component children that allows a string, a single component, or multiple components.
+ * Also supports mixed arrays of strings and components for text interpolation.
  */
-export type ComponentChildren = string | ComponentSpec | ComponentSpec[];
+export type ComponentChildren = string | ComponentSpec | ComponentSpec[] | Array<string | ComponentSpec>;
 
 /**
  * Base component specification that all components extend.

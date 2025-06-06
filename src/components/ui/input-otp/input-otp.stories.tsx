@@ -2,8 +2,9 @@ import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./input-otp";
 import { within, userEvent, waitFor, expect } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
-const meta = {
+const meta: Meta<typeof InputOTP> = {
   title: "Form Components/InputOTP",
   component: InputOTP,
   parameters: {
@@ -37,7 +38,7 @@ numeric inputs that require digit-by-digit entry.
       description: "Regex pattern to validate input",
     },
   },
-} satisfies Meta<typeof InputOTP>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -45,348 +46,480 @@ type Story = StoryObj<typeof meta>;
 /**
  * Default OTP input with 6 digits
  */
-export const Default: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: () => (
-    <InputOTP maxLength={6}>
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-      </InputOTPGroup>
-      <InputOTPSeparator />
-      <InputOTPGroup>
-        <InputOTPSlot index={3} />
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const Default = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: () => (
+      <InputOTP maxLength={6}>
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+        </InputOTPGroup>
+        <InputOTPSeparator />
+        <InputOTPGroup>
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute("maxlength", "6");
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveAttribute("maxlength", "6");
 
-    await userEvent.type(input, "123456");
-    expect(input).toHaveValue("123456");
+      await userEvent.type(input, "123456");
+      expect(input).toHaveValue("123456");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 6,
+      render: {
+        type: "grouped",
+      },
+    },
+  }
+);
 
 /**
  * 4-digit PIN input
  */
-export const FourDigitPIN: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: () => (
-    <InputOTP maxLength={4} pattern="[0-9]*">
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-        <InputOTPSlot index={3} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const FourDigitPIN = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: () => (
+      <InputOTP maxLength={4} pattern="[0-9]*">
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+          <InputOTPSlot index={3} />
+        </InputOTPGroup>
+      </InputOTP>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute("maxlength", "4");
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveAttribute("maxlength", "4");
 
-    await userEvent.type(input, "1234");
-    expect(input).toHaveValue("1234");
+      await userEvent.type(input, "1234");
+      expect(input).toHaveValue("1234");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 4,
+      pattern: "[0-9]*",
+      render: {
+        type: "segmented",
+      },
+    },
+  }
+);
 
 /**
  * SMS verification code with focus management
  */
-export const SMSCode: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: () => (
-    <InputOTP maxLength={6}>
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-      </InputOTPGroup>
-      <InputOTPSeparator />
-      <InputOTPGroup>
-        <InputOTPSlot index={3} />
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const SMSCode = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: () => (
+      <InputOTP maxLength={6}>
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+        </InputOTPGroup>
+        <InputOTPSeparator />
+        <InputOTPGroup>
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
 
-    await userEvent.type(input, "987654");
-    expect(input).toHaveValue("987654");
+      await userEvent.type(input, "987654");
+      expect(input).toHaveValue("987654");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 6,
+      render: {
+        type: "grouped",
+      },
+    },
+  }
+);
 
 /**
  * Alphanumeric code (letters and numbers)
  */
-export const AlphanumericCode: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: () => (
-    <InputOTP maxLength={6} pattern="[A-Z0-9]*">
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-      </InputOTPGroup>
-      <InputOTPSeparator>-</InputOTPSeparator>
-      <InputOTPGroup>
-        <InputOTPSlot index={3} />
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const AlphanumericCode = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: () => (
+      <InputOTP maxLength={6} pattern="[A-Z0-9]*">
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+        </InputOTPGroup>
+        <InputOTPSeparator>-</InputOTPSeparator>
+        <InputOTPGroup>
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
 
-    await userEvent.type(input, "ABC123");
-    expect(input).toHaveValue("ABC123");
+      await userEvent.type(input, "ABC123");
+      expect(input).toHaveValue("ABC123");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 6,
+      pattern: "[A-Z0-9]*",
+      render: {
+        type: "custom",
+        pattern: "abc-def",
+      },
+    },
+  }
+);
 
 /**
  * Custom separator style
  */
-export const CustomSeparator: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: () => (
-    <InputOTP maxLength={8}>
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-      </InputOTPGroup>
-      <InputOTPSeparator>•</InputOTPSeparator>
-      <InputOTPGroup>
-        <InputOTPSlot index={2} />
-        <InputOTPSlot index={3} />
-      </InputOTPGroup>
-      <InputOTPSeparator>•</InputOTPSeparator>
-      <InputOTPGroup>
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
-      </InputOTPGroup>
-      <InputOTPSeparator>•</InputOTPSeparator>
-      <InputOTPGroup>
-        <InputOTPSlot index={6} />
-        <InputOTPSlot index={7} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const CustomSeparator = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: () => (
+      <InputOTP maxLength={8}>
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+        </InputOTPGroup>
+        <InputOTPSeparator>•</InputOTPSeparator>
+        <InputOTPGroup>
+          <InputOTPSlot index={2} />
+          <InputOTPSlot index={3} />
+        </InputOTPGroup>
+        <InputOTPSeparator>•</InputOTPSeparator>
+        <InputOTPGroup>
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+        <InputOTPSeparator>•</InputOTPSeparator>
+        <InputOTPGroup>
+          <InputOTPSlot index={6} />
+          <InputOTPSlot index={7} />
+        </InputOTPGroup>
+      </InputOTP>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute("maxlength", "8");
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveAttribute("maxlength", "8");
 
-    await userEvent.type(input, "12345678");
-    expect(input).toHaveValue("12345678");
+      await userEvent.type(input, "12345678");
+      expect(input).toHaveValue("12345678");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 8,
+      render: {
+        type: "custom",
+        pattern: "ab-cd-ef-gh",
+      },
+    },
+  }
+);
 
 /**
  * With default value
  */
-export const WithDefaultValue: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: () => (
-    <InputOTP maxLength={6} value="123456">
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-      </InputOTPGroup>
-      <InputOTPSeparator />
-      <InputOTPGroup>
-        <InputOTPSlot index={3} />
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const WithDefaultValue = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: () => (
+      <InputOTP maxLength={6} value="123456">
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+        </InputOTPGroup>
+        <InputOTPSeparator />
+        <InputOTPGroup>
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
-    expect(input).toHaveValue("123456");
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveValue("123456");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 6,
+      value: "123456",
+      render: {
+        type: "grouped",
+      },
+    },
+  }
+);
 
 /**
  * Disabled state
  */
-export const Disabled: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: () => (
-    <InputOTP maxLength={6} disabled value="123456">
-      <InputOTPGroup>
-        <InputOTPSlot index={0} />
-        <InputOTPSlot index={1} />
-        <InputOTPSlot index={2} />
-      </InputOTPGroup>
-      <InputOTPSeparator />
-      <InputOTPGroup>
-        <InputOTPSlot index={3} />
-        <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const Disabled = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: () => (
+      <InputOTP maxLength={6} disabled value="123456">
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+        </InputOTPGroup>
+        <InputOTPSeparator />
+        <InputOTPGroup>
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
-    expect(input).toBeDisabled();
-    expect(input).toHaveValue("123456");
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+      expect(input).toBeDisabled();
+      expect(input).toHaveValue("123456");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 6,
+      disabled: true,
+      value: "123456",
+      render: {
+        type: "grouped",
+      },
+    },
+  }
+);
 
 /**
  * Controlled component with value and onChange
  */
-export const Controlled: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: function ControlledRender() {
-    const [value, setValue] = React.useState("");
+export const Controlled = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: function ControlledRender() {
+      const [value, setValue] = React.useState("");
 
-    return (
-      <div className="space-y-4">
-        <InputOTP maxLength={6} value={value} onChange={setValue}>
-          <InputOTPGroup>
-            <InputOTPSlot index={0} />
-            <InputOTPSlot index={1} />
-            <InputOTPSlot index={2} />
-          </InputOTPGroup>
-          <InputOTPSeparator />
-          <InputOTPGroup>
-            <InputOTPSlot index={3} />
-            <InputOTPSlot index={4} />
-            <InputOTPSlot index={5} />
-          </InputOTPGroup>
-        </InputOTP>
-        <p className="text-sm text-muted-foreground">Current value: {value || "(empty)"}</p>
-      </div>
-    );
+      return (
+        <div className="space-y-4">
+          <InputOTP maxLength={6} value={value} onChange={setValue}>
+            <InputOTPGroup>
+              <InputOTPSlot index={0} />
+              <InputOTPSlot index={1} />
+              <InputOTPSlot index={2} />
+            </InputOTPGroup>
+            <InputOTPSeparator />
+            <InputOTPGroup>
+              <InputOTPSlot index={3} />
+              <InputOTPSlot index={4} />
+              <InputOTPSlot index={5} />
+            </InputOTPGroup>
+          </InputOTP>
+          <p className="text-sm text-muted-foreground">Current value: {value || "(empty)"}</p>
+        </div>
+      );
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+
+      await waitFor(() => {
+        expect(canvas.getByText("Current value: (empty)")).toBeInTheDocument();
+      });
+
+      await userEvent.type(input, "999");
+
+      await waitFor(() => {
+        expect(canvas.getByText("Current value: 999")).toBeInTheDocument();
+      });
+    },
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(canvas.getByText("Current value: (empty)")).toBeInTheDocument();
-    });
-
-    await userEvent.type(input, "999");
-
-    await waitFor(() => {
-      expect(canvas.getByText("Current value: 999")).toBeInTheDocument();
-    });
-  },
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "column",
+      gap: "md",
+      children: [
+        {
+          type: "InputOTP",
+          maxLength: 6,
+          render: {
+            type: "grouped",
+          },
+        },
+        {
+          type: "Text",
+          size: "sm",
+          variant: "muted",
+          children: "Current value: (empty)",
+        },
+      ],
+    },
+  }
+);
 
 /**
  * With onChange handler for form integration
  */
-export const WithOnComplete: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: function WithOnCompleteRender() {
-    const [value, setValue] = React.useState("");
-    const [isComplete, setIsComplete] = React.useState(false);
+export const WithOnComplete = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: function WithOnCompleteRender() {
+      const [value, setValue] = React.useState("");
+      const [isComplete, setIsComplete] = React.useState(false);
 
-    return (
-      <div className="space-y-4">
-        <InputOTP
-          maxLength={6}
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-            setIsComplete(newValue.length === 6);
-          }}
-        >
-          <InputOTPGroup>
-            <InputOTPSlot index={0} />
-            <InputOTPSlot index={1} />
-            <InputOTPSlot index={2} />
-          </InputOTPGroup>
-          <InputOTPSeparator />
-          <InputOTPGroup>
-            <InputOTPSlot index={3} />
-            <InputOTPSlot index={4} />
-            <InputOTPSlot index={5} />
-          </InputOTPGroup>
-        </InputOTP>
+      return (
+        <div className="space-y-4">
+          <InputOTP
+            maxLength={6}
+            value={value}
+            onChange={(newValue) => {
+              setValue(newValue);
+              setIsComplete(newValue.length === 6);
+            }}
+          >
+            <InputOTPGroup>
+              <InputOTPSlot index={0} />
+              <InputOTPSlot index={1} />
+              <InputOTPSlot index={2} />
+            </InputOTPGroup>
+            <InputOTPSeparator />
+            <InputOTPGroup>
+              <InputOTPSlot index={3} />
+              <InputOTPSlot index={4} />
+              <InputOTPSlot index={5} />
+            </InputOTPGroup>
+          </InputOTP>
 
-        {isComplete && <p className="text-sm text-green-600">✓ Code complete! Value: {value}</p>}
-      </div>
-    );
+          {isComplete && <p className="text-sm text-green-600">✓ Code complete! Value: {value}</p>}
+        </div>
+      );
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+
+      await userEvent.type(input, "111222");
+
+      await waitFor(
+        () => {
+          expect(canvas.getByText("✓ Code complete! Value: 111222")).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+    },
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
-
-    await userEvent.type(input, "111222");
-
-    await waitFor(
-      () => {
-        expect(canvas.getByText("✓ Code complete! Value: 111222")).toBeInTheDocument();
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 6,
+      render: {
+        type: "grouped",
       },
-      { timeout: 10_000 }
-    );
-  },
-};
+    },
+  }
+);
 
 /**
  * Password input style with masked characters
  */
-export const Password: Story = {
-  args: {} as React.ComponentProps<typeof InputOTP>,
-  render: () => (
-    <InputOTP maxLength={4} pattern="[0-9]*" className="password">
-      <InputOTPGroup>
-        <InputOTPSlot index={0} className="password-char" />
-        <InputOTPSlot index={1} className="password-char" />
-        <InputOTPSlot index={2} className="password-char" />
-        <InputOTPSlot index={3} className="password-char" />
-      </InputOTPGroup>
-    </InputOTP>
-  ),
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+export const Password = enhanceStoryForDualMode(
+  {
+    args: {},
+    render: () => (
+      <InputOTP maxLength={4} pattern="[0-9]*" className="password">
+        <InputOTPGroup>
+          <InputOTPSlot index={0} className="password-char" />
+          <InputOTPSlot index={1} className="password-char" />
+          <InputOTPSlot index={2} className="password-char" />
+          <InputOTPSlot index={3} className="password-char" />
+        </InputOTPGroup>
+      </InputOTP>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    const input = canvas.getByRole("textbox");
-    expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute("maxlength", "4");
+      const input = canvas.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveAttribute("maxlength", "4");
 
-    // Check that the OTP container has the password class
-    const otpContainer = canvasElement.querySelector(".password");
-    expect(otpContainer).toBeInTheDocument();
+      // Check that the OTP container has the password class
+      const otpContainer = canvasElement.querySelector(".password");
+      expect(otpContainer).toBeInTheDocument();
 
-    await userEvent.type(input, "9876");
-    expect(input).toHaveValue("9876");
+      await userEvent.type(input, "9876");
+      expect(input).toHaveValue("9876");
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "InputOTP",
+      maxLength: 4,
+      pattern: "[0-9]*",
+      className: "password",
+      render: {
+        type: "segmented",
+      },
+    },
+  }
+);

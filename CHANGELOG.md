@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-06]
 
+- **TASK: Replace Skeleton component animation with Tailwind pulse. ISSUE: Skeleton elements expand/contract on render making them look broken. Current Framer Motion implementation causes unwanted size changes. SOLUTION: Replace with Tailwind's simple pulse animation utility. ACTION REQUIRED: 1) Remove Framer Motion animation from Skeleton component. 2) Apply Tailwind's 'animate-pulse' class instead. 3) Ensure consistent sizing without expansion effects. 4) Test performance with multiple skeletons. 5) Verify animation works in both React and SDUI modes. REFERENCE: Tailwind pulse animation example - https://i.imgur.com/4CVhL4H.png. EXPECTED OUTCOME: Smooth pulse animation without size changes using Tailwind utilities.**
+
+
+## [2025-06-06]
+
 - **TASK: Update all placeholder images across the entire codebase. ISSUE: Currently using picsum.photos and unsplash.com for placeholder images which may have availability/performance issues. SCOPE: Search ALL story files (*.stories.tsx) throughout the codebase. ACTION REQUIRED: 1) Find all instances of picsum.photos URLs and unsplash.com URLs in story files. 2) Replace each URL with placehold.co format: https://placehold.co/{width}x{height}/EEE/31343C. 3) Preserve the original dimensions from each image URL when replacing. EXAMPLE: Replace 'https://picsum.photos/200/300' with 'https://placehold.co/200x300/EEE/31343C'. EXPECTED OUTCOME: All story files use consistent, reliable placeholder images from placehold.co.**
 
 

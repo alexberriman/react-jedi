@@ -120,11 +120,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-skeleton-animation",
-    "description": "TASK: Replace Skeleton component animation with Tailwind pulse. ISSUE: Skeleton elements expand/contract on render making them look broken. Current Framer Motion implementation causes unwanted size changes. SOLUTION: Replace with Tailwind's simple pulse animation utility. ACTION REQUIRED: 1) Remove Framer Motion animation from Skeleton component. 2) Apply Tailwind's 'animate-pulse' class instead. 3) Ensure consistent sizing without expansion effects. 4) Test performance with multiple skeletons. 5) Verify animation works in both React and SDUI modes. REFERENCE: Tailwind pulse animation example - https://i.imgur.com/4CVhL4H.png. EXPECTED OUTCOME: Smooth pulse animation without size changes using Tailwind utilities.",
-    "status": "pending"
-  },
-  {
     "id": "fix-table-styling-sdui",
     "description": "TASK: Fix Table component styling inconsistencies in SDUI mode. ISSUE 1 - Striped: 'Striped' variant doesn't show alternating row colors in SDUI. ISSUE 2 - Bordered: Missing borders and incorrect header background in SDUI. ISSUE 3 - Spacing: 'Minimal' and 'Compact' variants have too much spacing in SDUI (React spacing is correct). ISSUE 4 - Modern Style: 'Modern' variant looks completely different in SDUI vs React. ISSUE 5 - Hover Effect: 'No Hover Effect' variant shows hover effects in SDUI but shouldn't (React is correct). ACTION REQUIRED: 1) Ensure stripe styles are applied in SDUI mode. 2) Fix border and header background styles. 3) Correct spacing for compact variants. 4) Match modern variant styling to React. 5) Remove hover effects where not intended. 6) Test all table variants thoroughly. EXPECTED OUTCOME: All table styling variants in SDUI should match React exactly.",
     "status": "pending"

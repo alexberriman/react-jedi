@@ -261,6 +261,16 @@ a[data-slot]:not(:disabled):hover {
   transition-timing-function: var(--transition-timing);
 }
 
+/* Prevent transitions on skeleton elements to avoid expand/contract issues */
+[data-slot="skeleton"],
+[data-slot="skeleton"] *,
+.animate-pulse,
+.animate-pulse *,
+.bg-gradient-to-r.from-gray-200,
+.bg-gradient-to-r.from-gray-200 * {
+  transition: none !important;
+}
+
 /* Override global transitions for trigger elements to prevent flicker */
 [data-slot="popover-trigger"],
 [data-slot="popover-trigger"] *,

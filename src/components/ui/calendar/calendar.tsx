@@ -7,6 +7,7 @@ import {
   DayPickerMultipleProps,
   DayPickerRangeProps,
 } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 import { buttonVariants } from "../button";

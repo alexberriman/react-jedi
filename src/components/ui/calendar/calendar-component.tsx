@@ -49,6 +49,10 @@ const parseDate = (date: unknown): Date | undefined => {
 };
 
 export function CalendarComponent({ spec, parentContext }: CalendarComponentProps) {
+  // DEBUG: Log when component is rendered
+  console.log("[CalendarComponent] Rendering with spec:", spec);
+  console.log("[CalendarComponent] Parent context:", parentContext);
+  
   const {
     mode = "single",
     selected,
@@ -189,8 +193,12 @@ export function CalendarComponent({ spec, parentContext }: CalendarComponentProp
   };
 
   // Render different Calendar variants based on mode
+  console.log("[CalendarComponent] Rendering mode:", mode);
+  console.log("[CalendarComponent] Common props:", commonProps);
+  console.log("[CalendarComponent] Parsed value:", parsedValue);
+  
   if (mode === "single") {
-    return (
+    const element = (
       <Calendar
         {...commonProps}
         mode="single"
@@ -198,6 +206,8 @@ export function CalendarComponent({ spec, parentContext }: CalendarComponentProp
         onSelect={handleSelectSingle}
       />
     );
+    console.log("[CalendarComponent] Returning single mode calendar:", element);
+    return element;
   } else if (mode === "multiple") {
     return (
       <Calendar

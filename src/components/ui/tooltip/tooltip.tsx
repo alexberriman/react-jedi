@@ -2,6 +2,7 @@ import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
+import "./tooltip.css";
 
 function TooltipProvider({
   delayDuration = 0,

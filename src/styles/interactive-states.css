@@ -153,8 +153,8 @@ a[data-slot]:not(:disabled):hover {
 }
 
 /* Tooltip trigger hover */
-[data-state="delayed-open"],
-[data-state="instant-open"] {
+[data-slot="tooltip-trigger"][data-state="delayed-open"],
+[data-slot="tooltip-trigger"][data-state="instant-open"] {
   transform: translateY(-1px);
   filter: brightness(1.05);
 }

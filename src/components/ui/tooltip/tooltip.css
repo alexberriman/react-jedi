@@ -1,0 +1,75 @@
+/* Tooltip-specific styles for React Jedi */
+
+/* Ensure tooltip content is properly visible */
+[data-radix-tooltip-content] {
+  z-index: 50;
+}
+
+/* Radix UI Tooltip state handling */
+[data-radix-tooltip-content][data-state="open"] {
+  opacity: 1;
+}
+
+[data-radix-tooltip-content][data-state="closed"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Prevent flash on initial render */
+[data-radix-tooltip-content][data-state="delayed-open"],
+[data-radix-tooltip-content][data-state="instant-open"] {
+  animation: tooltip-fade-in 150ms ease-out;
+}
+
+@keyframes tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Ensure arrow is visible */
+[data-radix-tooltip-arrow] {
+  position: relative;
+  z-index: 51;
+}
+
+/* Override any conflicting global transitions */
+[data-radix-tooltip-trigger] {
+  cursor: pointer;
+}
+
+/* Ensure tooltip portal is above other content */
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+  pointer-events: none;
+}
+
+[data-radix-popper-content-wrapper] > * {
+  pointer-events: auto;
+}
+
+/* Fix portal rendering */
+[data-radix-portal] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+}
+
+/* Animation classes for tooltip content */
+.animate-in {
+  animation-duration: 150ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+.animate-out {
+  animation-duration: 150ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  animation-fill-mode: forwards;
+}

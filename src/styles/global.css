@@ -482,6 +482,28 @@
   }
 }
 
+@keyframes slide-in-from-left-2 {
+  from {
+    opacity: 0;
+    transform: translateX(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-from-right-2 {
+  from {
+    opacity: 0;
+    transform: translateX(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Zoom Animations */
 @keyframes zoom-in {
   from {
@@ -491,6 +513,47 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes zoom-in-95 {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoom-out-95 {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Fade Animations for Tooltips */
+@keyframes fade-in-0 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-0 {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 
@@ -695,6 +758,75 @@
 
 .animate-in.duration-700 {
   animation-duration: 700ms;
+}
+
+/* Tooltip-specific animation classes */
+.animate-in.fade-in-0 {
+  animation-name: fade-in-0;
+}
+
+.animate-in.zoom-in-95 {
+  animation-name: zoom-in-95;
+}
+
+/* Generic animate-out with modifiers */
+.animate-out {
+  animation-fill-mode: forwards;
+}
+
+.animate-out.fade-out-0 {
+  animation-name: fade-out-0;
+}
+
+.animate-out.zoom-out-95 {
+  animation-name: zoom-out-95;
+}
+
+/* Slide animations for data-side positioning */
+.slide-in-from-top-2 {
+  animation-name: slide-in-from-top-2;
+}
+
+.slide-in-from-bottom-2 {
+  animation-name: slide-in-from-bottom-2;
+}
+
+.slide-in-from-left-2 {
+  animation-name: slide-in-from-left-2;
+}
+
+.slide-in-from-right-2 {
+  animation-name: slide-in-from-right-2;
+}
+
+/* Tooltip-specific animation classes using data attributes */
+.data-\[state\=closed\]\:animate-out[data-state="closed"] {
+  animation: fade-out-0 150ms ease-in, zoom-out-95 150ms ease-in;
+}
+
+.data-\[state\=closed\]\:fade-out-0[data-state="closed"] {
+  animation-name: fade-out-0;
+}
+
+.data-\[state\=closed\]\:zoom-out-95[data-state="closed"] {
+  animation-name: zoom-out-95;
+}
+
+/* Side-specific slide animations with data attributes */
+.data-\[side\=bottom\]\:slide-in-from-top-2[data-side="bottom"] {
+  animation-name: slide-in-from-top-2;
+}
+
+.data-\[side\=left\]\:slide-in-from-right-2[data-side="left"] {
+  animation-name: slide-in-from-right-2;
+}
+
+.data-\[side\=right\]\:slide-in-from-left-2[data-side="right"] {
+  animation-name: slide-in-from-left-2;
+}
+
+.data-\[side\=top\]\:slide-in-from-bottom-2[data-side="top"] {
+  animation-name: slide-in-from-bottom-2;
 }
 
 /* ========== Animation Utilities ========== */

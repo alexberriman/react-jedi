@@ -115,11 +115,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-input-icon-sdui",
-    "description": "TASK: Fix Input component icon rendering in SDUI mode. ISSUE: 'With Icon' story doesn't render the icon in SDUI mode. Input fields that should have icons (search, email, etc.) show no icons. ROOT CAUSE: Icon components within Input elements aren't processed by SDUI renderer. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Investigate how icons are integrated into Input component. 2) Update SDUI renderer to handle actual SVG icons within Input. 3) Support both left and right icon positions. 4) Ensure icon sizing and alignment match React mode. 5) Test with various icon types and input variants. 6) Maintain proper padding to accommodate icons. EXPECTED OUTCOME: Input components in SDUI should display actual SVG icons exactly as they appear in React mode.",
-    "status": "pending"
-  },
-  {
     "id": "fix-select-issues",
     "description": "TASK: Fix Select component rendering and interaction issues. ISSUE 1 - Flash: Select flashes on initial render (similar to DatePicker/Combobox). ISSUE 2 - Default Value: 'With Default Value' story doesn't show the selected default in SDUI. ISSUE 3 - Hover Style: Dropdown hover shows harsh black background (https://i.imgur.com/tAjsHRc.png) instead of subtle gray. ACTION REQUIRED: 1) Fix initial render flash - review mounting and state initialization. 2) Ensure defaultValue/value props work in SDUI mode. 3) Fix hover styles to use subtle gray background (not black). 4) Test keyboard navigation and selection. 5) Ensure selected state is properly indicated. 6) Verify dropdown positioning and animations. EXPECTED OUTCOME: Smooth rendering, proper default values, and subtle hover effects matching React.",
     "status": "pending"

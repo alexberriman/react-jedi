@@ -28,6 +28,7 @@ import { PageSection } from "../components/blocks/page-section";
 import { LatestNews } from "../components/blocks/latest-news";
 import { ProductShowcase } from "../components/blocks/product-showcase";
 import { SDUIIcon } from "./icons";
+import { InputWithIconWrapper } from "./icons/input-with-icon-wrapper";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -42,9 +43,9 @@ const transformInputProps = (actualProps: Record<string, unknown>): Record<strin
     delete transformed.inputType;
   }
   
-  // Remove icon props that aren't supported by the basic Input component
-  delete transformed.startIcon;
-  delete transformed.endIcon;
+  // Keep icon props - they will be handled by InputWithIconWrapper
+  // delete transformed.startIcon;
+  // delete transformed.endIcon;
   
   return transformed;
 };
@@ -281,7 +282,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     Image: asComponent(UI.Image),
     Skeleton: asComponent(UI.Skeleton),
     Label: asComponent(UI.Label),
-    Input: asComponent(UI.Input),
+    Input: asComponent(InputWithIconWrapper),
     Loading: asComponent(UI.Loading),
     loading: asComponent(UI.Loading),
     table: asComponent(

@@ -1,3 +1,12 @@
+/**
+ * DropdownMenu Component Stories
+ * 
+ * NOTE: This component is not compatible with dual-mode testing due to its complex
+ * structure and special handling requirements. The DropdownMenu uses a wrapper
+ * component for SDUI rendering that requires specific setup and icon resolution
+ * that conflicts with the standard dual-mode testing approach.
+ */
+
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import {
@@ -379,6 +388,24 @@ export const WithSubMenu: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open dropdown menu
+    const triggerButton = canvas.getByRole("button", { name: /open menu/i });
+    await userEvent.click(triggerButton);
+
+    // Wait for menu to appear
+    await waitFor(() => {
+      expect(within(document.body).getByText("My Account")).toBeInTheDocument();
+    });
+
+    // Verify submenu trigger is present
+    expect(within(document.body).getByText("Invite users")).toBeInTheDocument();
+
+    // Close menu
+    await userEvent.keyboard("{Escape}");
+  },
 };
 
 function ComplexExampleComponent() {

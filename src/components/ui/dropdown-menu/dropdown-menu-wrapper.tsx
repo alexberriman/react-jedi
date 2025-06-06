@@ -6,6 +6,15 @@ import type {
 } from "../../../types/components/dropdown-menu";
 import { render } from "../../../lib/render";
 import type { ComponentSpec } from "../../../types/schema";
+import * as Icons from "lucide-react";
+
+/**
+ * Get icon component from icon name
+ */
+function getIconComponent(iconName: string): React.ComponentType<{ className?: string }> | null {
+  const IconComponent = Icons[iconName as keyof typeof Icons] as React.ComponentType<{ className?: string }> | undefined;
+  return IconComponent || null;
+}
 
 /**
  * Wrapper component for DropdownMenu that handles JSON specification rendering
@@ -39,6 +48,7 @@ export function DropdownMenuWrapper(props: { readonly spec: DropdownMenuProps })
       }
 
       case "item": {
+        const IconComponent = item.icon ? getIconComponent(item.icon) : null;
         return (
           <UI.DropdownMenuItem
             key={key}
@@ -47,7 +57,7 @@ export function DropdownMenuWrapper(props: { readonly spec: DropdownMenuProps })
             disabled={item.disabled}
             onClick={() => item.onClick && console.log("onClick", item.onClick)}
           >
-            {item.icon && <span className="mr-2">{item.icon}</span>}
+            {IconComponent && <IconComponent className="mr-2 h-4 w-4" />}
             <span>{item.text}</span>
             {item.shortcut && <UI.DropdownMenuShortcut>{item.shortcut}</UI.DropdownMenuShortcut>}
           </UI.DropdownMenuItem>
@@ -78,16 +88,19 @@ export function DropdownMenuWrapper(props: { readonly spec: DropdownMenuProps })
               item.onValueChange && console.log("onValueChange", value, item.onValueChange)
             }
           >
-            {item.items.map((radioItem, radioIndex) => (
-              <UI.DropdownMenuRadioItem
-                key={`radio-${radioIndex}`}
-                value={radioItem.value}
-                disabled={radioItem.disabled}
-              >
-                {radioItem.icon && <span className="mr-2">{radioItem.icon}</span>}
-                {radioItem.text}
-              </UI.DropdownMenuRadioItem>
-            ))}
+            {item.items.map((radioItem, radioIndex) => {
+              const RadioIconComponent = radioItem.icon ? getIconComponent(radioItem.icon) : null;
+              return (
+                <UI.DropdownMenuRadioItem
+                  key={`radio-${radioIndex}`}
+                  value={radioItem.value}
+                  disabled={radioItem.disabled}
+                >
+                  {RadioIconComponent && <RadioIconComponent className="mr-2 h-4 w-4" />}
+                  {radioItem.text}
+                </UI.DropdownMenuRadioItem>
+              );
+            })}
           </UI.DropdownMenuRadioGroup>
         );
       }
@@ -101,10 +114,11 @@ export function DropdownMenuWrapper(props: { readonly spec: DropdownMenuProps })
       }
 
       case "sub": {
+        const SubIconComponent = item.icon ? getIconComponent(item.icon) : null;
         return (
           <UI.DropdownMenuSub key={key}>
             <UI.DropdownMenuSubTrigger inset={item.inset}>
-              {item.icon && <span className="mr-2">{item.icon}</span>}
+              {SubIconComponent && <SubIconComponent className="mr-2 h-4 w-4" />}
               <span>{item.text}</span>
             </UI.DropdownMenuSubTrigger>
             <UI.DropdownMenuSubContent>

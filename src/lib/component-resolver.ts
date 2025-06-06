@@ -154,7 +154,7 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
     // Some components expect the full spec object (like CarouselComponent)
     // Check if the component expects a spec prop
     const componentName = component.displayName || component.name || "";
-    const expectsSpec = componentName.includes("Component") || componentName.includes("Block");
+    const expectsSpec = componentName.includes("Component") || componentName.includes("Block") || componentName.includes("Wrapper");
 
     if (expectsSpec) {
       // Pass the full ComponentProps to components that expect it

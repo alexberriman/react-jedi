@@ -5,11 +5,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-collapsible-sdui-critical",
-    "description": "TASK: Fix complete Collapsible component failure in SDUI mode. CRITICAL ISSUE: None of the Collapsible component stories render in SDUI mode - complete component failure. The collapsible functionality is entirely broken in JSON rendering. SEVERITY: Critical - entire component non-functional. POTENTIAL CAUSES: 1) State management for open/closed states not working in SDUI. 2) Animation/transition handlers not properly connected. 3) Event handlers for expand/collapse not wired in JSON mode. ACTION REQUIRED: 1) Debug the root cause of why Collapsible fails to render in SDUI. 2) Implement proper state management for collapsible open/closed states in SDUI. 3) Ensure click handlers and animations work in JSON mode. 4) Support all collapsible features: default open state, disabled state, custom triggers. 5) Add tests to prevent regression. EXPECTED OUTCOME: Fully functional collapsible components in SDUI mode with smooth animations and proper state management.",
-    "status": "pending"
-  },
-  {
     "id": "fix-command-icon-rendering",
     "description": "TASK: Implement icon support for Command palette component in SDUI mode. ISSUE: Command component (command palette) displays emoji characters instead of proper icons in SDUI views. This affects the usability and professional appearance of the command palette. IMPACT: Command palettes typically show icons for commands, search, categories - all showing emojis instead. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Analyze command.tsx structure and how icons are passed to command items. 2) Update SDUI renderer to handle actual SVG icon components within Command palette items. 3) Ensure icons work for: command items, categories, search icon, keyboard shortcuts. 4) Remove ALL emoji fallback logic entirely. 5) Test command palette with various icon types and positions. EXPECTED OUTCOME: Command palette in SDUI mode should display proper SVG icons matching the React implementation, maintaining the professional appearance.",
     "status": "pending"

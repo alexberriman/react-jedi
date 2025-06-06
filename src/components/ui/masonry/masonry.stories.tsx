@@ -7,6 +7,7 @@ import { Badge } from "../badge";
 import { Heading } from "../heading";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import { motion } from "framer-motion";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 /**
  * Masonry creates a Pinterest-style grid layout with beautiful animations and glassmorphic effects.
@@ -126,330 +127,1210 @@ const pinterestItems = [
 /**
  * Default masonry grid showcasing various content types
  */
-export const Default: Story = {
-  args: {
-    columns: 3,
-    gap: 4,
+export const Default: Story = enhanceStoryForDualMode<typeof Masonry>(
+  {
+    args: {
+      columns: 3,
+      gap: 4,
+    },
+    render: (args) => (
+      <Masonry {...args}>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
+          let className = "h-56";
+          if (i % 3 === 0) {
+            className = "h-64";
+          } else if (i % 2 === 0) {
+            className = "h-48";
+          }
+          return (
+            <Card key={i} className={className}>
+              <CardContent className="p-6">
+                <Heading level="h4">Card {i}</Heading>
+                <Text className="mt-2 text-gray-600">
+                  This is content for card {i}. Masonry automatically arranges cards of different
+                  heights for optimal layout.
+                </Text>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </Masonry>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify masonry grid is rendered
+      await waitFor(() => {
+        const cards = canvas.getAllByText(/Card \d/);
+        expect(cards).toHaveLength(9);
+      });
+
+      // Verify different card heights
+      const card3 = await canvas.findByText("Card 3");
+      const card3Container = card3.closest(".h-64");
+      expect(card3Container).toBeTruthy();
+
+      const card2 = await canvas.findByText("Card 2");
+      const card2Container = card2.closest(".h-48");
+      expect(card2Container).toBeTruthy();
+    },
   },
-  render: (args) => (
-    <Masonry {...args}>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
-        let className = "h-56";
-        if (i % 3 === 0) {
-          className = "h-64";
-        } else if (i % 2 === 0) {
-          className = "h-48";
+  {
+    renderSpec: {
+      type: "Masonry",
+      columns: 3,
+      gap: 4,
+      children: [
+        {
+          type: "Card",
+          className: "h-56",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 1"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 1. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
+        },
+        {
+          type: "Card",
+          className: "h-48",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 2"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 2. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
+        },
+        {
+          type: "Card",
+          className: "h-64",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 3"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 3. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
+        },
+        {
+          type: "Card",
+          className: "h-48",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 4"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 4. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
+        },
+        {
+          type: "Card",
+          className: "h-56",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 5"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 5. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
+        },
+        {
+          type: "Card",
+          className: "h-64",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 6"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 6. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
+        },
+        {
+          type: "Card",
+          className: "h-56",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 7"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 7. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
+        },
+        {
+          type: "Card",
+          className: "h-48",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 8"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 8. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
+        },
+        {
+          type: "Card",
+          className: "h-64",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h4",
+                children: "Card 9"
+              },
+              {
+                type: "Text",
+                className: "mt-2 text-gray-600",
+                children: "This is content for card 9. Masonry automatically arranges cards of different heights for optimal layout."
+              }
+            ]
+          }
         }
-        return (
-          <Card key={i} className={className}>
-            <CardContent className="p-6">
-              <Heading level="h4">Card {i}</Heading>
-              <Text className="mt-2 text-gray-600">
-                This is content for card {i}. Masonry automatically arranges cards of different
-                heights for optimal layout.
-              </Text>
-            </CardContent>
-          </Card>
-        );
-      })}
-    </Masonry>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Verify masonry grid is rendered
-    await waitFor(() => {
-      const cards = canvas.getAllByText(/Card \d/);
-      expect(cards).toHaveLength(9);
-    });
-
-    // Verify different card heights
-    const card3 = await canvas.findByText("Card 3");
-    const card3Container = card3.closest(".h-64");
-    expect(card3Container).toBeTruthy();
-
-    const card2 = await canvas.findByText("Card 2");
-    const card2Container = card2.closest(".h-48");
-    expect(card2Container).toBeTruthy();
-  },
-};
+      ]
+    }
+  }
+);
 
 /**
  * Pinterest-style image gallery with glassmorphic effects
  */
-export const PinterestGallery: Story = {
-  args: {
-    columns: { base: 2, md: 3, lg: 4, xl: 5 },
-    gap: 6,
-    glassmorphic: true,
-    animation: {
-      duration: 0.5,
-      stagger: 0.08,
+export const PinterestGallery: Story = enhanceStoryForDualMode<typeof Masonry>(
+  {
+    args: {
+      columns: { base: 2, md: 3, lg: 4, xl: 5 },
+      gap: 6,
+      glassmorphic: true,
+      animation: {
+        duration: 0.5,
+        stagger: 0.08,
+      },
     },
-  },
-  render: (args) => (
-    <div className="bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 p-8 rounded-lg">
-      <Masonry {...args}>
-        {pinterestItems.map((item) => (
-          <motion.div
-            key={item.id}
-            className="rounded-xl overflow-hidden"
-            whileHover="hover"
-            initial="initial"
-            animate="initial"
-          >
-            <motion.div className="relative group">
-              <motion.div
-                className={`w-full ${item.height} overflow-hidden`}
-                variants={{
-                  initial: { scale: 1 },
-                  hover: { scale: 1.1 },
-                }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              >
-                <Image src={item.image} alt={item.title} className="w-full h-full object-cover" />
-              </motion.div>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-                variants={{
-                  initial: { opacity: 0 },
-                  hover: { opacity: 1 },
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-              <motion.div
-                className="absolute bottom-0 left-0 right-0 p-4"
-                variants={{
-                  initial: { y: "100%", opacity: 0 },
-                  hover: { y: 0, opacity: 1 },
-                }}
-                transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-              >
-                <Badge className="mb-2" variant="secondary">
-                  {item.category}
-                </Badge>
-                <Heading level="h6" className="text-white mb-1">
-                  {item.title}
-                </Heading>
-                <Text className="text-white/80">❤️ {item.likes}</Text>
+    render: (args) => (
+      <div className="bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 p-8 rounded-lg">
+        <Masonry {...args}>
+          {pinterestItems.map((item) => (
+            <motion.div
+              key={item.id}
+              className="rounded-xl overflow-hidden"
+              whileHover="hover"
+              initial="initial"
+              animate="initial"
+            >
+              <motion.div className="relative group">
+                <motion.div
+                  className={`w-full ${item.height} overflow-hidden`}
+                  variants={{
+                    initial: { scale: 1 },
+                    hover: { scale: 1.1 },
+                  }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
+                  <Image src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                </motion.div>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                  variants={{
+                    initial: { opacity: 0 },
+                    hover: { opacity: 1 },
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 p-4"
+                  variants={{
+                    initial: { y: "100%", opacity: 0 },
+                    hover: { y: 0, opacity: 1 },
+                  }}
+                  transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+                >
+                  <Badge className="mb-2" variant="secondary">
+                    {item.category}
+                  </Badge>
+                  <Heading level="h6" className="text-white mb-1">
+                    {item.title}
+                  </Heading>
+                  <Text className="text-white/80">❤️ {item.likes}</Text>
+                </motion.div>
               </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
-      </Masonry>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const user = userEvent.setup();
+          ))}
+        </Masonry>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
 
-    // Verify Pinterest items are rendered
-    await waitFor(() => {
-      const items = pinterestItems.map((item) => canvas.getByAltText(item.title));
-      expect(items).toHaveLength(pinterestItems.length);
-    });
-
-    // Test hover interaction on first item
-    const firstImage = await canvas.findByAltText(pinterestItems[0].title);
-    const firstItem = firstImage.closest(".group");
-
-    if (firstItem) {
-      await user.hover(firstItem);
-
-      // Verify hover reveals the overlay content - look within the hovered item
+      // Verify Pinterest items are rendered
       await waitFor(() => {
-        const categoryBadges = within(firstItem as HTMLElement).getAllByText(
-          pinterestItems[0].category
-        );
-        expect(categoryBadges.length).toBeGreaterThan(0);
+        const items = pinterestItems.map((item) => canvas.getByAltText(item.title));
+        expect(items).toHaveLength(pinterestItems.length);
       });
-    }
+
+      // Test hover interaction on first item
+      const firstImage = await canvas.findByAltText(pinterestItems[0].title);
+      const firstItem = firstImage.closest(".group");
+
+      if (firstItem) {
+        await user.hover(firstItem);
+
+        // Verify hover reveals the overlay content - look within the hovered item
+        await waitFor(() => {
+          const categoryBadges = within(firstItem as HTMLElement).getAllByText(
+            pinterestItems[0].category
+          );
+          expect(categoryBadges.length).toBeGreaterThan(0);
+        });
+      }
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Box",
+      className: "bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 p-8 rounded-lg",
+      children: {
+        type: "Masonry",
+        columns: { base: 2, md: 3, lg: 4, xl: 5 },
+        gap: 6,
+        glassmorphic: true,
+        animation: {
+          duration: 0.5,
+          stagger: 0.08,
+        },
+        children: [
+          {
+            type: "Box",
+            className: "rounded-xl overflow-hidden relative group",
+            children: [
+              {
+                type: "Box",
+                className: "w-full h-64 overflow-hidden",
+                children: {
+                  type: "Image",
+                  src: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=600&h=400",
+                  alt: "Modern Architecture",
+                  className: "w-full h-full object-cover",
+                },
+              },
+              {
+                type: "Box",
+                className: "absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+              },
+              {
+                type: "Box",
+                className: "absolute bottom-0 left-0 right-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400",
+                children: [
+                  {
+                    type: "Badge",
+                    className: "mb-2",
+                    variant: "secondary",
+                    children: "Design",
+                  },
+                  {
+                    type: "Heading",
+                    level: "h6",
+                    className: "text-white mb-1",
+                    children: "Modern Architecture",
+                  },
+                  {
+                    type: "Text",
+                    className: "text-white/80",
+                    children: "❤️ 234",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "Box",
+            className: "rounded-xl overflow-hidden relative group",
+            children: [
+              {
+                type: "Box",
+                className: "w-full h-96 overflow-hidden",
+                children: {
+                  type: "Image",
+                  src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800",
+                  alt: "Portrait Photography",
+                  className: "w-full h-full object-cover",
+                },
+              },
+              {
+                type: "Box",
+                className: "absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+              },
+              {
+                type: "Box",
+                className: "absolute bottom-0 left-0 right-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400",
+                children: [
+                  {
+                    type: "Badge",
+                    className: "mb-2",
+                    variant: "secondary",
+                    children: "Art",
+                  },
+                  {
+                    type: "Heading",
+                    level: "h6",
+                    className: "text-white mb-1",
+                    children: "Portrait Photography",
+                  },
+                  {
+                    type: "Text",
+                    className: "text-white/80",
+                    children: "❤️ 567",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "Box",
+            className: "rounded-xl overflow-hidden relative group",
+            children: [
+              {
+                type: "Box",
+                className: "w-full h-80 overflow-hidden",
+                children: {
+                  type: "Image",
+                  src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600",
+                  alt: "Mountain Vista",
+                  className: "w-full h-full object-cover",
+                },
+              },
+              {
+                type: "Box",
+                className: "absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+              },
+              {
+                type: "Box",
+                className: "absolute bottom-0 left-0 right-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400",
+                children: [
+                  {
+                    type: "Badge",
+                    className: "mb-2",
+                    variant: "secondary",
+                    children: "Nature",
+                  },
+                  {
+                    type: "Heading",
+                    level: "h6",
+                    className: "text-white mb-1",
+                    children: "Mountain Vista",
+                  },
+                  {
+                    type: "Text",
+                    className: "text-white/80",
+                    children: "❤️ 892",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    },
+  }
+);
 
 /**
  * Responsive masonry grid with different column counts
  */
-export const ResponsiveColumns: Story = {
-  args: {
-    columns: {
-      base: 1,
-      sm: 2,
-      md: 3,
-      lg: 4,
-      xl: 5,
-      "2xl": 6,
+export const ResponsiveColumns: Story = enhanceStoryForDualMode<typeof Masonry>(
+  {
+    args: {
+      columns: {
+        base: 1,
+        sm: 2,
+        md: 3,
+        lg: 4,
+        xl: 5,
+        "2xl": 6,
+      },
+      gap: 4,
     },
-    gap: 4,
-  },
-  render: (args) => (
-    <Masonry {...args}>
-      {Array.from({ length: 18 }, (_, i) => (
-        <Card key={i} className="h-40">
-          <CardContent className="flex items-center justify-center h-full">
-            <Text className="text-2xl font-bold text-gray-400">{i + 1}</Text>
-          </CardContent>
-        </Card>
-      ))}
-    </Masonry>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    render: (args) => (
+      <Masonry {...args}>
+        {Array.from({ length: 18 }, (_, i) => (
+          <Card key={i} className="h-40">
+            <CardContent className="flex items-center justify-center h-full">
+              <Text className="text-2xl font-bold text-gray-400">{i + 1}</Text>
+            </CardContent>
+          </Card>
+        ))}
+      </Masonry>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    // Verify all 18 items are rendered
-    await waitFor(() => {
-      const items = canvas.getAllByText(/^\d+$/);
-      expect(items).toHaveLength(18);
-    });
+      // Verify all 18 items are rendered
+      await waitFor(() => {
+        const items = canvas.getAllByText(/^\d+$/);
+        expect(items).toHaveLength(18);
+      });
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Masonry",
+      columns: {
+        base: 1,
+        sm: 2,
+        md: 3,
+        lg: 4,
+        xl: 5,
+        "2xl": 6,
+      },
+      gap: 4,
+      children: Array.from({ length: 18 }, (_, i) => ({
+        type: "Card",
+        className: "h-40",
+        children: {
+          type: "CardContent",
+          className: "flex items-center justify-center h-full",
+          children: {
+            type: "Text",
+            className: "text-2xl font-bold text-gray-400",
+            children: `${i + 1}`,
+          },
+        },
+      })),
+    },
+  }
+);
 
 /**
  * Auto-fit columns based on minimum width
  */
-export const AutoFitColumns: Story = {
-  args: {
-    autoFit: true,
-    minColWidth: "280px",
-    gap: 6,
-  },
-  render: (args) => (
-    <Masonry {...args}>
-      {[
-        { title: "Project Alpha", status: "Active", progress: 75 },
-        { title: "Design System", status: "Completed", progress: 100 },
-        { title: "API Integration", status: "In Progress", progress: 45 },
-        { title: "Mobile App", status: "Planning", progress: 10 },
-        { title: "Analytics Dashboard", status: "Active", progress: 60 },
-        { title: "User Research", status: "Completed", progress: 100 },
-      ].map((project, i) => (
-        <Card key={i} className="overflow-hidden">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start mb-4">
-              <Heading level="h5">{project.title}</Heading>
-              <Badge
-                variant={(() => {
-                  if (project.status === "Completed") return "default";
-                  if (project.status === "Active") return "secondary";
-                  return "outline";
-                })()}
-              >
-                {project.status}
-              </Badge>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <Text>Progress</Text>
-                <Text>{project.progress}%</Text>
+export const AutoFitColumns: Story = enhanceStoryForDualMode<typeof Masonry>(
+  {
+    args: {
+      autoFit: true,
+      minColWidth: "280px",
+      gap: 6,
+    },
+    render: (args) => (
+      <Masonry {...args}>
+        {[
+          { title: "Project Alpha", status: "Active", progress: 75 },
+          { title: "Design System", status: "Completed", progress: 100 },
+          { title: "API Integration", status: "In Progress", progress: 45 },
+          { title: "Mobile App", status: "Planning", progress: 10 },
+          { title: "Analytics Dashboard", status: "Active", progress: 60 },
+          { title: "User Research", status: "Completed", progress: 100 },
+        ].map((project, i) => (
+          <Card key={i} className="overflow-hidden">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start mb-4">
+                <Heading level="h5">{project.title}</Heading>
+                <Badge
+                  variant={(() => {
+                    if (project.status === "Completed") return "default";
+                    if (project.status === "Active") return "secondary";
+                    return "outline";
+                  })()}
+                >
+                  {project.status}
+                </Badge>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-primary h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${project.progress}%` }}
-                />
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <Text>Progress</Text>
+                  <Text>{project.progress}%</Text>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className="bg-primary h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${project.progress}%` }}
+                  />
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </Masonry>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+            </CardContent>
+          </Card>
+        ))}
+      </Masonry>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
 
-    // Verify project cards are rendered
-    const projectAlpha = await canvas.findByText("Project Alpha");
-    expect(projectAlpha).toBeInTheDocument();
+      // Verify project cards are rendered
+      const projectAlpha = await canvas.findByText("Project Alpha");
+      expect(projectAlpha).toBeInTheDocument();
 
-    // Verify status badges
-    const activeStatus = canvas.getAllByText("Active");
-    expect(activeStatus).toHaveLength(2);
+      // Verify status badges
+      const activeStatus = canvas.getAllByText("Active");
+      expect(activeStatus).toHaveLength(2);
 
-    const completedStatus = canvas.getAllByText("Completed");
-    expect(completedStatus).toHaveLength(2);
+      const completedStatus = canvas.getAllByText("Completed");
+      expect(completedStatus).toHaveLength(2);
 
-    // Verify progress bars are rendered
-    // Look for specific percentage values we know are in the data
-    const percent75 = canvas.getByText("75%");
-    const percent100 = canvas.getAllByText("100%");
-    expect(percent75).toBeInTheDocument();
-    expect(percent100).toHaveLength(2);
+      // Verify progress bars are rendered
+      // Look for specific percentage values we know are in the data
+      const percent75 = canvas.getByText("75%");
+      const percent100 = canvas.getAllByText("100%");
+      expect(percent75).toBeInTheDocument();
+      expect(percent100).toHaveLength(2);
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Masonry",
+      autoFit: true,
+      minColWidth: "280px",
+      gap: 6,
+      children: [
+        {
+          type: "Card",
+          className: "overflow-hidden",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Flex",
+                justify: "between",
+                align: "start",
+                className: "mb-4",
+                children: [
+                  {
+                    type: "Heading",
+                    level: "h5",
+                    children: "Project Alpha",
+                  },
+                  {
+                    type: "Badge",
+                    variant: "secondary",
+                    children: "Active",
+                  },
+                ],
+              },
+              {
+                type: "Box",
+                className: "space-y-2",
+                children: [
+                  {
+                    type: "Flex",
+                    justify: "between",
+                    className: "text-sm",
+                    children: [
+                      {
+                        type: "Text",
+                        children: "Progress",
+                      },
+                      {
+                        type: "Text",
+                        children: "75%",
+                      },
+                    ],
+                  },
+                  {
+                    type: "Box",
+                    className: "w-full bg-gray-200 rounded-full h-2",
+                    children: {
+                      type: "Box",
+                      className: "bg-primary h-2 rounded-full transition-all duration-300",
+                      style: { width: "75%" },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          className: "overflow-hidden",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Flex",
+                justify: "between",
+                align: "start",
+                className: "mb-4",
+                children: [
+                  {
+                    type: "Heading",
+                    level: "h5",
+                    children: "Design System",
+                  },
+                  {
+                    type: "Badge",
+                    variant: "default",
+                    children: "Completed",
+                  },
+                ],
+              },
+              {
+                type: "Box",
+                className: "space-y-2",
+                children: [
+                  {
+                    type: "Flex",
+                    justify: "between",
+                    className: "text-sm",
+                    children: [
+                      {
+                        type: "Text",
+                        children: "Progress",
+                      },
+                      {
+                        type: "Text",
+                        children: "100%",
+                      },
+                    ],
+                  },
+                  {
+                    type: "Box",
+                    className: "w-full bg-gray-200 rounded-full h-2",
+                    children: {
+                      type: "Box",
+                      className: "bg-primary h-2 rounded-full transition-all duration-300",
+                      style: { width: "100%" },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          className: "overflow-hidden",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Flex",
+                justify: "between",
+                align: "start",
+                className: "mb-4",
+                children: [
+                  {
+                    type: "Heading",
+                    level: "h5",
+                    children: "API Integration",
+                  },
+                  {
+                    type: "Badge",
+                    variant: "outline",
+                    children: "In Progress",
+                  },
+                ],
+              },
+              {
+                type: "Box",
+                className: "space-y-2",
+                children: [
+                  {
+                    type: "Flex",
+                    justify: "between",
+                    className: "text-sm",
+                    children: [
+                      {
+                        type: "Text",
+                        children: "Progress",
+                      },
+                      {
+                        type: "Text",
+                        children: "45%",
+                      },
+                    ],
+                  },
+                  {
+                    type: "Box",
+                    className: "w-full bg-gray-200 rounded-full h-2",
+                    children: {
+                      type: "Box",
+                      className: "bg-primary h-2 rounded-full transition-all duration-300",
+                      style: { width: "45%" },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          className: "overflow-hidden",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Flex",
+                justify: "between",
+                align: "start",
+                className: "mb-4",
+                children: [
+                  {
+                    type: "Heading",
+                    level: "h5",
+                    children: "Mobile App",
+                  },
+                  {
+                    type: "Badge",
+                    variant: "outline",
+                    children: "Planning",
+                  },
+                ],
+              },
+              {
+                type: "Box",
+                className: "space-y-2",
+                children: [
+                  {
+                    type: "Flex",
+                    justify: "between",
+                    className: "text-sm",
+                    children: [
+                      {
+                        type: "Text",
+                        children: "Progress",
+                      },
+                      {
+                        type: "Text",
+                        children: "10%",
+                      },
+                    ],
+                  },
+                  {
+                    type: "Box",
+                    className: "w-full bg-gray-200 rounded-full h-2",
+                    children: {
+                      type: "Box",
+                      className: "bg-primary h-2 rounded-full transition-all duration-300",
+                      style: { width: "10%" },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          className: "overflow-hidden",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Flex",
+                justify: "between",
+                align: "start",
+                className: "mb-4",
+                children: [
+                  {
+                    type: "Heading",
+                    level: "h5",
+                    children: "Analytics Dashboard",
+                  },
+                  {
+                    type: "Badge",
+                    variant: "secondary",
+                    children: "Active",
+                  },
+                ],
+              },
+              {
+                type: "Box",
+                className: "space-y-2",
+                children: [
+                  {
+                    type: "Flex",
+                    justify: "between",
+                    className: "text-sm",
+                    children: [
+                      {
+                        type: "Text",
+                        children: "Progress",
+                      },
+                      {
+                        type: "Text",
+                        children: "60%",
+                      },
+                    ],
+                  },
+                  {
+                    type: "Box",
+                    className: "w-full bg-gray-200 rounded-full h-2",
+                    children: {
+                      type: "Box",
+                      className: "bg-primary h-2 rounded-full transition-all duration-300",
+                      style: { width: "60%" },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          className: "overflow-hidden",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Flex",
+                justify: "between",
+                align: "start",
+                className: "mb-4",
+                children: [
+                  {
+                    type: "Heading",
+                    level: "h5",
+                    children: "User Research",
+                  },
+                  {
+                    type: "Badge",
+                    variant: "default",
+                    children: "Completed",
+                  },
+                ],
+              },
+              {
+                type: "Box",
+                className: "space-y-2",
+                children: [
+                  {
+                    type: "Flex",
+                    justify: "between",
+                    className: "text-sm",
+                    children: [
+                      {
+                        type: "Text",
+                        children: "Progress",
+                      },
+                      {
+                        type: "Text",
+                        children: "100%",
+                      },
+                    ],
+                  },
+                  {
+                    type: "Box",
+                    className: "w-full bg-gray-200 rounded-full h-2",
+                    children: {
+                      type: "Box",
+                      className: "bg-primary h-2 rounded-full transition-all duration-300",
+                      style: { width: "100%" },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+    },
+  }
+);
 
 /**
  * Masonry with custom item wrapper component
  */
-export const CustomWrapper: Story = {
-  args: {
-    columns: 3,
-    gap: 4,
-    itemComponent: "article",
+export const CustomWrapper: Story = enhanceStoryForDualMode<typeof Masonry>(
+  {
+    args: {
+      columns: 3,
+      gap: 4,
+      itemComponent: "article",
+    },
+    render: (args) => (
+      <Masonry {...args}>
+        {["News Article 1", "Blog Post", "Tutorial", "Case Study", "Review", "Guide"].map(
+          (title, i) => (
+            <Card key={i}>
+              <CardContent className="p-6">
+                <Heading level="h5">{title}</Heading>
+                <Text className="mt-2">
+                  This content is wrapped in an article element for better semantic HTML.
+                </Text>
+              </CardContent>
+            </Card>
+          )
+        )}
+      </Masonry>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify content items are rendered
+      const newsArticle = await canvas.findByText("News Article 1");
+      expect(newsArticle).toBeInTheDocument();
+
+      const tutorial = await canvas.findByText("Tutorial");
+      expect(tutorial).toBeInTheDocument();
+
+      // Verify all 6 items are present
+      const headings = canvas.getAllByRole("heading", { level: 5 });
+      expect(headings).toHaveLength(6);
+    },
   },
-  render: (args) => (
-    <Masonry {...args}>
-      {["News Article 1", "Blog Post", "Tutorial", "Case Study", "Review", "Guide"].map(
-        (title, i) => (
-          <Card key={i}>
-            <CardContent className="p-6">
-              <Heading level="h5">{title}</Heading>
-              <Text className="mt-2">
-                This content is wrapped in an article element for better semantic HTML.
-              </Text>
-            </CardContent>
-          </Card>
-        )
-      )}
-    </Masonry>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Verify content items are rendered
-    const newsArticle = await canvas.findByText("News Article 1");
-    expect(newsArticle).toBeInTheDocument();
-
-    const tutorial = await canvas.findByText("Tutorial");
-    expect(tutorial).toBeInTheDocument();
-
-    // Verify all 6 items are present
-    const headings = canvas.getAllByRole("heading", { level: 5 });
-    expect(headings).toHaveLength(6);
-  },
-};
+  {
+    renderSpec: {
+      type: "Masonry",
+      columns: 3,
+      gap: 4,
+      itemComponent: "article",
+      children: [
+        {
+          type: "Card",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h5",
+                children: "News Article 1",
+              },
+              {
+                type: "Text",
+                className: "mt-2",
+                children: "This content is wrapped in an article element for better semantic HTML.",
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h5",
+                children: "Blog Post",
+              },
+              {
+                type: "Text",
+                className: "mt-2",
+                children: "This content is wrapped in an article element for better semantic HTML.",
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h5",
+                children: "Tutorial",
+              },
+              {
+                type: "Text",
+                className: "mt-2",
+                children: "This content is wrapped in an article element for better semantic HTML.",
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h5",
+                children: "Case Study",
+              },
+              {
+                type: "Text",
+                className: "mt-2",
+                children: "This content is wrapped in an article element for better semantic HTML.",
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h5",
+                children: "Review",
+              },
+              {
+                type: "Text",
+                className: "mt-2",
+                children: "This content is wrapped in an article element for better semantic HTML.",
+              },
+            ],
+          },
+        },
+        {
+          type: "Card",
+          children: {
+            type: "CardContent",
+            className: "p-6",
+            children: [
+              {
+                type: "Heading",
+                level: "h5",
+                children: "Guide",
+              },
+              {
+                type: "Text",
+                className: "mt-2",
+                children: "This content is wrapped in an article element for better semantic HTML.",
+              },
+            ],
+          },
+        },
+      ],
+    },
+  }
+);
 
 /**
  * Masonry without animations (static layout)
  */
-export const NoAnimation: Story = {
-  args: {
-    columns: 3,
-    gap: 4,
-    animation: {
-      duration: 0,
-      stagger: 0,
+export const NoAnimation: Story = enhanceStoryForDualMode<typeof Masonry>(
+  {
+    args: {
+      columns: 3,
+      gap: 4,
+      animation: {
+        duration: 0,
+        stagger: 0,
+      },
+    },
+    render: (args) => (
+      <Masonry {...args}>
+        {Array.from({ length: 9 }, (_, i) => (
+          <Card key={i} className="h-48">
+            <CardContent className="flex items-center justify-center h-full">
+              <Text>Static Item {i + 1}</Text>
+            </CardContent>
+          </Card>
+        ))}
+      </Masonry>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify static items are rendered immediately
+      const items = canvas.getAllByText(/Static Item \d+/);
+      expect(items).toHaveLength(9);
+
+      // Verify first and last items
+      expect(canvas.getByText("Static Item 1")).toBeInTheDocument();
+      expect(canvas.getByText("Static Item 9")).toBeInTheDocument();
     },
   },
-  render: (args) => (
-    <Masonry {...args}>
-      {Array.from({ length: 9 }, (_, i) => (
-        <Card key={i} className="h-48">
-          <CardContent className="flex items-center justify-center h-full">
-            <Text>Static Item {i + 1}</Text>
-          </CardContent>
-        </Card>
-      ))}
-    </Masonry>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Verify static items are rendered immediately
-    const items = canvas.getAllByText(/Static Item \d+/);
-    expect(items).toHaveLength(9);
-
-    // Verify first and last items
-    expect(canvas.getByText("Static Item 1")).toBeInTheDocument();
-    expect(canvas.getByText("Static Item 9")).toBeInTheDocument();
-  },
-};
+  {
+    renderSpec: {
+      type: "Masonry",
+      columns: 3,
+      gap: 4,
+      animation: {
+        duration: 0,
+        stagger: 0,
+      },
+      children: Array.from({ length: 9 }, (_, i) => ({
+        type: "Card",
+        className: "h-48",
+        children: {
+          type: "CardContent",
+          className: "flex items-center justify-center h-full",
+          children: {
+            type: "Text",
+            children: `Static Item ${i + 1}`,
+          },
+        },
+      })),
+    },
+  }
+);

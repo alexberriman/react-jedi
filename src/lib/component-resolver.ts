@@ -406,10 +406,10 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     DropdownMenuSubContent: asComponent(UI.DropdownMenuSubContent),
     DropdownMenuGroup: asComponent(UI.DropdownMenuGroup),
     "context-menu": asComponent(
-      UI.ContextMenu as unknown as React.ComponentType<Record<string, unknown>>
+      UI.ContextMenuComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     ContextMenu: asComponent(
-      UI.ContextMenu as unknown as React.ComponentType<Record<string, unknown>>
+      UI.ContextMenuComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
     Toast: asComponent(UI.Toaster as unknown as React.ComponentType<Record<string, unknown>>),
     Toaster: asComponent(UI.Toaster as unknown as React.ComponentType<Record<string, unknown>>),

@@ -7,7 +7,7 @@
  * standard dual-mode testing approach.
  */
 
-import type { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import {
@@ -36,6 +36,7 @@ import {
   Settings2Icon,
   ChevronRightIcon,
 } from "lucide-react";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta: Meta = {
   title: "Components/ContextMenu",
@@ -486,3 +487,403 @@ Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     { timeout: 5000 }
   );
 };
+
+type Story = StoryObj<typeof meta>;
+
+// Dual Mode Story for SDUI Testing
+export const SDUIContextMenu: Story = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <div className="flex h-[350px] w-[450px] items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700">
+        {/* This will be replaced by SDUI JSON spec in dual mode */}
+        <ContextMenu>
+          <ContextMenuTrigger className="flex h-[200px] w-[350px] items-center justify-center rounded-md bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 border border-zinc-200 dark:border-zinc-800 text-sm">
+            Right-click me for SDUI context menu
+          </ContextMenuTrigger>
+          <ContextMenuContent className="w-64">
+            <ContextMenuItem>
+              Profile
+              <ContextMenuShortcut>⌘P</ContextMenuShortcut>
+            </ContextMenuItem>
+            <ContextMenuItem>
+              Settings
+              <ContextMenuShortcut>⌘S</ContextMenuShortcut>
+            </ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem>
+              Copy
+              <ContextMenuShortcut>⌘C</ContextMenuShortcut>
+            </ContextMenuItem>
+            <ContextMenuItem>
+              Cut
+              <ContextMenuShortcut>⌘X</ContextMenuShortcut>
+            </ContextMenuItem>
+            <ContextMenuItem>
+              Paste
+              <ContextMenuShortcut>⌘V</ContextMenuShortcut>
+            </ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem variant="destructive">
+              Delete
+              <ContextMenuShortcut>⌘D</ContextMenuShortcut>
+            </ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Find the trigger area
+      const trigger = canvas.getByText("Right-click me for SDUI context menu");
+
+      // Right-click to open context menu
+      await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+
+      // Wait for menu to appear - use screen since menus are often portaled
+      await waitFor(
+        () => {
+          const profileItem = within(document.body).queryByText("Profile");
+          expect(profileItem).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+
+      // Verify menu structure works in SDUI mode
+      expect(within(document.body).getByText("Settings")).toBeInTheDocument();
+      expect(within(document.body).getByText("Copy")).toBeInTheDocument();
+      expect(within(document.body).getByText("Delete")).toBeInTheDocument();
+
+      // Click on Copy menu item
+      await userEvent.click(within(document.body).getByText("Copy"));
+
+      // Verify menu closes after clicking
+      await waitFor(() => {
+        expect(within(document.body).queryByText("Profile")).not.toBeInTheDocument();
+      });
+    },
+  },
+  {
+    renderSpec: {
+      type: "context-menu",
+    trigger: {
+      type: "Box",
+      className: "flex h-[200px] w-[350px] items-center justify-center rounded-md bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 border border-zinc-200 dark:border-zinc-800 text-sm",
+      children: "Right-click me for SDUI context menu"
+    },
+    items: [
+      {
+        type: "item",
+        label: "Profile",
+        icon: "user",
+        shortcut: "⌘P"
+      },
+      {
+        type: "item",
+        label: "Settings",
+        icon: "settings",
+        shortcut: "⌘S"
+      },
+      {
+        type: "separator"
+      },
+      {
+        type: "item",
+        label: "Copy",
+        icon: "copy",
+        shortcut: "⌘C"
+      },
+      {
+        type: "item",
+        label: "Cut",
+        icon: "cut",
+        shortcut: "⌘X"
+      },
+      {
+        type: "item",
+        label: "Paste",
+        icon: "paste",
+        shortcut: "⌘V"
+      },
+      {
+        type: "separator"
+      },
+      {
+        type: "item",
+        label: "Delete",
+        icon: "trash",
+        variant: "destructive",
+        shortcut: "⌘D"
+      }
+    ]
+    }
+  }
+);
+
+// Dual Mode Story with Nested Menus
+export const SDUINestedMenus: Story = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <div className="flex h-[350px] w-[450px] items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700">
+        <ContextMenu>
+          <ContextMenuTrigger className="flex h-[200px] w-[350px] items-center justify-center rounded-md bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border border-zinc-200 dark:border-zinc-800 text-sm">
+            Right-click for nested SDUI menus
+          </ContextMenuTrigger>
+          <ContextMenuContent className="w-64">
+            <ContextMenuItem>
+              Add to favorites
+            </ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuSub>
+              <ContextMenuSubTrigger>
+                Share
+              </ContextMenuSubTrigger>
+              <ContextMenuSubContent className="w-48">
+                <ContextMenuItem>
+                  Copy link
+                </ContextMenuItem>
+                <ContextMenuItem>Email</ContextMenuItem>
+                <ContextMenuItem>Message</ContextMenuItem>
+                <ContextMenuSeparator />
+                <ContextMenuSub>
+                  <ContextMenuSubTrigger>More options</ContextMenuSubTrigger>
+                  <ContextMenuSubContent className="w-48">
+                    <ContextMenuItem>Twitter</ContextMenuItem>
+                    <ContextMenuItem>LinkedIn</ContextMenuItem>
+                    <ContextMenuItem>Facebook</ContextMenuItem>
+                  </ContextMenuSubContent>
+                </ContextMenuSub>
+              </ContextMenuSubContent>
+            </ContextMenuSub>
+            <ContextMenuSeparator />
+            <ContextMenuItem>
+              Settings
+            </ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Right-click to open context menu
+      const trigger = canvas.getByText("Right-click for nested SDUI menus");
+      await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+
+      // Wait for menu to appear
+      await waitFor(
+        () => {
+          const favoritesItem = within(document.body).queryByText("Add to favorites");
+          expect(favoritesItem).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+
+      // Hover over Share to open submenu
+      const shareItem = within(document.body).getByText("Share");
+      await userEvent.hover(shareItem);
+
+      // Wait for submenu to appear
+      await waitFor(() => {
+        expect(within(document.body).getByText("Copy link")).toBeInTheDocument();
+      });
+
+      // Click on Email option
+      await userEvent.click(within(document.body).getByText("Email"));
+
+      // Verify menu closes
+      await waitFor(() => {
+        expect(within(document.body).queryByText("Add to favorites")).not.toBeInTheDocument();
+      });
+    },
+  },
+  {
+    renderSpec: {
+      type: "context-menu",
+    trigger: {
+      type: "Box",
+      className: "flex h-[200px] w-[350px] items-center justify-center rounded-md bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border border-zinc-200 dark:border-zinc-800 text-sm",
+      children: "Right-click for nested SDUI menus"
+    },
+    items: [
+      {
+        type: "item",
+        label: "Add to favorites",
+        icon: "star"
+      },
+      {
+        type: "separator"
+      },
+      {
+        type: "sub",
+        label: "Share",
+        icon: "share",
+        items: [
+          {
+            type: "item",
+            label: "Copy link",
+            icon: "link"
+          },
+          {
+            type: "item",
+            label: "Email"
+          },
+          {
+            type: "item",
+            label: "Message"
+          },
+          {
+            type: "separator"
+          },
+          {
+            type: "sub",
+            label: "More options",
+            items: [
+              {
+                type: "item",
+                label: "Twitter"
+              },
+              {
+                type: "item",
+                label: "LinkedIn"
+              },
+              {
+                type: "item",
+                label: "Facebook"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: "separator"
+      },
+      {
+        type: "item",
+        label: "Settings",
+        icon: "settings"
+      }
+    ]
+    }
+  }
+);
+
+// Dual Mode Story with Checkboxes and Radio Groups
+export const SDUIWithInteractiveItems: Story = enhanceStoryForDualMode(
+  {
+    render: () => {
+      const [isChecked, setIsChecked] = React.useState(true);
+      const [radioValue, setRadioValue] = React.useState("medium");
+
+      return (
+        <div className="flex h-[350px] w-[450px] items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700">
+          <ContextMenu>
+            <ContextMenuTrigger className="flex h-[200px] w-[350px] items-center justify-center rounded-md bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 border border-zinc-200 dark:border-zinc-800 text-sm">
+              Right-click for interactive SDUI options
+            </ContextMenuTrigger>
+            <ContextMenuContent className="w-64">
+              <ContextMenuLabel>Preferences</ContextMenuLabel>
+              <ContextMenuSeparator />
+              <ContextMenuCheckboxItem checked={isChecked} onCheckedChange={setIsChecked}>
+                <span>Show notifications</span>
+              </ContextMenuCheckboxItem>
+              <ContextMenuSeparator />
+              <ContextMenuLabel>Priority</ContextMenuLabel>
+              <ContextMenuRadioGroup value={radioValue} onValueChange={setRadioValue}>
+                <ContextMenuRadioItem value="high">
+                  <span>High</span>
+                </ContextMenuRadioItem>
+                <ContextMenuRadioItem value="medium">
+                  <span>Medium</span>
+                </ContextMenuRadioItem>
+                <ContextMenuRadioItem value="low">
+                  <span>Low</span>
+                </ContextMenuRadioItem>
+              </ContextMenuRadioGroup>
+            </ContextMenuContent>
+          </ContextMenu>
+        </div>
+      );
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Find and right-click the trigger
+      const trigger = canvas.getByText("Right-click for interactive SDUI options");
+      await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+
+      // Wait for menu to appear
+      await waitFor(
+        () => {
+          const preferencesLabel = within(document.body).queryByText("Preferences");
+          expect(preferencesLabel).toBeInTheDocument();
+        },
+        { timeout: 10_000 }
+      );
+
+      // Verify checkbox and radio items are present
+      expect(within(document.body).getByText("Show notifications")).toBeInTheDocument();
+      expect(within(document.body).getByText("High")).toBeInTheDocument();
+      expect(within(document.body).getByText("Medium")).toBeInTheDocument();
+      expect(within(document.body).getByText("Low")).toBeInTheDocument();
+
+      // Click outside to close menu
+      await userEvent.click(document.body);
+
+      // Verify menu is closed
+      await waitFor(() => {
+        expect(within(document.body).queryByText("Preferences")).not.toBeInTheDocument();
+      });
+    },
+  },
+  {
+    renderSpec: {
+      type: "context-menu",
+    trigger: {
+      type: "Box",
+      className: "flex h-[200px] w-[350px] items-center justify-center rounded-md bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 border border-zinc-200 dark:border-zinc-800 text-sm",
+      children: "Right-click for interactive SDUI options"
+    },
+    items: [
+      {
+        type: "label",
+        label: "Preferences"
+      },
+      {
+        type: "separator"
+      },
+      {
+        type: "checkbox",
+        label: "Show notifications",
+        checked: true,
+        onSelect: {
+          action: "toggleNotifications"
+        }
+      },
+      {
+        type: "separator"
+      },
+      {
+        type: "label",
+        label: "Priority"
+      },
+      {
+        type: "radio",
+        label: "High",
+        value: "high"
+      },
+      {
+        type: "radio",
+        label: "Medium",
+        value: "medium",
+        checked: true
+      },
+      {
+        type: "radio",
+        label: "Low",
+        value: "low"
+      }
+    ]
+    }
+  }
+);

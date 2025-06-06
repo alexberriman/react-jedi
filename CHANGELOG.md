@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-06]
 
+- **TASK: Fix Breadcrumb component icon support and ellipsis functionality in SDUI mode. SOLUTION: The new SDUI icon system supports icon rendering. Use { type: 'Icon', name: 'icon-name', size: 16 } for breadcrumb icons. ACTION REQUIRED: 1) Update breadcrumb stories to use icon references in SDUI renderSpec. 2) Common breadcrumb icons: 'home' for home, 'chevron-right' for separators, 'folder' for categories. 3) Remove ALL emoji fallbacks and replace with icon references. 4) Fix the ellipsis rendering logic for SDUI - ensure collapsed state works properly. 5) Test all breadcrumb stories with proper icons and ellipsis behavior. EXPECTED OUTCOME: SDUI breadcrumbs should have full SVG icon support and working ellipsis functionality matching React mode.**
+
+
+## [2025-06-06]
+
 - **TASK: Fix Checkbox hover state visibility. ISSUE: Checkbox hover effect is barely visible - appears to have a strange or too-subtle hover state that users can't see. This affects usability as users can't tell when they're hovering. ACTION REQUIRED: 1) Review current checkbox hover styles. 2) Increase hover state contrast/visibility. 3) Ensure hover effect is consistent with design system. 4) May need border color change, background tint, or shadow. 5) Test in both light and dark modes. 6) Ensure hover state is accessible (sufficient contrast). EXPECTED OUTCOME: Clear, visible hover state on checkboxes that matches the design system.**
 
 

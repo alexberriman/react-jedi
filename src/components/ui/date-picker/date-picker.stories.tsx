@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { DatePicker } from "./date-picker";
 import { within, userEvent, expect, waitFor } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/DatePicker",
@@ -36,7 +37,7 @@ type Story = StoryObj<typeof meta>;
 /**
  * Default date picker with no initial value.
  */
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode<typeof DatePicker>({
   args: {
     placeholder: "Pick a date",
   },
@@ -57,12 +58,12 @@ export const Default: Story = {
       expect(calendarElement).toBeInTheDocument();
     });
   },
-};
+});
 
 /**
  * Date picker with a pre-selected date.
  */
-export const WithSelectedDate: Story = {
+export const WithSelectedDate: Story = enhanceStoryForDualMode<typeof DatePicker>({
   args: {
     date: new Date(),
     placeholder: "Pick a date",
@@ -103,12 +104,12 @@ export const WithSelectedDate: Story = {
       await userEvent.click(document.body);
     }
   },
-};
+});
 
 /**
  * Date picker with custom placeholder text.
  */
-export const CustomPlaceholder: Story = {
+export const CustomPlaceholder: Story = enhanceStoryForDualMode<typeof DatePicker>({
   args: {
     placeholder: "Select your birthday",
   },
@@ -135,12 +136,12 @@ export const CustomPlaceholder: Story = {
     // Close calendar by clicking outside
     await userEvent.click(document.body);
   },
-};
+});
 
 /**
  * Disabled date picker that cannot be interacted with.
  */
-export const Disabled: Story = {
+export const Disabled: Story = enhanceStoryForDualMode<typeof DatePicker>({
   args: {
     placeholder: "Pick a date",
     disabled: true,
@@ -157,12 +158,12 @@ export const Disabled: Story = {
     // Verify calendar doesn't open (since button is disabled)
     expect(document.querySelector(".rdp")).not.toBeInTheDocument();
   },
-};
+});
 
 /**
  * Date picker with a disabled state and selected date.
  */
-export const DisabledWithDate: Story = {
+export const DisabledWithDate: Story = enhanceStoryForDualMode<typeof DatePicker>({
   args: {
     date: new Date(),
     placeholder: "Pick a date",
@@ -184,133 +185,223 @@ export const DisabledWithDate: Story = {
     // Verify calendar doesn't open (since button is disabled)
     expect(document.querySelector(".rdp")).not.toBeInTheDocument();
   },
-};
+});
 
 /**
  * Date picker with controlled state.
  */
-export const Controlled: Story = {
-  render: function ControlledDatePicker() {
-    const [date, setDate] = React.useState<Date | undefined>(undefined);
+export const Controlled: Story = enhanceStoryForDualMode<typeof DatePicker>(
+  {
+    render: function ControlledDatePicker() {
+      const [date, setDate] = React.useState<Date | undefined>(undefined);
 
-    return (
-      <div className="space-y-4">
-        <DatePicker date={date} onDateChange={setDate} placeholder="Select a date" />
-        <div className="text-sm text-muted-foreground">
-          Selected date: {date ? date.toISOString() : "None"}
+      return (
+        <div className="space-y-4">
+          <DatePicker date={date} onDateChange={setDate} placeholder="Select a date" />
+          <div className="text-sm text-muted-foreground">
+            Selected date: {date ? date.toISOString() : "None"}
+          </div>
         </div>
-      </div>
-    );
-  },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+      );
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-    // Verify initial state
-    expect(canvas.getByText("Selected date: None")).toBeInTheDocument();
+      // Verify initial state
+      expect(canvas.getByText("Selected date: None")).toBeInTheDocument();
 
-    // Open date picker
-    const dateButton = canvas.getByRole("button", { name: /select a date/i });
-    await userEvent.click(dateButton);
+      // Open date picker
+      const dateButton = canvas.getByRole("button", { name: /select a date/i });
+      await userEvent.click(dateButton);
 
-    // Wait for calendar
-    await waitFor(() => {
-      const calendarElement =
-        document.querySelector(".rdp") ||
-        canvas.getByText(
-          /january|february|march|april|may|june|july|august|september|october|november|december/i
-        );
-      expect(calendarElement).toBeInTheDocument();
-    });
+      // Wait for calendar
+      await waitFor(() => {
+        const calendarElement =
+          document.querySelector(".rdp") ||
+          canvas.getByText(
+            /january|february|march|april|may|june|july|august|september|october|november|december/i
+          );
+        expect(calendarElement).toBeInTheDocument();
+      });
 
-    // Select a date (15th is always visible)
-    await waitFor(() => {
-      // Calendar might be in a portal, use screen
+      // Select a date (15th is always visible)
+      await waitFor(() => {
+        // Calendar might be in a portal, use screen
+        const fifteenthButton = within(document.body).getByText("15");
+        expect(fifteenthButton).toBeInTheDocument();
+      });
       const fifteenthButton = within(document.body).getByText("15");
-      expect(fifteenthButton).toBeInTheDocument();
-    });
-    const fifteenthButton = within(document.body).getByText("15");
-    await userEvent.click(fifteenthButton);
+      await userEvent.click(fifteenthButton);
 
-    // Verify date is displayed
-    await waitFor(() => {
-      expect(canvas.getByText(/Selected date:.*\d{4}/)).toBeInTheDocument();
-    });
+      // Verify date is displayed
+      await waitFor(() => {
+        expect(canvas.getByText(/Selected date:.*\d{4}/)).toBeInTheDocument();
+      });
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "column",
+      gap: "md",
+      children: [
+        {
+          type: "DatePicker",
+          placeholder: "Select a date",
+        },
+        {
+          type: "Text",
+          className: "text-sm text-muted-foreground",
+          children: "Selected date: None",
+        },
+      ],
+    },
+  }
+);
 
 /**
  * Multiple date pickers demonstrating different states.
  */
-export const Multiple: Story = {
-  render: function MultipleDatePickers() {
-    const [date1, setDate1] = React.useState<Date | undefined>(undefined);
-    const [date2, setDate2] = React.useState<Date | undefined>(new Date());
-    const [date3, setDate3] = React.useState<Date | undefined>(undefined);
+export const Multiple: Story = enhanceStoryForDualMode<typeof DatePicker>(
+  {
+    render: function MultipleDatePickers() {
+      const [date1, setDate1] = React.useState<Date | undefined>(undefined);
+      const [date2, setDate2] = React.useState<Date | undefined>(new Date());
+      const [date3, setDate3] = React.useState<Date | undefined>(undefined);
 
-    return (
-      <div className="space-y-4">
-        <div>
-          <label htmlFor="start-date" className="text-sm font-medium mb-2 block">
-            Start Date
-          </label>
-          <div id="start-date">
-            <DatePicker date={date1} onDateChange={setDate1} placeholder="Select start date" />
+      return (
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="start-date" className="text-sm font-medium mb-2 block">
+              Start Date
+            </label>
+            <div id="start-date">
+              <DatePicker date={date1} onDateChange={setDate1} placeholder="Select start date" />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="end-date" className="text-sm font-medium mb-2 block">
+              End Date
+            </label>
+            <div id="end-date">
+              <DatePicker date={date2} onDateChange={setDate2} placeholder="Select end date" />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="disabled-date" className="text-sm font-medium mb-2 block">
+              Disabled Date
+            </label>
+            <div id="disabled-date">
+              <DatePicker date={date3} onDateChange={setDate3} placeholder="Cannot select" disabled />
+            </div>
           </div>
         </div>
-        <div>
-          <label htmlFor="end-date" className="text-sm font-medium mb-2 block">
-            End Date
-          </label>
-          <div id="end-date">
-            <DatePicker date={date2} onDateChange={setDate2} placeholder="Select end date" />
-          </div>
-        </div>
-        <div>
-          <label htmlFor="disabled-date" className="text-sm font-medium mb-2 block">
-            Disabled Date
-          </label>
-          <div id="disabled-date">
-            <DatePicker date={date3} onDateChange={setDate3} placeholder="Cannot select" disabled />
-          </div>
-        </div>
-      </div>
-    );
+      );
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+
+      // Find all date pickers
+      const dateButtons = canvas.getAllByRole("button");
+
+      // Test Start Date picker
+      await userEvent.click(dateButtons[0]);
+      await waitFor(() => {
+        const calendarElement =
+          document.querySelector(".rdp") ||
+          canvas.getByText(
+            /january|february|march|april|may|june|july|august|september|october|november|december/i
+          );
+        expect(calendarElement).toBeInTheDocument();
+      });
+      await userEvent.click(document.body); // Close calendar
+
+      // Test End Date picker (should have a pre-selected date)
+      const endDateText = dateButtons[1].textContent || "";
+      expect(endDateText).not.toBe("Select end date");
+
+      await userEvent.click(dateButtons[1]);
+      await waitFor(() => {
+        const calendarElement =
+          document.querySelector(".rdp") ||
+          canvas.getByText(
+            /january|february|march|april|may|june|july|august|september|october|november|december/i
+          );
+        expect(calendarElement).toBeInTheDocument();
+      });
+      await userEvent.click(document.body); // Close calendar
+
+      // Test Disabled Date picker
+      expect(dateButtons[2]).toBeDisabled();
+      expect(dateButtons[2]).toHaveTextContent("Cannot select");
+    },
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    // Find all date pickers
-    const dateButtons = canvas.getAllByRole("button");
-
-    // Test Start Date picker
-    await userEvent.click(dateButtons[0]);
-    await waitFor(() => {
-      const calendarElement =
-        document.querySelector(".rdp") ||
-        canvas.getByText(
-          /january|february|march|april|may|june|july|august|september|october|november|december/i
-        );
-      expect(calendarElement).toBeInTheDocument();
-    });
-    await userEvent.click(document.body); // Close calendar
-
-    // Test End Date picker (should have a pre-selected date)
-    const endDateText = dateButtons[1].textContent || "";
-    expect(endDateText).not.toBe("Select end date");
-
-    await userEvent.click(dateButtons[1]);
-    await waitFor(() => {
-      const calendarElement =
-        document.querySelector(".rdp") ||
-        canvas.getByText(
-          /january|february|march|april|may|june|july|august|september|october|november|december/i
-        );
-      expect(calendarElement).toBeInTheDocument();
-    });
-    await userEvent.click(document.body); // Close calendar
-
-    // Test Disabled Date picker
-    expect(dateButtons[2]).toBeDisabled();
-    expect(dateButtons[2]).toHaveTextContent("Cannot select");
-  },
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "column",
+      gap: "md",
+      children: [
+        {
+          type: "Box",
+          children: [
+            {
+              type: "Label",
+              htmlFor: "start-date",
+              className: "text-sm font-medium mb-2 block",
+              children: "Start Date",
+            },
+            {
+              type: "Box",
+              id: "start-date",
+              children: {
+                type: "DatePicker",
+                placeholder: "Select start date",
+              },
+            },
+          ],
+        },
+        {
+          type: "Box",
+          children: [
+            {
+              type: "Label",
+              htmlFor: "end-date",
+              className: "text-sm font-medium mb-2 block",
+              children: "End Date",
+            },
+            {
+              type: "Box",
+              id: "end-date",
+              children: {
+                type: "DatePicker",
+                date: new Date(),
+                placeholder: "Select end date",
+              },
+            },
+          ],
+        },
+        {
+          type: "Box",
+          children: [
+            {
+              type: "Label",
+              htmlFor: "disabled-date",
+              className: "text-sm font-medium mb-2 block",
+              children: "Disabled Date",
+            },
+            {
+              type: "Box",
+              id: "disabled-date",
+              children: {
+                type: "DatePicker",
+                placeholder: "Cannot select",
+                disabled: true,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  }
+);

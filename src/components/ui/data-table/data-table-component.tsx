@@ -1,7 +1,39 @@
 import * as React from "react";
 import { DataTable, createSortableHeader } from "./data-table";
 import type { DataTableColumn } from "./data-table";
-import type { Column } from "@tanstack/react-table";
+import type { Column, Row } from "@tanstack/react-table";
+import { Checkbox } from "../checkbox";
+import { Badge } from "../badge";
+
+type BadgeVariant = "default" | "secondary" | "destructive" | "outline";
+
+// Helper function to create checkbox header
+const createCheckboxHeader = () => {
+  const CheckboxHeader = ({ table }: { table: { getIsAllPageRowsSelected: () => boolean; toggleAllPageRowsSelected: (value: boolean) => void } }) => (
+    <Checkbox
+      checked={table.getIsAllPageRowsSelected()}
+      onCheckedChange={(value: boolean | "indeterminate") =>
+        table.toggleAllPageRowsSelected(!!value)
+      }
+      aria-label="Select all"
+    />
+  );
+  CheckboxHeader.displayName = "CheckboxHeader";
+  return CheckboxHeader;
+};
+
+// Helper function to create checkbox cell
+const createCheckboxCell = () => {
+  const CheckboxCell = ({ row }: { row: Row<Record<string, unknown>> }) => (
+    <Checkbox
+      checked={row.getIsSelected()}
+      onCheckedChange={(value: boolean | "indeterminate") => row.toggleSelected(!!value)}
+      aria-label="Select row"
+    />
+  );
+  CheckboxCell.displayName = "CheckboxCell";
+  return CheckboxCell;
+};
 
 interface DataTableComponentProps {
   columns: {
@@ -11,7 +43,7 @@ interface DataTableComponentProps {
     enableSorting?: boolean;
     enableHiding?: boolean;
     className?: string;
-    type?: "text" | "number" | "date" | "badge" | "custom";
+    type?: "text" | "number" | "date" | "badge" | "currency" | "custom";
   }[];
   data: Record<string, unknown>[];
   filterColumn?: string;
@@ -50,6 +82,17 @@ export function DataTableComponent({
   // Transform columns to TanStack Table format
   const tableColumns = React.useMemo(() => {
     return columns.map((col) => {
+      // Handle special case for select column
+      if (col.id === "select") {
+        const selectColumn: DataTableColumn<Record<string, unknown>> = {
+          id: "select",
+          header: createCheckboxHeader(),
+          cell: createCheckboxCell(),
+          enableSorting: false,
+          enableHiding: false,
+        };
+        return selectColumn;
+      }
       const column: DataTableColumn<Record<string, unknown>> = {
         id: col.id,
         accessorKey: col.accessorKey || col.id,
@@ -67,25 +110,28 @@ export function DataTableComponent({
         case "badge": {
           column.cell = ({ getValue }: { getValue: () => unknown }) => {
             const value = getValue();
-            const colorMap: Record<string, string> = {
-              success: "bg-green-100 text-green-700",
-              error: "bg-red-100 text-red-700",
-              warning: "bg-yellow-100 text-yellow-700",
-              info: "bg-blue-100 text-blue-700",
+            const variantMap: Record<string, BadgeVariant> = {
+              success: "secondary",
+              error: "destructive",
+              warning: "secondary",
+              info: "default",
+              active: "secondary",
+              inactive: "outline",
+              processing: "default",
+              pending: "secondary",
+              failed: "destructive",
             };
 
             const badgeData =
               typeof value === "object" && value !== null
                 ? (value as { type?: string; label?: string })
                 : { label: String(value) };
-            const color = colorMap[badgeData.type || "default"] || "bg-gray-100 text-gray-700";
-            return (
-              <span
-                className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${color}`}
-              >
-                {badgeData.label}
-              </span>
-            );
+            
+            // If the value is a string, use it directly
+            const label = typeof value === "string" ? value : badgeData.label;
+            const variant = variantMap[label || "default"] || "default";
+            
+            return <Badge variant={variant}>{label}</Badge>;
           };
           break;
         }
@@ -93,6 +139,17 @@ export function DataTableComponent({
           column.cell = ({ getValue }: { getValue: () => unknown }) => {
             const value = getValue() as number;
             return new Intl.NumberFormat().format(value);
+          };
+          break;
+        }
+        case "currency": {
+          column.cell = ({ getValue }: { getValue: () => unknown }) => {
+            const value = Number.parseFloat(String(getValue()));
+            const formatted = new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(value);
+            return <div className="font-medium">{formatted}</div>;
           };
           break;
         }
@@ -106,6 +163,42 @@ export function DataTableComponent({
         default: {
           break;
         }
+      }
+      
+      // Auto-detect status columns that should render as badges
+      if (col.id === "status" && !col.type) {
+        column.cell = ({ getValue }: { getValue: () => unknown }) => {
+          const value = getValue() as string;
+          const variantMap: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+            success: "secondary",
+            error: "destructive",
+            warning: "secondary",
+            info: "default",
+            active: "secondary",
+            inactive: "outline",
+            processing: "default",
+            pending: "secondary",
+            failed: "destructive",
+          };
+          
+          const variant = variantMap[value] || "default";
+          return <Badge variant={variant}>{value}</Badge>;
+        };
+      }
+      
+      // Auto-detect role columns that should render as badges
+      if (col.id === "role" && !col.type) {
+        column.cell = ({ getValue }: { getValue: () => unknown }) => {
+          const value = getValue() as string;
+          const variantMap: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+            Admin: "default",
+            Moderator: "secondary",
+            User: "outline",
+          };
+          
+          const variant = variantMap[value] || "outline";
+          return <Badge variant={variant}>{value}</Badge>;
+        };
       }
 
       return column;
@@ -135,7 +228,7 @@ export function DataTableComponent({
       showPagination={pagination.enabled}
       showColumnFilter={features.columnFilter}
       showViewOptions={features.viewOptions}
-      selectable={features.selectable}
+      selectable={features.selectable || columns.some(col => col.id === "select")}
       onRowSelect={onSelectionChange}
     />
   );

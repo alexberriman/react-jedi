@@ -286,9 +286,9 @@ export const Default: Story = enhanceStoryForDualMode(
         { id: "select", header: "Select", enableSorting: false, enableHiding: false },
         { id: "id", accessorKey: "id", header: "ID" },
         { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
-        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true, type: "currency" },
         { id: "status", accessorKey: "status", header: "Status" },
-        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true, type: "date" },
       ],
       data: [
         { id: "1", amount: 316, status: "success", email: "ken99@yahoo.com", createdAt: "2024-01-15" },
@@ -401,9 +401,9 @@ export const WithActions: Story = enhanceStoryForDualMode(
       columns: [
         { id: "id", accessorKey: "id", header: "ID" },
         { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
-        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true, type: "currency" },
         { id: "status", accessorKey: "status", header: "Status" },
-        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true, type: "date" },
       ],
       data: [
         { id: "1", amount: 316, status: "success", email: "ken99@yahoo.com", createdAt: "2024-01-15" },
@@ -533,7 +533,7 @@ export const MinimalFeatures: Story = enhanceStoryForDualMode(
         { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
         { id: "role", accessorKey: "role", header: "Role" },
         { id: "status", accessorKey: "status", header: "Status" },
-        { id: "lastLogin", accessorKey: "lastLogin", header: "Last Login", enableSorting: true },
+        { id: "lastLogin", accessorKey: "lastLogin", header: "Last Login", enableSorting: true, type: "date" },
       ],
       data: [
         { id: "1", name: "John Doe", email: "john.doe@example.com", role: "Admin", status: "active", lastLogin: "2024-01-20" },
@@ -587,9 +587,9 @@ export const CustomStyling: Story = enhanceStoryForDualMode(
         { id: "select", header: "Select", enableSorting: false, enableHiding: false },
         { id: "id", accessorKey: "id", header: "ID" },
         { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
-        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true, type: "currency" },
         { id: "status", accessorKey: "status", header: "Status" },
-        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true, type: "date" },
       ],
       data: [
         { id: "1", amount: 316, status: "success", email: "ken99@yahoo.com", createdAt: "2024-01-15" },
@@ -654,9 +654,9 @@ export const WithRowSelection: Story = enhanceStoryForDualMode(
       columns: [
         { id: "id", accessorKey: "id", header: "ID" },
         { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
-        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true, type: "currency" },
         { id: "status", accessorKey: "status", header: "Status" },
-        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true, type: "date" },
       ],
       data: [
         { id: "1", amount: 316, status: "success", email: "ken99@yahoo.com", createdAt: "2024-01-15" },
@@ -703,9 +703,9 @@ export const EmptyState: Story = enhanceStoryForDualMode(
         { id: "select", header: "Select", enableSorting: false, enableHiding: false },
         { id: "id", accessorKey: "id", header: "ID" },
         { id: "email", accessorKey: "email", header: "Email", enableSorting: true },
-        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true },
+        { id: "amount", accessorKey: "amount", header: "Amount", enableSorting: true, type: "currency" },
         { id: "status", accessorKey: "status", header: "Status" },
-        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true },
+        { id: "createdAt", accessorKey: "createdAt", header: "Date", enableSorting: true, type: "date" },
       ],
       data: [],
       filterColumn: "email",

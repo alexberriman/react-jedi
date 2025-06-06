@@ -2,7 +2,7 @@
   {
     "id": "fix-datatable-sdui",
     "description": "TASK: Fix DataTable rendering issues in SDUI mode. ISSUE 1 - Missing Checkboxes: Selection checkboxes don't appear at all in SDUI mode, breaking row selection functionality. ISSUE 2 - Status Badge Rendering: Status badges render as plain text instead of styled badge components, losing visual hierarchy and meaning. ROOT CAUSE: Complex components (Checkbox, Badge) within DataTable cells are not being properly processed by SDUI renderer. ACTION REQUIRED: 1) Fix checkbox rendering within table cells - ensure Checkbox component works inside DataTable. 2) Fix badge rendering - status columns should show proper Badge components, not plain text. 3) Ensure all DataTable features work: sorting, filtering, pagination, selection. 4) Test with various data types and column configurations. EXPECTED OUTCOME: DataTable in SDUI mode should have fully functional checkboxes and proper badge rendering matching React mode.",
-    "status": "pending"
+    "status": "in_progress"
   },
   {
     "id": "fix-datepicker-flash",

@@ -1,10 +1,5 @@
 [
   {
-    "id": "fix-alert-sdui-icons",
-    "description": "TASK: Fix Alert component icon rendering in SDUI mode. SOLUTION: A comprehensive icon system has been implemented for SDUI. Use the new icon functionality by including icon references as children: { type: 'Icon', name: 'icon-name', size: 16 }. Available icon names include: 'alert-circle', 'alert-triangle', 'check', 'check-circle', 'info', 'terminal', etc. See src/lib/icons/lucide-icons.ts for full list. ACTION REQUIRED: 1) Update remaining Alert stories to use the new icon system in SDUI renderSpec. 2) For example, replace any emoji fallbacks with: { type: 'Icon', name: 'alert-circle', size: 16 }. 3) Ensure all Alert variants (success, warning, error, info) use proper icon references. 4) Test that icons render correctly in both React and SDUI modes. EXPECTED OUTCOME: Alert components in SDUI mode should display actual SVG icons identical to React mode.",
-    "status": "pending"
-  },
-  {
     "id": "fix-aspectratio-issues",
     "description": "TASK: Fix AspectRatio component rendering issues in SDUI mode. ISSUE 1 - Text Color: In 'With Content' story, React mode displays white text (correct) - https://i.imgur.com/siOxsp6.png, but SDUI mode shows black text (incorrect) - https://i.imgur.com/xBEgTpf.png. The text should be white and smaller in SDUI to match React. ISSUE 2 - Video Support: 'With Video' story shows error message 'Video content cannot be rendered in SDUI mode' instead of rendering the video content. ACTION REQUIRED: 1) For text color issue: investigate why SDUI is not applying the correct text color classes, ensure the className or style props are properly passed through JSON. 2) For video support: implement video rendering capability in SDUI mode - if React can render it, SDUI should too. May require adding video element support to the SDUI renderer. 3) Test all AspectRatio stories to ensure consistent rendering. EXPECTED OUTCOME: SDUI mode should match React mode exactly for both text styling and video content rendering.",
     "status": "pending"

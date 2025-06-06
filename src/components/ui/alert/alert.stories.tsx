@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
-import { AlertCircle, Terminal, Info, AlertTriangle } from "lucide-react";
+import { AlertCircle, Terminal, Info, AlertTriangle, CheckCircle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "./index";
 import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
@@ -265,7 +265,7 @@ export const SuccessAlert: Story = enhanceStoryForDualMode<typeof Alert>(
   {
     render: () => (
       <Alert variant="success">
-        <AlertCircle className="h-4 w-4" />
+        <CheckCircle className="h-4 w-4" />
         <AlertTitle>Success</AlertTitle>
         <AlertDescription>Your changes have been saved successfully.</AlertDescription>
       </Alert>
@@ -695,7 +695,7 @@ export const Showcase: Story = enhanceStoryForDualMode<typeof Alert>(
         </Alert>
 
         <Alert variant="success">
-          <AlertCircle className="h-4 w-4" />
+          <CheckCircle className="h-4 w-4" />
           <AlertTitle>Success Alert</AlertTitle>
           <AlertDescription>This is a success alert.</AlertDescription>
         </Alert>

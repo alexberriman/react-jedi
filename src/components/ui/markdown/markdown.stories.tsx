@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { Markdown } from "./markdown";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/Markdown",
@@ -23,7 +25,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode({
   args: {
     content: `# Welcome to React Jedi Markdown
 
@@ -95,9 +97,46 @@ External links open in new tabs automatically.
 
 That's all for this demo!`,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const CodeHighlighting: Story = {
+    // Test main heading renders
+    const mainHeading = canvas.getByRole("heading", { level: 1, name: /Welcome to React Jedi Markdown/ });
+    expect(mainHeading).toBeInTheDocument();
+
+    // Test paragraph with formatting renders
+    expect(canvas.getByText(/This is a paragraph with/)).toBeInTheDocument();
+
+    // Test features list renders
+    expect(canvas.getByText(/GitHub Flavored Markdown support/)).toBeInTheDocument();
+    expect(canvas.getByText(/Syntax highlighting for code blocks/)).toBeInTheDocument();
+
+    // Test code block renders
+    expect(canvas.getByText(/interface MarkdownProps/)).toBeInTheDocument();
+
+    // Test inline code renders
+    expect(canvas.getByText(/Inline code looks like/)).toBeInTheDocument();
+
+    // Test link renders
+    const link = canvas.getByRole("link", { name: /Visit React Jedi Documentation/ });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute("href", "https://github.com/alexberriman/react-jedi");
+
+    // Test blockquote renders
+    expect(canvas.getByText(/This is a blockquote/)).toBeInTheDocument();
+
+    // Test lists render
+    expect(canvas.getByText(/First item/)).toBeInTheDocument();
+    expect(canvas.getByText(/Item one/)).toBeInTheDocument();
+    expect(canvas.getByText(/Nested item/)).toBeInTheDocument();
+
+    // Test table renders
+    expect(canvas.getByText(/Feature/)).toBeInTheDocument();
+    expect(canvas.getByText(/Markdown parsing/)).toBeInTheDocument();
+  },
+}) as Story;
+
+export const CodeHighlighting: Story = enhanceStoryForDualMode({
   args: {
     content: `# Code Highlighting Examples
 
@@ -208,9 +247,34 @@ npm run dev
 npm run build
 \`\`\``,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const GitHubFlavored: Story = {
+    // Test main heading renders
+    const heading = canvas.getByRole("heading", { level: 1, name: /Code Highlighting Examples/ });
+    expect(heading).toBeInTheDocument();
+
+    // Test language-specific headings render
+    expect(canvas.getByRole("heading", { level: 2, name: /JavaScript/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 2, name: /TypeScript/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 2, name: /React JSX/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 2, name: /Python/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 2, name: /JSON/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 2, name: /CSS/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 2, name: /Bash/ })).toBeInTheDocument();
+
+    // Test code blocks render
+    expect(canvas.getByText(/function greet/)).toBeInTheDocument();
+    expect(canvas.getByText(/interface User/)).toBeInTheDocument();
+    expect(canvas.getByText(/function Welcome/)).toBeInTheDocument();
+    expect(canvas.getByText(/def fibonacci/)).toBeInTheDocument();
+    expect(canvas.getByText(/"react-jedi"/)).toBeInTheDocument();
+    expect(canvas.getByText(/\.markdown-container/)).toBeInTheDocument();
+    expect(canvas.getByText(/npm install/)).toBeInTheDocument();
+  },
+}) as Story;
+
+export const GitHubFlavored: Story = enhanceStoryForDualMode({
   args: {
     content: `# GitHub Flavored Markdown
 
@@ -251,9 +315,42 @@ Term 2
 :   Definition for term 2
 :   Another definition for term 2`,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const ComplexDocument: Story = {
+    // Test main heading renders
+    const heading = canvas.getByRole("heading", { level: 1, name: /GitHub Flavored Markdown/ });
+    expect(heading).toBeInTheDocument();
+
+    // Test task lists render
+    expect(canvas.getByText(/Create Markdown component/)).toBeInTheDocument();
+    expect(canvas.getByText(/Add syntax highlighting/)).toBeInTheDocument();
+    expect(canvas.getByText(/Add more examples/)).toBeInTheDocument();
+    expect(canvas.getByText(/Write tests/)).toBeInTheDocument();
+
+    // Test strikethrough renders
+    expect(canvas.getByText(/This text is crossed out/)).toBeInTheDocument();
+
+    // Test table renders
+    expect(canvas.getByText(/Left-aligned/)).toBeInTheDocument();
+    expect(canvas.getByText(/Center-aligned/)).toBeInTheDocument();
+    expect(canvas.getByText(/Right-aligned/)).toBeInTheDocument();
+    expect(canvas.getByText(/Row 1 Col 1/)).toBeInTheDocument();
+
+    // Test autolink renders
+    expect(canvas.getByText(/www.example.com/)).toBeInTheDocument();
+    expect(canvas.getByText(/contact@example.com/)).toBeInTheDocument();
+
+    // Test footnotes render
+    expect(canvas.getByText(/Here's a sentence with a footnote/)).toBeInTheDocument();
+
+    // Test definition lists render
+    expect(canvas.getByText(/Term 1/)).toBeInTheDocument();
+    expect(canvas.getByText(/Definition for term 1/)).toBeInTheDocument();
+  },
+}) as Story;
+
+export const ComplexDocument: Story = enhanceStoryForDualMode({
   args: {
     content: `# React Jedi Documentation
 
@@ -388,24 +485,86 @@ We welcome contributions! Please see our [Contributing Guide](https://github.com
 
 MIT © Alex Berriman`,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const MinimalContent: Story = {
+    // Test main heading renders
+    const mainHeading = canvas.getByRole("heading", { level: 1, name: /React Jedi Documentation/ });
+    expect(mainHeading).toBeInTheDocument();
+
+    // Test table of contents renders
+    expect(canvas.getByText(/Table of Contents/)).toBeInTheDocument();
+    expect(canvas.getByText(/Introduction/)).toBeInTheDocument();
+    expect(canvas.getByText(/Getting Started/)).toBeInTheDocument();
+    expect(canvas.getByText(/API Reference/)).toBeInTheDocument();
+
+    // Test key features list renders
+    expect(canvas.getByText(/Server-Driven UI/)).toBeInTheDocument();
+    expect(canvas.getByText(/Type Safety/)).toBeInTheDocument();
+    expect(canvas.getByText(/Performance/)).toBeInTheDocument();
+    expect(canvas.getByText(/Flexibility/)).toBeInTheDocument();
+
+    // Test installation code block renders
+    expect(canvas.getByText(/npm install @alexberriman\/react-jedi/)).toBeInTheDocument();
+
+    // Test basic usage code renders
+    expect(canvas.getByText(/import { render }/)).toBeInTheDocument();
+
+    // Test API table renders
+    expect(canvas.getByText(/content/)).toBeInTheDocument();
+    expect(canvas.getByText(/string/)).toBeInTheDocument();
+    expect(canvas.getByText(/Required/)).toBeInTheDocument();
+
+    // Test blockquote renders
+    expect(canvas.getByText(/This component uses react-markdown/)).toBeInTheDocument();
+
+    // Test contributing link renders
+    const contributingLink = canvas.getByRole("link", { name: /Contributing Guide/ });
+    expect(contributingLink).toBeInTheDocument();
+
+    // Test license renders
+    expect(canvas.getByText(/MIT © Alex Berriman/)).toBeInTheDocument();
+  },
+}) as Story;
+
+export const MinimalContent: Story = enhanceStoryForDualMode({
   args: {
     content: "This is a simple paragraph with no special formatting.",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithCustomClass: Story = {
+    // Test simple paragraph renders
+    const paragraph = canvas.getByText("This is a simple paragraph with no special formatting.");
+    expect(paragraph).toBeInTheDocument();
+    expect(paragraph.tagName.toLowerCase()).toBe("p");
+  },
+}) as Story;
+
+export const WithCustomClass: Story = enhanceStoryForDualMode({
   args: {
     content: `# Custom Styled Markdown
 
 This markdown has custom styling applied via className.`,
     className: "p-8 bg-muted rounded-lg",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const ErrorHandling: Story = {
+    // Test heading renders
+    const heading = canvas.getByRole("heading", { level: 1, name: /Custom Styled Markdown/ });
+    expect(heading).toBeInTheDocument();
+
+    // Test paragraph renders
+    expect(canvas.getByText(/This markdown has custom styling/)).toBeInTheDocument();
+
+    // Test the markdown container has custom classes
+    const markdownContainer = canvas.getByText(/Custom Styled Markdown/).closest('div');
+    expect(markdownContainer).toHaveClass("p-8", "bg-muted", "rounded-lg");
+  },
+}) as Story;
+
+export const ErrorHandling: Story = enhanceStoryForDualMode({
   args: {
     content: `# Malformed Markdown
 
@@ -422,9 +581,30 @@ function test() {
 
 Even with broken markdown, the component handles it gracefully.`,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const LongContent: Story = {
+    // Test heading renders
+    const heading = canvas.getByRole("heading", { level: 1, name: /Malformed Markdown/ });
+    expect(heading).toBeInTheDocument();
+
+    // Test problematic content text renders
+    expect(canvas.getByText(/This has some potentially problematic content/)).toBeInTheDocument();
+
+    // Test script tag is safely handled (should not execute)
+    expect(canvas.getByText(/alert\('This script tag is safely escaped'\)/)).toBeInTheDocument();
+
+    // Test unclosed code block still renders
+    expect(canvas.getByText(/Unclosed code block/)).toBeInTheDocument();
+    expect(canvas.getByText(/function test/)).toBeInTheDocument();
+    expect(canvas.getByText(/console.log/)).toBeInTheDocument();
+
+    // Test graceful handling message renders
+    expect(canvas.getByText(/Even with broken markdown/)).toBeInTheDocument();
+  },
+}) as Story;
+
+export const LongContent: Story = enhanceStoryForDualMode({
   args: {
     content: `# Lorem Ipsum
 
@@ -483,4 +663,49 @@ At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praese
 
 *End of document*`,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test main heading renders
+    const mainHeading = canvas.getByRole("heading", { level: 1, name: /Lorem Ipsum/ });
+    expect(mainHeading).toBeInTheDocument();
+
+    // Test major section headings render
+    expect(canvas.getByRole("heading", { level: 2, name: /Section 1/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 2, name: /Section 2/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 2, name: /Section 3/ })).toBeInTheDocument();
+
+    // Test subsection headings render
+    expect(canvas.getByRole("heading", { level: 3, name: /Subsection 1.1/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 3, name: /Subsection 1.2/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 3, name: /Subsection 2.1/ })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { level: 3, name: /Subsection 2.2/ })).toBeInTheDocument();
+
+    // Test content paragraphs render
+    expect(canvas.getByText(/Lorem ipsum dolor sit amet/)).toBeInTheDocument();
+    expect(canvas.getByText(/Ut enim ad minim veniam/)).toBeInTheDocument();
+    expect(canvas.getByText(/Excepteur sint occaecat/)).toBeInTheDocument();
+
+    // Test code block renders
+    expect(canvas.getByText(/const example/)).toBeInTheDocument();
+    expect(canvas.getByText(/foo: 'bar'/)).toBeInTheDocument();
+
+    // Test table renders
+    expect(canvas.getByText(/Column 1/)).toBeInTheDocument();
+    expect(canvas.getByText(/Data 1/)).toBeInTheDocument();
+    expect(canvas.getByText(/Data 5/)).toBeInTheDocument();
+
+    // Test lists render
+    expect(canvas.getByText(/Item 1/)).toBeInTheDocument();
+    expect(canvas.getByText(/Nested item 1.1/)).toBeInTheDocument();
+    expect(canvas.getByText(/First point/)).toBeInTheDocument();
+    expect(canvas.getByText(/Second point/)).toBeInTheDocument();
+
+    // Test blockquote renders
+    expect(canvas.getByText(/Neque porro quisquam est/)).toBeInTheDocument();
+
+    // Test final content renders
+    expect(canvas.getByText(/At vero eos et accusamus/)).toBeInTheDocument();
+    expect(canvas.getByText(/End of document/)).toBeInTheDocument();
+  },
+}) as Story;

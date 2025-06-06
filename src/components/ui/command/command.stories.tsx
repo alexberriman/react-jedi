@@ -10,7 +10,6 @@ import {
   CommandShortcut,
   CommandSeparator,
 } from "./command";
-import { CommandComponent } from "./command-component";
 import React from "react";
 import {
   Calendar,
@@ -24,6 +23,7 @@ import {
   Hash,
 } from "lucide-react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/Command",
@@ -37,7 +37,7 @@ const meta = {
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "test"],
 } satisfies Meta<typeof Command>;
 
 export default meta;
@@ -45,177 +45,238 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Basic shadcn command example
-export const Default: Story = {
-  render: () => (
-    <div className="w-[350px]">
-      <Command>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
+export const Default: Story = enhanceStoryForDualMode<typeof Command>(
+  {
+    render: () => (
+      <div className="w-[350px]">
+        <Command>
+          <CommandInput placeholder="Type a command or search..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading="Suggestions">
+              <CommandItem>
+                <Calendar className="mr-2 h-4 w-4" />
+                Calendar
+              </CommandItem>
+              <CommandItem>
+                <Calculator className="mr-2 h-4 w-4" />
+                Calculator
+              </CommandItem>
+              <CommandItem>
+                <CreditCard className="mr-2 h-4 w-4" />
+                Card
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Settings">
+              <CommandItem>
+                <User className="mr-2 h-4 w-4" />
+                Profile
+                <CommandShortcut>⌘P</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+                <CommandShortcut>⌘S</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Find search input
+      const searchInput = canvas.getByPlaceholderText("Type a command or search...");
+      expect(searchInput).toBeInTheDocument();
+
+      // Click to focus the input (since it might not auto-focus)
+      await userEvent.click(searchInput);
+
+      // Verify all items are visible initially
+      expect(canvas.getByText("Calendar")).toBeInTheDocument();
+      expect(canvas.getByText("Calculator")).toBeInTheDocument();
+      expect(canvas.getByText("Profile")).toBeInTheDocument();
+
+      // Search for an item
+      await userEvent.type(searchInput, "cal");
+      await waitFor(() => {
+        expect(canvas.getByText("Calendar")).toBeInTheDocument();
+        expect(canvas.getByText("Calculator")).toBeInTheDocument();
+        expect(canvas.queryByText("Profile")).not.toBeInTheDocument();
+      });
+
+      // Clear search
+      await userEvent.clear(searchInput);
+      await userEvent.type(searchInput, "settings");
+      await waitFor(() => {
+        // Use a more specific selector since "Settings" appears in both group heading and item
+        const settingsItem = canvas.getByRole("option", { name: /settings/i });
+        expect(settingsItem).toBeInTheDocument();
+        expect(canvas.queryByText("Calendar")).not.toBeInTheDocument();
+      });
+
+      // Test keyboard navigation - just verify we can clear the search
+      await userEvent.clear(searchInput);
+      expect(searchInput).toHaveValue("");
+    },
+  },
+  {
+    renderSpec: {
+      type: "command",
+      searchPlaceholder: "Type a command or search...",
+      emptyMessage: "No results found.",
+      groups: [
+        {
+          heading: "Suggestions",
+          items: [
+            { id: "calendar", label: "Calendar", icon: "📅" },
+            { id: "calculator", label: "Calculator", icon: "🧮" },
+            { id: "card", label: "Card", icon: "💳" },
+          ],
+        },
+        {
+          heading: "Settings",
+          items: [
+            { id: "profile", label: "Profile", icon: "👤", shortcut: "⌘P" },
+            { id: "settings", label: "Settings", icon: "⚙️", shortcut: "⌘S" },
+          ],
+        },
+      ],
+    },
+  }
+);
+
+// Basic Command with Items
+export const BasicCommand: Story = enhanceStoryForDualMode<typeof Command>(
+  {
+    render: () => (
+      <div className="w-[350px]">
+        <Command>
+          <CommandInput placeholder="Search..." />
+          <CommandList>
+            <CommandEmpty>No items found.</CommandEmpty>
             <CommandItem>
-              <Calendar className="mr-2 h-4 w-4" />
+              <span className="mr-2">📅</span>
               Calendar
             </CommandItem>
             <CommandItem>
-              <Calculator className="mr-2 h-4 w-4" />
+              <span className="mr-2">🧮</span>
               Calculator
             </CommandItem>
             <CommandItem>
-              <CreditCard className="mr-2 h-4 w-4" />
+              <span className="mr-2">💳</span>
               Card
             </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem>
-              <User className="mr-2 h-4 w-4" />
-              Profile
-              <CommandShortcut>⌘P</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <Settings className="mr-2 h-4 w-4" />
-              Settings
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Find search input
-    const searchInput = canvas.getByPlaceholderText("Type a command or search...");
-    expect(searchInput).toBeInTheDocument();
-
-    // Click to focus the input (since it might not auto-focus)
-    await userEvent.click(searchInput);
-
-    // Verify all items are visible initially
-    expect(canvas.getByText("Calendar")).toBeInTheDocument();
-    expect(canvas.getByText("Calculator")).toBeInTheDocument();
-    expect(canvas.getByText("Profile")).toBeInTheDocument();
-
-    // Search for an item
-    await userEvent.type(searchInput, "cal");
-    await waitFor(() => {
-      expect(canvas.getByText("Calendar")).toBeInTheDocument();
-      expect(canvas.getByText("Calculator")).toBeInTheDocument();
-      expect(canvas.queryByText("Profile")).not.toBeInTheDocument();
-    });
-
-    // Clear search
-    await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, "settings");
-    await waitFor(() => {
-      // Use a more specific selector since "Settings" appears in both group heading and item
-      const settingsItem = canvas.getByRole("option", { name: /settings/i });
-      expect(settingsItem).toBeInTheDocument();
-      expect(canvas.queryByText("Calendar")).not.toBeInTheDocument();
-    });
-
-    // Test keyboard navigation - just verify we can clear the search
-    await userEvent.clear(searchInput);
-    expect(searchInput).toHaveValue("");
-  },
-};
-
-// JSON Specification Examples
-export const JsonBasicCommand: Story = {
-  name: "JSON: Basic Command",
-  render: () => (
-    <div className="w-[350px]">
-      <CommandComponent
-        type="command"
-        searchPlaceholder="Search..."
-        emptyMessage="No items found."
-        items={[
-          { id: "1", label: "Calendar", icon: "📅" },
-          { id: "2", label: "Calculator", icon: "🧮" },
-          { id: "3", label: "Card", icon: "💳" },
-        ]}
-      />
-    </div>
-  ),
-  parameters: {
-    docs: {
-      source: {
-        code: `{
-  "type": "command",
-  "searchPlaceholder": "Search...",
-  "emptyMessage": "No items found.",
-  "items": [
-    { "id": "1", "label": "Calendar", "icon": "📅" },
-    { "id": "2", "label": "Calculator", "icon": "🧮" },
-    { "id": "3", "label": "Card", "icon": "💳" }
-  ]
-}`,
-        language: "json",
+          </CommandList>
+        </Command>
+      </div>
+    ),
+    parameters: {
+      docs: {
+        description: {
+          story: "Basic command palette with simple ungrouped items.",
+        },
       },
     },
   },
-};
-
-export const JsonGroupedCommand: Story = {
-  name: "JSON: Grouped Command",
-  render: () => (
-    <div className="w-[350px]">
-      <CommandComponent
-        type="command"
-        searchPlaceholder="Search commands..."
-        groups={[
-          {
-            heading: "Actions",
-            items: [
-              { id: "new", label: "New File", icon: "➕", shortcut: "⌘N" },
-              { id: "open", label: "Open", icon: "📁", shortcut: "⌘O" },
-              { id: "save", label: "Save", icon: "💾", shortcut: "⌘S" },
-            ],
-          },
-          {
-            heading: "Edit",
-            items: [
-              { id: "copy", label: "Copy", icon: "📋", shortcut: "⌘C" },
-              { id: "paste", label: "Paste", icon: "📄", shortcut: "⌘V" },
-              { id: "cut", label: "Cut", icon: "✂️", shortcut: "⌘X" },
-            ],
-          },
-        ]}
-      />
-    </div>
-  ),
-  parameters: {
-    docs: {
-      source: {
-        code: `{
-  "type": "command",
-  "searchPlaceholder": "Search commands...",
-  "groups": [
-    {
-      "heading": "Actions",
-      "items": [
-        { "id": "new", "label": "New File", "icon": "➕", "shortcut": "⌘N" },
-        { "id": "open", "label": "Open", "icon": "📁", "shortcut": "⌘O" },
-        { "id": "save", "label": "Save", "icon": "💾", "shortcut": "⌘S" }
-      ]
+  {
+    renderSpec: {
+      type: "command",
+      searchPlaceholder: "Search...",
+      emptyMessage: "No items found.",
+      items: [
+        { id: "1", label: "Calendar", icon: "📅" },
+        { id: "2", label: "Calculator", icon: "🧮" },
+        { id: "3", label: "Card", icon: "💳" },
+      ],
     },
-    {
-      "heading": "Edit",
-      "items": [
-        { "id": "copy", "label": "Copy", "icon": "📋", "shortcut": "⌘C" },
-        { "id": "paste", "label": "Paste", "icon": "📄", "shortcut": "⌘V" },
-        { "id": "cut", "label": "Cut", "icon": "✂️", "shortcut": "⌘X" }
-      ]
-    }
-  ]
-}`,
-        language: "json",
+  }
+);
+
+// Grouped Command with Shortcuts
+export const GroupedCommand: Story = enhanceStoryForDualMode<typeof Command>(
+  {
+    render: () => (
+      <div className="w-[350px]">
+        <Command>
+          <CommandInput placeholder="Search commands..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading="Actions">
+              <CommandItem>
+                <span className="mr-2">➕</span>
+                New File
+                <CommandShortcut>⌘N</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <span className="mr-2">📁</span>
+                Open
+                <CommandShortcut>⌘O</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <span className="mr-2">💾</span>
+                Save
+                <CommandShortcut>⌘S</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Edit">
+              <CommandItem>
+                <span className="mr-2">📋</span>
+                Copy
+                <CommandShortcut>⌘C</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <span className="mr-2">📄</span>
+                Paste
+                <CommandShortcut>⌘V</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <span className="mr-2">✂️</span>
+                Cut
+                <CommandShortcut>⌘X</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </div>
+    ),
+    parameters: {
+      docs: {
+        description: {
+          story: "Command palette with grouped items and keyboard shortcuts.",
+        },
       },
     },
   },
-};
+  {
+    renderSpec: {
+      type: "command",
+      searchPlaceholder: "Search commands...",
+      emptyMessage: "No results found.",
+      groups: [
+        {
+          heading: "Actions",
+          items: [
+            { id: "new", label: "New File", icon: "➕", shortcut: "⌘N" },
+            { id: "open", label: "Open", icon: "📁", shortcut: "⌘O" },
+            { id: "save", label: "Save", icon: "💾", shortcut: "⌘S" },
+          ],
+        },
+        {
+          heading: "Edit",
+          items: [
+            { id: "copy", label: "Copy", icon: "📋", shortcut: "⌘C" },
+            { id: "paste", label: "Paste", icon: "📄", shortcut: "⌘V" },
+            { id: "cut", label: "Cut", icon: "✂️", shortcut: "⌘X" },
+          ],
+        },
+      ],
+    },
+  }
+);
 
 // Command Dialog Example
 function CommandDialogExample() {
@@ -314,143 +375,118 @@ export const DialogExample: Story = {
   },
 };
 
-function JsonCommandDialogExample() {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <div>
-      <button
-        onClick={() => setOpen(true)}
-        className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-      >
-        Open Command Palette
-      </button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type to search..." />
-        <CommandList>
-          <CommandEmpty>Nothing found.</CommandEmpty>
-          <CommandGroup heading="Recent">
-            <CommandItem>
-              <span className="mr-2">📄</span>
-              Product Requirements
-            </CommandItem>
-            <CommandItem>
-              <span className="mr-2">🎨</span>
-              Design System
-            </CommandItem>
-            <CommandItem>
-              <span className="mr-2">📚</span>
-              API Documentation
-            </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Quick Actions">
-            <CommandItem>
-              <span className="mr-2">➕</span>
-              Create New
-              <CommandShortcut>⌘N</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <span className="mr-2">🔍</span>
-              Search
-              <CommandShortcut>⌘F</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <span className="mr-2">📤</span>
-              Share
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
-    </div>
-  );
-}
-
-export const JsonCommandDialog: Story = {
-  name: "JSON: Command Dialog",
-  render: JsonCommandDialogExample,
-  parameters: {
-    docs: {
-      source: {
-        code: `{
-  "type": "commandDialog",
-  "open": true,
-  "title": "Command Menu",
-  "description": "Choose an action to perform",
-  "searchPlaceholder": "Type to search...",
-  "emptyMessage": "Nothing found.",
-  "groups": [
-    {
-      "heading": "Recent",
-      "items": [
-        { "id": "doc1", "label": "Product Requirements", "icon": "📄" },
-        { "id": "doc2", "label": "Design System", "icon": "🎨" },
-        { "id": "doc3", "label": "API Documentation", "icon": "📚" }
-      ]
-    },
-    {
-      "heading": "Quick Actions",
-      "items": [
-        { "id": "create", "label": "Create New", "icon": "➕", "shortcut": "⌘N" },
-        { "id": "search", "label": "Search", "icon": "🔍", "shortcut": "⌘F" },
-        { "id": "share", "label": "Share", "icon": "📤", "shortcut": "⌘S" }
-      ]
-    }
-  ]
-}`,
-        language: "json",
-      },
-    },
-  },
-};
 
 // Complex Navigation Example
-export const NavigationExample: Story = {
-  render: () => (
-    <div className="w-[400px]">
-      <Command>
-        <CommandInput placeholder="Navigate to..." />
-        <CommandList>
-          <CommandEmpty>No pages found.</CommandEmpty>
-          <CommandGroup heading="Main">
-            <CommandItem>
-              <Folder className="mr-2 h-4 w-4" />
-              Projects
-            </CommandItem>
-            <CommandItem>
-              <FileText className="mr-2 h-4 w-4" />
-              Documents
-            </CommandItem>
-            <CommandItem>
-              <Hash className="mr-2 h-4 w-4" />
-              Channels
-            </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Projects">
-            <CommandItem>Website Redesign</CommandItem>
-            <CommandItem>Mobile App</CommandItem>
-            <CommandItem>Marketing Campaign</CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Recent">
-            <CommandItem>Homepage.tsx</CommandItem>
-            <CommandItem>styles.css</CommandItem>
-            <CommandItem>package.json</CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Command palette for navigation with multiple sections.",
+export const NavigationExample: Story = enhanceStoryForDualMode<typeof Command>(
+  {
+    render: () => (
+      <div className="w-[400px]">
+        <Command>
+          <CommandInput placeholder="Navigate to..." />
+          <CommandList>
+            <CommandEmpty>No pages found.</CommandEmpty>
+            <CommandGroup heading="Main">
+              <CommandItem>
+                <Folder className="mr-2 h-4 w-4" />
+                Projects
+              </CommandItem>
+              <CommandItem>
+                <FileText className="mr-2 h-4 w-4" />
+                Documents
+              </CommandItem>
+              <CommandItem>
+                <Hash className="mr-2 h-4 w-4" />
+                Channels
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Projects">
+              <CommandItem>Website Redesign</CommandItem>
+              <CommandItem>Mobile App</CommandItem>
+              <CommandItem>Marketing Campaign</CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Recent">
+              <CommandItem>Homepage.tsx</CommandItem>
+              <CommandItem>styles.css</CommandItem>
+              <CommandItem>package.json</CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </div>
+    ),
+    parameters: {
+      docs: {
+        description: {
+          story: "Command palette for navigation with multiple sections.",
+        },
       },
     },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Find search input
+      const searchInput = canvas.getByPlaceholderText("Navigate to...");
+      expect(searchInput).toBeInTheDocument();
+
+      // Click to focus
+      await userEvent.click(searchInput);
+
+      // Verify all groups are visible
+      expect(canvas.getByText("Main")).toBeInTheDocument();
+      expect(canvas.getByText("Projects", { selector: "[cmdk-group-heading]" })).toBeInTheDocument();
+      expect(canvas.getByText("Recent")).toBeInTheDocument();
+
+      // Search for projects
+      await userEvent.type(searchInput, "project");
+      await waitFor(() => {
+        expect(canvas.getByText("Projects", { selector: "[cmdk-item]" })).toBeInTheDocument();
+        expect(canvas.queryByText("Homepage.tsx")).not.toBeInTheDocument();
+      });
+
+      // Clear and search for files
+      await userEvent.clear(searchInput);
+      await userEvent.type(searchInput, ".tsx");
+      await waitFor(() => {
+        expect(canvas.getByText("Homepage.tsx")).toBeInTheDocument();
+        expect(canvas.queryByText("styles.css")).not.toBeInTheDocument();
+      });
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "command",
+      searchPlaceholder: "Navigate to...",
+      emptyMessage: "No pages found.",
+      groups: [
+        {
+          heading: "Main",
+          items: [
+            { id: "projects", label: "Projects", icon: "📁" },
+            { id: "documents", label: "Documents", icon: "📄" },
+            { id: "channels", label: "Channels", icon: "#️⃣" },
+          ],
+        },
+        {
+          heading: "Projects",
+          items: [
+            { id: "website-redesign", label: "Website Redesign" },
+            { id: "mobile-app", label: "Mobile App" },
+            { id: "marketing-campaign", label: "Marketing Campaign" },
+          ],
+        },
+        {
+          heading: "Recent",
+          items: [
+            { id: "homepage", label: "Homepage.tsx" },
+            { id: "styles", label: "styles.css" },
+            { id: "package", label: "package.json" },
+          ],
+        },
+      ],
+    },
+  }
+);
 
 // Interactive Dialog Demo
 function InteractiveDialogDemo() {

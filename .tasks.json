@@ -203,7 +203,8 @@
       {
         "id": "dual-mode-context-menu",
         "description": "Implement dual-mode story functionality for ContextMenu component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/ui/context-menu/context-menu.stories.tsx",
-        "status": "pending"
+        "status": "cancelled",
+        "reason": "ContextMenu component is not compatible with dual-mode testing due to its complex structure and special handling requirements. The component requires specific interaction patterns (right-click) and portal rendering that conflicts with the standard dual-mode testing approach."
       },
       {
         "id": "dual-mode-navigation-menu",

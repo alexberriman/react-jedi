@@ -1,3 +1,12 @@
+/**
+ * ContextMenu Component Stories
+ * 
+ * NOTE: This component is not compatible with dual-mode testing due to its complex
+ * structure and special handling requirements. The ContextMenu requires specific
+ * interaction patterns (right-click) and portal rendering that conflicts with the
+ * standard dual-mode testing approach.
+ */
+
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import * as React from "react";
 import { within, userEvent, expect, waitFor } from "storybook/test";

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-06]
 
+- **TASK: Implement proper icon rendering for Button component in SDUI mode. ISSUE: Both 'With Icon' and 'Icon Only' button stories fail to render icons in SDUI mode, falling back to emoji characters instead. This is a critical issue as buttons are fundamental UI components that frequently use icons. ROOT CAUSE: The SDUI rendering pipeline cannot process icon components within buttons, likely due to missing icon component mapping or improper prop handling. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Analyze button.tsx to understand how icons are integrated (likely as children or icon prop). 2) Update the SDUI renderer to properly handle actual SVG icon components within Button elements. 3) Ensure icon positioning (left/right) is maintained in SDUI mode. 4) Support both icon-with-text and icon-only button variants. 5) Remove ALL emoji fallback code. 6) Test all button variants with icons. EXPECTED OUTCOME: Buttons in SDUI mode should render actual SVG icon components exactly as they appear in React mode.**
+
+
+## [2025-06-06]
+
 - **TASK: Fix Breadcrumb component icon support and ellipsis functionality in SDUI mode. SOLUTION: The new SDUI icon system supports icon rendering. Use { type: 'Icon', name: 'icon-name', size: 16 } for breadcrumb icons. ACTION REQUIRED: 1) Update breadcrumb stories to use icon references in SDUI renderSpec. 2) Common breadcrumb icons: 'home' for home, 'chevron-right' for separators, 'folder' for categories. 3) Remove ALL emoji fallbacks and replace with icon references. 4) Fix the ellipsis rendering logic for SDUI - ensure collapsed state works properly. 5) Test all breadcrumb stories with proper icons and ellipsis behavior. EXPECTED OUTCOME: SDUI breadcrumbs should have full SVG icon support and working ellipsis functionality matching React mode.**
 
 

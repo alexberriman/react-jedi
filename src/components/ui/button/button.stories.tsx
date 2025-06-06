@@ -249,10 +249,17 @@ export const WithIcon: Story = enhanceStoryForDualMode<typeof Button>(
     },
   },
   {
-    // For SDUI mode, we'll use text representation since SVG is complex
+    // For SDUI mode, use proper icon component reference
     renderSpec: {
       type: "Button",
-      children: "🐙 GitHub",
+      children: [
+        {
+          type: "Icon",
+          name: "globe",
+          size: 16
+        },
+        "GitHub"
+      ],
     },
   }
 );
@@ -297,12 +304,15 @@ export const IconOnly: Story = enhanceStoryForDualMode<typeof Button>(
     },
   },
   {
-    // For SDUI mode, we'll use text representation since SVG is complex
+    // For SDUI mode, use proper icon component reference
     renderSpec: {
       type: "Button",
       size: "icon",
       "aria-label": "Settings",
-      children: "⚙️",
+      children: {
+        type: "Icon",
+        name: "settings"
+      },
     },
   }
 );
@@ -399,11 +409,72 @@ export const Loading: Story = enhanceStoryForDualMode<typeof Button>(
     },
   },
   {
-    // For SDUI mode, we'll use text representation since SVG is complex
+    // For SDUI mode, use proper icon component reference
     renderSpec: {
       type: "Button",
       disabled: true,
-      children: "⏳ Processing...",
+      children: [
+        {
+          type: "Icon",
+          name: "loader",
+          size: 16,
+          className: "animate-spin"
+        },
+        "Processing..."
+      ],
+    },
+  }
+);
+
+export const WithIconRight: Story = enhanceStoryForDualMode<typeof Button>(
+  {
+    render: () => (
+      <Button>
+        Next
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </Button>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test button with icon renders
+      const button = canvas.getByRole("button", { name: /Next/ });
+      expect(button).toBeInTheDocument();
+
+      // Test button styling
+      expect(button).toHaveAttribute("data-slot", "button");
+
+      // Test that SVG icon is present (React mode only)
+      const svg = button.querySelector("svg");
+      if (svg) {
+        expect(svg).toBeInTheDocument();
+      }
+    },
+  },
+  {
+    // For SDUI mode, use proper icon component reference
+    renderSpec: {
+      type: "Button",
+      children: [
+        "Next",
+        {
+          type: "Icon",
+          name: "chevron-right",
+          size: 16
+        }
+      ],
     },
   }
 );

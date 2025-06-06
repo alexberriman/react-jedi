@@ -129,3 +129,6 @@ export * from "./dev-tools";
 
 // SEO and Structured Data
 export * from "./seo";
+
+// Icon system
+export * from "./icons";

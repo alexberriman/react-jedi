@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within, waitFor } from "storybook/test";
 import { Chart } from "./chart";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Components/Chart",
@@ -70,7 +71,7 @@ const radialBarData = [
   { name: "50+", uv: 2.63, pv: 4800, fill: "#d0ed57" },
 ];
 
-export const LineChartExample: Story = {
+export const LineChartExample: Story = enhanceStoryForDualMode({
   args: {
     chartType: "line",
     data: lineChartData,
@@ -113,9 +114,9 @@ export const LineChartExample: Story = {
     const chartDiv = canvasElement.querySelector(".w-full");
     expect(chartDiv).toBeInTheDocument();
   },
-};
+}) as Story;
 
-export const BarChartExample: Story = {
+export const BarChartExample: Story = enhanceStoryForDualMode({
   args: {
     chartType: "bar",
     data: barChartData,
@@ -134,9 +135,26 @@ export const BarChartExample: Story = {
     showLegend: true,
     height: 400,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const StackedBarChart: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const StackedBarChart: Story = enhanceStoryForDualMode({
   args: {
     chartType: "bar",
     data: barChartData,
@@ -156,9 +174,26 @@ export const StackedBarChart: Story = {
     stackId: "visitors",
     height: 400,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const AreaChartExample: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const AreaChartExample: Story = enhanceStoryForDualMode({
   args: {
     chartType: "area",
     data: lineChartData,
@@ -178,9 +213,26 @@ export const AreaChartExample: Story = {
     fillOpacity: 0.6,
     height: 400,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const PieChartExample: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const PieChartExample: Story = enhanceStoryForDualMode({
   args: {
     chartType: "pie",
     data: pieChartData,
@@ -207,9 +259,26 @@ export const PieChartExample: Story = {
     height: 400,
     label: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const DonutChart: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const DonutChart: Story = enhanceStoryForDualMode({
   args: {
     chartType: "pie",
     data: pieChartData,
@@ -237,9 +306,26 @@ export const DonutChart: Story = {
     showLegend: true,
     height: 400,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const RadarChartExample: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const RadarChartExample: Story = enhanceStoryForDualMode({
   args: {
     chartType: "radar",
     data: radarChartData,
@@ -259,9 +345,26 @@ export const RadarChartExample: Story = {
     fillOpacity: 0.6,
     height: 400,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const RadialBarChartExample: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const RadialBarChartExample: Story = enhanceStoryForDualMode({
   args: {
     chartType: "radialBar",
     data: radialBarData,
@@ -277,9 +380,26 @@ export const RadialBarChartExample: Story = {
     height: 500,
     label: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const WithCustomColors: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const WithCustomColors: Story = enhanceStoryForDualMode({
   args: {
     chartType: "line",
     data: lineChartData,
@@ -299,9 +419,26 @@ export const WithCustomColors: Story = {
     colors: ["#ff6b6b", "#4ecdc4"],
     height: 400,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const NoGrid: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const NoGrid: Story = enhanceStoryForDualMode({
   args: {
     chartType: "line",
     data: lineChartData,
@@ -321,9 +458,26 @@ export const NoGrid: Story = {
     showLegend: true,
     height: 400,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const WithoutAxes: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const WithoutAxes: Story = enhanceStoryForDualMode({
   args: {
     chartType: "area",
     data: lineChartData,
@@ -345,9 +499,26 @@ export const WithoutAxes: Story = {
     showLegend: true,
     height: 400,
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-export const WithClickHandler: Story = {
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;
+
+export const WithClickHandler: Story = enhanceStoryForDualMode({
   args: {
     chartType: "bar",
     data: barChartData,
@@ -370,4 +541,21 @@ export const WithClickHandler: Story = {
       alert(`Clicked on: ${JSON.stringify(data)}`);
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    // Wait for the chart component container to exist
+    await waitFor(
+      () => {
+        const chartDiv = canvasElement.querySelector(".w-full");
+        expect(chartDiv).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+
+    // Allow time for chart rendering
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+
+    // Verify the chart container is rendered
+    const chartContainer = canvasElement.querySelector(".w-full");
+    expect(chartContainer).toBeInTheDocument();
+  },
+}) as Story;

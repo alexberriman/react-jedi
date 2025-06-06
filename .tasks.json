@@ -30,11 +30,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-dialog-sdui-critical",
-    "description": "TASK: Fix Dialog component trigger functionality in SDUI mode. CRITICAL ISSUE: Dialog trigger buttons in SDUI mode don't open dialogs at all - clicking does nothing. This is a complete failure of the dialog system in JSON rendering. SEVERITY: Critical - dialogs are essential UI components. ROOT CAUSE: Event handlers for dialog triggers are not properly wired in SDUI mode, or dialog state management is not functioning. ACTION REQUIRED: 1) Debug why click events on dialog triggers don't work in SDUI. 2) Implement proper event handler binding for SDUI dialog triggers. 3) Ensure dialog state (open/closed) is managed correctly in JSON mode. 4) Support all dialog features: close button, backdrop click, ESC key, focus management. 5) Test nested dialogs and various trigger types. EXPECTED OUTCOME: Fully functional dialogs in SDUI mode with all interactions working identically to React mode.",
-    "status": "in_progress"
-  },
-  {
     "id": "fix-drawer-sdui-critical",
     "description": "TASK: Fix Drawer component trigger functionality in SDUI mode. CRITICAL ISSUE: Drawer trigger buttons in SDUI mode don't open drawers - complete functionality failure. Clicking drawer triggers has no effect. SEVERITY: Critical - drawers are essential for navigation and forms. ROOT CAUSE: Similar to dialogs, event handlers and state management for drawers are not functioning in SDUI mode. ACTION REQUIRED: 1) Debug the drawer trigger mechanism in SDUI mode. 2) Implement proper event handler binding for drawer triggers. 3) Ensure drawer state management works in JSON rendering. 4) Support all drawer positions (left, right, top, bottom). 5) Implement proper animations, backdrop, and dismiss behaviors. 6) Test with various drawer sizes and content types. EXPECTED OUTCOME: Fully functional drawers in SDUI mode with smooth animations and all interactions working.",
     "status": "pending"

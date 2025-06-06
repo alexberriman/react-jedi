@@ -67,7 +67,7 @@ export function enhanceStoryForDualMode<T extends ComponentType<any>>(
                           {render(specWithoutHandlers, { handlers: handlers || {} })}
                           <details className="border rounded p-4">
                             <summary className="cursor-pointer font-medium">View JSON Spec</summary>
-                            <pre className="mt-4 overflow-auto text-sm bg-muted p-4 rounded">
+                            <pre className="mt-4 overflow-auto text-sm bg-muted p-4 rounded font-mono" style={{ fontFeatureSettings: "'liga' 0", fontVariantLigatures: "none" }}>
                               {JSON.stringify(specWithoutHandlers, null, 2)}
                             </pre>
                           </details>
@@ -128,7 +128,7 @@ export function enhanceStoryForDualMode<T extends ComponentType<any>>(
                   {render(spec, { handlers: handlers as Record<string, (...args: unknown[]) => void> })}
                   <details className="border rounded p-4">
                     <summary className="cursor-pointer font-medium">View JSON Spec</summary>
-                    <pre className="mt-4 overflow-auto text-sm bg-muted p-4 rounded">
+                    <pre className="mt-4 overflow-auto text-sm bg-muted p-4 rounded font-mono" style={{ fontFeatureSettings: "'liga' 0", fontVariantLigatures: "none" }}>
                       {JSON.stringify(spec, null, 2)}
                     </pre>
                   </details>

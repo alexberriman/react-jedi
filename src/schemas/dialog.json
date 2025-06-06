@@ -24,7 +24,7 @@
     },
     "onOpenChangeAction": {
       "type": "string",
-      "description": "Handler name for when the open state changes (for SDUI)"
+      "description": "Action name for open state change handler (SDUI mode)"
     },
     "defaultOpen": {
       "type": "boolean",

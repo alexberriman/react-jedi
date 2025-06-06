@@ -22,6 +22,11 @@ interface EnhanceStoryOptions {
    * Whether to automatically test both modes (default: true)
    */
   autoTest?: boolean;
+  
+  /**
+   * Event handlers for SDUI mode
+   */
+  handlers?: Record<string, (...args: unknown[]) => void>;
 }
 
 /**
@@ -31,7 +36,7 @@ export function enhanceStoryForDualMode<T = unknown>(
   story: StoryObj<T>,
   options: EnhanceStoryOptions = {}
 ): StoryObj<T> {
-  const { enabled = true, autoTest = true, jsonSpec, renderSpec } = options;
+  const { enabled = true, autoTest = true, jsonSpec, renderSpec, handlers } = options;
   
   return {
     ...story,
@@ -48,6 +53,7 @@ export function enhanceStoryForDualMode<T = unknown>(
         autoTest,
         jsonSpec,
         renderSpec,
+        handlers,
         ...story.parameters?.dualMode
       }
     }

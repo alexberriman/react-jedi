@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **Implement dual-mode story functionality for AnnouncementBar component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/announcement-bar/announcement-bar.stories.tsx**
+
+
+## [2025-06-07]
+
 - **TASK: Implement comprehensive form validation system for SDUI mode. CRITICAL ISSUE: Form 'With Validation' story - submit button does nothing in SDUI mode. Form validation is completely non-functional. SEVERITY: Critical - form validation is essential for any application. SCOPE: This requires building validation infrastructure for SDUI from scratch. ACTION REQUIRED: 1) Design validation system architecture for SDUI mode. 2) Implement field-level validation with error messages. 3) Support common validators: required, email, min/max length, patterns. 4) Implement form-level validation and submit handling. 5) Show validation errors inline with fields. 6) Create comprehensive documentation in Storybook showing validation patterns. 7) Support async validation and custom validators. EXPECTED OUTCOME: Full-featured form validation system in SDUI with extensive documentation and examples.**
 
 

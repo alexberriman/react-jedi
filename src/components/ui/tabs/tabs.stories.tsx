@@ -345,6 +345,84 @@ export const VerticalOrientation: Story = enhanceStoryForDualMode<typeof Tabs>({
     expect(canvas.getByRole("tab", { name: "Notifications" })).toBeInTheDocument();
     expect(canvas.getByRole("tab", { name: "Security" })).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "Tabs",
+    defaultValue: "general",
+    orientation: "vertical",
+    className: "flex w-[600px]",
+    children: [
+      {
+        type: "TabsList",
+        className: "flex-col h-auto",
+        children: [
+          { type: "TabsTrigger", value: "general", className: "w-full justify-start", children: "General" },
+          { type: "TabsTrigger", value: "profile", className: "w-full justify-start", children: "Profile" },
+          { type: "TabsTrigger", value: "notifications", className: "w-full justify-start", children: "Notifications" },
+          { type: "TabsTrigger", value: "security", className: "w-full justify-start", children: "Security" }
+        ]
+      },
+      {
+        type: "Flex",
+        className: "flex-1 pl-6",
+        direction: "column",
+        children: [
+          {
+            type: "TabsContent",
+            value: "general",
+            children: {
+              type: "Flex",
+              direction: "column",
+              gap: "sm",
+              children: [
+                { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "General Settings" },
+                { type: "Text", size: "sm", variant: "muted", children: "Manage your general application preferences." }
+              ]
+            }
+          },
+          {
+            type: "TabsContent",
+            value: "profile",
+            children: {
+              type: "Flex",
+              direction: "column",
+              gap: "sm",
+              children: [
+                { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Profile Settings" },
+                { type: "Text", size: "sm", variant: "muted", children: "Update your profile information and avatar." }
+              ]
+            }
+          },
+          {
+            type: "TabsContent",
+            value: "notifications",
+            children: {
+              type: "Flex",
+              direction: "column",
+              gap: "sm",
+              children: [
+                { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Notification Preferences" },
+                { type: "Text", size: "sm", variant: "muted", children: "Configure how and when you receive notifications." }
+              ]
+            }
+          },
+          {
+            type: "TabsContent",
+            value: "security",
+            children: {
+              type: "Flex",
+              direction: "column",
+              gap: "sm",
+              children: [
+                { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Security Settings" },
+                { type: "Text", size: "sm", variant: "muted", children: "Manage your security settings and two-factor authentication." }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
 }) as Story;
 
 export const WithDisabledTab: Story = enhanceStoryForDualMode<typeof Tabs>({
@@ -411,6 +489,49 @@ export const WithDisabledTab: Story = enhanceStoryForDualMode<typeof Tabs>({
     const styles = globalThis.getComputedStyle(disabledTabElement);
     expect(styles.pointerEvents).toBe("none");
   },
+}, {
+  renderSpec: {
+    type: "Tabs",
+    defaultValue: "active",
+    className: "w-[400px]",
+    children: [
+      {
+        type: "TabsList",
+        className: "grid w-full grid-cols-3",
+        children: [
+          { type: "TabsTrigger", value: "active", children: "Active" },
+          { type: "TabsTrigger", value: "disabled", disabled: true, children: "Disabled" },
+          { type: "TabsTrigger", value: "pending", children: "Pending" }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "active",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Active Tab" },
+            { type: "Text", size: "sm", variant: "muted", children: "This tab is active and accessible." }
+          ]
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "pending",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Pending Tab" },
+            { type: "Text", size: "sm", variant: "muted", children: "This tab is pending approval." }
+          ]
+        }
+      }
+    ]
+  }
 }) as Story;
 
 export const WithIcons: Story = enhanceStoryForDualMode<typeof Tabs>({
@@ -511,6 +632,86 @@ export const WithIcons: Story = enhanceStoryForDualMode<typeof Tabs>({
     expect(canvas.getByRole("tab", { name: "Settings" })).toBeInTheDocument();
     expect(canvas.getByRole("tab", { name: "Access" })).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "Tabs",
+    defaultValue: "files",
+    className: "w-[400px]",
+    children: [
+      {
+        type: "TabsList",
+        className: "grid w-full grid-cols-3",
+        children: [
+          { 
+            type: "TabsTrigger", 
+            value: "files", 
+            className: "gap-2", 
+            children: [
+              { type: "Icon", name: "file", size: 16 },
+              "Files"
+            ] 
+          },
+          { 
+            type: "TabsTrigger", 
+            value: "settings", 
+            className: "gap-2", 
+            children: [
+              { type: "Icon", name: "settings", size: 16 },
+              "Settings"
+            ] 
+          },
+          { 
+            type: "TabsTrigger", 
+            value: "access", 
+            className: "gap-2", 
+            children: [
+              { type: "Icon", name: "shield", size: 16 },
+              "Access"
+            ] 
+          }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "files",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Files" },
+            { type: "Text", size: "sm", variant: "muted", children: "Browse and manage your files in the cloud." }
+          ]
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "settings",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Settings" },
+            { type: "Text", size: "sm", variant: "muted", children: "Configure your application settings." }
+          ]
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "access",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Access Control" },
+            { type: "Text", size: "sm", variant: "muted", children: "Manage user permissions and access levels." }
+          ]
+        }
+      }
+    ]
+  }
 }) as Story;
 
 export const ManualActivation: Story = enhanceStoryForDualMode<typeof Tabs>({
@@ -560,6 +761,63 @@ export const ManualActivation: Story = enhanceStoryForDualMode<typeof Tabs>({
     expect(canvas.getByRole("tab", { name: "Tab 2" })).toBeInTheDocument();
     expect(canvas.getByRole("tab", { name: "Tab 3" })).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "Tabs",
+    defaultValue: "tab-1",
+    activationMode: "manual",
+    className: "w-[400px]",
+    children: [
+      {
+        type: "TabsList",
+        className: "grid w-full grid-cols-3",
+        children: [
+          { type: "TabsTrigger", value: "tab-1", children: "Tab 1" },
+          { type: "TabsTrigger", value: "tab-2", children: "Tab 2" },
+          { type: "TabsTrigger", value: "tab-3", children: "Tab 3" }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "tab-1",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Manual Activation Mode" },
+            { type: "Text", size: "sm", variant: "muted", children: "In manual mode, tabs are focused on arrow key press but not activated. Press Enter or Space to activate a focused tab." }
+          ]
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "tab-2",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Tab 2 Content" },
+            { type: "Text", size: "sm", variant: "muted", children: "Content for the second tab panel." }
+          ]
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "tab-3",
+        children: {
+          type: "Flex",
+          direction: "column",
+          gap: "sm",
+          children: [
+            { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Tab 3 Content" },
+            { type: "Text", size: "sm", variant: "muted", children: "Content for the third tab panel." }
+          ]
+        }
+      }
+    ]
+  }
 }) as Story;
 
 export const WithFormContent: Story = enhanceStoryForDualMode<typeof Tabs>({
@@ -665,6 +923,148 @@ export const WithFormContent: Story = enhanceStoryForDualMode<typeof Tabs>({
     expect(canvas.getByRole("tab", { name: "Contact" })).toBeInTheDocument();
     expect(canvas.getByRole("tab", { name: "Preferences" })).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "Tabs",
+    defaultValue: "personal",
+    className: "w-[500px]",
+    children: [
+      {
+        type: "TabsList",
+        className: "grid w-full grid-cols-3",
+        children: [
+          { type: "TabsTrigger", value: "personal", children: "Personal Info" },
+          { type: "TabsTrigger", value: "contact", children: "Contact" },
+          { type: "TabsTrigger", value: "preferences", children: "Preferences" }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "personal",
+        className: "space-y-4",
+        children: [
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "sm",
+            children: [
+              { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Personal Information" },
+              { type: "Text", size: "sm", variant: "muted", children: "Update your personal details." }
+            ]
+          },
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "md",
+            children: [
+              {
+                type: "Flex",
+                direction: "column",
+                gap: "sm",
+                children: [
+                  { type: "Label", htmlFor: "name", children: "Name" },
+                  { type: "Input", id: "name", placeholder: "John Doe" }
+                ]
+              },
+              {
+                type: "Flex",
+                direction: "column",
+                gap: "sm",
+                children: [
+                  { type: "Label", htmlFor: "username", children: "Username" },
+                  { type: "Input", id: "username", placeholder: "@johndoe" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "contact",
+        className: "space-y-4",
+        children: [
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "sm",
+            children: [
+              { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Contact Information" },
+              { type: "Text", size: "sm", variant: "muted", children: "How can we reach you?" }
+            ]
+          },
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "md",
+            children: [
+              {
+                type: "Flex",
+                direction: "column",
+                gap: "sm",
+                children: [
+                  { type: "Label", htmlFor: "email", children: "Email" },
+                  { type: "Input", id: "email", inputType: "email", placeholder: "john@example.com" }
+                ]
+              },
+              {
+                type: "Flex",
+                direction: "column",
+                gap: "sm",
+                children: [
+                  { type: "Label", htmlFor: "phone", children: "Phone" },
+                  { type: "Input", id: "phone", inputType: "tel", placeholder: "+1 (555) 000-0000" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "preferences",
+        className: "space-y-4",
+        children: [
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "sm",
+            children: [
+              { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Preferences" },
+              { type: "Text", size: "sm", variant: "muted", children: "Customize your experience." }
+            ]
+          },
+          {
+            type: "Flex",
+            direction: "column",
+            gap: "md",
+            children: [
+              {
+                type: "Flex",
+                direction: "row",
+                align: "center",
+                justify: "between",
+                children: [
+                  { type: "Label", htmlFor: "notifications", children: "Email notifications" },
+                  { type: "Checkbox", id: "notifications" }
+                ]
+              },
+              {
+                type: "Flex",
+                direction: "row",
+                align: "center",
+                justify: "between",
+                children: [
+                  { type: "Label", htmlFor: "marketing", children: "Marketing emails" },
+                  { type: "Checkbox", id: "marketing" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }) as Story;
 
 export const WithAnimation: Story = enhanceStoryForDualMode<typeof Tabs>({
@@ -770,6 +1170,78 @@ export const WithoutAnimation: Story = enhanceStoryForDualMode<typeof Tabs>({
     expect(canvas.getByRole("tab", { name: "Settings" })).toBeInTheDocument();
     expect(canvas.getByRole("tab", { name: "Notifications" })).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "Flex",
+    direction: "column",
+    gap: "md",
+    children: [
+      {
+        type: "Text",
+        size: "sm",
+        variant: "muted",
+        className: "mb-4",
+        children: [
+          "Tabs without animations for instant transitions. Set ",
+          { type: "Text", as: "code", children: "animate=false" },
+          " to disable."
+        ]
+      },
+      {
+        type: "Tabs",
+        defaultValue: "tab-1",
+        animate: false,
+        className: "w-[400px]",
+        children: [
+          {
+            type: "TabsList",
+            className: "grid w-full grid-cols-3",
+            children: [
+              { type: "TabsTrigger", value: "tab-1", children: "Profile" },
+              { type: "TabsTrigger", value: "tab-2", children: "Settings" },
+              { type: "TabsTrigger", value: "tab-3", children: "Notifications" }
+            ]
+          },
+          {
+            type: "TabsContent",
+            value: "tab-1",
+            children: {
+              type: "Box",
+              className: "space-y-2 p-4 bg-muted/30 rounded-lg",
+              children: [
+                { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Profile Settings" },
+                { type: "Text", size: "sm", variant: "muted", children: "Manage your public profile information and display preferences." }
+              ]
+            }
+          },
+          {
+            type: "TabsContent",
+            value: "tab-2",
+            children: {
+              type: "Box",
+              className: "space-y-2 p-4 bg-muted/30 rounded-lg",
+              children: [
+                { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "General Settings" },
+                { type: "Text", size: "sm", variant: "muted", children: "Configure your account settings and application preferences." }
+              ]
+            }
+          },
+          {
+            type: "TabsContent",
+            value: "tab-3",
+            children: {
+              type: "Box",
+              className: "space-y-2 p-4 bg-muted/30 rounded-lg",
+              children: [
+                { type: "Heading", element: "h4", size: "sm", weight: "medium", children: "Notification Preferences" },
+                { type: "Text", size: "sm", variant: "muted", children: "Choose how and when you want to receive notifications." }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
 }) as Story;
 
 export const ModernStyling: Story = enhanceStoryForDualMode<typeof Tabs>({

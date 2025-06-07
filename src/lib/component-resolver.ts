@@ -230,7 +230,7 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
 
     // For all other components, extract props directly from spec
     // Remove internal properties and children (children are handled separately)
-    const actualProps = omit(spec as Record<string, unknown>, ["type", "spec", "theme", "state", "parentContext", "children"]);
+    const actualProps = omit(spec as Record<string, unknown>, ["type", "spec", "theme", "state", "parentContext", "children", "conditionalProps", "when", "actions", "computedProps"]);
 
     // Transform props based on component type
     const transformedProps = transformPropsForComponent(spec as Record<string, unknown>, actualProps);

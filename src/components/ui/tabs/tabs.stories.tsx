@@ -218,7 +218,7 @@ export const Controlled: Story = enhanceStoryForDualMode<typeof Tabs>(
 {
   renderSpec: {
     type: "Tabs",
-    value: "overview",
+    defaultValue: "overview",
     className: "w-[400px]",
     children: [
       {
@@ -1498,6 +1498,56 @@ export const ModernStyling: Story = enhanceStoryForDualMode<typeof Tabs>({
     expect(canvas.getByRole("tab", { name: "Reports" })).toBeInTheDocument();
     expect(canvas.getByRole("tab", { name: "Settings" })).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "Tabs",
+    defaultValue: "overview",
+    className: "w-full",
+    children: [
+      {
+        type: "TabsList",
+        className: "grid w-full grid-cols-4",
+        children: [
+          { type: "TabsTrigger", value: "overview", children: "Overview" },
+          { type: "TabsTrigger", value: "analytics", children: "Analytics" },
+          { type: "TabsTrigger", value: "reports", children: "Reports" },
+          { type: "TabsTrigger", value: "settings", children: "Settings" }
+        ]
+      },
+      {
+        type: "TabsContent",
+        value: "overview",
+        children: {
+          type: "Text",
+          children: "Overview content - Revenue and subscription metrics would go here"
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "analytics",
+        children: {
+          type: "Text",
+          children: "Analytics content - Charts and graphs would go here"
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "reports",
+        children: {
+          type: "Text",
+          children: "Reports content - Downloadable reports would go here"
+        }
+      },
+      {
+        type: "TabsContent",
+        value: "settings",
+        children: {
+          type: "Text",
+          children: "Settings content - Configuration options would go here"
+        }
+      }
+    ]
+  }
 }) as Story;
 
 export const WithNestedTabs: Story = enhanceStoryForDualMode<typeof Tabs>({
@@ -1568,14 +1618,44 @@ export const WithNestedTabs: Story = enhanceStoryForDualMode<typeof Tabs>({
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const user = userEvent.setup();
     
-    // Test nested tabs render - at least check one tablist exists
-    const tablist = canvas.getByRole("tablist");
-    expect(tablist).toBeInTheDocument();
+    // Test nested tabs render - expect multiple tablists
+    const tablists = canvas.getAllByRole("tablist");
+    expect(tablists.length).toBeGreaterThanOrEqual(1);
     
     // Test main tabs are present
-    expect(canvas.getByRole("tab", { name: "Account" })).toBeInTheDocument();
-    expect(canvas.getByRole("tab", { name: "Security" })).toBeInTheDocument();
-    expect(canvas.getByRole("tab", { name: "Billing" })).toBeInTheDocument();
+    const accountTab = canvas.getByRole("tab", { name: "Account" });
+    const securityTab = canvas.getByRole("tab", { name: "Security" });
+    const billingTab = canvas.getByRole("tab", { name: "Billing" });
+    
+    expect(accountTab).toBeInTheDocument();
+    expect(securityTab).toBeInTheDocument();
+    expect(billingTab).toBeInTheDocument();
+    
+    // Test initial state - Account tab should be active
+    expect(accountTab).toHaveAttribute("aria-selected", "true");
+    
+    // Test nested tabs in the account section
+    expect(canvas.getByRole("tab", { name: "Profile" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Settings" })).toBeInTheDocument();
+    
+    // Switch to Security tab
+    await user.click(securityTab);
+    expect(securityTab).toHaveAttribute("aria-selected", "true");
+    expect(accountTab).toHaveAttribute("aria-selected", "false");
+    
+    // Test nested tabs in the security section
+    expect(canvas.getByRole("tab", { name: "Password" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Two-Factor" })).toBeInTheDocument();
+    
+    // Switch to Billing tab
+    await user.click(billingTab);
+    expect(billingTab).toHaveAttribute("aria-selected", "true");
+    expect(securityTab).toHaveAttribute("aria-selected", "false");
+    
+    // Test nested tabs in the billing section
+    expect(canvas.getByRole("tab", { name: "Cards" })).toBeInTheDocument();
+    expect(canvas.getByRole("tab", { name: "Invoices" })).toBeInTheDocument();
   },
 }) as Story;

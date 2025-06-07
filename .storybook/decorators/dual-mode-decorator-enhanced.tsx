@@ -10,7 +10,7 @@ import { CopyButton } from "../components/copy-button";
 import { convertArgsToSpec } from "../utils/args-to-spec";
 import type { ComponentSpec } from "../../types/schema/components";
 
-// Icons
+// Icons (same as original)
 function ReactIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -36,12 +36,90 @@ function CodeIcon({ className }: { readonly className?: string }) {
   );
 }
 
-export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
+// Helper to extract event handlers from the story context
+function extractEventHandlers(context: StoryContext): Record<string, (...args: unknown[]) => void> {
+  const handlers: Record<string, (...args: unknown[]) => void> = {};
+  
+  // Check if there are explicit handlers defined in parameters
+  if (context.parameters?.dualMode?.handlers) {
+    Object.assign(handlers, context.parameters.dualMode.handlers);
+  }
+  
+  // Extract handlers from the renderSpec if available
+  const renderSpec = context.parameters?.dualMode?.renderSpec;
+  if (renderSpec) {
+    extractHandlersFromSpec(renderSpec, handlers);
+  }
+  
+  return handlers;
+}
+
+// Helper to create a placeholder handler
+function createPlaceholderHandler(handlerName: string): (...args: unknown[]) => void {
+  if (handlerName === 'handleDialogOpenChange') {
+    return (...args: unknown[]) => {
+      const open = args[0] as boolean;
+      console.log(`Dialog open state changed to: ${open}`);
+    };
+  }
+  return (...args: unknown[]) => {
+    console.log(`Handler '${handlerName}' called with:`, args);
+  };
+}
+
+// Helper to process action properties
+function processActionProperty(
+  key: string,
+  value: unknown,
+  handlers: Record<string, (...args: unknown[]) => void>
+): void {
+  if (key.endsWith('Action') && typeof value === 'string' && !handlers[value]) {
+    handlers[value] = createPlaceholderHandler(value);
+  }
+}
+
+// Helper to process children
+function processChildren(
+  children: unknown,
+  handlers: Record<string, (...args: unknown[]) => void>
+): void {
+  if (Array.isArray(children)) {
+    for (const child of children) {
+      extractHandlersFromSpec(child, handlers);
+    }
+  } else if (children) {
+    extractHandlersFromSpec(children, handlers);
+  }
+}
+
+// Recursive function to extract action handlers from spec
+function extractHandlersFromSpec(
+  spec: unknown, 
+  handlers: Record<string, (...args: unknown[]) => void>
+): void {
+  if (!spec || typeof spec !== 'object') return;
+  
+  const obj = spec as Record<string, unknown>;
+  
+  // Process each property
+  for (const [key, value] of Object.entries(obj)) {
+    processActionProperty(key, value, handlers);
+    
+    if (key === 'children') {
+      processChildren(value, handlers);
+    }
+  }
+}
+
+export const DualModeDecoratorEnhanced = (Story: StoryFn, context: StoryContext) => {
   // Check if dual mode is enabled for this story
   const isDualModeEnabled = context.parameters?.dualMode?.enabled !== false;
   
   const [activeTab, setActiveTab] = useState<'react' | 'sdui'>('react');
   const [showJson, setShowJson] = useState(true);
+  
+  // State for dialog handling
+  const [, setDialogStates] = useState<Record<string, boolean>>({});
   
   // Get custom spec or convert from args - must be called unconditionally
   const jsonSpec = useMemo(() => {
@@ -58,6 +136,22 @@ export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
     
     return convertArgsToSpec(context.args, context.id);
   }, [context.args, context.id, context.parameters, isDualModeEnabled]);
+  
+  // Extract and enhance event handlers
+  const handlers = useMemo(() => {
+    const baseHandlers = extractEventHandlers(context);
+    
+    // Add stateful dialog handlers if needed, but don't override existing ones
+    if (jsonSpec && hasDialogComponent(jsonSpec) && !baseHandlers.handleDialogOpenChange) {
+      baseHandlers.handleDialogOpenChange = (...args: unknown[]) => {
+        const open = args[0] as boolean;
+        setDialogStates(prev => ({ ...prev, defaultDialog: open }));
+        console.log('Dialog state changed:', open);
+      };
+    }
+    
+    return baseHandlers;
+  }, [context, jsonSpec]);
   
   if (!isDualModeEnabled) {
     return <Story />;
@@ -115,16 +209,10 @@ export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
               {/* SDUI Rendered View */}
               <div className="p-6 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
                 <div data-testid="sdui-render">
-                  {jsonSpec ? (
-                    render(jsonSpec as ComponentSpec, {
-                      handlers: context.parameters?.dualMode?.handlers
-                    })
-                  ) : (
-                    <div className="text-center text-muted-foreground p-8">
-                      <p className="mb-2">SDUI spec not available for this story</p>
-                      <p className="text-sm">Add a renderSpec to enable SDUI mode</p>
-                    </div>
-                  )}
+                  {render(jsonSpec as ComponentSpec, { 
+                    handlers,
+                    development: true // Enable development mode for better debugging
+                  })}
                 </div>
               </div>
               
@@ -142,6 +230,18 @@ export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
                       <JsonSyntaxHighlighter spec={jsonSpec} />
                     </div>
                   </ScrollArea>
+                  
+                  {/* Show handlers info in development */}
+                  {Object.keys(handlers).length > 0 && (
+                    <div className="border-t border-gray-700 p-4">
+                      <p className="text-xs font-mono text-gray-400 mb-2">Active Handlers:</p>
+                      <ul className="text-xs font-mono text-green-400">
+                        {Object.keys(handlers).map(name => (
+                          <li key={name}>• {name}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -151,3 +251,21 @@ export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
     </div>
   );
 };
+
+// Helper to check if spec contains dialog components
+function hasDialogComponent(spec: unknown): boolean {
+  if (!spec || typeof spec !== 'object') return false;
+  
+  const obj = spec as Record<string, unknown>;
+  
+  if (obj.type === 'Dialog' || obj.type === 'dialog') return true;
+  
+  if (obj.children) {
+    if (Array.isArray(obj.children)) {
+      return obj.children.some(child => hasDialogComponent(child));
+    }
+    return hasDialogComponent(obj.children);
+  }
+  
+  return false;
+}

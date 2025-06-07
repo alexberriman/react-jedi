@@ -64,36 +64,25 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
       }
     });
     
-    // Test SDUI mode only if renderSpec is provided
-    if (parameters?.dualMode?.renderSpec || parameters?.dualMode?.jsonSpec) {
-      await step('Testing SDUI (JSON) mode', async () => {
-        console.log('🧪 Testing SDUI (JSON) mode...');
-        
-        // Switch to SDUI tab
-        await clickTab('SDUI (JSON)');
-        
-        const sduiContainer = decoratorContainer.querySelector('[data-testid="sdui-render"]');
-        if (sduiContainer) {
-          // Check if there's actual content (not the fallback message)
-          const fallbackMessage = sduiContainer.querySelector('.text-muted-foreground');
-          if (fallbackMessage && fallbackMessage.textContent?.includes('SDUI spec not available')) {
-            console.log('⚠️ Skipping SDUI tests - no renderSpec provided');
-            return;
-          }
-          
-          const sduiContext = {
-            ...context,
-            canvasElement: sduiContainer as HTMLElement
-          };
-          await originalPlay(sduiContext);
-          console.log('✅ SDUI (JSON) tests passed');
-        } else {
-          throw new Error('SDUI render container not found');
-        }
-      });
-    } else {
-      console.log('ℹ️ Skipping SDUI tests - no renderSpec provided');
-    }
+    // Test SDUI mode
+    await step('Testing SDUI (JSON) mode', async () => {
+      console.log('🧪 Testing SDUI (JSON) mode...');
+      
+      // Switch to SDUI tab
+      await clickTab('SDUI (JSON)');
+      
+      const sduiContainer = decoratorContainer.querySelector('[data-testid="sdui-render"]');
+      if (sduiContainer) {
+        const sduiContext = {
+          ...context,
+          canvasElement: sduiContainer as HTMLElement
+        };
+        await originalPlay(sduiContext);
+        console.log('✅ SDUI (JSON) tests passed');
+      } else {
+        throw new Error('SDUI render container not found');
+      }
+    });
     
     console.log('🎉 All dual-mode tests completed successfully');
   };

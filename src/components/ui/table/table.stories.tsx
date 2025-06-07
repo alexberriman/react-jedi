@@ -499,7 +499,9 @@ export const Minimal: Story = enhanceStoryForDualMode<typeof Table>(
       expect(canvas.getByText("Update documentation")).toBeInTheDocument();
       expect(canvas.getByText("Fix login bug")).toBeInTheDocument();
       expect(canvas.getByText("Medium")).toBeInTheDocument();
-      expect(canvas.getByText("High")).toBeInTheDocument();
+      // There are multiple "High" priority badges
+      const highBadges = canvas.getAllByText("High");
+      expect(highBadges).toHaveLength(2);
       expect(canvas.getByText("Low")).toBeInTheDocument();
       expect(canvas.getByText("John Doe")).toBeInTheDocument();
       expect(canvas.getByText("Dec 15, 2024")).toBeInTheDocument();
@@ -1650,7 +1652,9 @@ export const Responsive: Story = enhanceStoryForDualMode<typeof Table>(
       expect(canvas.getByText("High-performance laptop for professionals")).toBeInTheDocument();
       expect(canvas.getByText("$2,399")).toBeInTheDocument();
       expect(canvas.getByText("12")).toBeInTheDocument();
-      expect(canvas.getByText("Electronics")).toBeInTheDocument();
+      // There are multiple "Electronics" categories
+      const electronicsCategories = canvas.getAllByText("Electronics");
+      expect(electronicsCategories).toHaveLength(2);
     },
   },
   {

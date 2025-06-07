@@ -216,6 +216,7 @@ export interface TextProps
   readonly spec?: import("@/types/schema/components").ComponentSpec;
   readonly theme?: Record<string, unknown>;
   readonly state?: Record<string, unknown>;
+  readonly conditionalProps?: Record<string, unknown>;
 }
 
 /**
@@ -243,7 +244,7 @@ function Text({
 }: TextProps) {
   const Component = element;
   
-  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state"]);
+  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state", "conditionalProps"]);
 
   return (
     <Component

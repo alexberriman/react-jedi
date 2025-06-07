@@ -115,16 +115,9 @@ export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
               {/* SDUI Rendered View */}
               <div className="p-6 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
                 <div data-testid="sdui-render">
-                  {jsonSpec ? (
-                    render(jsonSpec as ComponentSpec, {
-                      handlers: context.parameters?.dualMode?.handlers
-                    })
-                  ) : (
-                    <div className="text-center text-muted-foreground p-8">
-                      <p className="mb-2">SDUI spec not available for this story</p>
-                      <p className="text-sm">Add a renderSpec to enable SDUI mode</p>
-                    </div>
-                  )}
+                  {render(jsonSpec as ComponentSpec, {
+                    handlers: context.parameters?.dualMode?.handlers
+                  })}
                 </div>
               </div>
               

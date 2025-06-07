@@ -147,52 +147,55 @@ const sampleProducts = [
 ];
 
 // Basic carousel with default content
-export const Basic: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
-  args: {
-    spec: {
-      type: "Carousel",
-      showArrows: true,
-      showDots: true,
-      items: [
-        {
-          type: "Card",
-          children: {
-            type: "CardContent",
-            className: "flex aspect-square items-center justify-center p-6",
-            children: {
-              type: "Text",
-              children: "Slide 1",
-              className: "text-4xl font-semibold",
-            },
-          },
+const basicSpec: CarouselDef = {
+  type: "Carousel",
+  showArrows: true,
+  showDots: true,
+  items: [
+    {
+      type: "Card",
+      children: {
+        type: "CardContent",
+        className: "flex aspect-square items-center justify-center p-6",
+        children: {
+          type: "Text",
+          children: "Slide 1",
+          className: "text-4xl font-semibold",
         },
-        {
-          type: "Card",
-          children: {
-            type: "CardContent",
-            className: "flex aspect-square items-center justify-center p-6",
-            children: {
-              type: "Text",
-              children: "Slide 2",
-              className: "text-4xl font-semibold",
-            },
-          },
+      },
+    },
+    {
+      type: "Card",
+      children: {
+        type: "CardContent",
+        className: "flex aspect-square items-center justify-center p-6",
+        children: {
+          type: "Text",
+          children: "Slide 2",
+          className: "text-4xl font-semibold",
         },
-        {
-          type: "Card",
-          children: {
-            type: "CardContent",
-            className: "flex aspect-square items-center justify-center p-6",
-            children: {
-              type: "Text",
-              children: "Slide 3",
-              className: "text-4xl font-semibold",
-            },
-          },
+      },
+    },
+    {
+      type: "Card",
+      children: {
+        type: "CardContent",
+        className: "flex aspect-square items-center justify-center p-6",
+        children: {
+          type: "Text",
+          children: "Slide 3",
+          className: "text-4xl font-semibold",
         },
-      ],
-    } as CarouselDef,
-  },
+      },
+    },
+  ],
+};
+
+export const Basic: Story = enhanceStoryForDualMode<typeof CarouselBlock>(
+  {
+    args: {
+      spec: basicSpec,
+    },
   parameters: {
     docs: {
       description: {
@@ -220,28 +223,34 @@ export const Basic: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
     const dotsContainer = canvas.getByRole("group", { name: /carousel pagination/i });
     expect(dotsContainer).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: basicSpec,
+}
+);
 
 // Image Gallery Variant with Ken Burns effect
+const imageGallerySpec: CarouselDef = {
+  type: "Carousel",
+  variant: "gallery",
+  showArrows: true,
+  autoplay: {
+    enabled: true,
+    delay: 5000,
+    stopOnInteraction: true,
+    stopOnMouseEnter: true,
+  },
+  data: {
+    images: sampleImages,
+    enableKenBurns: true,
+    enableZoom: true,
+    showThumbnails: true,
+  },
+};
+
 export const ImageGallery: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      variant: "gallery",
-      showArrows: true,
-      autoplay: {
-        enabled: true,
-        delay: 5000,
-        stopOnInteraction: true,
-        stopOnMouseEnter: true,
-      },
-      data: {
-        images: sampleImages,
-        enableKenBurns: true,
-        enableZoom: true,
-        showThumbnails: true,
-      },
-    } as CarouselDef,
+    spec: imageGallerySpec,
   },
   parameters: {
     docs: {
@@ -266,20 +275,26 @@ export const ImageGallery: Story = enhanceStoryForDualMode<typeof CarouselBlock>
     expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
     expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: imageGallerySpec,
+}
+);
 
 // Content Cards Variant
+const contentCardsSpec: CarouselDef = {
+  type: "Carousel",
+  variant: "content",
+  showArrows: true,
+  showDots: true,
+  data: {
+    items: sampleContentItems,
+  },
+};
+
 export const ContentCards: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      variant: "content",
-      showArrows: true,
-      showDots: true,
-      data: {
-        items: sampleContentItems,
-      },
-    } as CarouselDef,
+    spec: contentCardsSpec,
   },
   parameters: {
     docs: {
@@ -305,25 +320,31 @@ export const ContentCards: Story = enhanceStoryForDualMode<typeof CarouselBlock>
     // Test CTA buttons
     expect(canvas.getByRole("link", { name: "Learn More" })).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: contentCardsSpec,
+}
+);
 
 // Testimonials Variant - Cards Style
+const testimonialsCardsSpec: CarouselDef = {
+  type: "Carousel",
+  variant: "testimonials",
+  showArrows: true,
+  showDots: true,
+  autoplay: {
+    enabled: true,
+    delay: 6000,
+  },
+  data: {
+    testimonials: sampleTestimonials,
+    testimonialsVariant: "cards",
+  },
+};
+
 export const TestimonialsCards: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      variant: "testimonials",
-      showArrows: true,
-      showDots: true,
-      autoplay: {
-        enabled: true,
-        delay: 6000,
-      },
-      data: {
-        testimonials: sampleTestimonials,
-        testimonialsVariant: "cards",
-      },
-    } as CarouselDef,
+    spec: testimonialsCardsSpec,
   },
   parameters: {
     docs: {
@@ -347,21 +368,27 @@ export const TestimonialsCards: Story = enhanceStoryForDualMode<typeof CarouselB
     expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
     expect(canvas.getByText("Creative Director")).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: testimonialsCardsSpec,
+}
+);
 
 // Testimonials Variant - Quote Style
+const testimonialsQuotesSpec: CarouselDef = {
+  type: "Carousel",
+  variant: "testimonials",
+  showArrows: true,
+  showDots: true,
+  data: {
+    testimonials: sampleTestimonials,
+    testimonialsVariant: "quotes",
+  },
+};
+
 export const TestimonialsQuotes: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      variant: "testimonials",
-      showArrows: true,
-      showDots: true,
-      data: {
-        testimonials: sampleTestimonials,
-        testimonialsVariant: "quotes",
-      },
-    } as CarouselDef,
+    spec: testimonialsQuotesSpec,
   },
   parameters: {
     docs: {
@@ -383,20 +410,26 @@ export const TestimonialsQuotes: Story = enhanceStoryForDualMode<typeof Carousel
     // Test author attribution
     expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: testimonialsQuotesSpec,
+}
+);
 
 // Product Showcase Variant
+const productShowcaseSpec: CarouselDef = {
+  type: "Carousel",
+  variant: "showcase",
+  showArrows: true,
+  showDots: true,
+  data: {
+    products: sampleProducts,
+  },
+};
+
 export const ProductShowcase: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      variant: "showcase",
-      showArrows: true,
-      showDots: true,
-      data: {
-        products: sampleProducts,
-      },
-    } as CarouselDef,
+    spec: productShowcaseSpec,
   },
   parameters: {
     docs: {
@@ -420,29 +453,35 @@ export const ProductShowcase: Story = enhanceStoryForDualMode<typeof CarouselBlo
     // Test badges
     expect(canvas.getByText("Sale")).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: productShowcaseSpec,
+}
+);
 
 // Fullscreen Variant
+const fullscreenSpec: CarouselDef = {
+  type: "Carousel",
+  variant: "fullscreen",
+  showArrows: true,
+  showDots: true,
+  autoplay: {
+    enabled: true,
+    delay: 4000,
+  },
+  data: {
+    images: sampleImages.map((img) => ({
+      ...img,
+      title: img.title + " Hero",
+      description: "Experience the beauty of nature in full screen glory",
+    })),
+    enableKenBurns: true,
+  },
+};
+
 export const Fullscreen: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      variant: "fullscreen",
-      showArrows: true,
-      showDots: true,
-      autoplay: {
-        enabled: true,
-        delay: 4000,
-      },
-      data: {
-        images: sampleImages.map((img) => ({
-          ...img,
-          title: img.title + " Hero",
-          description: "Experience the beauty of nature in full screen glory",
-        })),
-        enableKenBurns: true,
-      },
-    } as CarouselDef,
+    spec: fullscreenSpec,
   },
   parameters: {
     docs: {
@@ -465,29 +504,35 @@ export const Fullscreen: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
     // Test overlay text
     expect(canvas.getByText("Experience the beauty of nature in full screen glory")).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: fullscreenSpec,
+}
+);
 
 // Autoplay with Custom Settings
+const autoplayCustomSpec: CarouselDef = {
+  type: "Carousel",
+  variant: "gallery",
+  showArrows: true,
+  showDots: true,
+  autoplay: {
+    enabled: true,
+    delay: 3000,
+    stopOnInteraction: false,
+    stopOnMouseEnter: true,
+  },
+  data: {
+    images: sampleImages,
+    enableKenBurns: false,
+    enableZoom: false,
+    showThumbnails: false,
+  },
+};
+
 export const AutoplayCustom: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      variant: "gallery",
-      showArrows: true,
-      showDots: true,
-      autoplay: {
-        enabled: true,
-        delay: 3000,
-        stopOnInteraction: false,
-        stopOnMouseEnter: true,
-      },
-      data: {
-        images: sampleImages,
-        enableKenBurns: false,
-        enableZoom: false,
-        showThumbnails: false,
-      },
-    } as CarouselDef,
+    spec: autoplayCustomSpec,
   },
   parameters: {
     docs: {
@@ -512,56 +557,62 @@ export const AutoplayCustom: Story = enhanceStoryForDualMode<typeof CarouselBloc
     expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
     expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: autoplayCustomSpec,
+}
+);
 
 // Vertical Orientation
+const verticalSpec: CarouselDef = {
+  type: "Carousel",
+  orientation: "vertical",
+  showArrows: true,
+  showDots: true,
+  className: "max-w-md mx-auto",
+  items: [
+    {
+      type: "Card",
+      children: {
+        type: "CardContent",
+        className: "flex h-48 items-center justify-center p-6",
+        children: {
+          type: "Text",
+          children: "Vertical Slide 1",
+          className: "text-2xl font-semibold",
+        },
+      },
+    },
+    {
+      type: "Card",
+      children: {
+        type: "CardContent",
+        className: "flex h-48 items-center justify-center p-6",
+        children: {
+          type: "Text",
+          children: "Vertical Slide 2",
+          className: "text-2xl font-semibold",
+        },
+      },
+    },
+    {
+      type: "Card",
+      children: {
+        type: "CardContent",
+        className: "flex h-48 items-center justify-center p-6",
+        children: {
+          type: "Text",
+          children: "Vertical Slide 3",
+          className: "text-2xl font-semibold",
+        },
+      },
+    },
+  ],
+};
+
 export const Vertical: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      orientation: "vertical",
-      showArrows: true,
-      showDots: true,
-      className: "max-w-md mx-auto",
-      items: [
-        {
-          type: "Card",
-          children: {
-            type: "CardContent",
-            className: "flex h-48 items-center justify-center p-6",
-            children: {
-              type: "Text",
-              children: "Vertical Slide 1",
-              className: "text-2xl font-semibold",
-            },
-          },
-        },
-        {
-          type: "Card",
-          children: {
-            type: "CardContent",
-            className: "flex h-48 items-center justify-center p-6",
-            children: {
-              type: "Text",
-              children: "Vertical Slide 2",
-              className: "text-2xl font-semibold",
-            },
-          },
-        },
-        {
-          type: "Card",
-          children: {
-            type: "CardContent",
-            className: "flex h-48 items-center justify-center p-6",
-            children: {
-              type: "Text",
-              children: "Vertical Slide 3",
-              className: "text-2xl font-semibold",
-            },
-          },
-        },
-      ],
-    } as CarouselDef,
+    spec: verticalSpec,
   },
   parameters: {
     docs: {
@@ -584,33 +635,39 @@ export const Vertical: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
     expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
     expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: verticalSpec,
+}
+);
 
 // Multiple Items Visible
+const multipleItemsSpec: CarouselDef = {
+  type: "Carousel",
+  showArrows: true,
+  showDots: true,
+  options: {
+    align: "start",
+  },
+  className: "max-w-6xl mx-auto",
+  items: Array.from({ length: 8 }).map((_, index) => ({
+    type: "Card",
+    className: "basis-1/2 md:basis-1/3 lg:basis-1/4",
+    children: {
+      type: "CardContent",
+      className: "flex aspect-square items-center justify-center p-6",
+      children: {
+        type: "Text",
+        children: `Item ${index + 1}`,
+        className: "text-xl font-semibold",
+      },
+    },
+  })),
+};
+
 export const MultipleItems: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      showArrows: true,
-      showDots: true,
-      options: {
-        align: "start",
-      },
-      className: "max-w-6xl mx-auto",
-      items: Array.from({ length: 8 }).map((_, index) => ({
-        type: "Card",
-        className: "basis-1/2 md:basis-1/3 lg:basis-1/4",
-        children: {
-          type: "CardContent",
-          className: "flex aspect-square items-center justify-center p-6",
-          children: {
-            type: "Text",
-            children: `Item ${index + 1}`,
-            className: "text-xl font-semibold",
-          },
-        },
-      })),
-    } as CarouselDef,
+    spec: multipleItemsSpec,
   },
   parameters: {
     docs: {
@@ -634,36 +691,42 @@ export const MultipleItems: Story = enhanceStoryForDualMode<typeof CarouselBlock
     expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
     expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: multipleItemsSpec,
+}
+);
 
 // Loop Enabled
+const loopSpec: CarouselDef = {
+  type: "Carousel",
+  showArrows: true,
+  showDots: true,
+  options: {
+    loop: true,
+  },
+  autoplay: {
+    enabled: true,
+    delay: 2500,
+  },
+  items: sampleImages.map((image, index) => ({
+    type: "Card",
+    children: {
+      type: "CardContent",
+      className: "flex aspect-video items-center justify-center p-0 overflow-hidden rounded-lg",
+      children: {
+        type: "Image",
+        src: image.src,
+        alt: image.alt,
+        className: "w-full h-full object-cover",
+      },
+    },
+  })),
+};
+
 export const Loop: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
-    spec: {
-      type: "Carousel",
-      showArrows: true,
-      showDots: true,
-      options: {
-        loop: true,
-      },
-      autoplay: {
-        enabled: true,
-        delay: 2500,
-      },
-      items: sampleImages.map((image, index) => ({
-        type: "Card",
-        children: {
-          type: "CardContent",
-          className: "flex aspect-video items-center justify-center p-0 overflow-hidden rounded-lg",
-          children: {
-            type: "Image",
-            src: image.src,
-            alt: image.alt,
-            className: "w-full h-full object-cover",
-          },
-        },
-      })),
-    } as CarouselDef,
+    spec: loopSpec,
   },
   parameters: {
     docs: {
@@ -687,49 +750,55 @@ export const Loop: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
     expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
     expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: loopSpec,
+}
+);
 
 // No Navigation (Swipe Only)
-export const SwipeOnly: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
-  args: {
-    spec: {
-      type: "Carousel",
-      showArrows: false,
-      showDots: true,
-      className: "max-w-2xl mx-auto",
-      items: sampleImages.map((image) => ({
-        type: "Card",
-        children: {
-          type: "CardContent",
-          className: "p-0 overflow-hidden rounded-lg",
+const swipeOnlySpec: CarouselDef = {
+  type: "Carousel",
+  showArrows: false,
+  showDots: true,
+  className: "max-w-2xl mx-auto",
+  items: sampleImages.map((image) => ({
+    type: "Card",
+    children: {
+      type: "CardContent",
+      className: "p-0 overflow-hidden rounded-lg",
+      children: [
+        {
+          type: "Image",
+          src: image.src,
+          alt: image.alt || "",
+          className: "w-full aspect-video object-cover",
+        },
+        {
+          type: "Box",
+          className: "p-4",
           children: [
             {
-              type: "Image",
-              src: image.src,
-              alt: image.alt,
-              className: "w-full aspect-video object-cover",
+              type: "Heading",
+              level: "h3" as const,
+              children: image.title || "",
+              className: "text-lg font-semibold mb-2",
             },
             {
-              type: "Box",
-              className: "p-4",
-              children: [
-                {
-                  type: "Heading",
-                  level: 3,
-                  children: image.title,
-                  className: "text-lg font-semibold mb-2",
-                },
-                {
-                  type: "Text",
-                  children: image.description,
-                  className: "text-muted-foreground",
-                },
-              ],
+              type: "Text",
+              children: image.description || "",
+              className: "text-muted-foreground",
             },
           ],
         },
-      })),
-    } as CarouselDef,
+      ],
+    },
+  })),
+};
+
+export const SwipeOnly: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
+  args: {
+    spec: swipeOnlySpec,
   },
   parameters: {
     docs: {
@@ -758,4 +827,8 @@ export const SwipeOnly: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
     expect(canvas.queryByRole("button", { name: /previous slide/i })).not.toBeInTheDocument();
     expect(canvas.queryByRole("button", { name: /next slide/i })).not.toBeInTheDocument();
   },
-});
+},
+{
+  jsonSpec: swipeOnlySpec,
+}
+);

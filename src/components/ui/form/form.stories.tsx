@@ -30,8 +30,92 @@ const meta = {
     layout: "padded",
     docs: {
       description: {
-        component:
-          "Form component built on top of react-hook-form, with built-in validation and error handling.",
+        component: `
+The Form component provides comprehensive form handling with built-in validation support in both React and SDUI modes.
+
+## Key Features
+
+- **Field-level validation** - Validate individual fields as users interact
+- **Form-level validation** - Validate entire form on submission
+- **Built-in validators** - Common validators like required, email, minLength, maxLength, pattern, min, max
+- **Custom error messages** - Provide custom messages for each validation rule
+- **Async validation** - Support for asynchronous validators (coming soon)
+- **Error display** - Automatic error message display with FormMessage component
+- **Touch tracking** - Only show errors after fields have been touched
+- **Submit handling** - Prevent submission of invalid forms
+
+## SDUI Mode Form Validation
+
+In SDUI mode, form validation is configured through the \`validation\` prop on the Form component:
+
+\`\`\`json
+{
+  "type": "Form",
+  "validation": {
+    "fieldName": {
+      "required": "This field is required",
+      "minLength": { "value": 3, "message": "Must be at least 3 characters" },
+      "pattern": { "value": "^[A-Za-z]+$", "message": "Only letters allowed" }
+    }
+  },
+  "onSubmit": "handleFormSubmit"
+}
+\`\`\`
+
+## Available Validators
+
+### Text Validators
+- **required** - Field must have a value
+- **minLength** - Minimum character length
+- **maxLength** - Maximum character length
+- **pattern** - Regular expression pattern matching
+- **email** - Valid email format
+
+### Number Validators
+- **min** - Minimum numeric value
+- **max** - Maximum numeric value
+
+## Component Structure
+
+A typical form structure in SDUI mode:
+
+\`\`\`json
+{
+  "type": "Form",
+  "validation": { ... },
+  "children": [
+    {
+      "type": "FormField",
+      "name": "fieldName",
+      "children": [
+        {
+          "type": "FormItem",
+          "children": [
+            { "type": "FormLabel", "children": "Label" },
+            {
+              "type": "FormControl",
+              "children": [{
+                "type": "Input",
+                "name": "fieldName"
+              }]
+            },
+            { "type": "FormMessage" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+\`\`\`
+
+## Best Practices
+
+1. Always include FormMessage components to display validation errors
+2. Use FormField to wrap form controls and provide field context
+3. Set meaningful error messages that help users correct their input
+4. Use appropriate input types (number, email, etc.) for better UX
+5. Consider using pattern validation for complex requirements
+`,
       },
     },
   },
@@ -767,6 +851,306 @@ function RequiredFieldsFormExample() {
     </Form>
   );
 }
+
+// Comprehensive validation demo for SDUI
+export const ComprehensiveValidation: Story = enhanceStoryForDualMode<typeof FormStory>({
+  args: {},
+  render: () => {
+    return (
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Comprehensive Form Validation Demo</h2>
+        <p className="text-gray-600">This form demonstrates all available validation types in SDUI mode.</p>
+        <div className="bg-blue-50 p-4 rounded-md">
+          <p className="text-sm text-blue-800">
+            Try submitting the form empty, then fill in invalid values to see validation in action.
+          </p>
+        </div>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Just verify the title is rendered
+    expect(canvas.getByText("Comprehensive Form Validation Demo")).toBeInTheDocument();
+  },
+}, {
+  renderSpec: {
+    type: "Form",
+    validation: {
+      username: {
+        required: "Username is required",
+        minLength: {
+          value: 3,
+          message: "Username must be at least 3 characters"
+        },
+        maxLength: {
+          value: 20,
+          message: "Username cannot exceed 20 characters"
+        },
+        pattern: {
+          value: "^[a-zA-Z0-9_]+$",
+          message: "Username can only contain letters, numbers, and underscores"
+        }
+      },
+      email: {
+        required: "Email is required",
+        email: "Please enter a valid email address"
+      },
+      age: {
+        required: "Age is required",
+        min: {
+          value: 18,
+          message: "You must be at least 18 years old"
+        },
+        max: {
+          value: 120,
+          message: "Please enter a valid age"
+        }
+      },
+      password: {
+        required: "Password is required",
+        minLength: {
+          value: 8,
+          message: "Password must be at least 8 characters"
+        },
+        pattern: {
+          value: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$",
+          message: "Password must contain uppercase, lowercase, number, and special character"
+        }
+      },
+      website: {
+        pattern: {
+          value: "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*)$",
+          message: "Please enter a valid URL"
+        }
+      },
+      bio: {
+        maxLength: {
+          value: 500,
+          message: "Bio cannot exceed 500 characters"
+        }
+      }
+    },
+    defaultValues: {
+      username: "",
+      email: "",
+      age: "",
+      password: "",
+      website: "",
+      bio: ""
+    },
+    onSubmit: "handleFormSubmit",
+    children: [
+      {
+        type: "Heading",
+        level: 2,
+        children: "Comprehensive Form Validation Demo"
+      },
+      {
+        type: "Text",
+        variant: "muted",
+        children: "This form demonstrates all available validation types in SDUI mode."
+      },
+      {
+        type: "Box",
+        className: "bg-blue-50 p-4 rounded-md mb-6",
+        children: [{
+          type: "Text",
+          size: "sm",
+          className: "text-blue-800",
+          children: "Try submitting the form empty, then fill in invalid values to see validation in action."
+        }]
+      },
+      {
+        type: "Flex",
+        direction: "column",
+        gap: "lg",
+        children: [
+          {
+            type: "FormField",
+            name: "username",
+            children: [{
+              type: "FormItem",
+              children: [
+                {
+                  type: "FormLabel",
+                  children: "Username"
+                },
+                {
+                  type: "FormControl",
+                  children: [{
+                    type: "Input",
+                    name: "username",
+                    placeholder: "john_doe123"
+                  }]
+                },
+                {
+                  type: "FormDescription",
+                  children: "3-20 characters, letters, numbers, and underscores only"
+                },
+                {
+                  type: "FormMessage"
+                }
+              ]
+            }]
+          },
+          {
+            type: "FormField",
+            name: "email",
+            children: [{
+              type: "FormItem",
+              children: [
+                {
+                  type: "FormLabel",
+                  children: "Email"
+                },
+                {
+                  type: "FormControl",
+                  children: [{
+                    type: "Input",
+                    name: "email",
+                    inputType: "email",
+                    placeholder: "john@example.com"
+                  }]
+                },
+                {
+                  type: "FormDescription",
+                  children: "We'll never share your email"
+                },
+                {
+                  type: "FormMessage"
+                }
+              ]
+            }]
+          },
+          {
+            type: "FormField",
+            name: "age",
+            children: [{
+              type: "FormItem",
+              children: [
+                {
+                  type: "FormLabel",
+                  children: "Age"
+                },
+                {
+                  type: "FormControl",
+                  children: [{
+                    type: "Input",
+                    name: "age",
+                    inputType: "number",
+                    placeholder: "25"
+                  }]
+                },
+                {
+                  type: "FormDescription",
+                  children: "You must be 18 or older"
+                },
+                {
+                  type: "FormMessage"
+                }
+              ]
+            }]
+          },
+          {
+            type: "FormField",
+            name: "password",
+            children: [{
+              type: "FormItem",
+              children: [
+                {
+                  type: "FormLabel",
+                  children: "Password"
+                },
+                {
+                  type: "FormControl",
+                  children: [{
+                    type: "Input",
+                    name: "password",
+                    inputType: "password",
+                    placeholder: "Enter secure password"
+                  }]
+                },
+                {
+                  type: "FormDescription",
+                  children: "Must contain uppercase, lowercase, number, and special character"
+                },
+                {
+                  type: "FormMessage"
+                }
+              ]
+            }]
+          },
+          {
+            type: "FormField",
+            name: "website",
+            children: [{
+              type: "FormItem",
+              children: [
+                {
+                  type: "FormLabel",
+                  children: "Website (optional)"
+                },
+                {
+                  type: "FormControl",
+                  children: [{
+                    type: "Input",
+                    name: "website",
+                    inputType: "url",
+                    placeholder: "https://example.com"
+                  }]
+                },
+                {
+                  type: "FormDescription",
+                  children: "Your personal or company website"
+                },
+                {
+                  type: "FormMessage"
+                }
+              ]
+            }]
+          },
+          {
+            type: "FormField",
+            name: "bio",
+            children: [{
+              type: "FormItem",
+              children: [
+                {
+                  type: "FormLabel",
+                  children: "Bio (optional)"
+                },
+                {
+                  type: "FormControl",
+                  children: [{
+                    type: "Textarea",
+                    name: "bio",
+                    placeholder: "Tell us about yourself...",
+                    rows: 4
+                  }]
+                },
+                {
+                  type: "FormDescription",
+                  children: "Maximum 500 characters"
+                },
+                {
+                  type: "FormMessage"
+                }
+              ]
+            }]
+          },
+          {
+            type: "Button",
+            htmlType: "submit",
+            children: "Submit Form",
+            className: "w-full"
+          }
+        ]
+      }
+    ]
+  }
+});
 
 export const WithRequiredFields: Story = enhanceStoryForDualMode<typeof FormStory>({
   args: {},

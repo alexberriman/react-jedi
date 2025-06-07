@@ -35,6 +35,7 @@ import { SheetWrapper } from "../components/ui/sheet/sheet-wrapper";
 import { KeyboardNavigationMenuComponent, KeyboardNavigationMenuItemComponent } from "../components/ui/keyboard-navigation-menu/keyboard-navigation-menu-component";
 import { 
   FormWrapper,
+  FormFieldWrapper,
   FormItemWrapper, 
   FormLabelWrapper, 
   FormControlWrapper, 
@@ -696,6 +697,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     ),
 
     // Form Components
+    FormField: asComponent(FormFieldWrapper),
     FormItem: asComponent(FormItemWrapper),
     FormLabel: asComponent(FormLabelWrapper),
     FormControl: asComponent(FormControlWrapper),

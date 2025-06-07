@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **TASK: Fix Sheet component issues in both React and SDUI modes. CRITICAL ISSUE 1 - React Flash: 'Open Sheet' button flashes on initial load in React mode. CRITICAL ISSUE 2 - SDUI Non-functional: Sheet triggers don't work at all in SDUI - clicking does nothing. SEVERITY: Critical for SDUI, Medium for React flash. ACTION REQUIRED: 1) Fix React flash issue - likely CSS or hydration timing. 2) Debug why sheet triggers don't work in SDUI mode. 3) Implement proper event binding for sheet triggers in SDUI. 4) Ensure sheet animations and positions work in SDUI. 5) Support all sheet features: sizes, positions, close button, backdrop. 6) Test keyboard interactions and focus management. EXPECTED OUTCOME: Smooth rendering in React mode and fully functional sheets in SDUI mode.**
+
+
+## [2025-06-07]
+
+- **TASK: Fix Sheet component trigger and initial render issues in SDUI mode. ISSUE: Sheet component has two problems - 1) Buttons/elements flash on initial load due to opacity animation. 2) SDUI trigger with asChild might not work correctly. ROOT CAUSE: SheetTrigger component had mounted state management that interfered with asChild prop functionality. ACTION REQUIRED: 1) Remove opacity state management from SheetTrigger. 2) Let trigger render immediately without transitions. 3) Ensure asChild works properly in SDUI mode. EXPECTED OUTCOME: Sheet triggers render immediately without flash and work correctly with asChild in SDUI mode.**
+  - ✅ **COMPLETED**: Removed SheetTrigger's opacity state management to fix initial render flash and asChild compatibility issues
+
 - **TASK: Fix Masonry grid layout in SDUI mode. ISSUE: Masonry component renders cards in a vertical stack instead of proper masonry grid layout. React mode shows correct masonry layout with staggered columns. ROOT CAUSE: CSS Grid or Flexbox properties for masonry layout aren't being applied in SDUI mode. ACTION REQUIRED: 1) Investigate why masonry CSS isn't applied in SDUI. 2) Ensure grid-auto-flow and column properties work in SDUI. 3) Implement proper height calculations for masonry items. 4) Support responsive column counts. 5) Test with various content heights to ensure proper staggering. 6) Verify gap/spacing properties work correctly. EXPECTED OUTCOME: SDUI masonry layout should match React with proper multi-column staggered grid.**
 
 

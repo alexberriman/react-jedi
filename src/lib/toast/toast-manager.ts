@@ -17,7 +17,7 @@ export interface ToastManager {
 class ToastManagerImpl implements ToastManager {
   private _isInitialized = false;
 
-  get toast() {
+  get toast(): typeof sonnerToast {
     return sonnerToast;
   }
 

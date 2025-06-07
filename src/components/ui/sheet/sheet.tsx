@@ -11,25 +11,12 @@ function Sheet({ ...props }: Readonly<React.ComponentProps<typeof SheetPrimitive
 }
 
 function SheetTrigger({ 
-  className,
   ...props 
 }: React.ComponentProps<typeof SheetPrimitive.Trigger>) {
   const cleanProps = cleanDOMProps(props);
-  const [mounted, setMounted] = React.useState(false);
-  
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-  
   return (
     <SheetPrimitive.Trigger 
       data-slot="sheet-trigger" 
-      className={cn(
-        "transition-opacity",
-        !mounted && "opacity-0",
-        mounted && "opacity-100",
-        className
-      )}
       {...cleanProps} 
     />
   );

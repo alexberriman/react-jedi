@@ -1,10 +1,21 @@
 import { useTheme } from "../../../lib/theme/use-theme";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 import { useEffect, useRef } from "react";
+import { toastManager } from "../../../lib/toast";
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const theme = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Ensure toast manager is initialized when Toaster is mounted
+  useEffect(() => {
+    toastManager.initialize();
+    
+    return () => {
+      // Optionally cleanup on unmount (disabled by default to keep toasts working)
+      // toastManager.cleanup();
+    };
+  }, []);
 
   useEffect(() => {
     // Add role="status" to the toast container for better accessibility

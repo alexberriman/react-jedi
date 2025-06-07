@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta: Meta<typeof CallToAction> = {
   title: "Blocks/CallToAction",
@@ -115,7 +116,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Centered Variant
-export const Centered: Story = {
+export const Centered: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "centered",
     animated: true,
@@ -137,10 +138,38 @@ export const Centered: Story = {
       { icon: <Shield />, label: "Uptime", value: "99.9%" },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Transform Your Business Today");
+    expect(title).toBeInTheDocument();
+
+    // Test subtitle renders
+    const subtitle = canvas.getByText("Join 10,000+ companies");
+    expect(subtitle).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText(/Start your journey with our cutting-edge platform/);
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Start Free Trial/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    // Test secondary action button
+    const secondaryButton = canvas.getByRole("link", { name: /Watch Demo/i });
+    expect(secondaryButton).toBeInTheDocument();
+
+    // Test trust indicators
+    expect(canvas.getByText("50K+")).toBeInTheDocument();
+    expect(canvas.getByText("4.9/5")).toBeInTheDocument();
+    expect(canvas.getByText("99.9%")).toBeInTheDocument();
+  },
+});
 
 // Split Screen Variant
-export const SplitScreen: Story = {
+export const SplitScreen: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "splitScreen",
     animated: true,
@@ -162,10 +191,37 @@ export const SplitScreen: Story = {
       { icon: <Users />, label: "Trusted by 50K+ teams" },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Build Better Products Faster");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText(/Our platform helps teams collaborate/);
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Get Started/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    // Test secondary action button
+    const secondaryButton = canvas.getByRole("link", { name: /Learn More/i });
+    expect(secondaryButton).toBeInTheDocument();
+
+    // Test trust indicators
+    expect(canvas.getByText("Award Winning")).toBeInTheDocument();
+    expect(canvas.getByText("Trusted by 50K+ teams")).toBeInTheDocument();
+
+    // Test split image renders
+    const image = canvas.getByRole("img");
+    expect(image).toBeInTheDocument();
+  },
+});
 
 // With Background Image
-export const WithBackgroundImage: Story = {
+export const WithBackgroundImage: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "withBackgroundImage",
     animated: true,
@@ -186,10 +242,29 @@ export const WithBackgroundImage: Story = {
     align: "center",
     size: "lg",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Unlock Your Potential");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText(/Join the revolution and build something amazing/);
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Start Building/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    // Test secondary action button
+    const secondaryButton = canvas.getByRole("link", { name: /View Pricing/i });
+    expect(secondaryButton).toBeInTheDocument();
+  },
+});
 
 // Gradient Animated
-export const GradientAnimated: Story = {
+export const GradientAnimated: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "gradient",
     animated: true,
@@ -212,10 +287,37 @@ export const GradientAnimated: Story = {
       { icon: <Heart />, label: "Loved by", value: "25K+" },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Experience the Future");
+    expect(title).toBeInTheDocument();
+
+    // Test subtitle renders
+    const subtitle = canvas.getByText("Next Generation Platform");
+    expect(subtitle).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText(/Revolutionary tools that transform/);
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Launch Your Project/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    // Test secondary action button
+    const secondaryButton = canvas.getByRole("link", { name: /Explore Features/i });
+    expect(secondaryButton).toBeInTheDocument();
+
+    // Test trust indicators
+    expect(canvas.getByText("300%")).toBeInTheDocument();
+    expect(canvas.getByText("25K+")).toBeInTheDocument();
+  },
+});
 
 // Minimal Variant
-export const Minimal: Story = {
+export const Minimal: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "minimal",
     animated: true,
@@ -228,10 +330,25 @@ export const Minimal: Story = {
     },
     align: "left",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Simple. Powerful. Yours.");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText("Everything you need, nothing you don't");
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Get Started/i });
+    expect(primaryButton).toBeInTheDocument();
+  },
+});
 
 // Bold Variant
-export const Bold: Story = {
+export const Bold: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "bold",
     animated: true,
@@ -250,33 +367,114 @@ export const Bold: Story = {
     },
     icon: <Sparkles className="h-16 w-16" />,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Make an Impact");
+    expect(title).toBeInTheDocument();
+
+    // Test subtitle renders
+    const subtitle = canvas.getByText("Limited Time Offer");
+    expect(subtitle).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText("Join now and get 50% off your first year");
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Claim Your Discount/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    // Test secondary action button
+    const secondaryButton = canvas.getByRole("link", { name: /See Terms/i });
+    expect(secondaryButton).toBeInTheDocument();
+  },
+});
 
 // Form Integrated
-export const FormIntegrated: Story = {
-  args: {
-    variant: "formIntegrated",
-    animated: true,
-    title: "Stay in the Loop",
-    description: "Get the latest updates and exclusive content delivered to your inbox",
-    formComponent: (
-      <form className="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-        <Input type="email" placeholder="Enter your email" className="flex-1" />
-        <Button type="submit" size="lg">
-          Subscribe
-        </Button>
-      </form>
-    ),
-    trustIndicators: [
-      { label: "No spam, ever" },
-      { label: "Unsubscribe anytime" },
-      { label: "Weekly insights" },
-    ],
+export const FormIntegrated: Story = enhanceStoryForDualMode<typeof CallToAction>(
+  {
+    args: {
+      variant: "formIntegrated",
+      animated: true,
+      title: "Stay in the Loop",
+      description: "Get the latest updates and exclusive content delivered to your inbox",
+      formComponent: (
+        <form className="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <Input type="email" placeholder="Enter your email" className="flex-1" />
+          <Button type="submit" size="lg">
+            Subscribe
+          </Button>
+        </form>
+      ),
+      trustIndicators: [
+        { label: "No spam, ever" },
+        { label: "Unsubscribe anytime" },
+        { label: "Weekly insights" },
+      ],
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Test title renders
+      const title = canvas.getByText("Stay in the Loop");
+      expect(title).toBeInTheDocument();
+
+      // Test description renders
+      const description = canvas.getByText(/Get the latest updates and exclusive content/);
+      expect(description).toBeInTheDocument();
+
+      // Test form elements
+      const emailInput = canvas.getByPlaceholderText("Enter your email");
+      expect(emailInput).toBeInTheDocument();
+
+      const subscribeButton = canvas.getByRole("button", { name: /Subscribe/i });
+      expect(subscribeButton).toBeInTheDocument();
+
+      // Test trust indicators
+      expect(canvas.getByText("No spam, ever")).toBeInTheDocument();
+      expect(canvas.getByText("Unsubscribe anytime")).toBeInTheDocument();
+      expect(canvas.getByText("Weekly insights")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "CallToAction",
+      variant: "formIntegrated",
+      animated: true,
+      title: "Stay in the Loop",
+      description: "Get the latest updates and exclusive content delivered to your inbox",
+      formComponent: {
+        type: "Box",
+        element: "form",
+        className: "mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto",
+        children: [
+          {
+            type: "Input",
+            inputType: "email",
+            placeholder: "Enter your email",
+            className: "flex-1",
+          },
+          {
+            type: "Button",
+            buttonType: "submit",
+            size: "lg",
+            children: "Subscribe",
+          },
+        ],
+      },
+      trustIndicators: [
+        { label: "No spam, ever" },
+        { label: "Unsubscribe anytime" },
+        { label: "Weekly insights" },
+      ],
+    },
+  }
+);
 
 // With Background Video
-export const WithBackgroundVideo: Story = {
+export const WithBackgroundVideo: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "withBackgroundImage",
     animated: true,
@@ -291,10 +489,25 @@ export const WithBackgroundVideo: Story = {
     },
     size: "lg",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Create Something Amazing");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText("Join thousands of creators building the future");
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Start Creating/i });
+    expect(primaryButton).toBeInTheDocument();
+  },
+});
 
 // With Background Pattern
-export const WithBackgroundPattern: Story = {
+export const WithBackgroundPattern: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "primary",
     animated: true,
@@ -311,10 +524,29 @@ export const WithBackgroundPattern: Story = {
       href: "#",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Developer-First Platform");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText(/Built by developers, for developers/);
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Start Coding/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    // Test secondary action button
+    const secondaryButton = canvas.getByRole("link", { name: /Documentation/i });
+    expect(secondaryButton).toBeInTheDocument();
+  },
+});
 
 // Custom Gradient
-export const CustomGradient: Story = {
+export const CustomGradient: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "gradient",
     animated: true,
@@ -330,10 +562,25 @@ export const CustomGradient: Story = {
       href: "#",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Unleash Your Creativity");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText("Design, build, and ship beautiful products");
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Start Designing/i });
+    expect(primaryButton).toBeInTheDocument();
+  },
+});
 
 // With Custom Shapes
-export const WithCustomShapes: Story = {
+export const WithCustomShapes: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "light",
     animated: true,
@@ -364,10 +611,25 @@ export const WithCustomShapes: Story = {
       },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Shapes and Creativity");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText("Express yourself with custom visual elements");
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Explore/i });
+    expect(primaryButton).toBeInTheDocument();
+  },
+});
 
 // Left Aligned
-export const LeftAligned: Story = {
+export const LeftAligned: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "dark",
     align: "left",
@@ -389,10 +651,35 @@ export const LeftAligned: Story = {
       href: "#",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Enterprise Solutions");
+    expect(title).toBeInTheDocument();
+
+    // Test subtitle renders
+    const subtitle = canvas.getByText("For teams that demand more");
+    expect(subtitle).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText(/Scale your business with confidence/);
+    expect(description).toBeInTheDocument();
+
+    // Test all three action buttons
+    const primaryButton = canvas.getByRole("link", { name: /Request Demo/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    const secondaryButton = canvas.getByRole("link", { name: /Contact Sales/i });
+    expect(secondaryButton).toBeInTheDocument();
+
+    const tertiaryButton = canvas.getByRole("link", { name: /View case studies/i });
+    expect(tertiaryButton).toBeInTheDocument();
+  },
+});
 
 // Glass Morphism
-export const GlassMorphism: Story = {
+export const GlassMorphism: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "glass",
     animated: true,
@@ -407,10 +694,25 @@ export const GlassMorphism: Story = {
       href: "#",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Premium Glass Design");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText("Beautiful glassmorphism effects for modern interfaces");
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Explore Premium/i });
+    expect(primaryButton).toBeInTheDocument();
+  },
+});
 
 // Multi-Action
-export const MultiAction: Story = {
+export const MultiAction: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "secondary",
     animated: true,
@@ -432,69 +734,171 @@ export const MultiAction: Story = {
       href: "#",
     },
   },
-};
-
-// Newsletter with Custom Form
-export const NewsletterCustomForm: Story = {
-  args: {
-    variant: "primary",
-    animated: true,
-    title: "Developer Newsletter",
-    description: "Weekly insights on building better software",
-    formComponent: (
-      <div className="mt-8 max-w-lg mx-auto">
-        <form className="space-y-4">
-          <div className="flex gap-4">
-            <Input
-              type="text"
-              placeholder="First name"
-              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60"
-            />
-            <Input
-              type="text"
-              placeholder="Last name"
-              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60"
-            />
-          </div>
-          <Input
-            type="email"
-            placeholder="Email address"
-            className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
-          />
-          <div className="flex items-start gap-2">
-            <input type="checkbox" id="terms" className="mt-1" />
-            <label htmlFor="terms" className="text-sm opacity-80">
-              I agree to receive marketing emails and accept the privacy policy
-            </label>
-          </div>
-          <Button type="submit" size="lg" className="w-full">
-            Subscribe Now
-          </Button>
-        </form>
-      </div>
-    ),
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
 
-    // Test form interactions
-    const firstNameInput = canvas.getByPlaceholderText("First name");
-    const lastNameInput = canvas.getByPlaceholderText("Last name");
-    const emailInput = canvas.getByPlaceholderText("Email address");
+    // Test title renders
+    const title = canvas.getByText("Choose Your Path");
+    expect(title).toBeInTheDocument();
 
-    await user.type(firstNameInput, "John");
-    await user.type(lastNameInput, "Doe");
-    await user.type(emailInput, "john@example.com");
+    // Test description renders
+    const description = canvas.getByText("Multiple ways to get started with our platform");
+    expect(description).toBeInTheDocument();
 
-    expect(firstNameInput).toHaveValue("John");
-    expect(lastNameInput).toHaveValue("Doe");
-    expect(emailInput).toHaveValue("john@example.com");
+    // Test all three action buttons
+    const primaryButton = canvas.getByRole("link", { name: /Start Free Trial/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    const secondaryButton = canvas.getByRole("link", { name: /Schedule Demo/i });
+    expect(secondaryButton).toBeInTheDocument();
+
+    const tertiaryButton = canvas.getByRole("link", { name: /Compare plans/i });
+    expect(tertiaryButton).toBeInTheDocument();
   },
-};
+});
+
+// Newsletter with Custom Form
+export const NewsletterCustomForm: Story = enhanceStoryForDualMode<typeof CallToAction>(
+  {
+    args: {
+      variant: "primary",
+      animated: true,
+      title: "Developer Newsletter",
+      description: "Weekly insights on building better software",
+      formComponent: (
+        <div className="mt-8 max-w-lg mx-auto">
+          <form className="space-y-4">
+            <div className="flex gap-4">
+              <Input
+                type="text"
+                placeholder="First name"
+                className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              />
+              <Input
+                type="text"
+                placeholder="Last name"
+                className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              />
+            </div>
+            <Input
+              type="email"
+              placeholder="Email address"
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+            />
+            <div className="flex items-start gap-2">
+              <input type="checkbox" id="terms" className="mt-1" />
+              <label htmlFor="terms" className="text-sm opacity-80">
+                I agree to receive marketing emails and accept the privacy policy
+              </label>
+            </div>
+            <Button type="submit" size="lg" className="w-full">
+              Subscribe Now
+            </Button>
+          </form>
+        </div>
+      ),
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
+
+      // Test title and description render
+      const title = canvas.getByText("Developer Newsletter");
+      expect(title).toBeInTheDocument();
+
+      const description = canvas.getByText("Weekly insights on building better software");
+      expect(description).toBeInTheDocument();
+
+      // Test form interactions
+      const firstNameInput = canvas.getByPlaceholderText("First name");
+      const lastNameInput = canvas.getByPlaceholderText("Last name");
+      const emailInput = canvas.getByPlaceholderText("Email address");
+
+      await user.type(firstNameInput, "John");
+      await user.type(lastNameInput, "Doe");
+      await user.type(emailInput, "john@example.com");
+
+      expect(firstNameInput).toHaveValue("John");
+      expect(lastNameInput).toHaveValue("Doe");
+      expect(emailInput).toHaveValue("john@example.com");
+    },
+  },
+  {
+    renderSpec: {
+      type: "CallToAction",
+      variant: "primary",
+      animated: true,
+      title: "Developer Newsletter",
+      description: "Weekly insights on building better software",
+      formComponent: {
+        type: "Box",
+        className: "mt-8 max-w-lg mx-auto",
+        children: {
+          type: "Box",
+          element: "form",
+          className: "space-y-4",
+          children: [
+            {
+              type: "Flex",
+              gap: "md",
+              children: [
+                {
+                  type: "Input",
+                  inputType: "text",
+                  placeholder: "First name",
+                  className: "flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60",
+                },
+                {
+                  type: "Input",
+                  inputType: "text",
+                  placeholder: "Last name",
+                  className: "flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60",
+                },
+              ],
+            },
+            {
+              type: "Input",
+              inputType: "email",
+              placeholder: "Email address",
+              className: "bg-white/10 border-white/20 text-white placeholder:text-white/60",
+            },
+            {
+              type: "Flex",
+              align: "start",
+              gap: "sm",
+              children: [
+                {
+                  type: "Box",
+                  element: "input",
+                  inputType: "checkbox",
+                  id: "terms",
+                  className: "mt-1",
+                },
+                {
+                  type: "Text",
+                  element: "label",
+                  htmlFor: "terms",
+                  className: "text-sm opacity-80",
+                  children: "I agree to receive marketing emails and accept the privacy policy",
+                },
+              ],
+            },
+            {
+              type: "Button",
+              buttonType: "submit",
+              size: "lg",
+              className: "w-full",
+              children: "Subscribe Now",
+            },
+          ],
+        },
+      },
+    },
+  }
+);
 
 // Split Screen Left Image
-export const SplitScreenLeftImage: Story = {
+export const SplitScreenLeftImage: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "splitScreen",
     animated: true,
@@ -512,10 +916,34 @@ export const SplitScreenLeftImage: Story = {
       { icon: <Check />, label: "Great support" },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Design with Purpose");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText("Create meaningful experiences that users love");
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Start Designing/i });
+    expect(primaryButton).toBeInTheDocument();
+
+    // Test trust indicators
+    expect(canvas.getByText("Easy to use")).toBeInTheDocument();
+    expect(canvas.getByText("Powerful features")).toBeInTheDocument();
+    expect(canvas.getByText("Great support")).toBeInTheDocument();
+
+    // Test split image renders
+    const image = canvas.getByRole("img");
+    expect(image).toBeInTheDocument();
+  },
+});
 
 // Compact
-export const Compact: Story = {
+export const Compact: Story = enhanceStoryForDualMode<typeof CallToAction>({
   args: {
     variant: "secondary",
     size: "sm",
@@ -527,4 +955,19 @@ export const Compact: Story = {
       href: "#",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test title renders
+    const title = canvas.getByText("Quick Actions");
+    expect(title).toBeInTheDocument();
+
+    // Test description renders
+    const description = canvas.getByText("Get started in seconds");
+    expect(description).toBeInTheDocument();
+
+    // Test primary action button
+    const primaryButton = canvas.getByRole("link", { name: /Go/i });
+    expect(primaryButton).toBeInTheDocument();
+  },
+});

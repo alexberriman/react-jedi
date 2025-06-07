@@ -1,10 +1,5 @@
 [
   {
-    "id": "dual-mode-call-to-action",
-    "description": "Implement dual-mode story functionality for CallToAction component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/call-to-action/call-to-action.stories.tsx",
-    "status": "pending"
-  },
-  {
     "id": "dual-mode-carousel",
     "description": "Implement dual-mode story functionality for Carousel component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/carousel/carousel-block.stories.tsx",
     "status": "pending"

@@ -68,6 +68,7 @@ const COMPONENT_NAME_MAP: Record<string, string> = {
   navigationmenu: 'NavigationMenu',
   headmanager: 'HeadManager',
   announcementbar: 'AnnouncementBar',
+  blogpostdetail: 'BlogPostDetail',
 };
 
 /**

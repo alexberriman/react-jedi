@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **FIX BROKEN IMPLEMENTATION: AnnouncementBar stories are using incorrect SDUI format. The args MUST use the actual component type 'AnnouncementBar' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'AnnouncementBar' and ensure the play() functions verify that content actually renders (e.g., announcement text, links, close button). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.**
+
+
+## [2025-06-07]
+
 - **Implement dual-mode story functionality for ContactFormBlock component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/contact-form-block/contact-form-block.stories.tsx**
 
 

@@ -227,6 +227,11 @@ export const Default = enhanceStoryForDualMode<typeof BlogPostDetail>({
     expect(canvas.getByText("Getting Started with TypeScript")).toBeInTheDocument();
     expect(canvas.getByText("Advanced React Patterns")).toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: defaultArgs
+  }
 }) as Story;
 
 export const WithSidebar = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -249,6 +254,14 @@ export const WithSidebar = enhanceStoryForDualMode<typeof BlogPostDetail>({
     // Test table of contents appears (with-sidebar variant shows TOC)
     expect(canvas.getByText(/Table of Contents/i)).toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      ...defaultArgs,
+      variant: "with-sidebar",
+    }
+  }
 }) as Story;
 
 export const Magazine = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -275,6 +288,19 @@ export const Magazine = enhanceStoryForDualMode<typeof BlogPostDetail>({
     // Test hero image caption
     expect(canvas.getByText("The modern developer workspace")).toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      ...defaultArgs,
+      variant: "magazine",
+      heroImage: {
+        src: "https://placehold.co/1600x900/EEE/31343C",
+        alt: "Coding on multiple screens",
+        caption: "The modern developer workspace",
+      },
+    }
+  }
 }) as Story;
 
 export const Minimal = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -299,6 +325,16 @@ export const Minimal = enhanceStoryForDualMode<typeof BlogPostDetail>({
     const comments = canvas.queryByText(/Comments/i);
     expect(comments).not.toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      ...defaultArgs,
+      variant: "minimal",
+      heroImage: undefined,
+      showComments: false,
+    }
+  }
 }) as Story;
 
 export const WithoutHeroImage = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -319,6 +355,14 @@ export const WithoutHeroImage = enhanceStoryForDualMode<typeof BlogPostDetail>({
     // Should only have author avatar, not hero image
     expect(images.length).toBeLessThan(2);
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      ...defaultArgs,
+      heroImage: undefined,
+    }
+  }
 }) as Story;
 
 export const WithoutRelatedPosts = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -338,6 +382,14 @@ export const WithoutRelatedPosts = enhanceStoryForDualMode<typeof BlogPostDetail
     const relatedPosts = canvas.queryByText(/Related Posts/i);
     expect(relatedPosts).not.toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      ...defaultArgs,
+      relatedPosts: [],
+    }
+  }
 }) as Story;
 
 export const WithoutNavigation = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -360,6 +412,15 @@ export const WithoutNavigation = enhanceStoryForDualMode<typeof BlogPostDetail>(
     expect(prevLink).not.toBeInTheDocument();
     expect(nextLink).not.toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      ...defaultArgs,
+      prevPost: undefined,
+      nextPost: undefined,
+    }
+  }
 }) as Story;
 
 export const NoAnimations = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -379,6 +440,14 @@ export const NoAnimations = enhanceStoryForDualMode<typeof BlogPostDetail>({
     expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
     expect(canvas.getByText(/Introduction to Modern Web Development/)).toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      ...defaultArgs,
+      animated: false,
+    }
+  }
 }) as Story;
 
 export const MinimalFeatures = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -412,6 +481,21 @@ export const MinimalFeatures = enhanceStoryForDualMode<typeof BlogPostDetail>({
     const reactTag = canvas.queryByText("react");
     expect(reactTag).not.toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      ...defaultArgs,
+      variant: "minimal",
+      heroImage: undefined,
+      showComments: false,
+      showShareButtons: false,
+      showProgressBar: false,
+      relatedPosts: [],
+      tags: [],
+      categories: ["Blog"],
+    }
+  }
 }) as Story;
 
 export const TechnicalArticle = enhanceStoryForDualMode<typeof BlogPostDetail>({
@@ -577,4 +661,143 @@ We've implemented a basic authentication system in Next.js. Remember to adapt th
     // Test table of contents for sidebar variant
     expect(canvas.getByText(/Table of Contents/i)).toBeInTheDocument();
   },
+}, {
+  jsonSpec: {
+    type: 'BlogPostDetail',
+    props: {
+      variant: "with-sidebar",
+      title: "Implementing Authentication in Next.js Applications",
+      content: `
+## Overview
+
+Authentication is a critical component of modern web applications. In this tutorial, we'll implement a complete authentication system in Next.js using JWT tokens and secure best practices.
+
+## Prerequisites
+
+Before we begin, make sure you have:
+
+- Node.js 16+ installed
+- Basic knowledge of React and Next.js
+- Understanding of REST APIs
+
+## Setting Up the Project
+
+First, create a new Next.js application:
+
+\`\`\`bash
+npx create-next-app@latest my-auth-app --typescript --tailwind --app
+cd my-auth-app
+npm install jsonwebtoken bcryptjs
+npm install --save-dev @types/jsonwebtoken @types/bcryptjs
+\`\`\`
+
+## Creating the Authentication API
+
+Let's create our authentication endpoints:
+
+### User Registration
+
+\`\`\`typescript
+// app/api/auth/register/route.ts
+import { NextResponse } from 'next/server';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+export async function POST(request: Request) {
+  try {
+    const { email, password } = await request.json();
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Save user to database (simplified)
+    const user = {
+      id: Date.now().toString(),
+      email,
+      password: hashedPassword,
+    };
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET!,
+      { expiresIn: '7d' }
+    );
+
+    return NextResponse.json({ token, user: { id: user.id, email } });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Registration failed' },
+      { status: 500 }
+    );
+  }
+}
+\`\`\`
+
+## Implementing Protected Routes
+
+Now let's create middleware to protect our routes:
+
+\`\`\`typescript
+// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import jwt from 'jsonwebtoken';
+
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get('auth-token');
+
+  if (!token) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  try {
+    jwt.verify(token.value, process.env.JWT_SECRET!);
+    return NextResponse.next();
+  } catch {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+}
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/profile/:path*'],
+};
+\`\`\`
+
+## Best Practices
+
+1. **Use HTTPS:** Always serve your application over HTTPS in production
+2. **Secure Cookies:** Set httpOnly, secure, and sameSite flags
+3. **Token Expiration:** Implement refresh tokens for better security
+4. **Input Validation:** Always validate and sanitize user input
+5. **Rate Limiting:** Implement rate limiting to prevent brute force attacks
+
+## Conclusion
+
+We've implemented a basic authentication system in Next.js. Remember to adapt this implementation to your specific needs and always follow security best practices in production environments.
+    `,
+      heroImage: {
+        src: "https://placehold.co/1200x600/EEE/31343C",
+        alt: "Code editor showing authentication implementation",
+      },
+      author: {
+        name: "Michael Chen",
+        avatar: "https://placehold.co/400x400/EEE/31343C",
+        bio: "Senior Full-Stack Engineer specializing in Next.js and Node.js. Passionate about web security and performance.",
+        social: {
+          twitter: "michaelchen_dev",
+          github: "mchen",
+        },
+      },
+      publishDate: "2024-01-20",
+      categories: ["Next.js", "Security", "Tutorial"],
+      tags: ["authentication", "nextjs", "jwt", "security", "typescript"],
+      relatedPosts: sampleRelatedPosts,
+      showComments: true,
+      showShareButtons: true,
+      showToc: true,
+      showProgressBar: true,
+      animated: true,
+    }
+  }
 }) as Story;

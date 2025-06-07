@@ -36,6 +36,7 @@ export interface ButtonProps
   extends React.ComponentProps<"button">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  htmlType?: "button" | "submit" | "reset";
   // Accessibility props
   pressed?: boolean;
   expanded?: boolean;
@@ -58,6 +59,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     variant,
     size,
     asChild = false,
+    htmlType,
     pressed,
     expanded,
     disabled,
@@ -67,7 +69,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }, ref) => {
     const Comp = asChild ? Slot : "button";
     
-    const cleanProps = omit(props, [
+    const cleanProps = omit(props as Record<string, unknown>, [
       "parentContext", 
       "spec", 
       "theme", 
@@ -76,8 +78,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       "isPrimary", 
       "computedProps", 
       "when", 
-      "actions"
-    ]);
+      "actions",
+      "htmlType"
+    ] as const) as Omit<typeof props, "parentContext" | "spec" | "theme" | "state" | "conditionalProps" | "isPrimary" | "computedProps" | "when" | "actions" | "htmlType">;
 
     const ariaProps = getButtonAriaProps({
       ariaPressed: pressed,
@@ -92,6 +95,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-slot="button"
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        type={htmlType || "button"}
         disabled={disabled}
         {...ariaProps}
         {...cleanProps}

@@ -33,6 +33,14 @@ import { DrawerWrapper } from "../components/ui/drawer/drawer-wrapper";
 import { HoverCardWrapper } from "../components/ui/hover-card/hover-card-wrapper";
 import { SheetWrapper } from "../components/ui/sheet/sheet-wrapper";
 import { KeyboardNavigationMenuComponent, KeyboardNavigationMenuItemComponent } from "../components/ui/keyboard-navigation-menu/keyboard-navigation-menu-component";
+import { 
+  FormWrapper,
+  FormItemWrapper, 
+  FormLabelWrapper, 
+  FormControlWrapper, 
+  FormDescriptionWrapper, 
+  FormMessageWrapper 
+} from "./form/form-component-wrappers";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -688,13 +696,13 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     ),
 
     // Form Components
-    FormItem: asComponent(UI.FormItem),
-    FormLabel: asComponent(UI.FormLabel),
-    FormControl: asComponent(UI.FormControl),
-    FormDescription: asComponent(UI.FormDescription),
-    FormMessage: asComponent(UI.FormMessage),
+    FormItem: asComponent(FormItemWrapper),
+    FormLabel: asComponent(FormLabelWrapper),
+    FormControl: asComponent(FormControlWrapper),
+    FormDescription: asComponent(FormDescriptionWrapper),
+    FormMessage: asComponent(FormMessageWrapper),
     // Form component requires special handling as it's a FormProvider
-    Form: asComponent(UI.Form as React.ComponentType<Record<string, unknown>>),
+    Form: asComponent(FormWrapper as unknown as React.ComponentType<Record<string, unknown>>),
 
     // Utility Components
     HeadManager: asComponent(

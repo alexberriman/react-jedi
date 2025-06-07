@@ -36,6 +36,7 @@ import { useDataSources } from "../hooks/use-data-sources";
 import { ErrorBoundary as SexyErrorBoundary } from "../components/ui/error-boundary";
 import { processJsonTemplate, type TemplateVariable } from "./parser/template-engine";
 import { isIconReference, transformIconReference } from "./icons";
+import { SDUIFormWrapper } from "./form/sdui-form-wrapper";
 
 // Import helper functions from component-resolver
 const transformPropsForComponent = (spec: Record<string, unknown>, actualProps: Record<string, unknown>): Record<string, unknown> => {
@@ -737,7 +738,19 @@ function renderComponent(
   );
 
   // Create the React element
-  const element = React.createElement(Component, componentProps);
+  let element = React.createElement(Component, componentProps);
+
+  // Wrap Form components with SDUI form context
+  if (resolvedSpec.type === 'Form') {
+    // Extract onSubmit handler from componentProps
+    const onSubmit = componentProps.onSubmit as ((values: Record<string, unknown>) => void | Promise<void>) | undefined;
+    
+    element = (
+      <SDUIFormWrapper spec={resolvedSpec} onSubmit={onSubmit}>
+        {element}
+      </SDUIFormWrapper>
+    );
+  }
 
   // Wrap in error boundary if enabled
   if (errorBoundaries) {

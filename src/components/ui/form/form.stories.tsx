@@ -42,6 +42,256 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// SDUI validation demo with all field types
+const sduiValidationSpec = {
+  type: "Form",
+  defaultValues: {
+    username: "",
+    email: "",
+    age: "",
+    bio: "",
+    website: ""
+  },
+  validation: {
+    username: {
+      required: "Username is required",
+      minLength: {
+        value: 3,
+        message: "Username must be at least 3 characters"
+      },
+      maxLength: {
+        value: 20,
+        message: "Username must be less than 20 characters"
+      },
+      pattern: {
+        value: "^[a-zA-Z0-9_]+$",
+        message: "Username can only contain letters, numbers, and underscores"
+      }
+    },
+    email: {
+      required: "Email is required",
+      email: "Please enter a valid email address"
+    },
+    age: {
+      required: "Age is required",
+      min: {
+        value: 18,
+        message: "You must be at least 18 years old"
+      },
+      max: {
+        value: 100,
+        message: "Age must be less than 100"
+      }
+    },
+    bio: {
+      maxLength: {
+        value: 200,
+        message: "Bio must be less than 200 characters"
+      }
+    },
+    website: {
+      pattern: {
+        value: "^https?://.*",
+        message: "Website must start with http:// or https://"
+      }
+    }
+  },
+  onSubmit: "handleFormSubmit",
+  children: [
+    {
+      type: "Heading",
+      level: 3,
+      children: "User Registration Form"
+    },
+    {
+      type: "FormField",
+      name: "username",
+      children: [
+        {
+          type: "FormItem",
+          children: [
+            {
+              type: "FormLabel",
+              children: "Username *"
+            },
+            {
+              type: "FormControl",
+              children: [
+                {
+                  type: "Input",
+                  name: "username",
+                  placeholder: "Enter your username"
+                }
+              ]
+            },
+            {
+              type: "FormDescription",
+              children: "3-20 characters, letters, numbers, and underscores only"
+            },
+            {
+              type: "FormMessage",
+              fieldName: "username"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      type: "FormField",
+      name: "email",
+      children: [
+        {
+          type: "FormItem",
+          children: [
+            {
+              type: "FormLabel",
+              children: "Email *"
+            },
+            {
+              type: "FormControl",
+              children: [
+                {
+                  type: "Input",
+                  name: "email",
+                  inputType: "email",
+                  placeholder: "you@example.com"
+                }
+              ]
+            },
+            {
+              type: "FormDescription",
+              children: "We'll use this for account recovery"
+            },
+            {
+              type: "FormMessage",
+              fieldName: "email"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      type: "FormField",
+      name: "age",
+      children: [
+        {
+          type: "FormItem",
+          children: [
+            {
+              type: "FormLabel",
+              children: "Age *"
+            },
+            {
+              type: "FormControl",
+              children: [
+                {
+                  type: "Input",
+                  name: "age",
+                  inputType: "number",
+                  placeholder: "18"
+                }
+              ]
+            },
+            {
+              type: "FormDescription",
+              children: "You must be 18 or older to register"
+            },
+            {
+              type: "FormMessage",
+              fieldName: "age"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      type: "FormField",
+      name: "bio",
+      children: [
+        {
+          type: "FormItem",
+          children: [
+            {
+              type: "FormLabel",
+              children: "Bio (Optional)"
+            },
+            {
+              type: "FormControl",
+              children: [
+                {
+                  type: "Textarea",
+                  name: "bio",
+                  placeholder: "Tell us about yourself...",
+                  rows: 3
+                }
+              ]
+            },
+            {
+              type: "FormDescription",
+              children: "Maximum 200 characters"
+            },
+            {
+              type: "FormMessage",
+              fieldName: "bio"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      type: "FormField",
+      name: "website",
+      children: [
+        {
+          type: "FormItem",
+          children: [
+            {
+              type: "FormLabel",
+              children: "Website (Optional)"
+            },
+            {
+              type: "FormControl",
+              children: [
+                {
+                  type: "Input",
+                  name: "website",
+                  placeholder: "https://example.com"
+                }
+              ]
+            },
+            {
+              type: "FormDescription",
+              children: "Your personal or company website"
+            },
+            {
+              type: "FormMessage",
+              fieldName: "website"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      type: "Flex",
+      gap: "md",
+      className: "mt-6",
+      children: [
+        {
+          type: "Button",
+          htmlType: "submit",
+          children: "Register"
+        },
+        {
+          type: "Button",
+          variant: "outline",
+          htmlType: "reset",
+          children: "Reset"
+        }
+      ]
+    }
+  ]
+};
+
 function SimpleFormExample() {
   const formSchema = z.object({
     username: z.string().min(2, {
@@ -326,54 +576,108 @@ export const WithValidation: Story = enhanceStoryForDualMode<typeof FormStory>({
   },
 }, {
   renderSpec: {
-    type: "Flex",
-    direction: "column",
-    gap: "xl",
+    type: "Form",
+    validation: {
+      age: {
+        required: "Age is required",
+        pattern: {
+          value: "^[0-9]+$",
+          message: "Please enter a valid number"
+        },
+        min: {
+          value: 1,
+          message: "Age must be at least 1"
+        },
+        max: {
+          value: 150,
+          message: "Age must be less than 150"
+        }
+      },
+      password: {
+        required: "Password is required",
+        minLength: {
+          value: 8,
+          message: "Password must be at least 8 characters"
+        },
+        pattern: {
+          value: String.raw`^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$`,
+          message: "Password must contain uppercase, lowercase, and numbers"
+        }
+      }
+    },
+    onSubmit: "handleFormSubmit",
     children: [
       {
-        type: "Flex",
-        direction: "column",
-        gap: "sm",
+        type: "FormField",
+        name: "age",
         children: [
           {
-            type: "Label",
-            children: "Age"
-          },
-          {
-            type: "Input",
-            placeholder: "Enter your age"
-          },
-          {
-            type: "Text",
-            size: "sm",
-            variant: "muted",
-            children: "Must be a valid number."
+            type: "FormItem",
+            children: [
+              {
+                type: "FormLabel",
+                children: "Age"
+              },
+              {
+                type: "FormControl",
+                children: [
+                  {
+                    type: "Input",
+                    name: "age",
+                    inputType: "number",
+                    placeholder: "Enter your age"
+                  }
+                ]
+              },
+              {
+                type: "FormDescription",
+                children: "Must be a valid number."
+              },
+              {
+                type: "FormMessage",
+                fieldName: "age"
+              }
+            ]
           }
         ]
       },
       {
-        type: "Flex",
-        direction: "column",
-        gap: "sm",
+        type: "FormField",
+        name: "password",
         children: [
           {
-            type: "Label",
-            children: "Password"
-          },
-          {
-            type: "Input",
-            placeholder: "Enter password"
-          },
-          {
-            type: "Text",
-            size: "sm",
-            variant: "muted",
-            children: "Must be at least 8 characters with uppercase, lowercase, and numbers."
+            type: "FormItem",
+            children: [
+              {
+                type: "FormLabel",
+                children: "Password"
+              },
+              {
+                type: "FormControl",
+                children: [
+                  {
+                    type: "Input",
+                    name: "password",
+                    inputType: "password",
+                    placeholder: "Enter password"
+                  }
+                ]
+              },
+              {
+                type: "FormDescription",
+                children: "Must be at least 8 characters with uppercase, lowercase, and numbers."
+              },
+              {
+                type: "FormMessage",
+                fieldName: "password"
+              }
+            ]
           }
         ]
       },
       {
         type: "Button",
+        htmlType: "submit",
         children: "Submit"
       }
     ]
@@ -1021,3 +1325,19 @@ export const ContactForm: Story = enhanceStoryForDualMode<typeof FormStory>({
     ]
   }
 });
+
+// Comprehensive validation example for SDUI
+export const ComprehensiveValidationSDUI: Story = {
+  name: "Comprehensive Validation (SDUI)",
+  render: () => {
+    return <div>This story is for SDUI mode only</div>;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Comprehensive form validation example demonstrating all validation rules in SDUI mode."
+      }
+    },
+    renderSpec: sduiValidationSpec
+  }
+};

@@ -124,7 +124,45 @@ const transformPropsForComponent = (
   return actualProps;
 };
 
-// Helper function to convert Action props to event handlers
+// Helper to check if a key is an event handler prop
+const isEventHandlerProp = (key: string): boolean => {
+  return key.startsWith('on') && key.length > 2 && key[2] === key[2].toUpperCase();
+};
+
+// Helper to process Action props
+const processActionProp = (
+  key: string,
+  value: string,
+  converted: Record<string, unknown>,
+  handlers?: Record<string, (...args: unknown[]) => unknown>
+): void => {
+  delete converted[key];
+  if (handlers) {
+    const eventName = key.slice(0, -6);
+    const handler = handlers[value];
+    if (handler) {
+      converted[eventName] = handler;
+    }
+  }
+};
+
+// Helper to process direct event props
+const processEventProp = (
+  key: string,
+  value: string,
+  converted: Record<string, unknown>,
+  handlers?: Record<string, (...args: unknown[]) => unknown>
+): void => {
+  if (handlers) {
+    const handler = handlers[value];
+    if (handler) {
+      converted[key] = handler;
+    } else {
+      delete converted[key];
+    }
+  }
+};
+
 const convertActionPropsToHandlers = (
   props: Record<string, unknown>,
   handlers?: Record<string, (...args: unknown[]) => unknown>
@@ -132,17 +170,11 @@ const convertActionPropsToHandlers = (
   const converted = { ...props };
   
   for (const [key, value] of Object.entries(props)) {
-    if (key.endsWith('Action') && typeof value === 'string') {
-      // Always remove the Action prop to prevent React warnings
-      delete converted[key];
-      
-      // Only add the handler if we have handlers defined and the handler exists
-      if (handlers) {
-        const eventName = key.slice(0, -6);
-        const handler = handlers[value];
-        if (handler) {
-          converted[eventName] = handler;
-        }
+    if (typeof value === 'string') {
+      if (key.endsWith('Action')) {
+        processActionProp(key, value, converted, handlers);
+      } else if (isEventHandlerProp(key)) {
+        processEventProp(key, value, converted, handlers);
       }
     }
   }

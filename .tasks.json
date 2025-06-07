@@ -17,7 +17,7 @@
   {
     "id": "fix-popover-sdui-critical",
     "description": "TASK: Fix Popover hover/click interactions in SDUI mode. CRITICAL ISSUE: Popover triggers don't work at all in SDUI mode - hovering/clicking does nothing. Popovers are completely non-functional. SEVERITY: Critical - popovers are essential for contextual information. ROOT CAUSE: Event handlers (hover or click based on trigger mode) are not connected in SDUI rendering. ACTION REQUIRED: 1) Debug why popover triggers aren't working in SDUI. 2) Implement both hover and click trigger modes for SDUI. 3) Ensure proper positioning and arrow pointing. 4) Support dismiss on outside click and ESC key. 5) Handle viewport boundary detection. 6) Test with various trigger types and content. EXPECTED OUTCOME: Fully functional popovers in SDUI mode with both hover and click triggers working.",
-    "status": "pending"
+    "status": "in_progress"
   },
   {
     "id": "fix-resizable-sdui",

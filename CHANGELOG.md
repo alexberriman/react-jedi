@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **TASK: Fix Table component styling inconsistencies in SDUI mode. ISSUE 1 - Striped: 'Striped' variant doesn't show alternating row colors in SDUI. ISSUE 2 - Bordered: Missing borders and incorrect header background in SDUI. ISSUE 3 - Spacing: 'Minimal' and 'Compact' variants have too much spacing in SDUI (React spacing is correct). ISSUE 4 - Modern Style: 'Modern' variant looks completely different in SDUI vs React. ISSUE 5 - Hover Effect: 'No Hover Effect' variant shows hover effects in SDUI but shouldn't (React is correct). ACTION REQUIRED: 1) Ensure stripe styles are applied in SDUI mode. 2) Fix border and header background styles. 3) Correct spacing for compact variants. 4) Match modern variant styling to React. 5) Remove hover effects where not intended. 6) Test all table variants thoroughly. EXPECTED OUTCOME: All table styling variants in SDUI should match React exactly.**
+
+
+## [2025-06-07]
+
 - **TASK: Fix Resizable component styling and icon issues in SDUI mode. ISSUE 1 - Text Color: IDE Layout story shows black text in SDUI (https://i.imgur.com/Eh2WkRq.png) but white text in React (https://i.imgur.com/4CVhL4H.png). This breaks the IDE theme appearance. ISSUE 2 - Missing Icons: Icons don't render at all in SDUI mode for resizable panels. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Fix text color inheritance - ensure dark theme styles apply in SDUI. 2) Implement actual SVG icon rendering for resize handles and panel content. 3) Ensure resize functionality works identically in both modes. 4) Test with nested resizable panels and different orientations. 5) Verify drag handles and cursors work properly. EXPECTED OUTCOME: Resizable panels in SDUI should match React appearance and functionality exactly with proper SVG icons.**
 
 

@@ -1,10 +1,5 @@
 [
   {
-    "id": "fix-table-styling-sdui",
-    "description": "TASK: Fix Table component styling inconsistencies in SDUI mode. ISSUE 1 - Striped: 'Striped' variant doesn't show alternating row colors in SDUI. ISSUE 2 - Bordered: Missing borders and incorrect header background in SDUI. ISSUE 3 - Spacing: 'Minimal' and 'Compact' variants have too much spacing in SDUI (React spacing is correct). ISSUE 4 - Modern Style: 'Modern' variant looks completely different in SDUI vs React. ISSUE 5 - Hover Effect: 'No Hover Effect' variant shows hover effects in SDUI but shouldn't (React is correct). ACTION REQUIRED: 1) Ensure stripe styles are applied in SDUI mode. 2) Fix border and header background styles. 3) Correct spacing for compact variants. 4) Match modern variant styling to React. 5) Remove hover effects where not intended. 6) Test all table variants thoroughly. EXPECTED OUTCOME: All table styling variants in SDUI should match React exactly.",
-    "status": "pending"
-  },
-  {
     "id": "implement-form-validation-sdui",
     "description": "TASK: Implement comprehensive form validation system for SDUI mode. CRITICAL ISSUE: Form 'With Validation' story - submit button does nothing in SDUI mode. Form validation is completely non-functional. SEVERITY: Critical - form validation is essential for any application. SCOPE: This requires building validation infrastructure for SDUI from scratch. ACTION REQUIRED: 1) Design validation system architecture for SDUI mode. 2) Implement field-level validation with error messages. 3) Support common validators: required, email, min/max length, patterns. 4) Implement form-level validation and submit handling. 5) Show validation errors inline with fields. 6) Create comprehensive documentation in Storybook showing validation patterns. 7) Support async validation and custom validators. EXPECTED OUTCOME: Full-featured form validation system in SDUI with extensive documentation and examples.",
     "status": "pending"

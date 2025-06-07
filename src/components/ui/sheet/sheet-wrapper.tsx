@@ -24,7 +24,7 @@ export function SheetWrapper({
   children,
   defaultOpen = false,
   open: controlledOpen,
-  onOpenChange,
+  onOpenChange: directOnOpenChange,
   onOpenChangeAction,
   modal = true,
   parentContext,
@@ -33,28 +33,21 @@ export function SheetWrapper({
   // Use internal state if not controlled
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
 
+  // Handle onOpenChangeAction from SDUI
+  const onOpenChangeHandler = React.useMemo(() => {
+    if (directOnOpenChange) {
+      return directOnOpenChange;
+    }
+    if (onOpenChangeAction && parentContext?.handlers?.[onOpenChangeAction]) {
+      return parentContext.handlers[onOpenChangeAction] as (open: boolean) => void;
+    }
+    return undefined;
+  }, [directOnOpenChange, onOpenChangeAction, parentContext]);
+
   // Determine if we're in controlled mode
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
-  
-  // Get the onOpenChange handler from either props or handlers
-  const handleOpenChange = React.useMemo(() => {
-    // If onOpenChange is directly provided, use it
-    if (onOpenChange) {
-      return onOpenChange;
-    }
-    // If onOpenChangeAction is provided, look it up in handlers
-    if (onOpenChangeAction && parentContext?.handlers) {
-      const handler = parentContext.handlers[onOpenChangeAction];
-      if (typeof handler === 'function') {
-        return handler as (open: boolean) => void;
-      }
-    }
-    // Otherwise use internal state setter
-    return setInternalOpen;
-  }, [onOpenChange, onOpenChangeAction, parentContext?.handlers]);
-  
-  const setOpen = isControlled ? handleOpenChange : setInternalOpen;
+  const setOpen = isControlled ? onOpenChangeHandler : setInternalOpen;
 
   // Set up SDUI handlers if we're in SDUI mode
   React.useEffect(() => {
@@ -95,11 +88,11 @@ export function SheetWrapper({
 
 // Re-export all sheet components from sheet.tsx
 export {
+  SheetTrigger,
+  SheetClose,
+  SheetContent,
   SheetHeader,
   SheetFooter,
   SheetTitle,
   SheetDescription,
-  SheetClose,
-  SheetTrigger,
-  SheetContent,
 } from "./sheet";

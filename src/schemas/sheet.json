@@ -15,6 +15,10 @@
       "type": "string",
       "description": "Event handler for open state changes"
     },
+    "onOpenChangeAction": {
+      "type": "string",
+      "description": "SDUI action handler for open state changes"
+    },
     "modal": {
       "type": "boolean",
       "description": "When true, interaction with outside elements will be disabled and only content visible to screen readers"

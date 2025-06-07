@@ -1,0 +1,167 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Table Component Schema",
+  "description": "Schema for the Table component in SDUI",
+  "type": "object",
+  "required": ["type", "body"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Table"
+    },
+    "caption": {
+      "type": "string",
+      "description": "Caption text displayed below the table"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "striped", "bordered", "minimal", "compact", "modern"],
+      "default": "default",
+      "description": "The visual style variant of the table"
+    },
+    "stickyHeader": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the table header should be sticky when scrolling"
+    },
+    "hoverable": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to show hover effects on rows"
+    },
+    "head": {
+      "type": "object",
+      "description": "Table header configuration",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tableRow"
+          }
+        }
+      },
+      "required": ["rows"]
+    },
+    "body": {
+      "type": "object",
+      "description": "Table body configuration",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tableRow"
+          }
+        }
+      },
+      "required": ["rows"]
+    },
+    "footer": {
+      "type": "object",
+      "description": "Table footer configuration",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tableRow"
+          }
+        }
+      },
+      "required": ["rows"]
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply to the table"
+    }
+  },
+  "definitions": {
+    "tableRow": {
+      "type": "object",
+      "properties": {
+        "className": {
+          "type": "string",
+          "description": "CSS classes for the row"
+        },
+        "selected": {
+          "type": "boolean",
+          "description": "Whether the row is selected"
+        },
+        "cells": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tableCell"
+          }
+        }
+      },
+      "required": ["cells"]
+    },
+    "tableCell": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "description": "Nested component specification"
+            }
+          ],
+          "description": "Cell content - can be text or a component spec"
+        },
+        "className": {
+          "type": "string",
+          "description": "CSS classes for the cell"
+        },
+        "align": {
+          "type": "string",
+          "enum": ["left", "center", "right"],
+          "default": "left",
+          "description": "Text alignment within the cell"
+        },
+        "colSpan": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of columns this cell should span"
+        }
+      },
+      "required": ["content"]
+    }
+  },
+  "examples": [
+    {
+      "type": "Table",
+      "variant": "striped",
+      "caption": "Employee Data",
+      "head": {
+        "rows": [
+          {
+            "cells": [
+              { "content": "Name" },
+              { "content": "Department" },
+              { "content": "Salary", "align": "right" }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "rows": [
+          {
+            "cells": [
+              { "content": "John Doe" },
+              { "content": "Engineering" },
+              { "content": "$120,000", "align": "right" }
+            ]
+          },
+          {
+            "cells": [
+              { "content": "Jane Smith" },
+              { "content": "Marketing" },
+              { "content": "$95,000", "align": "right" }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

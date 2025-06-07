@@ -33,4 +33,10 @@ export interface TableSpec extends BaseComponentSpec {
   head?: TableHeadSpec;
   body: TableBodySpec;
   footer?: TableFooterSpec;
+  /** The visual style variant of the table */
+  variant?: "default" | "striped" | "bordered" | "minimal" | "compact" | "modern";
+  /** Whether the table header should be sticky when scrolling */
+  stickyHeader?: boolean;
+  /** Whether to show hover effects on rows */
+  hoverable?: boolean;
 }

@@ -37,10 +37,10 @@ function renderCellContent(
 export function TableComponent(props: Readonly<Record<string, unknown>>): React.ReactElement {
   // Extract table props directly
   const tableProps = props as TableSpec;
-  const { caption, head, body, footer, className } = tableProps;
+  const { caption, head, body, footer, className, variant, stickyHeader, hoverable } = tableProps;
 
   return (
-    <Table className={className}>
+    <Table className={className} variant={variant} stickyHeader={stickyHeader} hoverable={hoverable}>
       {caption && <TableCaption>{caption}</TableCaption>}
 
       {head && (

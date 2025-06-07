@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { AnnouncementBar } from "./announcement-bar";
 import { MdRocketLaunch, MdCelebration, MdWarning } from "react-icons/md";
 import { FaBullhorn } from "react-icons/fa";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Blocks/AnnouncementBar",
@@ -61,12 +63,12 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof AnnouncementBar>;
+} satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const TopBanner: Story = {
+export const TopBanner: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "top-banner",
     message: "🎉 New feature released! Check out our latest updates and improvements.",
@@ -76,9 +78,20 @@ export const TopBanner: Story = {
     ],
     colorScheme: "info",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test announcement bar renders with message
+    const message = canvas.getByText(/New feature released/);
+    expect(message).toBeInTheDocument();
+    
+    // Test action buttons render
+    expect(canvas.getByRole("button", { name: "Learn More" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Dismiss" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const FloatingBar: Story = {
+export const FloatingBar: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "floating",
     message: "Limited time offer: Get 30% off all plans!",
@@ -86,9 +99,18 @@ export const FloatingBar: Story = {
     icon: <MdCelebration className="h-5 w-5" />,
     colorScheme: "success",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test announcement bar renders with message
+    expect(canvas.getByText(/Limited time offer/)).toBeInTheDocument();
+    
+    // Test action button renders
+    expect(canvas.getByRole("button", { name: "Get Started" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const SlideInNotification: Story = {
+export const SlideInNotification: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "slide-in",
     message: "Your session will expire in 5 minutes. Please save your work.",
@@ -99,9 +121,19 @@ export const SlideInNotification: Story = {
     colorScheme: "warning",
     icon: <MdWarning className="h-5 w-5" />,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test notification renders with message
+    expect(canvas.getByText(/Your session will expire/)).toBeInTheDocument();
+    
+    // Test action buttons render
+    expect(canvas.getByRole("button", { name: "Continue Working" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Log Out" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const CountdownTimer: Story = {
+export const CountdownTimer: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "countdown",
     message: "Product launch coming soon!",
@@ -111,9 +143,19 @@ export const CountdownTimer: Story = {
     colorScheme: "default",
     icon: <MdRocketLaunch className="h-6 w-6" />,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test countdown message renders
+    expect(canvas.getByText(/Product launch coming soon/)).toBeInTheDocument();
+    expect(canvas.getByText(/Product launch countdown/)).toBeInTheDocument();
+    
+    // Test action button renders
+    expect(canvas.getByRole("button", { name: "Get Notified" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const DismissibleAlert: Story = {
+export const DismissibleAlert: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "dismissible",
     message:
@@ -124,9 +166,19 @@ export const DismissibleAlert: Story = {
     ],
     colorScheme: "default",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test alert renders with message
+    expect(canvas.getByText(/We use cookies to improve your experience/)).toBeInTheDocument();
+    
+    // Test action buttons render
+    expect(canvas.getByRole("button", { name: "Accept" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Learn More" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const CustomColors: Story = {
+export const CustomColors: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "top-banner",
     message: "Custom branded announcement with your brand colors!",
@@ -139,9 +191,18 @@ export const CustomColors: Story = {
     },
     icon: <FaBullhorn className="h-5 w-5" />,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test custom colors announcement renders
+    expect(canvas.getByText(/Custom branded announcement/)).toBeInTheDocument();
+    
+    // Test action button renders
+    expect(canvas.getByRole("button", { name: "Shop Now" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const BottomPosition: Story = {
+export const BottomPosition: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "floating",
     position: "bottom",
@@ -149,9 +210,18 @@ export const BottomPosition: Story = {
     actions: [{ label: "Got it", variant: "primary" }],
     colorScheme: "info",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test bottom position announcement renders
+    expect(canvas.getByText(/This announcement appears at the bottom/)).toBeInTheDocument();
+    
+    // Test action button renders
+    expect(canvas.getByRole("button", { name: "Got it" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const AutoHide: Story = {
+export const AutoHide: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "slide-in",
     message: "This notification will automatically disappear in 5 seconds",
@@ -159,9 +229,15 @@ export const AutoHide: Story = {
     colorScheme: "success",
     dismissible: false,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test auto-hide notification renders
+    expect(canvas.getByText(/This notification will automatically disappear/)).toBeInTheDocument();
+  },
+}) as Story;
 
-export const ErrorAnnouncement: Story = {
+export const ErrorAnnouncement: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "top-banner",
     message:
@@ -169,9 +245,18 @@ export const ErrorAnnouncement: Story = {
     actions: [{ label: "View Details", variant: "primary" }],
     colorScheme: "error",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test error announcement renders
+    expect(canvas.getByText(/System maintenance scheduled/)).toBeInTheDocument();
+    
+    // Test action button renders
+    expect(canvas.getByRole("button", { name: "View Details" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const MinimalAnnouncement: Story = {
+export const MinimalAnnouncement: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "top-banner",
     message: "Free shipping on orders over $50",
@@ -179,29 +264,76 @@ export const MinimalAnnouncement: Story = {
     dismissible: false,
     actions: [],
   },
-};
-
-export const ComplexContent: Story = {
-  args: {
-    variant: "floating",
-    message: (
-      <div className="space-y-1">
-        <div className="font-semibold">Black Friday Sale!</div>
-        <div className="text-sm opacity-90">
-          Save up to 70% on selected items. Limited time only!
-        </div>
-      </div>
-    ),
-    actions: [
-      { label: "Shop Sale", variant: "primary" },
-      { label: "View Terms", variant: "link" },
-    ],
-    colorScheme: "error",
-    icon: <MdCelebration className="h-6 w-6" />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test minimal announcement renders
+    expect(canvas.getByText(/Free shipping on orders over/)).toBeInTheDocument();
   },
-};
+}) as Story;
 
-export const NonSticky: Story = {
+export const ComplexContent: Story = enhanceStoryForDualMode<typeof AnnouncementBar>(
+  {
+    args: {
+      variant: "floating",
+      message: (
+        <div className="space-y-1">
+          <div className="font-semibold">Black Friday Sale!</div>
+          <div className="text-sm opacity-90">
+            Save up to 70% on selected items. Limited time only!
+          </div>
+        </div>
+      ),
+      actions: [
+        { label: "Shop Sale", variant: "primary" },
+        { label: "View Terms", variant: "link" },
+      ],
+      colorScheme: "error",
+      icon: <MdCelebration className="h-6 w-6" />,
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test complex content renders
+      expect(canvas.getByText("Black Friday Sale!")).toBeInTheDocument();
+      expect(canvas.getByText(/Save up to 70% on selected items/)).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Shop Sale" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "View Terms" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "AnnouncementBar",
+      variant: "floating",
+      message: {
+        type: "Box",
+        className: "space-y-1",
+        children: [
+          {
+            type: "Text",
+            className: "font-semibold",
+            children: "Black Friday Sale!",
+          },
+          {
+            type: "Text",
+            className: "text-sm opacity-90",
+            children: "Save up to 70% on selected items. Limited time only!",
+          },
+        ],
+      },
+      actions: [
+        { label: "Shop Sale", variant: "primary" },
+        { label: "View Terms", variant: "link" },
+      ],
+      colorScheme: "error",
+      icon: "MdCelebration",
+    },
+  }
+) as Story;
+
+export const NonSticky: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "top-banner",
     message: "This banner scrolls with the page content",
@@ -209,9 +341,18 @@ export const NonSticky: Story = {
     colorScheme: "info",
     actions: [{ label: "Learn More", variant: "primary" }],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test non-sticky banner renders
+    expect(canvas.getByText(/This banner scrolls with the page content/)).toBeInTheDocument();
+    
+    // Test action button renders
+    expect(canvas.getByRole("button", { name: "Learn More" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const NoAnimation: Story = {
+export const NoAnimation: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "slide-in",
     message: "This notification appears without animation",
@@ -219,9 +360,18 @@ export const NoAnimation: Story = {
     colorScheme: "warning",
     actions: [{ label: "OK", variant: "primary" }],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test no animation notification renders
+    expect(canvas.getByText(/This notification appears without animation/)).toBeInTheDocument();
+    
+    // Test action button renders
+    expect(canvas.getByRole("button", { name: "OK" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const ShortCountdown: Story = {
+export const ShortCountdown: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "countdown",
     message: "Limited time offer!",
@@ -231,9 +381,19 @@ export const ShortCountdown: Story = {
     colorScheme: "error",
     onCountdownEnd: () => alert("Countdown ended!"),
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test countdown renders
+    expect(canvas.getByText(/Limited time offer/)).toBeInTheDocument();
+    expect(canvas.getByText(/Flash sale ends in/)).toBeInTheDocument();
+    
+    // Test action button renders
+    expect(canvas.getByRole("button", { name: "Shop Now" })).toBeInTheDocument();
+  },
+}) as Story;
 
-export const MultipleActions: Story = {
+export const MultipleActions: Story = enhanceStoryForDualMode<typeof AnnouncementBar>({
   args: {
     variant: "top-banner",
     message: "New version available with bug fixes and performance improvements",
@@ -244,4 +404,15 @@ export const MultipleActions: Story = {
     ],
     colorScheme: "info",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test announcement renders
+    expect(canvas.getByText(/New version available with bug fixes/)).toBeInTheDocument();
+    
+    // Test all action buttons render
+    expect(canvas.getByRole("button", { name: "Update Now" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "View Changelog" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Remind Me Later" })).toBeInTheDocument();
+  },
+}) as Story;

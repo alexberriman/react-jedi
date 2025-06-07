@@ -31,6 +31,7 @@ import { SDUIIcon } from "./icons";
 import { InputWithIconWrapper } from "./icons/input-with-icon-wrapper";
 import { DrawerWrapper } from "../components/ui/drawer/drawer-wrapper";
 import { HoverCardWrapper } from "../components/ui/hover-card/hover-card-wrapper";
+import { SheetWrapper } from "../components/ui/sheet/sheet-wrapper";
 
 // Type definition for components in our registry
 type ComponentType = React.ComponentType<ComponentProps>;
@@ -375,7 +376,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     ),
     ResizablePanel: asComponent(UI.ResizablePanel),
     ResizableHandle: asComponent(UI.ResizableHandle),
-    Sheet: asComponent(UI.Sheet),
+    Sheet: asComponent(SheetWrapper),
     SheetTrigger: asComponent(UI.SheetTrigger),
     SheetClose: asComponent(UI.SheetClose),
     SheetContent: asComponent(UI.SheetContent),

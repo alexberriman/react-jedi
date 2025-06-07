@@ -1156,6 +1156,28 @@ function AnimationToggleComponent() {
   );
 }
 
+export const SDUIDebugTest: Story = {
+  render: () => {
+    // Dynamic import to avoid circular dependencies
+    const [Component, setComponent] = React.useState<React.ComponentType | null>(null);
+    
+    React.useEffect(() => {
+      import("./sheet-sdui-test").then((module) => {
+        setComponent(() => module.SheetSDUITest);
+      });
+    }, []);
+    
+    if (!Component) {
+      return <div>Loading...</div>;
+    }
+    
+    return <Component />;
+  },
+  parameters: {
+    layout: "padded"
+  }
+};
+
 export const AnimationToggle: Story = enhanceStoryForDualMode<typeof Sheet>(
   {
     render: AnimationToggleComponent,

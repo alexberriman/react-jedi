@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KeyboardNavigationMenu Schema",
+  "description": "Schema for KeyboardNavigationMenu component with full keyboard navigation support",
+  "type": "object",
+  "required": ["type", "items"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["KeyboardNavigationMenu", "keyboardNavigationMenu", "keyboard-navigation-menu"],
+      "description": "Component type identifier"
+    },
+    "items": {
+      "type": "array",
+      "description": "Array of menu items",
+      "items": {
+        "$ref": "#/definitions/menuItem"
+      }
+    },
+    "showShortcuts": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to display keyboard shortcuts"
+    },
+    "orientation": {
+      "type": "string",
+      "enum": ["horizontal", "vertical"],
+      "default": "vertical",
+      "description": "Menu orientation"
+    },
+    "role": {
+      "type": "string",
+      "enum": ["menu", "navigation"],
+      "default": "menu",
+      "description": "ARIA role for the menu"
+    },
+    "onSelectAction": {
+      "type": "string",
+      "description": "Handler name to call when an item is selected"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the menu"
+    }
+  },
+  "definitions": {
+    "menuItem": {
+      "type": "object",
+      "required": ["id", "label"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the menu item"
+        },
+        "label": {
+          "type": "string",
+          "description": "Display label for the menu item"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon name from lucide icons"
+        },
+        "shortcut": {
+          "type": "string",
+          "description": "Keyboard shortcut to display (e.g., 'Ctrl+S')"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the menu item is disabled"
+        },
+        "action": {
+          "type": "string",
+          "description": "Handler name to call when item is activated"
+        },
+        "submenu": {
+          "type": "array",
+          "description": "Nested submenu items",
+          "items": {
+            "$ref": "#/definitions/menuItem"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "type": "KeyboardNavigationMenu",
+      "items": [
+        {
+          "id": "home",
+          "label": "Home",
+          "icon": "home",
+          "shortcut": "Ctrl+H",
+          "action": "handleHomeClick"
+        },
+        {
+          "id": "settings",
+          "label": "Settings",
+          "icon": "settings",
+          "submenu": [
+            {
+              "id": "general",
+              "label": "General",
+              "action": "openGeneralSettings"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance",
+              "action": "openAppearanceSettings"
+            }
+          ]
+        }
+      ],
+      "showShortcuts": true,
+      "orientation": "vertical",
+      "onSelectAction": "handleMenuSelect"
+    }
+  ]
+}

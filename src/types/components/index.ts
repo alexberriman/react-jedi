@@ -188,3 +188,4 @@ export type { FAQDef, FAQItem, FAQCategory, FAQSearchOptions, FAQVotingOptions, 
 export type { StatBlockDef, StatItem } from "./stat-block";
 export type { ContactFormBlockProperties, FormField, FormStep, ContactFormBlockVariant } from "./contact-form-block";
 export type { TypewriterTextDef } from "./typewriter-text";
+export type { KeyboardNavigationMenuSpec, MenuItemSpec, KeyboardNavigationMenuItemSpec } from "./keyboard-navigation-menu";

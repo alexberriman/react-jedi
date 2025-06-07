@@ -1,10 +1,5 @@
 [
   {
-    "id": "implement-keyboardnav-sdui",
-    "description": "TASK: Implement SDUI support for KeyboardNavigationMenu component. ISSUE: KeyboardNavigationMenu has no SDUI rendering support. Keyboard-navigable menus are not available in SDUI mode. APPROACH: May be able to enhance Command component as it already has keyboard navigation patterns. ACTION REQUIRED: 1) Assess if KeyboardNavigationMenu can be implemented in SDUI. 2) Consider extending Command component for keyboard navigation patterns. 3) Implement arrow key navigation, Enter/Space selection. 4) Support focus management and ARIA attributes. 5) Ensure Tab key navigation works properly. EXPECTED OUTCOME: Keyboard-navigable menus working in SDUI mode with full accessibility support.",
-    "status": "pending"
-  },
-  {
     "id": "fix-navigationmenu-issues",
     "description": "TASK: Fix multiple NavigationMenu rendering issues in SDUI mode. ISSUE 1 - Hover Styling: On hover, shows white text on grey background making text unreadable, dropdown is all white (https://i.imgur.com/eHkc352.png). ISSUE 2 - Missing Badge: 'With Icons And Badges' story doesn't show badges in SDUI. ISSUE 3 - Alignment: 'With Full Width Content' story is left-aligned in SDUI but should be horizontally centered like React. ISSUE 4 - Missing Elements: 'With Branding And CTA' story missing branding text '**ACME' and CTA buttons in SDUI. ACTION REQUIRED: 1) Fix hover state styling - ensure readable contrast and proper dropdown styling. 2) Implement badge rendering within navigation items. 3) Fix alignment issues - ensure center alignment matches React. 4) Ensure all navigation elements render: branding, buttons, badges, icons. IMPORTANT: Icons must be actual SVG components, NOT emojis. 5) Test responsive behavior and all navigation patterns. EXPECTED OUTCOME: NavigationMenu in SDUI should match React exactly for styling, alignment, and all child elements including proper SVG icons.",
     "status": "pending"

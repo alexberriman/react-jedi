@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { BrandLogoBar } from "./brand-logo-bar";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Blocks/BrandLogoBar",
@@ -125,7 +127,7 @@ const enterpriseLogos = [
   },
 ];
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos,
     variant: "grid",
@@ -133,9 +135,22 @@ export const Default: Story = {
     spacing: "normal",
     columns: 4,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test logos render correctly
+    for (const logo of sampleLogos) {
+      const logoElement = canvas.getByAltText(logo.name);
+      expect(logoElement).toBeInTheDocument();
+    }
+    
+    // Test grid layout is applied
+    const container = canvasElement.querySelector('.grid');
+    expect(container).toBeInTheDocument();
+  },
+}) as Story;
 
-export const ScrollingMarquee: Story = {
+export const ScrollingMarquee: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos,
     variant: "scrolling",
@@ -144,9 +159,21 @@ export const ScrollingMarquee: Story = {
     pauseOnHover: true,
     scrollSpeed: 30,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test logos render in scrolling mode
+    // Logos are duplicated for scrolling effect
+    const logoElements = canvas.getAllByAltText(sampleLogos[0].name);
+    expect(logoElements.length).toBeGreaterThan(1);
+    
+    // Test scrolling container exists
+    const scrollContainer = canvasElement.querySelector('.overflow-hidden');
+    expect(scrollContainer).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithHeading: Story = {
+export const WithHeading: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos,
     variant: "withHeading",
@@ -156,9 +183,22 @@ export const WithHeading: Story = {
     spacing: "normal",
     columns: 3,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test heading renders
+    const heading = canvas.getByText("Trusted by Industry Leaders");
+    expect(heading).toBeInTheDocument();
+    
+    // Test logos render
+    for (const logo of sampleLogos) {
+      const logoElement = canvas.getByAltText(logo.name);
+      expect(logoElement).toBeInTheDocument();
+    }
+  },
+}) as Story;
 
-export const WithHeadingLeft: Story = {
+export const WithHeadingLeft: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos.slice(0, 4),
     variant: "withHeading",
@@ -168,9 +208,20 @@ export const WithHeadingLeft: Story = {
     spacing: "normal",
     columns: 4,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test heading renders
+    const heading = canvas.getByText("Trusted by");
+    expect(heading).toBeInTheDocument();
+    
+    // Test only 4 logos render
+    const logoElements = canvas.getAllByRole('img');
+    expect(logoElements).toHaveLength(4);
+  },
+}) as Story;
 
-export const Grayscale: Story = {
+export const Grayscale: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos,
     variant: "grayscale",
@@ -178,9 +229,22 @@ export const Grayscale: Story = {
     spacing: "normal",
     columns: 4,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test logos render
+    for (const logo of sampleLogos) {
+      const logoElement = canvas.getByAltText(logo.name);
+      expect(logoElement).toBeInTheDocument();
+    }
+    
+    // Test grayscale class is applied
+    const grayscaleElements = canvasElement.querySelectorAll('.grayscale');
+    expect(grayscaleElements.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const Compact: Story = {
+export const Compact: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos,
     variant: "compact",
@@ -188,9 +252,22 @@ export const Compact: Story = {
     spacing: "tight",
     columns: 6,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test all logos render
+    for (const logo of sampleLogos) {
+      const logoElement = canvas.getByAltText(logo.name);
+      expect(logoElement).toBeInTheDocument();
+    }
+    
+    // Test compact padding is applied
+    const compactElements = canvasElement.querySelectorAll('.p-2');
+    expect(compactElements.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const LargeGrid: Story = {
+export const LargeGrid: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: enterpriseLogos,
     variant: "grid",
@@ -198,9 +275,18 @@ export const LargeGrid: Story = {
     spacing: "loose",
     columns: 3,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test enterprise logos render
+    for (const logo of enterpriseLogos) {
+      const logoElement = canvas.getByAltText(logo.name);
+      expect(logoElement).toBeInTheDocument();
+    }
+  },
+}) as Story;
 
-export const FastScrolling: Story = {
+export const FastScrolling: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: [...sampleLogos, ...enterpriseLogos],
     variant: "scrolling",
@@ -209,9 +295,19 @@ export const FastScrolling: Story = {
     scrollSpeed: 15,
     pauseOnHover: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test combined logos render (duplicated for scrolling)
+    const firstLogo = canvas.getAllByAltText(sampleLogos[0].name);
+    expect(firstLogo.length).toBeGreaterThan(1);
+    
+    const enterpriseLogo = canvas.getAllByAltText(enterpriseLogos[0].name);
+    expect(enterpriseLogo.length).toBeGreaterThan(1);
+  },
+}) as Story;
 
-export const TwoColumn: Story = {
+export const TwoColumn: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos.slice(0, 4),
     variant: "grid",
@@ -219,9 +315,16 @@ export const TwoColumn: Story = {
     spacing: "loose",
     columns: 2,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test only 4 logos render
+    const logoElements = canvas.getAllByRole('img');
+    expect(logoElements).toHaveLength(4);
+  },
+}) as Story;
 
-export const GrayscaleWithHeading: Story = {
+export const GrayscaleWithHeading: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: enterpriseLogos,
     variant: "grayscale",
@@ -231,9 +334,26 @@ export const GrayscaleWithHeading: Story = {
     spacing: "normal",
     columns: 5,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test heading renders
+    const heading = canvas.getByText("Powering the World's Best Companies");
+    expect(heading).toBeInTheDocument();
+    
+    // Test grayscale logos render
+    for (const logo of enterpriseLogos) {
+      const logoElement = canvas.getByAltText(logo.name);
+      expect(logoElement).toBeInTheDocument();
+    }
+    
+    // Test grayscale class is applied
+    const grayscaleElements = canvasElement.querySelectorAll('.grayscale');
+    expect(grayscaleElements.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const NoAnimation: Story = {
+export const NoAnimation: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos,
     variant: "scrolling",
@@ -241,9 +361,18 @@ export const NoAnimation: Story = {
     spacing: "normal",
     animated: false,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test logos render without animation
+    for (const logo of sampleLogos.slice(0, 3)) {
+      const logoElements = canvas.getAllByAltText(logo.name);
+      expect(logoElements.length).toBeGreaterThan(0);
+    }
+  },
+}) as Story;
 
-export const MobileOptimized: Story = {
+export const MobileOptimized: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
   args: {
     logos: sampleLogos,
     variant: "grid",
@@ -256,24 +385,62 @@ export const MobileOptimized: Story = {
       defaultViewport: "mobile1",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test logos render in mobile view
+    for (const logo of sampleLogos) {
+      const logoElement = canvas.getByAltText(logo.name);
+      expect(logoElement).toBeInTheDocument();
+    }
+  },
+}) as Story;
 
-export const DarkMode: Story = {
-  args: {
-    logos: sampleLogos,
-    variant: "grayscale",
-    size: "medium",
-    spacing: "normal",
-    columns: 4,
+export const DarkMode: Story = enhanceStoryForDualMode<typeof BrandLogoBar>(
+  {
+    args: {
+      logos: sampleLogos,
+      variant: "grayscale",
+      size: "medium",
+      spacing: "normal",
+      columns: 4,
+    },
+    parameters: {
+      backgrounds: { default: "dark" },
+    },
+    decorators: [
+      (Story) => (
+        <div className="dark">
+          <Story />
+        </div>
+      ),
+    ],
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test logos render in dark mode
+      for (const logo of sampleLogos) {
+        const logoElement = canvas.getByAltText(logo.name);
+        expect(logoElement).toBeInTheDocument();
+      }
+      
+      // Test dark mode wrapper is applied
+      const darkWrapper = canvasElement.querySelector('.dark');
+      expect(darkWrapper).toBeInTheDocument();
+    },
   },
-  parameters: {
-    backgrounds: { default: "dark" },
-  },
-  decorators: [
-    (Story) => (
-      <div className="dark">
-        <Story />
-      </div>
-    ),
-  ],
-};
+  {
+    renderSpec: {
+      type: "Box",
+      className: "dark",
+      children: {
+        type: "BrandLogoBar",
+        logos: sampleLogos,
+        variant: "grayscale",
+        size: "medium",
+        spacing: "normal",
+        columns: 4,
+      },
+    },
+  }
+) as Story;

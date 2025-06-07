@@ -574,29 +574,94 @@ export const IDELayout: Story = enhanceStoryForDualMode(
                   gap: "xs",
                   children: [
                     {
-                      type: "Text",
-                      className: "pl-2 hover:bg-gray-700 rounded p-1",
-                      children: "📁 src"
+                      type: "Flex",
+                      direction: "row",
+                      gap: "xs",
+                      className: "pl-2 hover:bg-gray-700 rounded p-1 items-center",
+                      children: [
+                        {
+                          type: "Icon",
+                          name: "folder",
+                          size: 16,
+                          className: "text-blue-400"
+                        },
+                        {
+                          type: "Text",
+                          children: "src"
+                        }
+                      ]
                     },
                     {
-                      type: "Text",
-                      className: "pl-6 hover:bg-gray-700 rounded p-1",
-                      children: "📄 index.ts"
+                      type: "Flex",
+                      direction: "row",
+                      gap: "xs",
+                      className: "pl-6 hover:bg-gray-700 rounded p-1 items-center",
+                      children: [
+                        {
+                          type: "Icon",
+                          name: "file-text",
+                          size: 16,
+                          className: "text-green-400"
+                        },
+                        {
+                          type: "Text",
+                          children: "index.ts"
+                        }
+                      ]
                     },
                     {
-                      type: "Text",
-                      className: "pl-6 hover:bg-gray-700 rounded p-1",
-                      children: "📄 app.tsx"
+                      type: "Flex",
+                      direction: "row",
+                      gap: "xs",
+                      className: "pl-6 hover:bg-gray-700 rounded p-1 items-center",
+                      children: [
+                        {
+                          type: "Icon",
+                          name: "file-text",
+                          size: 16,
+                          className: "text-blue-400"
+                        },
+                        {
+                          type: "Text",
+                          children: "app.tsx"
+                        }
+                      ]
                     },
                     {
-                      type: "Text",
-                      className: "pl-2 hover:bg-gray-700 rounded p-1",
-                      children: "📁 components"
+                      type: "Flex",
+                      direction: "row",
+                      gap: "xs",
+                      className: "pl-2 hover:bg-gray-700 rounded p-1 items-center",
+                      children: [
+                        {
+                          type: "Icon",
+                          name: "folder",
+                          size: 16,
+                          className: "text-blue-400"
+                        },
+                        {
+                          type: "Text",
+                          children: "components"
+                        }
+                      ]
                     },
                     {
-                      type: "Text",
-                      className: "pl-2 hover:bg-gray-700 rounded p-1",
-                      children: "📁 utils"
+                      type: "Flex",
+                      direction: "row",
+                      gap: "xs",
+                      className: "pl-2 hover:bg-gray-700 rounded p-1 items-center",
+                      children: [
+                        {
+                          type: "Icon",
+                          name: "folder",
+                          size: 16,
+                          className: "text-blue-400"
+                        },
+                        {
+                          type: "Text",
+                          children: "utils"
+                        }
+                      ]
                     }
                   ]
                 }

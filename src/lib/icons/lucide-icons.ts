@@ -27,6 +27,7 @@ import {
   Folder,
   FolderOpen,
   Globe,
+  GripVertical,
   Hash,
   Heart,
   Home,
@@ -153,6 +154,9 @@ export const lucideIcons: IconMap = {
   "folder": Folder,
   "folder-open": FolderOpen,
   "package": Package,
+  
+  // Resize & Layout
+  "grip-vertical": GripVertical,
   
   // User & Social
   "user": User,

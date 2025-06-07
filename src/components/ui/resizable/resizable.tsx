@@ -3,6 +3,7 @@ import { GripVerticalIcon } from "lucide-react";
 import * as ResizablePrimitive from "react-resizable-panels";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
+import { SDUIIcon } from "../../../lib/icons/sdui-icon";
 
 function ResizablePanelGroup({
   className,
@@ -24,10 +25,23 @@ function ResizablePanel({ ...props }: React.ComponentProps<typeof ResizablePrimi
 function ResizableHandle({
   withHandle,
   className,
+  iconName = "grip-vertical",
   ...props
 }: React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & {
   withHandle?: boolean;
+  iconName?: string;
 }) {
+  // Function to render the grip icon - supports both React and SDUI modes
+  const renderGripIcon = (): React.ReactNode => {
+    try {
+      // Try to use SDUI icon registry first (for SDUI mode)
+      return <SDUIIcon name={iconName} className="size-2.5" />;
+    } catch {
+      // Fall back to direct import (for React mode)
+      return <GripVerticalIcon className="size-2.5" />;
+    }
+  };
+
   return (
     <ResizablePrimitive.PanelResizeHandle
       data-slot="resizable-handle"
@@ -40,7 +54,7 @@ function ResizableHandle({
     >
       {withHandle && (
         <div className="bg-border z-10 flex h-4 w-3 items-center justify-center rounded-xs border" data-panel-resize-handle-enabled>
-          <GripVerticalIcon className="size-2.5" />
+          {renderGripIcon()}
         </div>
       )}
     </ResizablePrimitive.PanelResizeHandle>

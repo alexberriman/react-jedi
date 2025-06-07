@@ -137,7 +137,9 @@ const Masonry = React.forwardRef<HTMLDivElement, MasonryProps>(
           gridTemplateColumns: `repeat(auto-fit, minmax(${minColWidth}, 1fr))`,
         };
       }
-      return {};
+      return {
+        gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
+      };
     };
 
     // Generate gap classes
@@ -151,7 +153,6 @@ const Masonry = React.forwardRef<HTMLDivElement, MasonryProps>(
         className={cn(
           "grid w-full",
           getGapClass(),
-          !autoFit && `grid-cols-${columnCount}`,
           className
         )}
         style={getColumnStyle()}

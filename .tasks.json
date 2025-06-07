@@ -45,11 +45,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-masonry-layout-sdui",
-    "description": "TASK: Fix Masonry grid layout in SDUI mode. ISSUE: Masonry component renders cards in a vertical stack instead of proper masonry grid layout. React mode shows correct masonry layout with staggered columns. ROOT CAUSE: CSS Grid or Flexbox properties for masonry layout aren't being applied in SDUI mode. ACTION REQUIRED: 1) Investigate why masonry CSS isn't applied in SDUI. 2) Ensure grid-auto-flow and column properties work in SDUI. 3) Implement proper height calculations for masonry items. 4) Support responsive column counts. 5) Test with various content heights to ensure proper staggering. 6) Verify gap/spacing properties work correctly. EXPECTED OUTCOME: SDUI masonry layout should match React with proper multi-column staggered grid.",
-    "status": "pending"
-  },
-  {
     "id": "fix-inputotp-sdui",
     "description": "TASK: Fix InputOTP component issues in SDUI mode. ISSUE 1 - Digit Count: 'Four Digit PIN' renders 6 digits in SDUI instead of 4. Same for 'Custom Separator' and 'Password' variants. ISSUE 2 - Default Value: 'With Default Value' story doesn't show the default value in SDUI. ISSUE 3 - Disabled State: 'Disabled' variant isn't actually disabled in SDUI mode. ACTION REQUIRED: 1) Fix maxLength/length prop handling in SDUI to show correct digit count. 2) Ensure defaultValue prop is properly passed and rendered. 3) Implement disabled state handling in SDUI mode. 4) Test all InputOTP configurations thoroughly. 5) Ensure input restrictions (numeric only) work in SDUI. EXPECTED OUTCOME: InputOTP in SDUI should match React behavior for digit count, default values, and disabled state.",
     "status": "pending"

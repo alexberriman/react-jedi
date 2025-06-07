@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **Implement dual-mode story functionality for ContactFormBlock component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/contact-form-block/contact-form-block.stories.tsx**
+
+
+## [2025-06-07]
+
 - **Implement dual-mode story functionality for Carousel component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/carousel/carousel-block.stories.tsx**
 
 

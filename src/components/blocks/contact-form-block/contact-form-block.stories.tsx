@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ContactFormBlock } from "./contact-form-block";
 import { within, userEvent, expect } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Blocks/ContactFormBlock",
@@ -55,7 +56,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Simple: Story = {
+export const Simple: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     variant: "simple",
@@ -94,9 +95,24 @@ export const Simple: Story = {
       variant: "primary",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Detailed: Story = {
+    // Test that the form renders with title and description
+    expect(canvas.getByText("Get in Touch")).toBeInTheDocument();
+    expect(canvas.getByText(/We'd love to hear from you/)).toBeInTheDocument();
+
+    // Test that all form fields render
+    expect(canvas.getByRole("textbox", { name: /name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /message/i })).toBeInTheDocument();
+
+    // Test submit button renders
+    expect(canvas.getByRole("button", { name: /send message/i })).toBeInTheDocument();
+  },
+});
+
+export const Detailed: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     variant: "detailed",
@@ -184,9 +200,29 @@ export const Detailed: Story = {
     },
     showRequiredIndicator: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithMap: Story = {
+    // Test that the form renders with title and description
+    expect(canvas.getByText("Contact Information")).toBeInTheDocument();
+    expect(canvas.getByText(/Please fill out the form below/)).toBeInTheDocument();
+
+    // Test that all form fields render
+    expect(canvas.getByRole("textbox", { name: /first name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /last name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /email address/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /phone number/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /company/i })).toBeInTheDocument();
+    expect(canvas.getByRole("combobox", { name: /subject/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /message/i })).toBeInTheDocument();
+    expect(canvas.getByRole("checkbox", { name: /subscribe to our newsletter/i })).toBeInTheDocument();
+
+    // Test submit button renders
+    expect(canvas.getByRole("button", { name: /submit inquiry/i })).toBeInTheDocument();
+  },
+});
+
+export const WithMap: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     variant: "with-map",
@@ -228,9 +264,27 @@ export const WithMap: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const SplitScreen: Story = {
+    // Test that the form renders with title and description
+    expect(canvas.getByText("Visit Our Office")).toBeInTheDocument();
+    expect(canvas.getByText("Stop by our office or send us a message")).toBeInTheDocument();
+
+    // Test that all form fields render
+    expect(canvas.getByRole("textbox", { name: /name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /subject/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /message/i })).toBeInTheDocument();
+
+    // Test contact info section renders
+    expect(canvas.getByText("Visit Us")).toBeInTheDocument();
+    expect(canvas.getByText("Call Us")).toBeInTheDocument();
+    expect(canvas.getByText("Email Us")).toBeInTheDocument();
+  },
+});
+
+export const SplitScreen: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     variant: "split-screen",
@@ -278,9 +332,30 @@ export const SplitScreen: Story = {
       ],
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Wizard: Story = {
+    // Test that the form renders with title and description
+    expect(canvas.getByText("Let's Connect")).toBeInTheDocument();
+    expect(canvas.getByText("We're here to help with your questions")).toBeInTheDocument();
+
+    // Test that all form fields render
+    expect(canvas.getByRole("textbox", { name: /full name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /phone/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /how can we help/i })).toBeInTheDocument();
+
+    // Test split content renders
+    expect(canvas.getByText("Why Choose Us?")).toBeInTheDocument();
+    expect(canvas.getByText("We're committed to providing exceptional service")).toBeInTheDocument();
+    
+    // Test features list
+    expect(canvas.getByText("24/7 Customer Support")).toBeInTheDocument();
+    expect(canvas.getByText("Expert Team Members")).toBeInTheDocument();
+  },
+});
+
+export const Wizard: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     variant: "wizard",
@@ -432,9 +507,33 @@ export const Wizard: Story = {
       variant: "primary",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithConditionalFields: Story = {
+    // Test that the wizard renders with title and description
+    expect(canvas.getByText("Request a Quote")).toBeInTheDocument();
+    expect(canvas.getByText("Complete the form to receive a personalized quote")).toBeInTheDocument();
+
+    // Test progress bar renders
+    expect(canvas.getByRole("progressbar")).toBeInTheDocument();
+
+    // Test step indicator renders
+    expect(canvas.getByText("Step 1 of 3")).toBeInTheDocument();
+    expect(canvas.getByText("Personal Information")).toBeInTheDocument();
+
+    // Test first step fields render
+    expect(canvas.getByRole("textbox", { name: /first name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /last name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /phone/i })).toBeInTheDocument();
+
+    // Test navigation buttons render
+    expect(canvas.getByRole("button", { name: /previous/i })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: /next/i })).toBeInTheDocument();
+  },
+});
+
+export const WithConditionalFields: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     title: "Dynamic Form Example",
@@ -519,9 +618,30 @@ export const WithConditionalFields: Story = {
       },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithValidation: Story = {
+    // Test that the form renders with title and description
+    expect(canvas.getByText("Dynamic Form Example")).toBeInTheDocument();
+    expect(canvas.getByText("Fields appear based on your selections")).toBeInTheDocument();
+
+    // Test contact type radio buttons render
+    expect(canvas.getByRole("radio", { name: /individual/i })).toBeInTheDocument();
+    expect(canvas.getByRole("radio", { name: /business/i })).toBeInTheDocument();
+
+    // Test static fields render
+    expect(canvas.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(canvas.getByRole("checkbox", { name: /i have files to attach/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /message/i })).toBeInTheDocument();
+
+    // Initially, conditional fields should not be visible
+    expect(canvas.queryByRole("textbox", { name: /^name$/i })).not.toBeInTheDocument();
+    expect(canvas.queryByRole("textbox", { name: /business name/i })).not.toBeInTheDocument();
+    expect(canvas.queryByRole("textbox", { name: /tax id/i })).not.toBeInTheDocument();
+  },
+});
+
+export const WithValidation: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     title: "Form Validation Example",
@@ -597,9 +717,32 @@ export const WithValidation: Story = {
     validateOnBlur: true,
     showRequiredIndicator: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Compact: Story = {
+    // Test that the form renders with title and description
+    expect(canvas.getByText("Form Validation Example")).toBeInTheDocument();
+    expect(canvas.getByText("Demonstrates various validation rules")).toBeInTheDocument();
+
+    // Test that all form fields render
+    expect(canvas.getByRole("textbox", { name: /username/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /phone number/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /website/i })).toBeInTheDocument();
+    expect(canvas.getByRole("spinbutton", { name: /age/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /bio/i })).toBeInTheDocument();
+
+    // Test helper text renders
+    expect(canvas.getByText("Letters, numbers, and underscores only")).toBeInTheDocument();
+    expect(canvas.getByText("Tell us about yourself (max 500 characters)")).toBeInTheDocument();
+
+    // Test required indicators are shown
+    const usernameLabel = canvas.getByText("Username");
+    expect(usernameLabel.parentElement?.textContent).toContain("*");
+  },
+});
+
+export const Compact: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     title: "Quick Contact",
@@ -630,9 +773,24 @@ export const Compact: Story = {
       size: "sm",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithPersistence: Story = {
+    // Test that the form renders with title
+    expect(canvas.getByText("Quick Contact")).toBeInTheDocument();
+
+    // Test that all form fields render
+    expect(canvas.getByRole("textbox", { name: /name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /message/i })).toBeInTheDocument();
+
+    // Test submit button renders with correct text and size
+    const submitButton = canvas.getByRole("button", { name: /send/i });
+    expect(submitButton).toBeInTheDocument();
+  },
+});
+
+export const WithPersistence: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     title: "Form with Auto-Save",
@@ -675,9 +833,9 @@ export const WithPersistence: Story = {
     // Data should be persisted to localStorage
     await expect(localStorage.getItem("storybook-contact-form")).toBeTruthy();
   },
-};
+});
 
-export const WithCRMIntegration: Story = {
+export const WithCRMIntegration: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   args: {
     type: "ContactFormBlock",
     title: "CRM-Connected Form",
@@ -742,4 +900,21 @@ export const WithCRMIntegration: Story = {
       variant: "primary",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test that the form renders with title and description
+    expect(canvas.getByText("CRM-Connected Form")).toBeInTheDocument();
+    expect(canvas.getByText("This form integrates with your CRM system")).toBeInTheDocument();
+
+    // Test that all form fields render
+    expect(canvas.getByRole("textbox", { name: /first name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /last name/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(canvas.getByRole("textbox", { name: /company/i })).toBeInTheDocument();
+    expect(canvas.getByRole("combobox", { name: /how did you hear about us/i })).toBeInTheDocument();
+
+    // Test submit button renders with custom text
+    expect(canvas.getByRole("button", { name: /submit to crm/i })).toBeInTheDocument();
+  },
+});

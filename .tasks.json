@@ -1,172 +1,202 @@
 [
   {
-    "id": "dual-mode-contact-form-block",
-    "description": "Implement dual-mode story functionality for ContactFormBlock component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/contact-form-block/contact-form-block.stories.tsx",
+    "id": "fix-announcement-bar-sdui",
+    "description": "FIX BROKEN IMPLEMENTATION: AnnouncementBar stories are using incorrect SDUI format. The args MUST use the actual component type 'AnnouncementBar' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'AnnouncementBar' and ensure the play() functions verify that content actually renders (e.g., announcement text, links, close button). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.",
+    "status": "pending"
+  },
+  {
+    "id": "fix-blog-post-detail-sdui",
+    "description": "FIX BROKEN IMPLEMENTATION: BlogPostDetail stories are using incorrect SDUI format. The args MUST use the actual component type 'BlogPostDetail' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'BlogPostDetail' and ensure the play() functions verify that content actually renders (e.g., title, author, content, tags). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.",
+    "status": "pending"
+  },
+  {
+    "id": "fix-blog-post-grid-sdui",
+    "description": "FIX BROKEN IMPLEMENTATION: BlogPostGrid stories are using incorrect SDUI format. The args MUST use the actual component type 'BlogPostGrid' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'BlogPostGrid' and ensure the play() functions verify that content actually renders (e.g., blog posts, titles, excerpts). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.",
+    "status": "pending"
+  },
+  {
+    "id": "fix-brand-logo-bar-sdui",
+    "description": "FIX BROKEN IMPLEMENTATION: BrandLogoBar stories are using incorrect SDUI format. The args MUST use the actual component type 'BrandLogoBar' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'BrandLogoBar' and ensure the play() functions verify that content actually renders (e.g., logos, brand names). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.",
+    "status": "pending"
+  },
+  {
+    "id": "fix-call-to-action-sdui",
+    "description": "FIX BROKEN IMPLEMENTATION: CallToAction stories are using incorrect SDUI format. The args MUST use the actual component type 'CallToAction' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'CallToAction' and ensure the play() functions verify that content actually renders (e.g., heading, description, buttons). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.",
+    "status": "pending"
+  },
+  {
+    "id": "fix-carousel-sdui",
+    "description": "FIX BROKEN IMPLEMENTATION: Carousel stories are using incorrect SDUI format. The args MUST use the actual component type 'CarouselBlock' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'CarouselBlock' and ensure the play() functions verify that content actually renders (e.g., slides, navigation buttons). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.",
+    "status": "pending"
+  },
+  {
+    "id": "fix-contact-form-block-sdui",
+    "description": "FIX CURRENT IMPLEMENTATION: ContactFormBlock stories have type errors. The args MUST use type 'ContactFormBlock'. Fix the enhanceStoryForDualMode usage to properly type the story. The SDUI view should render EXACTLY the same as the React view showing form fields, labels, and submit button. Ensure the play() functions verify that form elements actually render. Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.",
     "status": "pending"
   },
   {
     "id": "dual-mode-contact-form",
-    "description": "Implement dual-mode story functionality for ContactForm component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/contact-form/contact-form.stories.tsx",
+    "description": "Implement dual-mode story functionality for ContactForm component. CRITICAL: The args MUST use type 'ContactForm' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (form fields, submit button, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-cookie-consent-banner",
-    "description": "Implement dual-mode story functionality for CookieConsentBanner component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/cookie-consent-banner/cookie-consent-banner.stories.tsx",
+    "description": "Implement dual-mode story functionality for CookieConsentBanner component. CRITICAL: The args MUST use type 'CookieConsentBanner' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (consent text, accept/decline buttons, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-error-page",
-    "description": "Implement dual-mode story functionality for ErrorPage component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/error-page/error-page.stories.tsx",
+    "description": "Implement dual-mode story functionality for ErrorPage component. CRITICAL: The args MUST use type 'ErrorPage' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (error code, message, back button, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-event-listings",
-    "description": "Implement dual-mode story functionality for EventListings component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/event-listings/event-listings.stories.tsx",
+    "description": "Implement dual-mode story functionality for EventListings component. CRITICAL: The args MUST use type 'EventListings' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (event titles, dates, locations, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-faq",
-    "description": "Implement dual-mode story functionality for FAQ component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/faq/faq.stories.tsx",
+    "description": "Implement dual-mode story functionality for FAQ component. CRITICAL: The args MUST use type 'FAQ' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (questions, answers, accordion functionality, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-feature-card",
-    "description": "Implement dual-mode story functionality for FeatureCard component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/feature-card/feature-card.stories.tsx",
+    "description": "Implement dual-mode story functionality for FeatureCard component. CRITICAL: The args MUST use type 'FeatureCard' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (icon, title, description, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-features",
-    "description": "Implement dual-mode story functionality for Features component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/features/features.stories.tsx",
+    "description": "Implement dual-mode story functionality for Features component. CRITICAL: The args MUST use type 'Features' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (feature list, icons, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-footer",
-    "description": "Implement dual-mode story functionality for Footer component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/footer/footer.stories.tsx",
+    "description": "Implement dual-mode story functionality for Footer component. CRITICAL: The args MUST use type 'Footer' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (links, copyright, social icons, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-header",
-    "description": "Implement dual-mode story functionality for Header component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/header/header.stories.tsx",
+    "description": "Implement dual-mode story functionality for Header component. CRITICAL: The args MUST use type 'Header' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (logo, navigation, menu items, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-icon",
-    "description": "Implement dual-mode story functionality for Icon component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/icon/icon.stories.tsx",
+    "description": "Implement dual-mode story functionality for Icon component. CRITICAL: The args MUST use type 'Icon' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (icon svg, size, color, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-job-listings",
-    "description": "Implement dual-mode story functionality for JobListings component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/job-listings/job-listings.stories.tsx",
+    "description": "Implement dual-mode story functionality for JobListings component. CRITICAL: The args MUST use type 'JobListings' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (job titles, descriptions, locations, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-latest-news",
-    "description": "Implement dual-mode story functionality for LatestNews component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/latest-news/latest-news.stories.tsx",
+    "description": "Implement dual-mode story functionality for LatestNews component. CRITICAL: The args MUST use type 'LatestNews' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (news items, dates, summaries, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-location-hours",
-    "description": "Implement dual-mode story functionality for LocationHours component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/location-hours/location-hours.stories.tsx",
+    "description": "Implement dual-mode story functionality for LocationHours component. CRITICAL: The args MUST use type 'LocationHours' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (location names, hours, addresses, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-map",
-    "description": "Implement dual-mode story functionality for Map component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/map/map.stories.tsx",
+    "description": "Implement dual-mode story functionality for Map component. CRITICAL: The args MUST use type 'Map' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (map container, markers, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-google-map",
-    "description": "Implement dual-mode story functionality for GoogleMap component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/map/google-map.stories.tsx",
+    "description": "Implement dual-mode story functionality for GoogleMap component. CRITICAL: The args MUST use type 'GoogleMap' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (map iframe, markers, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-newsletter-signup",
-    "description": "Implement dual-mode story functionality for NewsletterSignup component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/newsletter-signup/newsletter-signup.stories.tsx",
+    "description": "Implement dual-mode story functionality for NewsletterSignup component. CRITICAL: The args MUST use type 'NewsletterSignup' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (email input, submit button, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-page-hero-header",
-    "description": "Implement dual-mode story functionality for PageHeroHeader component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/page-hero-header/page-hero-header.stories.tsx",
+    "description": "Implement dual-mode story functionality for PageHeroHeader component. CRITICAL: The args MUST use type 'PageHeroHeader' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (hero title, subtitle, CTA buttons, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-page-section",
-    "description": "Implement dual-mode story functionality for PageSection component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/page-section/page-section.stories.tsx",
+    "description": "Implement dual-mode story functionality for PageSection component. CRITICAL: The args MUST use type 'PageSection' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (section content, padding, background, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-photo-flip-card",
-    "description": "Implement dual-mode story functionality for PhotoFlipCard component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/photo-flip-card/photo-flip-card.stories.tsx",
+    "description": "Implement dual-mode story functionality for PhotoFlipCard component. CRITICAL: The args MUST use type 'PhotoFlipCard' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (front/back content, images, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-photo-gallery",
-    "description": "Implement dual-mode story functionality for PhotoGallery component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/photo-gallery/photo-gallery.stories.tsx",
+    "description": "Implement dual-mode story functionality for PhotoGallery component. CRITICAL: The args MUST use type 'PhotoGallery' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (images, captions, grid layout, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-portfolio-case-studies",
-    "description": "Implement dual-mode story functionality for PortfolioCaseStudies component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/portfolio-case-studies/portfolio-case-studies.stories.tsx",
+    "description": "Implement dual-mode story functionality for PortfolioCaseStudies component. CRITICAL: The args MUST use type 'PortfolioCaseStudies' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (case study cards, titles, images, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-pricing-table",
-    "description": "Implement dual-mode story functionality for PricingTable component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/pricing-table/pricing-table.stories.tsx",
+    "description": "Implement dual-mode story functionality for PricingTable component. CRITICAL: The args MUST use type 'PricingTable' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (pricing tiers, features, prices, CTA buttons, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-process-steps",
-    "description": "Implement dual-mode story functionality for ProcessSteps component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/process-steps/process-steps.stories.tsx",
+    "description": "Implement dual-mode story functionality for ProcessSteps component. CRITICAL: The args MUST use type 'ProcessSteps' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (step numbers, titles, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-product-showcase",
-    "description": "Implement dual-mode story functionality for ProductShowcase component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/product-showcase/product-showcase.stories.tsx",
+    "description": "Implement dual-mode story functionality for ProductShowcase component. CRITICAL: The args MUST use type 'ProductShowcase' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (product images, features, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-restaurant-menu",
-    "description": "Implement dual-mode story functionality for RestaurantMenu component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/restaurant-menu/restaurant-menu.stories.tsx",
+    "description": "Implement dual-mode story functionality for RestaurantMenu component. CRITICAL: The args MUST use type 'RestaurantMenu' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (menu sections, items, prices, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-service-list",
-    "description": "Implement dual-mode story functionality for ServiceList component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/service-list/service-list.stories.tsx",
+    "description": "Implement dual-mode story functionality for ServiceList component. CRITICAL: The args MUST use type 'ServiceList' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (service items, icons, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-sidebar",
-    "description": "Implement dual-mode story functionality for Sidebar component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/sidebar/sidebar.stories.tsx",
+    "description": "Implement dual-mode story functionality for Sidebar component. CRITICAL: The args MUST use type 'Sidebar' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (sidebar content, navigation items, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-social-share-bar",
-    "description": "Implement dual-mode story functionality for SocialShareBar component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/social-share-bar/social-share-bar.stories.tsx",
+    "description": "Implement dual-mode story functionality for SocialShareBar component. CRITICAL: The args MUST use type 'SocialShareBar' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (share buttons, icons, links, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-stat-block",
-    "description": "Implement dual-mode story functionality for StatBlock component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/stat-block/stat-block.stories.tsx",
+    "description": "Implement dual-mode story functionality for StatBlock component. CRITICAL: The args MUST use type 'StatBlock' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (stat values, labels, icons, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-team-grid",
-    "description": "Implement dual-mode story functionality for TeamGrid component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/team-grid/team-grid.stories.tsx",
+    "description": "Implement dual-mode story functionality for TeamGrid component. CRITICAL: The args MUST use type 'TeamGrid' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (team member cards, names, roles, images, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-testimonial",
-    "description": "Implement dual-mode story functionality for Testimonial component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/testimonial/testimonial.stories.tsx",
+    "description": "Implement dual-mode story functionality for Testimonial component. CRITICAL: The args MUST use type 'Testimonial' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (quote text, author, role, avatar, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-timeline",
-    "description": "Implement dual-mode story functionality for Timeline component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/timeline/timeline.stories.tsx",
+    "description": "Implement dual-mode story functionality for Timeline component. CRITICAL: The args MUST use type 'Timeline' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (timeline items, dates, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   },
   {
     "id": "dual-mode-typewriter-text",
-    "description": "Implement dual-mode story functionality for TypewriterText component. Read TESTING-STORYBOOK-DUALMODE-SETUP.md before starting. Use src/components/ui/text/text.stories.tsx as an example of a completed dual-mode implementation. Enhance all stories with enhanceStoryForDualMode wrapper. Add play() functions to ALL stories that don't have them - these should test that the component renders correctly in both React and SDUI modes. For stories with custom render functions, provide equivalent renderSpec JSON. Ensure all tests pass by running: npx vitest run src/components/blocks/typewriter-text/typewriter-text.stories.tsx",
+    "description": "Implement dual-mode story functionality for TypewriterText component. CRITICAL: The args MUST use type 'TypewriterText' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (animated text, cursor, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.",
     "status": "pending"
   }
 ]

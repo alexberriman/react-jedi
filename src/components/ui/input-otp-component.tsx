@@ -15,16 +15,37 @@ import {
  * Wrapped InputOTP component that integrates with the SDUI system
  */
 export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
-  const { props = {} } = spec as InputOTPDef;
+  const inputOTPSpec = spec as InputOTPDef;
+  
+  // Handle both nested props and top-level props for backward compatibility
+  const props = inputOTPSpec.props || {};
+  const specAny = spec as Record<string, unknown>;
+  
+  const maxLength = props.maxLength ?? (specAny.maxLength as number | undefined);
+  const pattern = props.pattern ?? (specAny.pattern as string | undefined);
+  const disabled = props.disabled ?? (specAny.disabled as boolean | undefined);
+  const className = props.className ?? (specAny.className as string | undefined);
+  const containerClassName = props.containerClassName ?? (specAny.containerClassName as string | undefined);
+  const render = props.render ?? (specAny.render as typeof props.render | undefined);
+  const propValue = props.value ?? (specAny.value as string | undefined);
+  const defaultValue = props.defaultValue ?? (specAny.defaultValue as string | undefined);
+  
+  // Handle controlled/uncontrolled state
+  const [internalValue, setInternalValue] = React.useState(defaultValue || "");
+  const isControlled = propValue !== undefined;
+  const value = isControlled ? propValue : internalValue;
 
   const handleValueChange = React.useCallback(
     (value: string) => {
+      if (!isControlled) {
+        setInternalValue(value);
+      }
       if (props.onValueChange) {
         console.log("OTP value changed:", value);
         // Event handlers will be implemented when the event system is ready
       }
     },
-    [props.onValueChange]
+    [props.onValueChange, isControlled]
   );
 
   const handleComplete = React.useCallback(
@@ -39,14 +60,14 @@ export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
 
   // Render the OTP input based on render type
   const renderOTPInput = (): React.ReactElement[] => {
-    const renderType = props.render?.type || "grouped";
-    const maxLength = props.maxLength || 6;
-    const pattern = props.render?.pattern;
+    const renderType = render?.type || "grouped";
+    const finalMaxLength = maxLength || 6;
+    const renderPattern = render?.pattern;
 
-    if (renderType === "custom" && pattern) {
+    if (renderType === "custom" && renderPattern) {
       // Parse pattern like "abc-def" to create groups with separators
-      const parts = pattern.split(/[-_\\s]/);
-      const separators = pattern.match(/[-_\\s]/g) || [];
+      const parts = renderPattern.split(/[-_\\s]/);
+      const separators = renderPattern.match(/[-_\\s]/g) || [];
 
       return parts.map((part: string, index: number) => (
         <React.Fragment key={index}>
@@ -65,12 +86,12 @@ export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
 
     if (renderType === "segmented") {
       // Create individual slots without groups
-      return Array.from({ length: maxLength }, (_, i) => <InputOTPSlot key={i} index={i} />);
+      return Array.from({ length: finalMaxLength }, (_, i) => <InputOTPSlot key={i} index={i} />);
     }
 
     // Default grouped rendering
     const groupSize = 3;
-    const groups = Math.ceil(maxLength / groupSize);
+    const groups = Math.ceil(finalMaxLength / groupSize);
 
     return Array.from({ length: groups }, (_, groupIndex) => (
       <React.Fragment key={groupIndex}>
@@ -78,7 +99,7 @@ export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
         <InputOTPGroup>
           {Array.from({ length: groupSize }, (_, slotIndex) => {
             const index = groupIndex * groupSize + slotIndex;
-            return index < maxLength ? <InputOTPSlot key={index} index={index} /> : null;
+            return index < finalMaxLength ? <InputOTPSlot key={index} index={index} /> : null;
           })}
         </InputOTPGroup>
       </React.Fragment>
@@ -87,18 +108,18 @@ export function InputOTPComponent({ spec }: Readonly<ComponentProps>) {
 
   return (
     <BaseInputOTP
-      value={props.value}
-      onChange={(value) => {
-        handleValueChange(value);
-        if (props.maxLength && value.length === props.maxLength) {
-          handleComplete(value);
+      value={value}
+      onChange={(newValue) => {
+        handleValueChange(newValue);
+        if (maxLength && newValue.length === maxLength) {
+          handleComplete(newValue);
         }
       }}
-      maxLength={props.maxLength || 6}
-      pattern={props.pattern}
-      disabled={props.disabled}
-      className={props.className}
-      containerClassName={props.containerClassName}
+      maxLength={maxLength || 6}
+      pattern={pattern}
+      disabled={disabled}
+      className={className}
+      containerClassName={containerClassName}
     >
       {renderOTPInput()}
     </BaseInputOTP>

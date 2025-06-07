@@ -35,11 +35,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-inputotp-sdui",
-    "description": "TASK: Fix InputOTP component issues in SDUI mode. ISSUE 1 - Digit Count: 'Four Digit PIN' renders 6 digits in SDUI instead of 4. Same for 'Custom Separator' and 'Password' variants. ISSUE 2 - Default Value: 'With Default Value' story doesn't show the default value in SDUI. ISSUE 3 - Disabled State: 'Disabled' variant isn't actually disabled in SDUI mode. ACTION REQUIRED: 1) Fix maxLength/length prop handling in SDUI to show correct digit count. 2) Ensure defaultValue prop is properly passed and rendered. 3) Implement disabled state handling in SDUI mode. 4) Test all InputOTP configurations thoroughly. 5) Ensure input restrictions (numeric only) work in SDUI. EXPECTED OUTCOME: InputOTP in SDUI should match React behavior for digit count, default values, and disabled state.",
-    "status": "pending"
-  },
-  {
     "id": "fix-select-issues",
     "description": "TASK: Fix Select component rendering and interaction issues. ISSUE 1 - Flash: Select flashes on initial render (similar to DatePicker/Combobox). ISSUE 2 - Default Value: 'With Default Value' story doesn't show the selected default in SDUI. ISSUE 3 - Hover Style: Dropdown hover shows harsh black background (https://i.imgur.com/tAjsHRc.png) instead of subtle gray. ACTION REQUIRED: 1) Fix initial render flash - review mounting and state initialization. 2) Ensure defaultValue/value props work in SDUI mode. 3) Fix hover styles to use subtle gray background (not black). 4) Test keyboard navigation and selection. 5) Ensure selected state is properly indicated. 6) Verify dropdown positioning and animations. EXPECTED OUTCOME: Smooth rendering, proper default values, and subtle hover effects matching React.",
     "status": "pending"

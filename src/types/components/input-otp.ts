@@ -6,6 +6,7 @@ export interface InputOTPDef extends BaseComponentSpec {
     maxLength?: number;
     pattern?: string;
     value?: string;
+    defaultValue?: string;
     onValueChange?: {
       type: "action";
       action: string;

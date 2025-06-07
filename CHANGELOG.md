@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **TASK: Fix InputOTP component issues in SDUI mode. ISSUE 1 - Digit Count: 'Four Digit PIN' renders 6 digits in SDUI instead of 4. Same for 'Custom Separator' and 'Password' variants. ISSUE 2 - Default Value: 'With Default Value' story doesn't show the default value in SDUI. ISSUE 3 - Disabled State: 'Disabled' variant isn't actually disabled in SDUI mode. ACTION REQUIRED: 1) Fix maxLength/length prop handling in SDUI to show correct digit count. 2) Ensure defaultValue prop is properly passed and rendered. 3) Implement disabled state handling in SDUI mode. 4) Test all InputOTP configurations thoroughly. 5) Ensure input restrictions (numeric only) work in SDUI. EXPECTED OUTCOME: InputOTP in SDUI should match React behavior for digit count, default values, and disabled state.**
+
+
+## [2025-06-07]
+
 - **TASK: Implement SDUI support for ExtendedHeadManager component. ISSUE: ExtendedHeadManager (for managing document head/meta tags) has no SDUI support. This limits SEO and meta tag management in SDUI applications. CONSIDERATIONS: This might be architectural - SDUI may not support dynamic head management by design. ACTION REQUIRED: 1) Determine if head management is architecturally possible in SDUI mode. 2) If possible, implement meta tag, title, and link tag management. 3) If not possible due to SDUI limitations, document this clearly. 4) Consider alternative approaches for SEO in SDUI applications. EXPECTED OUTCOME: Either working head management in SDUI or clear documentation explaining the limitation with recommended alternatives.**
   - ✅ **COMPLETED**: Verified that ExtendedHeadManager already works fully in SDUI mode. The component was already registered in the component resolver and functions correctly. Created comprehensive documentation explaining SDUI usage, supported schemas, and best practices. ExtendedHeadManager provides complete SEO and metadata management capabilities through JSON specifications with no limitations.
 

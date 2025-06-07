@@ -148,6 +148,15 @@ export const Default: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
     const container = canvasElement.querySelector('.grid');
     expect(container).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos,
+    variant: "grid",
+    size: "medium",
+    spacing: "normal",
+    columns: 4,
+  }
 }) as Story;
 
 export const ScrollingMarquee: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -171,6 +180,16 @@ export const ScrollingMarquee: Story = enhanceStoryForDualMode<typeof BrandLogoB
     const scrollContainer = canvasElement.querySelector('.overflow-hidden');
     expect(scrollContainer).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos,
+    variant: "scrolling",
+    size: "medium",
+    spacing: "normal",
+    pauseOnHover: true,
+    scrollSpeed: 30,
+  }
 }) as Story;
 
 export const WithHeading: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -196,6 +215,17 @@ export const WithHeading: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
       expect(logoElement).toBeInTheDocument();
     }
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos,
+    variant: "withHeading",
+    heading: "Trusted by Industry Leaders",
+    headingPosition: "above",
+    size: "medium",
+    spacing: "normal",
+    columns: 3,
+  }
 }) as Story;
 
 export const WithHeadingLeft: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -219,6 +249,17 @@ export const WithHeadingLeft: Story = enhanceStoryForDualMode<typeof BrandLogoBa
     const logoElements = canvas.getAllByRole('img');
     expect(logoElements).toHaveLength(4);
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos.slice(0, 4),
+    variant: "withHeading",
+    heading: "Trusted by",
+    headingPosition: "left",
+    size: "medium",
+    spacing: "normal",
+    columns: 4,
+  }
 }) as Story;
 
 export const Grayscale: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -242,6 +283,15 @@ export const Grayscale: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
     const grayscaleElements = canvasElement.querySelectorAll('.grayscale');
     expect(grayscaleElements.length).toBeGreaterThan(0);
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos,
+    variant: "grayscale",
+    size: "medium",
+    spacing: "normal",
+    columns: 4,
+  }
 }) as Story;
 
 export const Compact: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -265,6 +315,15 @@ export const Compact: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
     const compactElements = canvasElement.querySelectorAll('.p-2');
     expect(compactElements.length).toBeGreaterThan(0);
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos,
+    variant: "compact",
+    size: "small",
+    spacing: "tight",
+    columns: 6,
+  }
 }) as Story;
 
 export const LargeGrid: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -284,6 +343,15 @@ export const LargeGrid: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
       expect(logoElement).toBeInTheDocument();
     }
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: enterpriseLogos,
+    variant: "grid",
+    size: "large",
+    spacing: "loose",
+    columns: 3,
+  }
 }) as Story;
 
 export const FastScrolling: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -305,6 +373,16 @@ export const FastScrolling: Story = enhanceStoryForDualMode<typeof BrandLogoBar>
     const enterpriseLogo = canvas.getAllByAltText(enterpriseLogos[0].name);
     expect(enterpriseLogo.length).toBeGreaterThan(1);
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: [...sampleLogos, ...enterpriseLogos],
+    variant: "scrolling",
+    size: "medium",
+    spacing: "normal",
+    scrollSpeed: 15,
+    pauseOnHover: true,
+  }
 }) as Story;
 
 export const TwoColumn: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -322,6 +400,15 @@ export const TwoColumn: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
     const logoElements = canvas.getAllByRole('img');
     expect(logoElements).toHaveLength(4);
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos.slice(0, 4),
+    variant: "grid",
+    size: "large",
+    spacing: "loose",
+    columns: 2,
+  }
 }) as Story;
 
 export const GrayscaleWithHeading: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -351,6 +438,17 @@ export const GrayscaleWithHeading: Story = enhanceStoryForDualMode<typeof BrandL
     const grayscaleElements = canvasElement.querySelectorAll('.grayscale');
     expect(grayscaleElements.length).toBeGreaterThan(0);
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: enterpriseLogos,
+    variant: "grayscale",
+    heading: "Powering the World's Best Companies",
+    headingPosition: "above",
+    size: "medium",
+    spacing: "normal",
+    columns: 5,
+  }
 }) as Story;
 
 export const NoAnimation: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -370,6 +468,15 @@ export const NoAnimation: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
       expect(logoElements.length).toBeGreaterThan(0);
     }
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos,
+    variant: "scrolling",
+    size: "medium",
+    spacing: "normal",
+    animated: false,
+  }
 }) as Story;
 
 export const MobileOptimized: Story = enhanceStoryForDualMode<typeof BrandLogoBar>({
@@ -394,6 +501,15 @@ export const MobileOptimized: Story = enhanceStoryForDualMode<typeof BrandLogoBa
       expect(logoElement).toBeInTheDocument();
     }
   },
+}, {
+  renderSpec: {
+    type: "BrandLogoBar",
+    logos: sampleLogos,
+    variant: "grid",
+    size: "small",
+    spacing: "tight",
+    columns: 3,
+  }
 }) as Story;
 
 export const DarkMode: Story = enhanceStoryForDualMode<typeof BrandLogoBar>(

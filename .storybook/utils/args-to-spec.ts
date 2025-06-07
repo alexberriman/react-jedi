@@ -67,19 +67,20 @@ const COMPONENT_NAME_MAP: Record<string, string> = {
   skeletonloader: 'SkeletonLoader',
   navigationmenu: 'NavigationMenu',
   headmanager: 'HeadManager',
+  announcementbar: 'AnnouncementBar',
 };
 
 /**
  * Converts Storybook args to a component specification
  */
 export function convertArgsToSpec(args: Record<string, unknown>, componentId?: string): ComponentSpec {
-  // Extract component name from componentId (e.g., "components-blockquote--default" -> "BlockQuote")
+  // Extract component name from componentId (e.g., "components-blockquote--default" -> "BlockQuote", "blocks-announcementbar--default" -> "AnnouncementBar")
   let componentType = 'Component';
   if (componentId) {
-    const regex = /components-([^-]+)--/i;
+    const regex = /(components|blocks)-([^-]+)--/i;
     const match = regex.exec(componentId);
     if (match) {
-      const name = match[1].toLowerCase();
+      const name = match[2].toLowerCase();
       
       // Check if we have a specific mapping for this component
       componentType = COMPONENT_NAME_MAP[name] || 

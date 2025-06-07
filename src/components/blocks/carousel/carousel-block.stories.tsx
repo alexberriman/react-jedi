@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { CarouselBlock } from "./carousel-block";
 import type { CarouselDef } from "../../../types/components/carousel";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta: Meta<typeof CarouselBlock> = {
   title: "Blocks/Carousel",
@@ -145,7 +147,7 @@ const sampleProducts = [
 ];
 
 // Basic carousel with default content
-export const Basic: Story = {
+export const Basic: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -198,10 +200,30 @@ export const Basic: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test carousel renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test slides render
+    expect(canvas.getByText("Slide 1")).toBeInTheDocument();
+    
+    // Test navigation arrows exist
+    const prevButton = canvas.getByRole("button", { name: /previous slide/i });
+    const nextButton = canvas.getByRole("button", { name: /next slide/i });
+    expect(prevButton).toBeInTheDocument();
+    expect(nextButton).toBeInTheDocument();
+    
+    // Test dots navigation exists
+    const dotsContainer = canvas.getByRole("group", { name: /carousel pagination/i });
+    expect(dotsContainer).toBeInTheDocument();
+  },
+});
 
 // Image Gallery Variant with Ken Burns effect
-export const ImageGallery: Story = {
+export const ImageGallery: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -229,10 +251,25 @@ export const ImageGallery: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test gallery variant renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test images are rendered
+    const images = canvas.getAllByRole("img");
+    expect(images.length).toBeGreaterThan(0);
+    
+    // Test navigation exists
+    expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
+  },
+});
 
 // Content Cards Variant
-export const ContentCards: Story = {
+export const ContentCards: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -252,10 +289,26 @@ export const ContentCards: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test content cards render
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test content items
+    expect(canvas.getByText("Modern Design System")).toBeInTheDocument();
+    
+    // Test badges render
+    expect(canvas.getByText("New")).toBeInTheDocument();
+    
+    // Test CTA buttons
+    expect(canvas.getByRole("link", { name: "Learn More" })).toBeInTheDocument();
+  },
+});
 
 // Testimonials Variant - Cards Style
-export const TestimonialsCards: Story = {
+export const TestimonialsCards: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -280,10 +333,24 @@ export const TestimonialsCards: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test testimonials render
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test testimonial content
+    expect(canvas.getByText(/This carousel component has transformed/)).toBeInTheDocument();
+    
+    // Test author info
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+    expect(canvas.getByText("Creative Director")).toBeInTheDocument();
+  },
+});
 
 // Testimonials Variant - Quote Style
-export const TestimonialsQuotes: Story = {
+export const TestimonialsQuotes: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -303,10 +370,23 @@ export const TestimonialsQuotes: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test quote variant renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test testimonial content in quote format
+    expect(canvas.getByText(/This carousel component has transformed/)).toBeInTheDocument();
+    
+    // Test author attribution
+    expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+  },
+});
 
 // Product Showcase Variant
-export const ProductShowcase: Story = {
+export const ProductShowcase: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -326,10 +406,24 @@ export const ProductShowcase: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test product showcase renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test product info
+    expect(canvas.getByText("Premium Wireless Headphones")).toBeInTheDocument();
+    expect(canvas.getByText("$299")).toBeInTheDocument();
+    
+    // Test badges
+    expect(canvas.getByText("Sale")).toBeInTheDocument();
+  },
+});
 
 // Fullscreen Variant
-export const Fullscreen: Story = {
+export const Fullscreen: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -358,10 +452,23 @@ export const Fullscreen: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test fullscreen carousel renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test hero titles
+    expect(canvas.getByText("Mountain Vista Hero")).toBeInTheDocument();
+    
+    // Test overlay text
+    expect(canvas.getByText("Experience the beauty of nature in full screen glory")).toBeInTheDocument();
+  },
+});
 
 // Autoplay with Custom Settings
-export const AutoplayCustom: Story = {
+export const AutoplayCustom: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -390,10 +497,25 @@ export const AutoplayCustom: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test autoplay carousel renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test images render
+    const images = canvas.getAllByRole("img");
+    expect(images.length).toBeGreaterThan(0);
+    
+    // Test navigation controls
+    expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
+  },
+});
 
 // Vertical Orientation
-export const Vertical: Story = {
+export const Vertical: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -448,10 +570,24 @@ export const Vertical: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test vertical carousel renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test vertical slides
+    expect(canvas.getByText("Vertical Slide 1")).toBeInTheDocument();
+    
+    // Test navigation exists
+    expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
+  },
+});
 
 // Multiple Items Visible
-export const MultipleItems: Story = {
+export const MultipleItems: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -483,10 +619,25 @@ export const MultipleItems: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test multiple items carousel renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test first items are visible
+    expect(canvas.getByText("Item 1")).toBeInTheDocument();
+    expect(canvas.getByText("Item 2")).toBeInTheDocument();
+    
+    // Test navigation
+    expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
+  },
+});
 
 // Loop Enabled
-export const Loop: Story = {
+export const Loop: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -521,10 +672,25 @@ export const Loop: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test loop carousel renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test images render
+    const images = canvas.getAllByRole("img");
+    expect(images.length).toBeGreaterThan(0);
+    
+    // Test navigation
+    expect(canvas.getByRole("button", { name: /previous slide/i })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: /next slide/i })).toBeInTheDocument();
+  },
+});
 
 // No Navigation (Swipe Only)
-export const SwipeOnly: Story = {
+export const SwipeOnly: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
   args: {
     spec: {
       type: "Carousel",
@@ -573,4 +739,23 @@ export const SwipeOnly: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test swipe-only carousel renders
+    const carousel = canvas.getByRole("region", { name: /carousel/i });
+    expect(carousel).toBeInTheDocument();
+    
+    // Test content renders
+    expect(canvas.getByText("Mountain Vista")).toBeInTheDocument();
+    expect(canvas.getByText("A breathtaking view of snow-capped peaks")).toBeInTheDocument();
+    
+    // Test dots exist (no arrows)
+    const dotsContainer = canvas.getByRole("group", { name: /carousel pagination/i });
+    expect(dotsContainer).toBeInTheDocument();
+    
+    // Test no arrow buttons
+    expect(canvas.queryByRole("button", { name: /previous slide/i })).not.toBeInTheDocument();
+    expect(canvas.queryByRole("button", { name: /next slide/i })).not.toBeInTheDocument();
+  },
+});

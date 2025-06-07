@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExtendedHeadManager SDUI Test</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9fafb;
+    }
+    .test-section {
+      margin-bottom: 40px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .test-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #1f2937;
+    }
+    .test-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+    .metadata-display {
+      background: #f3f4f6;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 15px;
+    }
+    .metadata-display h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #374151;
+    }
+    .metadata-item {
+      font-size: 13px;
+      margin: 5px 0;
+      color: #4b5563;
+    }
+    .metadata-item strong {
+      color: #1f2937;
+    }
+    .json-ld-display {
+      background: #1f2937;
+      color: #f9fafb;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 15px;
+      overflow-x: auto;
+    }
+    .json-ld-display pre {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .status-indicator {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .status-success {
+      background-color: #10b981;
+    }
+    .status-error {
+      background-color: #ef4444;
+    }
+    .error-message {
+      background: #fee;
+      color: #dc2626;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 30px; color: #111827;">
+    ExtendedHeadManager SDUI Test
+  </h1>
+
+  <!-- Test 1: Basic metadata and organization structured data -->
+  <div class="test-section">
+    <h3 class="test-title">Test 1: Basic Metadata + Organization Schema</h3>
+    <p class="test-description">Tests basic SEO metadata with organization structured data</p>
+    <div id="test1"></div>
+  </div>
+
+  <!-- Test 2: Article structured data -->
+  <div class="test-section">
+    <h3 class="test-title">Test 2: Article Schema</h3>
+    <p class="test-description">Tests article structured data with author information</p>
+    <div id="test2"></div>
+  </div>
+
+  <!-- Test 3: Product structured data -->
+  <div class="test-section">
+    <h3 class="test-title">Test 3: Product Schema</h3>
+    <p class="test-description">Tests product structured data with pricing and ratings</p>
+    <div id="test3"></div>
+  </div>
+
+  <!-- Test 4: Multiple schemas -->
+  <div class="test-section">
+    <h3 class="test-title">Test 4: Multiple Schemas</h3>
+    <p class="test-description">Tests rendering multiple structured data schemas</p>
+    <div id="test4"></div>
+  </div>
+
+  <!-- Test 5: FAQ schema -->
+  <div class="test-section">
+    <h3 class="test-title">Test 5: FAQ Schema</h3>
+    <p class="test-description">Tests FAQ structured data</p>
+    <div id="test5"></div>
+  </div>
+
+  <script type="module">
+    // Import the render function from the built library
+    import { render } from './dist/index.js';
+
+    // Helper function to display metadata and structured data
+    function MetadataDisplay({ metadata, structuredData }) {
+      return React.createElement('div', null,
+        React.createElement('div', { className: 'metadata-display' },
+          React.createElement('h4', null, 'Metadata:'),
+          Object.entries(metadata).map(([key, value]) =>
+            React.createElement('div', { key, className: 'metadata-item' },
+              React.createElement('strong', null, key + ': '),
+              value
+            )
+          )
+        ),
+        structuredData && React.createElement('div', { className: 'json-ld-display' },
+          React.createElement('h4', { style: { marginBottom: '10px' } }, 'Structured Data (JSON-LD):'),
+          React.createElement('pre', null,
+            JSON.stringify(structuredData, null, 2)
+          )
+        )
+      );
+    }
+
+    // Helper to check document head updates
+    function checkHeadUpdates(testName) {
+      setTimeout(() => {
+        const title = document.title;
+        const description = document.querySelector('meta[name="description"]')?.content;
+        const ogTitle = document.querySelector('meta[property="og:title"]')?.content;
+        const jsonLdScripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
+        
+        console.log(`${testName} - Head Updates:`, {
+          title,
+          description,
+          ogTitle,
+          jsonLdCount: jsonLdScripts.length,
+          jsonLdContent: jsonLdScripts.map(s => {
+            try {
+              return JSON.parse(s.textContent);
+            } catch (e) {
+              return 'Invalid JSON';
+            }
+          })
+        });
+      }, 100);
+    }
+
+    // Test 1: Basic metadata with organization schema
+    try {
+      const spec1 = {
+        type: "extended-head-manager",
+        metadata: {
+          title: "ACME Corporation - Home",
+          description: "Welcome to ACME Corporation, your trusted partner in innovation",
+          keywords: ["acme", "corporation", "innovation", "technology"],
+          author: "ACME Corp",
+          ogTitle: "ACME Corporation | Leading Innovation",
+          ogDescription: "Discover ACME's innovative solutions and services",
+          ogImage: "https://example.com/acme-og-image.jpg",
+          ogType: "website",
+          twitterCard: "summary_large_image",
+          twitterSite: "@acmecorp"
+        },
+        structuredData: {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "ACME Corporation",
+          url: "https://acme.com",
+          logo: "https://acme.com/logo.png",
+          description: "Leading provider of innovative technology solutions",
+          sameAs: [
+            "https://facebook.com/acmecorp",
+            "https://twitter.com/acmecorp",
+            "https://linkedin.com/company/acmecorp"
+          ],
+          contactPoint: {
+            "@type": "ContactPoint",
+            telephone: "+1-800-555-0123",
+            contactType: "customer service",
+            availableLanguage: ["English", "Spanish", "French"]
+          }
+        }
+      };
+
+      const element1 = render(spec1);
+      const container1 = document.getElementById('test1');
+      
+      ReactDOM.render(
+        React.createElement(React.Fragment, null,
+          element1,
+          React.createElement(MetadataDisplay, {
+            metadata: spec1.metadata,
+            structuredData: spec1.structuredData
+          })
+        ),
+        container1
+      );
+
+      checkHeadUpdates('Test 1');
+      container1.insertAdjacentHTML('afterbegin', '<span class="status-indicator status-success"></span>Success');
+    } catch (error) {
+      document.getElementById('test1').innerHTML = `
+        <span class="status-indicator status-error"></span>Error
+        <div class="error-message">${error.message}</div>
+      `;
+    }
+
+    // Test 2: Article schema
+    try {
+      const spec2 = {
+        type: "ExtendedHeadManager",
+        metadata: {
+          title: "Understanding Server-Driven UI Architecture",
+          description: "A comprehensive guide to implementing SDUI patterns in modern web applications",
+          author: "Jane Doe",
+          keywords: ["sdui", "server-driven", "ui", "architecture"],
+          ogTitle: "Server-Driven UI: The Complete Guide",
+          ogType: "article"
+        },
+        structuredData: {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: "Understanding Server-Driven UI Architecture",
+          author: {
+            "@type": "Person",
+            name: "Jane Doe",
+            url: "https://janedoe.com"
+          },
+          datePublished: "2024-01-15T08:00:00Z",
+          dateModified: "2024-01-16T10:00:00Z",
+          description: "Learn how Server-Driven UI can transform your development workflow",
+          image: [
+            "https://example.com/sdui-hero.jpg",
+            "https://example.com/sdui-thumbnail.jpg"
+          ],
+          publisher: {
+            "@type": "Organization",
+            name: "Tech Blog",
+            logo: "https://techblog.com/logo.png"
+          }
+        }
+      };
+
+      const element2 = render(spec2);
+      const container2 = document.getElementById('test2');
+      
+      ReactDOM.render(
+        React.createElement(React.Fragment, null,
+          element2,
+          React.createElement(MetadataDisplay, {
+            metadata: spec2.metadata,
+            structuredData: spec2.structuredData
+          })
+        ),
+        container2
+      );
+
+      checkHeadUpdates('Test 2');
+      container2.insertAdjacentHTML('afterbegin', '<span class="status-indicator status-success"></span>Success');
+    } catch (error) {
+      document.getElementById('test2').innerHTML = `
+        <span class="status-indicator status-error"></span>Error
+        <div class="error-message">${error.message}</div>
+      `;
+    }
+
+    // Test 3: Product schema
+    try {
+      const spec3 = {
+        type: "extended-head-manager",
+        metadata: {
+          title: "Premium Widget Pro - ACME Store",
+          description: "The ultimate widget for professionals. High-quality, durable, and feature-rich.",
+          ogTitle: "Premium Widget Pro | Professional Grade",
+          ogDescription: "Get the best widget for your professional needs",
+          ogImage: "https://example.com/widget-pro.jpg",
+          ogType: "product"
+        },
+        structuredData: {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: "Premium Widget Pro",
+          description: "The ultimate widget for professionals",
+          image: [
+            "https://example.com/widget-1.jpg",
+            "https://example.com/widget-2.jpg",
+            "https://example.com/widget-3.jpg"
+          ],
+          brand: {
+            "@type": "Organization",
+            name: "Widget Co"
+          },
+          offers: {
+            "@type": "Offer",
+            url: "https://example.com/widgets/pro",
+            priceCurrency: "USD",
+            price: "99.99",
+            priceValidUntil: "2025-12-31",
+            itemCondition: "https://schema.org/NewCondition",
+            availability: "https://schema.org/InStock"
+          },
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: 4.8,
+            reviewCount: 127
+          }
+        }
+      };
+
+      const element3 = render(spec3);
+      const container3 = document.getElementById('test3');
+      
+      ReactDOM.render(
+        React.createElement(React.Fragment, null,
+          element3,
+          React.createElement(MetadataDisplay, {
+            metadata: spec3.metadata,
+            structuredData: spec3.structuredData
+          })
+        ),
+        container3
+      );
+
+      checkHeadUpdates('Test 3');
+      container3.insertAdjacentHTML('afterbegin', '<span class="status-indicator status-success"></span>Success');
+    } catch (error) {
+      document.getElementById('test3').innerHTML = `
+        <span class="status-indicator status-error"></span>Error
+        <div class="error-message">${error.message}</div>
+      `;
+    }
+
+    // Test 4: Multiple schemas
+    try {
+      const spec4 = {
+        type: "ExtendedHeadManager",
+        metadata: {
+          title: "ACME Corporation - Leading Innovation Since 1985",
+          description: "Discover ACME's cutting-edge products and services",
+          ogTitle: "ACME Corporation | Innovation Leaders",
+          ogType: "website"
+        },
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "ACME Corporation",
+            url: "https://acme.com",
+            logo: "https://acme.com/logo.png",
+            foundingDate: "1985-04-01",
+            numberOfEmployees: 5000
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            url: "https://acme.com",
+            name: "ACME Corporation",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate: "https://acme.com/search?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      };
+
+      const element4 = render(spec4);
+      const container4 = document.getElementById('test4');
+      
+      ReactDOM.render(
+        React.createElement(React.Fragment, null,
+          element4,
+          React.createElement(MetadataDisplay, {
+            metadata: spec4.metadata,
+            structuredData: spec4.structuredData
+          })
+        ),
+        container4
+      );
+
+      checkHeadUpdates('Test 4');
+      container4.insertAdjacentHTML('afterbegin', '<span class="status-indicator status-success"></span>Success');
+    } catch (error) {
+      document.getElementById('test4').innerHTML = `
+        <span class="status-indicator status-error"></span>Error
+        <div class="error-message">${error.message}</div>
+      `;
+    }
+
+    // Test 5: FAQ schema
+    try {
+      const spec5 = {
+        type: "extended-head-manager",
+        metadata: {
+          title: "Frequently Asked Questions - ACME Corp",
+          description: "Find answers to common questions about ACME products and services",
+          ogTitle: "ACME FAQ - Get Your Questions Answered"
+        },
+        structuredData: {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "What is Server-Driven UI?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Server-Driven UI (SDUI) is an architectural pattern where the server controls the structure and behavior of the user interface through declarative specifications, typically in JSON format."
+              }
+            },
+            {
+              "@type": "Question",
+              name: "How does React Jedi work?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "React Jedi uses a single render() function to transform JSON specifications into fully functional React components, with built-in support for styling, state management, and advanced features."
+              }
+            },
+            {
+              "@type": "Question",
+              name: "Is React Jedi suitable for production?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes, React Jedi is designed for production use with performance optimizations, comprehensive testing, TypeScript support, and enterprise-ready features."
+              }
+            }
+          ]
+        }
+      };
+
+      const element5 = render(spec5);
+      const container5 = document.getElementById('test5');
+      
+      ReactDOM.render(
+        React.createElement(React.Fragment, null,
+          element5,
+          React.createElement(MetadataDisplay, {
+            metadata: spec5.metadata,
+            structuredData: spec5.structuredData
+          })
+        ),
+        container5
+      );
+
+      checkHeadUpdates('Test 5');
+      container5.insertAdjacentHTML('afterbegin', '<span class="status-indicator status-success"></span>Success');
+    } catch (error) {
+      document.getElementById('test5').innerHTML = `
+        <span class="status-indicator status-error"></span>Error
+        <div class="error-message">${error.message}</div>
+      `;
+    }
+
+    // Additional verification after all tests
+    setTimeout(() => {
+      console.log('=== Final Head State ===');
+      console.log('Title:', document.title);
+      console.log('Meta tags:', Array.from(document.querySelectorAll('meta')).map(m => ({
+        name: m.getAttribute('name'),
+        property: m.getAttribute('property'),
+        content: m.getAttribute('content')
+      })));
+      console.log('JSON-LD Scripts:', Array.from(document.querySelectorAll('script[type="application/ld+json"]')).length);
+    }, 500);
+  </script>
+</body>
+</html>

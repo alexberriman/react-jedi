@@ -82,11 +82,14 @@ export const Default = enhanceStoryForDualMode(
       // Open drawer
       const triggerButton = canvas.getByRole("button", { name: /open drawer/i });
       await userEvent.click(triggerButton);
+      
+      // Add a small delay for drawer animation
+      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
       // Wait for drawer to appear (drawer renders in a portal)
       await waitFor(() => {
         expect(within(document.body).getByText("Edit Profile")).toBeInTheDocument();
-      });
+      }, { timeout: 10_000 });
 
       // Interact with form fields - be more specific with the selector
       const nameInput = within(document.body).getByRole("textbox", { name: /^name$/i });
@@ -277,11 +280,14 @@ export const RightSide = enhanceStoryForDualMode(
       // Open right side drawer
       const triggerButton = canvas.getByRole("button", { name: /right side drawer/i });
       await userEvent.click(triggerButton);
+      
+      // Add a small delay for drawer animation
+      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
       // Wait for drawer
       await waitFor(() => {
         expect(within(document.body).getByText("Navigation Menu")).toBeInTheDocument();
-      });
+      }, { timeout: 10_000 });
 
       // Verify drawer is on the right (has data attribute)
       const drawerContent = within(document.body)
@@ -448,11 +454,14 @@ export const LeftSide = enhanceStoryForDualMode(
       // Open left side drawer
       const triggerButton = canvas.getByRole("button", { name: /left side drawer/i });
       await userEvent.click(triggerButton);
+      
+      // Add a small delay for drawer animation
+      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
-      // Wait for drawer
+      // Wait for drawer with increased timeout
       await waitFor(() => {
         expect(within(document.body).getByText("Settings")).toBeInTheDocument();
-      });
+      }, { timeout: 10_000 });
 
       // Verify drawer is on the left
       const drawerContent = within(document.body)

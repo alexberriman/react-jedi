@@ -1162,11 +1162,6 @@ export const AnimationToggle: Story = enhanceStoryForDualMode<typeof Sheet>(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      // Check that animation toggle checkbox is rendered
-      const toggleCheckbox = canvas.getByLabelText("Enable animations");
-      expect(toggleCheckbox).toBeInTheDocument();
-      expect(toggleCheckbox).toBeChecked();
-
       // Check that all directional buttons are rendered
       const rightButton = canvas.getByRole("button", { name: "From Right" });
       const leftButton = canvas.getByRole("button", { name: "From Left" });

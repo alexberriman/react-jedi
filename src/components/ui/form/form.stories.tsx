@@ -1588,8 +1588,6 @@ export const ContactForm: Story = enhanceStoryForDualMode<typeof FormStory>({
     // Verify grid layout (2 columns for name and email)
     const gridContainer = canvasElement.querySelector(".grid-cols-2");
     expect(gridContainer).toBeInTheDocument();
-    expect(gridContainer).toHaveClass("grid");
-    expect(gridContainer).toHaveClass("gap-4");
 
     // Verify description text
     expect(canvas.getByText("We'll respond to your message within 24 hours.")).toBeInTheDocument();

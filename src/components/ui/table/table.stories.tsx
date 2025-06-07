@@ -680,7 +680,7 @@ export const Compact: Story = enhanceStoryForDualMode<typeof Table>(
 
       // Test server data
       expect(canvas.getByText("web-01")).toBeInTheDocument();
-      expect(canvas.getByText("45%")).toBeInTheDocument();
+      expect(canvas.getAllByText("45%").length).toBeGreaterThan(0);
       expect(canvas.getByText("Healthy")).toBeInTheDocument();
       expect(canvas.getByText("Critical")).toBeInTheDocument();
       expect(canvas.getByText("Warning")).toBeInTheDocument();

@@ -37,7 +37,7 @@ export default mergeConfig(
           height: 720,
         },
       } : undefined,
-      environment: isStorybookTest ? undefined : "jsdom",
+      environment: isStorybookTest ? "happy-dom" : "jsdom",
       pool: isStorybookTest ? "forks" : "threads",
       poolOptions: isStorybookTest ? {
         forks: {

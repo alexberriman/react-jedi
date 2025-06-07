@@ -219,10 +219,23 @@ export interface TextProps
   readonly conditionalProps?: Record<string, unknown>;
 }
 
+type TextElement = {
+  p: HTMLParagraphElement;
+  span: HTMLSpanElement;
+  div: HTMLDivElement;
+  blockquote: HTMLQuoteElement;
+  code: HTMLElement;
+  strong: HTMLElement;
+  em: HTMLElement;
+  small: HTMLElement;
+};
+
+type TextRef = TextElement[keyof TextElement];
+
 /**
  * Text component for displaying paragraphs, spans, and other text elements with various styling options
  */
-function Text({
+const Text = React.forwardRef<TextRef, TextProps>(({
   className,
   children,
   element = "p",
@@ -241,13 +254,14 @@ function Text({
   lineHeight,
   tracking,
   ...props
-}: TextProps) {
-  const Component = element;
+}, ref) => {
+  const Component = element as React.ElementType;
   
   const cleanProps = omit(props, ["parentContext", "spec", "theme", "state", "conditionalProps"]);
 
   return (
     <Component
+      ref={ref}
       data-slot="text"
       className={cn(
         textVariants({
@@ -274,6 +288,8 @@ function Text({
       {children}
     </Component>
   );
-}
+});
+
+Text.displayName = "Text";
 
 export { Text, textVariants };

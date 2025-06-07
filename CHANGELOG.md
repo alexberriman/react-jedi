@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **FIX CURRENT IMPLEMENTATION: ContactFormBlock stories have type errors. The args MUST use type 'ContactFormBlock'. Fix the enhanceStoryForDualMode usage to properly type the story. The SDUI view should render EXACTLY the same as the React view showing form fields, labels, and submit button. Ensure the play() functions verify that form elements actually render. Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.**
+
+
+## [2025-06-07]
+
 - **FIX BROKEN IMPLEMENTATION: Carousel stories are using incorrect SDUI format. The args MUST use the actual component type 'CarouselBlock' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'CarouselBlock' and ensure the play() functions verify that content actually renders (e.g., slides, navigation buttons). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.**
 
 

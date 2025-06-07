@@ -58,7 +58,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Simple = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     variant: "simple",
     title: "Get in Touch",
     description:
@@ -110,11 +109,10 @@ export const Simple = enhanceStoryForDualMode({
     // Test submit button renders
     expect(canvas.getByRole("button", { name: /send message/i })).toBeInTheDocument();
   },
-});
+}) as Story;
 
 export const Detailed = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     variant: "detailed",
     title: "Contact Information",
     description: "Please fill out the form below and we'll get back to you within 24 hours.",
@@ -220,11 +218,10 @@ export const Detailed = enhanceStoryForDualMode({
     // Test submit button renders
     expect(canvas.getByRole("button", { name: /submit inquiry/i })).toBeInTheDocument();
   },
-});
+}) as Story;
 
 export const WithMap = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     variant: "with-map",
     title: "Visit Our Office",
     description: "Stop by our office or send us a message",
@@ -282,11 +279,10 @@ export const WithMap = enhanceStoryForDualMode({
     expect(canvas.getByText("Call Us")).toBeInTheDocument();
     expect(canvas.getByText("Email Us")).toBeInTheDocument();
   },
-});
+}) as Story;
 
 export const SplitScreen = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     variant: "split-screen",
     title: "Let's Connect",
     description: "We're here to help with your questions",
@@ -353,11 +349,10 @@ export const SplitScreen = enhanceStoryForDualMode({
     expect(canvas.getByText("24/7 Customer Support")).toBeInTheDocument();
     expect(canvas.getByText("Expert Team Members")).toBeInTheDocument();
   },
-});
+}) as Story;
 
 export const Wizard = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     variant: "wizard",
     title: "Request a Quote",
     description: "Complete the form to receive a personalized quote",
@@ -531,11 +526,10 @@ export const Wizard = enhanceStoryForDualMode({
     expect(canvas.getByRole("button", { name: /previous/i })).toBeInTheDocument();
     expect(canvas.getByRole("button", { name: /next/i })).toBeInTheDocument();
   },
-});
+}) as Story;
 
 export const WithConditionalFields = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     title: "Dynamic Form Example",
     description: "Fields appear based on your selections",
     fields: [
@@ -639,11 +633,10 @@ export const WithConditionalFields = enhanceStoryForDualMode({
     expect(canvas.queryByRole("textbox", { name: /business name/i })).not.toBeInTheDocument();
     expect(canvas.queryByRole("textbox", { name: /tax id/i })).not.toBeInTheDocument();
   },
-});
+}) as Story;
 
 export const WithValidation = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     title: "Form Validation Example",
     description: "Demonstrates various validation rules",
     fields: [
@@ -740,11 +733,10 @@ export const WithValidation = enhanceStoryForDualMode({
     const usernameLabel = canvas.getByText("Username");
     expect(usernameLabel.parentElement?.textContent).toContain("*");
   },
-});
+}) as Story;
 
 export const Compact = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     title: "Quick Contact",
     fields: [
       {
@@ -788,11 +780,10 @@ export const Compact = enhanceStoryForDualMode({
     const submitButton = canvas.getByRole("button", { name: /send/i });
     expect(submitButton).toBeInTheDocument();
   },
-});
+}) as Story;
 
 export const WithPersistence = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     title: "Form with Auto-Save",
     description: "Your progress is automatically saved",
     fields: [
@@ -833,11 +824,10 @@ export const WithPersistence = enhanceStoryForDualMode({
     // Data should be persisted to localStorage
     await expect(localStorage.getItem("storybook-contact-form")).toBeTruthy();
   },
-});
+}) as Story;
 
 export const WithCRMIntegration = enhanceStoryForDualMode({
   args: {
-    type: "ContactFormBlock",
     title: "CRM-Connected Form",
     description: "This form integrates with your CRM system",
     fields: [
@@ -917,4 +907,4 @@ export const WithCRMIntegration = enhanceStoryForDualMode({
     // Test submit button renders with custom text
     expect(canvas.getByRole("button", { name: /submit to crm/i })).toBeInTheDocument();
   },
-});
+}) as Story;

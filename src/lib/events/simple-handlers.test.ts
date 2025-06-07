@@ -6,6 +6,7 @@ import type React from "react";
 
 describe("simple-handlers", () => {
   let mockEvent: React.SyntheticEvent;
+  let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     mockEvent = {
@@ -13,12 +14,18 @@ describe("simple-handlers", () => {
       stopPropagation: vi.fn(),
       target: {},
     } as unknown as React.SyntheticEvent;
+    
+    // Mock console.warn to suppress expected warnings in tests
+    consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
   });
 
   afterEach(() => {
     // Clean up global functions
     delete (globalThis as Record<string, unknown>).testFunction;
     delete (globalThis as Record<string, unknown>).toast;
+    
+    // Restore console.warn
+    consoleWarnSpy.mockRestore();
   });
 
   describe("createSimpleEventHandler", () => {
@@ -111,14 +118,10 @@ describe("simple-handlers", () => {
     });
 
     it("should warn when function is not found", () => {
-      const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
-      
       const handler = createSimpleEventHandler("nonExistentFunction");
       handler(mockEvent);
       
       expect(consoleWarnSpy).toHaveBeenCalledWith('Event handler "nonExistentFunction" not found');
-      
-      consoleWarnSpy.mockRestore();
     });
 
     it("should handle errors in function calls gracefully", () => {

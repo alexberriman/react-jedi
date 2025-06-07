@@ -915,13 +915,13 @@ export const ComprehensiveValidation: Story = enhanceStoryForDualMode<typeof For
           message: "Password must be at least 8 characters"
         },
         pattern: {
-          value: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$",
+          value: String.raw`^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$`,
           message: "Password must contain uppercase, lowercase, number, and special character"
         }
       },
       website: {
         pattern: {
-          value: "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*)$",
+          value: String.raw`^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)$`,
           message: "Please enter a valid URL"
         }
       },

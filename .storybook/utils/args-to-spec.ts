@@ -69,6 +69,11 @@ const COMPONENT_NAME_MAP: Record<string, string> = {
   headmanager: 'HeadManager',
   announcementbar: 'AnnouncementBar',
   blogpostdetail: 'BlogPostDetail',
+  blogpostgrid: 'BlogPostGrid',
+  brandlogobar: 'BrandLogoBar',
+  calltoaction: 'CallToAction',
+  carouselblock: 'CarouselBlock',
+  contactformblock: 'ContactFormBlock',
 };
 
 /**

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **FIX BROKEN IMPLEMENTATION: BlogPostGrid stories are using incorrect SDUI format. The args MUST use the actual component type 'BlogPostGrid' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'BlogPostGrid' and ensure the play() functions verify that content actually renders (e.g., blog posts, titles, excerpts). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.**
+
+
+## [2025-06-07]
+
 - **FIX BROKEN IMPLEMENTATION: BlogPostDetail stories are using incorrect SDUI format. The args MUST use the actual component type 'BlogPostDetail' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Update all stories to have proper args.type = 'BlogPostDetail' and ensure the play() functions verify that content actually renders (e.g., title, author, content, tags). Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.**
 
 

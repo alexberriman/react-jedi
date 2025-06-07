@@ -56,7 +56,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Simple: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const Simple: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     variant: "simple",
@@ -112,7 +112,7 @@ export const Simple: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   },
 });
 
-export const Detailed: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const Detailed: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     variant: "detailed",
@@ -222,7 +222,7 @@ export const Detailed: Story = enhanceStoryForDualMode<typeof ContactFormBlock>(
   },
 });
 
-export const WithMap: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const WithMap: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     variant: "with-map",
@@ -284,7 +284,7 @@ export const WithMap: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   },
 });
 
-export const SplitScreen: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const SplitScreen: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     variant: "split-screen",
@@ -355,7 +355,7 @@ export const SplitScreen: Story = enhanceStoryForDualMode<typeof ContactFormBloc
   },
 });
 
-export const Wizard: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const Wizard: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     variant: "wizard",
@@ -533,7 +533,7 @@ export const Wizard: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   },
 });
 
-export const WithConditionalFields: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const WithConditionalFields: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     title: "Dynamic Form Example",
@@ -641,7 +641,7 @@ export const WithConditionalFields: Story = enhanceStoryForDualMode<typeof Conta
   },
 });
 
-export const WithValidation: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const WithValidation: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     title: "Form Validation Example",
@@ -742,7 +742,7 @@ export const WithValidation: Story = enhanceStoryForDualMode<typeof ContactFormB
   },
 });
 
-export const Compact: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const Compact: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     title: "Quick Contact",
@@ -790,7 +790,7 @@ export const Compact: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
   },
 });
 
-export const WithPersistence: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const WithPersistence: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     title: "Form with Auto-Save",
@@ -835,7 +835,7 @@ export const WithPersistence: Story = enhanceStoryForDualMode<typeof ContactForm
   },
 });
 
-export const WithCRMIntegration: Story = enhanceStoryForDualMode<typeof ContactFormBlock>({
+export const WithCRMIntegration: Story = enhanceStoryForDualMode({
   args: {
     type: "ContactFormBlock",
     title: "CRM-Connected Form",

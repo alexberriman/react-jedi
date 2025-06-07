@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **TASK: Fix SkeletonLoader component rendering and documentation. CRITICAL ISSUE 1 - No Documentation: SkeletonLoader has no autodocs page in Storybook. CRITICAL ISSUE 2 - SDUI Failure: SDUI views render nothing at all - complete component failure. SEVERITY: Critical - skeleton loaders are essential for loading states. ACTION REQUIRED: 1) Add proper story documentation for SkeletonLoader. 2) Debug why SkeletonLoader fails to render in SDUI mode. 3) Implement full SkeletonLoader support in SDUI renderer. 4) Ensure animations work properly in both modes. 5) Support all skeleton variants: text, avatar, card, custom shapes. 6) Add comprehensive stories showing different use cases. EXPECTED OUTCOME: Complete documentation and fully functional skeleton loaders in both React and SDUI modes.**
+
+
+## [2025-06-07]
+
 - **TASK: Fix InputOTP component issues in SDUI mode. ISSUE 1 - Digit Count: 'Four Digit PIN' renders 6 digits in SDUI instead of 4. Same for 'Custom Separator' and 'Password' variants. ISSUE 2 - Default Value: 'With Default Value' story doesn't show the default value in SDUI. ISSUE 3 - Disabled State: 'Disabled' variant isn't actually disabled in SDUI mode. ACTION REQUIRED: 1) Fix maxLength/length prop handling in SDUI to show correct digit count. 2) Ensure defaultValue prop is properly passed and rendered. 3) Implement disabled state handling in SDUI mode. 4) Test all InputOTP configurations thoroughly. 5) Ensure input restrictions (numeric only) work in SDUI. EXPECTED OUTCOME: InputOTP in SDUI should match React behavior for digit count, default values, and disabled state.**
 
 

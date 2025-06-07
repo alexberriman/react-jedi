@@ -15,11 +15,6 @@
     "status": "pending"
   },
   {
-    "id": "fix-skeletonloader-critical",
-    "description": "TASK: Fix SkeletonLoader component rendering and documentation. CRITICAL ISSUE 1 - No Documentation: SkeletonLoader has no autodocs page in Storybook. CRITICAL ISSUE 2 - SDUI Failure: SDUI views render nothing at all - complete component failure. SEVERITY: Critical - skeleton loaders are essential for loading states. ACTION REQUIRED: 1) Add proper story documentation for SkeletonLoader. 2) Debug why SkeletonLoader fails to render in SDUI mode. 3) Implement full SkeletonLoader support in SDUI renderer. 4) Ensure animations work properly in both modes. 5) Support all skeleton variants: text, avatar, card, custom shapes. 6) Add comprehensive stories showing different use cases. EXPECTED OUTCOME: Complete documentation and fully functional skeleton loaders in both React and SDUI modes.",
-    "status": "pending"
-  },
-  {
     "id": "fix-table-styling-sdui",
     "description": "TASK: Fix Table component styling inconsistencies in SDUI mode. ISSUE 1 - Striped: 'Striped' variant doesn't show alternating row colors in SDUI. ISSUE 2 - Bordered: Missing borders and incorrect header background in SDUI. ISSUE 3 - Spacing: 'Minimal' and 'Compact' variants have too much spacing in SDUI (React spacing is correct). ISSUE 4 - Modern Style: 'Modern' variant looks completely different in SDUI vs React. ISSUE 5 - Hover Effect: 'No Hover Effect' variant shows hover effects in SDUI but shouldn't (React is correct). ACTION REQUIRED: 1) Ensure stripe styles are applied in SDUI mode. 2) Fix border and header background styles. 3) Correct spacing for compact variants. 4) Match modern variant styling to React. 5) Remove hover effects where not intended. 6) Test all table variants thoroughly. EXPECTED OUTCOME: All table styling variants in SDUI should match React exactly.",
     "status": "pending"

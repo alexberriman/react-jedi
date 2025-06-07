@@ -888,48 +888,90 @@ export const WithBrandingAndCTA: Story = enhanceStoryForDualMode<typeof Navigati
   },
   {
     renderSpec: {
-      type: "navigationMenu",
-      items: [
+      type: "Flex",
+      direction: "row",
+      justify: "space-between",
+      align: "center",
+      className: "w-full px-8",
+      children: [
         {
-          trigger: { label: "Products" },
-          content: {
-            width: "lg",
-            items: [
-              {
-                title: "ACME Pro",
-                description: "The ultimate toolkit for modern development.",
-                href: "/",
-                icon: {
-                  type: "Icon",
-                  name: "zap",
-                  size: 32
+          type: "Flex",
+          direction: "row",
+          align: "center",
+          gap: 6,
+          children: [
+            {
+              type: "Text",
+              children: "ACME",
+              className: "text-2xl font-bold"
+            },
+            {
+              type: "navigationMenu",
+              items: [
+                {
+                  trigger: { label: "Products" },
+                  content: {
+                    width: "lg",
+                    items: [
+                      {
+                        title: "ACME Pro",
+                        description: "The ultimate toolkit for modern development.",
+                        href: "/",
+                        icon: {
+                          type: "Icon",
+                          name: "zap",
+                          size: 32
+                        }
+                      },
+                      {
+                        title: "Cloud",
+                        description: "Scalable infrastructure for your apps",
+                        href: "#cloud"
+                      },
+                      {
+                        title: "Edge",
+                        description: "Deploy to the edge in seconds",
+                        href: "#edge"
+                      },
+                      {
+                        title: "Analytics",
+                        description: "Real-time insights for your business",
+                        href: "#analytics"
+                      }
+                    ]
+                  }
+                },
+                {
+                  trigger: { label: "Pricing" },
+                  href: "#pricing"
+                },
+                {
+                  trigger: { label: "Docs" },
+                  href: "#docs"
                 }
-              },
-              {
-                title: "Cloud",
-                description: "Scalable infrastructure for your apps",
-                href: "#cloud"
-              },
-              {
-                title: "Edge",
-                description: "Deploy to the edge in seconds",
-                href: "#edge"
-              },
-              {
-                title: "Analytics",
-                description: "Real-time insights for your business",
-                href: "#analytics"
-              }
-            ]
-          }
+              ]
+            }
+          ]
         },
         {
-          trigger: { label: "Pricing" },
-          href: "#pricing"
-        },
-        {
-          trigger: { label: "Docs" },
-          href: "#docs"
+          type: "Flex",
+          direction: "row",
+          align: "center",
+          gap: 4,
+          children: [
+            {
+              type: "Button",
+              variant: "ghost",
+              children: "Sign In",
+              className: "text-sm font-medium"
+            },
+            {
+              type: "Button",
+              variant: "default",
+              children: "Get Started",
+              className: "text-sm font-medium"
+            }
+          ]
         }
       ]
     }

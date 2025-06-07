@@ -2,14 +2,15 @@ import type { BaseComponentSpec } from "../schema/base";
 
 export interface NavigationTriggerSpec {
   label: string;
-  icon?: string;
+  icon?: string | { type: string; name: string; [key: string]: unknown };
+  badge?: { type: string; variant?: string; className?: string; children: string; [key: string]: unknown };
 }
 
 export interface NavigationLinkSpec {
   title: string;
   description?: string;
   href: string;
-  icon?: string;
+  icon?: string | { type: string; name: string; [key: string]: unknown };
   external?: boolean;
   active?: boolean;
 }
@@ -23,6 +24,7 @@ export interface NavigationFeatureSpec {
   title: string;
   description: string;
   image?: string;
+  icon?: string | { type: string; name: string; [key: string]: unknown };
   href?: string;
   cta?: string;
 }

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **TASK: Fix multiple NavigationMenu rendering issues in SDUI mode. ISSUE 1 - Hover Styling: On hover, shows white text on grey background making text unreadable, dropdown is all white (https://i.imgur.com/eHkc352.png). ISSUE 2 - Missing Badge: 'With Icons And Badges' story doesn't show badges in SDUI. ISSUE 3 - Alignment: 'With Full Width Content' story is left-aligned in SDUI but should be horizontally centered like React. ISSUE 4 - Missing Elements: 'With Branding And CTA' story missing branding text '**ACME' and CTA buttons in SDUI. ACTION REQUIRED: 1) Fix hover state styling - ensure readable contrast and proper dropdown styling. 2) Implement badge rendering within navigation items. 3) Fix alignment issues - ensure center alignment matches React. 4) Ensure all navigation elements render: branding, buttons, badges, icons. IMPORTANT: Icons must be actual SVG components, NOT emojis. 5) Test responsive behavior and all navigation patterns. EXPECTED OUTCOME: NavigationMenu in SDUI should match React exactly for styling, alignment, and all child elements including proper SVG icons.**
+
+
+## [2025-06-07]
+
 - **TASK: Fix ToggleGroup component hover and icon issues. NOTE: Originally reported as 'HoverGroup' - verify correct component name. ISSUE 1 - Hover Background: Hover state shows harsh black background (https://i.imgur.com/9wkJADK.png) instead of subtle effect. ISSUE 2 - Missing Icons: Icons don't render in SDUI mode - shows emojis instead. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Fix hover state to use subtle background color, not black. 2) Implement proper SVG icon rendering for toggle items. 3) Ensure toggle selection state is clearly visible. 4) Support both single and multiple selection modes. 5) Test keyboard navigation between toggles. 6) Remove ALL emoji fallbacks. EXPECTED OUTCOME: ToggleGroup with subtle hover effects and proper SVG icon rendering matching React mode.**
 
 

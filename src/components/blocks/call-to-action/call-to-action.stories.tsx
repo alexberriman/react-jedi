@@ -166,6 +166,29 @@ export const Centered: Story = enhanceStoryForDualMode<typeof CallToAction>({
     expect(canvas.getByText("4.9/5")).toBeInTheDocument();
     expect(canvas.getByText("99.9%")).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "centered",
+    animated: true,
+    decorative: true,
+    title: "Transform Your Business Today",
+    subtitle: "Join 10,000+ companies",
+    description: "Start your journey with our cutting-edge platform and see results within days",
+    primaryAction: {
+      label: "Start Free Trial",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Watch Demo",
+      href: "#",
+    },
+    trustIndicators: [
+      { icon: { type: "Icon", name: "users" }, label: "Active Users", value: "50K+" },
+      { icon: { type: "Icon", name: "star" }, label: "Rating", value: "4.9/5" },
+      { icon: { type: "Icon", name: "shield" }, label: "Uptime", value: "99.9%" },
+    ],
+  }
 });
 
 // Split Screen Variant
@@ -218,6 +241,29 @@ export const SplitScreen: Story = enhanceStoryForDualMode<typeof CallToAction>({
     const image = canvas.getByRole("img");
     expect(image).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "splitScreen",
+    animated: true,
+    title: "Build Better Products Faster",
+    description: "Our platform helps teams collaborate, iterate, and ship amazing products",
+    primaryAction: {
+      label: "Get Started",
+      href: "#",
+      variant: "default",
+    },
+    secondaryAction: {
+      label: "Learn More",
+      href: "#",
+    },
+    splitImage: "https://placehold.co/1200x800/EEE/31343C",
+    splitImagePosition: "right",
+    trustIndicators: [
+      { icon: { type: "Icon", name: "award" }, label: "Award Winning" },
+      { icon: { type: "Icon", name: "users" }, label: "Trusted by 50K+ teams" },
+    ],
+  }
 });
 
 // With Background Image
@@ -261,6 +307,28 @@ export const WithBackgroundImage: Story = enhanceStoryForDualMode<typeof CallToA
     const secondaryButton = canvas.getByRole("link", { name: /View Pricing/i });
     expect(secondaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "withBackgroundImage",
+    animated: true,
+    floatingShapes: true,
+    backgroundImage: "https://placehold.co/1920x1080/EEE/31343C",
+    overlay: true,
+    overlayOpacity: 60,
+    title: "Unlock Your Potential",
+    description: "Join the revolution and build something amazing with our powerful tools",
+    primaryAction: {
+      label: "Start Building",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "View Pricing",
+      href: "#",
+    },
+    align: "center",
+    size: "lg",
+  }
 });
 
 // Gradient Animated
@@ -314,6 +382,30 @@ export const GradientAnimated: Story = enhanceStoryForDualMode<typeof CallToActi
     expect(canvas.getByText("300%")).toBeInTheDocument();
     expect(canvas.getByText("25K+")).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "gradient",
+    animated: true,
+    floatingShapes: true,
+    decorative: true,
+    title: "Experience the Future",
+    subtitle: "Next Generation Platform",
+    description: "Revolutionary tools that transform how you build modern applications",
+    icon: { type: "Icon", name: "rocket", className: "h-12 w-12" },
+    primaryAction: {
+      label: "Launch Your Project",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Explore Features",
+      href: "#",
+    },
+    trustIndicators: [
+      { icon: { type: "Icon", name: "trending-up" }, label: "Growth", value: "300%" },
+      { icon: { type: "Icon", name: "heart" }, label: "Loved by", value: "25K+" },
+    ],
+  }
 });
 
 // Minimal Variant
@@ -345,6 +437,20 @@ export const Minimal: Story = enhanceStoryForDualMode<typeof CallToAction>({
     const primaryButton = canvas.getByRole("link", { name: /Get Started/i });
     expect(primaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "minimal",
+    animated: true,
+    title: "Simple. Powerful. Yours.",
+    description: "Everything you need, nothing you don't",
+    primaryAction: {
+      label: "Get Started",
+      href: "#",
+      variant: "outline",
+    },
+    align: "left",
+  }
 });
 
 // Bold Variant
@@ -390,6 +496,26 @@ export const Bold: Story = enhanceStoryForDualMode<typeof CallToAction>({
     const secondaryButton = canvas.getByRole("link", { name: /See Terms/i });
     expect(secondaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "bold",
+    animated: true,
+    floatingShapes: true,
+    size: "xl",
+    title: "Make an Impact",
+    subtitle: "Limited Time Offer",
+    description: "Join now and get 50% off your first year",
+    primaryAction: {
+      label: "Claim Your Discount",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "See Terms",
+      href: "#",
+    },
+    icon: { type: "Icon", name: "sparkles", className: "h-16 w-16" },
+  }
 });
 
 // Form Integrated
@@ -504,6 +630,22 @@ export const WithBackgroundVideo: Story = enhanceStoryForDualMode<typeof CallToA
     const primaryButton = canvas.getByRole("link", { name: /Start Creating/i });
     expect(primaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "withBackgroundImage",
+    animated: true,
+    backgroundVideo: "https://example.com/video.mp4",
+    overlay: true,
+    overlayOpacity: 70,
+    title: "Create Something Amazing",
+    description: "Join thousands of creators building the future",
+    primaryAction: {
+      label: "Start Creating",
+      href: "#",
+    },
+    size: "lg",
+  }
 });
 
 // With Background Pattern
@@ -543,6 +685,24 @@ export const WithBackgroundPattern: Story = enhanceStoryForDualMode<typeof CallT
     const secondaryButton = canvas.getByRole("link", { name: /Documentation/i });
     expect(secondaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "primary",
+    animated: true,
+    backgroundPattern: "dots",
+    title: "Developer-First Platform",
+    description: "Built by developers, for developers. Experience the difference.",
+    icon: { type: "Icon", name: "code-2", className: "h-10 w-10" },
+    primaryAction: {
+      label: "Start Coding",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Documentation",
+      href: "#",
+    },
+  }
 });
 
 // Custom Gradient
@@ -577,6 +737,23 @@ export const CustomGradient: Story = enhanceStoryForDualMode<typeof CallToAction
     const primaryButton = canvas.getByRole("link", { name: /Start Designing/i });
     expect(primaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "gradient",
+    animated: true,
+    gradientColors: {
+      from: "#FF6B6B",
+      via: "#4ECDC4",
+      to: "#45B7D1",
+    },
+    title: "Unleash Your Creativity",
+    description: "Design, build, and ship beautiful products",
+    primaryAction: {
+      label: "Start Designing",
+      href: "#",
+    },
+  }
 });
 
 // With Custom Shapes
@@ -626,6 +803,38 @@ export const WithCustomShapes: Story = enhanceStoryForDualMode<typeof CallToActi
     const primaryButton = canvas.getByRole("link", { name: /Explore/i });
     expect(primaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "light",
+    animated: true,
+    title: "Shapes and Creativity",
+    description: "Express yourself with custom visual elements",
+    primaryAction: {
+      label: "Explore",
+      href: "#",
+    },
+    shapes: [
+      {
+        type: "circle",
+        color: "blue-400/20",
+        size: "100px",
+        position: { top: "10%", right: "5%" },
+      },
+      {
+        type: "square",
+        color: "purple-400/20",
+        size: "80px",
+        position: { bottom: "15%", left: "10%" },
+      },
+      {
+        type: "circle",
+        color: "pink-400/20",
+        size: "60px",
+        position: { top: "50%", right: "20%" },
+      },
+    ],
+  }
 });
 
 // Left Aligned
@@ -676,6 +885,29 @@ export const LeftAligned: Story = enhanceStoryForDualMode<typeof CallToAction>({
     const tertiaryButton = canvas.getByRole("link", { name: /View case studies/i });
     expect(tertiaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "dark",
+    align: "left",
+    animated: true,
+    floatingShapes: true,
+    title: "Enterprise Solutions",
+    subtitle: "For teams that demand more",
+    description: "Scale your business with confidence using our enterprise-grade platform",
+    primaryAction: {
+      label: "Request Demo",
+      href: "#",
+    },
+    secondaryAction: {
+      label: "Contact Sales",
+      href: "#",
+    },
+    tertiaryAction: {
+      label: "View case studies",
+      href: "#",
+    },
+  }
 });
 
 // Glass Morphism
@@ -709,6 +941,22 @@ export const GlassMorphism: Story = enhanceStoryForDualMode<typeof CallToAction>
     const primaryButton = canvas.getByRole("link", { name: /Explore Premium/i });
     expect(primaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "glass",
+    animated: true,
+    floatingShapes: true,
+    backgroundImage: "https://placehold.co/1920x1080/EEE/31343C",
+    overlay: false,
+    title: "Premium Glass Design",
+    description: "Beautiful glassmorphism effects for modern interfaces",
+    icon: { type: "Icon", name: "sparkles", className: "h-10 w-10" },
+    primaryAction: {
+      label: "Explore Premium",
+      href: "#",
+    },
+  }
 });
 
 // Multi-Action
@@ -755,6 +1003,29 @@ export const MultiAction: Story = enhanceStoryForDualMode<typeof CallToAction>({
     const tertiaryButton = canvas.getByRole("link", { name: /Compare plans/i });
     expect(tertiaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "secondary",
+    animated: true,
+    size: "lg",
+    title: "Choose Your Path",
+    description: "Multiple ways to get started with our platform",
+    primaryAction: {
+      label: "Start Free Trial",
+      href: "#",
+      icon: { type: "Icon", name: "chevron-right", className: "ml-2 h-4 w-4" },
+    },
+    secondaryAction: {
+      label: "Schedule Demo",
+      href: "#",
+      icon: { type: "Icon", name: "users", className: "mr-2 h-4 w-4" },
+    },
+    tertiaryAction: {
+      label: "Compare plans",
+      href: "#",
+    },
+  }
 });
 
 // Newsletter with Custom Form
@@ -940,6 +1211,25 @@ export const SplitScreenLeftImage: Story = enhanceStoryForDualMode<typeof CallTo
     const image = canvas.getByRole("img");
     expect(image).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "splitScreen",
+    animated: true,
+    title: "Design with Purpose",
+    description: "Create meaningful experiences that users love",
+    primaryAction: {
+      label: "Start Designing",
+      href: "#",
+    },
+    splitImage: "https://placehold.co/1200x800/EEE/31343C",
+    splitImagePosition: "left",
+    trustIndicators: [
+      { icon: { type: "Icon", name: "check" }, label: "Easy to use" },
+      { icon: { type: "Icon", name: "check" }, label: "Powerful features" },
+      { icon: { type: "Icon", name: "check" }, label: "Great support" },
+    ],
+  }
 });
 
 // Compact
@@ -970,4 +1260,17 @@ export const Compact: Story = enhanceStoryForDualMode<typeof CallToAction>({
     const primaryButton = canvas.getByRole("link", { name: /Go/i });
     expect(primaryButton).toBeInTheDocument();
   },
+}, {
+  renderSpec: {
+    type: "CallToAction",
+    variant: "secondary",
+    size: "sm",
+    animated: true,
+    title: "Quick Actions",
+    description: "Get started in seconds",
+    primaryAction: {
+      label: "Go",
+      href: "#",
+    },
+  }
 });

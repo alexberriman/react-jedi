@@ -331,6 +331,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     AvatarFallback: asComponent(UI.AvatarFallback),
     Image: asComponent(UI.Image),
     Skeleton: asComponent(UI.Skeleton),
+    SkeletonLoader: asComponent(UI.SkeletonLoader),
     Label: asComponent(UI.Label),
     Input: asComponent(InputWithIconWrapper),
     Loading: asComponent(UI.Loading),

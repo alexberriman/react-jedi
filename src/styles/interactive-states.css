@@ -112,10 +112,15 @@ a[data-slot]:not(:disabled):hover {
   transform: rotate(5deg) scale(1.05);
 }
 
-/* Dropdown menu item hover */
-[data-slot="select-item"]:hover,
+/* Dropdown menu item hover - use Radix UI's data attributes for proper state handling */
 [role="menuitem"]:hover {
   background-color: hsl(var(--accent));
+  padding-left: 12px;
+  transition: padding-left var(--transition-duration) var(--transition-timing);
+}
+
+/* Select item hover - respect Radix UI's built-in hover handling and only add subtle padding animation */
+[data-slot="select-item"]:not([data-disabled]):hover {
   padding-left: 12px;
   transition: padding-left var(--transition-duration) var(--transition-timing);
 }

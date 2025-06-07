@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **TASK: Fix Select component rendering and interaction issues. ISSUE 1 - Flash: Select flashes on initial render (similar to DatePicker/Combobox). ISSUE 2 - Default Value: 'With Default Value' story doesn't show the selected default in SDUI. ISSUE 3 - Hover Style: Dropdown hover shows harsh black background (https://i.imgur.com/tAjsHRc.png) instead of subtle gray. ACTION REQUIRED: 1) Fix initial render flash - review mounting and state initialization. 2) Ensure defaultValue/value props work in SDUI mode. 3) Fix hover styles to use subtle gray background (not black). 4) Test keyboard navigation and selection. 5) Ensure selected state is properly indicated. 6) Verify dropdown positioning and animations. EXPECTED OUTCOME: Smooth rendering, proper default values, and subtle hover effects matching React.**
+
+
+## [2025-06-07]
+
 - **TASK: Implement SDUI support for KeyboardNavigationMenu component. ISSUE: KeyboardNavigationMenu has no SDUI rendering support. Keyboard-navigable menus are not available in SDUI mode. APPROACH: May be able to enhance Command component as it already has keyboard navigation patterns. ACTION REQUIRED: 1) Assess if KeyboardNavigationMenu can be implemented in SDUI. 2) Consider extending Command component for keyboard navigation patterns. 3) Implement arrow key navigation, Enter/Space selection. 4) Support focus management and ARIA attributes. 5) Ensure Tab key navigation works properly. EXPECTED OUTCOME: Keyboard-navigable menus working in SDUI mode with full accessibility support.**
 
 

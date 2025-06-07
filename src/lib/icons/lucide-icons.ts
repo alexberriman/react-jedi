@@ -85,6 +85,13 @@ import {
   Calendar,
   Clipboard,
   Clock,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
+  Bold,
+  Italic,
+  Underline,
   type LucideIcon,
 } from "lucide-react";
 
@@ -188,6 +195,15 @@ export const lucideIcons: IconMap = {
   "wifi": Wifi,
   "zap": Zap,
   "globe": Globe,
+  
+  // Text formatting and alignment
+  "align-left": AlignLeft,
+  "align-center": AlignCenter,
+  "align-right": AlignRight,
+  "align-justify": AlignJustify,
+  "bold": Bold,
+  "italic": Italic,
+  "underline": Underline,
 };
 
 /**

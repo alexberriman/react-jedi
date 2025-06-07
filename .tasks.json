@@ -18,10 +18,5 @@
     "id": "implement-form-validation-sdui",
     "description": "TASK: Implement comprehensive form validation system for SDUI mode. CRITICAL ISSUE: Form 'With Validation' story - submit button does nothing in SDUI mode. Form validation is completely non-functional. SEVERITY: Critical - form validation is essential for any application. SCOPE: This requires building validation infrastructure for SDUI from scratch. ACTION REQUIRED: 1) Design validation system architecture for SDUI mode. 2) Implement field-level validation with error messages. 3) Support common validators: required, email, min/max length, patterns. 4) Implement form-level validation and submit handling. 5) Show validation errors inline with fields. 6) Create comprehensive documentation in Storybook showing validation patterns. 7) Support async validation and custom validators. EXPECTED OUTCOME: Full-featured form validation system in SDUI with extensive documentation and examples.",
     "status": "pending"
-  },
-  {
-    "id": "fix-togglegroup-issues",
-    "description": "TASK: Fix ToggleGroup component hover and icon issues. NOTE: Originally reported as 'HoverGroup' - verify correct component name. ISSUE 1 - Hover Background: Hover state shows harsh black background (https://i.imgur.com/9wkJADK.png) instead of subtle effect. ISSUE 2 - Missing Icons: Icons don't render in SDUI mode - shows emojis instead. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Fix hover state to use subtle background color, not black. 2) Implement proper SVG icon rendering for toggle items. 3) Ensure toggle selection state is clearly visible. 4) Support both single and multiple selection modes. 5) Test keyboard navigation between toggles. 6) Remove ALL emoji fallbacks. EXPECTED OUTCOME: ToggleGroup with subtle hover effects and proper SVG icon rendering matching React mode.",
-    "status": "pending"
   }
 ]

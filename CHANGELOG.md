@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-07]
 
+- **TASK: Fix ToggleGroup component hover and icon issues. NOTE: Originally reported as 'HoverGroup' - verify correct component name. ISSUE 1 - Hover Background: Hover state shows harsh black background (https://i.imgur.com/9wkJADK.png) instead of subtle effect. ISSUE 2 - Missing Icons: Icons don't render in SDUI mode - shows emojis instead. IMPORTANT: Emojis are NOT valid icons - SDUI must render actual icon components (SVGs) just like React mode. ACTION REQUIRED: 1) Fix hover state to use subtle background color, not black. 2) Implement proper SVG icon rendering for toggle items. 3) Ensure toggle selection state is clearly visible. 4) Support both single and multiple selection modes. 5) Test keyboard navigation between toggles. 6) Remove ALL emoji fallbacks. EXPECTED OUTCOME: ToggleGroup with subtle hover effects and proper SVG icon rendering matching React mode.**
+
+
+## [2025-06-07]
+
 - **TASK: Fix Select component rendering and interaction issues. ISSUE 1 - Flash: Select flashes on initial render (similar to DatePicker/Combobox). ISSUE 2 - Default Value: 'With Default Value' story doesn't show the selected default in SDUI. ISSUE 3 - Hover Style: Dropdown hover shows harsh black background (https://i.imgur.com/tAjsHRc.png) instead of subtle gray. ACTION REQUIRED: 1) Fix initial render flash - review mounting and state initialization. 2) Ensure defaultValue/value props work in SDUI mode. 3) Fix hover styles to use subtle gray background (not black). 4) Test keyboard navigation and selection. 5) Ensure selected state is properly indicated. 6) Verify dropdown positioning and animations. EXPECTED OUTCOME: Smooth rendering, proper default values, and subtle hover effects matching React.**
 
 

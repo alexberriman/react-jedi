@@ -100,25 +100,41 @@ export const Single = enhanceStoryForDualMode(
         type: "ToggleGroupItem",
         value: "left",
         "aria-label": "Left aligned",
-        children: "←"
+        children: {
+          type: "Icon",
+          name: "align-left",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "center",
         "aria-label": "Center aligned",
-        children: "↔"
+        children: {
+          type: "Icon",
+          name: "align-center",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "right",
         "aria-label": "Right aligned",
-        children: "→"
+        children: {
+          type: "Icon",
+          name: "align-right",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "justify",
         "aria-label": "Justified",
-        children: "⇔"
+        children: {
+          type: "Icon",
+          name: "align-justify",
+          size: 16
+        }
       }
     ]
   }
@@ -181,19 +197,31 @@ export const Multiple = enhanceStoryForDualMode(
         type: "ToggleGroupItem",
         value: "bold",
         "aria-label": "Toggle bold",
-        children: "B"
+        children: {
+          type: "Icon",
+          name: "bold",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "italic",
         "aria-label": "Toggle italic",
-        children: "I"
+        children: {
+          type: "Icon",
+          name: "italic",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "underline",
         "aria-label": "Toggle underline",
-        children: "U"
+        children: {
+          type: "Icon",
+          name: "underline",
+          size: 16
+        }
       }
     ]
   }
@@ -248,19 +276,31 @@ export const Outline = enhanceStoryForDualMode(
         type: "ToggleGroupItem",
         value: "left",
         "aria-label": "Left aligned",
-        children: "←"
+        children: {
+          type: "Icon",
+          name: "align-left",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "center",
         "aria-label": "Center aligned",
-        children: "↔"
+        children: {
+          type: "Icon",
+          name: "align-center",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "right",
         "aria-label": "Right aligned",
-        children: "→"
+        children: {
+          type: "Icon",
+          name: "align-right",
+          size: 16
+        }
       }
     ]
   }
@@ -315,19 +355,31 @@ export const Small = enhanceStoryForDualMode(
         type: "ToggleGroupItem",
         value: "left",
         "aria-label": "Left aligned",
-        children: "←"
+        children: {
+          type: "Icon",
+          name: "align-left",
+          size: 14
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "center",
         "aria-label": "Center aligned",
-        children: "↔"
+        children: {
+          type: "Icon",
+          name: "align-center",
+          size: 14
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "right",
         "aria-label": "Right aligned",
-        children: "→"
+        children: {
+          type: "Icon",
+          name: "align-right",
+          size: 14
+        }
       }
     ]
   }
@@ -382,19 +434,31 @@ export const Large = enhanceStoryForDualMode(
         type: "ToggleGroupItem",
         value: "left",
         "aria-label": "Left aligned",
-        children: "←"
+        children: {
+          type: "Icon",
+          name: "align-left",
+          size: 20
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "center",
         "aria-label": "Center aligned",
-        children: "↔"
+        children: {
+          type: "Icon",
+          name: "align-center",
+          size: 20
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "right",
         "aria-label": "Right aligned",
-        children: "→"
+        children: {
+          type: "Icon",
+          name: "align-right",
+          size: 20
+        }
       }
     ]
   }
@@ -458,17 +522,41 @@ export const WithText = enhanceStoryForDualMode(
       {
         type: "ToggleGroupItem",
         value: "left",
-        children: "← Left"
+        children: [
+          {
+            type: "Icon",
+            name: "align-left",
+            size: 16,
+            className: "mr-2"
+          },
+          "Left"
+        ]
       },
       {
         type: "ToggleGroupItem",
         value: "center",
-        children: "↔ Center"
+        children: [
+          {
+            type: "Icon",
+            name: "align-center",
+            size: 16,
+            className: "mr-2"
+          },
+          "Center"
+        ]
       },
       {
         type: "ToggleGroupItem",
         value: "right",
-        children: "→ Right"
+        children: [
+          {
+            type: "Icon",
+            name: "align-right",
+            size: 16,
+            className: "mr-2"
+          },
+          "Right"
+        ]
       }
     ]
   }
@@ -521,19 +609,31 @@ export const Disabled = enhanceStoryForDualMode(
         type: "ToggleGroupItem",
         value: "left",
         "aria-label": "Left aligned",
-        children: "←"
+        children: {
+          type: "Icon",
+          name: "align-left",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "center",
         "aria-label": "Center aligned",
-        children: "↔"
+        children: {
+          type: "Icon",
+          name: "align-center",
+          size: 16
+        }
       },
       {
         type: "ToggleGroupItem",
         value: "right",
         "aria-label": "Right aligned",
-        children: "→"
+        children: {
+          type: "Icon",
+          name: "align-right",
+          size: 16
+        }
       }
     ]
   }
@@ -636,19 +736,31 @@ export const SizeComparison = enhanceStoryForDualMode(
                   type: "ToggleGroupItem",
                   value: "left",
                   "aria-label": "Left aligned",
-                  children: "←"
+                  children: {
+                    type: "Icon",
+                    name: "align-left",
+                    size: 14
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "center",
                   "aria-label": "Center aligned",
-                  children: "↔"
+                  children: {
+                    type: "Icon",
+                    name: "align-center",
+                    size: 14
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "right",
                   "aria-label": "Right aligned",
-                  children: "→"
+                  children: {
+                    type: "Icon",
+                    name: "align-right",
+                    size: 14
+                  }
                 }
               ]
             }
@@ -674,19 +786,31 @@ export const SizeComparison = enhanceStoryForDualMode(
                   type: "ToggleGroupItem",
                   value: "left",
                   "aria-label": "Left aligned",
-                  children: "←"
+                  children: {
+                    type: "Icon",
+                    name: "align-left",
+                    size: 16
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "center",
                   "aria-label": "Center aligned",
-                  children: "↔"
+                  children: {
+                    type: "Icon",
+                    name: "align-center",
+                    size: 16
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "right",
                   "aria-label": "Right aligned",
-                  children: "→"
+                  children: {
+                    type: "Icon",
+                    name: "align-right",
+                    size: 16
+                  }
                 }
               ]
             }
@@ -713,19 +837,31 @@ export const SizeComparison = enhanceStoryForDualMode(
                   type: "ToggleGroupItem",
                   value: "left",
                   "aria-label": "Left aligned",
-                  children: "←"
+                  children: {
+                    type: "Icon",
+                    name: "align-left",
+                    size: 20
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "center",
                   "aria-label": "Center aligned",
-                  children: "↔"
+                  children: {
+                    type: "Icon",
+                    name: "align-center",
+                    size: 20
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "right",
                   "aria-label": "Right aligned",
-                  children: "→"
+                  children: {
+                    type: "Icon",
+                    name: "align-right",
+                    size: 20
+                  }
                 }
               ]
             }
@@ -815,19 +951,31 @@ export const VariantsShowcase = enhanceStoryForDualMode(
                   type: "ToggleGroupItem",
                   value: "left",
                   "aria-label": "Left aligned",
-                  children: "←"
+                  children: {
+                    type: "Icon",
+                    name: "align-left",
+                    size: 16
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "center",
                   "aria-label": "Center aligned",
-                  children: "↔"
+                  children: {
+                    type: "Icon",
+                    name: "align-center",
+                    size: 16
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "right",
                   "aria-label": "Right aligned",
-                  children: "→"
+                  children: {
+                    type: "Icon",
+                    name: "align-right",
+                    size: 16
+                  }
                 }
               ]
             }
@@ -854,19 +1002,31 @@ export const VariantsShowcase = enhanceStoryForDualMode(
                   type: "ToggleGroupItem",
                   value: "left",
                   "aria-label": "Left aligned",
-                  children: "←"
+                  children: {
+                    type: "Icon",
+                    name: "align-left",
+                    size: 16
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "center",
                   "aria-label": "Center aligned",
-                  children: "↔"
+                  children: {
+                    type: "Icon",
+                    name: "align-center",
+                    size: 16
+                  }
                 },
                 {
                   type: "ToggleGroupItem",
                   value: "right",
                   "aria-label": "Right aligned",
-                  children: "→"
+                  children: {
+                    type: "Icon",
+                    name: "align-right",
+                    size: 16
+                  }
                 }
               ]
             }

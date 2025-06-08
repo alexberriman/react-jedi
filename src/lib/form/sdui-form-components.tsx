@@ -14,10 +14,15 @@ export const useFormFieldContext = () => {
  * SDUI-aware FormField component
  * In SDUI mode, this component tracks field names for validation
  */
+interface SDUIFormFieldProps extends React.HTMLAttributes<HTMLDivElement> {
+  name?: string;
+  parentContext?: unknown;
+}
+
 export const SDUIFormField = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { name?: string }
->(({ children, name, ...props }, ref) => {
+  SDUIFormFieldProps
+>(({ children, name, parentContext, ...props }, ref) => {
   const [fieldName, setFieldName] = React.useState(name);
 
   // Extract field name from children if not provided
@@ -30,9 +35,12 @@ export const SDUIFormField = React.forwardRef<
     }
   }, [children, name]);
 
+  // Filter out parentContext to avoid React warnings
+  const cleanProps = omit(props as Record<string, unknown>, ['parentContext']);
+
   return (
     <FormFieldContext.Provider value={{ fieldName }}>
-      <div ref={ref} data-field-name={fieldName} {...props}>
+      <div ref={ref} data-field-name={fieldName} {...cleanProps}>
         {children}
       </div>
     </FormFieldContext.Provider>
@@ -43,12 +51,18 @@ SDUIFormField.displayName = 'SDUIFormField';
 /**
  * SDUI-aware FormItem component
  */
+interface SDUIFormItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  parentContext?: unknown;
+}
+
 export const SDUIFormItem = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+  SDUIFormItemProps
+>(({ className, parentContext, ...props }, ref) => {
+  // Filter out parentContext to avoid React warnings
+  const cleanProps = omit(props as Record<string, unknown>, ['parentContext']);
   return (
-    <div ref={ref} className={cn("space-y-2", className)} {...props} />
+    <div ref={ref} className={cn("space-y-2", className)} {...cleanProps} />
   );
 });
 SDUIFormItem.displayName = 'SDUIFormItem';
@@ -56,18 +70,26 @@ SDUIFormItem.displayName = 'SDUIFormItem';
 /**
  * SDUI-aware FormLabel component
  */
+interface SDUIFormLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  fieldName?: string;
+  parentContext?: unknown;
+}
+
 export const SDUIFormLabel = React.forwardRef<
   HTMLLabelElement,
-  React.LabelHTMLAttributes<HTMLLabelElement> & { fieldName?: string }
->(({ className, fieldName, ...props }, ref) => {
+  SDUIFormLabelProps
+>(({ className, fieldName, parentContext, ...props }, ref) => {
   const formContext = useOptionalFormContext();
   const hasError = fieldName && formContext?.errors[fieldName];
+
+  // Filter out parentContext to avoid React warnings
+  const cleanProps = omit(props as Record<string, unknown>, ['parentContext']);
 
   return (
     <Label
       ref={ref}
       className={cn(hasError && "text-destructive", className)}
-      {...props}
+      {...cleanProps}
     />
   );
 });
@@ -98,15 +120,21 @@ SDUIFormControl.displayName = 'SDUIFormControl';
 /**
  * SDUI-aware FormDescription component
  */
+interface SDUIFormDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  parentContext?: unknown;
+}
+
 export const SDUIFormDescription = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => {
+  SDUIFormDescriptionProps
+>(({ className, parentContext, ...props }, ref) => {
+  // Filter out parentContext to avoid React warnings
+  const cleanProps = omit(props as Record<string, unknown>, ['parentContext']);
   return (
     <p
       ref={ref}
       className={cn("text-[0.8rem] text-muted-foreground", className)}
-      {...props}
+      {...cleanProps}
     />
   );
 });
@@ -116,10 +144,15 @@ SDUIFormDescription.displayName = 'SDUIFormDescription';
  * SDUI-aware FormMessage component
  * Displays validation errors from the form context
  */
+interface SDUIFormMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  fieldName?: string;
+  parentContext?: unknown;
+}
+
 export const SDUIFormMessage = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement> & { fieldName?: string }
->(({ className, children, fieldName, ...props }, ref) => {
+  SDUIFormMessageProps
+>(({ className, children, fieldName, parentContext, ...props }, ref) => {
   const formContext = useOptionalFormContext();
   const fieldContext = useFormFieldContext();
   
@@ -133,11 +166,14 @@ export const SDUIFormMessage = React.forwardRef<
     return null;
   }
 
+  // Filter out parentContext to avoid React warnings
+  const cleanProps = omit(props as Record<string, unknown>, ['parentContext']);
+
   return (
     <p
       ref={ref}
       className={cn("text-[0.8rem] font-medium text-destructive", className)}
-      {...props}
+      {...cleanProps}
     >
       {body}
     </p>
@@ -150,12 +186,13 @@ SDUIFormMessage.displayName = 'SDUIFormMessage';
  */
 interface SDUIFormProps extends React.FormHTMLAttributes<HTMLFormElement> {
   defaultValues?: Record<string, unknown>;
+  parentContext?: unknown;
 }
 
 export const SDUIForm = React.forwardRef<
   HTMLFormElement,
   SDUIFormProps
->(({ onSubmit, defaultValues, ...props }, ref) => {
+>(({ onSubmit, defaultValues, parentContext, ...props }, ref) => {
   const formContext = useOptionalFormContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -166,8 +203,8 @@ export const SDUIForm = React.forwardRef<
     }
   };
 
-  // Filter out defaultValues as it's not a valid form element prop
-  const cleanProps = omit(props as Record<string, unknown>, ['defaultValues']);
+  // Filter out defaultValues and parentContext as they're not valid form element props
+  const cleanProps = omit(props as Record<string, unknown>, ['defaultValues', 'parentContext']);
 
   return <form ref={ref} onSubmit={handleSubmit} {...cleanProps} />;
 });

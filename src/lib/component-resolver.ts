@@ -174,6 +174,28 @@ const processEventProp = (
   }
 };
 
+// Helper to process nested action objects
+const processNestedAction = (
+  actionObj: Record<string, unknown>,
+  handlers?: Record<string, (...args: unknown[]) => unknown>
+): Record<string, unknown> => {
+  const processedAction: Record<string, unknown> = {};
+  
+  for (const [actionKey, actionValue] of Object.entries(actionObj)) {
+    if (actionKey === 'onClick' && typeof actionValue === 'string' && handlers) {
+      // Convert string handler reference to actual function
+      const handler = handlers[actionValue];
+      if (handler) {
+        processedAction[actionKey] = handler;
+      }
+    } else {
+      processedAction[actionKey] = actionValue;
+    }
+  }
+  
+  return processedAction;
+};
+
 const convertActionPropsToHandlers = (
   props: Record<string, unknown>,
   handlers?: Record<string, (...args: unknown[]) => unknown>
@@ -187,6 +209,9 @@ const convertActionPropsToHandlers = (
       } else if (isEventHandlerProp(key)) {
         processEventProp(key, value, converted, handlers);
       }
+    } else if (typeof value === 'object' && value !== null && key.endsWith('Action')) {
+      // Handle nested action objects (e.g., primaryAction, secondaryAction)
+      converted[key] = processNestedAction(value as Record<string, unknown>, handlers);
     }
   }
   return converted;

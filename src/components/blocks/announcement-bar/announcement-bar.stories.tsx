@@ -307,22 +307,7 @@ export const ComplexContent: Story = enhanceStoryForDualMode<typeof Announcement
     renderSpec: {
       type: "AnnouncementBar",
       variant: "floating",
-      message: {
-        type: "Box",
-        className: "space-y-1",
-        children: [
-          {
-            type: "Text",
-            className: "font-semibold",
-            children: "Black Friday Sale!",
-          },
-          {
-            type: "Text",
-            className: "text-sm opacity-90",
-            children: "Save up to 70% on selected items. Limited time only!",
-          },
-        ],
-      },
+      message: "Black Friday Sale! Save up to 70% on selected items. Limited time only!",
       actions: [
         { label: "Shop Sale", variant: "primary" },
         { label: "View Terms", variant: "link" },

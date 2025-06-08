@@ -34,7 +34,7 @@ describe("Label Component", () => {
     it("should work with Label and Input together in SDUI mode", () => {
       const spec = {
         type: "Flex",
-        direction: "column",
+        direction: "column" as const,
         gap: "sm",
         children: [
           {

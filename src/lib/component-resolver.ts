@@ -299,21 +299,11 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
   const forwardRefComponent = React.forwardRef<unknown, ComponentProps>((componentProps, ref) => {
     const { spec, children, theme, state, parentContext, ...restProps } = componentProps;
 
-    // Debug logging for Input component
-    if (spec && spec.type === "Input") {
-      console.log("Input component spec:", spec);
-    }
-
     // Some components expect the full spec object (like CarouselComponent)
     // Check if the component expects a spec prop
     const componentName = component.displayName || component.name || "";
-    const expectsSpec = componentName.includes("Component") || componentName.includes("Block") || componentName.includes("Wrapper");
-
-    // Debug logging
-    if (spec && spec.type === "Input") {
-      console.log("Component name:", componentName);
-      console.log("Expects spec:", expectsSpec);
-    }
+    const expectsSpec = (componentName.includes("Component") || componentName.includes("Block") || componentName.includes("Wrapper")) 
+      && componentName !== "InputWithIconWrapper";
 
     if (expectsSpec) {
       // Pass the full ComponentProps to components that expect it
@@ -338,13 +328,6 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
 
     // Transform props based on component type
     const transformedProps = transformPropsForComponent(spec as Record<string, unknown>, actualProps);
-    
-    // Debug logging for Input component
-    if (spec.type === "Input" && "id" in spec) {
-      console.log("Input spec id:", spec.id);
-      console.log("actualProps id:", actualProps.id);
-      console.log("transformedProps id:", transformedProps.id);
-    }
 
     // Always use the pre-rendered children passed from the render function
     // The render function already processes spec.children into React elements
@@ -454,7 +437,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     Skeleton: asComponent(UI.Skeleton),
     SkeletonLoader: asComponent(UI.SkeletonLoader),
     Label: asComponent(UI.Label),
-    Input: asComponent(InputWithIconWrapper),
+    Input: asComponent(InputWithIconWrapper as React.ComponentType<Record<string, unknown>>),
     Loading: asComponent(UI.Loading),
     loading: asComponent(UI.Loading),
     table: asComponent(

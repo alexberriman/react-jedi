@@ -1183,7 +1183,7 @@ export const WithoutAnimation: Story = enhanceStoryForDualMode<typeof Tabs>({
         className: "mb-4",
         children: [
           "Tabs without animations for instant transitions. Set ",
-          { type: "Text", as: "code", children: "animate=false" },
+          { type: "Text", element: "code", children: "animate=false" },
           " to disable."
         ]
       },

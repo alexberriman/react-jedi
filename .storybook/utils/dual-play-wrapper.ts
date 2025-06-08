@@ -61,6 +61,16 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
         throw new Error(`Tab "${tabText}" not found`);
       }
       
+      // Wait for button to be interactable
+      let attempts = 0;
+      while (targetButton.style.pointerEvents === 'none' || targetButton.disabled) {
+        if (attempts++ > 50) { // 5 seconds timeout
+          console.warn(`Tab button "${tabText}" has pointer-events: none or is disabled, waiting...`);
+          break;
+        }
+        await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+      }
+      
       // For overlay components (Dialog, Sheet), we need to temporarily remove pointer-events
       const body = document.body;
       const originalPointerEvents = body.style.pointerEvents;

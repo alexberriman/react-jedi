@@ -12,8 +12,13 @@
       "properties": {
         "variant": {
           "type": "string",
-          "enum": ["friendly-404", "technical-error", "maintenance", "coming-soon", "search-suggestions"],
+          "enum": ["friendly-404", "technical-error", "maintenance", "coming-soon", "search-suggestions", "blog", "ecommerce", "magazine", "restaurant", "saas", "portfolio", "corporate"],
           "description": "The type of error page to display"
+        },
+        "siteType": {
+          "type": "string",
+          "enum": ["blog", "ecommerce", "magazine", "restaurant", "saas", "portfolio", "corporate"],
+          "description": "The type of website, which overrides the variant if provided"
         },
         "title": {
           "type": "string",

@@ -116,8 +116,8 @@ Default.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   // Find the trigger area
   const trigger = canvas.getByText("Right-click me to open the context menu");
 
-  // Right-click to open context menu
-  await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+  // Right-click to open context menu - try alternative syntax
+  await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
 
   // Wait for menu to appear - use screen since menus are often portaled
   await waitFor(
@@ -192,7 +192,7 @@ WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLEleme
 
   // Find and right-click the trigger
   const trigger = canvas.getByText("Right-click for advanced options");
-  await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+  await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
 
   // Wait for menu to appear
   await waitFor(
@@ -296,7 +296,7 @@ WithSubMenu.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => 
 
   // Right-click to open context menu
   const trigger = canvas.getByText("Right-click for nested menus");
-  await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+  await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
 
   // Wait for menu to appear
   await waitFor(
@@ -488,7 +488,7 @@ Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   // Right-click the trigger - use the parent element instead of the text
   const triggerText = canvas.getByText("Advanced Context Menu");
   const trigger = triggerText.closest('[class*="cursor-context-menu"]') || triggerText;
-  await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+  await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
 
   // Wait for menu to appear
   await waitFor(
@@ -579,7 +579,7 @@ export const SDUIContextMenu: Story = enhanceStoryForDualMode(
       const trigger = canvas.getByText("Right-click me for SDUI context menu");
 
       // Right-click to open context menu
-      await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+      await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
 
       // Wait for menu to appear - use screen since menus are often portaled
       await waitFor(
@@ -709,7 +709,7 @@ export const SDUINestedMenus: Story = enhanceStoryForDualMode(
 
       // Right-click to open context menu
       const trigger = canvas.getByText("Right-click for nested SDUI menus");
-      await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+      await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
 
       // Wait for menu to appear
       await waitFor(
@@ -851,7 +851,7 @@ export const SDUIWithInteractiveItems: Story = enhanceStoryForDualMode(
 
       // Find and right-click the trigger
       const trigger = canvas.getByText("Right-click for interactive SDUI options");
-      await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
+      await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
 
       // Wait for menu to appear
       await waitFor(

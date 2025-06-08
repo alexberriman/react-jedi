@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { ErrorPage } from "./error-page";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 import {
   BookOpen,
   ShoppingCart,
@@ -211,78 +213,261 @@ const portfolioLinks = [
   },
 ];
 
-export const Friendly404: Story = {
-  args: {
-    variant: "friendly-404",
-    popularLinks: popularLinks.slice(0, 3),
-    contactEmail: "support@example.com",
-  },
-};
-
-export const Friendly404WithSearch: Story = {
-  args: {
-    variant: "friendly-404",
-    popularLinks,
-    searchConfig: {
-      enabled: true,
-      placeholder: "Search for pages...",
-      searchAction: "/search",
+export const Friendly404: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "friendly-404",
+      popularLinks: popularLinks.slice(0, 3),
+      contactEmail: "support@example.com",
     },
-    contactEmail: "support@example.com",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test that the error page renders with default 404 content
+      expect(canvas.getByText("404 - Page Not Found")).toBeInTheDocument();
+      expect(canvas.getByText(/Oops! The page you're looking for seems to have wandered off/)).toBeInTheDocument();
+      
+      // Test navigation links
+      expect(canvas.getByRole("link", { name: /Go to Homepage/i })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: /Contact Support/i })).toBeInTheDocument();
+      
+      // Test popular links
+      expect(canvas.getByText("Homepage")).toBeInTheDocument();
+      expect(canvas.getByText("Documentation")).toBeInTheDocument();
+      expect(canvas.getByText("Support")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "friendly-404",
+      popularLinks: popularLinks.slice(0, 3),
+      contactEmail: "support@example.com",
+    },
+  }
+) as Story;
 
-export const Friendly404WithBreadcrumb: Story = {
-  args: {
-    variant: "friendly-404",
-    showBreadcrumb: true,
-    breadcrumbItems: [
-      { label: "Products", href: "/products" },
-      { label: "Electronics", href: "/products/electronics" },
-      { label: "Not Found" },
-    ],
-    popularLinks: popularLinks.slice(0, 4),
+export const Friendly404WithSearch: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "friendly-404",
+      popularLinks,
+      searchConfig: {
+        enabled: true,
+        placeholder: "Search for pages...",
+        searchAction: "/search",
+      },
+      contactEmail: "support@example.com",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test that the error page renders with 404 content
+      expect(canvas.getByText("404 - Page Not Found")).toBeInTheDocument();
+      
+      // Test search functionality
+      expect(canvas.getByPlaceholderText("Search for pages...")).toBeInTheDocument();
+      
+      // Test navigation links
+      expect(canvas.getByRole("link", { name: /Go to Homepage/i })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: /Contact Support/i })).toBeInTheDocument();
+      
+      // Test all popular links are rendered
+      for (const link of popularLinks) {
+        expect(canvas.getByText(link.label)).toBeInTheDocument();
+      }
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "friendly-404",
+      popularLinks,
+      searchConfig: {
+        enabled: true,
+        placeholder: "Search for pages...",
+        searchAction: "/search",
+      },
+      contactEmail: "support@example.com",
+    },
+  }
+) as Story;
 
-export const Friendly404CustomContent: Story = {
-  args: {
-    variant: "friendly-404",
-    title: "Oops! Lost in Space",
-    description:
-      "Houston, we have a problem. The page you're looking for has drifted into the cosmos.",
-    image: "https://placehold.co/400x300/EEE/31343C",
-    showIcon: false,
-    popularLinks: popularLinks.slice(0, 3),
+export const Friendly404WithBreadcrumb: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "friendly-404",
+      showBreadcrumb: true,
+      breadcrumbItems: [
+        { label: "Products", href: "/products" },
+        { label: "Electronics", href: "/products/electronics" },
+        { label: "Not Found" },
+      ],
+      popularLinks: popularLinks.slice(0, 4),
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test that the error page renders with 404 content
+      expect(canvas.getByText("404 - Page Not Found")).toBeInTheDocument();
+      
+      // Test breadcrumb items
+      expect(canvas.getByRole("link", { name: "Home" })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "Products" })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "Electronics" })).toBeInTheDocument();
+      expect(canvas.getByText("Not Found")).toBeInTheDocument();
+      
+      // Test popular links
+      expect(canvas.getByText("Homepage")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "friendly-404",
+      showBreadcrumb: true,
+      breadcrumbItems: [
+        { label: "Products", href: "/products" },
+        { label: "Electronics", href: "/products/electronics" },
+        { label: "Not Found" },
+      ],
+      popularLinks: popularLinks.slice(0, 4),
+    },
+  }
+) as Story;
 
-export const TechnicalError: Story = {
-  args: {
-    variant: "technical-error",
-    contactEmail: "support@example.com",
+export const Friendly404CustomContent: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "friendly-404",
+      title: "Oops! Lost in Space",
+      description:
+        "Houston, we have a problem. The page you're looking for has drifted into the cosmos.",
+      image: "https://placehold.co/400x300/EEE/31343C",
+      showIcon: false,
+      popularLinks: popularLinks.slice(0, 3),
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test custom title and description
+      expect(canvas.getByText("Oops! Lost in Space")).toBeInTheDocument();
+      expect(canvas.getByText(/Houston, we have a problem/)).toBeInTheDocument();
+      
+      // Test image renders
+      const image = canvas.getByAltText("Oops! Lost in Space");
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveAttribute("src", "https://placehold.co/400x300/EEE/31343C");
+      
+      // Test no icon is shown
+      expect(canvas.queryByTestId("error-icon")).not.toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "friendly-404",
+      title: "Oops! Lost in Space",
+      description:
+        "Houston, we have a problem. The page you're looking for has drifted into the cosmos.",
+      image: "https://placehold.co/400x300/EEE/31343C",
+      showIcon: false,
+      popularLinks: popularLinks.slice(0, 3),
+    },
+  }
+) as Story;
 
-export const TechnicalErrorDetailed: Story = {
-  args: {
-    variant: "technical-error",
-    title: "500 - Internal Server Error",
-    description:
-      "An unexpected error occurred while processing your request. Error ID: ERR_2024_001. Our engineering team has been automatically notified.",
-    contactEmail: "support@example.com",
-    customActions: [
-      { label: "Retry", onClick: () => globalThis.location.reload() },
-      { label: "System Status", href: "/status" },
-    ],
+export const TechnicalError: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "technical-error",
+      contactEmail: "support@example.com",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test technical error content
+      expect(canvas.getByText("500 - Server Error")).toBeInTheDocument();
+      expect(canvas.getByText(/Something went wrong on our end/)).toBeInTheDocument();
+      
+      // Test contact email link
+      expect(canvas.getByRole("link", { name: /Contact Support/i })).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "technical-error",
+      contactEmail: "support@example.com",
+    },
+  }
+) as Story;
 
-export const Maintenance: Story = {
-  args: {
-    variant: "maintenance",
+export const TechnicalErrorDetailed: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "technical-error",
+      title: "500 - Internal Server Error",
+      description:
+        "An unexpected error occurred while processing your request. Error ID: ERR_2024_001. Our engineering team has been automatically notified.",
+      contactEmail: "support@example.com",
+      customActions: [
+        { label: "Retry", onClick: () => globalThis.location.reload() },
+        { label: "System Status", href: "/status" },
+      ],
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test custom technical error content
+      expect(canvas.getByText("500 - Internal Server Error")).toBeInTheDocument();
+      expect(canvas.getByText(/An unexpected error occurred/)).toBeInTheDocument();
+      expect(canvas.getByText(/Error ID: ERR_2024_001/)).toBeInTheDocument();
+      
+      // Test custom actions
+      expect(canvas.getByRole("button", { name: "Retry" })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "System Status" })).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "technical-error",
+      title: "500 - Internal Server Error",
+      description:
+        "An unexpected error occurred while processing your request. Error ID: ERR_2024_001. Our engineering team has been automatically notified.",
+      contactEmail: "support@example.com",
+      customActions: [
+        { label: "Retry", href: "#" },
+        { label: "System Status", href: "/status" },
+      ],
+    },
+  }
+) as Story;
+
+export const Maintenance: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "maintenance",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test maintenance content
+      expect(canvas.getByText("Under Maintenance")).toBeInTheDocument();
+      expect(canvas.getByText(/We're currently performing scheduled maintenance/)).toBeInTheDocument();
+      
+      // Test home link
+      expect(canvas.getByRole("link", { name: /Go to Homepage/i })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "maintenance",
+    },
+  }
+) as Story;
 
 export const MaintenanceWithTimer: Story = {
   args: {
@@ -297,12 +482,35 @@ export const MaintenanceWithTimer: Story = {
   },
 };
 
-export const ComingSoon: Story = {
-  args: {
-    variant: "coming-soon",
-    countdownDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+export const ComingSoon: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "coming-soon",
+      countdownDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test coming soon content
+      expect(canvas.getByText("Coming Soon")).toBeInTheDocument();
+      expect(canvas.getByText(/Something exciting is in the works/)).toBeInTheDocument();
+      
+      // Test countdown is visible
+      expect(canvas.getByText("Launching in:")).toBeInTheDocument();
+      expect(canvas.getByText("Days")).toBeInTheDocument();
+      expect(canvas.getByText("Hours")).toBeInTheDocument();
+      expect(canvas.getByText("Minutes")).toBeInTheDocument();
+      expect(canvas.getByText("Seconds")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "coming-soon",
+      countdownDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+    },
+  }
+) as Story;
 
 export const ComingSoonCustom: Story = {
   args: {
@@ -319,17 +527,44 @@ export const ComingSoonCustom: Story = {
   },
 };
 
-export const SearchSuggestions: Story = {
-  args: {
-    variant: "search-suggestions",
-    searchConfig: {
-      enabled: true,
-      placeholder: "What are you looking for?",
-      onSearch: (query) => console.log("Searching for:", query),
+export const SearchSuggestions: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "search-suggestions",
+      searchConfig: {
+        enabled: true,
+        placeholder: "What are you looking for?",
+        onSearch: (query) => console.log("Searching for:", query),
+      },
+      popularLinks,
     },
-    popularLinks,
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test search suggestions content
+      expect(canvas.getByText("Can't Find What You're Looking For?")).toBeInTheDocument();
+      
+      // Test search input
+      expect(canvas.getByPlaceholderText("What are you looking for?")).toBeInTheDocument();
+      
+      // Test popular links are displayed
+      for (const link of popularLinks) {
+        expect(canvas.getByText(link.label)).toBeInTheDocument();
+      }
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "search-suggestions",
+      searchConfig: {
+        enabled: true,
+        placeholder: "What are you looking for?",
+      },
+      popularLinks,
+    },
+  }
+) as Story;
 
 export const SearchSuggestionsWithCategories: Story = {
   args: {
@@ -378,83 +613,264 @@ export const CustomErrorPage: Story = {
   },
 };
 
-export const NoAnimation: Story = {
-  args: {
-    variant: "friendly-404",
-    animated: false,
-    popularLinks: popularLinks.slice(0, 3),
-  },
-};
-
-export const MinimalError: Story = {
-  args: {
-    variant: "friendly-404",
-    title: "404",
-    description: "Page not found",
-    showIcon: true,
-    homeLinkText: "Home",
-  },
-};
-
-export const AllFeatures: Story = {
-  args: {
-    variant: "search-suggestions",
-    showBreadcrumb: true,
-    breadcrumbItems: [{ label: "Store", href: "/store" }, { label: "Search" }],
-    searchConfig: {
-      enabled: true,
-      placeholder: "Search our store...",
-      searchAction: "/search",
+export const NoAnimation: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "friendly-404",
+      animated: false,
+      popularLinks: popularLinks.slice(0, 3),
     },
-    popularLinks,
-    contactEmail: "support@example.com",
-    customActions: [
-      { label: "View Cart", href: "/cart", variant: "outline" },
-      { label: "Track Order", href: "/orders", variant: "outline" },
-    ],
-    children: (
-      <div className="text-sm text-muted-foreground">
-        <p>
-          Can&apos;t find what you&apos;re looking for? Our customer service team is here to help!
-        </p>
-        <p className="mt-2">Call us: 1-800-EXAMPLE | Hours: Mon-Fri 9AM-5PM EST</p>
-      </div>
-    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test that the error page renders without animation
+      expect(canvas.getByText("404 - Page Not Found")).toBeInTheDocument();
+      expect(canvas.getByText(/Oops! The page you're looking for seems to have wandered off/)).toBeInTheDocument();
+      
+      // Test popular links
+      expect(canvas.getByText("Homepage")).toBeInTheDocument();
+      expect(canvas.getByText("Documentation")).toBeInTheDocument();
+      expect(canvas.getByText("Support")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "friendly-404",
+      animated: false,
+      popularLinks: popularLinks.slice(0, 3),
+    },
+  }
+) as Story;
+
+export const MinimalError: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "friendly-404",
+      title: "404",
+      description: "Page not found",
+      showIcon: true,
+      homeLinkText: "Home",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test minimal error content
+      expect(canvas.getByText("404")).toBeInTheDocument();
+      expect(canvas.getByText("Page not found")).toBeInTheDocument();
+      
+      // Test home link with custom text
+      expect(canvas.getByRole("link", { name: "Home" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "friendly-404",
+      title: "404",
+      description: "Page not found",
+      showIcon: true,
+      homeLinkText: "Home",
+    },
+  }
+) as Story;
+
+export const AllFeatures: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      variant: "search-suggestions",
+      showBreadcrumb: true,
+      breadcrumbItems: [{ label: "Store", href: "/store" }, { label: "Search" }],
+      searchConfig: {
+        enabled: true,
+        placeholder: "Search our store...",
+        searchAction: "/search",
+      },
+      popularLinks,
+      contactEmail: "support@example.com",
+      customActions: [
+        { label: "View Cart", href: "/cart", variant: "outline" },
+        { label: "Track Order", href: "/orders", variant: "outline" },
+      ],
+      children: (
+        <div className="text-sm text-muted-foreground">
+          <p>
+            Can&apos;t find what you&apos;re looking for? Our customer service team is here to help!
+          </p>
+          <p className="mt-2">Call us: 1-800-EXAMPLE | Hours: Mon-Fri 9AM-5PM EST</p>
+        </div>
+      ),
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test search suggestions content
+      expect(canvas.getByText("Can't Find What You're Looking For?")).toBeInTheDocument();
+      
+      // Test breadcrumb
+      expect(canvas.getByRole("link", { name: "Home" })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "Store" })).toBeInTheDocument();
+      expect(canvas.getByText("Search")).toBeInTheDocument();
+      
+      // Test search functionality
+      expect(canvas.getByPlaceholderText("Search our store...")).toBeInTheDocument();
+      
+      // Test contact email
+      expect(canvas.getByRole("link", { name: /Contact Support/i })).toBeInTheDocument();
+      
+      // Test custom actions
+      expect(canvas.getByRole("link", { name: "View Cart" })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "Track Order" })).toBeInTheDocument();
+      
+      // Test custom children content
+      expect(canvas.getByText(/Can't find what you're looking for\? Our customer service team is here to help!/)).toBeInTheDocument();
+      expect(canvas.getByText(/Call us: 1-800-EXAMPLE/)).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      variant: "search-suggestions",
+      showBreadcrumb: true,
+      breadcrumbItems: [{ label: "Store", href: "/store" }, { label: "Search" }],
+      searchConfig: {
+        enabled: true,
+        placeholder: "Search our store...",
+        searchAction: "/search",
+      },
+      popularLinks,
+      contactEmail: "support@example.com",
+      customActions: [
+        { label: "View Cart", href: "/cart", variant: "outline" },
+        { label: "Track Order", href: "/orders", variant: "outline" },
+      ],
+      children: [
+        {
+          type: "Box",
+          className: "text-sm text-muted-foreground",
+          children: [
+            {
+              type: "Text",
+              as: "p",
+              children: "Can't find what you're looking for? Our customer service team is here to help!"
+            },
+            {
+              type: "Text",
+              as: "p",
+              className: "mt-2",
+              children: "Call us: 1-800-EXAMPLE | Hours: Mon-Fri 9AM-5PM EST"
+            }
+          ]
+        }
+      ],
+    },
+  }
+) as Story;
 
 // ===== WEBSITE-TYPE SPECIFIC STORIES =====
 
-export const BlogErrorPage: Story = {
-  args: {
-    siteType: "blog",
-    popularLinks: blogLinks,
-    searchConfig: {
-      enabled: true,
-      placeholder: "Search articles and topics...",
-      searchAction: "/search",
+export const BlogErrorPage: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      siteType: "blog",
+      popularLinks: blogLinks,
+      searchConfig: {
+        enabled: true,
+        placeholder: "Search articles and topics...",
+        searchAction: "/search",
+      },
+      contactEmail: "hello@myblog.com",
     },
-    contactEmail: "hello@myblog.com",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test blog error page content
+      expect(canvas.getByText("Article Not Found")).toBeInTheDocument();
+      expect(canvas.getByText(/The article you're looking for might have been moved/)).toBeInTheDocument();
+      
+      // Test search functionality
+      expect(canvas.getByPlaceholderText("Search articles and topics...")).toBeInTheDocument();
+      
+      // Test blog-specific links
+      expect(canvas.getByText("Latest Articles")).toBeInTheDocument();
+      expect(canvas.getByText("Categories")).toBeInTheDocument();
+      expect(canvas.getByText("About the Author")).toBeInTheDocument();
+      expect(canvas.getByText("Subscribe")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      siteType: "blog",
+      popularLinks: blogLinks,
+      searchConfig: {
+        enabled: true,
+        placeholder: "Search articles and topics...",
+        searchAction: "/search",
+      },
+      contactEmail: "hello@myblog.com",
+    },
+  }
+) as Story;
 
-export const EcommerceErrorPage: Story = {
-  args: {
-    siteType: "ecommerce",
-    popularLinks: ecommerceLinks,
-    searchConfig: {
-      enabled: true,
-      placeholder: "Search products...",
-      searchAction: "/search",
+export const EcommerceErrorPage: Story = enhanceStoryForDualMode<typeof ErrorPage>(
+  {
+    args: {
+      siteType: "ecommerce",
+      popularLinks: ecommerceLinks,
+      searchConfig: {
+        enabled: true,
+        placeholder: "Search products...",
+        searchAction: "/search",
+      },
+      contactEmail: "support@shop.com",
+      customActions: [
+        { label: "View Cart", href: "/cart", variant: "outline" },
+        { label: "Track Order", href: "/orders", variant: "outline" },
+        { label: "Live Chat", href: "/chat", variant: "ghost" },
+      ],
     },
-    contactEmail: "support@shop.com",
-    customActions: [
-      { label: "View Cart", href: "/cart", variant: "outline" },
-      { label: "Track Order", href: "/orders", variant: "outline" },
-      { label: "Live Chat", href: "/chat", variant: "ghost" },
-    ],
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test ecommerce error page content
+      expect(canvas.getByText("Product Not Found")).toBeInTheDocument();
+      expect(canvas.getByText(/Sorry, the product you're looking for is currently unavailable/)).toBeInTheDocument();
+      
+      // Test search functionality
+      expect(canvas.getByPlaceholderText("Search products...")).toBeInTheDocument();
+      
+      // Test ecommerce-specific links
+      expect(canvas.getByText("Best Sellers")).toBeInTheDocument();
+      expect(canvas.getByText("New Arrivals")).toBeInTheDocument();
+      expect(canvas.getByText("Sale Items")).toBeInTheDocument();
+      expect(canvas.getByText("Customer Service")).toBeInTheDocument();
+      
+      // Test custom actions
+      expect(canvas.getByRole("link", { name: "View Cart" })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "Track Order" })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "Live Chat" })).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ErrorPage",
+      siteType: "ecommerce",
+      popularLinks: ecommerceLinks,
+      searchConfig: {
+        enabled: true,
+        placeholder: "Search products...",
+        searchAction: "/search",
+      },
+      contactEmail: "support@shop.com",
+      customActions: [
+        { label: "View Cart", href: "/cart", variant: "outline" },
+        { label: "Track Order", href: "/orders", variant: "outline" },
+        { label: "Live Chat", href: "/chat", variant: "ghost" },
+      ],
+    },
+  }
+) as Story;
 
 export const MagazineErrorPage: Story = {
   args: {

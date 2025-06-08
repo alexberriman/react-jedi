@@ -8,8 +8,8 @@ export type PlayFunction<TArgs = Record<string, unknown>> = (
 async function waitForButtonToBeInteractive(button: HTMLElement): Promise<void> {
   let attempts = 0;
   while (attempts < 10) {
-    const computedStyle = globalThis.getComputedStyle(button);
-    if (computedStyle.pointerEvents !== 'none' && !button.hasAttribute('disabled')) {
+    // Check if the button itself is disabled (not inherited from body)
+    if (!button.hasAttribute('disabled') && !button.style.pointerEvents) {
       return;
     }
     if (attempts === 0) {
@@ -19,10 +19,24 @@ async function waitForButtonToBeInteractive(button: HTMLElement): Promise<void> 
     attempts++;
   }
   
-  const finalStyle = globalThis.getComputedStyle(button);
-  if (finalStyle.pointerEvents === 'none' || button.hasAttribute('disabled')) {
+  // Final check - only look at the button's own properties, not computed style
+  if (button.hasAttribute('disabled') || button.style.pointerEvents === 'none') {
     throw new Error(`Tab button "${button.textContent}" still has pointer-events: none after waiting`);
   }
+}
+
+async function cleanupOverlays(): Promise<void> {
+  // Press Escape to close any open overlays
+  const user = userEvent.setup();
+  await user.keyboard('{Escape}');
+  
+  // Wait a bit for animations
+  await new Promise(resolve => globalThis.setTimeout(resolve, 300));
+  
+  // Reset body state
+  const body = document.body;
+  body.style.pointerEvents = '';
+  delete body.dataset.scrollLocked;
 }
 
 async function clickTab(decoratorContainer: Element, tabText: string): Promise<void> {
@@ -33,8 +47,28 @@ async function clickTab(decoratorContainer: Element, tabText: string): Promise<v
     if (button.textContent?.includes(tabText)) {
       const htmlButton = button as HTMLElement;
       await waitForButtonToBeInteractive(htmlButton);
-      await user.click(htmlButton);
-      await new Promise(resolve => globalThis.setTimeout(resolve, 200));
+      
+      // Temporarily override body pointer-events if needed
+      const body = document.body;
+      const originalPointerEvents = body.style.pointerEvents;
+      const hasScrollLock = Object.hasOwn(body.dataset, 'scrollLocked');
+      
+      // Store the original state and temporarily enable pointer events
+      if (globalThis.getComputedStyle(body).pointerEvents === 'none') {
+        body.style.pointerEvents = 'auto';
+      }
+      
+      try {
+        await user.click(htmlButton);
+        await new Promise(resolve => globalThis.setTimeout(resolve, 200));
+      } finally {
+        // Restore original state
+        body.style.pointerEvents = originalPointerEvents;
+        if (hasScrollLock && !Object.hasOwn(body.dataset, 'scrollLocked')) {
+          body.dataset.scrollLocked = '1';
+        }
+      }
+      
       return;
     }
   }
@@ -98,6 +132,9 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
         throw new Error('React render container not found');
       }
     });
+    
+    // Clean up any open overlays before switching to SDUI mode
+    await cleanupOverlays();
     
     // Test SDUI mode only if renderSpec is provided
     if (parameters?.dualMode?.renderSpec || parameters?.dualMode?.jsonSpec) {

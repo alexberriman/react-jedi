@@ -378,13 +378,21 @@ export const Controlled = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
-
+      // Wait for the OTP input to be rendered
       await waitFor(() => {
         expect(canvas.getByText("Current value: (empty)")).toBeInTheDocument();
       });
 
+      // The OTP input might not have role="textbox", so look for the actual input element
+      const otpContainer = canvasElement.querySelector('[data-slot="input-otp"]');
+      expect(otpContainer).toBeInTheDocument();
+      
+      // Find the hidden input inside the OTP component
+      const input = otpContainer?.querySelector('input') as HTMLInputElement;
+      expect(input).toBeInTheDocument();
+
+      // Focus and type into the input
+      await userEvent.click(otpContainer!);
       await userEvent.type(input, "999");
 
       await waitFor(() => {
@@ -456,9 +464,19 @@ export const WithOnComplete = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
+      // Wait for the OTP input to be rendered
+      const otpContainer = await waitFor(() => {
+        const container = canvasElement.querySelector('[data-slot="input-otp"]');
+        expect(container).toBeInTheDocument();
+        return container;
+      });
+
+      // Find the hidden input inside the OTP component
+      const input = otpContainer?.querySelector('input') as HTMLInputElement;
       expect(input).toBeInTheDocument();
 
+      // Focus and type the complete code
+      await userEvent.click(otpContainer!);
       await userEvent.type(input, "111222");
 
       await waitFor(

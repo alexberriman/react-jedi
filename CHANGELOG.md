@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-08]
 
+- **Implement dual-mode story functionality for ErrorPage component. CRITICAL: The args MUST use type 'ErrorPage' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (error code, message, back button, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
+
+
+## [2025-06-08]
+
 - **Implement dual-mode story functionality for CookieConsentBanner component. CRITICAL: The args MUST use type 'CookieConsentBanner' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (consent text, accept/decline buttons, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
 
 

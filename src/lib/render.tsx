@@ -59,6 +59,10 @@ const transformPropsForComponent = (spec: Record<string, unknown>, actualProps: 
     return transformInputProps(actualProps);
   }
 
+  if (spec.type === "Box") {
+    return transformBoxProps(actualProps);
+  }
+
   if (spec.type === "Flex") {
     return transformFlexProps(actualProps);
   }
@@ -77,6 +81,18 @@ const transformInputProps = (actualProps: Record<string, unknown>): Record<strin
   if ("inputType" in actualProps) {
     transformed.type = actualProps.inputType;
     delete transformed.inputType;
+  }
+  
+  return transformed;
+};
+
+const transformBoxProps = (actualProps: Record<string, unknown>): Record<string, unknown> => {
+  const transformed = { ...actualProps };
+  
+  // Transform element to as for Box component
+  if ("element" in actualProps) {
+    transformed.as = actualProps.element;
+    delete transformed.element;
   }
   
   return transformed;

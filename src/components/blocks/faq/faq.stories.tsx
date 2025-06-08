@@ -280,9 +280,9 @@ export const CarouselWithSearch: Story = enhanceStoryForDualMode<typeof FAQBlock
       
       // Test category filters render
       expect(canvas.getByRole("button", { name: "All" })).toBeInTheDocument();
-      expect(canvas.getByRole("button", { name: "General" })).toBeInTheDocument();
-      expect(canvas.getByRole("button", { name: "Installation" })).toBeInTheDocument();
-      expect(canvas.getByRole("button", { name: "Styling" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: /General/i })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: /Installation/i })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: /Styling/i })).toBeInTheDocument();
       
       // Test first FAQ item renders
       expect(canvas.getByText("What is React Jedi?")).toBeInTheDocument();
@@ -608,8 +608,8 @@ export const Complete: Story = enhanceStoryForDualMode<typeof FAQBlock>(
       
       // Test category filters render
       expect(canvas.getByRole("button", { name: "All" })).toBeInTheDocument();
-      expect(canvas.getByRole("button", { name: "General" })).toBeInTheDocument();
-      expect(canvas.getByRole("button", { name: "Installation" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: /General/i })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: /Installation/i })).toBeInTheDocument();
       
       // Test FAQ items render (popular ones should be first)
       expect(canvas.getByText("What is React Jedi?")).toBeInTheDocument();

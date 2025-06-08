@@ -228,9 +228,9 @@ export const Default = enhanceStoryForDualMode<typeof BlogPostDetail>({
     expect(canvas.getByText("Advanced React Patterns")).toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: defaultArgs
+    ...defaultArgs
   }
 }) as Story;
 
@@ -255,12 +255,10 @@ export const WithSidebar = enhanceStoryForDualMode<typeof BlogPostDetail>({
     expect(canvas.getByText(/Table of Contents/i)).toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      ...defaultArgs,
-      variant: "with-sidebar",
-    }
+    ...defaultArgs,
+    variant: "with-sidebar",
   }
 }) as Story;
 
@@ -289,17 +287,15 @@ export const Magazine = enhanceStoryForDualMode<typeof BlogPostDetail>({
     expect(canvas.getByText("The modern developer workspace")).toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      ...defaultArgs,
-      variant: "magazine",
-      heroImage: {
-        src: "https://placehold.co/1600x900/EEE/31343C",
-        alt: "Coding on multiple screens",
-        caption: "The modern developer workspace",
-      },
-    }
+    ...defaultArgs,
+    variant: "magazine",
+    heroImage: {
+      src: "https://placehold.co/1600x900/EEE/31343C",
+      alt: "Coding on multiple screens",
+      caption: "The modern developer workspace",
+    },
   }
 }) as Story;
 
@@ -326,14 +322,12 @@ export const Minimal = enhanceStoryForDualMode<typeof BlogPostDetail>({
     expect(comments).not.toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      ...defaultArgs,
-      variant: "minimal",
-      heroImage: undefined,
-      showComments: false,
-    }
+    ...defaultArgs,
+    variant: "minimal",
+    heroImage: undefined,
+    showComments: false,
   }
 }) as Story;
 
@@ -350,18 +344,15 @@ export const WithoutHeroImage = enhanceStoryForDualMode<typeof BlogPostDetail>({
       canvas.getByText("The Complete Guide to Modern Web Development in 2024")
     ).toBeInTheDocument();
 
-    // Test no hero image present
-    const images = canvas.queryAllByRole("img");
-    // Should only have author avatar, not hero image
-    expect(images.length).toBeLessThan(2);
+    // Test no hero image present - hero image should not be in the document
+    const heroImage = canvas.queryByAltText("Modern web development workspace");
+    expect(heroImage).not.toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      ...defaultArgs,
-      heroImage: undefined,
-    }
+    ...defaultArgs,
+    heroImage: undefined,
   }
 }) as Story;
 
@@ -383,12 +374,10 @@ export const WithoutRelatedPosts = enhanceStoryForDualMode<typeof BlogPostDetail
     expect(relatedPosts).not.toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      ...defaultArgs,
-      relatedPosts: [],
-    }
+    ...defaultArgs,
+    relatedPosts: [],
   }
 }) as Story;
 
@@ -413,13 +402,11 @@ export const WithoutNavigation = enhanceStoryForDualMode<typeof BlogPostDetail>(
     expect(nextLink).not.toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      ...defaultArgs,
-      prevPost: undefined,
-      nextPost: undefined,
-    }
+    ...defaultArgs,
+    prevPost: undefined,
+    nextPost: undefined,
   }
 }) as Story;
 
@@ -441,12 +428,10 @@ export const NoAnimations = enhanceStoryForDualMode<typeof BlogPostDetail>({
     expect(canvas.getByText(/Introduction to Modern Web Development/)).toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      ...defaultArgs,
-      animated: false,
-    }
+    ...defaultArgs,
+    animated: false,
   }
 }) as Story;
 
@@ -482,19 +467,17 @@ export const MinimalFeatures = enhanceStoryForDualMode<typeof BlogPostDetail>({
     expect(reactTag).not.toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      ...defaultArgs,
-      variant: "minimal",
-      heroImage: undefined,
-      showComments: false,
-      showShareButtons: false,
-      showProgressBar: false,
-      relatedPosts: [],
-      tags: [],
-      categories: ["Blog"],
-    }
+    ...defaultArgs,
+    variant: "minimal",
+    heroImage: undefined,
+    showComments: false,
+    showShareButtons: false,
+    showProgressBar: false,
+    relatedPosts: [],
+    tags: [],
+    categories: ["Blog"],
   }
 }) as Story;
 
@@ -649,10 +632,15 @@ We've implemented a basic authentication system in Next.js. Remember to adapt th
     expect(canvas.getByText("Next.js")).toBeInTheDocument();
     expect(canvas.getByText("Security")).toBeInTheDocument();
 
-    // Test content sections
-    expect(canvas.getByText(/Overview/)).toBeInTheDocument();
-    expect(canvas.getByText(/Prerequisites/)).toBeInTheDocument();
-    expect(canvas.getByText(/Setting Up the Project/)).toBeInTheDocument();
+    // Test content sections - use getAllByText since TOC may contain duplicates
+    const overviewElements = canvas.getAllByText(/Overview/);
+    expect(overviewElements.length).toBeGreaterThan(0);
+    
+    const prerequisitesElements = canvas.getAllByText(/Prerequisites/);
+    expect(prerequisitesElements.length).toBeGreaterThan(0);
+    
+    const projectSetupElements = canvas.getAllByText(/Setting Up the Project/);
+    expect(projectSetupElements.length).toBeGreaterThan(0);
 
     // Test tags
     expect(canvas.getByText("authentication")).toBeInTheDocument();
@@ -662,12 +650,11 @@ We've implemented a basic authentication system in Next.js. Remember to adapt th
     expect(canvas.getByText(/Table of Contents/i)).toBeInTheDocument();
   },
 }, {
-  jsonSpec: {
+  renderSpec: {
     type: 'BlogPostDetail',
-    props: {
-      variant: "with-sidebar",
-      title: "Implementing Authentication in Next.js Applications",
-      content: `
+    variant: "with-sidebar",
+    title: "Implementing Authentication in Next.js Applications",
+    content: `
 ## Overview
 
 Authentication is a critical component of modern web applications. In this tutorial, we'll implement a complete authentication system in Next.js using JWT tokens and secure best practices.
@@ -798,6 +785,5 @@ We've implemented a basic authentication system in Next.js. Remember to adapt th
       showToc: true,
       showProgressBar: true,
       animated: true,
-    }
   }
 }) as Story;

@@ -352,6 +352,27 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     Table: asComponent(
       UI.TableComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
+    TableHeader: asComponent(
+      UI.TableHeader as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    TableBody: asComponent(
+      UI.TableBody as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    TableFooter: asComponent(
+      UI.TableFooter as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    TableHead: asComponent(
+      UI.TableHead as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    TableRow: asComponent(
+      UI.TableRow as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    TableCell: asComponent(
+      UI.TableCell as unknown as React.ComponentType<Record<string, unknown>>
+    ),
+    TableCaption: asComponent(
+      UI.TableCaption as unknown as React.ComponentType<Record<string, unknown>>
+    ),
     Toggle: asComponent(UI.Toggle),
     ToggleGroup: asComponent(
       UI.ToggleGroup as unknown as React.ComponentType<Record<string, unknown>>

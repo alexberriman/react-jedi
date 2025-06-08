@@ -154,11 +154,11 @@ export const Centered: Story = enhanceStoryForDualMode<typeof CallToAction>({
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Start Free Trial/i });
+    const primaryButton = canvas.getByRole("button", { name: /Start Free Trial/i });
     expect(primaryButton).toBeInTheDocument();
 
     // Test secondary action button
-    const secondaryButton = canvas.getByRole("link", { name: /Watch Demo/i });
+    const secondaryButton = canvas.getByRole("button", { name: /Watch Demo/i });
     expect(secondaryButton).toBeInTheDocument();
 
     // Test trust indicators
@@ -226,20 +226,21 @@ export const SplitScreen: Story = enhanceStoryForDualMode<typeof CallToAction>({
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Get Started/i });
+    const primaryButton = canvas.getByRole("button", { name: /Get Started/i });
     expect(primaryButton).toBeInTheDocument();
 
     // Test secondary action button
-    const secondaryButton = canvas.getByRole("link", { name: /Learn More/i });
+    const secondaryButton = canvas.getByRole("button", { name: /Learn More/i });
     expect(secondaryButton).toBeInTheDocument();
 
     // Test trust indicators
     expect(canvas.getByText("Award Winning")).toBeInTheDocument();
     expect(canvas.getByText("Trusted by 50K+ teams")).toBeInTheDocument();
 
-    // Test split image renders
-    const image = canvas.getByRole("img");
+    // Test split image renders - image has empty alt so role is presentation
+    const image = canvas.getByRole("presentation");
     expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute("src", "https://placehold.co/1200x800/EEE/31343C");
   },
 }, {
   renderSpec: {
@@ -300,11 +301,11 @@ export const WithBackgroundImage: Story = enhanceStoryForDualMode<typeof CallToA
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Start Building/i });
+    const primaryButton = canvas.getByRole("button", { name: /Start Building/i });
     expect(primaryButton).toBeInTheDocument();
 
     // Test secondary action button
-    const secondaryButton = canvas.getByRole("link", { name: /View Pricing/i });
+    const secondaryButton = canvas.getByRole("button", { name: /View Pricing/i });
     expect(secondaryButton).toBeInTheDocument();
   },
 }, {
@@ -371,11 +372,11 @@ export const GradientAnimated: Story = enhanceStoryForDualMode<typeof CallToActi
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Launch Your Project/i });
+    const primaryButton = canvas.getByRole("button", { name: /Launch Your Project/i });
     expect(primaryButton).toBeInTheDocument();
 
     // Test secondary action button
-    const secondaryButton = canvas.getByRole("link", { name: /Explore Features/i });
+    const secondaryButton = canvas.getByRole("button", { name: /Explore Features/i });
     expect(secondaryButton).toBeInTheDocument();
 
     // Test trust indicators
@@ -434,7 +435,7 @@ export const Minimal: Story = enhanceStoryForDualMode<typeof CallToAction>({
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Get Started/i });
+    const primaryButton = canvas.getByRole("button", { name: /Get Started/i });
     expect(primaryButton).toBeInTheDocument();
   },
 }, {
@@ -489,11 +490,11 @@ export const Bold: Story = enhanceStoryForDualMode<typeof CallToAction>({
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Claim Your Discount/i });
+    const primaryButton = canvas.getByRole("button", { name: /Claim Your Discount/i });
     expect(primaryButton).toBeInTheDocument();
 
     // Test secondary action button
-    const secondaryButton = canvas.getByRole("link", { name: /See Terms/i });
+    const secondaryButton = canvas.getByRole("button", { name: /See Terms/i });
     expect(secondaryButton).toBeInTheDocument();
   },
 }, {
@@ -627,7 +628,7 @@ export const WithBackgroundVideo: Story = enhanceStoryForDualMode<typeof CallToA
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Start Creating/i });
+    const primaryButton = canvas.getByRole("button", { name: /Start Creating/i });
     expect(primaryButton).toBeInTheDocument();
   },
 }, {
@@ -678,11 +679,11 @@ export const WithBackgroundPattern: Story = enhanceStoryForDualMode<typeof CallT
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Start Coding/i });
+    const primaryButton = canvas.getByRole("button", { name: /Start Coding/i });
     expect(primaryButton).toBeInTheDocument();
 
     // Test secondary action button
-    const secondaryButton = canvas.getByRole("link", { name: /Documentation/i });
+    const secondaryButton = canvas.getByRole("button", { name: /Documentation/i });
     expect(secondaryButton).toBeInTheDocument();
   },
 }, {
@@ -734,7 +735,7 @@ export const CustomGradient: Story = enhanceStoryForDualMode<typeof CallToAction
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Start Designing/i });
+    const primaryButton = canvas.getByRole("button", { name: /Start Designing/i });
     expect(primaryButton).toBeInTheDocument();
   },
 }, {
@@ -800,7 +801,7 @@ export const WithCustomShapes: Story = enhanceStoryForDualMode<typeof CallToActi
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Explore/i });
+    const primaryButton = canvas.getByRole("button", { name: /Explore/i });
     expect(primaryButton).toBeInTheDocument();
   },
 }, {
@@ -876,13 +877,13 @@ export const LeftAligned: Story = enhanceStoryForDualMode<typeof CallToAction>({
     expect(description).toBeInTheDocument();
 
     // Test all three action buttons
-    const primaryButton = canvas.getByRole("link", { name: /Request Demo/i });
+    const primaryButton = canvas.getByRole("button", { name: /Request Demo/i });
     expect(primaryButton).toBeInTheDocument();
 
-    const secondaryButton = canvas.getByRole("link", { name: /Contact Sales/i });
+    const secondaryButton = canvas.getByRole("button", { name: /Contact Sales/i });
     expect(secondaryButton).toBeInTheDocument();
 
-    const tertiaryButton = canvas.getByRole("link", { name: /View case studies/i });
+    const tertiaryButton = canvas.getByRole("button", { name: /View case studies/i });
     expect(tertiaryButton).toBeInTheDocument();
   },
 }, {
@@ -938,7 +939,7 @@ export const GlassMorphism: Story = enhanceStoryForDualMode<typeof CallToAction>
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Explore Premium/i });
+    const primaryButton = canvas.getByRole("button", { name: /Explore Premium/i });
     expect(primaryButton).toBeInTheDocument();
   },
 }, {
@@ -994,13 +995,13 @@ export const MultiAction: Story = enhanceStoryForDualMode<typeof CallToAction>({
     expect(description).toBeInTheDocument();
 
     // Test all three action buttons
-    const primaryButton = canvas.getByRole("link", { name: /Start Free Trial/i });
+    const primaryButton = canvas.getByRole("button", { name: /Start Free Trial/i });
     expect(primaryButton).toBeInTheDocument();
 
-    const secondaryButton = canvas.getByRole("link", { name: /Schedule Demo/i });
+    const secondaryButton = canvas.getByRole("button", { name: /Schedule Demo/i });
     expect(secondaryButton).toBeInTheDocument();
 
-    const tertiaryButton = canvas.getByRole("link", { name: /Compare plans/i });
+    const tertiaryButton = canvas.getByRole("button", { name: /Compare plans/i });
     expect(tertiaryButton).toBeInTheDocument();
   },
 }, {
@@ -1199,7 +1200,7 @@ export const SplitScreenLeftImage: Story = enhanceStoryForDualMode<typeof CallTo
     expect(description).toBeInTheDocument();
 
     // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Start Designing/i });
+    const primaryButton = canvas.getByRole("button", { name: /Start Designing/i });
     expect(primaryButton).toBeInTheDocument();
 
     // Test trust indicators
@@ -1207,9 +1208,10 @@ export const SplitScreenLeftImage: Story = enhanceStoryForDualMode<typeof CallTo
     expect(canvas.getByText("Powerful features")).toBeInTheDocument();
     expect(canvas.getByText("Great support")).toBeInTheDocument();
 
-    // Test split image renders
-    const image = canvas.getByRole("img");
+    // Test split image renders - image has empty alt so role is presentation
+    const image = canvas.getByRole("presentation");
     expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute("src", "https://placehold.co/1200x800/EEE/31343C");
   },
 }, {
   renderSpec: {
@@ -1256,9 +1258,10 @@ export const Compact: Story = enhanceStoryForDualMode<typeof CallToAction>({
     const description = canvas.getByText("Get started in seconds");
     expect(description).toBeInTheDocument();
 
-    // Test primary action button
-    const primaryButton = canvas.getByRole("link", { name: /Go/i });
+    // Test primary action button - Button with asChild and href renders as button role
+    const primaryButton = canvas.getByRole("button", { name: /Go/i });
     expect(primaryButton).toBeInTheDocument();
+    expect(primaryButton).toHaveAttribute("href", "#");
   },
 }, {
   renderSpec: {

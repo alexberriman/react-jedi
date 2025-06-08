@@ -105,6 +105,14 @@ export const Default: StoryFn = () => {
 Default.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   const canvas = within(canvasElement);
 
+  // Wait for component to fully render
+  await waitFor(
+    () => {
+      expect(canvas.getByText("Right-click me to open the context menu")).toBeInTheDocument();
+    },
+    { timeout: 10_000 }
+  );
+
   // Find the trigger area
   const trigger = canvas.getByText("Right-click me to open the context menu");
 
@@ -174,6 +182,14 @@ export const WithCheckboxAndRadio: StoryFn = () => {
 WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   const canvas = within(canvasElement);
 
+  // Wait for component to fully render
+  await waitFor(
+    () => {
+      expect(canvas.getByText("Right-click for advanced options")).toBeInTheDocument();
+    },
+    { timeout: 10_000 }
+  );
+
   // Find and right-click the trigger
   const trigger = canvas.getByText("Right-click for advanced options");
   await userEvent.pointer([{ target: trigger, keys: "[MouseRight]" }]);
@@ -198,6 +214,15 @@ WithCheckboxAndRadio.play = async ({ canvasElement }: { canvasElement: HTMLEleme
   const checkbox = within(document.body).getByText("Show notifications");
   await userEvent.click(checkbox);
 
+  // Wait for radio options to be available before clicking
+  await waitFor(
+    () => {
+      const highPriority = within(document.body).queryByText("High");
+      expect(highPriority).toBeInTheDocument();
+    },
+    { timeout: 10_000 }
+  );
+  
   // Click on a radio option
   const highPriority = within(document.body).getByText("High");
   await userEvent.click(highPriority);
@@ -260,6 +285,14 @@ export const WithSubMenu: StoryFn = () => {
 
 WithSubMenu.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   const canvas = within(canvasElement);
+
+  // Wait for component to fully render
+  await waitFor(
+    () => {
+      expect(canvas.getByText("Right-click for nested menus")).toBeInTheDocument();
+    },
+    { timeout: 10_000 }
+  );
 
   // Right-click to open context menu
   const trigger = canvas.getByText("Right-click for nested menus");
@@ -443,6 +476,14 @@ export const Modern2025: StoryFn = () => {
 
 Modern2025.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
   const canvas = within(canvasElement);
+
+  // Wait for component to fully render
+  await waitFor(
+    () => {
+      expect(canvas.getByText("Advanced Context Menu")).toBeInTheDocument();
+    },
+    { timeout: 10_000 }
+  );
 
   // Right-click the trigger - use the parent element instead of the text
   const triggerText = canvas.getByText("Advanced Context Menu");

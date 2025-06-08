@@ -6,6 +6,25 @@ import { cn, cleanDOMProps } from "../../../lib/utils";
 import { Button } from "../../ui/button";
 import { ArrowRight, Sparkles, Zap, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { render } from "../../../lib/render";
+import type { ComponentSpec } from "../../../types/schema";
+
+// Helper to render icon specifications
+const renderIcon = (icon: unknown): React.ReactNode => {
+  if (!icon) return null;
+  
+  // If it's already a React element, return as-is
+  if (React.isValidElement(icon)) {
+    return icon;
+  }
+  
+  // If it's an object with a type property, it's an SDUI spec
+  if (typeof icon === 'object' && icon !== null && 'type' in icon) {
+    return render(icon as ComponentSpec);
+  }
+  
+  return null;
+};
 
 const callToActionVariants = cva(
   "relative overflow-hidden transition-all duration-300",
@@ -47,7 +66,7 @@ const callToActionVariants = cva(
 );
 
 export interface TrustIndicator {
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | Record<string, unknown>;
   label: string;
   value?: string;
 }
@@ -62,14 +81,14 @@ export interface CallToActionProps
     label: string;
     href?: string;
     onClick?: () => void;
-    icon?: React.ReactNode;
+    icon?: React.ReactNode | Record<string, unknown>;
     variant?: "default" | "outline" | "ghost";
   };
   secondaryAction?: {
     label: string;
     href?: string;
     onClick?: () => void;
-    icon?: React.ReactNode;
+    icon?: React.ReactNode | Record<string, unknown>;
   };
   tertiaryAction?: {
     label: string;
@@ -81,13 +100,13 @@ export interface CallToActionProps
   backgroundPattern?: "dots" | "grid" | "lines" | "circles";
   overlay?: boolean;
   overlayOpacity?: number;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | Record<string, unknown>;
   showArrow?: boolean;
   decorative?: boolean;
   animated?: boolean;
   floatingShapes?: boolean;
   trustIndicators?: TrustIndicator[];
-  formComponent?: React.ReactNode;
+  formComponent?: React.ReactNode | Record<string, unknown>;
   buttonVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
   buttonSize?: "default" | "sm" | "lg" | "icon";
   splitImage?: string;
@@ -344,7 +363,7 @@ const TrustIndicatorsList = ({
     <div className="mt-8 flex flex-wrap justify-center gap-6">
       {indicators.map((indicator, index) => (
         <div key={index} className="flex items-center gap-2">
-          {indicator.icon && <span className="text-2xl">{indicator.icon}</span>}
+          {indicator.icon && <span className="text-2xl">{renderIcon(indicator.icon)}</span>}
           <div>
             {indicator.value && (
               <div className="text-2xl font-bold">{indicator.value}</div>
@@ -475,17 +494,17 @@ const CTAActions = ({
           )}
         >
           {primaryAction.href ? (
-            <a href={primaryAction.href}>
-              {primaryAction.icon}
-              {primaryAction.label}
+            <a href={primaryAction.href} className="inline-flex items-center gap-2">
+              {renderIcon(primaryAction.icon)}
+              <span>{primaryAction.label}</span>
               {showArrow && !primaryAction.icon && (
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               )}
             </a>
           ) : (
             <>
-              {primaryAction.icon}
-              {primaryAction.label}
+              {renderIcon(primaryAction.icon)}
+              <span>{primaryAction.label}</span>
               {showArrow && !primaryAction.icon && (
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               )}
@@ -505,14 +524,14 @@ const CTAActions = ({
           )}
         >
           {secondaryAction.href ? (
-            <a href={secondaryAction.href}>
-              {secondaryAction.icon}
-              {secondaryAction.label}
+            <a href={secondaryAction.href} className="inline-flex items-center gap-2">
+              {renderIcon(secondaryAction.icon)}
+              <span>{secondaryAction.label}</span>
             </a>
           ) : (
             <>
-              {secondaryAction.icon}
-              {secondaryAction.label}
+              {renderIcon(secondaryAction.icon)}
+              <span>{secondaryAction.label}</span>
             </>
           )}
         </Button>
@@ -680,7 +699,7 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
           )}
         >
           {/* Icon */}
-          {icon && <CTAIcon icon={icon} align={align} animated={animated} />}
+          {icon && <CTAIcon icon={renderIcon(icon)} align={align} animated={animated} />}
 
           {/* Title */}
           <CTATitle title={title} size={size} align={align} animated={animated} />
@@ -713,7 +732,7 @@ const CallToAction = React.forwardRef<HTMLDivElement, CallToActionProps>(
               transition={{ duration: 0.5, delay: 0.3 }}
               className="mt-8"
             >
-              {formComponent}
+              {renderIcon(formComponent)}
             </motion.div>
           )}
 

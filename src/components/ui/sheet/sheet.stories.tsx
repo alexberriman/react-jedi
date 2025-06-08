@@ -1000,6 +1000,9 @@ export const WithoutModal: Story = enhanceStoryForDualMode<typeof Sheet>(
     renderSpec: {
       type: "Box",
       className: "relative h-[400px] w-full border rounded-lg overflow-hidden",
+      handlers: {
+        showBackgroundAlert: () => alert('Background button clicked!')
+      },
       children: [
         {
           type: "Box",
@@ -1061,13 +1064,17 @@ export const WithoutModal: Story = enhanceStoryForDualMode<typeof Sheet>(
             {
               type: "Button",
               variant: "secondary",
-              onClick: "alert('Background button clicked!')",
+              actions: {
+                onClick: "showBackgroundAlert"
+              },
               children: "Background Button 1",
             },
             {
               type: "Button",
               variant: "secondary",
-              onClick: "alert('Background button clicked!')",
+              actions: {
+                onClick: "showBackgroundAlert"
+              },
               children: "Background Button 2",
             },
           ],

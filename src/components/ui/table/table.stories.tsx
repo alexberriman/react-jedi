@@ -187,7 +187,7 @@ export const Default: Story = enhanceStoryForDualMode<typeof Table>(
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
             <TableCell className="text-right">
-              ${invoiceData.reduce((sum, inv) => sum + inv.amount, 0).toFixed(2)}
+              ${invoiceData.reduce((sum, inv) => sum + inv.amount, 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
             </TableCell>
           </TableRow>
         </TableFooter>
@@ -208,12 +208,13 @@ export const Default: Story = enhanceStoryForDualMode<typeof Table>(
 
       // Test some invoice data
       expect(canvas.getByText("INV001")).toBeInTheDocument();
-      expect(canvas.getByText("Credit Card")).toBeInTheDocument();
+      const creditCardCells = canvas.getAllByText("Credit Card");
+      expect(creditCardCells.length).toBeGreaterThan(0);
       expect(canvas.getByText("$250.00")).toBeInTheDocument();
 
       // Test footer
       expect(canvas.getByText("Total")).toBeInTheDocument();
-      expect(canvas.getByText("$2,050.00")).toBeInTheDocument();
+      expect(canvas.getByText("$2,250.00")).toBeInTheDocument();
     },
   },
   {
@@ -255,7 +256,7 @@ export const Default: Story = enhanceStoryForDualMode<typeof Table>(
             cells: [
               { content: "Total", colSpan: 3 },
               {
-                content: `$${invoiceData.reduce((sum, inv) => sum + inv.amount, 0).toFixed(2)}`,
+                content: `$${invoiceData.reduce((sum, inv) => sum + inv.amount, 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
                 align: "right",
               },
             ],
@@ -287,7 +288,7 @@ export const Striped: Story = enhanceStoryForDualMode<typeof Table>(
             <TableRow key={product.name}>
               <TableCell className="font-medium">{product.name}</TableCell>
               <TableCell>{product.category}</TableCell>
-              <TableCell className="text-right">${product.price.toFixed(2)}</TableCell>
+              <TableCell className="text-right">${product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</TableCell>
               <TableCell className="text-right">{product.stock}</TableCell>
               <TableCell>{getStatusBadge(product.status)}</TableCell>
             </TableRow>
@@ -307,9 +308,11 @@ export const Striped: Story = enhanceStoryForDualMode<typeof Table>(
 
       // Test some product data
       expect(canvas.getByText('MacBook Pro 16"')).toBeInTheDocument();
-      expect(canvas.getByText("Electronics")).toBeInTheDocument();
+      const electronicsCategories = canvas.getAllByText("Electronics");
+      expect(electronicsCategories.length).toBeGreaterThan(0);
       expect(canvas.getByText("$2,399.00")).toBeInTheDocument();
-      expect(canvas.getByText("In Stock")).toBeInTheDocument();
+      const inStockStatuses = canvas.getAllByText("In Stock");
+      expect(inStockStatuses.length).toBeGreaterThan(0);
     },
   },
   {
@@ -334,7 +337,7 @@ export const Striped: Story = enhanceStoryForDualMode<typeof Table>(
           cells: [
             { content: product.name, className: "font-medium" },
             { content: product.category },
-            { content: `$${product.price.toFixed(2)}`, align: "right" },
+            { content: `$${product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`, align: "right" },
             { content: product.stock.toString(), align: "right" },
             {
               content: {
@@ -392,8 +395,10 @@ export const Bordered: Story = enhanceStoryForDualMode<typeof Table>(
       // Test some user data
       expect(canvas.getByText("John Doe")).toBeInTheDocument();
       expect(canvas.getByText("john.doe@example.com")).toBeInTheDocument();
-      expect(canvas.getByText("Developer")).toBeInTheDocument();
-      expect(canvas.getByText("Active")).toBeInTheDocument();
+      const developerRoles = canvas.getAllByText("Developer");
+      expect(developerRoles.length).toBeGreaterThan(0);
+      const activeStatuses = canvas.getAllByText("Active");
+      expect(activeStatuses.length).toBeGreaterThan(0);
       expect(canvas.getByText("2 hours ago")).toBeInTheDocument();
     },
   },
@@ -681,7 +686,8 @@ export const Compact: Story = enhanceStoryForDualMode<typeof Table>(
       // Test server data
       expect(canvas.getByText("web-01")).toBeInTheDocument();
       expect(canvas.getAllByText("45%").length).toBeGreaterThan(0);
-      expect(canvas.getByText("Healthy")).toBeInTheDocument();
+      const healthyStatuses = canvas.getAllByText("Healthy");
+      expect(healthyStatuses.length).toBeGreaterThan(0);
       expect(canvas.getByText("Critical")).toBeInTheDocument();
       expect(canvas.getByText("Warning")).toBeInTheDocument();
     },

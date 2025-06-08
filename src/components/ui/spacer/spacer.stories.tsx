@@ -635,9 +635,12 @@ export const FormExample: Story = enhanceStoryForDualMode<typeof Spacer>(
 
       // Test form elements
       expect(canvas.getByText("Contact Form")).toBeInTheDocument();
-      expect(canvas.getByLabelText("Name")).toBeInTheDocument();
-      expect(canvas.getByLabelText("Email")).toBeInTheDocument();
-      expect(canvas.getByLabelText("Message")).toBeInTheDocument();
+      expect(canvas.getByText("Name")).toBeInTheDocument();
+      expect(canvas.getByText("Email")).toBeInTheDocument();
+      expect(canvas.getByText("Message")).toBeInTheDocument();
+      expect(canvas.getByPlaceholderText("John Doe")).toBeInTheDocument();
+      expect(canvas.getByPlaceholderText("john@example.com")).toBeInTheDocument();
+      expect(canvas.getByPlaceholderText("Your message...")).toBeInTheDocument();
       expect(canvas.getByText("Send Message")).toBeInTheDocument();
 
       // Test spacers are used for consistent spacing
@@ -688,6 +691,7 @@ export const FormExample: Story = enhanceStoryForDualMode<typeof Spacer>(
             {
               type: "Input",
               id: "name",
+              name: "name",
               className: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
               placeholder: "John Doe",
             },
@@ -713,6 +717,7 @@ export const FormExample: Story = enhanceStoryForDualMode<typeof Spacer>(
             {
               type: "Input",
               id: "email",
+              name: "email",
               className: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
               placeholder: "john@example.com",
             },
@@ -738,6 +743,7 @@ export const FormExample: Story = enhanceStoryForDualMode<typeof Spacer>(
             {
               type: "Textarea",
               id: "message",
+              name: "message",
               className: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
               rows: 4,
               placeholder: "Your message...",

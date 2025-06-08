@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '@/lib/utils';
+import { cn, omit } from '@/lib/utils';
 import { useOptionalFormContext } from '@/lib/state/form-context';
 import { Label } from '@/components/ui/label';
 
@@ -77,12 +77,18 @@ SDUIFormLabel.displayName = 'SDUIFormLabel';
  * SDUI-aware FormControl component
  * This wraps form inputs and provides context
  */
+interface SDUIFormControlProps extends React.HTMLAttributes<HTMLDivElement> {
+  parentContext?: unknown;
+}
+
 export const SDUIFormControl = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ children, ...props }, ref) => {
+  SDUIFormControlProps
+>(({ children, parentContext, ...props }, ref) => {
+  // Filter out parentContext to avoid React warnings
+  const cleanProps = omit(props as Record<string, unknown>, ['parentContext']);
   return (
-    <div ref={ref} {...props}>
+    <div ref={ref} {...cleanProps}>
       {children}
     </div>
   );
@@ -142,10 +148,14 @@ SDUIFormMessage.displayName = 'SDUIFormMessage';
 /**
  * SDUI Form component that handles form submission
  */
+interface SDUIFormProps extends React.FormHTMLAttributes<HTMLFormElement> {
+  defaultValues?: Record<string, unknown>;
+}
+
 export const SDUIForm = React.forwardRef<
   HTMLFormElement,
-  React.FormHTMLAttributes<HTMLFormElement>
->(({ onSubmit, ...props }, ref) => {
+  SDUIFormProps
+>(({ onSubmit, defaultValues, ...props }, ref) => {
   const formContext = useOptionalFormContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -156,6 +166,9 @@ export const SDUIForm = React.forwardRef<
     }
   };
 
-  return <form ref={ref} onSubmit={handleSubmit} {...props} />;
+  // Filter out defaultValues as it's not a valid form element prop
+  const cleanProps = omit(props as Record<string, unknown>, ['defaultValues']);
+
+  return <form ref={ref} onSubmit={handleSubmit} {...cleanProps} />;
 });
 SDUIForm.displayName = 'SDUIForm';

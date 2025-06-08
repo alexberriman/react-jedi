@@ -1,153 +1,171 @@
+Failing Storybook Test Files (24 files with 112 failing tests):
 
-> @alexberriman/react-jedi@1.0.5 test:all
-> vitest run --run
+1. src/components/blocks/blog-post-detail/blog-post-detail.stories.tsx
+   - Default
+   - Magazine
+   - Minimal
+   - Minimal Features
+   - No Animations
+   - Technical Article
+   - Without Hero Image
+   - Without Navigation
+   - Without Related Posts
+   - With Sidebar
 
+2. src/components/blocks/blog-post-grid/blog-post-grid.stories.tsx
+   - Custom Sort Options
+   - Default
+   - Featured Posts
+   - Infinite Scroll
+   - Loading State
+   - Magazine Style
+   - Masonry Layout
+   - Minimal List
+   - Mobile Responsive
+   - No Controls
+   - With Sidebar
 
- RUN  v3.2.1 /home/alex/Documents/repos/react-jedi
+3. src/components/blocks/call-to-action/call-to-action.stories.tsx
+   - Bold
+   - Centered
+   - Compact
+   - Custom Gradient
+   - Form Integrated
+   - Glass Morphism
+   - Gradient Animated
+   - Left Aligned
+   - Minimal
+   - Multi Action
+   - Newsletter Custom Form
+   - Split Screen
+   - Split Screen Left Image
+   - With Background Image
+   - With Background Pattern
+   - With Background Video
+   - With Custom Shapes
 
- ✓ src/components/ui/toggle-group/toggle-group.test.tsx (11 tests) 905ms
-   ✓ ToggleGroup > Single Selection > should render with single selection by default  532ms
- ✓ src/lib/theme/typography/hooks.test.tsx (21 tests) 1496ms
- ✓ src/lib/animation/focus.test.tsx (22 tests) 1915ms
-   ✓ Focus Components > Focus > applies custom className and style  337ms
-   ✓ Focus Components > FocusInput > handles onChange events  480ms
- ✓ src/components/ui/spacer/spacer.test.tsx (9 tests) 584ms
- ✓ src/components/ui/calendar/calendar.test.tsx (3 tests) 1380ms
-   ✓ Calendar > renders with the calendar grid  1135ms
- ✓ src/lib/animation/drag.test.tsx (18 tests) 522ms
- ✓ src/lib/accessibility/focus-management.test.tsx (23 tests | 1 skipped) 474ms
- ✓ src/components/blocks/stat-block/stat-block.test.tsx (9 tests) 837ms
-   ✓ StatBlock > renders basic stats  468ms
- ✓ src/components/ui/calendar/calendar-component.test.tsx (6 tests) 551ms
-   ✓ CalendarComponent > renders in range mode with date range strings  349ms
- ✓ src/components/ui/sheet/sheet-wrapper-simple.test.tsx (2 tests) 839ms
-   ✓ Sheet SDUI Wrapper Simple Tests > should render Sheet with wrapper in SDUI mode  741ms
- ✓ src/components/ui/button/button-icon.test.tsx (5 tests) 906ms
-   ✓ Button with Icon in SDUI > should render button with icon on the left  644ms
- ✓ src/components/ui/toggle-group/toggle-group.integration.test.tsx (6 tests) 1141ms
-   ✓ ToggleGroup JSON Rendering Integration > should render single selection toggle group from JSON spec  729ms
- ✓ src/components/blocks/carousel/carousel-block.test.tsx (15 tests) 2137ms
-   ✓ CarouselBlock > Basic Carousel > should render basic carousel with navigation  809ms
- ✓ src/components/blocks/faq/faq.test.tsx (20 tests | 7 skipped) 2614ms
-   ✓ FAQBlock > Basic Accordion Variant > should render accordion FAQ with questions  312ms
-   ✓ FAQBlock > Category Filtering > should render category filter buttons when categories are provided  969ms
-   ✓ FAQBlock > Voting Functionality > should render voting buttons when voting is enabled  720ms
- ✓ src/lib/accessibility/screen-reader-announcements.test.tsx (6 tests) 731ms
-   ✓ Screen Reader Announcements > should announce polite messages  420ms
- ✓ src/lib/animation/scroll.test.tsx (14 tests) 793ms
- ✓ src/lib/animation/animation-hooks.test.ts (27 tests) 497ms
- ✓ src/lib/accessibility/keyboard-navigation/focus-trap.test.ts (8 tests) 945ms
-   ✓ Focus Trap Utilities > getFocusableElements > should find all focusable elements in a container  584ms
- ✓ src/lib/animation/slide.test.tsx (14 tests) 494ms
- ✓ src/lib/seo/microdata-element.test.tsx (12 tests) 562ms
- ✓ src/lib/animation/stagger.test.tsx (21 tests) 713ms
-   ✓ Stagger Component > renders children correctly  366ms
- ✓ src/lib/accessibility/keyboard-navigation/roving-tabindex.test.ts (6 tests) 790ms
-   ✓ useRovingTabIndex > should manage tabindex for list items  368ms
- ✓ src/components/ui/sheet/sheet-sdui-integration.test.tsx (3 tests) 404ms
-   ✓ Sheet SDUI Integration > should render Sheet with trigger in React mode  302ms
- ✓ src/components/ui/center/center.test.tsx (9 tests) 323ms
- ✓ src/lib/data/data-fetcher.test.ts (17 tests) 242ms
- ✓ src/lib/animation/fade.test.tsx (12 tests) 711ms
-   ✓ Fade Animations > FadeIn > renders children  434ms
- ✓ src/lib/animation/scroll-hooks.test.ts (11 tests) 283ms
- ✓ src/lib/conditions/index.test.ts (11 tests) 65ms
- ✓ src/lib/animation/click.test.tsx (14 tests) 714ms
-   ✓ Click Components > Click > renders children correctly  324ms
- ✓ src/lib/utils/meta.test.ts (15 tests) 307ms
- ✓ src/lib/animation/animation-provider.test.tsx (5 tests) 233ms
- ✓ src/lib/theme/theme-provider.test.tsx (5 tests) 610ms
-   ✓ ThemeProvider > provides theme values to children  341ms
- ✓ src/components/blocks/location-hours/utils.test.ts (26 tests) 129ms
- ✓ src/lib/theme/brand-presets/utils.test.ts (11 tests) 168ms
- ✓ src/lib/animation/animation-sequence.test.tsx (20 tests) 275ms
- ✓ src/lib/accessibility/aria-attributes.test.ts (23 tests) 454ms
- ✓ src/lib/seo/rich-snippets/rich-snippet.test.tsx (7 tests) 494ms
- ✓ src/lib/theme/color-system.test.ts (14 tests) 133ms
- ✓ src/lib/parser/specification-parser-comprehensive.test.ts (14 tests) 275ms
- ✓ src/lib/theme/css-variable-generator.test.ts (9 tests) 58ms
- ✓ src/lib/parser/specification-validator.test.ts (7 tests) 77ms
- ✓ src/components/ui/keyboard-navigation-menu/keyboard-navigation-menu-component.test.tsx (10 tests) 501ms
- ✓ src/components/ui/heading/heading.test.tsx (12 tests) 393ms
- ✓ src/lib/type-safety.test.ts (15 tests) 59ms
- ✓ src/lib/theme/theme-tokens.test.ts (4 tests) 67ms
- ✓ src/lib/render-mixed-children.test.tsx (5 tests) 299ms
- ✓ src/lib/theme/z-index/use-z-index.test.ts (3 tests) 153ms
- ✓ src/lib/conditions/conditional-rendering.test.tsx (4 tests) 419ms
-   ✓ Conditional Rendering Integration > should conditionally render components based on state  306ms
- ✓ src/lib/accessibility/keyboard-navigation/keyboard-hooks.test.ts (11 tests) 249ms
- ✓ src/lib/events/simple-handlers.test.ts (12 tests) 145ms
- ✓ src/lib/theme/container-queries.test.ts (28 tests) 114ms
- ✓ src/lib/icons/sdui-icon.test.tsx (10 tests) 355ms
- ✓ src/lib/theme/brand-presets/generator.test.ts (10 tests) 72ms
- ✓ src/components/ui/popover/popover-sdui.test.tsx (5 tests | 2 skipped) 234ms
- ✓ src/lib/animation/animation-hooks.click.test.tsx (13 tests) 235ms
- ✓ src/lib/animation/animation-hooks.drag.test.tsx (15 tests) 298ms
- ✓ src/lib/theme/style-overrides.test.ts (8 tests) 87ms
- ✓ src/lib/seo/structured-data.test.ts (9 tests) 172ms
- ✓ src/components/ui/dialog/dialog-handler.test.tsx (2 tests) 315ms
- ✓ src/lib/animation/state-transitions.test.ts (13 tests) 238ms
- ✓ src/lib/conditions/condition-parser.test.ts (13 tests) 111ms
- ✓ src/lib/parser/schema-validation.test.ts (21 tests) 171ms
- ✓ src/lib/seo/rich-snippets/generators.test.ts (13 tests) 73ms
- ✓ src/lib/theme/style-extension.test.ts (18 tests) 162ms
- ✓ src/lib/animation/transition-timing.test.ts (24 tests) 92ms
- ✓ src/lib/parser/validation-pipeline.test.ts (16 tests) 214ms
- ✓ src/lib/performance/memoization.test.tsx (19 tests) 128ms
-stdout | src/lib/theme/typography/hooks.minimal.test.tsx > Minimal Typography Test > should return original base theme when fluid typography is disabled
-Result fontSizes: {
-  xs1: [32m'0.75rem'[39m,
-  xs2: [32m'0.625rem'[39m,
-  base: [32m'1rem'[39m,
-  lg1: [32m'1.125rem'[39m,
-  lg2: [32m'1.25rem'[39m,
-  [32m'1xl'[39m: [32m'1.5rem'[39m,
-  [32m'2xl'[39m: [32m'1.875rem'[39m,
-  [32m'3xl'[39m: [32m'2.25rem'[39m,
-  [32m'4xl'[39m: [32m'3rem'[39m,
-  [32m'5xl'[39m: [32m'3.75rem'[39m
-}
-Expected fontSizes: {
-  xs1: [32m'0.75rem'[39m,
-  xs2: [32m'0.625rem'[39m,
-  base: [32m'1rem'[39m,
-  lg1: [32m'1.125rem'[39m,
-  lg2: [32m'1.25rem'[39m,
-  [32m'1xl'[39m: [32m'1.5rem'[39m,
-  [32m'2xl'[39m: [32m'1.875rem'[39m,
-  [32m'3xl'[39m: [32m'2.25rem'[39m,
-  [32m'4xl'[39m: [32m'3rem'[39m,
-  [32m'5xl'[39m: [32m'3.75rem'[39m
-}
+4. src/components/blocks/carousel/carousel-block.stories.tsx
+   - Basic
+   - Content Cards
+   - Fullscreen
+   - Swipe Only
+   - Testimonials Cards
 
- ✓ src/lib/theme/typography/hooks.minimal.test.tsx (1 test) 286ms
- ✓ src/lib/theme/z-index/z-index.test.ts (17 tests) 119ms
- ✓ src/components/ui/popover/popover-event-fix.test.tsx (3 tests) 91ms
- ✓ src/lib/data/optimistic-updates.test.ts (7 tests) 56ms
- ✓ src/lib/events/action-dispatcher.test.ts (13 tests) 98ms
- ✓ src/lib/theme/responsive-variants.test.ts (15 tests) 92ms
-stdout | src/lib/events/event-registry.test.ts > EventRegistry > should maintain event history
-[ReactJedi Event] {
-  timestamp: [33m1749314850543[39m,
-  eventType: [32m'click'[39m,
-  target: [32m'DIV'[39m,
-  action: { type: [32m'INCREMENT'[39m },
-  state: { count: [33m0[39m },
-  propagationStopped: [33mfalse[39m,
-  defaultPrevented: [33mfalse[39m
-}
-[ReactJedi Event] {
-  timestamp: [33m1749314850543[39m,
-  eventType: [32m'click'[39m,
-  target: [32m'DIV'[39m,
-  action: { type: [32m'INCREMENT'[39m },
-  state: { count: [33m0[39m },
-  propagationStopped: [33mfalse[39m,
-  defaultPrevented: [33mfalse[39m
-}
+5. src/components/ui/alert-dialog/alert-dialog.stories.tsx
+   - Controlled State
+   - Default
+   - Long Content
+   - With Custom Content
+   - With Icon
 
- ✓ src/lib/events/event-registry.test.ts (9 tests) 285ms
- ✓ src/components/ui/text/text.test.tsx (1 test) 120ms
- ✓ src/lib/theme/token-resolver.test.ts (11 tests) 104ms
- ✓ src/lib/seo/use-structured-data.test.tsx (5 tests) 319ms
- ✓ src/lib/toast/toast-manager.test.ts (7 tests) 70ms
+6. src/components/ui/calendar/calendar.stories.tsx
+   - From Json Specification
+   - Multiple Date Selection
+   - Single Date Selection
+   - With Date Constraints
+   - With Disabled Dates
+   - With Specific Disabled Dates
+   - With Year Constraints
+
+7. src/components/ui/command/command.stories.tsx
+   - Navigation Example
+
+8. src/components/ui/context-menu/context-menu.stories.tsx
+   - Modern 2025
+   - SDUI Context Menu
+   - SDUI Nested Menus
+   - SDUI With Interactive Items
+   - With Checkbox And Radio
+
+9. src/components/ui/data-table/data-table.stories.tsx
+   - Minimal Features
+   - With Actions
+   - With Row Selection
+
+10. src/components/ui/dialog/dialog.stories.tsx
+    - Basic
+    - Initially Open
+    - With Footer
+
+11. src/components/ui/drawer/drawer.stories.tsx
+    - Default
+    - Left Side
+    - Right Side
+
+12. src/components/ui/dropdown-menu/dropdown-menu.stories.tsx
+    - With Checkboxes
+    - With Radio Group
+
+13. src/components/ui/form/form.stories.tsx
+    - Contact Form
+    - Default
+    - With Initial Errors
+    - With Required Fields
+    - With Validation
+
+14. src/components/ui/hover-card/hover-card.stories.tsx
+    - Code Preview
+    - Default
+    - Text With Tooltip
+
+15. src/components/ui/markdown/markdown.stories.tsx
+    - Code Highlighting
+    - Complex Document
+    - Default
+    - Error Handling
+    - Long Content
+
+16. src/components/ui/masonry/masonry.stories.tsx
+    - Pinterest Gallery
+
+17. src/components/ui/popover/popover.stories.tsx
+    - With Form Elements
+
+18. src/components/ui/resizable/resizable.stories.tsx
+    - IDE Layout
+    - Persistent Layout
+
+19. src/components/ui/select/select.stories.tsx
+    - Controlled
+    - Disabled
+    - With Default Value
+
+20. src/components/ui/sheet/sheet.stories.tsx
+    - Custom Styling
+    - Default
+    - Long Content
+    - Nested Sheets
+    - With Form
+
+21. src/components/ui/skeleton-loader/skeleton-loader.stories.tsx
+    - Table Skeleton
+
+22. src/components/ui/spacer/spacer.stories.tsx
+    - Form Example
+
+23. src/components/ui/table/table.stories.tsx
+    - Bordered
+    - Compact
+    - Default
+    - Striped
+
+24. src/components/ui/tooltip/tooltip.stories.tsx
+    - Accessible
+    - Complex
+    - Custom Styling
+    - Default
+    - Long Content
+    - Multiple Placement
+    - With Alignment
+    - With Delay
+    - With Icon
+
+Summary:
+- Total failing test files: 24
+- Total failing tests: 112
+- Total passing tests: 438
+- Total tests: 550
+
+Common issue types observed:
+- TestingLibraryElementError: Unable to find elements with expected text
+- This suggests that components may not be rendering the expected content in SDUI mode

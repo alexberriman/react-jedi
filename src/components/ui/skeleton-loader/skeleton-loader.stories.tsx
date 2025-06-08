@@ -537,208 +537,182 @@ export const TableSkeleton: Story = enhanceStoryForDualMode<typeof SkeletonLoade
       className: "w-full",
       children: {
         type: "Table",
-        children: [
-          {
-            type: "TableHeader",
-            children: {
-              type: "TableRow",
-              children: [
+        head: {
+          rows: [
+            {
+              cells: [
                 {
-                  type: "TableHead",
-                  className: "text-left p-2",
-                  children: {
+                  content: {
                     type: "SkeletonLoader",
                     height: "16px",
                     width: "80px",
                   },
+                  className: "text-left p-2",
                 },
                 {
-                  type: "TableHead",
-                  className: "text-left p-2",
-                  children: {
+                  content: {
                     type: "SkeletonLoader",
                     height: "16px",
                     width: "100px",
                   },
+                  className: "text-left p-2",
                 },
                 {
-                  type: "TableHead",
-                  className: "text-left p-2",
-                  children: {
+                  content: {
                     type: "SkeletonLoader",
                     height: "16px",
                     width: "60px",
                   },
+                  className: "text-left p-2",
                 },
               ],
             },
-          },
-          {
-            type: "TableBody",
-            children: [
-              {
-                type: "TableRow",
-                children: [
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "120px",
-                    },
+          ],
+        },
+        body: {
+          rows: [
+            {
+              cells: [
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "120px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "150px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "150px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "80px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "80px",
                   },
-                ],
-              },
-              {
-                type: "TableRow",
-                children: [
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "120px",
-                    },
+                  className: "p-2",
+                },
+              ],
+            },
+            {
+              cells: [
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "120px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "150px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "150px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "80px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "80px",
                   },
-                ],
-              },
-              {
-                type: "TableRow",
-                children: [
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "120px",
-                    },
+                  className: "p-2",
+                },
+              ],
+            },
+            {
+              cells: [
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "120px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "150px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "150px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "80px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "80px",
                   },
-                ],
-              },
-              {
-                type: "TableRow",
-                children: [
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "120px",
-                    },
+                  className: "p-2",
+                },
+              ],
+            },
+            {
+              cells: [
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "120px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "150px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "150px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "80px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "80px",
                   },
-                ],
-              },
-              {
-                type: "TableRow",
-                children: [
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "120px",
-                    },
+                  className: "p-2",
+                },
+              ],
+            },
+            {
+              cells: [
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "120px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "150px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "150px",
                   },
-                  {
-                    type: "TableCell",
-                    className: "p-2",
-                    children: {
-                      type: "SkeletonLoader",
-                      height: "16px",
-                      width: "80px",
-                    },
+                  className: "p-2",
+                },
+                {
+                  content: {
+                    type: "SkeletonLoader",
+                    height: "16px",
+                    width: "80px",
                   },
-                ],
-              },
-            ],
-          },
-        ],
+                  className: "p-2",
+                },
+              ],
+            },
+          ],
+        },
       },
     },
   }

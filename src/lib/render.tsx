@@ -419,9 +419,23 @@ function buildComponentProps(
     "computedProps",
   ]);
 
+  // Process properties that might contain nested ComponentSpecs
+  const processedProps: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(filteredSpec)) {
+    processedProps[key] = isComponentSpec(value)
+      ? renderComponent(
+          value as ComponentSpec,
+          options,
+          parentContext,
+          undefined,
+          false
+        )
+      : value;
+  }
+
   // Type assertion to avoid issues with strict type checking
   const componentProps: ExtendedComponentProps = {
-    ...filteredSpec,
+    ...processedProps,
     className: mergedClassName || undefined,
     style: Object.keys(mergedStyle).length > 0 ? mergedStyle : undefined,
     children,

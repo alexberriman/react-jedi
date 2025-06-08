@@ -49,6 +49,7 @@ const parseDate = (date: unknown): Date | undefined => {
 };
 
 export function CalendarComponent({ spec, parentContext }: CalendarComponentProps) {
+  // Extract spec properties with defaults early for hooks
   const {
     mode = "single",
     selected,
@@ -66,9 +67,13 @@ export function CalendarComponent({ spec, parentContext }: CalendarComponentProp
     toDate,
     onSelect,
     onMonthChange,
-    style = {},
-    className = "",
-  } = spec;
+    style: specStyle = {},
+    className: specClassName = "",
+  } = spec || {};
+  
+  // Use styles and classes from spec
+  const style = specStyle;
+  const className = specClassName;
 
   // Get handlers from parent context
   const handlers = parentContext?.handlers as Record<string, (...args: unknown[]) => unknown> | undefined;
@@ -170,8 +175,9 @@ export function CalendarComponent({ spec, parentContext }: CalendarComponentProp
   );
 
   // Common props for all modes
+  const parsedDefaultMonth = parseDate(defaultMonth) || new Date();
   const commonProps = {
-    defaultMonth: parseDate(defaultMonth) || new Date(),
+    defaultMonth: parsedDefaultMonth,
     disabled: parsedDisabled,
     initialFocus,
     showOutsideDays,
@@ -187,6 +193,12 @@ export function CalendarComponent({ spec, parentContext }: CalendarComponentProp
     style,
     onMonthChange: handleMonthChange,
   };
+
+  // Add defensive check for spec after hooks
+  if (!spec) {
+    console.error("CalendarComponent: spec is undefined");
+    return null;
+  }
 
   // Render different Calendar variants based on mode
   if (mode === "single") {

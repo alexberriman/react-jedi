@@ -62,11 +62,17 @@ export const Default: Story = enhanceStoryForDualMode<typeof HoverCard>(
 
       await waitFor(
         () => {
-          const content = within(document.body).getByText(
+          // Look for the hover card content specifically
+          const hoverCardContent = document.body.querySelector('[data-radix-popper-content-wrapper]');
+          if (!hoverCardContent) {
+            throw new Error('Hover card content not found');
+          }
+          const hoverScreen = within(hoverCardContent as HTMLElement);
+          const content = hoverScreen.getByText(
             "Creator of shadcn/ui - modern component library for React."
           );
           expect(content).toBeInTheDocument();
-          expect(within(document.body).getByText("Joined December 2021")).toBeInTheDocument();
+          expect(hoverScreen.getByText("Joined December 2021")).toBeInTheDocument();
         },
         { timeout: 10_000 }
       );
@@ -395,8 +401,14 @@ export const TextWithTooltip: Story = enhanceStoryForDualMode<typeof HoverCard>(
 
       await waitFor(
         () => {
-          expect(within(document.body).getByText("Meta Platforms, Inc.")).toBeInTheDocument();
-          expect(within(document.body).getByText(/Previously known as Facebook/)).toBeInTheDocument();
+          // Look for the hover card content specifically
+          const hoverCardContent = document.body.querySelector('[data-radix-popper-content-wrapper]');
+          if (!hoverCardContent) {
+            throw new Error('Hover card content not found');
+          }
+          const hoverScreen = within(hoverCardContent as HTMLElement);
+          expect(hoverScreen.getByText("Meta Platforms, Inc.")).toBeInTheDocument();
+          expect(hoverScreen.getByText(/Previously known as Facebook/)).toBeInTheDocument();
         },
         { timeout: 10_000 }
       );
@@ -636,10 +648,16 @@ export const CodePreview: Story = enhanceStoryForDualMode<typeof HoverCard>(
 
       await waitFor(
         () => {
+          // Look for the hover card content specifically
+          const hoverCardContent = document.body.querySelector('[data-radix-popper-content-wrapper]');
+          if (!hoverCardContent) {
+            throw new Error('Hover card content not found');
+          }
+          const hoverScreen = within(hoverCardContent as HTMLElement);
           expect(
-            within(document.body).getByText("A React hook for creating accessible hover card interactions.")
+            hoverScreen.getByText("A React hook for creating accessible hover card interactions.")
           ).toBeInTheDocument();
-          expect(within(document.body).getByText(/Provides keyboard navigation/)).toBeInTheDocument();
+          expect(hoverScreen.getByText(/Provides keyboard navigation/)).toBeInTheDocument();
         },
         { timeout: 10_000 }
       );

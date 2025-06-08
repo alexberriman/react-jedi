@@ -60,6 +60,7 @@ export const BasicVerticalMenu: Story = {
       ],
       showShortcuts: true,
       orientation: "vertical",
+      role: "menu", // Explicitly set role
       onSelectAction: "handleMenuSelect",
     };
 
@@ -172,6 +173,7 @@ export const NestedSubmenus: Story = {
   render: () => {
     const spec: KeyboardNavigationMenuSpec = {
       type: "KeyboardNavigationMenu",
+      role: "menu", // Explicitly set role
       items: [
         {
           id: "file",
@@ -265,6 +267,7 @@ export const WithCustomStyling: Story = {
   render: () => {
     const spec: KeyboardNavigationMenuSpec = {
       type: "KeyboardNavigationMenu",
+      role: "menu", // Explicitly set role
       items: [
         {
           id: "dashboard",
@@ -334,6 +337,7 @@ export const ComplexInteractiveExample: Story = {
         },
         {
           type: "KeyboardNavigationMenu",
+          role: "menu", // Explicitly set role
           items: [
             {
               id: "profile",
@@ -509,6 +513,7 @@ export const MixedContentMenu: Story = {
   render: () => {
     const spec: KeyboardNavigationMenuSpec = {
       type: "KeyboardNavigationMenu",
+      role: "menu", // Explicitly set role
       items: [
         {
           id: "recent",

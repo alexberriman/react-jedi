@@ -146,9 +146,13 @@ export const CountdownTimer: Story = enhanceStoryForDualMode<typeof Announcement
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Test countdown message renders
-    expect(canvas.getByText(/Product launch coming soon/)).toBeInTheDocument();
+    // Test countdown message renders (only countdownMessage is shown, not message)
     expect(canvas.getByText(/Product launch countdown/)).toBeInTheDocument();
+    
+    // Test countdown timer is displayed (format: "7d 0h 0m 0s" or similar)
+    // Use a more specific regex to avoid backtracking issues
+    const countdownTimer = canvas.getByText(/\d{1,3}[dhms]/);
+    expect(countdownTimer).toBeInTheDocument();
     
     // Test action button renders
     expect(canvas.getByRole("button", { name: "Get Notified" })).toBeInTheDocument();

@@ -294,27 +294,36 @@ export const RightSide = enhanceStoryForDualMode(
       // Add a small delay for drawer animation
       await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
-      // Wait for drawer
+      // Wait for drawer - check multiple possible locations
       await waitFor(() => {
-        expect(within(document.body).getByText("Navigation Menu")).toBeInTheDocument();
+        const drawerInBody = document.body.querySelector('[data-vaul-drawer]');
+        const drawerInCanvas = canvasElement.querySelector('[data-vaul-drawer]');
+        const drawer = drawerInBody || drawerInCanvas;
+        
+        if (!drawer) {
+          throw new Error('Drawer not found in body or canvas');
+        }
+        
+        const drawerScreen = within(drawer as HTMLElement);
+        expect(drawerScreen.getByText("Navigation Menu")).toBeInTheDocument();
       }, { timeout: 10_000 });
 
       // Verify drawer is on the right (has data attribute)
-      const drawerContent = within(document.body)
-        .getByText("Navigation Menu")
-        .closest("[data-vaul-drawer-direction]");
-      expect(drawerContent).toHaveAttribute("data-vaul-drawer-direction", "right");
+      const drawer = document.body.querySelector('[data-vaul-drawer]') || canvasElement.querySelector('[data-vaul-drawer]');
+      expect(drawer).toHaveAttribute("data-vaul-drawer-direction", "right");
 
       // Click a navigation button
-      await userEvent.click(within(document.body).getByRole("button", { name: /dashboard/i }));
+      const drawerScreen = within(drawer as HTMLElement);
+      await userEvent.click(drawerScreen.getByRole("button", { name: /dashboard/i }));
 
       // Close drawer
-      const closeButton = within(document.body).getByRole("button", { name: /^close$/i });
+      const closeButton = drawerScreen.getByRole("button", { name: /^close$/i });
       await userEvent.click(closeButton);
 
       await waitFor(
         () => {
-          expect(within(document.body).queryByText("Navigation Menu")).not.toBeInTheDocument();
+          const drawerElement = document.body.querySelector('[data-vaul-drawer]') || canvasElement.querySelector('[data-vaul-drawer]');
+          expect(drawerElement).not.toBeInTheDocument();
         },
         { timeout: 5000 }
       );
@@ -468,27 +477,36 @@ export const LeftSide = enhanceStoryForDualMode(
       // Add a small delay for drawer animation
       await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
-      // Wait for drawer with increased timeout
+      // Wait for drawer - check multiple possible locations
       await waitFor(() => {
-        expect(within(document.body).getByText("Settings")).toBeInTheDocument();
+        const drawerInBody = document.body.querySelector('[data-vaul-drawer]');
+        const drawerInCanvas = canvasElement.querySelector('[data-vaul-drawer]');
+        const drawer = drawerInBody || drawerInCanvas;
+        
+        if (!drawer) {
+          throw new Error('Drawer not found in body or canvas');
+        }
+        
+        const drawerScreen = within(drawer as HTMLElement);
+        expect(drawerScreen.getByText("Settings")).toBeInTheDocument();
       }, { timeout: 10_000 });
 
       // Verify drawer is on the left
-      const drawerContent = within(document.body)
-        .getByText("Settings")
-        .closest("[data-vaul-drawer-direction]");
-      expect(drawerContent).toHaveAttribute("data-vaul-drawer-direction", "left");
+      const drawer = document.body.querySelector('[data-vaul-drawer]') || canvasElement.querySelector('[data-vaul-drawer]');
+      expect(drawer).toHaveAttribute("data-vaul-drawer-direction", "left");
 
       // Toggle a checkbox
-      const darkModeCheckbox = within(document.body).getByLabelText(/dark mode/i);
+      const drawerScreen = within(drawer as HTMLElement);
+      const darkModeCheckbox = drawerScreen.getByLabelText(/dark mode/i);
       await userEvent.click(darkModeCheckbox);
 
       // Save preferences
-      await userEvent.click(within(document.body).getByRole("button", { name: /save preferences/i }));
+      await userEvent.click(drawerScreen.getByRole("button", { name: /save preferences/i }));
 
       await waitFor(
         () => {
-          expect(within(document.body).queryByText("Settings")).not.toBeInTheDocument();
+          const drawerElement = document.body.querySelector('[data-vaul-drawer]') || canvasElement.querySelector('[data-vaul-drawer]');
+          expect(drawerElement).not.toBeInTheDocument();
         },
         { timeout: 5000 }
       );

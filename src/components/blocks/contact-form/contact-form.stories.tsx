@@ -124,7 +124,8 @@ export const WithMap: Story = enhanceStoryForDualMode<typeof ContactForm>({
     expect(canvas.getByText("Get in Touch")).toBeInTheDocument();
     expect(canvas.getByText("Main Office")).toBeInTheDocument();
     expect(canvas.getByText("Address")).toBeInTheDocument();
-    expect(canvas.getByText("123 Business Street")).toBeInTheDocument();
+    // Address is rendered with whitespace-pre-line, so check for the full content
+    expect(canvas.getByText(/123 Business Street.*Suite 100.*San Francisco, CA 94105/s)).toBeInTheDocument();
     expect(canvas.getByText("Phone")).toBeInTheDocument();
     expect(canvas.getByText("+1 (555) 123-4567")).toBeInTheDocument();
     expect(canvas.getByText("Email")).toBeInTheDocument();
@@ -227,16 +228,22 @@ export const WithCustomSubjects: Story = enhanceStoryForDualMode<typeof ContactF
     expect(canvas.getByText("How Can We Help?")).toBeInTheDocument();
     expect(canvas.getByText("Select a topic and tell us more about your inquiry.")).toBeInTheDocument();
     
-    // Verify subject dropdown
-    const subjectSelect = canvas.getByText("Select a subject");
-    await user.click(subjectSelect);
+    // Verify subject dropdown exists
+    const subjectTrigger = canvas.getByRole("combobox", { name: "Subject" });
+    expect(subjectTrigger).toBeInTheDocument();
     
-    // Verify custom subjects are available
-    expect(canvas.getByText("Technical Support")).toBeInTheDocument();
-    expect(canvas.getByText("Billing Question")).toBeInTheDocument();
-    expect(canvas.getByText("Feature Request")).toBeInTheDocument();
-    expect(canvas.getByText("Bug Report")).toBeInTheDocument();
-    expect(canvas.getByText("Enterprise Sales")).toBeInTheDocument();
+    // Click the trigger to open the dropdown
+    await user.click(subjectTrigger);
+    
+    // Wait a bit for the dropdown to open
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+    
+    // Verify custom subjects are available in the dropdown
+    expect(canvas.getByRole("option", { name: "Technical Support" })).toBeInTheDocument();
+    expect(canvas.getByRole("option", { name: "Billing Question" })).toBeInTheDocument();
+    expect(canvas.getByRole("option", { name: "Feature Request" })).toBeInTheDocument();
+    expect(canvas.getByRole("option", { name: "Bug Report" })).toBeInTheDocument();
+    expect(canvas.getByRole("option", { name: "Enterprise Sales" })).toBeInTheDocument();
   },
 });
 
@@ -355,7 +362,8 @@ export const NewsletterIntegration: Story = enhanceStoryForDualMode<typeof Conta
     expect(canvas.getByText("Contact us or subscribe to our newsletter for updates.")).toBeInTheDocument();
     
     // Verify office info
-    expect(canvas.getByText("456 Innovation Drive")).toBeInTheDocument();
+    // Address is rendered with whitespace-pre-line, so check for the full content
+    expect(canvas.getByText(/456 Innovation Drive.*Tech Park, CA 94025/s)).toBeInTheDocument();
     expect(canvas.getByText("+1 (555) 987-6543")).toBeInTheDocument();
     expect(canvas.getByText("info@techcompany.com")).toBeInTheDocument();
     expect(canvas.getByText("24/7 Support Available")).toBeInTheDocument();

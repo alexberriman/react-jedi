@@ -18,9 +18,7 @@ export class KeyboardManager {
     this.activeElements.add(element);
 
     // Apply ARIA attributes based on config
-    if (config.rovingTabIndex) {
-      element.setAttribute("role", "group");
-    }
+    // Don't override role - let the component handle it
 
     if (config.arrowKeys) {
       element.setAttribute("aria-keyshortcuts", "ArrowUp ArrowDown ArrowLeft ArrowRight");

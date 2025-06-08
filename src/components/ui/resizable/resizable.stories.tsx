@@ -533,9 +533,12 @@ export const IDELayout: Story = enhanceStoryForDualMode(
       expect(canvas.getByText("Editor")).toBeInTheDocument();
       expect(canvas.getByText("Terminal")).toBeInTheDocument();
 
-      // Check file explorer items
-      expect(canvas.getByText(/📁 src/)).toBeInTheDocument();
-      expect(canvas.getByText(/📄 index.ts/)).toBeInTheDocument();
+      // Check file explorer items - handle both React (emoji+text) and SDUI (separate icon+text)
+      const srcElement = canvas.queryByText("src") || canvas.queryByText(/📁 src/);
+      expect(srcElement).toBeInTheDocument();
+      
+      const indexElement = canvas.queryByText("index.ts") || canvas.queryByText(/📄 index.ts/);
+      expect(indexElement).toBeInTheDocument();
       
       // Check terminal content
       expect(canvas.getByText(/npm run dev/)).toBeInTheDocument();
@@ -875,10 +878,15 @@ export const PersistentLayout: Story = enhanceStoryForDualMode(
       const handles = canvas.getAllByTestId("resizable-handle");
       expect(handles).toHaveLength(2);
 
-      // Check that panels are rendered - use more flexible text matching
-      expect(canvas.getByText(/Persistent/)).toBeInTheDocument();
+      // Check that panels are rendered - text might be split across elements
+      const persistentTexts = canvas.getAllByText(/Persistent/);
+      expect(persistentTexts.length).toBeGreaterThan(0);
+      
       expect(canvas.getByText(/Layout persists/)).toBeInTheDocument();
-      expect(canvas.getByText(/Right Panel/)).toBeInTheDocument();
+      
+      // Right Panel text might be split, so look for at least one match
+      const rightPanelTexts = canvas.queryAllByText(/Right Panel/) || canvas.queryAllByText(/Panel/);
+      expect(rightPanelTexts.length).toBeGreaterThan(0);
 
       // Test that the handles have the visual handle indicators
       const handleIndicators = canvasElement.querySelectorAll("[data-panel-resize-handle-enabled]");

@@ -32,6 +32,7 @@ import { InputWithIconWrapper } from "./icons/input-with-icon-wrapper";
 import { DrawerWrapper } from "../components/ui/drawer/drawer-wrapper";
 import { HoverCardWrapper } from "../components/ui/hover-card/hover-card-wrapper";
 import { SheetWrapper } from "../components/ui/sheet/sheet-wrapper";
+import { SelectWrapper } from "../components/ui/select/select-wrapper";
 import { KeyboardNavigationMenuComponent, KeyboardNavigationMenuItemComponent } from "../components/ui/keyboard-navigation-menu/keyboard-navigation-menu-component";
 import { 
   FormWrapper,
@@ -490,7 +491,7 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     RadioGroupItem: asComponent(
       UI.RadioGroupItem as unknown as React.ComponentType<Record<string, unknown>>
     ),
-    Select: asComponent(UI.Select),
+    Select: asComponent(SelectWrapper as unknown as React.ComponentType<Record<string, unknown>>),
     SelectContent: asComponent(UI.SelectContent),
     SelectGroup: asComponent(UI.SelectGroup),
     SelectItem: asComponent(

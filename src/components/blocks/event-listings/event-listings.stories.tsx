@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, expect } from "storybook/test";
 import { EventListings, type Event } from "./event-listings";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta: Meta<typeof EventListings> = {
   title: "Blocks/EventListings",
@@ -259,7 +261,7 @@ const sampleEvents: Event[] = [
   },
 ];
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents,
     variant: "cards",
@@ -269,9 +271,34 @@ export const Default: Story = {
     showCapacity: true,
     animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify search and filter controls
+    expect(canvas.getByPlaceholderText("Search events...")).toBeInTheDocument();
+    expect(canvas.getByText("All Categories")).toBeInTheDocument();
+    
+    // Verify events are rendered
+    expect(canvas.getByText("React Conference 2024")).toBeInTheDocument();
+    expect(canvas.getByText("JavaScript Workshop: Advanced Patterns")).toBeInTheDocument();
+    expect(canvas.getByText("Free Webinar: Getting Started with TypeScript")).toBeInTheDocument();
+    
+    // Verify event details
+    expect(canvas.getByText("The biggest React conference of the year featuring the latest updates, best practices, and networking opportunities with industry leaders.")).toBeInTheDocument();
+    
+    // Verify speakers
+    expect(canvas.getByText("Dan Abramov, Sophie Alpert")).toBeInTheDocument();
+    
+    // Verify featured badge
+    expect(canvas.getByText("Featured")).toBeInTheDocument();
+    
+    // Verify register buttons
+    const registerButtons = canvas.getAllByText("Register");
+    expect(registerButtons.length).toBeGreaterThan(0);
+  },
+});
 
-export const FeaturedEvent: Story = {
+export const FeaturedEvent: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents,
     variant: "featured",
@@ -289,9 +316,30 @@ export const FeaturedEvent: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify featured event card
+    expect(canvas.getByText("Featured Event")).toBeInTheDocument();
+    expect(canvas.getByText("React Conference 2024")).toBeInTheDocument();
+    
+    // Verify featured event details
+    expect(canvas.getByText("$299")).toBeInTheDocument();
+    expect(canvas.getByText("Register Now")).toBeInTheDocument();
+    
+    // Verify countdown section if visible
+    const countdownText = canvas.queryByText("Event starts in:");
+    if (countdownText) {
+      expect(countdownText).toBeInTheDocument();
+    }
+    
+    // Verify other events are shown
+    expect(canvas.getByText("JavaScript Workshop: Advanced Patterns")).toBeInTheDocument();
+    expect(canvas.getByText("Free Webinar: Getting Started with TypeScript")).toBeInTheDocument();
+  },
+});
 
-export const TimelineView: Story = {
+export const TimelineView: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents.slice(0, 5),
     variant: "timeline",
@@ -309,9 +357,24 @@ export const TimelineView: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify events are displayed in timeline format
+    expect(canvas.getByText("React Conference 2024")).toBeInTheDocument();
+    expect(canvas.getByText("JavaScript Workshop: Advanced Patterns")).toBeInTheDocument();
+    expect(canvas.getByText("Free Webinar: Getting Started with TypeScript")).toBeInTheDocument();
+    expect(canvas.getByText("UX Design Meetup")).toBeInTheDocument();
+    expect(canvas.getByText("DevOps Summit 2024")).toBeInTheDocument();
+    
+    // Verify locations are shown
+    expect(canvas.getByText("San Francisco Convention Center")).toBeInTheDocument();
+    expect(canvas.getByText("Tech Hub Downtown")).toBeInTheDocument();
+    expect(canvas.getByText("Online")).toBeInTheDocument();
+  },
+});
 
-export const CategoryGrid: Story = {
+export const CategoryGrid: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents,
     variant: "grid",
@@ -328,9 +391,27 @@ export const CategoryGrid: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify category headers
+    expect(canvas.getByRole("heading", { name: "Conference" })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { name: "Workshop" })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { name: "Webinar" })).toBeInTheDocument();
+    expect(canvas.getByRole("heading", { name: "Meetup" })).toBeInTheDocument();
+    
+    // Verify events are grouped properly
+    expect(canvas.getByText("React Conference 2024")).toBeInTheDocument();
+    expect(canvas.getByText("JavaScript Workshop: Advanced Patterns")).toBeInTheDocument();
+    expect(canvas.getByText("Free Webinar: Getting Started with TypeScript")).toBeInTheDocument();
+    
+    // Verify capacity indicators
+    const capacityTexts = canvas.queryAllByText(/Registered/);
+    expect(capacityTexts.length).toBeGreaterThan(0);
+  },
+});
 
-export const WithPagination: Story = {
+export const WithPagination: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents,
     variant: "cards",
@@ -349,9 +430,21 @@ export const WithPagination: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify pagination controls
+    expect(canvas.getByText("Previous")).toBeInTheDocument();
+    expect(canvas.getByText("Next")).toBeInTheDocument();
+    expect(canvas.getByText(/Page 1 of/)).toBeInTheDocument();
+    
+    // Verify only 4 events are shown on first page
+    const registerButtons = canvas.getAllByText("Register");
+    expect(registerButtons.length).toBe(4);
+  },
+});
 
-export const MinimalCards: Story = {
+export const MinimalCards: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents,
     variant: "cards",
@@ -368,9 +461,25 @@ export const MinimalCards: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify events are rendered without extra features
+    expect(canvas.getByText("React Conference 2024")).toBeInTheDocument();
+    expect(canvas.getByText("JavaScript Workshop: Advanced Patterns")).toBeInTheDocument();
+    
+    // Verify no search or filters
+    expect(canvas.queryByPlaceholderText("Search events...")).not.toBeInTheDocument();
+    expect(canvas.queryByText("All Categories")).not.toBeInTheDocument();
+    
+    // Verify prices are shown
+    expect(canvas.getByText("$299")).toBeInTheDocument();
+    expect(canvas.getByText("$89")).toBeInTheDocument();
+    expect(canvas.getAllByText("Free").length).toBeGreaterThan(0);
+  },
+});
 
-export const WebinarsOnly: Story = {
+export const WebinarsOnly: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents.filter((event) => event.category === "Webinar"),
     variant: "cards",
@@ -387,9 +496,24 @@ export const WebinarsOnly: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify only webinar events are shown
+    expect(canvas.getByText("Free Webinar: Getting Started with TypeScript")).toBeInTheDocument();
+    expect(canvas.getByText("Cybersecurity Webinar: Zero Trust Architecture")).toBeInTheDocument();
+    
+    // Verify category badges
+    const webinarBadges = canvas.getAllByText("Webinar");
+    expect(webinarBadges.length).toBe(2);
+    
+    // Verify all are marked as online
+    const onlineIndicators = canvas.getAllByText("Online");
+    expect(onlineIndicators.length).toBe(2);
+  },
+});
 
-export const ConferenceFocus: Story = {
+export const ConferenceFocus: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents.filter((event) => event.category === "Conference"),
     variant: "featured",
@@ -406,9 +530,23 @@ export const ConferenceFocus: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify conference events
+    expect(canvas.getByText("React Conference 2024")).toBeInTheDocument();
+    expect(canvas.getByText("DevOps Summit 2024")).toBeInTheDocument();
+    
+    // Verify featured event display
+    expect(canvas.getByText("Featured Event")).toBeInTheDocument();
+    
+    // Verify locations
+    expect(canvas.getByText("San Francisco Convention Center")).toBeInTheDocument();
+    expect(canvas.getByText("Seattle Convention Center")).toBeInTheDocument();
+  },
+});
 
-export const WithCustomEvents: Story = {
+export const WithCustomEvents: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: [
       {
@@ -454,9 +592,27 @@ export const WithCustomEvents: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify custom events
+    expect(canvas.getByText("Product Launch Event")).toBeInTheDocument();
+    expect(canvas.getByText("Team Building Workshop")).toBeInTheDocument();
+    
+    // Verify custom categories
+    expect(canvas.getByText("Launch")).toBeInTheDocument();
+    expect(canvas.getByText("Team Building")).toBeInTheDocument();
+    
+    // Verify featured badge on launch event
+    expect(canvas.getByText("Featured")).toBeInTheDocument();
+    
+    // Verify capacity display
+    expect(canvas.getByText("45 / 200")).toBeInTheDocument();
+    expect(canvas.getByText("28 / 40")).toBeInTheDocument();
+  },
+});
 
-export const InteractiveExample: Story = {
+export const InteractiveExample: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: sampleEvents,
     variant: "cards",
@@ -482,9 +638,19 @@ export const InteractiveExample: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify events are interactive
+    expect(canvas.getByText("React Conference 2024")).toBeInTheDocument();
+    
+    // Verify register buttons exist
+    const registerButtons = canvas.getAllByText("Register");
+    expect(registerButtons.length).toBeGreaterThan(0);
+  },
+});
 
-export const EmptyState: Story = {
+export const EmptyState: Story = enhanceStoryForDualMode<typeof EventListings>({
   args: {
     events: [],
     variant: "cards",
@@ -501,4 +667,14 @@ export const EmptyState: Story = {
       },
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify empty state message
+    expect(canvas.getByText("No events found matching your criteria.")).toBeInTheDocument();
+    
+    // Verify search and filter controls still render
+    expect(canvas.getByPlaceholderText("Search events...")).toBeInTheDocument();
+    expect(canvas.getByText("All Categories")).toBeInTheDocument();
+  },
+});

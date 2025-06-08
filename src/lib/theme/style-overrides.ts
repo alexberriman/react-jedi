@@ -183,9 +183,8 @@ function applyTokenStyles(
   for (const [property, token] of Object.entries(tokens)) {
     const value = tokenResolver.resolve(token);
     if (value !== undefined) {
-      // Convert CSS property names from camelCase to kebab-case if needed
-      const cssProperty = property.replaceAll(/([A-Z])/g, "-$1").toLowerCase();
-      (styles as Record<string, unknown>)[cssProperty] = value;
+      // Use the property name as-is for React inline styles (should be camelCase)
+      (styles as Record<string, unknown>)[property] = value;
     }
   }
 }

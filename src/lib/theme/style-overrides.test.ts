@@ -227,7 +227,7 @@ describe("Style Overrides", () => {
       const result = processStyleOverrides(spec, theme, tokenResolver);
 
       expect(result.style).toEqual({
-        "background-color": "#3B82F6",
+        backgroundColor: "#3B82F6",
         padding: "1rem",
       });
     });

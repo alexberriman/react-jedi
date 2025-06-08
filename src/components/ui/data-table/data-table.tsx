@@ -121,8 +121,11 @@ export function DataTable<TData, TValue>({
   const enhancedColumns = React.useMemo(() => {
     const cols: ColumnDef<TData, TValue>[] = [...(columns as ColumnDef<TData, TValue>[])];
 
-    // Add selection column if selectable
-    if (selectable) {
+    // Check if a select column already exists
+    const hasSelectColumn = cols.some(col => col.id === "select");
+
+    // Add selection column if selectable and no select column exists
+    if (selectable && !hasSelectColumn) {
       cols.unshift({
         id: "select",
         header: ({ table }) => (

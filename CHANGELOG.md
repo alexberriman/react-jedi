@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2025-06-08]
+
+- **Implement dual-mode story functionality for ContactForm component. CRITICAL: The args MUST use type 'ContactForm' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (form fields, submit button, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
+
+
 ## [2025-06-07]
 
 - **FIX CURRENT IMPLEMENTATION: ContactFormBlock stories have type errors. The args MUST use type 'ContactFormBlock'. Fix the enhanceStoryForDualMode usage to properly type the story. The SDUI view should render EXACTLY the same as the React view showing form fields, labels, and submit button. Ensure the play() functions verify that form elements actually render. Test by running stories and checking that BOTH React and SDUI tabs show the same rendered component.**

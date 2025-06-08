@@ -50,7 +50,8 @@ interface DataTableComponentProps {
   filterPlaceholder?: string;
   actions?: {
     label: string;
-    handler: string;
+    handler?: string;
+    onClick?: string;
     icon?: string;
   }[];
   pagination?: {
@@ -207,11 +208,19 @@ export function DataTableComponent({
 
   // Transform actions to DataTable format
   const tableActions = React.useMemo(() => {
-    if (!actions || !onAction) return undefined;
+    if (!actions) return undefined;
 
     return actions.map((action) => ({
       label: action.label,
-      onClick: (row: Record<string, unknown>) => onAction(action.handler, row),
+      onClick: (row: Record<string, unknown>) => {
+        const handler = action.handler || action.onClick;
+        if (handler && onAction) {
+          onAction(handler, row);
+        } else if (handler) {
+          // In SDUI mode without onAction, just log the action
+          console.log(`Action ${handler} triggered for row:`, row);
+        }
+      },
       // Could map icon names to Lucide icons here if needed
     }));
   }, [actions, onAction]);

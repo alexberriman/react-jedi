@@ -108,12 +108,20 @@ describe.skip('ContactFormBlock', () => {
     );
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
+    
+    // Submit the form to trigger validation
     fireEvent.click(submitButton);
 
+    // Wait for error messages to appear
     await waitFor(() => {
-      expect(screen.getByText('Name is required')).toBeInTheDocument();
-      expect(screen.getByText('Email is required')).toBeInTheDocument();
-      expect(screen.getByText('Message is required')).toBeInTheDocument();
+      // Check for any error message to ensure validation is working
+      const nameError = screen.queryByText(/name.*required/i);
+      const emailError = screen.queryByText(/email.*required/i);
+      const messageError = screen.queryByText(/message.*required/i);
+      
+      expect(nameError).toBeInTheDocument();
+      expect(emailError).toBeInTheDocument();
+      expect(messageError).toBeInTheDocument();
     }, { timeout: 3000 });
   }, 10_000);
 

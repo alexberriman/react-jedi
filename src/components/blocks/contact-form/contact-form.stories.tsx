@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { within, userEvent, expect } from "storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import { ContactForm } from "./contact-form";
 import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
@@ -126,9 +126,13 @@ export const WithMap: Story = enhanceStoryForDualMode<typeof ContactForm>({
     expect(canvas.getByText("Address")).toBeInTheDocument();
     // Address is rendered with whitespace-pre-line, so check for the full content
     expect(canvas.getByText(/123 Business Street.*Suite 100.*San Francisco, CA 94105/s)).toBeInTheDocument();
-    expect(canvas.getByText("Phone")).toBeInTheDocument();
+    // Use more specific queries to handle multiple "Email" occurrences
+    const phoneLabels = canvas.getAllByText("Phone");
+    expect(phoneLabels.length).toBeGreaterThan(0);
     expect(canvas.getByText("+1 (555) 123-4567")).toBeInTheDocument();
-    expect(canvas.getByText("Email")).toBeInTheDocument();
+    
+    const emailLabels = canvas.getAllByText("Email");
+    expect(emailLabels.length).toBeGreaterThan(0);
     expect(canvas.getByText("hello@example.com")).toBeInTheDocument();
     expect(canvas.getByText("Business Hours")).toBeInTheDocument();
     
@@ -239,11 +243,21 @@ export const WithCustomSubjects: Story = enhanceStoryForDualMode<typeof ContactF
     await new Promise(resolve => globalThis.setTimeout(resolve, 100));
     
     // Verify custom subjects are available in the dropdown
-    expect(canvas.getByRole("option", { name: "Technical Support" })).toBeInTheDocument();
-    expect(canvas.getByRole("option", { name: "Billing Question" })).toBeInTheDocument();
-    expect(canvas.getByRole("option", { name: "Feature Request" })).toBeInTheDocument();
-    expect(canvas.getByRole("option", { name: "Bug Report" })).toBeInTheDocument();
-    expect(canvas.getByRole("option", { name: "Enterprise Sales" })).toBeInTheDocument();
+    // Look for the select content in a portal
+    await waitFor(() => {
+      const selectContent = document.querySelector('[role="listbox"]') || 
+                           document.querySelector('[data-radix-select-content]');
+      if (!selectContent) {
+        throw new Error('Select dropdown not found');
+      }
+      
+      const dropdownScreen = within(selectContent as HTMLElement);
+      expect(dropdownScreen.getByText("Technical Support")).toBeInTheDocument();
+      expect(dropdownScreen.getByText("Billing Question")).toBeInTheDocument();
+      expect(dropdownScreen.getByText("Feature Request")).toBeInTheDocument();
+      expect(dropdownScreen.getByText("Bug Report")).toBeInTheDocument();
+      expect(dropdownScreen.getByText("Enterprise Sales")).toBeInTheDocument();
+    }, { timeout: 5000 });
   },
 });
 

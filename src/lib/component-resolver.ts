@@ -202,6 +202,16 @@ const transformPropsForComponent = (
     return transformed;
   }
 
+  if (spec.type === "Box") {
+    const transformed = { ...actualProps };
+    // Transform element to as for Box component
+    if ("element" in actualProps) {
+      transformed.as = actualProps.element;
+      delete transformed.element;
+    }
+    return transformed;
+  }
+
   return actualProps;
 };
 

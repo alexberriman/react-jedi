@@ -55,7 +55,7 @@ describe("ToggleGroup JSON Rendering Integration", () => {
       type: "ToggleGroup",
       selectionType: "single",
       value: "left",
-      onValueChangeAction: "handleValueChange",
+      onValueChange: "handleValueChange",
       children: [
         { type: "ToggleGroupItem", value: "left", children: "Left" },
         { type: "ToggleGroupItem", value: "center", children: "Center" },

@@ -79,8 +79,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       "computedProps", 
       "when", 
       "actions",
-      "htmlType"
-    ] as const) as Omit<typeof props, "parentContext" | "spec" | "theme" | "state" | "conditionalProps" | "isPrimary" | "computedProps" | "when" | "actions" | "htmlType">;
+      "htmlType",
+      "buttonType",
+      "onClickAction"
+    ] as const) as Omit<typeof props, "parentContext" | "spec" | "theme" | "state" | "conditionalProps" | "isPrimary" | "computedProps" | "when" | "actions" | "htmlType" | "buttonType" | "onClickAction">;
 
     const ariaProps = getButtonAriaProps({
       ariaPressed: pressed,

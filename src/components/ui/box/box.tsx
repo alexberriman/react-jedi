@@ -285,7 +285,7 @@ function Box({
   neumorphism,
   ...props
 }: BoxProps) {
-  const cleanProps = omit(props, ["parentContext", "spec", "theme", "state"]);
+  const cleanProps = omit(props as Record<string, unknown>, ["parentContext", "spec", "theme", "state", "inputType", "element"]);
   
   return (
     <Component

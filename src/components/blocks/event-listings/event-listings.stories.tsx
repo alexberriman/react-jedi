@@ -557,6 +557,7 @@ export const WithCustomEvents: Story = enhanceStoryForDualMode<typeof EventListi
         location: { name: "Tech Theater", address: "456 Innovation Dr, San Jose, CA" },
         category: "Launch",
         featured: true,
+        image: "https://placehold.co/400x200/EEE/31343C?random=launch",
         price: { free: true, amount: 0, currency: "USD" },
         capacity: 200,
         registeredCount: 45,

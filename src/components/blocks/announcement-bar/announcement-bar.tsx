@@ -84,8 +84,24 @@ export function AnnouncementBar({
   ...properties
 }: AnnouncementBarProperties) {
   const [isVisible, setIsVisible] = React.useState(true)
-  const [timeLeft, setTimeLeft] = React.useState<string>('')
-  const [hasExpired, setHasExpired] = React.useState(false)
+  // Initialize timeLeft with the current countdown value if countdown variant
+  const [timeLeft, setTimeLeft] = React.useState<string>(() => {
+    if (variant === 'countdown' && countdownTo) {
+      const now = Date.now()
+      const target = countdownTo.getTime()
+      const difference = target - now
+      return difference > 0 ? formatCountdown(difference) : 'Expired'
+    }
+    return ''
+  })
+  const [hasExpired, setHasExpired] = React.useState(() => {
+    if (variant === 'countdown' && countdownTo) {
+      const now = Date.now()
+      const target = countdownTo.getTime()
+      return target - now <= 0
+    }
+    return false
+  })
 
   const handleDismiss = React.useCallback(() => {
     setIsVisible(false)

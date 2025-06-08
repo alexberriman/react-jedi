@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { CookieConsentBanner } from "./cookie-consent-banner";
 import { useState, useEffect } from "react";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Blocks/Cookie Consent Banner",
@@ -49,228 +51,470 @@ function StoryWrapper({
   return <div style={{ minHeight: "400px", position: "relative" }}>{children}</div>;
 }
 
-export const BottomBanner: Story = {
-  args: {
-    variant: "bottom-banner",
-    animated: true,
-    storageKey: "storybook-cookie-consent-bottom",
-  },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">
-          This is your main website content. The cookie consent banner appears at the bottom of the
-          page.
-        </p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
-
-export const TopBar: Story = {
-  args: {
-    variant: "top-bar",
-    animated: true,
-    storageKey: "storybook-cookie-consent-top",
-  },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <CookieConsentBanner {...args} />
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">
-          The cookie consent banner appears at the top of the page as a bar.
-        </p>
-      </div>
-    </StoryWrapper>
-  ),
-};
-
-export const Modal: Story = {
-  args: {
-    variant: "modal",
-    animated: true,
-    storageKey: "storybook-cookie-consent-modal",
-  },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">
-          The cookie consent appears as a modal overlay in the center of the screen.
-        </p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
-
-export const CornerPopup: Story = {
-  args: {
-    variant: "corner-popup",
-    animated: true,
-    storageKey: "storybook-cookie-consent-corner",
-  },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">
-          The cookie consent appears as a popup in the bottom-right corner.
-        </p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
-
-export const Minimal: Story = {
-  args: {
-    variant: "minimal",
-    animated: true,
-    storageKey: "storybook-cookie-consent-minimal",
-  },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">A minimal cookie consent notice in the bottom-left corner.</p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
-
-export const WithPolicyLinks: Story = {
-  args: {
-    variant: "bottom-banner",
-    animated: true,
-    cookiePolicyUrl: "https://example.com/cookies",
-    privacyPolicyUrl: "https://example.com/privacy",
-    storageKey: "storybook-cookie-consent-links",
-  },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">
-          Cookie consent banner with links to Cookie Policy and Privacy Policy.
-        </p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
-
-export const CustomCategories: Story = {
-  args: {
-    variant: "bottom-banner",
-    animated: true,
-    storageKey: "storybook-cookie-consent-custom",
-    categories: [
-      {
-        id: "essential",
-        name: "Essential Cookies",
-        description: "Required for the website to function. Cannot be disabled.",
-        required: true,
-      },
-      {
-        id: "performance",
-        name: "Performance Cookies",
-        description: "Help us analyze website performance and user behavior.",
-      },
-      {
-        id: "advertising",
-        name: "Advertising Cookies",
-        description: "Used to deliver personalized advertisements.",
-      },
-      {
-        id: "social",
-        name: "Social Media Cookies",
-        description: "Enable social media features and sharing.",
-      },
-    ],
-  },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">Cookie consent with custom cookie categories.</p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
-
-export const WithCallbacks: Story = {
-  args: {
-    variant: "bottom-banner",
-    animated: true,
-    storageKey: "storybook-cookie-consent-callbacks",
-    onAcceptAll: () => {
-      console.log("User accepted all cookies");
-      alert("All cookies accepted!");
+export const BottomBanner: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "bottom-banner",
+      animated: true,
+      storageKey: "storybook-cookie-consent-bottom",
     },
-    onRejectAll: () => {
-      console.log("User rejected all cookies");
-      alert("Non-essential cookies rejected!");
-    },
-    onSavePreferences: (preferences) => {
-      console.log("User saved preferences:", preferences);
-      alert(`Preferences saved: ${JSON.stringify(preferences, null, 2)}`);
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">
+            This is your main website content. The cookie consent banner appears at the bottom of the
+            page.
+          </p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders with default text
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      expect(canvas.getByText(/We use cookies to enhance your browsing experience/)).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Reject All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Manage Preferences" })).toBeInTheDocument();
     },
   },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">
-          Cookie consent with callback functions. Check the console and alerts when interacting.
-        </p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "bottom-banner",
+      animated: true,
+      storageKey: "storybook-cookie-consent-bottom",
+    },
+  }
+) as Story;
 
-export const NoAnimation: Story = {
-  args: {
-    variant: "modal",
-    animated: false,
-    storageKey: "storybook-cookie-consent-no-anim",
+export const TopBar: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "top-bar",
+      animated: true,
+      storageKey: "storybook-cookie-consent-top",
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <CookieConsentBanner {...args} />
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">
+            The cookie consent banner appears at the top of the page as a bar.
+          </p>
+        </div>
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders with default text
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      expect(canvas.getByText(/We use cookies to enhance your browsing experience/)).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Reject All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Manage Preferences" })).toBeInTheDocument();
+    },
   },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">Cookie consent without animations for accessibility.</p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "top-bar",
+      animated: true,
+      storageKey: "storybook-cookie-consent-top",
+    },
+  }
+) as Story;
 
-export const CustomContent: Story = {
-  args: {
-    variant: "bottom-banner",
-    animated: true,
-    title: "🍪 Cookie Notice",
-    description:
-      "Our website uses cookies to give you the best experience. By continuing to browse, you agree to our use of cookies.",
-    storageKey: "storybook-cookie-consent-custom-content",
+export const Modal: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "modal",
+      animated: true,
+      storageKey: "storybook-cookie-consent-modal",
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">
+            The cookie consent appears as a modal overlay in the center of the screen.
+          </p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders with default text
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      expect(canvas.getByText(/We use cookies to enhance your browsing experience/)).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Reject All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Manage Preferences" })).toBeInTheDocument();
+    },
   },
-  render: (args) => (
-    <StoryWrapper storageKey={args.storageKey}>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Website Content</h1>
-        <p className="text-gray-600">Cookie consent with custom title and description.</p>
-      </div>
-      <CookieConsentBanner {...args} />
-    </StoryWrapper>
-  ),
-};
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "modal",
+      animated: true,
+      storageKey: "storybook-cookie-consent-modal",
+    },
+  }
+) as Story;
+
+export const CornerPopup: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "corner-popup",
+      animated: true,
+      storageKey: "storybook-cookie-consent-corner",
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">
+            The cookie consent appears as a popup in the bottom-right corner.
+          </p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders with default text
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      expect(canvas.getByText(/We use cookies to enhance your browsing experience/)).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Reject All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Manage Preferences" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "corner-popup",
+      animated: true,
+      storageKey: "storybook-cookie-consent-corner",
+    },
+  }
+) as Story;
+
+export const Minimal: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "minimal",
+      animated: true,
+      storageKey: "storybook-cookie-consent-minimal",
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">A minimal cookie consent notice in the bottom-left corner.</p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders with default text
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      expect(canvas.getByText(/We use cookies to enhance your browsing experience/)).toBeInTheDocument();
+      
+      // Test action button renders (minimal variant only has Accept All)
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "minimal",
+      animated: true,
+      storageKey: "storybook-cookie-consent-minimal",
+    },
+  }
+) as Story;
+
+export const WithPolicyLinks: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "bottom-banner",
+      animated: true,
+      cookiePolicyUrl: "https://example.com/cookies",
+      privacyPolicyUrl: "https://example.com/privacy",
+      storageKey: "storybook-cookie-consent-links",
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">
+            Cookie consent banner with links to Cookie Policy and Privacy Policy.
+          </p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders with policy links
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "Cookie Policy" })).toBeInTheDocument();
+      expect(canvas.getByRole("link", { name: "Privacy Policy" })).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Reject All" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "bottom-banner",
+      animated: true,
+      cookiePolicyUrl: "https://example.com/cookies",
+      privacyPolicyUrl: "https://example.com/privacy",
+      storageKey: "storybook-cookie-consent-links",
+    },
+  }
+) as Story;
+
+export const CustomCategories: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "bottom-banner",
+      animated: true,
+      storageKey: "storybook-cookie-consent-custom",
+      categories: [
+        {
+          id: "essential",
+          name: "Essential Cookies",
+          description: "Required for the website to function. Cannot be disabled.",
+          required: true,
+        },
+        {
+          id: "performance",
+          name: "Performance Cookies",
+          description: "Help us analyze website performance and user behavior.",
+        },
+        {
+          id: "advertising",
+          name: "Advertising Cookies",
+          description: "Used to deliver personalized advertisements.",
+        },
+        {
+          id: "social",
+          name: "Social Media Cookies",
+          description: "Enable social media features and sharing.",
+        },
+      ],
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">Cookie consent with custom cookie categories.</p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Manage Preferences" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "bottom-banner",
+      animated: true,
+      storageKey: "storybook-cookie-consent-custom",
+      categories: [
+        {
+          id: "essential",
+          name: "Essential Cookies",
+          description: "Required for the website to function. Cannot be disabled.",
+          required: true,
+        },
+        {
+          id: "performance",
+          name: "Performance Cookies",
+          description: "Help us analyze website performance and user behavior.",
+        },
+        {
+          id: "advertising",
+          name: "Advertising Cookies",
+          description: "Used to deliver personalized advertisements.",
+        },
+        {
+          id: "social",
+          name: "Social Media Cookies",
+          description: "Enable social media features and sharing.",
+        },
+      ],
+    },
+  }
+) as Story;
+
+export const WithCallbacks: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "bottom-banner",
+      animated: true,
+      storageKey: "storybook-cookie-consent-callbacks",
+      onAcceptAll: () => {
+        console.log("User accepted all cookies");
+        alert("All cookies accepted!");
+      },
+      onRejectAll: () => {
+        console.log("User rejected all cookies");
+        alert("Non-essential cookies rejected!");
+      },
+      onSavePreferences: (preferences) => {
+        console.log("User saved preferences:", preferences);
+        alert(`Preferences saved: ${JSON.stringify(preferences, null, 2)}`);
+      },
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">
+            Cookie consent with callback functions. Check the console and alerts when interacting.
+          </p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      expect(canvas.getByText(/Cookie consent with callback functions/)).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Reject All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Manage Preferences" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "bottom-banner",
+      animated: true,
+      storageKey: "storybook-cookie-consent-callbacks",
+    },
+  }
+) as Story;
+
+export const NoAnimation: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "modal",
+      animated: false,
+      storageKey: "storybook-cookie-consent-no-anim",
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">Cookie consent without animations for accessibility.</p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test cookie consent banner renders
+      expect(canvas.getByText("We use cookies")).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Reject All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Manage Preferences" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "modal",
+      animated: false,
+      storageKey: "storybook-cookie-consent-no-anim",
+    },
+  }
+) as Story;
+
+export const CustomContent: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    args: {
+      variant: "bottom-banner",
+      animated: true,
+      title: "🍪 Cookie Notice",
+      description:
+        "Our website uses cookies to give you the best experience. By continuing to browse, you agree to our use of cookies.",
+      storageKey: "storybook-cookie-consent-custom-content",
+    },
+    render: (args) => (
+      <StoryWrapper storageKey={args.storageKey}>
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Website Content</h1>
+          <p className="text-gray-600">Cookie consent with custom title and description.</p>
+        </div>
+        <CookieConsentBanner {...args} />
+      </StoryWrapper>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test custom content renders
+      expect(canvas.getByText("🍪 Cookie Notice")).toBeInTheDocument();
+      expect(canvas.getByText(/Our website uses cookies to give you the best experience/)).toBeInTheDocument();
+      
+      // Test action buttons render
+      expect(canvas.getByRole("button", { name: "Accept All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Reject All" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "CookieConsentBanner",
+      variant: "bottom-banner",
+      animated: true,
+      title: "🍪 Cookie Notice",
+      description:
+        "Our website uses cookies to give you the best experience. By continuing to browse, you agree to our use of cookies.",
+      storageKey: "storybook-cookie-consent-custom-content",
+    },
+  }
+) as Story;
 
 function InteractiveDemoComponent() {
   const [variant, setVariant] = useState<
@@ -348,6 +592,93 @@ function InteractiveDemoComponent() {
   );
 }
 
-export const InteractiveDemo: Story = {
-  render: () => <InteractiveDemoComponent />,
-};
+export const InteractiveDemo: Story = enhanceStoryForDualMode<typeof CookieConsentBanner>(
+  {
+    render: () => <InteractiveDemoComponent />,
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test interactive demo renders
+      expect(canvas.getByText("Cookie Consent Banner Demo")).toBeInTheDocument();
+      expect(canvas.getByText("Choose a variant:")).toBeInTheDocument();
+      
+      // Test variant buttons render
+      expect(canvas.getByRole("button", { name: "Bottom Banner" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Top Bar" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Modal" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Corner Popup" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Minimal" })).toBeInTheDocument();
+      
+      // Test show banner button renders
+      expect(canvas.getByRole("button", { name: "Show Cookie Banner Again" })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Container",
+      className: "p-8",
+      children: [
+        {
+          type: "Box",
+          className: "max-w-2xl mx-auto space-y-6",
+          children: [
+            {
+              type: "Heading",
+              level: 1,
+              className: "text-3xl font-bold",
+              children: "Cookie Consent Banner Demo"
+            },
+            {
+              type: "Box", 
+              className: "space-y-4",
+              children: [
+                {
+                  type: "Heading",
+                  level: 2,
+                  className: "text-xl font-semibold",
+                  children: "Choose a variant:"
+                },
+                {
+                  type: "Text",
+                  className: "text-sm text-muted-foreground",
+                  children: "Select a variant to see different cookie consent banner styles"
+                }
+              ]
+            },
+            {
+              type: "Box",
+              className: "mt-8 p-6 bg-muted rounded-lg",
+              children: [
+                {
+                  type: "Heading",
+                  level: 3,
+                  className: "font-semibold mb-2",
+                  children: "About this demo:"
+                },
+                {
+                  type: "Text",
+                  as: "ul",
+                  className: "list-disc list-inside space-y-1 text-sm text-muted-foreground",
+                  children: [
+                    "Click any variant button to see different styles",
+                    "The banner remembers your choice in localStorage",
+                    'Use "Show Cookie Banner Again" to reset and display it',
+                    'Try the "Manage Preferences" option to see detailed settings'
+                  ]
+                }
+              ]
+            },
+            {
+              type: "CookieConsentBanner",
+              variant: "bottom-banner",
+              storageKey: "storybook-cookie-consent-interactive",
+              animated: true,
+              cookiePolicyUrl: "https://example.com/cookies",
+              privacyPolicyUrl: "https://example.com/privacy"
+            }
+          ]
+        }
+      ]
+    },
+  }
+) as Story;

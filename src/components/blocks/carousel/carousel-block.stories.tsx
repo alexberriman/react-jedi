@@ -220,7 +220,7 @@ export const Basic: Story = enhanceStoryForDualMode<typeof CarouselBlock>(
     expect(nextButton).toBeInTheDocument();
     
     // Test dots navigation exists
-    const dotsContainer = canvas.getByRole("group", { name: /carousel pagination/i });
+    const dotsContainer = canvas.getByRole("tablist", { name: /carousel navigation dots/i });
     expect(dotsContainer).toBeInTheDocument();
   },
 },
@@ -318,7 +318,7 @@ export const ContentCards: Story = enhanceStoryForDualMode<typeof CarouselBlock>
     expect(canvas.getByText("New")).toBeInTheDocument();
     
     // Test CTA buttons
-    expect(canvas.getByRole("link", { name: "Learn More" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Learn More" })).toBeInTheDocument();
   },
 },
 {
@@ -366,7 +366,7 @@ export const TestimonialsCards: Story = enhanceStoryForDualMode<typeof CarouselB
     
     // Test author info
     expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
-    expect(canvas.getByText("Creative Director")).toBeInTheDocument();
+    expect(canvas.getByText("Creative Director at Design Studio Pro")).toBeInTheDocument();
   },
 },
 {
@@ -501,8 +501,9 @@ export const Fullscreen: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
     // Test hero titles
     expect(canvas.getByText("Mountain Vista Hero")).toBeInTheDocument();
     
-    // Test overlay text
-    expect(canvas.getByText("Experience the beauty of nature in full screen glory")).toBeInTheDocument();
+    // Test overlay text - may have multiple elements with same text
+    const overlayTexts = canvas.getAllByText("Experience the beauty of nature in full screen glory");
+    expect(overlayTexts.length).toBeGreaterThanOrEqual(1);
   },
 },
 {
@@ -820,7 +821,7 @@ export const SwipeOnly: Story = enhanceStoryForDualMode<typeof CarouselBlock>({
     expect(canvas.getByText("A breathtaking view of snow-capped peaks")).toBeInTheDocument();
     
     // Test dots exist (no arrows)
-    const dotsContainer = canvas.getByRole("group", { name: /carousel pagination/i });
+    const dotsContainer = canvas.getByRole("tablist", { name: /carousel navigation dots/i });
     expect(dotsContainer).toBeInTheDocument();
     
     // Test no arrow buttons

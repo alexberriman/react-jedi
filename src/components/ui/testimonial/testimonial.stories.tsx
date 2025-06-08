@@ -275,7 +275,7 @@ export const MultipleTestimonials = enhanceStoryForDualMode(
           content="Best UI library I've worked with. The attention to detail is remarkable."
           rating={5}
           variant="card"
-          highlight
+          highlight={true}
         />
         <Testimonial
           author={{

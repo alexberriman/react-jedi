@@ -104,6 +104,61 @@ const transformFlexProps = (actualProps: Record<string, unknown>): Record<string
   return transformed;
 };
 
+// Helper function to transform Grid props
+const transformGridProps = (actualProps: Record<string, unknown>): Record<string, unknown> => {
+  const transformed = { ...actualProps };
+  
+  // Transform cols, colsSm, colsMd, etc. to columns responsive object
+  const colsProps = ['cols', 'colsSm', 'colsMd', 'colsLg', 'colsXl', 'cols2xl'];
+  const hasColsProps = colsProps.some(prop => prop in actualProps);
+  
+  if (hasColsProps) {
+    const columns: Record<string, number> = {};
+    
+    if ('cols' in actualProps) {
+      columns.base = Number(actualProps.cols);
+      delete transformed.cols;
+    }
+    if ('colsSm' in actualProps) {
+      columns.sm = Number(actualProps.colsSm);
+      delete transformed.colsSm;
+    }
+    if ('colsMd' in actualProps) {
+      columns.md = Number(actualProps.colsMd);
+      delete transformed.colsMd;
+    }
+    if ('colsLg' in actualProps) {
+      columns.lg = Number(actualProps.colsLg);
+      delete transformed.colsLg;
+    }
+    if ('colsXl' in actualProps) {
+      columns.xl = Number(actualProps.colsXl);
+      delete transformed.colsXl;
+    }
+    if ('cols2xl' in actualProps) {
+      columns['2xl'] = Number(actualProps.cols2xl);
+      delete transformed.cols2xl;
+    }
+    
+    transformed.columns = columns;
+  }
+  
+  // Transform gap values
+  if ('gap' in actualProps && typeof actualProps.gap === 'string') {
+    const gapMap: Record<string, number> = {
+      'xs': 1,
+      'sm': 2,
+      'md': 4,
+      'lg': 6,
+      'xl': 8,
+      '2xl': 12
+    };
+    transformed.gap = gapMap[actualProps.gap] || actualProps.gap;
+  }
+  
+  return transformed;
+};
+
 // Helper function to transform props based on component type
 const transformPropsForComponent = (
   spec: Record<string, unknown>,
@@ -130,6 +185,20 @@ const transformPropsForComponent = (
 
   if (spec.type === "Flex") {
     return transformFlexProps(actualProps);
+  }
+
+  if (spec.type === "Grid") {
+    return transformGridProps(actualProps);
+  }
+
+  if (spec.type === "Button") {
+    const transformed = { ...actualProps };
+    // Transform buttonType to htmlType for Button component
+    if ("buttonType" in actualProps) {
+      transformed.htmlType = actualProps.buttonType;
+      delete transformed.buttonType;
+    }
+    return transformed;
   }
 
   return actualProps;

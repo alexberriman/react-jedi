@@ -442,8 +442,8 @@ export const Default: Story = enhanceStoryForDualMode<typeof FormStory>({
     const canvas = within(canvasElement);
 
     // Check if we're in SDUI mode (form validation won't work in SDUI)
-    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
-    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
+    // In dual mode, the canvasElement is either the react-render or sdui-render container
+    const isSDUIMode = canvasElement.dataset.testid === 'sdui-render';
 
     // Verify form fields are rendered
     const usernameInput = canvas.getByPlaceholderText("Enter username");
@@ -607,8 +607,8 @@ export const WithValidation: Story = enhanceStoryForDualMode<typeof FormStory>({
     const canvas = within(canvasElement);
 
     // Check if we're in SDUI mode
-    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
-    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
+    // In dual mode, the canvasElement is either the react-render or sdui-render container
+    const isSDUIMode = canvasElement.dataset.testid === 'sdui-render';
 
     // Find form elements
     const ageInput = canvas.getByPlaceholderText("Enter your age");
@@ -1159,8 +1159,8 @@ export const WithRequiredFields: Story = enhanceStoryForDualMode<typeof FormStor
     const canvas = within(canvasElement);
 
     // Check if we're in SDUI mode
-    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
-    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
+    // In dual mode, the canvasElement is either the react-render or sdui-render container
+    const isSDUIMode = canvasElement.dataset.testid === 'sdui-render';
 
     // Find form elements
     const firstNameInput = canvas.getByPlaceholderText("John");
@@ -1372,17 +1372,21 @@ export const WithInitialErrors: Story = enhanceStoryForDualMode<typeof FormStory
     const canvas = within(canvasElement);
 
     // Check if we're in SDUI mode
-    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
-    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
+    // In dual mode, the canvasElement is either the react-render or sdui-render container
+    const isSDUIMode = canvasElement.dataset.testid === 'sdui-render';
 
     // In SDUI mode, fields will have placeholder values instead of actual values
     if (isSDUIMode) {
-      // Find form elements by placeholder in SDUI mode
-      const emailInput = canvas.getByRole('textbox', { name: /email/i });
-      const phoneInput = canvas.getByRole('textbox', { name: /phone/i });
+      // Find form elements by value in SDUI mode (inputs have value prop)
+      const emailInput = canvas.getByDisplayValue("invalid-email");
+      const phoneInput = canvas.getByDisplayValue("123");
       
       expect(emailInput).toBeInTheDocument();
       expect(phoneInput).toBeInTheDocument();
+      
+      // In SDUI mode, validation messages are static and always visible
+      expect(canvas.getByText("Invalid email")).toBeInTheDocument();
+      expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
     } else {
       // Wait for initial validation to trigger
       await waitFor(() => {
@@ -1569,8 +1573,8 @@ export const ContactForm: Story = enhanceStoryForDualMode<typeof FormStory>({
     const canvas = within(canvasElement);
 
     // Check if we're in SDUI mode
-    const renderMode = canvasElement.querySelector('[data-testid="story-render-mode"]');
-    const isSDUIMode = renderMode?.getAttribute('data-mode') === 'sdui';
+    // In dual mode, the canvasElement is either the react-render or sdui-render container
+    const isSDUIMode = canvasElement.dataset.testid === 'sdui-render';
 
     // Find form elements
     const nameInput = canvas.getByPlaceholderText("Your name");

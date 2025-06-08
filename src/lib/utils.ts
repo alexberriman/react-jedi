@@ -65,6 +65,13 @@ export const CUSTOM_PROPS_TO_FILTER = [
   "actions",
   "inputType",
   "maxWidth",
+  "highlight",
+  "cols",
+  "colsMd",
+  "colsSm",
+  "colsLg",
+  "colsXl",
+  "cols2xl",
 ] as const;
 
 /**

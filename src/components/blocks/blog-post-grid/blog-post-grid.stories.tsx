@@ -440,7 +440,7 @@ export const WithSidebar: Story = enhanceStoryForDualMode(
 
 export const MasonryLayout: Story = enhanceStoryForDualMode({
   args: {
-    posts: samplePosts.slice(0, 12),
+    posts: samplePosts.slice(0, 20),
     variant: "masonry",
     showFilters: true,
     showSearch: true,
@@ -488,7 +488,7 @@ export const LoadingState: Story = enhanceStoryForDualMode({
     expect(searchInput).toBeInTheDocument();
     
     // Test loading skeletons are rendered
-    const skeletons = canvas.getAllByTestId('skeleton');
+    const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
     expect(skeletons.length).toBeGreaterThan(0);
   },
 }) as Story;
@@ -534,8 +534,9 @@ export const FeaturedPosts: Story = enhanceStoryForDualMode({
     }
     
     // Test featured posts have special styling
+    // First 2 posts are already featured + 3 additional = 5 total
     const featuredBadges = canvas.getAllByText(/featured/i);
-    expect(featuredBadges).toHaveLength(3);
+    expect(featuredBadges).toHaveLength(5);
     
     // Test search and filters
     const searchInput = canvas.getByPlaceholderText(/search posts/i);
@@ -632,7 +633,8 @@ export const CustomSortOptions: Story = enhanceStoryForDualMode({
     }
     
     // Test sort options are rendered
-    const sortDropdown = canvas.getByRole('combobox');
+    // There are multiple dropdowns, so check for the sort option text
+    const sortDropdown = canvas.getByText('Latest');
     expect(sortDropdown).toBeInTheDocument();
     
     // Test search and filters

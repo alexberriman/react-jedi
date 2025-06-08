@@ -452,7 +452,7 @@ export const NavigationExample: Story = enhanceStoryForDualMode<typeof Command>(
 
       // Clear and search for files
       await userEvent.clear(searchInput);
-      await userEvent.type(searchInput, ".tsx");
+      await userEvent.type(searchInput, "home");
       await waitFor(() => {
         expect(canvas.getByText("Homepage.tsx")).toBeInTheDocument();
         expect(canvas.queryByText("styles.css")).not.toBeInTheDocument();

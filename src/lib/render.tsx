@@ -484,6 +484,68 @@ function applyStyleOverrides(
 }
 
 /**
+ * Apply accessibility props to component
+ */
+function applyAccessibilityProps(componentProps: Record<string, unknown>, a11y: AccessibilityProps): void {
+  const {
+    ariaLabel,
+    ariaDescribedBy,
+    ariaControls,
+    ariaExpanded,
+    ariaHidden,
+    tabIndex,
+    hasPopup,
+    ariaLive,
+    ariaAtomic,
+    role,
+  } = a11y;
+
+  Object.assign(componentProps, {
+    "aria-label": ariaLabel,
+    "aria-describedby": ariaDescribedBy,
+    "aria-controls": ariaControls,
+    "aria-expanded": ariaExpanded,
+    "aria-hidden": ariaHidden,
+    tabIndex,
+    "aria-haspopup": hasPopup,
+    "aria-live": ariaLive,
+    "aria-atomic": ariaAtomic,
+    role,
+  });
+}
+
+/**
+ * Process component spec properties
+ */
+function processSpecProperties(
+  filteredSpec: Record<string, unknown>,
+  options: RenderOptions,
+  parentContext: Record<string, unknown>
+): Record<string, unknown> {
+  const propsToNotPreRender = new Set(['sidebarContent', 'leftContent', 'rightContent', 'headerContent', 'footerContent']);
+  const processedProps: Record<string, unknown> = {};
+  
+  for (const [key, value] of Object.entries(filteredSpec)) {
+    // Skip pre-rendering for specific props that components handle internally
+    if (propsToNotPreRender.has(key) && isComponentSpec(value)) {
+      processedProps[key] = value;
+    } else {
+      processedProps[key] = isComponentSpec(value)
+        ? renderComponent(
+            value as ComponentSpec,
+            options,
+            parentContext,
+            undefined,
+            false
+          )
+        : value;
+    }
+  }
+  
+  return processedProps;
+}
+
+/**
  * Builds component props from spec
  */
 function buildComponentProps(
@@ -516,21 +578,12 @@ function buildComponentProps(
     "state",
     "actions",
     "computedProps",
+    "parentContext",
+    "theme",
   ]);
 
   // Process properties that might contain nested ComponentSpecs
-  const processedProps: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(filteredSpec)) {
-    processedProps[key] = isComponentSpec(value)
-      ? renderComponent(
-          value as ComponentSpec,
-          options,
-          parentContext,
-          undefined,
-          false
-        )
-      : value;
-  }
+  const processedProps = processSpecProperties(filteredSpec, options, parentContext);
 
   // Type assertion to avoid issues with strict type checking
   const componentProps: ExtendedComponentProps = {
@@ -550,31 +603,7 @@ function buildComponentProps(
 
   // Apply accessibility props
   if (spec.a11y) {
-    const {
-      ariaLabel,
-      ariaDescribedBy,
-      ariaControls,
-      ariaExpanded,
-      ariaHidden,
-      tabIndex,
-      hasPopup,
-      ariaLive,
-      ariaAtomic,
-      role,
-    } = spec.a11y as AccessibilityProps;
-
-    Object.assign(componentProps, {
-      "aria-label": ariaLabel,
-      "aria-describedby": ariaDescribedBy,
-      "aria-controls": ariaControls,
-      "aria-expanded": ariaExpanded,
-      "aria-hidden": ariaHidden,
-      tabIndex,
-      "aria-haspopup": hasPopup,
-      "aria-live": ariaLive,
-      "aria-atomic": ariaAtomic,
-      role,
-    });
+    applyAccessibilityProps(componentProps, spec.a11y as AccessibilityProps);
   }
 
   // Apply data attributes

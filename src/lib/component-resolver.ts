@@ -338,16 +338,26 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
     const propsWithEventHandlers = convertActionPropsToHandlers(transformedProps, handlers);
 
     // Merge with any additional props passed through render
+    // Note: restProps contains already-processed props like sidebarContent that have been rendered
+    // We need to exclude props that are already in propsWithEventHandlers to avoid overwriting processed values
+    const restPropsWithoutDuplicates: Record<string, unknown> = { ...restProps };
+    for (const key of Object.keys(propsWithEventHandlers)) {
+      delete restPropsWithoutDuplicates[key];
+    }
+    
     const mergedProps: Record<string, unknown> = {
       ...defaultProps,
-      ...propsWithEventHandlers,
+      ...propsWithEventHandlers, // Apply transformed props from spec
+      ...restPropsWithoutDuplicates, // Then add any additional processed props from render function
       // Include className and style from the spec if present
       className:
         ("className" in spec ? spec.className : undefined) ||
-        ("className" in propsWithEventHandlers ? propsWithEventHandlers.className : undefined),
+        ("className" in propsWithEventHandlers ? propsWithEventHandlers.className : undefined) ||
+        ("className" in restProps ? restProps.className : undefined),
       style:
         ("style" in spec ? spec.style : undefined) ||
-        ("style" in propsWithEventHandlers ? propsWithEventHandlers.style : undefined),
+        ("style" in propsWithEventHandlers ? propsWithEventHandlers.style : undefined) ||
+        ("style" in restProps ? restProps.style : undefined),
       // Important: preserve the asChild prop from the spec for Radix UI components
       asChild:
         "asChild" in spec
@@ -889,11 +899,11 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       { members: [] } // Provide default required props
     ),
     BlogPostGrid: asComponent(
-      Blocks.BlogPostGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.BlogPostGridWrapper as unknown as React.ComponentType<Record<string, unknown>>,
       { posts: [] } // Provide default required props
     ),
     "blog-post-grid": asComponent(
-      Blocks.BlogPostGrid as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.BlogPostGridWrapper as unknown as React.ComponentType<Record<string, unknown>>,
       { posts: [] } // Provide default required props
     ),
     BlogPostDetail: asComponent(

@@ -142,9 +142,9 @@ export const LeftAlignedAnimated: Story = enhanceStoryForDualMode<typeof Hero>(
         text: "View Documentation",
         variant: "ghost",
       },
-      handlers: {
-        handleStartBuilding: () => alert("Start building clicked!"),
-      },
+    },
+    handlers: {
+      handleStartBuilding: () => alert("Start building clicked!"),
     },
   }
 );

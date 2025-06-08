@@ -88,25 +88,32 @@ export const Default = enhanceStoryForDualMode(
 
       // Wait for drawer to appear (drawer renders in a portal)
       await waitFor(() => {
-        expect(within(document.body).getByText("Edit Profile")).toBeInTheDocument();
+        const drawerContent = document.querySelector('[data-vaul-drawer]');
+        if (!drawerContent) {
+          throw new Error('Drawer content not found');
+        }
+        expect(within(drawerContent as HTMLElement).getByText("Edit Profile")).toBeInTheDocument();
       }, { timeout: 10_000 });
 
       // Interact with form fields - be more specific with the selector
-      const nameInput = within(document.body).getByRole("textbox", { name: /^name$/i });
+      const drawerContent = document.querySelector('[data-vaul-drawer]') as HTMLElement;
+      const drawerScreen = within(drawerContent);
+      
+      const nameInput = drawerScreen.getByRole("textbox", { name: /^name$/i });
       await userEvent.clear(nameInput);
       await userEvent.type(nameInput, "John Doe");
 
-      const bioTextarea = within(document.body).getByLabelText(/bio/i);
+      const bioTextarea = drawerScreen.getByLabelText(/bio/i);
       await userEvent.type(bioTextarea, "This is my bio");
 
       // Click Cancel button
-      const cancelButton = within(document.body).getByRole("button", { name: /cancel/i });
+      const cancelButton = drawerScreen.getByRole("button", { name: /cancel/i });
       await userEvent.click(cancelButton);
 
       // Verify drawer closes - wait a bit longer for animation
       await waitFor(
         () => {
-          expect(within(document.body).queryByText("Edit Profile")).not.toBeInTheDocument();
+          expect(document.querySelector('[data-vaul-drawer]')).not.toBeInTheDocument();
         },
         { timeout: 5000 }
       );
@@ -117,10 +124,13 @@ export const Default = enhanceStoryForDualMode(
       type: "Drawer",
       children: [
         {
-          type: "Button",
-          variant: "outline",
-          onClickAction: "openDrawer",
-          children: "Open Drawer",
+          type: "DrawerTrigger",
+          asChild: true,
+          children: {
+            type: "Button",
+            variant: "outline",
+            children: "Open Drawer",
+          },
         },
         {
           type: "DrawerContent",

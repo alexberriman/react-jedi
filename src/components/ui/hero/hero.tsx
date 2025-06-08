@@ -124,20 +124,43 @@ const HeroButton = ({ action, animated, isPrimary }: HeroButtonProps) => {
   const href = action.href;
   const variant = action.variant || defaultVariant;
 
+  if (href) {
+    return (
+      <Button
+        variant={variant}
+        size="lg"
+        asChild
+        className={cn(
+          animated && "hover-scale",
+          animated && isPrimary && "hover-glow",
+          animated && !isPrimary && "hover-border-glow",
+          animated && isPrimary && variant === "default" && "animate-pulse-ring"
+        )}
+      >
+        <a href={href}>{action.text}</a>
+      </Button>
+    );
+  }
+
+  // Only pass onClick if it's a function
+  const buttonProps: Record<string, unknown> = {
+    variant,
+    size: "lg",
+    className: cn(
+      animated && "hover-scale",
+      animated && isPrimary && "hover-glow",
+      animated && !isPrimary && "hover-border-glow",
+      animated && isPrimary && variant === "default" && "animate-pulse-ring"
+    ),
+  };
+
+  if (typeof action.onClick === "function") {
+    buttonProps.onClick = action.onClick;
+  }
+
   return (
-    <Button
-      variant={variant}
-      size="lg"
-      asChild={!!href}
-      onClick={action.onClick}
-      className={cn(
-        animated && "hover-scale",
-        animated && isPrimary && "hover-glow",
-        animated && !isPrimary && "hover-border-glow",
-        animated && isPrimary && variant === "default" && "animate-pulse-ring"
-      )}
-    >
-      {href ? <a href={href}>{action.text}</a> : action.text}
+    <Button {...buttonProps}>
+      {action.text}
     </Button>
   );
 };

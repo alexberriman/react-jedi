@@ -5,6 +5,43 @@ export type PlayFunction<TArgs = Record<string, unknown>> = (
   context: StoryContext<TArgs>
 ) => Promise<void> | void;
 
+async function waitForButtonToBeInteractive(button: HTMLElement): Promise<void> {
+  let attempts = 0;
+  while (attempts < 10) {
+    const computedStyle = globalThis.getComputedStyle(button);
+    if (computedStyle.pointerEvents !== 'none' && !button.hasAttribute('disabled')) {
+      return;
+    }
+    if (attempts === 0) {
+      console.warn(`Tab button "${button.textContent}" has pointer-events: none or is disabled, waiting...`);
+    }
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+    attempts++;
+  }
+  
+  const finalStyle = globalThis.getComputedStyle(button);
+  if (finalStyle.pointerEvents === 'none' || button.hasAttribute('disabled')) {
+    throw new Error(`Tab button "${button.textContent}" still has pointer-events: none after waiting`);
+  }
+}
+
+async function clickTab(decoratorContainer: Element, tabText: string): Promise<void> {
+  const user = userEvent.setup();
+  const buttons = decoratorContainer.querySelectorAll('button');
+  
+  for (const button of buttons) {
+    if (button.textContent?.includes(tabText)) {
+      const htmlButton = button as HTMLElement;
+      await waitForButtonToBeInteractive(htmlButton);
+      await user.click(htmlButton);
+      await new Promise(resolve => globalThis.setTimeout(resolve, 200));
+      return;
+    }
+  }
+  
+  throw new Error(`Tab "${tabText}" not found`);
+}
+
 /**
  * Wraps a play function to test both React and SDUI modes automatically
  */
@@ -29,27 +66,25 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
       return originalPlay(context);
     }
     
-    // Helper to click a tab
-    const user = userEvent.setup();
-    const clickTab = async (tabText: string) => {
-      // Search by text content
-      const buttons = decoratorContainer.querySelectorAll('button');
-      for (const button of buttons) {
-        if (button.textContent?.includes(tabText)) {
-          await user.click(button as HTMLElement);
-          await new Promise(resolve => globalThis.setTimeout(resolve, 200)); // Wait for tab switch animation
-          return;
-        }
+    // Check if there's an open dialog that might block interaction
+    const openDialog = document.querySelector('[data-slot="dialog-content"][data-state="open"]');
+    if (openDialog) {
+      console.log('⚠️ Found open dialog, closing it before testing tabs...');
+      const closeButton = document.querySelector('[data-slot="dialog-content"] button[aria-label*="close" i]') as HTMLElement;
+      if (closeButton) {
+        await userEvent.click(closeButton);
+        // Wait for dialog to close
+        await new Promise(resolve => globalThis.setTimeout(resolve, 500));
       }
-      throw new Error(`Tab "${tabText}" not found`);
-    };
+    }
+    
     
     // Test React mode
     await step('Testing React Component mode', async () => {
       console.log('🧪 Testing React Component mode...');
       
       // Make sure we're on React tab
-      await clickTab('React Component');
+      await clickTab(decoratorContainer, 'React Component');
       
       const reactContainer = decoratorContainer.querySelector('[data-testid="react-render"]');
       if (reactContainer) {
@@ -70,7 +105,7 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
         console.log('🧪 Testing SDUI (JSON) mode...');
         
         // Switch to SDUI tab
-        await clickTab('SDUI (JSON)');
+        await clickTab(decoratorContainer, 'SDUI (JSON)');
         
         const sduiContainer = decoratorContainer.querySelector('[data-testid="sdui-render"]');
         if (sduiContainer) {

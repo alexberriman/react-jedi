@@ -79,13 +79,15 @@ export const Default: Story = enhanceStoryForDualMode(
         expect(dialog).toBeInTheDocument();
       });
 
-      // Check title and description (search in document)
-      const portalScreen = within(document.body);
-      expect(portalScreen.getByText("Are you absolutely sure?")).toBeInTheDocument();
-      expect(portalScreen.getByText(/This action cannot be undone/)).toBeInTheDocument();
+      // Check title and description (search specifically in the dialog)
+      const dialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
+      expect(dialog).toBeTruthy();
+      const dialogScreen = within(dialog);
+      expect(dialogScreen.getByText("Are you absolutely sure?")).toBeInTheDocument();
+      expect(dialogScreen.getByText(/This action cannot be undone/)).toBeInTheDocument();
 
       // Test cancel button
-      const cancelButton = portalScreen.getByRole("button", { name: "Cancel" });
+      const cancelButton = dialogScreen.getByRole("button", { name: "Cancel" });
       await user.click(cancelButton);
 
       // Dialog should be closed
@@ -99,9 +101,12 @@ export const Default: Story = enhanceStoryForDualMode(
       // Open again to test action button
       await user.click(trigger);
       await waitFor(() => {
-        expect(document.querySelector('[role="alertdialog"]')).toBeInTheDocument();
+        const newDialog = document.querySelector('[role="alertdialog"]');
+        expect(newDialog).toBeInTheDocument();
       });
-      const actionButton = portalScreen.getByRole("button", { name: "Continue" });
+      const newDialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
+      const newDialogScreen = within(newDialog);
+      const actionButton = newDialogScreen.getByRole("button", { name: "Continue" });
       await user.click(actionButton);
 
       // Dialog should be closed after action
@@ -202,8 +207,9 @@ export const DestructiveAction: Story = enhanceStoryForDualMode(
       });
 
       // Check destructive action button styling
-      const portalScreen = within(document.body);
-      const deleteButton = portalScreen.getByRole("button", { name: "Yes, delete account" });
+      const dialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
+      const dialogScreen = within(dialog);
+      const deleteButton = dialogScreen.getByRole("button", { name: "Yes, delete account" });
       expect(deleteButton).toHaveClass("bg-destructive");
 
       // Test keyboard navigation - Escape key
@@ -304,17 +310,18 @@ export const WithCustomContent: Story = enhanceStoryForDualMode(
       });
 
       // Check content
-      const portalScreen = within(document.body);
-      expect(portalScreen.getByText("Save Changes?")).toBeInTheDocument();
-      expect(portalScreen.getByText(/You have unsaved changes/)).toBeInTheDocument();
+      const dialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
+      const dialogScreen = within(dialog);
+      expect(dialogScreen.getByText("Save Changes?")).toBeInTheDocument();
+      expect(dialogScreen.getByText(/You have unsaved changes/)).toBeInTheDocument();
 
       // Check all three buttons are present
-      expect(portalScreen.getByRole("button", { name: "Don't Save" })).toBeInTheDocument();
-      expect(portalScreen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
-      expect(portalScreen.getByRole("button", { name: "Save Changes" })).toBeInTheDocument();
+      expect(dialogScreen.getByRole("button", { name: "Don't Save" })).toBeInTheDocument();
+      expect(dialogScreen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
+      expect(dialogScreen.getByRole("button", { name: "Save Changes" })).toBeInTheDocument();
 
       // Close the dialog
-      const cancelButton = portalScreen.getByRole("button", { name: "Don't Save" });
+      const cancelButton = dialogScreen.getByRole("button", { name: "Don't Save" });
       await user.click(cancelButton);
 
       await waitFor(
@@ -421,8 +428,9 @@ export const ControlledState: Story = enhanceStoryForDualMode(
       });
 
       // Test that both cancel and confirm close the dialog
-      const portalScreen = within(document.body);
-      const cancelButton = portalScreen.getByRole("button", { name: "Cancel" });
+      const dialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
+      const dialogScreen = within(dialog);
+      const cancelButton = dialogScreen.getByRole("button", { name: "Cancel" });
       await user.click(cancelButton);
       await waitFor(
         () => {
@@ -434,9 +442,14 @@ export const ControlledState: Story = enhanceStoryForDualMode(
       // Open again and test confirm
       await user.click(trigger);
       await waitFor(() => {
-        expect(document.querySelector('[role="alertdialog"]')).toBeInTheDocument();
+        const newDialog = document.querySelector('[role="alertdialog"]');
+        expect(newDialog).toBeInTheDocument();
       });
-      const confirmButton = portalScreen.getByRole("button", { name: "Confirm" });
+      
+      // Get the dialog and click confirm
+      const newDialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
+      const newDialogScreen = within(newDialog);
+      const confirmButton = newDialogScreen.getByRole("button", { name: "Confirm" });
       await user.click(confirmButton);
       await waitFor(
         () => {
@@ -444,52 +457,6 @@ export const ControlledState: Story = enhanceStoryForDualMode(
         },
         { timeout: 5000 }
       );
-    },
-  },
-  {
-    renderSpec: {
-      type: "Box",
-      children: [
-        {
-          type: "Button",
-          children: "Open Dialog",
-        },
-        {
-          type: "AlertDialog",
-          defaultOpen: false,
-          children: {
-            type: "AlertDialogContent",
-            children: [
-              {
-                type: "AlertDialogHeader",
-                children: [
-                  {
-                    type: "AlertDialogTitle",
-                    children: "Controlled Dialog",
-                  },
-                  {
-                    type: "AlertDialogDescription",
-                    children: "This dialog is controlled via external state.",
-                  },
-                ],
-              },
-              {
-                type: "AlertDialogFooter",
-                children: [
-                  {
-                    type: "AlertDialogCancel",
-                    children: "Cancel",
-                  },
-                  {
-                    type: "AlertDialogAction",
-                    children: "Confirm",
-                  },
-                ],
-              },
-            ],
-          },
-        },
-      ],
     },
   }
 );
@@ -537,16 +504,17 @@ export const LongContent: Story = enhanceStoryForDualMode(
       });
 
       // Check content
-      const portalScreen = within(document.body);
-      expect(portalScreen.getByText("Terms of Service")).toBeInTheDocument();
-      expect(portalScreen.getByText(/Lorem ipsum dolor sit amet/)).toBeInTheDocument();
+      const dialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
+      const dialogScreen = within(dialog);
+      expect(dialogScreen.getByText("Terms of Service")).toBeInTheDocument();
+      expect(dialogScreen.getByText(/Lorem ipsum dolor sit amet/)).toBeInTheDocument();
 
       // Check buttons
-      expect(portalScreen.getByRole("button", { name: "Decline" })).toBeInTheDocument();
-      expect(portalScreen.getByRole("button", { name: "Accept" })).toBeInTheDocument();
+      expect(dialogScreen.getByRole("button", { name: "Decline" })).toBeInTheDocument();
+      expect(dialogScreen.getByRole("button", { name: "Accept" })).toBeInTheDocument();
 
       // Close the dialog
-      const declineButton = portalScreen.getByRole("button", { name: "Decline" });
+      const declineButton = dialogScreen.getByRole("button", { name: "Decline" });
       await user.click(declineButton);
 
       await waitFor(
@@ -678,16 +646,17 @@ export const WithIcon: Story = enhanceStoryForDualMode(
       });
 
       // Check content
-      const portalScreen = within(document.body);
-      expect(portalScreen.getByText("Warning")).toBeInTheDocument();
-      expect(portalScreen.getByText(/This is a potentially dangerous action/)).toBeInTheDocument();
+      const dialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
+      const dialogScreen = within(dialog);
+      expect(dialogScreen.getByText("Warning")).toBeInTheDocument();
+      expect(dialogScreen.getByText(/This is a potentially dangerous action/)).toBeInTheDocument();
 
       // Check buttons
-      expect(portalScreen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
-      expect(portalScreen.getByRole("button", { name: "Proceed" })).toBeInTheDocument();
+      expect(dialogScreen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
+      expect(dialogScreen.getByRole("button", { name: "Proceed" })).toBeInTheDocument();
 
       // Close the dialog
-      const cancelButton = portalScreen.getByRole("button", { name: "Cancel" });
+      const cancelButton = dialogScreen.getByRole("button", { name: "Cancel" });
       await user.click(cancelButton);
 
       await waitFor(

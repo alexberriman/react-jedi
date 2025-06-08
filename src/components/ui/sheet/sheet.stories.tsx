@@ -63,7 +63,9 @@ export const Default: Story = enhanceStoryForDualMode<typeof Sheet>(
       await waitFor(() => {
         expect(within(document.body).getByText("Sheet Title")).toBeInTheDocument();
       });
-      expect(within(document.body).getByText(/This is a sheet description/)).toBeInTheDocument();
+      expect(within(document.body).getByText(/This is a sheet description/, { 
+        selector: '[data-slot="sheet-description"]' 
+      })).toBeInTheDocument();
       expect(within(document.body).getByText("Sheet content goes here.")).toBeInTheDocument();
 
       // Check that close button is present

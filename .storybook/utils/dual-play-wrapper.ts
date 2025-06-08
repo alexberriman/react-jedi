@@ -29,19 +29,60 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
       return originalPlay(context);
     }
     
+    // If there's an initially open dialog/sheet, we need to handle pointer-events before we start
+    const body = document.body;
+    const hasInitialPointerEventsNone = body.style.pointerEvents === 'none';
+    const hasInitialScrollLock = body.hasAttribute('data-scroll-locked');
+    
+    if (hasInitialPointerEventsNone || hasInitialScrollLock) {
+      console.log('⚠️ Detected initially open overlay component, temporarily restoring pointer events');
+      body.style.pointerEvents = '';
+      if (hasInitialScrollLock) {
+        body.removeAttribute('data-scroll-locked');
+      }
+    }
+    
+    
     // Helper to click a tab
     const user = userEvent.setup();
     const clickTab = async (tabText: string) => {
       // Search by text content
       const buttons = decoratorContainer.querySelectorAll('button');
+      let targetButton: HTMLElement | null = null;
+      
       for (const button of buttons) {
         if (button.textContent?.includes(tabText)) {
-          await user.click(button as HTMLElement);
-          await new Promise(resolve => globalThis.setTimeout(resolve, 200)); // Wait for tab switch animation
-          return;
+          targetButton = button as HTMLElement;
+          break;
         }
       }
-      throw new Error(`Tab "${tabText}" not found`);
+      
+      if (!targetButton) {
+        throw new Error(`Tab "${tabText}" not found`);
+      }
+      
+      // For overlay components (Dialog, Sheet), we need to temporarily remove pointer-events
+      const body = document.body;
+      const originalPointerEvents = body.style.pointerEvents;
+      const hasScrollLock = body.hasAttribute('data-scroll-locked');
+      
+      // Temporarily restore pointer events to allow tab clicking
+      body.style.pointerEvents = '';
+      if (hasScrollLock) {
+        body.removeAttribute('data-scroll-locked');
+      }
+      
+      try {
+        // Click the tab button
+        await user.click(targetButton);
+        await new Promise(resolve => globalThis.setTimeout(resolve, 200)); // Wait for tab switch animation
+      } finally {
+        // Restore original pointer events state
+        body.style.pointerEvents = originalPointerEvents;
+        if (hasScrollLock) {
+          body.setAttribute('data-scroll-locked', '1');
+        }
+      }
     };
     
     // Test React mode
@@ -96,6 +137,14 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
     }
     
     console.log('🎉 All dual-mode tests completed successfully');
+    
+    // Restore initial overlay state if needed
+    if (hasInitialPointerEventsNone) {
+      body.style.pointerEvents = 'none';
+    }
+    if (hasInitialScrollLock) {
+      body.setAttribute('data-scroll-locked', '1');
+    }
   };
 }
 

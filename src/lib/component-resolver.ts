@@ -254,9 +254,8 @@ const processNestedAction = (
     if (actionKey === 'onClick' && typeof actionValue === 'string' && handlers) {
       // Convert string handler reference to actual function
       const handler = handlers[actionValue];
-      if (handler) {
-        processedAction[actionKey] = handler;
-      }
+      // Keep the string if handler not found (will be handled by component)
+      processedAction[actionKey] = handler || actionValue;
     } else {
       processedAction[actionKey] = actionValue;
     }
@@ -300,10 +299,21 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
   const forwardRefComponent = React.forwardRef<unknown, ComponentProps>((componentProps, ref) => {
     const { spec, children, theme, state, parentContext, ...restProps } = componentProps;
 
+    // Debug logging for Input component
+    if (spec && spec.type === "Input") {
+      console.log("Input component spec:", spec);
+    }
+
     // Some components expect the full spec object (like CarouselComponent)
     // Check if the component expects a spec prop
     const componentName = component.displayName || component.name || "";
     const expectsSpec = componentName.includes("Component") || componentName.includes("Block") || componentName.includes("Wrapper");
+
+    // Debug logging
+    if (spec && spec.type === "Input") {
+      console.log("Component name:", componentName);
+      console.log("Expects spec:", expectsSpec);
+    }
 
     if (expectsSpec) {
       // Pass the full ComponentProps to components that expect it
@@ -328,6 +338,13 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
 
     // Transform props based on component type
     const transformedProps = transformPropsForComponent(spec as Record<string, unknown>, actualProps);
+    
+    // Debug logging for Input component
+    if (spec.type === "Input" && "id" in spec) {
+      console.log("Input spec id:", spec.id);
+      console.log("actualProps id:", actualProps.id);
+      console.log("transformedProps id:", transformedProps.id);
+    }
 
     // Always use the pre-rendered children passed from the render function
     // The render function already processes spec.children into React elements

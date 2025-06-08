@@ -19,7 +19,7 @@ export interface CalendarSpec extends BaseComponentSpec {
   mode?: "single" | "multiple" | "range";
   selected?: Date | Date[] | { from: Date | undefined; to: Date | undefined } | string | string[] | { from?: string; to?: string };
   defaultMonth?: Date | string;
-  disabled?: Date[] | string[] | ((date: Date) => boolean) | "weekends";
+  disabled?: boolean | Date[] | "weekends" | string[];
   initialFocus?: boolean;
   showOutsideDays?: boolean;
   fixedWeeks?: boolean;
@@ -30,8 +30,8 @@ export interface CalendarSpec extends BaseComponentSpec {
   toMonth?: Date | string;
   fromDate?: Date | string;
   toDate?: Date | string;
-  onSelect?: string;
-  onMonthChange?: string;
+  onSelect?: string; // Handler name
+  onMonthChange?: string; // Handler name
   // style and className are inherited from BaseComponentSpec
 }
 

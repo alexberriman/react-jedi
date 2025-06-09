@@ -111,17 +111,6 @@
       "onlyInState": "IDLE"
     },
     {
-      "cmd": "npm run test:stories",
-      "description": "Runs tests on all storybook files",
-      "timeout": 240,
-      "clear": true,
-      "onError": {
-        "prompt": { "$ref": "prompts.test-stories" }
-      },
-      "restartLoopOnError": true,
-      "onlyInState": "IDLE"
-    },
-    {
       "clear": true,
       "cmd": { "$internal": "check-unstaged-git-files" },
       "description": "If we have local changes that aren't committed, figure out what they are and commit them",

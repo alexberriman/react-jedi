@@ -305,7 +305,7 @@ export const RightSide = enhanceStoryForDualMode(
           // Log what we can find for debugging
           const allElements = document.querySelectorAll('[data-slot], [data-vaul-drawer], [role="dialog"]');
           console.log('Found elements:', allElements.length);
-          allElements.forEach(el => console.log('Element:', el.tagName, el.getAttribute('data-slot'), el.getAttribute('role')));
+          for (const el of allElements) console.log('Element:', el.tagName, el.dataset.slot, el.getAttribute('role'));
           throw new Error('Drawer content not found');
         }
         

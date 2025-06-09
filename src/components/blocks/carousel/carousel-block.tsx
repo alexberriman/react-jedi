@@ -116,16 +116,16 @@ function KenBurnsImage({
           }}
           onLoad={() => {
             // Use setTimeout to ensure state updates happen after React's render cycle
-            if (typeof window !== 'undefined' && window.requestAnimationFrame) {
-              window.requestAnimationFrame(() => setImageLoaded(true));
+            if (globalThis.window !== undefined && globalThis.requestAnimationFrame) {
+              globalThis.requestAnimationFrame(() => setImageLoaded(true));
             } else {
               setImageLoaded(true);
             }
           }}
           onError={() => {
             // Use setTimeout to ensure state updates happen after React's render cycle
-            if (typeof window !== 'undefined' && window.requestAnimationFrame) {
-              window.requestAnimationFrame(() => setImageError(true));
+            if (globalThis.window !== undefined && globalThis.requestAnimationFrame) {
+              globalThis.requestAnimationFrame(() => setImageError(true));
             } else {
               setImageError(true);
             }

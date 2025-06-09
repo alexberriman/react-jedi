@@ -68,12 +68,12 @@ export const BasicWithHandlers: Story = enhanceStoryWithHandlers<typeof Dialog>(
       // We need to temporarily restore them for interaction
       const body = document.body;
       const originalPointerEvents = body.style.pointerEvents;
-      const hadScrollLock = body.hasAttribute('data-scroll-locked');
+      const hadScrollLock = Object.hasOwn(body.dataset, 'scrollLocked');
       
       // Temporarily enable pointer events for testing
       if (body.style.pointerEvents === 'none' || hadScrollLock) {
         body.style.pointerEvents = '';
-        body.removeAttribute('data-scroll-locked');
+        delete body.dataset.scrollLocked;
       }
 
       try {
@@ -103,7 +103,7 @@ export const BasicWithHandlers: Story = enhanceStoryWithHandlers<typeof Dialog>(
         // Restore original state
         body.style.pointerEvents = originalPointerEvents;
         if (hadScrollLock) {
-          body.setAttribute('data-scroll-locked', '1');
+          body.dataset.scrollLocked = '1';
         }
       }
     },

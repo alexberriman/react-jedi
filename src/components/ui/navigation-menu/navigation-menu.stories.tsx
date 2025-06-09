@@ -168,38 +168,41 @@ export const Default: Story = enhanceStoryForDualMode<typeof NavigationMenu>(
       </NavigationMenuList>
     </NavigationMenu>
     ),
-    play: async ({ canvasElement }) => {
+    play: async ({ canvasElement, step }) => {
       const canvas = within(canvasElement);
 
-      // Test opening navigation menu
-      const gettingStartedTrigger = await canvas.findByText("Getting Started");
-      await userEvent.hover(gettingStartedTrigger);
+      await step("Open Getting Started menu", async () => {
+        const gettingStartedTrigger = await canvas.findByText("Getting Started");
+        await userEvent.hover(gettingStartedTrigger);
 
-      // Verify content appears
-      await waitFor(
-        () => {
-          const reactJedi = canvas.getByText("React Jedi");
-          expect(reactJedi).toBeInTheDocument();
-        },
-        { timeout: 5000 }
-      );
+        // Wait for menu content to appear
+        await waitFor(
+          async () => {
+            const reactJedi = await canvas.findByText("React Jedi");
+            expect(reactJedi).toBeInTheDocument();
+          },
+          { timeout: 3000 }
+        );
+      });
 
-      // Test navigating to Components menu
-      const componentsTrigger = await canvas.findByText("Components");
-      await userEvent.hover(componentsTrigger);
+      await step("Navigate to Components menu", async () => {
+        const componentsTrigger = await canvas.findByText("Components");
+        await userEvent.hover(componentsTrigger);
 
-      // Verify component list appears
-      await waitFor(
-        () => {
-          const alertDialog = canvas.getByText("Alert Dialog");
-          expect(alertDialog).toBeInTheDocument();
-        },
-        { timeout: 5000 }
-      );
+        // Wait for component list to appear
+        await waitFor(
+          async () => {
+            const alertDialog = await canvas.findByText("Alert Dialog");
+            expect(alertDialog).toBeInTheDocument();
+          },
+          { timeout: 3000 }
+        );
+      });
 
-      // Test direct link
-      const documentationLink = await canvas.findByText("Documentation");
-      expect(documentationLink).toHaveAttribute("href", "#docs");
+      await step("Verify direct link", async () => {
+        const documentationLink = await canvas.findByText("Documentation");
+        expect(documentationLink).toHaveAttribute("href", "#docs");
+      });
     },
   },
   {
@@ -353,45 +356,54 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
         </NavigationMenuList>
       </NavigationMenu>
     ),
-    play: async ({ canvasElement }) => {
+    play: async ({ canvasElement, step }) => {
       const canvas = within(canvasElement);
 
-      // Test badge visibility if present (only available in React mode)
-      const newBadge = canvas.queryByText("New");
-      if (newBadge) {
-        expect(newBadge).toBeInTheDocument();
-      }
+      await step("Check badge visibility", async () => {
+        const newBadge = canvas.queryByText("New");
+        if (newBadge) {
+          expect(newBadge).toBeInTheDocument();
+        }
+      });
 
-      // Test Products menu (available in both modes)
-      const productsTrigger = canvas.getByText("Products");
-      await userEvent.hover(productsTrigger);
+      await step("Open Products menu", async () => {
+        const productsTrigger = await canvas.findByText("Products");
+        await userEvent.hover(productsTrigger);
 
-      // Verify featured product (emoji may not be available in SDUI mode)
-      await waitFor(
-        () => {
-          const featuredProduct = canvas.getByText("Featured Product");
-          expect(featuredProduct).toBeInTheDocument();
-          
-          // Test for emoji only if it's available (React mode)
-          const rocket = canvas.queryByText("🚀");
-          if (rocket) {
-            expect(rocket).toBeInTheDocument();
-          }
-        },
-        { timeout: 5000 }
-      );
+        // Wait for featured product to appear
+        await waitFor(
+          async () => {
+            const featuredProduct = await canvas.findByText("Featured Product");
+            expect(featuredProduct).toBeInTheDocument();
+            
+            // Test for emoji only if it's available (React mode)
+            const rocket = canvas.queryByText("🚀");
+            if (rocket) {
+              expect(rocket).toBeInTheDocument();
+            }
+          },
+          { timeout: 3000 }
+        );
+      });
 
-      // Test Solutions menu with emojis in titles
-      const solutionsTrigger = await canvas.findByText("Solutions");
-      await userEvent.hover(solutionsTrigger);
+      await step("Open Solutions menu", async () => {
+        // Small delay to ensure previous menu closes
+        await new Promise(resolve => {
+          const timer = window.setTimeout(() => resolve(undefined), 300);
+          return timer;
+        });
+        
+        const solutionsTrigger = await canvas.findByText("Solutions");
+        await userEvent.hover(solutionsTrigger);
 
-      await waitFor(
-        () => {
-          const enterprise = canvas.getByText(/Enterprise/);
-          expect(enterprise).toBeInTheDocument();
-        },
-        { timeout: 5000 }
-      );
+        await waitFor(
+          async () => {
+            const enterprise = await canvas.findByText(/Enterprise/);
+            expect(enterprise).toBeInTheDocument();
+          },
+          { timeout: 3000 }
+        );
+      });
     },
   },
   {
@@ -720,31 +732,32 @@ export const WithFullWidthContent: Story = enhanceStoryForDualMode<typeof Naviga
         </NavigationMenuList>
       </NavigationMenu>
     ),
-    play: async ({ canvasElement }) => {
+    play: async ({ canvasElement, step }) => {
       const canvas = within(canvasElement);
 
-      // Open Resources menu
-      const resourcesTrigger = await canvas.findByText("Resources");
-      await userEvent.hover(resourcesTrigger);
+      await step("Open Resources menu", async () => {
+        const resourcesTrigger = await canvas.findByText("Resources");
+        await userEvent.hover(resourcesTrigger);
 
-      // Verify resource links are displayed
-      await waitFor(
-        () => {
-          expect(canvas.getByText("Tutorials")).toBeInTheDocument();
-          expect(canvas.getByText("Discord")).toBeInTheDocument();
-          expect(canvas.getByText("Help Center")).toBeInTheDocument();
-        },
-        { timeout: 5000 }
-      );
+        // Wait for resource links to appear
+        await waitFor(
+          async () => {
+            expect(await canvas.findByText("Tutorials")).toBeInTheDocument();
+            expect(await canvas.findByText("Discord")).toBeInTheDocument();
+            expect(await canvas.findByText("Help Center")).toBeInTheDocument();
+          },
+          { timeout: 3000 }
+        );
 
-      // Test for section headers if they exist (React mode)
-      const learnSection = canvas.queryByText("Learn");
-      const communitySection = canvas.queryByText("Community");
-      const supportSection = canvas.queryByText("Support");
-      
-      if (learnSection) expect(learnSection).toBeInTheDocument();
-      if (communitySection) expect(communitySection).toBeInTheDocument();
-      if (supportSection) expect(supportSection).toBeInTheDocument();
+        // Test for section headers if they exist (React mode)
+        const learnSection = canvas.queryByText("Learn");
+        const communitySection = canvas.queryByText("Community");
+        const supportSection = canvas.queryByText("Support");
+        
+        if (learnSection) expect(learnSection).toBeInTheDocument();
+        if (communitySection) expect(communitySection).toBeInTheDocument();
+        if (supportSection) expect(supportSection).toBeInTheDocument();
+      });
     },
   },
   {
@@ -848,42 +861,45 @@ export const WithBrandingAndCTA: Story = enhanceStoryForDualMode<typeof Navigati
         </div>
       </div>
     ),
-    play: async ({ canvasElement }) => {
+    play: async ({ canvasElement, step }) => {
       const canvas = within(canvasElement);
 
-      // Test branding and CTA if present (only available in React mode)
-      const brand = canvas.queryByText("ACME");
-      if (brand) {
-        expect(brand).toBeInTheDocument();
-        
-        // Verify CTA buttons if branding is present
-        const signInButton = canvas.queryByText("Sign In");
-        const getStartedButton = canvas.queryByText("Get Started");
-
-        if (signInButton && getStartedButton) {
-          expect(signInButton).toBeInTheDocument();
-          expect(getStartedButton).toBeInTheDocument();
-          expect(getStartedButton).toHaveClass("bg-primary");
-        }
-      }
-
-      // Test navigation (available in both modes)
-      const productsTrigger = await canvas.findByText("Products");
-      await userEvent.hover(productsTrigger);
-
-      await waitFor(
-        () => {
-          const acmePro = canvas.getByText("ACME Pro");
-          expect(acmePro).toBeInTheDocument();
+      await step("Check branding and CTA", async () => {
+        // Test branding and CTA if present (only available in React mode)
+        const brand = canvas.queryByText("ACME");
+        if (brand) {
+          expect(brand).toBeInTheDocument();
           
-          // Test for emoji only if it's available (React mode)
-          const lightning = canvas.queryByText("⚡");
-          if (lightning) {
-            expect(lightning).toBeInTheDocument();
+          // Verify CTA buttons if branding is present
+          const signInButton = canvas.queryByText("Sign In");
+          const getStartedButton = canvas.queryByText("Get Started");
+
+          if (signInButton && getStartedButton) {
+            expect(signInButton).toBeInTheDocument();
+            expect(getStartedButton).toBeInTheDocument();
+            expect(getStartedButton).toHaveClass("bg-primary");
           }
-        },
-        { timeout: 5000 }
-      );
+        }
+      });
+
+      await step("Open Products menu", async () => {
+        const productsTrigger = await canvas.findByText("Products");
+        await userEvent.hover(productsTrigger);
+
+        await waitFor(
+          async () => {
+            const acmePro = await canvas.findByText("ACME Pro");
+            expect(acmePro).toBeInTheDocument();
+            
+            // Test for emoji only if it's available (React mode)
+            const lightning = canvas.queryByText("⚡");
+            if (lightning) {
+              expect(lightning).toBeInTheDocument();
+            }
+          },
+          { timeout: 3000 }
+        );
+      });
     },
   },
   {

@@ -96,7 +96,7 @@
       {
         "id": "investigate-navigation-menu-stories",
         "description": "Investigate test errors and warnings in src/components/ui/navigation-menu/navigation-menu.stories.tsx. Read the error log at ./tmp/tests/navigation-menu.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- navigation-menu.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-newsletter-signup-stories",

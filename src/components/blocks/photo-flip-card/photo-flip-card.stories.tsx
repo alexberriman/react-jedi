@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import { PhotoFlipCard, PhotoFlipCardGrid } from "./photo-flip-card";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta<typeof PhotoFlipCard> = {
   title: "Blocks/PhotoFlipCard",
@@ -334,3 +336,351 @@ export const ResponsiveGrid: StoryObj<typeof PhotoFlipCardGrid> = {
     },
   },
 };
+
+// Dual Mode Stories
+export const DualModeVerticalFlip = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <PhotoFlipCard
+        frontImage={sampleImages.nature}
+        frontImageAlt="Beautiful mountain landscape"
+        title="Mountain Vista (Dual Mode)"
+        description="Testing dual-mode rendering - React vs SDUI"
+        overlay={{
+          title: "Explore Nature",
+          description:
+            "Discover the beauty of untouched wilderness and find your perfect adventure in the mountains.",
+          badge: "Featured",
+        }}
+        cta={{
+          text: "Learn More",
+          variant: "secondary",
+        }}
+        variant="vertical-flip"
+        size="md"
+        trigger="hover"
+        animated={true}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Wait for card to render
+      await waitFor(() => {
+        expect(canvas.getByAltText("Beautiful mountain landscape")).toBeInTheDocument();
+      });
+
+      // Verify title and description
+      expect(canvas.getByText("Mountain Vista (Dual Mode)")).toBeInTheDocument();
+      expect(canvas.getByText("Testing dual-mode rendering - React vs SDUI")).toBeInTheDocument();
+
+      // Test hover interaction
+      const card = canvas.getByTestId("photo-flip-card");
+      
+      // Hover over the card
+      await userEvent.hover(card);
+      
+      // Wait for flip animation to start
+      await waitFor(() => {
+        // Check if overlay content is visible
+        expect(canvas.getByText("Explore Nature")).toBeInTheDocument();
+      });
+
+      // Verify badge
+      expect(canvas.getByText("Featured")).toBeInTheDocument();
+
+      // Verify CTA button
+      const ctaButton = canvas.getByRole("button", { name: "Learn More" });
+      expect(ctaButton).toBeInTheDocument();
+
+      // Unhover to test flip back
+      await userEvent.unhover(card);
+    },
+  },
+  {
+    renderSpec: {
+      type: "PhotoFlipCard",
+      frontImage: sampleImages.nature,
+      frontImageAlt: "Beautiful mountain landscape",
+      title: "Mountain Vista (Dual Mode)",
+      description: "Testing dual-mode rendering - React vs SDUI",
+      overlay: {
+        title: "Explore Nature",
+        description:
+          "Discover the beauty of untouched wilderness and find your perfect adventure in the mountains.",
+        badge: "Featured",
+      },
+      cta: {
+        text: "Learn More",
+        variant: "secondary",
+      },
+      variant: "vertical-flip",
+      size: "md",
+      trigger: "hover",
+      animated: true,
+    },
+  }
+);
+
+export const DualModeClickTrigger = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <PhotoFlipCard
+        frontImage={sampleImages.tech}
+        frontImageAlt="Technology concept"
+        title="Click to Flip (Dual Mode)"
+        description="Click the card to see the animation"
+        overlay={{
+          title: "Innovation Hub",
+          description: "Advanced technology solutions for the modern world.",
+        }}
+        cta={{
+          text: "Get Started",
+          variant: "default",
+        }}
+        variant="rotation-3d"
+        size="md"
+        trigger="click"
+        animated={true}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
+      
+      // Wait for card to render
+      await waitFor(() => {
+        expect(canvas.getByAltText("Technology concept")).toBeInTheDocument();
+      });
+
+      // Verify initial state
+      expect(canvas.getByText("Click to Flip (Dual Mode)")).toBeInTheDocument();
+      expect(canvas.getByText("Click the card to see the animation")).toBeInTheDocument();
+
+      // Click to flip the card
+      const card = canvas.getByTestId("photo-flip-card");
+      await user.click(card);
+      
+      // Wait for flip animation
+      await waitFor(() => {
+        expect(canvas.getByText("Innovation Hub")).toBeInTheDocument();
+      });
+
+      // Verify overlay content
+      expect(canvas.getByText("Advanced technology solutions for the modern world.")).toBeInTheDocument();
+
+      // Verify CTA button
+      const ctaButton = canvas.getByRole("button", { name: "Get Started" });
+      expect(ctaButton).toBeInTheDocument();
+
+      // Click again to flip back
+      await user.click(card);
+    },
+  },
+  {
+    renderSpec: {
+      type: "PhotoFlipCard",
+      frontImage: sampleImages.tech,
+      frontImageAlt: "Technology concept",
+      title: "Click to Flip (Dual Mode)",
+      description: "Click the card to see the animation",
+      overlay: {
+        title: "Innovation Hub",
+        description: "Advanced technology solutions for the modern world.",
+      },
+      cta: {
+        text: "Get Started",
+        variant: "default",
+      },
+      variant: "rotation-3d",
+      size: "md",
+      trigger: "click",
+      animated: true,
+    },
+  }
+);
+
+export const DualModeFadeVariant = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <PhotoFlipCard
+        frontImage={sampleImages.portrait}
+        frontImageAlt="Team member portrait"
+        title="Sarah Johnson"
+        description="Senior Designer"
+        overlay={{
+          title: "Connect with Sarah",
+          description: "Expert in user experience design with 10+ years of experience.",
+          badge: "Available",
+        }}
+        variant="fade"
+        size="lg"
+        borderRadius="xl"
+        shadow="lg"
+        animated={true}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Wait for card to render
+      await waitFor(() => {
+        expect(canvas.getByAltText("Team member portrait")).toBeInTheDocument();
+      });
+
+      // Verify front content
+      expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
+      expect(canvas.getByText("Senior Designer")).toBeInTheDocument();
+
+      // Test hover for fade variant
+      const card = canvas.getByTestId("photo-flip-card");
+      await userEvent.hover(card);
+      
+      // Wait for fade animation
+      await waitFor(() => {
+        expect(canvas.getByText("Connect with Sarah")).toBeInTheDocument();
+      });
+
+      // Verify overlay content
+      expect(canvas.getByText("Expert in user experience design with 10+ years of experience.")).toBeInTheDocument();
+      expect(canvas.getByText("Available")).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "PhotoFlipCard",
+      frontImage: sampleImages.portrait,
+      frontImageAlt: "Team member portrait",
+      title: "Sarah Johnson",
+      description: "Senior Designer",
+      overlay: {
+        title: "Connect with Sarah",
+        description: "Expert in user experience design with 10+ years of experience.",
+        badge: "Available",
+      },
+      variant: "fade",
+      size: "lg",
+      borderRadius: "xl",
+      shadow: "lg",
+      animated: true,
+    },
+  }
+);
+
+export const DualModeGrid = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <PhotoFlipCardGrid
+        columns="3"
+        gap="md"
+        animated={true}
+        staggerDelay={0.1}
+        cards={[
+          {
+            frontImage: sampleImages.nature,
+            frontImageAlt: "Mountain landscape",
+            title: "Mountains",
+            overlay: {
+              title: "Mountain Adventures",
+              description: "Explore breathtaking mountain landscapes.",
+            },
+            cta: { text: "Explore" },
+            variant: "vertical-flip",
+          },
+          {
+            frontImage: sampleImages.city,
+            frontImageAlt: "City skyline",
+            title: "City Life",
+            overlay: {
+              title: "Urban Experience",
+              description: "Discover modern city living.",
+            },
+            cta: { text: "Discover" },
+            variant: "horizontal-flip",
+          },
+          {
+            frontImage: sampleImages.tech,
+            frontImageAlt: "Technology",
+            title: "Technology",
+            overlay: {
+              title: "Innovation Hub",
+              description: "Cutting-edge technology solutions.",
+            },
+            cta: { text: "Learn More" },
+            variant: "fade",
+          },
+        ]}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Wait for grid to render
+      await waitFor(() => {
+        expect(canvas.getByText("Mountains")).toBeInTheDocument();
+      });
+
+      // Verify all cards are rendered
+      expect(canvas.getByText("City Life")).toBeInTheDocument();
+      expect(canvas.getByText("Technology")).toBeInTheDocument();
+
+      // Test hover on first card
+      const firstCard = canvas.getAllByTestId("photo-flip-card")[0];
+      await userEvent.hover(firstCard);
+      
+      // Wait for animation
+      await waitFor(() => {
+        expect(canvas.getByText("Mountain Adventures")).toBeInTheDocument();
+      });
+
+      // Verify grid layout
+      const grid = canvas.getByTestId("photo-flip-card-grid");
+      expect(grid).toHaveClass("grid-cols-3");
+      expect(grid).toHaveClass("gap-6"); // md gap
+    },
+  },
+  {
+    renderSpec: {
+      type: "PhotoFlipCardGrid",
+      columns: "3",
+      gap: "md",
+      animated: true,
+      staggerDelay: 0.1,
+      cards: [
+        {
+          frontImage: sampleImages.nature,
+          frontImageAlt: "Mountain landscape",
+          title: "Mountains",
+          overlay: {
+            title: "Mountain Adventures",
+            description: "Explore breathtaking mountain landscapes.",
+          },
+          cta: { text: "Explore" },
+          variant: "vertical-flip",
+        },
+        {
+          frontImage: sampleImages.city,
+          frontImageAlt: "City skyline",
+          title: "City Life",
+          overlay: {
+            title: "Urban Experience",
+            description: "Discover modern city living.",
+          },
+          cta: { text: "Discover" },
+          variant: "horizontal-flip",
+        },
+        {
+          frontImage: sampleImages.tech,
+          frontImageAlt: "Technology",
+          title: "Technology",
+          overlay: {
+            title: "Innovation Hub",
+            description: "Cutting-edge technology solutions.",
+          },
+          cta: { text: "Learn More" },
+          variant: "fade",
+        },
+      ],
+    },
+  }
+);

@@ -190,3 +190,4 @@ export type { ContactFormBlockProperties, FormField, FormStep, ContactFormBlockV
 export type { TypewriterTextDef } from "./typewriter-text";
 export type { KeyboardNavigationMenuSpec, MenuItemSpec, KeyboardNavigationMenuItemSpec } from "./keyboard-navigation-menu";
 export type { PageSectionDef } from "./page-section";
+export type { PhotoFlipCardSpec, PhotoFlipCardGridSpec } from "./photo-flip-card";

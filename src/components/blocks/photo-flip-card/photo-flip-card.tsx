@@ -225,6 +225,7 @@ export const PhotoFlipCard: React.FC<PhotoFlipCardProps> = ({
 
   const cardContent = (
     <div
+      data-testid="photo-flip-card"
       className={cn(
         "relative overflow-hidden cursor-pointer group",
         sizeClasses[size],
@@ -427,7 +428,7 @@ export const PhotoFlipCardGrid: React.FC<PhotoFlipCardGridProps> = ({
   className,
 }) => {
   return (
-    <div className={cn("grid", columnClasses[columns], gapClasses[gap], className)}>
+    <div data-testid="photo-flip-card-grid" className={cn("grid", columnClasses[columns], gapClasses[gap], className)}>
       {cards.map((card, index) => (
         <motion.div
           key={index}

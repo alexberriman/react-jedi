@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within, userEvent, fn } from "storybook/test";
 import { PricingTable, type PricingTier } from "./pricing-table";
 import { Sparkles, Zap, Crown, Rocket, Star, Shield } from "lucide-react";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Blocks/PricingTable",
@@ -111,8 +112,9 @@ const defaultTiers: PricingTier[] = [
   },
 ];
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers,
     columns: 3,
     showToggle: true,
@@ -160,10 +162,11 @@ export const Default: Story = {
       expect(canvas.getByText("Most Popular")).toBeInTheDocument();
     });
   },
-};
+}) as Story;
 
-export const ComparisonTable: Story = {
+export const ComparisonTable: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers,
     variant: "comparison",
     showFeatureComparison: true,
@@ -189,20 +192,35 @@ export const ComparisonTable: Story = {
     expect(canvas.getByText("90")).toBeInTheDocument();
     expect(canvas.getByText("290")).toBeInTheDocument();
   },
-};
+}) as Story;
 
-export const MinimalVariant: Story = {
+export const MinimalVariant: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers,
     variant: "minimal",
     columns: 3,
     showToggle: false,
     animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify tiers are rendered with minimal styling
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("9")).toBeInTheDocument();
+    expect(canvas.getByText("29")).toBeInTheDocument();
+    expect(canvas.getByText("Custom")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const CompactVariant: Story = {
+export const CompactVariant: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers.map((tier) => ({
       ...tier,
       features: tier.features.slice(0, 5), // Fewer features for compact view
@@ -212,10 +230,23 @@ export const CompactVariant: Story = {
     showToggle: true,
     onBillingCycleChange: fn(),
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify compact layout with reduced features
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    
+    // Verify reduced feature set
+    expect(canvas.getByText("5 Projects")).toBeInTheDocument();
+    expect(canvas.getByText("Community Support")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithTestimonials: Story = {
+export const WithTestimonials: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers,
     variant: "with-testimonials",
     columns: 3,
@@ -240,10 +271,24 @@ export const WithTestimonials: Story = {
       },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify testimonials are rendered
+    expect(canvas.getByText("Perfect for getting started. The features are exactly what we needed.")).toBeInTheDocument();
+    expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
+    expect(canvas.getByText("Freelance Designer")).toBeInTheDocument();
+    
+    // Verify tier cards
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const GradientVariant: Story = {
+export const GradientVariant: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers,
     variant: "gradient",
     columns: 3,
@@ -251,10 +296,22 @@ export const GradientVariant: Story = {
     animated: true,
     onBillingCycleChange: fn(),
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify gradient variant styling
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    
+    // Verify highlighted tier has special styling
+    expect(canvas.getByText("Most Popular")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const FourColumns: Story = {
+export const FourColumns: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: [
       {
         name: "Free",
@@ -283,10 +340,25 @@ export const FourColumns: Story = {
     showToggle: true,
     onBillingCycleChange: fn(),
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all four tiers are rendered
+    expect(canvas.getByText("Free")).toBeInTheDocument();
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    
+    // Verify free tier details
+    const zeroPrice = canvas.getAllByText("0");
+    expect(zeroPrice.length).toBeGreaterThan(0);
+    expect(canvas.getByText("Sign Up Free")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const TwoColumns: Story = {
+export const TwoColumns: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: [
       {
         name: "Basic",
@@ -337,10 +409,29 @@ export const TwoColumns: Story = {
     ],
     columns: 2,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify two columns layout
+    expect(canvas.getByText("Basic")).toBeInTheDocument();
+    expect(canvas.getByText("Premium")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("15")).toBeInTheDocument();
+    expect(canvas.getByText("49")).toBeInTheDocument();
+    
+    // Verify badge on highlighted tier
+    expect(canvas.getByText("Best Value")).toBeInTheDocument();
+    
+    // Verify CTA buttons
+    expect(canvas.getByText("Choose Basic")).toBeInTheDocument();
+    expect(canvas.getByText("Choose Premium")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const CustomCurrency: Story = {
+export const CustomCurrency: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers.map((tier) => ({
       ...tier,
       currency: "€",
@@ -351,27 +442,68 @@ export const CustomCurrency: Story = {
     currency: "€",
     columns: 3,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify Euro currency symbols
+    const euroSymbols = canvas.getAllByText("€");
+    expect(euroSymbols.length).toBeGreaterThanOrEqual(2);
+    
+    // Verify converted prices (approximately)
+    expect(canvas.getByText(Math.floor(9 * 0.85).toString())).toBeInTheDocument();
+    expect(canvas.getByText(Math.floor(29 * 0.85).toString())).toBeInTheDocument();
+  },
+}) as Story;
 
-export const NoToggle: Story = {
+export const NoToggle: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers,
     columns: 3,
     showToggle: false,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify tiers are rendered
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    
+    // Verify no toggle buttons
+    const monthlyTab = canvas.queryByRole("tab", { name: /monthly/i });
+    const yearlyTab = canvas.queryByRole("tab", { name: /yearly/i });
+    expect(monthlyTab).not.toBeInTheDocument();
+    expect(yearlyTab).not.toBeInTheDocument();
+  },
+}) as Story;
 
-export const SingleColumn: Story = {
+export const SingleColumn: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: [defaultTiers[1]], // Just the Professional tier
     columns: 1,
     showToggle: true,
     onBillingCycleChange: fn(),
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify single column layout
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("29")).toBeInTheDocument();
+    expect(canvas.getByText("Most Popular")).toBeInTheDocument();
+    
+    // Test toggle functionality
+    const yearlyButton = canvas.getByRole("tab", { name: /yearly/i });
+    await userEvent.click(yearlyButton);
+    expect(canvas.getByText("290")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const CustomIcons: Story = {
+export const CustomIcons: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers.map((tier, index) => ({
       ...tier,
       customIcon: (
@@ -382,10 +514,24 @@ export const CustomIcons: Story = {
     })),
     columns: 3,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify tiers with custom icons
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    
+    // Verify custom icon numbers
+    expect(canvas.getByText("1")).toBeInTheDocument();
+    expect(canvas.getByText("2")).toBeInTheDocument();
+    expect(canvas.getByText("3")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithTooltips: Story = {
+export const WithTooltips: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers.map((tier) => ({
       ...tier,
       features: tier.features.map((feature) => ({
@@ -397,10 +543,23 @@ export const WithTooltips: Story = {
     })),
     columns: 3,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify features are rendered
+    expect(canvas.getByText("5 Projects")).toBeInTheDocument();
+    expect(canvas.getByText("Unlimited Projects")).toBeInTheDocument();
+    expect(canvas.getByText("API Access")).toBeInTheDocument();
+    
+    // Features should have title attributes for tooltips
+    const featureElements = canvas.getAllByText(/Projects|Storage|Support|Analytics/);
+    expect(featureElements.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const InteractiveExample: Story = {
+export const InteractiveExample: Story = enhanceStoryForDualMode({
   args: {
+    type: "PricingTable",
     tiers: defaultTiers,
     columns: 3,
     showToggle: true,
@@ -425,4 +584,4 @@ export const InteractiveExample: Story = {
       await userEvent.click(salesButton);
     }
   },
-};
+}) as Story;

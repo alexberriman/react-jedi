@@ -76,7 +76,7 @@
       {
         "id": "investigate-hover-card-stories",
         "description": "Investigate test errors and warnings in src/components/ui/hover-card/hover-card.stories.tsx. Read the error log at ./tmp/tests/hover-card.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- hover-card.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-image-stories",

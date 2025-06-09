@@ -41,7 +41,7 @@
       {
         "id": "investigate-contact-form-block-stories",
         "description": "Investigate test errors and warnings in src/components/blocks/contact-form-block/contact-form-block.stories.tsx. Read the error log at ./tmp/tests/contact-form-block.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- contact-form-block.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-context-menu-stories",

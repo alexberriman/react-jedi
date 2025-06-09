@@ -4,6 +4,12 @@ import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./inpu
 import { within, userEvent, waitFor, expect } from "storybook/test";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
+/**
+ * NOTE: This component may produce act() warnings during tests.
+ * These warnings come from the third-party 'input-otp' library and are false positives.
+ * The tests pass successfully despite these warnings.
+ */
+
 const meta: Meta<typeof InputOTP> = {
   title: "Form Components/InputOTP",
   component: InputOTP,
@@ -67,12 +73,20 @@ export const Default = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
-      expect(input).toHaveAttribute("maxlength", "6");
+      await waitFor(() => {
+        const input = canvas.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+        expect(input).toHaveAttribute("maxlength", "6");
+      });
 
+      const input = canvas.getByRole("textbox");
+      
+      // Type the value - warnings from input-otp library are expected
       await userEvent.type(input, "123456");
-      expect(input).toHaveValue("123456");
+      
+      await waitFor(() => {
+        expect(input).toHaveValue("123456");
+      });
     },
   },
   {
@@ -105,12 +119,20 @@ export const FourDigitPIN = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
-      expect(input).toHaveAttribute("maxlength", "4");
+      await waitFor(() => {
+        const input = canvas.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+        expect(input).toHaveAttribute("maxlength", "4");
+      });
 
+      const input = canvas.getByRole("textbox");
+      
+      // Type the value - warnings from input-otp library are expected
       await userEvent.type(input, "1234");
-      expect(input).toHaveValue("1234");
+      
+      await waitFor(() => {
+        expect(input).toHaveValue("1234");
+      });
     },
   },
   {
@@ -149,11 +171,19 @@ export const SMSCode = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
+      await waitFor(() => {
+        const input = canvas.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+      });
 
+      const input = canvas.getByRole("textbox");
+      
+      // Type the value - warnings from input-otp library are expected
       await userEvent.type(input, "987654");
-      expect(input).toHaveValue("987654");
+      
+      await waitFor(() => {
+        expect(input).toHaveValue("987654");
+      });
     },
   },
   {
@@ -191,11 +221,19 @@ export const AlphanumericCode = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
+      await waitFor(() => {
+        const input = canvas.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+      });
 
+      const input = canvas.getByRole("textbox");
+      
+      // Type the value - warnings from input-otp library are expected
       await userEvent.type(input, "ABC123");
-      expect(input).toHaveValue("ABC123");
+      
+      await waitFor(() => {
+        expect(input).toHaveValue("ABC123");
+      });
     },
   },
   {
@@ -243,12 +281,20 @@ export const CustomSeparator = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
-      expect(input).toHaveAttribute("maxlength", "8");
+      await waitFor(() => {
+        const input = canvas.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+        expect(input).toHaveAttribute("maxlength", "8");
+      });
 
+      const input = canvas.getByRole("textbox");
+      
+      // Type the value - warnings from input-otp library are expected
       await userEvent.type(input, "12345678");
-      expect(input).toHaveValue("12345678");
+      
+      await waitFor(() => {
+        expect(input).toHaveValue("12345678");
+      });
     },
   },
   {
@@ -287,9 +333,11 @@ export const WithDefaultValue = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
-      expect(input).toHaveValue("123456");
+      await waitFor(() => {
+        const input = canvas.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+        expect(input).toHaveValue("123456");
+      });
     },
   },
   {
@@ -328,10 +376,12 @@ export const Disabled = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
-      expect(input).toBeDisabled();
-      expect(input).toHaveValue("123456");
+      await waitFor(() => {
+        const input = canvas.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+        expect(input).toBeDisabled();
+        expect(input).toHaveValue("123456");
+      });
     },
   },
   {
@@ -397,6 +447,7 @@ export const Controlled = enhanceStoryForDualMode(
         expect(input).toBeInTheDocument();
 
         // Focus and type into the input
+        // Warnings from input-otp library are expected
         await userEvent.click(otpContainer!);
         await userEvent.type(input, "999");
 
@@ -490,6 +541,7 @@ export const WithOnComplete = enhanceStoryForDualMode(
         expect(input).toBeInTheDocument();
 
         // Focus and type the complete code
+        // Warnings from input-otp library are expected
         await userEvent.click(otpContainer!);
         await userEvent.type(input, "111222");
 
@@ -535,16 +587,24 @@ export const Password = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      const input = canvas.getByRole("textbox");
-      expect(input).toBeInTheDocument();
-      expect(input).toHaveAttribute("maxlength", "4");
+      await waitFor(() => {
+        const input = canvas.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+        expect(input).toHaveAttribute("maxlength", "4");
+      });
 
+      const input = canvas.getByRole("textbox");
+      
       // Check that the OTP container has the password class
       const otpContainer = canvasElement.querySelector(".password");
       expect(otpContainer).toBeInTheDocument();
 
+      // Type the value - warnings from input-otp library are expected
       await userEvent.type(input, "9876");
-      expect(input).toHaveValue("9876");
+      
+      await waitFor(() => {
+        expect(input).toHaveValue("9876");
+      });
     },
   },
   {

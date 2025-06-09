@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, within } from "storybook/test";
+import { expect, within, waitFor } from "storybook/test";
 import BlogPostDetail from "./blog-post-detail";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
@@ -199,33 +199,36 @@ export const Default = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    // Wait for component to fully render and all async operations to complete
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test author info
-    expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
+      // Test author info
+      expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
 
-    // Test categories
-    expect(canvas.getByText("Web Development")).toBeInTheDocument();
-    expect(canvas.getByText("JavaScript")).toBeInTheDocument();
-    expect(canvas.getByText("Tutorial")).toBeInTheDocument();
+      // Test categories
+      expect(canvas.getByText("Web Development")).toBeInTheDocument();
+      expect(canvas.getByText("JavaScript")).toBeInTheDocument();
+      expect(canvas.getByText("Tutorial")).toBeInTheDocument();
 
-    // Test content sections
-    expect(canvas.getByText(/Introduction to Modern Web Development/)).toBeInTheDocument();
-    expect(canvas.getByText(/The Foundation: HTML, CSS, and JavaScript/)).toBeInTheDocument();
+      // Test content sections
+      expect(canvas.getByText(/Introduction to Modern Web Development/)).toBeInTheDocument();
+      expect(canvas.getByText(/The Foundation: HTML, CSS, and JavaScript/)).toBeInTheDocument();
 
-    // Test tags
-    expect(canvas.getByText("react")).toBeInTheDocument();
-    expect(canvas.getByText("javascript")).toBeInTheDocument();
+      // Test tags
+      expect(canvas.getByText("react")).toBeInTheDocument();
+      expect(canvas.getByText("javascript")).toBeInTheDocument();
 
-    // Test related posts
-    expect(canvas.getByText("Understanding React Hooks: A Deep Dive")).toBeInTheDocument();
+      // Test related posts
+      expect(canvas.getByText("Understanding React Hooks: A Deep Dive")).toBeInTheDocument();
 
-    // Test navigation
-    expect(canvas.getByText("Getting Started with TypeScript")).toBeInTheDocument();
-    expect(canvas.getByText("Advanced React Patterns")).toBeInTheDocument();
+      // Test navigation
+      expect(canvas.getByText("Getting Started with TypeScript")).toBeInTheDocument();
+      expect(canvas.getByText("Advanced React Patterns")).toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -242,17 +245,19 @@ export const WithSidebar = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test author info
-    expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
+      // Test author info
+      expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
 
-    // Test sidebar-specific elements
-    // Test table of contents appears (with-sidebar variant shows TOC)
-    expect(canvas.getByText(/Table of Contents/i)).toBeInTheDocument();
+      // Test sidebar-specific elements
+      // Test table of contents appears (with-sidebar variant shows TOC)
+      expect(canvas.getByText(/Table of Contents/i)).toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -275,16 +280,18 @@ export const Magazine = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test magazine-specific layout
-    expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
+      // Test magazine-specific layout
+      expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
 
-    // Test hero image caption
-    expect(canvas.getByText("The modern developer workspace")).toBeInTheDocument();
+      // Test hero image caption
+      expect(canvas.getByText("The modern developer workspace")).toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -309,17 +316,19 @@ export const Minimal = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test author info
-    expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
+      // Test author info
+      expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
 
-    // Test minimal variant doesn't show comments
-    const comments = canvas.queryByText(/Comments/i);
-    expect(comments).not.toBeInTheDocument();
+      // Test minimal variant doesn't show comments
+      const comments = canvas.queryByText(/Comments/i);
+      expect(comments).not.toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -339,14 +348,16 @@ export const WithoutHeroImage = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test no hero image present - hero image should not be in the document
-    const heroImage = canvas.queryByAltText("Modern web development workspace");
-    expect(heroImage).not.toBeInTheDocument();
+      // Test no hero image present - hero image should not be in the document
+      const heroImage = canvas.queryByAltText("Modern web development workspace");
+      expect(heroImage).not.toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -364,14 +375,16 @@ export const WithoutRelatedPosts = enhanceStoryForDualMode<typeof BlogPostDetail
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test no related posts section
-    const relatedPosts = canvas.queryByText(/Related Posts/i);
-    expect(relatedPosts).not.toBeInTheDocument();
+      // Test no related posts section
+      const relatedPosts = canvas.queryByText(/Related Posts/i);
+      expect(relatedPosts).not.toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -390,16 +403,18 @@ export const WithoutNavigation = enhanceStoryForDualMode<typeof BlogPostDetail>(
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test no navigation links
-    const prevLink = canvas.queryByText("Getting Started with TypeScript");
-    const nextLink = canvas.queryByText("Advanced React Patterns");
-    expect(prevLink).not.toBeInTheDocument();
-    expect(nextLink).not.toBeInTheDocument();
+      // Test no navigation links
+      const prevLink = canvas.queryByText("Getting Started with TypeScript");
+      const nextLink = canvas.queryByText("Advanced React Patterns");
+      expect(prevLink).not.toBeInTheDocument();
+      expect(nextLink).not.toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -418,14 +433,16 @@ export const NoAnimations = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test content renders without animations
-    expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
-    expect(canvas.getByText(/Introduction to Modern Web Development/)).toBeInTheDocument();
+      // Test content renders without animations
+      expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
+      expect(canvas.getByText(/Introduction to Modern Web Development/)).toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -450,21 +467,23 @@ export const MinimalFeatures = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("The Complete Guide to Modern Web Development in 2024")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("The Complete Guide to Modern Web Development in 2024")
+      ).toBeInTheDocument();
 
-    // Test minimal features
-    expect(canvas.getByText("Blog")).toBeInTheDocument();
+      // Test minimal features
+      expect(canvas.getByText("Blog")).toBeInTheDocument();
 
-    // Test no share buttons
-    const shareButtons = canvas.queryByText(/Share/i);
-    expect(shareButtons).not.toBeInTheDocument();
+      // Test no share buttons
+      const shareButtons = canvas.queryByText(/Share/i);
+      expect(shareButtons).not.toBeInTheDocument();
 
-    // Test no tags section
-    const reactTag = canvas.queryByText("react");
-    expect(reactTag).not.toBeInTheDocument();
+      // Test no tags section
+      const reactTag = canvas.queryByText("react");
+      expect(reactTag).not.toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {
@@ -620,34 +639,36 @@ We've implemented a basic authentication system in Next.js. Remember to adapt th
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test main title renders
-    expect(
-      canvas.getByText("Implementing Authentication in Next.js Applications")
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      // Test main title renders
+      expect(
+        canvas.getByText("Implementing Authentication in Next.js Applications")
+      ).toBeInTheDocument();
 
-    // Test author info
-    expect(canvas.getByText("Michael Chen")).toBeInTheDocument();
+      // Test author info
+      expect(canvas.getByText("Michael Chen")).toBeInTheDocument();
 
-    // Test categories
-    expect(canvas.getByText("Next.js")).toBeInTheDocument();
-    expect(canvas.getByText("Security")).toBeInTheDocument();
+      // Test categories
+      expect(canvas.getByText("Next.js")).toBeInTheDocument();
+      expect(canvas.getByText("Security")).toBeInTheDocument();
 
-    // Test content sections - use getAllByText since TOC may contain duplicates
-    const overviewElements = canvas.getAllByText(/Overview/);
-    expect(overviewElements.length).toBeGreaterThan(0);
-    
-    const prerequisitesElements = canvas.getAllByText(/Prerequisites/);
-    expect(prerequisitesElements.length).toBeGreaterThan(0);
-    
-    const projectSetupElements = canvas.getAllByText(/Setting Up the Project/);
-    expect(projectSetupElements.length).toBeGreaterThan(0);
+      // Test content sections - use getAllByText since TOC may contain duplicates
+      const overviewElements = canvas.getAllByText(/Overview/);
+      expect(overviewElements.length).toBeGreaterThan(0);
+      
+      const prerequisitesElements = canvas.getAllByText(/Prerequisites/);
+      expect(prerequisitesElements.length).toBeGreaterThan(0);
+      
+      const projectSetupElements = canvas.getAllByText(/Setting Up the Project/);
+      expect(projectSetupElements.length).toBeGreaterThan(0);
 
-    // Test tags
-    expect(canvas.getByText("authentication")).toBeInTheDocument();
-    expect(canvas.getByText("nextjs")).toBeInTheDocument();
+      // Test tags
+      expect(canvas.getByText("authentication")).toBeInTheDocument();
+      expect(canvas.getByText("nextjs")).toBeInTheDocument();
 
-    // Test table of contents for sidebar variant
-    expect(canvas.getByText(/Table of Contents/i)).toBeInTheDocument();
+      // Test table of contents for sidebar variant
+      expect(canvas.getByText(/Table of Contents/i)).toBeInTheDocument();
+    });
   },
 }, {
   renderSpec: {

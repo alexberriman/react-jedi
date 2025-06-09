@@ -16,7 +16,7 @@
       {
         "id": "investigate-blog-post-detail-stories",
         "description": "Investigate test errors and warnings in src/components/blocks/blog-post-detail/blog-post-detail.stories.tsx. Read the error log at ./tmp/tests/blog-post-detail.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- blog-post-detail.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-brand-logo-bar-stories",

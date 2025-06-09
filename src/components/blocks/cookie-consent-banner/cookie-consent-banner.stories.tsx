@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { CookieConsentBanner } from "./cookie-consent-banner";
 import { useState, useEffect } from "react";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Blocks/Cookie Consent Banner",

@@ -4,7 +4,7 @@ import { DataTable, createSortableHeader, type DataTableColumn } from "./data-ta
 import { Copy, Edit, Trash } from "lucide-react";
 import type { Column, Row } from "@tanstack/react-table";
 import { Checkbox } from "../checkbox/checkbox";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 // Sample data types
 interface Payment {

@@ -3,7 +3,7 @@ import { expect, userEvent, within } from "storybook/test";
 import * as React from "react";
 import { RadioGroup, RadioGroupItem } from "./radio-group";
 import { Label } from "../label";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta<typeof RadioGroup> = {
   title: "Form Components/RadioGroup",

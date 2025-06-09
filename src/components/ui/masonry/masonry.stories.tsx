@@ -7,7 +7,7 @@ import { Badge } from "../badge";
 import { Heading } from "../heading";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import { motion } from "framer-motion";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 /**
  * Masonry creates a Pinterest-style grid layout with beautiful animations and glassmorphic effects.

@@ -45,6 +45,7 @@ export default defineConfig({
       "@styles": resolve(__dirname, "./src/styles"),
       "@hooks": resolve(__dirname, "./src/hooks"),
       "@utils": resolve(__dirname, "./src/lib/utils.ts"),
+      "@sb": resolve(__dirname, "./.storybook"),
     },
   },
 });

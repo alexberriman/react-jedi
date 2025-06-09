@@ -3,7 +3,7 @@ import { expect, within } from "storybook/test";
 import { AnnouncementBar } from "./announcement-bar";
 import { MdRocketLaunch, MdCelebration, MdWarning } from "react-icons/md";
 import { FaBullhorn } from "react-icons/fa";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Blocks/AnnouncementBar",

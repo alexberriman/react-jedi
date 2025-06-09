@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Hero } from "./hero";
 import { Rocket, Star, Code2, Zap } from "lucide-react";
 import { within, userEvent, waitFor, expect } from "storybook/test";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta<typeof Hero> = {
   title: "Blocks/Hero",

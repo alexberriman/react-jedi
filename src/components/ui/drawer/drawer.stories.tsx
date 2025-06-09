@@ -16,7 +16,7 @@ import { Button } from "../button";
 import { Label } from "../label";
 import { Input } from "../input";
 import { Textarea } from "../textarea";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/Drawer",
@@ -305,7 +305,7 @@ export const RightSide = enhanceStoryForDualMode(
           // Log what we can find for debugging
           const allElements = document.querySelectorAll('[data-slot], [data-vaul-drawer], [role="dialog"]');
           console.log('Found elements:', allElements.length);
-          for (const el of allElements) console.log('Element:', el.tagName, el.dataset.slot, el.getAttribute('role'));
+          for (const el of allElements) console.log('Element:', el.tagName, (el as HTMLElement).dataset?.slot, el.getAttribute('role'));
           throw new Error('Drawer content not found');
         }
         

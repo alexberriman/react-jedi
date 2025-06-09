@@ -13,7 +13,7 @@ import {
 import { Badge } from "../badge";
 import { Button } from "../button";
 import { Checkbox } from "../checkbox";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 function getInvoiceStatusVariant(status: string): string {
   if (status === "Paid") return "default";

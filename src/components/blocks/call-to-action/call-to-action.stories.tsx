@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta<typeof CallToAction> = {
   title: "Blocks/CallToAction",

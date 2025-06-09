@@ -10,7 +10,7 @@ import {
   BreadcrumbEllipsis,
 } from "../breadcrumb";
 import { Home, Slash } from "lucide-react";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/Breadcrumb",

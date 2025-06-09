@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { AlertCircle, Terminal, Info, AlertTriangle, CheckCircle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "./index";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/Alert",

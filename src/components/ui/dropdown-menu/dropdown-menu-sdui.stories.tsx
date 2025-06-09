@@ -14,7 +14,7 @@ import {
   DropdownMenuSubContent,
 } from "./dropdown-menu";
 import { Button } from "../button";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 import * as React from "react";
 
 const meta = {

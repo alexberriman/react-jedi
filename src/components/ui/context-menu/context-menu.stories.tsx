@@ -36,7 +36,7 @@ import {
   Settings2Icon,
   ChevronRightIcon,
 } from "lucide-react";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta = {
   title: "Components/ContextMenu",

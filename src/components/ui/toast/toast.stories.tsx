@@ -3,7 +3,7 @@ import { expect, userEvent, within } from "storybook/test";
 import { Button } from "../button";
 import { Toaster } from "./index";
 import { toast } from "sonner";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/Toast",

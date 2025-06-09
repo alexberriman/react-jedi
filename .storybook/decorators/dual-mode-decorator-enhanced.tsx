@@ -1,14 +1,14 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
 import type { StoryContext, StoryFn } from "@storybook/react";
-import { render } from "../../lib/render";
-import { Toggle } from "../../components/ui/toggle";
-import { ScrollArea } from "../../components/ui/scroll-area";
+import { render } from "../../src/lib/render";
+import { Toggle } from "../../src/components/ui/toggle";
+import { ScrollArea } from "../../src/components/ui/scroll-area";
 import { TabButton } from "../components/tab-button";
 import { JsonSyntaxHighlighter } from "../components/json-syntax-highlighter";
 import { CopyButton } from "../components/copy-button";
 import { convertArgsToSpec } from "../utils/args-to-spec";
-import type { ComponentSpec } from "../../types/schema/components";
+import type { ComponentSpec } from "../../src/types/schema/components";
 
 // Icons (same as original)
 function ReactIcon() {

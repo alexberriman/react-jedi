@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "../../src/lib/utils";
 
 interface CopyButtonProps {
   readonly text: string;

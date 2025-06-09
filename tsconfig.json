@@ -27,7 +27,8 @@
       "@schemas/*": ["./src/lib/schemas/*"],
       "@styles/*": ["./src/styles/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@utils/*": ["./src/lib/utils.ts"]
+      "@utils/*": ["./src/lib/utils.ts"],
+      "@sb/*": ["./.storybook/*"]
     },
     "types": [
       "vite/client",
@@ -37,6 +38,6 @@
       "@testing-library/react"
     ]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/testing-setup.ts", "src/types/*.d.ts", "vite.config.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/testing-setup.ts", "src/types/*.d.ts", "vite.config.ts", ".storybook/**/*.ts", ".storybook/**/*.tsx"],
   "exclude": ["node_modules"]
 }

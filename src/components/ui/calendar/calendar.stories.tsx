@@ -4,7 +4,7 @@ import { expect, userEvent, within } from "storybook/test";
 import { Calendar } from "./calendar";
 import { addDays, isSaturday, isSunday } from "date-fns";
 import type { DateRange } from "react-day-picker";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/Calendar",

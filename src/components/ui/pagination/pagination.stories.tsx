@@ -9,7 +9,7 @@ import {
   PaginationNext,
   PaginationEllipsis,
 } from "./pagination";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 import { PaginationComponent } from "./pagination-component";
 import React from "react";
 

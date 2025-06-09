@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { CalendarDays } from "lucide-react";
 import { within, userEvent, waitFor, expect } from "storybook/test";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/HoverCard",

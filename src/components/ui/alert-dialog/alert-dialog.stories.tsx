@@ -13,7 +13,7 @@ import {
   AlertDialogCancel,
 } from "./alert-dialog";
 import { Button } from "../button";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/AlertDialog",

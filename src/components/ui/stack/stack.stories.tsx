@@ -6,7 +6,7 @@ import { Button } from "../button";
 import { Badge } from "../badge";
 import { Text } from "../text";
 import { Separator } from "../separator";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Layout Components/Stack",

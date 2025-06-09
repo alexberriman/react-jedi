@@ -4,7 +4,7 @@ import type { TextareaSpec } from "../../../types/schema/ui";
 import { Textarea } from "./textarea";
 import { render } from "../../../lib/render";
 import { Label } from "../label/label";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Form Components/Textarea",

@@ -3,7 +3,7 @@ import * as React from "react";
 import { Checkbox } from "./checkbox";
 import { Label } from "../label";
 import { within, userEvent, expect, waitFor } from "storybook/test";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta<typeof Checkbox> = {
   title: "Form Components/Checkbox",

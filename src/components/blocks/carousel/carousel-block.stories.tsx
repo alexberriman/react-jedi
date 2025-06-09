@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { CarouselBlock } from "./carousel-block";
 import type { CarouselDef } from "../../../types/components/carousel";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta<typeof CarouselBlock> = {
   title: "Blocks/Carousel",

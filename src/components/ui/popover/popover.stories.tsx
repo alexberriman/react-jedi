@@ -7,7 +7,7 @@ import { Input } from "../input";
 import { Label } from "../label";
 import { Separator } from "../separator";
 import { Calendar } from "lucide-react";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/Popover",

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FeatureCard, FeatureCardGrid, TabbedFeatureCards } from "./feature-card";
 import { expect, within } from "storybook/test";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 import {
   Zap,
   Shield,

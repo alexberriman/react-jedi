@@ -29,7 +29,7 @@ import {
   Scissors,
 } from "lucide-react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/Command",

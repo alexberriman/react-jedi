@@ -11,7 +11,7 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../badge";
 import * as React from "react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Components/NavigationMenu",

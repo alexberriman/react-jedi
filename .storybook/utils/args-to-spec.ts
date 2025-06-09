@@ -1,5 +1,5 @@
-import type { ComponentSpec } from "../../types/schema/components";
-import type { ComponentChildren } from "../../types/schema/base";
+import type { ComponentSpec } from "../../src/types/schema/components";
+import type { ComponentChildren } from "../../src/types/schema/base";
 
 /**
  * Converts React children to spec-compatible format

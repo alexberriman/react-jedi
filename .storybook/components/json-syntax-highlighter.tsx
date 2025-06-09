@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
-import { Markdown } from "../../components/ui/markdown";
+import { cn } from "../../src/lib/utils";
+import { Markdown } from "../../src/components/ui/markdown";
 
 interface JsonSyntaxHighlighterProps {
   readonly spec: unknown;

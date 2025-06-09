@@ -11,7 +11,7 @@ import {
   DialogFooter,
 } from "./dialog";
 import { Button } from "../button";
-import { enhanceStoryWithHandlers, createDialogHandlers } from "../../../.storybook/utils/enhance-story-with-handlers";
+import { enhanceStoryWithHandlers, createDialogHandlers } from "@sb/utils/enhance-story-with-handlers";
 
 const meta = {
   title: "Components/Dialog/Enhanced",

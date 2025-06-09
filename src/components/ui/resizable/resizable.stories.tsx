@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { within, expect } from "storybook/test";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./resizable";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 // Create a wrapper component for stories that doesn't require resizable props
 const ResizableStory = ({ children }: { children?: React.ReactNode }) => {

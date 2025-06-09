@@ -11,7 +11,7 @@ import {
   SelectLabel,
   SelectSeparator,
 } from "./select";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta<typeof Select> = {
   title: "Form Components/Select",

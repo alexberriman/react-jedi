@@ -81,7 +81,7 @@
       {
         "id": "investigate-image-stories",
         "description": "Investigate test errors and warnings in src/components/ui/image/image.stories.tsx. Read the error log at ./tmp/tests/image.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- image.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-input-otp-stories",

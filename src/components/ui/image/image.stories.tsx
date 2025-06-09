@@ -3,6 +3,7 @@ import { Image } from "./image";
 import { within, waitFor, expect } from "storybook/test";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
+
 const meta = {
   title: "Components/Image",
   component: Image,
@@ -85,7 +86,6 @@ export const Default: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute("src", expect.stringContaining("placehold.co"));
@@ -100,7 +100,6 @@ export const Rounded: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("rounded-xl");
@@ -117,7 +116,6 @@ export const Circle: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("rounded-full");
@@ -132,7 +130,6 @@ export const WithShadow: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("shadow-xl");
@@ -146,7 +143,6 @@ export const Grayscale: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("grayscale");
@@ -159,7 +155,6 @@ export const Sepia: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("sepia");
@@ -173,7 +168,6 @@ export const HoverGrow: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     // The grow effect is handled by Framer Motion's whileHover prop
@@ -190,7 +184,6 @@ export const HoverGlow: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     // The glow effect is applied via hover:glow-md class
@@ -207,7 +200,6 @@ export const FullWidth: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
     expect(image).toHaveClass("object-cover");
@@ -227,7 +219,6 @@ export const Landscape: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
 
@@ -245,7 +236,6 @@ export const Portrait: Story = enhanceStoryForDualMode<typeof Image>({
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
-
     const image = canvas.getByAltText("Sample image");
     expect(image).toBeInTheDocument();
 
@@ -289,7 +279,6 @@ export const Gallery: Story = enhanceStoryForDualMode<typeof Image>(
     ),
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
       const canvas = within(canvasElement);
-
       const images = canvas.getAllByAltText("Sample image");
       expect(images).toHaveLength(3);
 
@@ -351,13 +340,14 @@ export const WithFallback: Story = enhanceStoryForDualMode<typeof Image>({
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
 
+    // Since fallback will be used, we need to wait for it to load
     await waitFor(
       () => {
         const image = canvas.getByAltText("Sample image");
         expect(image).toBeInTheDocument();
         expect(image).toHaveAttribute("src", expect.stringContaining("placehold.co"));
       },
-      { timeout: 10_000 }
+      { timeout: 5000 }
     );
   },
 });

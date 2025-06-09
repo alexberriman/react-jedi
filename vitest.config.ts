@@ -9,48 +9,45 @@ const dirname =
 import viteConfig from "./vite.config";
 
 // Check if we're running storybook tests specifically
-const isStorybookTest = process.env.VITEST_STORYBOOK === "true" || 
-  process.argv.some(arg => arg.includes(".stories."));
+const isStorybookTest =
+  process.env.VITEST_STORYBOOK === "true" || process.argv.some((arg) => arg.includes(".stories."));
 
 export default mergeConfig(
   viteConfig,
   defineConfig({
-    plugins: isStorybookTest ? [
-      storybookTest({
-        // The location of your Storybook config, main.js|ts
-        configDir: path.join(dirname, ".storybook"),
-        // This should match your package.json script to run Storybook
-        // The --ci flag will skip prompts and not open a browser
-        storybookScript: "npm run storybook -- --ci",
-      }),
-    ] : [],
+    plugins: isStorybookTest
+      ? [
+          storybookTest({
+            // The location of your Storybook config, main.js|ts
+            configDir: path.join(dirname, ".storybook"),
+            // This should match your package.json script to run Storybook
+            // The --ci flag will skip prompts and not open a browser
+            storybookScript: "npm run storybook -- --ci",
+          }),
+        ]
+      : [],
     test: {
       // Enable browser mode only for storybook tests
-      browser: isStorybookTest ? {
-        enabled: true,
-        // Make sure to install Playwright
-        provider: "playwright",
-        headless: true,
-        instances: [{ browser: "chromium" }],
-        viewport: {
-          width: 1280,
-          height: 720,
-        },
-      } : undefined,
+      browser: isStorybookTest
+        ? {
+            enabled: true,
+            // Make sure to install Playwright
+            provider: "playwright",
+            headless: true,
+            instances: [{ browser: "chromium" }],
+            viewport: {
+              width: 1280,
+              height: 720,
+            },
+          }
+        : undefined,
       environment: isStorybookTest ? "happy-dom" : "jsdom",
       pool: isStorybookTest ? "forks" : "threads",
-      poolOptions: isStorybookTest ? {
-        forks: {
-          singleFork: true,
-        },
-      } : undefined,
-      setupFiles: isStorybookTest 
-        ? ["./.storybook/vitest.setup.ts"] 
-        : ["./src/testing-setup.ts"],
+      setupFiles: isStorybookTest ? ["./.storybook/vitest.setup.ts"] : ["./src/testing-setup.ts"],
       testTimeout: 30000,
       hookTimeout: 30000,
       // Include test files only when not in storybook mode
-      include: !isStorybookTest 
+      include: !isStorybookTest
         ? ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"]
         : undefined,
       exclude: ["**/*.mdx", "node_modules/**", "dist/**", "cypress/**", "**/*.d.ts"],

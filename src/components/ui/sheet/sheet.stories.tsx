@@ -176,7 +176,7 @@ export const WithForm: Story = enhanceStoryForDualMode<typeof Sheet>(
       const trigger = canvas.getByRole("button", { name: "Edit Profile" });
       
       // Check if button has pointer-events: none (false positive in test environment)
-      if (window.getComputedStyle(trigger).pointerEvents === 'none') {
+      if (globalThis.getComputedStyle(trigger).pointerEvents === 'none') {
         console.warn('Skipping test due to pointer-events: none false positive in test environment');
         return;
       }
@@ -535,7 +535,7 @@ export const NestedSheets: Story = enhanceStoryForDualMode<typeof Sheet>(
       const firstTrigger = canvas.getByRole("button", { name: "Open First Sheet" });
       
       // Check if button has pointer-events: none (false positive in test environment)
-      if (window.getComputedStyle(firstTrigger).pointerEvents === 'none') {
+      if (globalThis.getComputedStyle(firstTrigger).pointerEvents === 'none') {
         console.warn('Skipping test due to pointer-events: none false positive in test environment');
         return;
       }
@@ -677,7 +677,7 @@ export const LongContent: Story = enhanceStoryForDualMode<typeof Sheet>(
       expect(trigger).toBeInTheDocument();
 
       // Check if button has pointer-events: none (false positive in test environment)
-      if (window.getComputedStyle(trigger).pointerEvents === 'none') {
+      if (globalThis.getComputedStyle(trigger).pointerEvents === 'none') {
         console.warn('Skipping test due to pointer-events: none false positive in test environment');
         return;
       }
@@ -842,7 +842,7 @@ export const CustomStyling: Story = enhanceStoryForDualMode<typeof Sheet>(
       expect(trigger).toBeInTheDocument();
 
       // Check if button has pointer-events: none (false positive in test environment)
-      if (window.getComputedStyle(trigger).pointerEvents === 'none') {
+      if (globalThis.getComputedStyle(trigger).pointerEvents === 'none') {
         console.warn('Skipping test due to pointer-events: none false positive in test environment');
         return;
       }

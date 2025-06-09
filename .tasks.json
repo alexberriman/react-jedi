@@ -46,7 +46,7 @@
       {
         "id": "investigate-context-menu-stories",
         "description": "Investigate test errors and warnings in src/components/ui/context-menu/context-menu.stories.tsx. Read the error log at ./tmp/tests/context-menu.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- context-menu.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-date-picker-stories",

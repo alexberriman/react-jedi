@@ -465,7 +465,7 @@ export const SDUIContextMenu: Story = enhanceStoryForDualMode(
       // The ContextMenuTrigger with asChild might create a wrapper that blocks pointer events
       const triggerParent = trigger.parentElement;
       
-      if (triggerParent && window.getComputedStyle(triggerParent).pointerEvents !== 'none') {
+      if (triggerParent && globalThis.getComputedStyle(triggerParent).pointerEvents !== 'none') {
         // If parent can receive events, try right-clicking it
         await userEvent.pointer({ target: triggerParent, keys: "[MouseRight]" });
       } else {
@@ -593,7 +593,7 @@ export const SDUINestedMenus: Story = enhanceStoryForDualMode(
       // The ContextMenuTrigger with asChild might create a wrapper that blocks pointer events
       const triggerParent = trigger.parentElement;
       
-      if (triggerParent && window.getComputedStyle(triggerParent).pointerEvents !== 'none') {
+      if (triggerParent && globalThis.getComputedStyle(triggerParent).pointerEvents !== 'none') {
         // If parent can receive events, try right-clicking it
         await userEvent.pointer({ target: triggerParent, keys: "[MouseRight]" });
       } else {
@@ -729,7 +729,7 @@ export const SDUIWithInteractiveItems: Story = enhanceStoryForDualMode(
       // The ContextMenuTrigger with asChild might create a wrapper that blocks pointer events
       const triggerParent = trigger.parentElement;
       
-      if (triggerParent && window.getComputedStyle(triggerParent).pointerEvents !== 'none') {
+      if (triggerParent && globalThis.getComputedStyle(triggerParent).pointerEvents !== 'none') {
         // If parent can receive events, try right-clicking it
         await userEvent.pointer({ target: triggerParent, keys: "[MouseRight]" });
       } else {

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, expect } from "storybook/test";
 import { PortfolioCaseStudies, type CaseStudy } from "./portfolio-case-studies";
 import { TrendingUp, Users, Clock, DollarSign, Star, Globe, Zap, Award } from "lucide-react";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Blocks/PortfolioCaseStudies",
@@ -330,8 +332,9 @@ const sampleProjects: CaseStudy[] = [
   },
 ];
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects,
     variant: "grid",
     showFilters: true,
@@ -339,10 +342,40 @@ export const Default: Story = {
     showPagination: true,
     projectsPerPage: 6,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that search bar is rendered
+    const searchInput = canvas.getByPlaceholderText(/search projects/i);
+    expect(searchInput).toBeInTheDocument();
+    
+    // Test that filters are rendered
+    const categoryFilter = canvas.getByText(/all categories/i);
+    expect(categoryFilter).toBeInTheDocument();
+    
+    // Test that project cards are rendered - look for project titles
+    const projectTitles = sampleProjects.slice(0, 6).map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+    
+    // Test that client names are rendered
+    const firstClient = canvas.getByText(sampleProjects[0].client);
+    expect(firstClient).toBeInTheDocument();
+    
+    // Test that categories are shown
+    const firstCategory = canvas.getByText(sampleProjects[0].category);
+    expect(firstCategory).toBeInTheDocument();
+    
+    // Test that View Case Study buttons are rendered
+    const viewButtons = canvas.getAllByText(/view case study/i);
+    expect(viewButtons.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const DetailedCards: Story = {
+export const DetailedCards: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects,
     variant: "detailed-cards",
     showFilters: true,
@@ -350,10 +383,34 @@ export const DetailedCards: Story = {
     showPagination: true,
     projectsPerPage: 4,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that project titles are rendered in detailed view
+    const projectTitles = sampleProjects.slice(0, 4).map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+    
+    // Test that long descriptions are shown (if available)
+    const projectWithLongDesc = sampleProjects.find(p => p.longDescription);
+    if (projectWithLongDesc) {
+      expect(canvas.getByText(projectWithLongDesc.longDescription || projectWithLongDesc.description)).toBeInTheDocument();
+    }
+    
+    // Test that technologies are displayed
+    const firstProjectTech = sampleProjects[0].technologies[0];
+    expect(canvas.getByText(firstProjectTech)).toBeInTheDocument();
+    
+    // Test that View Full Case Study buttons are rendered
+    const viewButtons = canvas.getAllByText(/view full case study/i);
+    expect(viewButtons.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const BeforeAfter: Story = {
+export const BeforeAfter: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects.filter((p) => p.beforeAfterImages),
     variant: "before-after",
     showFilters: true,
@@ -361,10 +418,29 @@ export const BeforeAfter: Story = {
     showPagination: true,
     projectsPerPage: 6,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that project titles are rendered
+    const projectsWithBeforeAfter = sampleProjects.filter((p) => p.beforeAfterImages);
+    const projectTitles = projectsWithBeforeAfter.slice(0, 6).map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+    
+    // Test that Before/After toggle buttons are shown
+    const toggleButtons = canvas.getAllByText(/show (before|after)/i);
+    expect(toggleButtons.length).toBeGreaterThan(0);
+    
+    // Test that search is NOT rendered
+    const searchInput = canvas.queryByPlaceholderText(/search projects/i);
+    expect(searchInput).not.toBeInTheDocument();
+  },
+}) as Story;
 
-export const ClientSpotlight: Story = {
+export const ClientSpotlight: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects.filter((p) => p.testimonial),
     variant: "client-spotlight",
     showFilters: false,
@@ -372,10 +448,35 @@ export const ClientSpotlight: Story = {
     showPagination: true,
     projectsPerPage: 4,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that client names are prominently displayed
+    const projectsWithTestimonial = sampleProjects.filter((p) => p.testimonial);
+    const clientNames = projectsWithTestimonial.slice(0, 4).map(project => project.client);
+    for (const client of clientNames) {
+      expect(canvas.getByText(client)).toBeInTheDocument();
+    }
+    
+    // Test that testimonials are rendered
+    const firstTestimonial = projectsWithTestimonial[0].testimonial?.content;
+    if (firstTestimonial) {
+      expect(canvas.getByText(firstTestimonial)).toBeInTheDocument();
+    }
+    
+    // Test that Read More buttons are rendered
+    const readMoreButtons = canvas.getAllByText(/read more/i);
+    expect(readMoreButtons.length).toBeGreaterThan(0);
+    
+    // Test that filters are NOT rendered
+    const categoryFilter = canvas.queryByText(/all categories/i);
+    expect(categoryFilter).not.toBeInTheDocument();
+  },
+}) as Story;
 
-export const Timeline: Story = {
+export const Timeline: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects,
     variant: "timeline",
     showFilters: false,
@@ -386,10 +487,33 @@ export const Timeline: Story = {
       { label: "Oldest First", value: "date-asc" },
     ],
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that project titles are rendered in timeline format
+    const projectTitles = sampleProjects.map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+    
+    // Test that years are displayed
+    const firstProjectYear = new Date(sampleProjects[0].completedDate).getFullYear().toString();
+    const yearElements = canvas.getAllByText(firstProjectYear);
+    expect(yearElements.length).toBeGreaterThan(0);
+    
+    // Test that View Details buttons are rendered
+    const viewButtons = canvas.getAllByText(/view details/i);
+    expect(viewButtons.length).toBeGreaterThan(0);
+    
+    // Test that search and filters are NOT rendered
+    const searchInput = canvas.queryByPlaceholderText(/search projects/i);
+    expect(searchInput).not.toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithFeatured: Story = {
+export const WithFeatured: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects,
     variant: "grid",
     showFilters: true,
@@ -398,10 +522,24 @@ export const WithFeatured: Story = {
     projectsPerPage: 6,
     featuredProjectIds: ["1", "5"],
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that featured badges are shown
+    const featuredBadges = canvas.getAllByText(/featured/i);
+    expect(featuredBadges.length).toBeGreaterThanOrEqual(2); // At least the two we specified
+    
+    // Test that project titles are rendered
+    const projectTitles = sampleProjects.slice(0, 6).map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+  },
+}) as Story;
 
-export const LoadMore: Story = {
+export const LoadMore: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects,
     variant: "grid",
     showFilters: true,
@@ -410,28 +548,64 @@ export const LoadMore: Story = {
     showLoadMore: true,
     projectsPerPage: 3,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that only first 3 projects are initially shown
+    const projectTitles = sampleProjects.slice(0, 3).map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+    
+    // Test that Load More button is rendered
+    const loadMoreButton = canvas.getByRole('button', { name: /load more projects/i });
+    expect(loadMoreButton).toBeInTheDocument();
+    
+    // Test that pagination is NOT rendered
+    const pageNumbers = canvas.queryByText(/page \d+ of \d+/i);
+    expect(pageNumbers).not.toBeInTheDocument();
+  },
+}) as Story;
 
-export const NoResults: Story = {
+export const NoResults: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: [],
     variant: "grid",
     showFilters: true,
     showSearch: true,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that empty state message is shown
+    const emptyMessage = canvas.getByText(/no projects found/i);
+    expect(emptyMessage).toBeInTheDocument();
+    
+    // Test that search and filters are still rendered
+    const searchInput = canvas.getByPlaceholderText(/search projects/i);
+    expect(searchInput).toBeInTheDocument();
+  },
+}) as Story;
 
-export const Loading: Story = {
+export const Loading: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects,
     variant: "grid",
     loading: true,
     projectsPerPage: 6,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    // Test that loading skeletons are rendered
+    const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
+    expect(skeletons.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const WithCategories: Story = {
+export const WithCategories: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects,
     variant: "grid",
     showFilters: true,
@@ -439,10 +613,24 @@ export const WithCategories: Story = {
     categories: ["E-Commerce", "SaaS", "FinTech", "Healthcare", "EdTech", "Enterprise"],
     projectsPerPage: 6,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that project cards are rendered
+    const projectTitles = sampleProjects.slice(0, 6).map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+    
+    // Test that category filter is rendered
+    const categoryFilter = canvas.getByText(/all categories/i);
+    expect(categoryFilter).toBeInTheDocument();
+  },
+}) as Story;
 
-export const MobileResponsive: Story = {
+export const MobileResponsive: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects.slice(0, 3),
     variant: "grid",
     showFilters: true,
@@ -454,16 +642,43 @@ export const MobileResponsive: Story = {
       defaultViewport: "mobile1",
     },
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that project cards are rendered in mobile view
+    const projectTitles = sampleProjects.slice(0, 3).map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+    
+    // Test that search is rendered in mobile view
+    const searchInput = canvas.getByPlaceholderText(/search projects/i);
+    expect(searchInput).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithCustomHandler: Story = {
+export const WithCustomHandler: Story = enhanceStoryForDualMode({
   args: {
+    type: "PortfolioCaseStudies",
     projects: sampleProjects,
     variant: "grid",
     showFilters: true,
     showSearch: true,
-    onViewDetails: (project) => {
+    onViewDetails: (project: CaseStudy) => {
       alert(`Viewing project: ${project.title}`);
     },
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that project cards are rendered
+    const projectTitles = sampleProjects.slice(0, 9).map(project => project.title);
+    for (const title of projectTitles) {
+      expect(canvas.getByText(title)).toBeInTheDocument();
+    }
+    
+    // Test that View Case Study buttons are rendered
+    const viewButtons = canvas.getAllByText(/view case study/i);
+    expect(viewButtons.length).toBeGreaterThan(0);
+  },
+}) as Story;

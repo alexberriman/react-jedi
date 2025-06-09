@@ -17,6 +17,10 @@ import {
   Rocket,
   Globe,
 } from "lucide-react";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
+import { convertArgsToSpec } from "@sb/utils/args-to-spec";
+import type { PageSectionDef } from "@/types";
+import { expect, within } from "storybook/test";
 
 const meta: Meta<typeof PageSection> = {
   title: "Blocks/PageSection",
@@ -101,153 +105,377 @@ const SampleContent = () => (
   </div>
 );
 
-export const HeroSection: Story = {
-  args: {
-    layout: { type: "hero" },
-    background: {
-      type: "gradient",
-      value: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+export const HeroSection = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      layout: { type: "hero" },
+      background: {
+        type: "gradient",
+        value: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      },
+      heading: {
+        title: "Build Something Amazing Today",
+        subtitle: "The modern platform for creating exceptional digital experiences",
+        alignment: "center",
+      },
+      description:
+        "Join thousands of developers who are building the future with our powerful tools and intuitive APIs.",
+      ctas: [
+        { text: "Start Free Trial", size: "lg" },
+        { text: "Watch Demo", variant: "outline", size: "lg" },
+      ],
+      padding: "2xl",
+      children: (
+        <div className="flex gap-8 justify-center text-white mt-8">
+          <div className="text-center">
+            <div className="text-3xl font-bold">10K+</div>
+            <div className="text-sm opacity-80">Active Users</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold">99.9%</div>
+            <div className="text-sm opacity-80">Uptime</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold">24/7</div>
+            <div className="text-sm opacity-80">Support</div>
+          </div>
+        </div>
+      ),
     },
-    heading: {
-      title: "Build Something Amazing Today",
-      subtitle: "The modern platform for creating exceptional digital experiences",
-      alignment: "center",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      // Verify heading renders
+      await expect(canvas.getByText("Build Something Amazing Today")).toBeInTheDocument();
+      await expect(canvas.getByText("The modern platform for creating exceptional digital experiences")).toBeInTheDocument();
+      // Verify CTAs render
+      await expect(canvas.getByText("Start Free Trial")).toBeInTheDocument();
+      await expect(canvas.getByText("Watch Demo")).toBeInTheDocument();
+      // Verify stats render
+      await expect(canvas.getByText("10K+")).toBeInTheDocument();
+      await expect(canvas.getByText("Active Users")).toBeInTheDocument();
     },
-    description:
-      "Join thousands of developers who are building the future with our powerful tools and intuitive APIs.",
-    ctas: [
-      { text: "Start Free Trial", size: "lg" },
-      { text: "Watch Demo", variant: "outline", size: "lg" },
-    ],
-    padding: "2xl",
-    children: (
-      <div className="flex gap-8 justify-center text-white mt-8">
-        <div className="text-center">
-          <div className="text-3xl font-bold">10K+</div>
-          <div className="text-sm opacity-80">Active Users</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl font-bold">99.9%</div>
-          <div className="text-sm opacity-80">Uptime</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl font-bold">24/7</div>
-          <div className="text-sm opacity-80">Support</div>
-        </div>
-      </div>
-    ),
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      // Add children as SDUI components
+      spec.children = [
+        {
+          type: "Flex",
+          gap: 8,
+          justify: "center",
+          className: "text-white mt-8",
+          children: [
+            {
+              type: "Box",
+              className: "text-center",
+              children: [
+                { type: "Text", className: "text-3xl font-bold", children: "10K+" },
+                { type: "Text", className: "text-sm opacity-80", children: "Active Users" },
+              ],
+            },
+            {
+              type: "Box",
+              className: "text-center",
+              children: [
+                { type: "Text", className: "text-3xl font-bold", children: "99.9%" },
+                { type: "Text", className: "text-sm opacity-80", children: "Uptime" },
+              ],
+            },
+            {
+              type: "Box",
+              className: "text-center",
+              children: [
+                { type: "Text", className: "text-3xl font-bold", children: "24/7" },
+                { type: "Text", className: "text-sm opacity-80", children: "Support" },
+              ],
+            },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
-export const FeatureWithImageLeft: Story = {
-  args: {
-    layout: {
-      type: "image-left",
-      imageUrl: "https://placehold.co/600x400/EEE/31343C",
-      imageAlt: "Feature demonstration",
-      imageZoomOnHover: true,
-      imageShadow: true,
-      contentSpacing: "relaxed",
+export const FeatureWithImageLeft = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      layout: {
+        type: "image-left",
+        imageUrl: "https://placehold.co/600x400/EEE/31343C",
+        imageAlt: "Feature demonstration",
+        imageZoomOnHover: true,
+        imageShadow: true,
+        contentSpacing: "relaxed",
+      },
+      heading: {
+        title: "Powerful Analytics Dashboard",
+        subtitle: "Real-time insights at your fingertips",
+      },
+      description:
+        "Track performance, monitor user behavior, and make data-driven decisions with our comprehensive analytics suite.",
+      ctas: [
+        { text: "Learn More", href: "#" },
+        { text: "See Demo", variant: "outline", href: "#" },
+      ],
+      padding: "xl",
+      children: (
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <Check className="w-5 h-5 text-green-500 mt-0.5" />
+            <div>
+              <div className="font-medium">Real-time data visualization</div>
+              <div className="text-sm text-muted-foreground">
+                See your metrics update in real-time with beautiful charts
+              </div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Check className="w-5 h-5 text-green-500 mt-0.5" />
+            <div>
+              <div className="font-medium">Custom dashboards</div>
+              <div className="text-sm text-muted-foreground">
+                Create personalized views for different team members
+              </div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Check className="w-5 h-5 text-green-500 mt-0.5" />
+            <div>
+              <div className="font-medium">Export reports</div>
+              <div className="text-sm text-muted-foreground">
+                Generate PDF and Excel reports with one click
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
     },
-    heading: {
-      title: "Powerful Analytics Dashboard",
-      subtitle: "Real-time insights at your fingertips",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      // Verify heading renders
+      await expect(canvas.getByText("Powerful Analytics Dashboard")).toBeInTheDocument();
+      await expect(canvas.getByText("Real-time insights at your fingertips")).toBeInTheDocument();
+      // Verify description
+      await expect(canvas.getByText(/Track performance, monitor user behavior/)).toBeInTheDocument();
+      // Verify feature list
+      await expect(canvas.getByText("Real-time data visualization")).toBeInTheDocument();
+      await expect(canvas.getByText("Custom dashboards")).toBeInTheDocument();
+      await expect(canvas.getByText("Export reports")).toBeInTheDocument();
     },
-    description:
-      "Track performance, monitor user behavior, and make data-driven decisions with our comprehensive analytics suite.",
-    ctas: [
-      { text: "Learn More", href: "#" },
-      { text: "See Demo", variant: "outline", href: "#" },
-    ],
-    padding: "xl",
-    children: (
-      <div className="space-y-4">
-        <div className="flex items-start gap-3">
-          <Check className="w-5 h-5 text-green-500 mt-0.5" />
-          <div>
-            <div className="font-medium">Real-time data visualization</div>
-            <div className="text-sm text-muted-foreground">
-              See your metrics update in real-time with beautiful charts
-            </div>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Check className="w-5 h-5 text-green-500 mt-0.5" />
-          <div>
-            <div className="font-medium">Custom dashboards</div>
-            <div className="text-sm text-muted-foreground">
-              Create personalized views for different team members
-            </div>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Check className="w-5 h-5 text-green-500 mt-0.5" />
-          <div>
-            <div className="font-medium">Export reports</div>
-            <div className="text-sm text-muted-foreground">
-              Generate PDF and Excel reports with one click
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      // Add children as SDUI components
+      spec.children = [
+        {
+          type: "Stack",
+          spacing: 4,
+          children: [
+            {
+              type: "Flex",
+              align: "start",
+              gap: 3,
+              children: [
+                {
+                  type: "Icon",
+                  name: "Check",
+                  className: "w-5 h-5 text-green-500 mt-0.5",
+                },
+                {
+                  type: "Box",
+                  children: [
+                    { type: "Text", className: "font-medium", children: "Real-time data visualization" },
+                    { type: "Text", className: "text-sm text-muted-foreground", children: "See your metrics update in real-time with beautiful charts" },
+                  ],
+                },
+              ],
+            },
+            {
+              type: "Flex",
+              align: "start",
+              gap: 3,
+              children: [
+                {
+                  type: "Icon",
+                  name: "Check",
+                  className: "w-5 h-5 text-green-500 mt-0.5",
+                },
+                {
+                  type: "Box",
+                  children: [
+                    { type: "Text", className: "font-medium", children: "Custom dashboards" },
+                    { type: "Text", className: "text-sm text-muted-foreground", children: "Create personalized views for different team members" },
+                  ],
+                },
+              ],
+            },
+            {
+              type: "Flex",
+              align: "start",
+              gap: 3,
+              children: [
+                {
+                  type: "Icon",
+                  name: "Check",
+                  className: "w-5 h-5 text-green-500 mt-0.5",
+                },
+                {
+                  type: "Box",
+                  children: [
+                    { type: "Text", className: "font-medium", children: "Export reports" },
+                    { type: "Text", className: "text-sm text-muted-foreground", children: "Generate PDF and Excel reports with one click" },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
-export const FeatureWithImageRight: Story = {
-  args: {
-    layout: {
-      type: "image-right",
-      imageUrl: "https://placehold.co/600x400/EEE/31343C",
-      imageAlt: "Collaboration features",
-      imageZoomOnHover: true,
-      imageShadow: true,
-      contentSpacing: "relaxed",
-    },
-    heading: {
-      title: "Seamless Team Collaboration",
-      subtitle: "Work together like never before",
-    },
-    description: "Break down silos and enhance productivity with tools designed for modern teams.",
-    ctas: [{ text: "Start Collaborating", href: "#" }],
-    padding: "xl",
-    background: {
-      type: "color",
-      value: "#f9fafb",
-    },
-    children: (
-      <div className="space-y-4">
-        <div className="flex items-start gap-3">
-          <Users className="w-5 h-5 text-blue-500 mt-0.5" />
-          <div>
-            <div className="font-medium">Real-time collaboration</div>
-            <div className="text-sm text-muted-foreground">
-              Multiple team members can work on the same project simultaneously
+export const FeatureWithImageRight = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      layout: {
+        type: "image-right",
+        imageUrl: "https://placehold.co/600x400/EEE/31343C",
+        imageAlt: "Collaboration features",
+        imageZoomOnHover: true,
+        imageShadow: true,
+        contentSpacing: "relaxed",
+      },
+      heading: {
+        title: "Seamless Team Collaboration",
+        subtitle: "Work together like never before",
+      },
+      description: "Break down silos and enhance productivity with tools designed for modern teams.",
+      ctas: [{ text: "Start Collaborating", href: "#" }],
+      padding: "xl",
+      background: {
+        type: "color",
+        value: "#f9fafb",
+      },
+      children: (
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <Users className="w-5 h-5 text-blue-500 mt-0.5" />
+            <div>
+              <div className="font-medium">Real-time collaboration</div>
+              <div className="text-sm text-muted-foreground">
+                Multiple team members can work on the same project simultaneously
+              </div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Zap className="w-5 h-5 text-blue-500 mt-0.5" />
+            <div>
+              <div className="font-medium">Instant notifications</div>
+              <div className="text-sm text-muted-foreground">
+                Stay updated with real-time alerts and mentions
+              </div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Shield className="w-5 h-5 text-blue-500 mt-0.5" />
+            <div>
+              <div className="font-medium">Secure sharing</div>
+              <div className="text-sm text-muted-foreground">
+                Enterprise-grade security for all your shared content
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex items-start gap-3">
-          <Zap className="w-5 h-5 text-blue-500 mt-0.5" />
-          <div>
-            <div className="font-medium">Instant notifications</div>
-            <div className="text-sm text-muted-foreground">
-              Stay updated with real-time alerts and mentions
-            </div>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Shield className="w-5 h-5 text-blue-500 mt-0.5" />
-          <div>
-            <div className="font-medium">Secure sharing</div>
-            <div className="text-sm text-muted-foreground">
-              Enterprise-grade security for all your shared content
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
+      ),
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      // Verify heading renders
+      await expect(canvas.getByText("Seamless Team Collaboration")).toBeInTheDocument();
+      await expect(canvas.getByText("Work together like never before")).toBeInTheDocument();
+      // Verify features
+      await expect(canvas.getByText("Real-time collaboration")).toBeInTheDocument();
+      await expect(canvas.getByText("Instant notifications")).toBeInTheDocument();
+      await expect(canvas.getByText("Secure sharing")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        {
+          type: "Stack",
+          spacing: 4,
+          children: [
+            {
+              type: "Flex",
+              align: "start",
+              gap: 3,
+              children: [
+                {
+                  type: "Icon",
+                  name: "Users",
+                  className: "w-5 h-5 text-blue-500 mt-0.5",
+                },
+                {
+                  type: "Box",
+                  children: [
+                    { type: "Text", className: "font-medium", children: "Real-time collaboration" },
+                    { type: "Text", className: "text-sm text-muted-foreground", children: "Multiple team members can work on the same project simultaneously" },
+                  ],
+                },
+              ],
+            },
+            {
+              type: "Flex",
+              align: "start",
+              gap: 3,
+              children: [
+                {
+                  type: "Icon",
+                  name: "Zap",
+                  className: "w-5 h-5 text-blue-500 mt-0.5",
+                },
+                {
+                  type: "Box",
+                  children: [
+                    { type: "Text", className: "font-medium", children: "Instant notifications" },
+                    { type: "Text", className: "text-sm text-muted-foreground", children: "Stay updated with real-time alerts and mentions" },
+                  ],
+                },
+              ],
+            },
+            {
+              type: "Flex",
+              align: "start",
+              gap: 3,
+              children: [
+                {
+                  type: "Icon",
+                  name: "Shield",
+                  className: "w-5 h-5 text-blue-500 mt-0.5",
+                },
+                {
+                  type: "Box",
+                  children: [
+                    { type: "Text", className: "font-medium", children: "Secure sharing" },
+                    { type: "Text", className: "text-sm text-muted-foreground", children: "Enterprise-grade security for all your shared content" },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
 export const AlternatingFeatures: Story = {
   render: () => (
@@ -411,56 +639,146 @@ export const ServicesGrid: Story = {
   },
 };
 
-export const SplitBackground: Story = {
-  args: {
-    variant: "split",
-    background: {
-      type: "gradient",
-      value: "linear-gradient(to right, #4f46e5 0%, #4f46e5 50%, #f3f4f6 50%, #f3f4f6 100%)",
+export const SplitBackground = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      variant: "split",
+      background: {
+        type: "gradient",
+        value: "linear-gradient(to right, #4f46e5 0%, #4f46e5 50%, #f3f4f6 50%, #f3f4f6 100%)",
+      },
+      children: (
+        <>
+          <div className="text-white">
+            <h3 className="text-3xl font-bold mb-4">Left Side Content</h3>
+            <p className="text-lg mb-6">
+              This side has a colored background that complements the content on the right.
+            </p>
+            <Button variant="secondary">Learn More</Button>
+          </div>
+          <div>
+            <h3 className="text-3xl font-bold mb-4">Right Side Content</h3>
+            <p className="text-lg text-muted-foreground mb-6">
+              This side has a light background for contrast and visual balance.
+            </p>
+            <Button>Get Started</Button>
+          </div>
+        </>
+      ),
     },
-    children: (
-      <>
-        <div className="text-white">
-          <h3 className="text-3xl font-bold mb-4">Left Side Content</h3>
-          <p className="text-lg mb-6">
-            This side has a colored background that complements the content on the right.
-          </p>
-          <Button variant="secondary">Learn More</Button>
-        </div>
-        <div>
-          <h3 className="text-3xl font-bold mb-4">Right Side Content</h3>
-          <p className="text-lg text-muted-foreground mb-6">
-            This side has a light background for contrast and visual balance.
-          </p>
-          <Button>Get Started</Button>
-        </div>
-      </>
-    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Left Side Content")).toBeInTheDocument();
+      await expect(canvas.getByText("Right Side Content")).toBeInTheDocument();
+      await expect(canvas.getByText("Learn More")).toBeInTheDocument();
+      await expect(canvas.getByText("Get Started")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        {
+          type: "Box",
+          className: "text-white",
+          children: [
+            { type: "Heading", level: "h3", className: "text-3xl font-bold mb-4", children: "Left Side Content" },
+            { type: "Text", className: "text-lg mb-6", children: "This side has a colored background that complements the content on the right." },
+            { type: "Button", variant: "secondary", children: "Learn More" },
+          ],
+        },
+        {
+          type: "Box",
+          children: [
+            { type: "Heading", level: "h3", className: "text-3xl font-bold mb-4", children: "Right Side Content" },
+            { type: "Text", className: "text-lg text-muted-foreground mb-6", children: "This side has a light background for contrast and visual balance." },
+            { type: "Button", children: "Get Started" },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
-export const WithWaveDividers: Story = {
-  args: {
-    variant: "full-width",
-    background: {
-      type: "color",
-      value: "#1e40af",
+export const WithWaveDividers = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      variant: "full-width",
+      background: {
+        type: "color",
+        value: "#1e40af",
+      },
+      dividerTop: "wave",
+      dividerBottom: "wave",
+      dividerColor: "#ffffff",
+      heading: {
+        title: "Wave Dividers",
+        subtitle: "Smooth wave shapes at top and bottom",
+        alignment: "center",
+      },
+      children: (
+        <div className="text-white">
+          <SampleContent />
+        </div>
+      ),
     },
-    dividerTop: "wave",
-    dividerBottom: "wave",
-    dividerColor: "#ffffff",
-    heading: {
-      title: "Wave Dividers",
-      subtitle: "Smooth wave shapes at top and bottom",
-      alignment: "center",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Wave Dividers")).toBeInTheDocument();
+      await expect(canvas.getByText("Smooth wave shapes at top and bottom")).toBeInTheDocument();
+      // Verify sample content
+      await expect(canvas.getByText("Feature One")).toBeInTheDocument();
+      await expect(canvas.getByText("Feature Two")).toBeInTheDocument();
+      await expect(canvas.getByText("Feature Three")).toBeInTheDocument();
     },
-    children: (
-      <div className="text-white">
-        <SampleContent />
-      </div>
-    ),
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        {
+          type: "Box",
+          className: "text-white",
+          children: [
+            {
+              type: "Grid",
+              cols: { default: 1, md: 3 },
+              gap: 6,
+              children: [
+                {
+                  type: "Card",
+                  className: "p-6",
+                  children: [
+                    { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature One" },
+                    { type: "Text", className: "text-muted-foreground", children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt." },
+                  ],
+                },
+                {
+                  type: "Card",
+                  className: "p-6",
+                  children: [
+                    { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature Two" },
+                    { type: "Text", className: "text-muted-foreground", children: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip." },
+                  ],
+                },
+                {
+                  type: "Card",
+                  className: "p-6",
+                  children: [
+                    { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature Three" },
+                    { type: "Text", className: "text-muted-foreground", children: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat." },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
 export const WithAngleDividers: Story = {
   args: {
@@ -508,38 +826,138 @@ export const WithCurveDividers: Story = {
   },
 };
 
-export const WithBackgroundImage: Story = {
-  args: {
-    variant: "full-width",
-    background: {
-      type: "image",
-      value: "https://placehold.co/1600x900/EEE/31343C",
-      opacity: 0.1,
+export const WithBackgroundImage = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      variant: "full-width",
+      background: {
+        type: "image",
+        value: "https://placehold.co/1600x900/EEE/31343C",
+        opacity: 0.1,
+      },
+      heading: {
+        title: "Background Image Section",
+        subtitle: "Beautiful background images with opacity control",
+        alignment: "center",
+      },
+      children: <SampleContent />,
     },
-    heading: {
-      title: "Background Image Section",
-      subtitle: "Beautiful background images with opacity control",
-      alignment: "center",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Background Image Section")).toBeInTheDocument();
+      await expect(canvas.getByText("Beautiful background images with opacity control")).toBeInTheDocument();
+      // Verify sample content renders
+      await expect(canvas.getByText("Feature One")).toBeInTheDocument();
+      await expect(canvas.getByText("Feature Two")).toBeInTheDocument();
+      await expect(canvas.getByText("Feature Three")).toBeInTheDocument();
     },
-    children: <SampleContent />,
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        {
+          type: "Grid",
+          cols: { default: 1, md: 3 },
+          gap: 6,
+          children: [
+            {
+              type: "Card",
+              className: "p-6",
+              children: [
+                { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature One" },
+                { type: "Text", className: "text-muted-foreground", children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt." },
+              ],
+            },
+            {
+              type: "Card",
+              className: "p-6",
+              children: [
+                { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature Two" },
+                { type: "Text", className: "text-muted-foreground", children: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip." },
+              ],
+            },
+            {
+              type: "Card",
+              className: "p-6",
+              children: [
+                { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature Three" },
+                { type: "Text", className: "text-muted-foreground", children: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat." },
+              ],
+            },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
-export const WithPattern: Story = {
-  args: {
-    variant: "contained",
-    background: {
-      type: "pattern",
-      value: "dots",
+export const WithPattern = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      variant: "contained",
+      background: {
+        type: "pattern",
+        value: "dots",
+      },
+      heading: {
+        title: "Pattern Background",
+        subtitle: "Subtle patterns for visual interest",
+        alignment: "center",
+      },
+      children: <SampleContent />,
     },
-    heading: {
-      title: "Pattern Background",
-      subtitle: "Subtle patterns for visual interest",
-      alignment: "center",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Pattern Background")).toBeInTheDocument();
+      await expect(canvas.getByText("Subtle patterns for visual interest")).toBeInTheDocument();
+      // Verify sample content
+      await expect(canvas.getByText("Feature One")).toBeInTheDocument();
+      await expect(canvas.getByText("Feature Two")).toBeInTheDocument();
+      await expect(canvas.getByText("Feature Three")).toBeInTheDocument();
     },
-    children: <SampleContent />,
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        {
+          type: "Grid",
+          cols: { default: 1, md: 3 },
+          gap: 6,
+          children: [
+            {
+              type: "Card",
+              className: "p-6",
+              children: [
+                { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature One" },
+                { type: "Text", className: "text-muted-foreground", children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt." },
+              ],
+            },
+            {
+              type: "Card",
+              className: "p-6",
+              children: [
+                { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature Two" },
+                { type: "Text", className: "text-muted-foreground", children: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip." },
+              ],
+            },
+            {
+              type: "Card",
+              className: "p-6",
+              children: [
+                { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature Three" },
+                { type: "Text", className: "text-muted-foreground", children: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat." },
+              ],
+            },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
 export const WithParallax: Story = {
   args: {
@@ -563,88 +981,209 @@ export const WithParallax: Story = {
   },
 };
 
-export const WithAnimation: Story = {
-  args: {
-    variant: "contained",
-    background: {
-      type: "gradient",
-      value: "linear-gradient(135deg, #6B73FF 0%, #000DFF 100%)",
+export const WithAnimation = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      variant: "contained",
+      background: {
+        type: "gradient",
+        value: "linear-gradient(135deg, #6B73FF 0%, #000DFF 100%)",
+      },
+      animate: true,
+      animationType: "slide",
+      heading: {
+        title: "Animated Section",
+        subtitle: "Content slides in when scrolled into view",
+        alignment: "center",
+      },
+      children: (
+        <div className="text-white">
+          <SampleContent />
+        </div>
+      ),
     },
-    animate: true,
-    animationType: "slide",
-    heading: {
-      title: "Animated Section",
-      subtitle: "Content slides in when scrolled into view",
-      alignment: "center",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Animated Section")).toBeInTheDocument();
+      await expect(canvas.getByText("Content slides in when scrolled into view")).toBeInTheDocument();
+      // Verify sample content renders
+      await expect(canvas.getByText("Feature One")).toBeInTheDocument();
+      await expect(canvas.getByText("Feature Two")).toBeInTheDocument();
+      await expect(canvas.getByText("Feature Three")).toBeInTheDocument();
     },
-    children: (
-      <div className="text-white">
-        <SampleContent />
-      </div>
-    ),
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        {
+          type: "Box",
+          className: "text-white",
+          children: [
+            {
+              type: "Grid",
+              cols: { default: 1, md: 3 },
+              gap: 6,
+              children: [
+                {
+                  type: "Card",
+                  className: "p-6",
+                  children: [
+                    { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature One" },
+                    { type: "Text", className: "text-muted-foreground", children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt." },
+                  ],
+                },
+                {
+                  type: "Card",
+                  className: "p-6",
+                  children: [
+                    { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature Two" },
+                    { type: "Text", className: "text-muted-foreground", children: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip." },
+                  ],
+                },
+                {
+                  type: "Card",
+                  className: "p-6",
+                  children: [
+                    { type: "Heading", level: "h3", className: "text-xl font-semibold mb-3", children: "Feature Three" },
+                    { type: "Text", className: "text-muted-foreground", children: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat." },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
-export const MinimalPadding: Story = {
-  args: {
-    variant: "full-width",
-    padding: "sm",
-    background: {
-      type: "color",
-      value: "#fef3c7",
+export const MinimalPadding = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      variant: "full-width",
+      padding: "sm",
+      background: {
+        type: "color",
+        value: "#fef3c7",
+      },
+      heading: {
+        title: "Minimal Padding",
+        alignment: "left",
+      },
+      contentAlignment: "left",
+      children: (
+        <p className="text-lg">This section has minimal padding for a more compact appearance.</p>
+      ),
     },
-    heading: {
-      title: "Minimal Padding",
-      alignment: "left",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Minimal Padding")).toBeInTheDocument();
+      await expect(canvas.getByText("This section has minimal padding for a more compact appearance.")).toBeInTheDocument();
     },
-    contentAlignment: "left",
-    children: (
-      <p className="text-lg">This section has minimal padding for a more compact appearance.</p>
-    ),
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        { type: "Text", className: "text-lg", children: "This section has minimal padding for a more compact appearance." },
+      ];
+      return spec;
+    },
+  }
+);
 
-export const ExtraPadding: Story = {
-  args: {
-    variant: "contained",
-    padding: "2xl",
-    background: {
-      type: "gradient",
-      value: "linear-gradient(to bottom, #e0e7ff, #c7d2fe)",
+export const ExtraPadding = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      variant: "contained",
+      padding: "2xl",
+      background: {
+        type: "gradient",
+        value: "linear-gradient(to bottom, #e0e7ff, #c7d2fe)",
+      },
+      heading: {
+        title: "Extra Large Padding",
+        subtitle: "More breathing room for important content",
+        alignment: "center",
+      },
+      children: (
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-xl mb-8">
+            Sometimes you need extra space to let your content breathe and create visual hierarchy.
+          </p>
+          <Button size="lg">Call to Action</Button>
+        </div>
+      ),
     },
-    heading: {
-      title: "Extra Large Padding",
-      subtitle: "More breathing room for important content",
-      alignment: "center",
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Extra Large Padding")).toBeInTheDocument();
+      await expect(canvas.getByText("More breathing room for important content")).toBeInTheDocument();
+      await expect(canvas.getByText(/Sometimes you need extra space/)).toBeInTheDocument();
+      await expect(canvas.getByText("Call to Action")).toBeInTheDocument();
     },
-    children: (
-      <div className="max-w-2xl mx-auto text-center">
-        <p className="text-xl mb-8">
-          Sometimes you need extra space to let your content breathe and create visual hierarchy.
-        </p>
-        <Button size="lg">Call to Action</Button>
-      </div>
-    ),
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        {
+          type: "Box",
+          className: "max-w-2xl mx-auto text-center",
+          children: [
+            { type: "Text", className: "text-xl mb-8", children: "Sometimes you need extra space to let your content breathe and create visual hierarchy." },
+            { type: "Button", size: "lg", children: "Call to Action" },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
-export const RightAligned: Story = {
-  args: {
-    variant: "contained",
-    contentAlignment: "right",
-    heading: {
-      title: "Right Aligned Content",
-      subtitle: "Everything aligned to the right",
-      alignment: "right",
+export const RightAligned = enhanceStoryForDualMode<typeof PageSection>(
+  {
+    args: {
+      variant: "contained",
+      contentAlignment: "right",
+      heading: {
+        title: "Right Aligned Content",
+        subtitle: "Everything aligned to the right",
+        alignment: "right",
+      },
+      children: (
+        <div>
+          <p className="mb-4">This content is right-aligned for specific design needs.</p>
+          <Button>Right Aligned Button</Button>
+        </div>
+      ),
     },
-    children: (
-      <div>
-        <p className="mb-4">This content is right-aligned for specific design needs.</p>
-        <Button>Right Aligned Button</Button>
-      </div>
-    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Right Aligned Content")).toBeInTheDocument();
+      await expect(canvas.getByText("Everything aligned to the right")).toBeInTheDocument();
+      await expect(canvas.getByText("This content is right-aligned for specific design needs.")).toBeInTheDocument();
+      await expect(canvas.getByText("Right Aligned Button")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: (args: Record<string, unknown>) => {
+      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      spec.children = [
+        {
+          type: "Box",
+          children: [
+            { type: "Text", className: "mb-4", children: "This content is right-aligned for specific design needs." },
+            { type: "Button", children: "Right Aligned Button" },
+          ],
+        },
+      ];
+      return spec;
+    },
+  }
+);
 
 export const ProcessSection: Story = {
   args: {

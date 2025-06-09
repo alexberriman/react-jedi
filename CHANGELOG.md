@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-09]
 
+- **Implement dual-mode story functionality for ProcessSteps component. CRITICAL: The args MUST use type 'ProcessSteps' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (step numbers, titles, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
+
+
+## [2025-06-09]
+
 - **Implement dual-mode story functionality for PricingTable component. CRITICAL: The args MUST use type 'PricingTable' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (pricing tiers, features, prices, CTA buttons, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
 
 

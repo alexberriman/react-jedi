@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { StatBlock } from "./stat-block";
 import type { StatBlockDef } from "../../../types/components/stat-block";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 
 const meta: Meta<typeof StatBlock> = {
   title: "Blocks/StatBlock",
@@ -50,16 +52,41 @@ const basicStats: StatBlockDef["stats"] = [
   },
 ];
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode({
   args: {
     spec: {
       type: "StatBlock",
       stats: basicStats,
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify stat labels
+    expect(canvas.getByText("Total Revenue")).toBeInTheDocument();
+    expect(canvas.getByText("Active Users")).toBeInTheDocument();
+    expect(canvas.getByText("Orders")).toBeInTheDocument();
+    expect(canvas.getByText("Conversion Rate")).toBeInTheDocument();
+    
+    // Verify stat values
+    expect(canvas.getByText("125,420")).toBeInTheDocument();
+    expect(canvas.getByText("8,234")).toBeInTheDocument();
+    expect(canvas.getByText("456")).toBeInTheDocument();
+    expect(canvas.getByText("3.24")).toBeInTheDocument();
+    
+    // Verify prefix/suffix
+    expect(canvas.getByText("$")).toBeInTheDocument();
+    expect(canvas.getByText("%")).toBeInTheDocument();
+    
+    // Verify trend indicators
+    expect(canvas.getByText("+12.5%")).toBeInTheDocument();
+    expect(canvas.getByText("+8.2%")).toBeInTheDocument();
+    expect(canvas.getByText("-3.1%")).toBeInTheDocument();
+    expect(canvas.getByText("+0.8%")).toBeInTheDocument();
+  },
+});
 
-export const GridVariant: Story = {
+export const GridVariant: Story = enhanceStoryForDualMode({
   args: {
     spec: {
       type: "StatBlock",
@@ -70,9 +97,22 @@ export const GridVariant: Story = {
       showBorder: true,
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all stats are rendered in grid layout
+    expect(canvas.getByText("Total Revenue")).toBeInTheDocument();
+    expect(canvas.getByText("Active Users")).toBeInTheDocument();
+    expect(canvas.getByText("Orders")).toBeInTheDocument();
+    expect(canvas.getByText("Conversion Rate")).toBeInTheDocument();
+    
+    // Verify borders are shown (grid should have borders when showBorder is true)
+    const container = canvasElement.querySelector('.grid');
+    expect(container).toBeInTheDocument();
+  },
+});
 
-export const CardVariant: Story = {
+export const CardVariant: Story = enhanceStoryForDualMode({
   args: {
     spec: {
       type: "StatBlock",
@@ -82,7 +122,18 @@ export const CardVariant: Story = {
       gap: "md",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify stats are rendered in card layout
+    expect(canvas.getByText("Total Revenue")).toBeInTheDocument();
+    expect(canvas.getByText("Active Users")).toBeInTheDocument();
+    
+    // Verify card styling is applied
+    const cardElements = canvasElement.querySelectorAll('[class*="border"]');
+    expect(cardElements.length).toBeGreaterThan(0);
+  },
+});
 
 export const HorizontalVariant: Story = {
   args: {
@@ -158,7 +209,7 @@ export const DetailedVariant: Story = {
   },
 };
 
-export const WithIconPositions: Story = {
+export const WithIconPositions: Story = enhanceStoryForDualMode({
   args: {
     spec: {
       type: "StatBlock",
@@ -186,7 +237,24 @@ export const WithIconPositions: Story = {
       showBorder: true,
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all stat labels
+    expect(canvas.getByText("Top Icon")).toBeInTheDocument();
+    expect(canvas.getByText("Left Icon")).toBeInTheDocument();
+    expect(canvas.getByText("Right Icon")).toBeInTheDocument();
+    
+    // Verify all stat values
+    expect(canvas.getByText("125")).toBeInTheDocument();
+    expect(canvas.getByText("456")).toBeInTheDocument();
+    expect(canvas.getByText("789")).toBeInTheDocument();
+    
+    // Verify icons are present with different positions
+    const icons = canvasElement.querySelectorAll('svg');
+    expect(icons.length).toBe(3);
+  },
+});
 
 export const DifferentSizes: Story = {
   args: {
@@ -205,7 +273,7 @@ export const DifferentSizes: Story = {
   },
 };
 
-export const ColorVariations: Story = {
+export const ColorVariations: Story = enhanceStoryForDualMode({
   args: {
     spec: {
       type: "StatBlock",
@@ -221,7 +289,30 @@ export const ColorVariations: Story = {
       showBackground: true,
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all color variant labels
+    expect(canvas.getByText("Default")).toBeInTheDocument();
+    expect(canvas.getByText("Primary")).toBeInTheDocument();
+    expect(canvas.getByText("Secondary")).toBeInTheDocument();
+    expect(canvas.getByText("Success")).toBeInTheDocument();
+    expect(canvas.getByText("Warning")).toBeInTheDocument();
+    expect(canvas.getByText("Error")).toBeInTheDocument();
+    
+    // Verify all values
+    expect(canvas.getByText("100")).toBeInTheDocument();
+    expect(canvas.getByText("200")).toBeInTheDocument();
+    expect(canvas.getByText("300")).toBeInTheDocument();
+    expect(canvas.getByText("400")).toBeInTheDocument();
+    expect(canvas.getByText("500")).toBeInTheDocument();
+    expect(canvas.getByText("600")).toBeInTheDocument();
+    
+    // Verify background styling is applied
+    const backgroundElements = canvasElement.querySelectorAll('[class*="bg-"]');
+    expect(backgroundElements.length).toBeGreaterThan(0);
+  },
+});
 
 export const NoAnimation: Story = {
   args: {
@@ -306,7 +397,7 @@ export const ResponsiveColumns: Story = {
   },
 };
 
-export const DashboardExample: Story = {
+export const DashboardExample: Story = enhanceStoryForDualMode({
   args: {
     spec: {
       type: "StatBlock",
@@ -354,7 +445,38 @@ export const DashboardExample: Story = {
       staggerDelay: 150,
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify main stats
+    expect(canvas.getByText("Total Sales")).toBeInTheDocument();
+    expect(canvas.getByText("New Customers")).toBeInTheDocument();
+    expect(canvas.getByText("Avg Order Value")).toBeInTheDocument();
+    expect(canvas.getByText("Customer Satisfaction")).toBeInTheDocument();
+    
+    // Verify formatted values
+    expect(canvas.getByText("2,453,080")).toBeInTheDocument();
+    expect(canvas.getByText("1,247")).toBeInTheDocument();
+    expect(canvas.getByText("148.32")).toBeInTheDocument();
+    expect(canvas.getByText("4.8")).toBeInTheDocument();
+    
+    // Verify descriptions are shown
+    expect(canvas.getByText("Gross sales including all channels")).toBeInTheDocument();
+    expect(canvas.getByText("Customers acquired this month")).toBeInTheDocument();
+    expect(canvas.getByText("Average transaction size")).toBeInTheDocument();
+    expect(canvas.getByText("Based on 2,341 reviews")).toBeInTheDocument();
+    
+    // Verify trend indicators
+    expect(canvas.getByText("+15.3%")).toBeInTheDocument();
+    expect(canvas.getByText("+22.4%")).toBeInTheDocument();
+    expect(canvas.getByText("-2.1%")).toBeInTheDocument();
+    expect(canvas.getByText("+3.2%")).toBeInTheDocument();
+    
+    // Verify icons are present (check for SVG elements)
+    const icons = canvasElement.querySelectorAll('svg');
+    expect(icons.length).toBeGreaterThan(0);
+  },
+});
 
 export const GradientVariant: Story = {
   args: {

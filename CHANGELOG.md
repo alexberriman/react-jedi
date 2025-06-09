@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-09]
 
+- **Implement dual-mode story functionality for PhotoGallery component. CRITICAL: The args MUST use type 'PhotoGallery' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (images, captions, grid layout, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
+
+
+## [2025-06-09]
+
 - **Implement dual-mode story functionality for PhotoFlipCard component. CRITICAL: The args MUST use type 'PhotoFlipCard' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (front/back content, images, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
 
 

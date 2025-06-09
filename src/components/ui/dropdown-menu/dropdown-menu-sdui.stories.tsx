@@ -181,16 +181,27 @@ export const WithCheckboxesSDUI: Story = {
     const triggerButton = canvas.getByRole("button", { name: /open menu/i });
     await user.click(triggerButton);
 
-    // Wait for menu to appear
+    // Wait for menu to appear and animation to complete
     await waitFor(() => {
       expect(within(document.body).getByText("Appearance")).toBeInTheDocument();
     });
+
+    // Add a small delay to ensure animations are complete
+    await new Promise(resolve => globalThis.setTimeout(resolve, 100));
 
     // Verify initial checkbox states
     const statusBarCheckbox = within(document.body).getByRole("menuitemcheckbox", {
       name: /status bar/i,
     });
     expect(statusBarCheckbox).toHaveAttribute("aria-checked", "true");
+
+    // Close menu to clean up
+    await user.keyboard("{Escape}");
+    
+    // Wait for menu to disappear
+    await waitFor(() => {
+      expect(within(document.body).queryByText("Appearance")).not.toBeInTheDocument();
+    });
   },
 };
 
@@ -208,6 +219,33 @@ export const SimpleSeparator: Story = enhanceStoryForDualMode(
         </DropdownMenuContent>
       </DropdownMenu>
     ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
+
+      // Open dropdown
+      const triggerButton = canvas.getByRole("button", { name: /menu/i });
+      await user.click(triggerButton);
+
+      // Wait for menu to appear and animation to complete
+      await waitFor(() => {
+        expect(within(document.body).getByText("Item 1")).toBeInTheDocument();
+      });
+
+      // Add a small delay to ensure animations are complete
+      await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+
+      // Verify menu items
+      expect(within(document.body).getByText("Item 2")).toBeInTheDocument();
+
+      // Close menu
+      await user.keyboard("{Escape}");
+      
+      // Wait for menu to disappear
+      await waitFor(() => {
+        expect(within(document.body).queryByText("Item 1")).not.toBeInTheDocument();
+      });
+    },
   },
   {
     renderSpec: {

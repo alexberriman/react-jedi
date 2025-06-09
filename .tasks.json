@@ -71,7 +71,7 @@
       {
         "id": "investigate-dropdown-menu-sdui-stories",
         "description": "Investigate test errors and warnings in src/components/ui/dropdown-menu/dropdown-menu-sdui.stories.tsx. Read the error log at ./tmp/tests/dropdown-menu-sdui.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- dropdown-menu-sdui.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-hover-card-stories",

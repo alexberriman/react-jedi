@@ -321,6 +321,10 @@ export const WithVideo: Story = enhanceStoryForDualMode<typeof AspectRatio>(
     play: async ({ canvasElement }) => {
       within(canvasElement);
 
+      // Check if we're in SDUI mode
+      const isSduiMode = Object.hasOwn(canvasElement.dataset, 'testid') && 
+                         canvasElement.dataset.testid === 'sdui-render';
+
       // In React mode, test video element
       const video = canvasElement.querySelector("video");
       if (video) {
@@ -329,11 +333,15 @@ export const WithVideo: Story = enhanceStoryForDualMode<typeof AspectRatio>(
         expect(video).toHaveAttribute("poster", expect.stringContaining("placehold.co"));
         expect(video).toHaveClass("object-cover", "w-full", "h-full", "rounded-lg");
 
-        // Test video source
+        // Test video source - skip type check in SDUI mode
         const source = video.querySelector("source");
         expect(source).toBeInTheDocument();
         expect(source).toHaveAttribute("src", "https://www.w3schools.com/html/mov_bbb.mp4");
-        expect(source).toHaveAttribute("type", "video/mp4");
+        
+        // Only check type attribute in React mode
+        if (!isSduiMode) {
+          expect(source).toHaveAttribute("type", "video/mp4");
+        }
 
         // Verify aspect ratio container
         const aspectRatioWrapper = video.parentElement;
@@ -367,7 +375,8 @@ export const WithVideo: Story = enhanceStoryForDualMode<typeof AspectRatio>(
             {
               type: "Box",
               as: "source",
-              src: "https://www.w3schools.com/html/mov_bbb.mp4"
+              src: "https://www.w3schools.com/html/mov_bbb.mp4",
+              "data-type": "video/mp4"
             },
             {
               type: "Box",

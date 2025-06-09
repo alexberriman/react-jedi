@@ -138,7 +138,7 @@ export const Vertical: Story = {
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(
       async () => {
-        return canvas.getByRole("group");
+        return canvas.getByRole("navigation");
       },
       { timeout: 5000 }
     );
@@ -180,7 +180,7 @@ export const Horizontal: Story = {
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(
       async () => {
-        return canvas.getByRole("group");
+        return canvas.getByRole("navigation");
       },
       { timeout: 5000 }
     );
@@ -216,7 +216,7 @@ export const WithoutShortcuts: Story = {
     // Wait for menu to render without shortcuts
     const menu = await waitFor(
       async () => {
-        return canvas.getByRole("group");
+        return canvas.getByRole("navigation");
       },
       { timeout: 5000 }
     );
@@ -288,7 +288,7 @@ export const NestedMenus: Story = {
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(
       async () => {
-        return canvas.getByRole("group");
+        return canvas.getByRole("navigation");
       },
       { timeout: 5000 }
     );
@@ -373,7 +373,7 @@ export const AccessibilityDemo: Story = {
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(
       async () => {
-        return canvas.getByRole("group");
+        return canvas.getByRole("navigation");
       },
       { timeout: 5000 }
     );

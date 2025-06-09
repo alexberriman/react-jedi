@@ -104,6 +104,9 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
       
       const reactContainer = decoratorContainer.querySelector('[data-testid="react-render"]');
       if (reactContainer) {
+        // Wait for images to start loading
+        await new Promise(resolve => globalThis.setTimeout(resolve, 300));
+        
         const reactContext = {
           ...context,
           canvasElement: reactContainer as HTMLElement
@@ -131,6 +134,9 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
             console.log('⚠️ Skipping SDUI tests - no renderSpec provided');
             return;
           }
+          
+          // Wait for images to start loading
+          await new Promise(resolve => globalThis.setTimeout(resolve, 300));
           
           const sduiContext = {
             ...context,

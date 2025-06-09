@@ -3,7 +3,7 @@
   "properties": {
     "type": {
       "type": "string",
-      "const": "feature-card"
+      "const": "FeatureCard"
     },
     "id": {
       "type": "string",
@@ -27,6 +27,18 @@
       "description": "Color for the icon",
       "default": "currentColor"
     },
+    "iconSize": {
+      "type": "string",
+      "enum": ["sm", "md", "lg", "xl"],
+      "default": "md",
+      "description": "Size of the icon"
+    },
+    "iconPosition": {
+      "type": "string",
+      "enum": ["top", "left", "right", "background"],
+      "default": "top",
+      "description": "Position of the icon"
+    },
     "badge": {
       "type": "string",
       "description": "Badge text to display"
@@ -39,15 +51,9 @@
     },
     "variant": {
       "type": "string",
-      "enum": ["default", "highlighted", "minimal", "bordered"],
+      "enum": ["default", "highlighted", "minimal", "bordered", "gradient", "shadow", "glass"],
       "default": "default",
       "description": "Visual style variant for the card"
-    },
-    "orientation": {
-      "type": "string",
-      "enum": ["vertical", "horizontal"],
-      "default": "vertical",
-      "description": "Layout orientation"
     },
     "align": {
       "type": "string",
@@ -65,13 +71,71 @@
       "description": "Custom highlight color",
       "default": "hsl(var(--primary))"
     },
+    "gradientFrom": {
+      "type": "string",
+      "description": "Starting color for gradient variant"
+    },
+    "gradientTo": {
+      "type": "string",
+      "description": "Ending color for gradient variant"
+    },
+    "gradientDirection": {
+      "type": "string",
+      "enum": ["to-r", "to-br", "to-b", "to-bl", "to-l", "to-tl", "to-t", "to-tr"],
+      "default": "to-br",
+      "description": "Direction of gradient"
+    },
+    "borderStyle": {
+      "type": "string",
+      "enum": ["none", "solid", "dashed", "dotted", "double"],
+      "default": "solid",
+      "description": "Border style"
+    },
+    "shadowSize": {
+      "type": "string",
+      "enum": ["none", "sm", "md", "lg", "xl", "2xl"],
+      "default": "sm",
+      "description": "Shadow size"
+    },
+    "hoverEffect": {
+      "type": "string",
+      "enum": ["none", "lift", "glow", "pulse", "rotate"],
+      "default": "lift",
+      "description": "Hover effect"
+    },
+    "cta": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "CTA button text"
+        },
+        "variant": {
+          "type": "string",
+          "enum": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+          "description": "Button variant"
+        },
+        "href": {
+          "type": "string",
+          "description": "URL to navigate to"
+        }
+      },
+      "required": ["text"],
+      "description": "Call to action button"
+    },
     "link": {
       "type": "string",
       "description": "URL to navigate to when clicked"
     },
-    "onClick": {
-      "type": "string",
-      "description": "Click handler action"
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to animate the card"
+    },
+    "animationDelay": {
+      "type": "number",
+      "default": 0,
+      "description": "Animation delay in seconds"
     },
     "className": {
       "type": "string",
@@ -83,6 +147,10 @@
         "$ref": "#/definitions/componentSpecification"
       },
       "description": "Nested child components"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category for filtering in tabbed views"
     }
   },
   "required": ["type", "title"],

@@ -1,19 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FeatureCard, FeatureCardGrid, TabbedFeatureCards } from "./feature-card";
+import { expect, within } from "storybook/test";
+import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
 import {
   Zap,
   Shield,
   Rocket,
-  Users,
   BarChart,
-  Code,
-  Cloud,
-  Sparkles,
-  Heart,
-  Star,
-  Globe,
-  Cpu,
-  Database,
   Settings,
   Package,
 } from "lucide-react";
@@ -76,183 +69,455 @@ const meta: Meta<typeof FeatureCard> = {
 export default meta;
 type Story = StoryObj<typeof FeatureCard>;
 
-export const Default: Story = {
-  args: {
-    title: "Lightning Fast",
-    description: "Experience blazing fast performance with our optimized infrastructure.",
-    icon: Zap,
-    iconColor: "#FFB800",
+export const Default: Story = enhanceStoryForDualMode<typeof FeatureCard>(
+  {
+    args: {
+      title: "Lightning Fast",
+      description: "Experience blazing fast performance with our optimized infrastructure.",
+      icon: "Zap",
+      iconColor: "#FFB800",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test that the title renders
+      expect(canvas.getByText("Lightning Fast")).toBeInTheDocument();
+      
+      // Test that the description renders
+      expect(canvas.getByText("Experience blazing fast performance with our optimized infrastructure.")).toBeInTheDocument();
+      
+      // Test that the icon container renders
+      const iconContainer = canvasElement.querySelector('[data-slot="icon"]');
+      expect(iconContainer).toBeInTheDocument();
+      
+      // Test that the card has the correct role
+      expect(canvas.getByRole("article")).toBeInTheDocument();
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "FeatureCard",
+      title: "Lightning Fast",
+      description: "Experience blazing fast performance with our optimized infrastructure.",
+      icon: "Zap",
+      iconColor: "#FFB800",
+    },
+  }
+) as Story;
 
-export const IconPositions: Story = {
-  render: () => (
-    <div className="space-y-6">
-      <FeatureCard
-        title="Icon Top (Default)"
-        description="The icon is positioned at the top of the card."
-        icon={Rocket}
-        iconPosition="top"
-        iconColor="#FF6B6B"
-      />
+export const IconPositions: Story = enhanceStoryForDualMode<typeof FeatureCard>(
+  {
+    render: () => (
+      <div className="space-y-6">
+        <FeatureCard
+          title="Icon Top (Default)"
+          description="The icon is positioned at the top of the card."
+          icon="Rocket"
+          iconPosition="top"
+          iconColor="#FF6B6B"
+        />
 
-      <FeatureCard
-        title="Icon Left"
-        description="The icon is positioned to the left of the content."
-        icon={Shield}
-        iconPosition="left"
-        iconColor="#4ECDC4"
-      />
+        <FeatureCard
+          title="Icon Left"
+          description="The icon is positioned to the left of the content."
+          icon="Shield"
+          iconPosition="left"
+          iconColor="#4ECDC4"
+        />
 
-      <FeatureCard
-        title="Icon Right"
-        description="The icon is positioned to the right of the content."
-        icon={Users}
-        iconPosition="right"
-        iconColor="#45B7D1"
-      />
+        <FeatureCard
+          title="Icon Right"
+          description="The icon is positioned to the right of the content."
+          icon="Users"
+          iconPosition="right"
+          iconColor="#45B7D1"
+        />
 
-      <FeatureCard
-        title="Icon Background"
-        description="The icon appears as a subtle background element."
-        icon={Cloud}
-        iconPosition="background"
-        iconColor="#6C5CE7"
-      />
-    </div>
-  ),
-};
+        <FeatureCard
+          title="Icon Background"
+          description="The icon appears as a subtle background element."
+          icon="Cloud"
+          iconPosition="background"
+          iconColor="#6C5CE7"
+        />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test all four cards render
+      expect(canvas.getByText("Icon Top (Default)")).toBeInTheDocument();
+      expect(canvas.getByText("Icon Left")).toBeInTheDocument();
+      expect(canvas.getByText("Icon Right")).toBeInTheDocument();
+      expect(canvas.getByText("Icon Background")).toBeInTheDocument();
+      
+      // Test descriptions
+      expect(canvas.getByText("The icon is positioned at the top of the card.")).toBeInTheDocument();
+      expect(canvas.getByText("The icon is positioned to the left of the content.")).toBeInTheDocument();
+      expect(canvas.getByText("The icon is positioned to the right of the content.")).toBeInTheDocument();
+      expect(canvas.getByText("The icon appears as a subtle background element.")).toBeInTheDocument();
+      
+      // Test that we have 4 cards
+      const cards = canvas.getAllByRole("article");
+      expect(cards).toHaveLength(4);
+    },
+  },
+  {
+    renderSpec: {
+      type: "Box",
+      className: "space-y-6",
+      children: [
+        {
+          type: "FeatureCard",
+          title: "Icon Top (Default)",
+          description: "The icon is positioned at the top of the card.",
+          icon: "Rocket",
+          iconPosition: "top",
+          iconColor: "#FF6B6B",
+        },
+        {
+          type: "FeatureCard",
+          title: "Icon Left",
+          description: "The icon is positioned to the left of the content.",
+          icon: "Shield",
+          iconPosition: "left",
+          iconColor: "#4ECDC4",
+        },
+        {
+          type: "FeatureCard",
+          title: "Icon Right",
+          description: "The icon is positioned to the right of the content.",
+          icon: "Users",
+          iconPosition: "right",
+          iconColor: "#45B7D1",
+        },
+        {
+          type: "FeatureCard",
+          title: "Icon Background",
+          description: "The icon appears as a subtle background element.",
+          icon: "Cloud",
+          iconPosition: "background",
+          iconColor: "#6C5CE7",
+        },
+      ],
+    },
+  }
+) as Story;
 
-export const Variants: Story = {
-  render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <FeatureCard
-        title="Default Variant"
-        description="Standard card with subtle shadow and border."
-        icon={Code}
-        variant="default"
-      />
+export const Variants: Story = enhanceStoryForDualMode<typeof FeatureCard>(
+  {
+    render: () => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <FeatureCard
+          title="Default Variant"
+          description="Standard card with subtle shadow and border."
+          icon="Code"
+          variant="default"
+        />
 
-      <FeatureCard
-        title="Highlighted Variant"
-        description="Emphasized card with gradient background."
-        icon={Sparkles}
-        variant="highlighted"
-        iconColor="#FFD93D"
-      />
+        <FeatureCard
+          title="Highlighted Variant"
+          description="Emphasized card with gradient background."
+          icon="Sparkles"
+          variant="highlighted"
+          iconColor="#FFD93D"
+        />
 
-      <FeatureCard
-        title="Minimal Variant"
-        description="Clean card without borders or shadows."
-        icon={Heart}
-        variant="minimal"
-        iconColor="#FF6B6B"
-      />
+        <FeatureCard
+          title="Minimal Variant"
+          description="Clean card without borders or shadows."
+          icon="Heart"
+          variant="minimal"
+          iconColor="#FF6B6B"
+        />
 
-      <FeatureCard
-        title="Bordered Variant"
-        description="Card with prominent border styling."
-        icon={Star}
-        variant="bordered"
-        iconColor="#FFB800"
-      />
+        <FeatureCard
+          title="Bordered Variant"
+          description="Card with prominent border styling."
+          icon="Star"
+          variant="bordered"
+          iconColor="#FFB800"
+        />
 
-      <FeatureCard
-        title="Gradient Variant"
-        description="Beautiful gradient background effect."
-        icon={Globe}
-        variant="gradient"
-        gradientFrom="#667eea"
-        gradientTo="#764ba2"
-        iconColor="#FFFFFF"
-      />
+        <FeatureCard
+          title="Gradient Variant"
+          description="Beautiful gradient background effect."
+          icon="Globe"
+          variant="gradient"
+          gradientFrom="#667eea"
+          gradientTo="#764ba2"
+          iconColor="#FFFFFF"
+        />
 
-      <FeatureCard
-        title="Shadow Variant"
-        description="Card with enhanced shadow depth."
-        icon={Database}
-        variant="shadow"
-        shadowSize="xl"
-      />
+        <FeatureCard
+          title="Shadow Variant"
+          description="Card with enhanced shadow depth."
+          icon="Database"
+          variant="shadow"
+          shadowSize="xl"
+        />
 
-      <FeatureCard
-        title="Glass Variant"
-        description="Modern glassmorphism effect."
-        icon={Cpu}
-        variant="glass"
-        iconColor="#00D9FF"
-      />
-    </div>
-  ),
-};
-
-export const WithCTA: Story = {
-  render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <FeatureCard
-        title="Get Started Today"
-        description="Join thousands of satisfied customers using our platform."
-        icon={Rocket}
-        iconColor="#FF6B6B"
-        cta={{
-          text: "Start Free Trial",
+        <FeatureCard
+          title="Glass Variant"
+          description="Modern glassmorphism effect."
+          icon="Cpu"
+          variant="glass"
+          iconColor="#00D9FF"
+        />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test all variant titles render
+      expect(canvas.getByText("Default Variant")).toBeInTheDocument();
+      expect(canvas.getByText("Highlighted Variant")).toBeInTheDocument();
+      expect(canvas.getByText("Minimal Variant")).toBeInTheDocument();
+      expect(canvas.getByText("Bordered Variant")).toBeInTheDocument();
+      expect(canvas.getByText("Gradient Variant")).toBeInTheDocument();
+      expect(canvas.getByText("Shadow Variant")).toBeInTheDocument();
+      expect(canvas.getByText("Glass Variant")).toBeInTheDocument();
+      
+      // Test that we have 7 cards
+      const cards = canvas.getAllByRole("article");
+      expect(cards).toHaveLength(7);
+    },
+  },
+  {
+    renderSpec: {
+      type: "Grid",
+      className: "grid-cols-1 md:grid-cols-2 gap-6",
+      children: [
+        {
+          type: "FeatureCard",
+          title: "Default Variant",
+          description: "Standard card with subtle shadow and border.",
+          icon: "Code",
           variant: "default",
-          onClick: () => alert("Starting free trial!"),
-        }}
-      />
+        },
+        {
+          type: "FeatureCard",
+          title: "Highlighted Variant",
+          description: "Emphasized card with gradient background.",
+          icon: "Sparkles",
+          variant: "highlighted",
+          iconColor: "#FFD93D",
+        },
+        {
+          type: "FeatureCard",
+          title: "Minimal Variant",
+          description: "Clean card without borders or shadows.",
+          icon: "Heart",
+          variant: "minimal",
+          iconColor: "#FF6B6B",
+        },
+        {
+          type: "FeatureCard",
+          title: "Bordered Variant",
+          description: "Card with prominent border styling.",
+          icon: "Star",
+          variant: "bordered",
+          iconColor: "#FFB800",
+        },
+        {
+          type: "FeatureCard",
+          title: "Gradient Variant",
+          description: "Beautiful gradient background effect.",
+          icon: "Globe",
+          variant: "gradient",
+          gradientFrom: "#667eea",
+          gradientTo: "#764ba2",
+          iconColor: "#FFFFFF",
+        },
+        {
+          type: "FeatureCard",
+          title: "Shadow Variant",
+          description: "Card with enhanced shadow depth.",
+          icon: "Database",
+          variant: "shadow",
+          shadowSize: "xl",
+        },
+        {
+          type: "FeatureCard",
+          title: "Glass Variant",
+          description: "Modern glassmorphism effect.",
+          icon: "Cpu",
+          variant: "glass",
+          iconColor: "#00D9FF",
+        },
+      ],
+    },
+  }
+) as Story;
 
-      <FeatureCard
-        title="Enterprise Solution"
-        description="Powerful features designed for large organizations."
-        icon={Shield}
-        iconColor="#4ECDC4"
-        badge="Popular"
-        cta={{
-          text: "Contact Sales",
-          variant: "outline",
-          href: "#contact",
-        }}
-      />
-    </div>
-  ),
-};
+export const WithCTA: Story = enhanceStoryForDualMode<typeof FeatureCard>(
+  {
+    render: () => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <FeatureCard
+          title="Get Started Today"
+          description="Join thousands of satisfied customers using our platform."
+          icon="Rocket"
+          iconColor="#FF6B6B"
+          cta={{
+            text: "Start Free Trial",
+            variant: "default",
+            onClick: () => alert("Starting free trial!"),
+          }}
+        />
 
-export const HoverEffects: Story = {
-  render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <FeatureCard
-        title="Lift Effect"
-        description="Card lifts up on hover."
-        icon={Zap}
-        hoverEffect="lift"
-      />
+        <FeatureCard
+          title="Enterprise Solution"
+          description="Powerful features designed for large organizations."
+          icon="Shield"
+          iconColor="#4ECDC4"
+          badge="Popular"
+          cta={{
+            text: "Contact Sales",
+            variant: "outline",
+            href: "#contact",
+          }}
+        />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test both cards render
+      expect(canvas.getByText("Get Started Today")).toBeInTheDocument();
+      expect(canvas.getByText("Enterprise Solution")).toBeInTheDocument();
+      
+      // Test CTAs render
+      expect(canvas.getByRole("button", { name: "Start Free Trial" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Contact Sales" })).toBeInTheDocument();
+      
+      // Test badge renders
+      expect(canvas.getByText("Popular")).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Grid",
+      className: "grid-cols-1 md:grid-cols-2 gap-6",
+      children: [
+        {
+          type: "FeatureCard",
+          title: "Get Started Today",
+          description: "Join thousands of satisfied customers using our platform.",
+          icon: "Rocket",
+          iconColor: "#FF6B6B",
+          cta: {
+            text: "Start Free Trial",
+            variant: "default",
+          },
+        },
+        {
+          type: "FeatureCard",
+          title: "Enterprise Solution",
+          description: "Powerful features designed for large organizations.",
+          icon: "Shield",
+          iconColor: "#4ECDC4",
+          badge: "Popular",
+          cta: {
+            text: "Contact Sales",
+            variant: "outline",
+          },
+        },
+      ],
+    },
+  }
+) as Story;
 
-      <FeatureCard
-        title="Glow Effect"
-        description="Card glows on hover."
-        icon={Sparkles}
-        hoverEffect="glow"
-        variant="gradient"
-      />
+export const HoverEffects: Story = enhanceStoryForDualMode<typeof FeatureCard>(
+  {
+    render: () => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <FeatureCard
+          title="Lift Effect"
+          description="Card lifts up on hover."
+          icon="Zap"
+          hoverEffect="lift"
+        />
 
-      <FeatureCard
-        title="Pulse Effect"
-        description="Card pulses on hover."
-        icon={Heart}
-        hoverEffect="pulse"
-        iconColor="#FF6B6B"
-      />
+        <FeatureCard
+          title="Glow Effect"
+          description="Card glows on hover."
+          icon="Sparkles"
+          hoverEffect="glow"
+          variant="gradient"
+        />
 
-      <FeatureCard
-        title="Rotate Effect"
-        description="Card slightly rotates on hover."
-        icon={Star}
-        hoverEffect="rotate"
-        iconColor="#FFB800"
-      />
-    </div>
-  ),
-};
+        <FeatureCard
+          title="Pulse Effect"
+          description="Card pulses on hover."
+          icon="Heart"
+          hoverEffect="pulse"
+          iconColor="#FF6B6B"
+        />
+
+        <FeatureCard
+          title="Rotate Effect"
+          description="Card slightly rotates on hover."
+          icon="Star"
+          hoverEffect="rotate"
+          iconColor="#FFB800"
+        />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Test all hover effect cards render
+      expect(canvas.getByText("Lift Effect")).toBeInTheDocument();
+      expect(canvas.getByText("Glow Effect")).toBeInTheDocument();
+      expect(canvas.getByText("Pulse Effect")).toBeInTheDocument();
+      expect(canvas.getByText("Rotate Effect")).toBeInTheDocument();
+      
+      // Test that we have 4 cards
+      const cards = canvas.getAllByRole("article");
+      expect(cards).toHaveLength(4);
+    },
+  },
+  {
+    renderSpec: {
+      type: "Grid",
+      className: "grid-cols-1 md:grid-cols-2 gap-6",
+      children: [
+        {
+          type: "FeatureCard",
+          title: "Lift Effect",
+          description: "Card lifts up on hover.",
+          icon: "Zap",
+          hoverEffect: "lift",
+        },
+        {
+          type: "FeatureCard",
+          title: "Glow Effect",
+          description: "Card glows on hover.",
+          icon: "Sparkles",
+          hoverEffect: "glow",
+          variant: "gradient",
+        },
+        {
+          type: "FeatureCard",
+          title: "Pulse Effect",
+          description: "Card pulses on hover.",
+          icon: "Heart",
+          hoverEffect: "pulse",
+          iconColor: "#FF6B6B",
+        },
+        {
+          type: "FeatureCard",
+          title: "Rotate Effect",
+          description: "Card slightly rotates on hover.",
+          icon: "Star",
+          hoverEffect: "rotate",
+          iconColor: "#FFB800",
+        },
+      ],
+    },
+  }
+) as Story;
 
 export const WithReactIcons: Story = {
   render: () => (

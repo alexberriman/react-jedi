@@ -296,8 +296,8 @@ export const RightSide = enhanceStoryForDualMode(
 
       // Wait for drawer - check multiple possible locations
       await waitFor(() => {
-        const drawerInBody = document.body.querySelector('[data-vaul-drawer]');
-        const drawerInCanvas = canvasElement.querySelector('[data-vaul-drawer]');
+        const drawerInBody = document.body.querySelector('[data-slot="drawer-content"]');
+        const drawerInCanvas = canvasElement.querySelector('[data-slot="drawer-content"]');
         const drawer = drawerInBody || drawerInCanvas;
         
         if (!drawer) {
@@ -309,7 +309,7 @@ export const RightSide = enhanceStoryForDualMode(
       }, { timeout: 10_000 });
 
       // Verify drawer is on the right (has data attribute)
-      const drawer = document.body.querySelector('[data-vaul-drawer]') || canvasElement.querySelector('[data-vaul-drawer]');
+      const drawer = document.body.querySelector('[data-slot="drawer-content"]') || canvasElement.querySelector('[data-slot="drawer-content"]');
       expect(drawer).toHaveAttribute("data-vaul-drawer-direction", "right");
 
       // Click a navigation button
@@ -322,7 +322,7 @@ export const RightSide = enhanceStoryForDualMode(
 
       await waitFor(
         () => {
-          const drawerElement = document.body.querySelector('[data-vaul-drawer]') || canvasElement.querySelector('[data-vaul-drawer]');
+          const drawerElement = document.body.querySelector('[data-slot="drawer-content"]') || canvasElement.querySelector('[data-slot="drawer-content"]');
           expect(drawerElement).not.toBeInTheDocument();
         },
         { timeout: 5000 }
@@ -479,8 +479,8 @@ export const LeftSide = enhanceStoryForDualMode(
 
       // Wait for drawer - check multiple possible locations
       await waitFor(() => {
-        const drawerInBody = document.body.querySelector('[data-vaul-drawer]');
-        const drawerInCanvas = canvasElement.querySelector('[data-vaul-drawer]');
+        const drawerInBody = document.body.querySelector('[data-slot="drawer-content"]');
+        const drawerInCanvas = canvasElement.querySelector('[data-slot="drawer-content"]');
         const drawer = drawerInBody || drawerInCanvas;
         
         if (!drawer) {
@@ -492,7 +492,7 @@ export const LeftSide = enhanceStoryForDualMode(
       }, { timeout: 10_000 });
 
       // Verify drawer is on the left
-      const drawer = document.body.querySelector('[data-vaul-drawer]') || canvasElement.querySelector('[data-vaul-drawer]');
+      const drawer = document.body.querySelector('[data-slot="drawer-content"]') || canvasElement.querySelector('[data-slot="drawer-content"]');
       expect(drawer).toHaveAttribute("data-vaul-drawer-direction", "left");
 
       // Toggle a checkbox
@@ -505,7 +505,7 @@ export const LeftSide = enhanceStoryForDualMode(
 
       await waitFor(
         () => {
-          const drawerElement = document.body.querySelector('[data-vaul-drawer]') || canvasElement.querySelector('[data-vaul-drawer]');
+          const drawerElement = document.body.querySelector('[data-slot="drawer-content"]') || canvasElement.querySelector('[data-slot="drawer-content"]');
           expect(drawerElement).not.toBeInTheDocument();
         },
         { timeout: 5000 }

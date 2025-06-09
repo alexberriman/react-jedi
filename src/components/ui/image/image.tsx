@@ -92,22 +92,37 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
   ) => {
     const [imgSrc, setImgSrc] = React.useState<string | undefined>(src);
     const [isLoading, setIsLoading] = React.useState(true);
+    const [imageError, setImageError] = React.useState(false);
 
     // Handle image load errors
     const handleError = React.useCallback(() => {
-      if (fallback) {
-        setImgSrc(fallback);
-      }
+      // Use setTimeout to ensure state updates happen in the next tick
+      // This helps avoid act() warnings in tests
+      globalThis.setTimeout(() => {
+        setImageError(true);
+        setIsLoading(false);
+        if (fallback) {
+          setImgSrc(fallback);
+          setImageError(false);
+          setIsLoading(true);
+        }
+      }, 0);
     }, [fallback]);
 
     // Handle successful image load
-    const handleLoad = () => {
-      setIsLoading(false);
-    };
+    const handleLoad = React.useCallback(() => {
+      // Use setTimeout to ensure state updates happen in the next tick
+      // This helps avoid act() warnings in tests
+      globalThis.setTimeout(() => {
+        setIsLoading(false);
+      }, 0);
+    }, []);
 
     // Update source if src prop changes
     React.useEffect(() => {
       setImgSrc(src);
+      setIsLoading(true);
+      setImageError(false);
     }, [src]);
 
     // Build container style for aspect ratio and dimensions
@@ -189,13 +204,13 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
       <div
         className={cn(
           "relative overflow-hidden",
-          isLoading && "bg-muted/30 animate-pulse",
+          isLoading && !imageError && "bg-muted/30 animate-pulse",
           className
         )}
         style={containerStyle}
         data-slot="image-container"
       >
-        {imgSrc && (
+        {imgSrc && !imageError && (
           <motion.img
             data-slot="image"
             ref={ref}
@@ -218,6 +233,11 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
             whileHover={whileHoverEffect}
             {...safeImageProps}
           />
+        )}
+        {imageError && !fallback && (
+          <div className="absolute inset-0 bg-muted flex items-center justify-center">
+            <span className="text-muted-foreground text-sm">Failed to load image</span>
+          </div>
         )}
       </div>
     );

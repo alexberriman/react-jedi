@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { cn } from '../../../lib/utils'
 import { Image } from '../../ui/image'
 import { Box } from '../../ui/box'
@@ -65,11 +65,29 @@ function BrandLogoBar({
   ...properties
 }: BrandLogoBarProperties) {
   const [isPaused, setIsPaused] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
   const logoSize = logoSizeMap[size]
+
+  // Check for dark mode on mount and when it changes
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'))
+    }
+    
+    checkDarkMode()
+    
+    // Watch for changes to the document class
+    const observer = new MutationObserver(checkDarkMode)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
 
   const LogoItem = ({ logo, index }: { logo: Logo; index: number }) => {
     const [isHovered, setIsHovered] = useState(false)
-    const isDarkMode = document.documentElement.classList.contains('dark')
     const logoSrc = isDarkMode && logo.darkSrc ? logo.darkSrc : logo.lightSrc
     
     const logoElement = (

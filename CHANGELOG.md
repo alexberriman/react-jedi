@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-09]
 
+- **Implement dual-mode story functionality for Icon component. CRITICAL: The args MUST use type 'Icon' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (icon svg, size, color, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
+
+
+## [2025-06-09]
+
 - **Implement dual-mode story functionality for Header component. CRITICAL: The args MUST use type 'Header' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (logo, navigation, menu items, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
 
 

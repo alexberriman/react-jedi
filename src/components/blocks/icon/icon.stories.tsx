@@ -6,6 +6,8 @@ import * as Fi from "react-icons/fi";
 import * as Si from "react-icons/si";
 import type { IconType } from "react-icons";
 import { useState, useMemo } from "react";
+import { enhanceStoryForDualMode } from "../../../../.storybook/utils/enhance-story";
+import { expect, within } from "storybook/test";
 
 const meta = {
   title: "Blocks/Icon",
@@ -45,93 +47,259 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    icon: Ai.AiOutlineHome,
-    size: "md",
-    color: "currentColor",
+export const Default: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      icon: Ai.AiOutlineHome,
+      size: "md",
+      color: "currentColor",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Find the icon SVG element
+      const svgElement = canvas.getByRole('img', { hidden: true });
+      expect(svgElement).toBeInTheDocument();
+      
+      // Verify size - md should be 20px
+      expect(svgElement).toHaveStyle({ width: '20px', height: '20px' });
+      
+      // Verify color is inherited from parent
+      expect(svgElement).toHaveAttribute('color', 'currentColor');
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "Icon",
+      name: "home",
+      size: "md",
+      color: "currentColor",
+    },
+  }
+) as Story;
 
-export const Sizes: Story = {
-  args: {
-    icon: Ai.AiOutlineHome,
+export const Sizes: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      icon: Ai.AiOutlineHome,
+    },
+    parameters: { controls: { disable: true } },
+    render: () => (
+      <div className="flex items-center gap-4">
+        <Icon icon={Ai.AiOutlineHome} size="xs" />
+        <Icon icon={Ai.AiOutlineHome} size="sm" />
+        <Icon icon={Ai.AiOutlineHome} size="md" />
+        <Icon icon={Ai.AiOutlineHome} size="lg" />
+        <Icon icon={Ai.AiOutlineHome} size="xl" />
+        <Icon icon={Ai.AiOutlineHome} size={48} />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Find all icon SVG elements
+      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      expect(svgElements).toHaveLength(6);
+      
+      // Verify different sizes
+      expect(svgElements[0]).toHaveStyle({ width: '12px', height: '12px' }); // xs
+      expect(svgElements[1]).toHaveStyle({ width: '16px', height: '16px' }); // sm  
+      expect(svgElements[2]).toHaveStyle({ width: '20px', height: '20px' }); // md
+      expect(svgElements[3]).toHaveStyle({ width: '24px', height: '24px' }); // lg
+      expect(svgElements[4]).toHaveStyle({ width: '32px', height: '32px' }); // xl
+      expect(svgElements[5]).toHaveStyle({ width: '48px', height: '48px' }); // custom size
+    },
   },
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex items-center gap-4">
-      <Icon icon={Ai.AiOutlineHome} size="xs" />
-      <Icon icon={Ai.AiOutlineHome} size="sm" />
-      <Icon icon={Ai.AiOutlineHome} size="md" />
-      <Icon icon={Ai.AiOutlineHome} size="lg" />
-      <Icon icon={Ai.AiOutlineHome} size="xl" />
-      <Icon icon={Ai.AiOutlineHome} size={48} />
-    </div>
-  ),
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "row",
+      align: "center",
+      gap: "4",
+      children: [
+        { type: "Icon", name: "home", size: "xs" },
+        { type: "Icon", name: "home", size: "sm" },
+        { type: "Icon", name: "home", size: "md" },
+        { type: "Icon", name: "home", size: "lg" },
+        { type: "Icon", name: "home", size: "xl" },
+        { type: "Icon", name: "home", size: 48 },
+      ],
+    },
+  }
+) as Story;
 
-export const Colors: Story = {
-  args: {
-    icon: Ai.AiOutlineHeart,
+export const Colors: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      icon: Ai.AiOutlineHeart,
+    },
+    parameters: { controls: { disable: true } },
+    render: () => (
+      <div className="flex items-center gap-4">
+        <Icon icon={Ai.AiOutlineHeart} size="lg" color="#ef4444" />
+        <Icon icon={Ai.AiOutlineCheck} size="lg" color="#10b981" />
+        <Icon icon={Ai.AiOutlineInfo} size="lg" color="#3b82f6" />
+        <Icon icon={Ai.AiOutlineWarning} size="lg" color="#f59e0b" />
+        <Icon icon={Ai.AiOutlineStar} size="lg" color="#8b5cf6" />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Find all icon SVG elements
+      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      expect(svgElements).toHaveLength(5);
+      
+      // Verify colors are applied
+      expect(svgElements[0]).toHaveAttribute('color', '#ef4444'); // red heart
+      expect(svgElements[1]).toHaveAttribute('color', '#10b981'); // green check
+      expect(svgElements[2]).toHaveAttribute('color', '#3b82f6'); // blue info
+      expect(svgElements[3]).toHaveAttribute('color', '#f59e0b'); // yellow warning
+      expect(svgElements[4]).toHaveAttribute('color', '#8b5cf6'); // purple star
+      
+      // Verify all are large size
+      for (const svg of svgElements) {
+        expect(svg).toHaveStyle({ width: '24px', height: '24px' });
+      }
+    },
   },
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex items-center gap-4">
-      <Icon icon={Ai.AiOutlineHeart} size="lg" color="#ef4444" />
-      <Icon icon={Ai.AiOutlineCheck} size="lg" color="#10b981" />
-      <Icon icon={Ai.AiOutlineInfo} size="lg" color="#3b82f6" />
-      <Icon icon={Ai.AiOutlineWarning} size="lg" color="#f59e0b" />
-      <Icon icon={Ai.AiOutlineStar} size="lg" color="#8b5cf6" />
-    </div>
-  ),
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "row", 
+      align: "center",
+      gap: "4",
+      children: [
+        { type: "Icon", name: "heart", size: "lg", color: "#ef4444" },
+        { type: "Icon", name: "check", size: "lg", color: "#10b981" },
+        { type: "Icon", name: "info", size: "lg", color: "#3b82f6" },
+        { type: "Icon", name: "alert-triangle", size: "lg", color: "#f59e0b" },
+        { type: "Icon", name: "star", size: "lg", color: "#8b5cf6" },
+      ],
+    },
+  }
+) as Story;
 
-export const WithBackground: Story = {
-  args: {
-    icon: Ai.AiOutlineHome,
+export const WithBackground: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      icon: Ai.AiOutlineHome,
+    },
+    parameters: { controls: { disable: true } },
+    render: () => (
+      <div className="flex items-center gap-4">
+        <Icon icon={Ai.AiOutlineHome} size="lg" variant="background" background="#f3f4f6" />
+        <Icon
+          icon={Ai.AiOutlineUser}
+          size="lg"
+          variant="background"
+          background="#dbeafe"
+          color="#3b82f6"
+        />
+        <Icon
+          icon={Ai.AiOutlineHeart}
+          size="lg"
+          variant="background"
+          background="#fee2e2"
+          color="#ef4444"
+        />
+        <Icon
+          icon={Ai.AiOutlineCheck}
+          size="lg"
+          variant="background"
+          background="#d1fae5"
+          color="#10b981"
+        />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Find all icon wrapper spans with background variant
+      const iconWrappers = canvas.getAllByRole('button', { hidden: true }).length > 0 
+        ? canvas.getAllByRole('button', { hidden: true })
+        : canvasElement.querySelectorAll('span[style*="background"]');
+      
+      expect(iconWrappers.length).toBeGreaterThanOrEqual(4);
+      
+      // Verify background colors are applied
+      const firstWrapper = iconWrappers[0] as HTMLElement;
+      expect(firstWrapper).toHaveStyle({ backgroundColor: 'rgb(243, 244, 246)' }); // #f3f4f6
+      
+      // Verify SVG icons are present
+      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      expect(svgElements).toHaveLength(4);
+      
+      // Verify colors on colored icons
+      expect(svgElements[1]).toHaveAttribute('color', '#3b82f6'); // blue user
+      expect(svgElements[2]).toHaveAttribute('color', '#ef4444'); // red heart
+      expect(svgElements[3]).toHaveAttribute('color', '#10b981'); // green check
+    },
   },
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex items-center gap-4">
-      <Icon icon={Ai.AiOutlineHome} size="lg" variant="background" background="#f3f4f6" />
-      <Icon
-        icon={Ai.AiOutlineUser}
-        size="lg"
-        variant="background"
-        background="#dbeafe"
-        color="#3b82f6"
-      />
-      <Icon
-        icon={Ai.AiOutlineHeart}
-        size="lg"
-        variant="background"
-        background="#fee2e2"
-        color="#ef4444"
-      />
-      <Icon
-        icon={Ai.AiOutlineCheck}
-        size="lg"
-        variant="background"
-        background="#d1fae5"
-        color="#10b981"
-      />
-    </div>
-  ),
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "row",
+      align: "center", 
+      gap: "4",
+      children: [
+        { type: "Icon", name: "home", size: "lg", variant: "background", background: "#f3f4f6" },
+        { type: "Icon", name: "user", size: "lg", variant: "background", background: "#dbeafe", color: "#3b82f6" },
+        { type: "Icon", name: "heart", size: "lg", variant: "background", background: "#fee2e2", color: "#ef4444" },
+        { type: "Icon", name: "check", size: "lg", variant: "background", background: "#d1fae5", color: "#10b981" },
+      ],
+    },
+  }
+) as Story;
 
-export const Animated: Story = {
-  args: {
-    icon: Ai.AiOutlineLoading,
+export const Animated: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      icon: Ai.AiOutlineLoading,
+    },
+    parameters: { controls: { disable: true } },
+    render: () => (
+      <div className="flex items-center gap-6">
+        <Icon icon={Ai.AiOutlineLoading} size="lg" animated animationType="spin" />
+        <Icon icon={Ai.AiOutlineHeart} size="lg" animated animationType="pulse" color="#ef4444" />
+        <Icon icon={Ai.AiOutlineArrowDown} size="lg" animated animationType="bounce" />
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Find all icon SVG elements
+      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      expect(svgElements).toHaveLength(3);
+      
+      // Verify animation classes are applied
+      expect(svgElements[0]).toHaveClass('animate-spin'); // loading icon
+      expect(svgElements[1]).toHaveClass('animate-pulse'); // heart icon
+      expect(svgElements[2]).toHaveClass('animate-bounce'); // arrow icon
+      
+      // Verify colors
+      expect(svgElements[1]).toHaveAttribute('color', '#ef4444'); // red heart
+      
+      // Verify sizes are all large
+      for (const svg of svgElements) {
+        expect(svg).toHaveStyle({ width: '24px', height: '24px' });
+      }
+    },
   },
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex items-center gap-6">
-      <Icon icon={Ai.AiOutlineLoading} size="lg" animated animationType="spin" />
-      <Icon icon={Ai.AiOutlineHeart} size="lg" animated animationType="pulse" color="#ef4444" />
-      <Icon icon={Ai.AiOutlineArrowDown} size="lg" animated animationType="bounce" />
-    </div>
-  ),
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "row",
+      align: "center",
+      gap: "6",
+      children: [
+        { type: "Icon", name: "loader", size: "lg", animated: true, animationType: "spin" },
+        { type: "Icon", name: "heart", size: "lg", animated: true, animationType: "pulse", color: "#ef4444" },
+        { type: "Icon", name: "arrow-down", size: "lg", animated: true, animationType: "bounce" },
+      ],
+    },
+  }
+) as Story;
 
 function ClickableIcon() {
   const [clicked, setClicked] = useState(false);
@@ -149,13 +317,59 @@ function ClickableIcon() {
   );
 }
 
-export const Clickable: Story = {
-  args: {
-    icon: Ai.AiOutlineHeart,
+export const Clickable: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      icon: Ai.AiOutlineHeart,
+    },
+    parameters: { controls: { disable: true } },
+    render: () => <ClickableIcon />,
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Find the clickable icon button
+      const iconButton = canvas.getByRole('button', { name: /toggle favorite/i });
+      expect(iconButton).toBeInTheDocument();
+      
+      // Find the instruction text
+      const instructionText = canvas.getByText(/click the heart to toggle/i);
+      expect(instructionText).toBeInTheDocument();
+      
+      // Verify icon is present
+      const svgElement = canvas.getByRole('img', { hidden: true });
+      expect(svgElement).toBeInTheDocument();
+      expect(svgElement).toHaveAttribute('color', '#ef4444');
+    },
   },
-  parameters: { controls: { disable: true } },
-  render: () => <ClickableIcon />,
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "column",
+      align: "center",
+      gap: "4",
+      children: [
+        {
+          type: "Icon",
+          name: "heart",
+          size: "lg",
+          color: "#ef4444",
+          onClick: "toggleFavorite",
+          ariaLabel: "Toggle favorite",
+        },
+        {
+          type: "Text",
+          children: "Click the heart to toggle",
+          className: "text-sm text-gray-600",
+        },
+      ],
+    },
+    handlers: {
+      toggleFavorite: () => {
+        console.log('Heart clicked!');
+      },
+    },
+  }
+) as Story;
 
 interface IconItem {
   icon: IconType;
@@ -777,31 +991,107 @@ export const BrandIcons: Story = {
   ),
 };
 
-export const WithTooltip: Story = {
-  args: {
-    icon: Ai.AiOutlineInfo,
+export const WithTooltip: Story = enhanceStoryForDualMode(
+  {
+    args: {
+      icon: Ai.AiOutlineInfo,
+    },
+    parameters: { controls: { disable: true } },
+    render: () => (
+      <div className="flex items-center gap-4">
+        <div className="group relative">
+          <Icon icon={Ai.AiOutlineInfo} size="md" />
+          <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+            Information
+          </span>
+        </div>
+        <div className="group relative">
+          <Icon icon={Ai.AiOutlineWarning} size="md" color="#f59e0b" />
+          <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+            Warning
+          </span>
+        </div>
+        <div className="group relative">
+          <Icon icon={Ai.AiOutlineCheckCircle} size="md" color="#10b981" />
+          <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+            Success
+          </span>
+        </div>
+      </div>
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Find all icon SVG elements
+      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      expect(svgElements).toHaveLength(3);
+      
+      // Verify colors are applied
+      expect(svgElements[1]).toHaveAttribute('color', '#f59e0b'); // warning icon
+      expect(svgElements[2]).toHaveAttribute('color', '#10b981'); // success icon
+      
+      // Verify all are medium size
+      for (const svg of svgElements) {
+        expect(svg).toHaveStyle({ width: '20px', height: '20px' });
+      }
+      
+      // Find tooltip text elements (they should be present in DOM but hidden)
+      const tooltips = [
+        canvas.getByText('Information'),
+        canvas.getByText('Warning'),
+        canvas.getByText('Success'),
+      ];
+      
+      for (const tooltip of tooltips) {
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveClass('opacity-0'); // Initially hidden
+      }
+    },
   },
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex items-center gap-4">
-      <div className="group relative">
-        <Icon icon={Ai.AiOutlineInfo} size="md" />
-        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-          Information
-        </span>
-      </div>
-      <div className="group relative">
-        <Icon icon={Ai.AiOutlineWarning} size="md" color="#f59e0b" />
-        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-          Warning
-        </span>
-      </div>
-      <div className="group relative">
-        <Icon icon={Ai.AiOutlineCheckCircle} size="md" color="#10b981" />
-        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-          Success
-        </span>
-      </div>
-    </div>
-  ),
-};
+  {
+    renderSpec: {
+      type: "Flex",
+      direction: "row",
+      align: "center",
+      gap: "4",
+      children: [
+        {
+          type: "Group",
+          className: "group relative",
+          children: [
+            { type: "Icon", name: "info", size: "md" },
+            {
+              type: "Text",
+              children: "Information",
+              className: "absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap",
+            },
+          ],
+        },
+        {
+          type: "Group",
+          className: "group relative",
+          children: [
+            { type: "Icon", name: "alert-triangle", size: "md", color: "#f59e0b" },
+            {
+              type: "Text",
+              children: "Warning",
+              className: "absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap",
+            },
+          ],
+        },
+        {
+          type: "Group",
+          className: "group relative",
+          children: [
+            { type: "Icon", name: "check-circle", size: "md", color: "#10b981" },
+            {
+              type: "Text",
+              children: "Success",
+              className: "absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap",
+            },
+          ],
+        },
+      ],
+    },
+  }
+) as Story;

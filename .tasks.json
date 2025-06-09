@@ -141,7 +141,7 @@
       {
         "id": "investigate-team-grid-stories",
         "description": "Investigate test errors and warnings in src/components/blocks/team-grid/team-grid.stories.tsx. Read the error log at ./tmp/tests/team-grid.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- team-grid.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-testimonial-stories",

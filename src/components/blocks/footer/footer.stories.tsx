@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { Footer } from "./footer";
 import { FaReact } from "react-icons/fa6";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Blocks/Footer",
@@ -119,7 +121,7 @@ const defaultLegalLinks = [
   { label: "GDPR", href: "#gdpr" },
 ];
 
-export const Minimal: Story = {
+export const Minimal: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "minimal",
     size: "minimal",
@@ -138,9 +140,36 @@ export const Minimal: Story = {
     socialLinks: defaultSocialLinks.slice(0, 3),
     copyright: "© 2024 React Jedi. All rights reserved.",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Standard: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test copyright appears
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+
+    // Test navigation links appear
+    const aboutLink = canvas.getByRole("link", { name: "About" });
+    const blogLink = canvas.getByRole("link", { name: "Blog" });
+    const contactLink = canvas.getByRole("link", { name: "Contact" });
+    expect(aboutLink).toBeInTheDocument();
+    expect(blogLink).toBeInTheDocument();
+    expect(contactLink).toBeInTheDocument();
+
+    // Test social links appear
+    const socialNav = canvas.getByLabelText("Social media links");
+    expect(socialNav).toBeInTheDocument();
+    
+    // Test that there are exactly 3 social links (github, twitter, linkedin)
+    const socialLinks = canvas.getAllByRole("link", { name: /GitHub|Twitter|LinkedIn/ });
+    expect(socialLinks).toHaveLength(3);
+  },
+});
+
+export const Standard: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "standard",
     companyInfo: defaultCompanyInfo,
@@ -150,9 +179,58 @@ export const Standard: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Expanded: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company info appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+    
+    const companyDescription = canvas.getByText("Building modern React interfaces with JSON specifications");
+    expect(companyDescription).toBeInTheDocument();
+
+    // Test newsletter section appears
+    const newsletterTitle = canvas.getByText("Stay Updated");
+    expect(newsletterTitle).toBeInTheDocument();
+    
+    const emailInput = canvas.getByPlaceholderText("your@email.com");
+    expect(emailInput).toBeInTheDocument();
+
+    // Test footer sections appear
+    const productSection = canvas.getByText("Product");
+    const companySection = canvas.getByText("Company");
+    const resourcesSection = canvas.getByText("Resources");
+    expect(productSection).toBeInTheDocument();
+    expect(companySection).toBeInTheDocument();
+    expect(resourcesSection).toBeInTheDocument();
+
+    // Test some specific links
+    const featuresLink = canvas.getByRole("link", { name: "Features" });
+    const aboutLink = canvas.getByRole("link", { name: "About" });
+    expect(featuresLink).toBeInTheDocument();
+    expect(aboutLink).toBeInTheDocument();
+
+    // Test social links
+    const socialNav = canvas.getByLabelText("Social media links");
+    expect(socialNav).toBeInTheDocument();
+
+    // Test legal links
+    const privacyLink = canvas.getByRole("link", { name: "Privacy Policy" });
+    const termsLink = canvas.getByRole("link", { name: "Terms of Service" });
+    expect(privacyLink).toBeInTheDocument();
+    expect(termsLink).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const Expanded: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "expanded",
     size: "expanded",
@@ -179,9 +257,58 @@ export const Expanded: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Centered: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company info appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test contact info appears
+    const contactTitle = canvas.getByText("Contact Us");
+    expect(contactTitle).toBeInTheDocument();
+
+    const emailLink = canvas.getByRole("link", { name: "hello@reactjedi.com" });
+    const phoneLink = canvas.getByRole("link", { name: "+1 (555) 123-4567" });
+    expect(emailLink).toBeInTheDocument();
+    expect(phoneLink).toBeInTheDocument();
+
+    // Test developers section appears
+    const developersSection = canvas.getByText("Developers");
+    expect(developersSection).toBeInTheDocument();
+
+    const githubLink = canvas.getByRole("link", { name: "GitHub" });
+    const npmLink = canvas.getByRole("link", { name: "NPM Package" });
+    expect(githubLink).toBeInTheDocument();
+    expect(npmLink).toBeInTheDocument();
+
+    // Test social links section with Follow Us title
+    const followUsTitle = canvas.getByText("Follow Us");
+    expect(followUsTitle).toBeInTheDocument();
+
+    // Test that we have 6 social links (including YouTube and Instagram)
+    const socialNav = canvas.getByLabelText("Social media links");
+    expect(socialNav).toBeInTheDocument();
+
+    // Test newsletter
+    const newsletterTitle = canvas.getByText("Stay Updated");
+    expect(newsletterTitle).toBeInTheDocument();
+
+    // Test address appears
+    const address = canvas.getByText("123 Component Street, React City, JS 12345");
+    expect(address).toBeInTheDocument();
+
+    // Test business hours
+    const hoursText = canvas.getByText("Mon-Fri 9:00 AM - 6:00 PM PST");
+    expect(hoursText).toBeInTheDocument();
+  },
+});
+
+export const Centered: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "centered",
     variant: "gradient",
@@ -197,9 +324,38 @@ export const Centered: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks.slice(0, 2),
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const TwoColumns: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company info appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test newsletter appears
+    const newsletterTitle = canvas.getByText("Stay Updated");
+    expect(newsletterTitle).toBeInTheDocument();
+
+    // Test social links appear
+    const socialNav = canvas.getByLabelText("Social media links");
+    expect(socialNav).toBeInTheDocument();
+
+    // Test copyright appears
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+
+    // Test some navigation links
+    const featuresLink = canvas.getByRole("link", { name: "Features" });
+    const aboutLink = canvas.getByRole("link", { name: "About" });
+    expect(featuresLink).toBeInTheDocument();
+    expect(aboutLink).toBeInTheDocument();
+  },
+});
+
+export const TwoColumns: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "columns-2",
     companyInfo: defaultCompanyInfo,
@@ -207,9 +363,38 @@ export const TwoColumns: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const ThreeColumns: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company info appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test product section appears
+    const productSection = canvas.getByText("Product");
+    expect(productSection).toBeInTheDocument();
+
+    // Test some product links
+    const featuresLink = canvas.getByRole("link", { name: "Features" });
+    const pricingLink = canvas.getByRole("link", { name: "Pricing" });
+    expect(featuresLink).toBeInTheDocument();
+    expect(pricingLink).toBeInTheDocument();
+
+    // Test legal links
+    const privacyLink = canvas.getByRole("link", { name: "Privacy Policy" });
+    expect(privacyLink).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const ThreeColumns: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "columns-3",
     companyInfo: defaultCompanyInfo,
@@ -217,9 +402,36 @@ export const ThreeColumns: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const FourColumns: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company info appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test sections appear (Product and Company)
+    const productSection = canvas.getByText("Product");
+    const companySection = canvas.getByText("Company");
+    expect(productSection).toBeInTheDocument();
+    expect(companySection).toBeInTheDocument();
+
+    // Test some links from each section
+    const featuresLink = canvas.getByRole("link", { name: "Features" });
+    const aboutLink = canvas.getByRole("link", { name: "About" });
+    expect(featuresLink).toBeInTheDocument();
+    expect(aboutLink).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const FourColumns: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "columns-4",
     columnGap: "normal",
@@ -229,9 +441,41 @@ export const FourColumns: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const FiveColumns: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company info appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test all three sections appear
+    const productSection = canvas.getByText("Product");
+    const companySection = canvas.getByText("Company");
+    const resourcesSection = canvas.getByText("Resources");
+    expect(productSection).toBeInTheDocument();
+    expect(companySection).toBeInTheDocument();
+    expect(resourcesSection).toBeInTheDocument();
+
+    // Test contact info appears
+    const contactTitle = canvas.getByText("Contact Us");
+    expect(contactTitle).toBeInTheDocument();
+
+    const emailLink = canvas.getByRole("link", { name: "hello@reactjedi.com" });
+    const phoneLink = canvas.getByRole("link", { name: "+1 (555) 123-4567" });
+    expect(emailLink).toBeInTheDocument();
+    expect(phoneLink).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const FiveColumns: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "columns-5",
     columnGap: "tight",
@@ -246,9 +490,39 @@ export const FiveColumns: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const SixColumns: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test newsletter appears
+    const newsletterTitle = canvas.getByText("Newsletter");
+    expect(newsletterTitle).toBeInTheDocument();
+
+    const newsletterInput = canvas.getByPlaceholderText("Email address");
+    expect(newsletterInput).toBeInTheDocument();
+
+    // Test contact info appears
+    const contactTitle = canvas.getByText("Contact Us");
+    expect(contactTitle).toBeInTheDocument();
+
+    // Test sections appear
+    const productSection = canvas.getByText("Product");
+    expect(productSection).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const SixColumns: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "columns-6",
     columnGap: "tight",
@@ -272,9 +546,40 @@ export const SixColumns: Story = {
     socialLinks: defaultSocialLinks,
     copyright: "© 2024 React Jedi. All rights reserved.",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const LightVariant: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test support section appears
+    const supportSection = canvas.getByText("Support");
+    expect(supportSection).toBeInTheDocument();
+
+    // Test legal section appears
+    const legalSection = canvas.getByText("Legal");
+    expect(legalSection).toBeInTheDocument();
+
+    // Test some links
+    const helpCenterLink = canvas.getByRole("link", { name: "Help Center" });
+    expect(helpCenterLink).toBeInTheDocument();
+
+    // Test social links
+    const socialNav = canvas.getByLabelText("Social media links");
+    expect(socialNav).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const LightVariant: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     variant: "light",
     layout: "standard",
@@ -285,9 +590,28 @@ export const LightVariant: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const DarkVariant: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test light variant styling by checking company name
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test newsletter appears
+    const newsletterTitle = canvas.getByText("Stay Updated");
+    expect(newsletterTitle).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const DarkVariant: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     variant: "dark",
     layout: "expanded",
@@ -300,9 +624,28 @@ export const DarkVariant: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const BrandVariant: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test contact info appears
+    const contactTitle = canvas.getByText("Contact Us");
+    expect(contactTitle).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const BrandVariant: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     variant: "brand",
     layout: "standard",
@@ -314,9 +657,32 @@ export const BrandVariant: Story = {
     legalLinks: defaultLegalLinks,
     className: "bg-blue-600",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithAllSocialPlatforms: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test newsletter appears
+    const newsletterTitle = canvas.getByText("Stay Updated");
+    expect(newsletterTitle).toBeInTheDocument();
+
+    // Test sections appear
+    const productSection = canvas.getByText("Product");
+    expect(productSection).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const WithAllSocialPlatforms: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "expanded",
     companyInfo: defaultCompanyInfo,
@@ -337,9 +703,32 @@ export const WithAllSocialPlatforms: Story = {
     sections: defaultSections.slice(0, 2),
     copyright: "© 2024 React Jedi. All rights reserved.",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const NewsletterFocus: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test Follow Us title (since it's expanded layout with social icons)
+    const followUsTitle = canvas.getByText("Follow Us");
+    expect(followUsTitle).toBeInTheDocument();
+
+    // Test social navigation exists
+    const socialNav = canvas.getByLabelText("Social media links");
+    expect(socialNav).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const NewsletterFocus: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "centered",
     variant: "gradient",
@@ -362,9 +751,38 @@ export const NewsletterFocus: Story = {
     socialLinks: defaultSocialLinks,
     copyright: "© 2024 React Jedi. All rights reserved.",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const ContactFocus: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi Newsletter");
+    expect(companyName).toBeInTheDocument();
+
+    // Test newsletter focus elements
+    const newsletterTitle = canvas.getByText("Join 10,000+ developers");
+    expect(newsletterTitle).toBeInTheDocument();
+
+    const newsletterDescription = canvas.getByText(/Get weekly insights on React best practices/);
+    expect(newsletterDescription).toBeInTheDocument();
+
+    const emailInput = canvas.getByPlaceholderText("Enter your email");
+    expect(emailInput).toBeInTheDocument();
+
+    // Test social links
+    const socialNav = canvas.getByLabelText("Social media links");
+    expect(socialNav).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const ContactFocus: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "columns-3",
     variant: "dark",
@@ -390,9 +808,41 @@ export const ContactFocus: Story = {
     ],
     copyright: "© 2024 React Jedi. All rights reserved.",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WideContainer: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test contact focus elements
+    const contactTitle = canvas.getByText("Contact Us");
+    expect(contactTitle).toBeInTheDocument();
+
+    const supportEmail = canvas.getByRole("link", { name: "support@reactjedi.com" });
+    expect(supportEmail).toBeInTheDocument();
+
+    const phoneLink = canvas.getByRole("link", { name: "+1 (555) 123-4567" });
+    expect(phoneLink).toBeInTheDocument();
+
+    // Test Quick Links section
+    const quickLinksTitle = canvas.getByText("Quick Links");
+    expect(quickLinksTitle).toBeInTheDocument();
+
+    const supportCenterLink = canvas.getByRole("link", { name: "Support Center" });
+    expect(supportCenterLink).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const WideContainer: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "standard",
     containerWidth: "wide",
@@ -403,9 +853,31 @@ export const WideContainer: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const FullWidthContainer: Story = {
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test standard layout elements
+    const newsletterTitle = canvas.getByText("Stay Updated");
+    expect(newsletterTitle).toBeInTheDocument();
+
+    const productSection = canvas.getByText("Product");
+    expect(productSection).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});
+
+export const FullWidthContainer: Story = enhanceStoryForDualMode<typeof Footer>({
   args: {
     layout: "columns-6",
     containerWidth: "full",
@@ -418,4 +890,39 @@ export const FullWidthContainer: Story = {
     copyright: "© 2024 React Jedi. All rights reserved.",
     legalLinks: defaultLegalLinks,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test footer renders
+    const footer = canvas.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+
+    // Test company name appears
+    const companyName = canvas.getByText("React Jedi");
+    expect(companyName).toBeInTheDocument();
+
+    // Test full width layout with multiple sections
+    const productSection = canvas.getByText("Product");
+    const companySection = canvas.getByText("Company");
+    const resourcesSection = canvas.getByText("Resources");
+    expect(productSection).toBeInTheDocument();
+    expect(companySection).toBeInTheDocument();
+    expect(resourcesSection).toBeInTheDocument();
+
+    // Test contact info appears
+    const contactTitle = canvas.getByText("Contact Us");
+    expect(contactTitle).toBeInTheDocument();
+
+    // Test newsletter appears
+    const newsletterTitle = canvas.getByText("Stay Updated");
+    expect(newsletterTitle).toBeInTheDocument();
+
+    // Test social links
+    const socialNav = canvas.getByLabelText("Social media links");
+    expect(socialNav).toBeInTheDocument();
+
+    // Test copyright
+    const copyright = canvas.getByText("© 2024 React Jedi. All rights reserved.");
+    expect(copyright).toBeInTheDocument();
+  },
+});

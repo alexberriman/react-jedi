@@ -389,7 +389,7 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
       await step("Open Solutions menu", async () => {
         // Small delay to ensure previous menu closes
         await new Promise(resolve => {
-          const timer = window.setTimeout(() => resolve(undefined), 300);
+          const timer = globalThis.setTimeout(() => resolve(undefined), 300);
           return timer;
         });
         

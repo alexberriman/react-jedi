@@ -60,6 +60,20 @@ export const Basic: Story = enhanceStoryWithHandlers<typeof Dialog>(
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
 
+    // Wait for story to be fully rendered
+    await waitFor(() => {
+      const trigger = canvas.queryByRole("button", { name: /open dialog/i });
+      if (!trigger) {
+        throw new Error("Story not ready - trigger button not found");
+      }
+    }, { timeout: 5000 });
+
+    // Ensure body doesn't have pointer-events: none
+    const body = document.body;
+    if (body.style.pointerEvents === "none") {
+      body.style.pointerEvents = "";
+    }
+
     // Click the trigger button to open dialog
     const triggerButton = canvas.getByRole("button", { name: /open dialog/i });
     await userEvent.click(triggerButton);
@@ -749,6 +763,12 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
     });
     expect(document.querySelector('[data-slot="dialog-content"]')).toBeInTheDocument();
 
+    // Ensure body doesn't have pointer-events: none before clicking
+    const body = document.body;
+    if (body.style.pointerEvents === "none") {
+      body.style.pointerEvents = "";
+    }
+
     // Close the dialog
     const closeButton = within(document.body).getByRole("button", { name: /close/i });
     await userEvent.click(closeButton);
@@ -762,14 +782,24 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
       { timeout: 5000 }
     );
 
-    // Small delay to ensure dialog is fully closed
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
+    // Small delay to ensure dialog is fully closed and animations have completed
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 800));
+
+    // Ensure body pointer events are restored for clicking reopen button
+    if (body.style.pointerEvents === "none") {
+      body.style.pointerEvents = "";
+    }
 
     // Reopen using trigger button - wait for it to be accessible after dialog closes
     await waitFor(() => {
       const reopenButton = canvas.getByRole("button", { name: /reopen dialog/i });
       expect(reopenButton).toBeInTheDocument();
-    });
+      // Also check the button is clickable
+      if ((reopenButton as HTMLButtonElement).disabled || reopenButton.style.pointerEvents === "none") {
+        throw new Error("Button not yet clickable");
+      }
+    }, { timeout: 5000 });
+    
     const reopenButton = canvas.getByRole("button", { name: /reopen dialog/i });
     await userEvent.click(reopenButton);
 

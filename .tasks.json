@@ -61,7 +61,7 @@
       {
         "id": "investigate-dialog-stories",
         "description": "Investigate test errors and warnings in src/components/ui/dialog/dialog.stories.tsx. Read the error log at ./tmp/tests/dialog.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- dialog.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-drawer-stories",

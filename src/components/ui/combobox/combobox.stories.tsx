@@ -98,8 +98,8 @@ export const Default: Story = enhanceStoryForDualMode<typeof Combobox>({
       expect(trigger).toHaveAttribute("aria-expanded", "true");
     });
 
-    // Wait a bit for the popover animation
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 200));
+    // Wait a bit for the popover animation to complete
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
 
     // Verify search input is visible (might be in a portal)
     await waitFor(() => {
@@ -139,10 +139,15 @@ export const Default: Story = enhanceStoryForDualMode<typeof Combobox>({
     if (nextOptionFiltered) {
       await userEvent.click(nextOptionFiltered);
     }
+    
+    // Wait for popover to close and state to update
     await waitFor(() => {
       expect(trigger).toHaveTextContent("Next.js");
       expect(trigger).toHaveAttribute("aria-expanded", "false");
     });
+    
+    // Wait for any remaining animations
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
   },
 });
 
@@ -232,6 +237,9 @@ export const Fruits: Story = enhanceStoryForDualMode<typeof Combobox>({
         },
         { timeout: 5000 }
       );
+      
+      // Wait for any remaining animations
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
     }
   },
 });
@@ -256,6 +264,9 @@ export const Countries: Story = enhanceStoryForDualMode<typeof Combobox>({
     await waitFor(() => {
       expect(trigger).toHaveAttribute("aria-expanded", "true");
     });
+    
+    // Wait for animation to complete
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
   },
 });
 
@@ -333,6 +344,9 @@ export const EmptyOptions: Story = enhanceStoryForDualMode<typeof Combobox>({
       expect(trigger).toHaveAttribute("aria-expanded", "true");
     });
     
+    // Wait for animation to complete
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    
     // Wait for empty text to appear
     await waitFor(() => {
       const emptyText = document.querySelector('[data-slot="command-empty"]');
@@ -366,6 +380,9 @@ export const LongLabels: Story = enhanceStoryForDualMode<typeof Combobox>({
     await waitFor(() => {
       expect(trigger).toHaveAttribute("aria-expanded", "true");
     });
+    
+    // Wait for animation to complete
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
     
     // Wait and verify long labels are visible
     await waitFor(() => {

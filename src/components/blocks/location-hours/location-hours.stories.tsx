@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { LocationHours } from "./location-hours";
 import type { Location } from "./types";
+import { enhanceStoryForDualMode } from "../../../../.storybook/utils/enhance-story";
 
 // Sample location data
 const sampleLocations: Location[] = [
@@ -212,10 +214,10 @@ const meta: Meta<typeof LocationHours> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof LocationHours>;
+type Story = StoryObj<typeof meta>;
 
 // Default single location view
-export const SingleLocation: Story = {
+export const SingleLocation: Story = enhanceStoryForDualMode<typeof LocationHours>({
   args: {
     variant: "single-location",
     locations: [sampleLocations[0]],
@@ -225,10 +227,53 @@ export const SingleLocation: Story = {
     showServices: true,
     showAppointmentBooking: true,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify location name renders
+    expect(canvas.getByText("Downtown Office")).toBeInTheDocument();
+    
+    // Verify location description renders
+    expect(canvas.getByText("Our main office in the heart of the city")).toBeInTheDocument();
+    
+    // Verify current status badge is present
+    const statusBadge = canvas.getByText(/Open Now|Closed/);
+    expect(statusBadge).toBeInTheDocument();
+    
+    // Verify business hours section is present
+    expect(canvas.getByText("Business Hours")).toBeInTheDocument();
+    
+    // Verify specific business hours are rendered
+    expect(canvas.getByText("Monday")).toBeInTheDocument();
+    expect(canvas.getByText("9:00 AM - 5:00 PM")).toBeInTheDocument();
+    
+    // Verify contact information section
+    expect(canvas.getByText("Contact Information")).toBeInTheDocument();
+    
+    // Verify address is rendered
+    expect(canvas.getByText(/123 Main Street/)).toBeInTheDocument();
+    expect(canvas.getByText(/New York, NY 10001/)).toBeInTheDocument();
+    
+    // Verify phone number is rendered
+    expect(canvas.getByText("+1 (555) 123-4567")).toBeInTheDocument();
+    
+    // Verify email is rendered
+    expect(canvas.getByText("downtown@company.com")).toBeInTheDocument();
+    
+    // Verify services section is present
+    expect(canvas.getByText("Services Available")).toBeInTheDocument();
+    expect(canvas.getByText("Consulting")).toBeInTheDocument();
+    expect(canvas.getByText("Support")).toBeInTheDocument();
+    expect(canvas.getByText("Training")).toBeInTheDocument();
+    
+    // Verify action buttons are present
+    expect(canvas.getByText("Get Directions")).toBeInTheDocument();
+    expect(canvas.getByText("Book Appointment")).toBeInTheDocument();
+  },
+});
 
 // Multiple locations grid
-export const MultipleLocations: Story = {
+export const MultipleLocations: Story = enhanceStoryForDualMode<typeof LocationHours>({
   args: {
     variant: "multiple-locations",
     locations: sampleLocations,
@@ -236,7 +281,40 @@ export const MultipleLocations: Story = {
     showContactInfo: true,
     showServices: true,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify multiple location names render
+    expect(canvas.getByText("Downtown Office")).toBeInTheDocument();
+    expect(canvas.getByText("Westside Branch")).toBeInTheDocument();
+    expect(canvas.getByText("Brooklyn Location")).toBeInTheDocument();
+    expect(canvas.getByText("Chicago Office")).toBeInTheDocument();
+    
+    // Verify section header
+    expect(canvas.getByText("Our Locations")).toBeInTheDocument();
+    expect(canvas.getByText("Find a location near you and visit us today")).toBeInTheDocument();
+    
+    // Verify status badges for multiple locations
+    const statusBadges = canvas.getAllByText(/Open Now|Closed/);
+    expect(statusBadges.length).toBeGreaterThan(0);
+    
+    // Verify contact information for multiple locations
+    expect(canvas.getByText("+1 (555) 123-4567")).toBeInTheDocument(); // Downtown
+    expect(canvas.getByText("+1 (555) 987-6543")).toBeInTheDocument(); // Westside
+    expect(canvas.getByText("+1 (555) 456-7890")).toBeInTheDocument(); // Brooklyn
+    expect(canvas.getByText("+1 (312) 555-0123")).toBeInTheDocument(); // Chicago
+    
+    // Verify services for multiple locations
+    expect(canvas.getByText("Consulting")).toBeInTheDocument();
+    expect(canvas.getByText("Customer Service")).toBeInTheDocument();
+    expect(canvas.getByText("Retail")).toBeInTheDocument();
+    expect(canvas.getByText("Corporate Services")).toBeInTheDocument();
+    
+    // Verify "View Details" buttons are present for multi-location view
+    const viewDetailsButtons = canvas.getAllByText("View Details");
+    expect(viewDetailsButtons.length).toBeGreaterThan(0);
+  },
+});
 
 // Minimal hours display
 export const MinimalHours: Story = {
@@ -275,7 +353,7 @@ export const MapIntegration: Story = {
 };
 
 // With search and filter
-export const WithSearchAndFilter: Story = {
+export const WithSearchAndFilter: Story = enhanceStoryForDualMode<typeof LocationHours>({
   args: {
     variant: "multiple-locations",
     locations: sampleLocations,
@@ -285,7 +363,35 @@ export const WithSearchAndFilter: Story = {
     allowLocationSearch: true,
     allowLocationFilter: true,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify search functionality is present
+    expect(canvas.getByPlaceholderText("Search locations...")).toBeInTheDocument();
+    
+    // Verify filter dropdown is present
+    const filterDropdown = canvas.getByDisplayValue("All Locations");
+    expect(filterDropdown).toBeInTheDocument();
+    
+    // Verify location names render
+    expect(canvas.getByText("Downtown Office")).toBeInTheDocument();
+    expect(canvas.getByText("Westside Branch")).toBeInTheDocument();
+    expect(canvas.getByText("Brooklyn Location")).toBeInTheDocument();
+    expect(canvas.getByText("Chicago Office")).toBeInTheDocument();
+    
+    // Verify contact information displays
+    expect(canvas.getByText("+1 (555) 123-4567")).toBeInTheDocument();
+    expect(canvas.getByText("+1 (555) 987-6543")).toBeInTheDocument();
+    
+    // Verify services display
+    expect(canvas.getByText("Consulting")).toBeInTheDocument();
+    expect(canvas.getByText("Customer Service")).toBeInTheDocument();
+    
+    // Verify current status displays
+    const statusBadges = canvas.getAllByText(/Open Now|Closed/);
+    expect(statusBadges.length).toBeGreaterThan(0);
+  },
+});
 
 // Compact view
 export const CompactView: Story = {
@@ -315,7 +421,7 @@ export const DarkMode: Story = {
 };
 
 // Restaurant hours example
-export const RestaurantHours: Story = {
+export const RestaurantHours: Story = enhanceStoryForDualMode<typeof LocationHours>({
   args: {
     variant: "single-location",
     locations: [
@@ -364,10 +470,46 @@ export const RestaurantHours: Story = {
     showServices: true,
     showAppointmentBooking: true,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify restaurant name and description
+    expect(canvas.getByText("Bella Vista Restaurant")).toBeInTheDocument();
+    expect(canvas.getByText("Fine dining with a view")).toBeInTheDocument();
+    
+    // Verify business hours section
+    expect(canvas.getByText("Business Hours")).toBeInTheDocument();
+    
+    // Verify specific restaurant hours (closed Monday, open Tuesday-Sunday)
+    expect(canvas.getByText("Monday")).toBeInTheDocument();
+    expect(canvas.getByText("Closed")).toBeInTheDocument();
+    expect(canvas.getByText("Tuesday")).toBeInTheDocument();
+    expect(canvas.getByText("5:00 PM - 10:00 PM")).toBeInTheDocument();
+    
+    // Verify contact information
+    expect(canvas.getByText("Contact Information")).toBeInTheDocument();
+    expect(canvas.getByText("+1 (555) DINE-OUT")).toBeInTheDocument();
+    expect(canvas.getByText("reservations@bellavista.com")).toBeInTheDocument();
+    expect(canvas.getByText(/100 Sunset Boulevard/)).toBeInTheDocument();
+    expect(canvas.getByText(/Los Angeles, CA 90028/)).toBeInTheDocument();
+    
+    // Verify services
+    expect(canvas.getByText("Services Available")).toBeInTheDocument();
+    expect(canvas.getByText("Fine Dining")).toBeInTheDocument();
+    expect(canvas.getByText("Private Events")).toBeInTheDocument();
+    expect(canvas.getByText("Catering")).toBeInTheDocument();
+    
+    // Verify booking button
+    expect(canvas.getByText("Book Appointment")).toBeInTheDocument();
+    
+    // Verify current status badge
+    const statusBadge = canvas.getByText(/Open Now|Closed/);
+    expect(statusBadge).toBeInTheDocument();
+  },
+});
 
 // Medical office hours
-export const MedicalOffice: Story = {
+export const MedicalOffice: Story = enhanceStoryForDualMode<typeof LocationHours>({
   args: {
     variant: "detailed-info-cards",
     locations: [
@@ -405,7 +547,48 @@ export const MedicalOffice: Story = {
     showServices: true,
     showAppointmentBooking: true,
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify medical center name and description
+    expect(canvas.getByText("City Medical Center")).toBeInTheDocument();
+    expect(canvas.getByText("Comprehensive healthcare services")).toBeInTheDocument();
+    
+    // Verify business hours section
+    expect(canvas.getByText("Business Hours")).toBeInTheDocument();
+    
+    // Verify specific medical office hours
+    expect(canvas.getByText("Monday")).toBeInTheDocument();
+    expect(canvas.getByText("8:00 AM - 6:00 PM")).toBeInTheDocument();
+    expect(canvas.getByText("Wednesday")).toBeInTheDocument();
+    expect(canvas.getByText("8:00 AM - 8:00 PM")).toBeInTheDocument(); // Extended hours
+    expect(canvas.getByText("Saturday")).toBeInTheDocument();
+    expect(canvas.getByText("9:00 AM - 1:00 PM")).toBeInTheDocument(); // Limited Saturday hours
+    expect(canvas.getByText("Sunday")).toBeInTheDocument();
+    expect(canvas.getByText("Closed")).toBeInTheDocument();
+    
+    // Verify contact information
+    expect(canvas.getByText("Contact Information")).toBeInTheDocument();
+    expect(canvas.getByText("+1 (555) MEDICAL")).toBeInTheDocument();
+    expect(canvas.getByText("appointments@citymedical.com")).toBeInTheDocument();
+    expect(canvas.getByText(/500 Health Drive/)).toBeInTheDocument();
+    expect(canvas.getByText(/Seattle, WA 98101/)).toBeInTheDocument();
+    
+    // Verify medical services
+    expect(canvas.getByText("Services Available")).toBeInTheDocument();
+    expect(canvas.getByText("General Practice")).toBeInTheDocument();
+    expect(canvas.getByText("Pediatrics")).toBeInTheDocument();
+    expect(canvas.getByText("Cardiology")).toBeInTheDocument();
+    expect(canvas.getByText("Urgent Care")).toBeInTheDocument();
+    
+    // Verify appointment booking
+    expect(canvas.getByText("Book Appointment")).toBeInTheDocument();
+    
+    // Verify current status badge
+    const statusBadge = canvas.getByText(/Open Now|Closed/);
+    expect(statusBadge).toBeInTheDocument();
+  },
+});
 
 // Retail store with different timezones
 export const RetailChain: Story = {

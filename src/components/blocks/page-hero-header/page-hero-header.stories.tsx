@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { PageHeroHeader } from "./page-hero-header";
+import { expect, within } from "storybook/test";
+import { PageHeroHeader, type PageHeroHeaderProperties } from "./page-hero-header";
+import { enhanceStoryForDualMode } from "../../../../.storybook/utils/enhance-story";
 
 const meta = {
   title: "Blocks/PageHeroHeader",
@@ -59,12 +61,12 @@ const meta = {
       description: "Enable entrance animations",
     },
   },
-} satisfies Meta<typeof PageHeroHeader>;
+} satisfies Meta<PageHeroHeaderProperties>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Centered: Story = {
+export const Centered = enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "centered",
     title: "Build Amazing Products Faster",
@@ -90,9 +92,29 @@ export const Centered: Story = {
     maxWidth: "full",
     alignment: "center",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const SplitWithImage: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Build Amazing Products Faster")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("The modern way to create exceptional user experiences")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Our platform provides everything you need/)).toBeInTheDocument();
+
+    // Test badges render
+    expect(canvas.getByText("New")).toBeInTheDocument();
+    expect(canvas.getByText("v2.0 Released")).toBeInTheDocument();
+
+    // Test CTA buttons render
+    expect(canvas.getByRole("button", { name: /Get Started Free/ })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: /Watch Demo/ })).toBeInTheDocument();
+  },
+});
+
+export const SplitWithImage = enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "split",
     title: "Welcome to the Future of Development",
@@ -115,9 +137,25 @@ export const SplitWithImage: Story = {
       position: "right",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const FullscreenWithBackgroundImage: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Welcome to the Future of Development")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Experience a new way of building applications/)).toBeInTheDocument();
+
+    // Test CTA buttons render
+    expect(canvas.getByRole("button", { name: "Start Building" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Learn More" })).toBeInTheDocument();
+
+    // Test image renders
+    expect(canvas.getByAltText("Dashboard preview")).toBeInTheDocument();
+  },
+});
+
+export const FullscreenWithBackgroundImage= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "fullscreen",
     title: "Unleash Your Creativity",
@@ -141,9 +179,27 @@ export const FullscreenWithBackgroundImage: Story = {
     height: "large",
     alignment: "center",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Minimal: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Unleash Your Creativity")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Design without limits")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Join a community of creators/)).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Get Started" })).toBeInTheDocument();
+
+    // Test tertiary link renders
+    expect(canvas.getByText("Explore our gallery →")).toBeInTheDocument();
+  },
+});
+
+export const Minimal= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "minimal",
     title: "Simple. Powerful. Yours.",
@@ -155,9 +211,21 @@ export const Minimal: Story = {
     alignment: "center",
     spacing: "tight",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const LeftAligned: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Simple. Powerful. Yours.")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Everything you need to succeed/)).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Get Started" })).toBeInTheDocument();
+  },
+});
+
+export const LeftAligned= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "left-aligned",
     title: "Transform Your Business",
@@ -179,9 +247,29 @@ export const LeftAligned: Story = {
       { text: "99.9% Uptime", variant: "outline" },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithStats: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Transform Your Business")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Enterprise-grade solutions for modern teams")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Streamline workflows/)).toBeInTheDocument();
+
+    // Test badges render
+    expect(canvas.getByText("SOC 2 Certified")).toBeInTheDocument();
+    expect(canvas.getByText("99.9% Uptime")).toBeInTheDocument();
+
+    // Test CTA buttons render
+    expect(canvas.getByRole("button", { name: "Request Demo" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Contact Sales" })).toBeInTheDocument();
+  },
+});
+
+export const WithStats= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "centered",
     title: "Trusted by Teams Worldwide",
@@ -198,9 +286,31 @@ export const WithStats: Story = {
       { value: "24/7", label: "Support" },
     ],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const SplitWithLeftImage: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Trusted by Teams Worldwide")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Join thousands of companies/)).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Start Free Trial" })).toBeInTheDocument();
+
+    // Test stats render
+    expect(canvas.getByText("10K+")).toBeInTheDocument();
+    expect(canvas.getByText("Active Users")).toBeInTheDocument();
+    expect(canvas.getByText("50M+")).toBeInTheDocument();
+    expect(canvas.getByText("API Requests")).toBeInTheDocument();
+    expect(canvas.getByText("99.9%")).toBeInTheDocument();
+    expect(canvas.getByText("Uptime")).toBeInTheDocument();
+    expect(canvas.getByText("24/7")).toBeInTheDocument();
+    expect(canvas.getByText("Support")).toBeInTheDocument();
+  },
+});
+
+export const SplitWithLeftImage= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "split",
     title: "Designed for Developers",
@@ -222,9 +332,28 @@ export const SplitWithLeftImage: Story = {
     },
     alignment: "left",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithVideo: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Designed for Developers")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Built by developers, for developers")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Write less code, ship more features/)).toBeInTheDocument();
+
+    // Test CTA buttons render
+    expect(canvas.getByRole("button", { name: "View Documentation" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Try Playground" })).toBeInTheDocument();
+
+    // Test image renders
+    expect(canvas.getByAltText("Code editor")).toBeInTheDocument();
+  },
+});
+
+export const WithVideo= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "fullscreen",
     title: "Experience the Difference",
@@ -249,9 +378,28 @@ export const WithVideo: Story = {
     height: "large",
     alignment: "center",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const MultiColumn: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Experience the Difference")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("See what's possible")).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Start Now" })).toBeInTheDocument();
+
+    // Test video element renders
+    const video = canvas.getByRole("application", { hidden: true });
+    expect(video).toBeInTheDocument();
+    expect(video).toHaveAttribute("autoplay", "");
+    expect(video).toHaveAttribute("loop", "");
+    expect(video).toHaveAttribute("muted", "");
+  },
+});
+
+export const MultiColumn= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "multi-column",
     title: "Everything You Need to Succeed",
@@ -264,9 +412,27 @@ export const MultiColumn: Story = {
     },
     badges: [{ text: "All-in-One Platform", variant: "secondary" }],
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const RightAligned: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Everything You Need to Succeed")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Comprehensive tools for modern teams")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/From ideation to deployment/)).toBeInTheDocument();
+
+    // Test badge renders
+    expect(canvas.getByText("All-in-One Platform")).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Get Started" })).toBeInTheDocument();
+  },
+});
+
+export const RightAligned= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "right-aligned",
     title: "Ready to Scale?",
@@ -285,9 +451,27 @@ export const RightAligned: Story = {
       position: "bottom",
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const ColorfulBackground: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Ready to Scale?")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Growth starts here")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Take your business to the next level/)).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Talk to Sales" })).toBeInTheDocument();
+
+    // Test image renders
+    expect(canvas.getByAltText("Analytics dashboard")).toBeInTheDocument();
+  },
+});
+
+export const ColorfulBackground= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "centered",
     title: "Stand Out from the Crowd",
@@ -313,9 +497,25 @@ export const ColorfulBackground: Story = {
       overlayOpacity: 0.2,
     },
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const CompactWithAllElements: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Stand Out from the Crowd")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Make an impression that lasts")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Create stunning designs/)).toBeInTheDocument();
+
+    // Test CTA buttons render
+    expect(canvas.getByRole("button", { name: "Browse Templates" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Learn More" })).toBeInTheDocument();
+  },
+});
+
+export const CompactWithAllElements= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "centered",
     title: "Launch Your Next Project",
@@ -341,9 +541,32 @@ export const CompactWithAllElements: Story = {
     spacing: "tight",
     height: "auto",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithDarkOverlay: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Launch Your Next Project")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("From idea to production in days, not months")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Our platform accelerates development/)).toBeInTheDocument();
+
+    // Test badges render
+    expect(canvas.getByText("Free Trial")).toBeInTheDocument();
+    expect(canvas.getByText("No Credit Card Required")).toBeInTheDocument();
+
+    // Test CTA buttons render
+    expect(canvas.getByRole("button", { name: "Start Building" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "View Pricing" })).toBeInTheDocument();
+
+    // Test tertiary link renders
+    expect(canvas.getByText("Read customer stories")).toBeInTheDocument();
+  },
+});
+
+export const WithDarkOverlay= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "fullscreen",
     title: "Create Something Amazing",
@@ -368,9 +591,25 @@ export const WithDarkOverlay: Story = {
     height: "large",
     alignment: "center",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithLightOverlay: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Create Something Amazing")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Your vision, our platform")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Build beautiful, responsive applications/)).toBeInTheDocument();
+
+    // Test CTA buttons render
+    expect(canvas.getByRole("button", { name: "Start Free Trial" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "View Examples" })).toBeInTheDocument();
+  },
+});
+
+export const WithLightOverlay= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "fullscreen",
     title: "Welcome to Innovation",
@@ -390,9 +629,24 @@ export const WithLightOverlay: Story = {
     alignment: "center",
     textColor: "#1a1a1a",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithSubtleOverlay: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Welcome to Innovation")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Where ideas come to life")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Transform your concepts into reality/)).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Get Started" })).toBeInTheDocument();
+  },
+});
+
+export const WithSubtleOverlay= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "fullscreen",
     title: "Elevate Your Business",
@@ -413,9 +667,24 @@ export const WithSubtleOverlay: Story = {
     height: "large",
     alignment: "center",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithNoOverlay: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Elevate Your Business")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Professional tools for professional teams")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Streamline your workflow/)).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Request Demo" })).toBeInTheDocument();
+  },
+});
+
+export const WithNoOverlay= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "fullscreen",
     title: "Pure and Simple",
@@ -433,9 +702,24 @@ export const WithNoOverlay: Story = {
     height: "large",
     alignment: "center",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const WithHeavyOverlay: Story = {
+    // Test hero title renders
+    expect(canvas.getByText("Pure and Simple")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("No distractions, just results")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Experience the clarity/)).toBeInTheDocument();
+
+    // Test CTA button renders
+    expect(canvas.getByRole("button", { name: "Explore" })).toBeInTheDocument();
+  },
+});
+
+export const WithHeavyOverlay= enhanceStoryForDualMode<PageHeroHeaderProperties>({
   args: {
     variant: "fullscreen",
     title: "Focus on What Matters",
@@ -460,4 +744,20 @@ export const WithHeavyOverlay: Story = {
     height: "large",
     alignment: "center",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test hero title renders
+    expect(canvas.getByText("Focus on What Matters")).toBeInTheDocument();
+
+    // Test subtitle renders
+    expect(canvas.getByText("Cut through the noise")).toBeInTheDocument();
+
+    // Test description renders
+    expect(canvas.getByText(/Our platform helps you concentrate/)).toBeInTheDocument();
+
+    // Test CTA buttons render
+    expect(canvas.getByRole("button", { name: "Start Building" })).toBeInTheDocument();
+    expect(canvas.getByRole("button", { name: "Learn More" })).toBeInTheDocument();
+  },
+});

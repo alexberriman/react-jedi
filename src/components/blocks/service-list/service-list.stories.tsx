@@ -1,19 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { ServiceList } from "./service-list";
-import {
-  Cloud,
-  Shield,
-  Zap,
-  Globe,
-  Database,
-  Lock,
-  Cpu,
-  BarChart,
-  Users,
-  Rocket,
-  Code,
-  Settings,
-} from "lucide-react";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Blocks/ServiceList",
@@ -30,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 const basicServices = [
   {
     id: "1",
-    icon: <Cloud className="h-6 w-6" />,
+    icon: "cloud",
     title: "Cloud Storage",
     description: "Secure and scalable cloud storage solution for all your data needs",
     features: ["Unlimited storage", "99.9% uptime", "Auto-backup", "File versioning"],
@@ -40,7 +28,7 @@ const basicServices = [
   },
   {
     id: "2",
-    icon: <Shield className="h-6 w-6" />,
+    icon: "shield",
     title: "Security Suite",
     description: "Enterprise-grade security to protect your business from threats",
     features: [
@@ -57,7 +45,7 @@ const basicServices = [
   },
   {
     id: "3",
-    icon: <Zap className="h-6 w-6" />,
+    icon: "zap",
     title: "Performance Boost",
     description: "Optimize your applications for maximum speed and efficiency",
     features: [
@@ -76,7 +64,7 @@ const basicServices = [
 const enterpriseServices = [
   {
     id: "1",
-    icon: <Database className="h-8 w-8" />,
+    icon: "database",
     title: "Enterprise Database",
     description:
       "High-performance database solution designed for enterprise workloads with advanced features and scalability",
@@ -98,7 +86,7 @@ const enterpriseServices = [
   },
   {
     id: "2",
-    icon: <Lock className="h-8 w-8" />,
+    icon: "lock",
     title: "Advanced Security",
     description: "Complete security infrastructure for mission-critical applications",
     features: [
@@ -115,7 +103,7 @@ const enterpriseServices = [
   },
   {
     id: "3",
-    icon: <Globe className="h-8 w-8" />,
+    icon: "globe",
     title: "Global CDN",
     description: "Deliver content at lightning speed to users worldwide",
     features: [
@@ -132,7 +120,7 @@ const enterpriseServices = [
   },
   {
     id: "4",
-    icon: <Cpu className="h-8 w-8" />,
+    icon: "cpu",
     title: "AI Processing",
     description: "Harness the power of artificial intelligence for your applications",
     features: [
@@ -153,7 +141,7 @@ const enterpriseServices = [
 const servicesWithImages = [
   {
     id: "1",
-    icon: <BarChart className="h-8 w-8" />,
+    icon: "bar-chart",
     image:
       "https://placehold.co/800x450/EEE/31343C",
     title: "Business Analytics",
@@ -174,7 +162,7 @@ const servicesWithImages = [
   },
   {
     id: "2",
-    icon: <Users className="h-8 w-8" />,
+    icon: "users",
     image:
       "https://placehold.co/800x450/EEE/31343C",
     title: "Team Collaboration",
@@ -194,7 +182,7 @@ const servicesWithImages = [
   },
   {
     id: "3",
-    icon: <Rocket className="h-8 w-8" />,
+    icon: "rocket",
     image:
       "https://placehold.co/800x450/EEE/31343C",
     title: "Growth Platform",
@@ -218,7 +206,7 @@ const servicesWithImages = [
 const developmentServices = [
   {
     id: "1",
-    icon: <Code className="h-6 w-6" />,
+    icon: "code",
     title: "Web Development",
     description: "Custom web applications built with modern technologies",
     features: ["React/Next.js", "TypeScript", "API Integration", "Responsive Design"],
@@ -228,7 +216,7 @@ const developmentServices = [
   },
   {
     id: "2",
-    icon: <Settings className="h-6 w-6" />,
+    icon: "settings",
     title: "DevOps Services",
     description: "Streamline your deployment and infrastructure management",
     features: ["CI/CD Pipeline", "Cloud Setup", "Monitoring", "Automation"],
@@ -239,55 +227,195 @@ const developmentServices = [
   },
 ];
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode({
   args: {
     services: basicServices,
     variant: "cards",
     columns: 3,
     animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service items are rendered
+    expect(canvas.getByText("Cloud Storage")).toBeInTheDocument();
+    expect(canvas.getByText("Security Suite")).toBeInTheDocument();
+    expect(canvas.getByText("Performance Boost")).toBeInTheDocument();
+    
+    // Verify descriptions are present
+    expect(canvas.getByText("Secure and scalable cloud storage solution for all your data needs")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise-grade security to protect your business from threats")).toBeInTheDocument();
+    
+    // Verify features are listed
+    expect(canvas.getByText("Unlimited storage")).toBeInTheDocument();
+    expect(canvas.getByText("Real-time monitoring")).toBeInTheDocument();
+    expect(canvas.getByText("CDN integration")).toBeInTheDocument();
+    
+    // Verify pricing is displayed
+    expect(canvas.getByText("$9.99")).toBeInTheDocument();
+    expect(canvas.getByText("$29.99")).toBeInTheDocument();
+    expect(canvas.getByText("$19.99")).toBeInTheDocument();
+    
+    // Verify CTA buttons
+    expect(canvas.getByText("Get Started")).toBeInTheDocument();
+    expect(canvas.getByText("Start Free Trial")).toBeInTheDocument();
+    expect(canvas.getByText("Learn More")).toBeInTheDocument();
+    
+    // Verify badges
+    expect(canvas.getByText("Popular")).toBeInTheDocument();
+    expect(canvas.getByText("New")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const ListVariant: Story = {
+export const ListVariant: Story = enhanceStoryForDualMode({
   args: {
     services: enterpriseServices,
     variant: "list",
     animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service items are rendered
+    expect(canvas.getByText("Enterprise Database")).toBeInTheDocument();
+    expect(canvas.getByText("Advanced Security")).toBeInTheDocument();
+    expect(canvas.getByText("Global CDN")).toBeInTheDocument();
+    expect(canvas.getByText("AI Processing")).toBeInTheDocument();
+    
+    // Verify descriptions
+    expect(canvas.getByText(/High-performance database solution/)).toBeInTheDocument();
+    expect(canvas.getByText("Complete security infrastructure for mission-critical applications")).toBeInTheDocument();
+    
+    // Verify features as badges in list view
+    expect(canvas.getByText("Multi-region replication")).toBeInTheDocument();
+    expect(canvas.getByText("Zero-trust architecture")).toBeInTheDocument();
+    expect(canvas.getByText("200+ edge locations")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("$499")).toBeInTheDocument();
+    expect(canvas.getByText("$799")).toBeInTheDocument();
+    expect(canvas.getByText("$299")).toBeInTheDocument();
+    expect(canvas.getByText("$999")).toBeInTheDocument();
+    
+    // Verify badges
+    expect(canvas.getByText("Recommended")).toBeInTheDocument();
+    expect(canvas.getByText("New")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const AlternatingVariant: Story = {
+export const AlternatingVariant: Story = enhanceStoryForDualMode({
   args: {
     services: servicesWithImages,
     variant: "alternating",
     animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service items are rendered
+    expect(canvas.getByText("Business Analytics")).toBeInTheDocument();
+    expect(canvas.getByText("Team Collaboration")).toBeInTheDocument();
+    expect(canvas.getByText("Growth Platform")).toBeInTheDocument();
+    
+    // Verify descriptions are present
+    expect(canvas.getByText(/Transform your data into actionable insights/)).toBeInTheDocument();
+    expect(canvas.getByText(/Bring your team together with our comprehensive/)).toBeInTheDocument();
+    
+    // Verify features are listed
+    expect(canvas.getByText("Real-time dashboards")).toBeInTheDocument();
+    expect(canvas.getByText("Video conferencing")).toBeInTheDocument();
+    expect(canvas.getByText("Marketing automation")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("$149")).toBeInTheDocument();
+    expect(canvas.getByText("$25")).toBeInTheDocument();
+    expect(canvas.getByText("$299")).toBeInTheDocument();
+    
+    // Verify images are present (alt text)
+    expect(canvas.getByAltText("Business Analytics")).toBeInTheDocument();
+    expect(canvas.getByAltText("Team Collaboration")).toBeInTheDocument();
+    expect(canvas.getByAltText("Growth Platform")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const TabsVariant: Story = {
+export const TabsVariant: Story = enhanceStoryForDualMode({
   args: {
     services: enterpriseServices.slice(0, 3),
     variant: "tabs",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify tab triggers are present
+    expect(canvas.getByText("Enterprise Database")).toBeInTheDocument();
+    expect(canvas.getByText("Advanced Security")).toBeInTheDocument();
+    expect(canvas.getByText("Global CDN")).toBeInTheDocument();
+    
+    // Verify first tab content is visible by default
+    expect(canvas.getByText(/High-performance database solution/)).toBeInTheDocument();
+    expect(canvas.getByText("Multi-region replication")).toBeInTheDocument();
+    expect(canvas.getByText("$499")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const AccordionVariant: Story = {
+export const AccordionVariant: Story = enhanceStoryForDualMode({
   args: {
     services: enterpriseServices,
     variant: "accordion",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify accordion triggers are present
+    expect(canvas.getByText("Enterprise Database")).toBeInTheDocument();
+    expect(canvas.getByText("Advanced Security")).toBeInTheDocument();
+    expect(canvas.getByText("Global CDN")).toBeInTheDocument();
+    expect(canvas.getByText("AI Processing")).toBeInTheDocument();
+    
+    // Verify pricing is shown in trigger
+    expect(canvas.getByText("$499/month")).toBeInTheDocument();
+    expect(canvas.getByText("$799/month")).toBeInTheDocument();
+    expect(canvas.getByText("$299/month")).toBeInTheDocument();
+    expect(canvas.getByText("$999/month")).toBeInTheDocument();
+    
+    // Verify badges in trigger
+    expect(canvas.getByText("Recommended")).toBeInTheDocument();
+    expect(canvas.getByText("New")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const TwoColumns: Story = {
+export const TwoColumns: Story = enhanceStoryForDualMode({
   args: {
     services: developmentServices,
     variant: "cards",
     columns: 2,
     animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service items are rendered
+    expect(canvas.getByText("Web Development")).toBeInTheDocument();
+    expect(canvas.getByText("DevOps Services")).toBeInTheDocument();
+    
+    // Verify descriptions
+    expect(canvas.getByText("Custom web applications built with modern technologies")).toBeInTheDocument();
+    expect(canvas.getByText("Streamline your deployment and infrastructure management")).toBeInTheDocument();
+    
+    // Verify features
+    expect(canvas.getByText("React/Next.js")).toBeInTheDocument();
+    expect(canvas.getByText("CI/CD Pipeline")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("$5000")).toBeInTheDocument();
+    expect(canvas.getByText("$2500")).toBeInTheDocument();
+    
+    // Verify badge
+    expect(canvas.getByText("Popular")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const FourColumns: Story = {
+export const FourColumns: Story = enhanceStoryForDualMode({
   args: {
     services: [
       ...basicServices,
@@ -300,18 +428,46 @@ export const FourColumns: Story = {
     columns: 4,
     animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all four service items are rendered
+    expect(canvas.getByText("Cloud Storage")).toBeInTheDocument();
+    expect(canvas.getByText("Security Suite")).toBeInTheDocument();
+    expect(canvas.getByText("Performance Boost")).toBeInTheDocument();
+    expect(canvas.getByText("Web Development")).toBeInTheDocument();
+    
+    // Verify pricing for all services
+    expect(canvas.getByText("$9.99")).toBeInTheDocument();
+    expect(canvas.getByText("$29.99")).toBeInTheDocument();
+    expect(canvas.getByText("$19.99")).toBeInTheDocument();
+    expect(canvas.getByText("$5000")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const WithoutAnimation: Story = {
+export const WithoutAnimation: Story = enhanceStoryForDualMode({
   args: {
     services: basicServices,
     variant: "cards",
     columns: 3,
     animated: false,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service items are rendered (same as Default but without animation)
+    expect(canvas.getByText("Cloud Storage")).toBeInTheDocument();
+    expect(canvas.getByText("Security Suite")).toBeInTheDocument();
+    expect(canvas.getByText("Performance Boost")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("$9.99")).toBeInTheDocument();
+    expect(canvas.getByText("$29.99")).toBeInTheDocument();
+    expect(canvas.getByText("$19.99")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const MixedBadges: Story = {
+export const MixedBadges: Story = enhanceStoryForDualMode({
   args: {
     services: [
       { ...basicServices[0], badge: "new" as const },
@@ -321,17 +477,52 @@ export const MixedBadges: Story = {
     variant: "cards",
     columns: 3,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service items are rendered
+    expect(canvas.getByText("Cloud Storage")).toBeInTheDocument();
+    expect(canvas.getByText("Security Suite")).toBeInTheDocument();
+    expect(canvas.getByText("Performance Boost")).toBeInTheDocument();
+    
+    // Verify all different badge types
+    expect(canvas.getByText("New")).toBeInTheDocument();
+    expect(canvas.getByText("Popular")).toBeInTheDocument();
+    expect(canvas.getByText("Recommended")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("$9.99")).toBeInTheDocument();
+    expect(canvas.getByText("$29.99")).toBeInTheDocument();
+    expect(canvas.getByText("$19.99")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const NoPricing: Story = {
+export const NoPricing: Story = enhanceStoryForDualMode({
   args: {
     services: basicServices.map(({ pricing, ...service }) => service),
     variant: "cards",
     columns: 3,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service items are rendered
+    expect(canvas.getByText("Cloud Storage")).toBeInTheDocument();
+    expect(canvas.getByText("Security Suite")).toBeInTheDocument();
+    expect(canvas.getByText("Performance Boost")).toBeInTheDocument();
+    
+    // Verify features are still shown
+    expect(canvas.getByText("Unlimited storage")).toBeInTheDocument();
+    expect(canvas.getByText("Real-time monitoring")).toBeInTheDocument();
+    
+    // Verify pricing sections are not present
+    expect(canvas.queryByText("$9.99")).not.toBeInTheDocument();
+    expect(canvas.queryByText("$29.99")).not.toBeInTheDocument();
+    expect(canvas.queryByText("$19.99")).not.toBeInTheDocument();
+  },
+}) as Story;
 
-export const MinimalFeatures: Story = {
+export const MinimalFeatures: Story = enhanceStoryForDualMode({
   args: {
     services: basicServices.map((service) => ({
       ...service,
@@ -339,9 +530,27 @@ export const MinimalFeatures: Story = {
     })),
     variant: "list",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service items are rendered
+    expect(canvas.getByText("Cloud Storage")).toBeInTheDocument();
+    expect(canvas.getByText("Security Suite")).toBeInTheDocument();
+    expect(canvas.getByText("Performance Boost")).toBeInTheDocument();
+    
+    // Verify only first 2 features are shown for each service
+    expect(canvas.getByText("Unlimited storage")).toBeInTheDocument();
+    expect(canvas.getByText("99.9% uptime")).toBeInTheDocument();
+    expect(canvas.getByText("Real-time monitoring")).toBeInTheDocument();
+    expect(canvas.getByText("Threat detection")).toBeInTheDocument();
+    
+    // Verify additional features are not shown
+    expect(canvas.queryByText("Auto-backup")).not.toBeInTheDocument();
+    expect(canvas.queryByText("Firewall protection")).not.toBeInTheDocument();
+  },
+}) as Story;
 
-export const ComparisonMode: Story = {
+export const ComparisonMode: Story = enhanceStoryForDualMode({
   args: {
     services: [
       {
@@ -393,14 +602,46 @@ export const ComparisonMode: Story = {
     columns: 3,
     showComparison: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify pricing tier titles
+    expect(canvas.getByText("Starter")).toBeInTheDocument();
+    expect(canvas.getByText("Professional")).toBeInTheDocument();
+    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    
+    // Verify descriptions
+    expect(canvas.getByText("Perfect for small teams and projects")).toBeInTheDocument();
+    expect(canvas.getByText("For growing businesses with advanced needs")).toBeInTheDocument();
+    expect(canvas.getByText("Tailored solutions for large organizations")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("$0")).toBeInTheDocument();
+    expect(canvas.getByText("$49")).toBeInTheDocument();
+    expect(canvas.getByText("Custom")).toBeInTheDocument();
+    
+    // Verify features
+    expect(canvas.getByText("5 Users")).toBeInTheDocument();
+    expect(canvas.getByText("25 Users")).toBeInTheDocument();
+    expect(canvas.getByText("Unlimited Users")).toBeInTheDocument();
+    
+    // Verify CTAs
+    expect(canvas.getByText("Start Free")).toBeInTheDocument();
+    expect(canvas.getByText("Upgrade to Pro")).toBeInTheDocument();
+    expect(canvas.getByText("Contact Sales")).toBeInTheDocument();
+    
+    // Verify badges
+    expect(canvas.getByText("Popular")).toBeInTheDocument();
+    expect(canvas.getByText("Recommended")).toBeInTheDocument();
+  },
+}) as Story;
 
-export const LongFeatureList: Story = {
+export const LongFeatureList: Story = enhanceStoryForDualMode({
   args: {
     services: [
       {
         id: "1",
-        icon: <Database className="h-6 w-6" />,
+        icon: "database",
         title: "Complete Platform",
         description: "Everything you need in one comprehensive solution",
         features: [
@@ -424,4 +665,28 @@ export const LongFeatureList: Story = {
     ],
     variant: "list",
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify service is rendered
+    expect(canvas.getByText("Complete Platform")).toBeInTheDocument();
+    expect(canvas.getByText("Everything you need in one comprehensive solution")).toBeInTheDocument();
+    
+    // Verify pricing
+    expect(canvas.getByText("$199")).toBeInTheDocument();
+    
+    // Verify first few features are visible (list variant shows features as badges)
+    expect(canvas.getByText("User Management")).toBeInTheDocument();
+    expect(canvas.getByText("Role-Based Access")).toBeInTheDocument();
+    expect(canvas.getByText("Data Analytics")).toBeInTheDocument();
+    
+    // Check for expand/collapse functionality in list variant
+    const expandButton = canvas.queryByText(/\+\d+ more/);
+    if (expandButton) {
+      expect(expandButton).toBeInTheDocument();
+    }
+    
+    // Verify CTA
+    expect(canvas.getByText("View All Features")).toBeInTheDocument();
+  },
+}) as Story;

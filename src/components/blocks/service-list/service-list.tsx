@@ -8,10 +8,11 @@ import { Button } from "../../ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs"
 import { cn } from "../../../lib/utils"
+import { SDUIIcon } from "../../../lib/icons/sdui-icon"
 
 export interface ServiceItem {
   id: string
-  icon?: React.ReactNode
+  icon?: React.ReactNode | string
   image?: string
   title: string
   description: string
@@ -52,6 +53,16 @@ export function ServiceList({
         ? prev.filter((id) => id !== serviceId)
         : [...prev, serviceId]
     )
+  }
+
+  const renderIcon = (icon?: React.ReactNode | string, size?: string) => {
+    if (!icon) return null
+    
+    if (typeof icon === "string") {
+      return <SDUIIcon name={icon} size={size === "large" ? 32 : 24} />
+    }
+    
+    return icon
   }
 
   const renderBadge = (badge?: ServiceItem["badge"]) => {
@@ -96,7 +107,7 @@ export function ServiceList({
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
                         {service.icon && (
-                          <div className="text-primary">{service.icon}</div>
+                          <div className="text-primary">{renderIcon(service.icon)}</div>
                         )}
                         <CardTitle className="text-xl">{service.title}</CardTitle>
                       </div>
@@ -164,7 +175,7 @@ export function ServiceList({
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     {service.icon && (
-                      <div className="text-primary flex-shrink-0">{service.icon}</div>
+                      <div className="text-primary flex-shrink-0">{renderIcon(service.icon)}</div>
                     )}
                     <div className="flex-1 space-y-3">
                       <div className="flex items-start justify-between">
@@ -257,7 +268,7 @@ export function ServiceList({
             >
               <div className="flex-1 space-y-4">
                 <div className="flex items-center gap-4">
-                  {service.icon && <div className="text-primary">{service.icon}</div>}
+                  {service.icon && <div className="text-primary">{renderIcon(service.icon, "large")}</div>}
                   <h3 className="text-2xl font-bold">{service.title}</h3>
                   {renderBadge(service.badge)}
                 </div>
@@ -316,7 +327,7 @@ export function ServiceList({
               {services.map((service) => (
                 <TabsTrigger key={service.id} value={service.id}>
                   <div className="flex items-center gap-2">
-                    {service.icon && <span className="hidden sm:inline">{service.icon}</span>}
+                    {service.icon && <span className="hidden sm:inline">{renderIcon(service.icon)}</span>}
                     <span>{service.title}</span>
                   </div>
                 </TabsTrigger>
@@ -385,7 +396,7 @@ export function ServiceList({
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-center justify-between w-full pr-4">
                     <div className="flex items-center gap-3">
-                      {service.icon && <span>{service.icon}</span>}
+                      {service.icon && <span>{renderIcon(service.icon)}</span>}
                       <span className="font-semibold text-lg">{service.title}</span>
                     </div>
                     <div className="flex items-center gap-2">

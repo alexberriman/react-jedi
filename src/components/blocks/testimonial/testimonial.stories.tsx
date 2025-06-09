@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { Testimonial } from "./testimonial";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 // Note: These tests may show act() warnings from Radix UI components.
 // These warnings are false positives caused by internal state updates in Avatar (image loading)
@@ -431,3 +432,260 @@ export const NoAnimation: Story = {
     animated: false,
   },
 };
+
+// Dual-mode story tests
+export const DualModeTestSingle: Story = enhanceStoryForDualMode<typeof Testimonial>(
+  {
+    args: {
+      testimonials: sampleTestimonial,
+      variant: "single",
+      layout: "card",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify testimonial content renders correctly
+      expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+      expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+      expect(canvas.getByText(/Product Designer at Tech Corp/)).toBeInTheDocument();
+      
+      // Verify avatar is present
+      const avatar = canvas.getByRole("img", { name: /Sarah Chen/ });
+      expect(avatar).toBeInTheDocument();
+      
+      // Verify rating stars are present (5 star icons)
+      const starElements = canvasElement.querySelectorAll('[data-lucide="star"]');
+      expect(starElements).toHaveLength(5);
+      
+      // Verify quote formatting
+      expect(canvas.getByText(/This library has transformed/)).toHaveClass("text-muted-foreground", "italic");
+    },
+  },
+  {
+    renderSpec: {
+      type: "Testimonial",
+      testimonials: sampleTestimonial,
+      variant: "single",
+      layout: "card",
+    },
+  }
+);
+
+export const DualModeTestQuoteLayout: Story = enhanceStoryForDualMode<typeof Testimonial>(
+  {
+    args: {
+      testimonials: sampleTestimonial,
+      variant: "single",
+      layout: "quote",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify quote layout specific elements
+      const blockquote = canvas.getByRole("blockquote");
+      expect(blockquote).toBeInTheDocument();
+      expect(blockquote).toHaveClass("text-lg", "italic", "text-muted-foreground");
+      
+      // Verify author information
+      expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+      expect(canvas.getByText(/Product Designer at Tech Corp/)).toBeInTheDocument();
+      
+      // Verify content
+      expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+      
+      // Verify rating stars are present (5 star icons)
+      const starElements = canvasElement.querySelectorAll('[data-lucide="star"]');
+      expect(starElements).toHaveLength(5);
+    },
+  },
+  {
+    renderSpec: {
+      type: "Testimonial",
+      testimonials: sampleTestimonial,
+      variant: "single",
+      layout: "quote",
+    },
+  }
+);
+
+export const DualModeTestGrid: Story = enhanceStoryForDualMode<typeof Testimonial>(
+  {
+    args: {
+      testimonials: sampleTestimonials.slice(0, 4),
+      variant: "grid",
+      layout: "card",
+      columns: 2,
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify all testimonials are rendered
+      expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+      expect(canvas.getByText("James Wilson")).toBeInTheDocument();
+      expect(canvas.getByText("Emma Thompson")).toBeInTheDocument();
+      expect(canvas.getByText("Michael Rodriguez")).toBeInTheDocument();
+      
+      // Verify grid layout structure (main container should have grid classes)
+      const gridContainer = canvasElement.querySelector('.grid');
+      expect(gridContainer).toBeInTheDocument();
+      expect(gridContainer).toHaveClass("grid", "gap-6");
+      
+      // Verify individual testimonial content
+      expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+      expect(canvas.getByText(/Best UI library I've worked with/)).toBeInTheDocument();
+      expect(canvas.getByText(/Beautiful components that are a joy/)).toBeInTheDocument();
+      
+      // Check that all rating elements are present (4 testimonials × 5 stars each)
+      const starElements = canvasElement.querySelectorAll('[data-lucide="star"]');
+      expect(starElements.length).toBeGreaterThanOrEqual(20); // At least 4 testimonials × 5 stars each
+    },
+  },
+  {
+    renderSpec: {
+      type: "Testimonial",
+      testimonials: sampleTestimonials.slice(0, 4),
+      variant: "grid",
+      layout: "card",
+      columns: 2,
+    },
+  }
+);
+
+export const DualModeTestWithRating: Story = enhanceStoryForDualMode<typeof Testimonial>(
+  {
+    args: {
+      testimonials: {
+        ...sampleTestimonial,
+        rating: 4,
+      },
+      variant: "single",
+      layout: "card",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify rating display (5 star icons)
+      const starElements = canvasElement.querySelectorAll('[data-lucide="star"]');
+      expect(starElements).toHaveLength(5);
+      
+      // Check that 4 stars are filled (have yellow color) and 1 is empty
+      const filledStars = [...starElements].filter(star => 
+        star.classList.contains("fill-yellow-400") && star.classList.contains("text-yellow-400")
+      );
+      const emptyStars = [...starElements].filter(star => 
+        star.classList.contains("fill-muted") && star.classList.contains("text-muted")
+      );
+      
+      expect(filledStars).toHaveLength(4);
+      expect(emptyStars).toHaveLength(1);
+      
+      // Verify other content
+      expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+      expect(canvas.getByText(/This library has transformed/)).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Testimonial",
+      testimonials: {
+        ...sampleTestimonial,
+        rating: 4,
+      },
+      variant: "single",
+      layout: "card",
+    },
+  }
+);
+
+export const DualModeTestLargeLayout: Story = enhanceStoryForDualMode<typeof Testimonial>(
+  {
+    args: {
+      testimonials: {
+        ...sampleTestimonial,
+        content: "Working with React Jedi has been an absolute pleasure. The Server-Driven UI approach revolutionizes how we think about building interfaces.",
+      },
+      variant: "single",
+      layout: "large",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify large layout specific styling
+      const container = canvasElement.querySelector('.relative.p-8.rounded-2xl');
+      expect(container).toBeInTheDocument();
+      expect(container).toHaveClass("relative", "p-8", "rounded-2xl");
+      
+      // Verify quote icon is present
+      const quoteIcon = canvasElement.querySelector('[data-lucide="quote"]');
+      expect(quoteIcon).toBeInTheDocument();
+      
+      // Verify content with large text styling
+      const content = canvas.getByText(/Working with React Jedi/);
+      expect(content).toHaveClass("text-lg", "md:text-xl", "font-light", "leading-relaxed");
+      
+      // Verify author info
+      expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+      expect(canvas.getByText(/Product Designer at Tech Corp/)).toBeInTheDocument();
+      
+      // Verify avatar sizing for large layout
+      const avatar = canvas.getByRole("img", { name: /Sarah Chen/ });
+      const avatarContainer = avatar.closest('[class*="h-16"]');
+      expect(avatarContainer).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Testimonial",
+      testimonials: {
+        ...sampleTestimonial,
+        content: "Working with React Jedi has been an absolute pleasure. The Server-Driven UI approach revolutionizes how we think about building interfaces.",
+      },
+      variant: "single",
+      layout: "large",
+    },
+  }
+);
+
+export const DualModeTestMinimalLayout: Story = enhanceStoryForDualMode<typeof Testimonial>(
+  {
+    args: {
+      testimonials: sampleTestimonial,
+      variant: "single",
+      layout: "minimal",
+    },
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify minimal layout structure
+      const container = canvasElement.querySelector('.space-y-4');
+      expect(container).toBeInTheDocument();
+      expect(container).toHaveClass("space-y-4");
+      
+      // Verify content with minimal styling
+      const content = canvas.getByText(/This library has transformed/);
+      expect(content).toHaveClass("text-muted-foreground", "italic");
+      
+      // Verify author section
+      expect(canvas.getByText("Sarah Chen")).toBeInTheDocument();
+      expect(canvas.getByText(/Product Designer at Tech Corp/)).toBeInTheDocument();
+      
+      // Verify avatar is present
+      const avatar = canvas.getByRole("img", { name: /Sarah Chen/ });
+      expect(avatar).toBeInTheDocument();
+      
+      // Verify company logo if present
+      if (sampleTestimonial.author.companyLogo) {
+        const companyLogo = canvas.getByAltText(/Tech Corp logo/);
+        expect(companyLogo).toBeInTheDocument();
+      }
+    },
+  },
+  {
+    renderSpec: {
+      type: "Testimonial",
+      testimonials: sampleTestimonial,
+      variant: "single",
+      layout: "minimal",
+    },
+  }
+);

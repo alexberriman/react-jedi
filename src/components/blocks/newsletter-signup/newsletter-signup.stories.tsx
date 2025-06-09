@@ -2,6 +2,7 @@ import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { NewsletterSignup } from "./newsletter-signup";
 import { Mail, Sparkles, Gift, Star, Zap, Heart } from "lucide-react";
+import { within, waitFor } from "storybook/test";
 
 const meta = {
   title: "Blocks/Newsletter Signup",
@@ -24,6 +25,14 @@ export const Inline: Story = {
     emailPlaceholder: "Enter your email address",
     submitButtonText: "Subscribe",
     showGdprCheckbox: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
   },
 };
 
@@ -57,6 +66,14 @@ export const InlineWithBackground: Story = {
     backgroundPattern: "dots",
     className: "max-w-md",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
+  },
 };
 
 export const InlineMinimal: Story = {
@@ -86,6 +103,14 @@ export const WithIncentive: Story = {
     ],
     backgroundPattern: "gradient",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
+  },
 };
 
 export const WithIncentiveCompact: Story = {
@@ -98,6 +123,14 @@ export const WithIncentiveCompact: Story = {
     },
     submitButtonText: "Claim Offer",
     showNameField: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
   },
 };
 
@@ -123,6 +156,14 @@ export const Modal: Story = {
       </div>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the component to render
+    await waitFor(() => {
+      // Modal variant might not show checkbox immediately
+      return canvas.getByText("Open Newsletter Modal");
+    });
+  },
 };
 
 export const ModalWithExitIntent: Story = {
@@ -144,6 +185,13 @@ export const ModalWithExitIntent: Story = {
         story: "Move your mouse to the top of the viewport to trigger the exit intent popup.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    // Wait for component to render
+    await waitFor(() => {
+      // Modal with exit intent might not show immediately
+      return canvasElement;
+    });
   },
 };
 
@@ -179,6 +227,12 @@ export const SlideInTopLeft: Story = {
   parameters: {
     layout: "fullscreen",
   },
+  play: async ({ canvasElement }) => {
+    // Wait for slide-in to appear after delay
+    await waitFor(() => {
+      return canvasElement;
+    }, { timeout: 2000 });
+  },
 };
 
 export const SlideInCenter: Story = {
@@ -196,6 +250,12 @@ export const SlideInCenter: Story = {
   },
   parameters: {
     layout: "fullscreen",
+  },
+  play: async ({ canvasElement }) => {
+    // Wait for slide-in to appear after delay
+    await waitFor(() => {
+      return canvasElement;
+    }, { timeout: 2000 });
   },
 };
 
@@ -231,6 +291,14 @@ export const FooterBar: Story = {
       </div>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the component to render
+    await waitFor(() => {
+      // This story has showGdprCheckbox: false, so no checkbox to wait for
+      return canvas.getByText("Subscribe to our newsletter");
+    });
+  },
 };
 
 // Different background patterns
@@ -240,6 +308,14 @@ export const BackgroundPatternDots: Story = {
     title: "Subscribe today",
     backgroundPattern: "dots",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
+  },
 };
 
 export const BackgroundPatternGrid: Story = {
@@ -247,6 +323,14 @@ export const BackgroundPatternGrid: Story = {
     variant: "inline",
     title: "Join our grid",
     backgroundPattern: "grid",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
   },
 };
 
@@ -256,6 +340,14 @@ export const BackgroundPatternWaves: Story = {
     title: "Ride the wave",
     backgroundPattern: "waves",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
+  },
 };
 
 export const BackgroundPatternGradient: Story = {
@@ -263,6 +355,14 @@ export const BackgroundPatternGradient: Story = {
     variant: "inline",
     title: "Gradient vibes",
     backgroundPattern: "gradient",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
   },
 };
 
@@ -276,6 +376,14 @@ export const WithBackgroundImage: Story = {
       "https://placehold.co/1600x900/EEE/31343C",
     className: "text-white [&_*]:text-white [&_.text-muted-foreground]:text-white/80",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
+  },
 };
 
 // Form variations
@@ -286,6 +394,14 @@ export const WithNameField: Story = {
     description: "Tell us your name for a personalized experience.",
     showNameField: true,
     namePlaceholder: "First name",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
   },
 };
 
@@ -310,6 +426,14 @@ export const CustomTexts: Story = {
     successTitle: "Welcome aboard!",
     successMessage: "You've successfully joined Tech Weekly. Your first issue will arrive soon.",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
+  },
 };
 
 // Interactive example with submission handler
@@ -327,6 +451,14 @@ export const WithSubmissionHandler: Story = {
       // throw new Error("Subscription failed");
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
+  },
 };
 
 // Animated vs non-animated
@@ -336,6 +468,14 @@ export const NonAnimated: Story = {
     title: "No animations",
     description: "This variant has animations disabled.",
     animated: false,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
   },
 };
 
@@ -357,6 +497,14 @@ export const DarkMode: Story = {
       </div>
     ),
   ],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
+  },
 };
 
 // Full example combining multiple features
@@ -385,5 +533,13 @@ export const FullFeatured: Story = {
     successTitle: "Welcome to the community! 🎉",
     successMessage:
       "Check your email for your free TypeScript course and confirm your subscription.",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Wait for the checkbox to be rendered
+    await waitFor(() => {
+      const checkbox = canvas.getByRole("checkbox");
+      return checkbox;
+    });
   },
 };

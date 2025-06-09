@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-09]
 
+- **Implement dual-mode story functionality for Timeline component. CRITICAL: The args MUST use type 'Timeline' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (timeline items, dates, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
+
+
+## [2025-06-09]
+
 - **Implement dual-mode story functionality for Testimonial component. CRITICAL: The args MUST use type 'Testimonial' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (quote text, author, role, avatar, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
 
 

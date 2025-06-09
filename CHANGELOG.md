@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-09]
 
+- **Implement dual-mode story functionality for Features component. CRITICAL: The args MUST use type 'Features' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (feature list, icons, descriptions, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
+
+
+## [2025-06-09]
+
 - **Fixes storybook test failures** (30 subtasks completed)
   - Investigate test errors and warnings in src/components/ui/accordion/accordion.stories.tsx. Read the error log at ./tmp/tests/accordion.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- accordion.stories' to verify any fixes.
   - Investigate test errors and warnings in src/components/ui/avatar/avatar.stories.tsx. Read the error log at ./tmp/tests/avatar.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- avatar.stories' to verify any fixes.

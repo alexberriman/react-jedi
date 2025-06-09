@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import { LatestNews } from "./latest-news";
 import type { Article } from "./latest-news";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Blocks/Latest News",
@@ -272,3 +274,216 @@ export const AnimatedMagazineStyle: Story = {
     viewAllUrl: "/news",
   },
 };
+
+export const DualModeTest = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <LatestNews
+        articles={sampleArticles}
+        variant="cards-row"
+        count={3}
+        heading="Latest News (Dual Mode)"
+        description="Testing dual-mode rendering - React vs SDUI"
+        viewAllUrl="/news"
+        viewAllText="View All Articles"
+        animated={true}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Wait for content to load
+      await waitFor(() => {
+        expect(canvas.getByText("Latest News (Dual Mode)")).toBeInTheDocument();
+      });
+
+      // Verify description
+      expect(canvas.getByText("Testing dual-mode rendering - React vs SDUI")).toBeInTheDocument();
+
+      // Verify articles are rendered
+      const article1 = canvas.getByText("Breaking: Major Tech Company Announces Revolutionary AI Assistant");
+      const article2 = canvas.getByText("Climate Summit Reaches Historic Agreement on Carbon Emissions");
+      const article3 = canvas.getByText("Stock Market Hits All-Time High Amid Economic Recovery");
+      
+      expect(article1).toBeInTheDocument();
+      expect(article2).toBeInTheDocument();
+      expect(article3).toBeInTheDocument();
+
+      // Verify dates are rendered
+      expect(canvas.getByText("Jan 15, 2024")).toBeInTheDocument();
+      expect(canvas.getByText("Jan 14, 2024")).toBeInTheDocument();
+      expect(canvas.getByText("Jan 13, 2024")).toBeInTheDocument();
+
+      // Verify categories/badges
+      expect(canvas.getByText("Technology")).toBeInTheDocument();
+      expect(canvas.getByText("Environment")).toBeInTheDocument();
+      expect(canvas.getByText("Business")).toBeInTheDocument();
+
+      // Verify authors
+      expect(canvas.getByText("By Sarah Chen")).toBeInTheDocument();
+      expect(canvas.getByText("By Michael Torres")).toBeInTheDocument();
+      expect(canvas.getByText("By Emily Johnson")).toBeInTheDocument();
+
+      // Verify view all link
+      const viewAllLink = canvas.getByRole("link", { name: /view all articles/i });
+      expect(viewAllLink).toBeInTheDocument();
+      expect(viewAllLink).toHaveAttribute("href", "/news");
+    },
+  },
+  {
+    renderSpec: {
+      type: "LatestNews",
+      articles: sampleArticles,
+      variant: "cards-row",
+      count: 3,
+      heading: "Latest News (Dual Mode)",
+      description: "Testing dual-mode rendering - React vs SDUI",
+      viewAllUrl: "/news",
+      viewAllText: "View All Articles",
+      animated: true,
+    },
+  }
+);
+
+export const DualModeFeatured = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <LatestNews
+        articles={sampleArticles}
+        variant="featured-list"
+        count={4}
+        heading="Featured Stories (Dual Mode)"
+        viewAllUrl="/news"
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Wait for content to load
+      await waitFor(() => {
+        expect(canvas.getByText("Featured Stories (Dual Mode)")).toBeInTheDocument();
+      });
+
+      // Verify the featured article (first one) is rendered prominently
+      const featuredTitle = canvas.getByText("Breaking: Major Tech Company Announces Revolutionary AI Assistant");
+      expect(featuredTitle).toBeInTheDocument();
+
+      // Verify "More Articles" section exists for featured layout
+      expect(canvas.getByText("More Articles")).toBeInTheDocument();
+
+      // Verify remaining articles in the list
+      expect(canvas.getByText("Climate Summit Reaches Historic Agreement on Carbon Emissions")).toBeInTheDocument();
+      expect(canvas.getByText("Stock Market Hits All-Time High Amid Economic Recovery")).toBeInTheDocument();
+      expect(canvas.getByText("New Study Reveals Benefits of Mediterranean Diet for Brain Health")).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "LatestNews",
+      articles: sampleArticles,
+      variant: "featured-list",
+      count: 4,
+      heading: "Featured Stories (Dual Mode)",
+      viewAllUrl: "/news",
+    },
+  }
+);
+
+export const DualModeMinimal = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <LatestNews
+        articles={minimalArticles}
+        variant="minimal-links"
+        count={6}
+        heading="Recent Updates (Dual Mode)"
+        viewAllUrl="/news"
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      
+      // Wait for content to load
+      await waitFor(() => {
+        expect(canvas.getByText("Recent Updates (Dual Mode)")).toBeInTheDocument();
+      });
+
+      // Verify articles are rendered as minimal links
+      expect(canvas.getByText("Breaking: Major Tech Company Announces Revolutionary AI Assistant")).toBeInTheDocument();
+      expect(canvas.getByText("Climate Summit Reaches Historic Agreement on Carbon Emissions")).toBeInTheDocument();
+      expect(canvas.getByText("Stock Market Hits All-Time High Amid Economic Recovery")).toBeInTheDocument();
+      expect(canvas.getByText("New Study Reveals Benefits of Mediterranean Diet for Brain Health")).toBeInTheDocument();
+      expect(canvas.getByText("Space Exploration Milestone: First Commercial Moon Landing Success")).toBeInTheDocument();
+      expect(canvas.getByText("Electric Vehicle Sales Surpass Traditional Cars for First Time")).toBeInTheDocument();
+
+      // Verify dates are still shown
+      expect(canvas.getByText("Jan 15, 2024")).toBeInTheDocument();
+      expect(canvas.getByText("Jan 14, 2024")).toBeInTheDocument();
+      expect(canvas.getByText("Jan 13, 2024")).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "LatestNews",
+      articles: minimalArticles,
+      variant: "minimal-links",
+      count: 6,
+      heading: "Recent Updates (Dual Mode)",
+      viewAllUrl: "/news",
+    },
+  }
+);
+
+export const DualModeWithCategories = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <LatestNews
+        articles={sampleArticles}
+        variant="cards-row"
+        count={3}
+        heading="Latest News by Category (Dual Mode)"
+        showCategoryTabs={true}
+        viewAllUrl="/news"
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
+      
+      // Wait for content to load
+      await waitFor(() => {
+        expect(canvas.getByText("Latest News by Category (Dual Mode)")).toBeInTheDocument();
+      });
+
+      // Verify category tabs are rendered
+      expect(canvas.getByRole("button", { name: "All" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Technology" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Environment" })).toBeInTheDocument();
+      expect(canvas.getByRole("button", { name: "Business" })).toBeInTheDocument();
+
+      // Click Technology tab
+      const techTab = canvas.getByRole("button", { name: "Technology" });
+      await user.click(techTab);
+
+      // Wait for filtering to occur
+      await waitFor(() => {
+        expect(canvas.getByText("Breaking: Major Tech Company Announces Revolutionary AI Assistant")).toBeInTheDocument();
+      });
+
+      // Should show only technology articles
+      expect(canvas.queryByText("Climate Summit Reaches Historic Agreement on Carbon Emissions")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Stock Market Hits All-Time High Amid Economic Recovery")).not.toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "LatestNews",
+      articles: sampleArticles,
+      variant: "cards-row",
+      count: 3,
+      heading: "Latest News by Category (Dual Mode)",
+      showCategoryTabs: true,
+      viewAllUrl: "/news",
+    },
+  }
+);

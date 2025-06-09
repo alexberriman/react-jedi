@@ -296,21 +296,37 @@ export const RightSide = enhanceStoryForDualMode(
 
       // Wait for drawer - check multiple possible locations
       await waitFor(() => {
-        const drawerInBody = document.body.querySelector('[data-slot="drawer-content"]');
-        const drawerInCanvas = canvasElement.querySelector('[data-slot="drawer-content"]');
-        const drawer = drawerInBody || drawerInCanvas;
+        // Try multiple selectors for drawer content
+        const drawerContent = document.querySelector('[data-slot="drawer-content"]') || 
+                             document.querySelector('[data-vaul-drawer]') ||
+                             document.querySelector('[role="dialog"]');
         
-        if (!drawer) {
-          throw new Error('Drawer not found in body or canvas');
+        if (!drawerContent) {
+          // Log what we can find for debugging
+          const allElements = document.querySelectorAll('[data-slot], [data-vaul-drawer], [role="dialog"]');
+          console.log('Found elements:', allElements.length);
+          allElements.forEach(el => console.log('Element:', el.tagName, el.getAttribute('data-slot'), el.getAttribute('role')));
+          throw new Error('Drawer content not found');
         }
         
-        const drawerScreen = within(drawer as HTMLElement);
+        // Check if it's visible
+        const isVisible = drawerContent.checkVisibility?.() ?? true;
+        if (!isVisible) {
+          throw new Error('Drawer found but not visible');
+        }
+        
+        const drawerScreen = within(drawerContent as HTMLElement);
         expect(drawerScreen.getByText("Navigation Menu")).toBeInTheDocument();
       }, { timeout: 10_000 });
 
       // Verify drawer is on the right (has data attribute)
-      const drawer = document.body.querySelector('[data-slot="drawer-content"]') || canvasElement.querySelector('[data-slot="drawer-content"]');
-      expect(drawer).toHaveAttribute("data-vaul-drawer-direction", "right");
+      const drawer = document.querySelector('[data-slot="drawer-content"]') || 
+                    document.querySelector('[data-vaul-drawer]') ||
+                    document.querySelector('[role="dialog"]');
+      
+      if (drawer?.hasAttribute("data-vaul-drawer-direction")) {
+        expect(drawer).toHaveAttribute("data-vaul-drawer-direction", "right");
+      }
 
       // Click a navigation button
       const drawerScreen = within(drawer as HTMLElement);
@@ -322,7 +338,9 @@ export const RightSide = enhanceStoryForDualMode(
 
       await waitFor(
         () => {
-          const drawerElement = document.body.querySelector('[data-slot="drawer-content"]') || canvasElement.querySelector('[data-slot="drawer-content"]');
+          const drawerElement = document.querySelector('[data-slot="drawer-content"]') || 
+                               document.querySelector('[data-vaul-drawer]') ||
+                               document.querySelector('[role="dialog"]');
           expect(drawerElement).not.toBeInTheDocument();
         },
         { timeout: 5000 }

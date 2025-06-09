@@ -114,8 +114,22 @@ function KenBurnsImage({
           style={{
             opacity: imageLoaded ? 1 : 0,
           }}
-          onLoad={() => setImageLoaded(true)}
-          onError={() => setImageError(true)}
+          onLoad={() => {
+            // Use setTimeout to ensure state updates happen after React's render cycle
+            if (typeof window !== 'undefined' && window.requestAnimationFrame) {
+              window.requestAnimationFrame(() => setImageLoaded(true));
+            } else {
+              setImageLoaded(true);
+            }
+          }}
+          onError={() => {
+            // Use setTimeout to ensure state updates happen after React's render cycle
+            if (typeof window !== 'undefined' && window.requestAnimationFrame) {
+              window.requestAnimationFrame(() => setImageError(true));
+            } else {
+              setImageError(true);
+            }
+          }}
           loading="lazy"
           onClick={enableZoom ? () => onZoom?.(src) : undefined}
           whileHover={enableZoom ? { scale: 1.02 } : undefined}

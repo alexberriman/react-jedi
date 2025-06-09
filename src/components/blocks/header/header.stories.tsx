@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import { Header } from "./header";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta = {
   title: "Blocks/Header",
@@ -733,3 +735,334 @@ export const MultiColumnDropdown: Story = {
     ],
   },
 };
+
+// Dual-mode SDUI stories
+export const DefaultSDUI: Story = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <Header
+        logo={{
+          type: "text",
+          text: "YourBrand",
+          href: "#",
+        }}
+        navigation={navigationItems}
+        actions={actions}
+        showDarkModeToggle={true}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify logo is rendered
+      expect(canvas.getByText("YourBrand")).toBeInTheDocument();
+
+      // Verify navigation items are present
+      expect(canvas.getByText("Products")).toBeInTheDocument();
+      expect(canvas.getByText("Solutions")).toBeInTheDocument();
+      expect(canvas.getByText("Pricing")).toBeInTheDocument();
+      expect(canvas.getByText("Docs")).toBeInTheDocument();
+
+      // Verify action buttons are present
+      expect(canvas.getByText("Sign In")).toBeInTheDocument();
+      expect(canvas.getByText("Get Started")).toBeInTheDocument();
+
+      // Verify dark mode toggle is present
+      expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Header",
+      logo: {
+        type: "text",
+        text: "YourBrand",
+        href: "#",
+      },
+      navigation: navigationItems,
+      actions: actions,
+      showDarkModeToggle: true,
+    },
+  }
+);
+
+export const ImageLogoSDUI: Story = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <Header
+        logo={{
+          type: "image",
+          src: "https://placehold.co/120x40/3b82f6/ffffff?text=Logo",
+          alt: "Company Logo",
+          href: "#",
+        }}
+        navigation={navigationItems}
+        actions={actions}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify image logo is rendered
+      const logo = canvas.getByRole("img", { name: "Company Logo" });
+      expect(logo).toBeInTheDocument();
+      expect(logo).toHaveAttribute("src", "https://placehold.co/120x40/3b82f6/ffffff?text=Logo");
+
+      // Verify navigation items are present
+      expect(canvas.getByText("Products")).toBeInTheDocument();
+      expect(canvas.getByText("Solutions")).toBeInTheDocument();
+
+      // Verify action buttons are present
+      expect(canvas.getByText("Sign In")).toBeInTheDocument();
+      expect(canvas.getByText("Get Started")).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Header",
+      logo: {
+        type: "image",
+        src: "https://placehold.co/120x40/3b82f6/ffffff?text=Logo",
+        alt: "Company Logo",
+        href: "#",
+      },
+      navigation: navigationItems,
+      actions: actions,
+    },
+  }
+);
+
+export const MinimalSDUI: Story = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <Header
+        variant="minimal"
+        logo={{
+          type: "text",
+          text: "Minimal",
+          href: "#",
+        }}
+        actions={[
+          {
+            label: "Contact",
+            variant: "ghost" as const,
+          },
+          {
+            label: "Get Started",
+            variant: "default" as const,
+          },
+        ]}
+        showDarkModeToggle={true}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify logo is rendered
+      expect(canvas.getByText("Minimal")).toBeInTheDocument();
+
+      // Verify action buttons are present
+      expect(canvas.getByText("Contact")).toBeInTheDocument();
+      expect(canvas.getByText("Get Started")).toBeInTheDocument();
+
+      // Verify dark mode toggle is present
+      expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Header",
+      variant: "minimal",
+      logo: {
+        type: "text",
+        text: "Minimal",
+        href: "#",
+      },
+      actions: [
+        {
+          label: "Contact",
+          variant: "ghost",
+        },
+        {
+          label: "Get Started",
+          variant: "default",
+        },
+      ],
+      showDarkModeToggle: true,
+    },
+  }
+);
+
+export const CenteredSDUI: Story = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <Header
+        variant="centered"
+        logo={{
+          type: "text",
+          text: "Centered",
+          href: "#",
+        }}
+        navigation={[
+          { label: "Home", href: "#" },
+          { label: "About", href: "#about" },
+          { label: "Services", href: "#services" },
+          { label: "Contact", href: "#contact" },
+        ]}
+        actions={[
+          {
+            label: "Get Started",
+            variant: "default" as const,
+          },
+        ]}
+        showDarkModeToggle={true}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify logo is rendered
+      expect(canvas.getByText("Centered")).toBeInTheDocument();
+
+      // Verify navigation items are present
+      expect(canvas.getByText("Home")).toBeInTheDocument();
+      expect(canvas.getByText("About")).toBeInTheDocument();
+      expect(canvas.getByText("Services")).toBeInTheDocument();
+      expect(canvas.getByText("Contact")).toBeInTheDocument();
+
+      // Verify action button is present
+      expect(canvas.getByText("Get Started")).toBeInTheDocument();
+
+      // Verify dark mode toggle is present
+      expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Header",
+      variant: "centered",
+      logo: {
+        type: "text",
+        text: "Centered",
+        href: "#",
+      },
+      navigation: [
+        { label: "Home", href: "#" },
+        { label: "About", href: "#about" },
+        { label: "Services", href: "#services" },
+        { label: "Contact", href: "#contact" },
+      ],
+      actions: [
+        {
+          label: "Get Started",
+          variant: "default",
+        },
+      ],
+      showDarkModeToggle: true,
+    },
+  }
+);
+
+export const WithIconsSDUI: Story = enhanceStoryForDualMode(
+  {
+    render: () => (
+      <Header
+        logo={{
+          type: "text",
+          text: "IconNav",
+          href: "#",
+        }}
+        navigation={[
+          {
+            label: "Products",
+            icon: "Package" as const,
+            items: [
+              {
+                label: "Analytics Dashboard",
+                href: "#analytics",
+                description: "Real-time analytics and insights",
+                icon: "BarChart3" as const,
+              },
+              {
+                label: "Cloud Storage",
+                href: "#storage",
+                description: "Secure file storage and sharing",
+                icon: "Cloud" as const,
+              },
+            ],
+          },
+          {
+            label: "Pricing",
+            href: "#pricing",
+            icon: "CreditCard" as const,
+          },
+        ]}
+        actions={actions}
+        showDarkModeToggle={true}
+      />
+    ),
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      const user = userEvent.setup();
+
+      // Verify logo is rendered
+      expect(canvas.getByText("IconNav")).toBeInTheDocument();
+
+      // Verify navigation items with icons are present
+      expect(canvas.getByText("Products")).toBeInTheDocument();
+      expect(canvas.getByText("Pricing")).toBeInTheDocument();
+
+      // Test dropdown functionality
+      const productsDropdown = canvas.getByText("Products");
+      await user.hover(productsDropdown);
+
+      // Wait for dropdown to appear and verify submenu items
+      await waitFor(() => {
+        expect(within(document.body).getByText("Analytics Dashboard")).toBeInTheDocument();
+      });
+
+      expect(within(document.body).getByText("Cloud Storage")).toBeInTheDocument();
+
+      // Verify action buttons are present
+      expect(canvas.getByText("Sign In")).toBeInTheDocument();
+      expect(canvas.getByText("Get Started")).toBeInTheDocument();
+    },
+  },
+  {
+    renderSpec: {
+      type: "Header",
+      logo: {
+        type: "text",
+        text: "IconNav",
+        href: "#",
+      },
+      navigation: [
+        {
+          label: "Products",
+          icon: "Package",
+          items: [
+            {
+              label: "Analytics Dashboard",
+              href: "#analytics",
+              description: "Real-time analytics and insights",
+              icon: "BarChart3",
+            },
+            {
+              label: "Cloud Storage",
+              href: "#storage",
+              description: "Secure file storage and sharing",
+              icon: "Cloud",
+            },
+          ],
+        },
+        {
+          label: "Pricing",
+          href: "#pricing",
+          icon: "CreditCard",
+        },
+      ],
+      actions: actions,
+      showDarkModeToggle: true,
+    },
+  }
+);

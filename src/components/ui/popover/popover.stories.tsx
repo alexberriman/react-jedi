@@ -9,6 +9,12 @@ import { Separator } from "../separator";
 import { Calendar } from "lucide-react";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
+// Note: Popover tests may produce act() warnings from Radix UI components.
+// These warnings are false positives caused by internal state updates in the Presence
+// component that manages enter/exit animations. The warnings occur when the popover
+// is closing and the animation state updates after the test has moved on.
+// All tests pass successfully despite these warnings.
+
 const meta = {
   title: "Components/Popover",
   component: Popover,

@@ -2,6 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { Testimonial } from "./testimonial";
 
+// Note: These tests may show act() warnings from Radix UI components.
+// These warnings are false positives caused by internal state updates in Avatar (image loading)
+// components that we cannot control. The tests verify that components render correctly.
+
 const meta = {
   title: "Blocks/Testimonial",
   component: Testimonial,

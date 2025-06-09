@@ -56,7 +56,7 @@
       {
         "id": "investigate-dialog-enhanced-stories",
         "description": "Investigate test errors and warnings in src/components/ui/dialog/dialog-enhanced.stories.tsx. Read the error log at ./tmp/tests/dialog-enhanced.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- dialog-enhanced.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-dialog-stories",

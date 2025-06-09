@@ -64,28 +64,48 @@ export const BasicWithHandlers: Story = enhanceStoryWithHandlers<typeof Dialog>(
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
       const canvas = within(canvasElement);
 
-      // Click the trigger button to open dialog
-      const triggerButton = canvas.getByRole("button", { name: /open dialog/i });
-      await userEvent.click(triggerButton);
+      // In dual-mode testing, the body might have pointer-events disabled
+      // We need to temporarily restore them for interaction
+      const body = document.body;
+      const originalPointerEvents = body.style.pointerEvents;
+      const hadScrollLock = body.hasAttribute('data-scroll-locked');
+      
+      // Temporarily enable pointer events for testing
+      if (body.style.pointerEvents === 'none' || hadScrollLock) {
+        body.style.pointerEvents = '';
+        body.removeAttribute('data-scroll-locked');
+      }
 
-      // Wait for dialog to appear
-      await waitFor(() => {
-        expect(document.querySelector('[data-slot="dialog-title"]')).toBeInTheDocument();
-      });
+      try {
+        // Click the trigger button to open dialog
+        const triggerButton = canvas.getByRole("button", { name: /open dialog/i });
+        await userEvent.click(triggerButton);
 
-      // Close dialog
-      const closeButton = within(document.body).getByRole("button", { name: /close/i });
-      await userEvent.click(closeButton);
+        // Wait for dialog to appear
+        await waitFor(() => {
+          expect(document.querySelector('[data-slot="dialog-title"]')).toBeInTheDocument();
+        });
 
-      // Verify dialog is closed
-      await waitFor(() => {
-        const dialogContent = document.querySelector('[data-slot="dialog-content"]');
-        if (dialogContent) {
-          expect((dialogContent as HTMLElement).dataset.state).toBe("closed");
-        } else {
-          expect(dialogContent).not.toBeInTheDocument();
+        // Close dialog
+        const closeButton = within(document.body).getByRole("button", { name: /close/i });
+        await userEvent.click(closeButton);
+
+        // Verify dialog is closed
+        await waitFor(() => {
+          const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+          if (dialogContent) {
+            expect((dialogContent as HTMLElement).dataset.state).toBe("closed");
+          } else {
+            expect(dialogContent).not.toBeInTheDocument();
+          }
+        });
+      } finally {
+        // Restore original state
+        body.style.pointerEvents = originalPointerEvents;
+        if (hadScrollLock) {
+          body.setAttribute('data-scroll-locked', '1');
         }
-      });
+      }
     },
   },
   {

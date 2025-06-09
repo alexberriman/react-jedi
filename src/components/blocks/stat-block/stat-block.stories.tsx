@@ -2,9 +2,13 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { StatBlock } from "./stat-block";
 import type { StatBlockDef } from "../../../types/components/stat-block";
-import { enhanceStoryForDualMode } from "../../../.storybook/utils/enhance-story";
+import { enhanceStoryForDualMode } from "../../../../.storybook/utils/enhance-story";
 
-const meta: Meta<typeof StatBlock> = {
+interface StatBlockProps {
+  readonly spec: StatBlockDef;
+}
+
+const meta: Meta<StatBlockProps> = {
   title: "Blocks/StatBlock",
   component: StatBlock,
   tags: ["autodocs", "test"],
@@ -15,7 +19,7 @@ const meta: Meta<typeof StatBlock> = {
 
 export default meta;
 
-type Story = StoryObj<typeof StatBlock>;
+type Story = StoryObj<StatBlockProps>;
 
 const basicStats: StatBlockDef["stats"] = [
   {
@@ -52,14 +56,14 @@ const basicStats: StatBlockDef["stats"] = [
   },
 ];
 
-export const Default: Story = enhanceStoryForDualMode({
+export const Default: Story = enhanceStoryForDualMode<StatBlockProps>({
   args: {
     spec: {
       type: "StatBlock",
       stats: basicStats,
-    },
+    } as StatBlockDef,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
     // Verify stat labels
@@ -86,7 +90,7 @@ export const Default: Story = enhanceStoryForDualMode({
   },
 });
 
-export const GridVariant: Story = enhanceStoryForDualMode({
+export const GridVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
   args: {
     spec: {
       type: "StatBlock",
@@ -95,9 +99,9 @@ export const GridVariant: Story = enhanceStoryForDualMode({
       columns: 4,
       gap: "lg",
       showBorder: true,
-    },
+    } as StatBlockDef,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
     // Verify all stats are rendered in grid layout
@@ -112,7 +116,7 @@ export const GridVariant: Story = enhanceStoryForDualMode({
   },
 });
 
-export const CardVariant: Story = enhanceStoryForDualMode({
+export const CardVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
   args: {
     spec: {
       type: "StatBlock",
@@ -120,9 +124,9 @@ export const CardVariant: Story = enhanceStoryForDualMode({
       stats: basicStats,
       columns: 2,
       gap: "md",
-    },
+    } as StatBlockDef,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
     // Verify stats are rendered in card layout
@@ -142,7 +146,7 @@ export const HorizontalVariant: Story = {
       variant: "horizontal",
       stats: basicStats.slice(0, 3),
       alignment: "left",
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -154,7 +158,7 @@ export const VerticalVariant: Story = {
       stats: basicStats.slice(0, 3),
       showBackground: true,
       gap: "lg",
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -173,7 +177,7 @@ export const MinimalVariant: Story = {
       alignment: "center",
       valueSize: "lg",
       labelSize: "xs",
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -205,11 +209,11 @@ export const DetailedVariant: Story = {
       columns: 2,
       showBackground: true,
       gap: "xl",
-    },
+    } as StatBlockDef,
   },
 };
 
-export const WithIconPositions: Story = enhanceStoryForDualMode({
+export const WithIconPositions: Story = enhanceStoryForDualMode<StatBlockProps>({
   args: {
     spec: {
       type: "StatBlock",
@@ -235,9 +239,9 @@ export const WithIconPositions: Story = enhanceStoryForDualMode({
       ],
       columns: 3,
       showBorder: true,
-    },
+    } as StatBlockDef,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
     // Verify all stat labels
@@ -269,11 +273,11 @@ export const DifferentSizes: Story = {
       valueSize: "3xl",
       labelSize: "lg",
       gap: "xl",
-    },
+    } as StatBlockDef,
   },
 };
 
-export const ColorVariations: Story = enhanceStoryForDualMode({
+export const ColorVariations: Story = enhanceStoryForDualMode<StatBlockProps>({
   args: {
     spec: {
       type: "StatBlock",
@@ -287,9 +291,9 @@ export const ColorVariations: Story = enhanceStoryForDualMode({
       ],
       columns: 3,
       showBackground: true,
-    },
+    } as StatBlockDef,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
     // Verify all color variant labels
@@ -321,7 +325,7 @@ export const NoAnimation: Story = {
       stats: basicStats,
       animated: false,
       countUp: false,
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -336,7 +340,7 @@ export const CustomCountUpDuration: Story = {
       ],
       countUpDuration: 5000,
       columns: 3,
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -373,7 +377,7 @@ export const MixedContent: Story = {
       ],
       columns: 4,
       variant: "card",
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -393,11 +397,11 @@ export const ResponsiveColumns: Story = {
       gap: "sm",
       valueSize: "xl",
       showBorder: true,
-    },
+    } as StatBlockDef,
   },
 };
 
-export const DashboardExample: Story = enhanceStoryForDualMode({
+export const DashboardExample: Story = enhanceStoryForDualMode<StatBlockProps>({
   args: {
     spec: {
       type: "StatBlock",
@@ -443,9 +447,9 @@ export const DashboardExample: Story = enhanceStoryForDualMode({
       countUp: true,
       animated: true,
       staggerDelay: 150,
-    },
+    } as StatBlockDef,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
     // Verify main stats
@@ -519,7 +523,7 @@ export const GradientVariant: Story = {
       columns: 4,
       gap: "lg",
       animated: true,
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -566,7 +570,7 @@ export const GlassVariant: Story = {
       gap: "lg",
       animated: true,
       showDescription: false,
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -620,7 +624,7 @@ export const ModernVariant: Story = {
       showDescription: true,
       animated: true,
       countUp: true,
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -679,7 +683,7 @@ export const NeonVariant: Story = {
       animated: true,
       countUp: true,
       animationDuration: 400,
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -731,7 +735,7 @@ export const SaaSMetrics: Story = {
       showDescription: true,
       animated: true,
       countUp: true,
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -795,7 +799,7 @@ export const EcommerceStats: Story = {
       columns: 3,
       gap: "lg",
       animated: true,
-    },
+    } as StatBlockDef,
   },
 };
 
@@ -816,6 +820,6 @@ export const CompactStats: Story = {
       gap: "md",
       animated: true,
       countUp: false,
-    },
+    } as StatBlockDef,
   },
 };

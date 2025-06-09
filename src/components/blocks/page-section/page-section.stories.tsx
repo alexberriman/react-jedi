@@ -27,7 +27,7 @@ const meta: Meta<typeof PageSection> = {
   tags: ["autodocs", "test"],
   decorators: [
     (Story) => (
-      <div style={{ position: 'relative', minHeight: '100vh' }}>
+      <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
         <Story />
       </div>
     ),

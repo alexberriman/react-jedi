@@ -106,7 +106,7 @@
       {
         "id": "investigate-page-section-stories",
         "description": "Investigate test errors and warnings in src/components/blocks/page-section/page-section.stories.tsx. Read the error log at ./tmp/tests/page-section.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- page-section.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-pagination-stories",

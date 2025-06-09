@@ -99,8 +99,22 @@ if (!globalThis.window.scrollTo) {
 
 // Mock IntersectionObserver for tests
 if (!globalThis.IntersectionObserver) {
-  globalThis.IntersectionObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
+  globalThis.IntersectionObserver = vi.fn().mockImplementation((callback) => ({
+    observe: vi.fn((target) => {
+      // Simulate immediate intersection for testing
+      // Use Promise.resolve to ensure it runs after the component mounts
+      Promise.resolve().then(() => {
+        callback([{ 
+          isIntersecting: true, 
+          target,
+          intersectionRatio: 1,
+          boundingClientRect: {},
+          intersectionRect: {},
+          rootBounds: null,
+          time: Date.now()
+        }]);
+      });
+    }),
     unobserve: vi.fn(),
     disconnect: vi.fn(),
   }));

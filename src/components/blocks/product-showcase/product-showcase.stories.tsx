@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import { ProductShowcase, type Product } from "./product-showcase";
+import { enhanceStoryWithHandlers, createClickHandlers } from "@sb/utils/enhance-story-with-handlers";
 
 const meta = {
   title: "Blocks/ProductShowcase",
@@ -232,124 +234,738 @@ const sampleProducts: Product[] = [
   },
 ];
 
-export const GridView: Story = {
-  args: {
-    variant: "grid",
-    products: sampleProducts,
-    columns: 3,
-    animated: true,
-    showWishlist: true,
-    showQuickAdd: true,
-    showFilters: true,
-    showRatings: true,
-    onAddToCart: (product, variants) => {
-      console.log("Add to cart:", product.name, variants);
+export const GridView: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
     },
-    onToggleWishlist: (product) => {
-      console.log("Toggle wishlist:", product.name);
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify product cards are rendered
+      const productCards = canvas.getAllByRole("img");
+      expect(productCards).toHaveLength(sampleProducts.length);
+
+      // Verify first product details
+      const firstProduct = sampleProducts[0];
+      expect(canvas.getByText(firstProduct.name)).toBeInTheDocument();
+      expect(canvas.getByText(firstProduct.description!)).toBeInTheDocument();
+      
+      // Verify price display
+      const priceText = canvas.getByText("$249.99");
+      expect(priceText).toBeInTheDocument();
+      
+      // Verify sale price and original price
+      const originalPrice = canvas.getByText("$299.99");
+      expect(originalPrice).toBeInTheDocument();
+      expect(originalPrice).toHaveClass("line-through");
+
+      // Verify ratings are shown (check for review count)
+      const reviewCount = canvas.getByText("(128)");
+      expect(reviewCount).toBeInTheDocument();
+
+      // Verify category filter dropdown is present
+      const filterDropdown = canvas.getByRole("combobox");
+      expect(filterDropdown).toBeInTheDocument();
+
+      // Test add to cart functionality
+      const addToCartButtons = canvas.getAllByText(/Add to Cart|Quick Add/i);
+      expect(addToCartButtons).toHaveLength(sampleProducts.filter(p => p.inStock).length);
+      
+      // Click first add to cart button
+      await userEvent.click(addToCartButtons[0]);
+
+      // Test wishlist functionality
+      const wishlistButtons = canvas.getAllByRole("button", { name: /wishlist/i });
+      if (wishlistButtons.length > 0) {
+        await userEvent.click(wishlistButtons[0]);
+      }
+
+      // Test product click
+      const firstProductName = canvas.getByText(firstProduct.name);
+      await userEvent.click(firstProductName);
+
+      // Test category filtering
+      await userEvent.click(filterDropdown);
+      await waitFor(() => {
+        const audioOption = canvas.getByText("Audio");
+        expect(audioOption).toBeInTheDocument();
+      });
     },
-    onProductClick: (product) => {
-      console.log("Product clicked:", product.name);
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const ListView: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "list",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify list layout products are rendered
+      const productImages = canvas.getAllByRole("img");
+      expect(productImages).toHaveLength(sampleProducts.length);
+
+      // Verify first product details in list format
+      const firstProduct = sampleProducts[0];
+      expect(canvas.getByText(firstProduct.name)).toBeInTheDocument();
+      expect(canvas.getByText(firstProduct.description!)).toBeInTheDocument();
+      
+      // Verify "In Stock" status is shown for available products
+      const inStockLabels = canvas.getAllByText("In Stock");
+      expect(inStockLabels.length).toBeGreaterThan(0);
+
+      // Test add to cart button in list view
+      const addToCartButtons = canvas.getAllByText("Add to Cart");
+      expect(addToCartButtons.length).toBeGreaterThan(0);
+      await userEvent.click(addToCartButtons[0]);
     },
   },
-};
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "list",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
 
-export const ListView: Story = {
-  args: {
-    ...GridView.args,
-    variant: "list",
-  },
-};
+export const FeaturedProduct: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "featured",
+      products: [sampleProducts[0]],
+      animated: true,
+      showWishlist: true,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-export const FeaturedProduct: Story = {
-  args: {
-    ...GridView.args,
-    variant: "featured",
-    products: [sampleProducts[0]],
-  },
-};
+      // Verify featured product is displayed prominently
+      const featuredTitle = canvas.getByText("Featured Product");
+      expect(featuredTitle).toBeInTheDocument();
 
-export const ComparisonTable: Story = {
-  args: {
-    ...GridView.args,
-    variant: "comparison",
-    products: sampleProducts.slice(0, 3),
-    showFilters: false,
-  },
-};
+      const productName = canvas.getByText(sampleProducts[0].name);
+      expect(productName).toBeInTheDocument();
 
-export const CategoryShowcase: Story = {
-  args: {
-    ...GridView.args,
-    variant: "category",
-    showFilters: false,
-  },
-};
+      // Verify product features are listed
+      const features = sampleProducts[0].features!;
+      for (const feature of features) {
+        expect(canvas.getByText(feature)).toBeInTheDocument();
+      }
 
-export const TwoColumns: Story = {
-  args: {
-    ...GridView.args,
-    columns: 2,
-  },
-};
+      // Verify large price display
+      const priceText = canvas.getByText("$249.99");
+      expect(priceText).toBeInTheDocument();
 
-export const FourColumns: Story = {
-  args: {
-    ...GridView.args,
-    columns: 4,
+      // Test add to cart functionality
+      const addToCartButton = canvas.getByText("Add to Cart");
+      expect(addToCartButton).toBeInTheDocument();
+      await userEvent.click(addToCartButton);
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "featured",
+      products: [sampleProducts[0]],
+      animated: true,
+      showWishlist: true,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
 
-export const NoAnimations: Story = {
-  args: {
-    ...GridView.args,
-    animated: false,
-  },
-};
+export const ComparisonTable: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "comparison",
+      products: sampleProducts.slice(0, 3),
+      showFilters: false,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
 
-export const MinimalFeatures: Story = {
-  args: {
-    ...GridView.args,
-    showWishlist: false,
-    showQuickAdd: false,
-    showFilters: false,
-    showRatings: false,
-  },
-};
+      // Verify comparison table structure
+      const table = canvas.getByRole("table");
+      expect(table).toBeInTheDocument();
 
-export const OutOfStock: Story = {
-  args: {
-    ...GridView.args,
-    products: sampleProducts.map((p) => ({ ...p, inStock: false })),
-  },
-};
+      // Verify product images in header
+      const productImages = canvas.getAllByRole("img");
+      expect(productImages).toHaveLength(3);
 
-export const NoSaleItems: Story = {
-  args: {
-    ...GridView.args,
-    products: sampleProducts.map((p) => ({ ...p, salePrice: undefined })),
-  },
-};
+      // Verify product names are in the table
+      const comparisonProducts = sampleProducts.slice(0, 3);
+      for (const product of comparisonProducts) {
+        expect(canvas.getByText(product.name)).toBeInTheDocument();
+      }
 
-export const SingleCategory: Story = {
-  args: {
-    ...GridView.args,
-    products: sampleProducts.filter((p) => p.category === "Audio"),
-    showFilters: false,
-  },
-};
+      // Verify price comparison row
+      const priceRow = canvas.getByText("Price");
+      expect(priceRow).toBeInTheDocument();
+      
+      // Verify features comparison
+      const activeNoiseCancellation = canvas.getByText("Active Noise Cancellation");
+      expect(activeNoiseCancellation).toBeInTheDocument();
 
-export const WithCustomLabels: Story = {
-  args: {
-    ...GridView.args,
-    filterLabel: "Filtrer par catégorie",
-    allCategoriesLabel: "Toutes",
-    addToCartLabel: "Ajouter au panier",
-    quickAddLabel: "Ajout rapide",
-    outOfStockLabel: "Rupture de stock",
-    saleLabel: "Promo",
-    compareLabel: "Comparer",
-    featuredTitle: "Produit vedette",
-    featuredDescription: "Découvrez notre choix",
+      // Test add to cart from comparison table
+      const addToCartButtons = canvas.getAllByText("Add to Cart");
+      expect(addToCartButtons.length).toBeGreaterThan(0);
+      await userEvent.click(addToCartButtons[0]);
+    },
   },
-};
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "comparison",
+      products: sampleProducts.slice(0, 3),
+      showFilters: false,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const CategoryShowcase: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "category",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showRatings: true,
+      showFilters: false,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+      const canvas = within(canvasElement);
+
+      // Verify tab structure for categories
+      const audioTab = canvas.getByRole("tab", { name: "Audio" });
+      expect(audioTab).toBeInTheDocument();
+      
+      const wearablesTab = canvas.getByRole("tab", { name: "Wearables" });
+      expect(wearablesTab).toBeInTheDocument();
+      
+      const accessoriesTab = canvas.getByRole("tab", { name: "Accessories" });
+      expect(accessoriesTab).toBeInTheDocument();
+
+      // Test switching between categories
+      await userEvent.click(wearablesTab);
+      
+      // Verify products from the wearables category are shown
+      await waitFor(() => {
+        const smartWatch = canvas.getByText("Smart Watch Ultra");
+        expect(smartWatch).toBeInTheDocument();
+      });
+
+      // Switch back to Audio category
+      await userEvent.click(audioTab);
+      
+      await waitFor(() => {
+        const headphones = canvas.getByText("Wireless Headphones Pro");
+        expect(headphones).toBeInTheDocument();
+      });
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "category",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showRatings: true,
+      showFilters: false,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const TwoColumns: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts,
+      columns: 2,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts,
+      columns: 2,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const FourColumns: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts,
+      columns: 4,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts,
+      columns: 4,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const NoAnimations: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts,
+      columns: 3,
+      animated: false,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts,
+      columns: 3,
+      animated: false,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const MinimalFeatures: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: false,
+      showQuickAdd: false,
+      showFilters: false,
+      showRatings: false,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: false,
+      showQuickAdd: false,
+      showFilters: false,
+      showRatings: false,
+      onAddToCartAction: "handleAddToCart",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const OutOfStock: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts.map((p) => ({ ...p, inStock: false })),
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts.map((p) => ({ ...p, inStock: false })),
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const NoSaleItems: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts.map((p) => ({ ...p, salePrice: undefined })),
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts.map((p) => ({ ...p, salePrice: undefined })),
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const SingleCategory: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts.filter((p) => p.category === "Audio"),
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: false,
+      showRatings: true,
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts.filter((p) => p.category === "Audio"),
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: false,
+      showRatings: true,
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;
+
+export const WithCustomLabels: Story = enhanceStoryWithHandlers<typeof ProductShowcase>(
+  {
+    args: {
+      variant: "grid",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      filterLabel: "Filtrer par catégorie",
+      allCategoriesLabel: "Toutes",
+      addToCartLabel: "Ajouter au panier",
+      quickAddLabel: "Ajout rapide",
+      outOfStockLabel: "Rupture de stock",
+      saleLabel: "Promo",
+      compareLabel: "Comparer",
+      featuredTitle: "Produit vedette",
+      featuredDescription: "Découvrez notre choix",
+      onAddToCart: (product: Product, variants?: Record<string, string>) => {
+        console.log("Add to cart:", product.name, variants);
+      },
+      onToggleWishlist: (product: Product) => {
+        console.log("Toggle wishlist:", product.name);
+      },
+      onProductClick: (product: Product) => {
+        console.log("Product clicked:", product.name);
+      },
+    },
+  },
+  {
+    renderSpec: {
+      type: "ProductShowcase",
+      variant: "grid",
+      products: sampleProducts,
+      columns: 3,
+      animated: true,
+      showWishlist: true,
+      showQuickAdd: true,
+      showFilters: true,
+      showRatings: true,
+      filterLabel: "Filtrer par catégorie",
+      allCategoriesLabel: "Toutes",
+      addToCartLabel: "Ajouter au panier",
+      quickAddLabel: "Ajout rapide",
+      outOfStockLabel: "Rupture de stock",
+      saleLabel: "Promo",
+      compareLabel: "Comparer",
+      featuredTitle: "Produit vedette",
+      featuredDescription: "Découvrez notre choix",
+      onAddToCartAction: "handleAddToCart",
+      onToggleWishlistAction: "handleToggleWishlist",
+      onProductClickAction: "handleProductClick",
+    },
+    handlers: createClickHandlers({
+      handleAddToCart: () => console.log("SDUI: Product added to cart"),
+      handleToggleWishlist: () => console.log("SDUI: Wishlist toggled"),
+      handleProductClick: () => console.log("SDUI: Product clicked"),
+    }),
+  }
+) as Story;

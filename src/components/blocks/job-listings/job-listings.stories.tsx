@@ -1,6 +1,8 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { JobListings, type JobListing } from "./job-listings";
+import { enhanceStoryForDualMode } from "../../../../.storybook/utils/enhance-story";
 
 const meta: Meta<typeof JobListings> = {
   title: "Blocks/JobListings",
@@ -230,7 +232,7 @@ const generateJobs = (count: number): JobListing[] => {
 
 const sampleJobs = generateJobs(20);
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode<typeof JobListings>({
   args: {
     jobs: sampleJobs,
     variant: "grid",
@@ -242,44 +244,176 @@ export const Default: Story = {
     showSalary: true,
     animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify job listings render
+    const jobCards = canvas.getAllByRole("article");
+    expect(jobCards.length).toBeGreaterThan(0);
+    
+    // Check for job titles in the first few cards
+    const firstJobTitle = canvas.getAllByText(/Software Engineer|Marketing Manager|Sales Representative/);
+    expect(firstJobTitle.length).toBeGreaterThan(0);
+    
+    // Verify search functionality
+    const searchInput = canvas.getByPlaceholderText("Search jobs by title, company, or keywords...");
+    expect(searchInput).toBeInTheDocument();
+    
+    // Verify filter dropdowns
+    const filterDropdowns = canvas.getAllByRole("combobox");
+    expect(filterDropdowns.length).toBeGreaterThan(0);
+    
+    // Check for job locations and departments
+    expect(canvas.getAllByText(/San Francisco|New York|Remote/).length).toBeGreaterThan(0);
+    expect(canvas.getAllByText(/Engineering|Marketing|Sales/).length).toBeGreaterThan(0);
+    
+    // Check for job types badges
+    expect(canvas.getAllByText(/Full.time|Part.time|Contract|Remote/).length).toBeGreaterThan(0);
+  },
+});
 
-export const ListVariant: Story = {
+export const ListVariant: Story = enhanceStoryForDualMode<typeof JobListings>({
   args: {
-    ...Default.args,
+    jobs: sampleJobs.slice(0, 8),
     variant: "list",
     columns: "1",
+    gap: "md",
+    showFilters: true,
+    showSearch: true,
+    showDetailModal: true,
+    showSalary: true,
+    animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify list layout with job cards
+    const jobCards = canvas.getAllByRole("article");
+    expect(jobCards.length).toBeGreaterThan(0);
+    
+    // Check for job descriptions in list view (should be longer)
+    const descriptions = canvas.getAllByText(/We are looking for a talented/);
+    expect(descriptions.length).toBeGreaterThan(0);
+    
+    // Verify apply buttons
+    const applyButtons = canvas.getAllByText(/Apply Now/);
+    expect(applyButtons.length).toBeGreaterThan(0);
+    
+    // Check for bookmark buttons in list variant
+    const bookmarkButtons = canvas.getAllByRole("button", { name: /bookmark/i });
+    expect(bookmarkButtons.length).toBeGreaterThan(0);
+    
+    // Verify company names are displayed
+    expect(canvas.getAllByText(/TechCorp|Innovation Labs|Digital Solutions/).length).toBeGreaterThan(0);
+  },
+});
 
-export const FeaturedVariant: Story = {
+export const FeaturedVariant: Story = enhanceStoryForDualMode<typeof JobListings>({
   args: {
-    ...Default.args,
     variant: "featured",
+    columns: "3",
+    gap: "md",
+    showFilters: true,
+    showSearch: true,
+    showDetailModal: true,
+    showSalary: true,
+    showRequirements: true,
+    animated: true,
     jobs: sampleJobs.map((job, i) => ({
       ...job,
       featured: i < 6,
       urgent: i < 2,
     })),
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check for featured section header
+    expect(canvas.getByText("Featured Positions")).toBeInTheDocument();
+    
+    // Verify featured badges
+    const featuredBadges = canvas.getAllByText("Featured");
+    expect(featuredBadges.length).toBeGreaterThan(0);
+    
+    // Check for urgent badges
+    const urgentBadges = canvas.getAllByText("Urgent");
+    expect(urgentBadges.length).toBeGreaterThan(0);
+    
+    // Verify requirements are shown (since showRequirements is true)
+    expect(canvas.getAllByText("Key Requirements:").length).toBeGreaterThan(0);
+    
+    // Check for apply buttons with chevron icons
+    const applyButtons = canvas.getAllByText(/Apply Now/);
+    expect(applyButtons.length).toBeGreaterThan(0);
+    
+    // Verify salary information is displayed
+    expect(canvas.getAllByText(/\$\d+K - \$\d+K/).length).toBeGreaterThan(0);
+  },
+});
 
-export const DepartmentsVariant: Story = {
+export const DepartmentsVariant: Story = enhanceStoryForDualMode<typeof JobListings>({
   args: {
-    ...Default.args,
+    jobs: sampleJobs.slice(0, 12),
     variant: "departments",
     columns: "2",
+    gap: "md",
+    showFilters: true,
+    showSearch: true,
+    showDetailModal: true,
+    showSalary: true,
+    animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify department section headers
+    const departmentHeaders = canvas.getAllByText(/^(Engineering|Marketing|Sales|Design)$/);
+    expect(departmentHeaders.length).toBeGreaterThan(0);
+    
+    // Check for position count badges
+    const positionBadges = canvas.getAllByText(/^\d+ position/);
+    expect(positionBadges.length).toBeGreaterThan(0);
+    
+    // Verify job cards are organized by department
+    const jobCards = canvas.getAllByRole("article");
+    expect(jobCards.length).toBeGreaterThan(0);
+    
+    // Check for department-specific job titles
+    expect(canvas.getAllByText(/Software Engineer|Marketing Manager|Sales Representative/).length).toBeGreaterThan(0);
+  },
+});
 
-export const MinimalVariant: Story = {
+export const MinimalVariant: Story = enhanceStoryForDualMode<typeof JobListings>({
   args: {
-    ...Default.args,
+    jobs: sampleJobs.slice(0, 10),
     variant: "minimal",
+    columns: "1",
+    gap: "sm",
     showDetailModal: false,
     showSalary: false,
+    showFilters: true,
+    showSearch: true,
+    animated: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify minimal layout with compact job cards
+    const jobListings = canvas.getAllByText(/Software Engineer|Marketing Manager|Sales Representative/);
+    expect(jobListings.length).toBeGreaterThan(0);
+    
+    // Check for simple apply buttons (not "Apply Now")
+    const applyButtons = canvas.getAllByRole("button", { name: /^Apply$/ });
+    expect(applyButtons.length).toBeGreaterThan(0);
+    
+    // Verify job locations and departments are displayed
+    expect(canvas.getAllByText(/San Francisco|New York|Remote/).length).toBeGreaterThan(0);
+    expect(canvas.getAllByText(/Engineering|Marketing|Sales/).length).toBeGreaterThan(0);
+    
+    // Check for job type badges
+    expect(canvas.getAllByText(/Full time|Part time|Contract|Remote/).length).toBeGreaterThan(0);
+  },
+});
 
 export const NoFilters: Story = {
   args: {

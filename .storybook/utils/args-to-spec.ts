@@ -74,6 +74,7 @@ const COMPONENT_NAME_MAP: Record<string, string> = {
   calltoaction: 'CallToAction',
   carouselblock: 'CarouselBlock',
   contactformblock: 'ContactFormBlock',
+  joblistings: 'JobListings',
 };
 
 /**

@@ -21,7 +21,7 @@
       {
         "id": "investigate-brand-logo-bar-stories",
         "description": "Investigate test errors and warnings in src/components/blocks/brand-logo-bar/brand-logo-bar.stories.tsx. Read the error log at ./tmp/tests/brand-logo-bar.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- brand-logo-bar.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-carousel-block-stories",

@@ -96,26 +96,18 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
 
     // Handle image load errors
     const handleError = React.useCallback(() => {
-      // Use setTimeout to ensure state updates happen in the next tick
-      // This helps avoid act() warnings in tests
-      globalThis.setTimeout(() => {
-        setImageError(true);
-        setIsLoading(false);
-        if (fallback) {
-          setImgSrc(fallback);
-          setImageError(false);
-          setIsLoading(true);
-        }
-      }, 0);
+      setImageError(true);
+      setIsLoading(false);
+      if (fallback) {
+        setImgSrc(fallback);
+        setImageError(false);
+        setIsLoading(true);
+      }
     }, [fallback]);
 
     // Handle successful image load
     const handleLoad = React.useCallback(() => {
-      // Use setTimeout to ensure state updates happen in the next tick
-      // This helps avoid act() warnings in tests
-      globalThis.setTimeout(() => {
-        setIsLoading(false);
-      }, 0);
+      setIsLoading(false);
     }, []);
 
     // Update source if src prop changes

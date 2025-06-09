@@ -216,6 +216,14 @@ export const Chart: React.FC<ChartProps> = ({
   // Get the chart type, preferring the direct prop over spec
   const type = chartType || (spec as Record<string, unknown>)?.chartType || "line";
 
+  // Disable animations in test environment to prevent act() warnings
+  const isTestEnvironment = 
+    process.env.NODE_ENV === "test" || 
+    process.env.VITEST === "true" ||
+    (typeof globalThis !== "undefined" && "__VITEST__" in globalThis) ||
+    (globalThis.window !== undefined && "__VITEST__" in globalThis);
+  const effectiveAnimationDuration = isTestEnvironment ? 0 : animationDuration;
+
   const chartProps = {
     data,
     margin,
@@ -241,7 +249,7 @@ export const Chart: React.FC<ChartProps> = ({
                 dataKey={key}
                 stroke={colors[index % colors.length]}
                 strokeWidth={strokeWidth}
-                animationDuration={animationDuration}
+                animationDuration={effectiveAnimationDuration}
                 animationEasing={animationEasing}
                 dot={{ fill: colors[index % colors.length] }}
               />
@@ -264,7 +272,7 @@ export const Chart: React.FC<ChartProps> = ({
                 dataKey={key}
                 fill={colors[index % colors.length]}
                 stackId={stackId}
-                animationDuration={animationDuration}
+                animationDuration={effectiveAnimationDuration}
                 animationEasing={animationEasing}
               />
             ))}
@@ -290,7 +298,7 @@ export const Chart: React.FC<ChartProps> = ({
                 fillOpacity={fillOpacity}
                 strokeWidth={strokeWidth}
                 stackId={stackId}
-                animationDuration={animationDuration}
+                animationDuration={effectiveAnimationDuration}
                 animationEasing={animationEasing}
               />
             ))}
@@ -315,7 +323,7 @@ export const Chart: React.FC<ChartProps> = ({
               endAngle={endAngle}
               labelLine={labelLine}
               label={label}
-              animationDuration={animationDuration}
+              animationDuration={effectiveAnimationDuration}
               animationEasing={animationEasing}
             >
               {data.map((_, index) => (
@@ -341,7 +349,7 @@ export const Chart: React.FC<ChartProps> = ({
                 stroke={colors[index % colors.length]}
                 fill={colors[index % colors.length]}
                 fillOpacity={fillOpacity}
-                animationDuration={animationDuration}
+                animationDuration={effectiveAnimationDuration}
                 animationEasing={animationEasing}
               />
             ))}
@@ -366,7 +374,7 @@ export const Chart: React.FC<ChartProps> = ({
               cornerRadius={10}
               fill="#8884d8"
               label={label}
-              animationDuration={animationDuration}
+              animationDuration={effectiveAnimationDuration}
               animationEasing={animationEasing}
             />
           </RadialBarChart>

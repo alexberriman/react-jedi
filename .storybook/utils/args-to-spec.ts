@@ -75,6 +75,8 @@ const COMPONENT_NAME_MAP: Record<string, string> = {
   carouselblock: 'CarouselBlock',
   contactformblock: 'ContactFormBlock',
   joblistings: 'JobListings',
+  socialshareBar: 'SocialShareBar',
+  'social-share-bar': 'SocialShareBar',
 };
 
 /**

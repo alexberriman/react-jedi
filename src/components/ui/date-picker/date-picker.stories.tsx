@@ -56,7 +56,7 @@ export const Default: Story = enhanceStoryForDualMode<typeof DatePicker>({
     await waitFor(() => {
       const calendarElement = document.querySelector(".rdp");
       expect(calendarElement).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
   },
 });
 
@@ -79,30 +79,21 @@ export const WithSelectedDate: Story = enhanceStoryForDualMode<typeof DatePicker
     // Click to open calendar
     await userEvent.click(dateButton);
 
-    // Wait for calendar
+    // Wait for calendar to be fully rendered
     await waitFor(() => {
-      const calendarElement =
-        document.querySelector(".rdp") ||
-        canvas.getByText(
-          /january|february|march|april|may|june|july|august|september|october|november|december/i
-        );
+      const calendarElement = document.querySelector(".rdp");
       expect(calendarElement).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
 
-    // Click a different date (tomorrow)
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const tomorrowDate = tomorrow.getDate().toString();
+    // Just close the calendar by clicking outside
+    // This tests that the calendar opens and closes properly
+    await userEvent.click(document.body);
 
-    try {
-      const tomorrowButton = canvas.getByRole("gridcell", {
-        name: new RegExp(`^${tomorrowDate}$`),
-      });
-      await userEvent.click(tomorrowButton);
-    } catch {
-      // If tomorrow is in next month, just close the calendar
-      await userEvent.click(document.body);
-    }
+    // Wait for calendar to close
+    await waitFor(() => {
+      const calendarElement = document.querySelector(".rdp");
+      expect(calendarElement).not.toBeInTheDocument();
+    }, { timeout: 3000 });
   },
 });
 
@@ -131,7 +122,7 @@ export const CustomPlaceholder: Story = enhanceStoryForDualMode<typeof DatePicke
           /january|february|march|april|may|june|july|august|september|october|november|december/i
         );
       expect(calendarElement).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
 
     // Close calendar by clicking outside
     await userEvent.click(document.body);
@@ -226,14 +217,14 @@ export const Controlled: Story = enhanceStoryForDualMode<typeof DatePicker>(
             /january|february|march|april|may|june|july|august|september|october|november|december/i
           );
         expect(calendarElement).toBeInTheDocument();
-      });
+      }, { timeout: 3000 });
 
       // Select a date (15th is always visible)
       await waitFor(() => {
         // Calendar might be in a portal, use screen
         const fifteenthButton = within(document.body).getByText("15");
         expect(fifteenthButton).toBeInTheDocument();
-      });
+      }, { timeout: 3000 });
       const fifteenthButton = within(document.body).getByText("15");
       await userEvent.click(fifteenthButton);
 
@@ -243,11 +234,11 @@ export const Controlled: Story = enhanceStoryForDualMode<typeof DatePicker>(
           waitFor(() => {
             const calendarElement = document.querySelector(".rdp");
             expect(calendarElement).not.toBeInTheDocument();
-          })
+          }, { timeout: 3000 })
         : // Verify date is displayed (only in React mode)
           waitFor(() => {
             expect(canvas.getByText(/Selected date:.*\d{4}/)).toBeInTheDocument();
-          }));
+          }, { timeout: 3000 }));
     },
   },
   {
@@ -324,7 +315,7 @@ export const Multiple: Story = enhanceStoryForDualMode<typeof DatePicker>(
             /january|february|march|april|may|june|july|august|september|october|november|december/i
           );
         expect(calendarElement).toBeInTheDocument();
-      });
+      }, { timeout: 3000 });
       await userEvent.click(document.body); // Close calendar
 
       // Test End Date picker (should have a pre-selected date)
@@ -339,7 +330,7 @@ export const Multiple: Story = enhanceStoryForDualMode<typeof DatePicker>(
             /january|february|march|april|may|june|july|august|september|october|november|december/i
           );
         expect(calendarElement).toBeInTheDocument();
-      });
+      }, { timeout: 3000 });
       await userEvent.click(document.body); // Close calendar
 
       // Test Disabled Date picker

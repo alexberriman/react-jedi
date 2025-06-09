@@ -22,12 +22,15 @@ export function DatePicker({
   className,
   disabled = false,
 }: DatePickerProps) {
+  const [open, setOpen] = React.useState(false);
+
   const handleSelect = (newDate: Date | undefined) => {
     onDateChange?.(newDate);
+    setOpen(false);
   };
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"

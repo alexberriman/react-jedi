@@ -26,7 +26,7 @@
       {
         "id": "investigate-carousel-block-stories",
         "description": "Investigate test errors and warnings in src/components/blocks/carousel/carousel-block.stories.tsx. Read the error log at ./tmp/tests/carousel-block.stories.log to understand the issues. May include act() warnings, test failures, or other warnings that need resolution. Some may be false positives. Run 'npm run test-storybook -- carousel-block.stories' to verify any fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "investigate-chart-stories",

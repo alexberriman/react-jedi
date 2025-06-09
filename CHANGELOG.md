@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-06-09]
 
+- **Implement dual-mode story functionality for GoogleMap component. CRITICAL: The args MUST use type 'GoogleMap' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (map iframe, markers, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
+
+
+## [2025-06-09]
+
 - **Implement dual-mode story functionality for Map component. CRITICAL: The args MUST use type 'Map' NOT 'component'. The SDUI view should render EXACTLY the same as the React view. Add play() functions that verify actual content renders (map container, markers, etc). Test by viewing both React and SDUI tabs in Storybook - they should be identical.**
 
 

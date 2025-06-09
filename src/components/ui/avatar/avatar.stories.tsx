@@ -30,23 +30,20 @@ export const Default: Story = enhanceStoryForDualMode<typeof Avatar>(
       </Avatar>
     ),
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
+      // Wait for avatar to render
+      await waitFor(() => {
+        const avatarContainer = canvasElement.querySelector('[data-slot="avatar"]');
+        expect(avatarContainer).toBeInTheDocument();
+      });
 
-      // Test avatar renders
-      const avatarContainer = canvasElement.querySelector('[data-slot="avatar"]');
-      expect(avatarContainer).toBeInTheDocument();
-
-      // Test that either image OR fallback is rendered
-      const image = canvasElement.querySelector('[data-slot="avatar-image"]');
-      const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
-      
-      // At least one should be present
-      expect(image || fallback).toBeTruthy();
-      
-      // If fallback is visible, check its content
-      if (fallback && fallback.textContent === "CN") {
-        expect(canvas.getByText("CN")).toBeInTheDocument();
-      }
+      // Wait for either image or fallback to be rendered
+      await waitFor(() => {
+        const image = canvasElement.querySelector('[data-slot="avatar-image"]');
+        const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
+        
+        // At least one should be present
+        expect(image || fallback).toBeTruthy();
+      });
     },
   },
   {
@@ -82,14 +79,16 @@ export const WithFallback: Story = enhanceStoryForDualMode<typeof Avatar>(
       await waitFor(() => {
         const fallback = canvas.getByText("CN");
         expect(fallback).toBeVisible();
-      });
+      }, { timeout: 3000 });
 
       // Verify image element exists (may be hidden if failed to load)
-      const img = canvasElement.querySelector("img");
-      if (img) {
-        expect(img).toBeInTheDocument();
-        expect(img.getAttribute("src")).toBe("/broken-image.jpg");
-      }
+      await waitFor(() => {
+        const img = canvasElement.querySelector("img");
+        if (img) {
+          expect(img).toBeInTheDocument();
+          expect(img.getAttribute("src")).toBe("/broken-image.jpg");
+        }
+      });
     },
   },
   {
@@ -137,26 +136,19 @@ export const CustomSizes: Story = enhanceStoryForDualMode<typeof Avatar>(
       </div>
     ),
     play: async ({ canvasElement }) => {
-      within(canvasElement);
-
-      // Test multiple avatar sizes are rendered
-      const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-      expect(avatars).toHaveLength(5);
+      // Wait for all avatars to render
+      await waitFor(() => {
+        const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+        expect(avatars).toHaveLength(5);
+      });
 
       // Check each avatar has the correct size class
-      const container = canvasElement.querySelector(".flex");
-      const avatarElements = container?.querySelectorAll('[data-slot="avatar"]');
-
-      // Verify avatars exist and have proper parent wrappers with size classes
-      expect(avatarElements).toHaveLength(5);
-
-      // Check the wrapper divs that have the size classes
-      const sizeWrappers = container?.children;
-      expect(sizeWrappers?.[0]).toHaveClass("size-6");
-      expect(sizeWrappers?.[1]).toHaveClass("size-8");
-      expect(sizeWrappers?.[2]).toHaveClass("size-10");
-      expect(sizeWrappers?.[3]).toHaveClass("size-12");
-      expect(sizeWrappers?.[4]).toHaveClass("size-16");
+      const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+      expect(avatars[0]).toHaveClass("size-6");
+      expect(avatars[1]).toHaveClass("size-8");
+      expect(avatars[2]).toHaveClass("size-10");
+      expect(avatars[3]).toHaveClass("size-12");
+      expect(avatars[4]).toHaveClass("size-16");
     },
   },
   {
@@ -269,12 +261,14 @@ export const CustomFallbackColors: Story = enhanceStoryForDualMode<typeof Avatar
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
-      // Test all colored fallbacks render
-      expect(canvas.getByText("JD")).toBeInTheDocument();
-      expect(canvas.getByText("AB")).toBeInTheDocument();
-      expect(canvas.getByText("TS")).toBeInTheDocument();
-      expect(canvas.getByText("RW")).toBeInTheDocument();
-      expect(canvas.getByText("EJ")).toBeInTheDocument();
+      // Wait for all colored fallbacks to render
+      await waitFor(() => {
+        expect(canvas.getByText("JD")).toBeInTheDocument();
+        expect(canvas.getByText("AB")).toBeInTheDocument();
+        expect(canvas.getByText("TS")).toBeInTheDocument();
+        expect(canvas.getByText("RW")).toBeInTheDocument();
+        expect(canvas.getByText("EJ")).toBeInTheDocument();
+      });
 
       // Test avatars have correct background colors
       const jdFallback = canvas.getByText("JD");
@@ -375,27 +369,19 @@ export const CustomShapes: Story = enhanceStoryForDualMode<typeof Avatar>(
       </div>
     ),
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-
-      // Test all avatars render
-      const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-      expect(avatars).toHaveLength(5);
+      // Wait for all avatars to render
+      await waitFor(() => {
+        const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+        expect(avatars).toHaveLength(5);
+      });
 
       // Test each avatar has different border radius classes
+      const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
       expect(avatars[0]).toHaveClass("rounded-full");
       expect(avatars[1]).toHaveClass("rounded-lg");
       expect(avatars[2]).toHaveClass("rounded-md");
       expect(avatars[3]).toHaveClass("rounded-sm");
       expect(avatars[4]).toHaveClass("rounded-none");
-
-      // Test that fallback text is visible if images don't load
-      try {
-        const fallbacks = canvas.getAllByText("CN");
-        expect(fallbacks.length).toBeGreaterThanOrEqual(0);
-      } catch {
-        // Fallbacks might not be visible if images load successfully
-        // This is expected behavior
-      }
     },
   },
   {
@@ -510,13 +496,17 @@ export const AvatarGroup: Story = enhanceStoryForDualMode<typeof Avatar>(
       const canvas = within(canvasElement);
 
       // Test avatar group layout
-      const container = canvasElement.querySelector(".flex.-space-x-2");
-      expect(container).toBeInTheDocument();
+      await waitFor(() => {
+        const container = canvasElement.querySelector(".flex.-space-x-2");
+        expect(container).toBeInTheDocument();
+      });
 
-      // Check overlapping avatars
-      expect(canvas.getByText("JD")).toBeInTheDocument();
-      expect(canvas.getByText("WK")).toBeInTheDocument();
-      expect(canvas.getByText("AB")).toBeInTheDocument();
+      // Wait for overlapping avatars to render
+      await waitFor(() => {
+        expect(canvas.getByText("JD")).toBeInTheDocument();
+        expect(canvas.getByText("WK")).toBeInTheDocument();
+        expect(canvas.getByText("AB")).toBeInTheDocument();
+      });
 
       // Check count indicator
       const countIndicator = canvas.getByText("+3");
@@ -608,25 +598,17 @@ export const WithBorder: Story = enhanceStoryForDualMode<typeof Avatar>(
       </div>
     ),
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-
-      // Test all avatars render
-      const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-      expect(avatars).toHaveLength(3);
+      // Wait for all avatars to render
+      await waitFor(() => {
+        const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+        expect(avatars).toHaveLength(3);
+      });
 
       // Test each avatar has different border/ring/outline styles
+      const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
       expect(avatars[0]).toHaveClass("border-2", "border-green-500");
       expect(avatars[1]).toHaveClass("ring-2", "ring-purple-500", "ring-offset-2", "ring-offset-background");
       expect(avatars[2]).toHaveClass("outline-2", "outline-offset-2", "outline-blue-500");
-
-      // Test that fallback text is visible if images don't load
-      try {
-        const fallbacks = canvas.getAllByText("CN");
-        expect(fallbacks.length).toBeGreaterThanOrEqual(0);
-      } catch {
-        // Fallbacks might not be visible if images load successfully
-        // This is expected behavior
-      }
     },
   },
   {
@@ -697,24 +679,17 @@ export const WithOnlineIndicator: Story = enhanceStoryForDualMode<typeof Avatar>
       </div>
     ),
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-
-      // Test avatar renders
-      const avatar = canvasElement.querySelector('[data-slot="avatar"]');
-      expect(avatar).toBeInTheDocument();
-
-      // Test that fallback text is visible if image doesn't load
-      try {
-        const fallback = canvas.getByText("CN");
-        expect(fallback).toBeInTheDocument();
-      } catch {
-        // Fallback might not be visible if image loads successfully
-        // This is expected behavior
-      }
+      // Wait for avatar to render
+      await waitFor(() => {
+        const avatar = canvasElement.querySelector('[data-slot="avatar"]');
+        expect(avatar).toBeInTheDocument();
+      });
 
       // Test online indicator is present
-      const indicator = canvasElement.querySelector(String.raw`.absolute.top-0.right-0.block.size-2\.5.rounded-full.bg-green-500.ring-2.ring-background`);
-      expect(indicator).toBeInTheDocument();
+      await waitFor(() => {
+        const indicator = canvasElement.querySelector(String.raw`.absolute.top-0.right-0.block.size-2\.5.rounded-full.bg-green-500.ring-2.ring-background`);
+        expect(indicator).toBeInTheDocument();
+      });
 
       // Test container has relative positioning
       const container = canvasElement.querySelector(".relative");
@@ -763,18 +738,24 @@ export const WithImageHoverEffect: Story = enhanceStoryForDualMode<typeof Avatar
       </Avatar>
     ),
     play: async ({ canvasElement }) => {
-      within(canvasElement);
       const user = userEvent.setup();
+
+      // Wait for avatar with hover effect to render
+      await waitFor(() => {
+        const avatar = canvasElement.querySelector(".group");
+        expect(avatar).toBeInTheDocument();
+      });
 
       // Test hover effect
       const avatar = canvasElement.querySelector(".group");
-      expect(avatar).toBeInTheDocument();
-
+      
       // Verify the avatar has group class for hover effects
       expect(avatar).toHaveClass("group");
 
       // Simulate hover
-      await user.hover(avatar!);
+      if (avatar) {
+        await user.hover(avatar);
+      }
       // Note: CSS hover effects can't be fully tested in jsdom
     },
   },

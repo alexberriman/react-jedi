@@ -1146,6 +1146,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
     "keyboard-navigation-menu-item": asComponent(
       KeyboardNavigationMenuItemComponent as unknown as React.ComponentType<Record<string, unknown>>
     ),
+    RestaurantMenu: asComponent(
+      Blocks.RestaurantMenuBlock as unknown as React.ComponentType<Record<string, unknown>>,
+      { categories: [] } // Provide default required props
+    ),
+    "restaurant-menu": asComponent(
+      Blocks.RestaurantMenuBlock as unknown as React.ComponentType<Record<string, unknown>>,
+      { categories: [] } // Provide default required props
+    ),
   };
 
   return _defaultComponentRegistry;

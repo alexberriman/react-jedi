@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, expect, userEvent } from "storybook/test";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 import { RestaurantMenuBlock, type MenuCategory } from "./restaurant-menu";
 
 const meta = {
@@ -290,7 +292,7 @@ const sampleMenuData: MenuCategory[] = [
   },
 ];
 
-export const Default: Story = {
+export const Default: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     layout: "categorized",
@@ -300,9 +302,47 @@ export const Default: Story = {
     title: "Our Restaurant Menu",
     description: "Discover our carefully crafted dishes made with the finest ingredients",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Our Restaurant Menu" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify description renders
+    const description = canvas.getByText("Discover our carefully crafted dishes made with the finest ingredients");
+    expect(description).toBeInTheDocument();
+    
+    // Verify search input is present
+    const searchInput = canvas.getByPlaceholderText("Search menu items...");
+    expect(searchInput).toBeInTheDocument();
+    
+    // Verify menu categories render
+    const appetizersSection = canvas.getByRole("heading", { name: "Appetizers" });
+    expect(appetizersSection).toBeInTheDocument();
+    
+    const mainCoursesSection = canvas.getByRole("heading", { name: "Main Courses" });
+    expect(mainCoursesSection).toBeInTheDocument();
+    
+    // Verify specific menu items render
+    const truffleFries = canvas.getByRole("heading", { name: "Truffle Parmesan Fries" });
+    expect(truffleFries).toBeInTheDocument();
+    
+    const wagyuBurger = canvas.getByRole("heading", { name: "Wagyu Beef Burger" });
+    expect(wagyuBurger).toBeInTheDocument();
+    
+    // Verify prices are displayed
+    const friesPrice = canvas.getByText("$14.50");
+    expect(friesPrice).toBeInTheDocument();
+    
+    // Test search functionality
+    await userEvent.type(searchInput, "salmon");
+    const salmonDish = canvas.getByRole("heading", { name: "Herb-Crusted Salmon" });
+    expect(salmonDish).toBeInTheDocument();
+  },
+}) as Story;
 
-export const SingleColumn: Story = {
+export const SingleColumn: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     layout: "single-column",
@@ -313,9 +353,28 @@ export const SingleColumn: Story = {
     title: "Menu",
     description: "Browse our delicious offerings",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Menu" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify compact mode layout
+    const menuItems = canvas.getAllByText(/Truffle Parmesan Fries|Caesar Salad|Buffalo Cauliflower/);
+    expect(menuItems.length).toBeGreaterThan(0);
+    
+    // Verify no images in single column compact mode
+    const images = canvas.queryAllByRole("img");
+    expect(images.length).toBe(0);
+    
+    // Verify filter buttons
+    const allCategoriesButton = canvas.getByRole("button", { name: "All Categories" });
+    expect(allCategoriesButton).toBeInTheDocument();
+  },
+}) as Story;
 
-export const TwoColumn: Story = {
+export const TwoColumn: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     layout: "two-column",
@@ -325,9 +384,28 @@ export const TwoColumn: Story = {
     compactMode: true,
     title: "Restaurant Menu",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Restaurant Menu" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify menu items render in two-column layout
+    const menuItems = canvas.getAllByText(/Truffle Parmesan Fries|Wagyu Beef Burger/);
+    expect(menuItems.length).toBeGreaterThan(0);
+    
+    // Verify no search (showSearch: false)
+    const searchInput = canvas.queryByPlaceholderText("Search menu items...");
+    expect(searchInput).not.toBeInTheDocument();
+    
+    // Verify no filter buttons (showFilters: false)
+    const filterButton = canvas.queryByRole("button", { name: "All Categories" });
+    expect(filterButton).not.toBeInTheDocument();
+  },
+}) as Story;
 
-export const GridCards: Story = {
+export const GridCards: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     layout: "grid-cards",
@@ -342,9 +420,32 @@ export const GridCards: Story = {
     title: "Gourmet Menu",
     description: "Explore our collection of artisanal dishes",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Gourmet Menu" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify nutrition info is shown
+    const caloriesText = canvas.getByText(/Calories: 380/);
+    expect(caloriesText).toBeInTheDocument();
+    
+    // Verify ingredients are shown
+    const ingredientsText = canvas.getByText(/Ingredients:/);
+    expect(ingredientsText).toBeInTheDocument();
+    
+    // Verify prep time is shown
+    const prepTimeText = canvas.getByText(/12min/);
+    expect(prepTimeText).toBeInTheDocument();
+    
+    // Verify spice level indicators for spicy items
+    const spiceIndicators = canvas.getAllByTitle(/Spice level:/);
+    expect(spiceIndicators.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const PrixFixe: Story = {
+export const PrixFixe: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     layout: "prix-fixe",
@@ -354,9 +455,28 @@ export const PrixFixe: Story = {
     title: "Prix Fixe Menu",
     description: "Three-course dining experience",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Prix Fixe Menu" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify description renders
+    const description = canvas.getByText("Three-course dining experience");
+    expect(description).toBeInTheDocument();
+    
+    // Verify prix-fixe layout shows category cards
+    const categoryCards = canvas.getAllByText(/Appetizers|Main Courses|Desserts/);
+    expect(categoryCards.length).toBeGreaterThan(0);
+    
+    // Verify menu items are in card format
+    const menuItemPrices = canvas.getAllByText(/\$\d+\.\d{2}/);
+    expect(menuItemPrices.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const ElegantTheme: Story = {
+export const ElegantTheme: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     variant: "elegant",
@@ -370,9 +490,28 @@ export const ElegantTheme: Story = {
     title: "Fine Dining Menu",
     description: "An exquisite culinary journey awaits",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Fine Dining Menu" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify elegant theme description
+    const description = canvas.getByText("An exquisite culinary journey awaits");
+    expect(description).toBeInTheDocument();
+    
+    // Verify special menu items are marked
+    const specialBadge = canvas.getByText("Special");
+    expect(specialBadge).toBeInTheDocument();
+    
+    // Verify popular items have star indicators
+    const popularItems = canvas.getAllByTitle(/popular/i);
+    expect(popularItems.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const DarkTheme: Story = {
+export const DarkTheme: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     variant: "dark",
@@ -384,9 +523,28 @@ export const DarkTheme: Story = {
     title: "Evening Menu",
     description: "Savor the night with our carefully selected dishes",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Evening Menu" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify dark theme description
+    const description = canvas.getByText("Savor the night with our carefully selected dishes");
+    expect(description).toBeInTheDocument();
+    
+    // Verify images are shown in grid layout
+    const images = canvas.getAllByRole("img");
+    expect(images.length).toBeGreaterThan(0);
+    
+    // Verify filter functionality
+    const dietaryButtons = canvas.getAllByRole("button", { name: /Vegan|Vegetarian|Gluten Free/ });
+    expect(dietaryButtons.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const MinimalTheme: Story = {
+export const MinimalTheme: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     variant: "minimal",
@@ -397,9 +555,32 @@ export const MinimalTheme: Story = {
     compactMode: true,
     title: "Simple Menu",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Simple Menu" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify minimal layout - no search
+    const searchInput = canvas.queryByPlaceholderText("Search menu items...");
+    expect(searchInput).not.toBeInTheDocument();
+    
+    // Verify minimal layout - no filters
+    const filterButtons = canvas.queryByRole("button", { name: "All Categories" });
+    expect(filterButtons).not.toBeInTheDocument();
+    
+    // Verify minimal layout - no images
+    const images = canvas.queryAllByRole("img");
+    expect(images.length).toBe(0);
+    
+    // Verify menu items still render
+    const menuItems = canvas.getAllByText(/Truffle Parmesan Fries|Wagyu Beef Burger/);
+    expect(menuItems.length).toBeGreaterThan(0);
+  },
+}) as Story;
 
-export const CompactWithAllFeatures: Story = {
+export const CompactWithAllFeatures: Story = enhanceStoryForDualMode({
   args: {
     categories: sampleMenuData,
     layout: "categorized",
@@ -416,9 +597,36 @@ export const CompactWithAllFeatures: Story = {
     title: "Complete Menu Experience",
     description: "Full-featured menu with all information displayed",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Complete Menu Experience" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify all features are enabled
+    const searchInput = canvas.getByPlaceholderText("Search menu items...");
+    expect(searchInput).toBeInTheDocument();
+    
+    // Verify nutrition info
+    const nutritionInfo = canvas.getByText(/Calories: 380/);
+    expect(nutritionInfo).toBeInTheDocument();
+    
+    // Verify ingredients
+    const ingredients = canvas.getByText(/Ingredients:/);
+    expect(ingredients).toBeInTheDocument();
+    
+    // Verify prep time
+    const prepTime = canvas.getByText(/12 min/);
+    expect(prepTime).toBeInTheDocument();
+    
+    // Verify allergen information
+    const allergenInfo = canvas.getByText(/Contains:/);
+    expect(allergenInfo).toBeInTheDocument();
+  },
+}) as Story;
 
-export const VeganRestaurant: Story = {
+export const VeganRestaurant: Story = enhanceStoryForDualMode({
   args: {
     categories: [
       {
@@ -473,4 +681,34 @@ export const VeganRestaurant: Story = {
     title: "Green Garden Café",
     description: "100% plant-based, locally sourced, organic cuisine",
   },
-};
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify title renders
+    const title = canvas.getByRole("heading", { name: "Green Garden Café" });
+    expect(title).toBeInTheDocument();
+    
+    // Verify vegan-specific description
+    const description = canvas.getByText("100% plant-based, locally sourced, organic cuisine");
+    expect(description).toBeInTheDocument();
+    
+    // Verify vegan menu items
+    const quinoaBowl = canvas.getByRole("heading", { name: "Rainbow Quinoa Bowl" });
+    expect(quinoaBowl).toBeInTheDocument();
+    
+    const jackfruitTacos = canvas.getByRole("heading", { name: "BBQ Jackfruit Tacos" });
+    expect(jackfruitTacos).toBeInTheDocument();
+    
+    // Verify dietary restriction indicators for vegan items
+    const veganIndicators = canvas.getAllByTitle("Vegan");
+    expect(veganIndicators.length).toBeGreaterThan(0);
+    
+    // Verify spice level for jackfruit tacos
+    const spiceLevel = canvas.getByTitle("Spice level: 2/5");
+    expect(spiceLevel).toBeInTheDocument();
+    
+    // Verify nutrition info is displayed
+    const nutritionCalories = canvas.getByText(/Calories: 420/);
+    expect(nutritionCalories).toBeInTheDocument();
+  },
+}) as Story;

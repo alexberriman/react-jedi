@@ -44,6 +44,9 @@ const meta = {
       options: ["solid", "dashed", "arrow"],
     },
   },
+  args: {
+    steps: [],
+  },
 } satisfies Meta<typeof ProcessSteps>;
 
 export default meta;
@@ -259,29 +262,31 @@ const branchingStepsSDUI = [
   },
 ];
 
-export const Default: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: checkoutSteps,
-      currentStep: 1,
-      animated: true,
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify step titles are rendered
-      await expect(canvas.getByText("Cart")).toBeInTheDocument();
-      await expect(canvas.getByText("Shipping")).toBeInTheDocument();
-      await expect(canvas.getByText("Payment")).toBeInTheDocument();
-      await expect(canvas.getByText("Complete")).toBeInTheDocument();
-      
-      // Verify step descriptions are rendered
-      await expect(canvas.getByText("Review your items")).toBeInTheDocument();
-      await expect(canvas.getByText("Enter address")).toBeInTheDocument();
-      await expect(canvas.getByText("Payment details")).toBeInTheDocument();
-      await expect(canvas.getByText("Order confirmed")).toBeInTheDocument();
-    },
+const defaultStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: checkoutSteps,
+    currentStep: 1,
+    animated: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify step titles are rendered
+    await expect(canvas.getByText("Cart")).toBeInTheDocument();
+    await expect(canvas.getByText("Shipping")).toBeInTheDocument();
+    await expect(canvas.getByText("Payment")).toBeInTheDocument();
+    await expect(canvas.getByText("Complete")).toBeInTheDocument();
+    
+    // Verify step descriptions are rendered
+    await expect(canvas.getByText("Review your items")).toBeInTheDocument();
+    await expect(canvas.getByText("Enter address")).toBeInTheDocument();
+    await expect(canvas.getByText("Payment details")).toBeInTheDocument();
+    await expect(canvas.getByText("Order confirmed")).toBeInTheDocument();
+  },
+};
+
+export const Default = enhanceStoryForDualMode<typeof ProcessSteps>(
+  defaultStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -290,29 +295,31 @@ export const Default: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       animated: true,
     },
   }
-);
+) satisfies Story;
 
-export const Vertical: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: onboardingSteps,
-      variant: "vertical",
-      currentStep: 2,
-      animated: true,
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify step titles
-      await expect(canvas.getByText("Sign Up")).toBeInTheDocument();
-      await expect(canvas.getByText("Profile")).toBeInTheDocument();
-      await expect(canvas.getByText("Verification")).toBeInTheDocument();
-      await expect(canvas.getByText("Get Started")).toBeInTheDocument();
-      
-      // Verify badge
-      await expect(canvas.getByText("Required")).toBeInTheDocument();
-    },
+const verticalStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: onboardingSteps,
+    variant: "vertical",
+    currentStep: 2,
+    animated: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify step titles
+    await expect(canvas.getByText("Sign Up")).toBeInTheDocument();
+    await expect(canvas.getByText("Profile")).toBeInTheDocument();
+    await expect(canvas.getByText("Verification")).toBeInTheDocument();
+    await expect(canvas.getByText("Get Started")).toBeInTheDocument();
+    
+    // Verify badge
+    await expect(canvas.getByText("Required")).toBeInTheDocument();
+  },
+};
+
+export const Vertical = enhanceStoryForDualMode<typeof ProcessSteps>(
+  verticalStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -322,28 +329,30 @@ export const Vertical: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       animated: true,
     },
   }
-);
+) satisfies Story;
 
-export const Circular: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: circularProcessSteps,
-      variant: "circular",
-      currentStep: 2,
-      animated: true,
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify all step titles in circular layout
-      await expect(canvas.getByText("Research")).toBeInTheDocument();
-      await expect(canvas.getByText("Design")).toBeInTheDocument();
-      await expect(canvas.getByText("Build")).toBeInTheDocument();
-      await expect(canvas.getByText("Test")).toBeInTheDocument();
-      await expect(canvas.getByText("Deploy")).toBeInTheDocument();
-      await expect(canvas.getByText("Monitor")).toBeInTheDocument();
-    },
+const circularStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: circularProcessSteps,
+    variant: "circular",
+    currentStep: 2,
+    animated: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all step titles in circular layout
+    await expect(canvas.getByText("Research")).toBeInTheDocument();
+    await expect(canvas.getByText("Design")).toBeInTheDocument();
+    await expect(canvas.getByText("Build")).toBeInTheDocument();
+    await expect(canvas.getByText("Test")).toBeInTheDocument();
+    await expect(canvas.getByText("Deploy")).toBeInTheDocument();
+    await expect(canvas.getByText("Monitor")).toBeInTheDocument();
+  },
+};
+
+export const Circular = enhanceStoryForDualMode<typeof ProcessSteps>(
+  circularStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -353,31 +362,33 @@ export const Circular: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       animated: true,
     },
   }
-);
+) satisfies Story;
 
-export const Cards: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: developmentSteps,
-      variant: "cards",
-      currentStep: 3,
-      animated: true,
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify development process steps
-      await expect(canvas.getByText("Planning")).toBeInTheDocument();
-      await expect(canvas.getByText("Development")).toBeInTheDocument();
-      await expect(canvas.getByText("Testing")).toBeInTheDocument();
-      await expect(canvas.getByText("Deployment")).toBeInTheDocument();
-      await expect(canvas.getByText("Monitoring")).toBeInTheDocument();
-      
-      // Verify descriptions
-      await expect(canvas.getByText("Define requirements and architecture")).toBeInTheDocument();
-      await expect(canvas.getByText("Deploy to production")).toBeInTheDocument();
-    },
+const cardsStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: developmentSteps,
+    variant: "cards",
+    currentStep: 3,
+    animated: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify development process steps
+    await expect(canvas.getByText("Planning")).toBeInTheDocument();
+    await expect(canvas.getByText("Development")).toBeInTheDocument();
+    await expect(canvas.getByText("Testing")).toBeInTheDocument();
+    await expect(canvas.getByText("Deployment")).toBeInTheDocument();
+    await expect(canvas.getByText("Monitoring")).toBeInTheDocument();
+    
+    // Verify descriptions
+    await expect(canvas.getByText("Define requirements and architecture")).toBeInTheDocument();
+    await expect(canvas.getByText("Deploy to production")).toBeInTheDocument();
+  },
+};
+
+export const Cards = enhanceStoryForDualMode<typeof ProcessSteps>(
+  cardsStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -387,29 +398,31 @@ export const Cards: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       animated: true,
     },
   }
-);
+) satisfies Story;
 
-export const Branching: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: branchingSteps,
-      variant: "branching",
-      animated: true,
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify main steps
-      await expect(canvas.getByText("Application Received")).toBeInTheDocument();
-      await expect(canvas.getByText("Initial Review")).toBeInTheDocument();
-      await expect(canvas.getByText("Final Decision")).toBeInTheDocument();
-      await expect(canvas.getByText("Onboarding")).toBeInTheDocument();
-      
-      // Verify branch steps
-      await expect(canvas.getByText("Document Verification")).toBeInTheDocument();
-      await expect(canvas.getByText("Background Check")).toBeInTheDocument();
-    },
+const branchingStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: branchingSteps,
+    variant: "branching",
+    animated: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify main steps
+    await expect(canvas.getByText("Application Received")).toBeInTheDocument();
+    await expect(canvas.getByText("Initial Review")).toBeInTheDocument();
+    await expect(canvas.getByText("Final Decision")).toBeInTheDocument();
+    await expect(canvas.getByText("Onboarding")).toBeInTheDocument();
+    
+    // Verify branch steps
+    await expect(canvas.getByText("Document Verification")).toBeInTheDocument();
+    await expect(canvas.getByText("Background Check")).toBeInTheDocument();
+  },
+};
+
+export const Branching = enhanceStoryForDualMode<typeof ProcessSteps>(
+  branchingStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -418,38 +431,40 @@ export const Branching: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       animated: true,
     },
   }
-);
+) satisfies Story;
 
-export const Interactive: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: checkoutSteps,
-      currentStep: 1,
-      interactive: true,
-      animated: true,
-    },
-    render: function InteractiveStory(args) {
-      const [currentStep, setCurrentStep] = React.useState(args.currentStep || 0);
-
-      return (
-        <ProcessSteps
-          {...args}
-          currentStep={currentStep}
-          onStepClick={(index) => setCurrentStep(index)}
-        />
-      );
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify interactive functionality
-      const shippingStep = canvas.getByText("Shipping");
-      await expect(shippingStep).toBeInTheDocument();
-      
-      // Click on a step to test interactivity
-      await userEvent.click(shippingStep);
-    },
+const interactiveStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: checkoutSteps,
+    currentStep: 1,
+    interactive: true,
+    animated: true,
   },
+  render: function InteractiveStory(args) {
+    const [currentStep, setCurrentStep] = React.useState(args.currentStep || 0);
+
+    return (
+      <ProcessSteps
+        {...args}
+        currentStep={currentStep}
+        onStepClick={(index) => setCurrentStep(index)}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify interactive functionality
+    const shippingStep = canvas.getByText("Shipping");
+    await expect(shippingStep).toBeInTheDocument();
+    
+    // Click on a step to test interactivity
+    await userEvent.click(shippingStep);
+  },
+};
+
+export const Interactive = enhanceStoryForDualMode<typeof ProcessSteps>(
+  interactiveStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -459,9 +474,9 @@ export const Interactive: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       animated: true,
     },
   }
-);
+) satisfies Story;
 
-export const WithCustomNumbers: Story = enhanceStoryForDualMode<typeof ProcessSteps>({
+const withCustomNumbersStory: StoryObj<typeof ProcessSteps> = {
   args: {
     steps: [
       { title: "Step A", number: "A", description: "First step" },
@@ -480,24 +495,28 @@ export const WithCustomNumbers: Story = enhanceStoryForDualMode<typeof ProcessSt
     await expect(canvas.getByText("Step C")).toBeInTheDocument();
     await expect(canvas.getByText("Step D")).toBeInTheDocument();
   },
-});
+};
 
-export const CompletedSteps: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: checkoutSteps,
-      completedSteps: [0, 1, 2, 3],
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify all steps are marked as completed
-      await expect(canvas.getByText("Cart")).toBeInTheDocument();
-      await expect(canvas.getByText("Shipping")).toBeInTheDocument();
-      await expect(canvas.getByText("Payment")).toBeInTheDocument();
-      await expect(canvas.getByText("Complete")).toBeInTheDocument();
-    },
+export const WithCustomNumbers = enhanceStoryForDualMode<typeof ProcessSteps>(withCustomNumbersStory) satisfies Story;
+
+const completedStepsStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: checkoutSteps,
+    completedSteps: [0, 1, 2, 3],
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify all steps are marked as completed
+    await expect(canvas.getByText("Cart")).toBeInTheDocument();
+    await expect(canvas.getByText("Shipping")).toBeInTheDocument();
+    await expect(canvas.getByText("Payment")).toBeInTheDocument();
+    await expect(canvas.getByText("Complete")).toBeInTheDocument();
+  },
+};
+
+export const CompletedSteps = enhanceStoryForDualMode<typeof ProcessSteps>(
+  completedStepsStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -505,23 +524,25 @@ export const CompletedSteps: Story = enhanceStoryForDualMode<typeof ProcessSteps
       completedSteps: [0, 1, 2, 3],
     },
   }
-);
+) satisfies Story;
 
-export const WithoutConnectors: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: checkoutSteps,
-      currentStep: 1,
-      showConnectors: false,
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify steps are rendered without connectors
-      await expect(canvas.getByText("Cart")).toBeInTheDocument();
-      await expect(canvas.getByText("Shipping")).toBeInTheDocument();
-    },
+const withoutConnectorsStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: checkoutSteps,
+    currentStep: 1,
+    showConnectors: false,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify steps are rendered without connectors
+    await expect(canvas.getByText("Cart")).toBeInTheDocument();
+    await expect(canvas.getByText("Shipping")).toBeInTheDocument();
+  },
+};
+
+export const WithoutConnectors = enhanceStoryForDualMode<typeof ProcessSteps>(
+  withoutConnectorsStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -530,23 +551,25 @@ export const WithoutConnectors: Story = enhanceStoryForDualMode<typeof ProcessSt
       showConnectors: false,
     },
   }
-);
+) satisfies Story;
 
-export const DashedConnectors: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: checkoutSteps,
-      currentStep: 1,
-      connectorStyle: "dashed",
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify steps with dashed connectors
-      await expect(canvas.getByText("Cart")).toBeInTheDocument();
-      await expect(canvas.getByText("Payment")).toBeInTheDocument();
-    },
+const dashedConnectorsStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: checkoutSteps,
+    currentStep: 1,
+    connectorStyle: "dashed",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify steps with dashed connectors
+    await expect(canvas.getByText("Cart")).toBeInTheDocument();
+    await expect(canvas.getByText("Payment")).toBeInTheDocument();
+  },
+};
+
+export const DashedConnectors = enhanceStoryForDualMode<typeof ProcessSteps>(
+  dashedConnectorsStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -555,23 +578,25 @@ export const DashedConnectors: Story = enhanceStoryForDualMode<typeof ProcessSte
       connectorStyle: "dashed",
     },
   }
-);
+) satisfies Story;
 
-export const SmallSize: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: checkoutSteps,
-      currentStep: 1,
-      size: "sm",
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify small size rendering
-      await expect(canvas.getByText("Cart")).toBeInTheDocument();
-      await expect(canvas.getByText("Review your items")).toBeInTheDocument();
-    },
+const smallSizeStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: checkoutSteps,
+    currentStep: 1,
+    size: "sm",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify small size rendering
+    await expect(canvas.getByText("Cart")).toBeInTheDocument();
+    await expect(canvas.getByText("Review your items")).toBeInTheDocument();
+  },
+};
+
+export const SmallSize = enhanceStoryForDualMode<typeof ProcessSteps>(
+  smallSizeStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -580,23 +605,25 @@ export const SmallSize: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       size: "sm",
     },
   }
-);
+) satisfies Story;
 
-export const LargeSize: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: checkoutSteps,
-      currentStep: 1,
-      size: "lg",
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify large size rendering
-      await expect(canvas.getByText("Cart")).toBeInTheDocument();
-      await expect(canvas.getByText("Review your items")).toBeInTheDocument();
-    },
+const largeSizeStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: checkoutSteps,
+    currentStep: 1,
+    size: "lg",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify large size rendering
+    await expect(canvas.getByText("Cart")).toBeInTheDocument();
+    await expect(canvas.getByText("Review your items")).toBeInTheDocument();
+  },
+};
+
+export const LargeSize = enhanceStoryForDualMode<typeof ProcessSteps>(
+  largeSizeStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -605,28 +632,30 @@ export const LargeSize: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       size: "lg",
     },
   }
-);
+) satisfies Story;
 
-export const DisabledSteps: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: [
-        { ...checkoutSteps[0], status: "completed" },
-        { ...checkoutSteps[1], status: "current" },
-        { ...checkoutSteps[2], status: "disabled" },
-        { ...checkoutSteps[3], status: "disabled" },
-      ],
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify steps with different statuses
-      await expect(canvas.getByText("Cart")).toBeInTheDocument();
-      await expect(canvas.getByText("Shipping")).toBeInTheDocument();
-      await expect(canvas.getByText("Payment")).toBeInTheDocument();
-      await expect(canvas.getByText("Complete")).toBeInTheDocument();
-    },
+const disabledStepsStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: [
+      { ...checkoutSteps[0], status: "completed" },
+      { ...checkoutSteps[1], status: "current" },
+      { ...checkoutSteps[2], status: "disabled" },
+      { ...checkoutSteps[3], status: "disabled" },
+    ],
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify steps with different statuses
+    await expect(canvas.getByText("Cart")).toBeInTheDocument();
+    await expect(canvas.getByText("Shipping")).toBeInTheDocument();
+    await expect(canvas.getByText("Payment")).toBeInTheDocument();
+    await expect(canvas.getByText("Complete")).toBeInTheDocument();
+  },
+};
+
+export const DisabledSteps = enhanceStoryForDualMode<typeof ProcessSteps>(
+  disabledStepsStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -638,7 +667,7 @@ export const DisabledSteps: Story = enhanceStoryForDualMode<typeof ProcessSteps>
       ],
     },
   }
-);
+) satisfies Story;
 
 const longProcessSteps = [
   { title: "Research", icon: <Search />, description: "Market analysis" },
@@ -666,23 +695,25 @@ const longProcessStepsSDUI = [
   { title: "Analytics", description: "Track metrics" },
 ];
 
-export const LongProcess: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: longProcessSteps,
-      currentStep: 4,
-      size: "sm",
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify some of the many steps
-      await expect(canvas.getByText("Research")).toBeInTheDocument();
-      await expect(canvas.getByText("Development")).toBeInTheDocument();
-      await expect(canvas.getByText("Testing")).toBeInTheDocument();
-      await expect(canvas.getByText("Analytics")).toBeInTheDocument();
-    },
+const longProcessStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: longProcessSteps,
+    currentStep: 4,
+    size: "sm",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify some of the many steps
+    await expect(canvas.getByText("Research")).toBeInTheDocument();
+    await expect(canvas.getByText("Development")).toBeInTheDocument();
+    await expect(canvas.getByText("Testing")).toBeInTheDocument();
+    await expect(canvas.getByText("Analytics")).toBeInTheDocument();
+  },
+};
+
+export const LongProcess = enhanceStoryForDualMode<typeof ProcessSteps>(
+  longProcessStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -691,7 +722,7 @@ export const LongProcess: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
       size: "sm",
     },
   }
-);
+) satisfies Story;
 
 const installationSteps = [
   {
@@ -729,29 +760,31 @@ const installationStepsSDUI = [
   { title: "Ready", description: "Start using the app" },
 ];
 
-export const InstallationGuide: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: installationSteps,
-      variant: "vertical",
-      currentStep: 2,
-      animated: true,
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify installation steps
-      await expect(canvas.getByText("Download")).toBeInTheDocument();
-      await expect(canvas.getByText("Install")).toBeInTheDocument();
-      await expect(canvas.getByText("Configure")).toBeInTheDocument();
-      await expect(canvas.getByText("Activate")).toBeInTheDocument();
-      await expect(canvas.getByText("Ready")).toBeInTheDocument();
-      
-      // Verify descriptions
-      await expect(canvas.getByText("Get the installer")).toBeInTheDocument();
-      await expect(canvas.getByText("Enter license key")).toBeInTheDocument();
-    },
+const installationGuideStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: installationSteps,
+    variant: "vertical",
+    currentStep: 2,
+    animated: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify installation steps
+    await expect(canvas.getByText("Download")).toBeInTheDocument();
+    await expect(canvas.getByText("Install")).toBeInTheDocument();
+    await expect(canvas.getByText("Configure")).toBeInTheDocument();
+    await expect(canvas.getByText("Activate")).toBeInTheDocument();
+    await expect(canvas.getByText("Ready")).toBeInTheDocument();
+    
+    // Verify descriptions
+    await expect(canvas.getByText("Get the installer")).toBeInTheDocument();
+    await expect(canvas.getByText("Enter license key")).toBeInTheDocument();
+  },
+};
+
+export const InstallationGuide = enhanceStoryForDualMode<typeof ProcessSteps>(
+  installationGuideStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -761,7 +794,7 @@ export const InstallationGuide: Story = enhanceStoryForDualMode<typeof ProcessSt
       animated: true,
     },
   }
-);
+) satisfies Story;
 
 const hiringSteps = [
   {
@@ -803,30 +836,32 @@ const hiringStepsSDUI = [
   { title: "Offer", description: "Review package", badge: "Day 15-20" },
 ];
 
-export const HiringProcess: Story = enhanceStoryForDualMode<typeof ProcessSteps>(
-  {
-    args: {
-      steps: hiringSteps,
-      variant: "cards",
-      currentStep: 2,
-      animated: true,
-      interactive: true,
-    },
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Verify hiring process steps
-      await expect(canvas.getByText("Apply")).toBeInTheDocument();
-      await expect(canvas.getByText("Phone Screen")).toBeInTheDocument();
-      await expect(canvas.getByText("Technical Interview")).toBeInTheDocument();
-      await expect(canvas.getByText("On-site Interview")).toBeInTheDocument();
-      await expect(canvas.getByText("Offer")).toBeInTheDocument();
-      
-      // Verify badges
-      await expect(canvas.getByText("Day 1-3")).toBeInTheDocument();
-      await expect(canvas.getByText("Day 15-20")).toBeInTheDocument();
-    },
+const hiringProcessStory: StoryObj<typeof ProcessSteps> = {
+  args: {
+    steps: hiringSteps,
+    variant: "cards",
+    currentStep: 2,
+    animated: true,
+    interactive: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Verify hiring process steps
+    await expect(canvas.getByText("Apply")).toBeInTheDocument();
+    await expect(canvas.getByText("Phone Screen")).toBeInTheDocument();
+    await expect(canvas.getByText("Technical Interview")).toBeInTheDocument();
+    await expect(canvas.getByText("On-site Interview")).toBeInTheDocument();
+    await expect(canvas.getByText("Offer")).toBeInTheDocument();
+    
+    // Verify badges
+    await expect(canvas.getByText("Day 1-3")).toBeInTheDocument();
+    await expect(canvas.getByText("Day 15-20")).toBeInTheDocument();
+  },
+};
+
+export const HiringProcess = enhanceStoryForDualMode<typeof ProcessSteps>(
+  hiringProcessStory,
   {
     renderSpec: {
       type: "ProcessSteps",
@@ -837,4 +872,4 @@ export const HiringProcess: Story = enhanceStoryForDualMode<typeof ProcessSteps>
       interactive: true,
     },
   }
-);
+) satisfies Story;

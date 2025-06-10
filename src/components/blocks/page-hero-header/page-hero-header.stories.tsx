@@ -391,11 +391,11 @@ export const WithVideo= enhanceStoryForDualMode<PageHeroHeaderProperties>({
     expect(canvas.getByRole("button", { name: "Start Now" })).toBeInTheDocument();
 
     // Test video element renders
-    const video = canvas.getByRole("application", { hidden: true });
+    const video = canvasElement.querySelector("video");
     expect(video).toBeInTheDocument();
     expect(video).toHaveAttribute("autoplay", "");
     expect(video).toHaveAttribute("loop", "");
-    expect(video).toHaveAttribute("muted", "");
+    expect(video).toHaveAttribute("playsinline", "");
   },
 });
 

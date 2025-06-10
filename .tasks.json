@@ -72,7 +72,7 @@
       {
         "id": "fix-header-stories-tests",
         "description": "Investigate test issues in src/components/blocks/header/header.stories.tsx. Read the error log at ./tmp/tests/header.stories.log to identify any warnings or failures. May include act() warnings from navigation menu or mobile menu interactions. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/header/header.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-hero-stories-tests",

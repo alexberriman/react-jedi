@@ -2,6 +2,8 @@ import { beforeAll, vi } from "vitest";
 // Replace your-framework with the framework you are using, e.g. react-vite, nextjs, nextjs-vite, etc.
 import { setProjectAnnotations } from "@storybook/react-vite";
 import * as previewAnnotations from "./preview";
+// Import act from React for proper test environment setup
+import { act } from "react";
 
 const annotations = setProjectAnnotations([previewAnnotations]);
 
@@ -10,7 +12,11 @@ declare global {
   var IS_REACT_ACT_ENVIRONMENT: boolean;
 }
 
+// Set up React testing environment
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+
+// Make act available globally for the test environment
+(globalThis as any).act = act;
 
 // Mock IntersectionObserver for Storybook tests
 if (!globalThis.IntersectionObserver) {

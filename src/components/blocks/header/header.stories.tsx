@@ -1033,16 +1033,19 @@ export const WithIconsSDUI: Story = enhanceStoryForDualMode(
       expect(canvas.getByText("Products")).toBeInTheDocument();
       expect(canvas.getByText("Pricing")).toBeInTheDocument();
 
-      // Test dropdown functionality
+      // Test dropdown functionality with proper async handling
       const productsDropdown = canvas.getByText("Products");
-      await user.hover(productsDropdown);
+      
+      // Wrap hover interaction in waitFor to handle async state updates
+      await waitFor(async () => {
+        await user.hover(productsDropdown);
+      });
 
       // Wait for dropdown to appear and verify submenu items
       await waitFor(() => {
         expect(within(document.body).getByText("Analytics Dashboard")).toBeInTheDocument();
+        expect(within(document.body).getByText("Cloud Storage")).toBeInTheDocument();
       });
-
-      expect(within(document.body).getByText("Cloud Storage")).toBeInTheDocument();
 
       // Verify action buttons are present
       expect(canvas.getByText("Sign In")).toBeInTheDocument();

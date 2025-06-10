@@ -3,6 +3,7 @@ import { expect, within } from "storybook/test";
 import { CarouselBlock } from "./carousel-block";
 import type { CarouselDef } from "../../../types/components/carousel";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
+import React from "react";
 
 const meta: Meta<typeof CarouselBlock> = {
   title: "Blocks/Carousel",

@@ -32,7 +32,7 @@
       {
         "id": "fix-carousel-block-stories-tests",
         "description": "Investigate test issues in src/components/blocks/carousel/carousel-block.stories.tsx. Read the error log at ./tmp/tests/carousel-block.stories.log to identify any warnings or failures. May include act() warnings or component rendering issues. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/carousel/carousel-block.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-center-stories-tests",

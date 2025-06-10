@@ -77,7 +77,7 @@
       {
         "id": "fix-hero-stories-tests",
         "description": "Fix act() warnings in src/components/blocks/hero/hero.stories.tsx. Tests pass but have act() warnings from ScrollArea component. Multiple stories use ScrollArea which triggers state updates. Wrap ScrollArea interactions in act() or use waitFor. Read ./tmp/tests/hero.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/hero/hero.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-icon-stories-tests",

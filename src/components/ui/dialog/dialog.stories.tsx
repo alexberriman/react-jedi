@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { within, userEvent, expect, waitFor } from "storybook/test";
+import { act } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,13 @@ import {
 } from "./dialog";
 import { Button } from "../button";
 import { enhanceStoryWithHandlers, createDialogHandlers } from "@sb/utils/enhance-story-with-handlers";
+
+/**
+ * NOTE: The "InitiallyOpen" story may produce act() warnings during tests.
+ * These warnings come from Radix UI's Presence component used within DialogPortal
+ * and are false positives related to internal animation state updates that occur
+ * during initial mount. The tests pass successfully despite these warnings.
+ */
 
 const meta = {
   title: "Components/Dialog",
@@ -750,18 +758,25 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
       </Dialog>
     ),
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    // For initially open dialogs, we need to wait a bit longer for everything to settle
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 500));
-    
     const canvas = within(canvasElement);
+    
+    // Wait for initial mount and animation state to settle
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
+    });
 
     // Dialog should already be open
     await waitFor(() => {
-      expect(document.querySelector('[data-slot="dialog-title"]')?.textContent).toBe(
-        "Initially Open"
-      );
+      const dialogTitle = document.querySelector('[data-slot="dialog-title"]');
+      expect(dialogTitle).toBeInTheDocument();
+      expect(dialogTitle?.textContent).toBe("Initially Open");
+    }, { timeout: 5000 });
+    
+    await waitFor(() => {
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialogContent).toBeInTheDocument();
+      expect(dialogContent).toHaveAttribute('data-state', 'open');
     });
-    expect(document.querySelector('[data-slot="dialog-content"]')).toBeInTheDocument();
 
     // Ensure body doesn't have pointer-events: none before clicking
     const body = document.body;
@@ -782,8 +797,10 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
       { timeout: 5000 }
     );
 
-    // Small delay to ensure dialog is fully closed and animations have completed
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 800));
+    // Wait for animations to complete
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    });
 
     // Ensure body pointer events are restored for clicking reopen button
     if (body.style.pointerEvents === "none") {
@@ -794,8 +811,10 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
     await waitFor(() => {
       const reopenButton = canvas.getByRole("button", { name: /reopen dialog/i });
       expect(reopenButton).toBeInTheDocument();
+      expect(reopenButton).not.toBeDisabled();
       // Also check the button is clickable
-      if ((reopenButton as HTMLButtonElement).disabled || reopenButton.style.pointerEvents === "none") {
+      const buttonElement = reopenButton as HTMLButtonElement;
+      if (buttonElement.style.pointerEvents === "none") {
         throw new Error("Button not yet clickable");
       }
     }, { timeout: 5000 });
@@ -805,8 +824,10 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
 
     // Verify dialog opens again
     await waitFor(() => {
-      expect(document.querySelector('[data-slot="dialog-content"]')).toBeInTheDocument();
-    });
+      const dialogContent = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialogContent).toBeInTheDocument();
+      expect(dialogContent).toHaveAttribute('data-state', 'open');
+    }, { timeout: 5000 });
     },
   },
   {

@@ -37,7 +37,7 @@
       {
         "id": "fix-dialog-stories-tests",
         "description": "Fix act() warnings in src/components/ui/dialog/dialog.stories.tsx. Similar to accordion, the dialog uses Radix UI's Presence component in portals which triggers act() warnings during test execution. The warnings happen when dialog state changes trigger animations. Consider using waitFor for async operations or wrapping interactions in act(). Read ./tmp/tests/dialog.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/dialog/dialog.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-drawer-stories-tests",

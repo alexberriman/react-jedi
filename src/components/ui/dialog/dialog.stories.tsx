@@ -794,7 +794,7 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
         const dialogContent = document.querySelector('[data-slot="dialog-content"]');
         expect(dialogContent).not.toBeInTheDocument();
       },
-      { timeout: 10000 } // Increased timeout for animation
+      { timeout: 10_000 } // Increased timeout for animation
     );
 
     // Small delay after close animation

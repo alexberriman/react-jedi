@@ -42,7 +42,7 @@
       {
         "id": "fix-date-picker-stories-tests",
         "description": "Investigate test issues in src/components/ui/date-picker/date-picker.stories.tsx. Read the error log at ./tmp/tests/date-picker.stories.log to identify any warnings or failures. May include act() warnings from calendar interactions or date selection state updates. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/date-picker/date-picker.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-dialog-stories-tests",

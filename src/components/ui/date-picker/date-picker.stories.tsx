@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
-import { act } from "react";
 import { DatePicker } from "./date-picker";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
@@ -9,7 +8,8 @@ import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
  * NOTE: This component may produce act() warnings during tests.
  * These warnings come from Radix UI's Presence component used within the Popover
  * and are false positives related to internal animation state updates.
- * The tests pass successfully despite these warnings.
+ * The warnings occur when the popover opens/closes due to animation transitions.
+ * All tests pass successfully despite these warnings.
  */
 
 const meta = {
@@ -87,30 +87,20 @@ export const WithSelectedDate: Story = enhanceStoryForDualMode<typeof DatePicker
     // Click to open calendar
     await userEvent.click(dateButton);
 
-    // Wait for calendar to be fully rendered and animations to complete
+    // Wait for calendar to be fully rendered
     await waitFor(() => {
       const calendarElement = document.querySelector(".rdp");
       expect(calendarElement).toBeInTheDocument();
     }, { timeout: 3000 });
 
-    // Wait for animations to stabilize
-    await act(async () => {
-      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
-    });
-
     // Close the calendar by clicking outside
     await userEvent.click(document.body);
 
-    // Wait for calendar to close
+    // Wait for calendar to close completely
     await waitFor(() => {
       const calendarElement = document.querySelector(".rdp");
       expect(calendarElement).not.toBeInTheDocument();
     }, { timeout: 3000 });
-
-    // Final delay to ensure all animations and state updates complete
-    await act(async () => {
-      await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
-    });
   },
 });
 

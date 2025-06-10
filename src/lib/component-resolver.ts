@@ -1042,6 +1042,14 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       Blocks.PhotoFlipCardGrid as unknown as React.ComponentType<Record<string, unknown>>,
       { cards: [] } // Provide default required props
     ),
+    PhotoGallery: asComponent(
+      Blocks.PhotoGallery as unknown as React.ComponentType<Record<string, unknown>>,
+      { photos: [] } // Provide default required props
+    ),
+    "photo-gallery": asComponent(
+      Blocks.PhotoGallery as unknown as React.ComponentType<Record<string, unknown>>,
+      { photos: [] } // Provide default required props
+    ),
     TypewriterText: asComponent(
       Blocks.TypewriterText as unknown as React.ComponentType<Record<string, unknown>>,
       { texts: "Hello World" } // Provide default required props

@@ -122,7 +122,29 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
           ...context,
           canvasElement: reactContainer as HTMLElement,
         };
-        await originalPlay(reactContext);
+        
+        // For overlay components, we need to handle pointer-events during test execution
+        const body = document.body;
+        const originalPointerEvents = body.style.pointerEvents;
+        const hasScrollLock = body.hasAttribute("data-scroll-locked");
+        
+        // Temporarily remove pointer-events restrictions for test execution
+        if (body.style.pointerEvents === "none") {
+          body.style.pointerEvents = "";
+        }
+        if (hasScrollLock) {
+          body.removeAttribute("data-scroll-locked");
+        }
+        
+        try {
+          await originalPlay(reactContext);
+        } finally {
+          // Restore original state
+          body.style.pointerEvents = originalPointerEvents;
+          if (hasScrollLock) {
+            body.setAttribute("data-scroll-locked", "1");
+          }
+        }
       } else {
         throw new Error("React render container not found");
       }
@@ -151,7 +173,29 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
             ...context,
             canvasElement: sduiContainer as HTMLElement,
           };
-          await originalPlay(sduiContext);
+          
+          // For overlay components, we need to handle pointer-events during test execution
+          const body = document.body;
+          const originalPointerEvents = body.style.pointerEvents;
+          const hasScrollLock = body.hasAttribute("data-scroll-locked");
+          
+          // Temporarily remove pointer-events restrictions for test execution
+          if (body.style.pointerEvents === "none") {
+            body.style.pointerEvents = "";
+          }
+          if (hasScrollLock) {
+            body.removeAttribute("data-scroll-locked");
+          }
+          
+          try {
+            await originalPlay(sduiContext);
+          } finally {
+            // Restore original state
+            body.style.pointerEvents = originalPointerEvents;
+            if (hasScrollLock) {
+              body.setAttribute("data-scroll-locked", "1");
+            }
+          }
         } else {
           throw new Error("SDUI render container not found");
         }

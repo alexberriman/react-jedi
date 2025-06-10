@@ -174,12 +174,6 @@ export const WithForm: Story = enhanceStoryForDualMode<typeof Sheet>(
 
       // Get the trigger button
       const trigger = canvas.getByRole("button", { name: "Edit Profile" });
-      
-      // Check if button has pointer-events: none (false positive in test environment)
-      if (globalThis.getComputedStyle(trigger).pointerEvents === 'none') {
-        console.warn('Skipping test due to pointer-events: none false positive in test environment');
-        return;
-      }
 
       // Click to open the sheet
       await user.click(trigger);
@@ -533,12 +527,6 @@ export const NestedSheets: Story = enhanceStoryForDualMode<typeof Sheet>(
 
       // Get the first trigger button
       const firstTrigger = canvas.getByRole("button", { name: "Open First Sheet" });
-      
-      // Check if button has pointer-events: none (false positive in test environment)
-      if (globalThis.getComputedStyle(firstTrigger).pointerEvents === 'none') {
-        console.warn('Skipping test due to pointer-events: none false positive in test environment');
-        return;
-      }
 
       // Open the first sheet
       await user.click(firstTrigger);
@@ -675,12 +663,6 @@ export const LongContent: Story = enhanceStoryForDualMode<typeof Sheet>(
       // Check that the trigger button is rendered
       const trigger = canvas.getByRole("button", { name: "Open Long Content" });
       expect(trigger).toBeInTheDocument();
-
-      // Check if button has pointer-events: none (false positive in test environment)
-      if (globalThis.getComputedStyle(trigger).pointerEvents === 'none') {
-        console.warn('Skipping test due to pointer-events: none false positive in test environment');
-        return;
-      }
 
       // Click to open the sheet
       await user.click(trigger);
@@ -840,12 +822,6 @@ export const CustomStyling: Story = enhanceStoryForDualMode<typeof Sheet>(
       // Check that the trigger button is rendered
       const trigger = canvas.getByRole("button", { name: "Open Custom Sheet" });
       expect(trigger).toBeInTheDocument();
-
-      // Check if button has pointer-events: none (false positive in test environment)
-      if (globalThis.getComputedStyle(trigger).pointerEvents === 'none') {
-        console.warn('Skipping test due to pointer-events: none false positive in test environment');
-        return;
-      }
 
       // Click to open the sheet
       await user.click(trigger);

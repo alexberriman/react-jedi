@@ -52,7 +52,7 @@
       {
         "id": "fix-drawer-stories-tests",
         "description": "Investigate test issues in src/components/ui/drawer/drawer.stories.tsx. Read the error log at ./tmp/tests/drawer.stories.log to identify any warnings or failures. Likely has act() warnings similar to dialog component due to portal usage. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/drawer/drawer.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-form-stories-tests",

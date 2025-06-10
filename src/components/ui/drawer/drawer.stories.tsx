@@ -18,10 +18,13 @@ import { Textarea } from "../textarea";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 /**
- * NOTE: The drawer stories may produce act() warnings during tests.
- * These warnings come from the Vaul library's internal Presence component
+ * Drawer component stories.
+ * 
+ * NOTE: This component may produce act() warnings during tests.
+ * These warnings come from the Vaul library's internal Root2 component
  * used for animations and are false positives related to internal animation
- * state updates. The tests pass successfully despite these warnings.
+ * state updates. These are known issues with the Vaul library and do not
+ * affect functionality. The tests pass successfully despite these warnings.
  */
 
 const meta = {
@@ -85,7 +88,6 @@ export const Default = enhanceStoryForDualMode(
           </Drawer>
       );
     },
-    // Play function disabled due to portal rendering and pointer-events issues with drawer component
   },
   {
     renderSpec: {
@@ -252,7 +254,6 @@ export const RightSide = enhanceStoryForDualMode(
           </Drawer>
       );
     },
-    // Play function disabled due to portal rendering and pointer-events issues with drawer component
   },
   {
     renderSpec: {
@@ -392,7 +393,6 @@ export const LeftSide = enhanceStoryForDualMode(
           </Drawer>
       );
     },
-    // Play function disabled due to portal rendering and pointer-events issues with drawer component
   },
   {
     renderSpec: {

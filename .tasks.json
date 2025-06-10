@@ -122,7 +122,7 @@
       {
         "id": "fix-page-section-stories-tests",
         "description": "Investigate test issues in src/components/blocks/page-section/page-section.stories.tsx. Read the error log at ./tmp/tests/page-section.stories.log to identify any warnings or failures. May include act() warnings if section contains interactive elements. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/page-section/page-section.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-pagination-stories-tests",

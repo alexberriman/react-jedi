@@ -278,8 +278,10 @@ export const Default: Story = enhanceStoryForDualMode<typeof TeamGrid>(
       
       // Test department filter buttons
       expect(canvas.getByText("All Departments")).toBeInTheDocument();
-      expect(canvas.getByText("Executive")).toBeInTheDocument();
-      expect(canvas.getByText("Engineering")).toBeInTheDocument();
+      const executiveButton = canvas.getAllByText("Executive")[0]; // Filter button
+      expect(executiveButton).toBeInTheDocument();
+      const engineeringButton = canvas.getAllByText("Engineering")[0]; // Filter button
+      expect(engineeringButton).toBeInTheDocument();
       
       // Test team member cards render with correct content
       expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
@@ -311,8 +313,8 @@ export const Default: Story = enhanceStoryForDualMode<typeof TeamGrid>(
       });
       
       // Test department filter
-      const engineeringButton = canvas.getByText("Engineering");
-      await user.click(engineeringButton);
+      const engineeringFilterBtn = canvas.getAllByText("Engineering")[0]; // Get the filter button
+      await user.click(engineeringFilterBtn);
       await waitFor(() => {
         expect(canvas.getByText("Michael Chen")).toBeInTheDocument();
         expect(canvas.getByText("James Park")).toBeInTheDocument();
@@ -509,8 +511,10 @@ export const MinimalLayout: Story = enhanceStoryForDualMode<typeof TeamGrid>(
       // Test avatars and department badges are present
       const avatars = canvas.getAllByRole("img");
       expect(avatars.length).toBeGreaterThan(0);
-      expect(canvas.getByText("Executive")).toBeInTheDocument();
-      expect(canvas.getByText("Engineering")).toBeInTheDocument();
+      const executiveBadges = canvas.getAllByText("Executive");
+      expect(executiveBadges.length).toBeGreaterThan(0); // At least one badge exists
+      const engineeringBadges = canvas.getAllByText("Engineering");
+      expect(engineeringBadges.length).toBeGreaterThan(0); // At least one badge exists
     },
   },
   {
@@ -560,11 +564,11 @@ export const OrgChartLayout: Story = enhanceStoryForDualMode<typeof TeamGrid>(
       const canvas = within(canvasElement);
       
       // Test org chart layout renders department sections
-      expect(canvas.getByText("Executive")).toBeInTheDocument();
-      expect(canvas.getByText("Engineering")).toBeInTheDocument();
-      expect(canvas.getByText("Design")).toBeInTheDocument();
-      expect(canvas.getByText("Sales")).toBeInTheDocument();
-      expect(canvas.getByText("Marketing")).toBeInTheDocument();
+      expect(canvas.getByRole("heading", { name: "Executive" })).toBeInTheDocument();
+      expect(canvas.getByRole("heading", { name: "Engineering" })).toBeInTheDocument();
+      expect(canvas.getByRole("heading", { name: "Design" })).toBeInTheDocument();
+      expect(canvas.getByRole("heading", { name: "Sales" })).toBeInTheDocument();
+      expect(canvas.getByRole("heading", { name: "Marketing" })).toBeInTheDocument();
       
       // Test team members are grouped under departments
       expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();

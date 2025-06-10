@@ -281,9 +281,11 @@ export const Expanded: Story = enhanceStoryForDualMode<typeof Footer>({
     const developersSection = canvas.getByText("Developers");
     expect(developersSection).toBeInTheDocument();
 
-    const githubLink = canvas.getByRole("link", { name: "GitHub" });
+    // There are multiple GitHub links (social icon and developer link), so get all and check
+    const allGithubLinks = canvas.getAllByRole("link", { name: "GitHub" });
+    expect(allGithubLinks.length).toBeGreaterThan(1); // Should have at least 2 GitHub links
+    
     const npmLink = canvas.getByRole("link", { name: "NPM Package" });
-    expect(githubLink).toBeInTheDocument();
     expect(npmLink).toBeInTheDocument();
 
     // Test social links section with Follow Us title
@@ -557,9 +559,9 @@ export const SixColumns: Story = enhanceStoryForDualMode<typeof Footer>({
     const companyName = canvas.getByText("React Jedi");
     expect(companyName).toBeInTheDocument();
 
-    // Test support section appears
-    const supportSection = canvas.getByText("Support");
-    expect(supportSection).toBeInTheDocument();
+    // Test support section appears - there are multiple "Support" texts (link and section title)
+    const allSupportTexts = canvas.getAllByText("Support");
+    expect(allSupportTexts.length).toBeGreaterThan(1); // Should have at least the section title and the link
 
     // Test legal section appears
     const legalSection = canvas.getByText("Legal");

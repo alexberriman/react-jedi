@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Combobox, type ComboboxOption } from "./combobox";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
+import { act } from "react";
 
 const meta = {
   title: "Form Components/Combobox",
@@ -99,7 +100,9 @@ export const Default: Story = enhanceStoryForDualMode<typeof Combobox>({
     });
 
     // Wait a bit for the popover animation to complete
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    });
 
     // Verify search input is visible (might be in a portal)
     await waitFor(() => {
@@ -147,7 +150,9 @@ export const Default: Story = enhanceStoryForDualMode<typeof Combobox>({
     });
     
     // Wait for any remaining animations
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    });
   },
 });
 
@@ -189,7 +194,9 @@ export const Fruits: Story = enhanceStoryForDualMode<typeof Combobox>({
     );
 
     // Add a small delay for animations
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    });
 
     // Wait for search input to be available
     await waitFor(
@@ -266,7 +273,9 @@ export const Countries: Story = enhanceStoryForDualMode<typeof Combobox>({
     });
     
     // Wait for animation to complete
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    });
   },
 });
 
@@ -345,7 +354,9 @@ export const EmptyOptions: Story = enhanceStoryForDualMode<typeof Combobox>({
     });
     
     // Wait for animation to complete
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    });
     
     // Wait for empty text to appear
     await waitFor(() => {
@@ -382,7 +393,9 @@ export const LongLabels: Story = enhanceStoryForDualMode<typeof Combobox>({
     });
     
     // Wait for animation to complete
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+    });
     
     // Wait and verify long labels are visible
     await waitFor(() => {

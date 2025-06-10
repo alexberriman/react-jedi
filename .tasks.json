@@ -27,7 +27,7 @@
       {
         "id": "fix-combobox-stories-tests",
         "description": "Fix test issues in src/components/ui/combobox/combobox.stories.tsx. Read the error log at ./tmp/tests/combobox.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the combobox spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/combobox/combobox.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-date-picker-stories-tests",

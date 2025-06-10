@@ -58,6 +58,12 @@ export interface LatestNewsProperties {
   readonly className?: string;
   /** Newsletter submit handler */
   readonly onNewsletterSubmit?: (email: string) => void;
+  /** Currently selected category (for external state management) */
+  readonly selectedCategory?: string;
+  /** Category change handler (for external state management) */
+  readonly onCategoryChange?: (category: string) => void;
+  /** Category change action (for SDUI mode) */
+  readonly onCategoryChangeAction?: string;
 }
 
 function formatDate(dateString: string): string {
@@ -151,9 +157,25 @@ export function LatestNews({
   animated = true,
   className,
   onNewsletterSubmit,
+  selectedCategory: externalSelectedCategory,
+  onCategoryChange,
+  onCategoryChangeAction,
   ...properties
-}: LatestNewsProperties) {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+}: LatestNewsProperties & { readonly spec?: unknown; readonly parentContext?: { readonly handlers?: Record<string, (...args: unknown[]) => unknown> } }) {
+  // Use external state if provided, otherwise use internal state
+  const [internalSelectedCategory, setInternalSelectedCategory] = useState<string>('all');
+  const selectedCategory = externalSelectedCategory ?? internalSelectedCategory;
+  
+  const handleCategoryChange = (category: string) => {
+    if (onCategoryChange) {
+      onCategoryChange(category);
+    } else if (onCategoryChangeAction && properties.parentContext?.handlers?.[onCategoryChangeAction]) {
+      const handler = properties.parentContext.handlers[onCategoryChangeAction] as (category: string) => void;
+      handler(category);
+    } else {
+      setInternalSelectedCategory(category);
+    }
+  };
 
   // Auto-detect categories if not provided
   const detectedCategories = useMemo(() => {
@@ -535,7 +557,7 @@ export function LatestNews({
             <Button
               variant={selectedCategory === 'all' ? 'default' : 'outline'}
               size="sm"
-              onClick={() => setSelectedCategory('all')}
+              onClick={() => handleCategoryChange('all')}
               className="transition-all duration-300 ease-out"
             >
               All
@@ -545,7 +567,7 @@ export function LatestNews({
                 key={cat}
                 variant={selectedCategory === cat ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => handleCategoryChange(cat)}
                 className="transition-all duration-300 ease-out"
               >
                 {cat}

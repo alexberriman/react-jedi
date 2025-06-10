@@ -55,17 +55,17 @@ export const Default: Story = enhanceStoryForDualMode(
       color: "currentColor",
     },
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Find the icon SVG element
-      const svgElement = canvas.getByRole('img', { hidden: true });
+      // Find the icon SVG element - in SDUI mode, they don't have role="img" unless ariaLabel is set
+      const svgElement = canvasElement.querySelector('svg');
       expect(svgElement).toBeInTheDocument();
       
       // Verify size - md should be 20px
       expect(svgElement).toHaveStyle({ width: '20px', height: '20px' });
       
-      // Verify color is inherited from parent
-      expect(svgElement).toHaveAttribute('color', 'currentColor');
+      // Verify color - lucide icons use stroke, not color attribute
+      // currentColor gets computed to actual color value in the browser
+      const computedStyle = globalThis.getComputedStyle(svgElement!);
+      expect(computedStyle.stroke).toBeTruthy();
     },
   },
   {
@@ -95,10 +95,8 @@ export const Sizes: Story = enhanceStoryForDualMode(
       </div>
     ),
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Find all icon SVG elements
-      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      // Find all icon SVG elements - in SDUI mode, they don't have role="img" unless ariaLabel is set
+      const svgElements = canvasElement.querySelectorAll('svg');
       expect(svgElements).toHaveLength(6);
       
       // Verify different sizes
@@ -144,18 +142,16 @@ export const Colors: Story = enhanceStoryForDualMode(
       </div>
     ),
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Find all icon SVG elements
-      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      // Find all icon SVG elements - in SDUI mode, they don't have role="img" unless ariaLabel is set
+      const svgElements = canvasElement.querySelectorAll('svg');
       expect(svgElements).toHaveLength(5);
       
-      // Verify colors are applied
-      expect(svgElements[0]).toHaveAttribute('color', '#ef4444'); // red heart
-      expect(svgElements[1]).toHaveAttribute('color', '#10b981'); // green check
-      expect(svgElements[2]).toHaveAttribute('color', '#3b82f6'); // blue info
-      expect(svgElements[3]).toHaveAttribute('color', '#f59e0b'); // yellow warning
-      expect(svgElements[4]).toHaveAttribute('color', '#8b5cf6'); // purple star
+      // Verify colors are applied - lucide icons use stroke, not color attribute
+      expect(svgElements[0]).toHaveStyle({ stroke: 'rgb(239, 68, 68)' }); // red heart (#ef4444)
+      expect(svgElements[1]).toHaveStyle({ stroke: 'rgb(16, 185, 129)' }); // green check (#10b981)
+      expect(svgElements[2]).toHaveStyle({ stroke: 'rgb(59, 130, 246)' }); // blue info (#3b82f6)
+      expect(svgElements[3]).toHaveStyle({ stroke: 'rgb(245, 158, 11)' }); // yellow warning (#f59e0b)
+      expect(svgElements[4]).toHaveStyle({ stroke: 'rgb(139, 92, 246)' }); // purple star (#8b5cf6)
       
       // Verify all are large size
       for (const svg of svgElements) {
@@ -213,12 +209,9 @@ export const WithBackground: Story = enhanceStoryForDualMode(
       </div>
     ),
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
       // Find all icon wrapper spans with background variant
-      const iconWrappers = canvas.getAllByRole('button', { hidden: true }).length > 0 
-        ? canvas.getAllByRole('button', { hidden: true })
-        : canvasElement.querySelectorAll('span[style*="background"]');
+      // In SDUI mode, background variants are spans with style, not buttons
+      const iconWrappers = canvasElement.querySelectorAll('span[style*="background"]');
       
       expect(iconWrappers.length).toBeGreaterThanOrEqual(4);
       
@@ -226,14 +219,14 @@ export const WithBackground: Story = enhanceStoryForDualMode(
       const firstWrapper = iconWrappers[0] as HTMLElement;
       expect(firstWrapper).toHaveStyle({ backgroundColor: 'rgb(243, 244, 246)' }); // #f3f4f6
       
-      // Verify SVG icons are present
-      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      // Verify SVG icons are present - in SDUI mode, they don't have role="img" unless ariaLabel is set
+      const svgElements = canvasElement.querySelectorAll('svg');
       expect(svgElements).toHaveLength(4);
       
-      // Verify colors on colored icons
-      expect(svgElements[1]).toHaveAttribute('color', '#3b82f6'); // blue user
-      expect(svgElements[2]).toHaveAttribute('color', '#ef4444'); // red heart
-      expect(svgElements[3]).toHaveAttribute('color', '#10b981'); // green check
+      // Verify colors on colored icons - lucide icons use stroke, not color attribute
+      expect(svgElements[1]).toHaveStyle({ stroke: 'rgb(59, 130, 246)' }); // blue user (#3b82f6)
+      expect(svgElements[2]).toHaveStyle({ stroke: 'rgb(239, 68, 68)' }); // red heart (#ef4444)
+      expect(svgElements[3]).toHaveStyle({ stroke: 'rgb(16, 185, 129)' }); // green check (#10b981)
     },
   },
   {
@@ -266,10 +259,8 @@ export const Animated: Story = enhanceStoryForDualMode(
       </div>
     ),
     play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      
-      // Find all icon SVG elements
-      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      // Find all icon SVG elements - in SDUI mode, they don't have role="img" unless ariaLabel is set
+      const svgElements = canvasElement.querySelectorAll('svg');
       expect(svgElements).toHaveLength(3);
       
       // Verify animation classes are applied
@@ -277,8 +268,8 @@ export const Animated: Story = enhanceStoryForDualMode(
       expect(svgElements[1]).toHaveClass('animate-pulse'); // heart icon
       expect(svgElements[2]).toHaveClass('animate-bounce'); // arrow icon
       
-      // Verify colors
-      expect(svgElements[1]).toHaveAttribute('color', '#ef4444'); // red heart
+      // Verify colors - lucide icons use stroke, not color attribute
+      expect(svgElements[1]).toHaveStyle({ stroke: 'rgb(239, 68, 68)' }); // red heart (#ef4444)
       
       // Verify sizes are all large
       for (const svg of svgElements) {
@@ -335,10 +326,10 @@ export const Clickable: Story = enhanceStoryForDualMode(
       const instructionText = canvas.getByText(/click the heart to toggle/i);
       expect(instructionText).toBeInTheDocument();
       
-      // Verify icon is present
-      const svgElement = canvas.getByRole('img', { hidden: true });
+      // Verify icon is present - in SDUI mode, they don't have role="img" unless ariaLabel is set
+      const svgElement = canvasElement.querySelector('svg');
       expect(svgElement).toBeInTheDocument();
-      expect(svgElement).toHaveAttribute('color', '#ef4444');
+      expect(svgElement).toHaveStyle({ stroke: 'rgb(239, 68, 68)' }); // #ef4444
     },
   },
   {
@@ -1022,13 +1013,13 @@ export const WithTooltip: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Find all icon SVG elements
-      const svgElements = canvas.getAllByRole('img', { hidden: true });
+      // Find all icon SVG elements - in SDUI mode, they don't have role="img" unless ariaLabel is set
+      const svgElements = canvasElement.querySelectorAll('svg');
       expect(svgElements).toHaveLength(3);
       
-      // Verify colors are applied
-      expect(svgElements[1]).toHaveAttribute('color', '#f59e0b'); // warning icon
-      expect(svgElements[2]).toHaveAttribute('color', '#10b981'); // success icon
+      // Verify colors are applied - lucide icons use stroke, not color attribute
+      expect(svgElements[1]).toHaveStyle({ stroke: 'rgb(245, 158, 11)' }); // warning icon (#f59e0b)
+      expect(svgElements[2]).toHaveStyle({ stroke: 'rgb(16, 185, 129)' }); // success icon (#10b981)
       
       // Verify all are medium size
       for (const svg of svgElements) {

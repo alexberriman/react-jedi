@@ -2,6 +2,27 @@ import * as React from "react";
 import { iconRegistry } from "./icon-registry";
 import { cn } from "../utils";
 
+// Size mapping for string sizes
+const sizeMap = {
+  xs: 12,
+  sm: 16,
+  md: 20,
+  lg: 24,
+  xl: 32,
+} as const;
+
+// Type for animation type
+type AnimationType = 'spin' | 'pulse' | 'bounce';
+
+// Type for click handler
+type ClickHandler = (() => void) | string;
+
+// Type for size value
+type SizeValue = string | number | keyof typeof sizeMap;
+
+// Type for stroke width
+type StrokeWidth = string | number;
+
 export interface SDUIIconProps {
   /**
    * The registered icon name to render
@@ -9,9 +30,9 @@ export interface SDUIIconProps {
   name: string;
   
   /**
-   * Icon size (number in pixels or string with units)
+   * Icon size (number in pixels, string with units, or size name)
    */
-  size?: string | number;
+  size?: SizeValue;
   
   /**
    * Icon color (CSS color value)
@@ -21,7 +42,7 @@ export interface SDUIIconProps {
   /**
    * Stroke width for line icons
    */
-  strokeWidth?: string | number;
+  strokeWidth?: StrokeWidth;
   
   /**
    * Additional CSS classes
@@ -37,12 +58,160 @@ export interface SDUIIconProps {
    * Accessibility label
    */
   ariaLabel?: string;
+  
+  /**
+   * Click handler - if provided, icon will be wrapped in a button
+   */
+  onClick?: ClickHandler;
+  
+  /**
+   * Whether the icon should be animated
+   */
+  animated?: boolean;
+  
+  /**
+   * Type of animation
+   */
+  animationType?: AnimationType;
+  
+  /**
+   * Visual variant
+   */
+  variant?: 'default' | 'filled' | 'outlined' | 'background';
+  
+  /**
+   * Background color when variant is 'background'
+   */
+  background?: string;
 }
 
 /**
  * Icon component for SDUI that resolves icons from the registry
  * This component is used internally by the SDUI renderer when it encounters icon references
  */
+// Helper function to get icon size
+function getIconSize(size: SizeValue | undefined, defaultSize: StrokeWidth | undefined = undefined): number {
+  // First check if size is provided
+  if (size !== undefined) {
+    if (typeof size === 'string' && size in sizeMap) {
+      return sizeMap[size as keyof typeof sizeMap];
+    }
+    if (typeof size === 'number') {
+      return size;
+    }
+  }
+  
+  // Fall back to defaultSize if provided
+  if (defaultSize !== undefined) {
+    if (typeof defaultSize === 'string' && defaultSize in sizeMap) {
+      return sizeMap[defaultSize as keyof typeof sizeMap];
+    }
+    if (typeof defaultSize === 'number') {
+      return defaultSize;
+    }
+  }
+  
+  return 24; // Final fallback
+}
+
+// Helper function to wrap icon with background variant
+function wrapIconWithBackground(
+  iconElement: React.ReactElement,
+  background: string | undefined,
+  onClick: ClickHandler | undefined,
+  className: string | undefined,
+  style: React.CSSProperties | undefined,
+  ariaLabel: string | undefined
+): React.ReactElement {
+  const wrapperStyle: React.CSSProperties = {
+    ...style,
+    backgroundColor: background || '#f3f4f6',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
+  
+  const handleClick = onClick && typeof onClick === 'function' ? onClick : undefined;
+  const handleKeyDown = handleClick ? (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
+  } : undefined;
+  
+  return (
+    <span
+      className={cn('rounded-lg p-2', onClick && 'cursor-pointer transition-opacity hover:opacity-80', className)}
+      style={wrapperStyle}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      aria-label={ariaLabel}
+    >
+      {iconElement}
+    </span>
+  );
+}
+
+// Helper function to wrap icon with button
+function wrapIconWithButton(
+  iconElement: React.ReactElement,
+  onClick: () => void,
+  className: string | undefined,
+  style: React.CSSProperties | undefined,
+  ariaLabel: string | undefined
+): React.ReactElement {
+  return (
+    <button
+      type="button"
+      className={cn('inline-flex items-center justify-center transition-opacity hover:opacity-80', className)}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      style={style}
+    >
+      {iconElement}
+    </button>
+  );
+}
+
+// Helper function to create icon element
+function createIconElement(
+  IconComponent: React.ComponentType<Record<string, unknown>>,
+  iconSize: number,
+  color: string,
+  strokeWidth: StrokeWidth | undefined,
+  animated: boolean,
+  animationType: AnimationType,
+  className: string | undefined,
+  style: React.CSSProperties | undefined,
+  ariaLabel: string | undefined,
+  onClick?: ClickHandler
+): React.ReactElement {
+  const animationClasses = animated
+    ? {
+        spin: 'animate-spin',
+        pulse: 'animate-pulse',
+        bounce: 'animate-bounce',
+      }[animationType]
+    : undefined;
+  
+  const iconProps: Record<string, unknown> = {
+    size: iconSize,
+    color,
+    className: cn("sdui-icon", animationClasses, onClick ? "" : className),
+    style: onClick ? undefined : style,
+    "aria-label": ariaLabel,
+    "aria-hidden": !ariaLabel,
+  };
+  
+  if (strokeWidth !== undefined) {
+    iconProps.strokeWidth = strokeWidth;
+  }
+  
+  return React.createElement(IconComponent, iconProps);
+}
+
 export function SDUIIcon({
   name,
   size,
@@ -51,12 +220,19 @@ export function SDUIIcon({
   className,
   style,
   ariaLabel,
+  onClick,
+  animated = false,
+  animationType = 'spin',
+  variant = 'default',
+  background,
 }: Readonly<SDUIIconProps>): React.ReactElement | null {
   const entry = iconRegistry.get(name);
   
   if (!entry) {
     // In development, show a placeholder for missing icons
     if (process.env.NODE_ENV === "development") {
+      const placeholderSize = getIconSize(size);
+      
       return (
         <span
           className={cn(
@@ -64,8 +240,8 @@ export function SDUIIcon({
             className
           )}
           style={{
-            width: size || 24,
-            height: size || 24,
+            width: placeholderSize,
+            height: placeholderSize,
             ...style,
           }}
           aria-label={ariaLabel || `Missing icon: ${name}`}
@@ -78,25 +254,33 @@ export function SDUIIcon({
   }
   
   const IconComponent = entry.component;
-  const iconSize = size || entry.defaultSize || 24;
+  const iconSize = getIconSize(size, entry.defaultSize);
   const iconStrokeWidth = strokeWidth || entry.defaultStrokeWidth;
+  const iconColor = color || entry.defaultColor || "currentColor";
   
-  // Props to pass to the icon component
-  const iconProps: Record<string, unknown> = {
-    size: iconSize,
-    color: color || entry.defaultColor || "currentColor",
-    className: cn("sdui-icon", className),
+  const iconElement = createIconElement(
+    IconComponent,
+    iconSize,
+    iconColor,
+    iconStrokeWidth,
+    animated,
+    animationType,
+    className,
     style,
-    "aria-label": ariaLabel,
-    "aria-hidden": !ariaLabel,
-  };
+    ariaLabel,
+    onClick
+  );
   
-  // Add strokeWidth if specified
-  if (iconStrokeWidth !== undefined) {
-    iconProps.strokeWidth = iconStrokeWidth;
+  // Wrap icon based on variant and onClick
+  if (variant === 'background') {
+    return wrapIconWithBackground(iconElement, background, onClick, className, style, ariaLabel);
   }
   
-  return React.createElement(IconComponent, iconProps);
+  if (onClick && typeof onClick === 'function') {
+    return wrapIconWithButton(iconElement, onClick, className, style, ariaLabel);
+  }
+  
+  return iconElement;
 }
 
 /**
@@ -129,7 +313,7 @@ export function transformIconReference(spec: unknown): React.ReactElement | null
   }
   
   // Extract known props from the spec
-  const { name, size, color, strokeWidth, className, style, ariaLabel } = spec;
+  const { name, size, color, strokeWidth, className, style, ariaLabel, onClick, animated, animationType, variant, background } = spec;
   
   return (
     <SDUIIcon
@@ -140,6 +324,11 @@ export function transformIconReference(spec: unknown): React.ReactElement | null
       className={className as string | undefined}
       style={style as React.CSSProperties | undefined}
       ariaLabel={ariaLabel as string | undefined}
+      onClick={onClick as ClickHandler | undefined}
+      animated={animated as boolean | undefined}
+      animationType={animationType as AnimationType | undefined}
+      variant={variant as 'default' | 'filled' | 'outlined' | 'background' | undefined}
+      background={background as string | undefined}
     />
   );
 }

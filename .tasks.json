@@ -1,1 +1,218 @@
-[]
+[
+  {
+    "id": "test-failures",
+    "description": "Fixes storybook test failures",
+    "subtasks": [
+      {
+        "id": "fix-accordion-stories-tests",
+        "description": "Fix act() warnings in src/components/ui/accordion/accordion.stories.tsx. The test passes but has act() warnings from Framer Motion's AnimatePresence component used within Radix UI Accordion. The warnings occur because state updates in the Presence component aren't wrapped in act(). Consider using waitFor or adding act() wrappers around interactions that trigger accordion animations. Read ./tmp/tests/accordion.stories.log for full details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/accordion/accordion.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-avatar-stories-tests",
+        "description": "Fix test issues in src/components/ui/avatar/avatar.stories.tsx. Read the error log at ./tmp/tests/avatar.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the avatar spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/avatar/avatar.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-blog-post-detail-stories-tests",
+        "description": "Fix test issues in src/components/blocks/blog-post-detail/blog-post-detail.stories.tsx. Read the error log at ./tmp/tests/blog-post-detail.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the blog-post-detail spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/blog-post-detail/blog-post-detail.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-chart-stories-tests",
+        "description": "Fix test issues in src/components/ui/chart/chart.stories.tsx. Read the error log at ./tmp/tests/chart.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the chart spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/chart/chart.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-combobox-stories-tests",
+        "description": "Fix test issues in src/components/ui/combobox/combobox.stories.tsx. Read the error log at ./tmp/tests/combobox.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the combobox spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/combobox/combobox.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-date-picker-stories-tests",
+        "description": "Fix test issues in src/components/ui/date-picker/date-picker.stories.tsx. Read the error log at ./tmp/tests/date-picker.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the date-picker spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/date-picker/date-picker.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-dialog-stories-tests",
+        "description": "Fix act() warnings in src/components/ui/dialog/dialog.stories.tsx. Similar to accordion, the dialog uses Radix UI's Presence component in portals which triggers act() warnings during test execution. The warnings happen when dialog state changes trigger animations. Consider using waitFor for async operations or wrapping interactions in act(). Read ./tmp/tests/dialog.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/dialog/dialog.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-drawer-stories-tests",
+        "description": "Fix test issues in src/components/ui/drawer/drawer.stories.tsx. Read the error log at ./tmp/tests/drawer.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the drawer spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/drawer/drawer.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-features-stories-tests",
+        "description": "Fix test failure in src/components/blocks/features/features.stories.tsx - Tabbed Categories story. Test fails because it can't find 'Enterprise Security' text. The issue is that a different tab (Performance) is active by default instead of showing all features. Either update the test to click the correct tab first or adjust the initial state. Read ./tmp/tests/features.stories.log for the specific error. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/features/features.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-footer-stories-tests",
+        "description": "Fix test issues in src/components/blocks/footer/footer.stories.tsx. Read the error log at ./tmp/tests/footer.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the footer spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/footer/footer.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-google-map-stories-tests",
+        "description": "Fix test issues in src/components/blocks/map/google-map.stories.tsx. Read the error log at ./tmp/tests/google-map.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the google-map spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/map/google-map.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-header-stories-tests",
+        "description": "Fix test issues in src/components/blocks/header/header.stories.tsx. Read the error log at ./tmp/tests/header.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the header spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/header/header.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-hover-card-stories-tests",
+        "description": "Fix test issues in src/components/ui/hover-card/hover-card.stories.tsx. Read the error log at ./tmp/tests/hover-card.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the hover-card spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/hover-card/hover-card.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-icon-stories-tests",
+        "description": "Fix test issues in src/components/blocks/icon/icon.stories.tsx. Read the error log at ./tmp/tests/icon.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the icon spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/icon/icon.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-image-stories-tests",
+        "description": "Fix act() warnings in src/components/ui/image/image.stories.tsx. The Image component has state updates (likely for loading states or lazy loading) that aren't wrapped in act() during tests. Check for any async image loading logic or state changes that occur after initial render. Read ./tmp/tests/image.stories.log for specific warning details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/image/image.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-input-otp-stories-tests",
+        "description": "Fix test issues in src/components/ui/input-otp/input-otp.stories.tsx. Read the error log at ./tmp/tests/input-otp.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the input-otp spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/input-otp/input-otp.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-job-listings-stories-tests",
+        "description": "Fix test issues in src/components/blocks/job-listings/job-listings.stories.tsx. Read the error log at ./tmp/tests/job-listings.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the job-listings spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/job-listings/job-listings.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-latest-news-stories-tests",
+        "description": "Fix test issues in src/components/blocks/latest-news/latest-news.stories.tsx. Read the error log at ./tmp/tests/latest-news.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the latest-news spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/latest-news/latest-news.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-location-hours-stories-tests",
+        "description": "Fix test issues in src/components/blocks/location-hours/location-hours.stories.tsx. Read the error log at ./tmp/tests/location-hours.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the location-hours spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/location-hours/location-hours.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-map-stories-tests",
+        "description": "Fix test issues in src/components/blocks/map/map.stories.tsx. Read the error log at ./tmp/tests/map.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the map spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/map/map.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-navigation-menu-stories-tests",
+        "description": "Fix test issues in src/components/ui/navigation-menu/navigation-menu.stories.tsx. Read the error log at ./tmp/tests/navigation-menu.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the navigation-menu spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/navigation-menu/navigation-menu.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-newsletter-signup-stories-tests",
+        "description": "Fix test issues in src/components/blocks/newsletter-signup/newsletter-signup.stories.tsx. Read the error log at ./tmp/tests/newsletter-signup.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the newsletter-signup spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/newsletter-signup/newsletter-signup.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-page-hero-header-stories-tests",
+        "description": "Fix test issues in src/components/blocks/page-hero-header/page-hero-header.stories.tsx. Read the error log at ./tmp/tests/page-hero-header.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the page-hero-header spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/page-hero-header/page-hero-header.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-page-section-stories-tests",
+        "description": "Fix test issues in src/components/blocks/page-section/page-section.stories.tsx. Read the error log at ./tmp/tests/page-section.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the page-section spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/page-section/page-section.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-photo-flip-card-stories-tests",
+        "description": "Fix test issues in src/components/blocks/photo-flip-card/photo-flip-card.stories.tsx. Read the error log at ./tmp/tests/photo-flip-card.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the photo-flip-card spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/photo-flip-card/photo-flip-card.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-photo-gallery-stories-tests",
+        "description": "Fix test issues in src/components/blocks/photo-gallery/photo-gallery.stories.tsx. Read the error log at ./tmp/tests/photo-gallery.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the photo-gallery spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/photo-gallery/photo-gallery.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-popover-stories-tests",
+        "description": "Fix act() warnings in src/components/ui/popover/popover.stories.tsx. The popover component uses Radix UI portals with Presence animations, causing act() warnings when state updates during test execution. These warnings occur in the dual-mode test wrapper. Use waitFor for portal content or wrap popover interactions in act(). Read ./tmp/tests/popover.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/popover/popover.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-portfolio-case-studies-stories-tests",
+        "description": "Fix test issues in src/components/blocks/portfolio-case-studies/portfolio-case-studies.stories.tsx. Read the error log at ./tmp/tests/portfolio-case-studies.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the portfolio-case-studies spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/portfolio-case-studies/portfolio-case-studies.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-pricing-table-stories-tests",
+        "description": "Fix test issues in src/components/blocks/pricing-table/pricing-table.stories.tsx. Read the error log at ./tmp/tests/pricing-table.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the pricing-table spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/pricing-table/pricing-table.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-product-showcase-stories-tests",
+        "description": "Fix test issues in src/components/blocks/product-showcase/product-showcase.stories.tsx. Read the error log at ./tmp/tests/product-showcase.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the product-showcase spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/product-showcase/product-showcase.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-restaurant-menu-stories-tests",
+        "description": "Fix test issues in src/components/blocks/restaurant-menu/restaurant-menu.stories.tsx. Read the error log at ./tmp/tests/restaurant-menu.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the restaurant-menu spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/restaurant-menu/restaurant-menu.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-service-list-stories-tests",
+        "description": "Fix test issues in src/components/blocks/service-list/service-list.stories.tsx. Read the error log at ./tmp/tests/service-list.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the service-list spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/service-list/service-list.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-sheet-stories-tests",
+        "description": "Fix test issues in src/components/ui/sheet/sheet.stories.tsx. Read the error log at ./tmp/tests/sheet.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the sheet spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/sheet/sheet.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-sidebar-stories-tests",
+        "description": "Fix test issues in src/components/blocks/sidebar/sidebar.stories.tsx. Read the error log at ./tmp/tests/sidebar.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the sidebar spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/sidebar/sidebar.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-slider-stories-tests",
+        "description": "Fix test issues in src/components/ui/slider/slider.stories.tsx. Read the error log at ./tmp/tests/slider.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the slider spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/slider/slider.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-social-share-bar-stories-tests",
+        "description": "Fix test issues in src/components/blocks/social-share-bar/social-share-bar.stories.tsx. Read the error log at ./tmp/tests/social-share-bar.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the social-share-bar spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/social-share-bar/social-share-bar.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-stat-block-stories-tests",
+        "description": "Fix test issues in src/components/blocks/stat-block/stat-block.stories.tsx. Read the error log at ./tmp/tests/stat-block.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the stat-block spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/stat-block/stat-block.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-team-grid-stories-tests",
+        "description": "Fix test issues in src/components/blocks/team-grid/team-grid.stories.tsx. Read the error log at ./tmp/tests/team-grid.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the team-grid spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/team-grid/team-grid.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-testimonial-stories-tests",
+        "description": "Fix test issues in src/components/blocks/testimonial/testimonial.stories.tsx. Read the error log at ./tmp/tests/testimonial.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the testimonial spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/testimonial/testimonial.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-timeline-stories-tests",
+        "description": "Fix test issues in src/components/blocks/timeline/timeline.stories.tsx. Read the error log at ./tmp/tests/timeline.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the timeline spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/timeline/timeline.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-tooltip-stories-tests",
+        "description": "Fix test issues in src/components/ui/tooltip/tooltip.stories.tsx. Read the error log at ./tmp/tests/tooltip.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the tooltip spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/tooltip/tooltip.stories.tsx' to verify fixes.",
+        "status": "pending"
+      },
+      {
+        "id": "fix-typewriter-text-sdui-stories-tests",
+        "description": "Fix test issues in src/components/blocks/typewriter-text/typewriter-text-sdui.stories.tsx. Read the error log at ./tmp/tests/typewriter-text-sdui.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the typewriter-text spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/typewriter-text/typewriter-text-sdui.stories.tsx' to verify fixes.",
+        "status": "pending"
+      }
+    ]
+  }
+]

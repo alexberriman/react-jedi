@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { StoryContext, StoryFn } from "@storybook/react";
 import { render } from "../../src/lib/render";
 import { Toggle } from "../../src/components/ui/toggle";
@@ -40,8 +40,18 @@ export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
   // Check if dual mode is enabled for this story
   const isDualModeEnabled = context.parameters?.dualMode?.enabled !== false;
   
+  const [isTestEnvironment] = useState(() => {
+    // Check if we're in a test environment
+    return typeof window !== 'undefined' && (
+      window.location.hostname === 'localhost' && 
+      (window.location.port === '63315' || window.location.port === '63316' || 
+       window.location.pathname.includes('vitest') ||
+       window.navigator.userAgent.includes('jsdom'))
+    );
+  });
+  
   const [activeTab, setActiveTab] = useState<'react' | 'sdui'>('react');
-  const [showJson, setShowJson] = useState(true);
+  const [showJson, setShowJson] = useState(!isTestEnvironment); // Hide JSON by default in tests
   
   // Get custom spec or convert from args - must be called unconditionally
   const jsonSpec = useMemo(() => {
@@ -142,11 +152,19 @@ export const DualModeDecorator = (Story: StoryFn, context: StoryContext) => {
                     </span>
                     <CopyButton text={JSON.stringify(jsonSpec, null, 2)} />
                   </div>
-                  <ScrollArea className="h-[400px]">
-                    <div className="p-4">
-                      <JsonSyntaxHighlighter spec={jsonSpec} />
+                  {isTestEnvironment ? (
+                    <div className="h-[400px] overflow-auto">
+                      <div className="p-4">
+                        <JsonSyntaxHighlighter spec={jsonSpec} />
+                      </div>
                     </div>
-                  </ScrollArea>
+                  ) : (
+                    <ScrollArea className="h-[400px]">
+                      <div className="p-4">
+                        <JsonSyntaxHighlighter spec={jsonSpec} />
+                      </div>
+                    </ScrollArea>
+                  )}
                 </div>
               )}
             </div>

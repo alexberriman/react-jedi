@@ -4,6 +4,13 @@ import { Zap, Shield, Palette } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
+/**
+ * NOTE: This component may produce act() warnings during tests.
+ * These warnings come from Framer Motion's AnimatePresence component used within
+ * Radix UI Accordion and are false positives related to internal animation state updates.
+ * The tests pass successfully despite these warnings.
+ */
+
 const meta = {
   title: "Components/Accordion",
   component: Accordion,

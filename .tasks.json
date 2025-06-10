@@ -7,7 +7,7 @@
       {
         "id": "fix-accordion-stories-tests",
         "description": "Fix act() warnings in src/components/ui/accordion/accordion.stories.tsx. The test passes but has act() warnings from Framer Motion's AnimatePresence component used within Radix UI Accordion. The warnings occur because state updates in the Presence component aren't wrapped in act(). Consider using waitFor or adding act() wrappers around interactions that trigger accordion animations. Read ./tmp/tests/accordion.stories.log for full details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/accordion/accordion.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-avatar-stories-tests",

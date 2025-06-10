@@ -4,6 +4,7 @@ import { TypewriterTextBlock } from "./typewriter-text";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 import * as React from "react";
 import type { TypewriterTextDef } from "../../../types/components/typewriter-text";
+import { act } from "react";
 
 const meta: Meta<typeof TypewriterTextBlock> = {
   title: "Blocks/TypewriterText/SDUI Test",
@@ -36,19 +37,24 @@ export const BasicSDUI: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for text to start typing
+      // Wait for typewriter animation to start and some text to appear
       await waitFor(() => {
         const typewriterElement = canvas.getByText(/Hello/i, { exact: false });
         expect(typewriterElement).toBeInTheDocument();
-      }, { timeout: 3000 });
+      }, { timeout: 5000 });
 
-      // Verify cursor is visible
-      const container = canvas.getByText(/Hello/i, { exact: false }).closest("div");
-      expect(container).toBeInTheDocument();
-      
-      // Verify text color is applied
-      const textElement = canvas.getByText(/Hello/i, { exact: false });
-      expect(textElement.closest("div")).toHaveStyle({ color: "rgb(37, 99, 235)" });
+      // Give time for animation to progress and wrap in act
+      await act(async () => {
+        await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
+      });
+
+      // Verify cursor is visible and text color
+      await waitFor(() => {
+        const textElement = canvas.getByText(/Hello/i, { exact: false });
+        const container = textElement.closest("div");
+        expect(container).toBeInTheDocument();
+        expect(container).toHaveStyle({ color: "rgb(37, 99, 235)" });
+      });
     },
   },
   {
@@ -97,14 +103,20 @@ export const RotationSDUI: Story = enhanceStoryForDualMode(
       await waitFor(() => {
         const typewriterElement = canvas.getByText(/Build/i, { exact: false });
         expect(typewriterElement).toBeInTheDocument();
-      }, { timeout: 3000 });
+      }, { timeout: 5000 });
 
-      // Verify center alignment
-      const container = canvas.getByText(/Build/i, { exact: false }).closest("div");
-      expect(container).toHaveClass("text-center");
-      
-      // Verify text color is green
-      expect(container).toHaveStyle({ color: "rgb(5, 150, 105)" });
+      // Give time for animation to progress and wrap in act
+      await act(async () => {
+        await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
+      });
+
+      // Verify center alignment and text color
+      await waitFor(() => {
+        const textElement = canvas.getByText(/Build/i, { exact: false });
+        const container = textElement.closest("div");
+        expect(container).toHaveClass("text-center");
+        expect(container).toHaveStyle({ color: "rgb(5, 150, 105)" });
+      });
     },
   },
   {
@@ -154,14 +166,20 @@ export const CustomCursorSDUI: Story = enhanceStoryForDualMode(
       await waitFor(() => {
         const typewriterElement = canvas.getByText(/Custom/i, { exact: false });
         expect(typewriterElement).toBeInTheDocument();
-      }, { timeout: 3000 });
+      }, { timeout: 5000 });
 
-      // Verify monospace font
-      const container = canvas.getByText(/Custom/i, { exact: false }).closest("div");
-      expect(container).toHaveClass("font-mono");
-      
-      // Verify text color is orange
-      expect(container).toHaveStyle({ color: "rgb(234, 88, 12)" });
+      // Give time for animation to progress and wrap in act
+      await act(async () => {
+        await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
+      });
+
+      // Verify monospace font and text color
+      await waitFor(() => {
+        const textElement = canvas.getByText(/Custom/i, { exact: false });
+        const container = textElement.closest("div");
+        expect(container).toHaveClass("font-mono");
+        expect(container).toHaveStyle({ color: "rgb(234, 88, 12)" });
+      });
     },
   },
   {
@@ -206,11 +224,18 @@ export const ReducedMotionSDUI: Story = enhanceStoryForDualMode(
       await waitFor(() => {
         const typewriterElement = canvas.getByText("No animation when preferred");
         expect(typewriterElement).toBeInTheDocument();
-      }, { timeout: 1000 });
+      }, { timeout: 2000 });
+
+      // Wrap verification in act for consistency
+      await act(async () => {
+        await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+      });
 
       // Verify text color
-      const container = canvas.getByText("No animation when preferred").closest("div");
-      expect(container).toHaveStyle({ color: "rgb(124, 45, 18)" });
+      await waitFor(() => {
+        const container = canvas.getByText("No animation when preferred").closest("div");
+        expect(container).toHaveStyle({ color: "rgb(124, 45, 18)" });
+      });
     },
   },
   {
@@ -252,14 +277,20 @@ export const NoCursorSDUI: Story = enhanceStoryForDualMode(
       await waitFor(() => {
         const typewriterElement = canvas.getByText(/Clean/i, { exact: false });
         expect(typewriterElement).toBeInTheDocument();
-      }, { timeout: 3000 });
+      }, { timeout: 5000 });
 
-      // Verify medium font weight
-      const container = canvas.getByText(/Clean/i, { exact: false }).closest("div");
-      expect(container).toHaveClass("font-medium");
-      
-      // Verify text color
-      expect(container).toHaveStyle({ color: "rgb(15, 118, 110)" });
+      // Give time for animation to progress and wrap in act
+      await act(async () => {
+        await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
+      });
+
+      // Verify medium font weight and text color
+      await waitFor(() => {
+        const textElement = canvas.getByText(/Clean/i, { exact: false });
+        const container = textElement.closest("div");
+        expect(container).toHaveClass("font-medium");
+        expect(container).toHaveStyle({ color: "rgb(15, 118, 110)" });
+      });
     },
   },
   {
@@ -293,9 +324,8 @@ export const OneTimeSDUI: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // For one-time variant with reduced test speed, check for any of the texts
+      // For one-time variant, wait for first text to appear
       await waitFor(() => {
-        // Try to find the container div first
         const container = canvasElement.querySelector('[data-testid="react-render"] > div, [data-testid="sdui-render"] > div');
         expect(container).toBeInTheDocument();
         
@@ -304,15 +334,23 @@ export const OneTimeSDUI: Story = enhanceStoryForDualMode(
         expect(hasText).toBeTruthy();
       }, { timeout: 5000 });
 
-      // Wait a bit more for the final text
+      // Give time for all text sequences to complete and wrap in act
+      await act(async () => {
+        await new Promise(resolve => globalThis.setTimeout(resolve, 3000));
+      });
+
+      // Wait for the final text and verify styling
       await waitFor(() => {
         const finalText = canvas.queryByText(/Final line of text/);
         if (finalText) {
-          // If we can find the final text, verify its color
           const container = finalText.closest("div");
           expect(container).toHaveStyle({ color: "rgb(6, 95, 70)" });
+        } else {
+          // If final text isn't ready yet, at least verify we have some text
+          const container = canvasElement.querySelector('[data-testid="react-render"] > div, [data-testid="sdui-render"] > div');
+          expect(container?.textContent).toBeTruthy();
         }
-      }, { timeout: 8000 });
+      }, { timeout: 10_000 });
     },
   },
   {

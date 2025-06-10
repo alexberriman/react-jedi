@@ -162,7 +162,7 @@
       {
         "id": "fix-typewriter-text-stories-tests",
         "description": "Investigate test issues in src/components/blocks/typewriter-text/typewriter-text.stories.tsx. Read the error log at ./tmp/tests/typewriter-text.stories.log to identify any warnings or failures. Likely has act() warnings from typewriter animation state updates. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/typewriter-text/typewriter-text.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   }

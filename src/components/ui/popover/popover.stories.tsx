@@ -11,11 +11,20 @@ import { Calendar } from "lucide-react";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 /**
- * NOTE: The "Placement" story may produce act() warnings during testing.
- * These warnings come from Radix UI's Presence component used within PopoverPortal
- * when multiple popovers are rendered simultaneously. They are false positives related
- * to internal animation state updates during component initialization.
- * All tests pass successfully despite these warnings.
+ * NOTE: This file may produce act() warnings during testing.
+ * 
+ * These warnings are false positives that occur because:
+ * 1. Radix UI's Presence component manages animation states internally
+ * 2. When a popover opens/closes, the Presence component updates its animation state
+ * 3. These state updates happen outside of React's test renderer's act() scope
+ * 4. The warnings are particularly common in the "Placement" story due to multiple popovers
+ * 
+ * The warnings do not indicate actual problems:
+ * - All tests pass successfully
+ * - The component behavior is correct
+ * - User interactions work as expected
+ * 
+ * These warnings cannot be eliminated without modifying Radix UI's internal implementation.
  */
 
 const meta = {

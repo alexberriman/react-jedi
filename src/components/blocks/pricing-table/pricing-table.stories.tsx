@@ -283,18 +283,20 @@ export const WithTestimonials: Story = enhanceStoryForDualMode({
     await step("Verify testimonials are rendered", async () => {
       // Use waitFor to ensure testimonials are loaded
       await waitFor(() => {
-        // The testimonial text is wrapped in quotes, so we need to look for it more flexibly
-        const blockquotes = canvas.getAllByRole('blockquote');
-        const testimonialQuote = blockquotes.find(el => 
+        // Look for the testimonial text inside the document body to handle portal rendering
+        const testimonialElements = document.body.querySelectorAll('blockquote');
+        const hasTestimonial = Array.from(testimonialElements).some(el => 
           el.textContent?.includes("Perfect for getting started. The features are exactly what we needed.")
         );
-        expect(testimonialQuote).toBeTruthy();
-      });
+        expect(hasTestimonial).toBe(true);
+      }, { timeout: 5000 });
       
       // The author info is in a paragraph with em dash, so use a flexible matcher
-      expect(canvas.getByText(/Sarah Johnson/)).toBeInTheDocument();
-      expect(canvas.getByText(/Mike Chen/)).toBeInTheDocument();
-      expect(canvas.getByText(/Lisa Thompson/)).toBeInTheDocument();
+      await waitFor(() => {
+        expect(canvas.getByText(/Sarah Johnson/)).toBeInTheDocument();
+        expect(canvas.getByText(/Mike Chen/)).toBeInTheDocument();
+        expect(canvas.getByText(/Lisa Thompson/)).toBeInTheDocument();
+      });
     });
   },
 }) as Story;
@@ -462,9 +464,11 @@ export const CustomCurrency: Story = enhanceStoryForDualMode({
     const euroSymbols = canvas.getAllByText("€");
     expect(euroSymbols.length).toBeGreaterThanOrEqual(2);
     
-    // Verify converted prices (approximately)
-    expect(canvas.getByText(Math.floor(9 * 0.85).toString())).toBeInTheDocument();
-    expect(canvas.getByText(Math.floor(29 * 0.85).toString())).toBeInTheDocument();
+    // Verify converted prices (using Math.round instead of Math.floor to match Intl.NumberFormat behavior)
+    // 9 * 0.85 = 7.65, which rounds to 8
+    // 29 * 0.85 = 24.65, which rounds to 25
+    expect(canvas.getByText("8")).toBeInTheDocument();
+    expect(canvas.getByText("25")).toBeInTheDocument();
   },
 }) as Story;
 
@@ -561,8 +565,12 @@ export const WithTooltips: Story = enhanceStoryForDualMode({
     
     // Verify features are rendered
     expect(canvas.getByText("5 Projects")).toBeInTheDocument();
-    expect(canvas.getByText("Unlimited Projects")).toBeInTheDocument();
-    expect(canvas.getByText("API Access")).toBeInTheDocument();
+    // Use getAllByText since "Unlimited Projects" appears in multiple tiers
+    const unlimitedProjectsElements = canvas.getAllByText("Unlimited Projects");
+    expect(unlimitedProjectsElements.length).toBeGreaterThanOrEqual(2); // Professional and Enterprise tiers
+    // Use getAllByText since "API Access" appears in multiple tiers (some crossed out, some not)
+    const apiAccessElements = canvas.getAllByText("API Access");
+    expect(apiAccessElements.length).toBeGreaterThanOrEqual(2);
     
     // Features should have title attributes for tooltips
     const featureElements = canvas.getAllByText(/Projects|Storage|Support|Analytics/);

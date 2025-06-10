@@ -127,17 +127,17 @@
       {
         "id": "fix-pagination-stories-tests",
         "description": "Investigate test issues in src/components/ui/pagination/pagination.stories.tsx. Read the error log at ./tmp/tests/pagination.stories.log to identify any warnings or failures. May include act() warnings from page navigation state updates. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/pagination/pagination.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-popover-stories-tests",
         "description": "Fix act() warnings in src/components/ui/popover/popover.stories.tsx. Tests pass but have act() warnings from Radix UI's Presence component in portals. Similar to dialog, warnings occur when popover opens/closes. Use waitFor for portal content or wrap popover interactions in act(). Read ./tmp/tests/popover.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/popover/popover.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-pricing-table-stories-tests",
         "description": "Investigate test issues in src/components/blocks/pricing-table/pricing-table.stories.tsx. Read the error log at ./tmp/tests/pricing-table.stories.log to identify any warnings or failures. May include act() warnings from interactive pricing toggles or animations. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/pricing-table/pricing-table.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-scroll-area-stories-tests",

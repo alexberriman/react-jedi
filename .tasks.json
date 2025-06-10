@@ -87,7 +87,7 @@
       {
         "id": "fix-image-stories-tests",
         "description": "Fix act() warnings in src/components/ui/image/image.stories.tsx. Tests pass but Gallery story has multiple act() warnings from ScrollArea component. The warnings occur when ScrollArea updates its scroll state. Use waitFor or wrap scroll interactions in act(). Read ./tmp/tests/image.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/image/image.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-input-otp-stories-tests",

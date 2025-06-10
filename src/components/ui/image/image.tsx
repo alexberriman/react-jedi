@@ -1,7 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "framer-motion";
-import { act } from "@testing-library/react";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 
@@ -91,77 +90,32 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
     },
     ref
   ) => {
-    // Check if we're in a test environment to prevent act() warnings
-    const isTestEnvironment = 
-      process.env.NODE_ENV === "test" || 
-      process.env.VITEST === "true" ||
-      process.env.VITEST_STORYBOOK === "true" ||
-      (typeof globalThis !== "undefined" && "__VITEST__" in globalThis);
-
     const [imgSrc, setImgSrc] = React.useState<string | undefined>(src);
-    const [isLoading, setIsLoading] = React.useState(!isTestEnvironment);
+    const [isLoading, setIsLoading] = React.useState(true);
     const [imageError, setImageError] = React.useState(false);
 
     // Handle image load errors
     const handleError = React.useCallback(() => {
-      const updateStates = () => {
-        setImageError(true);
-        if (!isTestEnvironment) {
-          setIsLoading(false);
-        }
-        if (fallback) {
-          setImgSrc(fallback);
-          setImageError(false);
-          if (!isTestEnvironment) {
-            setIsLoading(true);
-          }
-        }
-      };
-
-      if (isTestEnvironment) {
-        act(() => {
-          updateStates();
-        });
-      } else {
-        updateStates();
+      setImageError(true);
+      setIsLoading(false);
+      if (fallback) {
+        setImgSrc(fallback);
+        setImageError(false);
+        setIsLoading(true);
       }
-    }, [fallback, isTestEnvironment]);
+    }, [fallback]);
 
     // Handle successful image load
     const handleLoad = React.useCallback(() => {
-      const updateStates = () => {
-        if (!isTestEnvironment) {
-          setIsLoading(false);
-        }
-      };
-
-      if (isTestEnvironment) {
-        act(() => {
-          updateStates();
-        });
-      } else {
-        updateStates();
-      }
-    }, [isTestEnvironment]);
+      setIsLoading(false);
+    }, []);
 
     // Update source if src prop changes
     React.useEffect(() => {
-      const updateStates = () => {
-        setImgSrc(src);
-        if (!isTestEnvironment) {
-          setIsLoading(true);
-        }
-        setImageError(false);
-      };
-
-      if (isTestEnvironment) {
-        act(() => {
-          updateStates();
-        });
-      } else {
-        updateStates();
-      }
-    }, [src, isTestEnvironment]);
+      setImgSrc(src);
+      setIsLoading(true);
+      setImageError(false);
+    }, [src]);
 
     // Build container style for aspect ratio and dimensions
     const containerStyle: React.CSSProperties = {};

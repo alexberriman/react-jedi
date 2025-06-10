@@ -157,7 +157,7 @@ export const HeroSection = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       // Add children as SDUI components
       spec.children = [
         {
@@ -193,7 +193,10 @@ export const HeroSection = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -267,7 +270,7 @@ export const FeatureWithImageLeft = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       // Add children as SDUI components
       spec.children = [
         {
@@ -334,7 +337,10 @@ export const FeatureWithImageLeft = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -406,7 +412,7 @@ export const FeatureWithImageRight = enhanceStoryForDualMode<typeof PageSection>
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         {
           type: "Stack",
@@ -472,7 +478,10 @@ export const FeatureWithImageRight = enhanceStoryForDualMode<typeof PageSection>
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -676,7 +685,7 @@ export const SplitBackground = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         {
           type: "Box",
@@ -696,7 +705,10 @@ export const SplitBackground = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -735,7 +747,7 @@ export const WithWaveDividers = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         {
           type: "Box",
@@ -775,7 +787,10 @@ export const WithWaveDividers = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -854,7 +869,7 @@ export const WithBackgroundImage = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         {
           type: "Grid",
@@ -888,7 +903,10 @@ export const WithBackgroundImage = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -920,7 +938,7 @@ export const WithPattern = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         {
           type: "Grid",
@@ -954,7 +972,10 @@ export const WithPattern = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -1014,7 +1035,7 @@ export const WithAnimation = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         {
           type: "Box",
@@ -1054,7 +1075,10 @@ export const WithAnimation = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -1085,11 +1109,14 @@ export const MinimalPadding = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         { type: "Text", className: "text-lg", children: "This section has minimal padding for a more compact appearance." },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -1127,7 +1154,7 @@ export const ExtraPadding = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         {
           type: "Box",
@@ -1138,7 +1165,10 @@ export const ExtraPadding = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );
@@ -1170,7 +1200,7 @@ export const RightAligned = enhanceStoryForDualMode<typeof PageSection>(
   },
   {
     renderSpec: (args: Record<string, unknown>) => {
-      const spec = convertArgsToSpec(args, "PageSection") as PageSectionDef;
+      const spec = convertArgsToSpec(args, "blocks-pagesection--default") as PageSectionDef;
       spec.children = [
         {
           type: "Box",
@@ -1180,7 +1210,10 @@ export const RightAligned = enhanceStoryForDualMode<typeof PageSection>(
           ],
         },
       ];
-      return spec;
+      return {
+        version: "1.0",
+        root: spec
+      };
     },
   }
 );

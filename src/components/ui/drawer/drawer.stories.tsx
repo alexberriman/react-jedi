@@ -17,6 +17,13 @@ import { Input } from "../input";
 import { Textarea } from "../textarea";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
+/**
+ * NOTE: The drawer stories may produce act() warnings during tests.
+ * These warnings come from the Vaul library's internal Presence component
+ * used for animations and are false positives related to internal animation
+ * state updates. The tests pass successfully despite these warnings.
+ */
+
 const meta = {
   title: "Components/Drawer",
   component: Drawer,
@@ -26,7 +33,7 @@ const meta = {
       autoTest: false, // Disable dual-mode testing due to portal/pointer-events issues
     },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "test"],
   argTypes: {},
   args: {},
 } satisfies Meta<typeof Drawer>;
@@ -42,40 +49,40 @@ export const Default = enhanceStoryForDualMode(
       
       return (
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerTrigger asChild>
-            <Button variant="outline">Open Drawer</Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Edit Profile</DrawerTitle>
-              <DrawerDescription>
-                Make changes to your profile here. Click save when you&apos;re done.
-              </DrawerDescription>
-            </DrawerHeader>
-            <DrawerSection>
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input id="name" placeholder="Shadcn" />
+            <DrawerTrigger asChild>
+              <Button variant="outline">Open Drawer</Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Edit Profile</DrawerTitle>
+                <DrawerDescription>
+                  Make changes to your profile here. Click save when you&apos;re done.
+                </DrawerDescription>
+              </DrawerHeader>
+              <DrawerSection>
+                <div className="grid gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" placeholder="Shadcn" />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="username">Username</Label>
+                    <Input id="username" placeholder="@shadcn" />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="bio">Bio</Label>
+                    <Textarea id="bio" placeholder="Tell us about yourself" />
+                  </div>
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="username">Username</Label>
-                  <Input id="username" placeholder="@shadcn" />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="bio">Bio</Label>
-                  <Textarea id="bio" placeholder="Tell us about yourself" />
-                </div>
-              </div>
-            </DrawerSection>
-            <DrawerFooter>
-              <Button type="submit">Save changes</Button>
-              <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+              </DrawerSection>
+              <DrawerFooter>
+                <Button type="submit">Save changes</Button>
+                <DrawerClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
       );
     },
     // Play function disabled due to portal rendering and pointer-events issues with drawer component
@@ -207,42 +214,42 @@ export const RightSide = enhanceStoryForDualMode(
       
       return (
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerTrigger asChild>
-            <Button variant="default">Right Side Drawer</Button>
-          </DrawerTrigger>
-          <DrawerContent data-vaul-drawer-direction="right">
-            <DrawerHeader>
-              <DrawerTitle>Navigation Menu</DrawerTitle>
-              <DrawerDescription>Quick access to all features and settings.</DrawerDescription>
-            </DrawerHeader>
-            <DrawerSection>
-              <nav className="grid gap-2">
-                <Button variant="ghost" className="w-full justify-start">
-                  Dashboard
+            <DrawerTrigger asChild>
+              <Button variant="default">Right Side Drawer</Button>
+            </DrawerTrigger>
+            <DrawerContent data-vaul-drawer-direction="right">
+              <DrawerHeader>
+                <DrawerTitle>Navigation Menu</DrawerTitle>
+                <DrawerDescription>Quick access to all features and settings.</DrawerDescription>
+              </DrawerHeader>
+              <DrawerSection>
+                <nav className="grid gap-2">
+                  <Button variant="ghost" className="w-full justify-start">
+                    Dashboard
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start">
+                    Profile
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start">
+                    Settings
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start">
+                    Support
+                  </Button>
+                </nav>
+              </DrawerSection>
+              <DrawerFooter>
+                <Button variant="default" className="w-full">
+                  Upgrade to Pro
                 </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Profile
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Settings
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Support
-                </Button>
-              </nav>
-            </DrawerSection>
-            <DrawerFooter>
-              <Button variant="default" className="w-full">
-                Upgrade to Pro
-              </Button>
-              <DrawerClose asChild>
-                <Button variant="ghost" className="w-full">
-                  Close
-                </Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+                <DrawerClose asChild>
+                  <Button variant="ghost" className="w-full">
+                    Close
+                  </Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
       );
     },
     // Play function disabled due to portal rendering and pointer-events issues with drawer component
@@ -349,40 +356,40 @@ export const LeftSide = enhanceStoryForDualMode(
       
       return (
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerTrigger asChild>
-            <Button variant="secondary">Left Side Drawer</Button>
-          </DrawerTrigger>
-          <DrawerContent data-vaul-drawer-direction="left">
-            <DrawerHeader>
-              <DrawerTitle>Settings</DrawerTitle>
-              <DrawerDescription>Customize your application experience.</DrawerDescription>
-            </DrawerHeader>
-            <DrawerSection>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="dark-mode">Dark Mode</Label>
-                  <input type="checkbox" id="dark-mode" className="toggle" />
+            <DrawerTrigger asChild>
+              <Button variant="secondary">Left Side Drawer</Button>
+            </DrawerTrigger>
+            <DrawerContent data-vaul-drawer-direction="left">
+              <DrawerHeader>
+                <DrawerTitle>Settings</DrawerTitle>
+                <DrawerDescription>Customize your application experience.</DrawerDescription>
+              </DrawerHeader>
+              <DrawerSection>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="dark-mode">Dark Mode</Label>
+                    <input type="checkbox" id="dark-mode" className="toggle" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="notifications">Notifications</Label>
+                    <input type="checkbox" id="notifications" className="toggle" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="analytics">Analytics</Label>
+                    <input type="checkbox" id="analytics" className="toggle" />
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="notifications">Notifications</Label>
-                  <input type="checkbox" id="notifications" className="toggle" />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="analytics">Analytics</Label>
-                  <input type="checkbox" id="analytics" className="toggle" />
-                </div>
-              </div>
-            </DrawerSection>
-            <DrawerFooter>
-              <DrawerClose asChild>
-                <Button variant="default">Save Preferences</Button>
-              </DrawerClose>
-              <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+              </DrawerSection>
+              <DrawerFooter>
+                <DrawerClose asChild>
+                  <Button variant="default">Save Preferences</Button>
+                </DrawerClose>
+                <DrawerClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
       );
     },
     // Play function disabled due to portal rendering and pointer-events issues with drawer component
@@ -518,37 +525,37 @@ export const TopDrawer = enhanceStoryForDualMode(
     args: {},
     render: () => (
       <Drawer>
-        <DrawerTrigger asChild>
-          <Button variant="outline">Top Drawer</Button>
-        </DrawerTrigger>
-        <DrawerContent data-vaul-drawer-direction="top">
-          <DrawerHeader>
-            <DrawerTitle>Search Everything</DrawerTitle>
-            <DrawerDescription>Press Cmd+K to open this search anytime.</DrawerDescription>
-          </DrawerHeader>
-          <DrawerSection>
-            <Input placeholder="Type to search..." className="text-lg" />
-            <div className="mt-4 space-y-2">
-              <div className="text-sm text-muted-foreground">Recent searches</div>
-              <DrawerClose asChild>
-                <Button variant="ghost" className="w-full justify-start">
-                  Dashboard metrics
-                </Button>
-              </DrawerClose>
-              <DrawerClose asChild>
-                <Button variant="ghost" className="w-full justify-start">
-                  User settings
-                </Button>
-              </DrawerClose>
-              <DrawerClose asChild>
-                <Button variant="ghost" className="w-full justify-start">
-                  API documentation
-                </Button>
-              </DrawerClose>
-            </div>
-          </DrawerSection>
-        </DrawerContent>
-      </Drawer>
+          <DrawerTrigger asChild>
+            <Button variant="outline">Top Drawer</Button>
+          </DrawerTrigger>
+          <DrawerContent data-vaul-drawer-direction="top">
+            <DrawerHeader>
+              <DrawerTitle>Search Everything</DrawerTitle>
+              <DrawerDescription>Press Cmd+K to open this search anytime.</DrawerDescription>
+            </DrawerHeader>
+            <DrawerSection>
+              <Input placeholder="Type to search..." className="text-lg" />
+              <div className="mt-4 space-y-2">
+                <div className="text-sm text-muted-foreground">Recent searches</div>
+                <DrawerClose asChild>
+                  <Button variant="ghost" className="w-full justify-start">
+                    Dashboard metrics
+                  </Button>
+                </DrawerClose>
+                <DrawerClose asChild>
+                  <Button variant="ghost" className="w-full justify-start">
+                    User settings
+                  </Button>
+                </DrawerClose>
+                <DrawerClose asChild>
+                  <Button variant="ghost" className="w-full justify-start">
+                    API documentation
+                  </Button>
+                </DrawerClose>
+              </div>
+            </DrawerSection>
+          </DrawerContent>
+        </Drawer>
     ),
     // Play function disabled due to portal rendering and pointer-events issues with drawer component
   },
@@ -645,8 +652,8 @@ export const NestedDrawers = enhanceStoryForDualMode(
     args: {},
     render: () => (
       <Drawer>
-        <DrawerTrigger asChild>
-          <Button>Open Main Drawer</Button>
+          <DrawerTrigger asChild>
+            <Button>Open Main Drawer</Button>
         </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>
@@ -804,8 +811,8 @@ export const StickyHeaderFooter = enhanceStoryForDualMode(
     args: {},
     render: () => (
       <Drawer>
-        <DrawerTrigger asChild>
-          <Button variant="default">Long Content Drawer</Button>
+          <DrawerTrigger asChild>
+            <Button variant="default">Long Content Drawer</Button>
         </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader className="sticky top-0 bg-background/95 backdrop-blur-sm z-10">
@@ -931,8 +938,8 @@ export const CustomStyling = enhanceStoryForDualMode(
     args: {},
     render: () => (
       <Drawer>
-        <DrawerTrigger asChild>
-          <Button variant="destructive">Danger Zone</Button>
+          <DrawerTrigger asChild>
+            <Button variant="destructive">Danger Zone</Button>
         </DrawerTrigger>
         <DrawerContent className="bg-gradient-to-b from-destructive/10 to-background">
           <DrawerHeader>
@@ -1061,8 +1068,8 @@ export const MobileOptimized = enhanceStoryForDualMode(
     },
     render: () => (
       <Drawer>
-        <DrawerTrigger asChild>
-          <Button className="w-full">Mobile Drawer</Button>
+          <DrawerTrigger asChild>
+            <Button className="w-full">Mobile Drawer</Button>
         </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>

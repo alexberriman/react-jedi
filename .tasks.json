@@ -37,7 +37,7 @@
       {
         "id": "fix-center-stories-tests",
         "description": "Fix act() warnings in src/components/ui/center/center.stories.tsx. Tests pass but have act() warnings likely from ScrollArea component used in stories. The warnings indicate state updates not wrapped in act(). Check if Center component uses ScrollArea and wrap interactions accordingly. Read ./tmp/tests/center.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/center/center.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-date-picker-stories-tests",

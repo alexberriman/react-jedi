@@ -367,7 +367,7 @@ export const DualModeVerticalFlip = enhanceStoryForDualMode(
       
       // Wait for card to render
       await waitFor(() => {
-        expect(canvas.getByAltText("Beautiful mountain landscape")).toBeInTheDocument();
+        expect(canvas.getAllByAltText("Beautiful mountain landscape")[0]).toBeInTheDocument();
       });
 
       // Verify title and description
@@ -450,7 +450,7 @@ export const DualModeClickTrigger = enhanceStoryForDualMode(
       
       // Wait for card to render
       await waitFor(() => {
-        expect(canvas.getByAltText("Technology concept")).toBeInTheDocument();
+        expect(canvas.getAllByAltText("Technology concept")[0]).toBeInTheDocument();
       });
 
       // Verify initial state
@@ -525,7 +525,7 @@ export const DualModeFadeVariant = enhanceStoryForDualMode(
       
       // Wait for card to render
       await waitFor(() => {
-        expect(canvas.getByAltText("Team member portrait")).toBeInTheDocument();
+        expect(canvas.getAllByAltText("Team member portrait")[0]).toBeInTheDocument();
       });
 
       // Verify front content
@@ -635,7 +635,8 @@ export const DualModeGrid = enhanceStoryForDualMode(
 
       // Verify grid layout
       const grid = canvas.getByTestId("photo-flip-card-grid");
-      expect(grid).toHaveClass("grid-cols-3");
+      expect(grid).toHaveClass("grid");
+      expect(grid).toHaveClass("lg:grid-cols-3");
       expect(grid).toHaveClass("gap-6"); // md gap
     },
   },

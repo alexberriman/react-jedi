@@ -67,7 +67,7 @@
       {
         "id": "fix-group-stories-tests",
         "description": "Investigate test issues in src/components/ui/group/group.stories.tsx. Read the error log at ./tmp/tests/group.stories.log to identify any warnings or failures. May include act() warnings or layout-related issues. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/group/group.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-header-stories-tests",

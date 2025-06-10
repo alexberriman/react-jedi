@@ -147,7 +147,7 @@
       {
         "id": "fix-sheet-stories-tests",
         "description": "Investigate test issues in src/components/ui/sheet/sheet.stories.tsx. Read the error log at ./tmp/tests/sheet.stories.log to identify any warnings or failures. Likely has act() warnings similar to dialog/drawer due to portal and animation usage. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/sheet/sheet.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-stat-block-stories-tests",

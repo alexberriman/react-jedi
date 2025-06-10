@@ -191,7 +191,7 @@ export const Default: Story = enhanceStoryForDualMode(
         });
         const logoutItem = within(canvasElement.ownerDocument.body).getByText("Logout");
         expect(logoutItem).toBeInTheDocument();
-      } catch (error) {
+      } catch {
         // In SDUI mode, verify the user link exists instead
         const userLink = canvas.getByRole("link", { name: /User Name/i });
         expect(userLink).toHaveAttribute("href", "/#");

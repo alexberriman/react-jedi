@@ -285,7 +285,7 @@ export const WithTestimonials: Story = enhanceStoryForDualMode({
       await waitFor(() => {
         // Look for the testimonial text inside the document body to handle portal rendering
         const testimonialElements = document.body.querySelectorAll('blockquote');
-        const hasTestimonial = Array.from(testimonialElements).some(el => 
+        const hasTestimonial = [...testimonialElements].some(el => 
           el.textContent?.includes("Perfect for getting started. The features are exactly what we needed.")
         );
         expect(hasTestimonial).toBe(true);

@@ -178,7 +178,7 @@ export const CustomSizes: Story = enhanceStoryForDualMode<typeof Avatar>(
         const images = canvasElement.querySelectorAll('img');
         if (images.length > 0) {
           // Wait for all images to be loaded
-          const loadPromises = Array.from(images).map(img => 
+          const loadPromises = [...images].map(img => 
             waitFor(() => img.complete || img.naturalWidth > 0, { timeout: 5000 })
           );
           await Promise.all(loadPromises);
@@ -422,7 +422,7 @@ export const CustomShapes: Story = enhanceStoryForDualMode<typeof Avatar>(
       await waitFor(async () => {
         const images = canvasElement.querySelectorAll('img');
         if (images.length > 0) {
-          const loadPromises = Array.from(images).map(img => 
+          const loadPromises = [...images].map(img => 
             waitFor(() => img.complete || img.naturalWidth > 0, { timeout: 5000 })
           );
           await Promise.all(loadPromises);
@@ -559,7 +559,7 @@ export const AvatarGroup: Story = enhanceStoryForDualMode<typeof Avatar>(
       await waitFor(async () => {
         const images = canvasElement.querySelectorAll('img');
         if (images.length > 0) {
-          const loadPromises = Array.from(images).map(img => 
+          const loadPromises = [...images].map(img => 
             waitFor(() => img.complete || img.naturalWidth > 0, { timeout: 5000 })
           );
           await Promise.all(loadPromises);
@@ -673,7 +673,7 @@ export const WithBorder: Story = enhanceStoryForDualMode<typeof Avatar>(
       await waitFor(async () => {
         const images = canvasElement.querySelectorAll('img');
         if (images.length > 0) {
-          const loadPromises = Array.from(images).map(img => 
+          const loadPromises = [...images].map(img => 
             waitFor(() => img.complete || img.naturalWidth > 0, { timeout: 5000 })
           );
           await Promise.all(loadPromises);

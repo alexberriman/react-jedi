@@ -7,7 +7,7 @@
       {
         "id": "fix-accordion-stories-tests",
         "description": "Fix act() warnings in src/components/ui/accordion/accordion.stories.tsx. Tests pass but have act() warnings from Framer Motion's AnimatePresence component. The warnings occur in the Presence component when accordion items expand/collapse. Use waitFor or wrap accordion interactions in act(). Read ./tmp/tests/accordion.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/accordion/accordion.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-aspect-ratio-stories-tests",

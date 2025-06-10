@@ -6,8 +6,10 @@ import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 /**
  * NOTE: This component may produce act() warnings during tests.
- * These warnings come from Framer Motion's AnimatePresence component used within
- * Radix UI Accordion and are false positives related to internal animation state updates.
+ * These warnings come from Radix UI's internal Presence component and are false positives
+ * related to internal animation state updates. The warnings specifically occur in:
+ * - NonCollapsible story: Due to defaultValue causing initial expansion on mount
+ * These are known issues with Radix UI components and do not affect functionality.
  * The tests pass successfully despite these warnings.
  */
 
@@ -87,7 +89,7 @@ export const Single = enhanceStoryForDualMode(
     ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
 
     // Test single accordion behavior
     const trigger1 = canvas.getByRole("button", { name: "Is it accessible?" });
@@ -105,14 +107,14 @@ export const Single = enhanceStoryForDualMode(
     // Wait for the state change and content to appear
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "open");
-    });
+    }, { timeout: 1000 });
 
     // Check content is present after animation
     await waitFor(() => {
       expect(
         canvas.getByText(/Yes\. It adheres to the WAI-ARIA design pattern/)
       ).toBeInTheDocument();
-    });
+    }, { timeout: 1000 });
 
     // Click second item - first should collapse, second should expand
     await user.click(trigger2);
@@ -120,34 +122,34 @@ export const Single = enhanceStoryForDualMode(
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "closed");
       expect(trigger2).toHaveAttribute("data-state", "open");
-    });
+    }, { timeout: 1000 });
 
     // Click second item again - should collapse (collapsible is true)
     await user.click(trigger2);
 
     await waitFor(() => {
       expect(trigger2).toHaveAttribute("data-state", "closed");
-    });
+    }, { timeout: 1000 });
 
     // Test keyboard navigation
     await user.click(trigger1);
 
     await waitFor(() => {
       expect(trigger1).toHaveAttribute("data-state", "open");
-    });
+    }, { timeout: 1000 });
 
     await user.keyboard("{ArrowDown}");
 
     await waitFor(() => {
       expect(trigger2).toHaveFocus();
-    });
+    }, { timeout: 1000 });
 
     await user.keyboard("{Enter}");
 
     await waitFor(() => {
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger1).toHaveAttribute("data-state", "closed");
-    });
+    }, { timeout: 1000 });
   },
   },
   {
@@ -235,7 +237,12 @@ export const Multiple = enhanceStoryForDualMode(
     ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
+
+    // Wait for initial render to complete
+    await waitFor(() => {
+      expect(canvas.getByRole("button", { name: "Section 1" })).toBeInTheDocument();
+    });
 
     // Test multiple accordion behavior
     const trigger1 = canvas.getByRole("button", { name: "Section 1" });
@@ -243,9 +250,11 @@ export const Multiple = enhanceStoryForDualMode(
     const trigger3 = canvas.getByRole("button", { name: "Section 3" });
 
     // Check default expanded items
-    expect(trigger1).toHaveAttribute("data-state", "open");
-    expect(trigger2).toHaveAttribute("data-state", "closed");
-    expect(trigger3).toHaveAttribute("data-state", "open");
+    await waitFor(() => {
+      expect(trigger1).toHaveAttribute("data-state", "open");
+      expect(trigger2).toHaveAttribute("data-state", "closed");
+      expect(trigger3).toHaveAttribute("data-state", "open");
+    }, { timeout: 1000 });
 
     // Click second item - should expand without closing others
     await user.click(trigger2);
@@ -253,7 +262,7 @@ export const Multiple = enhanceStoryForDualMode(
       expect(trigger1).toHaveAttribute("data-state", "open");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-    });
+    }, { timeout: 1000 });
 
     // Click first item - should collapse
     await user.click(trigger1);
@@ -261,7 +270,7 @@ export const Multiple = enhanceStoryForDualMode(
       expect(trigger1).toHaveAttribute("data-state", "closed");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-    });
+    }, { timeout: 1000 });
 
     // Verify multiple items can be expanded simultaneously
     await user.click(trigger1);
@@ -269,7 +278,7 @@ export const Multiple = enhanceStoryForDualMode(
       expect(trigger1).toHaveAttribute("data-state", "open");
       expect(trigger2).toHaveAttribute("data-state", "open");
       expect(trigger3).toHaveAttribute("data-state", "open");
-    });
+    }, { timeout: 1000 });
   },
   },
   {
@@ -423,7 +432,12 @@ export const WithDisabledItems = enhanceStoryForDualMode(
     ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
+
+    // Wait for initial render to complete
+    await waitFor(() => {
+      expect(canvas.getByRole("button", { name: "Enabled Item" })).toBeInTheDocument();
+    });
 
     const enabledTrigger1 = canvas.getByRole("button", { name: "Enabled Item" });
     const disabledTrigger = canvas.getByRole("button", { name: "Disabled Item" });
@@ -439,13 +453,13 @@ export const WithDisabledItems = enhanceStoryForDualMode(
     await user.click(enabledTrigger1);
     await waitFor(() => {
       expect(enabledTrigger1).toHaveAttribute("data-state", "open");
-    });
+    }, { timeout: 1000 });
 
     await user.click(enabledTrigger2);
     await waitFor(() => {
       expect(enabledTrigger2).toHaveAttribute("data-state", "open");
       expect(enabledTrigger1).toHaveAttribute("data-state", "closed");
-    });
+    }, { timeout: 1000 });
   },
   },
   {

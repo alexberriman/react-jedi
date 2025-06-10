@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 
@@ -108,7 +108,6 @@ const AccordionContent = React.forwardRef<
         data-slot="accordion-content"
         className={cn(
           "overflow-hidden text-sm",
-          "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
           className
         )}
         {...cleanProps}
@@ -121,28 +120,26 @@ const AccordionContent = React.forwardRef<
   }
   
   return (
-    <AnimatePresence initial={false}>
-      <AccordionPrimitive.Content
-        ref={ref}
-        data-slot="accordion-content"
-        className={cn(
-          "overflow-hidden text-sm",
-          "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-          className
-        )}
-        {...cleanProps}
+    <AccordionPrimitive.Content
+      ref={ref}
+      data-slot="accordion-content"
+      className={cn(
+        "overflow-hidden text-sm",
+        "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+        className
+      )}
+      {...cleanProps}
+    >
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: "auto" }}
+        exit={{ opacity: 0, height: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className={cn("px-1 pt-0 pb-4 text-muted-foreground", className)}
       >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className={cn("px-1 pt-0 pb-4 text-muted-foreground", className)}
-        >
-          {children}
-        </motion.div>
-      </AccordionPrimitive.Content>
-    </AnimatePresence>
+        {children}
+      </motion.div>
+    </AccordionPrimitive.Content>
   );
 });
 AccordionContent.displayName = "AccordionContent";

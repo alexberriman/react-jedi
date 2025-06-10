@@ -335,7 +335,12 @@ const asComponent = <T extends React.ComponentType<Record<string, unknown>>>(
 
     // For all other components, extract props directly from spec
     // Remove internal properties and children (children are handled separately)
-    const actualProps = omit(spec as Record<string, unknown>, ["type", "spec", "theme", "state", "parentContext", "children", "conditionalProps", "when", "actions", "computedProps"]);
+    // Note: "actions" is excluded from omit for Header component as it's a legitimate prop
+    const propsToOmit = ["type", "spec", "theme", "state", "parentContext", "children", "conditionalProps", "when", "computedProps"];
+    if (spec && typeof spec === 'object' && spec.type !== "Header" && spec.type !== "header") {
+      propsToOmit.push("actions");
+    }
+    const actualProps = omit(spec as Record<string, unknown>, propsToOmit);
 
     // Transform props based on component type
     const transformedProps = transformPropsForComponent(spec as Record<string, unknown>, actualProps);

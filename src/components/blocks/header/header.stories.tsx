@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { within, userEvent, expect, waitFor } from "storybook/test";
 import { Header } from "./header";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
-
 const meta = {
   title: "Blocks/Header",
   component: Header,
@@ -780,7 +779,18 @@ export const DefaultSDUI: Story = enhanceStoryForDualMode(
         href: "#",
       },
       navigation: navigationItems,
-      actions: actions,
+      actions: [
+        {
+          label: "Sign In",
+          variant: "ghost",
+          href: "#signin",
+        },
+        {
+          label: "Get Started",
+          variant: "default",
+          href: "#signup",
+        },
+      ],
       showDarkModeToggle: true,
     },
   }
@@ -827,7 +837,18 @@ export const ImageLogoSDUI: Story = enhanceStoryForDualMode(
         href: "#",
       },
       navigation: navigationItems,
-      actions: actions,
+      actions: [
+        {
+          label: "Sign In",
+          variant: "ghost",
+          href: "#signin",
+        },
+        {
+          label: "Get Started",
+          variant: "default",
+          href: "#signup",
+        },
+      ],
     },
   }
 );
@@ -1061,7 +1082,18 @@ export const WithIconsSDUI: Story = enhanceStoryForDualMode(
           icon: "CreditCard",
         },
       ],
-      actions: actions,
+      actions: [
+        {
+          label: "Sign In",
+          variant: "ghost",
+          href: "#signin",
+        },
+        {
+          label: "Get Started",
+          variant: "default",
+          href: "#signup",
+        },
+      ],
       showDarkModeToggle: true,
     },
   }

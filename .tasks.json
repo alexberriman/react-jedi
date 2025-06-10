@@ -17,7 +17,7 @@
       {
         "id": "fix-blog-post-detail-stories-tests",
         "description": "Fix test issues in src/components/blocks/blog-post-detail/blog-post-detail.stories.tsx. Read the error log at ./tmp/tests/blog-post-detail.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the blog-post-detail spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/blog-post-detail/blog-post-detail.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-chart-stories-tests",

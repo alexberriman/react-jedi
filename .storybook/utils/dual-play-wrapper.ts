@@ -1,5 +1,7 @@
-import { userEvent } from "storybook/test";
+import { userEvent, waitFor } from "storybook/test";
 import type { StoryContext } from "@storybook/react";
+// Import act from React for use in Storybook context
+import { act } from "react";
 
 export type PlayFunction<TArgs = Record<string, unknown>> = (
   context: StoryContext<TArgs>
@@ -20,7 +22,9 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
     }
 
     // Wait a bit for the decorator to render
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
+    });
 
     // Find the decorator container
     const decoratorContainer = canvasElement.querySelector("[data-dual-mode-decorator]");
@@ -69,7 +73,9 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
           );
           break;
         }
-        await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
+        await act(async () => {
+          await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
+        });
       }
 
       // For overlay components (Dialog, Sheet), we need to temporarily remove pointer-events
@@ -85,8 +91,12 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
 
       try {
         // Click the tab button
-        await user.click(targetButton);
-        await new Promise((resolve) => globalThis.setTimeout(resolve, 200)); // Wait for tab switch animation
+        await act(async () => {
+          await user.click(targetButton);
+        });
+        await act(async () => {
+          await new Promise((resolve) => globalThis.setTimeout(resolve, 200)); // Wait for tab switch animation
+        });
       } finally {
         // Restore original pointer events state
         body.style.pointerEvents = originalPointerEvents;
@@ -104,7 +114,9 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
       const reactContainer = decoratorContainer.querySelector('[data-testid="react-render"]');
       if (reactContainer) {
         // Wait for images to start loading
-        await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+        await act(async () => {
+          await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+        });
 
         const reactContext = {
           ...context,
@@ -131,7 +143,9 @@ export function createDualPlayFunction<TArgs = Record<string, unknown>>(
           }
 
           // Wait for images to start loading
-          await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+          await act(async () => {
+            await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
+          });
 
           const sduiContext = {
             ...context,

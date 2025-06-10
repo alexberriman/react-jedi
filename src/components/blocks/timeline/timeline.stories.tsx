@@ -256,7 +256,7 @@ export const VerticalCentered = enhanceStoryForDualMode<typeof Timeline>(
       const canvas = within(canvasElement);
       
       // Check if we're in SDUI mode
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       
       // Verify timeline items are present
       const timelineItems = canvasElement.querySelectorAll("li");
@@ -341,7 +341,7 @@ export const VerticalAlternating = enhanceStoryForDualMode<typeof Timeline>(
       
       // Verify icons are rendered (only in React mode)
       const icons = canvasElement.querySelectorAll("svg");
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       if (!isSduiMode) {
         expect(icons.length).toBeGreaterThan(0);
       }
@@ -390,7 +390,7 @@ export const Horizontal = enhanceStoryForDualMode<typeof Timeline>(
       
       // Verify icons are rendered (only in React mode)
       const icons = canvasElement.querySelectorAll("svg");
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       if (!isSduiMode) {
         expect(icons.length).toBeGreaterThan(0);
       }
@@ -474,7 +474,7 @@ export const WithImages = enhanceStoryForDualMode<typeof Timeline>(
       await expect(canvas.getByText("Production Release")).toBeInTheDocument();
       
       // Check if we're in SDUI mode
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       
       // Verify dates are formatted correctly
       if (isSduiMode) {
@@ -540,7 +540,7 @@ export const DashedLine = enhanceStoryForDualMode<typeof Timeline>(
       
       // Verify icons are rendered (only in React mode)
       const icons = canvasElement.querySelectorAll("svg");
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       if (!isSduiMode) {
         expect(icons.length).toBeGreaterThan(0);
       }
@@ -588,7 +588,7 @@ export const NoAnimation = enhanceStoryForDualMode<typeof Timeline>(
       
       // Verify icons are rendered (only in React mode)
       const icons = canvasElement.querySelectorAll("svg");
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       if (!isSduiMode) {
         expect(icons.length).toBeGreaterThan(0);
       }
@@ -667,7 +667,7 @@ export const WithCustomContent = enhanceStoryForDualMode<typeof Timeline>(
       const canvas = within(canvasElement);
       
       // Check if we're in SDUI mode
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       
       // Skip SDUI mode tests for now due to content rendering issues
       // The Timeline component needs to be updated to handle SDUI content objects
@@ -758,7 +758,7 @@ export const CompanyMilestones = enhanceStoryForDualMode<typeof Timeline>(
       const canvas = within(canvasElement);
       
       // Check if we're in SDUI mode
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       
       // Verify all company milestones are rendered
       const timelineItems = canvasElement.querySelectorAll("li");
@@ -851,7 +851,7 @@ export const ProductRoadmap = enhanceStoryForDualMode<typeof Timeline>(
       
       // Verify icons are rendered (only in React mode)
       const icons = canvasElement.querySelectorAll("svg");
-      const isSduiMode = canvasElement.getAttribute('data-testid') === 'sdui-render';
+      const isSduiMode = canvasElement.dataset.testid === 'sdui-render';
       if (!isSduiMode) {
         expect(icons.length).toBeGreaterThan(0);
       }

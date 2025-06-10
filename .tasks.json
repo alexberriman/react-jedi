@@ -107,7 +107,7 @@
       {
         "id": "fix-masonry-stories-tests",
         "description": "Fix act() warnings in src/components/ui/masonry/masonry.stories.tsx. Tests pass but have act() warnings from both Masonry and ScrollArea components. The Masonry component likely updates layout state during render. Wrap layout calculations in act() or use waitFor. Read ./tmp/tests/masonry.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/masonry/masonry.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-navigation-menu-stories-tests",

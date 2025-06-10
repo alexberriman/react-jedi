@@ -348,7 +348,7 @@ export const Clickable: Story = enhanceStoryForDualMode(
       const strokeAttr = svgElement!.getAttribute('stroke');
       const colorAttr = svgElement!.getAttribute('color');
       const fillAttr = svgElement!.getAttribute('fill');
-      const computedStyle = window.getComputedStyle(svgElement!);
+      const computedStyle = globalThis.getComputedStyle(svgElement!);
       
       // Check various ways the red color (#ef4444 = rgb(239, 68, 68)) might be applied
       const hasRedColor = strokeAttr === '#ef4444' || 

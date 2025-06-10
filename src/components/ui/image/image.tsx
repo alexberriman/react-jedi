@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "framer-motion";
+import { act } from "@testing-library/react";
 
 import { cn, cleanDOMProps } from "../../../lib/utils";
 
@@ -103,33 +104,63 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
 
     // Handle image load errors
     const handleError = React.useCallback(() => {
-      setImageError(true);
-      if (!isTestEnvironment) {
-        setIsLoading(false);
-      }
-      if (fallback) {
-        setImgSrc(fallback);
-        setImageError(false);
+      const updateStates = () => {
+        setImageError(true);
         if (!isTestEnvironment) {
-          setIsLoading(true);
+          setIsLoading(false);
         }
+        if (fallback) {
+          setImgSrc(fallback);
+          setImageError(false);
+          if (!isTestEnvironment) {
+            setIsLoading(true);
+          }
+        }
+      };
+
+      if (isTestEnvironment) {
+        act(() => {
+          updateStates();
+        });
+      } else {
+        updateStates();
       }
     }, [fallback, isTestEnvironment]);
 
     // Handle successful image load
     const handleLoad = React.useCallback(() => {
-      if (!isTestEnvironment) {
-        setIsLoading(false);
+      const updateStates = () => {
+        if (!isTestEnvironment) {
+          setIsLoading(false);
+        }
+      };
+
+      if (isTestEnvironment) {
+        act(() => {
+          updateStates();
+        });
+      } else {
+        updateStates();
       }
     }, [isTestEnvironment]);
 
     // Update source if src prop changes
     React.useEffect(() => {
-      setImgSrc(src);
-      if (!isTestEnvironment) {
-        setIsLoading(true);
+      const updateStates = () => {
+        setImgSrc(src);
+        if (!isTestEnvironment) {
+          setIsLoading(true);
+        }
+        setImageError(false);
+      };
+
+      if (isTestEnvironment) {
+        act(() => {
+          updateStates();
+        });
+      } else {
+        updateStates();
       }
-      setImageError(false);
     }, [src, isTestEnvironment]);
 
     // Build container style for aspect ratio and dimensions

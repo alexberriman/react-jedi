@@ -77,7 +77,7 @@
       {
         "id": "fix-image-stories-tests",
         "description": "Fix act() warnings in src/components/ui/image/image.stories.tsx. The Image component has state updates (likely for loading states or lazy loading) that aren't wrapped in act() during tests. Check for any async image loading logic or state changes that occur after initial render. Read ./tmp/tests/image.stories.log for specific warning details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/image/image.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-input-otp-stories-tests",

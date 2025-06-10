@@ -60,14 +60,19 @@ export const Default: Story = enhanceStoryForDualMode<typeof HoverCard>(
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
       const canvas = within(canvasElement);
 
-      // Just verify the trigger exists - hover interactions are difficult to test reliably
-      const trigger = canvas.getByRole("button", { name: "@shadcn" });
-      expect(trigger).toBeInTheDocument();
-      
-      // Wait for any async operations to complete
-      await waitFor(() => {
+      // Wait for avatar images to load to avoid act() warnings
+      await waitFor(async () => {
+        const trigger = canvas.getByRole("button", { name: "@shadcn" });
+        expect(trigger).toBeInTheDocument();
         expect(trigger).toBeVisible();
-      });
+        
+        // Give time for any avatar images to finish loading
+        const avatars = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
+        if (avatars.length > 0) {
+          // Wait a bit for image loading state updates
+          await new Promise(resolve => window.setTimeout(resolve, 100));
+        }
+      }, { timeout: 5000 });
     },
   },
   {
@@ -197,10 +202,16 @@ export const UserProfile: Story = enhanceStoryForDualMode<typeof HoverCard>(
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
       const canvas = within(canvasElement);
 
-      // Just verify the trigger exists - hover interactions with Avatar components cause act() warnings
-      const trigger = canvas.getByText("@vercel");
-      expect(trigger).toBeInTheDocument();
-      expect(trigger).toBeVisible();
+      // Wait for avatar images to load to avoid act() warnings
+      await waitFor(async () => {
+        const trigger = canvas.getByText("@vercel");
+        expect(trigger).toBeInTheDocument();
+        expect(trigger).toBeVisible();
+        
+        // Ensure avatars are rendered
+        const avatars = canvas.getAllByRole("img", { hidden: true });
+        expect(avatars.length).toBeGreaterThan(0);
+      }, { timeout: 5000 });
     },
   },
   {

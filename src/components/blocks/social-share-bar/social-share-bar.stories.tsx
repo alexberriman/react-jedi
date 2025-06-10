@@ -100,12 +100,14 @@ export const HorizontalBar: Story = enhanceStoryForDualMode<typeof SocialShareBa
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Test horizontal layout
-    const container = canvas.getByRole("button").closest('div');
+    // Test horizontal layout - get the first button and its container
+    const buttons = canvas.getAllByRole("button");
+    expect(buttons.length).toBeGreaterThan(0);
+    
+    const container = buttons[0].closest('div');
     expect(container).toBeInTheDocument();
     
     // Test that labels are shown
-    const buttons = canvas.getAllByRole("button");
     for (const button of buttons) {
       const hasLabel = button.textContent && button.textContent.trim().length > 0;
       expect(hasLabel).toBe(true);

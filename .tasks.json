@@ -182,7 +182,7 @@
       {
         "id": "fix-social-share-bar-stories-tests",
         "description": "Fix test issues in src/components/blocks/social-share-bar/social-share-bar.stories.tsx. Read the error log at ./tmp/tests/social-share-bar.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the social-share-bar spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/social-share-bar/social-share-bar.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-stat-block-stories-tests",

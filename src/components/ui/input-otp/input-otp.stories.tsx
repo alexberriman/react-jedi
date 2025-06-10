@@ -6,8 +6,10 @@ import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 /**
  * NOTE: This component may produce act() warnings during tests.
- * These warnings come from the third-party 'input-otp' library and are false positives.
- * The tests pass successfully despite these warnings.
+ * These warnings come from the third-party 'input-otp' library (v1.4.2) and are related
+ * to internal state updates within the library's Input component.
+ * We've wrapped user interactions in act() to minimize warnings, but some may still
+ * appear during initial render. The tests pass successfully despite these warnings.
  */
 
 const meta: Meta<typeof InputOTP> = {

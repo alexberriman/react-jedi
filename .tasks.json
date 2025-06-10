@@ -22,7 +22,7 @@
       {
         "id": "fix-box-stories-tests",
         "description": "Investigate test issues in src/components/ui/box/box.stories.tsx. Read the error log at ./tmp/tests/box.stories.log to identify any warnings or failures. May include act() warnings or component rendering issues. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/box/box.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-brand-logo-bar-stories-tests",

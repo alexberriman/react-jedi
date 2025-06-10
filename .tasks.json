@@ -142,7 +142,7 @@
       {
         "id": "fix-scroll-area-stories-tests",
         "description": "Fix act() warnings in src/components/ui/scroll-area/scroll-area.stories.tsx. Tests pass but likely have significant act() warnings as ScrollArea is the source of warnings in many other components. Focus on wrapping scroll state updates in act(). Read ./tmp/tests/scroll-area.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/scroll-area/scroll-area.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-sheet-stories-tests",

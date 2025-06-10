@@ -112,7 +112,7 @@
       {
         "id": "fix-navigation-menu-stories-tests",
         "description": "Investigate test issues in src/components/ui/navigation-menu/navigation-menu.stories.tsx. Read the error log at ./tmp/tests/navigation-menu.stories.log to identify any warnings or failures. May include act() warnings from menu open/close animations. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/navigation-menu/navigation-menu.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-newsletter-signup-stories-tests",

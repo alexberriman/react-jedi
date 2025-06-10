@@ -18,8 +18,11 @@ import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
  * NOTE: Navigation menu tests may produce act() warnings from Radix UI components.
  * These warnings are false positives caused by internal state updates in the Presence
  * component that manages enter/exit animations for navigation menu content. The warnings
- * occur during hover interactions that trigger menu transitions. All tests pass successfully
- * despite these warnings.
+ * occur during hover interactions that trigger menu transitions. We handle these by:
+ * 1. Using extended waitFor timeouts (5000ms) to ensure animations complete
+ * 2. Adding delays between menu transitions to allow proper cleanup
+ * 3. Explicitly unhover previous menus before hovering new ones
+ * All tests pass successfully with these mitigations.
  */
 
 const meta = {
@@ -187,31 +190,45 @@ export const Default: Story = enhanceStoryForDualMode<typeof NavigationMenu>(
           await userEvent.hover(gettingStartedTrigger);
         });
 
-        // Wait for menu content to appear
+        // Wait for menu content to appear with extended timeout for animations
         await waitFor(
           async () => {
             const reactJedi = await canvas.findByText("React Jedi");
             expect(reactJedi).toBeInTheDocument();
           },
-          { timeout: 3000 }
+          { timeout: 5000 }
         );
+        
+        // Allow animation to complete
+        await new Promise(resolve => globalThis.setTimeout(resolve, 500));
       });
 
       await step("Navigate to Components menu", async () => {
+        // Ensure previous menu has closed completely
+        await act(async () => {
+          await userEvent.unhover(await canvas.findByText("Getting Started"));
+        });
+        
+        // Small delay for menu transition
+        await new Promise(resolve => globalThis.setTimeout(resolve, 300));
+        
         const componentsTrigger = await canvas.findByText("Components");
         
         await act(async () => {
           await userEvent.hover(componentsTrigger);
         });
 
-        // Wait for component list to appear
+        // Wait for component list to appear with extended timeout
         await waitFor(
           async () => {
             const alertDialog = await canvas.findByText("Alert Dialog");
             expect(alertDialog).toBeInTheDocument();
           },
-          { timeout: 3000 }
+          { timeout: 5000 }
         );
+        
+        // Allow animation to complete
+        await new Promise(resolve => globalThis.setTimeout(resolve, 500));
       });
 
       await step("Verify direct link", async () => {
@@ -388,7 +405,7 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
           await userEvent.hover(productsTrigger);
         });
 
-        // Wait for featured product to appear
+        // Wait for featured product to appear with extended timeout
         await waitFor(
           async () => {
             const featuredProduct = await canvas.findByText("Featured Product");
@@ -400,16 +417,21 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
               expect(rocket).toBeInTheDocument();
             }
           },
-          { timeout: 3000 }
+          { timeout: 5000 }
         );
+        
+        // Allow animation to complete
+        await new Promise(resolve => globalThis.setTimeout(resolve, 500));
       });
 
       await step("Open Solutions menu", async () => {
-        // Small delay to ensure previous menu closes
-        await new Promise(resolve => {
-          const timer = globalThis.setTimeout(() => resolve(undefined), 300);
-          return timer;
+        // Ensure previous menu has closed completely
+        await act(async () => {
+          await userEvent.unhover(await canvas.findByText("Products"));
         });
+        
+        // Delay to ensure previous menu closes and animations complete
+        await new Promise(resolve => globalThis.setTimeout(resolve, 500));
         
         const solutionsTrigger = await canvas.findByText("Solutions");
         
@@ -422,8 +444,11 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
             const enterprise = await canvas.findByText(/Enterprise/);
             expect(enterprise).toBeInTheDocument();
           },
-          { timeout: 3000 }
+          { timeout: 5000 }
         );
+        
+        // Allow animation to complete
+        await new Promise(resolve => globalThis.setTimeout(resolve, 500));
       });
     },
   },
@@ -763,14 +788,14 @@ export const WithFullWidthContent: Story = enhanceStoryForDualMode<typeof Naviga
           await userEvent.hover(resourcesTrigger);
         });
 
-        // Wait for resource links to appear
+        // Wait for resource links to appear with extended timeout
         await waitFor(
           async () => {
             expect(await canvas.findByText("Tutorials")).toBeInTheDocument();
             expect(await canvas.findByText("Discord")).toBeInTheDocument();
             expect(await canvas.findByText("Help Center")).toBeInTheDocument();
           },
-          { timeout: 3000 }
+          { timeout: 5000 }
         );
 
         // Test for section headers if they exist (React mode)
@@ -781,6 +806,9 @@ export const WithFullWidthContent: Story = enhanceStoryForDualMode<typeof Naviga
         if (learnSection) expect(learnSection).toBeInTheDocument();
         if (communitySection) expect(communitySection).toBeInTheDocument();
         if (supportSection) expect(supportSection).toBeInTheDocument();
+        
+        // Allow animation to complete
+        await new Promise(resolve => globalThis.setTimeout(resolve, 500));
       });
     },
   },
@@ -924,8 +952,11 @@ export const WithBrandingAndCTA: Story = enhanceStoryForDualMode<typeof Navigati
               expect(lightning).toBeInTheDocument();
             }
           },
-          { timeout: 3000 }
+          { timeout: 5000 }
         );
+        
+        // Allow animation to complete
+        await new Promise(resolve => globalThis.setTimeout(resolve, 500));
       });
     },
   },

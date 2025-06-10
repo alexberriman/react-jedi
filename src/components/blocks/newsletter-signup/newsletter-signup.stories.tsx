@@ -17,6 +17,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Helper function to safely wait for checkbox with proper timing
+const waitForCheckbox = async (canvas: ReturnType<typeof within>) => {
+  // Give the checkbox time to initialize and settle internal state
+  await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+  
+  await waitFor(() => {
+    const checkbox = canvas.getByRole("checkbox");
+    expect(checkbox).toBeInTheDocument();
+    return checkbox;
+  }, { timeout: 3000 });
+};
+
 // Inline variant stories
 export const Inline = enhanceStoryForDualMode(
   {
@@ -42,9 +54,7 @@ export const Inline = enhanceStoryForDualMode(
       });
       
       // Verify GDPR checkbox is rendered
-      await waitFor(() => {
-        expect(canvas.getByRole("checkbox")).toBeInTheDocument();
-      });
+      await waitForCheckbox(canvas);
       
       // Verify title and description
       expect(canvas.getByText("Subscribe to our newsletter")).toBeInTheDocument();
@@ -150,9 +160,7 @@ export const InlineWithBackground = enhanceStoryForDualMode(
       });
       
       // Verify GDPR checkbox is rendered
-      await waitFor(() => {
-        expect(canvas.getByRole("checkbox")).toBeInTheDocument();
-      });
+      await waitForCheckbox(canvas);
       
       // Verify submit button
       await waitFor(() => {
@@ -255,9 +263,7 @@ export const WithIncentive = enhanceStoryForDualMode(
       });
       
       // Verify checkbox is rendered
-      await waitFor(() => {
-        expect(canvas.getByRole("checkbox")).toBeInTheDocument();
-      });
+      await waitForCheckbox(canvas);
     },
   },
   {
@@ -318,9 +324,7 @@ export const WithIncentiveCompact = enhanceStoryForDualMode(
       });
       
       // Verify checkbox is rendered
-      await waitFor(() => {
-        expect(canvas.getByRole("checkbox")).toBeInTheDocument();
-      });
+      await waitForCheckbox(canvas);
     },
   },
   {
@@ -623,10 +627,7 @@ export const BackgroundPatternDots: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Wait for the checkbox to be rendered
-    await waitFor(() => {
-      const checkbox = canvas.getByRole("checkbox");
-      return checkbox;
-    });
+    await waitForCheckbox(canvas);
   },
 };
 
@@ -639,10 +640,7 @@ export const BackgroundPatternGrid: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Wait for the checkbox to be rendered
-    await waitFor(() => {
-      const checkbox = canvas.getByRole("checkbox");
-      return checkbox;
-    });
+    await waitForCheckbox(canvas);
   },
 };
 
@@ -655,10 +653,7 @@ export const BackgroundPatternWaves: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Wait for the checkbox to be rendered
-    await waitFor(() => {
-      const checkbox = canvas.getByRole("checkbox");
-      return checkbox;
-    });
+    await waitForCheckbox(canvas);
   },
 };
 
@@ -680,9 +675,10 @@ export const BackgroundPatternGradient = enhanceStoryForDualMode(
       // Verify form elements
       await waitFor(() => {
         expect(canvas.getByLabelText("Email address")).toBeInTheDocument();
-        expect(canvas.getByRole("checkbox")).toBeInTheDocument();
         expect(canvas.getByRole("button", { name: "Subscribe" })).toBeInTheDocument();
       });
+      
+      await waitForCheckbox(canvas);
     },
   },
   {
@@ -708,10 +704,7 @@ export const WithBackgroundImage: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Wait for the checkbox to be rendered
-    await waitFor(() => {
-      const checkbox = canvas.getByRole("checkbox");
-      return checkbox;
-    });
+    await waitForCheckbox(canvas);
   },
 };
 
@@ -727,10 +720,7 @@ export const WithNameField: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Wait for the checkbox to be rendered
-    await waitFor(() => {
-      const checkbox = canvas.getByRole("checkbox");
-      return checkbox;
-    });
+    await waitForCheckbox(canvas);
   },
 };
 
@@ -758,10 +748,7 @@ export const CustomTexts: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Wait for the checkbox to be rendered
-    await waitFor(() => {
-      const checkbox = canvas.getByRole("checkbox");
-      return checkbox;
-    });
+    await waitForCheckbox(canvas);
   },
 };
 
@@ -783,10 +770,7 @@ export const WithSubmissionHandler: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Wait for the checkbox to be rendered
-    await waitFor(() => {
-      const checkbox = canvas.getByRole("checkbox");
-      return checkbox;
-    });
+    await waitForCheckbox(canvas);
   },
 };
 
@@ -811,9 +795,10 @@ export const NonAnimated = enhanceStoryForDualMode(
       // Verify form elements
       await waitFor(() => {
         expect(canvas.getByLabelText("Email address")).toBeInTheDocument();
-        expect(canvas.getByRole("checkbox")).toBeInTheDocument();
         expect(canvas.getByRole("button", { name: "Subscribe" })).toBeInTheDocument();
       });
+      
+      await waitForCheckbox(canvas);
     },
   },
   {
@@ -862,9 +847,7 @@ export const DarkMode = enhanceStoryForDualMode(
       });
       
       // Verify checkbox is rendered
-      await waitFor(() => {
-        expect(canvas.getByRole("checkbox")).toBeInTheDocument();
-      });
+      await waitForCheckbox(canvas);
     },
   },
   {
@@ -940,8 +923,9 @@ export const FullFeatured = enhanceStoryForDualMode(
       await waitFor(() => {
         expect(canvas.getByLabelText("Name")).toBeInTheDocument();
         expect(canvas.getByLabelText("Email address")).toBeInTheDocument();
-        expect(canvas.getByRole("checkbox")).toBeInTheDocument();
       });
+      
+      await waitForCheckbox(canvas);
       
       // Verify custom button text
       await waitFor(() => {

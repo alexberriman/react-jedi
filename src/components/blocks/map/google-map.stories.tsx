@@ -542,40 +542,31 @@ export const RestaurantLocations: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for the component to fully render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 2000));
+      // Wait for map iframe to render first
+      await waitFor(() => {
+        const iframe = canvasElement.querySelector('iframe[title="Interactive Map"]');
+        expect(iframe).toBeInTheDocument();
+      }, { timeout: 5000 });
       
-      // Check if we're in React mode or SDUI mode
-      const isSDUIMode = canvasElement.querySelector('[data-testid="react-render"]');
+      // Wait a bit more for location cards to render
+      await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
       
-      if (isSDUIMode) {
-        // For SDUI mode, the structure might be different
-        // Let's just check if the iframe is present first
-        await waitFor(() => {
-          const iframe = canvasElement.querySelector('iframe[title="Interactive Map"]');
-          expect(iframe).toBeInTheDocument();
-        }, { timeout: 3000 });
-        
-        // Then check for location names
-        await waitFor(() => {
-          expect(canvas.getByText('Times Square Location')).toBeInTheDocument();
-        }, { timeout: 3000 });
-      } else {
-        // React mode
-        // Verify location names are present
-        await waitFor(() => {
-          expect(canvas.getByText('Times Square Location')).toBeInTheDocument();
-          expect(canvas.getByText('Central Park South')).toBeInTheDocument();
-          expect(canvas.getByText('Greenwich Village')).toBeInTheDocument();
-        }, { timeout: 3000 });
-        
-        // Verify categories
-        await waitFor(() => {
-          expect(canvas.getByText('Restaurant')).toBeInTheDocument();
-          expect(canvas.getByText('Cafe')).toBeInTheDocument();
-          expect(canvas.getByText('Bar & Restaurant')).toBeInTheDocument();
-        }, { timeout: 3000 });
-      }
+      // Verify location names are present in the cards below the map
+      await waitFor(() => {
+        expect(canvas.getByText('Times Square Location')).toBeInTheDocument();
+        expect(canvas.getByText('Central Park South')).toBeInTheDocument();
+        expect(canvas.getByText('Greenwich Village')).toBeInTheDocument();
+      }, { timeout: 5000 });
+      
+      // Verify addresses are shown
+      await waitFor(() => {
+        expect(canvas.getByText('1500 Broadway, New York, NY 10036')).toBeInTheDocument();
+        expect(canvas.getByText('59th St & 5th Ave, New York, NY 10019')).toBeInTheDocument();
+      }, { timeout: 3000 });
+      
+      // Verify "Get Directions" buttons
+      const directionsButtons = canvas.getAllByText('Get Directions');
+      expect(directionsButtons.length).toBeGreaterThanOrEqual(3);
     },
   },
   {

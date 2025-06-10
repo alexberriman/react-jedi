@@ -62,7 +62,7 @@
       {
         "id": "fix-google-map-stories-tests",
         "description": "Investigate test issues in src/components/blocks/map/google-map.stories.tsx. Read the error log at ./tmp/tests/google-map.stories.log to identify any warnings or failures. May include async loading issues or iframe-related warnings. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/map/google-map.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-group-stories-tests",

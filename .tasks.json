@@ -22,7 +22,7 @@
       {
         "id": "fix-chart-stories-tests",
         "description": "Fix test issues in src/components/ui/chart/chart.stories.tsx. Read the error log at ./tmp/tests/chart.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the chart spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/chart/chart.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-combobox-stories-tests",

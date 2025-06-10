@@ -220,6 +220,7 @@ export const Chart: React.FC<ChartProps> = ({
   const isTestEnvironment = 
     process.env.NODE_ENV === "test" || 
     process.env.VITEST === "true" ||
+    process.env.VITEST_STORYBOOK === "true" ||
     (typeof globalThis !== "undefined" && "__VITEST__" in globalThis) ||
     (globalThis.window !== undefined && "__VITEST__" in globalThis);
   const effectiveAnimationDuration = isTestEnvironment ? 0 : animationDuration;
@@ -251,6 +252,7 @@ export const Chart: React.FC<ChartProps> = ({
                 strokeWidth={strokeWidth}
                 animationDuration={effectiveAnimationDuration}
                 animationEasing={animationEasing}
+                isAnimationActive={!isTestEnvironment}
                 dot={{ fill: colors[index % colors.length] }}
               />
             ))}
@@ -274,6 +276,7 @@ export const Chart: React.FC<ChartProps> = ({
                 stackId={stackId}
                 animationDuration={effectiveAnimationDuration}
                 animationEasing={animationEasing}
+                isAnimationActive={!isTestEnvironment}
               />
             ))}
           </BarChart>
@@ -300,6 +303,7 @@ export const Chart: React.FC<ChartProps> = ({
                 stackId={stackId}
                 animationDuration={effectiveAnimationDuration}
                 animationEasing={animationEasing}
+                isAnimationActive={!isTestEnvironment}
               />
             ))}
           </AreaChart>
@@ -325,6 +329,7 @@ export const Chart: React.FC<ChartProps> = ({
               label={label}
               animationDuration={effectiveAnimationDuration}
               animationEasing={animationEasing}
+              isAnimationActive={!isTestEnvironment}
             >
               {data.map((_, index) => (
                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
@@ -351,6 +356,7 @@ export const Chart: React.FC<ChartProps> = ({
                 fillOpacity={fillOpacity}
                 animationDuration={effectiveAnimationDuration}
                 animationEasing={animationEasing}
+                isAnimationActive={!isTestEnvironment}
               />
             ))}
           </RadarChart>
@@ -376,6 +382,7 @@ export const Chart: React.FC<ChartProps> = ({
               label={label}
               animationDuration={effectiveAnimationDuration}
               animationEasing={animationEasing}
+              isAnimationActive={!isTestEnvironment}
             />
           </RadialBarChart>
         );

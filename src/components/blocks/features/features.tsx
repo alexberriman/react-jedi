@@ -248,7 +248,7 @@ function TabbedLayout({ features, categories, animated, showBenefits, onFeatureC
   showBenefits?: boolean;
   onFeatureClick?: (feature: Feature) => void;
 }>) {
-  const [activeCategory, setActiveCategory] = useState(categories[0] || 'all');
+  const [activeCategory, setActiveCategory] = useState('all');
 
   const filteredFeatures = activeCategory === 'all' 
     ? features 

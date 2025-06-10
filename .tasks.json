@@ -47,7 +47,7 @@
       {
         "id": "fix-features-stories-tests",
         "description": "Fix test failure in src/components/blocks/features/features.stories.tsx - Tabbed Categories story. Test fails because it can't find 'Enterprise Security' text. The issue is that a different tab (Performance) is active by default instead of showing all features. Either update the test to click the correct tab first or adjust the initial state. Read ./tmp/tests/features.stories.log for the specific error. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/features/features.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-footer-stories-tests",

@@ -70,7 +70,7 @@ export const Default: Story = enhanceStoryForDualMode<typeof HoverCard>(
         const avatars = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
         if (avatars.length > 0) {
           // Wait a bit for image loading state updates
-          await new Promise(resolve => window.setTimeout(resolve, 100));
+          await new Promise(resolve => globalThis.setTimeout(resolve, 100));
         }
       }, { timeout: 5000 });
     },

@@ -147,7 +147,7 @@
       {
         "id": "fix-pricing-table-stories-tests",
         "description": "Fix test issues in src/components/blocks/pricing-table/pricing-table.stories.tsx. Read the error log at ./tmp/tests/pricing-table.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the pricing-table spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/pricing-table/pricing-table.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-product-showcase-stories-tests",

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, within, userEvent, fn } from "storybook/test";
+import { expect, within, userEvent, fn, waitFor } from "storybook/test";
 import { PricingTable, type PricingTier } from "./pricing-table";
 import { Sparkles, Zap, Crown, Rocket, Star, Shield } from "lucide-react";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
@@ -271,18 +271,31 @@ export const WithTestimonials: Story = enhanceStoryForDualMode({
       },
     ],
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     
-    // Verify testimonials are rendered
-    expect(canvas.getByText("Perfect for getting started. The features are exactly what we needed.")).toBeInTheDocument();
-    expect(canvas.getByText("Sarah Johnson")).toBeInTheDocument();
-    expect(canvas.getByText("Freelance Designer")).toBeInTheDocument();
+    await step("Verify tier cards are rendered", async () => {
+      expect(canvas.getByText("Starter")).toBeInTheDocument();
+      expect(canvas.getByText("Professional")).toBeInTheDocument();
+      expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    });
     
-    // Verify tier cards
-    expect(canvas.getByText("Starter")).toBeInTheDocument();
-    expect(canvas.getByText("Professional")).toBeInTheDocument();
-    expect(canvas.getByText("Enterprise")).toBeInTheDocument();
+    await step("Verify testimonials are rendered", async () => {
+      // Use waitFor to ensure testimonials are loaded
+      await waitFor(() => {
+        // The testimonial text is wrapped in quotes, so we need to look for it more flexibly
+        const blockquotes = canvas.getAllByRole('blockquote');
+        const testimonialQuote = blockquotes.find(el => 
+          el.textContent?.includes("Perfect for getting started. The features are exactly what we needed.")
+        );
+        expect(testimonialQuote).toBeTruthy();
+      });
+      
+      // The author info is in a paragraph with em dash, so use a flexible matcher
+      expect(canvas.getByText(/Sarah Johnson/)).toBeInTheDocument();
+      expect(canvas.getByText(/Mike Chen/)).toBeInTheDocument();
+      expect(canvas.getByText(/Lisa Thompson/)).toBeInTheDocument();
+    });
   },
 }) as Story;
 

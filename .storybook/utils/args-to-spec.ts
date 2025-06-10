@@ -78,6 +78,7 @@ const COMPONENT_NAME_MAP: Record<string, string> = {
   socialshareBar: 'SocialShareBar',
   'social-share-bar': 'SocialShareBar',
   pagesection: 'PageSection',
+  pricingtable: 'PricingTable',
 };
 
 /**

@@ -97,7 +97,7 @@
       {
         "id": "fix-latest-news-stories-tests",
         "description": "Investigate test issues in src/components/blocks/latest-news/latest-news.stories.tsx. Read the error log at ./tmp/tests/latest-news.stories.log to identify any warnings or failures. May include act() warnings or data fetching issues. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/latest-news/latest-news.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-location-hours-stories-tests",

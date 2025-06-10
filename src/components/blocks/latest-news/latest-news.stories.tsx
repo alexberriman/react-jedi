@@ -183,6 +183,15 @@ export const WithCategoryTabs: Story = {
     showCategoryTabs: true,
     viewAllUrl: "/news",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Wait for avatars to load to prevent act() warnings
+    await waitFor(() => {
+      const avatarImages = canvas.getAllByRole('img', { name: /Sarah Chen|Michael Torres|Emily Johnson/ });
+      expect(avatarImages.length).toBeGreaterThan(0);
+    }, { timeout: 3000 });
+  },
 };
 
 export const WithNewsletter: Story = {
@@ -320,12 +329,14 @@ export const DualModeTest = enhanceStoryForDualMode(
       expect(canvas.getByText("Environment")).toBeInTheDocument();
       expect(canvas.getByText("Business")).toBeInTheDocument();
 
-      // Verify authors
-      expect(canvas.getByText("By Sarah Chen")).toBeInTheDocument();
-      expect(canvas.getByText("By Michael Torres")).toBeInTheDocument();
-      expect(canvas.getByText("By Emily Johnson")).toBeInTheDocument();
+      // Verify authors (wrap in waitFor to handle avatar loading)
+      await waitFor(() => {
+        expect(canvas.getByText("By Sarah Chen")).toBeInTheDocument();
+        expect(canvas.getByText("By Michael Torres")).toBeInTheDocument();
+        expect(canvas.getByText("By Emily Johnson")).toBeInTheDocument();
+      });
 
-      // Verify view all link (using button role since it's styled as a button)
+      // Verify view all link (it's an anchor with role="button" due to Button component with asChild)
       const viewAllLink = canvas.getByRole("button", { name: /view all articles/i });
       expect(viewAllLink).toBeInTheDocument();
       expect(viewAllLink).toHaveAttribute("href", "/news");
@@ -482,6 +493,12 @@ export const DualModeWithCategories = enhanceStoryForDualMode(
       
       // Click Technology tab
       await user.click(techTab);
+      
+      // Wait a moment for state updates and animations
+      await waitFor(() => {
+        // Ensure the click was processed
+        expect(techTab).toBeInTheDocument();
+      }, { timeout: 500 });
 
       // In React mode, filtering works dynamically
       // In SDUI mode, this is just testing the interaction, not the filtering result
@@ -489,18 +506,23 @@ export const DualModeWithCategories = enhanceStoryForDualMode(
       const isReactMode = canvasElement.closest('[data-testid="react-render"]') !== null;
       
       if (isReactMode) {
-        // Wait for filtering to occur in React mode
+        // Wait for filtering animation to complete
         await waitFor(() => {
+          // Since we're filtering by Technology, we should see tech articles
           expect(canvas.getByText("Breaking: Major Tech Company Announces Revolutionary AI Assistant")).toBeInTheDocument();
+          expect(canvas.getByText("Space Exploration Milestone: First Commercial Moon Landing Success")).toBeInTheDocument();
         }, { timeout: 3000 });
 
-        // Wait a bit more for the animation and state updates
+        // Non-technology articles should not be visible
         await waitFor(() => {
-          // Should show only technology articles in React mode
-          expect(canvas.queryByText("Climate Summit Reaches Historic Agreement on Carbon Emissions")).not.toBeInTheDocument();
+          // Environment article should not be visible
+          const environmentArticle = canvas.queryByText("Climate Summit Reaches Historic Agreement on Carbon Emissions");
+          expect(environmentArticle).not.toBeInTheDocument();
+          
+          // Business article should not be visible  
+          const businessArticle = canvas.queryByText("Stock Market Hits All-Time High Amid Economic Recovery");
+          expect(businessArticle).not.toBeInTheDocument();
         }, { timeout: 3000 });
-        
-        expect(canvas.queryByText("Stock Market Hits All-Time High Amid Economic Recovery")).not.toBeInTheDocument();
       } else {
         // In SDUI mode, just verify the interaction occurred (button click)
         // The articles remain static as expected in SDUI mode

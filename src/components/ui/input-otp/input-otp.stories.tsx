@@ -5,11 +5,12 @@ import { within, userEvent, waitFor, expect } from "storybook/test";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 /**
- * NOTE: This component may produce act() warnings during tests.
- * These warnings come from the third-party 'input-otp' library (v1.4.2) and are related
- * to internal state updates within the library's Input component.
- * We've wrapped user interactions in act() to minimize warnings, but some may still
- * appear during initial render. The tests pass successfully despite these warnings.
+ * NOTE: This component uses the third-party 'input-otp' library (v1.4.2) which may produce
+ * act() warnings during tests. These warnings are caused by internal state updates within
+ * the library's Input component during initial render. The warnings are a known issue with
+ * the library and do not affect functionality. The tests pass successfully despite these
+ * warnings. We've documented this limitation and continue to monitor for library updates
+ * that may address this issue.
  */
 
 const meta: Meta<typeof InputOTP> = {
@@ -83,7 +84,7 @@ export const Default = enhanceStoryForDualMode(
 
       const input = canvas.getByRole("textbox");
       
-      // Type the value - warnings from input-otp library are expected
+      // Type the value
       await userEvent.type(input, "123456");
       
       await waitFor(() => {
@@ -109,14 +110,14 @@ export const FourDigitPIN = enhanceStoryForDualMode(
   {
     args: {},
     render: () => (
-      <InputOTP maxLength={4} pattern="[0-9]*">
-        <InputOTPGroup>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-          <InputOTPSlot index={3} />
-        </InputOTPGroup>
-      </InputOTP>
+        <InputOTP maxLength={4} pattern="[0-9]*">
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+            <InputOTPSlot index={3} />
+          </InputOTPGroup>
+        </InputOTP>
     ),
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
@@ -129,7 +130,7 @@ export const FourDigitPIN = enhanceStoryForDualMode(
 
       const input = canvas.getByRole("textbox");
       
-      // Type the value - warnings from input-otp library are expected
+      // Type the value
       await userEvent.type(input, "1234");
       
       await waitFor(() => {
@@ -156,19 +157,19 @@ export const SMSCode = enhanceStoryForDualMode(
   {
     args: {},
     render: () => (
-      <InputOTP maxLength={6}>
-        <InputOTPGroup>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-        </InputOTPGroup>
-        <InputOTPSeparator />
-        <InputOTPGroup>
-          <InputOTPSlot index={3} />
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
-        </InputOTPGroup>
-      </InputOTP>
+        <InputOTP maxLength={6}>
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
     ),
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
@@ -180,7 +181,7 @@ export const SMSCode = enhanceStoryForDualMode(
 
       const input = canvas.getByRole("textbox");
       
-      // Type the value - warnings from input-otp library are expected
+      // Type the value
       await userEvent.type(input, "987654");
       
       await waitFor(() => {
@@ -206,19 +207,19 @@ export const AlphanumericCode = enhanceStoryForDualMode(
   {
     args: {},
     render: () => (
-      <InputOTP maxLength={6} pattern="[A-Z0-9]*">
-        <InputOTPGroup>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-        </InputOTPGroup>
-        <InputOTPSeparator>-</InputOTPSeparator>
-        <InputOTPGroup>
-          <InputOTPSlot index={3} />
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
-        </InputOTPGroup>
-      </InputOTP>
+        <InputOTP maxLength={6} pattern="[A-Z0-9]*">
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator>-</InputOTPSeparator>
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
     ),
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
@@ -230,7 +231,7 @@ export const AlphanumericCode = enhanceStoryForDualMode(
 
       const input = canvas.getByRole("textbox");
       
-      // Type the value - warnings from input-otp library are expected
+      // Type the value
       await userEvent.type(input, "ABC123");
       
       await waitFor(() => {
@@ -258,27 +259,27 @@ export const CustomSeparator = enhanceStoryForDualMode(
   {
     args: {},
     render: () => (
-      <InputOTP maxLength={8}>
-        <InputOTPGroup>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-        </InputOTPGroup>
-        <InputOTPSeparator>•</InputOTPSeparator>
-        <InputOTPGroup>
-          <InputOTPSlot index={2} />
-          <InputOTPSlot index={3} />
-        </InputOTPGroup>
-        <InputOTPSeparator>•</InputOTPSeparator>
-        <InputOTPGroup>
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
-        </InputOTPGroup>
-        <InputOTPSeparator>•</InputOTPSeparator>
-        <InputOTPGroup>
-          <InputOTPSlot index={6} />
-          <InputOTPSlot index={7} />
-        </InputOTPGroup>
-      </InputOTP>
+        <InputOTP maxLength={8}>
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+          </InputOTPGroup>
+          <InputOTPSeparator>•</InputOTPSeparator>
+          <InputOTPGroup>
+            <InputOTPSlot index={2} />
+            <InputOTPSlot index={3} />
+          </InputOTPGroup>
+          <InputOTPSeparator>•</InputOTPSeparator>
+          <InputOTPGroup>
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+          <InputOTPSeparator>•</InputOTPSeparator>
+          <InputOTPGroup>
+            <InputOTPSlot index={6} />
+            <InputOTPSlot index={7} />
+          </InputOTPGroup>
+        </InputOTP>
     ),
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
@@ -291,7 +292,7 @@ export const CustomSeparator = enhanceStoryForDualMode(
 
       const input = canvas.getByRole("textbox");
       
-      // Type the value - warnings from input-otp library are expected
+      // Type the value
       await userEvent.type(input, "12345678");
       
       await waitFor(() => {
@@ -318,19 +319,19 @@ export const WithDefaultValue = enhanceStoryForDualMode(
   {
     args: {},
     render: () => (
-      <InputOTP maxLength={6} value="123456">
-        <InputOTPGroup>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-        </InputOTPGroup>
-        <InputOTPSeparator />
-        <InputOTPGroup>
-          <InputOTPSlot index={3} />
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
-        </InputOTPGroup>
-      </InputOTP>
+        <InputOTP maxLength={6} value="123456">
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
     ),
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
@@ -361,19 +362,19 @@ export const Disabled = enhanceStoryForDualMode(
   {
     args: {},
     render: () => (
-      <InputOTP maxLength={6} disabled value="123456">
-        <InputOTPGroup>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-        </InputOTPGroup>
-        <InputOTPSeparator />
-        <InputOTPGroup>
-          <InputOTPSlot index={3} />
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
-        </InputOTPGroup>
-      </InputOTP>
+        <InputOTP maxLength={6} disabled value="123456">
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
     ),
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
@@ -410,20 +411,20 @@ export const Controlled = enhanceStoryForDualMode(
 
       return (
         <div className="space-y-4">
-          <InputOTP maxLength={6} value={value} onChange={setValue}>
-            <InputOTPGroup>
-              <InputOTPSlot index={0} />
-              <InputOTPSlot index={1} />
-              <InputOTPSlot index={2} />
-            </InputOTPGroup>
-            <InputOTPSeparator />
-            <InputOTPGroup>
-              <InputOTPSlot index={3} />
-              <InputOTPSlot index={4} />
-              <InputOTPSlot index={5} />
-            </InputOTPGroup>
-          </InputOTP>
-          <p className="text-sm text-muted-foreground">Current value: {value || "(empty)"}</p>
+                <InputOTP maxLength={6} value={value} onChange={setValue}>
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+              </InputOTPGroup>
+              <InputOTPSeparator />
+              <InputOTPGroup>
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+              </InputOTPGroup>
+            </InputOTP>
+              <p className="text-sm text-muted-foreground">Current value: {value || "(empty)"}</p>
         </div>
       );
     },
@@ -434,14 +435,17 @@ export const Controlled = enhanceStoryForDualMode(
       const isSduiMode = Object.hasOwn(canvasElement.dataset, 'testid') && 
                          canvasElement.dataset.testid === 'sdui-render';
 
-      // Wait for the OTP input to be rendered
+      // Wait for the text to be rendered
       await waitFor(() => {
         expect(canvas.getByText("Current value: (empty)")).toBeInTheDocument();
       });
 
-      // The OTP input might not have role="textbox", so look for the actual input element
-      const otpContainer = canvasElement.querySelector('[data-slot="input-otp"]');
-      expect(otpContainer).toBeInTheDocument();
+      // Wait for the OTP input to be rendered
+      const otpContainer = await waitFor(() => {
+        const container = canvasElement.querySelector('[data-slot="input-otp"]');
+        expect(container).toBeInTheDocument();
+        return container;
+      });
       
       // Find the hidden input inside the OTP component
       const input = otpContainer?.querySelector('input') as HTMLInputElement;
@@ -449,7 +453,6 @@ export const Controlled = enhanceStoryForDualMode(
         expect(input).toBeInTheDocument();
 
         // Focus and type into the input
-        // Warnings from input-otp library are expected
         await userEvent.click(otpContainer!);
         await userEvent.type(input, "999");
 
@@ -498,27 +501,27 @@ export const WithOnComplete = enhanceStoryForDualMode(
 
       return (
         <div className="space-y-4">
-          <InputOTP
-            maxLength={6}
-            value={value}
-            onChange={(newValue) => {
-              setValue(newValue);
-              setIsComplete(newValue.length === 6);
-            }}
-          >
-            <InputOTPGroup>
-              <InputOTPSlot index={0} />
-              <InputOTPSlot index={1} />
-              <InputOTPSlot index={2} />
-            </InputOTPGroup>
-            <InputOTPSeparator />
-            <InputOTPGroup>
-              <InputOTPSlot index={3} />
-              <InputOTPSlot index={4} />
-              <InputOTPSlot index={5} />
-            </InputOTPGroup>
-          </InputOTP>
-
+                <InputOTP
+              maxLength={6}
+              value={value}
+              onChange={(newValue) => {
+                setValue(newValue);
+                setIsComplete(newValue.length === 6);
+              }}
+            >
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+              </InputOTPGroup>
+              <InputOTPSeparator />
+              <InputOTPGroup>
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+              </InputOTPGroup>
+            </InputOTP>
+    
           {isComplete && <p className="text-sm text-green-600">✓ Code complete! Value: {value}</p>}
         </div>
       );
@@ -543,7 +546,6 @@ export const WithOnComplete = enhanceStoryForDualMode(
         expect(input).toBeInTheDocument();
 
         // Focus and type the complete code
-        // Warnings from input-otp library are expected
         await userEvent.click(otpContainer!);
         await userEvent.type(input, "111222");
 
@@ -577,14 +579,14 @@ export const Password = enhanceStoryForDualMode(
   {
     args: {},
     render: () => (
-      <InputOTP maxLength={4} pattern="[0-9]*" className="password">
-        <InputOTPGroup>
-          <InputOTPSlot index={0} className="password-char" />
-          <InputOTPSlot index={1} className="password-char" />
-          <InputOTPSlot index={2} className="password-char" />
-          <InputOTPSlot index={3} className="password-char" />
-        </InputOTPGroup>
-      </InputOTP>
+        <InputOTP maxLength={4} pattern="[0-9]*" className="password">
+          <InputOTPGroup>
+            <InputOTPSlot index={0} className="password-char" />
+            <InputOTPSlot index={1} className="password-char" />
+            <InputOTPSlot index={2} className="password-char" />
+            <InputOTPSlot index={3} className="password-char" />
+          </InputOTPGroup>
+        </InputOTP>
     ),
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
@@ -601,7 +603,7 @@ export const Password = enhanceStoryForDualMode(
       const otpContainer = canvasElement.querySelector(".password");
       expect(otpContainer).toBeInTheDocument();
 
-      // Type the value - warnings from input-otp library are expected
+      // Type the value
       await userEvent.type(input, "9876");
       
       await waitFor(() => {

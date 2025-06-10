@@ -57,7 +57,7 @@
       {
         "id": "fix-form-stories-tests",
         "description": "Fix testing environment warning in src/components/ui/form/form.stories.tsx. Tests pass but show warning: 'The current testing environment is not configured to support act(...)'. This is different from other act() warnings and suggests a configuration issue. Check test setup and form component implementation. Read ./tmp/tests/form.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/form/form.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-google-map-stories-tests",

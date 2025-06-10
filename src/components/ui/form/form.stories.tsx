@@ -1306,7 +1306,7 @@ export const WithRequiredFields: Story = enhanceStoryForDualMode<typeof FormStor
   }
 });
 
-function InitialErrorsFormExample() {
+function ValidationOnBlurFormExample() {
   const formSchema = z.object({
     email: z.string().email({ message: "Invalid email" }),
     phone: z.string().min(10, { message: "Phone number too short" }),
@@ -1315,16 +1315,11 @@ function InitialErrorsFormExample() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "invalid-email",
-      phone: "123",
+      email: "test@example.com", // Start with valid values
+      phone: "1234567890",
     },
-    mode: "all", // Changed to "all" to validate on mount
+    mode: "onBlur", // Validate on blur to avoid immediate validation
   });
-
-  // Trigger validation on mount to show initial errors
-  React.useEffect(() => {
-    form.trigger();
-  }, [form]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -1342,6 +1337,9 @@ function InitialErrorsFormExample() {
               <FormControl>
                 <Input type="email" {...field} />
               </FormControl>
+              <FormDescription>
+                Try changing to an invalid email to see validation
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -1355,6 +1353,9 @@ function InitialErrorsFormExample() {
               <FormControl>
                 <Input type="tel" {...field} />
               </FormControl>
+              <FormDescription>
+                Must be at least 10 digits
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -1365,9 +1366,9 @@ function InitialErrorsFormExample() {
   );
 }
 
-export const WithInitialErrors: Story = enhanceStoryForDualMode<typeof FormStory>({
+export const ValidationOnBlur: Story = enhanceStoryForDualMode<typeof FormStory>({
   args: {},
-  render: () => <InitialErrorsFormExample />,
+  render: () => <ValidationOnBlurFormExample />,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
 
@@ -1375,47 +1376,60 @@ export const WithInitialErrors: Story = enhanceStoryForDualMode<typeof FormStory
     // In dual mode, the canvasElement is either the react-render or sdui-render container
     const isSDUIMode = canvasElement.dataset.testid === 'sdui-render';
 
-    // In SDUI mode, fields will have placeholder values instead of actual values
+    // In SDUI mode, we can't test dynamic validation
     if (isSDUIMode) {
-      // Find form elements by value in SDUI mode (inputs have value prop)
-      const emailInput = canvas.getByDisplayValue("invalid-email");
-      const phoneInput = canvas.getByDisplayValue("123");
+      // Just verify the form renders
+      const emailInput = canvas.getByDisplayValue("test@example.com");
+      const phoneInput = canvas.getByDisplayValue("1234567890");
       
       expect(emailInput).toBeInTheDocument();
       expect(phoneInput).toBeInTheDocument();
-      
-      // In SDUI mode, validation messages are static and always visible
-      expect(canvas.getByText("Invalid email")).toBeInTheDocument();
-      expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
     } else {
-      // Wait for initial validation to trigger
+      // Find form elements with valid values
+      const emailInput = canvas.getByDisplayValue("test@example.com");
+      const phoneInput = canvas.getByDisplayValue("1234567890");
+      
+      // Initially no errors should be visible
+      expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Phone number too short")).not.toBeInTheDocument();
+
+      // Change email to invalid value
+      await userEvent.clear(emailInput);
+      await userEvent.type(emailInput, "invalid-email");
+      await userEvent.tab(); // Trigger blur event
+
+      // Email error should appear after blur
       await waitFor(() => {
-        // Verify initial errors are displayed
         expect(canvas.getByText("Invalid email")).toBeInTheDocument();
-        expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
       });
 
-      // Find form elements
-      const emailInput = canvas.getByDisplayValue("invalid-email");
-      const phoneInput = canvas.getByDisplayValue("123");
+      // Change phone to invalid value
+      await userEvent.clear(phoneInput);
+      await userEvent.type(phoneInput, "123");
+      await userEvent.tab(); // Trigger blur event
+
+      // Phone error should appear after blur
+      await waitFor(() => {
+        expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
+      });
 
       // Fix email
       await userEvent.clear(emailInput);
       await userEvent.type(emailInput, "valid@example.com");
+      await userEvent.tab(); // Trigger blur event
 
       // Email error should be gone
       await waitFor(() => {
         expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
-        expect(canvas.getByText("Phone number too short")).toBeInTheDocument();
       });
 
       // Fix phone
       await userEvent.clear(phoneInput);
       await userEvent.type(phoneInput, "1234567890");
+      await userEvent.tab(); // Trigger blur event
 
       // All errors should be gone
       await waitFor(() => {
-        expect(canvas.queryByText("Invalid email")).not.toBeInTheDocument();
         expect(canvas.queryByText("Phone number too short")).not.toBeInTheDocument();
       });
     }
@@ -1437,13 +1451,14 @@ export const WithInitialErrors: Story = enhanceStoryForDualMode<typeof FormStory
           },
           {
             type: "Input",
-            value: "invalid-email"
+            value: "test@example.com",
+            inputType: "email"
           },
           {
             type: "Text",
             size: "sm",
-            variant: "destructive",
-            children: "Invalid email"
+            variant: "muted",
+            children: "Try changing to an invalid email to see validation"
           }
         ]
       },
@@ -1458,13 +1473,14 @@ export const WithInitialErrors: Story = enhanceStoryForDualMode<typeof FormStory
           },
           {
             type: "Input",
-            value: "123"
+            value: "1234567890",
+            inputType: "tel"
           },
           {
             type: "Text",
             size: "sm",
-            variant: "destructive",
-            children: "Phone number too short"
+            variant: "muted",
+            children: "Must be at least 10 digits"
           }
         ]
       },

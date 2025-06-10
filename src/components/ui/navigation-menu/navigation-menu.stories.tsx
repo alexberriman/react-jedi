@@ -11,7 +11,16 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../badge";
 import * as React from "react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
+import { act } from "@testing-library/react";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
+
+/**
+ * NOTE: Navigation menu tests may produce act() warnings from Radix UI components.
+ * These warnings are false positives caused by internal state updates in the Presence
+ * component that manages enter/exit animations for navigation menu content. The warnings
+ * occur during hover interactions that trigger menu transitions. All tests pass successfully
+ * despite these warnings.
+ */
 
 const meta = {
   title: "Components/NavigationMenu",
@@ -173,7 +182,10 @@ export const Default: Story = enhanceStoryForDualMode<typeof NavigationMenu>(
 
       await step("Open Getting Started menu", async () => {
         const gettingStartedTrigger = await canvas.findByText("Getting Started");
-        await userEvent.hover(gettingStartedTrigger);
+        
+        await act(async () => {
+          await userEvent.hover(gettingStartedTrigger);
+        });
 
         // Wait for menu content to appear
         await waitFor(
@@ -187,7 +199,10 @@ export const Default: Story = enhanceStoryForDualMode<typeof NavigationMenu>(
 
       await step("Navigate to Components menu", async () => {
         const componentsTrigger = await canvas.findByText("Components");
-        await userEvent.hover(componentsTrigger);
+        
+        await act(async () => {
+          await userEvent.hover(componentsTrigger);
+        });
 
         // Wait for component list to appear
         await waitFor(
@@ -368,7 +383,10 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
 
       await step("Open Products menu", async () => {
         const productsTrigger = await canvas.findByText("Products");
-        await userEvent.hover(productsTrigger);
+        
+        await act(async () => {
+          await userEvent.hover(productsTrigger);
+        });
 
         // Wait for featured product to appear
         await waitFor(
@@ -394,7 +412,10 @@ export const WithIconsAndBadges: Story = enhanceStoryForDualMode<typeof Navigati
         });
         
         const solutionsTrigger = await canvas.findByText("Solutions");
-        await userEvent.hover(solutionsTrigger);
+        
+        await act(async () => {
+          await userEvent.hover(solutionsTrigger);
+        });
 
         await waitFor(
           async () => {
@@ -737,7 +758,10 @@ export const WithFullWidthContent: Story = enhanceStoryForDualMode<typeof Naviga
 
       await step("Open Resources menu", async () => {
         const resourcesTrigger = await canvas.findByText("Resources");
-        await userEvent.hover(resourcesTrigger);
+        
+        await act(async () => {
+          await userEvent.hover(resourcesTrigger);
+        });
 
         // Wait for resource links to appear
         await waitFor(
@@ -884,7 +908,10 @@ export const WithBrandingAndCTA: Story = enhanceStoryForDualMode<typeof Navigati
 
       await step("Open Products menu", async () => {
         const productsTrigger = await canvas.findByText("Products");
-        await userEvent.hover(productsTrigger);
+        
+        await act(async () => {
+          await userEvent.hover(productsTrigger);
+        });
 
         await waitFor(
           async () => {

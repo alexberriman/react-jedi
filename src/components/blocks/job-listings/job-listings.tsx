@@ -323,7 +323,7 @@ const JobCard: React.FC<JobCardProps> = ({
 
   const renderMinimalVariant = (): React.ReactElement => {
     return (
-      <div className={cn("flex items-center justify-between p-4 border rounded-lg", hoverEffects[hoverEffect])}>
+      <div role="article" className={cn("flex items-center justify-between p-4 border rounded-lg", hoverEffects[hoverEffect])}>
         <div className="min-w-0 flex-1">
           <h3 className="font-medium text-lg truncate">{job.title}</h3>
           <div className="flex flex-wrap items-center gap-4 mt-1 text-sm text-muted-foreground">
@@ -349,7 +349,7 @@ const JobCard: React.FC<JobCardProps> = ({
 
   const renderListVariant = (): React.ReactElement => {
     return (
-      <Card className={cn("w-full", hoverEffects[hoverEffect])}>
+      <Card role="article" className={cn("w-full", hoverEffects[hoverEffect])}>
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div className="min-w-0 flex-1 space-y-3">
@@ -416,7 +416,7 @@ const JobCard: React.FC<JobCardProps> = ({
 
   const renderFeaturedVariant = (): React.ReactElement => {
     return (
-      <Card className={cn("h-full border-2 border-primary/20", hoverEffects[hoverEffect])}>
+      <Card role="article" className={cn("h-full border-2 border-primary/20", hoverEffects[hoverEffect])}>
         <CardHeader>
           <div className="flex items-start justify-between mb-2">
             <Badge className="bg-amber-500/10 text-amber-700 dark:text-amber-400">
@@ -497,7 +497,7 @@ const JobCard: React.FC<JobCardProps> = ({
 
   const renderDefaultVariant = (): React.ReactElement => {
     return (
-      <Card className={cn("h-full", hoverEffects[hoverEffect])}>
+      <Card role="article" className={cn("h-full", hoverEffects[hoverEffect])}>
         <CardHeader>
           <div className="flex items-start justify-between">
             <CardTitle className="text-lg line-clamp-2">{job.title}</CardTitle>

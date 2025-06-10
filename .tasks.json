@@ -87,7 +87,7 @@
       {
         "id": "fix-job-listings-stories-tests",
         "description": "Fix test issues in src/components/blocks/job-listings/job-listings.stories.tsx. Read the error log at ./tmp/tests/job-listings.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the job-listings spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/job-listings/job-listings.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-latest-news-stories-tests",

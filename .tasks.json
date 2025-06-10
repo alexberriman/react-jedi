@@ -152,7 +152,7 @@
       {
         "id": "fix-stat-block-stories-tests",
         "description": "Investigate test issues in src/components/blocks/stat-block/stat-block.stories.tsx. Read the error log at ./tmp/tests/stat-block.stories.log to identify any warnings or failures. May include act() warnings if stats have animations or counters. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/stat-block/stat-block.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-testimonial-stories-tests",

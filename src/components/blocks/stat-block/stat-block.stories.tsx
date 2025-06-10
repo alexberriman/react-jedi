@@ -4,6 +4,19 @@ import { StatBlock } from "./stat-block";
 import type { StatBlockDef } from "../../../types/components/stat-block";
 import { enhanceStoryForDualMode } from "../../../../.storybook/utils/enhance-story";
 
+// Helper function to find text that may be split across DOM elements
+function expectTextContent(canvas: ReturnType<typeof within>, text: string) {
+  return expect(canvas.getByText((content: string, element: Element | null) => {
+    // Only match if the element's text content is exactly the text we're looking for
+    // or if this element directly contains the text (handling prefix/suffix cases)
+    const elementText = element?.textContent || '';
+    const directMatch = elementText === text;
+    const containsMatch = elementText.includes(text) && element?.tagName === 'DIV' && 
+                         element?.classList?.contains('font-bold');
+    return directMatch || containsMatch;
+  })).toBeInTheDocument();
+}
+
 interface StatBlockProps {
   readonly spec: StatBlockDef;
 }
@@ -75,11 +88,11 @@ export const Default: Story = enhanceStoryForDualMode<StatBlockProps>({
     // Wait for countUp animation to complete
     await new Promise(resolve => globalThis.setTimeout(resolve, 2500));
     
-    // Verify stat values
-    expect(canvas.getByText("125,420")).toBeInTheDocument();
-    expect(canvas.getByText("8,234")).toBeInTheDocument();
-    expect(canvas.getByText("456")).toBeInTheDocument();
-    expect(canvas.getByText("3.24")).toBeInTheDocument();
+    // Verify stat values (using helper to handle prefix/suffix splitting)
+    expectTextContent(canvas, "125,420");
+    expectTextContent(canvas, "8,234");
+    expectTextContent(canvas, "456");
+    expectTextContent(canvas, "3.24");
     
     // Verify prefix/suffix
     expect(canvas.getByText("$")).toBeInTheDocument();
@@ -162,10 +175,10 @@ export const HorizontalVariant: Story = enhanceStoryForDualMode<StatBlockProps>(
     // Wait for countUp animation to complete
     await new Promise(resolve => globalThis.setTimeout(resolve, 2500));
     
-    // Verify stat values
-    expect(canvas.getByText("125,420")).toBeInTheDocument();
-    expect(canvas.getByText("8,234")).toBeInTheDocument();
-    expect(canvas.getByText("456")).toBeInTheDocument();
+    // Verify stat values (using helper to handle prefix/suffix splitting)
+    expectTextContent(canvas, "125,420");
+    expectTextContent(canvas, "8,234");
+    expectTextContent(canvas, "456");
     
     // Verify horizontal layout styling is applied
     const container = canvasElement.querySelector('.flex.flex-wrap');
@@ -194,10 +207,10 @@ export const VerticalVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
     // Wait for countUp animation to complete
     await new Promise(resolve => globalThis.setTimeout(resolve, 2500));
     
-    // Verify stat values
-    expect(canvas.getByText("125,420")).toBeInTheDocument();
-    expect(canvas.getByText("8,234")).toBeInTheDocument();
-    expect(canvas.getByText("456")).toBeInTheDocument();
+    // Verify stat values (using helper to handle prefix/suffix splitting)
+    expectTextContent(canvas, "125,420");
+    expectTextContent(canvas, "8,234");
+    expectTextContent(canvas, "456");
     
     // Verify vertical layout styling is applied
     const container = canvasElement.querySelector('.space-y-6');
@@ -233,9 +246,9 @@ export const MinimalVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
     
     // Verify minimal variant values
     expect(canvas.getByText("$125.4K")).toBeInTheDocument();
-    expect(canvas.getByText("8,234")).toBeInTheDocument();
+    expectTextContent(canvas, "8,234");
     expect(canvas.getByText("+12.5%")).toBeInTheDocument();
-    expect(canvas.getByText("23.4K")).toBeInTheDocument();
+    expectTextContent(canvas, "23.4K");
     
     // Verify grid layout with 4 columns
     const gridElements = canvasElement.querySelectorAll('.grid');
@@ -281,8 +294,8 @@ export const DetailedVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Customer Lifetime Value")).toBeInTheDocument();
     
     // Verify detailed variant values
-    expect(canvas.getByText("125,420")).toBeInTheDocument();
-    expect(canvas.getByText("1,842")).toBeInTheDocument();
+    expectTextContent(canvas, "125,420");
+    expectTextContent(canvas, "1,842");
     
     // Verify descriptions are shown
     expect(canvas.getByText("Total revenue from all active subscriptions this month")).toBeInTheDocument();
@@ -334,9 +347,9 @@ export const WithIconPositions: Story = enhanceStoryForDualMode<StatBlockProps>(
     expect(canvas.getByText("Right Icon")).toBeInTheDocument();
     
     // Verify all stat values
-    expect(canvas.getByText("125")).toBeInTheDocument();
-    expect(canvas.getByText("456")).toBeInTheDocument();
-    expect(canvas.getByText("789")).toBeInTheDocument();
+    expectTextContent(canvas, "125");
+    expectTextContent(canvas, "456");
+    expectTextContent(canvas, "789");
     
     // Verify icons are present with different positions
     // Skip icon verification - StatBlock uses internal icon mapping that doesn't work in SDUI mode
@@ -367,9 +380,9 @@ export const DifferentSizes: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Large")).toBeInTheDocument();
     
     // Verify different sizes values
-    expect(canvas.getByText("123")).toBeInTheDocument();
-    expect(canvas.getByText("456")).toBeInTheDocument();
-    expect(canvas.getByText("789")).toBeInTheDocument();
+    expectTextContent(canvas, "123");
+    expectTextContent(canvas, "456");
+    expectTextContent(canvas, "789");
     
     // Verify large text sizing is applied (3xl)
     const valueElements = canvasElement.querySelectorAll('[class*="text-6xl"]');
@@ -405,12 +418,12 @@ export const ColorVariations: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Error")).toBeInTheDocument();
     
     // Verify all values
-    expect(canvas.getByText("100")).toBeInTheDocument();
-    expect(canvas.getByText("200")).toBeInTheDocument();
-    expect(canvas.getByText("300")).toBeInTheDocument();
-    expect(canvas.getByText("400")).toBeInTheDocument();
-    expect(canvas.getByText("500")).toBeInTheDocument();
-    expect(canvas.getByText("600")).toBeInTheDocument();
+    expectTextContent(canvas, "100");
+    expectTextContent(canvas, "200");
+    expectTextContent(canvas, "300");
+    expectTextContent(canvas, "400");
+    expectTextContent(canvas, "500");
+    expectTextContent(canvas, "600");
     
     // Verify background styling is applied
     const backgroundElements = canvasElement.querySelectorAll('[class*="bg-"]');
@@ -437,10 +450,10 @@ export const NoAnimation: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Conversion Rate")).toBeInTheDocument();
     
     // Verify values are displayed immediately (no count-up animation)
-    expect(canvas.getByText("125,420")).toBeInTheDocument();
-    expect(canvas.getByText("8,234")).toBeInTheDocument();
-    expect(canvas.getByText("456")).toBeInTheDocument();
-    expect(canvas.getByText("3.24")).toBeInTheDocument();
+    expectTextContent(canvas, "125,420");
+    expectTextContent(canvas, "8,234");
+    expectTextContent(canvas, "456");
+    expectTextContent(canvas, "3.24");
   },
 });
 
@@ -466,9 +479,9 @@ export const CustomCountUpDuration: Story = enhanceStoryForDualMode<StatBlockPro
     expect(canvas.getByText("Very Slow")).toBeInTheDocument();
     
     // Verify final values are eventually displayed
-    expect(canvas.getByText("1,000")).toBeInTheDocument();
-    expect(canvas.getByText("5,000")).toBeInTheDocument();
-    expect(canvas.getByText("10,000")).toBeInTheDocument();
+    expectTextContent(canvas, "1,000");
+    expectTextContent(canvas, "5,000");
+    expectTextContent(canvas, "10,000");
   },
 });
 
@@ -520,10 +533,10 @@ export const MixedContent: Story = enhanceStoryForDualMode<StatBlockProps>({
     await new Promise(resolve => globalThis.setTimeout(resolve, 2500));
     
     // Verify mixed content values (numbers and text)
-    expect(canvas.getByText("125,420")).toBeInTheDocument();
-    expect(canvas.getByText("Operational")).toBeInTheDocument();
-    expect(canvas.getByText("A+")).toBeInTheDocument();
-    expect(canvas.getByText("99.9")).toBeInTheDocument();
+    expectTextContent(canvas, "125,420");
+    expectTextContent(canvas, "Operational");
+    expectTextContent(canvas, "A+");
+    expectTextContent(canvas, "99.9");
     
     // Verify prefix/suffix
     expect(canvas.getByText("$")).toBeInTheDocument();
@@ -567,12 +580,12 @@ export const ResponsiveColumns: Story = enhanceStoryForDualMode<StatBlockProps>(
     expect(canvas.getByText("Stat 6")).toBeInTheDocument();
     
     // Verify all stat values
-    expect(canvas.getByText("100")).toBeInTheDocument();
-    expect(canvas.getByText("200")).toBeInTheDocument();
-    expect(canvas.getByText("300")).toBeInTheDocument();
-    expect(canvas.getByText("400")).toBeInTheDocument();
-    expect(canvas.getByText("500")).toBeInTheDocument();
-    expect(canvas.getByText("600")).toBeInTheDocument();
+    expectTextContent(canvas, "100");
+    expectTextContent(canvas, "200");
+    expectTextContent(canvas, "300");
+    expectTextContent(canvas, "400");
+    expectTextContent(canvas, "500");
+    expectTextContent(canvas, "600");
     
     // Verify grid layout with borders
     const gridElements = canvasElement.querySelectorAll('.grid');
@@ -638,10 +651,10 @@ export const DashboardExample: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Customer Satisfaction")).toBeInTheDocument();
     
     // Verify formatted values
-    expect(canvas.getByText("2,453,080")).toBeInTheDocument();
-    expect(canvas.getByText("1,247")).toBeInTheDocument();
-    expect(canvas.getByText("148.32")).toBeInTheDocument();
-    expect(canvas.getByText("4.8")).toBeInTheDocument();
+    expectTextContent(canvas, "2,453,080");
+    expectTextContent(canvas, "1,247");
+    expectTextContent(canvas, "148.32");
+    expectTextContent(canvas, "4.8");
     
     // Verify descriptions are shown
     expect(canvas.getByText("Gross sales including all channels")).toBeInTheDocument();
@@ -713,10 +726,10 @@ export const GradientVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Performance Score")).toBeInTheDocument();
     
     // Verify gradient variant values
-    expect(canvas.getByText("125,420")).toBeInTheDocument();
-    expect(canvas.getByText("42")).toBeInTheDocument();
-    expect(canvas.getByText("128")).toBeInTheDocument();
-    expect(canvas.getByText("94.2")).toBeInTheDocument();
+    expectTextContent(canvas, "125,420");
+    expectTextContent(canvas, "42");
+    expectTextContent(canvas, "128");
+    expectTextContent(canvas, "94.2");
     
     // Verify prefix/suffix
     expect(canvas.getByText("$")).toBeInTheDocument();
@@ -787,9 +800,9 @@ export const GlassVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Uptime")).toBeInTheDocument();
     
     // Verify glass variant values
-    expect(canvas.getByText("2.4TB")).toBeInTheDocument();
-    expect(canvas.getByText("1.2M")).toBeInTheDocument();
-    expect(canvas.getByText("99.98")).toBeInTheDocument();
+    expectTextContent(canvas, "2.4TB");
+    expectTextContent(canvas, "1.2M");
+    expectTextContent(canvas, "99.98");
     
     // Verify suffix
     expect(canvas.getByText("%")).toBeInTheDocument();
@@ -865,10 +878,10 @@ export const ModernVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("AI Accuracy")).toBeInTheDocument();
     
     // Verify modern variant values
-    expect(canvas.getByText("845,920")).toBeInTheDocument();
-    expect(canvas.getByText("12,847")).toBeInTheDocument();
-    expect(canvas.getByText("34.2")).toBeInTheDocument();
-    expect(canvas.getByText("97.8")).toBeInTheDocument();
+    expectTextContent(canvas, "845,920");
+    expectTextContent(canvas, "12,847");
+    expectTextContent(canvas, "34.2");
+    expectTextContent(canvas, "97.8");
     
     // Verify descriptions are shown
     expect(canvas.getByText("Revenue across all product lines")).toBeInTheDocument();
@@ -954,10 +967,10 @@ export const NeonVariant: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Success Rate")).toBeInTheDocument();
     
     // Verify neon variant values
-    expect(canvas.getByText("3,842")).toBeInTheDocument();
-    expect(canvas.getByText("4K")).toBeInTheDocument();
-    expect(canvas.getByText("12")).toBeInTheDocument();
-    expect(canvas.getByText("99.2")).toBeInTheDocument();
+    expectTextContent(canvas, "3,842");
+    expectTextContent(canvas, "4K");
+    expectTextContent(canvas, "12");
+    expectTextContent(canvas, "99.2");
     
     // Verify suffixes
     expect(canvas.getByText("ms")).toBeInTheDocument();
@@ -1035,10 +1048,10 @@ export const SaaSMetrics: Story = enhanceStoryForDualMode<StatBlockProps>({
     await new Promise(resolve => globalThis.setTimeout(resolve, 2500));
 
     // Verify SaaS metrics values
-    expect(canvas.getByText("184,250")).toBeInTheDocument();
-    expect(canvas.getByText("2.8")).toBeInTheDocument();
-    expect(canvas.getByText("4,820")).toBeInTheDocument();
-    expect(canvas.getByText("385")).toBeInTheDocument();
+    expectTextContent(canvas, "184,250");
+    expectTextContent(canvas, "2.8");
+    expectTextContent(canvas, "4,820");
+    expectTextContent(canvas, "385");
     
     // Verify descriptions are shown
     expect(canvas.getByText("Monthly Recurring Revenue")).toBeInTheDocument();
@@ -1134,12 +1147,12 @@ export const EcommerceStats: Story = enhanceStoryForDualMode<StatBlockProps>({
     await new Promise(resolve => globalThis.setTimeout(resolve, 2500));
     
     // Verify ecommerce stats values
-    expect(canvas.getByText("8,429")).toBeInTheDocument();
-    expect(canvas.getByText("68.2")).toBeInTheDocument();
-    expect(canvas.getByText("127.45")).toBeInTheDocument();
-    expect(canvas.getByText("4.2")).toBeInTheDocument();
-    expect(canvas.getByText("4.8")).toBeInTheDocument();
-    expect(canvas.getByText("34.5")).toBeInTheDocument();
+    expectTextContent(canvas, "8,429");
+    expectTextContent(canvas, "68.2");
+    expectTextContent(canvas, "127.45");
+    expectTextContent(canvas, "4.2");
+    expectTextContent(canvas, "4.8");
+    expectTextContent(canvas, "34.5");
     
     // Verify prefixes/suffixes
     expect(canvas.getByText("$")).toBeInTheDocument();
@@ -1186,10 +1199,10 @@ export const CompactStats: Story = enhanceStoryForDualMode<StatBlockProps>({
     expect(canvas.getByText("Contributors")).toBeInTheDocument();
     
     // Verify compact stats values
-    expect(canvas.getByText("125K")).toBeInTheDocument();
-    expect(canvas.getByText("8.2K")).toBeInTheDocument();
-    expect(canvas.getByText("1.8K")).toBeInTheDocument();
-    expect(canvas.getByText("342")).toBeInTheDocument();
+    expectTextContent(canvas, "125K");
+    expectTextContent(canvas, "8.2K");
+    expectTextContent(canvas, "1.8K");
+    expectTextContent(canvas, "342");
     
     // Verify icons are present
     // Skip icon verification - StatBlock uses internal icon mapping that doesn't work in SDUI mode

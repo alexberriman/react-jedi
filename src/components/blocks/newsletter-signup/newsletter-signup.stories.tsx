@@ -17,10 +17,17 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Helper function to wait for component to fully render and settle
+const waitForComponentToSettle = async () => {
+  // Give Radix UI components time to initialize and settle internal state
+  // This prevents act() warnings from internal state updates
+  await new Promise(resolve => globalThis.setTimeout(resolve, 250));
+};
+
 // Helper function to safely wait for checkbox with proper timing
 const waitForCheckbox = async (canvas: ReturnType<typeof within>) => {
-  // Give the checkbox time to initialize and settle internal state
-  await new Promise(resolve => globalThis.setTimeout(resolve, 100));
+  // First wait for component to settle
+  await waitForComponentToSettle();
   
   await waitFor(() => {
     const checkbox = canvas.getByRole("checkbox");
@@ -42,6 +49,9 @@ export const Inline = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify email input is rendered
       await waitFor(() => {
@@ -98,6 +108,9 @@ export const InlineWithBenefits = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
+      
       // Verify name field is rendered
       await waitFor(() => {
         expect(canvas.getByLabelText("Name")).toBeInTheDocument();
@@ -153,6 +166,9 @@ export const InlineWithBackground = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
+      
       // Verify title and description
       await waitFor(() => {
         expect(canvas.getByText("Never miss an update")).toBeInTheDocument();
@@ -190,6 +206,9 @@ export const InlineMinimal = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify title is rendered
       await waitFor(() => {
@@ -242,6 +261,9 @@ export const WithIncentive = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify title and description
       await waitFor(() => {
@@ -301,6 +323,9 @@ export const WithIncentiveCompact = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify title
       await waitFor(() => {
@@ -368,6 +393,9 @@ export const Modal = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
+      
       // Verify the open button is rendered
       await waitFor(() => {
         expect(canvas.getByText("Open Newsletter Modal")).toBeInTheDocument();
@@ -423,6 +451,9 @@ export const ModalWithExitIntent: Story = {
     },
   },
   play: async ({ canvasElement }) => {
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
+    
     // Wait for component to render
     await waitFor(() => {
       // Modal with exit intent might not show immediately
@@ -452,6 +483,9 @@ export const SlideInBottomRight = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Wait for slide-in to appear after delay
       await waitFor(() => {
@@ -494,6 +528,9 @@ export const SlideInTopLeft: Story = {
     layout: "fullscreen",
   },
   play: async ({ canvasElement }) => {
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
+    
     // Wait for slide-in to appear after delay
     await waitFor(() => {
       return canvasElement;
@@ -518,6 +555,9 @@ export const SlideInCenter: Story = {
     layout: "fullscreen",
   },
   play: async ({ canvasElement }) => {
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
+    
     // Wait for slide-in to appear after delay
     await waitFor(() => {
       return canvasElement;
@@ -560,6 +600,9 @@ export const FooterBar = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify page content is rendered
       await waitFor(() => {
@@ -626,6 +669,8 @@ export const BackgroundPatternDots: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
     // Wait for the checkbox to be rendered
     await waitForCheckbox(canvas);
   },
@@ -639,6 +684,8 @@ export const BackgroundPatternGrid: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
     // Wait for the checkbox to be rendered
     await waitForCheckbox(canvas);
   },
@@ -652,6 +699,8 @@ export const BackgroundPatternWaves: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
     // Wait for the checkbox to be rendered
     await waitForCheckbox(canvas);
   },
@@ -666,6 +715,9 @@ export const BackgroundPatternGradient = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify title
       await waitFor(() => {
@@ -703,6 +755,8 @@ export const WithBackgroundImage: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
     // Wait for the checkbox to be rendered
     await waitForCheckbox(canvas);
   },
@@ -719,6 +773,8 @@ export const WithNameField: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
     // Wait for the checkbox to be rendered
     await waitForCheckbox(canvas);
   },
@@ -747,6 +803,8 @@ export const CustomTexts: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
     // Wait for the checkbox to be rendered
     await waitForCheckbox(canvas);
   },
@@ -769,6 +827,8 @@ export const WithSubmissionHandler: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    // Wait for component to settle to avoid act() warnings
+    await waitForComponentToSettle();
     // Wait for the checkbox to be rendered
     await waitForCheckbox(canvas);
   },
@@ -785,6 +845,9 @@ export const NonAnimated = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify title and description
       await waitFor(() => {
@@ -833,6 +896,9 @@ export const DarkMode = enhanceStoryForDualMode(
     ],
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify title and description
       await waitFor(() => {
@@ -898,6 +964,9 @@ export const FullFeatured = enhanceStoryForDualMode(
     },
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+      
+      // Wait for component to settle to avoid act() warnings
+      await waitForComponentToSettle();
       
       // Verify title and description
       await waitFor(() => {

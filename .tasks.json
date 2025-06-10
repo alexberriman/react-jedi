@@ -117,7 +117,7 @@
       {
         "id": "fix-newsletter-signup-stories-tests",
         "description": "Investigate test issues in src/components/blocks/newsletter-signup/newsletter-signup.stories.tsx. Read the error log at ./tmp/tests/newsletter-signup.stories.log to identify any warnings or failures. May include act() warnings from form submission or validation state. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/newsletter-signup/newsletter-signup.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-page-section-stories-tests",

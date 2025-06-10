@@ -2,6 +2,7 @@
   {
     "id": "test-failures",
     "description": "Fixes storybook test failures",
+    "status": "pending",
     "subtasks": [
       {
         "id": "fix-accordion-stories-tests",

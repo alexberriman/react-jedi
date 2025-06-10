@@ -17,7 +17,7 @@
       {
         "id": "fix-blog-post-detail-stories-tests",
         "description": "Investigate test issues in src/components/blocks/blog-post-detail/blog-post-detail.stories.tsx. Read the error log at ./tmp/tests/blog-post-detail.stories.log to identify any warnings or failures. May include act() warnings or component rendering issues. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/blog-post-detail/blog-post-detail.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-box-stories-tests",

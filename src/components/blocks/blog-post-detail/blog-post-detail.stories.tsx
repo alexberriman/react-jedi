@@ -199,6 +199,10 @@ export const Default = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+
     // Wait for component to fully render and all async operations to complete
     await waitFor(async () => {
       // Test main title renders
@@ -245,6 +249,10 @@ export const WithSidebar = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+
     await waitFor(async () => {
       // Test main title renders
       expect(
@@ -279,6 +287,10 @@ export const Magazine = enhanceStoryForDualMode<typeof BlogPostDetail>({
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
     await waitFor(async () => {
       // Test main title renders
@@ -316,6 +328,10 @@ export const Minimal = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+
     await waitFor(async () => {
       // Test main title renders
       expect(
@@ -348,6 +364,10 @@ export const WithoutHeroImage = enhanceStoryForDualMode<typeof BlogPostDetail>({
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+
     await waitFor(async () => {
       // Test main title renders
       expect(
@@ -374,6 +394,10 @@ export const WithoutRelatedPosts = enhanceStoryForDualMode<typeof BlogPostDetail
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
     await waitFor(async () => {
       // Test main title renders
@@ -402,6 +426,10 @@ export const WithoutNavigation = enhanceStoryForDualMode<typeof BlogPostDetail>(
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
     await waitFor(async () => {
       // Test main title renders
@@ -432,6 +460,10 @@ export const NoAnimations = enhanceStoryForDualMode<typeof BlogPostDetail>({
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
     await waitFor(async () => {
       // Test main title renders
@@ -466,6 +498,10 @@ export const MinimalFeatures = enhanceStoryForDualMode<typeof BlogPostDetail>({
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
     await waitFor(async () => {
       // Test main title renders
@@ -638,6 +674,10 @@ We've implemented a basic authentication system in Next.js. Remember to adapt th
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    // Add a delay to ensure all async operations complete, including avatar image loading
+    // This prevents act() warnings from Radix UI Avatar component
+    await new Promise(resolve => globalThis.setTimeout(resolve, 500));
 
     await waitFor(async () => {
       // Test main title renders

@@ -315,3 +315,7 @@ export function TypewriterText({ spec }: TypewriterTextProps) {
     </motion.div>
   );
 }
+
+// Export alias with "Block" suffix for component resolver compatibility
+export const TypewriterTextBlock = TypewriterText;
+(TypewriterTextBlock as React.FC).displayName = "TypewriterTextBlock";

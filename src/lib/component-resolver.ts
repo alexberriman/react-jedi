@@ -1051,11 +1051,11 @@ const getDefaultComponentRegistry = (): Record<string, ComponentType> => {
       { photos: [] } // Provide default required props
     ),
     TypewriterText: asComponent(
-      Blocks.TypewriterText as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.TypewriterTextBlock as unknown as React.ComponentType<Record<string, unknown>>,
       { texts: "Hello World" } // Provide default required props
     ),
     "typewriter-text": asComponent(
-      Blocks.TypewriterText as unknown as React.ComponentType<Record<string, unknown>>,
+      Blocks.TypewriterTextBlock as unknown as React.ComponentType<Record<string, unknown>>,
       { texts: "Hello World" } // Provide default required props
     ),
     ProcessSteps: asComponent(

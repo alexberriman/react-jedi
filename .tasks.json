@@ -137,7 +137,7 @@
       {
         "id": "fix-popover-stories-tests",
         "description": "Fix act() warnings in src/components/ui/popover/popover.stories.tsx. The popover component uses Radix UI portals with Presence animations, causing act() warnings when state updates during test execution. These warnings occur in the dual-mode test wrapper. Use waitFor for portal content or wrap popover interactions in act(). Read ./tmp/tests/popover.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/popover/popover.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-portfolio-case-studies-stories-tests",

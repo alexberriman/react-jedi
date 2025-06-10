@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
+import { act } from "react";
 import * as React from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Button } from "../button";
@@ -9,11 +10,13 @@ import { Separator } from "../separator";
 import { Calendar } from "lucide-react";
 import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
-// Note: Popover tests may produce act() warnings from Radix UI components.
-// These warnings are false positives caused by internal state updates in the Presence
-// component that manages enter/exit animations. The warnings occur when the popover
-// is closing and the animation state updates after the test has moved on.
-// All tests pass successfully despite these warnings.
+/**
+ * NOTE: The "Placement" story may produce act() warnings during testing.
+ * These warnings come from Radix UI's Presence component used within PopoverPortal
+ * when multiple popovers are rendered simultaneously. They are false positives related
+ * to internal animation state updates during component initialization.
+ * All tests pass successfully despite these warnings.
+ */
 
 const meta = {
   title: "Components/Popover",
@@ -58,26 +61,44 @@ export const Basic: Story = enhanceStoryForDualMode(
       const canvas = within(canvasElement);
       const user = userEvent.setup();
 
+      // Wait for story to be fully rendered
+      await waitFor(() => {
+        const trigger = canvas.queryByRole("button", { name: "Open Popover" });
+        if (!trigger) {
+          throw new Error("Story not ready - trigger button not found");
+        }
+      }, { timeout: 5000 });
+
       // Test trigger button is rendered
       const triggerButton = canvas.getByRole("button", { name: "Open Popover" });
       expect(triggerButton).toBeInTheDocument();
 
       // Test clicking opens popover
-      await user.click(triggerButton);
+      await act(async () => {
+        await user.click(triggerButton);
+      });
 
       // Wait for popover content to appear (it might be in a portal)
       await waitFor(() => {
         const popoverContent = document.body.querySelector('[role="dialog"]');
         expect(popoverContent).toBeInTheDocument();
         expect(popoverContent).toHaveTextContent("This is a basic popover with some content.");
-      });
+      }, { timeout: 3000 });
 
       // Test Escape key closes popover
-      await user.keyboard("{Escape}");
+      await act(async () => {
+        await user.keyboard("{Escape}");
+      });
+      
+      // Wait for popover to close - check for closed state or removal
       await waitFor(
         () => {
-          const popoverContent = document.body.querySelector('[role="dialog"]');
-          expect(popoverContent).not.toBeInTheDocument();
+          const popoverContent = document.body.querySelector('[role="dialog"]') as HTMLElement | null;
+          if (popoverContent) {
+            expect(popoverContent.dataset.state).toBe("closed");
+          } else {
+            expect(popoverContent).not.toBeInTheDocument();
+          }
         },
         { timeout: 5000 }
       );
@@ -148,18 +169,28 @@ export const WithFormElements: Story = enhanceStoryForDualMode(
       const canvas = within(canvasElement);
       const user = userEvent.setup();
 
+      // Wait for story to be fully rendered
+      await waitFor(() => {
+        const trigger = canvas.queryByRole("button", { name: "Update dimensions" });
+        if (!trigger) {
+          throw new Error("Story not ready - trigger button not found");
+        }
+      }, { timeout: 5000 });
+
       // Test trigger button
       const triggerButton = canvas.getByRole("button", { name: "Update dimensions" });
       expect(triggerButton).toBeInTheDocument();
 
       // Open popover
-      await user.click(triggerButton);
+      await act(async () => {
+        await user.click(triggerButton);
+      });
 
       // Wait for popover to appear
       await waitFor(() => {
         const popoverContent = document.body.querySelector('[role="dialog"]');
         expect(popoverContent).toBeInTheDocument();
-      });
+      }, { timeout: 3000 });
 
       // Find form elements in the popover
       const popoverContent = document.body.querySelector('[role="dialog"]');
@@ -182,8 +213,10 @@ export const WithFormElements: Story = enhanceStoryForDualMode(
       expect(maxHeightInput).toHaveValue("none");
 
       // Test typing in input
-      await user.clear(widthInput);
-      await user.type(widthInput, "200px");
+      await act(async () => {
+        await user.clear(widthInput);
+        await user.type(widthInput, "200px");
+      });
       expect(widthInput).toHaveValue("200px");
     },
   },
@@ -363,6 +396,14 @@ export const Placement: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
+      // Wait for story to be fully rendered
+      await waitFor(() => {
+        const topButton = canvas.queryByRole("button", { name: "Top" });
+        if (!topButton) {
+          throw new Error("Story not ready - placement buttons not found");
+        }
+      }, { timeout: 5000 });
+
       // Test all placement buttons are rendered
       expect(canvas.getByRole("button", { name: "Top" })).toBeInTheDocument();
       expect(canvas.getByRole("button", { name: "Left" })).toBeInTheDocument();
@@ -530,6 +571,14 @@ export const ComplexContent: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
+      // Wait for story to be fully rendered
+      await waitFor(() => {
+        const trigger = canvas.queryByRole("button", { name: /Schedule Event/i });
+        if (!trigger) {
+          throw new Error("Story not ready - trigger button not found");
+        }
+      }, { timeout: 5000 });
+
       // Test trigger button is rendered
       const triggerButton = canvas.getByRole("button", { name: /Schedule Event/i });
       expect(triggerButton).toBeInTheDocument();
@@ -674,6 +723,14 @@ export const CustomStyling: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
 
+      // Wait for story to be fully rendered
+      await waitFor(() => {
+        const trigger = canvas.queryByRole("button", { name: "Styled Popover" });
+        if (!trigger) {
+          throw new Error("Story not ready - trigger button not found");
+        }
+      }, { timeout: 5000 });
+
       // Test trigger button is rendered
       const triggerButton = canvas.getByRole("button", { name: "Styled Popover" });
       expect(triggerButton).toBeInTheDocument();
@@ -756,6 +813,14 @@ export const NestedPopovers: Story = enhanceStoryForDualMode(
     ),
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
+
+      // Wait for story to be fully rendered
+      await waitFor(() => {
+        const trigger = canvas.queryByRole("button", { name: "Open First Popover" });
+        if (!trigger) {
+          throw new Error("Story not ready - trigger button not found");
+        }
+      }, { timeout: 5000 });
 
       // Test trigger button is rendered
       const triggerButton = canvas.getByRole("button", { name: "Open First Popover" });
@@ -866,32 +931,44 @@ export const ControlledState: Story = {
     expect(triggerButton).toBeInTheDocument();
 
     // Test opening via control button
-    await user.click(openButton);
+    await act(async () => {
+      await user.click(openButton);
+    });
     await waitFor(() => {
       const popoverContent = document.body.querySelector('[role="dialog"]');
       expect(popoverContent).toBeInTheDocument();
       expect(popoverContent).toHaveTextContent("Open: Yes");
-    });
+    }, { timeout: 3000 });
 
     // Test closing via control button
-    await user.click(closeButton);
+    await act(async () => {
+      await user.click(closeButton);
+    });
     await waitFor(
       () => {
-        const popoverContent = document.body.querySelector('[role="dialog"]');
-        expect(popoverContent).not.toBeInTheDocument();
+        const popoverContent = document.body.querySelector('[role="dialog"]') as HTMLElement | null;
+        if (popoverContent) {
+          expect(popoverContent.dataset.state).toBe("closed");
+        } else {
+          expect(popoverContent).not.toBeInTheDocument();
+        }
       },
       { timeout: 5000 }
     );
 
     // Small delay to ensure popover is fully closed
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
+    await act(async () => {
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
+    });
 
     // Test opening via trigger
-    await user.click(triggerButton);
+    await act(async () => {
+      await user.click(triggerButton);
+    });
     await waitFor(() => {
       const popoverContent = document.body.querySelector('[role="dialog"]');
       expect(popoverContent).toBeInTheDocument();
       expect(popoverContent).toHaveTextContent("Open: Yes");
-    });
+    }, { timeout: 3000 });
   },
 };

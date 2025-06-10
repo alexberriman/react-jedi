@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, within } from "storybook/test";
+import { expect, waitFor, within } from "storybook/test";
 import { Map } from "./map";
 import { enhanceStoryForDualMode } from "../../../../.storybook/utils/enhance-story";
 
@@ -131,14 +131,11 @@ export const Default: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
-      
-      // Verify map container is present (check for map wrapper)
-      const mapWrapper = canvasElement.querySelector('[data-testid="map-wrapper"], .relative');
-      if (mapWrapper) {
+      // Wait for map container to render instead of fixed timeout
+      await waitFor(() => {
+        const mapWrapper = canvasElement.querySelector('[data-testid="map-wrapper"], .relative');
         expect(mapWrapper).toBeInTheDocument();
-      }
+      }, { timeout: 10000 });
       
       // Verify zoom controls are rendered
       try {
@@ -179,12 +176,11 @@ export const FlatStyle: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
-      
-      // Verify search bar is present
-      const searchInput = canvas.getByPlaceholderText('Search locations...');
-      expect(searchInput).toBeInTheDocument();
+      // Wait for search input to be available instead of fixed timeout
+      await waitFor(() => {
+        const searchInput = canvas.getByPlaceholderText('Search locations...');
+        expect(searchInput).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify zoom controls
       expect(canvas.getByLabelText('Zoom in')).toBeInTheDocument();
@@ -228,11 +224,10 @@ export const StreetStyle: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
-      
-      // Verify map type control is present
-      expect(canvas.getByLabelText('Toggle map type')).toBeInTheDocument();
+      // Wait for map type control to be available
+      await waitFor(() => {
+        expect(canvas.getByLabelText('Toggle map type')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify other controls
       expect(canvas.getByLabelText('Zoom in')).toBeInTheDocument();
@@ -270,11 +265,10 @@ export const SatelliteStyle: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
-      
-      // Verify map type control
-      expect(canvas.getByLabelText('Toggle map type')).toBeInTheDocument();
+      // Wait for map type control to be available
+      await waitFor(() => {
+        expect(canvas.getByLabelText('Toggle map type')).toBeInTheDocument();
+      }, { timeout: 10000 });
     },
   },
   {
@@ -310,11 +304,12 @@ export const WithSidebar: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for content to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for title to be available
+      await waitFor(() => {
+        expect(canvas.getByText('Our Locations')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify title and description
-      expect(canvas.getByText('Our Locations')).toBeInTheDocument();
       expect(canvas.getByText('Find the nearest office location to you')).toBeInTheDocument();
       
       // Verify contact info
@@ -330,8 +325,10 @@ export const WithSidebar: Story = enhanceStoryForDualMode(
       expect(canvas.getByText('Brooklyn Branch')).toBeInTheDocument();
       expect(canvas.getByText('Queens Location')).toBeInTheDocument();
       
-      // Verify search
-      expect(canvas.getByPlaceholderText('Search locations...')).toBeInTheDocument();
+      // Wait for search input to be available (it's rendered inside MapContainer)
+      await waitFor(() => {
+        expect(canvas.getByPlaceholderText('Search locations...')).toBeInTheDocument();
+      }, { timeout: 10000 });
     },
   },
   {
@@ -366,8 +363,11 @@ export const Minimal: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for map container to be available, but verify no controls
+      await waitFor(() => {
+        const mapWrapper = canvasElement.querySelector('.relative');
+        expect(mapWrapper).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // For minimal variant, we mainly verify that controls are NOT present
       // This is a minimal map with no controls
@@ -421,11 +421,12 @@ export const MultiLocation: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for content to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for location cards to render
+      await waitFor(() => {
+        expect(canvas.getByText('New York Office')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify location cards are shown below map
-      expect(canvas.getByText('New York Office')).toBeInTheDocument();
       expect(canvas.getByText('Brooklyn Branch')).toBeInTheDocument();
       expect(canvas.getByText('Queens Location')).toBeInTheDocument();
       
@@ -437,8 +438,11 @@ export const MultiLocation: Story = enhanceStoryForDualMode(
       const directionsButtons = canvas.getAllByText('Get Directions');
       expect(directionsButtons.length).toBeGreaterThanOrEqual(3);
       
-      // Verify controls
-      expect(canvas.getByPlaceholderText('Search locations...')).toBeInTheDocument();
+      // Wait for map to load and search input to be available (it's rendered inside MapContainer)
+      await waitFor(() => {
+        expect(canvas.getByPlaceholderText('Search locations...')).toBeInTheDocument();
+      }, { timeout: 15000 }); // Longer timeout for map initialization
+      
       expect(canvas.getByLabelText('Toggle map type')).toBeInTheDocument();
     },
   },
@@ -472,17 +476,16 @@ export const WithCustomStyling: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for map type control to be available
+      await waitFor(() => {
+        expect(canvas.getByLabelText('Toggle map type')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify custom styling is applied to wrapper
       const mapWrapper = canvasElement.querySelector('.rounded-xl.shadow-2xl');
       if (mapWrapper) {
         expect(mapWrapper).toBeInTheDocument();
       }
-      
-      // Verify controls
-      expect(canvas.getByLabelText('Toggle map type')).toBeInTheDocument();
     },
   },
   {
@@ -547,12 +550,13 @@ export const RestaurantLocations: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for content to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
+      // Wait for location content to render
+      await waitFor(() => {
+        expect(canvas.getByText('Times Square Location')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Just verify the main location names are present
       // Categories might appear in different ways depending on the mode
-      expect(canvas.getByText('Times Square Location')).toBeInTheDocument();
       expect(canvas.getByText('Central Park South')).toBeInTheDocument();
       expect(canvas.getByText('Greenwich Village')).toBeInTheDocument();
     },
@@ -619,11 +623,12 @@ export const StoreLocator: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for content to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for title to be available
+      await waitFor(() => {
+        expect(canvas.getByText('Find a Store')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify title and description
-      expect(canvas.getByText('Find a Store')).toBeInTheDocument();
       expect(canvas.getByText('Locate your nearest store and check opening hours')).toBeInTheDocument();
       
       // Verify store locations in sidebar
@@ -636,8 +641,11 @@ export const StoreLocator: Story = enhanceStoryForDualMode(
       expect(canvas.getByText('Regular Store')).toBeInTheDocument();
       expect(canvas.getByText('Outlet Store')).toBeInTheDocument();
       
-      // Verify controls
-      expect(canvas.getByPlaceholderText('Search locations...')).toBeInTheDocument();
+      // Wait for search input to be available (it's rendered inside MapContainer)
+      await waitFor(() => {
+        expect(canvas.getByPlaceholderText('Search locations...')).toBeInTheDocument();
+      }, { timeout: 10000 });
+      
       expect(canvas.getByLabelText('View fullscreen')).toBeInTheDocument();
     },
   },
@@ -676,15 +684,14 @@ export const SingleLocationMinimal: Story = enhanceStoryForDualMode(
       mapStyle: "flat",
     },
     play: async ({ canvasElement }) => {
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for map container to be available
+      await waitFor(() => {
+        const mapWrapper = canvasElement.querySelector('.relative');
+        expect(mapWrapper).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // For minimal variant, just verify the map renders
       // We can't reliably test leaflet-specific elements in test environment
-      const mapWrapper = canvasElement.querySelector('.relative');
-      if (mapWrapper) {
-        expect(mapWrapper).toBeInTheDocument();
-      }
     },
   },
   {
@@ -739,11 +746,10 @@ export const EventVenue: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
-      
-      // Verify fullscreen button is present
-      expect(canvas.getByLabelText('View fullscreen')).toBeInTheDocument();
+      // Wait for fullscreen button to be available
+      await waitFor(() => {
+        expect(canvas.getByLabelText('View fullscreen')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify no map type controls
       try {
@@ -787,8 +793,11 @@ export const NoControls: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for map container to be available
+      await waitFor(() => {
+        const mapWrapper = canvasElement.querySelector('.relative');
+        expect(mapWrapper).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify no controls are present
       const searchInput = canvasElement.querySelector('input[placeholder*="Search"]');
@@ -864,11 +873,12 @@ export const MarkerTypes: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for zoom controls to be available
+      await waitFor(() => {
+        expect(canvas.getByLabelText('Zoom in')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify zoom controls
-      expect(canvas.getByLabelText('Zoom in')).toBeInTheDocument();
       expect(canvas.getByLabelText('Zoom out')).toBeInTheDocument();
     },
   },
@@ -907,11 +917,12 @@ export const WithScrollZoom: Story = enhanceStoryForDualMode(
     play: async ({ canvasElement }) => {
       const canvas = within(canvasElement);
       
-      // Wait for map to render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 500));
+      // Wait for zoom controls to be available
+      await waitFor(() => {
+        expect(canvas.getByLabelText('Zoom in')).toBeInTheDocument();
+      }, { timeout: 10000 });
       
       // Verify controls
-      expect(canvas.getByLabelText('Zoom in')).toBeInTheDocument();
       expect(canvas.getByLabelText('Toggle map type')).toBeInTheDocument();
       
       // Note: Can't easily test scroll zoom behavior in unit tests
@@ -957,12 +968,11 @@ export const LoadingState: Story = enhanceStoryForDualMode(
       expect(canvas.getByText('Map component with loading skeleton')).toBeInTheDocument();
       
       // The map will show loading state briefly, then render
-      // Wait for map to fully render
-      await new Promise(resolve => globalThis.setTimeout(resolve, 1000));
-      
-      // Verify map container eventually appears
-      const mapContainer = canvasElement.querySelector('.leaflet-container');
-      expect(mapContainer).toBeInTheDocument();
+      // Wait for map container to be available
+      await waitFor(() => {
+        const mapContainer = canvasElement.querySelector('.leaflet-container');
+        expect(mapContainer).toBeInTheDocument();
+      }, { timeout: 15000 }); // Longer timeout for loading state
     },
   },
   {

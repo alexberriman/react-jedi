@@ -461,7 +461,9 @@ export const ClientSpotlight: Story = enhanceStoryForDualMode({
     // Test that testimonials are rendered
     const firstTestimonial = projectsWithTestimonial[0].testimonial?.content;
     if (firstTestimonial) {
-      expect(canvas.getByText(firstTestimonial)).toBeInTheDocument();
+      // Look for partial text since the component adds quotes
+      const testimonialElement = canvas.getByText(/The team delivered beyond our expectations/i);
+      expect(testimonialElement).toBeInTheDocument();
     }
     
     // Test that Read More buttons are rendered

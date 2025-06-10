@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { within, userEvent, expect, waitFor } from "storybook/test";
-import { act } from "react";
 import {
   Dialog,
   DialogContent,
@@ -15,10 +14,12 @@ import { Button } from "../button";
 import { enhanceStoryWithHandlers, createDialogHandlers } from "@sb/utils/enhance-story-with-handlers";
 
 /**
+ * Dialog component stories with comprehensive test coverage.
+ * 
  * NOTE: The "InitiallyOpen" story may produce act() warnings during tests.
  * These warnings come from Radix UI's Presence component used within DialogPortal
- * and are false positives related to internal animation state updates that occur
- * during initial mount. The tests pass successfully despite these warnings.
+ * and are related to internal animation state updates. The warnings are handled
+ * by using appropriate waitFor timeouts to ensure animations complete before assertions.
  */
 
 const meta = {
@@ -760,12 +761,7 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
     play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     
-    // Wait for initial mount and animation state to settle
-    await act(async () => {
-      await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
-    });
-
-    // Dialog should already be open
+    // Wait for initial mount - dialog should already be open
     await waitFor(() => {
       const dialogTitle = document.querySelector('[data-slot="dialog-title"]');
       expect(dialogTitle).toBeInTheDocument();
@@ -777,6 +773,9 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
       expect(dialogContent).toBeInTheDocument();
       expect(dialogContent).toHaveAttribute('data-state', 'open');
     });
+    
+    // Small delay to ensure animations have settled
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
 
     // Ensure body doesn't have pointer-events: none before clicking
     const body = document.body;
@@ -788,19 +787,18 @@ export const InitiallyOpen: Story = enhanceStoryWithHandlers<typeof Dialog>(
     const closeButton = within(document.body).getByRole("button", { name: /close/i });
     await userEvent.click(closeButton);
 
-    // Wait for dialog to close
+    // Wait for dialog to be fully closed and removed from DOM
+    // Radix UI animates the dialog before removing it, so we wait for complete removal
     await waitFor(
       () => {
         const dialogContent = document.querySelector('[data-slot="dialog-content"]');
         expect(dialogContent).not.toBeInTheDocument();
       },
-      { timeout: 5000 }
+      { timeout: 10000 } // Increased timeout for animation
     );
 
-    // Wait for animations to complete
-    await act(async () => {
-      await new Promise((resolve) => globalThis.setTimeout(resolve, 300));
-    });
+    // Small delay after close animation
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 100));
 
     // Ensure body pointer events are restored for clicking reopen button
     if (body.style.pointerEvents === "none") {

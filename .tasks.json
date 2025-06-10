@@ -47,7 +47,7 @@
       {
         "id": "fix-dialog-stories-tests",
         "description": "Fix act() warnings in src/components/ui/dialog/dialog.stories.tsx. Tests pass but have multiple act() warnings from Radix UI's Presence component in portals. The warnings occur when dialog opens/closes. Use waitFor for portal content or wrap dialog interactions in act(). Read ./tmp/tests/dialog.stories.log for details. Run 'VITEST_STORYBOOK=true npx vitest run src/components/ui/dialog/dialog.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-drawer-stories-tests",

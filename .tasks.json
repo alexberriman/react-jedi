@@ -97,7 +97,7 @@
       {
         "id": "fix-location-hours-stories-tests",
         "description": "Fix test issues in src/components/blocks/location-hours/location-hours.stories.tsx. Read the error log at ./tmp/tests/location-hours.stories.log. If there are act() warnings, wrap state updates in act() or use waitFor/findBy queries. If SDUI view is not loading, ensure the component is properly registered and the render() function handles the location-hours spec correctly. Do not disable any tests. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/location-hours/location-hours.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-map-stories-tests",

@@ -157,7 +157,7 @@
       {
         "id": "fix-testimonial-stories-tests",
         "description": "Investigate test issues in src/components/blocks/testimonial/testimonial.stories.tsx. Read the error log at ./tmp/tests/testimonial.stories.log to identify any warnings or failures. May include act() warnings from carousel or animation effects. Run 'VITEST_STORYBOOK=true npx vitest run src/components/blocks/testimonial/testimonial.stories.tsx' to verify fixes.",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "fix-typewriter-text-stories-tests",

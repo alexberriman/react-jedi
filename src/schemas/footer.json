@@ -1,0 +1,251 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "footer"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the footer component"
+    },
+    "companyInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Company name"
+        },
+        "logo": {
+          "$ref": "#/definitions/componentSpecification",
+          "description": "Company logo component"
+        },
+        "description": {
+          "type": "string",
+          "description": "Company description"
+        },
+        "tagline": {
+          "type": "string",
+          "description": "Company tagline"
+        },
+        "established": {
+          "type": "string",
+          "description": "Year established"
+        },
+        "registration": {
+          "type": "string",
+          "description": "Registration number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Section title"
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "description": "Link text"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Link URL"
+                },
+                "external": {
+                  "type": "boolean",
+                  "description": "Open in new tab"
+                },
+                "icon": {
+                  "$ref": "#/definitions/componentSpecification",
+                  "description": "Link icon"
+                }
+              },
+              "required": ["label", "href"]
+            }
+          }
+        },
+        "required": ["title", "links"]
+      },
+      "description": "Footer navigation sections"
+    },
+    "socialLinks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": ["facebook", "twitter", "instagram", "linkedin", "youtube", "github", "tiktok", "pinterest", "discord", "whatsapp", "telegram", "reddit"],
+            "description": "Social media platform"
+          },
+          "href": {
+            "type": "string",
+            "description": "Social media profile URL"
+          },
+          "label": {
+            "type": "string",
+            "description": "Accessible label"
+          }
+        },
+        "required": ["platform", "href"]
+      },
+      "description": "Social media links"
+    },
+    "contactInfo": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Contact email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone"
+        },
+        "address": {
+          "type": "string",
+          "description": "Physical address"
+        },
+        "hours": {
+          "type": "string",
+          "description": "Business hours"
+        },
+        "mapUrl": {
+          "type": "string",
+          "description": "Map link URL"
+        }
+      },
+      "additionalProperties": false
+    },
+    "newsletter": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Newsletter section title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Newsletter description"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Input placeholder text"
+        },
+        "buttonText": {
+          "type": "string",
+          "description": "Submit button text"
+        },
+        "successMessage": {
+          "type": "string",
+          "description": "Success message"
+        },
+        "termsText": {
+          "type": "string",
+          "description": "Terms text"
+        },
+        "termsLink": {
+          "type": "string",
+          "description": "Terms link URL"
+        },
+        "onSubmit": {
+          "type": "string",
+          "description": "Submit handler function"
+        }
+      },
+      "additionalProperties": false
+    },
+    "copyright": {
+      "type": "string",
+      "description": "Copyright text"
+    },
+    "legalLinks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Link text"
+          },
+          "href": {
+            "type": "string",
+            "description": "Link URL"
+          },
+          "external": {
+            "type": "boolean",
+            "description": "Open in new tab"
+          }
+        },
+        "required": ["label", "href"]
+      },
+      "description": "Legal links (privacy, terms, etc.)"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "light", "dark", "gradient", "minimal", "brand"],
+      "default": "default",
+      "description": "Visual variant"
+    },
+    "size": {
+      "type": "string",
+      "enum": ["minimal", "sm", "default", "lg", "expanded"],
+      "default": "default",
+      "description": "Footer size"
+    },
+    "layout": {
+      "type": "string",
+      "enum": ["minimal", "standard", "expanded", "centered", "columns-2", "columns-3", "columns-4", "columns-5", "columns-6"],
+      "default": "standard",
+      "description": "Layout variant"
+    },
+    "showDivider": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show divider before copyright section"
+    },
+    "columnGap": {
+      "type": "string",
+      "enum": ["tight", "normal", "wide"],
+      "default": "normal",
+      "description": "Gap between columns"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "description": "Custom background color"
+    },
+    "backgroundImage": {
+      "type": "string",
+      "description": "Background image URL"
+    },
+    "containerWidth": {
+      "type": "string",
+      "enum": ["default", "wide", "full"],
+      "default": "default",
+      "description": "Container width"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/componentSpecification"
+      },
+      "description": "Additional child components"
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": false
+}

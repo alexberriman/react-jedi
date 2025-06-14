@@ -1,0 +1,230 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "JobListings"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the job listings component"
+    },
+    "jobs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique job identifier"
+          },
+          "title": {
+            "type": "string",
+            "description": "Job title"
+          },
+          "department": {
+            "type": "string",
+            "description": "Department name"
+          },
+          "location": {
+            "type": "string",
+            "description": "Job location"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["full-time", "part-time", "contract", "internship", "remote"],
+            "description": "Employment type"
+          },
+          "salaryRange": {
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "number",
+                "description": "Minimum salary"
+              },
+              "max": {
+                "type": "number",
+                "description": "Maximum salary"
+              },
+              "currency": {
+                "type": "string",
+                "default": "$",
+                "description": "Currency symbol"
+              },
+              "period": {
+                "type": "string",
+                "enum": ["yearly", "monthly", "hourly"],
+                "default": "yearly",
+                "description": "Salary period"
+              }
+            },
+            "required": ["min", "max"]
+          },
+          "description": {
+            "type": "string",
+            "description": "Job description"
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Job requirements"
+          },
+          "responsibilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Job responsibilities"
+          },
+          "benefits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Job benefits"
+          },
+          "posted": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date posted"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Application deadline"
+          },
+          "featured": {
+            "type": "boolean",
+            "description": "Is featured job"
+          },
+          "urgent": {
+            "type": "boolean",
+            "description": "Is urgent hiring"
+          },
+          "experienceLevel": {
+            "type": "string",
+            "enum": ["entry", "mid", "senior", "lead"],
+            "description": "Experience level required"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "Company name"
+          },
+          "companyLogo": {
+            "type": "string",
+            "description": "Company logo URL"
+          },
+          "applyUrl": {
+            "type": "string",
+            "description": "Application URL"
+          }
+        },
+        "required": ["id", "title", "department", "location", "type", "description", "posted"]
+      },
+      "description": "Array of job listings"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["grid", "list", "featured", "departments", "minimal"],
+      "default": "grid",
+      "description": "Display variant"
+    },
+    "columns": {
+      "type": "string",
+      "enum": ["1", "2", "3", "4", "auto"],
+      "default": "3",
+      "description": "Number of columns in grid layout"
+    },
+    "gap": {
+      "type": "string",
+      "enum": ["sm", "md", "lg", "xl"],
+      "default": "md",
+      "description": "Gap between items"
+    },
+    "showFilters": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show filter options"
+    },
+    "showSearch": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show search input"
+    },
+    "showDetailModal": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show job details in modal"
+    },
+    "showSalary": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show salary information"
+    },
+    "showRequirements": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show requirements in card"
+    },
+    "departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Available departments for filtering"
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Available locations for filtering"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable animations"
+    },
+    "staggerDelay": {
+      "type": "number",
+      "default": 0.1,
+      "description": "Animation stagger delay"
+    },
+    "hoverEffect": {
+      "type": "string",
+      "enum": ["none", "lift", "glow", "scale"],
+      "default": "lift",
+      "description": "Hover effect style"
+    },
+    "alignment": {
+      "type": "string",
+      "enum": ["left", "center", "right"],
+      "default": "left",
+      "description": "Text alignment"
+    },
+    "maxDescriptionLength": {
+      "type": "number",
+      "default": 150,
+      "description": "Maximum description length in characters"
+    },
+    "onApply": {
+      "type": "string",
+      "description": "Apply button click handler"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/componentSpecification"
+      },
+      "description": "Additional child components"
+    }
+  },
+  "required": ["type", "jobs"],
+  "additionalProperties": false
+}

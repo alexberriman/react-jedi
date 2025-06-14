@@ -1,0 +1,94 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "SocialShareBar"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the social share bar component"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL to share. Defaults to current page URL"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title/text to share"
+    },
+    "description": {
+      "type": "string",
+      "description": "Additional description for the share"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["horizontal", "vertical", "floating", "modal", "minimal"],
+      "default": "horizontal",
+      "description": "The variant of the share bar"
+    },
+    "position": {
+      "type": "string",
+      "enum": ["top-left", "top-right", "bottom-left", "bottom-right", "center-left", "center-right"],
+      "default": "bottom-right",
+      "description": "Position when using floating variant"
+    },
+    "showCounts": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to show share counts (requires API integration)"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to animate the component"
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["twitter", "facebook", "linkedin", "reddit", "email", "copy"]
+      },
+      "default": ["twitter", "facebook", "linkedin", "reddit", "email", "copy"],
+      "description": "Platforms to include in the share bar"
+    },
+    "sticky": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the floating variant should be sticky"
+    },
+    "onShare": {
+      "type": "string",
+      "description": "Callback when a platform is shared"
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      },
+      "description": "Custom share counts object"
+    },
+    "size": {
+      "type": "string",
+      "enum": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Size of the share buttons"
+    },
+    "showLabels": {
+      "type": "boolean",
+      "description": "Whether to show labels with icons (defaults to true for horizontal)"
+    },
+    "colorScheme": {
+      "type": "string",
+      "enum": ["default", "brand", "monochrome", "gradient"],
+      "default": "default",
+      "description": "Custom color scheme"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": false
+}

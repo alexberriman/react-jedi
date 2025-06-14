@@ -1,0 +1,294 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Carousel"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the carousel component"
+    },
+    "children": {
+      "$ref": "#/definitions/componentChildren",
+      "description": "Direct child content for default carousel"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/componentChildren"
+      },
+      "description": "Array of items to display in the carousel"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "loop": {
+          "type": "boolean",
+          "description": "Whether the carousel loops back to start"
+        },
+        "align": {
+          "type": "string",
+          "enum": ["start", "center", "end"],
+          "description": "Alignment of carousel items"
+        },
+        "slidesToScroll": {
+          "type": "number",
+          "description": "Number of slides to scroll at once"
+        },
+        "dragFree": {
+          "type": "boolean",
+          "description": "Allow free dragging"
+        },
+        "containScroll": {
+          "type": "string",
+          "enum": ["trimSnaps", "keepSnaps"],
+          "description": "Scroll containment behavior"
+        }
+      },
+      "additionalProperties": false
+    },
+    "orientation": {
+      "type": "string",
+      "enum": ["horizontal", "vertical"],
+      "default": "horizontal",
+      "description": "Carousel orientation"
+    },
+    "showArrows": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show navigation arrows"
+    },
+    "showDots": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show dot indicators"
+    },
+    "showThumbnails": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show thumbnail navigation"
+    },
+    "autoplay": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable autoplay"
+        },
+        "delay": {
+          "type": "number",
+          "description": "Delay between slides in milliseconds"
+        },
+        "stopOnInteraction": {
+          "type": "boolean",
+          "description": "Stop autoplay on user interaction"
+        },
+        "stopOnMouseEnter": {
+          "type": "boolean",
+          "description": "Pause autoplay on mouse hover"
+        }
+      },
+      "additionalProperties": false
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "gallery", "content", "testimonials", "showcase", "fullscreen"],
+      "default": "default",
+      "description": "Carousel variant style"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable animations"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "src": {
+                "type": "string",
+                "description": "Image source URL"
+              },
+              "alt": {
+                "type": "string",
+                "description": "Alt text for image"
+              },
+              "title": {
+                "type": "string",
+                "description": "Image title"
+              },
+              "description": {
+                "type": "string",
+                "description": "Image description"
+              }
+            },
+            "required": ["src"]
+          },
+          "description": "Images for gallery variant"
+        },
+        "enableKenBurns": {
+          "type": "boolean",
+          "description": "Enable Ken Burns effect on images"
+        },
+        "enableZoom": {
+          "type": "boolean",
+          "description": "Enable click to zoom on images"
+        },
+        "showThumbnails": {
+          "type": "boolean",
+          "description": "Show thumbnails for gallery variant"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Item title"
+              },
+              "description": {
+                "type": "string",
+                "description": "Item description"
+              },
+              "image": {
+                "type": "string",
+                "description": "Item image URL"
+              },
+              "badge": {
+                "type": "string",
+                "description": "Badge text"
+              },
+              "cta": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "CTA button text"
+                  },
+                  "href": {
+                    "type": "string",
+                    "description": "CTA link URL"
+                  },
+                  "action": {
+                    "type": "string",
+                    "description": "CTA action"
+                  }
+                },
+                "required": ["text"]
+              }
+            },
+            "required": ["title"]
+          },
+          "description": "Content items for content variant"
+        },
+        "testimonials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string",
+                "description": "Testimonial content"
+              },
+              "author": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Author name"
+                  },
+                  "role": {
+                    "type": "string",
+                    "description": "Author role"
+                  },
+                  "company": {
+                    "type": "string",
+                    "description": "Author company"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Author image URL"
+                  }
+                },
+                "required": ["name"]
+              },
+              "rating": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 5,
+                "description": "Star rating"
+              }
+            },
+            "required": ["content", "author"]
+          },
+          "description": "Testimonials for testimonials variant"
+        },
+        "testimonialsVariant": {
+          "type": "string",
+          "enum": ["cards", "quotes"],
+          "description": "Testimonial display style"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Product name"
+              },
+              "price": {
+                "type": "string",
+                "description": "Product price"
+              },
+              "originalPrice": {
+                "type": "string",
+                "description": "Original price (for sale items)"
+              },
+              "image": {
+                "type": "string",
+                "description": "Product image URL"
+              },
+              "description": {
+                "type": "string",
+                "description": "Product description"
+              },
+              "badge": {
+                "type": "string",
+                "description": "Product badge (e.g., 'Sale')"
+              },
+              "inStock": {
+                "type": "boolean",
+                "default": true,
+                "description": "Product availability"
+              }
+            },
+            "required": ["name", "image"]
+          },
+          "description": "Products for showcase variant"
+        }
+      },
+      "additionalProperties": false
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline styles"
+    },
+    "styles": {
+      "type": "object",
+      "description": "Style object"
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": false
+}

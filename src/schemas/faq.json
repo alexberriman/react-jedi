@@ -1,0 +1,262 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "FAQ"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the FAQ component"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["accordion", "carousel", "grid", "cards", "two-column", "categorized", "search"],
+      "default": "carousel",
+      "description": "Display variant"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique item identifier"
+          },
+          "question": {
+            "type": "string",
+            "description": "FAQ question"
+          },
+          "answer": {
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Answer text (supports HTML)"
+              },
+              {
+                "$ref": "#/definitions/componentChildren",
+                "description": "Answer as component"
+              }
+            ]
+          },
+          "category": {
+            "type": "string",
+            "description": "Item category"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Item tags"
+          },
+          "helpfulVotes": {
+            "type": "number",
+            "description": "Number of helpful votes"
+          },
+          "totalVotes": {
+            "type": "number",
+            "description": "Total number of votes"
+          },
+          "isPopular": {
+            "type": "boolean",
+            "description": "Mark as popular"
+          },
+          "anchorId": {
+            "type": "string",
+            "description": "Anchor ID for deep linking"
+          },
+          "relatedArticles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "Article title"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Article URL"
+                }
+              },
+              "required": ["title", "href"]
+            },
+            "description": "Related articles"
+          }
+        },
+        "required": ["id", "question", "answer"]
+      },
+      "description": "FAQ items"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Category identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Category name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Category description"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Category icon"
+          },
+          "count": {
+            "type": "number",
+            "description": "Number of items in category"
+          }
+        },
+        "required": ["id", "name"]
+      },
+      "description": "FAQ categories"
+    },
+    "search": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable search"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Search placeholder text"
+        },
+        "searchInAnswers": {
+          "type": "boolean",
+          "description": "Search in answers as well as questions"
+        },
+        "highlightMatches": {
+          "type": "boolean",
+          "description": "Highlight search matches"
+        }
+      },
+      "required": ["enabled"]
+    },
+    "voting": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable voting"
+        },
+        "showVoteCount": {
+          "type": "boolean",
+          "description": "Show vote counts"
+        },
+        "requireAuth": {
+          "type": "boolean",
+          "description": "Require authentication to vote"
+        },
+        "onVote": {
+          "type": "string",
+          "description": "Vote handler function"
+        }
+      },
+      "required": ["enabled"]
+    },
+    "contactSupport": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable contact support CTA"
+        },
+        "title": {
+          "type": "string",
+          "description": "CTA title"
+        },
+        "description": {
+          "type": "string",
+          "description": "CTA description"
+        },
+        "buttonText": {
+          "type": "string",
+          "description": "Button text"
+        },
+        "href": {
+          "type": "string",
+          "description": "Button link"
+        },
+        "action": {
+          "type": "string",
+          "description": "Button action"
+        }
+      },
+      "required": ["enabled"]
+    },
+    "showCategories": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show category filter"
+    },
+    "showSearch": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show search functionality"
+    },
+    "showPopularFirst": {
+      "type": "boolean",
+      "default": false,
+      "description": "Sort popular items first"
+    },
+    "allowCollapse": {
+      "type": "boolean",
+      "default": true,
+      "description": "Allow collapsing items (accordion variant)"
+    },
+    "openFirst": {
+      "type": "boolean",
+      "default": false,
+      "description": "Open first item by default (accordion variant)"
+    },
+    "maxItems": {
+      "type": "number",
+      "description": "Maximum items to display"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable animations"
+    },
+    "animationDuration": {
+      "type": "number",
+      "description": "Animation duration in milliseconds"
+    },
+    "staggerDelay": {
+      "type": "number",
+      "description": "Stagger delay between items"
+    },
+    "columns": {
+      "type": "number",
+      "enum": [1, 2, 3],
+      "default": 2,
+      "description": "Number of columns (grid variant)"
+    },
+    "spacing": {
+      "type": "string",
+      "enum": ["compact", "normal", "relaxed"],
+      "default": "normal",
+      "description": "Spacing between items"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline styles"
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": false
+}

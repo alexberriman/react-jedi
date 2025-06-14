@@ -1,0 +1,202 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "EventListings"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the event listings component"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique event identifier"
+          },
+          "title": {
+            "type": "string",
+            "description": "Event title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Event description"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Event start date and time (ISO format)"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Event end date and time (ISO format)"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Location name"
+              },
+              "address": {
+                "type": "string",
+                "description": "Physical address"
+              },
+              "virtual": {
+                "type": "boolean",
+                "description": "Is this a virtual event"
+              },
+              "mapUrl": {
+                "type": "string",
+                "description": "Map URL"
+              }
+            },
+            "required": ["name"]
+          },
+          "speakers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Speaker name"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Speaker title/role"
+                },
+                "image": {
+                  "type": "string",
+                  "description": "Speaker image URL"
+                },
+                "bio": {
+                  "type": "string",
+                  "description": "Speaker biography"
+                }
+              },
+              "required": ["name"]
+            },
+            "description": "Event speakers"
+          },
+          "category": {
+            "type": "string",
+            "description": "Event category"
+          },
+          "registrationUrl": {
+            "type": "string",
+            "description": "Registration URL"
+          },
+          "capacity": {
+            "type": "number",
+            "description": "Maximum attendees"
+          },
+          "registeredCount": {
+            "type": "number",
+            "description": "Current registered attendees"
+          },
+          "featured": {
+            "type": "boolean",
+            "description": "Is this a featured event"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Event tags"
+          },
+          "price": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number",
+                "description": "Price amount"
+              },
+              "currency": {
+                "type": "string",
+                "description": "Currency code (e.g., USD)"
+              },
+              "free": {
+                "type": "boolean",
+                "description": "Is this a free event"
+              }
+            },
+            "required": ["amount", "currency"]
+          },
+          "image": {
+            "type": "string",
+            "description": "Event image URL"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["upcoming", "ongoing", "past", "cancelled"],
+            "description": "Event status"
+          }
+        },
+        "required": ["id", "title", "description", "startDate", "location", "category"]
+      },
+      "description": "Array of events to display"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["cards", "calendar", "featured", "timeline", "grid"],
+      "default": "cards",
+      "description": "Display variant"
+    },
+    "showSearch": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show search input"
+    },
+    "showFilters": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show category filters"
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable pagination"
+    },
+    "itemsPerPage": {
+      "type": "number",
+      "default": 9,
+      "description": "Items per page when pagination is enabled"
+    },
+    "showCountdown": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show countdown timer for upcoming events"
+    },
+    "showCapacity": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show capacity/registration progress"
+    },
+    "animated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable animations"
+    },
+    "onEventClick": {
+      "type": "string",
+      "description": "Handler for event click"
+    },
+    "onRegister": {
+      "type": "string",
+      "description": "Handler for register button click"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": false
+}

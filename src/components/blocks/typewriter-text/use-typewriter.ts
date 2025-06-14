@@ -10,6 +10,7 @@ export interface UseTypewriterOptions {
   deleteDelay?: number
   loop?: boolean
   startDelay?: number
+  shouldDelete?: boolean
   onComplete?: () => void
   onTextChange?: (text: string, index: number) => void
 }
@@ -31,6 +32,7 @@ export function useTypewriter({
   deleteDelay = 1000,
   loop = true,
   startDelay = 0,
+  shouldDelete = true,
   onComplete,
   onTextChange,
 }: UseTypewriterOptions): UseTypewriterReturn {
@@ -96,10 +98,23 @@ export function useTypewriter({
       } else {
         onTextChange?.(currentText, currentTextIndex)
         
-        if (textsArray.length === 1) {
+        const isLastText = currentTextIndex === textsArray.length - 1
+        const shouldComplete = textsArray.length === 1 || (!shouldDelete && isLastText)
+        
+        if (shouldComplete) {
           setIsComplete(true)
           onComplete?.()
+        } else if (!shouldDelete && !isLastText) {
+          // For non-deleting mode, move to next text immediately
+          timeoutRef.current = globalThis.setTimeout(() => {
+            if (mountedRef.current) {
+              setCurrentTextIndex(currentTextIndex + 1)
+              setCurrentCharIndex(0)
+              setDisplayText('')
+            }
+          }, pauseDuration)
         } else {
+          // Normal flow with deletion
           timeoutRef.current = globalThis.setTimeout(() => {
             if (mountedRef.current) {
               setPhase('pausing')
@@ -181,6 +196,7 @@ export function useTypewriter({
     deleteDelay,
     loop,
     startDelay,
+    shouldDelete,
     phase,
     textsArray.length,
     onComplete,

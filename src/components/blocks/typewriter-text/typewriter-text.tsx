@@ -253,6 +253,7 @@ export function TypewriterText({ spec }: TypewriterTextProps) {
       deleteDelay: shouldDelete ? deleteDelay : 0,
       loop: configLoop,
       startDelay,
+      shouldDelete,
       onComplete,
       onTextChange,
     };

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { KeyboardNavigationMenu, MenuItem } from "./keyboard-navigation-menu";
 import { Home, User, Settings, Mail, Calendar, Bell, HelpCircle, LogOut } from "lucide-react";
 import { within, userEvent, expect, waitFor } from "storybook/test";
+import { enhanceStoryForDualMode } from "@sb/utils/enhance-story";
 
 const meta: Meta<typeof KeyboardNavigationMenu> = {
   title: "Components/KeyboardNavigationMenu",
@@ -116,7 +117,97 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export const Vertical: Story = {
+// Convert menuItems to SDUI-compatible format (without React components)
+const sduiMenuItems = [
+  {
+    id: "home",
+    label: "Home",
+    icon: "Home",
+    shortcut: "Ctrl+H",
+  },
+  {
+    id: "profile",
+    label: "Profile",
+    icon: "User",
+    submenu: [
+      {
+        id: "view-profile",
+        label: "View Profile",
+        shortcut: "Ctrl+P",
+      },
+      {
+        id: "edit-profile",
+        label: "Edit Profile",
+      },
+      {
+        id: "privacy",
+        label: "Privacy Settings",
+        submenu: [
+          {
+            id: "data-privacy",
+            label: "Data Privacy",
+          },
+          {
+            id: "visibility",
+            label: "Profile Visibility",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "messages",
+    label: "Messages",
+    icon: "Mail",
+    shortcut: "Ctrl+M",
+  },
+  {
+    id: "calendar",
+    label: "Calendar",
+    icon: "Calendar",
+    shortcut: "Ctrl+K",
+  },
+  {
+    id: "notifications",
+    label: "Notifications",
+    icon: "Bell",
+    disabled: true,
+  },
+  {
+    id: "settings",
+    label: "Settings",
+    icon: "Settings",
+    shortcut: "Ctrl+,",
+    submenu: [
+      {
+        id: "general",
+        label: "General",
+      },
+      {
+        id: "appearance",
+        label: "Appearance",
+      },
+      {
+        id: "integrations",
+        label: "Integrations",
+      },
+    ],
+  },
+  {
+    id: "help",
+    label: "Help",
+    icon: "HelpCircle",
+    shortcut: "F1",
+  },
+  {
+    id: "logout",
+    label: "Logout",
+    icon: "LogOut",
+    shortcut: "Ctrl+Q",
+  },
+];
+
+export const Vertical = enhanceStoryForDualMode<typeof KeyboardNavigationMenu>({
   args: {
     items: menuItems,
     orientation: "vertical",
@@ -157,9 +248,16 @@ export const Vertical: Story = {
     // Test escape to clear
     await user.keyboard("{escape}");
   },
-};
+}, {
+  renderSpec: {
+    type: "KeyboardNavigationMenu",
+    items: sduiMenuItems,
+    orientation: "vertical",
+    role: "navigation",
+  }
+}) as Story;
 
-export const Horizontal: Story = {
+export const Horizontal = enhanceStoryForDualMode<typeof KeyboardNavigationMenu>({
   args: {
     items: menuItems.slice(0, 5), // Fewer items for horizontal layout
     orientation: "horizontal",
@@ -194,9 +292,16 @@ export const Horizontal: Story = {
     // Test selection
     await user.keyboard("{space}");
   },
-};
+}, {
+  renderSpec: {
+    type: "KeyboardNavigationMenu",
+    items: sduiMenuItems.slice(0, 5),
+    orientation: "horizontal",
+    role: "navigation",
+  }
+}) as Story;
 
-export const WithoutShortcuts: Story = {
+export const WithoutShortcuts = enhanceStoryForDualMode<typeof KeyboardNavigationMenu>({
   args: {
     items: menuItems,
     showShortcuts: false,
@@ -226,51 +331,60 @@ export const WithoutShortcuts: Story = {
     const shortcuts = canvas.queryAllByText(/Ctrl\+/);
     expect(shortcuts).toHaveLength(0);
   },
-};
+}, {
+  renderSpec: {
+    type: "KeyboardNavigationMenu",
+    items: sduiMenuItems,
+    showShortcuts: false,
+    role: "navigation",
+  }
+}) as Story;
 
-export const NestedMenus: Story = {
-  args: {
-    items: [
+const nestedMenuItems = [
+  {
+    id: "file",
+    label: "File",
+    submenu: [
       {
-        id: "file",
-        label: "File",
+        id: "new",
+        label: "New",
         submenu: [
-          {
-            id: "new",
-            label: "New",
-            submenu: [
-              { id: "new-file", label: "New File", shortcut: "Ctrl+N" },
-              { id: "new-folder", label: "New Folder" },
-              { id: "new-project", label: "New Project", shortcut: "Ctrl+Shift+N" },
-            ],
-          },
-          { id: "open", label: "Open", shortcut: "Ctrl+O" },
-          { id: "save", label: "Save", shortcut: "Ctrl+S" },
-          { id: "save-as", label: "Save As...", shortcut: "Ctrl+Shift+S" },
+          { id: "new-file", label: "New File", shortcut: "Ctrl+N" },
+          { id: "new-folder", label: "New Folder" },
+          { id: "new-project", label: "New Project", shortcut: "Ctrl+Shift+N" },
         ],
       },
-      {
-        id: "edit",
-        label: "Edit",
-        submenu: [
-          { id: "undo", label: "Undo", shortcut: "Ctrl+Z" },
-          { id: "redo", label: "Redo", shortcut: "Ctrl+Y" },
-          { id: "cut", label: "Cut", shortcut: "Ctrl+X" },
-          { id: "copy", label: "Copy", shortcut: "Ctrl+C" },
-          { id: "paste", label: "Paste", shortcut: "Ctrl+V" },
-        ],
-      },
-      {
-        id: "view",
-        label: "View",
-        submenu: [
-          { id: "zoom-in", label: "Zoom In", shortcut: "Ctrl++" },
-          { id: "zoom-out", label: "Zoom Out", shortcut: "Ctrl+-" },
-          { id: "reset-zoom", label: "Reset Zoom", shortcut: "Ctrl+0" },
-          { id: "fullscreen", label: "Fullscreen", shortcut: "F11" },
-        ],
-      },
+      { id: "open", label: "Open", shortcut: "Ctrl+O" },
+      { id: "save", label: "Save", shortcut: "Ctrl+S" },
+      { id: "save-as", label: "Save As...", shortcut: "Ctrl+Shift+S" },
     ],
+  },
+  {
+    id: "edit",
+    label: "Edit",
+    submenu: [
+      { id: "undo", label: "Undo", shortcut: "Ctrl+Z" },
+      { id: "redo", label: "Redo", shortcut: "Ctrl+Y" },
+      { id: "cut", label: "Cut", shortcut: "Ctrl+X" },
+      { id: "copy", label: "Copy", shortcut: "Ctrl+C" },
+      { id: "paste", label: "Paste", shortcut: "Ctrl+V" },
+    ],
+  },
+  {
+    id: "view",
+    label: "View",
+    submenu: [
+      { id: "zoom-in", label: "Zoom In", shortcut: "Ctrl++" },
+      { id: "zoom-out", label: "Zoom Out", shortcut: "Ctrl+-" },
+      { id: "reset-zoom", label: "Reset Zoom", shortcut: "Ctrl+0" },
+      { id: "fullscreen", label: "Fullscreen", shortcut: "F11" },
+    ],
+  },
+];
+
+export const NestedMenus = enhanceStoryForDualMode<typeof KeyboardNavigationMenu>({
+  args: {
+    items: nestedMenuItems,
     onSelect: (item: MenuItem) => console.log("Selected:", item.label),
     role: "navigation" as const,
   },
@@ -309,9 +423,15 @@ export const NestedMenus: Story = {
     await user.keyboard("{home}");
     await user.keyboard("{end}");
   },
-};
+}, {
+  renderSpec: {
+    type: "KeyboardNavigationMenu",
+    items: nestedMenuItems,
+    role: "navigation",
+  }
+}) as Story;
 
-export const AccessibilityDemo: Story = {
+export const AccessibilityDemo = enhanceStoryForDualMode<typeof KeyboardNavigationMenu>({
   args: {
     items: menuItems,
     onSelect: (item: MenuItem) => console.log("Selected:", item.label),
@@ -366,9 +486,14 @@ export const AccessibilityDemo: Story = {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
 
-    // Verify instructions are displayed
-    const instructions = await canvas.findByText("Keyboard Navigation Tips:");
-    expect(instructions).toBeInTheDocument();
+    // Check if we're in React mode (has instructions) or SDUI mode (no instructions)
+    const isReactMode = canvasElement.querySelector('[data-testid="react-render"]');
+    
+    if (isReactMode) {
+      // Only verify instructions in React mode
+      const instructions = await canvas.findByText("Keyboard Navigation Tips:");
+      expect(instructions).toBeInTheDocument();
+    }
 
     // Wait for the navigation menu to be rendered
     const menu = await waitFor(
@@ -413,4 +538,11 @@ export const AccessibilityDemo: Story = {
     // Test escape
     await user.keyboard("{escape}");
   },
-};
+}, {
+  renderSpec: {
+    type: "KeyboardNavigationMenu",
+    items: sduiMenuItems,
+    role: "navigation",
+    // Note: The instructions wrapper is not included in SDUI mode
+  }
+}) as Story;

@@ -139,7 +139,7 @@ const actions = [
   },
 ];
 
-export const Default: Story = {
+export const Default = enhanceStoryForDualMode<typeof Header>({
   args: {
     logo: {
       type: "text",
@@ -150,9 +150,40 @@ export const Default: Story = {
     actions: actions,
     showDarkModeToggle: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const ImageLogo: Story = {
+    // Verify logo is rendered
+    expect(canvas.getByText("YourBrand")).toBeInTheDocument();
+
+    // Verify navigation items are present
+    expect(canvas.getByText("Products")).toBeInTheDocument();
+    expect(canvas.getByText("Solutions")).toBeInTheDocument();
+    expect(canvas.getByText("Pricing")).toBeInTheDocument();
+    expect(canvas.getByText("Docs")).toBeInTheDocument();
+
+    // Verify action buttons are present
+    expect(canvas.getByText("Sign In")).toBeInTheDocument();
+    expect(canvas.getByText("Get Started")).toBeInTheDocument();
+
+    // Verify dark mode toggle is present
+    expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
+  },
+}, {
+  renderSpec: {
+    type: "Header",
+    logo: {
+      type: "text",
+      text: "YourBrand",
+      href: "#",
+    },
+    navigation: navigationItems,
+    actions: actions,
+    showDarkModeToggle: true,
+  }
+}) as Story;
+
+export const ImageLogo = enhanceStoryForDualMode<typeof Header>({
   args: {
     logo: {
       type: "image",
@@ -163,9 +194,37 @@ export const ImageLogo: Story = {
     navigation: navigationItems,
     actions: actions,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Minimal: Story = {
+    // Verify image logo is rendered
+    const logo = canvas.getByRole("img", { name: "Company Logo" });
+    expect(logo).toBeInTheDocument();
+    expect(logo).toHaveAttribute("src", "https://placehold.co/120x40/3b82f6/ffffff?text=Logo");
+
+    // Verify navigation items are present
+    expect(canvas.getByText("Products")).toBeInTheDocument();
+    expect(canvas.getByText("Solutions")).toBeInTheDocument();
+
+    // Verify action buttons are present
+    expect(canvas.getByText("Sign In")).toBeInTheDocument();
+    expect(canvas.getByText("Get Started")).toBeInTheDocument();
+  },
+}, {
+  renderSpec: {
+    type: "Header",
+    logo: {
+      type: "image",
+      src: "https://placehold.co/120x40/3b82f6/ffffff?text=Logo",
+      alt: "Company Logo",
+      href: "#",
+    },
+    navigation: navigationItems,
+    actions: actions,
+  }
+}) as Story;
+
+export const Minimal = enhanceStoryForDualMode<typeof Header>({
   args: {
     variant: "minimal",
     logo: {
@@ -185,9 +244,43 @@ export const Minimal: Story = {
     ],
     showDarkModeToggle: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Centered: Story = {
+    // Verify logo is rendered
+    expect(canvas.getByText("Minimal")).toBeInTheDocument();
+
+    // Verify action buttons are present
+    expect(canvas.getByText("Contact")).toBeInTheDocument();
+    expect(canvas.getByText("Get Started")).toBeInTheDocument();
+
+    // Verify dark mode toggle is present
+    expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
+  },
+}, {
+  renderSpec: {
+    type: "Header",
+    variant: "minimal",
+    logo: {
+      type: "text",
+      text: "Minimal",
+      href: "#",
+    },
+    actions: [
+      {
+        label: "Contact",
+        variant: "ghost" as const,
+      },
+      {
+        label: "Get Started",
+        variant: "default" as const,
+      },
+    ],
+    showDarkModeToggle: true,
+  }
+}) as Story;
+
+export const Centered = enhanceStoryForDualMode<typeof Header>({
   args: {
     variant: "centered",
     logo: {
@@ -209,9 +302,50 @@ export const Centered: Story = {
     ],
     showDarkModeToggle: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-export const Split: Story = {
+    // Verify logo is rendered
+    expect(canvas.getByText("Centered")).toBeInTheDocument();
+
+    // Verify navigation items are present
+    expect(canvas.getByText("Home")).toBeInTheDocument();
+    expect(canvas.getByText("About")).toBeInTheDocument();
+    expect(canvas.getByText("Services")).toBeInTheDocument();
+    expect(canvas.getByText("Contact")).toBeInTheDocument();
+
+    // Verify action button is present
+    expect(canvas.getByText("Get Started")).toBeInTheDocument();
+
+    // Verify dark mode toggle is present
+    expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
+  },
+}, {
+  renderSpec: {
+    type: "Header",
+    variant: "centered",
+    logo: {
+      type: "text",
+      text: "Centered",
+      href: "#",
+    },
+    navigation: [
+      { label: "Home", href: "#" },
+      { label: "About", href: "#about" },
+      { label: "Services", href: "#services" },
+      { label: "Contact", href: "#contact" },
+    ],
+    actions: [
+      {
+        label: "Get Started",
+        variant: "default" as const,
+      },
+    ],
+    showDarkModeToggle: true,
+  }
+}) as Story;
+
+export const Split = enhanceStoryForDualMode<typeof Header>({
   args: {
     variant: "split",
     logo: {
@@ -226,9 +360,25 @@ export const Split: Story = {
     ],
     actions: actions,
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    variant: "split",
+    logo: {
+      type: "text",
+      text: "Split Layout",
+      href: "#",
+    },
+    navigation: [
+      { label: "Products", href: "#products" },
+      { label: "Solutions", href: "#solutions" },
+      { label: "Pricing", href: "#pricing" },
+    ],
+    actions: actions,
+  }
+}) as Story;
 
-export const StickyHeader: Story = {
+export const StickyHeader = enhanceStoryForDualMode<typeof Header>({
   args: {
     sticky: true,
     blur: true,
@@ -265,9 +415,24 @@ export const StickyHeader: Story = {
       </div>
     ),
   ],
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    sticky: true,
+    blur: true,
+    shadow: true,
+    logo: {
+      type: "text",
+      text: "StickyBrand",
+      href: "#",
+    },
+    navigation: navigationItems,
+    actions: actions,
+    showDarkModeToggle: true,
+  }
+}) as Story;
 
-export const WithoutNavigation: Story = {
+export const WithoutNavigation = enhanceStoryForDualMode<typeof Header>({
   args: {
     logo: {
       type: "text",
@@ -288,9 +453,30 @@ export const WithoutNavigation: Story = {
     ],
     showDarkModeToggle: true,
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    logo: {
+      type: "text",
+      text: "SimpleApp",
+      href: "#",
+    },
+    actions: [
+      {
+        label: "Dashboard",
+        variant: "ghost" as const,
+        href: "#dashboard",
+      },
+      {
+        label: "Logout",
+        variant: "outline" as const,
+      },
+    ],
+    showDarkModeToggle: true,
+  }
+}) as Story;
 
-export const NavigationOnly: Story = {
+export const NavigationOnly = enhanceStoryForDualMode<typeof Header>({
   args: {
     logo: {
       type: "text",
@@ -306,9 +492,26 @@ export const NavigationOnly: Story = {
       { label: "Contact", href: "#contact" },
     ],
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    logo: {
+      type: "text",
+      text: "NavOnly",
+      href: "#",
+    },
+    navigation: [
+      { label: "Home", href: "#" },
+      { label: "About", href: "#about" },
+      { label: "Services", href: "#services" },
+      { label: "Portfolio", href: "#portfolio" },
+      { label: "Blog", href: "#blog" },
+      { label: "Contact", href: "#contact" },
+    ],
+  }
+}) as Story;
 
-export const SmallHeight: Story = {
+export const SmallHeight = enhanceStoryForDualMode<typeof Header>({
   args: {
     height: "sm",
     logo: {
@@ -319,9 +522,21 @@ export const SmallHeight: Story = {
     navigation: navigationItems,
     actions: actions,
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    height: "sm",
+    logo: {
+      type: "text",
+      text: "Compact",
+      href: "#",
+    },
+    navigation: navigationItems,
+    actions: actions,
+  }
+}) as Story;
 
-export const LargeHeight: Story = {
+export const LargeHeight = enhanceStoryForDualMode<typeof Header>({
   args: {
     height: "lg",
     logo: {
@@ -333,9 +548,22 @@ export const LargeHeight: Story = {
     actions: actions,
     showDarkModeToggle: true,
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    height: "lg",
+    logo: {
+      type: "text",
+      text: "Spacious",
+      href: "#",
+    },
+    navigation: navigationItems,
+    actions: actions,
+    showDarkModeToggle: true,
+  }
+}) as Story;
 
-export const FullWidth: Story = {
+export const FullWidth = enhanceStoryForDualMode<typeof Header>({
   args: {
     maxWidth: "full",
     backgroundColor: "bg-primary",
@@ -360,9 +588,35 @@ export const FullWidth: Story = {
       },
     ],
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    maxWidth: "full",
+    backgroundColor: "bg-primary",
+    className: "text-primary-foreground",
+    logo: {
+      type: "text",
+      text: "FullWidth",
+      href: "#",
+    },
+    navigation: navigationItems.map((item) => ({
+      ...item,
+      className: "text-primary-foreground",
+    })),
+    actions: [
+      {
+        label: "Sign In",
+        variant: "secondary" as const,
+      },
+      {
+        label: "Get Started",
+        variant: "outline" as const,
+      },
+    ],
+  }
+}) as Story;
 
-export const CustomBackground: Story = {
+export const CustomBackground = enhanceStoryForDualMode<typeof Header>({
   args: {
     backgroundColor: "bg-gradient-to-r from-purple-500 to-pink-500",
     className: "text-white",
@@ -384,9 +638,32 @@ export const CustomBackground: Story = {
       },
     ],
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    backgroundColor: "bg-gradient-to-r from-purple-500 to-pink-500",
+    className: "text-white",
+    blur: false,
+    logo: {
+      type: "text",
+      text: "Gradient",
+      href: "#",
+    },
+    navigation: [
+      { label: "Features", href: "#features" },
+      { label: "Pricing", href: "#pricing" },
+      { label: "About", href: "#about" },
+    ],
+    actions: [
+      {
+        label: "Get Started",
+        variant: "secondary" as const,
+      },
+    ],
+  }
+}) as Story;
 
-export const MobileDots: Story = {
+export const MobileDots = enhanceStoryForDualMode<typeof Header>({
   args: {
     mobileTriggerIcon: "dots",
     logo: {
@@ -398,9 +675,22 @@ export const MobileDots: Story = {
     actions: actions,
     showDarkModeToggle: true,
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    mobileTriggerIcon: "dots",
+    logo: {
+      type: "text",
+      text: "DotMenu",
+      href: "#",
+    },
+    navigation: navigationItems,
+    actions: actions,
+    showDarkModeToggle: true,
+  }
+}) as Story;
 
-export const ComplexNavigation: Story = {
+export const ComplexNavigation = enhanceStoryForDualMode<typeof Header>({
   args: {
     logo: {
       type: "text",
@@ -527,9 +817,137 @@ export const ComplexNavigation: Story = {
     showDarkModeToggle: true,
     sticky: true,
   },
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    logo: {
+      type: "text",
+      text: "Enterprise",
+      href: "#",
+    },
+    navigation: [
+      {
+        label: "Products",
+        items: [
+          {
+            label: "Cloud Infrastructure",
+            href: "#cloud",
+            description: "Scalable cloud solutions for modern applications",
+          },
+          {
+            label: "AI Platform",
+            href: "#ai",
+            description: "Build and deploy AI models at scale",
+          },
+          {
+            label: "Data Analytics",
+            href: "#analytics",
+            description: "Real-time insights from your data",
+          },
+          {
+            label: "Security Suite",
+            href: "#security",
+            description: "Comprehensive security for your infrastructure",
+          },
+          {
+            label: "Developer Tools",
+            href: "#devtools",
+            description: "Tools to accelerate your development",
+          },
+          {
+            label: "IoT Platform",
+            href: "#iot",
+            description: "Connect and manage IoT devices",
+          },
+        ],
+      },
+      {
+        label: "Solutions",
+        items: [
+          {
+            label: "By Industry",
+            href: "#industry",
+            description: "Solutions tailored to your industry",
+          },
+          {
+            label: "By Company Size",
+            href: "#size",
+            description: "Right-sized solutions for your business",
+          },
+          {
+            label: "By Use Case",
+            href: "#usecase",
+            description: "Purpose-built for your needs",
+          },
+        ],
+      },
+      {
+        label: "Resources",
+        items: [
+          {
+            label: "Documentation",
+            href: "#docs",
+            description: "Comprehensive guides and API references",
+          },
+          {
+            label: "Blog",
+            href: "#blog",
+            description: "Latest news and insights",
+          },
+          {
+            label: "Community",
+            href: "#community",
+            description: "Connect with other users",
+          },
+          {
+            label: "Support",
+            href: "#support",
+            description: "Get help when you need it",
+          },
+        ],
+      },
+      {
+        label: "Company",
+        items: [
+          {
+            label: "About Us",
+            href: "#about",
+          },
+          {
+            label: "Careers",
+            href: "#careers",
+          },
+          {
+            label: "Partners",
+            href: "#partners",
+          },
+          {
+            label: "Contact",
+            href: "#contact",
+          },
+        ],
+      },
+    ],
+    actions: [
+      {
+        label: "Contact Sales",
+        variant: "ghost" as const,
+      },
+      {
+        label: "Sign In",
+        variant: "outline" as const,
+      },
+      {
+        label: "Start Free Trial",
+        variant: "default" as const,
+      },
+    ],
+    showDarkModeToggle: true,
+    sticky: true,
+  }
+}) as Story;
 
-export const NoAnimation: Story = {
+export const NoAnimation = enhanceStoryForDualMode<typeof Header>({
   args: {
     animated: false,
     sticky: true,
@@ -551,9 +969,22 @@ export const NoAnimation: Story = {
       </div>
     ),
   ],
-};
+}, {
+  renderSpec: {
+    type: "Header",
+    animated: false,
+    sticky: true,
+    logo: {
+      type: "text",
+      text: "NoAnim",
+      href: "#",
+    },
+    navigation: navigationItems,
+    actions: actions,
+  }
+}) as Story;
 
-export const WithIcons: Story = {
+export const WithIcons = enhanceStoryForDualMode<typeof Header>({
   args: {
     logo: {
       type: "text",
@@ -645,9 +1076,131 @@ export const WithIcons: Story = {
     actions: actions,
     showDarkModeToggle: true,
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
 
-export const MultiColumnDropdown: Story = {
+    // Verify logo is rendered
+    expect(canvas.getByText("IconNav")).toBeInTheDocument();
+
+    // Verify navigation items with icons are present
+    expect(canvas.getByText("Products")).toBeInTheDocument();
+    expect(canvas.getByText("Pricing")).toBeInTheDocument();
+
+    // Test dropdown functionality with proper async handling
+    const productsDropdown = canvas.getByText("Products");
+    
+    // Wrap hover interaction in waitFor to handle async state updates
+    await waitFor(async () => {
+      await user.hover(productsDropdown);
+    });
+
+    // Wait for dropdown to appear and verify submenu items
+    await waitFor(() => {
+      expect(within(document.body).getByText("Analytics Dashboard")).toBeInTheDocument();
+      expect(within(document.body).getByText("Cloud Storage")).toBeInTheDocument();
+    });
+
+    // Verify action buttons are present
+    expect(canvas.getByText("Sign In")).toBeInTheDocument();
+    expect(canvas.getByText("Get Started")).toBeInTheDocument();
+  },
+}, {
+  renderSpec: {
+    type: "Header",
+    logo: {
+      type: "text",
+      text: "IconNav",
+      href: "#",
+    },
+    navigation: [
+      {
+        label: "Products",
+        icon: "Package" as const,
+        items: [
+          {
+            label: "Analytics Dashboard",
+            href: "#analytics",
+            description: "Real-time analytics and insights",
+            icon: "BarChart3" as const,
+          },
+          {
+            label: "Cloud Storage",
+            href: "#storage",
+            description: "Secure file storage and sharing",
+            icon: "Cloud" as const,
+          },
+          {
+            label: "API Gateway",
+            href: "#api",
+            description: "Manage and monitor your APIs",
+            icon: "Network" as const,
+          },
+          {
+            label: "Database",
+            href: "#database",
+            description: "Scalable database solutions",
+            icon: "Database" as const,
+          },
+        ],
+      },
+      {
+        label: "Solutions",
+        icon: "Lightbulb" as const,
+        items: [
+          {
+            label: "E-commerce",
+            href: "#ecommerce",
+            description: "Complete e-commerce platform",
+            icon: "ShoppingCart" as const,
+          },
+          {
+            label: "Healthcare",
+            href: "#healthcare",
+            description: "HIPAA-compliant solutions",
+            icon: "Heart" as const,
+          },
+          {
+            label: "Education",
+            href: "#education",
+            description: "Learning management systems",
+            icon: "GraduationCap" as const,
+          },
+        ],
+      },
+      {
+        label: "Resources",
+        icon: "BookOpen" as const,
+        items: [
+          {
+            label: "Documentation",
+            href: "#docs",
+            icon: "FileText" as const,
+          },
+          {
+            label: "Tutorials",
+            href: "#tutorials",
+            icon: "Video" as const,
+          },
+          {
+            label: "Community",
+            href: "#community",
+            icon: "Users" as const,
+          },
+        ],
+      },
+      {
+        label: "Pricing",
+        href: "#pricing",
+        icon: "CreditCard" as const,
+      },
+    ],
+    actions: actions,
+    showDarkModeToggle: true,
+  }
+}) as Story;
+
+export const MultiColumnDropdown = enhanceStoryForDualMode<typeof Header>({
   args: {
     logo: {
       type: "text",
@@ -733,371 +1286,92 @@ export const MultiColumnDropdown: Story = {
       },
     ],
   },
-};
-
-// Dual-mode SDUI stories
-export const DefaultSDUI: Story = enhanceStoryForDualMode(
-  {
-    render: () => (
-      <Header
-        logo={{
-          type: "text",
-          text: "YourBrand",
-          href: "#",
-        }}
-        navigation={navigationItems}
-        actions={actions}
-        showDarkModeToggle={true}
-      />
-    ),
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-
-      // Verify logo is rendered
-      expect(canvas.getByText("YourBrand")).toBeInTheDocument();
-
-      // Verify navigation items are present
-      expect(canvas.getByText("Products")).toBeInTheDocument();
-      expect(canvas.getByText("Solutions")).toBeInTheDocument();
-      expect(canvas.getByText("Pricing")).toBeInTheDocument();
-      expect(canvas.getByText("Docs")).toBeInTheDocument();
-
-      // Verify action buttons are present
-      expect(canvas.getByText("Sign In")).toBeInTheDocument();
-      expect(canvas.getByText("Get Started")).toBeInTheDocument();
-
-      // Verify dark mode toggle is present
-      expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
+}, {
+  renderSpec: {
+    type: "Header",
+    logo: {
+      type: "text",
+      text: "MultiCol",
+      href: "#",
     },
-  },
-  {
-    renderSpec: {
-      type: "Header",
-      logo: {
-        type: "text",
-        text: "YourBrand",
-        href: "#",
-      },
-      navigation: navigationItems,
-      actions: [
-        {
-          label: "Sign In",
-          variant: "ghost",
-          href: "#signin",
-        },
-        {
-          label: "Get Started",
-          variant: "default",
-          href: "#signup",
-        },
-      ],
-      showDarkModeToggle: true,
-    },
-  }
-);
-
-export const ImageLogoSDUI: Story = enhanceStoryForDualMode(
-  {
-    render: () => (
-      <Header
-        logo={{
-          type: "image",
-          src: "https://placehold.co/120x40/3b82f6/ffffff?text=Logo",
-          alt: "Company Logo",
-          href: "#",
-        }}
-        navigation={navigationItems}
-        actions={actions}
-      />
-    ),
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-
-      // Verify image logo is rendered
-      const logo = canvas.getByRole("img", { name: "Company Logo" });
-      expect(logo).toBeInTheDocument();
-      expect(logo).toHaveAttribute("src", "https://placehold.co/120x40/3b82f6/ffffff?text=Logo");
-
-      // Verify navigation items are present
-      expect(canvas.getByText("Products")).toBeInTheDocument();
-      expect(canvas.getByText("Solutions")).toBeInTheDocument();
-
-      // Verify action buttons are present
-      expect(canvas.getByText("Sign In")).toBeInTheDocument();
-      expect(canvas.getByText("Get Started")).toBeInTheDocument();
-    },
-  },
-  {
-    renderSpec: {
-      type: "Header",
-      logo: {
-        type: "image",
-        src: "https://placehold.co/120x40/3b82f6/ffffff?text=Logo",
-        alt: "Company Logo",
-        href: "#",
-      },
-      navigation: navigationItems,
-      actions: [
-        {
-          label: "Sign In",
-          variant: "ghost",
-          href: "#signin",
-        },
-        {
-          label: "Get Started",
-          variant: "default",
-          href: "#signup",
-        },
-      ],
-    },
-  }
-);
-
-export const MinimalSDUI: Story = enhanceStoryForDualMode(
-  {
-    render: () => (
-      <Header
-        variant="minimal"
-        logo={{
-          type: "text",
-          text: "Minimal",
-          href: "#",
-        }}
-        actions={[
+    navigation: [
+      {
+        label: "Platform",
+        items: [
           {
-            label: "Contact",
-            variant: "ghost" as const,
+            label: "Infrastructure",
+            href: "#infrastructure",
+            description: "Cloud-native infrastructure",
+            icon: "Server" as const,
           },
           {
-            label: "Get Started",
-            variant: "default" as const,
+            label: "Compute",
+            href: "#compute",
+            description: "Scalable compute resources",
+            icon: "Cpu" as const,
           },
-        ]}
-        showDarkModeToggle={true}
-      />
-    ),
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-
-      // Verify logo is rendered
-      expect(canvas.getByText("Minimal")).toBeInTheDocument();
-
-      // Verify action buttons are present
-      expect(canvas.getByText("Contact")).toBeInTheDocument();
-      expect(canvas.getByText("Get Started")).toBeInTheDocument();
-
-      // Verify dark mode toggle is present
-      expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
-    },
-  },
-  {
-    renderSpec: {
-      type: "Header",
-      variant: "minimal",
-      logo: {
-        type: "text",
-        text: "Minimal",
-        href: "#",
-      },
-      actions: [
-        {
-          label: "Contact",
-          variant: "ghost",
-        },
-        {
-          label: "Get Started",
-          variant: "default",
-        },
-      ],
-      showDarkModeToggle: true,
-    },
-  }
-);
-
-export const CenteredSDUI: Story = enhanceStoryForDualMode(
-  {
-    render: () => (
-      <Header
-        variant="centered"
-        logo={{
-          type: "text",
-          text: "Centered",
-          href: "#",
-        }}
-        navigation={[
-          { label: "Home", href: "#" },
-          { label: "About", href: "#about" },
-          { label: "Services", href: "#services" },
-          { label: "Contact", href: "#contact" },
-        ]}
-        actions={[
           {
-            label: "Get Started",
-            variant: "default" as const,
+            label: "Storage",
+            href: "#storage",
+            description: "Object and block storage",
+            icon: "HardDrive" as const,
           },
-        ]}
-        showDarkModeToggle={true}
-      />
-    ),
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-
-      // Verify logo is rendered
-      expect(canvas.getByText("Centered")).toBeInTheDocument();
-
-      // Verify navigation items are present
-      expect(canvas.getByText("Home")).toBeInTheDocument();
-      expect(canvas.getByText("About")).toBeInTheDocument();
-      expect(canvas.getByText("Services")).toBeInTheDocument();
-      expect(canvas.getByText("Contact")).toBeInTheDocument();
-
-      // Verify action button is present
-      expect(canvas.getByText("Get Started")).toBeInTheDocument();
-
-      // Verify dark mode toggle is present
-      expect(canvas.getByRole("button", { name: /switch to/i })).toBeInTheDocument();
-    },
-  },
-  {
-    renderSpec: {
-      type: "Header",
-      variant: "centered",
-      logo: {
-        type: "text",
-        text: "Centered",
-        href: "#",
-      },
-      navigation: [
-        { label: "Home", href: "#" },
-        { label: "About", href: "#about" },
-        { label: "Services", href: "#services" },
-        { label: "Contact", href: "#contact" },
-      ],
-      actions: [
-        {
-          label: "Get Started",
-          variant: "default",
-        },
-      ],
-      showDarkModeToggle: true,
-    },
-  }
-);
-
-export const WithIconsSDUI: Story = enhanceStoryForDualMode(
-  {
-    render: () => (
-      <Header
-        logo={{
-          type: "text",
-          text: "IconNav",
-          href: "#",
-        }}
-        navigation={[
           {
-            label: "Products",
+            label: "Networking",
+            href: "#networking",
+            description: "Global CDN and load balancing",
+            icon: "Globe" as const,
+          },
+          {
+            label: "Security",
+            href: "#security",
+            description: "Advanced threat protection",
+            icon: "Shield" as const,
+          },
+          {
+            label: "Monitoring",
+            href: "#monitoring",
+            description: "Real-time performance insights",
+            icon: "Activity" as const,
+          },
+        ],
+      },
+      {
+        label: "Developers",
+        items: [
+          {
+            label: "API Reference",
+            href: "#api-ref",
+            icon: "Code" as const,
+          },
+          {
+            label: "SDKs",
+            href: "#sdks",
             icon: "Package" as const,
-            items: [
-              {
-                label: "Analytics Dashboard",
-                href: "#analytics",
-                description: "Real-time analytics and insights",
-                icon: "BarChart3" as const,
-              },
-              {
-                label: "Cloud Storage",
-                href: "#storage",
-                description: "Secure file storage and sharing",
-                icon: "Cloud" as const,
-              },
-            ],
           },
           {
-            label: "Pricing",
-            href: "#pricing",
-            icon: "CreditCard" as const,
+            label: "CLI Tools",
+            href: "#cli",
+            icon: "Terminal" as const,
           },
-        ]}
-        actions={actions}
-        showDarkModeToggle={true}
-      />
-    ),
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      const user = userEvent.setup();
-
-      // Verify logo is rendered
-      expect(canvas.getByText("IconNav")).toBeInTheDocument();
-
-      // Verify navigation items with icons are present
-      expect(canvas.getByText("Products")).toBeInTheDocument();
-      expect(canvas.getByText("Pricing")).toBeInTheDocument();
-
-      // Test dropdown functionality with proper async handling
-      const productsDropdown = canvas.getByText("Products");
-      
-      // Wrap hover interaction in waitFor to handle async state updates
-      await waitFor(async () => {
-        await user.hover(productsDropdown);
-      });
-
-      // Wait for dropdown to appear and verify submenu items
-      await waitFor(() => {
-        expect(within(document.body).getByText("Analytics Dashboard")).toBeInTheDocument();
-        expect(within(document.body).getByText("Cloud Storage")).toBeInTheDocument();
-      });
-
-      // Verify action buttons are present
-      expect(canvas.getByText("Sign In")).toBeInTheDocument();
-      expect(canvas.getByText("Get Started")).toBeInTheDocument();
-    },
-  },
-  {
-    renderSpec: {
-      type: "Header",
-      logo: {
-        type: "text",
-        text: "IconNav",
-        href: "#",
+          {
+            label: "Examples",
+            href: "#examples",
+            icon: "FileCode" as const,
+          },
+        ],
       },
-      navigation: [
-        {
-          label: "Products",
-          icon: "Package",
-          items: [
-            {
-              label: "Analytics Dashboard",
-              href: "#analytics",
-              description: "Real-time analytics and insights",
-              icon: "BarChart3",
-            },
-            {
-              label: "Cloud Storage",
-              href: "#storage",
-              description: "Secure file storage and sharing",
-              icon: "Cloud",
-            },
-          ],
-        },
-        {
-          label: "Pricing",
-          href: "#pricing",
-          icon: "CreditCard",
-        },
-      ],
-      actions: [
-        {
-          label: "Sign In",
-          variant: "ghost",
-          href: "#signin",
-        },
-        {
-          label: "Get Started",
-          variant: "default",
-          href: "#signup",
-        },
-      ],
-      showDarkModeToggle: true,
-    },
+    ],
+    actions: [
+      {
+        label: "Console",
+        variant: "outline" as const,
+      },
+      {
+        label: "Sign Up",
+        variant: "default" as const,
+      },
+    ],
   }
-);
+}) as Story;
+

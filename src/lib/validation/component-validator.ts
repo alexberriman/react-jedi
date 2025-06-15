@@ -14,6 +14,8 @@ import { ComponentSpec } from "../../types/schema";
 import { flexSchema } from "../../components/ui/flex/flex.schema";
 import { textSchema } from "../../components/ui/text/text.schema";
 import { imageSchema } from "../../components/ui/image/image.schema";
+import { boxSchema } from "../../components/ui/box/box.schema";
+import { headerSchema } from "../../components/blocks/header/header.schema";
 
 /**
  * Component validation error interface with enhanced context
@@ -84,6 +86,8 @@ export class ComponentValidator {
     schemaCache.set("flex", flexSchema);
     schemaCache.set("text", textSchema);
     schemaCache.set("Image", imageSchema);
+    schemaCache.set("Box", boxSchema);
+    schemaCache.set("header", headerSchema);
     
     // Add examples for common components
     componentExamples.set("heading", [
@@ -134,6 +138,44 @@ export class ComponentValidator {
         align: "center",
         gap: "md",
         children: []
+      }
+    ]);
+    
+    componentExamples.set("Box", [
+      {
+        type: "Box",
+        display: "flex",
+        padding: "md",
+        margin: "sm",
+        backgroundColor: "card",
+        rounded: "lg",
+        shadow: "md",
+        children: []
+      }
+    ]);
+    
+    componentExamples.set("header", [
+      {
+        type: "header",
+        logo: {
+          type: "text",
+          text: "My Company",
+          href: "/"
+        },
+        navigation: [
+          { label: "Home", href: "/" },
+          { label: "About", href: "/about" },
+          { label: "Contact", href: "/contact" }
+        ],
+        actions: [
+          {
+            text: "Sign In",
+            href: "/signin",
+            variant: "outline"
+          }
+        ],
+        sticky: true,
+        blur: true
       }
     ]);
   }

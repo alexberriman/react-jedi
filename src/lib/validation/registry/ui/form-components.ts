@@ -12,6 +12,7 @@ import { comboboxSchema } from "../../../../components/ui/combobox/combobox.sche
 import { commandSchema, commandDialogSchema, commandInputSchema, commandListSchema, commandEmptySchema, commandGroupSchema, commandSeparatorSchema, commandItemSchema, commandShortcutSchema } from "../../../../components/ui/command/command.schema";
 import { datePickerSchema } from "../../../../components/ui/date-picker/date-picker.schema";
 import { dropdownMenuSchema, dropdownMenuTriggerSchema, dropdownMenuContentSchema, dropdownMenuGroupSchema, dropdownMenuItemSchema, dropdownMenuCheckboxItemSchema, dropdownMenuRadioGroupSchema, dropdownMenuRadioItemSchema, dropdownMenuLabelSchema, dropdownMenuSeparatorSchema, dropdownMenuShortcutSchema, dropdownMenuSubSchema, dropdownMenuSubTriggerSchema, dropdownMenuSubContentSchema, dropdownMenuPortalSchema } from "../../../../components/ui/dropdown-menu/dropdown-menu.schema";
+import { inputOTPSchema, inputOTPGroupSchema, inputOTPSlotSchema, inputOTPSeparatorSchema } from "../../../../components/ui/input-otp/input-otp.schema";
 
 /**
  * Registry for form-related UI components
@@ -88,6 +89,12 @@ export const formComponentsRegistry: RegistryModule = {
     registry.set("DropdownMenuSub", { schema: dropdownMenuSubSchema });
     registry.set("DropdownMenuSubTrigger", { schema: dropdownMenuSubTriggerSchema });
     registry.set("DropdownMenuSubContent", { schema: dropdownMenuSubContentSchema });
+    
+    // InputOTP and sub-components
+    registry.set("input-otp", { schema: inputOTPSchema });
+    registry.set("input-otp-group", { schema: inputOTPGroupSchema });
+    registry.set("input-otp-slot", { schema: inputOTPSlotSchema });
+    registry.set("input-otp-separator", { schema: inputOTPSeparatorSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -379,6 +386,53 @@ export const formComponentsRegistry: RegistryModule = {
                 variant: "destructive",
                 children: "Log out"
               }
+            ]
+          }
+        ]
+      }
+    ]);
+    
+    // InputOTP examples
+    examples.set("input-otp", [
+      {
+        type: "input-otp",
+        maxLength: 6,
+        pattern: "[0-9]*",
+        children: [
+          {
+            type: "input-otp-group",
+            children: [
+              { type: "input-otp-slot", index: 0 },
+              { type: "input-otp-slot", index: 1 },
+              { type: "input-otp-slot", index: 2 }
+            ]
+          },
+          {
+            type: "input-otp-separator"
+          },
+          {
+            type: "input-otp-group",
+            children: [
+              { type: "input-otp-slot", index: 3 },
+              { type: "input-otp-slot", index: 4 },
+              { type: "input-otp-slot", index: 5 }
+            ]
+          }
+        ]
+      },
+      {
+        type: "input-otp",
+        maxLength: 4,
+        pattern: "[A-Z]*",
+        textAlign: "center",
+        children: [
+          {
+            type: "input-otp-group",
+            children: [
+              { type: "input-otp-slot", index: 0 },
+              { type: "input-otp-slot", index: 1 },
+              { type: "input-otp-slot", index: 2 },
+              { type: "input-otp-slot", index: 3 }
             ]
           }
         ]

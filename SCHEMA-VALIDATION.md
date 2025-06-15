@@ -14,8 +14,8 @@ The schema validation provides:
 ## Current State
 
 - **Total components**: 98 (56 UI + 42 blocks)
-- **Components with schemas**: 42 (42.9%)
-- **Components missing schemas**: 56 (57.1%)
+- **Components with schemas**: 47 (48.0%)
+- **Components missing schemas**: 51 (52.0%)
 
 ### Recent Updates
 
@@ -23,7 +23,8 @@ The schema validation provides:
 - Organized schemas into logical groups (form, layout, display, blocks)
 - Refactored component-validator.ts from 600+ lines to 458 lines
 - Added schemas for 24 additional components including Command, ContextMenu, DatePicker, Drawer, and DropdownMenu
-- Now at 40.8% coverage (40 out of 98 components have schemas)
+- Added schemas for 5 more components: group, hover-card, input-otp, loading, and markdown
+- Now at 48.0% coverage (47 out of 98 components have schemas)
 
 ## Registry System Architecture
 
@@ -227,15 +228,15 @@ export const formComponentsRegistry: RegistryModule = {
 | dropdown-menu   | dropdown-menu.schema.ts   | ✅ Complete    |
 | flex            | flex.schema.ts            | ✅ Complete    |
 | grid            | grid.schema.ts            | ✅ Complete    |
-| group           | group.schema.ts           | ❌ Not Started |
+| group           | group.schema.ts           | ✅ Complete    |
 | heading         | heading.schema.ts         | ✅ Complete    |
-| hover-card      | hover-card.schema.ts      | ❌ Not Started |
+| hover-card      | hover-card.schema.ts      | ✅ Complete    |
 | image           | image.schema.ts           | ✅ Complete    |
 | input           | input.schema.ts           | ✅ Complete    |
-| input-otp       | input-otp.schema.ts       | ❌ Not Started |
+| input-otp       | input-otp.schema.ts       | ✅ Complete    |
 | label           | label.schema.ts           | ✅ Complete    |
-| loading         | loading.schema.ts         | ❌ Not Started |
-| markdown        | markdown.schema.ts        | ❌ Not Started |
+| loading         | loading.schema.ts         | ✅ Complete    |
+| markdown        | markdown.schema.ts        | ✅ Complete    |
 | masonry         | masonry.schema.ts         | ❌ Not Started |
 | navigation-menu | navigation-menu.schema.ts | ❌ Not Started |
 | pagination      | pagination.schema.ts      | ❌ Not Started |
@@ -310,8 +311,8 @@ export const formComponentsRegistry: RegistryModule = {
 ## Progress Summary
 
 - **Total**: 98 components
-- **Complete**: 42 (42.9%)
-- **Remaining**: 56 (57.1%)
+- **Complete**: 47 (48.0%)
+- **Remaining**: 51 (52.0%)
 
 ## Common Prop Patterns
 

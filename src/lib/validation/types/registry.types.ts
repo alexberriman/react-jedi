@@ -1,11 +1,10 @@
 import { z } from "zod";
-import { ComponentSpec } from "../../../types/schema";
 
 /**
  * Schema registry entry containing the schema and examples
  */
 export interface SchemaRegistryEntry {
-  schema: z.ZodType<ComponentSpec>;
+  schema: z.ZodType<unknown>;
   examples?: unknown[];
 }
 

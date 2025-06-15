@@ -7,6 +7,9 @@ import { spacerSchema } from "../../../../components/ui/spacer/spacer.schema";
 import { centerSchema } from "../../../../components/ui/center/center.schema";
 import { gridSchema } from "../../../../components/ui/grid/grid.schema";
 import { stackSchema } from "../../../../components/ui/stack/stack.schema";
+import { groupSchema } from "../../../../components/ui/group/group.schema";
+import { masonrySchema } from "../../../../components/ui/masonry/masonry.schema";
+import { resizablePanelGroupSchema, resizablePanelSchema, resizableHandleSchema } from "../../../../components/ui/resizable/resizable.schema";
 
 /**
  * Registry for layout-related UI components
@@ -36,6 +39,17 @@ export const layoutComponentsRegistry: RegistryModule = {
     
     // Stack
     registry.set("Stack", { schema: stackSchema });
+    
+    // Group
+    registry.set("group", { schema: groupSchema });
+    
+    // Masonry
+    registry.set("Masonry", { schema: masonrySchema });
+    
+    // Resizable components
+    registry.set("ResizablePanelGroup", { schema: resizablePanelGroupSchema });
+    registry.set("ResizablePanel", { schema: resizablePanelSchema });
+    registry.set("ResizableHandle", { schema: resizableHandleSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -184,6 +198,115 @@ export const layoutComponentsRegistry: RegistryModule = {
         spacing: "sm",
         divider: { type: "Separator" },
         children: []
+      }
+    ]);
+    
+    // Group examples
+    examples.set("group", [
+      {
+        type: "group",
+        spacing: "md",
+        align: "center",
+        children: []
+      },
+      {
+        type: "group",
+        spacing: "lg",
+        justify: "between",
+        wrap: "wrap",
+        children: []
+      },
+      {
+        type: "group",
+        spacing: "sm",
+        align: "start",
+        fullWidth: true,
+        children: []
+      }
+    ]);
+    
+    // Masonry examples
+    examples.set("Masonry", [
+      {
+        type: "Masonry",
+        columns: 3,
+        gap: 4,
+        children: []
+      },
+      {
+        type: "Masonry",
+        columns: { base: 1, sm: 2, md: 3, lg: 4 },
+        gap: { base: 2, md: 4 },
+        animation: { duration: 0.3, stagger: 0.05 },
+        children: []
+      },
+      {
+        type: "Masonry",
+        autoFit: true,
+        minColWidth: "250px",
+        gap: 6,
+        glassmorphic: true,
+        children: []
+      }
+    ]);
+    
+    // ResizablePanelGroup examples
+    examples.set("ResizablePanelGroup", [
+      {
+        type: "ResizablePanelGroup",
+        direction: "horizontal",
+        children: [
+          {
+            type: "ResizablePanel",
+            defaultSize: 50,
+            children: "Panel 1"
+          },
+          {
+            type: "ResizableHandle",
+            withHandle: true
+          },
+          {
+            type: "ResizablePanel",
+            defaultSize: 50,
+            children: "Panel 2"
+          }
+        ]
+      },
+      {
+        type: "ResizablePanelGroup",
+        direction: "vertical",
+        autoSaveId: "my-layout",
+        children: []
+      }
+    ]);
+    
+    // ResizablePanel examples
+    examples.set("ResizablePanel", [
+      {
+        type: "ResizablePanel",
+        defaultSize: 30,
+        minSize: 20,
+        maxSize: 80,
+        children: "Resizable content"
+      },
+      {
+        type: "ResizablePanel",
+        collapsible: true,
+        collapsedSize: 5,
+        children: []
+      }
+    ]);
+    
+    // ResizableHandle examples
+    examples.set("ResizableHandle", [
+      {
+        type: "ResizableHandle",
+        withHandle: true
+      },
+      {
+        type: "ResizableHandle",
+        withHandle: true,
+        iconName: "grip-vertical"
       }
     ]);
   }

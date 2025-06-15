@@ -21,6 +21,12 @@ import { tabsSchema, tabsListSchema, tabsTriggerSchema, tabsContentSchema } from
 import { dialogSchema, dialogTriggerSchema, dialogPortalSchema, dialogOverlaySchema, dialogContentSchema, dialogCloseSchema, dialogHeaderSchema, dialogFooterSchema, dialogTitleSchema, dialogDescriptionSchema } from "../../../../components/ui/dialog/dialog.schema";
 import { contextMenuSchema, contextMenuTriggerSchema, contextMenuContentSchema, contextMenuItemSchema, contextMenuCheckboxItemSchema, contextMenuRadioGroupSchema, contextMenuRadioItemSchema, contextMenuLabelSchema, contextMenuSeparatorSchema, contextMenuShortcutSchema, contextMenuSubSchema, contextMenuSubTriggerSchema, contextMenuSubContentSchema, contextMenuPortalSchema } from "../../../../components/ui/context-menu/context-menu.schema";
 import { drawerSchema, drawerTriggerSchema, drawerPortalSchema, drawerCloseSchema, drawerOverlaySchema, drawerContentSchema, drawerHeaderSchema, drawerFooterSchema, drawerTitleSchema, drawerDescriptionSchema, drawerSectionSchema, drawerHandleSchema } from "../../../../components/ui/drawer/drawer.schema";
+import { hoverCardSchema, hoverCardTriggerSchema, hoverCardContentSchema } from "../../../../components/ui/hover-card/hover-card.schema";
+import { loadingSchema } from "../../../../components/ui/loading/loading.schema";
+import { markdownSchema } from "../../../../components/ui/markdown/markdown.schema";
+import { navigationMenuSchema, navigationMenuListSchema, navigationMenuItemSchema, navigationMenuTriggerSchema, navigationMenuContentSchema, navigationMenuLinkSchema, navigationMenuIndicatorSchema, navigationMenuViewportSchema } from "../../../../components/ui/navigation-menu/navigation-menu.schema";
+import { paginationSchema, paginationContentSchema, paginationItemSchema, paginationLinkSchema, paginationPreviousSchema, paginationNextSchema, paginationEllipsisSchema } from "../../../../components/ui/pagination/pagination.schema";
+import { popoverSchema, popoverTriggerSchema, popoverContentSchema, popoverAnchorSchema } from "../../../../components/ui/popover/popover.schema";
 
 /**
  * Registry for display-related UI components
@@ -163,6 +169,42 @@ export const displayComponentsRegistry: RegistryModule = {
     registry.set("DrawerDescription", { schema: drawerDescriptionSchema });
     registry.set("DrawerSection", { schema: drawerSectionSchema });
     registry.set("DrawerHandle", { schema: drawerHandleSchema });
+    
+    // HoverCard and sub-components
+    registry.set("hover-card", { schema: hoverCardSchema });
+    registry.set("hover-card-trigger", { schema: hoverCardTriggerSchema });
+    registry.set("hover-card-content", { schema: hoverCardContentSchema });
+    
+    // Loading
+    registry.set("loading", { schema: loadingSchema });
+    
+    // Markdown
+    registry.set("markdown", { schema: markdownSchema });
+    
+    // NavigationMenu and sub-components
+    registry.set("NavigationMenu", { schema: navigationMenuSchema });
+    registry.set("NavigationMenuList", { schema: navigationMenuListSchema });
+    registry.set("NavigationMenuItem", { schema: navigationMenuItemSchema });
+    registry.set("NavigationMenuTrigger", { schema: navigationMenuTriggerSchema });
+    registry.set("NavigationMenuContent", { schema: navigationMenuContentSchema });
+    registry.set("NavigationMenuLink", { schema: navigationMenuLinkSchema });
+    registry.set("NavigationMenuIndicator", { schema: navigationMenuIndicatorSchema });
+    registry.set("NavigationMenuViewport", { schema: navigationMenuViewportSchema });
+    
+    // Pagination and sub-components
+    registry.set("Pagination", { schema: paginationSchema });
+    registry.set("PaginationContent", { schema: paginationContentSchema });
+    registry.set("PaginationItem", { schema: paginationItemSchema });
+    registry.set("PaginationLink", { schema: paginationLinkSchema });
+    registry.set("PaginationPrevious", { schema: paginationPreviousSchema });
+    registry.set("PaginationNext", { schema: paginationNextSchema });
+    registry.set("PaginationEllipsis", { schema: paginationEllipsisSchema });
+    
+    // Popover and sub-components
+    registry.set("Popover", { schema: popoverSchema });
+    registry.set("PopoverTrigger", { schema: popoverTriggerSchema });
+    registry.set("PopoverContent", { schema: popoverContentSchema });
+    registry.set("PopoverAnchor", { schema: popoverAnchorSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -698,6 +740,265 @@ export const displayComponentsRegistry: RegistryModule = {
                 ]
               }
             ]
+          }
+        ]
+      }
+    ]);
+    
+    // HoverCard examples
+    examples.set("hover-card", [
+      {
+        type: "hover-card",
+        openDelay: 200,
+        children: [
+          {
+            type: "hover-card-trigger",
+            asChild: true,
+            children: {
+              type: "Button",
+              variant: "link",
+              children: "@nextjs"
+            }
+          },
+          {
+            type: "hover-card-content",
+            side: "bottom",
+            children: [
+              {
+                type: "flex",
+                justify: "between",
+                gap: "md",
+                children: [
+                  {
+                    type: "Avatar",
+                    children: [
+                      {
+                        type: "AvatarImage",
+                        src: "https://github.com/vercel.png",
+                        alt: "@nextjs"
+                      },
+                      {
+                        type: "AvatarFallback",
+                        children: "VC"
+                      }
+                    ]
+                  },
+                  {
+                    type: "Box",
+                    children: [
+                      {
+                        type: "heading",
+                        level: "h4",
+                        content: "Next.js"
+                      },
+                      {
+                        type: "text",
+                        size: "sm",
+                        text: "The React Framework – created and maintained by @vercel."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]);
+    
+    // Loading examples
+    examples.set("loading", [
+      {
+        type: "loading",
+        variant: "spinner",
+        size: "md"
+      },
+      {
+        type: "loading",
+        variant: "dots",
+        size: "lg",
+        text: "Loading..."
+      },
+      {
+        type: "loading",
+        variant: "pulse",
+        fullScreen: true
+      },
+      {
+        type: "loading",
+        variant: "bars",
+        size: "sm",
+        overlay: true
+      }
+    ]);
+    
+    // Markdown examples
+    examples.set("markdown", [
+      {
+        type: "markdown",
+        content: "# Hello, World!\n\nThis is a **markdown** example with *italic* text."
+      },
+      {
+        type: "markdown",
+        content: "## Features\n\n- Bullet points\n- Code blocks\n- Links\n\n```javascript\nconsole.log('Hello, World!');\n```"
+      },
+      {
+        type: "markdown",
+        content: "| Column 1 | Column 2 |\n|----------|----------|\n| Cell 1   | Cell 2   |\n| Cell 3   | Cell 4   |",
+        className: "max-w-2xl"
+      }
+    ]);
+    
+    // NavigationMenu examples
+    examples.set("NavigationMenu", [
+      {
+        type: "NavigationMenu",
+        children: [
+          {
+            type: "NavigationMenuList",
+            children: [
+              {
+                type: "NavigationMenuItem",
+                children: [
+                  {
+                    type: "NavigationMenuTrigger",
+                    children: "Getting started"
+                  },
+                  {
+                    type: "NavigationMenuContent",
+                    children: [
+                      {
+                        type: "NavigationMenuLink",
+                        href: "/docs/introduction",
+                        children: "Introduction"
+                      },
+                      {
+                        type: "NavigationMenuLink",
+                        href: "/docs/installation",
+                        children: "Installation"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                type: "NavigationMenuItem",
+                children: [
+                  {
+                    type: "NavigationMenuLink",
+                    href: "/docs",
+                    children: "Documentation"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]);
+    
+    // Pagination examples
+    examples.set("Pagination", [
+      {
+        type: "Pagination",
+        children: [
+          {
+            type: "PaginationContent",
+            children: [
+              {
+                type: "PaginationItem",
+                children: {
+                  type: "PaginationPrevious",
+                  href: "#"
+                }
+              },
+              {
+                type: "PaginationItem",
+                children: {
+                  type: "PaginationLink",
+                  href: "#",
+                  children: "1"
+                }
+              },
+              {
+                type: "PaginationItem",
+                children: {
+                  type: "PaginationLink",
+                  href: "#",
+                  isActive: true,
+                  children: "2"
+                }
+              },
+              {
+                type: "PaginationItem",
+                children: {
+                  type: "PaginationLink",
+                  href: "#",
+                  children: "3"
+                }
+              },
+              {
+                type: "PaginationItem",
+                children: {
+                  type: "PaginationEllipsis"
+                }
+              },
+              {
+                type: "PaginationItem",
+                children: {
+                  type: "PaginationNext",
+                  href: "#"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]);
+    
+    // Popover examples
+    examples.set("Popover", [
+      {
+        type: "Popover",
+        children: [
+          {
+            type: "PopoverTrigger",
+            asChild: true,
+            children: {
+              type: "Button",
+              variant: "outline",
+              children: "Open popover"
+            }
+          },
+          {
+            type: "PopoverContent",
+            children: [
+              {
+                type: "heading",
+                level: "h4",
+                content: "Popover title"
+              },
+              {
+                type: "text",
+                text: "This is the popover content."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: "Popover",
+        defaultOpen: false,
+        children: [
+          {
+            type: "PopoverTrigger",
+            children: "Click me"
+          },
+          {
+            type: "PopoverContent",
+            side: "right",
+            align: "start",
+            children: "Custom positioned popover"
           }
         ]
       }

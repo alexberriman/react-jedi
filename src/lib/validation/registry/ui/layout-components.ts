@@ -2,6 +2,9 @@ import { SchemaRegistry, ComponentExamples, RegistryModule } from "../../types/r
 import { boxSchema } from "../../../../components/ui/box/box.schema";
 import { flexSchema } from "../../../../components/ui/flex/flex.schema";
 import { containerSchema } from "../../../../components/ui/container/container.schema";
+import { aspectRatioSchema } from "../../../../components/ui/aspect-ratio/aspect-ratio.schema";
+import { spacerSchema } from "../../../../components/ui/spacer/spacer.schema";
+import { centerSchema } from "../../../../components/ui/center/center.schema";
 
 /**
  * Registry for layout-related UI components
@@ -16,6 +19,15 @@ export const layoutComponentsRegistry: RegistryModule = {
     
     // Container
     registry.set("Container", { schema: containerSchema });
+    
+    // AspectRatio
+    registry.set("AspectRatio", { schema: aspectRatioSchema });
+    
+    // Spacer
+    registry.set("Spacer", { schema: spacerSchema });
+    
+    // Center
+    registry.set("Center", { schema: centerSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -58,6 +70,62 @@ export const layoutComponentsRegistry: RegistryModule = {
         size: "lg",
         align: "center",
         as: "section",
+        children: []
+      }
+    ]);
+    
+    // AspectRatio examples
+    examples.set("AspectRatio", [
+      {
+        type: "AspectRatio",
+        ratio: 16 / 9,
+        children: {
+          type: "Image",
+          src: "https://example.com/image.jpg",
+          alt: "Example image"
+        }
+      },
+      {
+        type: "AspectRatio",
+        ratio: 1,
+        children: []
+      }
+    ]);
+    
+    // Spacer examples
+    examples.set("Spacer", [
+      {
+        type: "Spacer",
+        size: "md"
+      },
+      {
+        type: "Spacer",
+        size: "lg",
+        orientation: "horizontal"
+      },
+      {
+        type: "Spacer",
+        size: "xl",
+        showGuide: true
+      }
+    ]);
+    
+    // Center examples
+    examples.set("Center", [
+      {
+        type: "Center",
+        children: "Centered content"
+      },
+      {
+        type: "Center",
+        fullHeight: true,
+        centerDirection: "both",
+        children: "Centered in viewport"
+      },
+      {
+        type: "Center",
+        as: "section",
+        centerDirection: "horizontal",
         children: []
       }
     ]);

@@ -1,6 +1,6 @@
-import type { BaseComponentSpec } from "./base";
+import type { BaseComponentSpec } from "../schema/base";
 
-export interface ChartComponentProps extends BaseComponentSpec {
+export interface ChartComponentProps extends Omit<BaseComponentSpec, "data"> {
   type: "Chart";
   chartType: "line" | "bar" | "area" | "pie" | "radar" | "radialBar";
   data: Array<Record<string, unknown>>;

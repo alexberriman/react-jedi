@@ -11,6 +11,7 @@ import type { GroupSpec } from "../components/group";
 import type { SimpleGridSpec } from "../components/simple-grid";
 import type { MasonrySpec } from "../components/masonry";
 import type { ScrollAreaSpecification } from "../components/scroll-area";
+import type { CenterSpec } from "../components/center";
 
 /**
  * Box Component Specification
@@ -503,6 +504,7 @@ export type LayoutComponentSpec =
   | FlexSpec
   | AspectRatioSpec
   | SeparatorSpec
+  | CenterSpec
   | StackSpec
   | GroupSpec
   | SimpleGridSpec

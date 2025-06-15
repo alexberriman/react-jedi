@@ -4,6 +4,11 @@ import { inputSchema } from "../../../../components/ui/input/input.schema";
 import { labelSchema } from "../../../../components/ui/label/label.schema";
 import { selectSchema, selectTriggerSchema, selectValueSchema, selectContentSchema, selectItemSchema, selectGroupSchema, selectLabelSchema, selectSeparatorSchema, selectScrollUpButtonSchema, selectScrollDownButtonSchema } from "../../../../components/ui/select/select.schema";
 import { switchSchema } from "../../../../components/ui/switch/switch.schema";
+import { calendarSchema } from "../../../../components/ui/calendar/calendar.schema";
+import { checkboxSchema } from "../../../../components/ui/checkbox/checkbox.schema";
+import { radioGroupSchema, radioGroupItemSchema } from "../../../../components/ui/radio-group/radio-group.schema";
+import { textareaSchema } from "../../../../components/ui/textarea/textarea.schema";
+import { comboboxSchema } from "../../../../components/ui/combobox/combobox.schema";
 
 /**
  * Registry for form-related UI components
@@ -33,6 +38,22 @@ export const formComponentsRegistry: RegistryModule = {
     
     // Switch
     registry.set("Switch", { schema: switchSchema });
+    
+    // Calendar
+    registry.set("Calendar", { schema: calendarSchema });
+    
+    // Checkbox
+    registry.set("Checkbox", { schema: checkboxSchema });
+    
+    // RadioGroup and sub-components
+    registry.set("RadioGroup", { schema: radioGroupSchema });
+    registry.set("RadioGroupItem", { schema: radioGroupItemSchema });
+    
+    // Textarea
+    registry.set("Textarea", { schema: textareaSchema });
+    
+    // Combobox
+    registry.set("Combobox", { schema: comboboxSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -124,6 +145,108 @@ export const formComponentsRegistry: RegistryModule = {
         type: "Switch",
         checked: true,
         disabled: true
+      }
+    ]);
+    
+    // Calendar examples
+    examples.set("Calendar", [
+      {
+        type: "Calendar",
+        mode: "single",
+        showOutsideDays: true
+      },
+      {
+        type: "Calendar",
+        mode: "range",
+        numberOfMonths: 2,
+        selected: {
+          from: new Date().toISOString(),
+          to: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+        }
+      }
+    ]);
+    
+    // Checkbox examples
+    examples.set("Checkbox", [
+      {
+        type: "Checkbox",
+        defaultChecked: false
+      },
+      {
+        type: "Checkbox",
+        checked: true,
+        disabled: true
+      }
+    ]);
+    
+    // RadioGroup examples
+    examples.set("RadioGroup", [
+      {
+        type: "RadioGroup",
+        defaultValue: "option1",
+        children: [
+          {
+            type: "RadioGroupItem",
+            value: "option1",
+            id: "option1"
+          },
+          {
+            type: "RadioGroupItem",
+            value: "option2",
+            id: "option2"
+          },
+          {
+            type: "RadioGroupItem",
+            value: "option3",
+            id: "option3"
+          }
+        ]
+      }
+    ]);
+    
+    // Textarea examples
+    examples.set("Textarea", [
+      {
+        type: "Textarea",
+        placeholder: "Enter your message...",
+        rows: 4
+      },
+      {
+        type: "Textarea",
+        defaultValue: "This is some example text.",
+        rows: 5,
+        maxLength: 500
+      },
+      {
+        type: "Textarea",
+        placeholder: "Required field",
+        required: true,
+        name: "message"
+      }
+    ]);
+    
+    // Combobox examples
+    examples.set("Combobox", [
+      {
+        type: "Combobox",
+        placeholder: "Select framework",
+        searchPlaceholder: "Search frameworks...",
+        emptyText: "No framework found.",
+        options: [
+          { value: "next.js", label: "Next.js" },
+          { value: "sveltekit", label: "SvelteKit" },
+          { value: "nuxt.js", label: "Nuxt.js" },
+          { value: "remix", label: "Remix" },
+          { value: "astro", label: "Astro" }
+        ]
+      },
+      {
+        type: "Combobox",
+        value: "next.js",
+        disabled: true,
+        options: [
+          { value: "next.js", label: "Next.js" }
+        ]
       }
     ]);
   }

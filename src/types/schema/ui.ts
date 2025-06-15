@@ -31,6 +31,8 @@ import type { ComboboxDef } from "@/types/components/combobox";
 import type { InputOTPDef } from "@/types/components/input-otp";
 import type { TableSpec } from "@/types/components/table";
 import type { DataTableSpec } from "@/types/components/data-table";
+import type { CollapsibleSpec, CollapsibleTriggerSpec, CollapsibleContentSpec } from "@/types/components/collapsible";
+import type { ChartComponentProps } from "@/types/components/chart";
 
 /**
  * Button Component Specification
@@ -1017,4 +1019,8 @@ export type UIComponentSpec =
   | DataTableSpec
   | import("@/types/components/carousel").CarouselDef
   | import("@/types/components/head-manager").HeadManagerSpec
-  | import("@/types/components/head-manager").ExtendedHeadManagerSpec;
+  | import("@/types/components/head-manager").ExtendedHeadManagerSpec
+  | CollapsibleSpec
+  | CollapsibleTriggerSpec
+  | CollapsibleContentSpec
+  | ChartComponentProps;

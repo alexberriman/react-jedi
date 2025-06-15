@@ -194,6 +194,7 @@ export interface ComponentTypes {
   ScrollArea: import("../components/scroll-area").ScrollAreaSpecification;
   Stack: import("../components/stack").StackSpec;
   Group: import("../components/group").GroupSpec;
+  Center: import("../components/center").CenterSpec;
 
   // Typography Components
   Text: import("./typography").TextSpec;
@@ -240,4 +241,10 @@ export interface ComponentTypes {
   // Data Display Components
   Table: import("../components/table").TableSpec;
   DataTable: import("../components/data-table").DataTableSpec;
+  Chart: import("../components/chart").ChartComponentProps;
+  
+  // Collapsible Components
+  Collapsible: import("../components/collapsible").CollapsibleSpec;
+  CollapsibleTrigger: import("../components/collapsible").CollapsibleTriggerSpec;
+  CollapsibleContent: import("../components/collapsible").CollapsibleContentSpec;
 }

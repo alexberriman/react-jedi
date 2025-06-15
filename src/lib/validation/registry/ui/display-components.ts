@@ -16,6 +16,9 @@ import { skeletonSchema } from "../../../../components/ui/skeleton/skeleton.sche
 import { blockquoteSchema } from "../../../../components/ui/blockquote/blockquote.schema";
 import { chartSchema } from "../../../../components/ui/chart/chart.schema";
 import { collapsibleSchema, collapsibleTriggerSchema, collapsibleContentSchema } from "../../../../components/ui/collapsible/collapsible.schema";
+import { toggleSchema } from "../../../../components/ui/toggle/toggle.schema";
+import { tabsSchema, tabsListSchema, tabsTriggerSchema, tabsContentSchema } from "../../../../components/ui/tabs/tabs.schema";
+import { dialogSchema, dialogTriggerSchema, dialogPortalSchema, dialogOverlaySchema, dialogContentSchema, dialogCloseSchema, dialogHeaderSchema, dialogFooterSchema, dialogTitleSchema, dialogDescriptionSchema } from "../../../../components/ui/dialog/dialog.schema";
 
 /**
  * Registry for display-related UI components
@@ -107,6 +110,27 @@ export const displayComponentsRegistry: RegistryModule = {
     registry.set("Collapsible", { schema: collapsibleSchema });
     registry.set("CollapsibleTrigger", { schema: collapsibleTriggerSchema });
     registry.set("CollapsibleContent", { schema: collapsibleContentSchema });
+    
+    // Toggle
+    registry.set("Toggle", { schema: toggleSchema });
+    
+    // Tabs and sub-components
+    registry.set("Tabs", { schema: tabsSchema });
+    registry.set("TabsList", { schema: tabsListSchema });
+    registry.set("TabsTrigger", { schema: tabsTriggerSchema });
+    registry.set("TabsContent", { schema: tabsContentSchema });
+    
+    // Dialog and sub-components
+    registry.set("Dialog", { schema: dialogSchema });
+    registry.set("DialogTrigger", { schema: dialogTriggerSchema });
+    registry.set("DialogPortal", { schema: dialogPortalSchema });
+    registry.set("DialogOverlay", { schema: dialogOverlaySchema });
+    registry.set("DialogContent", { schema: dialogContentSchema });
+    registry.set("DialogClose", { schema: dialogCloseSchema });
+    registry.set("DialogHeader", { schema: dialogHeaderSchema });
+    registry.set("DialogFooter", { schema: dialogFooterSchema });
+    registry.set("DialogTitle", { schema: dialogTitleSchema });
+    registry.set("DialogDescription", { schema: dialogDescriptionSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -445,6 +469,123 @@ export const displayComponentsRegistry: RegistryModule = {
           {
             type: "CollapsibleContent",
             children: "Yes. Free to use for personal and commercial projects."
+          }
+        ]
+      }
+    ]);
+    
+    // Toggle examples
+    examples.set("Toggle", [
+      {
+        type: "Toggle",
+        children: "Toggle me"
+      },
+      {
+        type: "Toggle",
+        variant: "outline",
+        size: "lg",
+        defaultPressed: true,
+        children: "Bold"
+      },
+      {
+        type: "Toggle",
+        variant: "outline",
+        size: "sm",
+        disabled: true,
+        children: "Disabled"
+      }
+    ]);
+    
+    // Tabs examples
+    examples.set("Tabs", [
+      {
+        type: "Tabs",
+        defaultValue: "tab1",
+        children: [
+          {
+            type: "TabsList",
+            children: [
+              {
+                type: "TabsTrigger",
+                value: "tab1",
+                children: "Tab 1"
+              },
+              {
+                type: "TabsTrigger",
+                value: "tab2",
+                children: "Tab 2"
+              },
+              {
+                type: "TabsTrigger",
+                value: "tab3",
+                children: "Tab 3"
+              }
+            ]
+          },
+          {
+            type: "TabsContent",
+            value: "tab1",
+            children: "Content for tab 1"
+          },
+          {
+            type: "TabsContent",
+            value: "tab2",
+            children: "Content for tab 2"
+          },
+          {
+            type: "TabsContent",
+            value: "tab3",
+            children: "Content for tab 3"
+          }
+        ]
+      }
+    ]);
+    
+    // Dialog examples
+    examples.set("Dialog", [
+      {
+        type: "Dialog",
+        children: [
+          {
+            type: "DialogTrigger",
+            asChild: true,
+            children: {
+              type: "Button",
+              variant: "outline",
+              children: "Open Dialog"
+            }
+          },
+          {
+            type: "DialogContent",
+            children: [
+              {
+                type: "DialogHeader",
+                children: [
+                  {
+                    type: "DialogTitle",
+                    children: "Edit Profile"
+                  },
+                  {
+                    type: "DialogDescription",
+                    children: "Make changes to your profile here. Click save when you're done."
+                  }
+                ]
+              },
+              {
+                type: "DialogFooter",
+                children: [
+                  {
+                    type: "Button",
+                    variant: "outline",
+                    children: "Cancel"
+                  },
+                  {
+                    type: "Button",
+                    children: "Save changes"
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

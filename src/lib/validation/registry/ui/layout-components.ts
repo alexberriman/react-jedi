@@ -5,6 +5,8 @@ import { containerSchema } from "../../../../components/ui/container/container.s
 import { aspectRatioSchema } from "../../../../components/ui/aspect-ratio/aspect-ratio.schema";
 import { spacerSchema } from "../../../../components/ui/spacer/spacer.schema";
 import { centerSchema } from "../../../../components/ui/center/center.schema";
+import { gridSchema } from "../../../../components/ui/grid/grid.schema";
+import { stackSchema } from "../../../../components/ui/stack/stack.schema";
 
 /**
  * Registry for layout-related UI components
@@ -28,6 +30,12 @@ export const layoutComponentsRegistry: RegistryModule = {
     
     // Center
     registry.set("Center", { schema: centerSchema });
+    
+    // Grid
+    registry.set("Grid", { schema: gridSchema });
+    
+    // Stack
+    registry.set("Stack", { schema: stackSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -126,6 +134,55 @@ export const layoutComponentsRegistry: RegistryModule = {
         type: "Center",
         as: "section",
         centerDirection: "horizontal",
+        children: []
+      }
+    ]);
+    
+    // Grid examples
+    examples.set("Grid", [
+      {
+        type: "Grid",
+        columns: 3,
+        gap: 4,
+        children: []
+      },
+      {
+        type: "Grid",
+        columns: { base: 1, sm: 2, md: 3, lg: 4 },
+        gap: { base: 2, md: 4 },
+        autoFit: false,
+        children: []
+      },
+      {
+        type: "Grid",
+        autoFit: true,
+        minColWidth: "300px",
+        gap: 6,
+        children: []
+      }
+    ]);
+    
+    // Stack examples
+    examples.set("Stack", [
+      {
+        type: "Stack",
+        orientation: "vertical",
+        spacing: "md",
+        children: []
+      },
+      {
+        type: "Stack",
+        orientation: "horizontal",
+        spacing: "lg",
+        align: "center",
+        justify: "between",
+        children: []
+      },
+      {
+        type: "Stack",
+        orientation: "vertical",
+        spacing: "sm",
+        divider: { type: "Separator" },
         children: []
       }
     ]);

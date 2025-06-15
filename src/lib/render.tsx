@@ -38,8 +38,6 @@ import { processJsonTemplate, type TemplateVariable } from "./parser/template-en
 import { isIconReference, transformIconReference } from "./icons";
 import { SDUIFormWrapper } from "./form/sdui-form-wrapper";
 import { createValidationPipeline } from "./parser/validation-pipeline";
-import { ValidationErrorPanel } from "../components/validation-error-panel";
-import { createPortal } from "react-dom";
 
 // Import helper functions from component-resolver
 const transformPropsForComponent = (spec: Record<string, unknown>, actualProps: Record<string, unknown>): Record<string, unknown> => {
@@ -1152,7 +1150,6 @@ export function render(
     const shouldValidate = options.validateSpecifications ?? isDevelopment;
     
     // Validation logic
-    let validationErrors: React.ReactElement | null = null;
     if (shouldValidate) {
       const pipeline = createValidationPipeline({
         development: isDevelopment,
@@ -1160,12 +1157,16 @@ export function render(
       });
       
       const validationResult = pipeline.validateSpecification(processedSpecification);
-      if (validationResult.err && isDevelopment) {
-        // Create validation error panel for development mode
-        validationErrors = createPortal(
-          <ValidationErrorPanel errors={validationResult.val} />,
-          document.body
+      if (validationResult.err) {
+        // Stop rendering and show error boundary with validation errors
+        const validationError = new Error(
+          `Validation failed: ${validationResult.val.map(e => e.message).join(', ')}`
         );
+        interface ValidationError extends Error {
+          validationErrors?: typeof validationResult.val;
+        }
+        (validationError as ValidationError).validationErrors = validationResult.val;
+        throw validationError;
       }
     }
 
@@ -1183,16 +1184,6 @@ export function render(
     const wrappedContent = wrapWithProviders(rendered, stateManager, fullSpec, effectiveOptions);
 
     const finalContent = wrapInErrorBoundary(wrappedContent, effectiveOptions);
-    
-    // Include validation errors panel if present
-    if (validationErrors) {
-      return (
-        <>
-          {finalContent}
-          {validationErrors}
-        </>
-      );
-    }
     
     return finalContent;
   } catch (error) {

@@ -194,7 +194,7 @@ function MobileNavigation({
           )}
 
           {/* Navigation items */}
-          {navigation && navigation.length > 0 && (
+          {navigation && Array.isArray(navigation) && navigation.length > 0 && (
             <nav className="flex flex-col gap-2">
               {navigation.map((item) => (
                 <div key={item.label}>
@@ -393,7 +393,7 @@ export function Header({
   };
 
   const renderNavigation = () => {
-    if (!navigation || navigation.length === 0) return null;
+    if (!navigation || !Array.isArray(navigation) || navigation.length === 0) return null;
 
     return (
       <NavigationMenu className="hidden lg:flex">

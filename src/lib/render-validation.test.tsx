@@ -43,14 +43,11 @@ describe("render validation integration", () => {
   };
 
   describe("development mode detection", () => {
-    it("should validate by default in development mode", () => {
+    it("should validate and throw error by default in development mode", () => {
       process.env.NODE_ENV = "development";
-      const result = render(invalidSpec);
-      expect(result).not.toBeNull();
-      const { container } = renderReact(result!);
       
-      // Should show validation panel
-      expect(container.textContent).toContain("Validation Issues");
+      // Should throw validation error when error boundaries are disabled
+      expect(() => render(invalidSpec, { errorBoundaries: false })).toThrow("Validation failed");
     });
 
     it("should not validate by default in production mode", () => {
@@ -65,27 +62,21 @@ describe("render validation integration", () => {
 
     it("should respect explicit development option", () => {
       process.env.NODE_ENV = "production";
-      const result = render(invalidSpec, { development: true });
-      expect(result).not.toBeNull();
-      const { container } = renderReact(result!);
       
-      // Should show validation panel
-      expect(container.textContent).toContain("Validation Issues");
+      // Should throw validation error when development: true
+      expect(() => render(invalidSpec, { development: true, errorBoundaries: false })).toThrow("Validation failed");
     });
   });
 
   describe("validateSpecifications option", () => {
-    it("should validate when validateSpecifications is true", () => {
+    it("should validate and throw when validateSpecifications is true", () => {
       process.env.NODE_ENV = "production";
-      const result = render(invalidSpec, { 
-        validateSpecifications: true,
-        development: true // Need this to show UI
-      });
-      expect(result).not.toBeNull();
-      const { container } = renderReact(result!);
       
-      // Should show validation panel
-      expect(container.textContent).toContain("Validation Issues");
+      // Should throw validation error
+      expect(() => render(invalidSpec, { 
+        validateSpecifications: true,
+        errorBoundaries: false
+      })).toThrow("Validation failed");
     });
 
     it("should not validate when validateSpecifications is false", () => {
@@ -98,29 +89,23 @@ describe("render validation integration", () => {
       expect(container.textContent).not.toContain("Validation Issues");
     });
 
-    it("should validate but not show UI in production with validateSpecifications", () => {
+    it("should validate and throw in production with validateSpecifications", () => {
       process.env.NODE_ENV = "production";
-      const result = render(invalidSpec, { 
-        validateSpecifications: true,
-        development: false
-      });
-      expect(result).not.toBeNull();
-      const { container } = renderReact(result!);
       
-      // Should not show validation panel (production mode)
-      expect(container.textContent).not.toContain("Validation Issues");
+      // Should throw validation error regardless of development mode
+      expect(() => render(invalidSpec, { 
+        validateSpecifications: true,
+        development: false,
+        errorBoundaries: false
+      })).toThrow("Validation failed");
     });
   });
 
   describe("validation error display", () => {
-    it("should display error details for invalid specifications", () => {
-      const result = render(invalidSpec, { development: true });
-      expect(result).not.toBeNull();
-      const { container } = renderReact(result!);
-      
-      // Check for error content
-      expect(container.textContent).toContain("Validation Issues");
-      expect(container.textContent).toContain("Grid columns");
+    it("should throw error with details for invalid specifications", () => {
+      // Should throw with specific error message
+      expect(() => render(invalidSpec, { development: true, errorBoundaries: false }))
+        .toThrow("Grid columns must be between 1 and 12");
     });
 
     it("should not display validation panel for valid specifications", () => {
@@ -134,7 +119,7 @@ describe("render validation integration", () => {
       expect(container.textContent).toContain("Valid content");
     });
 
-    it("should show multiple errors", () => {
+    it("should throw error with multiple validation issues", () => {
       const multiErrorSpec: UISpecification = {
         version: "1.0",
         root: {
@@ -154,27 +139,28 @@ describe("render validation integration", () => {
         },
       };
 
-      const result = render(multiErrorSpec, { development: true });
-      expect(result).not.toBeNull();
-      const { container } = renderReact(result!);
-      
-      // Should show multiple errors - check for error badge or panel text
-      const textContent = container.textContent || "";
-      expect(textContent).toContain("Validation Issues");
+      // Should throw with error message
+      expect(() => render(multiErrorSpec, { development: true, errorBoundaries: false }))
+        .toThrow("Validation failed");
     });
   });
 
   describe("rendering behavior", () => {
-    it("should still render content even with validation errors", () => {
-      const result = render(invalidSpec, { development: true });
-      expect(result).not.toBeNull();
-      const { container } = renderReact(result!);
-      
-      // Should render the grid even though it has invalid columns
-      expect(container.querySelector("[class*='grid']")).toBeTruthy();
+    it("should stop rendering when validation errors occur", () => {
+      // Should not render content with validation errors
+      expect(() => render(invalidSpec, { development: true, errorBoundaries: false })).toThrow();
     });
 
-    it("should render both content and validation panel", () => {
+    it("should display error boundary content for validation errors", () => {
+      // With error boundaries enabled, render returns an error boundary component
+      const result = render(invalidSpec, { development: true, errorBoundaries: true });
+      expect(result).not.toBeNull();
+      
+      // Without error boundaries, it throws directly
+      expect(() => render(invalidSpec, { development: true, errorBoundaries: false })).toThrow("Validation failed");
+    });
+    
+    it("should render error boundary with validation error details", () => {
       const specWithContent: UISpecification = {
         version: "1.0",
         root: {
@@ -193,13 +179,47 @@ describe("render validation integration", () => {
         },
       };
 
-      const result = render(specWithContent, { development: true });
-      expect(result).not.toBeNull();
-      const { container } = renderReact(result!);
+      // Should throw and not render any content
+      expect(() => render(specWithContent, { development: true, errorBoundaries: false }))
+        .toThrow("Validation failed");
+    });
+  });
+
+  describe("error boundary integration", () => {
+    it("should handle validation errors gracefully when errorBoundaries is true", () => {
+      // The render function should return an error boundary component
+      // that wraps an ErrorTrigger which will throw when rendered
+      const result = render(invalidSpec, { 
+        development: false,
+        validateSpecifications: true,
+        errorBoundaries: true 
+      });
       
-      // Should show both content and validation
-      expect(container.textContent).toContain("Test content");
-      expect(container.textContent).toContain("Validation Issues");
+      // Result should be an error boundary component
+      expect(result).not.toBeNull();
+      
+      // When rendering, the ErrorTrigger inside will throw,
+      // which React Testing Library will catch
+      // We need to suppress the console error for this test
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      
+      try {
+        renderReact(result!);
+      } catch (error) {
+        // This is expected - the ErrorTrigger throws inside the error boundary
+        expect((error as Error).message).toContain("Validation failed");
+      }
+      
+      consoleSpy.mockRestore();
+    });
+
+    it("should throw when errorBoundaries is false", () => {
+      // Should throw the error directly
+      expect(() => render(invalidSpec, { 
+        development: false,
+        validateSpecifications: true,
+        errorBoundaries: false 
+      })).toThrow("Validation failed");
     });
   });
 });

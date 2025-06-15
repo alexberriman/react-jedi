@@ -4,8 +4,7 @@ import { baseComponentSchema } from "../../../lib/schemas/base-schema";
 export const centerSchema = baseComponentSchema.extend({
   type: z.literal("Center"),
   
-  // Polymorphic component
-  as: z.enum(["div", "section", "main", "article"]).optional(),
+  as: z.string().optional(),
   
   // Children content
   children: z.any(),

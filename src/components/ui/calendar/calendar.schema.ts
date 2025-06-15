@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { baseComponentSchema } from "@/lib/schemas/base-schema";
+import { baseComponentSchema } from "../../../lib/schemas/base-schema";
 
 /**
  * Schema for the Calendar component

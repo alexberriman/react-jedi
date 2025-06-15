@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { baseComponentSchema } from "@/lib/schemas/base-schema";
+import { baseComponentSchema } from "../../../lib/schemas/base-schema";
 
 /**
  * Schema for breadcrumb items
  */
-const breadcrumbItemSchema = z.object({
+const breadcrumbItemDataSchema = z.object({
   /**
    * The label text for the breadcrumb item
    */
@@ -40,7 +40,7 @@ export const breadcrumbSchema = baseComponentSchema.extend({
   /**
    * Array of breadcrumb items
    */
-  items: z.array(breadcrumbItemSchema).optional(),
+  items: z.array(breadcrumbItemDataSchema).optional(),
   
   /**
    * Separator style between items
@@ -74,7 +74,7 @@ export const breadcrumbListSchema = baseComponentSchema.extend({
 /**
  * Schema for BreadcrumbItem component
  */
-export const breadcrumbItemComponentSchema = baseComponentSchema.extend({
+export const breadcrumbItemSchema = baseComponentSchema.extend({
   type: z.literal("BreadcrumbItem"),
   
   /**
@@ -154,7 +154,7 @@ export const breadcrumbEllipsisSchema = baseComponentSchema.extend({
 
 export type BreadcrumbProps = z.infer<typeof breadcrumbSchema>;
 export type BreadcrumbListProps = z.infer<typeof breadcrumbListSchema>;
-export type BreadcrumbItemProps = z.infer<typeof breadcrumbItemComponentSchema>;
+export type BreadcrumbItemProps = z.infer<typeof breadcrumbItemSchema>;
 export type BreadcrumbLinkProps = z.infer<typeof breadcrumbLinkSchema>;
 export type BreadcrumbPageProps = z.infer<typeof breadcrumbPageSchema>;
 export type BreadcrumbSeparatorProps = z.infer<typeof breadcrumbSeparatorSchema>;

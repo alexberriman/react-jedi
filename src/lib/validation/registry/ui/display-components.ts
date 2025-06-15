@@ -8,7 +8,7 @@ import { cardSchema, cardHeaderSchema, cardTitleSchema, cardDescriptionSchema, c
 import { avatarSchema, avatarImageSchema, avatarFallbackSchema } from "../../../../components/ui/avatar/avatar.schema";
 import { accordionSchema, accordionItemSchema, accordionTriggerSchema, accordionContentSchema } from "../../../../components/ui/accordion/accordion.schema";
 import { alertDialogSchema, alertDialogTriggerSchema, alertDialogPortalSchema, alertDialogOverlaySchema, alertDialogContentSchema, alertDialogHeaderSchema, alertDialogFooterSchema, alertDialogTitleSchema, alertDialogDescriptionSchema, alertDialogActionSchema, alertDialogCancelSchema } from "../../../../components/ui/alert-dialog/alert-dialog.schema";
-import { breadcrumbSchema, breadcrumbListSchema, breadcrumbItemComponentSchema, breadcrumbLinkSchema, breadcrumbPageSchema, breadcrumbSeparatorSchema, breadcrumbEllipsisSchema } from "../../../../components/ui/breadcrumb/breadcrumb.schema";
+import { breadcrumbSchema, breadcrumbListSchema, breadcrumbItemSchema, breadcrumbLinkSchema, breadcrumbPageSchema, breadcrumbSeparatorSchema, breadcrumbEllipsisSchema } from "../../../../components/ui/breadcrumb/breadcrumb.schema";
 import { progressSchema } from "../../../../components/ui/progress/progress.schema";
 import { separatorSchema } from "../../../../components/ui/separator/separator.schema";
 import { tooltipSchema, tooltipProviderSchema, tooltipTriggerSchema, tooltipContentSchema } from "../../../../components/ui/tooltip/tooltip.schema";
@@ -79,7 +79,7 @@ export const displayComponentsRegistry: RegistryModule = {
     // Breadcrumb and sub-components
     registry.set("Breadcrumb", { schema: breadcrumbSchema });
     registry.set("BreadcrumbList", { schema: breadcrumbListSchema });
-    registry.set("BreadcrumbItem", { schema: breadcrumbItemComponentSchema });
+    registry.set("BreadcrumbItem", { schema: breadcrumbItemSchema });
     registry.set("BreadcrumbLink", { schema: breadcrumbLinkSchema });
     registry.set("BreadcrumbPage", { schema: breadcrumbPageSchema });
     registry.set("BreadcrumbSeparator", { schema: breadcrumbSeparatorSchema });

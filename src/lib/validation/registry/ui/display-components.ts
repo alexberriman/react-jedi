@@ -19,6 +19,8 @@ import { collapsibleSchema, collapsibleTriggerSchema, collapsibleContentSchema }
 import { toggleSchema } from "../../../../components/ui/toggle/toggle.schema";
 import { tabsSchema, tabsListSchema, tabsTriggerSchema, tabsContentSchema } from "../../../../components/ui/tabs/tabs.schema";
 import { dialogSchema, dialogTriggerSchema, dialogPortalSchema, dialogOverlaySchema, dialogContentSchema, dialogCloseSchema, dialogHeaderSchema, dialogFooterSchema, dialogTitleSchema, dialogDescriptionSchema } from "../../../../components/ui/dialog/dialog.schema";
+import { contextMenuSchema, contextMenuTriggerSchema, contextMenuContentSchema, contextMenuItemSchema, contextMenuCheckboxItemSchema, contextMenuRadioGroupSchema, contextMenuRadioItemSchema, contextMenuLabelSchema, contextMenuSeparatorSchema, contextMenuShortcutSchema, contextMenuSubSchema, contextMenuSubTriggerSchema, contextMenuSubContentSchema, contextMenuPortalSchema } from "../../../../components/ui/context-menu/context-menu.schema";
+import { drawerSchema, drawerTriggerSchema, drawerPortalSchema, drawerCloseSchema, drawerOverlaySchema, drawerContentSchema, drawerHeaderSchema, drawerFooterSchema, drawerTitleSchema, drawerDescriptionSchema, drawerSectionSchema, drawerHandleSchema } from "../../../../components/ui/drawer/drawer.schema";
 
 /**
  * Registry for display-related UI components
@@ -131,6 +133,36 @@ export const displayComponentsRegistry: RegistryModule = {
     registry.set("DialogFooter", { schema: dialogFooterSchema });
     registry.set("DialogTitle", { schema: dialogTitleSchema });
     registry.set("DialogDescription", { schema: dialogDescriptionSchema });
+    
+    // ContextMenu and sub-components
+    registry.set("context-menu", { schema: contextMenuSchema });
+    registry.set("ContextMenuTrigger", { schema: contextMenuTriggerSchema });
+    registry.set("ContextMenuPortal", { schema: contextMenuPortalSchema });
+    registry.set("ContextMenuContent", { schema: contextMenuContentSchema });
+    registry.set("ContextMenuItem", { schema: contextMenuItemSchema });
+    registry.set("ContextMenuCheckboxItem", { schema: contextMenuCheckboxItemSchema });
+    registry.set("ContextMenuRadioGroup", { schema: contextMenuRadioGroupSchema });
+    registry.set("ContextMenuRadioItem", { schema: contextMenuRadioItemSchema });
+    registry.set("ContextMenuLabel", { schema: contextMenuLabelSchema });
+    registry.set("ContextMenuSeparator", { schema: contextMenuSeparatorSchema });
+    registry.set("ContextMenuShortcut", { schema: contextMenuShortcutSchema });
+    registry.set("ContextMenuSub", { schema: contextMenuSubSchema });
+    registry.set("ContextMenuSubTrigger", { schema: contextMenuSubTriggerSchema });
+    registry.set("ContextMenuSubContent", { schema: contextMenuSubContentSchema });
+    
+    // Drawer and sub-components
+    registry.set("Drawer", { schema: drawerSchema });
+    registry.set("DrawerTrigger", { schema: drawerTriggerSchema });
+    registry.set("DrawerPortal", { schema: drawerPortalSchema });
+    registry.set("DrawerClose", { schema: drawerCloseSchema });
+    registry.set("DrawerOverlay", { schema: drawerOverlaySchema });
+    registry.set("DrawerContent", { schema: drawerContentSchema });
+    registry.set("DrawerHeader", { schema: drawerHeaderSchema });
+    registry.set("DrawerFooter", { schema: drawerFooterSchema });
+    registry.set("DrawerTitle", { schema: drawerTitleSchema });
+    registry.set("DrawerDescription", { schema: drawerDescriptionSchema });
+    registry.set("DrawerSection", { schema: drawerSectionSchema });
+    registry.set("DrawerHandle", { schema: drawerHandleSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -582,6 +614,86 @@ export const displayComponentsRegistry: RegistryModule = {
                   {
                     type: "Button",
                     children: "Save changes"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]);
+    
+    // ContextMenu examples
+    examples.set("context-menu", [
+      {
+        type: "context-menu",
+        trigger: {
+          type: "Box",
+          padding: "lg",
+          rounded: "md",
+          backgroundColor: "card",
+          children: "Right-click me"
+        },
+        items: [
+          { type: "item", label: "Back", shortcut: "⌘[" },
+          { type: "item", label: "Forward", shortcut: "⌘]", disabled: true },
+          { type: "item", label: "Reload", shortcut: "⌘R" },
+          { type: "separator" },
+          { type: "checkbox", label: "Show Bookmarks Bar", checked: true },
+          { type: "checkbox", label: "Show Full URLs" },
+          { type: "separator" },
+          { type: "label", label: "People" },
+          { type: "radio", value: "pedro", label: "Pedro Duarte" },
+          { type: "radio", value: "colm", label: "Colm Tuite", checked: true }
+        ]
+      }
+    ]);
+    
+    // Drawer examples
+    examples.set("Drawer", [
+      {
+        type: "Drawer",
+        children: [
+          {
+            type: "DrawerTrigger",
+            asChild: true,
+            children: {
+              type: "Button",
+              variant: "outline",
+              children: "Open Drawer"
+            }
+          },
+          {
+            type: "DrawerContent",
+            children: [
+              {
+                type: "DrawerHeader",
+                children: [
+                  {
+                    type: "DrawerTitle",
+                    children: "Are you absolutely sure?"
+                  },
+                  {
+                    type: "DrawerDescription",
+                    children: "This action cannot be undone."
+                  }
+                ]
+              },
+              {
+                type: "DrawerFooter",
+                children: [
+                  {
+                    type: "Button",
+                    children: "Submit"
+                  },
+                  {
+                    type: "DrawerClose",
+                    asChild: true,
+                    children: {
+                      type: "Button",
+                      variant: "outline",
+                      children: "Cancel"
+                    }
                   }
                 ]
               }

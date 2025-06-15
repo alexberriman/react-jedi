@@ -14,14 +14,16 @@ The schema validation provides:
 ## Current State
 
 - **Total components**: 98 (56 UI + 42 blocks)
-- **Components with schemas**: 16 (16.3%)
-- **Components missing schemas**: 82 (83.7%)
+- **Components with schemas**: 42 (42.9%)
+- **Components missing schemas**: 56 (57.1%)
 
 ### Recent Updates
 
 - Implemented modular registry system for better scalability
 - Organized schemas into logical groups (form, layout, display, blocks)
 - Refactored component-validator.ts from 600+ lines to 458 lines
+- Added schemas for 24 additional components including Command, ContextMenu, DatePicker, Drawer, and DropdownMenu
+- Now at 40.8% coverage (40 out of 98 components have schemas)
 
 ## Registry System Architecture
 
@@ -201,30 +203,30 @@ export const formComponentsRegistry: RegistryModule = {
 
 | Component       | Schema File               | Status         |
 | --------------- | ------------------------- | -------------- |
-| accordion       | accordion.schema.ts       | ❌ Not Started |
+| accordion       | accordion.schema.ts       | ✅ Complete    |
 | alert           | alert.schema.ts           | ✅ Complete    |
-| alert-dialog    | alert-dialog.schema.ts    | ❌ Not Started |
-| aspect-ratio    | aspect-ratio.schema.ts    | ❌ Not Started |
+| alert-dialog    | alert-dialog.schema.ts    | ✅ Complete    |
+| aspect-ratio    | aspect-ratio.schema.ts    | ✅ Complete    |
 | avatar          | avatar.schema.ts          | ✅ Complete    |
 | badge           | badge.schema.ts           | ✅ Complete    |
 | box             | box.schema.ts             | ✅ Complete    |
-| breadcrumb      | breadcrumb.schema.ts      | ❌ Not Started |
+| breadcrumb      | breadcrumb.schema.ts      | ✅ Complete    |
 | button          | button.schema.ts          | ✅ Complete    |
-| calendar        | calendar.schema.ts        | ❌ Not Started |
+| calendar        | calendar.schema.ts        | ✅ Complete    |
 | card            | card.schema.ts            | ✅ Complete    |
-| center          | center.schema.ts          | ❌ Not Started |
-| checkbox        | checkbox.schema.ts        | ❌ Not Started |
-| collapsible     | collapsible.schema.ts     | ❌ Not Started |
-| combobox        | combobox.schema.ts        | ❌ Not Started |
-| command         | command.schema.ts         | ❌ Not Started |
+| center          | center.schema.ts          | ✅ Complete    |
+| checkbox        | checkbox.schema.ts        | ✅ Complete    |
+| collapsible     | collapsible.schema.ts     | ✅ Complete    |
+| combobox        | combobox.schema.ts        | ✅ Complete    |
+| command         | command.schema.ts         | ✅ Complete    |
 | container       | container.schema.ts       | ✅ Complete    |
-| context-menu    | context-menu.schema.ts    | ❌ Not Started |
-| date-picker     | date-picker.schema.ts     | ❌ Not Started |
-| dialog          | dialog.schema.ts          | ❌ Not Started |
-| drawer          | drawer.schema.ts          | ❌ Not Started |
-| dropdown-menu   | dropdown-menu.schema.ts   | ❌ Not Started |
+| context-menu    | context-menu.schema.ts    | ✅ Complete    |
+| date-picker     | date-picker.schema.ts     | ✅ Complete    |
+| dialog          | dialog.schema.ts          | ✅ Complete    |
+| drawer          | drawer.schema.ts          | ✅ Complete    |
+| dropdown-menu   | dropdown-menu.schema.ts   | ✅ Complete    |
 | flex            | flex.schema.ts            | ✅ Complete    |
-| grid            | grid.schema.ts            | ❌ Not Started |
+| grid            | grid.schema.ts            | ✅ Complete    |
 | group           | group.schema.ts           | ❌ Not Started |
 | heading         | heading.schema.ts         | ✅ Complete    |
 | hover-card      | hover-card.schema.ts      | ❌ Not Started |
@@ -238,28 +240,28 @@ export const formComponentsRegistry: RegistryModule = {
 | navigation-menu | navigation-menu.schema.ts | ❌ Not Started |
 | pagination      | pagination.schema.ts      | ❌ Not Started |
 | popover         | popover.schema.ts         | ❌ Not Started |
-| progress        | progress.schema.ts        | ❌ Not Started |
-| radio-group     | radio-group.schema.ts     | ❌ Not Started |
+| progress        | progress.schema.ts        | ✅ Complete    |
+| radio-group     | radio-group.schema.ts     | ✅ Complete    |
 | resizable-panel | resizable-panel.schema.ts | ❌ Not Started |
 | scroll-area     | scroll-area.schema.ts     | ❌ Not Started |
 | select          | select.schema.ts          | ✅ Complete    |
-| separator       | separator.schema.ts       | ❌ Not Started |
+| separator       | separator.schema.ts       | ✅ Complete    |
 | sheet           | sheet.schema.ts           | ❌ Not Started |
 | simple-grid     | simple-grid.schema.ts     | ❌ Not Started |
-| skeleton        | skeleton.schema.ts        | ❌ Not Started |
+| skeleton        | skeleton.schema.ts        | ✅ Complete    |
 | skeleton-loader | skeleton-loader.schema.ts | ❌ Not Started |
 | slider          | slider.schema.ts          | ❌ Not Started |
-| spacer          | spacer.schema.ts          | ❌ Not Started |
-| stack           | stack.schema.ts           | ❌ Not Started |
+| spacer          | spacer.schema.ts          | ✅ Complete    |
+| stack           | stack.schema.ts           | ✅ Complete    |
 | switch          | switch.schema.ts          | ✅ Complete    |
 | table           | table.schema.ts           | ❌ Not Started |
-| tabs            | tabs.schema.ts            | ❌ Not Started |
+| tabs            | tabs.schema.ts            | ✅ Complete    |
 | text            | text.schema.ts            | ✅ Complete    |
-| textarea        | textarea.schema.ts        | ❌ Not Started |
+| textarea        | textarea.schema.ts        | ✅ Complete    |
 | toast           | toast.schema.ts           | ❌ Not Started |
-| toggle          | toggle.schema.ts          | ❌ Not Started |
+| toggle          | toggle.schema.ts          | ✅ Complete    |
 | toggle-group    | toggle-group.schema.ts    | ❌ Not Started |
-| tooltip         | tooltip.schema.ts         | ❌ Not Started |
+| tooltip         | tooltip.schema.ts         | ✅ Complete    |
 
 ### Block Components (src/components/blocks/)
 
@@ -308,8 +310,8 @@ export const formComponentsRegistry: RegistryModule = {
 ## Progress Summary
 
 - **Total**: 98 components
-- **Complete**: 16 (16.3%)
-- **Remaining**: 82 (83.7%)
+- **Complete**: 42 (42.9%)
+- **Remaining**: 56 (57.1%)
 
 ## Common Prop Patterns
 

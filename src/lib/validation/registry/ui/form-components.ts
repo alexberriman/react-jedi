@@ -9,6 +9,9 @@ import { checkboxSchema } from "../../../../components/ui/checkbox/checkbox.sche
 import { radioGroupSchema, radioGroupItemSchema } from "../../../../components/ui/radio-group/radio-group.schema";
 import { textareaSchema } from "../../../../components/ui/textarea/textarea.schema";
 import { comboboxSchema } from "../../../../components/ui/combobox/combobox.schema";
+import { commandSchema, commandDialogSchema, commandInputSchema, commandListSchema, commandEmptySchema, commandGroupSchema, commandSeparatorSchema, commandItemSchema, commandShortcutSchema } from "../../../../components/ui/command/command.schema";
+import { datePickerSchema } from "../../../../components/ui/date-picker/date-picker.schema";
+import { dropdownMenuSchema, dropdownMenuTriggerSchema, dropdownMenuContentSchema, dropdownMenuGroupSchema, dropdownMenuItemSchema, dropdownMenuCheckboxItemSchema, dropdownMenuRadioGroupSchema, dropdownMenuRadioItemSchema, dropdownMenuLabelSchema, dropdownMenuSeparatorSchema, dropdownMenuShortcutSchema, dropdownMenuSubSchema, dropdownMenuSubTriggerSchema, dropdownMenuSubContentSchema, dropdownMenuPortalSchema } from "../../../../components/ui/dropdown-menu/dropdown-menu.schema";
 
 /**
  * Registry for form-related UI components
@@ -54,6 +57,37 @@ export const formComponentsRegistry: RegistryModule = {
     
     // Combobox
     registry.set("Combobox", { schema: comboboxSchema });
+    
+    // Command and sub-components
+    registry.set("Command", { schema: commandSchema });
+    registry.set("CommandDialog", { schema: commandDialogSchema });
+    registry.set("CommandInput", { schema: commandInputSchema });
+    registry.set("CommandList", { schema: commandListSchema });
+    registry.set("CommandEmpty", { schema: commandEmptySchema });
+    registry.set("CommandGroup", { schema: commandGroupSchema });
+    registry.set("CommandSeparator", { schema: commandSeparatorSchema });
+    registry.set("CommandItem", { schema: commandItemSchema });
+    registry.set("CommandShortcut", { schema: commandShortcutSchema });
+    
+    // DatePicker
+    registry.set("DatePicker", { schema: datePickerSchema });
+    
+    // DropdownMenu and sub-components
+    registry.set("DropdownMenu", { schema: dropdownMenuSchema });
+    registry.set("DropdownMenuPortal", { schema: dropdownMenuPortalSchema });
+    registry.set("DropdownMenuTrigger", { schema: dropdownMenuTriggerSchema });
+    registry.set("DropdownMenuContent", { schema: dropdownMenuContentSchema });
+    registry.set("DropdownMenuGroup", { schema: dropdownMenuGroupSchema });
+    registry.set("DropdownMenuItem", { schema: dropdownMenuItemSchema });
+    registry.set("DropdownMenuCheckboxItem", { schema: dropdownMenuCheckboxItemSchema });
+    registry.set("DropdownMenuRadioGroup", { schema: dropdownMenuRadioGroupSchema });
+    registry.set("DropdownMenuRadioItem", { schema: dropdownMenuRadioItemSchema });
+    registry.set("DropdownMenuLabel", { schema: dropdownMenuLabelSchema });
+    registry.set("DropdownMenuSeparator", { schema: dropdownMenuSeparatorSchema });
+    registry.set("DropdownMenuShortcut", { schema: dropdownMenuShortcutSchema });
+    registry.set("DropdownMenuSub", { schema: dropdownMenuSubSchema });
+    registry.set("DropdownMenuSubTrigger", { schema: dropdownMenuSubTriggerSchema });
+    registry.set("DropdownMenuSubContent", { schema: dropdownMenuSubContentSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -246,6 +280,107 @@ export const formComponentsRegistry: RegistryModule = {
         disabled: true,
         options: [
           { value: "next.js", label: "Next.js" }
+        ]
+      }
+    ]);
+    
+    // Command examples
+    examples.set("Command", [
+      {
+        type: "Command",
+        children: [
+          {
+            type: "CommandInput",
+            placeholder: "Type a command or search..."
+          },
+          {
+            type: "CommandList",
+            children: [
+              {
+                type: "CommandEmpty",
+                children: "No results found."
+              },
+              {
+                type: "CommandGroup",
+                heading: "Suggestions",
+                children: [
+                  {
+                    type: "CommandItem",
+                    value: "calendar",
+                    children: "Calendar"
+                  },
+                  {
+                    type: "CommandItem",
+                    value: "search-emoji",
+                    children: "Search Emoji"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]);
+    
+    // DatePicker examples
+    examples.set("DatePicker", [
+      {
+        type: "DatePicker",
+        placeholder: "Pick a date"
+      },
+      {
+        type: "DatePicker",
+        date: new Date().toISOString(),
+        disabled: true
+      }
+    ]);
+    
+    // DropdownMenu examples
+    examples.set("DropdownMenu", [
+      {
+        type: "DropdownMenu",
+        children: [
+          {
+            type: "DropdownMenuTrigger",
+            asChild: true,
+            children: {
+              type: "Button",
+              variant: "outline",
+              children: "Open"
+            }
+          },
+          {
+            type: "DropdownMenuContent",
+            children: [
+              {
+                type: "DropdownMenuLabel",
+                children: "My Account"
+              },
+              {
+                type: "DropdownMenuSeparator"
+              },
+              {
+                type: "DropdownMenuItem",
+                children: "Profile"
+              },
+              {
+                type: "DropdownMenuItem",
+                children: "Billing"
+              },
+              {
+                type: "DropdownMenuItem",
+                children: "Team"
+              },
+              {
+                type: "DropdownMenuSeparator"
+              },
+              {
+                type: "DropdownMenuItem",
+                variant: "destructive",
+                children: "Log out"
+              }
+            ]
+          }
         ]
       }
     ]);

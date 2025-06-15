@@ -10,15 +10,15 @@ export const aspectRatioSchema = baseComponentSchema.extend({
   /**
    * The ratio of the width to height (e.g. 16/9, 1, 4/3)
    */
-  ratio: z.number().optional().default(1),
+  ratio: z.number().optional(),
   
   /**
    * Child components or content
    */
   children: z.union([
     z.string(),
-    z.array(z.any()),
-    z.any()
+    z.any(),
+    z.array(z.any())
   ]).optional()
 });
 

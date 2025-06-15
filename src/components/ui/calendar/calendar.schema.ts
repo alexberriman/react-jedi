@@ -10,7 +10,7 @@ export const calendarSchema = baseComponentSchema.extend({
   /**
    * The selection mode for the calendar
    */
-  mode: z.enum(["single", "multiple", "range"]).optional().default("single"),
+  mode: z.enum(["single", "multiple", "range"]).optional(),
   
   /**
    * Selected date(s) based on mode:
@@ -30,30 +30,30 @@ export const calendarSchema = baseComponentSchema.extend({
   /**
    * Callback when date selection changes
    */
-  onSelect: z.union([
-    z.function(),
-    z.string() // String reference for JSON spec
-  ]).optional(),
+  onSelect: z.object({
+    action: z.string(),
+    payload: z.record(z.string(), z.any()).optional(),
+  }).optional(),
   
   /**
    * Whether to show days outside the current month
    */
-  showOutsideDays: z.boolean().optional().default(true),
+  showOutsideDays: z.boolean().optional(),
   
   /**
    * Display fixed weeks to avoid layout shifts
    */
-  fixedWeeks: z.boolean().optional().default(false),
+  fixedWeeks: z.boolean().optional(),
   
   /**
    * The number of months to display
    */
-  numberOfMonths: z.number().min(1).max(12).optional().default(1),
+  numberOfMonths: z.number().min(1).max(12).optional(),
   
   /**
    * Whether the calendar should have focus when mounted
    */
-  initialFocus: z.boolean().optional().default(false),
+  initialFocus: z.boolean().optional(),
   
   /**
    * Default month to display (ISO string)
@@ -68,10 +68,10 @@ export const calendarSchema = baseComponentSchema.extend({
   /**
    * Callback when month changes
    */
-  onMonthChange: z.union([
-    z.function(),
-    z.string()
-  ]).optional(),
+  onMonthChange: z.object({
+    action: z.string(),
+    payload: z.record(z.string(), z.any()).optional(),
+  }).optional(),
   
   /**
    * Disabled dates - can be:
@@ -80,7 +80,6 @@ export const calendarSchema = baseComponentSchema.extend({
    * - "weekends" for disabling weekends
    */
   disabled: z.union([
-    z.function(),
     z.array(z.string()), // Array of ISO strings
     z.literal("weekends")
   ]).optional(),

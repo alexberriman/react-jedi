@@ -37,15 +37,12 @@ export const accordionSchema = baseComponentSchema.extend({
   /**
    * Enable or disable animations
    */
-  animated: z.boolean().optional().default(true),
+  animated: z.boolean().optional(),
   
   /**
    * Child components (AccordionItem components)
    */
-  children: z.union([
-    z.array(z.any()),
-    z.any()
-  ]).optional()
+  children: z.array(z.any()).optional()
 });
 
 /**
@@ -67,10 +64,7 @@ export const accordionItemSchema = baseComponentSchema.extend({
   /**
    * Child components (AccordionTrigger and AccordionContent)
    */
-  children: z.union([
-    z.array(z.any()),
-    z.any()
-  ]).optional()
+  children: z.array(z.any()).optional()
 });
 
 /**
@@ -84,8 +78,8 @@ export const accordionTriggerSchema = baseComponentSchema.extend({
    */
   children: z.union([
     z.string(),
-    z.array(z.any()),
-    z.any()
+    z.any(),
+    z.array(z.any())
   ]).optional()
 });
 
@@ -100,8 +94,8 @@ export const accordionContentSchema = baseComponentSchema.extend({
    */
   children: z.union([
     z.string(),
-    z.array(z.any()),
-    z.any()
+    z.any(),
+    z.array(z.any())
   ]).optional()
 });
 

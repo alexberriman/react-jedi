@@ -9,13 +9,8 @@ import { z } from "zod";
 import { Result, Ok, Err } from "ts-results";
 import { Validator, ValidationError, ValidationOptions, ValidationSeverity } from "./validator";
 import { JSONSchemaConverter } from "./json-schema";
-import { headingSchema } from "../../components/ui/heading/heading.schema";
 import { ComponentSpec } from "../../types/schema";
-import { flexSchema } from "../../components/ui/flex/flex.schema";
-import { textSchema } from "../../components/ui/text/text.schema";
-import { imageSchema } from "../../components/ui/image/image.schema";
-import { boxSchema } from "../../components/ui/box/box.schema";
-import { headerSchema } from "../../components/blocks/header/header.schema";
+import { schemaRegistry } from "./registry";
 
 /**
  * Component validation error interface with enhanced context
@@ -64,122 +59,9 @@ const DEFAULT_COMPONENT_OPTIONS: ComponentValidationOptions = {
 };
 
 /**
- * Cache of component schemas for faster validation
- */
-const schemaCache = new Map<string, z.ZodType<ComponentSpec>>();
-
-/**
- * Cache of component examples for error messages
- */
-const componentExamples = new Map<string, unknown[]>();
-
-/**
  * Class for validating UI component specifications
  */
 export class ComponentValidator {
-  /**
-   * Initialize schema cache and examples
-   */
-  static {
-    // Pre-populate schema cache with known schemas
-    schemaCache.set("heading", headingSchema);
-    schemaCache.set("flex", flexSchema);
-    schemaCache.set("text", textSchema);
-    schemaCache.set("Image", imageSchema);
-    schemaCache.set("Box", boxSchema);
-    schemaCache.set("header", headerSchema);
-    
-    // Add examples for common components
-    componentExamples.set("heading", [
-      {
-        type: "heading",
-        level: "h1",
-        content: "Welcome to Our Platform",
-        align: "center",
-        weight: "extrabold"
-      },
-      {
-        type: "heading",
-        level: "h2",
-        content: "Featured Products",
-        variant: "primary"
-      }
-    ]);
-    
-    componentExamples.set("text", [
-      {
-        type: "text",
-        text: "This is a paragraph with custom styling.",
-        size: "lg",
-        weight: "medium"
-      },
-      {
-        type: "text",
-        text: "This is a styled span element.",
-        element: "span",
-        variant: "primary"
-      }
-    ]);
-    
-    componentExamples.set("Image", [
-      {
-        type: "Image",
-        src: "https://example.com/image.jpg",
-        alt: "Example image",
-        rounded: "md"
-      }
-    ]);
-    
-    componentExamples.set("flex", [
-      {
-        type: "flex",
-        direction: "row",
-        justify: "space-between",
-        align: "center",
-        gap: "md",
-        children: []
-      }
-    ]);
-    
-    componentExamples.set("Box", [
-      {
-        type: "Box",
-        display: "flex",
-        padding: "md",
-        margin: "sm",
-        backgroundColor: "card",
-        rounded: "lg",
-        shadow: "md",
-        children: []
-      }
-    ]);
-    
-    componentExamples.set("header", [
-      {
-        type: "header",
-        logo: {
-          type: "text",
-          text: "My Company",
-          href: "/"
-        },
-        navigation: [
-          { label: "Home", href: "/" },
-          { label: "About", href: "/about" },
-          { label: "Contact", href: "/contact" }
-        ],
-        actions: [
-          {
-            text: "Sign In",
-            href: "/signin",
-            variant: "outline"
-          }
-        ],
-        sticky: true,
-        blur: true
-      }
-    ]);
-  }
-
   /**
    * Validates a component specification against its schema
    * 
@@ -258,7 +140,7 @@ export class ComponentValidator {
           : undefined;
         
         const schemaExamples = mergedOptions.includeSchemaExamples 
-          ? componentExamples.get(componentType) 
+          ? this.getComponentExamples(componentType) 
           : undefined;
         
         return {
@@ -313,7 +195,7 @@ export class ComponentValidator {
    * @returns The Zod schema or undefined if not found
    */
   static getSchemaForType(type: string): z.ZodType<ComponentSpec> | undefined {
-    return schemaCache.get(type);
+    return schemaRegistry.getSchema(type);
   }
   
   /**
@@ -328,11 +210,7 @@ export class ComponentValidator {
     schema: z.ZodType<ComponentSpec>,
     examples?: unknown[]
   ): void {
-    schemaCache.set(type, schema);
-    
-    if (examples && examples.length > 0) {
-      componentExamples.set(type, examples);
-    }
+    schemaRegistry.registerSchema(type, schema, examples);
   }
   
   /**
@@ -358,7 +236,7 @@ export class ComponentValidator {
    * @returns Array of component type names
    */
   static getAllComponentTypes(): string[] {
-    return [...schemaCache.keys()];
+    return schemaRegistry.getAllTypes();
   }
   
   /**
@@ -367,7 +245,7 @@ export class ComponentValidator {
    * @returns Array of component examples
    */
   static getAllComponentExamples(): unknown[] {
-    return [...componentExamples.values()].flat();
+    return schemaRegistry.getAllExamples();
   }
   
   /**
@@ -377,7 +255,7 @@ export class ComponentValidator {
    * @returns Array of examples or undefined if not found
    */
   static getComponentExamples(type: string): unknown[] | undefined {
-    return componentExamples.get(type);
+    return schemaRegistry.getExamples(type);
   }
   
   /**
@@ -430,12 +308,6 @@ export class ComponentValidator {
   }
   
   /**
-   * Creates a detailed validation error report for a component specification
-   * 
-   * @param errors - Array of component validation errors
-   * @returns Detailed error report string
-   */
-  /**
    * Group validation errors by component type
    */
   private static groupErrorsByComponentType(errors: ComponentValidationError[]): Record<string, ComponentValidationError[]> {
@@ -482,7 +354,7 @@ export class ComponentValidator {
    * Add component example to the validation report
    */
   private static addComponentExampleToReport(componentType: string): string {
-    const examples = componentExamples.get(componentType);
+    const examples = this.getComponentExamples(componentType);
     if (!examples || examples.length === 0) {
       return "";
     }

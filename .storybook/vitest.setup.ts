@@ -41,5 +41,19 @@ if (!globalThis.IntersectionObserver) {
   }));
 }
 
+// Mock matchMedia for Storybook tests (required by Framer Motion)
+if (!globalThis.matchMedia) {
+  globalThis.matchMedia = vi.fn().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  }));
+}
+
 // Run Storybook's beforeAll hook
 beforeAll(annotations.beforeAll);

@@ -155,6 +155,14 @@ export interface RenderOptions {
    * Reserved variables like {{currentYear}} are automatically available.
    */
   variables?: Record<string, unknown>;
+
+  /**
+   * Whether to validate specifications before rendering.
+   * When true, the specification will be validated against schemas and rules.
+   * Defaults to true in development mode, false otherwise.
+   * @default true in development, false in production
+   */
+  validateSpecifications?: boolean;
 }
 
 /**

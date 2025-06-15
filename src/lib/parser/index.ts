@@ -38,3 +38,13 @@ export {
   hasTemplateVariables,
   extractTemplateVariables,
 } from "./template-engine";
+
+export {
+  ValidationPipeline,
+  createValidationPipeline,
+  ValidationStageType,
+  type ValidationPipelineOptions,
+  type ValidationStageError,
+  type ValidationStage,
+  type ValidationStageResult,
+} from "./validation-pipeline";

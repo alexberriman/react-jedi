@@ -37,6 +37,9 @@ import { ErrorBoundary as SexyErrorBoundary } from "../components/ui/error-bound
 import { processJsonTemplate, type TemplateVariable } from "./parser/template-engine";
 import { isIconReference, transformIconReference } from "./icons";
 import { SDUIFormWrapper } from "./form/sdui-form-wrapper";
+import { createValidationPipeline } from "./parser/validation-pipeline";
+import { ValidationErrorPanel } from "../components/validation-error-panel";
+import { createPortal } from "react-dom";
 
 // Import helper functions from component-resolver
 const transformPropsForComponent = (spec: Record<string, unknown>, actualProps: Record<string, unknown>): Record<string, unknown> => {
@@ -1141,6 +1144,31 @@ export function render(
       processedSpecification = templateResult.val;
     }
 
+    // Determine if we're in development mode
+    const isDevelopment = options.development ?? 
+      (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development');
+    
+    // Determine if we should validate
+    const shouldValidate = options.validateSpecifications ?? isDevelopment;
+    
+    // Validation logic
+    let validationErrors: React.ReactElement | null = null;
+    if (shouldValidate) {
+      const pipeline = createValidationPipeline({
+        development: isDevelopment,
+        includeSuggestions: isDevelopment,
+      });
+      
+      const validationResult = pipeline.validateSpecification(processedSpecification);
+      if (validationResult.err && isDevelopment) {
+        // Create validation error panel for development mode
+        validationErrors = createPortal(
+          <ValidationErrorPanel errors={validationResult.val} />,
+          document.body
+        );
+      }
+    }
+
     const componentSpec = getComponentSpec(processedSpecification);
     const effectiveOptions = prepareRenderOptions(processedSpecification, options);
 
@@ -1154,7 +1182,19 @@ export function render(
     const rendered = renderComponent(componentSpec, effectiveOptions);
     const wrappedContent = wrapWithProviders(rendered, stateManager, fullSpec, effectiveOptions);
 
-    return wrapInErrorBoundary(wrappedContent, effectiveOptions);
+    const finalContent = wrapInErrorBoundary(wrappedContent, effectiveOptions);
+    
+    // Include validation errors panel if present
+    if (validationErrors) {
+      return (
+        <>
+          {finalContent}
+          {validationErrors}
+        </>
+      );
+    }
+    
+    return finalContent;
   } catch (error) {
     return handleRenderError(error, options);
   }

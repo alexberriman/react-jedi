@@ -142,7 +142,7 @@ describe("Button with Icon in SDUI", () => {
       ]
     };
 
-    const element = render(spec);
+    const element = render(spec, { validateSpecifications: false });
     if (!element) throw new Error("Failed to render");
     const { container } = testRender(element);
     

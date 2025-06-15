@@ -13,6 +13,8 @@ import { commandSchema, commandDialogSchema, commandInputSchema, commandListSche
 import { datePickerSchema } from "../../../../components/ui/date-picker/date-picker.schema";
 import { dropdownMenuSchema, dropdownMenuTriggerSchema, dropdownMenuContentSchema, dropdownMenuGroupSchema, dropdownMenuItemSchema, dropdownMenuCheckboxItemSchema, dropdownMenuRadioGroupSchema, dropdownMenuRadioItemSchema, dropdownMenuLabelSchema, dropdownMenuSeparatorSchema, dropdownMenuShortcutSchema, dropdownMenuSubSchema, dropdownMenuSubTriggerSchema, dropdownMenuSubContentSchema, dropdownMenuPortalSchema } from "../../../../components/ui/dropdown-menu/dropdown-menu.schema";
 import { inputOTPSchema, inputOTPGroupSchema, inputOTPSlotSchema, inputOTPSeparatorSchema } from "../../../../components/ui/input-otp/input-otp.schema";
+import { sliderSchema } from "../../../../components/ui/slider/slider.schema";
+import { toggleGroupSchema, toggleGroupItemSchema } from "../../../../components/ui/toggle-group/toggle-group.schema";
 
 /**
  * Registry for form-related UI components
@@ -95,6 +97,13 @@ export const formComponentsRegistry: RegistryModule = {
     registry.set("input-otp-group", { schema: inputOTPGroupSchema });
     registry.set("input-otp-slot", { schema: inputOTPSlotSchema });
     registry.set("input-otp-separator", { schema: inputOTPSeparatorSchema });
+    
+    // Slider
+    registry.set("Slider", { schema: sliderSchema });
+    
+    // ToggleGroup and sub-components
+    registry.set("ToggleGroup", { schema: toggleGroupSchema });
+    registry.set("ToggleGroupItem", { schema: toggleGroupItemSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -434,6 +443,106 @@ export const formComponentsRegistry: RegistryModule = {
               { type: "input-otp-slot", index: 2 },
               { type: "input-otp-slot", index: 3 }
             ]
+          }
+        ]
+      }
+    ]);
+    
+    // Slider examples
+    examples.set("Slider", [
+      {
+        type: "Slider",
+        defaultValue: [50],
+        min: 0,
+        max: 100
+      },
+      {
+        type: "Slider",
+        defaultValue: [25, 75],
+        min: 0,
+        max: 100,
+        step: 5
+      },
+      {
+        type: "Slider",
+        defaultValue: [50],
+        disabled: true
+      }
+    ]);
+    
+    // ToggleGroup examples
+    examples.set("ToggleGroup", [
+      {
+        type: "ToggleGroup",
+        selectionType: "single",
+        defaultValue: "center",
+        children: [
+          {
+            type: "ToggleGroupItem",
+            value: "left",
+            "aria-label": "Left aligned",
+            children: {
+              type: "Icon",
+              name: "align-left",
+              size: 16
+            }
+          },
+          {
+            type: "ToggleGroupItem",
+            value: "center",
+            "aria-label": "Center aligned",
+            children: {
+              type: "Icon",
+              name: "align-center",
+              size: 16
+            }
+          },
+          {
+            type: "ToggleGroupItem",
+            value: "right",
+            "aria-label": "Right aligned",
+            children: {
+              type: "Icon",
+              name: "align-right",
+              size: 16
+            }
+          }
+        ]
+      },
+      {
+        type: "ToggleGroup",
+        selectionType: "multiple",
+        defaultValue: ["bold"],
+        children: [
+          {
+            type: "ToggleGroupItem",
+            value: "bold",
+            "aria-label": "Toggle bold",
+            children: {
+              type: "Icon",
+              name: "bold",
+              size: 16
+            }
+          },
+          {
+            type: "ToggleGroupItem",
+            value: "italic",
+            "aria-label": "Toggle italic",
+            children: {
+              type: "Icon",
+              name: "italic",
+              size: 16
+            }
+          },
+          {
+            type: "ToggleGroupItem",
+            value: "underline",
+            "aria-label": "Toggle underline",
+            children: {
+              type: "Icon",
+              name: "underline",
+              size: 16
+            }
           }
         ]
       }

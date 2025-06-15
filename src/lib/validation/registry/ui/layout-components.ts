@@ -10,6 +10,8 @@ import { stackSchema } from "../../../../components/ui/stack/stack.schema";
 import { groupSchema } from "../../../../components/ui/group/group.schema";
 import { masonrySchema } from "../../../../components/ui/masonry/masonry.schema";
 import { resizablePanelGroupSchema, resizablePanelSchema, resizableHandleSchema } from "../../../../components/ui/resizable/resizable.schema";
+import { simpleGridSchema } from "../../../../components/ui/simple-grid/simple-grid.schema";
+import { scrollAreaSchema } from "../../../../components/ui/scroll-area/scroll-area.schema";
 
 /**
  * Registry for layout-related UI components
@@ -50,6 +52,12 @@ export const layoutComponentsRegistry: RegistryModule = {
     registry.set("ResizablePanelGroup", { schema: resizablePanelGroupSchema });
     registry.set("ResizablePanel", { schema: resizablePanelSchema });
     registry.set("ResizableHandle", { schema: resizableHandleSchema });
+    
+    // SimpleGrid
+    registry.set("SimpleGrid", { schema: simpleGridSchema });
+    
+    // ScrollArea
+    registry.set("ScrollArea", { schema: scrollAreaSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -307,6 +315,46 @@ export const layoutComponentsRegistry: RegistryModule = {
         type: "ResizableHandle",
         withHandle: true,
         iconName: "grip-vertical"
+      }
+    ]);
+    
+    // SimpleGrid examples
+    examples.set("SimpleGrid", [
+      {
+        type: "SimpleGrid",
+        columns: 3,
+        spacing: "4",
+        children: []
+      },
+      {
+        type: "SimpleGrid",
+        columns: { base: 1, sm: 2, md: 3, lg: 4 },
+        spacing: { base: "2", md: "4" },
+        children: []
+      },
+      {
+        type: "SimpleGrid",
+        minChildWidth: "250px",
+        spacing: "6",
+        children: []
+      }
+    ]);
+    
+    // ScrollArea examples
+    examples.set("ScrollArea", [
+      {
+        type: "ScrollArea",
+        className: "h-72 w-full rounded-md border",
+        children: []
+      },
+      {
+        type: "ScrollArea",
+        className: "h-[400px] w-[600px] rounded-lg border",
+        children: {
+          type: "Box",
+          className: "p-6",
+          children: "Scrollable content goes here"
+        }
       }
     ]);
   }

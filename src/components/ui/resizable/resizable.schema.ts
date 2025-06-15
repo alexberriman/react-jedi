@@ -2,8 +2,15 @@ import { z } from "zod";
 import { baseComponentSchema } from "../../../lib/schemas/base-schema";
 
 // ResizablePanelGroup component
-export const resizablePanelGroupSchema = baseComponentSchema.extend({
+export const resizablePanelGroupSchema = z.object({
   type: z.literal("ResizablePanelGroup"),
+  className: z.string().optional(),
+  id: z.string().optional(),
+  dataAttributes: z.record(z.string(), z.string()).optional(),
+  ariaAttributes: z.record(z.string(), z.string()).optional(),
+  events: z.record(z.string(), z.unknown()).optional(),
+  style: z.record(z.string(), z.string()).optional(),
+  testId: z.string().optional(),
   direction: z.enum(["horizontal", "vertical"]).optional(),
   autoSaveId: z.string().optional(),
   children: z.any(), // Required for panels

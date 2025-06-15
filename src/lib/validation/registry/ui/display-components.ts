@@ -27,6 +27,7 @@ import { markdownSchema } from "../../../../components/ui/markdown/markdown.sche
 import { navigationMenuSchema, navigationMenuListSchema, navigationMenuItemSchema, navigationMenuTriggerSchema, navigationMenuContentSchema, navigationMenuLinkSchema, navigationMenuIndicatorSchema, navigationMenuViewportSchema } from "../../../../components/ui/navigation-menu/navigation-menu.schema";
 import { paginationSchema, paginationContentSchema, paginationItemSchema, paginationLinkSchema, paginationPreviousSchema, paginationNextSchema, paginationEllipsisSchema } from "../../../../components/ui/pagination/pagination.schema";
 import { popoverSchema, popoverTriggerSchema, popoverContentSchema, popoverAnchorSchema } from "../../../../components/ui/popover/popover.schema";
+import { sheetSchema, sheetTriggerSchema, sheetContentSchema, sheetHeaderSchema, sheetFooterSchema, sheetTitleSchema, sheetDescriptionSchema, sheetCloseSchema } from "../../../../components/ui/sheet/sheet.schema";
 
 /**
  * Registry for display-related UI components
@@ -205,6 +206,16 @@ export const displayComponentsRegistry: RegistryModule = {
     registry.set("PopoverTrigger", { schema: popoverTriggerSchema });
     registry.set("PopoverContent", { schema: popoverContentSchema });
     registry.set("PopoverAnchor", { schema: popoverAnchorSchema });
+    
+    // Sheet and sub-components
+    registry.set("Sheet", { schema: sheetSchema });
+    registry.set("SheetTrigger", { schema: sheetTriggerSchema });
+    registry.set("SheetContent", { schema: sheetContentSchema });
+    registry.set("SheetHeader", { schema: sheetHeaderSchema });
+    registry.set("SheetFooter", { schema: sheetFooterSchema });
+    registry.set("SheetTitle", { schema: sheetTitleSchema });
+    registry.set("SheetDescription", { schema: sheetDescriptionSchema });
+    registry.set("SheetClose", { schema: sheetCloseSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -999,6 +1010,74 @@ export const displayComponentsRegistry: RegistryModule = {
             side: "right",
             align: "start",
             children: "Custom positioned popover"
+          }
+        ]
+      }
+    ]);
+    
+    // Sheet examples
+    examples.set("Sheet", [
+      {
+        type: "Sheet",
+        children: [
+          {
+            type: "SheetTrigger",
+            asChild: true,
+            children: {
+              type: "Button",
+              variant: "outline",
+              children: "Open Sheet"
+            }
+          },
+          {
+            type: "SheetContent",
+            side: "right",
+            children: [
+              {
+                type: "SheetHeader",
+                children: [
+                  {
+                    type: "SheetTitle",
+                    children: "Edit Profile"
+                  },
+                  {
+                    type: "SheetDescription",
+                    children: "Make changes to your profile here. Click save when you're done."
+                  }
+                ]
+              },
+              {
+                type: "Text",
+                children: "Your profile content goes here."
+              },
+              {
+                type: "SheetFooter",
+                children: {
+                  type: "Button",
+                  children: "Save changes"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: "Sheet",
+        children: [
+          {
+            type: "SheetTrigger",
+            children: "Open from left"
+          },
+          {
+            type: "SheetContent",
+            side: "left",
+            children: {
+              type: "SheetHeader",
+              children: {
+                type: "SheetTitle",
+                children: "Navigation"
+              }
+            }
           }
         ]
       }

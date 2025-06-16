@@ -15,6 +15,11 @@ import { cookieConsentBannerSchema } from "../../../../components/blocks/cookie-
 import { errorPageSchema } from "../../../../components/blocks/error-page/error-page.schema";
 import { eventListingsSchema } from "../../../../components/blocks/event-listings/event-listings.schema";
 import { featureCardSchema } from "../../../../components/blocks/feature-card/feature-card.schema";
+import { featuresSchema } from "../../../../components/blocks/features/features.schema";
+import { iconSchema } from "../../../../components/blocks/icon/icon.schema";
+import { jobListingsSchema } from "../../../../components/blocks/job-listings/job-listings.schema";
+import { latestNewsSchema } from "../../../../components/blocks/latest-news/latest-news.schema";
+import { locationHoursSchema } from "../../../../components/blocks/location-hours/location-hours.schema";
 
 /**
  * Registry for content block components
@@ -68,6 +73,21 @@ export const contentBlocksRegistry: RegistryModule = {
     
     // Feature Card
     registry.set("FeatureCard", { schema: featureCardSchema });
+    
+    // Features
+    registry.set("Features", { schema: featuresSchema });
+    
+    // Icon
+    registry.set("Icon", { schema: iconSchema });
+    
+    // Job Listings
+    registry.set("JobListings", { schema: jobListingsSchema });
+    
+    // Latest News
+    registry.set("LatestNews", { schema: latestNewsSchema });
+    
+    // Location Hours
+    registry.set("LocationHours", { schema: locationHoursSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -355,6 +375,196 @@ export const contentBlocksRegistry: RegistryModule = {
         iconColor: "#3B82F6",
         variant: "default",
         animated: true
+      }
+    ]);
+    
+    // Features examples
+    examples.set("Features", [
+      {
+        type: "Features",
+        title: "Product Features",
+        subtitle: "Everything you need to build modern applications",
+        variant: "grid",
+        gridColumns: 3,
+        animated: true,
+        features: [
+          {
+            id: "1",
+            title: "Fast Performance",
+            description: "Optimized for speed with lazy loading and code splitting",
+            icon: "FiZap",
+            category: "Performance",
+            benefits: ["Sub-second load times", "Optimized bundle size"]
+          },
+          {
+            id: "2",
+            title: "Type Safety",
+            description: "Full TypeScript support with comprehensive type definitions",
+            icon: "FiShield",
+            category: "Development",
+            status: "available"
+          },
+          {
+            id: "3",
+            title: "Dark Mode",
+            description: "Built-in dark mode support with automatic theme detection",
+            icon: "FiMoon",
+            category: "UI/UX",
+            status: "beta"
+          }
+        ]
+      }
+    ]);
+    
+    // Icon examples
+    examples.set("Icon", [
+      {
+        type: "Icon",
+        icon: "FiHome",
+        size: "md"
+      },
+      {
+        type: "Icon",
+        icon: "FiStar",
+        size: "lg",
+        color: "#FFD700",
+        animated: true,
+        animationType: "pulse"
+      },
+      {
+        type: "Icon",
+        icon: "FiUser",
+        variant: "background",
+        background: "#E0E7FF",
+        size: "xl"
+      }
+    ]);
+    
+    // Job Listings examples
+    examples.set("JobListings", [
+      {
+        type: "JobListings",
+        variant: "grid",
+        showFilters: true,
+        showSearch: true,
+        showSalary: true,
+        jobs: [
+          {
+            id: "1",
+            title: "Senior Frontend Developer",
+            department: "Engineering",
+            location: "San Francisco, CA",
+            type: "full-time",
+            salaryRange: {
+              min: 120_000,
+              max: 180_000,
+              currency: "$",
+              period: "yearly"
+            },
+            description: "We're looking for an experienced frontend developer to join our team and help build the next generation of our product.",
+            requirements: [
+              "5+ years of React experience",
+              "Strong TypeScript skills",
+              "Experience with modern CSS"
+            ],
+            posted: "2024-01-15",
+            featured: true,
+            experienceLevel: "senior"
+          },
+          {
+            id: "2",
+            title: "Product Designer",
+            department: "Design",
+            location: "Remote",
+            type: "remote",
+            description: "Join our design team to create beautiful and intuitive user experiences.",
+            posted: "2024-01-10",
+            experienceLevel: "mid"
+          }
+        ]
+      }
+    ]);
+    
+    // Latest News examples
+    examples.set("LatestNews", [
+      {
+        type: "LatestNews",
+        heading: "Latest Updates",
+        variant: "cards-row",
+        count: 3,
+        showCategoryTabs: true,
+        animated: true,
+        articles: [
+          {
+            id: "1",
+            title: "Introducing Our New Dashboard",
+            excerpt: "We've completely redesigned our dashboard with a focus on usability and performance.",
+            category: "Product",
+            date: "2024-01-20",
+            author: {
+              name: "Sarah Johnson",
+              avatar: "https://picsum.photos/100/100?random=1"
+            },
+            thumbnail: "https://picsum.photos/400/300?random=1",
+            url: "/blog/new-dashboard",
+            readTime: "5 min read"
+          },
+          {
+            id: "2",
+            title: "Best Practices for React Development",
+            excerpt: "Learn the latest best practices for building scalable React applications.",
+            category: "Engineering",
+            date: "2024-01-18",
+            author: {
+              name: "Mike Chen",
+              avatar: "https://picsum.photos/100/100?random=2"
+            },
+            url: "/blog/react-best-practices",
+            readTime: "8 min read"
+          }
+        ],
+        viewAllUrl: "/blog",
+        viewAllText: "View All Articles"
+      }
+    ]);
+    
+    // Location Hours examples
+    examples.set("LocationHours", [
+      {
+        type: "LocationHours",
+        variant: "single-location",
+        showCurrentStatus: true,
+        showContactInfo: true,
+        showMap: false,
+        locations: [
+          {
+            id: "1",
+            name: "Downtown Store",
+            description: "Our flagship location in the heart of the city",
+            businessHours: [
+              { day: "monday", openTime: "09:00", closeTime: "18:00" },
+              { day: "tuesday", openTime: "09:00", closeTime: "18:00" },
+              { day: "wednesday", openTime: "09:00", closeTime: "18:00" },
+              { day: "thursday", openTime: "09:00", closeTime: "20:00" },
+              { day: "friday", openTime: "09:00", closeTime: "20:00" },
+              { day: "saturday", openTime: "10:00", closeTime: "17:00" },
+              { day: "sunday", openTime: "12:00", closeTime: "17:00" }
+            ],
+            contact: {
+              phone: "(555) 123-4567",
+              email: "downtown@example.com",
+              address: {
+                street: "123 Main Street",
+                city: "San Francisco",
+                state: "CA",
+                zipCode: "94105"
+              },
+              website: "https://example.com/downtown"
+            },
+            services: ["In-store pickup", "Personal shopping", "Gift wrapping"],
+            timezone: "America/Los_Angeles"
+          }
+        ]
       }
     ]);
   }

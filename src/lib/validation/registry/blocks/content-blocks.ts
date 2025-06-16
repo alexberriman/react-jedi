@@ -10,6 +10,11 @@ import { blogPostDetailSchema } from "../../../../components/blocks/blog-post-de
 import { blogPostGridSchema } from "../../../../components/blocks/blog-post-grid/blog-post-grid.schema";
 import { brandLogoBarSchema } from "../../../../components/blocks/brand-logo-bar/brand-logo-bar.schema";
 import { carouselSchema } from "../../../../components/blocks/carousel/carousel.schema";
+import { contactFormSchema } from "../../../../components/blocks/contact-form/contact-form.schema";
+import { cookieConsentBannerSchema } from "../../../../components/blocks/cookie-consent-banner/cookie-consent-banner.schema";
+import { errorPageSchema } from "../../../../components/blocks/error-page/error-page.schema";
+import { eventListingsSchema } from "../../../../components/blocks/event-listings/event-listings.schema";
+import { featureCardSchema } from "../../../../components/blocks/feature-card/feature-card.schema";
 
 /**
  * Registry for content block components
@@ -48,6 +53,21 @@ export const contentBlocksRegistry: RegistryModule = {
     
     // Carousel
     registry.set("Carousel", { schema: carouselSchema });
+    
+    // Contact Form
+    registry.set("ContactForm", { schema: contactFormSchema });
+    
+    // Cookie Consent Banner
+    registry.set("CookieConsentBanner", { schema: cookieConsentBannerSchema });
+    
+    // Error Page
+    registry.set("ErrorPage", { schema: errorPageSchema });
+    
+    // Event Listings
+    registry.set("EventListings", { schema: eventListingsSchema });
+    
+    // Feature Card
+    registry.set("FeatureCard", { schema: featureCardSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -251,6 +271,90 @@ export const contentBlocksRegistry: RegistryModule = {
           delay: 4000
         },
         variant: "default"
+      }
+    ]);
+    
+    // Contact Form examples
+    examples.set("ContactForm", [
+      {
+        type: "ContactForm",
+        variant: "simple",
+        title: "Contact Us",
+        description: "Get in touch with our team",
+        submitText: "Send Message",
+        animated: true
+      }
+    ]);
+    
+    // Cookie Consent Banner examples
+    examples.set("CookieConsentBanner", [
+      {
+        type: "CookieConsentBanner",
+        variant: "bottom-banner",
+        title: "We use cookies",
+        description: "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic.",
+        categories: [
+          {
+            id: "necessary",
+            name: "Necessary",
+            description: "Essential cookies for the website to function properly",
+            required: true
+          },
+          {
+            id: "analytics",
+            name: "Analytics",
+            description: "Help us understand how visitors interact with the website"
+          }
+        ]
+      }
+    ]);
+    
+    // Error Page examples
+    examples.set("ErrorPage", [
+      {
+        type: "ErrorPage",
+        variant: "friendly-404",
+        title: "404 - Page Not Found",
+        description: "Oops! The page you're looking for seems to have wandered off.",
+        homeLink: "/",
+        homeLinkText: "Go to Homepage",
+        animated: true
+      }
+    ]);
+    
+    // Event Listings examples
+    examples.set("EventListings", [
+      {
+        type: "EventListings",
+        variant: "cards",
+        showSearch: true,
+        showFilters: true,
+        showCountdown: true,
+        showCapacity: true,
+        events: [
+          {
+            id: "1",
+            title: "React Conference 2024",
+            description: "The biggest React conference of the year",
+            startDate: "2024-06-15T09:00:00Z",
+            location: { name: "San Francisco Convention Center" },
+            category: "Conference",
+            price: { amount: 299, currency: "USD" }
+          }
+        ]
+      }
+    ]);
+    
+    // Feature Card examples
+    examples.set("FeatureCard", [
+      {
+        type: "FeatureCard",
+        title: "Fast Performance",
+        description: "Lightning-fast rendering with optimized components",
+        icon: "Zap",
+        iconColor: "#3B82F6",
+        variant: "default",
+        animated: true
       }
     ]);
   }

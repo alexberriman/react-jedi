@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://react-jedi.com/schemas/tabs.schema.json",
+  "title": "Tabs Component Schema",
+  "description": "Schema for Tabs component and its sub-components",
+  "definitions": {
+    "Tabs": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Tabs"
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "Default active tab value"
+        },
+        "value": {
+          "type": "string",
+          "description": "Controlled active tab value"
+        },
+        "orientation": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "default": "horizontal",
+          "description": "Tabs orientation"
+        },
+        "dir": {
+          "type": "string",
+          "enum": ["ltr", "rtl"],
+          "description": "Text direction"
+        },
+        "activationMode": {
+          "type": "string",
+          "enum": ["automatic", "manual"],
+          "default": "automatic",
+          "description": "How tabs are activated"
+        },
+        "animate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to animate tab transitions"
+        },
+        "children": {
+          "description": "TabsList and TabsContent components"
+        },
+        "onValueChange": {
+          "type": "object",
+          "description": "Handler for tab changes",
+          "required": ["action"],
+          "properties": {
+            "action": {
+              "type": "string"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "className": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TabsList": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "TabsList"
+        },
+        "loop": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether keyboard navigation should loop"
+        },
+        "children": {
+          "description": "TabsTrigger components"
+        },
+        "className": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TabsTrigger": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "TabsTrigger"
+        },
+        "value": {
+          "type": "string",
+          "description": "Unique value for this tab"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the tab is disabled"
+        },
+        "children": {
+          "description": "Tab trigger content"
+        },
+        "className": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TabsContent": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "TabsContent"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value matching a TabsTrigger"
+        },
+        "forceMount": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to keep the content mounted when inactive"
+        },
+        "children": {
+          "description": "Tab panel content"
+        },
+        "className": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/definitions/Tabs" },
+    { "$ref": "#/definitions/TabsList" },
+    { "$ref": "#/definitions/TabsTrigger" },
+    { "$ref": "#/definitions/TabsContent" }
+  ]
+}

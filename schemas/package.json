@@ -1,0 +1,33 @@
+{
+  "name": "@react-jedi/schemas",
+  "version": "1.0.0",
+  "description": "JSON Schema definitions for React Jedi components",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "files": [
+    "*.json",
+    "index.js",
+    "index.d.ts",
+    "README.md"
+  ],
+  "keywords": [
+    "react-jedi",
+    "json-schema",
+    "validation",
+    "sdui",
+    "schema"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/react-jedi.git",
+    "directory": "schemas"
+  },
+  "peerDependencies": {
+    "ajv": "^8.0.0"
+  },
+  "devDependencies": {
+    "json-schema": "^0.4.0"
+  }
+}

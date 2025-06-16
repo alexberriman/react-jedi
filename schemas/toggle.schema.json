@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://react-jedi.com/schemas/toggle.schema.json",
+  "title": "Toggle Component Schema",
+  "description": "Schema for Toggle button component with pressed state",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Toggle"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "outline"],
+      "default": "default",
+      "description": "Visual style variant of the toggle"
+    },
+    "size": {
+      "type": "string",
+      "enum": ["default", "sm", "lg"],
+      "default": "default",
+      "description": "Size of the toggle button"
+    },
+    "pressed": {
+      "type": "boolean",
+      "description": "Controlled pressed state"
+    },
+    "defaultPressed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Default pressed state for uncontrolled mode"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the toggle is disabled"
+    },
+    "asChild": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to render as a child component"
+    },
+    "children": {
+      "description": "Content to render inside the toggle"
+    },
+    "onPressedChange": {
+      "type": "object",
+      "description": "Handler for pressed state changes",
+      "required": ["action"],
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action identifier for the event handler"
+        },
+        "payload": {
+          "type": "object",
+          "description": "Additional data to pass with the action",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "id": {
+      "type": "string",
+      "description": "HTML id attribute"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline styles"
+    },
+    "aria-label": {
+      "type": "string",
+      "description": "Accessible label for the toggle"
+    },
+    "aria-describedby": {
+      "type": "string",
+      "description": "ID of element that describes the toggle"
+    }
+  },
+  "additionalProperties": false
+}

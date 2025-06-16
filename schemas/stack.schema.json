@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://react-jedi.com/schemas/stack.schema.json",
+  "title": "Stack Component Schema",
+  "description": "Schema for Stack layout component for vertical or horizontal stacking of elements",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Stack"
+    },
+    "orientation": {
+      "type": "string",
+      "enum": ["horizontal", "vertical"],
+      "default": "vertical",
+      "description": "Stack direction"
+    },
+    "spacing": {
+      "type": "string",
+      "enum": ["none", "xs", "sm", "md", "lg", "xl", "2xl", "3xl"],
+      "default": "md",
+      "description": "Spacing between stack items"
+    },
+    "align": {
+      "type": "string",
+      "enum": ["start", "center", "end", "stretch", "baseline"],
+      "description": "Alignment of items perpendicular to stack direction"
+    },
+    "justify": {
+      "type": "string",
+      "enum": ["start", "center", "end", "between", "around", "evenly"],
+      "description": "Justification of items along stack direction"
+    },
+    "wrap": {
+      "type": "string",
+      "enum": ["wrap", "nowrap", "wrap-reverse"],
+      "description": "Whether items should wrap to new lines"
+    },
+    "as": {
+      "type": "string",
+      "default": "div",
+      "description": "HTML element to render as"
+    },
+    "divider": {
+      "type": "object",
+      "description": "Component to render between stack items",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": ["type"]
+    },
+    "children": {
+      "description": "Child components to stack"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "id": {
+      "type": "string",
+      "description": "HTML id attribute"
+    },
+    "style": {
+      "type": "object",
+      "description": "Inline styles"
+    }
+  },
+  "additionalProperties": false
+}

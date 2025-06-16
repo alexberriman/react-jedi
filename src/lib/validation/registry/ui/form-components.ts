@@ -15,6 +15,7 @@ import { dropdownMenuSchema, dropdownMenuTriggerSchema, dropdownMenuContentSchem
 import { inputOTPSchema, inputOTPGroupSchema, inputOTPSlotSchema, inputOTPSeparatorSchema } from "../../../../components/ui/input-otp/input-otp.schema";
 import { sliderSchema } from "../../../../components/ui/slider/slider.schema";
 import { toggleGroupSchema, toggleGroupItemSchema } from "../../../../components/ui/toggle-group/toggle-group.schema";
+import { formSchema, formFieldSchema, formItemSchema, formLabelSchema, formControlSchema, formDescriptionSchema, formMessageSchema } from "../../../../components/ui/form/form.schema";
 
 /**
  * Registry for form-related UI components
@@ -104,6 +105,15 @@ export const formComponentsRegistry: RegistryModule = {
     // ToggleGroup and sub-components
     registry.set("ToggleGroup", { schema: toggleGroupSchema });
     registry.set("ToggleGroupItem", { schema: toggleGroupItemSchema });
+    
+    // Form and sub-components
+    registry.set("Form", { schema: formSchema });
+    registry.set("FormField", { schema: formFieldSchema });
+    registry.set("FormItem", { schema: formItemSchema });
+    registry.set("FormLabel", { schema: formLabelSchema });
+    registry.set("FormControl", { schema: formControlSchema });
+    registry.set("FormDescription", { schema: formDescriptionSchema });
+    registry.set("FormMessage", { schema: formMessageSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -543,6 +553,88 @@ export const formComponentsRegistry: RegistryModule = {
               name: "underline",
               size: 16
             }
+          }
+        ]
+      }
+    ]);
+    
+    // Form examples
+    examples.set("Form", [
+      {
+        type: "Form",
+        validation: {
+          username: {
+            required: "Username is required",
+            minLength: { value: 3, message: "Username must be at least 3 characters" }
+          },
+          email: {
+            required: "Email is required",
+            email: true
+          }
+        },
+        onSubmit: "handleFormSubmit",
+        children: [
+          {
+            type: "FormField",
+            name: "username",
+            children: [
+              {
+                type: "FormItem",
+                children: [
+                  {
+                    type: "FormLabel",
+                    children: "Username"
+                  },
+                  {
+                    type: "FormControl",
+                    children: [{
+                      type: "Input",
+                      name: "username",
+                      placeholder: "Enter username"
+                    }]
+                  },
+                  {
+                    type: "FormDescription",
+                    children: "This is your public display name."
+                  },
+                  {
+                    type: "FormMessage"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            type: "FormField",
+            name: "email",
+            children: [
+              {
+                type: "FormItem",
+                children: [
+                  {
+                    type: "FormLabel",
+                    children: "Email"
+                  },
+                  {
+                    type: "FormControl",
+                    children: [{
+                      type: "Input",
+                      name: "email",
+                      inputType: "email",
+                      placeholder: "Enter email"
+                    }]
+                  },
+                  {
+                    type: "FormMessage"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            type: "Button",
+            htmlType: "submit",
+            children: "Submit"
           }
         ]
       }

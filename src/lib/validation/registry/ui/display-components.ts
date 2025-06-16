@@ -28,6 +28,15 @@ import { navigationMenuSchema, navigationMenuListSchema, navigationMenuItemSchem
 import { paginationSchema, paginationContentSchema, paginationItemSchema, paginationLinkSchema, paginationPreviousSchema, paginationNextSchema, paginationEllipsisSchema } from "../../../../components/ui/pagination/pagination.schema";
 import { popoverSchema, popoverTriggerSchema, popoverContentSchema, popoverAnchorSchema } from "../../../../components/ui/popover/popover.schema";
 import { sheetSchema, sheetTriggerSchema, sheetContentSchema, sheetHeaderSchema, sheetFooterSchema, sheetTitleSchema, sheetDescriptionSchema, sheetCloseSchema } from "../../../../components/ui/sheet/sheet.schema";
+import { skeletonLoaderSchema } from "../../../../components/ui/skeleton-loader/skeleton-loader.schema";
+import { errorBoundarySchema } from "../../../../components/ui/error-boundary/error-boundary.schema";
+import { tableSchema, tableHeaderSchema, tableBodySchema, tableFooterSchema, tableRowSchema, tableHeadSchema, tableCellComponentSchema, tableCaptionSchema } from "../../../../components/ui/table/table.schema";
+import { dataTableSchema } from "../../../../components/ui/data-table/data-table.schema";
+import { toasterSchema, toastActionSchema } from "../../../../components/ui/toast/toast.schema";
+import { keyboardNavigationMenuSchema } from "../../../../components/ui/keyboard-navigation-menu/keyboard-navigation-menu.schema";
+import { testimonialSchema } from "../../../../components/ui/testimonial/testimonial.schema";
+import { headManagerSchema } from "../../../../components/ui/head-manager/head-manager.schema";
+import { heroSchema } from "../../../../components/ui/hero/hero.schema";
 
 /**
  * Registry for display-related UI components
@@ -216,6 +225,41 @@ export const displayComponentsRegistry: RegistryModule = {
     registry.set("SheetTitle", { schema: sheetTitleSchema });
     registry.set("SheetDescription", { schema: sheetDescriptionSchema });
     registry.set("SheetClose", { schema: sheetCloseSchema });
+    
+    // SkeletonLoader
+    registry.set("SkeletonLoader", { schema: skeletonLoaderSchema });
+    
+    // ErrorBoundary
+    registry.set("ErrorBoundary", { schema: errorBoundarySchema });
+    
+    // Table and sub-components
+    registry.set("Table", { schema: tableSchema });
+    registry.set("TableHeader", { schema: tableHeaderSchema });
+    registry.set("TableBody", { schema: tableBodySchema });
+    registry.set("TableFooter", { schema: tableFooterSchema });
+    registry.set("TableRow", { schema: tableRowSchema });
+    registry.set("TableHead", { schema: tableHeadSchema });
+    registry.set("TableCell", { schema: tableCellComponentSchema });
+    registry.set("TableCaption", { schema: tableCaptionSchema });
+    
+    // DataTable
+    registry.set("DataTable", { schema: dataTableSchema });
+    
+    // Toast and Toaster
+    registry.set("Toaster", { schema: toasterSchema });
+    registry.set("ToastAction", { schema: toastActionSchema });
+    
+    // KeyboardNavigationMenu
+    registry.set("KeyboardNavigationMenu", { schema: keyboardNavigationMenuSchema });
+    
+    // Testimonial
+    registry.set("Testimonial", { schema: testimonialSchema });
+    
+    // HeadManager
+    registry.set("HeadManager", { schema: headManagerSchema });
+    
+    // Hero
+    registry.set("Hero", { schema: heroSchema });
   },
   
   registerExamples(examples: ComponentExamples): void {
@@ -1080,6 +1124,338 @@ export const displayComponentsRegistry: RegistryModule = {
             }
           }
         ]
+      }
+    ]);
+    
+    // SkeletonLoader examples
+    examples.set("SkeletonLoader", [
+      {
+        type: "SkeletonLoader",
+        variant: "text",
+        width: "200px",
+        height: "20px"
+      },
+      {
+        type: "SkeletonLoader",
+        variant: "circular",
+        width: "48px",
+        height: "48px"
+      },
+      {
+        type: "SkeletonLoader",
+        variant: "rectangular",
+        width: "300px",
+        height: "200px"
+      },
+      {
+        type: "SkeletonLoader",
+        count: 3,
+        variant: "text",
+        height: "16px",
+        className: "mb-2"
+      }
+    ]);
+    
+    // ErrorBoundary examples
+    examples.set("ErrorBoundary", [
+      {
+        type: "ErrorBoundary",
+        children: [
+          {
+            type: "Box",
+            children: "This content is wrapped in an error boundary"
+          }
+        ]
+      },
+      {
+        type: "ErrorBoundary",
+        onError: {
+          action: "logError",
+          payload: { source: "user-content" }
+        },
+        children: [
+          {
+            type: "Text",
+            children: "Protected content"
+          }
+        ]
+      }
+    ]);
+    
+    // Table examples
+    examples.set("Table", [
+      {
+        type: "Table",
+        variant: "default",
+        caption: "A list of recent invoices",
+        head: {
+          rows: [
+            {
+              cells: [
+                { content: "Invoice", className: "w-[100px]" },
+                { content: "Status" },
+                { content: "Method" },
+                { content: "Amount", align: "right" }
+              ]
+            }
+          ]
+        },
+        body: {
+          rows: [
+            {
+              cells: [
+                { content: "INV001", className: "font-medium" },
+                { content: { type: "Badge", children: "Paid", variant: "default" } },
+                { content: "Credit Card" },
+                { content: "$250.00", align: "right" }
+              ]
+            },
+            {
+              cells: [
+                { content: "INV002", className: "font-medium" },
+                { content: { type: "Badge", children: "Pending", variant: "secondary" } },
+                { content: "PayPal" },
+                { content: "$150.00", align: "right" }
+              ]
+            }
+          ]
+        },
+        foot: {
+          rows: [
+            {
+              cells: [
+                { content: "Total", colSpan: 3 },
+                { content: "$400.00", align: "right" }
+              ]
+            }
+          ]
+        }
+      }
+    ]);
+    
+    // DataTable examples
+    examples.set("DataTable", [
+      {
+        type: "DataTable",
+        columns: [
+          { id: "id", header: "ID", accessorKey: "id" },
+          { id: "name", header: "Name", accessorKey: "name", enableSorting: true },
+          { id: "email", header: "Email", accessorKey: "email" },
+          { id: "status", header: "Status", accessorKey: "status", type: "badge" }
+        ],
+        data: [
+          { id: 1, name: "John Doe", email: "john@example.com", status: "active" },
+          { id: 2, name: "Jane Smith", email: "jane@example.com", status: "inactive" }
+        ],
+        filterColumn: "name",
+        filterPlaceholder: "Filter by name...",
+        pagination: {
+          enabled: true,
+          pageSize: 10
+        },
+        features: {
+          columnFilter: true,
+          viewOptions: true,
+          selectable: true,
+          sortable: true
+        }
+      }
+    ]);
+    
+    // Toaster examples
+    examples.set("Toaster", [
+      {
+        type: "Toaster",
+        position: "bottom-right",
+        richColors: true,
+        closeButton: true
+      }
+    ]);
+    
+    // ToastAction examples
+    examples.set("ToastAction", [
+      {
+        type: "ToastAction",
+        variant: "success",
+        title: "Success!",
+        description: "Your changes have been saved."
+      },
+      {
+        type: "ToastAction",
+        variant: "error",
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        action: {
+          label: "Retry",
+          onClick: {
+            action: "retry",
+            payload: { attemptNumber: 2 }
+          }
+        }
+      }
+    ]);
+    
+    // KeyboardNavigationMenu examples
+    examples.set("KeyboardNavigationMenu", [
+      {
+        type: "KeyboardNavigationMenu",
+        items: [
+          {
+            id: "home",
+            label: "Home",
+            icon: { type: "Icon", name: "home", size: 16 },
+            action: "navigateHome"
+          },
+          {
+            id: "products",
+            label: "Products",
+            icon: { type: "Icon", name: "package", size: 16 },
+            submenu: [
+              { id: "electronics", label: "Electronics" },
+              { id: "clothing", label: "Clothing" },
+              { id: "books", label: "Books" }
+            ]
+          },
+          {
+            id: "about",
+            label: "About",
+            icon: { type: "Icon", name: "info", size: 16 },
+            shortcut: "⌘A"
+          },
+          {
+            id: "contact",
+            label: "Contact",
+            icon: { type: "Icon", name: "mail", size: 16 },
+            disabled: true
+          }
+        ],
+        orientation: "vertical",
+        showShortcuts: true,
+        onSelect: "handleMenuSelect"
+      }
+    ]);
+    
+    // Testimonial examples
+    examples.set("Testimonial", [
+      {
+        type: "Testimonial",
+        author: {
+          name: "Jane Doe",
+          role: "CEO",
+          company: "Acme Corp",
+          avatar: "https://picsum.photos/100/100"
+        },
+        content: "This product has transformed our business. The results speak for themselves.",
+        rating: 5,
+        variant: "card"
+      },
+      {
+        type: "Testimonial",
+        author: {
+          name: "John Smith",
+          role: "Developer",
+          company: "Tech Co"
+        },
+        content: "Best tool I've ever used. Highly recommend to any developer.",
+        rating: 4,
+        variant: "minimal"
+      },
+      {
+        type: "Testimonial",
+        author: {
+          name: "Sarah Johnson",
+          role: "Product Manager"
+        },
+        content: "The intuitive design and powerful features make this an essential tool for our team. We've seen a 40% increase in productivity.",
+        rating: 5,
+        variant: "large",
+        highlight: true,
+        date: "January 2024"
+      }
+    ]);
+    
+    // HeadManager examples
+    examples.set("HeadManager", [
+      {
+        type: "HeadManager",
+        metadata: {
+          title: "My App - Home",
+          description: "Welcome to our amazing application",
+          keywords: ["app", "amazing", "web"],
+          ogTitle: "My App",
+          ogDescription: "The best app ever",
+          twitterCard: "summary"
+        },
+        titleSuffix: " | My Company"
+      },
+      {
+        type: "HeadManager",
+        metadata: {
+          title: "Product Page",
+          description: "Check out our latest product",
+          canonicalUrl: "https://example.com/product",
+          favicon: {
+            default: "/favicon.ico",
+            apple: "/apple-touch-icon.png",
+            icon16: "/favicon-16x16.png",
+            icon32: "/favicon-32x32.png"
+          }
+        }
+      }
+    ]);
+    
+    // Hero examples
+    examples.set("Hero", [
+      {
+        type: "Hero",
+        title: "Welcome to Our Platform",
+        subtitle: "INNOVATIVE SOLUTIONS",
+        description: "Transform your business with our cutting-edge technology",
+        variant: "centered",
+        primaryAction: {
+          text: "Get Started",
+          href: "/signup",
+          variant: "default"
+        },
+        secondaryAction: {
+          text: "Learn More",
+          href: "/about",
+          variant: "outline"
+        },
+        animated: true,
+        backgroundGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      },
+      {
+        type: "Hero",
+        title: "Build Something Amazing",
+        description: "Join thousands of developers creating the future",
+        variant: "left-aligned",
+        primaryAction: {
+          text: "Start Building",
+          onClick: "handleStartBuilding"
+        },
+        backgroundImage: "https://picsum.photos/1920/1080",
+        backgroundOverlay: true,
+        parallax: true
+      },
+      {
+        type: "Hero",
+        title: "Split Layout Hero",
+        subtitle: "FEATURED PRODUCT",
+        description: "Experience the power of modern design",
+        variant: "split",
+        primaryAction: {
+          text: "Buy Now",
+          href: "/purchase"
+        },
+        animated: true,
+        floatingShapes: true,
+        children: {
+          type: "Image",
+          src: "https://picsum.photos/600/600",
+          alt: "Product showcase",
+          className: "rounded-lg shadow-xl"
+        }
       }
     ]);
   }

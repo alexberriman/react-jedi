@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Jedi JSON Schema Browser Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/ajv@8/dist/ajv7.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            margin-top: 0;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #0052a3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        .valid {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .invalid {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>React Jedi JSON Schema Validator</h1>
+    
+    <div class="container">
+        <div class="panel">
+            <h2>Component Specification</h2>
+            <select id="exampleSelect" onchange="loadExample()">
+                <option value="">-- Select an example --</option>
+                <option value="grid">Grid Component</option>
+                <option value="stack">Stack Component</option>
+                <option value="toggle">Toggle Component</option>
+                <option value="tabs">Tabs Component</option>
+                <option value="dialog">Dialog Component</option>
+            </select>
+            <textarea id="specInput" placeholder="Enter your React Jedi component specification here..."></textarea>
+            <button onclick="validateSpec()">Validate</button>
+        </div>
+        
+        <div class="panel">
+            <h2>Validation Result</h2>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Load schemas
+        const schemas = {};
+        let ajv;
+
+        // Example specifications
+        const examples = {
+            grid: {
+                type: "Grid",
+                columns: { base: 1, md: 2, lg: 3 },
+                gap: 4,
+                autoFit: true,
+                minColWidth: "250px",
+                className: "product-grid",
+                children: []
+            },
+            stack: {
+                type: "Stack",
+                orientation: "vertical",
+                spacing: "md",
+                align: "center",
+                divider: { type: "Separator" },
+                children: []
+            },
+            toggle: {
+                type: "Toggle",
+                variant: "outline",
+                size: "lg",
+                defaultPressed: false,
+                children: "Bold",
+                onPressedChange: {
+                    action: "updateFormatting",
+                    payload: { format: "bold" }
+                }
+            },
+            tabs: {
+                type: "Tabs",
+                defaultValue: "tab1",
+                orientation: "horizontal",
+                children: []
+            },
+            dialog: {
+                type: "Dialog",
+                defaultOpen: false,
+                modal: true,
+                children: []
+            }
+        };
+
+        // Initialize AJV and load schemas
+        async function init() {
+            ajv = new Ajv7({ allErrors: true, verbose: true });
+            
+            // In a real application, these would be loaded from the JSON files
+            // For this demo, we'll define them inline
+            schemas.Grid = await fetch('./grid.schema.json').then(r => r.json()).catch(() => null);
+            schemas.Stack = await fetch('./stack.schema.json').then(r => r.json()).catch(() => null);
+            schemas.Toggle = await fetch('./toggle.schema.json').then(r => r.json()).catch(() => null);
+            schemas.Tabs = await fetch('./tabs.schema.json').then(r => r.json()).catch(() => null);
+            schemas.Dialog = await fetch('./dialog.schema.json').then(r => r.json()).catch(() => null);
+            
+            // If fetch fails (e.g., file:// protocol), use inline schemas
+            if (!schemas.Grid) {
+                schemas.Grid = {
+                    type: "object",
+                    required: ["type"],
+                    properties: {
+                        type: { const: "Grid" },
+                        columns: { 
+                            oneOf: [
+                                { type: "number", minimum: 1, maximum: 24 },
+                                { type: "object" }
+                            ]
+                        },
+                        gap: { 
+                            oneOf: [
+                                { type: "number", minimum: 0 },
+                                { type: "object" }
+                            ]
+                        },
+                        autoFit: { type: "boolean" },
+                        minColWidth: { type: "string" },
+                        className: { type: "string" },
+                        children: {}
+                    },
+                    additionalProperties: false
+                };
+            }
+        }
+
+        function loadExample() {
+            const select = document.getElementById('exampleSelect');
+            const textarea = document.getElementById('specInput');
+            
+            if (select.value && examples[select.value]) {
+                textarea.value = JSON.stringify(examples[select.value], null, 2);
+            }
+        }
+
+        function validateSpec() {
+            const specInput = document.getElementById('specInput').value;
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                const spec = JSON.parse(specInput);
+                const schema = schemas[spec.type];
+                
+                if (!schema) {
+                    resultDiv.className = 'result invalid';
+                    resultDiv.textContent = `Error: No schema found for component type "${spec.type}"`;
+                    return;
+                }
+                
+                const validate = ajv.compile(schema);
+                const valid = validate(spec);
+                
+                if (valid) {
+                    resultDiv.className = 'result valid';
+                    resultDiv.textContent = '✓ Valid React Jedi component specification!';
+                } else {
+                    resultDiv.className = 'result invalid';
+                    resultDiv.textContent = '✗ Invalid specification:\n\n' + 
+                        validate.errors.map(err => 
+                            `- ${err.instancePath || 'root'}: ${err.message}`
+                        ).join('\n');
+                }
+            } catch (e) {
+                resultDiv.className = 'result invalid';
+                resultDiv.textContent = '✗ JSON Parse Error:\n' + e.message;
+            }
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
